@@ -3,7 +3,9 @@ package seedu.todo.ui.components;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
@@ -11,6 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.models.CalendarItem;
+import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.ui.UiPartLoader;
 
@@ -22,7 +26,8 @@ public class TaskList extends Component {
     private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
 
     // Props
-    public List<Task> tasks; // stub
+    public List<Task> tasks;
+    public List<Event> events;
 
     // FXML
     @FXML
@@ -45,49 +50,62 @@ public class TaskList extends Component {
     private void loadTasks() {
         TaskListDateItem.reset(taskListDateItemsPlaceholder);
 
-        // Clears displayedTasks in EphemeralDB.
-        ephemeralDb.displayedTasks = new ArrayList<Task>();
+        // Clears displayedCalendarItems in EphemeralDB.
+        ephemeralDb.clearDisplayedCalendarItems();
 
         // Get a list of tasks mapped to each date
-        HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = getTasksByDate(tasks);
+        HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = getItemsByDate(tasks);
+        HashMap<LocalDateTime, ArrayList<Event>> eventsByDate = getItemsByDate(events);
 
-        // Get unique task dates and sort them
-        List<LocalDateTime> taskDates = new ArrayList<LocalDateTime>();
-        taskDates.addAll(tasksByDate.keySet());
-        java.util.Collections.sort(taskDates);
+        // Get unique task/event dates
+        Set<LocalDateTime> uniqueDateSet = new HashSet<>();
+        uniqueDateSet.addAll(tasksByDate.keySet());
+        uniqueDateSet.addAll(eventsByDate.keySet());
+        
+        // Sort the dates
+        List<LocalDateTime> sortedUniqueDates = new ArrayList<>();
+        sortedUniqueDates.addAll(uniqueDateSet);
+        java.util.Collections.sort(sortedUniqueDates);
 
         // For each dateTime, individually render a single TaskListDateItem.
-        for (LocalDateTime dateTime : taskDates) {
-            TaskListDateItem item = TaskListDateItem.load(primaryStage, taskListDateItemsPlaceholder);
+        for (LocalDateTime dateTime : uniqueDateSet) {
             List<Task> tasksForDate = tasksByDate.get(dateTime);
-
+            List<Event> eventsForDate = eventsByDate.get(dateTime);
+            
+            TaskListDateItem item = TaskListDateItem.load(primaryStage, taskListDateItemsPlaceholder);
             item.dateTime = dateTime;
-            item.tasks = tasksForDate;
-
-            // Finally, can render into the placeholder.
+            
+            if (tasksForDate != null) {
+                item.tasks = tasksForDate;
+            }
+            
+            if (eventsForDate != null) {
+                item.events = eventsForDate;
+            }
+            
             item.render();
         }
     }
 
-    private HashMap<LocalDateTime, ArrayList<Task>> getTasksByDate(List<Task> tasks) {
-        HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = new HashMap<LocalDateTime, ArrayList<Task>>();
+    private <T extends CalendarItem> HashMap<LocalDateTime, ArrayList<T>> getItemsByDate(List<T> calendarItems) {
+        HashMap<LocalDateTime, ArrayList<T>> itemsByDate = new HashMap<>();
 
-        for (Task task : tasks) {
-            LocalDateTime taskDate = DateUtil.floorDate(task.getCalendarDT());
+        for (T item : calendarItems) {
+            LocalDateTime itemDate = DateUtil.floorDate(item.getCalendarDT());
             
             // Handle tasks without a date
-            if (taskDate == null)
-                taskDate = NO_DATE_VALUE;
+            if (itemDate == null)
+                itemDate = NO_DATE_VALUE;
 
             // Creates ArrayList if not already exists.
-            if (!tasksByDate.containsKey(taskDate)) {
-                tasksByDate.put(taskDate, new ArrayList<Task>());
+            if (!itemsByDate.containsKey(itemDate)) {
+                itemsByDate.put(itemDate, new ArrayList<T>());
             }
             // Adds to the ArrayList.
-            tasksByDate.get(taskDate).add(task);
+            itemsByDate.get(itemDate).add(item);
         }
 
-        return tasksByDate;
+        return itemsByDate;
     }
 
 }

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.components.TagList;
@@ -23,6 +24,7 @@ public class IndexView extends View {
     private Pane tasksPane;
 
     // Props
+    public List<Event> events = new ArrayList<Event>();
     public List<Task> tasks = new ArrayList<Task>();
     public List<String> tags = new ArrayList<String>();
     public String indexTextValue;
@@ -55,6 +57,7 @@ public class IndexView extends View {
         // Render TaskList
         TaskList taskList = TaskList.load(primaryStage, tasksPane);
         taskList.tasks = tasks;
+        taskList.events = events;
         taskList.render();
     }
 

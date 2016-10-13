@@ -25,6 +25,10 @@ public class TodoListDB {
         return new ArrayList<Task>(tasks);
     }
     
+    public List<Event> getAllEvents() {
+        return new ArrayList<Event>(events);
+    }
+    
     public Task createTask() {
         Task task = new Task();
         tasks.add(task);
