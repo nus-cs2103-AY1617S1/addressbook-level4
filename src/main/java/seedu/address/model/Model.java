@@ -4,6 +4,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 
@@ -20,6 +21,9 @@ public interface Model {
     /** Deletes the given person. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    /** Updates the given task */
+	void updateTask(ReadOnlyTask target, Task updatedTask) throws TaskNotFoundException;
+
     /** Adds the given person */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
@@ -31,5 +35,6 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
 
 }

@@ -25,7 +25,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public AddressBook() {}
-
+    
     /**
      * Tasks and Tags are copied into this addressbook
      */
@@ -110,6 +110,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
+    }
+    public void updateTask(ReadOnlyTask oldTask, Task updatedTask) throws UniqueTaskList.TaskNotFoundException {
+    	tasks.update(oldTask, updatedTask);
     }
 
 //// tag-level operations

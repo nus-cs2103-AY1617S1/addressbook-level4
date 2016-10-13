@@ -31,11 +31,23 @@ public class Parser {
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<description>[^/]+)"
             		 + " (by)?\\s(?<deadline>[^/]+)"
+            		// + "by(?:\\s ?<deadline>[^/]+)?"
 //                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
 //                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
 //                    + " (?<isAddressPrivate>p?)a/(?<location>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    private static final Pattern PERSON_DATA_ARGS_FORMAT_UPDATE = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<index>[\\d+]\\s)"
+            		 + "(?<description>[^/]+)"
+            		 + " (by)?\\s(?<deadline>[^/]+)"
+//            		 + "(?: by\\s (?<deadline>( [^/]+)))?"
+//                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
+//                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
+//                    + " (?<isAddressPrivate>p?)a/(?<location>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    
     public Parser() {}
 
     /**
@@ -63,6 +75,9 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
+        case EditCommand.COMMAND_WORD:
+        	return prepareEdit(arguments);
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -94,6 +109,10 @@ public class Parser {
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        System.out.println(matcher.groupCount());
+        for(int i = 0; i < matcher.groupCount(); i++){
+        	System.out.println(matcher.group(i));
         }
         LocalDateTime ldt = null;
         if(matcher.group("deadline") != null){
@@ -145,6 +164,37 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
 
+    private Command prepareEdit(String args){
+    	final Matcher matcher = PERSON_DATA_ARGS_FORMAT_UPDATE.matcher(args.trim());
+    	 if (!matcher.matches()) {
+             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+         }
+         LocalDateTime ldt = null;
+         if(matcher.group("deadline") != null){
+         	String date = matcher.group("deadline").trim();
+         	date.replaceAll("\\n", "");
+         	System.out.println(date);
+         	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
+         	ldt = LocalDateTime.parse(date, formatter);
+         }
+         Optional<Integer> index = parseIndex(matcher.group("index"));
+         if(!index.isPresent()){
+             return new IncorrectCommand(
+                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+         }
+         try {
+             return new EditCommand(
+                     index.get(),
+                     matcher.group("description"),
+                     ldt
+             );
+         } catch (IllegalValueException ive) {
+             return new IncorrectCommand(ive.getMessage());
+         }
+ 
+    	
+    }
+    
     /**
      * Parses arguments in the context of the select person command.
      *
