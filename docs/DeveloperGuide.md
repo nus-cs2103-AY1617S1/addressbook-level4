@@ -5,11 +5,11 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A : User Stories](#appendix-a-user-stories)
-* [Appendix B : Use Cases](#appendix-b-use-cases)
-* [Appendix C : Non Functional Requirements](#appendix-c-non-functional-requirements)
-* [Appendix D : Glossary](#appendix-d-glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix A : User Stories](#appendix-a--user-stories)
+* [Appendix B : Use Cases](#appendix-b--use-cases)
+* [Appendix C : Non Functional Requirements](#appendix-c--non-functional-requirements)
+* [Appendix D : Glossary](#appendix-d--glossary)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -51,7 +51,7 @@
   
 **Problem: Eclipse reports some required libraries missing**
 * Reason: Required libraries may not have been downloaded during the project import. 
-* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
+* Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
  
 
 ## Design
@@ -91,7 +91,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `SavvyTaskerChangedEvent` when the Savvy Tasker data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -147,7 +147,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Savvy Tasker data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -160,11 +160,11 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Saavy Tasker data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.saavytasker.commons` package.
 
 ## Implementation
 
@@ -258,7 +258,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Savvy Tasker depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -293,28 +293,189 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `Savvy Tasker` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
 
 **MSS**
 
-1. User requests to list tasks
-2. Savvy Tasker shows a list of tasks
-3. User requests to delete a specific task in the list
-4. Savvy Tasker deletes the task <br>
+1. Savvy Tasker waits for user command
+2. User enters command to add a task according to some parameters <br>
+3. Savvy Tasker adds the task to a list of tasks <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+2a. At least one parameter entered by user is invalid
+> 2a1. Savvy Tasker shows an error message and display the expected format.<br>
+  Use case resumes at step 1
+2b. START_DATE and END_DATE are different, the RECURRING_TYPE has to be larger than the duration between START_DATE and END_DATE. (e.g. A 3d2n camp cannot be recurring daily but it can be recurring weekly) 
+> 2b1. Savvy Tasker shows an error message <br>
+  Use case resumes at step 1
+2c. START_DATE and END_DATE are different, END_DATE is before START_DATE
+> 2c1. Savvy Tasker shows an error message <br>
+  Use case resumes at step 1
+2d. START_DATE and END_DATE are the same, END_TIME is before START_TIME 
+> 2d1. Savvy Tasker shows an error message <br>
+  Use case resumes at step 1
 
+#### Use case: List tasks
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to list tasks
+3. Savvy Tasker shows a list of tasks <br>
+
+**Extensions**
+
+3a. The list is empty
+
+> 3a1. Savvy Tasker shows an error message <br>
+  Use case ends
+
+#### Use case: Find task
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to find tasks by keyword
+3. Savvy Tasker displays the list of tasks that contains the keyword in the name<br>
+
+**Extensions**
+
+2a. No parameter entered after command word
+> Savvy Tasker shows a 'no parameter entered' error message.<br>
+> Use case resumes at step 1
+
+
+3a. The list is empty
+> 2a1. Savvy Tasker shows a 'no task found' error message.<br>
+> Use case ends
+
+
+#### Use case: Modify task
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to modify a certain attribute of a specific task
+3. Savvy Tasker modifies the task and saves it in memory <br>
+Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> 1a1. Use case ends
+
+2a. The given index is invalid
+
+> 2a1. Savvy Tasker shows an error message <br>
+  Use case resumes at step 3
+
+2b. At least one parameter entered by user is invalid
+
+> 2b1. Savvy Tasker shows an error message and display the expected format <br>
+  Use case resumes at step 3
+
+#### Use case: Mark task as done
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User request to mark specific tasks in the list based on task’s index
+3. Savvy Tasker marks the tasks<br>
+
+**Extensions**
+
+1a. The list is empty
+> 2a1. Savvy Tasker shows a 'no task found' error message.<br>
+> Use case ends
+
+2a. The given index is invalid
+> 3a1. Savvy Tasker shows a 'invalid index' error message <br>
+> Use case resumes at step 1
+
+2b. The task is already marked as done
+> 3b1. Savvy Tasker shows a 'task already marked' error message.<br>
+> Use case resumes at step 1
+
+###Use case: Unmark of task
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to list archived tasks
+3. Savvy Tasker displays a list of archived tasks, sorted by time and date the task has been marked
+4. User request to unmark of the specific task in the list based on task’s index
+4. Savvy Tasker removes the done mark of the specific task <br>
+
+**Extensions**
+
+2a. The list is empty
 > Use case ends
 
 3a. The given index is invalid
+> 3a1. Savvy Tasker shows a 'invalid index' error message <br>
+> Use case resumes at step 1
 
-> 3a1. Savvy Tasker shows an error message <br>
-  Use case resumes at step 2
 
-{More to be added}
+#### Use case: Delete task
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to list tasks
+3. Savvy Tasker shows a list of tasks
+4. User requests to delete a specific task in the list
+5. Savvy Tasker deletes the task <br>
+Use case ends.
+
+**Extensions**
+
+3a. The list is empty
+
+> Use case ends
+
+4a. The given index is invalid
+
+> 4a1. Savvy Tasker shows an error message 
+> Use case resumes at step 3 <br>
+
+###Use case: Alias keyword and use shorten keyword
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to alias a keyword (can be a command or any other frequently used word), with a shorten keyword
+3. Savvy Tasker store the shorten keyword associated with the keyword in its database
+4. User request a command
+4. Savvy Tasker check if the command contain any shorten keyword, if it does, replace the shorten keyword with the associated keyword from its database
+5. Savvy Tasker carry out the command <br>
+
+**Extensions**
+
+2a. The shorten keyword contains only 1 character
+> 2a1. Savvy Tasker shows a error message 
+> Use case resumes at step 1 <br>
+
+2b. The shorten keyword has already been associated with other keywords
+> 2b1. Savvy Tasker shows a error message and the shorten keyword's original associated keyword 
+> Use case resumes at step 1 <br>
+
+###Use case: Unalias keyword
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to unalias a shorten keyword
+3. Savvy Tasker remove the shorten keyword associated with the keyword in its database <br>
+
+**Extensions**
+
+2a. The shorten keyword could not be found in Savvy Tasker database
+> 2a1. Savvy Tasker shows a 'not found' error message 
+> Use case resumes at step 1 <br>
+
 
 ## Appendix C : Non Functional Requirements
 
@@ -322,6 +483,10 @@ Use case ends.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+6. Should work stand-alone and should not be a plug-in to another software.
+7. Should work without internet connection.
+8. Should store data in text file.
+9. Should work without requiring an installer.
 
 {More to be added}
 
@@ -337,5 +502,38 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+#### Competing product: Google Calendar
 
+**Pros:**
+1. Able to color-code different events
+2. Able to set reminders and task/events on repeat
+3. Able to add description such as location, remarks and people
+4. Able to sync on different devices
+5. Able to share calendar
+6. Able to undo previous action 
+7. Able to drag and drop task/events to another date/timing <br>
+
+**Cons:**
+1. Unable to check(tick) completed event
+2. Do not have a list of archived task
+3. Does not cater for floating task <br>
+
+#### Competing product: Todo
+
+**Pros:**
+
+1. Auto prioritization
+2. Unlimited contexts
+3. Reminders
+4. Auto sync with iCal, Toodledo, Outlook, Todo Online <br>
+
+#### Competing product: Remember The Milk
+
+**Pros:**
+
+1. Unlimited contexts
+2. Reminders
+3. Calendar tasks
+4. Auto sync with Gmail (Firefox plugin), Google Calendar, Twitter (direct integration), Atom/RSS, IM (feed)
+5. Email notifications, autoprocess
+6. API <br>

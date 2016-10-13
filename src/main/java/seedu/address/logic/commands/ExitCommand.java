@@ -10,7 +10,7 @@ public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Savvy Tasker as requested ...";
 
     public ExitCommand() {}
 
@@ -18,6 +18,31 @@ public class ExitCommand extends Command {
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    }
+    
+    @Override
+    protected boolean canUndo() {
+        return false;
+    }
+
+    /**
+     * Redo the exit command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    @Override
+    public boolean redo() {
+        // nothing required to be done
+        return true;
+    }
+
+    /**
+     * Undo the exit command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    @Override
+    public boolean undo() {
+        // nothing required to be done
+        return true;
     }
 
 }

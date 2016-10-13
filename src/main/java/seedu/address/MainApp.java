@@ -20,7 +20,6 @@ import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -70,23 +69,23 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlySavvyTasker> savvyTaskerOptional;
+        ReadOnlySavvyTasker initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if(!addressBookOptional.isPresent()){
+            savvyTaskerOptional = storage.readSavvyTasker();
+            if(!savvyTaskerOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
             }
-            initialData = addressBookOptional.orElse(new AddressBook());
+            initialData = savvyTaskerOptional.orElse(new SavvyTasker());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new SavvyTasker();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new SavvyTasker();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData);
     }
 
     private void initLogging(Config config) {

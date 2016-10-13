@@ -17,6 +17,31 @@ public class IncorrectCommand extends Command {
         indicateAttemptToExecuteIncorrectCommand();
         return new CommandResult(feedbackToUser);
     }
+    
+    @Override
+    protected boolean canUndo() {
+        return false;
+    }
+
+    /**
+     * Redo the "incorrect" command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    @Override
+    public boolean redo() {
+        // nothing required to be done
+        return true;
+    }
+
+    /**
+     * Undo the "incorrect" command
+     * @return true if the operation completed successfully, false otherwise
+     */
+    @Override
+    public boolean undo() {
+        // nothing required to be done
+        return true;
+    }
 
 }
 
