@@ -22,9 +22,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task list. "
-            + "Parameters: NAME [t/TAG]...\n"
+            + "Parameters: NAME [by DEADLINE] [from STARTTIME] [to ENDTIME] [repeat RECURRENCE COUNT] [tag TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " \"Watch Movie\" t/recreation";
+            + " \"Watch Movie\" tag recreation";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
@@ -80,7 +80,7 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-
+            //selecting added task
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
             int targetIndex = lastShownList.size();
             EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
