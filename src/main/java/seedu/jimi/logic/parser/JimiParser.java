@@ -8,12 +8,13 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
+
 import seedu.jimi.commons.exceptions.DateNotParsableException;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.logic.commands.*;
-
-import com.joestelmach.natty.*;
 
 /**
  * Parses user input.
