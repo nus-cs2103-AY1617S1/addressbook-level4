@@ -52,7 +52,7 @@ public class DueByTime {
      * @author A0139661Y
      */
     public String getFriendlyString() {
-		return new StringBuilder(value.getHour() +":"+ value.getMinute()).toString();
+		return new StringBuilder(value.format(DateTimeFormatter.ofPattern("kk:mm"))).toString();
 	}
 
 }
