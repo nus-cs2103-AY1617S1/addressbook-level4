@@ -14,28 +14,28 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Dylan Chew Zhi Jiang](https://github.com/zavfel) <br>
 <img src="images/DylanChew.png" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Logic
+Responsibilities: Logic, Code Quality, Deliverables
 
 -----
 
 #### [Wong Kang Fei](https://github.com/kfwong)
 <img src="images/KangFei.png" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Logic
+Role: Developer<br>  
+Responsibilities: Logic, Testing, Git Expert
 
 -----
 
 #### [Lim Hui Qi](https://github.com/LuMiN0uSaRc) 
 <img src="images/HuiQi.png" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+Role: Team Lead and Developer <br>  
+Responsibilities: UI, Scheduling and deadlines, Tracking
 
 -----
 
 #### [Albert Yeoh Ji Bin](https://github.com/bertojo)
 <img src="images/AlbertYeoh.png" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: Data, Integration, Documentation
  
 -----
 

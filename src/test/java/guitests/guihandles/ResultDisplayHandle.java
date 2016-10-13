@@ -1,9 +1,9 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import harmony.mastermind.TestApp;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
 
 /**
  * A handler for the ResultDisplay of the UI

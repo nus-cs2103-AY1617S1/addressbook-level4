@@ -1,13 +1,14 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-W11-C3/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W11-C3/main/builds)
 [![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
 
-# Schema
+# Mastermind
 
 <img src="docs/images/Ui.png" width="600"><br>
 
-* This is a to do list desktop application called Schema. It has a GUI but most of the user interactions is through
+* This is a desktop task manager application called Mastermind. It has a GUI but most of the user interactions is through
   a CLI (Command Line Interface).
-* Schema is a powerful task manager that allow users to manage tasks anywhere and get things done.
+* Mastermind is a powerful task manager that allow users to manage tasks anywhere and get things done.
+* Mastermind is catered towards users that spend most of their time on the computer and prefer to use keyboard over mouse as inputs.
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
