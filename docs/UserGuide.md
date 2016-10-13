@@ -1,12 +1,18 @@
 # User Guide
 
+Now, we know you are just as excited as we are [about this product](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/README.md). But before you start throwing your money at us (even though it's free), you should learn **how to use Jimi**. What follows should guide you on how to setup, install and use Jimi easily. 
+
+<br>
+
+## Guide Map
+
 * [Quick Start](#quick-start)
 * [Command Summary](#command-summary)
 * [Features](#features)
 * [FAQ](#faq)
 
-
-----------
+<br>
+<br>
 
 ## Quick Start
 
@@ -29,7 +35,8 @@
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-----------
+<br>
+<br>
 
 ## Command Summary
 
@@ -56,8 +63,8 @@ Command | Format
 [Clear](#clear) | `clear`
 [Exit](#exit) | `exit`
 
-
-----------
+<br>
+<br>
 
 ## Features
 
