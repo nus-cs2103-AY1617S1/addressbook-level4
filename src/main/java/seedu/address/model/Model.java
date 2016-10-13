@@ -29,6 +29,12 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
+    /** Replace the given oldTask with newTask */
+	void replaceTask(Task oldTask, Task newTask) throws TaskNotFoundException;
+	
+	/** Insert the newTask into oldTask's position */
+	void insertTask(Task oldTask, Task newTask) throws TaskNotFoundException;
+
     /** Edits the given task. 
      * @throws DuplicateTaskException */
     void editTask(ReadOnlyTask target, Task task) throws TaskNotFoundException, DuplicateTaskException;

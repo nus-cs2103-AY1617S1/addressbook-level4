@@ -81,6 +81,9 @@ public class Parser {
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
             
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();   
+            
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }

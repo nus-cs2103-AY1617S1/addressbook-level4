@@ -100,7 +100,7 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
      * Marks a task in the task scheduler as completed
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
-     *g
+     *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      * @throws DuplicateTagException 
      */
@@ -108,6 +108,32 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
             throws UniqueTaskList.TaskNotFoundException, DuplicateTagException {
         syncTagsWithMasterList((Task)task);
         tasks.mark(task);
+    }
+    
+    /**
+     * Replace a task in the task scheduler with another task
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     */
+    public void replaceTask(Task oldTask, Task newTask) 
+            throws UniqueTaskList.TaskNotFoundException {
+        syncTagsWithMasterList(newTask);
+        tasks.replace(oldTask, newTask);
+    }
+    
+    /**
+     * Insert a task into another task's position in the task scheduler
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     */
+    public void insertTask(Task oldTask, Task newTask) 
+            throws UniqueTaskList.TaskNotFoundException {
+        syncTagsWithMasterList(newTask);
+        tasks.insert(oldTask, newTask);
     }
 
     /**

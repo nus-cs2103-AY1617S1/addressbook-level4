@@ -94,6 +94,34 @@ public class UniqueTaskList implements Iterable<Task> {
         newTask.markComplete();
         internalList.set(index, newTask);
     }
+    
+    /**
+     * Replace a task in the list with another task.
+     *
+     * @throws TaskNotFoundException
+     */
+    public void replace(Task oldTask, Task newTask) throws TaskNotFoundException {
+        assert oldTask != null;
+        int index = internalList.indexOf(oldTask);
+        if (index < 0) {
+            throw new TaskNotFoundException();
+        }
+        internalList.set(index, newTask);
+    }
+    
+    /**
+     * Insert a task into another task's position in the list.
+     *
+     * @throws TaskNotFoundException
+     */
+    public void insert(Task oldTask, Task newTask) throws TaskNotFoundException {
+        assert oldTask != null;
+        int index = internalList.indexOf(oldTask);
+        if (index < 0) {
+            throw new TaskNotFoundException();
+        }
+        internalList.add(index, newTask);
+    }
 
     /**
      * Removes the equivalent task from the list.
