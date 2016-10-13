@@ -389,7 +389,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 
 
-## **Appendix B: Use Cases**
+## **Appendix B : Use Cases**
 
 1) Use case: Add task
 
@@ -438,7 +438,7 @@ Use case: ends
 
 
 
-## **Appendix C: Non Functional Requirements**
+## **Appendix C : Non Functional Requirements**
 
 1. 1)The app should run smoothly
 2. 2)The app should be able to run all on all operating systems
@@ -450,7 +450,7 @@ Use case: ends
 8. 8)The app should not do anything else other than what the user inputs
 9. 9)The app should be able to recover from errors easily
 
-## **Appendix D: Glossary**
+## **Appendix D : Glossary**
 
 1. 1)UI - User Interface
 2. 2)API - Application Programming Interface
