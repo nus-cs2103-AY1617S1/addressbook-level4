@@ -2,7 +2,7 @@ package seedu.todo.models;
 
 import java.time.LocalDateTime;
 
-public class Event implements CalendarEvent {
+public class Event implements CalendarItem {
     
     private String name;
     private LocalDateTime startDate;

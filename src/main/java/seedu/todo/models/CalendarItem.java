@@ -2,7 +2,7 @@ package seedu.todo.models;
 
 import java.time.LocalDateTime;
 
-public interface CalendarEvent {
+public interface CalendarItem {
     
     public String getName();
     public void setName(String name);
