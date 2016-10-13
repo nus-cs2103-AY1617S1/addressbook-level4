@@ -115,14 +115,7 @@ public class TaskListPanelHandle extends GuiHandle {
      */
     public TaskCardHandle navigateToTask(ReadOnlyTask task) {
         int index = getTaskIndex(task);
-
-        guiRobot.interact(() -> {
-            getListView().scrollTo(index);
-            guiRobot.sleep(150);
-            getListView().getSelectionModel().select(index);
-        });
-        guiRobot.sleep(100);
-        return getTaskCardHandle(task);
+        return navigateToTask(index);
     }
     
     /**
