@@ -204,10 +204,7 @@ public class ModelManager extends ComponentManager implements Model {
         NotDoneQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
-            if (!task.getDone()) {
-                return true;
-            }
-            return false;
+            return (!task.getDone());
         }
     }
     
