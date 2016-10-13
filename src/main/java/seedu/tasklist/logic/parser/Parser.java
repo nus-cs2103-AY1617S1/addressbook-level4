@@ -31,7 +31,7 @@ public class Parser {
                     );
     
     private static final Pattern TASK_UPDATE_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
-    		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
+    		+ "((?: )(?<name>(([^/](?<! (at|from|to|by) ))|(\\[^/]))*))?" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
             + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
             + "(?<tagArguments>(?: t/[^/]+)*)"
             );
@@ -99,7 +99,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         } else {
         	int targetIndex = Integer.valueOf(matcher.group("index"));
-            String taskDetails = (matcher.group("name") == null) ? null : matcher.group("name");
+            String taskDetails = (matcher.group("name") == null) ? null : matcher.group("name").replace("\\", "");
             String startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             String endTime = (matcher.group("end") == null) ? null : matcher.group("end");
             String priority = (matcher.group("priority") == null) ? null : matcher.group("priority");
