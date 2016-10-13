@@ -24,6 +24,10 @@ public class DeleteCommand extends Command {
 
     public final int targetIndex;
 
+    public DeleteCommand() {
+        targetIndex = 0;
+    }
+    
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -50,4 +54,13 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
     
+    @Override
+    public boolean isCommandWord(String commandWord) {
+        for (int i = 1; i <= COMMAND_WORD.length(); i++) {
+            if (commandWord.equals(COMMAND_WORD.substring(0, i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
