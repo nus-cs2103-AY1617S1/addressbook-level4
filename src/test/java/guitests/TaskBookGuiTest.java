@@ -13,7 +13,9 @@ import seedu.task.TestApp;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.testutil.TestUtil;
+import seedu.task.testutil.TypicalTestEvents;
 import seedu.task.testutil.TypicalTestTasks;
+import seedu.task.ui.EventListPanel;
 import seedu.taskcommons.core.EventsCenter;
 
 import java.util.concurrent.TimeoutException;
@@ -33,6 +35,7 @@ public abstract class TaskBookGuiTest {
     TestApp testApp;
 
     protected TypicalTestTasks td = new TypicalTestTasks();
+    protected TypicalTestEvents te = new TypicalTestEvents();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -41,6 +44,7 @@ public abstract class TaskBookGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
+    protected EventListPanelHandle eventListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -60,7 +64,8 @@ public abstract class TaskBookGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            taskListPanel = mainGui.getPersonListPanel();
+            taskListPanel = mainGui.getTaskListPanel();
+            eventListPanel = mainGui.getEventListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -79,6 +84,7 @@ public abstract class TaskBookGuiTest {
     protected TaskBook getInitialData() {
         TaskBook tb = TestUtil.generateEmptyTaskBook();
         TypicalTestTasks.loadTestBookWithSampleData(tb);
+        TypicalTestEvents.loadTestBookWithSampleData(tb);
         return tb;
     }
 

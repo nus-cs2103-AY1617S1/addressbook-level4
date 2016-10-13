@@ -22,6 +22,10 @@ public class TestTask implements ReadOnlyTask {
     public void setDescription(Description description) {
         this.description = description;
     }
+    
+    public void setStatus(Boolean status) {
+        this.isTaskCompleted = status;
+    }
 
     @Override
     public Name getTask() {

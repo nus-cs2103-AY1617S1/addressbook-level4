@@ -1,6 +1,8 @@
 package seedu.task.testutil;
 
 import com.google.common.io.Files;
+
+import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -327,6 +329,10 @@ public class TestUtil {
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
+    }
+    
+    public static boolean compareCardAndEvent(EventCardHandle card, ReadOnlyEvent event) {
+        return card.isSameEvent(event);
     }
 
 //    public static Tag[] getTagList(String tags) {

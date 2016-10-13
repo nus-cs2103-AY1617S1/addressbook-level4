@@ -2,14 +2,14 @@ package seedu.task.logic.commands;
 
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all tasks in the task book to the user.
  */
 public class ListTaskCommand extends ListCommand {
 
 	public static final String MESSAGE_INCOMPLETED_SUCCESS = "Listed undone tasks";
 	public static final String MESSAGE_ALL_SUCCESS = "Listed all tasks";
 	
-	private static final boolean STATUS_INCOMPLETED = false;
+	private static final Boolean STATUS_INCOMPLETED = false;
 
 	public ListTaskCommand(boolean showAll) {
 		this.showAll = showAll;
@@ -26,7 +26,7 @@ public class ListTaskCommand extends ListCommand {
 			model.updateFilteredTaskListToShowWithStatus(STATUS_INCOMPLETED);
 			return new CommandResult(MESSAGE_INCOMPLETED_SUCCESS);
 		} else {
-			model.updateFilteredListToShowAll();
+			model.updateFilteredTaskListToShowAll();
 			return new CommandResult(MESSAGE_ALL_SUCCESS);
 		}
 	}

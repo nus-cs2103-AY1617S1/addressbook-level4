@@ -30,6 +30,11 @@ public class TaskBuilder {
         this.task.setDescription(new Description(description));
         return this;
     }
+    
+    public TaskBuilder withStatus(boolean status) {
+    	this.task.setStatus(status);
+    	return this;
+    }
 
     public TestTask build() {
         return this.task;

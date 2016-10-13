@@ -133,7 +133,7 @@ public class LogicManagerTest {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
-
+        List<ReadOnlyEvent> list = model.getFilteredEventList();
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredEventList());
@@ -187,16 +187,21 @@ public class LogicManagerTest {
     public void execute_addTask_invalidTaskData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] /desc nil /by 30-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "add Valid Name /desc nil /by 30-12-111", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
     }
     
     @Test
     public void execute_addEvent_invalidEventData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] /desc nil /from 30-12-16 31-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
-//        assertCommandBehavior(
-//                "add Valid Name /desc nil /by 30-12-111", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+        
+        //invalid seperator
+        assertCommandBehavior("add valideventName /desc nil /from today >> yesterday", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+        
+        // no start time not allowed. 
+        assertCommandBehavior("add valideventName /desc nil /from  > today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+        
+        //invalid start time not allowed. 
+        assertCommandBehavior("add valideventName /desc nil /from  hahaha > today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
     }
 
     @Test
@@ -270,6 +275,18 @@ public class LogicManagerTest {
                 expectedAB.getEventList());
 
     }
+    
+    @Test
+    public void execute_list_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE);
+        
+        // not indicating which list not allowed
+        assertCommandBehavior("list", expectedMessage);
+        
+        assertCommandBehavior("list -wrongFlag", expectedMessage);
+        
+        assertCommandBehavior("list -e -wrongFlag", expectedMessage);
+    }
 
     @Test
     public void execute_list_showsUncompletedTasks() throws Exception {
@@ -291,6 +308,27 @@ public class LogicManagerTest {
                 expectedTB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_list_showsUncompletedEvents() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Event tTarget1 = helper.generateEventWithNameAndDuration("Event1", "yesterday 1pm > tomorrow 2pm");
+        Event tTarget2 = helper.generateEventWithNameAndDuration("Event2", "Friday 4pm > Friday 5pm");
+        Event tTarget3 = helper.completedEvent();
+        
+        List<Event> threeEvents = helper.generateEventList(tTarget1, tTarget2, tTarget3);
+        TaskBook expectedTB = helper.generateTaskBook_Events(threeEvents);
+        List<Event> expectedList = helper.generateEventList(tTarget1, tTarget2);
+
+        // prepare address book state
+        helper.addEventToModel(model, threeEvents);
+
+        assertEventCommandBehavior("list -e",
+                ListEventCommand.MESSAGE_INCOMPLETED_SUCCESS,
+                expectedTB,
+                expectedList);
+    }
 
     @Test
     public void execute_list_showsAllTasks() throws Exception {
@@ -309,6 +347,27 @@ public class LogicManagerTest {
 
         assertTaskCommandBehavior("list -t -a",
                 ListTaskCommand.MESSAGE_ALL_SUCCESS,
+                expectedTB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsAllEvents() throws Exception {
+        // prepare expectations
+    	TestDataHelper helper = new TestDataHelper();
+        Event eTarget1 = helper.generateEventWithNameAndDuration("Event1", "yesterday 1pm > tomorrow 2pm");
+        Event eTarget2 = helper.generateEventWithNameAndDuration("Event2", "Friday 4pm > Friday 5pm");
+        Event eTarget3 = helper.completedEvent();
+        
+        List<Event> threeEvents = helper.generateEventList(eTarget1, eTarget2, eTarget3);
+        TaskBook expectedTB = helper.generateTaskBook_Events(threeEvents);
+        List<Event> expectedList = helper.generateEventList(eTarget1, eTarget2, eTarget3);
+
+        // prepare address book state
+        helper.addEventToModel(model, threeEvents);
+
+        assertEventCommandBehavior("list -e -a",
+                ListEventCommand.MESSAGE_ALL_SUCCESS,
                 expectedTB,
                 expectedList);
     }
@@ -565,6 +624,13 @@ public class LogicManagerTest {
             
             return new Event(name, des, dur);
         }
+        
+        Event completedEvent() throws Exception {
+        	Name name = new Name("Completed Event");
+        	Description des = new Description("for testing");
+        	EventDuration dur = new EventDuration("yesterday 1pm > yesterday 2pm");
+        	return new Event(name, des, dur);
+        }
 
         /**
          * Generates a valid task using the given seed.
@@ -591,7 +657,8 @@ public class LogicManagerTest {
         Event generateEvent(int seed) throws Exception {
             return new Event(
                     new Name("Event " + seed),
-                    new Description("Description" + Math.abs(seed))
+                    new Description("Description" + Math.abs(seed)),
+                    new EventDuration("tomorrow " + seed + "pm")
                    );
         }
         
@@ -762,6 +829,17 @@ public class LogicManagerTest {
                     new Name(name),
                     new Description("dummy description"),
                     false
+            );
+        }
+        
+        /**
+         * Generates a Event object with given name. Other fields will have some dummy values.
+         */
+        Event generateEventWithNameAndDuration(String name, String duration) throws Exception {
+            return new Event(
+                    new Name(name),
+                    new Description("dummy description"),
+                    new EventDuration(duration)
             );
         }
     }

@@ -9,7 +9,7 @@ import seedu.task.model.item.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask cs1010, cs1020, computing, science, biz, engine, music, arts, socSciences;
+    public static TestTask cs1010, cs1020, computing, science, biz, engine, music, arts, socSciences, slack;
 
     public TypicalTestTasks() {
         try {
@@ -21,6 +21,10 @@ public class TypicalTestTasks {
             engine = new TaskBuilder().withName("Engineering Project 1").withDescription("Complete my part before meeting").build();
             music = new TaskBuilder().withName("Music Project 1").withDescription("Complete my part before meeting").build();
 
+            //completed tasks
+            slack = new TaskBuilder().withName("slack for one hour").withDescription("do not do any work").withStatus(true).build();
+          
+            
             //Manually added
             arts = new TaskBuilder().withName("Arts Project 1").withDescription("Complete my part before meeting").build();
             socSciences = new TaskBuilder().withName("Social Sciences Project 1").withDescription("Complete my part before meeting").build();
@@ -33,21 +37,24 @@ public class TypicalTestTasks {
     public static void loadTestBookWithSampleData(TaskBook tb) {
 
         try {
+            tb.addTask(new Task(music));
+            tb.addTask(new Task(engine));
             tb.addTask(new Task(cs1010));
             tb.addTask(new Task(cs1020));
-            tb.addTask(new Task(computing));
-            tb.addTask(new Task(science));
-            tb.addTask(new Task(biz));
-            tb.addTask(new Task(engine));
-            tb.addTask(new Task(music));
+            tb.addTask(new Task(slack));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{cs1010, cs1020, computing, science, biz, engine, music};
+        return new TestTask[]{music, engine, cs1010, cs1020};
     }
+    
+    public TestTask[] getTypicalAllTasks() {
+    	return new TestTask[] {music, engine, cs1010, cs1020,slack};
+    }
+    
 
     public TaskBook getTypicalTaskBook(){
         TaskBook tb = new TaskBook();

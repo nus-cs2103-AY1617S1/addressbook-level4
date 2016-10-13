@@ -4,6 +4,7 @@ import seedu.task.commons.util.CollectionUtil;
 import seedu.task.model.item.Description;
 import seedu.task.model.item.Name;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -29,13 +30,22 @@ public class Event implements ReadOnlyEvent {
         this.description = description;
         this.eventDuration = eventDuration;
     }
-
+    
     /**
      * Copy constructor.
      */
     public Event(ReadOnlyEvent source) {
         this(source.getEvent(), source.getDescription(), source.getDuration());
     }
+    
+    /**
+     * Return if an event has passed by comparing its endTime to the current time.
+     * @return false if event passed; true if otherwise. 
+     */
+    @Override
+	public boolean isEventCompleted() {
+		return getDuration().getEndTime().isAfter(LocalDateTime.now());
+	}
 
     @Override
     public Name getEvent() {
@@ -70,5 +80,7 @@ public class Event implements ReadOnlyEvent {
     public String toString() {
         return getAsText();
     }
+
+	
 
 }

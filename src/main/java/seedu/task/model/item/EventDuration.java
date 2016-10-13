@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
@@ -15,16 +16,18 @@ import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
  */
 public class EventDuration {
 
-	public static final String MESSAGE_DURATION_CONSTRAINTS = "event duration should be in a date format of DD-MM-YY DD-MM-YY";
+	public static final String MESSAGE_DURATION_CONSTRAINTS = "event duration should be seperated by >; \n"
+			+ "start time should be no later than end time. \n "
+			+ "eg: today 4pm > tomorrow 4pm";
 	public static final Pattern DURATION_VALIDATION_REGEX = 
-			Pattern.compile("^(?<startDate>[^\\>]+)"+"(?:\\>\\s(?<endDate>[^\\>]+))?");
-	private static final String MESSAGE_INVALID_DATE = "wrong date";
+			Pattern.compile("^(?<startTime>[^\\>]+)"+"(?:\\>\\s(?<endTime>[^\\>]+))?");
 	private static final int DATE_INDEX = 0;
 	private static final String MESSAGE_DURATION_FORMAT = "%1$s > %2$s";
 	
 	private Duration duration;
-	private LocalDateTime startDate;
-	private LocalDateTime endDate;
+	private LocalDateTime startTime;
+	private LocalDateTime endTime;
+	
 
 	/**
 	 * Validates given duration.
@@ -43,21 +46,21 @@ public class EventDuration {
 		
 		if(matcher.matches()) {
 			//store the start date and end date 
-			assert(matcher.group("startDate") != null);
-			setStartDate(parseDate(parser, matcher.group("startDate")));
+			assert(matcher.group("startTime") != null);
+			setStartTime(parseDate(parser, matcher.group("startTime")));
 			
-			if(matcher.group("endDate") != null) {
-				setEndDate(parseDate(parser, matcher.group("endDate")));	
+			if(matcher.group("endTime") != null) {
+				setEndTime(parseDate(parser, matcher.group("endTime")));	
 			} else {
-				setEndDate(getStartDate()); /* if no endDate, set endDate equal to startDate */
+				setEndTime(getStartTime()); /* if no endTime, set endTime equal to startTime */
 			}
 		} else {
-			throw new IllegalValueException(MESSAGE_INVALID_DATE + durationArg);
+			throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
 		}
-		assert(getStartDate() != null);
-		assert(getEndDate() != null);
+		assert(getStartTime() != null);
+		assert(getEndTime() != null);
 		
-		setDuration(Duration.between(getStartDate(), getEndDate()));
+		setDuration(Duration.between(getStartTime(), getEndTime()));
 	}
 	
 	/**
@@ -72,14 +75,14 @@ public class EventDuration {
 		
 		System.out.println("Date is\n"+ dateArg);
 		
-		if(dateArg == null) throw new IllegalValueException(MESSAGE_INVALID_DATE);
+		if(dateArg == null) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
 		
-		Date parsedResult = parser.parse(dateArg).get(DATE_INDEX);
+		List<Date> parsedResult = parser.parse(dateArg);
 		
 		//cannot parse
-		if(parsedResult == null) throw new IllegalValueException(MESSAGE_INVALID_DATE);
+		if(parsedResult.isEmpty()) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
 		
-		return LocalDateTime.ofInstant(parsedResult.toInstant(), ZoneId.systemDefault()); 
+		return LocalDateTime.ofInstant(parsedResult.get(DATE_INDEX).toInstant(), ZoneId.systemDefault()); 
 	}
 	
 	private Duration getDuration() {
@@ -90,25 +93,25 @@ public class EventDuration {
 		this.duration = duration;
 	}
 
-	private LocalDateTime getStartDate() {
-		return startDate;
+	public LocalDateTime getStartTime() {
+		return startTime;
 	}
 
-	private void setStartDate(LocalDateTime startDate) {
-		this.startDate = startDate;
+	private void setStartTime(LocalDateTime startTime) {
+		this.startTime = startTime;
 	}
 
-	private LocalDateTime getEndDate() {
-		return endDate;
+	public LocalDateTime getEndTime() {
+		return endTime;
 	}
 
-	private void setEndDate(LocalDateTime endDate) {
-		this.endDate = endDate;
+	private void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
 	}
 
 	@Override
 	public String toString() {
-		return String.format(MESSAGE_DURATION_FORMAT, getStartDate().toString(), getEndDate().toString());
+		return String.format(MESSAGE_DURATION_FORMAT, getStartTime().toString(), getEndTime().toString());
 	}
 	
 	@Override
@@ -116,8 +119,8 @@ public class EventDuration {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
-		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
+		result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
 		return result;
 	}
 
@@ -135,15 +138,15 @@ public class EventDuration {
 				return false;
 		} else if (!duration.equals(other.duration))
 			return false;
-		if (endDate == null) {
-			if (other.endDate != null)
+		if (endTime == null) {
+			if (other.endTime != null)
 				return false;
-		} else if (!endDate.equals(other.endDate))
+		} else if (!endTime.equals(other.endTime))
 			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
+		if (startTime == null) {
+			if (other.startTime != null)
 				return false;
-		} else if (!startDate.equals(other.startDate))
+		} else if (!startTime.equals(other.startTime))
 			return false;
 		return true;
 	}
