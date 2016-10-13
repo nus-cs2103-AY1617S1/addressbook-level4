@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <name>Hans Muster</name>
+        <deadline>9482424</deadline>
+    </tasks>
+    <tasks>
+        <name>Ruth Mueller</name>
+        <deadline>87249245</deadline>
+    </tasks>
+    <tasks>
+        <name>Heinz Kurz</name>
+        <deadline>95352563</deadline>
+    </tasks>
+    <tasks>
+        <name>Cornelia Meier</name>
+        <deadline>87652533</deadline>
+    </tasks>
+    <tasks>
+        <name>Werner Meyer</name>
+        <deadline>9482224</deadline>
+    </tasks>
+    <tasks>
+        <name>Lydia Kunz</name>
+        <deadline>9482427</deadline>
+    </tasks>
+    <tasks>
+        <name>Anna Best</name>
+        <deadline>9482442</deadline>
+    </tasks>
+    <tasks>
+        <name>Stefan Meier</name>
+        <deadline>8482424</deadline>
+    </tasks>
+    <tasks>
+        <name>Martin Mueller</name>
+        <deadline>8482131</deadline>
+    </tasks>
+</taskmanager>
