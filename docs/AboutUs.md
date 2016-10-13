@@ -45,7 +45,7 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project Mentor
 
 #### [Chuan Wei Candiie](http://github.com/Candiie)
-<img src="https://avatars3.githubusercontent.com/u/22343403" width="150"><br>
+<img src="images/candiieTA.png" width="150"><br>
 
 -----
 
