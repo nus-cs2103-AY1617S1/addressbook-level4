@@ -24,7 +24,7 @@ This guide describes the design and implementation of Jimi. It will help you und
 
 ## Setting up
 
-#### Prerequisites
+### Prerequisites
 
 1. **JDK `1.8.0_60`**  or later<br>
 
@@ -37,7 +37,7 @@ This guide describes the design and implementation of Jimi. It will help you und
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 <br>
-#### Importing the project into Eclipse
+### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
 1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
@@ -53,15 +53,15 @@ This guide describes the design and implementation of Jimi. It will help you und
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 <br>
-#### Troubleshooting project setup
+### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
+<p>* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. </p>
 * Solution: Refresh the project in Eclipse:<br> 
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
-  
+<br>  
 **Problem: Eclipse reports some required libraries missing**
-* Reason: Required libraries may not have been downloaded during the project import. 
+<p>* Reason: Required libraries may not have been downloaded during the project import. </p>
 * Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
  
 <br>
@@ -70,7 +70,7 @@ This guide describes the design and implementation of Jimi. It will help you und
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/Architecture.png" width="600"><br><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -80,10 +80,10 @@ Given below is a quick overview of each component.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+<br>* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
+<br>* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+<br><br>
 The rest of the App consists four components.
 * [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
@@ -97,30 +97,33 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/LogicClassDiagram.png" width="800"><br><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
-
+<br>
 <img src="images\SDforDeleteTask.png" width="800">
-
+<br><br>
 >Note how the `Model` simply raises a `TaskBookChangedEvent` when Jimi's data changes,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
+<br>
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
-
+<br><br>
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
 
 The sections below give more details of each component.
 
-<br>
+<br><br>
 
 ### UI component
-<img src="images/UiClassDiagram.png" width="800"><br>
+<br>
+<img src="images/UiClassDiagram.png" width="800">
+<br><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/jimi/ui/Ui.java)
 
@@ -141,8 +144,8 @@ The `UI` component,
 <br>
 
 ### Logic component
-
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<br>
+<img src="images/LogicClassDiagram.png" width="800"><br><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/jimi/logic/Logic.java)
 
@@ -153,13 +156,14 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br><br>
 
 <br>
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<br>
+<img src="images/ModelClassDiagram.png" width="800"><br><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/jimi/model/Model.java)
 
@@ -174,7 +178,9 @@ The `Model`,
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<br>
+<img src="images/StorageClassDiagram.png" width="800">
+<br><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/jimi/storage/Storage.java)
 
@@ -188,8 +194,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.jimi.commons` package.
 
-<br>
-<br>
+<br><br>
 ## Implementation
 
 ### Logging
@@ -242,13 +247,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.jimi.commons.UrlUtilTest`
+      e.g. `seedu.jimi.commons.UrlUtilTest`<br>
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.jimi.storage.StorageManagerTest`
+      e.g. `seedu.jimi.storage.StorageManagerTest`<br>
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.jimi.logic.LogicManagerTest`
+      e.g. `seedu.jimi.logic.LogicManagerTest`<br>
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
