@@ -29,6 +29,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.EditCommand.Field;
 
 /**
  * Parses user input.
@@ -51,6 +52,21 @@ public class Parser {
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    public enum Field {
+        NAME("name"), START_DATE("start_date"), END_DATE("end_date"), START_TIME("start_time"),
+        END_TIME("end_time"), DATE("date"), TIME("time");
+
+        private String field_name;
+
+        Field(String name) {
+            this.field_name = name;
+        }
+
+        public String getFieldName() {
+            return this.field_name;
+        }
+    }
 
     public Parser() {}
 
@@ -235,5 +251,24 @@ public class Parser {
          }
 
          return null;
+     }
+     
+     /**
+      * checks field names are valids
+      * @param fieldNames
+      * @return true
+      *         if field is valid
+      * @author darren
+      */
+     private static boolean fieldsAreValid(ArrayList<String> fieldNames) {
+         assert fieldNames != null;
+         for(String fieldName : fieldNames) {
+             try {
+                 Field ret = Field.valueOf(fieldName.toUpperCase());
+             } catch(IllegalArgumentException iae) {
+                 return false;
+             }
+         }
+         return true;   
      }
 }
