@@ -10,8 +10,8 @@ public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
     private static final String PRIORITY_HIGH = "high";
-    private static final String PRIORITY_MEDIUM = "MEDIUM";
-    private static final String PRIORITY_LOW = "LOW";
+    private static final String PRIORITY_MEDIUM = "medium";
+    private static final String PRIORITY_LOW = "low";
 
     @FXML
     private HBox cardPane;
