@@ -61,7 +61,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Removes the equivalent person from the list.
+     * Removes the equivalent Task from the list.
      *
      * @throws TaskNotFoundException if no such person could be found in the list.
      */
@@ -73,7 +73,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return personFoundAndDeleted;
     }
-
+    
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

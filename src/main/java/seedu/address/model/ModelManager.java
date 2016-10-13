@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
@@ -75,6 +76,24 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
+    }
+    
+    @Override
+    public synchronized Task editTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
+        Task editedTask = addressBook.editTask(oldTask, newParams, "edit");
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+        
+        return editedTask;
+    }
+    
+    @Override
+    public synchronized Task undoEditTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
+        Task editedTask = addressBook.editTask(oldTask, newParams, "undo");
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+        
+        return editedTask;
     }
 
     //=========== Filtered Person List Accessors ===============================================================

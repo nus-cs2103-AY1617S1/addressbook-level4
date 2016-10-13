@@ -10,8 +10,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Priority {
 
     public static final String MESSAGE_PRIORITY_CONSTRAINTS =
-            "Task priority should be an integer";
-    public static final String PRIORITY_VALIDATION_REGEX = "\\d";
+            "Task priority should be an integer between 0 and 3 inclusive.";
+    public static final String PRIORITY_VALIDATION_REGEX = "[0-3]";
 
     public final String value;
 
@@ -33,7 +33,7 @@ public class Priority {
      * Returns if a given string is a valid person email.
      */
     public static boolean isValidPriority(String test) {
-        return test.matches(PRIORITY_VALIDATION_REGEX);
+        return test.matches(PRIORITY_VALIDATION_REGEX) || test == "";
     }
 
     @Override

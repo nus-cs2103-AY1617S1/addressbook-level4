@@ -255,12 +255,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | user | be able to quickly make changes onto his calendar with just one single step | focus on tasks at hand
+`* * *` | user | be able to quickly make changes onto his lifekeeper with just one single step | focus on tasks at hand
 `* * *` | user | be able to set reminders for tasks | track his schedule despite being overwhelmed by work
 `* * *` | user | mark out completed task | remove entries that I no longer need
+`* * *` | user | undo the previous command that made change to the list
 `* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
 `* * *` | user | be able to view his schedule in a visual display |  understand the flow of tasks.
-`* * *` | user |  see uncompleted tasks that are overdue marked out in red
+`* * *` | user | see uncompleted tasks that are overdue marked out in red
+`* * *` | user | delete the unwanted task
+`* * *` | user | add task due date 
+`* * *` | user | be able to add details such as priority and deadline only if I want to
 `* *` | user | be able to block out multiple possible timings and confirm the exact timeslot at a later time
 `* *` | user | have access to his schedule even without internet access.
 `* *` | user | find out the next upcoming task without having to scan through the calendar or the task list.

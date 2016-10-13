@@ -5,7 +5,10 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskManager;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -110,6 +113,20 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
+    }
+    
+    public Task editTask(ReadOnlyTask task, Task newParams, String type) throws TaskNotFoundException, DuplicateTaskException {
+        
+
+        
+            if (tasks.contains(task)) {
+                Task newTask = TaskManager.mapUnaffectedParams(task, newParams, type);
+                tasks.remove(task);
+                tasks.add(newTask);
+                return newTask;
+            } else {
+                throw new UniqueTaskList.TaskNotFoundException();
+            }
     }
 
 //// tag-level operations

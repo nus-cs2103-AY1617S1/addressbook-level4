@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import java.util.Stack;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -10,6 +12,8 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
     protected Model model;
+
+    protected static Stack<PreviousCommand> PreviousCommandsStack = new Stack<PreviousCommand>();
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
