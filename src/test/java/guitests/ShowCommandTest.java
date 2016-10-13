@@ -12,12 +12,11 @@ public class ShowCommandTest extends TaskListGuiTest {
 
     @Test
     public void show_nonEmptyList() {
-        assertShowResult("show all"); //no results
-        assertShowResult("show all", TypicalTestTasks.task2, TypicalTestTasks.task4); //multiple results
-
+        assertShowResult("show all", TypicalTestTasks.task1, TypicalTestTasks.task2, TypicalTestTasks.task3, TypicalTestTasks.task4, TypicalTestTasks.task5, TypicalTestTasks.task6, TypicalTestTasks.task7); //no results
+        
         //show after deleting one result
         commandBox.runCommand("delete 1");
-        assertShowResult("show all",TypicalTestTasks.task4);
+        assertShowResult("show all", TypicalTestTasks.task2, TypicalTestTasks.task3, TypicalTestTasks.task4, TypicalTestTasks.task5, TypicalTestTasks.task6, TypicalTestTasks.task7);
     }
 
     @Test
@@ -35,7 +34,7 @@ public class ShowCommandTest extends TaskListGuiTest {
     private void assertShowResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " persons listed!");
+        assertResultMessage(expectedHits.length + " task(s) listed!");
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }

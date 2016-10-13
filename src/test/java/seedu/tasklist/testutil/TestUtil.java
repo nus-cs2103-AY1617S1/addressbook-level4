@@ -285,6 +285,12 @@ public class TestUtil {
         listOfPersons.removeAll(asList(personsToRemove));
         return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
+    
+    public static TestTask[] markTaskAsComplete(final TestTask[] persons, int targetIndexInOneIndexedFormat) {
+        List<TestTask> listOfPersons = asList(persons);
+        listOfPersons.get(targetIndexInOneIndexedFormat).markAsComplete();
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
+    }
 
 
     /**
@@ -329,9 +335,6 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
-    	System.out.println(card);
-    	System.out.println(person);
-    	System.out.println();
         return card.isSamePerson(person);
     }
 
