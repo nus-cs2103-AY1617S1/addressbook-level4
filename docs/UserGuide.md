@@ -39,7 +39,7 @@ Need to unburden? Let’s get started!
 
 #### 1. Add Command: `add`
 
-1.1  Adding a task with a deadline, start time and end time
+1.1  Adding a task with a deadline, start time and end time <br>
 Format: `add <Task Name> d/<Deadline> s/<Start Time> e/<End Time>`
    > <img src="UserGuideImages/UG_2.JPG" width="600">
    
@@ -52,107 +52,137 @@ You may type the command as shown below
    > <img src="UserGuideImages/UG_3.JPG" width="400">
    
 Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown below.
-   > <img src="UserGuideImages/UG_4.JPG" width="400">
+   > <img src="UserGuideImages/UG_4.JPG" width="500">
 
 1.2  Adding a task with only a deadline
 Format: `add <Task Name> d/<Deadline>`
-   > <img src="UserGuideImages/UG_5.JPG" width="500">
+   > <img src="UserGuideImages/UG_5.JPG" width="400">
    
    Examples : <br>
    add Orbital Splashdown d/18-06-2016 t/Orbital <br>
-	add Music Talent show d/28-04-2008 t/Show <br>
-	add Complete Workout d/13-03-2009 <br>
+   add Music Talent show d/28-04-2008 t/Show <br>
+   add Complete Workout d/13-03-2009 <br>
    
 Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown below.
-   > <img src="UserGuideImages/UG_6.JPG" width="600">
+   > <img src="UserGuideImages/UG_6.JPG" width="500">
    
 1.3 Adding a task without a deadline
-Format: `add <Task Description>`
-   > <img src="UserGuideImages/add_2_0.png" width="600">
+Format: `add <Task Name>`
+   > <img src="UserGuideImages/UG_7.JPG" width="400">
    
-You may enter the command as shown below.
-   > <img src="UserGuideImages/add_2_1.png" width="600">
+   Examples : <br>
+   add Complete Joke book t/Jokes <br>
+   add Plan Trip to Germany <br>
+   add Book train tickets <br>
    
 Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown below.
-   > <img src="UserGuideImages/add_2_2.png" width="600">
+   > <img src="UserGuideImages/UG_8.JPG" width="500">
 
-1.4 Adding a recurring task
-Format: `add REC<Task Description> <Date> <Number of days to recur>`
-   > <img src="UserGuideImages/add_3_0.png" width="600">
-   
-You may enter the command as shown below.
-   > <img src="UserGuideImages/add_3_1.png" width="600">
-   
-Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown below.
-   > <img src="UserGuideImages/add_3_2.png" width="600">
    
 #### 2. Delete Command : `delete`
 
 Deletes the specific task from the address book. Irreversible.<br>
-Format: `delete <Task description>`
-   > <img src="UserGuideImages/delete_0.png" width="600">
+Format: `delete <Task Index>`
+   > <img src="UserGuideImages/UG_9.JPG" width="400">
    
-You may delete the task by entering the command as shown below.
-   > <img src="UserGuideImages/delete_1.png" width="600">
+   Examples : <br>
+   delete Dance Rehearsal <br>
+   delete Go to the Gym <br>
    
 Once done, the updated list of tasks will be displayed as shown below
-   > <img src="UserGuideImages/delete_2.png" width="600">
+   > <img src="UserGuideImages/UG_10.JPG" width="500">
 
 #### 3. List Command
 
 3.1 Shows a list of all tasks in the list of tasks.<br>
 Format: `list`
-   > <img src="UserGuideImages/list_0.png" width="600">
+   > <img src="UserGuideImages/UG_11.JPG" width="200">
 
-You will want to key in the command as shown below.
-   > <img src="UserGuideImages/list_1.png" width="600">
+You can then see all of the tasks in the application in the display as shown below.
+   > <img src="UserGuideImages/UG_12.JPG" width="500">
 
-The list of tasks will be displayed in the application as shown below.
-   > <img src="UserGuideImages/list_2.png" width="600">
+#### 4. Find Command
 
-3.2 Listing tasks of a specific date
-Format: `listbydate <Date>`
-   > <img src="UserGuideImages/listbydate_0.png" width="600">
+3.1 If you wish to find certain tasks, enter the keywords in the task or the task name<br>
+Format: `find`
+   > <img src="UserGuideImages/UG_13.JPG" width="400">
    
-Simply key in the command as shown below.
-   > <img src="UserGuideImages/listbydate_1.png" width="600">
+   Examples : <br>
+   find workout <br>
+   find gym <br>
+				
+You can then see all of the tasks with that keyword or name  in the application’s display window. 
+For example, i keyed in “find workout” in the command line and the task with the keyword “workout” is displayed as shown below. 
+   > <img src="UserGuideImages/UG_14.JPG" width="500">
 
-The tasks which are due on the date you have just entered will be displayed on the application
-   > <img src="UserGuideImages/listbydate_2.png" width="600">
+#### 5. Clear Command
+
+If you wish to clear all the tasks in the task manager in one go, without having to delete each one by one, you can make use of the “clear” command. 
+<br>
+Format: `clear`
+   > <img src="UserGuideImages/UG_15.JPG" width="400">
+				
+Simple type the command “clear” as shown above and all tasks will be automatically deleted and the message that “Unburden has been cleared!” would appear as shown below. 
+   > <img src="UserGuideImages/UG_16.JPG" width="500">
    
-#### 4. Help Command
+#### 6. Edit Command
 
-4.1 If you are new to the application and/or require help
+6.1 If you wish to edit the deadline, start time and end time of certain tasks
+<br>
+Format: `edit <Task Index> d/<Deadline> s/<start Time> e/<End Time>`
+   > <img src="UserGuideImages/UG_17.JPG" width="400">
+   
+   Examples : <br>	
+   edit 1 d/09-07-2016 s/1700 e/1900 t/CS2103 <br>
+   edit 3 d/06-03-2009 s/1800 e/1900 <br>
+		
+By doing so, the date, start time and end time will be updated and the updated list will be displayed as shown below. 
+   > <img src="UserGuideImages/UG_18.JPG" width="500">
+   
+6.2 If you wish to edit the deadline certain tasks
+<br>
+Format: `edit <Task Index> d/<Deadline>`
+   > <img src="UserGuideImages/UG_19.JPG" width="400">
+   
+   Examples : <br>
+   edit 3  d/09-07-2016 <br>
+   edit 2  d/03-05-2008 <br>
+		
+By doing so, the date, start time and end time will be updated and the updated list will be displayed as shown below. 
+   > <img src="UserGuideImages/UG_20.JPG" width="500">
+
+6.3 If you wish to edit the start time and end time of certain tasks
+<br>
+Format: `edit <Task Index> s/<Start Time> e/<End time>`
+   > <img src="UserGuideImages/UG_21.JPG" width="400">
+   
+   Examples : <br>
+   edit 2  s/1700 e/1900 t/CS2103 <br>
+   edit 3 s/1800 e/2000 <br>
+		
+By doing so, the date, start time and end time will be updated and the updated list will be displayed as shown below. 
+   > <img src="UserGuideImages/UG_22.JPG" width="400">
+   
+
+
+#### 7. Help Command
+
+If you are new to the application and/or require help
 Format: `help`
-   > <img src="UserGuideImages/help_0.png" width="600">
-
-Simply type help in the command line as shown below.
-   > <img src="UserGuideImages/help_1.png" width="600">
+   > <img src="UserGuideImages/UG_23.JPG" width="200">
    
-The application will display the list of commands and what these commands do
-
-4.2 If you are unsure of what the format of a certain command is
-Format: `help <Command Word>`
-Examples:
-   > <img src="UserGuideImages/help_add.png" width="600">
-   > <img src="UserGuideImages/help_delete.png" width="600">
-   > <img src="UserGuideImages/help_list.png" width="600">
-   
-Simply key it into the command line as shown below. We have used the example of the add command below to help you in your understanding.
-   > <img src="UserGuideImages/help_add_1.png" width="600">
-
-The application will show the format of the particular command you inquired about.
-   > <img src="UserGuideImages/help_add_2.png" width="600">
+This command will open the help window which our user guide and show you the message as shown below. 
+   > <img src="UserGuideImages/UG_24.JPG" width="400">
    
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`
-   > <img src="UserGuideImages/exit_0.png" width="600">
+   > <img src="UserGuideImages/UG_25.JPG" width="200">
 
 Simply type `exit` in the command line as shown below
-   > <img src="UserGuideImages/exit_1.png" width="600">
+   > <img src="UserGuideImages/UG_26.JPG" width="400">
 
 The application will be closed.
 #### Saving the data 
