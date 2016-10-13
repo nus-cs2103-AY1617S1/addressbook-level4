@@ -136,7 +136,7 @@
 
 #navBarView .list-cell {
     -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
+    -fx-graphic-text-gap : 10;
     -fx-padding: 0 0 0 0;
     -fx-background-color : derive(#1d1d1d, 20%);
 }
@@ -144,13 +144,28 @@
     -fx-font-size: 20px;
     -fx-font-family: "Segoe UI";
     -fx-text-fill: derive(#F0F0F0, 80%);
-    -fx-opacity: 2;
+    -fx-opacity: 1;
     -fx-text-alignment: center;
 }
 
 #navBarView .list-cell:filled:selected:focused, #navBarView .list-cell:filled:selected {
     -fx-background-color: derive(#003300, 50%);
     -fx-text-fill: white;
+}
+
+#navBarView .list-cell:even:filled {
+    -fx-background-color: derive(#ff8000, 20%);
+}
+
+#navBarView .list-cell:odd:filled {
+    -fx-background-color: derive(#dd0000, 50%);
+}
+#navBarView .list-cell:odd:filled .image-view{
+    -fx-image:url('/images/ddl_icon.png');
+}
+#navBarView .list-cell:even:filled .image-view{
+    -fx-image:url('/images/task_icon.png');
+    -fx-alignment:left;
 }
 
 

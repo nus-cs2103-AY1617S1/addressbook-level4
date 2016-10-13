@@ -27,14 +27,14 @@ public class NavbarPanel extends UiPart {
     private VBox panel;
     private AnchorPane placeHolderPane;
     
-    private final String NAVBAR_TASKS = "Tasks";
-    private final String NAVBAR_DEADLINES = "Deadlines";
-    private final String NAVBAR_INCOMING_DEADLINES = "Incoming Deadlines";
-    private final String NAVBAR_FLOATING_TASKS = "Floating Tasks";
-//    private final String NAVBAR_COMPLETED = "Completed";
+    private final String NAVBAR_TASKS = " Tasks";
+    private final String NAVBAR_DEADLINES = " Deadlines";
+    private final String NAVBAR_INCOMING_DEADLINES = " Incoming Deadlines";
+    private final String NAVBAR_FLOATING_TASKS = " Floating Tasks";
+//    private final String NAVBAR_COMPLETED = " Completed";
     
-    private final ObservableList<String> navbarElement = FXCollections.observableArrayList(NAVBAR_TASKS, NAVBAR_DEADLINES,
-			  																					 NAVBAR_INCOMING_DEADLINES, NAVBAR_FLOATING_TASKS);
+    private final ObservableList<String> navbarElement = FXCollections.observableArrayList(NAVBAR_TASKS, NAVBAR_DEADLINES, NAVBAR_FLOATING_TASKS
+			  																					 ,NAVBAR_INCOMING_DEADLINES);
     //private variables for navbar commands
     private String command = null;
     private Date day = null;
