@@ -84,15 +84,16 @@ public class DateUtil {
     public static String formatShortDate(LocalDateTime dateTime) {
         LocalDate date = dateTime.toLocalDate();
         long daysDifference = LocalDate.now().until(date, ChronoUnit.DAYS);
-        String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US);
-        String shortDate = date.format(DateTimeFormatter.ofPattern("dd MMM"));
+        String dateFormat;
         
         // Don't show dayOfWeek for days d, such that d = {n+2,...,n+6}, where n = date now
         if (daysDifference >= 2 && daysDifference <= 6) {
-            return String.format("%s", shortDate);
+            dateFormat = "dd MMM";
         } else {
-            return String.format("%s %s", dayOfWeek, shortDate);
+            dateFormat = "E dd MMM";
         }
+        
+        return date.format(DateTimeFormatter.ofPattern(dateFormat));
     }
 
 }
