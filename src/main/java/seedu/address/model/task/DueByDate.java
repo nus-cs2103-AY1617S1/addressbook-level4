@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -50,7 +51,11 @@ public class DueByDate {
      * @author A0139661Y
      */
 	public String getFriendlyString() {
-		return new StringBuilder(value.getMonthValue() +"/"+ value.getDayOfMonth() +"/"+ value.getYear()).toString();
+		// If floating date, return do not print anything
+		if (value.equals(LocalDate.MIN)) {
+			return "";
+		}
+		return new StringBuilder(value.format(DateTimeFormatter.ofPattern("MM/dd/uuuu"))).toString();
 	}
 
 }
