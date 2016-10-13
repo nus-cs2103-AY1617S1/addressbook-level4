@@ -105,7 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(expression::satisfies);
     }
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+    //========== Inner classes/interfaces used for filtering =================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask person);
@@ -146,7 +146,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask person) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getDescription().fullDescription, keyword))
+                    .filter(keyword -> StringUtil.containsWordIgnoreCase(person.getDescription().fullDescription, keyword))
                     .findAny()
                     .isPresent();
         }

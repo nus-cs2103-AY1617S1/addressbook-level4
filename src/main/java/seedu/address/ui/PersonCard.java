@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
 
-public class PersonCard extends UiPart{
+public class PersonCard extends UiPart {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -28,7 +28,7 @@ public class PersonCard extends UiPart{
     private ReadOnlyTask person;
     private int displayedIndex;
 
-    public PersonCard(){
+    public PersonCard() {
 
     }
 
@@ -55,7 +55,7 @@ public class PersonCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPane = (HBox) node;
     }
 
     @Override

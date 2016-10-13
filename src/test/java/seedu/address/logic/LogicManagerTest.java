@@ -68,7 +68,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -235,9 +235,11 @@ public class LogicManagerTest {
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list
+     *                    based on visible index.
      */
-    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
+    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
+            throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
         assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
         assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
@@ -248,7 +250,8 @@ public class LogicManagerTest {
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list
+     *                    based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
@@ -429,7 +432,7 @@ public class LogicManagerTest {
 
 
             UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t: tags) {
                 cmd.append(" t/").append(t.tagName);
             }
 
@@ -458,7 +461,7 @@ public class LogicManagerTest {
          * Adds auto-generated Person objects to the given AddressBook
          * @param addressBook The AddressBook to which the Persons will be added
          */
-        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception{
+        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception {
             addToAddressBook(addressBook, generatePersonList(numGenerated));
         }
 
