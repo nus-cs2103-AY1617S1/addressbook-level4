@@ -289,7 +289,9 @@ Format: `relocate PATH`
 
 #### Autocomplete and suggestions
 Shows suggested command keywords, dates, sorting order, and tags as you type.
-Use the `tab` key to autocomplete using the suggestion.
+
+Use the up and down arrows to select a keyword in the list.<br>
+Use the `tab` key to autocomplete with the highlighted keyword.
 
 > <img src="images/Ui-Autocomplete.png" width="200">
 
