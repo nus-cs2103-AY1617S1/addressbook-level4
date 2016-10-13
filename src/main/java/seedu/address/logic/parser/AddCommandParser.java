@@ -40,8 +40,9 @@ public class AddCommandParser extends CommandParser{
     	}
     	
     	// Determine if it is DeadlineTask (which has "by") or EventTask (which has "from")
-    	int indexOfLastFrom = description.lastIndexOf("from");
-    	int indexOfLastBy = description.lastIndexOf("by");
+    	// Spaces needed before "from" and "by" to ensure they are separate words
+    	int indexOfLastFrom = description.lastIndexOf(" from ");
+    	int indexOfLastBy = description.lastIndexOf(" by ");
     	boolean fromWordIsAbsent = (indexOfLastFrom == -1);
     	boolean byWordIsAbsent = (indexOfLastBy == -1);
     	
@@ -51,19 +52,19 @@ public class AddCommandParser extends CommandParser{
     		
     	} else if (fromWordIsAbsent) {
     		// If only "by" exists, task is a DeadlineTask if the sentence after "by" is a valid date format
-    		return createAddTaskCommandBasedOnDateString(description, indexOfLastBy, "by");
+    		return createAddTaskCommandBasedOnDateString(description, indexOfLastBy, " by ");
     		
     	} else if (byWordIsAbsent) {
     		// If only "from" exists, task is an EventTask if the sentence after "from" is a valid date format
-    		return createAddTaskCommandBasedOnDateString(description, indexOfLastFrom, "from");
+    		return createAddTaskCommandBasedOnDateString(description, indexOfLastFrom, " from ");
     		
     	} else if (indexOfLastFrom > indexOfLastBy) {
     		// Both indices exist, the one that comes later will be picked. If "from" came later.
-    		return createAddTaskCommandBasedOnDateString(description, indexOfLastFrom, "from");
+    		return createAddTaskCommandBasedOnDateString(description, indexOfLastFrom, " from ");
     			
     	} else {
     		// If "by" came later.
-    		return createAddTaskCommandBasedOnDateString(description, indexOfLastBy, "by");
+    		return createAddTaskCommandBasedOnDateString(description, indexOfLastBy, " by ");
 
     	}
     }
@@ -80,12 +81,12 @@ public class AddCommandParser extends CommandParser{
     	String taskDescription = description.substring(0, substringFrom).trim();
     	String dateString = description.substring(substringFrom + keyword.length(), description.length()).trim();
     	
-    	if (keyword.equals("by") && DateUtil.isValidDateFormat(dateString)) {
+    	if (keyword.equals(" by ") && DateUtil.isValidDateFormat(dateString)) {
     		// dateString represents task's deadline
     		Date deadline = DateUtil.getDate(dateString);
 			return new AddTaskCommand(taskDescription, deadline);
 			
-    	} else if (keyword.equals("from") && DateUtil.isValidStartDateToEndDateFormat(dateString)) {	
+    	} else if (keyword.equals(" from ") && DateUtil.isValidStartDateToEndDateFormat(dateString)) {	
 			// dateString represents task's start date and end date
     		Date[] startAndEndDates = DateUtil.getStartAndEndDates(dateString);
     		Date startDate = startAndEndDates[0];
