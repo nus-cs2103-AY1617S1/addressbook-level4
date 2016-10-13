@@ -5,7 +5,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,7 +45,11 @@ public class AddCommand extends Command {
         }
         Period period = new Period();
         if((startTime != null)&&(endTime != null)){
-            period = new Period(CommandHelper.convertStringToDate(startTime), CommandHelper.convertStringToDate(endTime));
+            List<Date> dates = CommandHelper.convertStringToMultipleDates(startTime + " and " + endTime);
+            if(dates.size() < 2){
+                throw new IllegalValueException("Invalid Dates");
+            }
+            period = new Period(dates.get(0), dates.get(1));
         }
         Recurrence deadRecurrence = new Recurrence();
         Recurrence periodRecurrence = new Recurrence();
