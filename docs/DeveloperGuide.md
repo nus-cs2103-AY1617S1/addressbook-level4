@@ -2,7 +2,8 @@
 
 ## Table of Contents
 
-* [Setting Up](#setting-up)
+* [Introduction](#introduction)
+* [Setting up](#setting-up)
     * [Prerequisites](#prerequisites)
     * [Importing the project into Eclipse](#importing-the-project-into-eclipse)
 * [Design](#design)
@@ -21,8 +22,8 @@
     * [Continuous Integration](#continuous-integration)
     * [Making a Release](#making-a-release)
     * [Managing Dependencies](#managing-dependencies)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
+* [Appendix A : User Stories](#appendix-a--user-stories)
+* [Appendix B : Use Cases](#appendix-b--use-cases)
     * [Use case: Create new event](#use-case-create-new-event)
     * [Use case: List uncompleted tasks](#use-case-list-uncompleted-tasks)
     * [Use case: Update information of a task](#use-case-update-information-of-a-task)
@@ -32,13 +33,19 @@
     * [Use case: Find tasks using keywords](#use-case-find-tasks-using-keywords)
     * [Use case: Delete all data](#use-case-delete-all-data)
     * [Use case: Change data storage file location](#use-case-change-data-storage-file-location)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E: Product Survey](#appendix-e-product-survey)
+* [Appendix C : Non Functional Requirements](#appendix-c--non-functional-requirements)
+* [Appendix D : Glossary](#appendix-d--glossary)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
     * [Google Calendar](#google-calendar)
     * [Todoist](#todoist)
     * [Microsoft Outlook](#microsoft-outlook)
     * [iCalendar](#icalendar)
+
+## Introduction
+
+TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events with options like deadline, recurrence, and tags. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
+
+This guide contains all necessary information for both new and experienced contributors to continue the development of TaSc. Each section provides an overview on a topic, which will then be explained in greater detail in the subsections. Each subsection is mostly self contained for ease of reference. Throughout your development of TaSc you may freely revisit the topics as and when you need to.
 
 ## Setting up
 
@@ -66,7 +73,7 @@
 5. Click `Finish`
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+  > * Depending on your connection speed and server load, it can take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
@@ -75,12 +82,13 @@
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+The **_Architecture Diagram_** given above explains the high-level design of the App.
+A quick overview of each component is given below:
+
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It has two main responsibilities:
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
@@ -89,32 +97,34 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
+* [**`UI`**](#ui-component) : Allows users to interact with the program
+* [**`Logic`**](#logic-component) : Executes commands
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+* [**`Storage`**](#storage-component) : Reads data from and writes data to the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its _API_ in an `interface` with the same name.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the **`Logic`** component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
+
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+The _Sequence Diagram_ below shows how the components interact when the user issues the
 command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.
+>Note how the **`Model`** simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+ instead of asking the **`Storage`** to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
+> Note how the event is propagated through the `EventsCenter` to the **`Storage`** and **`UI`** without **`Model`** having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
 
@@ -126,19 +136,33 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The UI consists of a `MainWindow` that is made up of parts, e.g. `CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+and can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+The **`UI`** component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+The **`UI`** component
+* Executes user commands using the **`Logic`** component.
+* Binds itself to some data in the **`Model`** so that the UI can auto-update when data in the **`Model`** change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+<img src="images/UiComponentParts.png" width="600"><br>
+Figure 1. UI component parts
+
+Figure 1 shows where each `UiPart` is attached to the `MainWindow`. The `TaskListPanel` class shows the list of tasks. Each task is contained in a `TaskCard` object.
+
+**`TaskCard` Class:**
+
+ Each `TaskCard` is assigned a unique index in increasing order, which is used in other commands to specify a task, e.g. `delete 3` deletes the third item in the list. 
+
+**`HelpWindow` Class:**
+
+The `HelpWindow` is a window separate from the `MainWindow`. It shows our product's User Guide from *https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md*. Accessing this User Guide requires an active Internet connection. 
+
 
 ### Logic component
 
@@ -146,18 +170,19 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
+1. **`Logic`** uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the **`Model`** (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Given below is the Sequence Diagram for interactions within the **`Logic`** component for the `execute("delete 1")`
  API call.<br>
+ 
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
 **`Logic Manager` Class:** 
 
-The `Logic Manager` class exposes the functionality of the `Logic` component, executing the input string containing the command passed from the `UI` component, and passing the result to `Model`. First, it passes the command string to the `Parser` class to get a `Command` object. Then, it executes the `Command` to produce a `CommandResult`. This `CommandResult` is then passed back to the `UI` component.
+The `Logic Manager` class exposes the functionality of the **`Logic`** component, executing the input string containing the command passed from the **`UI`** component, and passing the result to **`Model`**. First, it passes the command string to the `Parser` class to get a `Command` object. Then, it executes the `Command` to produce a `CommandResult`. This `CommandResult` is then passed back to the **`UI`** component.
 
 **`Parser` Class:**
 
@@ -165,7 +190,7 @@ The `Parser` class parses the given input string and returns the corresponding `
     
 **`Command` Class:**
 
-The `Command` class takes input arguments from the `Parser`class, and produces a `CommandResult` based on the input. There are multiple `Command` subclasses, which takes different input parameters and produces different `CommandResult`s. The `Logic` class executes `Command`s to change the data in `Model` according to the command type and input arguments.
+The `Command` class takes input arguments from the `Parser`class, and produces a `CommandResult` based on the input. There are multiple `Command` subclasses, which takes different input parameters and produces different `CommandResult`s. The **`Logic`** class executes `Command`s to change the data in **`Model`** according to the command type and input arguments.
 
 ### Model component
 
@@ -173,17 +198,17 @@ The `Command` class takes input arguments from the `Parser`class, and produces a
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
-The `Model`
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+The **`Model`**
+* Stores a `UserPref` object that contains the user's preferences.
+* Stores task list's data.
+* Exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-    * but other components are heavily dependent on this component.
+* Does not depend on any of the other three components.
+    * However, other components are heavily dependent on this component.
 
-**`Model` Interface:**
+****`Model`** Interface:**
 
-The `Model` interface allows you to request for any model-related operations, such as retrieving and modifying task
+The **`Model`** interface allows you to request for any model-related operations, such as retrieving and modifying tasks
 in the task list, without having to know anything about the implementation of the `ModelManager` class.
 
 Notable APIs
@@ -193,16 +218,16 @@ Return type | Method and Description
 void | `resetData(ReadOnlyTaskList newData)`: Replaces the entire task list with the one provided by `newData`.
 ReadOnlyTaskList | `getTaskList()`: Retrieves the entire task list.
 void | `addTask(Task task)`: Adds a task to the list.
-void | `updateTask(ReadOnlyTask oldTask, Task newTask)`: Update the details of the old task with the new task given.
+void | `updateTask(ReadOnlyTask oldTask, Task newTask)`: Updates the details of the old task with the new task given.
 void | `deleteTask(ReadOnlyTask target)`: Deletes the `target` task.
-void | `resetTaskListFilter()`: Resets all filters that was utilized to view only a certain subset of the task list.
+void | `resetTaskListFilter()`: Resets all filters that was used to view only a certain subset of the task list.
 
 **`ModelManager` Class:**
 
-The `ModelManager` class implements the `Model` interface, and provides all the services and functionality
-specifed in the `Model` interface. 
+The `ModelManager` class implements the **`Model`** interface, and provides all the services and functionality
+specifed in the **`Model`** interface. 
 
-Other components should reference this class indirectly by using the `Model` interface. You should not
+Other components should reference this class indirectly by using the **`Model`** interface. You should not
 directly use this class outside the model component.
 
 **`ReadOnlyTaskList` Interface:**
@@ -213,7 +238,7 @@ and tags used in the entire task list.
 **`TaskList` Class:**
 
 The `TaskList` class is responsible for maintaining the task list required by the program. You should not call
-any methods of this class directly. Instead, you should request for retrieval and modification via the
+any method of this class directly. Instead, you should request for retrieval and modification via the
 `ModelManager`. The `ModelManager` will return a `ReadOnlyTaskList` when requesting for tasks in the task list.
 
 **`UserPrefs` Class:**
@@ -267,14 +292,14 @@ The `UniqueTaskList` class provides a task list with no duplicate tasks.
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
-The `Storage` component
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
-* depends on `Model` component, but `Logic` and `UI` components depend on it.
+The **`Storage`** component
+* Saves `UserPref` objects in json format and read it back.
+* Saves the task list data in xml format and read it back.
+* Depends on the **`Model`** component, but the **`Logic`** and **`UI`** components depend on it.
 
-**`Storage` Interface:**
+****`Storage`** Interface:**
 
-The `Storage` interface allows you to request for any storage-related operations, such as reading and saving user's preferences and tasklist.
+The **`Storage`** interface allows you to request for any storage-related operations, such as reading and saving the user's preferences and tasklist.
 
 Notable APIs
 
@@ -287,11 +312,11 @@ void | `saveTaskList(ReadOnlyTaskList taskList)`: Saves the tasklist.
 
 **`StorageManager` Class:**
 
-The `StorageManager` class implements the `Storage` interface, and provides all the services and functionality
-specified in the `Storage` interface. 
+The `StorageManager` class implements the **`Storage`** interface, and provides all the services and functionality
+specified in the **`Storage`** interface. 
 
-Other components should reference this class indirectly by using the `Storage` interface. You should not
-directly use this class outside the `Storage` component.
+Other components should reference this class indirectly by using the **`Storage`** interface. You should not
+directly use this class outside the **`Storage`** component.
 
 **`TaskListStorage` , `UserPrefsStorage` Interface:**
 
@@ -325,7 +350,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+We are using the `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
@@ -336,21 +361,21 @@ and logging destinations.
 
 **Logging Levels**
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `SEVERE` : Critical problems detected, which may cause the application to terminate
 * `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
+* `INFO` : Information showing noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+You can control certain properties of the application (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
 
 ## Testing
 
-Tests can be found in the `./src/test/java` folder.
+You can find the tests in the `./src/test/java` folder.
 
 **In Eclipse**:
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
@@ -372,18 +397,18 @@ We have two types of tests:
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   3. Hybrids of unit and integration tests. These tests check multiple code units as well as 
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode. 
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ In headless mode, GUI tests do not show up on the screen.
+ That means you can do other things on the computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
 ## Dev Ops
@@ -411,7 +436,7 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. For example, Address Book depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
+is better than these alternatives:<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
@@ -611,16 +636,15 @@ Use case ends
 4. The application should be able to display the result of the query in less than 5 seconds.
 5. The application should run primarily on commandline-like interface.
 6. The application should be able to work offline.
-7. The application should work on a computer running Windows 7 or later with Java 8 installed.
-8. The application should ship with regression testing available.
-9. The application should be able to handle both tasks and events as the same concept.
-10. The source code should be well-documented and ready to be continued by someone else.
-11. The application should allow users to undo up to at least 10 most recent commands.
-12. The application should be usable straight away, without requiring any installation.
-13. The application should allow users to change the stored data location.
-14. Version control should be used during development of product.
-15. The application should provide help when the user enters an invalid command.
-16. The data storage file should be in a human-readable and editable format.
+7. The application should ship with regression testing available.
+8. The application should be able to handle both tasks and events as the same concept.
+9. The source code should be well-documented and ready to be continued by someone else.
+10. The application should allow users to undo up to at least 10 most recent commands.
+11. The application should be usable straight away, without requiring any installation.
+12. The application should allow users to change the stored data location.
+13. Version control should be used during development of product.
+14. The application should provide help when the user enters an invalid command.
+15. The data storage file should be in a human-readable and editable format.
 
 ## Appendix D : Glossary
 
@@ -684,6 +708,7 @@ Strengths:
 * Allows entering tasks that need to be done before/after/without a specific date/time
 * Syncs when online, but can be used offline too
 * Multiplatform (Android, iOS, Windows, macOS, browser extensions - Chrome, Firefox, Safari)
+* Allows searching for tasks
 * Can set priorities for tasks
 
 Weaknesses:
@@ -692,6 +717,8 @@ Weaknesses:
 * Marking item as done simply deletes it
 * Cannot 'block' or 'release' multiple slots when timing is uncertain
 * Mouse required for most actions, only task creation uses the keyboard
+
+Summary: Does not store completed tasks, and still requires mouse for most actions
 
 #### Microsoft Outlook
 
