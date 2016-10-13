@@ -27,14 +27,17 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<title>[^/]+)"
-                    + " d/(?<description>[^/]+)"
-                    + " sd/(?<startDate>[^/]+)"
-                    + " dd/(?<dueDate>[^/]+)"
-                    + " i/(?<interval>[^/]+)"
-                    + " ti/(?<timeInterval>[^/]+)"
+
+    private static final Pattern TASK_DATA_ARGS_FORMAT_ADD = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
+                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
+                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern TASK_DATA_ARGS_FORMAT_EDIT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<index>[^/]+)"
+                    + " (?<isNamePrivate>p?)n/(?<newName>[^/]+)");
+
 
     public Parser() {}
 
@@ -66,6 +69,9 @@ public class Parser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
@@ -91,8 +97,9 @@ public class Parser {
      * @return the prepared command
      * @throws ParseException 
      */
-    private Command prepareAdd(String args) throws ParseException{
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+
+    private Command prepareAdd(String args){
+        final Matcher matcher = TASK_DATA_ARGS_FORMAT_ADD.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -110,6 +117,28 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args){
+        final Matcher matcher = TASK_DATA_ARGS_FORMAT_EDIT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        try {
+			return new EditCommand(
+			        Integer.parseInt(matcher.group("index")),
+			        matcher.group("newName")
+			);
+		} catch (NumberFormatException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		}
     }
 
     /**
