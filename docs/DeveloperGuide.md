@@ -116,7 +116,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the **`Model`** simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the **`Model`** simply raises a `TaskListChangedEvent` when the TaSc data are changed,
  instead of asking the **`Storage`** to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -172,7 +172,7 @@ The `HelpWindow` is a window separate from the `MainWindow`. It shows our produc
 
 1. **`Logic`** uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the **`Model`** (e.g. adding a person) and/or raise events.
+3. The command execution can affect the **`Model`** (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the **`Logic`** component for the `execute("delete 1")`
@@ -201,7 +201,7 @@ The `Command` class takes input arguments from the `Parser`class, and produces a
 The **`Model`**
 * Stores a `UserPref` object that contains the user's preferences.
 * Stores task list's data.
-* Exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
     * However, other components are heavily dependent on this component.
@@ -433,7 +433,7 @@ Here are the steps to create a new release.
 
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, TaSc depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives:<br>
@@ -468,6 +468,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | User | Show only tasks/events with specified tag(s) and date | See only the related tasks/events from the list
 `* *` | User | Hide tasks/events with specified tag(s) and date | Hide tasks/events which I do not care about in the list
 `* *` | User | Undo my changes | Reverse any wrong action that was taken
+`* *` | User | View a calendar interface | Visualise all my tasks in a calendar format
 `*` | User | Convert an email to a task | Create a task based on email that I have received
 `*` | User | Add a location to a task | Make my event happen on a location
 `*` | User | See all free time within a time range | Easily schedule other tasks/events into a free time
