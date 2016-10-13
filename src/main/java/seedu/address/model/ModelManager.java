@@ -85,10 +85,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Filtered Task List Accessors ===============================================================
-
+    
+    /** The first run only gets undone tasks to populate the view **/
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+        Expression expression = new PredicateExpression(new DetailQualifier());
+    	return new UnmodifiableObservableList<>(filteredTasks.filtered(expression::satisfies));
     }
     
     @Override
