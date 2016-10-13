@@ -52,7 +52,7 @@ This guide describes the design and implementation of TasKitty. It will help you
 
 ### Architecture
 <p align="center">
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/Architecture.png" width="800"><br>
 
 <em>Architecture Diagram</em>
 </p>
@@ -79,39 +79,39 @@ The rest of the App consists four components.
 Each of the four components
 * defines its _API_ in an `interface` with the same name as the component.
 * exposes its functionality using a `{Component Name}Manager` class.
-
+<br></br>
 
 <p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 <em>Logic Class Diagram</em>
 </p>
-
+<br></br>
 
 For example, the `Logic` component (see the class diagram given above) defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-
+<br></br>
 
 <p align="center">
 <img src="images\SDforDeleteTask.png" width="800">
 
 <em>Sequence Diagram for Delete Task</em>
 </p>
-
+<br></br>
 
 The _Sequence Diagram_ above shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
-
+<br></br>
 
 <p align="center">
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
 <em>Sequence Diagram for Delete Task Event Handling</em>
 </p>
-
+<br></br>
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
