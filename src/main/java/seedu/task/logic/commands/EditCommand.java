@@ -1,5 +1,8 @@
 package seedu.task.logic.commands;
 
+import java.util.List;
+
+import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyTaskManager;
@@ -16,7 +19,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
  * Currently, it can only edit the name of a task.
  */
 
-public class EditCommand extends Command{
+public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the address book. "
             + "Parameters: Name n/newName p/phoneNumber"
@@ -32,19 +35,20 @@ public class EditCommand extends Command{
 	private Task copy, editedTask;
 	private int paramLength;
 	private String[] params;
+	private String newName;
 	private UnmodifiableObservableList<ReadOnlyTask> taskList;
-	private String taskName;
+	private int taskIndex;
 
 	/**
 	 * Constructor
 	 * @param name the name/identifier of the task
 	 * @param strings the parameters
 	 */
-	public EditCommand(String name, String... strings) {
-		taskName = name;
-		taskList = model.getFilteredTaskList();
+	public EditCommand(int index, String name, String... strings) {
+		taskIndex = index;
 		paramLength = strings.length;
 		params = strings;
+		newName = name;
 	}
 	
 	
@@ -54,25 +58,22 @@ public class EditCommand extends Command{
 	 * @return the specified task
 	 * @throws TaskNotFoundException if the task was not found
 	 */
-	public ReadOnlyTask searchTask(String name) throws TaskNotFoundException {
+	public ReadOnlyTask searchTask(int index) throws TaskNotFoundException {
 		assert !taskList.isEmpty();
-		boolean found = false;
-		for (int i = 0; i < taskList.size(); i++) {
-			if (taskList.get(i).getName().toString().equalsIgnoreCase(name)) {
-				found = true;
-				return taskList.get(i);
-			}
-		}
-		if (!found) {
-			throw new TaskNotFoundException();
-		}
-		return null;
+		return taskList.get(taskIndex - 1);
 	}
 
 	@Override
 	public CommandResult execute() {
+		taskList = model.getFilteredTaskList();
+		assert model != null;
+        if (taskList.size() < taskIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
 		try {
-			selectedTask = searchTask(taskName);
+			selectedTask = searchTask(taskIndex);
 			edit(selectedTask);
 			model.deleteTask(selectedTask);
 			model.addTask(editedTask);
@@ -93,7 +94,7 @@ public class EditCommand extends Command{
 	 */
 	public void edit(ReadOnlyTask task) throws IllegalValueException{
 		copy = (Task) selectedTask;
-		iterateParams(params);
+		iterateParams(newName, params);
 		editedTask = copy;
 	}
 	
@@ -102,17 +103,10 @@ public class EditCommand extends Command{
 	 * @param params array of parameters
 	 * @throws IllegalValueException if the parameters provided were incorrect
 	 */
-	public void iterateParams(String[] params) throws IllegalValueException{
-		if (paramLength % 2 != 0) {
-			throw new IllegalValueException("Incorrect parameters.");
-		} else {
-			for (int i = 0; i < paramLength; i += 2) {
-				if (params[i].equals("-n")) {
-					changeName(params[i+1]);
-				}
-			}
+	public void iterateParams(String name, String[] params) throws IllegalValueException{
+		if (name != null) {
+			changeName(newName);
 		}
-		
 	}
 	
 	/**
