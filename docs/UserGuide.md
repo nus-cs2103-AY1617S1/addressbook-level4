@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all contacts
-   * **`add`**` Homework  d/MathTut t/Mathematics dd/08102016` : 
+   * **`add`**` Homework  d/MathTut sd/09082016 dd/08102016` : 
      adds a task named `Homework` to the Task Management Tool.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -48,11 +48,11 @@ Format: `add TASK d/DESCRIPTION sd/START_DATE dd/DUE_DATE i/INTERVAL ti/TIME_INT
 Examples: 
 * `add Homework d/ProgrammingEx1 dd/06102016 i/7`
 
-#### Finding task : `view`
+#### List task : `list`
 Shows a list of upcoming task in the task management tool.<br>
-Format: `view KEYWORD [MORE_KEYWORDS]`
+Format: `list`
 Examples: 
-* `view Homework`<br>
+* `list`<br>
   Returns `Homework` but not `homework`
 
 
@@ -66,13 +66,6 @@ Format: `delete TASKID`
 Examples: 
 * `delete 1`<br> 
 
-
-#### View Task: `View`
-View Task Description
-Format: `View TASKID`
-
-Example:
-* `View 1`
 
 #### Add Category: `Assign`
 Assign Task to a category
@@ -116,7 +109,7 @@ Format: `color TASKID c/COLOR_VALUE`
 Examples: 
 * `color 0 c/RED` 
 
-<img src="images/LeowYijin.jpg" width="150"><br>
+
 
 ## FAQ
 
@@ -134,4 +127,4 @@ Delete | `delete TASKID`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
-Select | `select INDEX`
+Color | `color`
