@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /**
  * Represents a Task in Malitio.
- * Guarantees: details are present and not null, field values are validated.
+ * Guarantees: field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
@@ -29,7 +29,7 @@ public class Task implements ReadOnlyTask {
     }
     
     /**
-     *Constructor for deadlines. 
+     * Constructor for deadlines. 
      */
     public Task(Name name, DateTime due, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
@@ -39,7 +39,7 @@ public class Task implements ReadOnlyTask {
     }
     
     /**
-     *Constructor for events. 
+     * Constructor for events. 
      */
     public Task(Name name, DateTime start, DateTime end, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
