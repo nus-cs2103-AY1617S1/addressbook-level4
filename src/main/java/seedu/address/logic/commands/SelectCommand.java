@@ -38,7 +38,7 @@ public class SelectCommand extends Command {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(MESSAGE_SELECT_LAST_EMPTY_LIST);
             }
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(listSize));
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(listSize - 1));
             return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, listSize));
         }
 
