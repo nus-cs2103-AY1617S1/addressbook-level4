@@ -34,6 +34,10 @@ public class EditCommand extends Command {
     private UniqueTagList newTagList;
     private Name newName;
     
+    public EditCommand() {
+        taskIndex = 0;
+    }
+    
     /**
      * Convenience constructor using raw values.
      * //TODO: change to support FloatingTask, DeadlineTask and Events types as well
@@ -56,6 +60,7 @@ public class EditCommand extends Command {
         }
     }
     
+
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
@@ -73,5 +78,20 @@ public class EditCommand extends Command {
         model.editFloatingTask(taskIndex - 1, new FloatingTask(taskToReplace));
         
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToReplace));
+    }
+    
+    @Override
+    public boolean isValidCommandWord(String commandWord) {
+        for (int i = 1; i <= COMMAND_WORD.length(); i++) {
+            if (commandWord.equals(COMMAND_WORD.substring(0, i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }

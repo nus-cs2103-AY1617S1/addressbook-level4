@@ -25,7 +25,11 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
 
     private final ReadOnlyTask toAdd;
-
+    
+    public AddCommand() {
+        toAdd = null;
+    }
+    
     /**
      * Convenience constructor using raw values.
      *
@@ -44,7 +48,7 @@ public class AddCommand extends Command {
                     new DeadlineTask(new Name(name), new DateTime(dateTime), new UniqueTagList(tagSet));
         }
     }
-
+    
     @Override
     public CommandResult execute() {
         assert model != null;
@@ -54,7 +58,21 @@ public class AddCommand extends Command {
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-
+        
+    }
+    
+    @Override
+    public boolean isValidCommandWord(String commandWord) {
+        for (int i = 1; i <= COMMAND_WORD.length(); i++) {
+            if (commandWord.equals(COMMAND_WORD.substring(0, i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }
