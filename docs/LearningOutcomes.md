@@ -108,7 +108,7 @@ Note [how the AddressBook app uses Gradle to automate build tasks](UsingGradle.m
 
 ## Use Continuous Integration `[LO-ContinuousIntegration]`
 
-Note [how the AddressBook app uses Travis to perform Continuous Integration](UsingTravis.md).
+Note [how the Savvy Tasker app uses Travis to perform Continuous Integration](UsingTravis.md).
 
 **Resources**
  * Tutorials
