@@ -317,14 +317,44 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
+        
+        final Matcher itemIndexesMatcher = ITEM_INDEXES_ARGS_FORMAT.matcher(args.trim());
+        final Matcher itemIndexMatcher = ITEM_INDEX_ARGS_FORMAT.matcher(args.trim());
 
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        if(itemIndexMatcher.matches()) {
+            Optional<Integer> index = parseIndex(args);
+            if(!index.isPresent()) {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
+            return new DeleteCommand(index.get());
         }
 
-        return new DeleteCommand(index.get());
+        else if(itemIndexesMatcher.matches()) {
+            // separate into the different indexes
+            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.trim().split("[^0-9]*")));
+            for(String indexString : indexList) {
+                if(indexString.equals("")) {
+                    indexList.remove(indexString);
+                }
+            }
+            ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
+            
+            for(String indexInList: indexList) {
+                Optional<Integer> index = parseIndex(indexInList);
+                if(!index.isPresent()) {
+                    return new IncorrectCommand(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, "test"));
+                }
+                else {
+                    indexesToDelete.add(index.get());
+                }
+            }
+            return new DeleteCommand(indexesToDelete);
+        }
+        else {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
     }
 
     /**

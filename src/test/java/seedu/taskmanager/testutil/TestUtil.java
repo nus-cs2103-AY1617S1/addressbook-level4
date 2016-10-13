@@ -310,8 +310,8 @@ public class TestUtil {
         TestItem[] itemsToRemove = new TestItem[targetIndexes.length];
         int numToRemove = 0;
         for (int targetIndex : targetIndexes) {
-                itemsToRemove[numToRemove] = list[targetIndex-1];
-                numToRemove += 1;
+            itemsToRemove[numToRemove] = list[targetIndex-1];
+            numToRemove += 1;
         }
 
         return removeItemsFromList(list, itemsToRemove);
