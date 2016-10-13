@@ -1,0 +1,7 @@
+{
+  "appTitle" : "SUDOWUDO",
+  "logLevel" : "INFO",
+  "userPrefsFilePath" : "preferences.json",
+  "taskBookFilePath" : "data/taskbook.xml",
+  "taskBookName" : "MyTaskBook"
+}
