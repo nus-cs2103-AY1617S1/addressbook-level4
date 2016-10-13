@@ -9,8 +9,9 @@ import tars.model.task.ReadOnlyTask;
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
-
-    private static final String NO_START_DATE = "None";
+    private static final String PRIORITY_HIGH = "high";
+    private static final String PRIORITY_MEDIUM = "MEDIUM";
+    private static final String PRIORITY_LOW = "LOW";
 
     @FXML
     private HBox cardPane;
@@ -46,7 +47,7 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().taskName);
-        priority.setText(task.priorityString());
+        setPriority(task);
         id.setText(displayedIndex + ". ");
         if (task.getDateTime().startDateString != null) {
             startDate.setText(task.getDateTime().startDateString);
@@ -57,6 +58,30 @@ public class TaskCard extends UiPart{
         endDate.setText(task.getDateTime().endDateString);
         status.setText(task.getStatus().toString());
         tags.setText(task.tagsString());
+    }
+
+    /**
+     * Sets colors to priority label based on task's priority
+     * 
+     * @@author A0121533W
+     */
+    private void setPriority(ReadOnlyTask task) {
+        switch (task.priorityString()) {
+        case PRIORITY_HIGH:
+            priority.setText(task.priorityString());
+            priority.setStyle("-fx-text-fill: red");
+            break;
+        case PRIORITY_MEDIUM:
+            priority.setText(task.priorityString());
+            priority.setStyle("-fx-text-fill: orange");
+            break;
+        case PRIORITY_LOW:
+            priority.setText(task.priorityString());
+            priority.setStyle("-fx-text-fill: green");
+            break;  
+        default:
+            priority.setText(task.priorityString());
+        }
     }
 
     public HBox getLayout() {
