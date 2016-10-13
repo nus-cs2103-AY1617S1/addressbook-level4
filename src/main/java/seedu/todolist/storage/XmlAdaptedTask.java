@@ -14,6 +14,18 @@ public class XmlAdaptedTask {
     private String name;
 
     @XmlElement
+    private String startDate;
+    
+    @XmlElement
+    private String startTime;
+    
+    @XmlElement
+    private String endDate;
+    
+    @XmlElement
+    private String endTime;
+    
+    @XmlElement
     private String locationParameter;
     
     @XmlElement
@@ -32,6 +44,10 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
+        startDate = source.getInterval().getStartDate().toString();
+        startTime = source.getInterval().getStartTime().toString();
+        endDate = source.getInterval().getEndDate().toString();
+        endTime = source.getInterval().getEndTime().toString();
         locationParameter = source.getLocationParameter().toString();
     }
 
@@ -42,8 +58,9 @@ public class XmlAdaptedTask {
      */
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
+        final Interval interval = new Interval(this.startDate, this.startTime, this.endDate, this.endTime);
         final LocationParameter location = new LocationParameter(this.locationParameter);
         final RemarksParameter remarks = new RemarksParameter(this.remarksParameter);
-        return new Task(name, location, remarks);
+        return new Task(name, interval, location, remarks);
     }
 }

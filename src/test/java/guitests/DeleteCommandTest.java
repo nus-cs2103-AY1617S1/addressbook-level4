@@ -15,17 +15,20 @@ public class DeleteCommandTest extends AddressBookGuiTest {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
+        System.out.println("DELETE FIRST... SIZE " + currentList.length);
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete the last in the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
+        System.out.println("DELETE LAST... SIZE " + currentList.length);
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete from the middle of the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
+        System.out.println("DELETE MIDDLE... SIZE " + currentList.length);
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
@@ -41,6 +44,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        System.out.println("DELETED " + taskToDelete.getName());
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);

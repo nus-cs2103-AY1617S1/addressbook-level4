@@ -7,9 +7,8 @@ package seedu.todolist.model.task;
 public interface ReadOnlyTask {
 
     Name getName();
-    
-    LocationParameter getLocationParameter();
-    
+    Interval getInterval();
+    LocationParameter getLocationParameter();  
     RemarksParameter getRemarksParameter();
 
     /**

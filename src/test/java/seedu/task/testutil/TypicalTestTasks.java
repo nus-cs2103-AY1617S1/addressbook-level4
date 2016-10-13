@@ -9,21 +9,31 @@ import seedu.todolist.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask  campaign, dinnerMum, dinnerDad, dinnerChristmas, meeting, wedding;
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withLocationParameter("home").build();
-            benson = new TaskBuilder().withName("Benson Meier").withLocationParameter("Kent Ridge MRT Station").build();
-            carl = new TaskBuilder().withName("Carl Kurz").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").build();
-            elle = new TaskBuilder().withName("Elle Meyer").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").build();
-            george = new TaskBuilder().withName("George Best").build();
-
+            campaign =  new TaskBuilder().withName("Student Campaign")
+                    .withInterval("13/10/2016", "9:30am", "18/10/2016", "6pm")
+                    .withLocationParameter("NUS").build();
+            dinnerMum = new TaskBuilder().withName("Dinner with mum")
+                    .withInterval("14 oct 2016", "7pm", "14 oct 2016", "8:30pm")
+                    .withLocationParameter("Star Vista").build();
+            dinnerDad = new TaskBuilder().withName("Dinner with dad")
+                    .withInterval("24 oct 2016", "7pm", "24 oct 2016", "8:30pm")
+                    .withLocationParameter("Buona Vista").build();
+            dinnerChristmas = new TaskBuilder().withName("Christmas dinner")
+                    .withInterval("25 dec 2016", "7pm", "25 dec 2016", "8:30pm")
+                    .withLocationParameter("Orchard").build();
+          
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").build();
-            ida = new TaskBuilder().withName("Ida Mueller").build();
+            meeting = new TaskBuilder().withName("ABC project meeting")
+                    .withInterval("12 oct 2016", "10:00am", "12 oct 2016", "11am")
+                    .withLocationParameter("Orchard").build();
+            wedding = new TaskBuilder().withName("Jimmy wedding")
+                    .withInterval("15 oct 2016", "6:30pm", "15 oct 2016", "11pm")
+                    .withLocationParameter("Orchard").build();
+
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -33,20 +43,17 @@ public class TypicalTestTasks {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
+            ab.addTask(new Task(campaign));
+            ab.addTask(new Task(dinnerMum));
+            ab.addTask(new Task(dinnerDad));
+            ab.addTask(new Task(dinnerChristmas));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[]{campaign, dinnerMum, dinnerDad, dinnerChristmas};
     }
 
     public AddressBook getTypicalAddressBook(){
