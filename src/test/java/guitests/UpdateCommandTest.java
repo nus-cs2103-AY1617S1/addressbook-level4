@@ -6,14 +6,15 @@ import org.junit.Test;
 import seedu.address.logic.commands.UpdateCommand;
 import static seedu.address.logic.commands.UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
-
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.*;
 
 public class UpdateCommandTest extends AddressBookGuiTest {
 	@Test
-    public void update() {
+    public void update() throws IllegalValueException {
 	    TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         
@@ -28,13 +29,20 @@ public class UpdateCommandTest extends AddressBookGuiTest {
         
         currentList = TestUtil.replaceTaskFromList(currentList, td.ida, targetIndex);
         targetIndex = 1;
-        
-        // update only tags
+
+        // add new tags
+        Tag tagToAdd = new Tag("urgent");
         commandBox.runCommand("update " + targetIndex + " t/urgent");
+        ReadOnlyTask newTask = taskListPanel.getTask(targetIndex - 1);
+        assertTrue(newTask.getTags().contains(tagToAdd));
+        
+        // remove existing tags
+        commandBox.runCommand("update " + targetIndex + " rt/urgent");
+        newTask = taskListPanel.getTask(targetIndex - 1);
+        assertTrue(!newTask.getTags().contains(tagToAdd));
         
         // update with no changes
         commandBox.runCommand("update " + targetIndex);
-        
         TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
         assertMatching(td.hoon, updatedCard);
         
