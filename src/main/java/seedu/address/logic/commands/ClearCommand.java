@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.AddressBook;
-
 /**
  * Clears the address book.
  */
@@ -16,7 +14,8 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(AddressBook.getEmptyAddressBook());
+		// TODO: Uncomment when Model has been converted to Taskbook
+		// model.resetData(AddressBook.getEmptyAddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
