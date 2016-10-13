@@ -12,6 +12,10 @@ public interface ReadOnlyItem {
 
 	Description getDescription();
 
+	boolean getIsDone();
+	
+	// THIS IS TEMPORARY (@darren)
+	void setIsDone(boolean doneness);
 	
 	/**
 	 * These return the start and end dates of the item (if they exist). If not,
