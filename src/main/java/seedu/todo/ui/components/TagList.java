@@ -23,7 +23,6 @@ public class TagList extends Component {
     private static final String COMPLETED_LABEL = "Completed Tasks";
     private static final String COMPLETED_ICON_PATH = "/images/icon-tick.png";
     private static final String TAG_LABEL = "Tags";
-    private static final String SPACE = " ";
     
     // Props
     public List<String> tags; // stub
@@ -57,7 +56,7 @@ public class TagList extends Component {
     }
     
     private String formatTagSize(int size) {
-        return TAG_LABEL + SPACE + String.format("(%s)", size);
+        return String.format("%s (%s)",TAG_LABEL, size);
     }
     
     private void loadLinks() {

@@ -11,7 +11,6 @@ public class TaskListTaskItem extends MultiComponent {
 
     private static final String FXML_PATH = "components/TaskListTaskItem.fxml";
     private static final String DOT = ".";
-    private static final String SPACE = " ";
     
     // Props
     public Task task;
@@ -36,7 +35,7 @@ public class TaskListTaskItem extends MultiComponent {
     }
     
     private String formatTaskText(int index, String taskName) {
-        return index + DOT + SPACE + taskName;
+        return String.format("%s %s", index + DOT, taskName);
     }
 
 }

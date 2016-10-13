@@ -15,7 +15,6 @@ public class DateUtil {
 
     private static final String FROM_NOW = "later";
     private static final String TILL_NOW = "ago";
-    private static final String SPACE  = " ";
     private static final String TODAY = "Today";
     private static final String TOMORROW = "Tomorrow";
     private static final String DAY = "day";
@@ -56,17 +55,17 @@ public class DateUtil {
 
         // Consider today's date.
         if (date.isEqual(LocalDate.now())) {
-            return TODAY + SPACE + formatDateDisplay(date, true);
+            return String.format("%s %s", TODAY, formatDateDisplay(date, true));
         }
         
         if (daysDifference == 1) {
-            return TOMORROW + SPACE + formatDateDisplay(date, true);
+            return String.format("%s %s", TOMORROW, formatDateDisplay(date, true));
         }
 
         // Consider dates up to 6 days from today.
         if (daysDifference > 1 && daysDifference <= 6) {
-            return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US) + SPACE + 
-                    formatDateDisplay(date, false);
+            return String.format("%s %s", date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US), formatDateDisplay(date, false));
+                   
         }
 
         // Otherwise, dates should be a relative days ago/from now format.
@@ -84,13 +83,11 @@ public class DateUtil {
     private static String formatDateDisplay(LocalDate date, boolean withDaysOfWeek) {
         //return with the days of the week
         if (withDaysOfWeek) {
-            return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3) + SPACE + 
-                    date.getDayOfMonth() + SPACE + 
-                    date.getMonth().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3);
+            return String.format("%s %s %s", date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3),
+                    date.getDayOfMonth(), date.getMonth().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3));
         }
         else {
-            return date.getDayOfMonth() + SPACE + 
-                    date.getMonth().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3);
+            return String.format("%s %s", date.getDayOfMonth(), date.getMonth().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3));            
         }
     }
 
