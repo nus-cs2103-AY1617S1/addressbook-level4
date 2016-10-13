@@ -115,6 +115,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
   coupling between components.
 
 The sections below give more details of each component.
+
 <br>
 <br>
 
@@ -201,7 +202,7 @@ and logging destinations.
   (See [Configuration](#configuration))
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* Currently log messages are output through: `Console` and to a `.log` file.<br>
 <br>
 
 **Logging Levels**
@@ -211,13 +212,18 @@ and logging destinations.
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
+  
+<br>
+<br>
 
 ### Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
-(default: `config.json`):
+(default: `config.json`).
+
 <br>
 <br>
+
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
@@ -253,6 +259,8 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
  
+ <br>
+ 
 #### Troubleshooting tests
  **Problem: Tests fail because NullPointException when AssertionError is expected**
  * Reason: Assertions are not enabled for JUnit tests. 
@@ -260,17 +268,24 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  * Solution: Enable assertions in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
-  
+
+<br>
+<br>
+
 ## Dev Ops
 
 ### Build Automation
 
 See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
+<br>
+
 ### Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
 See [UsingTravis.md](UsingTravis.md) for more details.
+
+<br>
 
 ### Making a Release
 
@@ -280,6 +295,8 @@ Here are the steps to create a new release.
  2. Tag the repo with the version number. e.g. `v0.1`
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
+    
+<br>
    
 ### Managing Dependencies
 
@@ -289,6 +306,9 @@ can be automated using Gradle. For example, Gradle can download the dependencies
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+
+<br>
+<br>
 
 <a id="app-a"></a>
 ## Appendix A : User Stories 
@@ -320,6 +340,8 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | advanced user | assign custom command shortcuts | suit my preferences for better accessibility and convenience
 `*` | user | view current output of the input command in real time | check whether its the expected result of the command
 
+<br>
+<br>
 
 <a id="app-b"></a>
 ## Appendix B : Use Cases 
@@ -333,6 +355,9 @@ Priority | As a ... | I want to ... | So that I can...
 1. User requests a list of all commands.
 2. App shows list of all commands with guides on how to use the different commands. <br>
 Use case ends.
+
+<br>
+<br>
 
 #### Use case: Add task/event
 
@@ -352,6 +377,9 @@ Use case ends.
 1b. User enters a event with overlapping time with another event.
 > 1b1. App shows user a notification and continues with the addition. <br>
 > Use case ends.
+
+<br>
+<br>
 
 ####Use case: Complete task 
 
@@ -379,6 +407,9 @@ Use case ends.
 > 4a1. App shows an error message.
 > Use case resumes at step 3. <br>
 
+<br>
+<br>
+
 ####Use case: Delete task/event
 
 **MSS**
@@ -404,6 +435,9 @@ Use case ends.
 
 > 4a1. App shows an error message to user. <br>
 > Use case resumes at step 3.
+
+<br>
+<br>
 
 ####Use case: Edit task/event.
 
@@ -446,6 +480,9 @@ Use case ends.
 > 4d1. App shows notification and continues the editing of the details. <br>
 > Use case ends.
 
+<br>
+<br>
+
 ####Use case: Undo action
 
 **MSS** 
@@ -466,6 +503,9 @@ Use case ends.
 >1b1. App shows an error message to user. <br>
 > Use case ends.
 
+<br>
+<br>
+
 ####Use case: Find task/event
 
 **MSS** 
@@ -481,6 +521,9 @@ Use case ends.
 >2a1. App shows message to user and displays an empty list to user. <br>
 > Use case ends.
 
+<br>
+<br>
+
 ####Use case: View all incomplete tasks
 
 **MSS** 
@@ -495,6 +538,9 @@ Use case ends.
 > 2a1. App shows message to user and displays an empty list to user. <br>
 > Use case ends.
 
+<br>
+<br>
+
 ####Use case: View all completed tasks
 
 **MSS** 
@@ -508,6 +554,9 @@ Use case ends.
 2a. There are no completed tasks.
 > 2a1. App shows message to user and displays an empty list to user. <br>
 > Use case ends.
+
+<br>
+<br>
 
 ####Use case: Set save directory
 
@@ -528,6 +577,9 @@ Use case ends.
 
 >1b1. App shows error message to user. <br>
 > Use case ends.
+
+<br>
+<br>
 
 ####Use case: Clear TaskBook
 
@@ -551,6 +603,9 @@ Use case ends.
 >3a1. App shows message to user. <br>
 > Use case ends.
 
+<br>
+<br>
+
 ####Use case: Exit application
 
 **MSS**
@@ -559,6 +614,8 @@ Use case ends.
 2. Application closes itself. <br>
 Use case ends.
 
+<br>
+<br>
 
 <a id="app-c"></a>
 ## Appendix C : Non Functional Requirements 
@@ -578,26 +635,38 @@ Use case ends.
 13. Should be able to hold tasks up to one year onwards.
 14. Should recover from major errors efficiently.
 
+<br>
+<br>
 
 <a id="app-d"></a>
 ## Appendix D : Glossary 
-
 
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
 
+<br>
+
 ##### Mainstream OS
 > Windows, Linux, OS-X
+
+<br>
 
 ##### Natural Language Commands
 > Commands formatted in a language that has developed naturally in use and is intuitive for humans to understand. (as contrasted with an artificial language or computer code).
 
+<br>
+
 ##### Natural Language Processing
-> A branch of artificial intelligence that deals with analyzing, understanding and generating the languages that humans use naturally in order to interface with computers in both written and spoken contexts using natural human languages instead of computer languages
+> A branch of artificial intelligence that deals with analyzing, understanding and generating the languages that humans use naturally in order to interface with computers in both written and spoken contexts using natural human languages instead of computer languages.
+
+<br>
 
 ##### Command-line interface
 > User interface to a computer's operating system or an application in which the user responds to a visual prompt by typing in a command on a specified line, receives a response back from the system, and then enters another command, and so forth.
+
+<br>
+<br>
 
 <a id="app-e"></a>
 ## Appendix E : Product Survey 
