@@ -61,7 +61,7 @@ public class AddCommand extends Command {
     }
     
     /**
-     * Convenience constructor for deadlines using raw values.
+     * Convenience constructor for events using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -71,6 +71,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        // check if start < end
         this.toAdd = new Task(
                 new Name(name),
                 new DateTime(start),

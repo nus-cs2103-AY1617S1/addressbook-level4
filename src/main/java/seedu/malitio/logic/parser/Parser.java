@@ -183,8 +183,6 @@ public class Parser {
                 if (end.matches("[^\\d]+")) {
                     return "";
                 } else if (!end.matches("\\d{8} \\d{4}")) {
-                    return end;
-                } else {
                     throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
                 }
             } catch (IndexOutOfBoundsException iob){
