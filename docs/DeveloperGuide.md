@@ -51,11 +51,13 @@ This guide describes the design and implementation of TasKitty. It will help you
 ## Design
 
 ### Architecture
+<br></br>
 <p align="center">
 <img src="images/Architecture.png" width="800"><br>
 
 <em>Architecture Diagram</em>
 </p>
+<br></br>
 
 The **_Architecture Diagram_** given above explains the high-level design of the task manager.
 Given below is a quick overview of each component.
@@ -93,7 +95,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <br></br>
 
 <p align="center">
-<img src="images\SDforDeleteTask.png" width="800">
+<img src="images\SDforDeleteTask.png" width="800"><br>
 
 <em>Sequence Diagram for Delete Task</em>
 </p>
@@ -107,7 +109,7 @@ command `delete 1`.
 <br></br>
 
 <p align="center">
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+<img src="images\SDforDeleteTaskEventHandling.png" width="800"><br>
 
 <em>Sequence Diagram for Delete Task Event Handling</em>
 </p>
@@ -123,12 +125,13 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 The sections below give more details of each component.
 
 ### UI component
-
+<br></br>
 <p align="center">
 <img src="images/UiClassDiagram.png" width="800"><br>
 
 <em>UI Class Diagram</em>
 </p>
+<br></br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/taskitty/ui/Ui.java)
 
@@ -146,12 +149,13 @@ The `UI` component
 * responds to events raised from various parts of the App and updates the UI accordingly.
 
 ### Logic component
-
+<br></br>
 <p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 <em>Logic Class Diagram</em>
 </p>
+<br></br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/taskitty/logic/Logic.java)
 
@@ -159,23 +163,26 @@ The `UI` component
 * This results in a `Command` object which is executed by the `LogicManager`.
 * The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 * The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+<br></br>
 
 <p align="center">
 <img src="images/DeleteTaskSDforLogic.png" width="800"><br>
 
 <em>Delete Task Sequence Diagram for Logic</em>
 </p>
+<br></br>
 
 Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
 API call.<br>
 
 ### Model component
-
+<br></br>
 <p align="center">
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
 <em>Model Class Diagram</em>
 </p>
+<br></br>
 
 **API** : [`Model.java`](../src/main/java/seedu/taskitty/model/Model.java)
 
@@ -187,12 +194,13 @@ The `Model`component
 * does not depend on any of the other three components.
 
 ### Storage component
-
+<br></br>
 <p align="center">
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
 <em>Storage Class Diagram</em>
 </p>
+<br></br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/taskitty/storage/Storage.java)
 
