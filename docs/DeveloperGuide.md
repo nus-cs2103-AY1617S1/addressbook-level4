@@ -291,7 +291,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | do a near-match search | find the tasks I require more conveniently
 `* *` | user | filter out tasks or events with certain characteristics | find all tasks that match the attributes I require
 `*` | user | let the software automatically predict my required command | do what I need more conveniently and quickly
-`*`` | advanced user | assign custom command shortcuts | suit my preferences for better accessibility and convenience
+`*` | advanced user | assign custom command shortcuts | suit my preferences for better accessibility and convenience
 `*` | user | view current output of the input command in real time | check whether its the expected result of the command
 
 
