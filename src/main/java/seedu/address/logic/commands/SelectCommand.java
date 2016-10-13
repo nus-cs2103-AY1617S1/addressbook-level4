@@ -21,6 +21,7 @@ public class SelectCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
+    public static final String MESSAGE_SELECT_LAST_EMPTY_LIST = "No last task to select";
 
     public SelectCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -32,8 +33,13 @@ public class SelectCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if(targetIndex == -1){ //Indicates a select last command
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredTaskList().size()));
-            return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, model.getFilteredTaskList().size()));
+            int listSize = model.getFilteredTaskList().size();
+            if(listSize < 1){
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(MESSAGE_SELECT_LAST_EMPTY_LIST);
+            }
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(listSize));
+            return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, listSize));
         }
 
         if (lastShownList.size() < targetIndex) {
