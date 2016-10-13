@@ -23,7 +23,7 @@ public interface Model {
     /** Adds the given task. */
     void addTask(Task person) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all persons */
@@ -31,5 +31,8 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
+    /** Adds the given task to a specific position*/
+    void insertTask(int index, Task toAdd) throws UniqueTaskList.DuplicateTaskException;
 
 }

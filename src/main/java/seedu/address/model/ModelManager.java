@@ -77,6 +77,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+	@Override
+	public void insertTask(int index, Task toAdd) throws UniqueTaskList.DuplicateTaskException {
+		addressBook.insertTask(index, toAdd);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+	}
+
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override

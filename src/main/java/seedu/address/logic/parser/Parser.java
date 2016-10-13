@@ -30,8 +30,19 @@ public class Parser {
             Pattern.compile("(?<description>[^/]+)"
                     + "( pr/)?(?<priority>([^/]+)?)"
                     + "( time/)?(?<time>([^/]+)?)"
-                    + "( a/)?(?<venue>([^/]+)?)"
+                    + "( d/)?(?<date>([^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    private static final Pattern TAG_ADD_ARGS_FORMAT =
+    		Pattern.compile("(?<targetIndex>.+)" + "(?<tag>([^/]+)?)");
+
+    private static final Pattern TAG_DELETE_ARGS_FORMAT =
+    		Pattern.compile("(?<targetIndex>.+)" + "(?<tag>([^/]+)?)");
+
+    private static final Pattern TASK_UPDATE_ARGS_FORMAT =
+    		Pattern.compile("(?<targetIndex>.+)"
+    				+ "(?<arguments>.*)"
+                    + "(?<info>.*)");
 
     public Parser() {}
 
@@ -59,6 +70,15 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+
+        case AddTagCommand.COMMAND_WORD:
+        	return prepareAddTag(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+        	return prepareDeleteTag(arguments);
+
+        case UpdateCommand.COMMAND_WORD:
+        	return prepareUpdate(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -97,7 +117,7 @@ public class Parser {
                     matcher.group("description"),
                     matcher.group("priority"),
                     matcher.group("time"),
-                    matcher.group("venue"),
+                    matcher.group("date"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
@@ -187,6 +207,72 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+
+    private Command prepareAddTag(String args){
+    	final Matcher matcher = TAG_ADD_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddTagCommand.MESSAGE_USAGE));
+        }
+
+
+		String[] command = args.trim().split(" ");
+        Optional<Integer> index = parseIndex(command[0]);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+        }
+
+		try {
+			return new AddTagCommand(index.get(),command[1]);
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(e.getMessage());
+		}
+    }
+
+    private Command prepareDeleteTag(String args){
+    	final Matcher matcher = TAG_DELETE_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteTagCommand.MESSAGE_USAGE));
+        }
+
+
+		String[] command = args.trim().split(" ");
+        Optional<Integer> index = parseIndex(command[0]);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
+        }
+
+		try {
+			return new DeleteTagCommand(index.get(),command[1]);
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(e.getMessage());
+		}
+    }
+
+    private Command prepareUpdate(String args){
+        final Matcher matcher = TASK_UPDATE_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+
+        String[] command = args.trim().split(" ");
+        Optional<Integer> index = parseIndex(command[0]);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+
+
+        try {
+            	return new UpdateCommand(Integer.parseInt(command[0]),command[1],command[2]);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
 }

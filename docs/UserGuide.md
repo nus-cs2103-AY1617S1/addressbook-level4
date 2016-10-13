@@ -63,12 +63,12 @@ Examples:
 
 ##### Add tags: `add tag`
 Add tags to specified task.<br>
-Format: `add tag INDEX TAG [MORE_TAGS]`
+Format: `addTag INDEX TAG`
 
 Example:
 * `list`<br>
-  `add tag 2 friend NUS`<br>
-  Adds the tags `friend` and `NUS` to the 2nd contact selected
+  `add tag 2 NUS`<br>
+  Adds the tag `NUS` to the task with the index 2
 
 
 #### List all tasks/tags
@@ -122,19 +122,19 @@ Examples:
 
 ##### Delete tags from a task: `delete tag`
 Delete tags from specified task.<br>
-Format: `delete tag INDEX TAG [MORE_TAGS]`
+Format: `deleteTag INDEX TAG`
 
 Example:
 * `list`<br>
-  `delete tag 3 foe NTU`<br>
-  Removes the tags `foe` and `NTU` from the 3rd contact selected
+  `deleteTag 3 NTU`<br>
+  Removes the tag `NTU` from the task with the index 3
 
 
 #### Edit a task: `edit`
 Edits the specified task.<br>
-Format: `edit INDEX INPUT [MORE_INPUT]`
+Format: `update INDEX PROPERTY INPUT`
 
-> * Edits the task by replacing the information stored with the input accordingly
+> * Edits a property of the task with the input index by replacing the information stored with the new information accordingly
 > * Inputs are the same as specified in the `add` functions
 > * Entries can be removed by calling the modifier but not specifying anything
 
@@ -186,11 +186,11 @@ There is no need to save manually.
 Command | Format
 -------- | :--------
 Add Task | `add DESCRIPTION [pr/RANK] [time/TIME] [a/VENUE] [t/TAG]...`
-Add Tag | `add tag INDEX TAG [MORE_TAGS]`
+Add Tag | `addTag INDEX TAG`
 Clear | `clear`
 Delete Task | `delete INDEX`
-Delete Tags | `delete tag INDEX TAG [MORE_TAGS]`
-Edit | `edit INDEX INPUT [MORE_INPUT]`
+Delete Tags | `deleteTag INDEX TAG`
+Edit | `update INDEX PROPERTY NEW_INFORMATION `
 Find Tasks | `find KEYWORD [MORE_KEYWORDS]`
 List Tasks | `list [-pr] [-t/TAG]...`
 List Tags | `list tags`

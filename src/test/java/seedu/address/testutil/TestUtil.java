@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Description("Ali Muster"), new Priority("high"), new Time(""), new Venue("311 Somerset"), new UniqueTagList()),
-                    new Task(new Description("Boris Mueller"), new Priority("low"), new Time("11:11"), new Venue("Home"), new UniqueTagList()),
-                    new Task(new Description("Carl Kurz"), new Priority(""), new Time("thurs"), new Venue("JCube"), new UniqueTagList()),
-                    new Task(new Description("Daniel Meier"), new Priority("high"), new Time("12:00"), new Venue("ICA"), new UniqueTagList()),
-                    new Task(new Description("Elle Meyer"), new Priority("low"), new Time("00:00"), new Venue("TechnoEdge"), new UniqueTagList()),
-                    new Task(new Description("Fiona Kunz"), new Priority("low"), new Time("Mon"), new Venue(""), new UniqueTagList()),
-                    new Task(new Description("George Best"), new Priority(""), new Time("Sunday"), new Venue("Tuas Checkpoint"), new UniqueTagList()),
-                    new Task(new Description("Hoon Meier"), new Priority("high"), new Time("13:58"), new Venue(""), new UniqueTagList()),
-                    new Task(new Description("Ida Mueller"), new Priority(""), new Time("9:10"), new Venue("Camp"), new UniqueTagList())
+                    new Task(new Description("Ali Muster"), new Priority("high"), new Time(""), new Date("11.10.2016"), new UniqueTagList()),
+                    new Task(new Description("Boris Mueller"), new Priority("low"), new Time("11:11"), new Date("11.10.2016"), new UniqueTagList()),
+                    new Task(new Description("Carl Kurz"), new Priority(""), new Time("thurs"), new Date("11.10.2016"), new UniqueTagList()),
+                    new Task(new Description("Daniel Meier"), new Priority("high"), new Time("12:00"), new Date("11.10.2016"), new UniqueTagList()),
+                    new Task(new Description("Elle Meyer"), new Priority("low"), new Time("00:00"), new Date("11.10.2016"), new UniqueTagList()),
+                    new Task(new Description("Fiona Kunz"), new Priority("low"), new Time("Mon"), new Date(""), new UniqueTagList()),
+                    new Task(new Description("George Best"), new Priority(""), new Time("Sunday"), new Date("11.10.2016"), new UniqueTagList()),
+                    new Task(new Description("Hoon Meier"), new Priority("high"), new Time("13:58"), new Date(""), new UniqueTagList()),
+                    new Task(new Description("Ida Mueller"), new Priority(""), new Time("9:10"), new Date("11.10.2016"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
