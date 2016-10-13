@@ -259,11 +259,11 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskManager(), taskList);
     }
 
-    @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
-    }
+//    @Test
+//    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
+//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
+//        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
+//    }
 
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
@@ -290,12 +290,12 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("del", expectedMessage);
     }
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("delete");
+        assertIndexNotFoundBehaviorForCommand("del");
     }
 
     @Test
