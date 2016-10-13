@@ -116,6 +116,9 @@ Each component has a interface which all its classes implements and is named aft
 
 **UI component**
 
+> <img src="DeveloperGuideImages/UI_01.png" width="600">
+
+
 The UI component focuses on interacting with the user by displaying the necessary information to the user when requested. It is also responsible for the outlook of the application. The UI component consists of the abstract UiPart class which is the base class for the UI parts and each &quot;UI part&quot; is represented by a distinct part of the UI such as the panels or status bars.
 
 In essence, the UI makes use of JavaFx UI framework and majority of the classes import javafx methods. The various layouts of each &quot;UI part&quot; are stores as .fxml files in the src/main/resources/viewfolder. These files are named according to the respective class names. For example, the layout of the HelpWindow.java is stored in src/main/resources/view/HelpWindow.fxml
@@ -163,6 +166,8 @@ The UI component,
 
 **Logic component**
 
+> <img src="DeveloperGuideImages/Logic_01.png" width="600">
+
 The Logic component consists of the Parser class which is responsible to taking in the inputs from the UI component, deciphering it, and then creating a Command class that can handle the user&#39;s input correctly. LogicManager will then execute the command.
 
 
@@ -187,6 +192,8 @@ TheLogiccomponent,
 
 **Model component**
 
+> <img src="DeveloperGuideImages/Model_01.png" width="600">
+
 The Model component is mainly responsible for executing the outputs from the Logic component. It is also responsible for storing all the in-app data such as the user&#39;s preferences anddata which is needed when executing commands.
 
 **API**
@@ -199,6 +206,8 @@ ModelManager is able to:
 2. 2)Store _Unburden&#39;s_ data
 
 **Storage component**
+
+> <img src="DeveloperGuideImages/Storage_01.png" width="600">
 
 The Storage component primarily focuses on storing data. Any data related to the application will be saved within Storage and can be accessed later when requested. Storage works closely with Modelto read and write data from the app as and when the user requests to add or show existing data.
 
