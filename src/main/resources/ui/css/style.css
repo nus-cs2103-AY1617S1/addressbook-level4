@@ -146,7 +146,7 @@ VBox.header {
   -fx-font-size: 12px;
 }
 
-.tasklist-taskitem-checkmarkcircle {
+.tasklist-checkmarkcircle {
   -fx-fill: transparent;
   -fx-stroke: #dddddd;
 }

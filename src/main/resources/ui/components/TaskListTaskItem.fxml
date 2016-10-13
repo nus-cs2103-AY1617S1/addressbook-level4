@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.shape.Circle?>
@@ -12,7 +13,7 @@
   <children>
   
     <Text fx:id="rowIndex" styleClass="tasklist-rowindex" HBox.hgrow="NEVER" wrappingWidth="20.0" />
-    <Circle fx:id="taskCheckMarkCircle" styleClass="tasklist-taskitem-checkmarkcircle" radius="10">
+    <Circle fx:id="taskCheckMarkCircle" styleClass="tasklist-checkmarkcircle" radius="10">
       <HBox.margin>
         <Insets right="10.0" />
       </HBox.margin>

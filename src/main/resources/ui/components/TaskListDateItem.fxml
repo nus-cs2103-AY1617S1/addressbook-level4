@@ -13,11 +13,7 @@
 
     <HBox alignment="BOTTOM_LEFT">
       <children>
-        <Text fx:id="dateHeader" styleClass="font-300, tasklist-dateitem-dateheader" VBox.vgrow="ALWAYS">
-          <HBox.margin>
-            <Insets left="20.0" />
-          </HBox.margin>
-        </Text>
+        <Text fx:id="dateHeader" styleClass="font-300, tasklist-dateitem-dateheader" VBox.vgrow="ALWAYS" />
         <Text fx:id="dateLabel" styleClass="tasklist-dateitem-datelabel" VBox.vgrow="ALWAYS">
           <HBox.margin>
             <Insets left="10.0" />
