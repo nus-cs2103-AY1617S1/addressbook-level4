@@ -38,7 +38,7 @@ Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
  
 > Words in `UPPER_CASE` are the parameters, parameters will follow behind their corresponding keyword. 
 > With the exception of `TASK_NAME`, all other parameters are optional. The order of parameters are not fixed. 
-> DEADLINE_DATE_TIME can be entered in any natural language format.
+> `DEADLINE_DATE_TIME` can be entered in any natural language format.
 > For date, entering words like today, tomorrow and day after are recognised.
 > For time, entering 7pm, 0700 or 19.30 are recognised.
 > If no time is entered, it is assumed to be due at 23:59 hours.
@@ -54,7 +54,7 @@ Similar to adding a task, you can also add an event to the TaskBook<br>
 Format: `add EVENT_NAME [/desc DESCRIPTION] [/from START_DATE_TIME > END_DATE_TIME]` <br>
 
 > With the exception of `EVENT_NAME`, all other parameters are optional. The order of parameters are not fixed. 
-> START_DATE_TIME and END_DATE_TIME can be entered in natural language.
+> `START_DATE_TIME` and `END_DATE_TIME` can be entered in natural language.
 > For date, entering words like today, tomorrow and day after are recognised.
 > For time, entering 7pm, 0700 or 19.30 are recognised.
 > If no time is entered, it is assumed to start at 00:00 hours and end at 23:59 hours.
@@ -71,7 +71,7 @@ Shows a list of tasks that are not marked done. <br>
 Format: `list -t [-a]`
 
 > Tasks that are marked done will not be shown by default.
-> An [all] optional flag will request the TaskBook to list all tasks, both marked done and not yet marked done. 
+> An `[-a]` optional flag will request the TaskBook to list all tasks, both marked done and not yet marked done. 
 
 Examples: 
 * `list -t` <br>
@@ -86,7 +86,7 @@ Shows a list of all events that are completed. <br>
 Format: `list -e [-a]` <br>
 
 > Events that are completed will not be shown by default.
-> An [-a] optional flag will request the TaskBook to list all events, both completed and passed. 
+> An `[-a]` optional flag will request the TaskBook to list all events, both completed and passed. 
 
 Examples: 
 * `list -e `<br>
@@ -101,7 +101,7 @@ Edits an existing task/event in TaskBook<br>
 Format: `edit -t INDEX /name NEW_TASK_NAME /desc NEW_TASK_DESCRIPTION /by NEW_DEADLINE` <br>
 
 
-> Edits the task at the specified ‘INDEX’. The index refers to the index number shown in the most recent listing of tasks.
+> Edits the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing of tasks.
 > Edits any number of fields of the task. This includes name and/or description and/or deadline.
 
 Examples: 
@@ -116,7 +116,7 @@ Edits an existing event in TaskBook<br>
 
 Format: `edit -e INDEX /name NEW_EVENT_NAME /desc NEW_EVENT_DESCRIPTION /from START_DATE END_DATE`
 
-> Edits the event at the specified ‘INDEX’. The index refers to the index number shown in the most recent listing of events.
+> Edits the event at the specified `INDEX`. The index refers to the index number shown in the most recent listing of events.
 > Edits any number of fields of the event. This includes name and/or description and/or duration.
 
 Examples:
@@ -140,12 +140,12 @@ Examples:
   
 
 #### Deleting a task/event
-Deletes an existing task/event in the TaskBook.  
+Deletes an existing task/event from the TaskBook storage completely.  
 
 Format: `delete -t|-e INDEX`
 
 > Deletes the task/event at the specified `INDEX` in the most recent task/event listing.
-> Deleted tasks/event will not be shown even with `list event|task all` command. 
+> Deleted tasks/event will not be shown even with `list -e|-t -a` command. 
 
 Examples:
 * `delete -t 1`  
@@ -167,7 +167,7 @@ You can refer to the user guide via a pop-up window with the `help` command. Or 
 
 Format: `help [KEY_WORD]`
 
->A list of commands available is also shown if you enter an incorrect command.
+> A list of commands available for help is also shown if you enter an incorrect command.
 
 Examples:
 * `help add`
@@ -208,11 +208,11 @@ Format : `exit`
 
  Command | Format  
 -------- | :-------- 
-[Add Task](#adding-a-task) | `add TASK_NAME /desc DESCRIPTION /by DEADLINE_DATE_TIME`
-[Add Event](#adding-an-event) | `add EVENT_NAME /desc DESCRIPTION /from START_DATE_TIME > END_DATE_TIME`
+[Add Task](#adding-a-task) | `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]`
+[Add Event](#adding-an-event) | `add EVENT_NAME [/desc DESCRIPTION] [/from START_DATE_TIME > END_DATE_TIME]`
 [List Task or Event](#listing-tasks) | `list -t|-e [-a]`
-[Edit Task](#editing-a-task) | `edit -t INDEX /name NEW_TASK_NAME /desc NEW_TASK_DESCRIPTION /by NEW_DEADLINE_DATE_TIME`
-[Edit Event](#editing-an-event) | `edit -e INDEX /name NEW_EVENT_NAME /desc NEW_EVENT_DESCRIPTION /from START_DATE_TIME > END_DATE_TIME`
+[Edit Task](#editing-a-task) | `edit -t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]`
+[Edit Event](#editing-an-event) | `edit -e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from START_DATE_TIME > END_DATE_TIME]`
 [Mark Task](#marking-a-task-as-completed) | `mark INDEX`
 [Delete Task or Event](#deleting-a-task/event) |`delete -t|-e INDEX`
 [Save](#changing-the-save-location) | `save FILEPATH`
