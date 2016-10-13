@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Deadline("10/10/2016"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Deadline("11/10/2016"),  new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Deadline("12/10/2016"),  new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Deadline("13/10/2016-20"),  new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Deadline("14/10/2016-12"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Deadline("14/10/2016-14"),  new UniqueTagList()),
-                    new Task(new Name("George Best"), new Deadline("15/10/2016"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Deadline("16/10/2016"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Deadline("17/10/2016"), new UniqueTagList())
+                    new Task(new Name("Ali Muster"), new Deadline("10.10.2016"), new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), new Deadline("11.10.2016"),  new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), new Deadline("12.10.2016"),  new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), new Deadline("13.10.2016-20"),  new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), new Deadline("14.10.2016-12"), new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), new Deadline("14.10.2016-14"),  new UniqueTagList()),
+                    new Task(new Name("George Best"), new Deadline("15.10.2016"), new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), new Deadline("16.10.2016"), new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), new Deadline("17.10.2016"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -278,10 +278,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestTask[] removePersonsFromList(final TestTask[] persons, TestTask... personsToRemove) {
+        List<TestTask> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
 
@@ -290,7 +290,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
+    public static TestTask[] removePersonFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
@@ -301,21 +301,21 @@ public class TestUtil {
      * @param index The index of the person to be replaced.
      * @return
      */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
+    public static TestTask[] replacePersonFromList(TestTask[] persons, TestTask person, int index) {
         persons[index] = person;
         return persons;
     }
 
     /**
      * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
+     * @param tasks A array of persons.
+     * @param tasksToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+    public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
+        List<TestTask> listOfPersons = asList(tasks);
+        listOfPersons.addAll(asList(tasksToAdd));
+        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
