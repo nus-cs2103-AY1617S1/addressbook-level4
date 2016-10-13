@@ -364,8 +364,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
-        System.out.println(args);
-        if(args.trim().equals("last")){
+        if(args.trim().toLowerCase().equals("last")){
             return new SelectCommand(-1);
         }
         Optional<Integer> index = parseIndex(args);
