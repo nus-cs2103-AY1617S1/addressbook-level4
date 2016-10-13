@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<taskmanager>
     <tasks>
         <name>Do CS1231 Assignment</name>
     </tasks>
@@ -27,4 +27,4 @@
     <tasks>
         <name>Plan for next vacation</name>
     </tasks>
-</addressbook>
+</taskmanager>
