@@ -14,6 +14,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+		// TODO: Uncomment when Model has been converted to Taskbook
 		// model.resetData(AddressBook.getEmptyAddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
