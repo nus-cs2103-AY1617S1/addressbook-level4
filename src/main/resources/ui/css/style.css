@@ -140,3 +140,9 @@ VBox.header {
   -fx-fill: #999999;
   -fx-font-size: 12px;
 }
+
+/* HELP VIEW */
+
+.help-pane {
+  -fx-background-color: #ffffff;
+}

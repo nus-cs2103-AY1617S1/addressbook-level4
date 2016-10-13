@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.components.HelpCommandItem;
 
@@ -31,6 +32,9 @@ public class HelpView extends View {
     
     @Override
     public void componentDidMount() {
+        // Makes the Component full width wrt parent container.
+        FxViewUtil.makeFullWidth(this.mainNode);
+        
         // Clear help commands
         HelpCommandItem.reset(helpCommandsPlaceholder);
         
