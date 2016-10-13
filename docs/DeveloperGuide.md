@@ -265,12 +265,12 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  <br>
  
 #### Troubleshooting tests
- **Problem: Tests fail because NullPointException when AssertionError is expected**
- * Reason: Assertions are not enabled for JUnit tests. 
-   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described 
+ **Problem: Tests fail because NullPointerException when AssertionError is expected**
+ * **Reason**: Assertions are not enabled for JUnit tests. 
+   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)<br>
+ * **Solution**: Enable assertions in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
-   Delete run configurations created when you ran tests earlier.
+ * Delete run configurations created when you ran tests earlier.
 
 <br>
 <br>
