@@ -10,7 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Priority {
 
     public static final String MESSAGE_PRIORITY_CONSTRAINTS =
-            "Task priority should be 1 numeric string";
+            "Task priority should be an integer between 1 and 5";
     public static final String PRIORITY_VALIDATION_REGEX = "[\\w\\.]+";
 
     public final String value;
@@ -33,7 +33,10 @@ public class Priority {
      * Returns if a given string is a valid priority.
      */
     public static boolean isValidPriority(String test) {
-        return test.matches(PRIORITY_VALIDATION_REGEX);
+    	if(Integer.parseInt(test) > 0 && Integer.parseInt(test) < 6) {
+    		return test.matches(PRIORITY_VALIDATION_REGEX);
+    	}
+    	return false;
     }
 
     @Override
@@ -52,5 +55,7 @@ public class Priority {
     public int hashCode() {
         return value.hashCode();
     }
+    
+ 
 
 }
