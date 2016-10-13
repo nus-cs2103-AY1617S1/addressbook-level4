@@ -26,15 +26,13 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " 1 n/CS2103 T8A2 d/15-10-2016 p/3 r/12-01-2016 t/CS t/project";
     
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task from: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task from: %1$s\nto: %2$s";
     
     public static final String MESSAGE_TASK_EXISTS = "An existing task already contains the specified parameters.";
     
     public final int targetIndex;
     
     public final Task newParams;
-    
-    public Task editedTask;
     
     /**
      * Set parameters to null if they are not provided.
@@ -68,23 +66,22 @@ public class EditCommand extends Command {
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-
         
         try {
             ReadOnlyTask oldTask = new Task(taskToEdit);
             
-            editedTask = new Task(model.editTask(taskToEdit, newParams));
+            Task editedTask = new Task(model.editTask(taskToEdit, newParams));
             
             PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD,oldTask,editedTask);
             PreviousCommandsStack.push(editCommand);
             
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task to be edited cannot be missing";
+            return new CommandResult("");
         } catch (DuplicateTaskException dte) {
             return new CommandResult(MESSAGE_TASK_EXISTS);
         }
-
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
 
 }

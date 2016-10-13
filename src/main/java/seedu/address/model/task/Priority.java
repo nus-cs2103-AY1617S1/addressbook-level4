@@ -10,8 +10,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Priority {
 
     public static final String MESSAGE_PRIORITY_CONSTRAINTS =
-            "Task priority should be an integer";
-    public static final String PRIORITY_VALIDATION_REGEX = "\\d";
+            "Task priority should be an integer between 0 and 3 inclusive.";
+    public static final String PRIORITY_VALIDATION_REGEX = "[0-3]";
 
     public final String value;
 
