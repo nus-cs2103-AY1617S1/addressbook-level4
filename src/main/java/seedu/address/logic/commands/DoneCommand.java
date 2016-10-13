@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.model.item.ReadOnlyItem;
+
 public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
 
@@ -8,7 +12,7 @@ public class DoneCommand extends Command {
             + "Example 1: " + COMMAND_WORD + " 1\n";
 
     public static final String MESSAGE_DONE_ITEM_SUCCESS = "Task marked as complete!";
-    public static final String MESSAGE_ITEM_NOT_FOUND = "Task ID not found.";
+    public static final String MESSAGE_DONE_ITEM_FAIL = "Task already marked as complete!";
 
     public final int targetIndex;
 
@@ -18,8 +22,22 @@ public class DoneCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        // TODO Auto-generated method stub
-        return null;
+        UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredItemList();
+
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        ReadOnlyItem itemToComplete = lastShownList.get(targetIndex - 1);
+        
+        if(itemToComplete.getIsDone()) {
+            return new CommandResult(MESSAGE_DONE_ITEM_FAIL);
+        } else {
+            itemToComplete.setIsDone(true);
+        }
+
+        return new CommandResult(MESSAGE_DONE_ITEM_SUCCESS);
     }
 
 
