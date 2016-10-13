@@ -359,11 +359,15 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the select task command.
-     *
+     * Special case: if arg provided is "last", index is set to -1
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
+        System.out.println(args);
+        if(args.trim().equals("last")){
+            return new SelectCommand(-1);
+        }
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(

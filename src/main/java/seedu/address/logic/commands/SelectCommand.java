@@ -31,6 +31,11 @@ public class SelectCommand extends Command {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
+        if(targetIndex == -1){ //Indicates a select last command
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredTaskList().size()));
+            return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, model.getFilteredTaskList().size()));
+        }
+
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
