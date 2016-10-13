@@ -36,7 +36,7 @@ public class MainParser {
 
 	private static final String MESSAGE_INVALID_PRIORITY = "Priority is either high, medium or low. Please try again.";
 	
-	public static final String NO_DATE_DEFAULT = "2000-01-01";	// All floating tasks are giving this date.
+	public static final String NO_DATE_DEFAULT = LocalDate.MIN.toString();	// All floating tasks are giving this date.
 	public static final String NO_TIME_DEFAULT = LocalTime.MAX.toString();	// All timeless tasks are given this time.
 	
 	// Singleton
