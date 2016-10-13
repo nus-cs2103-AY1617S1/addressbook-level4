@@ -302,15 +302,15 @@ public class TestUtil {
     public static TestItem[] removeItemsFromList(final TestItem[] list, int[] targetIndexes) {
         TestItem[] itemsToRemove = new TestItem[targetIndexes.length];
         int numToRemove = 0;
-        for(int i = 0; i < targetIndexes.length; i++) {
-            for(int j = 0; j < list.length; j++) {
-                if(j == targetIndexes[i]) {
-                    itemsToRemove[numToRemove] = list[j];
+        for (int targetIndex : targetIndexes) {
+//            for(int j = 0; j < list.length; j++) {
+//                if(j-1 == targetIndexes[i]) {
+                    itemsToRemove[numToRemove] = list[targetIndex-1];
                     numToRemove += 1;
-                    break;
+//                    break;
                 }
-            }
-        }
+//            }
+//        }
         return removeItemsFromList(list, itemsToRemove);
     }
 
