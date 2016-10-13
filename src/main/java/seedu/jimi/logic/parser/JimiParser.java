@@ -35,6 +35,18 @@ public class JimiParser {
     private static final Pattern DETAILS_ARGS_FORMAT = 
             Pattern.compile("(\"(?<taskDetails>.+)\")( by (?<dateTime>.+))?");
     
+    private static final List<Command> COMMAND_STUB_LIST = Arrays.asList(
+            new AddCommand(),
+            new EditCommand(),
+            new SelectCommand(),
+            new DeleteCommand(),
+            new ClearCommand(),
+            new FindCommand(),
+            new ListCommand(),
+            new ExitCommand(),
+            new HelpCommand()
+    );
+    
     public JimiParser() {}
 
     /**
@@ -52,29 +64,40 @@ public class JimiParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         
-        if (AddCommand.isCommandWord(commandWord)) {
-            return prepareAdd(arguments);
-        } else if (EditCommand.isCommandWord(commandWord)) {
-            return prepareEdit(arguments);
-        } else if (SelectCommand.isCommandWord(commandWord)) {
-            return prepareSelect(arguments);
-        } else if (DeleteCommand.isCommandWord(commandWord)) {
-            return prepareDelete(arguments);
-        } else if (ClearCommand.isCommandWord(commandWord)) {
-            return new ClearCommand();
-        } else if (FindCommand.isCommandWord(commandWord)) {
-            return prepareFind(arguments);
-        } else if (ListCommand.isCommandWord(commandWord)) {
-            return new ListCommand();
-        } else if (ExitCommand.COMMAND_WORD.equals(commandWord)) {
-            return new ExitCommand();
-        } else if (HelpCommand.isCommandWord(commandWord)) {
-            return new HelpCommand();
-        } else {
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
-        }
+        return prepareCommand(commandWord, arguments);
     }
 
+    /**
+     * Identifies which command to prepare according to raw command word.
+     * 
+     * @param commandWord command word from raw input
+     * @param arguments arguments from raw input
+     * @return correct Command corresponding to the command word if valid, else returns incorrect command.
+     */
+    private Command prepareCommand(String commandWord, String arguments) {
+        for (Command command : COMMAND_STUB_LIST) {
+            // if validation checks implemented by the respective commands are passed
+            if (command.isCommandWord(commandWord)) {
+                switch (commandWord) {
+                case AddCommand.COMMAND_WORD :
+                    return prepareAdd(arguments);
+                case EditCommand.COMMAND_WORD :
+                    return prepareEdit(arguments);
+                case SelectCommand.COMMAND_WORD :
+                    return prepareSelect(arguments);
+                case DeleteCommand.COMMAND_WORD :
+                    return prepareDelete(arguments);
+                case FindCommand.COMMAND_WORD :
+                    return prepareFind(arguments);
+                default : // commands which do not require arguments for instantiation
+                    return command;
+                }
+            }
+        }
+        
+        return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+    }
+    
     /**
      * Parses arguments in the context of the add task command.
      *
