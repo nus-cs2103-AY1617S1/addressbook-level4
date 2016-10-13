@@ -133,7 +133,8 @@ public class OldParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
-        return new DeleteCommand(index.get());
+//        return new DeleteCommand(index.get());
+        return null;
     }
 
     /**
