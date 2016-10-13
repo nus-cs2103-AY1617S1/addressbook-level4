@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,19 +12,16 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.address.model.item.ReadOnlyItem;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of persons.
  */
 public class ItemListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(ItemListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+	private static final String FXML = "ItemListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
@@ -68,8 +67,10 @@ public class ItemListPanel extends UiPart {
     }
 
     private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(panel);
+		if (this.placeHolderPane != null) {
+			SplitPane.setResizableWithParent(placeHolderPane, false);
+			placeHolderPane.getChildren().add(panel);
+		}
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
