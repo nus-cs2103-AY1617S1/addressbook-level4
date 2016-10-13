@@ -28,32 +28,29 @@ public class FindCommand extends Command {
     }
 
     private Set<String> ValidateInputFormat(Set<String> keywords) throws IllegalValueException {
-    	Set<String> regex = keywords;
-    	System.out.println(regex);
-    	switch(type) {
-    	case 1: 
-    	case 2: for(String keyword: keywords) {
-					Date inputDate = new Date(keyword);
-					regex.remove(keyword);
-					regex.add(inputDate.value);
-    			}
-				System.out.println(regex);
-				break;
-    	case 3: for(String keyword: keywords) {
-					Importance inputImportance = new Importance(keyword);
-					regex.remove(keyword);
-					regex.add(inputImportance.value);
-				}
-    			System.out.println(regex);
-				break;
-    	}
-		return regex;	
-	}
+        Set<String> regex = keywords;
+        switch(type) {
+        case 1: 
+        case 2: for(String keyword: keywords) {
+                    Date inputDate = new Date(keyword);
+                    regex.remove(keyword);
+                    regex.add(inputDate.value);
+                }
+                break;
+        case 3: for(String keyword: keywords) {
+                    Importance inputImportance = new Importance(keyword);
+                    regex.remove(keyword);
+    		        regex.add(inputImportance.value);
+    		    }
+                break;
+        }
+        return regex;	
+    }
     
-	@Override
-    public CommandResult execute() {
-        model.updateFilteredTaskList(type, keywords);
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+	@Override  
+	public CommandResult execute() {
+	    model.updateFilteredTaskList(type, keywords);
+	    return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
 }
