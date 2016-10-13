@@ -43,8 +43,9 @@ public class SelectCommand extends Command {
         }
 
         if (lastShownList.size() < targetIndex) {
+            String validIndexRange = "Valid index range: 1 to " + ((Integer)lastShownList.size()).toString();
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + "\n" + validIndexRange);
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
