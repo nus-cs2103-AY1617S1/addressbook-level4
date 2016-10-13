@@ -54,8 +54,8 @@ Format: `add NAME [s/START_DATE] [e/END_DATE]] [d/DEADLINE] [t/TAG]...`
 
 Examples: 
 
- * `add CS2103 Project d/7 Nov t/CS2103 t/NUS Projects`
- * `add CS2103 Workshop s/Saturday 9am e/3pm`
+ * `add CS2103 Project`
+ * `add CS2103 Workshop by Damith on Wednesday`
  * `add CS2103 V0.3 by next Friday`
  <img src="images/UserGuide/beforeAdd.png">
  <img src="images/UserGuide/afterAdd.png">
