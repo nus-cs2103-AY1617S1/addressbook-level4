@@ -53,7 +53,7 @@
   
 **Problem: Eclipse reports some required libraries missing**
 * Reason: Required libraries may not have been downloaded during the project import. 
-* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
+* Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
  
 
 ## Design
@@ -168,6 +168,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+
 ## Implementation
 
 ### Logging
@@ -193,7 +194,6 @@ and logging destinations.
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
-
 
 ## Testing
 
@@ -237,7 +237,8 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  * Solution: Enable assertions in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
-  
+
+
 ## Dev Ops
 
 ### Build Automation
@@ -267,10 +268,10 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
@@ -299,6 +300,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | see the number of tasks completed at the end of the day | have a sense of accomplishment. If 0 tasks though there is at least one task to be completed for that day, encourage the user to work harder
 
 {More to be added}
+
 
 ## Appendix B : Use Cases
 
@@ -378,6 +380,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case resumes at step 2.
 
+
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -392,11 +395,13 @@ Priority | As a ... | I want to ... | So that I can...
 10. Should store data in an editable format.
 11. Should run on royalty free libraries and API's.
 
+
 ## Appendix D : Glossary
 
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
+
 
 ## Appendix E : Product Survey
 
