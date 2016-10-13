@@ -15,8 +15,10 @@ public class TypicalTestTasks {
         try {
             one = new DatedTaskBuilder().withName("buy milk").withDescription("lots of it")
                     .withDate("11.11.11").withTime("1111").build();
-
-            
+            two = new DatedTaskBuilder().withName("buy some milk").withDescription("not so much")
+                    .withDate("11.11.11").withTime("1111").build();
+            three = new DatedTaskBuilder().withName("buy some milk").withDescription("not so much")
+                    .withDate("12.12.12").withTime("1111").build();
             
             
             

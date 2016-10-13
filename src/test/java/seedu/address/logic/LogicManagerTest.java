@@ -162,13 +162,13 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] d/12345 date/11.11.11 time/1111", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/not_valid_date time/1111", Date.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Date.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/11.11.11 time/5678", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/11.11.11 time/1111 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -187,6 +187,8 @@ public class LogicManagerTest {
                 expectedAB.getPersonList());
 
     }
+    
+    
 
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
@@ -206,23 +208,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getPersonList());
 
-    }
-
-
-    @Test
-    public void execute_list_showsAllPersons() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAB = helper.generateAddressBook(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getPersonList();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
     }
 
 
@@ -306,7 +291,7 @@ public class LogicManagerTest {
         expectedAB.removePerson(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
-        assertCommandBehavior("delete 2",
+        assertCommandBehavior("delete 12",
                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
                 expectedAB,
                 expectedAB.getPersonList());
@@ -404,8 +389,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Person " + seed),
                     new Description("" + Math.abs(seed)),
-                    new Date(seed + "@email"),
-                    new Time("House of " + seed),
+                    new Date("11.11.1" + seed),
+                    new Time("111" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -417,9 +402,9 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getDescription());
-            cmd.append(" e/").append(p.getDate());
-            cmd.append(" a/").append(p.getTime());
+            cmd.append(" d/").append(p.getDescription());
+            cmd.append(" date/").append(p.getDate());
+            cmd.append(" time/").append(p.getTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -503,8 +488,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Description("1"),
-                    new Date("1@email"),
-                    new Time("House of 1"),
+                    new Date("11.11.11"),
+                    new Time("1111"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
