@@ -21,9 +21,9 @@ public class Recurrence {
     public static final String TO_STRING_FORMAT = "%s [%d time(s)]";
     public static final String TO_STRING_NO_RECURRENCE = "No recurrence.";
     
-    public final boolean hasRecurrence;
-    public final Pattern pattern;
-    public final int frequency;
+    private final boolean hasRecurrence;
+    private final Pattern pattern;
+    private final int frequency;
     
     /**
      * Constructor for no recurrence.
@@ -65,8 +65,8 @@ public class Recurrence {
     
     @Override
     public String toString() {
-        if (hasRecurrence) {
-            return String.format(TO_STRING_FORMAT, pattern.toString(), frequency);
+        if (hasRecurrence()) {
+            return String.format(TO_STRING_FORMAT, getPattern().toString(), getFrequency());
         }
         
         return TO_STRING_NO_RECURRENCE;
@@ -84,14 +84,26 @@ public class Recurrence {
         
         Recurrence otherRecurrence = (Recurrence)other;
         
-        return ObjectUtil.isEquivalentOrBothNull(this.hasRecurrence, otherRecurrence.hasRecurrence) &&
-                ObjectUtil.isEquivalentOrBothNull(this.pattern, otherRecurrence.pattern) &&
-                ObjectUtil.isEquivalentOrBothNull(this.frequency, otherRecurrence.frequency); // state checkk
+        return ObjectUtil.isEquivalentOrBothNull(this.hasRecurrence(), otherRecurrence.hasRecurrence()) &&
+                ObjectUtil.isEquivalentOrBothNull(this.getPattern(), otherRecurrence.getPattern()) &&
+                ObjectUtil.isEquivalentOrBothNull(this.getFrequency(), otherRecurrence.getFrequency()); // state checkk
     
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pattern, frequency);
+        return Objects.hash(getPattern(), getFrequency());
+    }
+
+    public boolean hasRecurrence() {
+        return hasRecurrence;
+    }
+
+    public Pattern getPattern() {
+        return pattern;
+    }
+
+    public int getFrequency() {
+        return frequency;
     }
 }

@@ -66,11 +66,47 @@ public class KeywordParser {
         for (String kw : keywords) {
             keywordsInHashSet.add(kw);
         }
-        
+
         HashMap<String, String> entryPairs = new HashMap<String, String>();
         String[] parts = inputString.split(" ");
-        
-        for (int i = 0; i < parts.length; i++) {
+        //Combine the parts between open " and close " into one part.
+        //If no close " found, parser will return the rest of the string after the open "
+        //note: should have error when open " exist, but no close " ?
+        //note: refactor this
+        int startIndex = -1;
+        int endIndex = parts.length - 1;
+        for(int i = 1; i < parts.length; i++ ){
+        	if(parts[i].startsWith("\"")){
+        		startIndex = i;
+        		break;
+        	}
+        }
+        if (startIndex != -1) {
+			for (int i = 1; i < parts.length; i++) {
+				if (parts[i].endsWith("\"")) {
+					endIndex = i;
+				}
+			}
+
+			for (int i = startIndex + 1; i <= endIndex; i++) {
+					parts[startIndex] = parts[startIndex] + " " + parts[i];
+			}
+
+			String[] newParts = new String[parts.length - (endIndex - startIndex)];
+	        for(int i = 0, j = 0; i < newParts.length && j < parts.length;){
+	        	if (j <= startIndex || j > endIndex) {
+					newParts[i] = parts[j];
+					i++;
+					j++;
+				}
+	        	else{
+	        		j++;
+	        	}
+	        }
+	        parts = newParts;
+		}
+
+		for (int i = 0; i < parts.length; i++) {
             if (stringIsAKeyword(keywordsInHashSet, parts[i])) {
 
                 String currentKeyword = parts[i];
@@ -86,23 +122,23 @@ public class KeywordParser {
                 String finalValue = stringBuilder.toString().trim();
                 finalValue = stripOpenAndCloseQuotationMarks(finalValue);
 
-                entryPairs.put(currentKeyword, finalValue);
+                entryPairs.put(currentKeyword.toLowerCase(), finalValue);
                 i = nextPartToCheck - 1;
             }
         }
-        
+
         return entryPairs;
     }
-    
+
     private boolean stringIsAKeyword(HashSet<String> allKeywords, String string) {
-        return allKeywords.contains(string);
+        return allKeywords.contains(string.toLowerCase());
     }
-    
+
     private String stripOpenAndCloseQuotationMarks(String input) {
         if (input.startsWith("\"")) {
             input = input.substring(1);
         }
-        
+
         if (input.endsWith("\"")) {
             input = input.substring(0, input.length() - 1);
         }

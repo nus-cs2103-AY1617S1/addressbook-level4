@@ -37,8 +37,8 @@ public class TestTask implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public TestTask(TestTask taskToCopyFrom) throws IllegalValueException {
-        name = new Name(taskToCopyFrom.getName().name);
-        complete = new Complete(taskToCopyFrom.getComplete().isCompleted);
+        name = new Name(taskToCopyFrom.getName().getName());
+        complete = new Complete(taskToCopyFrom.getComplete().isCompleted());
         deadline = new Deadline();
         period = new Period();
         deadlineRecurrence = new Recurrence();
@@ -46,22 +46,22 @@ public class TestTask implements ReadOnlyTask {
         
         tags = new UniqueTagList(taskToCopyFrom.tags);
 
-        if (taskToCopyFrom.deadline.hasDeadline) {
-            deadline = new Deadline(taskToCopyFrom.deadline.deadline);
+        if (taskToCopyFrom.deadline.hasDeadline()) {
+            deadline = new Deadline(taskToCopyFrom.deadline.getDeadline());
         }
 
-        if (taskToCopyFrom.period.hasPeriod) {
-            period = new Period(taskToCopyFrom.period.startTime, taskToCopyFrom.period.endTime);
+        if (taskToCopyFrom.period.hasPeriod()) {
+            period = new Period(taskToCopyFrom.period.getStartTime(), taskToCopyFrom.period.getEndTime());
         }
 
-        if (taskToCopyFrom.deadlineRecurrence.hasRecurrence) {
-            deadlineRecurrence = new Recurrence(taskToCopyFrom.deadlineRecurrence.pattern,
-                    taskToCopyFrom.deadlineRecurrence.frequency);
+        if (taskToCopyFrom.deadlineRecurrence.hasRecurrence()) {
+            deadlineRecurrence = new Recurrence(taskToCopyFrom.deadlineRecurrence.getPattern(),
+                    taskToCopyFrom.deadlineRecurrence.getFrequency());
         }
         
-        if (taskToCopyFrom.periodRecurrence.hasRecurrence) {
-            periodRecurrence = new Recurrence(taskToCopyFrom.periodRecurrence.pattern,
-                    taskToCopyFrom.periodRecurrence.frequency);
+        if (taskToCopyFrom.periodRecurrence.hasRecurrence()) {
+            periodRecurrence = new Recurrence(taskToCopyFrom.periodRecurrence.getPattern(),
+                    taskToCopyFrom.periodRecurrence.getFrequency());
         }
     }
 
@@ -131,22 +131,22 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + "\"" + this.getName().name + "\" ");
+        sb.append("add " + "\"" + this.getName().getName() + "\" ");
 
-        if (this.getDeadline().hasDeadline) {
-            sb.append("by " + this.getDeadline().deadline + " ");
+        if (this.getDeadline().hasDeadline()) {
+            sb.append("by " + this.getDeadline().getDeadline() + " ");
         }
 
-        if (this.getPeriod().hasPeriod) {
-            sb.append("from " + this.getPeriod().startTime + " to " + this.getPeriod().endTime + " ");
+        if (this.getPeriod().hasPeriod()) {
+            sb.append("from " + this.getPeriod().getStartTime() + " to " + this.getPeriod().getEndTime() + " ");
         }
 
-        if (this.getDeadlineRecurrence().hasRecurrence) {
-            sb.append("repeattime " + this.getDeadlineRecurrence().frequency + " ");
+        if (this.getDeadlineRecurrence().hasRecurrence()) {
+            sb.append("repeattime " + this.getDeadlineRecurrence().getFrequency() + " ");
         }
 
-        if (this.getPeriodRecurrence().hasRecurrence) {
-            sb.append("repeattime " + this.getPeriodRecurrence().frequency + " ");
+        if (this.getPeriodRecurrence().hasRecurrence()) {
+            sb.append("repeattime " + this.getPeriodRecurrence().getFrequency() + " ");
         }
 
         if (this.getTags().iterator().hasNext()){
@@ -169,38 +169,38 @@ public class TestTask implements ReadOnlyTask {
         sb.append("update " + (taskIndex + 1) + " ");
         
         if (!this.getName().equals(oldTask.getName())) {
-            sb.append("name " + this.getName().name);
+            sb.append("name " + this.getName().getName());
         }
         
         if (!this.getDeadline().equals(oldTask.getDeadline())) {
-            if (this.getDeadline().hasDeadline) {
-                sb.append("by " + this.getDeadline().deadline + " ");
+            if (this.getDeadline().hasDeadline()) {
+                sb.append("by " + this.getDeadline().getDeadline() + " ");
             } else {
                 sb.append("removeby ");
             }
         }
         
         if (!this.getPeriod().equals(oldTask.getPeriod())) {
-            if (this.getPeriod().hasPeriod) {
-                sb.append("from " + this.getPeriod().startTime + " to " + this.getPeriod().endTime + " ");
+            if (this.getPeriod().hasPeriod()) {
+                sb.append("from " + this.getPeriod().getStartTime() + " to " + this.getPeriod().getEndTime() + " ");
             } else {
                 sb.append("removefrom ");
             }
         }
 
         if (!this.getDeadlineRecurrence().equals(oldTask.getDeadlineRecurrence())) {
-            if (this.getDeadlineRecurrence().hasRecurrence) {
-                sb.append("repeatdeadline " + this.getDeadlineRecurrence().pattern.toString() + " "
-                        + this.getDeadlineRecurrence().frequency + " ");
+            if (this.getDeadlineRecurrence().hasRecurrence()) {
+                sb.append("repeatdeadline " + this.getDeadlineRecurrence().getPattern().toString() + " "
+                        + this.getDeadlineRecurrence().getFrequency() + " ");
             } else {
                 sb.append("removerepeatdeadline ");
             }
         }
         
         if (!this.getPeriodRecurrence().equals(oldTask.getPeriodRecurrence())) {
-            if (this.getPeriodRecurrence().hasRecurrence) {
-                sb.append("repeattime " + this.getPeriodRecurrence().pattern.toString() + " "
-                        + this.getPeriodRecurrence().frequency + " ");
+            if (this.getPeriodRecurrence().hasRecurrence()) {
+                sb.append("repeattime " + this.getPeriodRecurrence().getPattern().toString() + " "
+                        + this.getPeriodRecurrence().getFrequency() + " ");
             } else {
                 sb.append("removerepeattime ");
             }

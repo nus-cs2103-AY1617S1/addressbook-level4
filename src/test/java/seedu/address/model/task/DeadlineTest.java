@@ -12,8 +12,8 @@ public class DeadlineTest {
     public void defaultConstructor_noInput_returnsEmptyDeadline() {
         Deadline noDeadline = new Deadline();
         
-        assertFalse(noDeadline.hasDeadline);
-        assertNull(noDeadline.deadline);
+        assertFalse(noDeadline.hasDeadline());
+        assertNull(noDeadline.getDeadline());
     }
     
     @Test
@@ -21,8 +21,8 @@ public class DeadlineTest {
         Date date = new Date();
         Deadline deadline = new Deadline(date);
         
-        assertTrue(deadline.hasDeadline);
-        assertEquals(date, deadline.deadline);
+        assertTrue(deadline.hasDeadline());
+        assertEquals(date, deadline.getDeadline());
     }
     
     @Test

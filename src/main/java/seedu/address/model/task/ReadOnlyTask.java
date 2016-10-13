@@ -42,17 +42,17 @@ public interface ReadOnlyTask {
     default String getAsType() {
         String typeResult = "";
         
-        if (getComplete().isCompleted) {
+        if (getComplete().isCompleted()) {
             typeResult = typeResult.concat("Completed ");
         } else {
             typeResult = typeResult.concat("Uncompleted ");
         }
         
-        if (getDeadline().hasDeadline && getPeriod().hasPeriod) {
+        if (getDeadline().hasDeadline() && getPeriod().hasPeriod()) {
             typeResult = typeResult.concat("Task with Allocated Timeslot ");
-        } else if (getDeadline().hasDeadline) {
+        } else if (getDeadline().hasDeadline()) {
             typeResult = typeResult.concat("Normal Task ");
-        } else if (getPeriod().hasPeriod) {
+        } else if (getPeriod().hasPeriod()) {
             typeResult = typeResult.concat("Event ");
         } else {
             typeResult = typeResult.concat("Floating Task ");
@@ -70,22 +70,22 @@ public interface ReadOnlyTask {
             .append("Completion Status: ")
             .append(getComplete());
         
-        if (getDeadline().hasDeadline) {
+        if (getDeadline().hasDeadline()) {
             builder.append("Deadline: ")
                 .append(getDeadline());
         }
         
-        if (getPeriod().hasPeriod) {
+        if (getPeriod().hasPeriod()) {
             builder.append("Period: ")
                 .append(getPeriod());
         }
 
-        if (getDeadlineRecurrence().hasRecurrence) {
+        if (getDeadlineRecurrence().hasRecurrence()) {
             builder.append("Recurrence (deadline): ")
                 .append(getDeadlineRecurrence());
         }
 
-        if (getPeriodRecurrence().hasRecurrence) {
+        if (getPeriodRecurrence().hasRecurrence()) {
             builder.append("Recurrence (period): ")
                 .append(getPeriodRecurrence());
         }

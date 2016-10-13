@@ -53,7 +53,7 @@ public class Task implements ReadOnlyTask {
      * @throws TaskAlreadyCompletedException if task is already completed
      */
     public static Task convertToComplete(ReadOnlyTask taskToConvert) throws TaskAlreadyCompletedException {
-        if (taskToConvert.getComplete().isCompleted == true) {
+        if (taskToConvert.getComplete().isCompleted() == true) {
             throw new TaskAlreadyCompletedException();
         }
         

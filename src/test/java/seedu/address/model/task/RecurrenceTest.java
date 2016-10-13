@@ -12,9 +12,9 @@ public class RecurrenceTest {
     public void defaultConstructor_noInput_returnsNoRecurrence() {
         Recurrence noRecurrence = new Recurrence();
         
-        assertFalse(noRecurrence.hasRecurrence);
-        assertEquals(Recurrence.Pattern.NONE, noRecurrence.pattern);
-        assertEquals(0, noRecurrence.frequency);
+        assertFalse(noRecurrence.hasRecurrence());
+        assertEquals(Recurrence.Pattern.NONE, noRecurrence.getPattern());
+        assertEquals(0, noRecurrence.getFrequency());
     }
     
     @Test (expected = AssertionError.class)
@@ -38,9 +38,9 @@ public class RecurrenceTest {
         int frequency = 1;
         
         Recurrence recurrence = new Recurrence(pattern, frequency);
-        assertTrue(recurrence.hasRecurrence);
-        assertEquals(pattern, recurrence.pattern);
-        assertEquals(frequency, recurrence.frequency);
+        assertTrue(recurrence.hasRecurrence());
+        assertEquals(pattern, recurrence.getPattern());
+        assertEquals(frequency, recurrence.getFrequency());
     }
     
     @Test
