@@ -23,6 +23,7 @@ allprojects {
         mavenCentral()
         maven { url "https://repo.eclipse.org/content/repositories/egit-releases/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://mvnrepository.com/artifact/com.joestelmach/natty" }
     }
 
     // This part is similar to global variables
@@ -35,7 +36,7 @@ allprojects {
         junitVersion = '4.12'
         testFxVersion = '4.0.+'
         monocleVersion = '1.8.0_20'
-        nattyVersion = '0.11'
+        nattyVersion = '0.12'
 
         libDir = 'lib'
     }
