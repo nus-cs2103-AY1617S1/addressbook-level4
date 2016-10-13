@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.models.CalendarItem;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.ui.UiPartLoader;
@@ -48,7 +49,7 @@ public class TaskList extends Component {
         TaskListDateItem.reset(taskListDateItemsPlaceholder);
 
         // Clears displayedTasks in EphemeralDB.
-        ephemeralDb.displayedCalendarItems = new ArrayList<Task>();
+        ephemeralDb.displayedCalendarItems = new ArrayList<CalendarItem>();
 
         // Get a list of tasks mapped to each date
         HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = getTasksByDate(tasks);

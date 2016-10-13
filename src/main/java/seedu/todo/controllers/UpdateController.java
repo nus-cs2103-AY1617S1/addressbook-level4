@@ -11,7 +11,7 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 import seedu.todo.commons.EphemeralDB;
-import seedu.todo.models.Task;
+import seedu.todo.models.CalendarItem;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
@@ -52,11 +52,12 @@ public class UpdateController implements Controller {
         
         // Get record
         EphemeralDB edb = EphemeralDB.getInstance();
-        Task task = edb.getCalendarItemsByDisplayedId(index);
+        CalendarItem calendarItem = edb.getCalendarItemsByDisplayedId(index);
         TodoListDB db = TodoListDB.getInstance();
-        if (task != null) {
-            task.setName(name);
-            task.setCalendarDT(ldt);
+        
+        if (calendarItem != null) {
+            calendarItem.setName(name);
+            calendarItem.setCalendarDT(ldt);
             db.save();
         }
         
