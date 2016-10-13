@@ -97,20 +97,25 @@ Examples:
 
 #### Update entries : `update`
 Update a specific task.<br>
-Format: `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
+Format: `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
 
 > * INDEX refers to the number appears on the list in front the task name.
+> * The TAG here will be added to the referred task and the orginial tag remains. If you want to delete a tag, use `rt/TO_REMOVE_TAG` to delete tag by name.
+> * TO_REMOVE_TAG refers to the tag (or tags) that you want to be removed by typing the tags' name that you want to delete.
 > * You can choose what to update. It depends on you whether you want to update only one information or update multiple information. 
 
 Examples:
 * `update 2 shopping c/03/10/2016:2100`<br>
-  update the taks name of the second task on the list to shopping and the start time to 3/10/2016 9 p.m.
+   update the taks name of the second task on the list to shopping and the start time to 3/10/2016 9 p.m.
 
 * `update 1 t/cs2103`<br>
-  update the tag of the first task on to-do list to cs2103
+  add the tag of the first task on to-do list to cs2103
 
 * `update 3 c/three hours later` <br>
   update the taks name of the third task on the list to a deadline three hours after you type this command
+  
+* `update 2 t/family rt/friends` <br>  
+   add a tag family to the second task and remove the tag named friends
 
 #### Undo action : `undo`
 Undo the previous one action.<br>
@@ -148,7 +153,7 @@ Add | `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 Delete | `delete TASK_NAME` or `delete INDEX`
 List | `list`
 Find | `find KEYWORD` or `find t/TAG`
-Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
+Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
 Undo | `undo`
 Help | `help`
 Exit | `exit`
