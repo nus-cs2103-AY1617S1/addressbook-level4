@@ -95,4 +95,10 @@ public class TestTask implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return this.tags;
     }
+
+    @Override
+    public Status getStatus() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
