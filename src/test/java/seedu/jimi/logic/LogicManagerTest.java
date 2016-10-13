@@ -126,12 +126,36 @@ public class LogicManagerTest {
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        
+        /* exit and clear should have the user type the full command word for it to be valid */
+        unknownCommand = "ex";
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        unknownCommand = "exi";
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        unknownCommand = "c";
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        unknownCommand = "cl";
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        unknownCommand = "cle";
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        unknownCommand = "clea";
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
     public void execute_help() throws Exception {
         assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
+        
+        assertCommandBehavior("h", HelpCommand.SHOWING_HELP_MESSAGE);
+        assertTrue(helpShown);
+        
+        assertCommandBehavior("he", HelpCommand.SHOWING_HELP_MESSAGE);
+        assertTrue(helpShown);
+        
+        assertCommandBehavior("hel", HelpCommand.SHOWING_HELP_MESSAGE);
+        assertTrue(helpShown);
+        
     }
 
     @Test
@@ -157,12 +181,24 @@ public class LogicManagerTest {
                 "add \"do dishes\" t/impt t/asd", expectedMessage);
         assertCommandBehavior(
                 "add \"wash //plates\"", expectedMessage);
+        assertCommandBehavior(
+                "a \"do dishes\" t/impt t/asd", expectedMessage);
+        assertCommandBehavior(
+                "a \"wash //plates\"", expectedMessage);
+        assertCommandBehavior(
+                "ad \"do dishes\" t/impt t/asd", expectedMessage);
+        assertCommandBehavior(
+                "ad \"wash //plates\"", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
                 "add \"Valid task\" t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior(
+                "a \"Valid task\" t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior(
+                "ad \"Valid task\" t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
@@ -179,6 +215,23 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
 
+        toBeAdded = helper.laundry();
+        expectedAB.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+                helper.generateAddCommand_A(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        toBeAdded = helper.homework();
+        expectedAB.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+                helper.generateAddCommand_Ad(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
     }
 
     @Test
@@ -198,6 +251,18 @@ public class LogicManagerTest {
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
+        
+        assertCommandBehavior(
+                helper.generateAddCommand_A(toBeAdded),
+                AddCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        assertCommandBehavior(
+                helper.generateAddCommand_Ad(toBeAdded),
+                AddCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB,
+                expectedAB.getTaskList());
 
     }
 
@@ -213,6 +278,18 @@ public class LogicManagerTest {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("l",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("li",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("lis",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
@@ -255,11 +332,21 @@ public class LogicManagerTest {
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("s", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("se", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("sel", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("sele", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("selec", expectedMessage);
     }
 
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
+        assertIndexNotFoundBehaviorForCommand("s");
+        assertIndexNotFoundBehaviorForCommand("se");
+        assertIndexNotFoundBehaviorForCommand("sel");
+        assertIndexNotFoundBehaviorForCommand("sele");
+        assertIndexNotFoundBehaviorForCommand("selec");
     }
 
     @Test
@@ -276,6 +363,41 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredTaskList().get(1), threeFloatingTasks.get(1));
+        
+        assertCommandBehavior("s 1",
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 1),
+                expectedAB,
+                expectedAB.getTaskList());
+        assertEquals(0, targetedJumpIndex);
+        assertEquals(model.getFilteredTaskList().get(0), threeFloatingTasks.get(0));
+        
+        assertCommandBehavior("se 2",
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+                expectedAB,
+                expectedAB.getTaskList());
+        assertEquals(1, targetedJumpIndex);
+        assertEquals(model.getFilteredTaskList().get(1), threeFloatingTasks.get(1));
+        
+        assertCommandBehavior("sel 1",
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 1),
+                expectedAB,
+                expectedAB.getTaskList());
+        assertEquals(0, targetedJumpIndex);
+        assertEquals(model.getFilteredTaskList().get(0), threeFloatingTasks.get(0));
+        
+        assertCommandBehavior("sele 2",
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+                expectedAB,
+                expectedAB.getTaskList());
+        assertEquals(1, targetedJumpIndex);
+        assertEquals(model.getFilteredTaskList().get(1), threeFloatingTasks.get(1));
+        
+        assertCommandBehavior("selec 1",
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 1),
+                expectedAB,
+                expectedAB.getTaskList());
+        assertEquals(0, targetedJumpIndex);
+        assertEquals(model.getFilteredTaskList().get(0), threeFloatingTasks.get(0));
     }
 
 
@@ -283,11 +405,21 @@ public class LogicManagerTest {
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("d", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("de", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("del", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("dele", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("delet", expectedMessage);
     }
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete");
+        assertIndexNotFoundBehaviorForCommand("d");
+        assertIndexNotFoundBehaviorForCommand("de");
+        assertIndexNotFoundBehaviorForCommand("del");
+        assertIndexNotFoundBehaviorForCommand("dele");
+        assertIndexNotFoundBehaviorForCommand("delet");
     }
 
     @Test
@@ -310,6 +442,9 @@ public class LogicManagerTest {
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
+        assertCommandBehavior("f ", expectedMessage);
+        assertCommandBehavior("fi ", expectedMessage);
+        assertCommandBehavior("fin ", expectedMessage);
     }
 
     @Test
@@ -329,6 +464,21 @@ public class LogicManagerTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
+        assertCommandBehavior("fi KEY",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+
+        assertCommandBehavior("fin KEY",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("f KEY",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+
+
     }
 
     @Test
@@ -345,6 +495,19 @@ public class LogicManagerTest {
         helper.addToModel(model, fourFloatingTasks);
 
         assertCommandBehavior("find KEY",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("fi KEY",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+
+        assertCommandBehavior("fin KEY",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("f KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -367,6 +530,18 @@ public class LogicManagerTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
+        assertCommandBehavior("f key rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("fi key rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+        assertCommandBehavior("fin key rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
     }
 
 
@@ -378,6 +553,20 @@ public class LogicManagerTest {
         FloatingTask adam() throws Exception {
             Name name = new Name("Adam Brown");
             Tag tag1 = new Tag("tag1");
+            UniqueTagList tags = new UniqueTagList(tag1);
+            return new FloatingTask(name, tags);
+        }
+        
+        FloatingTask laundry() throws Exception {
+            Name name = new Name("laundry");
+            Tag tag1 = new Tag("dothem");
+            UniqueTagList tags = new UniqueTagList(tag1);
+            return new FloatingTask(name, tags);
+        }
+        
+        FloatingTask homework() throws Exception {
+            Name name = new Name("homework");
+            Tag tag1 = new Tag("impt");
             UniqueTagList tags = new UniqueTagList(tag1);
             return new FloatingTask(name, tags);
         }
@@ -401,6 +590,36 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
+            cmd.append("\"");
+            cmd.append(p.getName().toString());
+            cmd.append("\"");
+            UniqueTagList tags = p.getTags();
+            for(Tag t: tags){
+                cmd.append(" t/").append(t.tagName);
+            }
+
+            return cmd.toString();
+        }
+        
+        String generateAddCommand_A(FloatingTask p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("a ");
+            cmd.append("\"");
+            cmd.append(p.getName().toString());
+            cmd.append("\"");
+            UniqueTagList tags = p.getTags();
+            for(Tag t: tags){
+                cmd.append(" t/").append(t.tagName);
+            }
+
+            return cmd.toString();
+        }
+        
+        String generateAddCommand_Ad(FloatingTask p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("ad ");
             cmd.append("\"");
             cmd.append(p.getName().toString());
             cmd.append("\"");
