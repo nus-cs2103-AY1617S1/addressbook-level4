@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8"
+<HBox id="cardPane2" fx:id="cardPane2" xmlns="http://javafx.com/javafx/8"
 	xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<GridPane HBox.hgrow="ALWAYS">

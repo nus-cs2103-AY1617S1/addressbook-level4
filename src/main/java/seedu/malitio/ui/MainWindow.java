@@ -31,6 +31,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
+    private TaskListPanel2 taskListPanel2;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -54,6 +55,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane taskListPanelPlaceholder2;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -110,6 +114,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPanelPlaceholder(), logic.getFilteredTaskList());
+        taskListPanel2 = TaskListPanel2.load(primaryStage, getTaskListPanelPlaceholder2(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getMalitioFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -129,6 +134,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPanelPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getTaskListPanelPlaceholder2() {
+        return taskListPanelPlaceholder2;
     }
 
     public void hide() {
@@ -184,6 +193,10 @@ public class MainWindow extends UiPart {
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
+    }
+    
+    public TaskListPanel2 getTaskListPanel2() {
+        return this.taskListPanel2;
     }
 
     public void loadTaskPage(ReadOnlyTask task) {
