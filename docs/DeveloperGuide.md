@@ -7,7 +7,7 @@ This guide will bring you through the design and implementation of Menion. It's 
 
 # Table of Contents
 * [Setting Up](#setting-up)
-* [Product Architecture](#product-architecture)
+* [Design](#design)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
@@ -32,12 +32,15 @@ This guide will bring you through the design and implementation of Menion. It's 
 #### Importing the project into Eclipse
 
 1. Fork this repo, and clone the fork to your computer
+
 2. Open Eclipse
+
 	> * Ensure you have installed the e(fx)clipse and buildship plugins as given in the 		prerequisites above
 3. Click `File` > `Import`
 4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
 5. Click `Browse`, then locate the project's directory
 6. Click `Finish`
+
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
@@ -47,62 +50,74 @@ This guide will bring you through the design and implementation of Menion. It's 
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600"><br> Diagram 1:Layout for acchitecture<br>
+<img src="images/Architecture.png" width="600"><br> Diagram 1: Layout for architecture<br>
 The Architecture Diagram given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/menion/MainApp.java). It is responsible for,
+[*Main*]() has only one class called [`MainApp`](../src/main/java/seedu/menion/MainApp.java). It is responsible for,
+
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 
-[*`Commons`*](#common-classes) represents a collection of classes used by multiple other components.
+[*Commons*](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
+
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of Event Driven design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
+<br><br>
+
+<img src="images/LogicClassDiagram.png" width="800"><br>Diagram 2: Sequence diagam<br>
 
 The rest of the App consists four components.
+
 * [*`UI`*](#ui-component) : The UI of tha App.
 * [*`Logic`*](#logic-component) : The command executor.
 * [*`Model`*](#model-component) : Holds the data of the App in-memory.
 * [*`Storage`*](#storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
+
 * Defines its API in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>Diagram 2: Sequence diagam<br>
-The Sequence Diagram below shows how the components interact for the scenario where the user issues the
+interface and exposes its functionality using the `LogicManager.java` class.
+<br><br>
+
+
+<img src="images\SDforDeletePerson.png" width="800"><br>Diagram 3: Model diagram
+
+The Sequence Diagram above shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800">Diagram 3: Model diagram
-
->Note how the `Model` simply raises a `ActivityManagerChangedEvent` when the Activity Manager data are changed,
+> Notice how the `Model` simply raises a `ActivityManagerChangedEvent` when the Activity Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">Diagram 4: Event diagram
 
+<br><br><img src="images\SDforDeletePersonEventHandling.png" width="800"><br>Diagram 4: Event diagram
+
+The diagram above shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 > * Notice how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
-
+<br>
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800">Diagram 5: UI component<br>
+<img src="images/UiClassDiagram.png" width="800"><br>Diagram 5: UI component<br>
 
 API : [`Ui.java`](../src/main/java/seedu/menion/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `AcitivtyListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
+The UI consists of a `MainWindow` that is made up of parts. 
+For example, `CommandBox`, `ResultDisplay`, `AcitivtyListPanel`, `StatusBarFooter`, `BrowserPanel` etc... All these, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.<br>
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/menion/ui/MainWindow.java) is specified in [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
+
 * executes user commands using the `Logic` component.
 * binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * responds to events raised from various parts of the App and updates the UI accordingly.
@@ -110,47 +125,50 @@ The `UI` component,
 <br>
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800">Diagram 6: Storage component<br>
+<img src="images/StorageClassDiagram.png" width="800"><br>Diagram 6: Storage component<br>
 
 API : [`Storage.java`](../src/main/java/seedu/menion/storage/Storage.java)
 
 The `Storage` component,
+
 * saves `UserPref` objects in json format and read it back.
 * saves the Activity Manager data in xml format and read it back.
 <br>
 
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800">Diagram 7: Logic component <br>
+<img src="images/LogicClassDiagram.png" width="800"><br>Diagram 7: Logic component <br>
 
 API : [`Logic.java`](../src/main/java/seedu/menion/logic/Logic.java)
 
  [`Logic`](../src/main/java/seedu/menion/logic/Logic.java) uses the `ActivityParser` class to parse the user's command.For example, `ActivityParser` uses `AddParser` to parse argument for `AddCommand`. This results in a `Command` object which is executed by the `LogicManager`.<br>
 The command execution can affect the `Model` (e.g. adding an Activity) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+<br><br>
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800">Diagram 8: Logic interation<br>
-
+<img src="images/DeletePersonSdForLogic.png" width="800"><br>Diagram 8: Logic interation<br>
+Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`API call.<br><br>
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800">Diagram 9: Model component<br>
+<img src="images/ModelClassDiagram.png" width="800"><br>Diagram 9: Model component<br>
 
 *API* : [`Model.java`](../src/main/java/seedu/menion/model/Model.java)
 The model class is not coupled to the other three components.
 
-The `Model`,
+The `Model` component,
+
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Activity Manager data.
-* exposes a `UnmodifiableObservableList<ReadOnlyActivity>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-
+* exposes a `UnmodifiableObservableList<ReadOnlyActivity>` that can be 'observed' For example, the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+<br><br>
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800">Diagram 9: Storage component<br>
+<img src="images/StorageClassDiagram.png" width="800"><br>Diagram 10: Storage component<br>
 
 API : [`Storage.java`](../src/main/java/seedu/menion/storage/Storage.java)
 
 The `Storage` component,
+
 * saves `UserPref` objects in json format and read it back
 * saves the Activity Manager data in xml format and read it back
 
@@ -176,7 +194,7 @@ and logging destinations.
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size
+  For example, print the actual list instead of just its size
 
 ### Configuration
 
@@ -186,6 +204,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 ## Testing
 
 Tests can be found in the `./src/test/java` folder. There are two available options for tesing.
+
 1. Eclipse
 	* To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
@@ -194,9 +213,6 @@ Tests can be found in the `./src/test/java` folder. There are two available opti
 
 2. Gradle
 	* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
-
-
-
 
 
 
@@ -222,6 +238,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,our GUI 
  
 #### Troubleshooting tests
  *Problem: Tests fail because NullPointException when AssertionError is expected*
+ 
  * Reason: Assertions are not enabled for JUnit tests. 
    This can happen if you are not using a recent Eclipse version (i.e. Neon or later)
  * Solution: Enable assertions in JUnit tests as described 
@@ -492,5 +509,4 @@ _3.1 Pros_
 
 _3.2 Cons_
 > 3.2.1 No one shot approach of typing details of activity into a command line.
-
 

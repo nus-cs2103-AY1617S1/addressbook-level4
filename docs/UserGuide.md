@@ -61,6 +61,7 @@ Unlike other complicated task managers, Menion is simple and intuitive. It relie
  
 #### Adding an activity
 Adds an activity to Menion<br>
+
 Format : <br>
 `add TASK_NAME by TASK_DEADLINE [n:NOTES...]` <br>
 `add EVENT_NAME from EVENT_START_TIME EVENT_START_DATE to EVENT_END_TIME EVENT_END_DATE [n:NOTES...]`<br>
@@ -70,6 +71,7 @@ Format : <br>
 
 
 Examples: 
+
 * `add Upload CS3230 Programming Assignment 2 d/16-10-16 r/false p/low n/Upload it onto Coursemology Portal`
 * `add Dinner With Family d/21-11-16 t/1800-2000 r/true p/high n/Wear formal`
 
@@ -82,10 +84,11 @@ Format : `delete INDEX`
 The index must be a positive integer 1,2,3,...
 
 Examples:
+
 * `delete 2`
 * `deletes the 2nd task/event in the Menion.`
 
-#### Editting an activity
+#### Editing an activity
 Updates a specified task from the Menion.
 
 Format : `edit INDEX`
@@ -94,6 +97,7 @@ Format : `edit INDEX`
 > The index must be a positive integer 1,2,3, ...
 
 Examples :
+
 * `edit 3`
 * `d/dd-mm-yy p/low`
 * `edit 2`
@@ -116,6 +120,7 @@ Format : <br>
 
 #### Listing all activities of the specified time period
 Shows a list of all activities in the Menion for the specified time period: day, week, month, date.<br>
+
 Format : <br>
 `list DAY` <br>
 `list WEEK` <br>
@@ -123,6 +128,7 @@ Format : <br>
 `list DATE` <br>
 
 Examples:
+
 * `list MONDAY`
 * `list WEEK`
 * `list JANUARY`
@@ -130,14 +136,17 @@ Examples:
 
 #### Listing all events and tasks of the specified range of dates
 Shows a list of all tasks and events in the Menion for the range of days sorted according to date.<br>
+
 Format : `list day to day`
 
 Examples:
+
 * `list 10-10-16 to 20-10-16`
 
 
 #### Finding all activities containing any keyword in their name
 Finds all tasks whose names contain any of the given keywords.<br>
+
 Format : `find KEYWORD [MORE_KEYWORDS]`
 >* The search is not case sensitive. e.g. `sleep` will match `Sleep`
 >* The order of the keywords does not matter. e.g. `Pack Bag` will match `Bag Pack`
@@ -146,6 +155,7 @@ Format : `find KEYWORD [MORE_KEYWORDS]`
 >* Activity name matching at least one keyword will be returned (i.e `OR` search). e.g. `sleep` will match `sleep for 8 hours`
 
 Examples
+
 * find `Sleep`
 * Displays : sleep for 8 hours
 * find Go to gym
@@ -154,10 +164,12 @@ Examples
 
 #### Clearing all entries
 Clear all entries from the Menion.<br>
+
 Format : `clear`
 
 #### Modifying the storage path
 Modify the storage path that stores all the data.<br>
+
 Format : `modify storage path STORAGE_LOCATION`
 
 #### Viewing help
