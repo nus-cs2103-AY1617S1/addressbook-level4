@@ -26,7 +26,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.parser = MainParser.getInstance();
     }
 
-    @Override
+    @Override	
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
