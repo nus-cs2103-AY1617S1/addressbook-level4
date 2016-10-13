@@ -727,6 +727,31 @@ public class LogicManagerTest {
                 expectedAB,
                 new TaskList().getTaskList());
     }
+    
+    @Test
+    public void execute_findbyType_Successful() throws Exception{
+    	TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generateTaskWithName("key key");
+        Task p1 = helper.generateTaskWithName("sduauo");
+        Task test = helper.nonFloatingFromDateToDate();
+
+        List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTaskList(fourTasks);
+        List<Task> expectedList = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
+        
+        expectedAB.addTask(test);
+
+        helper.addToModel(model, fourTasks);
+        model.addTask(test);
+
+        assertCommandBehavior("find -F",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+        
+    }
 
 
     /**
