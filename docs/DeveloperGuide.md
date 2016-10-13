@@ -304,7 +304,7 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests a list of all commands.
-2. App shows list of all commands with guides on how to use the different commands.
+2. App shows list of all commands with guides on how to use the different commands. <br>
 Use case ends.
 
 #### Use case: Add task/event
@@ -312,18 +312,18 @@ Use case ends.
 **MSS**
 
 1. User requests to add a task/event.
-2. App saves task/event and task/event details to the TaskBook, registers the task/event for future notification/reminders and shows confirmation of successful addition.
+2. App saves task/event and task/event details to the TaskBook, registers the task/event for future notification/reminders and shows confirmation of successful addition. <br>
 Use case ends.
 
 **Extensions**
 
 1a. User enters command in invalid format.
 
-> 1a1. App shows user an error message with correct format needed.
+> 1a1. App shows user an error message with correct format needed. <br>
 > Use case resumes at step 1.
 
 1b. User enters a event with overlapping time with another event.
-> 1b1. App shows user a notification and continues with the addition.
+> 1b1. App shows user a notification and continues with the addition. <br>
 > Use case ends.
 
 ####Use case: Complete task 
@@ -334,23 +334,23 @@ Use case ends.
 2. User requests to list tasks/events from a selected day/category.
 3. App shows a list of tasks/events from that day/category.
 4. User requests to complete a specific task in the list.
-5. App marks the task as completed and shows confirmation to the user.
+5. App marks the task as completed and shows confirmation to the user. <br>
 Use case ends.
 
 **Extensions**
 
 1a. App shows daily agenda and user requests to complete a specific task in the daily agenda.
 
-> Use case jumps to step 5.
+> Use case jumps to step 5. <br>
 
 3a. The list is empty.
 
-> Use case ends.
+> Use case ends. <br>
 
 4a. The given index is invalid.
 
 > 4a1. App shows an error message.
-> Use case resumes at step 3.
+> Use case resumes at step 3. <br>
 
 ####Use case: Delete task/event
 
@@ -360,7 +360,7 @@ Use case ends.
 2. User requests to list tasks/events from a selected day/category.
 3. App shows a list of tasks/events from that day/category.
 4. User requests to delete a specific task/event in the list.
-5. App deletes the task/event and shows confirmation to the user.
+5. App deletes the task/event and shows confirmation to the user. <br>
 Use case ends.
 
 **Extensions**
@@ -375,17 +375,18 @@ Use case ends.
 
 4a. The given index is invalid.
 
-> 4a1. App shows an error message to user.
+> 4a1. App shows an error message to user. <br>
 > Use case resumes at step 3.
 
 ####Use case: Edit task/event.
 
 **MSS** 
+
 1. App shows a list of days/categories. 
 2. User requests to list tasks/events from a selected day/category.
 3. App shows a list of tasks/events from that day/category.
 4. User requests to edit a specific task/event in the list.
-5. App edits the details of the task/event and shows confirmation to the user. 
+5. App edits the details of the task/event and shows confirmation to the user.  <br>
 Use case ends.
 
 **Extensions**
@@ -400,22 +401,22 @@ Use case ends.
 
 4a. The given index is invalid.
 
->4a1. App shows an error message to user.
+> 4a1. App shows an error message to user. <br>
 > Use case resumes at step 3.
 
 4b. User enters command in invalid format.
 
-> 4b1. App shows an error message to user with correct format needed.
+> 4b1. App shows an error message to user with correct format needed. <br>
 > Use case resumes at step 3.
 
 4c. User enters new details that are the same as the original details. 
 
-> 4c1. App shows an error message to user.
+> 4c1. App shows an error message to user. <br>
 > Use case resumes at step 3.
 
-4d. User enters new time details that overlap with another event’s time details.
+4d. User enters new time details that overlap with another event's time details.
 
-> 4d1. App shows notification and continues the editing of the details.
+> 4d1. App shows notification and continues the editing of the details. <br>
 > Use case ends.
 
 ####Use case: Undo action
@@ -423,19 +424,19 @@ Use case ends.
 **MSS** 
 
 1. User requests to undo previous action.
-2. App undos the previous action and shows confirmation to user.
+2. App undoes the previous action and shows confirmation to user.  <br>
 Use case ends.
 
 **Extensions**
 
 1a. No previous action was done before.
 
->1a1. App shows an error message to user.
+>1a1. App shows an error message to user. <br>
 > Use case ends.
 
 1b. Previous action is an invalid action to be undone.
 
->1b1. App shows an error message to user.
+>1b1. App shows an error message to user. <br>
 > Use case ends.
 
 ####Use case: Find task/event
@@ -443,14 +444,14 @@ Use case ends.
 **MSS** 
 
 1. User requests to find a particular task/event using a particular keyword used in the details.
-2. App shows a list of tasks/events matching that keyword.
+2. App shows a list of tasks/events matching that keyword. <br>
 Use case ends.
 
 **Extensions**
 
 2a. No such keyword was used before in any task details.
 
->2a1. App shows message to user and displays an empty list to user.
+>2a1. App shows message to user and displays an empty list to user. <br>
 > Use case ends.
 
 ####Use case: View all incomplete tasks
@@ -458,13 +459,13 @@ Use case ends.
 **MSS** 
 
 1. User requests to view all incomplete tasks.
-2. App shows a list of all the incomplete tasks.
+2. App shows a list of all the incomplete tasks. <br>
 Use case ends.
 
 **Extensions**
 
 2a. There are no incomplete tasks.
-> 2a1. App shows message to user and displays an empty list to user.
+> 2a1. App shows message to user and displays an empty list to user. <br>
 > Use case ends.
 
 ####Use case: View all completed tasks
@@ -472,13 +473,13 @@ Use case ends.
 **MSS** 
 
 1. User requests to view all completed tasks.
-2. App shows a list of all the completed tasks.
+2. App shows a list of all the completed tasks. <br>
 Use case ends.
 
 **Extensions**
 
 2a. There are no completed tasks.
-> 2a1. App shows message to user and displays an empty list to user.
+> 2a1. App shows message to user and displays an empty list to user. <br>
 > Use case ends.
 
 ####Use case: Set save directory
@@ -486,19 +487,19 @@ Use case ends.
 **MSS**
 
 1. User requests to set a new save directory for all the tasks and events.
-2. App switches the save directory to the new save directory given and shows confirmation message to user.
+2. App switches the save directory to the new save directory given and shows confirmation message to user. <br>
 Use case ends.
 
 **Extensions**
 
 1a. The input new save directory is invalid.
 
->1a1. App shows error message to user.
+>1a1. App shows error message to user. <br>
 > Use case ends.
 
 1b. The input new save directory is the same as the original save directory.
 
->1b1. App shows error message to user.
+>1b1. App shows error message to user. <br>
 > Use case ends.
 
 ####Use case: Clear TaskBook
@@ -508,19 +509,19 @@ Use case ends.
 1. User requests to clear the TaskBook of all tasks and events.
 2. App requests for confirmation with user to clear the TaskBook.
 3. User confirms.
-4. App clears the TaskBook of all tasks and events and show a confirmation message to user.
+4. App clears the TaskBook of all tasks and events and show a confirmation message to user. <br>
 Use case ends.
 
 **Extensions**
 
 1a. The TaskBook is already empty.
 
->1a1. App shows error message to user.
+>1a1. App shows error message to user. <br>
 > Use case ends.
 
 3a. User rejects the confirmation.
 
->3a1. App shows message to user.
+>3a1. App shows message to user. <br>
 > Use case ends.
 
 ####Use case: Exit application
@@ -528,7 +529,7 @@ Use case ends.
 **MSS**
 
 1. User requests to exit the application.
-2. Application closes itself.
+2. Application closes itself. <br>
 Use case ends.
 
 
@@ -573,7 +574,7 @@ Use case ends.
 
 | Task Managers | Strengths | Weaknesses |
 | :------------ | :-------- | :--------- |
-| Todoist |  Has a very simple design. <br>Offers a mobile app. <br>Has a feature where	users are encouraged to earn “Todoist Karma”, to track their	productivity trends as they finish their tasks.| Free version is limited in its capabilities and  is not well-encrypted. <br>Some of the mobile apps have design issues (like being unable to sort tasks). <br>Free version does not come up with some features like reminders, filters, labels, and templates. |
+| Todoist |  Has a very simple design. <br>Offers a mobile app. <br>Has a feature where	users are encouraged to earn "Todoist Karma", to track their productivity trends as they finish their tasks.| Free version is limited in its capabilities and  is not well-encrypted. <br>Some of the mobile apps have design issues (like being unable to sort tasks). <br>Free version does not come up with some features like reminders, filters, labels, and templates. |
 | Trello |Can divide projects up by tasks, and then edit those tasks with descriptions, labels, checklists, and even attachments. <br>Is particularly helpful for teams working on separate tasks toward a greater project goal, where the tasks are in need of a pipeline. | Has no good way to use this system to prioritize tasks between projects. |
 | Google Keep | Easy on the eyes. <br>Easy to use. <br>Integrates with desktop/mobile very well. <br>As expected from google, it integrates well with other google products too. <br>Voice memos feature. <br>Images feature. <br>Able to retrieve deleted items in archive. <br>Has reminders. <br>Can share lists. | No chronological representation of reminders. |
 
