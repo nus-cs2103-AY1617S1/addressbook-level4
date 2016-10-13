@@ -13,12 +13,15 @@ public abstract class Item implements ReadOnlyItem{
 
     private UniqueTagList tags;
 	private Description description;
+	private boolean isDone;
+	
     /**
      * Every field must be present and not null.
      */
 	public Item(Description desc) {
 		// assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
 		this.description = desc;
+		this.isDone = false;
 		// this.tags = new UniqueTagList(tags); // protect internal tags from
 		// changes in the arg list
     }
@@ -27,6 +30,10 @@ public abstract class Item implements ReadOnlyItem{
 	public Description getDescription() {
 		return description;
     }
+	
+	public boolean getIsDone() {
+	    return this.isDone;
+	}
 
 	// @Override
 	// public UniqueTagList getTags() {
@@ -38,6 +45,10 @@ public abstract class Item implements ReadOnlyItem{
 	 */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
+    }
+    
+    public void setIsDone(boolean doneness) {
+        this.isDone = doneness;
     }
 
     @Override
