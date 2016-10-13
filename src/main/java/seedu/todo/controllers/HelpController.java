@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.HelpView;
-import seedu.todo.ui.views.IndexView;
 
 public class HelpController implements Controller {
 
