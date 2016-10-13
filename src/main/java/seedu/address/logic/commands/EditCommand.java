@@ -27,9 +27,10 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the task residing at index input "
-            + "Parameters: <index>\n"
-            + "Example: " + COMMAND_WORD + " 2";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the task residing at index input \n"
+            + "Parameters: <index> <details> by/on <date> at <time> /<priority> /<TAG...>\n"
+    		+ "NOTE: You must reenter all parameters again.\n\n"
+            + "Example: " + COMMAND_WORD + " 2 Take Bongo out for a walk tomorrow 2pm /medium -dog";
     
     public static final String MESSAGE_EDITED_PERSON_SUCCESS = "Edited Task: %1$s";
 
@@ -65,12 +66,18 @@ public class EditCommand extends Command {
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
+        // Check if target index is valid
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
+        // Retrieve the task and check if done.
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        if (taskToEdit.checkDone().value) {
+            indicateAttemptToExecuteIncorrectCommand();
+        	return new CommandResult(Messages.MESSAGE_EDIT_TASK_IS_DONE_ERROR);
+        }
         
         try {
             model.editTask(taskToEdit, toEditWith);
@@ -78,7 +85,7 @@ public class EditCommand extends Command {
             assert false : "The target task cannot be missing";
         }
         
-    	return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+    	return new CommandResult(Messages.MESSAGE_EDIT_TASK_SUCCESS);
     }
 
 }

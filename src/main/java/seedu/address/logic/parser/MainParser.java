@@ -152,12 +152,14 @@ public class MainParser {
      * @return the prepared command
      */
     private Command prepareEdit(String args){
-        Optional<Integer> checkForIndex = parseLooseIndex(args);
+        // Determine if edit command is input correctly
+    	Optional<Integer> checkForIndex = parseLooseIndex(args);
         if(!checkForIndex.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
     	
+        // Determine if the edit command is used correctly
     	String[] splittedArgs = getCleanString(args).split(" ");
     	Integer index = Integer.valueOf(splittedArgs[0]);
         if(index == null){
@@ -165,9 +167,11 @@ public class MainParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        // Store and remove
+        // Store index and remove
         int targetIndex = index;
         args = args.replaceFirst("[0-9]+\\s", "");
+        
+        // Parse date and time
         reducedArgs = extractDueByDateAndTime(args);
         LocalDateTime dt;
         if (datesAndTimes.size() != 0)
