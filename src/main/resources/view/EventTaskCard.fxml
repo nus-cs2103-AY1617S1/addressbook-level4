@@ -28,10 +28,10 @@
                     </padding>
 
                           <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5.0" translateY="-14.0">
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
                             <children>
                                  <Label fx:id="id" styleClass="cell_big_label" />
-                                 <Label fx:id="taskName" styleClass="cell_big_label" text="\$taskName">
+                                 <Label fx:id="taskName" styleClass="cell_big_label" text="\$taskName" translateY="4.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -41,10 +41,12 @@
                         <Insets />
                      </opaqueInsets>
                         </HBox>
+                  <Label fx:id="startDateAndTime" text="\$startDateAndTime" translateX="7.0" translateY="4.0" />
+                  <Label fx:id="endDateAndTime" text="\$endDateAndTime" translateX="7.0" translateY="4.0" />
                     </children>
                 </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="taskType" style="-fx-background-color: #63ff75;" text="\$taskType" textAlignment="RIGHT" textFill="WHITE" textOverrun="CLIP">
+            <Label fx:id="taskType" style="-fx-background-color: #03abff;" text="\$taskType" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CLIP">
                <font>
                   <Font size="16.0" />
                </font>
