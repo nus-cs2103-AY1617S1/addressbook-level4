@@ -257,7 +257,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | view task list sorted by date and time | keep track of tasks that have to be done on a specific day
 `* * *` | user | find an existing task by name using keywords | locate an existing task without having to go through the entire task list
 `* * *` | user | modify the information of a task | update the details, requirements and deadline of a task if they are changed
-`* * *` | user | undo the operation of the most recent action done by the user | revert the previous state of tasks in case if a mistake is made
+`* * *` | user | undo the most recent operation done by the user | revert the previous state of tasks in case if a mistake is made
 `* * *` | user | mark the completed tasks as done | keep track of which items are done and which are yet to be done
 `* * *` | user | delete a task | discard cancelled tasks
 `* * *` | user | specify a specific folder as the data storage location | choose a folder that is more convenient for me to access the data
@@ -343,18 +343,18 @@ Use case ends.
 > 3b1. Task!t shows a 'invalid command' message and display the expected format.<br>
 > Use case resumes at step 2
 
-#### Use case: Undo action
+#### Use case: Undo operation
 
 **MSS**
 
-1. User requests to undo last action performed
-2. Task!t undo the last action <br>
+1. User requests to undo last operation performed
+2. Task!t undo the last operation <br>
 Use case ends.
 
 **Extensions**
 
-2a. There is no last action
-> 2a1. Task!t shows a 'there is no last action' message.<br>
+2a. There is no last operation
+> 2a1. Task!t shows a 'there is no last operation' message.<br>
 > Use case ends
 
 #### Use case: Mark task as done
