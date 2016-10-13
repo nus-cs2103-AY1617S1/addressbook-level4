@@ -60,7 +60,7 @@ public class TaskList extends Component {
             List<Task> tasksForDate = tasksByDate.get(dateTime);
 
             item.dateTime = dateTime;
-            item.tasks = tasksForDate;            
+            item.tasks = tasksForDate;
 
             // Finally, can render into the placeholder.
             item.render();
