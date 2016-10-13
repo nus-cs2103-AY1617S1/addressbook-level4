@@ -261,8 +261,8 @@ public class ModelManager extends ComponentManager implements Model {
 			Date startDate = timeArray[START_DATE_INDEX];
 			Date endDate = timeArray[END_DATE_INDEX];
 			
-			if(startDate.after(this.startTime)
-					&& endDate.before(this.endTime))
+			if((startDate.after(this.startTime)||(startDate.getDate()==this.startTime.getDate()&&startDate.getMonth()==this.startTime.getMonth()))
+					&& (endDate.before(this.endTime)||(endDate.getDate()==this.endTime.getDate()&&endDate.getMonth()==this.endTime.getMonth())))
 				return true;
 			return false;	
 		}
@@ -283,6 +283,7 @@ public class ModelManager extends ComponentManager implements Model {
     		this.deadline = deadline;
     	}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public boolean run(ReadOnlyTask task) {
 			
@@ -300,7 +301,9 @@ public class ModelManager extends ComponentManager implements Model {
 			if(deadline.before(this.deadline)
 					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
 				return true;
-			
+			if(deadline.getDate()==this.deadline.getDate()&&deadline.getMonth()==this.deadline.getMonth()
+					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
+				return true;
 			return false;
 		}
     	

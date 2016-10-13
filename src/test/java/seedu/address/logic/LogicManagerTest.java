@@ -6,10 +6,14 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.model.TaskList;
 import seedu.address.model.Model;
@@ -21,6 +25,7 @@ import seedu.address.model.task.*;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.TypicalTestTasks;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -75,9 +80,11 @@ public class LogicManagerTest {
     }
 
     @After
-    public void teardown() {
-    	logic.execute("clear");
-    	logic.execute("cd data\\tasklist.xml");
+    public void teardown() throws DataConversionException, IOException {
+    	//logic.execute("clear");
+    	Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+		config.setTaskListFilePath("data\\tasklist.xml");
+		ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
         EventsCenter.clearSubscribers();
     }
 
@@ -249,6 +256,30 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAddedAfter),
                 AddNonFloatingCommand.MESSAGE_TIMESLOT_OCCUPIED,
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_addDeadlineOverlap_Successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+        Task toBeAddedAfter = new Task(new Name("Task two"), new UniqueTagList(),
+				  new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 11am"));
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(toBeAddedAfter);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal task list
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAddedAfter),
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter),
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -637,6 +668,64 @@ public class LogicManagerTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
+    }
+    
+    @Test
+    public void execute_findByDate_Successful() throws Exception{
+    	TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generateTaskWithName("key key");
+        Task p1 = helper.generateTaskWithName("sduauo");
+        Task test = helper.nonFloatingByDate();
+
+        List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTaskList(fourTasks);
+        List<Task> expectedList = helper.generateTasks(test);
+        
+        expectedAB.addTask(test);
+
+        helper.addToModel(model, fourTasks);
+        model.addTask(test);
+
+        assertCommandBehavior("find by 20 oct",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("find by 19 oct",
+                Command.getMessageForTaskListShownSummary(0),
+                expectedAB,
+                new TaskList().getTaskList());
+    }
+    
+    @Test
+    public void execute_findDateToDate_Successful() throws Exception{
+    	TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generateTaskWithName("key key");
+        Task p1 = helper.generateTaskWithName("sduauo");
+        Task test = helper.nonFloatingFromDateToDate();
+
+        List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTaskList(fourTasks);
+        List<Task> expectedList = helper.generateTasks(test);
+        
+        expectedAB.addTask(test);
+
+        helper.addToModel(model, fourTasks);
+        model.addTask(test);
+
+        assertCommandBehavior("find from 19 oct to 21 oct",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("find from 17 oct to 19 oct",
+                Command.getMessageForTaskListShownSummary(0),
+                expectedAB,
+                new TaskList().getTaskList());
     }
 
 
