@@ -73,11 +73,11 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `AddressBookChangedEvent` when the to-do list data are changed,
 instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -123,7 +123,7 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
 API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/deleteTaskSdForLogic.jpg" width="800"><br>
 
 ### Model component
 
@@ -133,7 +133,7 @@ API call.<br>
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the to-do list data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
  so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -146,7 +146,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the to-do list data in xml format and read it back.
 
 ### Common classes
 
@@ -478,5 +478,7 @@ Use case ends.
 1. tasks for free version
 2. Cannot use label to categorize tasks for free version
 3. Synchronization to different platform is only available for premium version
- 
+
+#### Summary
+
 In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, priority for tasks and the tag for tasks are some important features.
