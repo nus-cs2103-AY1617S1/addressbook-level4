@@ -83,7 +83,7 @@ Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown be
 
 Deletes the specific task from the address book. Irreversible.<br>
 Format: `delete <Task Index>`
-   > <img src="UserGuideImages/UG_9.JPG" width="400">
+   > <img src="UserGuideImages/UG_9.JPG" width="300">
    
    Examples : <br>
    delete Dance Rehearsal <br>
@@ -105,7 +105,7 @@ You can then see all of the tasks in the application in the display as shown bel
 
 3.1 If you wish to find certain tasks, enter the keywords in the task or the task name<br>
 Format: `find`
-   > <img src="UserGuideImages/UG_13.JPG" width="400">
+   > <img src="UserGuideImages/UG_13.JPG" width="300">
    
    Examples : <br>
    find workout <br>
@@ -120,7 +120,7 @@ For example, i keyed in “find workout” in the command line and the task with
 If you wish to clear all the tasks in the task manager in one go, without having to delete each one by one, you can make use of the “clear” command. 
 <br>
 Format: `clear`
-   > <img src="UserGuideImages/UG_15.JPG" width="400">
+   > <img src="UserGuideImages/UG_15.JPG" width="200">
 				
 Simple type the command “clear” as shown above and all tasks will be automatically deleted and the message that “Unburden has been cleared!” would appear as shown below. 
    > <img src="UserGuideImages/UG_16.JPG" width="500">
@@ -142,7 +142,7 @@ By doing so, the date, start time and end time will be updated and the updated l
 6.2 If you wish to edit the deadline certain tasks
 <br>
 Format: `edit <Task Index> d/<Deadline>`
-   > <img src="UserGuideImages/UG_19.JPG" width="400">
+   > <img src="UserGuideImages/UG_19.JPG" width="300">
    
    Examples : <br>
    edit 3  d/09-07-2016 <br>
