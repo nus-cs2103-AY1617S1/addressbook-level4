@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 
 import java.text.DateFormat;
@@ -64,18 +65,22 @@ public class ItemCard extends UiPart{
         Date endFromNowDate;
         Date currentDate = new Date();
         String endFromNowText = "";
-        try {
-            endFromNowDate = df.parse(endDateString);
-            PrettyTime p = new PrettyTime();
-            endFromNowText = p.format(endFromNowDate);
-            if (currentDate.before(endFromNowDate)) { // Future Deadline
-                endFromNow.setText("Ends " + endFromNowText);
-            } else { // Past Deadline
-            	endFromNow.setText("Ended " + endFromNowText);
+        if (item.getItemType().value.equals(ItemType.DEADLINE_WORD) || item.getItemType().value.equals(ItemType.EVENT_WORD)) {
+            try {
+                endFromNowDate = df.parse(endDateString);
+                PrettyTime p = new PrettyTime();
+                endFromNowText = p.format(endFromNowDate);
+                if (currentDate.before(endFromNowDate)) { // Future Deadline
+                    endFromNow.setText("Ends " + endFromNowText);
+                } else { // Past Deadline
+            	    endFromNow.setText("Ended " + endFromNowText);
+                }
+            } catch (ParseException e) {
+                endFromNow.setText(endFromNowText);
+                e.printStackTrace();
             }
-        } catch (ParseException e) {
-            endFromNow.setText(endFromNowText);
-            e.printStackTrace();
+        } else {
+        	endFromNow.setText(endFromNowText);
         }
         startTime.setText(item.getStartTime().value);
         startDate.setText(item.getStartDate().value);
