@@ -43,6 +43,11 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		tasks.add(toAdd);
 		indicateTaskManagerChanged();
 	}
+	
+	@Override
+	public synchronized void updateTask(Task toUpdate, Task newTask) throws ItemNotFoundException {
+		
+	}
 
 	@Override
 	public synchronized void deleteTask(Task toRemove) throws ItemNotFoundException {

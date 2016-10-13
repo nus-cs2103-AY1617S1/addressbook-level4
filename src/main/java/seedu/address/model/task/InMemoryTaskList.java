@@ -18,6 +18,11 @@ public interface InMemoryTaskList {
 	void addTask(Task toAdd) throws UniqueItemCollection.DuplicateItemException;
 	
 	/*
+	 * Updates a task with a new task from the current in-memory representation of the Task List
+	 */
+	void updateTask(Task toAdd, Task newTask) throws UniqueItemCollection.ItemNotFoundException;
+	
+	/*
 	 * Removes a task from the current in-memory representation of the Task List
 	 */
 	void deleteTask(Task toRemove) throws UniqueItemCollection.ItemNotFoundException;

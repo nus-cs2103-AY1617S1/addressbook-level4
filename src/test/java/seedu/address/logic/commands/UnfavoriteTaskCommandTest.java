@@ -10,7 +10,7 @@ import seedu.address.logic.commands.taskcommands.UnfavoriteTaskCommand;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.testutil.TestUtil;
 
-public class UnfavoriteTaskCommandTest2 {
+public class UnfavoriteTaskCommandTest {
 
 	
 	@Test
