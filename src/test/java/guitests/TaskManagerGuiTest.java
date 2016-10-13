@@ -8,12 +8,13 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.AddressBook;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestTasks;
+
+import seedu.task.TestApp;
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.model.TaskManager;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.testutil.TestUtil;
+import seedu.task.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -21,9 +22,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for TaskManager.
  */
-public abstract class AddressBookGuiTest {
+public abstract class TaskManagerGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -75,9 +76,9 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestTasks.loadAddressBookWithSampleData(ab);
+    protected TaskManager getInitialData() {
+        TaskManager ab = TestUtil.generateEmptyTaskManager();
+        TypicalTestTasks.loadTaskManagerWithSampleData(ab);
         return ab;
     }
 
