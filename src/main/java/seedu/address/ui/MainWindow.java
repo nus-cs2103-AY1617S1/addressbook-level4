@@ -13,7 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.item.ReadOnlyItem;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,7 +30,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private ItemListPanel itemListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -41,7 +41,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String taskBookName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -53,7 +53,7 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane itemListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -79,16 +79,16 @@ public class MainWindow extends UiPart {
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getTaskBookName(), config, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String taskBookName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.taskBookName = taskBookName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -109,9 +109,9 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+        itemListPanel = ItemListPanel.load(primaryStage, getItemListPlaceholder(), logic.getFilteredItemList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
@@ -127,8 +127,8 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+    public AnchorPane getItemListPlaceholder() {
+        return itemListPanelPlaceholder;
     }
 
     public void hide() {
@@ -182,12 +182,12 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
+    public ItemListPanel getItemListPanel() {
+        return this.itemListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
-        browserPanel.loadPersonPage(person);
+    public void loadItemPage(ReadOnlyItem item) {
+        browserPanel.loadItemPage(item);
     }
 
     public void releaseResources() {
