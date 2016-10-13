@@ -1,7 +1,7 @@
 #
 # Developer Guide
 
-_Table of contents_
+**Table of contents**
 
 - Introduction
 - Setting Up
@@ -23,14 +23,6 @@ _Table of contents_
 
 
 
-
-
-
-
-
-
-
-
 **Introduction**
 
 **Overview**
@@ -39,7 +31,23 @@ _Unburden_ is an application which will help you to manage your tasks better. Un
 
 **Purpose**
 
-This developer guide focuses primarily on the APIs used, the different components that work together and the main 4 components of _Unburden_. This developer guide will clearly explain the design of the software and also to showcase the core functionalities of the software. As such, the main purpose of this developer guide is to provide a general introduction and summary of the classes and components that are used within this application to help prospective developers who wish to make _Unburden_ better.
+This developer guide focuses primarily on the APIs used, the different components that work together and the main 4 components of _Unburden_. This developer guide will clearly explain the design of the software and also to showcase the core functionalities of the software. As such, the main purpose of this developer guide is to provide a general introduction and summary of the classes and components that are used within this application to help prospective developers who wish to develop _Unburden_ further.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 **Audience**
 
@@ -69,21 +77,9 @@ Certain terms used within this developer guide may seem alien to some. Hence thi
 
 (As of now, we&#39;ve not encountered any yet.)
 
+**Setting up**
 
-
-
-
-
-
-
-
-
-
-
-
-## **Setting up**
-
-#### **Prerequisites**
+**Prerequisites**
 
 1. JDK 8.0\_60 or later
 2. Having any Java 8 version is not enough.
@@ -92,7 +88,7 @@ Certain terms used within this developer guide may seem alien to some. Hence thi
 5. e(fx)clipse plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 6. Buildship Gradle Integration plugin from the Eclipse Marketplace
 
-#### **Importing the project into Eclipse**
+**Importing the project into Eclipse**
 
 1. Fork this repo, and clone the fork to your computer
 2. Open Eclipse (Note: Ensure you have installed the e(fx)clipse and buildship plugins as given in the prerequisites above)
@@ -100,8 +96,6 @@ Certain terms used within this developer guide may seem alien to some. Hence thi
 4. Click Gradle &gt; Gradle Project &gt; Next &gt; Next
 5. Click Browse, then locate the project&#39;s directory
 6. Click Finish
-
-
 
 
 
@@ -129,9 +123,9 @@ Each component has a interface which all its classes implements and is named aft
 
 The UI component focuses on interacting with the user by displaying the necessary information to the user when requested. It is also responsible for the outlook of the application. The UI component consists of the abstract UiPart class which is the base class for the UI parts and each &quot;UI part&quot; is represented by a distinct part of the UI such as the panels or status bars.
 
-In essence, the UI makes use of JavaFx UI framework and majority of the classes import javafx methods. The various layouts of each &quot;UI part&quot; are stores as .fxml files in the src/main/resources/viewfolder. These files are named according to the respective class names.
+In essence, the UI makes use of JavaFx UI framework and majority of the classes import javafx methods. The various layouts of each &quot;UI part&quot; are stores as .fxml files in the src/main/resources/viewfolder. These files are named according to the respective class names. For example, the layout of the HelpWindow.java is stored in src/main/resources/view/HelpWindow.fxml
 
-For example, the layout of the HelpWindow.java is stored in src/main/resources/view/HelpWindow.fxml
+
 
 **API**
 
@@ -151,6 +145,8 @@ The UI component consists mainly of:
 
 These classes work together to form the interface which the user interacts with when using the app. Each of the class are meant to function solely on one part of the UI. For instance, the ResultDisplay class is responsible for displaying the results of a command from the user.
 
+
+
 The UI also consists of a MainWindow class which is made up of these &quot;UI parts&quot; such as CommandBox, ResultDisplay, PersonListPanel, StatusBarFooter, BrowserPanel.
 
 All of these classes, including the MainWindow class inherit from the abstract UiPart class.
@@ -162,7 +158,15 @@ The UI component,
 - Responds to events raised from various parts of the App
 - Updates the UI accordingly.
 
-### **Logic component**
+
+
+
+
+
+
+
+
+**Logic component**
 
 The Logic component consists of the Parser class which is responsible to taking in the inputs from the UI component, deciphering it, and then creating a Command class that can handle the user&#39;s input correctly. LogicManager will then execute the command.
 
@@ -179,14 +183,14 @@ The API of the Logic component consists mainly of:
 
 These classes work together to categorize the different possible inputs from the user and sieves the important keywords out so that Model can continue executing the command entered by the user.
 
-The Logic component,
+TheLogiccomponent,
 
 - Logic takes in the user&#39;s input and passes it to the Parser class
 - Parser class will decide which Command class is able to handle the request
 - LogicManager class takes the command and executes it by calling Model
 - TaskResult class is created and returned to the UI to be displayed to the user
 
-### **Model component**
+**Model component**
 
 The Model component is mainly responsible for executing the outputs from the Logic component. It is also responsible for storing all the in-app data such as the user&#39;s preferences anddata which is needed when executing commands.
 
@@ -199,11 +203,11 @@ ModelManager is able to:
 1. 1)Store the user preference
 2. 2)Store _Unburden&#39;s_ data
 
-### **Storage component**
+**Storage component**
 
 The Storage component primarily focuses on storing data. Any data related to the application will be saved within Storage and can be accessed later when requested. Storage works closely with Modelto read and write data from the app as and when the user requests to add or show existing data.
 
-API
+**API**
 
 The API of the Model component consists mainly of:
 
@@ -220,7 +224,11 @@ Storage is able to:
 1. 1)Save the data entered in by the user and also read it back to Model when requested
 2. 2)Save user preferences and read it back when needed
 
-## **Testing**
+
+
+
+
+**Testing**
 
 Tests can be found in the./src/test/javafolder.
 
@@ -244,11 +252,13 @@ We have two types of tests:
   5. Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.
   6. g. address.logic.LogicManagerTest
 
+
+
 Headless GUI Testing : Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
 See [UsingGradle.md](https://github.com/nus-cs2103-AY1617S1/addressbook-level4/blob/master/docs/UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
-#### **Troubleshooting tests**
+**Troubleshooting tests**
 
 Problem: Tests fail because NullPointException when AssertionError is expected
 
@@ -258,7 +268,19 @@ Problem: Tests fail because NullPointException when AssertionError is expected
 
 
 
-### **Development Opportunities**
+
+
+
+
+
+
+
+
+
+
+
+
+**Development Opportunities**
 
 While this app has been extensively developed, we feel that there is still room for improvement and can therefore be improved further. As such, the main reason for this section of the developer guide is to suggest possible improvements to _Unburden._
 
@@ -273,7 +295,15 @@ Some possible additions to be made:
 
 
 
-### **User Stories**
+
+
+
+
+
+
+
+
+**User Stories**
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -295,13 +325,11 @@ Priority | As a ... | I want to ... | So that I can...
 
 `* * *` | user | list all tasks | know what are the tasks i have entered
 
-`* * *` | user |  |
+`* * *` | user | edit any information of the task |
 
 
 
 **Nice-To-Have Features**
-
-`* *` | user | edit any information of the task |
 
 `* *` | user | undo previous command | remove any task that is entered wrongly.
 
@@ -309,7 +337,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 `*` | user | find history of tasks of certain past period of time
 
-### **User cases**
+
+
+**User Cases**
 
 1) Use case: Add task
 
@@ -318,6 +348,8 @@ Priority | As a ... | I want to ... | So that I can...
 - Unburden will show the task added
 
 Use case ends
+
+
 
 2) Use case: Delete task
 
@@ -328,6 +360,8 @@ Use case ends
 
 Use case ends
 
+
+
 3) Use case: Find task
 
 - User requests to find a specific task
@@ -337,6 +371,10 @@ Use case ends
 - User is able to remember what he/she needs to do
 
 Use case ends
+
+
+
+
 
 4) Use case: Edit task
 
@@ -349,7 +387,29 @@ Use case ends
 
 Use case: ends
 
-### **Non Functionality Requirements**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**Non Functionality Requirements**
 
 1. 1)The app should run smoothly
 2. 2)The app should be able to run all on all operating systems
@@ -361,19 +421,32 @@ Use case: ends
 8. 8)The app should not do anything else other than what the user inputs
 9. 9)The app should be able to recover from errors easily
 
-### **Glossary**
+**Glossary**
 
 1. 1)UI - User Interface
 2. 2)API - Application Programming Interface
 3. 3)App - Application
 4. 4)IDE - Integrated Development environment
 
-### **Product Survey**
+
+
+
+
+
+
+
+
+
+
+**Product Survey**
 
 Based on research done, below is a table of some of the applicable features and which applications offer them. In effect, our group intends to sieve out the good features while omitting the less popular ones from these applications and implement them into _Unburden_.
 
-### (yet to be done)
-
-
-
-
+|   | **Todoist** | **Wunderlist** | **Any.do** | **Remember the milk** | **Clear** |
+| --- | --- | --- | --- | --- | --- |
+| **Easy to setup and manage** | _Yes_ | _Yes, easy to understand_ | _Yes but not as well as the Wunderlist_ | _Yes_ | _Yes, but can be more intuitive_ |
+| **Able to collaborate with other people** | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_  |
+| **Focuses on tasks with specific deadline** | _No_ | _No_ | _Yes_ | _No_ | _No_ |
+| **Using color tags to differentiate different tasks or lists** | _No_ | _No_ | _No_ | _No_ | _Yes, able to colour code tasks and lists so that it is easier to differentiate_ |
+| **Able to set certain tasks as &quot;recurring&quot;** | _No_ | _No_ | _Yes, &quot;recurring&quot; tasks will continue to remind the user_ | _No_ | _No_ |
+| **Able to navigate around using only command line** | _No_ | _No_ | _No_ | _No_ | _No_ |
