@@ -151,6 +151,11 @@ VBox.header {
   -fx-stroke: #dddddd;
 }
 
+.tasklist-itemtime {
+  -fx-font-size: 11px;
+  -fx-fill: #999999;
+}
+
 /* HELP VIEW */
 
 .help-pane {

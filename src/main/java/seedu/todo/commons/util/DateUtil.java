@@ -81,7 +81,7 @@ public class DateUtil {
      * Formats a LocalDateTime to a short date. Excludes the day of week only if
      * the date is within 2-6 days from now.
      * 
-     * @param dateTime   LocalDateTime to format, withDaysOfWeek.
+     * @param dateTime   LocalDateTime to format.
      * @return           Formatted shorten day.
      */
     public static String formatShortDate(LocalDateTime dateTime) {
@@ -97,6 +97,16 @@ public class DateUtil {
         }
         
         return date.format(DateTimeFormatter.ofPattern(dateFormat));
+    }
+    
+    /**
+     * Formats a LocalDateTime to a 24-hour time.
+     * 
+     * @param dateTime   LocalDateTime to format.
+     * @return           24-hour time formatted string.
+     */
+    public static String formatTime(LocalDateTime dateTime) {
+        return dateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 
 }

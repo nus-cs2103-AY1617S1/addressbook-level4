@@ -17,6 +17,11 @@
       </HBox.margin>
     </ImageView>
     <Text fx:id="eventText" styleClass="tasklist-eventitem-label" HBox.hgrow="ALWAYS" />
+    <Text fx:id="eventTime" styleClass="tasklist-itemtime" HBox.hgrow="ALWAYS">
+      <HBox.margin>
+        <Insets left="10.0" />
+      </HBox.margin>
+    </Text>
     
   </children>
   <padding>

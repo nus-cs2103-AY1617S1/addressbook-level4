@@ -19,6 +19,11 @@
       </HBox.margin>
     </Circle>
     <Text fx:id="taskText" styleClass="tasklist-taskitem-label" HBox.hgrow="ALWAYS" />
+    <Text fx:id="taskTime" styleClass="tasklist-itemtime" HBox.hgrow="ALWAYS">
+      <HBox.margin>
+        <Insets left="10.0" />
+      </HBox.margin>
+    </Text>
     
   </children>
   <padding>

@@ -100,6 +100,15 @@ public class DateUtilTest {
 	    assertEquals(DateUtil.formatShortDate(pastDate), pastDate.format(DateTimeFormatter.ofPattern("E dd MMM")));
 	}
 	
+	@Test
+	public void formatTimeTests() {
+	    assertEquals(DateUtil.formatTime(LocalDateTime.of(2016, 1, 1, 0, 0)), "00:00");
+	    assertEquals(DateUtil.formatTime(LocalDateTime.of(2016, 1, 1, 2, 0)), "02:00");
+	    assertEquals(DateUtil.formatTime(LocalDateTime.of(2016, 1, 1, 2, 33)), "02:33");
+	    assertEquals(DateUtil.formatTime(LocalDateTime.of(2016, 1, 1, 13, 0)), "13:00");
+	    assertEquals(DateUtil.formatTime(LocalDateTime.of(2016, 1, 1, 23, 59)), "23:59");
+	}
+	
 	private static LocalDateTime fromEpoch(long epoch) {
 		return LocalDateTime.ofInstant(Instant.ofEpochMilli(epoch), ZoneId.systemDefault());
 	}

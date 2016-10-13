@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Task;
 import seedu.todo.ui.UiPartLoader;
 
@@ -14,13 +15,15 @@ public class TaskListTaskItem extends MultiComponent {
     
     // Props
     public Task task;
-    public int displayIndex;
+    public Integer displayIndex;
 
     // FXML
     @FXML
-    private Text rowIndex;
-    @FXML
     private Text taskText;
+    @FXML
+    private Text taskTime;
+    @FXML
+    private Text rowIndex;
     @FXML
     private Circle taskCheckMarkCircle;
 
@@ -36,7 +39,8 @@ public class TaskListTaskItem extends MultiComponent {
     @Override
     public void componentDidMount() {
         taskText.setText(task.getName());
-        rowIndex.setText(displayIndex + "");
+        taskTime.setText(DateUtil.formatTime(task.getCalendarDT()));
+        rowIndex.setText(displayIndex.toString());
     }
 
 }

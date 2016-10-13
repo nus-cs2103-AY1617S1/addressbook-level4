@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Event;
 import seedu.todo.ui.UiPartLoader;
 
@@ -16,11 +17,13 @@ public class TaskListEventItem extends MultiComponent {
     
     // Props
     public Event event;
-    public int displayIndex;
+    public Integer displayIndex;
 
     // FXML
     @FXML
     private Text eventText;
+    @FXML
+    private Text eventTime;
     @FXML
     private Text rowIndex;
     @FXML
@@ -38,7 +41,8 @@ public class TaskListEventItem extends MultiComponent {
     @Override
     public void componentDidMount() {
         eventText.setText(event.getName());
-        rowIndex.setText(displayIndex + "");
+        eventTime.setText(DateUtil.formatTime(event.getCalendarDT()));
+        rowIndex.setText(displayIndex.toString());
         
         // Set image
         rowIconImageView.setImage(new Image(ICON_PATH));
