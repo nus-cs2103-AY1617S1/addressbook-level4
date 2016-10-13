@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Task Manager v0.1"), new Deadline("06102016"), new Priority("2"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v0.2"), new Deadline("13102016"), new Priority("1"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v0.3"), new Deadline("20102016"), new Priority("3"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v0.4"), new Deadline("27102016"), new Priority("4"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Priority("werner@gmail.com"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Priority("lydia@gmail.com"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Deadline("9482442"), new Priority("anna@google.com"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Priority("stefan@mail.com"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Priority("hans@google.com"), new UniqueTagList())
+                    new Task(new Name("Task Manager v0.1"), new Deadline("061016"), new Priority("2"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v0.2"), new Deadline("131016"), new Priority("1"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v0.3"), new Deadline("201016"), new Priority("3"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v0.4"), new Deadline("271016"), new Priority("4"), new UniqueTagList())
+//                    new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Priority("werner@gmail.com"), new UniqueTagList()),
+//                    new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Priority("lydia@gmail.com"), new UniqueTagList()),
+//                    new Task(new Name("George Best"), new Deadline("9482442"), new Priority("anna@google.com"), new UniqueTagList()),
+//                    new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Priority("stefan@mail.com"), new UniqueTagList()),
+//                    new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Priority("hans@google.com"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
