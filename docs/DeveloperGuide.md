@@ -257,16 +257,16 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | clear all tasks | start a fresh task list 
 `* * *` | user | edit a task | edit details without re-entry
-`* * *` | user | undo a task | return to the previous action without re-entry
+`* * *` | user | undo a command | revert the previous action 
 `* * *` | user | mark a task as complete | manage my Task list easily
 `* * *` | user | have flexibility in the command format | type a few natural variations of the command format 
+`* * *` | user | create floating tasks | tasks can be created without specific times
 `* * *` | user | change the default storage path | sync the cloud services to access data from multiple computers
 `* * *` | user | exit the task list | close the task list 
-`* *` | user | input natural date and time | make sense of the command(s)
-`* *` | user | use up arrow or down arrow to reuse previous command(s) | reduce typing
-`* *` | user | indicate an overdue task with color code (red) | easily to track overdue task
+`* *` | user | use up arrow or down arrow to reuse previous command(s) | minimise re-typing
+`* *` | user | indicate overdue tasks with color code (red) | easily to track overdue task
 `* *` | user | indicate a completed task with color code (green) | easily to track done task  
-`*` | user | lock task(with a password) | prevent unauthorized access/modification 
+`*` | user | lock task scheduler(with a password) | prevent unauthorized access/modification 
 
 ## Appendix B : Use Cases
 
@@ -417,10 +417,9 @@ Use case ends.
 
 **Extensions**
 
-2a. The task list returns to initial stage
-
+2a. The task list is at initial stage
 > 2a1. MustDoList shows an error message <br>
-  Use case resumes at step 2
+  Use case ends.
   
 #### Use case 10: Mark task
 
@@ -435,11 +434,9 @@ Use case ends.
 **Extensions**
 
 2a. The list is empty
-
-> Use case ends
+Use case ends
 
 3a. The given index is invalid
-
 > 3a1. MustDoList shows an error message <br>
   Use case resumes at step 2
 
@@ -477,10 +474,6 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
 ## Appendix E : Product Survey
 
 #### Todoist
@@ -501,7 +494,7 @@ Use case ends.
 #### Google Calendar
 
 > Summary
-* Google Calendar is an 0nline calendar that keep track of life's important events all in one place.
+* Google Calendar is an online calendar that keep track of life's important events all in one place.
 
 > Strength
 * Supports multiple calendars for a single user
@@ -512,3 +505,6 @@ Use case ends.
 * User must sign up for the service
 * Offline version is available for viewing only
 * Cannot categorize calendar events based on event type.
+* User cannot operate primarily using keyboard
+
+
