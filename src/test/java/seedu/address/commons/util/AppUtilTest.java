@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.taskmanager.commons.util.AppUtil;
+import seedu.address.commons.util.AppUtil;
 
 import static org.junit.Assert.assertNotNull;
 

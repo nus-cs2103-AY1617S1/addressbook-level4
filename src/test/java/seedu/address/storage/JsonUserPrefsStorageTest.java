@@ -6,10 +6,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.taskmanager.commons.exceptions.DataConversionException;
-import seedu.taskmanager.commons.util.FileUtil;
-import seedu.taskmanager.model.UserPrefs;
-import seedu.taskmanager.storage.JsonUserPrefsStorage;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.model.UserPrefs;
+import seedu.address.storage.JsonUserPrefsStorage;
 
 import java.io.File;
 import java.io.IOException;

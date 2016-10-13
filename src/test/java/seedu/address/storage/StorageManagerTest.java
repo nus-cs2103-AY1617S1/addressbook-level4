@@ -7,15 +7,15 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.testutil.TypicalTestPersons;
-import seedu.taskmanager.commons.events.model.AddressBookChangedEvent;
-import seedu.taskmanager.commons.events.storage.DataSavingExceptionEvent;
-import seedu.taskmanager.model.ReadOnlyTaskManager;
-import seedu.taskmanager.model.TaskManager;
-import seedu.taskmanager.model.UserPrefs;
-import seedu.taskmanager.storage.JsonUserPrefsStorage;
-import seedu.taskmanager.storage.Storage;
-import seedu.taskmanager.storage.StorageManager;
-import seedu.taskmanager.storage.XmlTaskManagerStorage;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.model.ReadOnlyTaskManager;
+import seedu.address.model.TaskManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.XmlTaskManagerStorage;
 import seedu.address.testutil.EventsCollector;
 
 import java.io.IOException;

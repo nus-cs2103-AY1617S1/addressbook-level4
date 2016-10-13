@@ -4,9 +4,10 @@ package seedu.address.commons.util;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import seedu.address.commons.util.FileUtil;
 import seedu.address.testutil.SerializableTestClass;
 import seedu.address.testutil.TestUtil;
-import seedu.taskmanager.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;

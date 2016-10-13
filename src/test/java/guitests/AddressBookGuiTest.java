@@ -9,11 +9,11 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.model.TaskManager;
+import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestPersons;
-import seedu.taskmanager.commons.core.EventsCenter;
-import seedu.taskmanager.model.TaskManager;
-import seedu.taskmanager.model.task.ReadOnlyTask;
 
 import java.util.concurrent.TimeoutException;
 

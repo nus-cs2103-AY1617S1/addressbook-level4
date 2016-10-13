@@ -7,21 +7,21 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.taskmanager.commons.core.EventsCenter;
-import seedu.taskmanager.commons.events.model.AddressBookChangedEvent;
-import seedu.taskmanager.commons.events.ui.JumpToListRequestEvent;
-import seedu.taskmanager.commons.events.ui.ShowHelpRequestEvent;
-import seedu.taskmanager.logic.Logic;
-import seedu.taskmanager.logic.LogicManager;
-import seedu.taskmanager.logic.commands.*;
-import seedu.taskmanager.model.Model;
-import seedu.taskmanager.model.ModelManager;
-import seedu.taskmanager.model.ReadOnlyTaskManager;
-import seedu.taskmanager.model.TaskManager;
-import seedu.taskmanager.model.tag.Tag;
-import seedu.taskmanager.model.tag.UniqueTagList;
-import seedu.taskmanager.model.task.*;
-import seedu.taskmanager.storage.StorageManager;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.*;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyTaskManager;
+import seedu.address.model.TaskManager;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.*;
+import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.taskmanager.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.*;
 
 public class LogicManagerTest {
 
