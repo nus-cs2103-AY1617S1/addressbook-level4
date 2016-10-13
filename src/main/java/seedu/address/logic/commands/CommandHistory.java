@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 import seedu.address.model.Undo;
@@ -35,7 +36,14 @@ public class CommandHistory {
 		return result;
 	}
 	
-	public static Undo getMutateCmd() {
-		return mutateCmd.pop();
+	public static Undo getMutateCmd() throws EmptyStackException{
+		if (mutateCmd.size() > 0)
+			return mutateCmd.pop();
+		else
+			throw new EmptyStackException();
+	}
+	
+	public static void flushMutateCmd() {
+		mutateCmd.clear();
 	}
 }
