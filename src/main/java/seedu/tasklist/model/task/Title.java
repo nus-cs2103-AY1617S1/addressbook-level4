@@ -9,7 +9,7 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 public class Title {
 
     public static final String MESSAGE_TITLE_CONSTRAINTS = "Task title should be spaces or alphanumeric characters";
-    public static final String TITLE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String TITLE_VALIDATION_REGEX = "^[\\p{L}0-9\\s+]*$";
 
     public final String fullTitle;
 

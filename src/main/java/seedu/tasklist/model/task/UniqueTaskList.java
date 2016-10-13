@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.tasklist.commons.exceptions.DuplicateDataException;
 import seedu.tasklist.commons.util.CollectionUtil;
-
 import java.util.*;
 
 /**
@@ -32,6 +31,8 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
 
+    public static class TaskCompletionException extends Exception {}
+    
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
@@ -61,6 +62,23 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
+     * Edits the equivalent task from the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public void edit(Task taskToEdit, ReadOnlyTask toEdit) throws TaskNotFoundException {
+        assert toEdit != null;
+        assert taskToEdit != null;
+        final int notFoundInList = -1;
+        
+        int index = internalList.lastIndexOf(toEdit);
+        if (index == notFoundInList) {
+            throw new TaskNotFoundException();
+        }
+        internalList.set(index, taskToEdit);
+    }
+    
+    /**
      * Removes the equivalent task from the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
@@ -72,6 +90,54 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
+    }
+    
+    /**
+     * Mark the equivalent task from the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws TaskCompletionException if task is already completed in the list.
+     */
+    public boolean mark(ReadOnlyTask toMark) throws TaskNotFoundException, TaskCompletionException {
+        assert toMark != null;
+        final int taskNotFound = -1;
+        
+        final int index = internalList.indexOf(toMark);
+        if (index == taskNotFound) {
+            throw new TaskNotFoundException();
+        } else if (internalList.get(index).isCompleted()) {
+            throw new TaskCompletionException();
+        }
+        
+        final Task completeTask = internalList.get(index);
+        completeTask.setCompleted(true);
+        internalList.set(index, completeTask);
+        
+        return true;
+    }
+    
+    /**
+     * Unmark the equivalent task from the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws TaskCompletionException if task is already completed in the list.
+     */
+    public boolean unmark(ReadOnlyTask toUnmark) throws TaskNotFoundException, TaskCompletionException {
+        assert toUnmark != null;
+        final int taskNotFound = -1;
+        
+        final int index = internalList.indexOf(toUnmark);
+        if (index == taskNotFound) {
+            throw new TaskNotFoundException();
+        } else if (!internalList.get(index).isCompleted()) {
+            throw new TaskCompletionException();
+        }
+        
+        final Task completeTask = internalList.get(index);
+        completeTask.setCompleted(false);
+        internalList.set(index, completeTask);
+        
+        return true;
     }
 
     public ObservableList<Task> getInternalList() {
