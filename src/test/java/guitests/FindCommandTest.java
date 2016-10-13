@@ -20,13 +20,13 @@ public class FindCommandTest extends AddressBookGuiTest {
     }
     */
     
-    @Test
+    //@Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
         assertFindResult("find Jean"); //no results
     }
 
-    @Test
+    //@Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findgeorge");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
