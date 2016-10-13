@@ -88,12 +88,14 @@ public class DateValidation {
         tomorrowdate = DateFormatTomorrow();
         return tomorrowdate;
     }
-
+    
+    //format today's date into date format dd-MM-yyyy
     public static String DateFormatToday() {
         String strDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         return strDate;
     }
     
+    //format tomorrow's date into date format dd-MM-yyyy
     public static String DateFormatTomorrow() {
         Date today = new Date();
         Date dayafter = new Date(today.getTime() + TimeUnit.DAYS.toMillis( 1 ));
@@ -102,7 +104,7 @@ public class DateValidation {
         return strDate;
         
     }
-    
+    //check if the time entered is not in the past
     public static boolean aftertoday (String reminderdate) throws ParseException{
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm");
         Date date = format.parse(reminderdate);

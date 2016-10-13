@@ -28,28 +28,32 @@ public class Reminder {
         assert date != null;
         String time;
         String[] parts;
-        try{if (date.contains("today")){
-            parts = date.split(" ");
-            time = parts[1];
-            date = DateValidation.TodayDate();
-            date = date + " " + time;
+        try {
+            if (date.contains("today")) {
+                parts = date.split(" ");
+                time = parts[1];
+                date = DateValidation.TodayDate();
+                date = date + " " + time;
+            } // allow user to key in today instead of today's date
+            else if (date.contains("tomorrow")) {
+                parts = date.split(" ");
+                time = parts[1];
+                date = DateValidation.TodayDate();
+                date = date + " " + time;
+                date = DateValidation.TomorrowDate();
+            } // allow user to key in "tomorrow" instead of tomorrow's date
+            if (!isValidReminder(date)) {
+                throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
             }
-        else if (date.contains("tomorrow")){
-            parts = date.split(" ");
-            time = parts[1];
-            date = DateValidation.TodayDate();
-            date = date + " " + time;
-            date = DateValidation.TomorrowDate();
-        }        if (!isValidReminder(date)||!DateValidation.aftertoday(date)) {
-            throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
-        }
-        }catch (ParseException pe){
+            if (!DateValidation.aftertoday(date)) // check if the time is future
+                                                  // time
+                throw new IllegalValueException(MESSAGE_REMINDER_INVALID);
+        } catch (ParseException pe) {
             throw new IllegalValueException(MESSAGE_REMINDER_INVALID);
-        }        
+        }
 
         this.value = date;
     }
-        
 
     /**
      * Returns true if a given string is a valid task reminder.
