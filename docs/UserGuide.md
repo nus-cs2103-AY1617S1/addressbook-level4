@@ -105,7 +105,7 @@ Format: `update INDEX [NAME] [s/START_DATE] [e/END_DATE] [d/DEADLINE] [t/TAG]..`
 Examples: 
 
 * `update 1 CS2107 Project by saturday`  
-  Update the 1<sup>nd</sup> task's name to CS2107 Project and change the deadline to Saturday   
+  Update the 1<sup>st</sup> task's name to CS2107 Project and change the deadline to Saturday   
   <img src="images/UserGuide/beforeUpdate.png">
   <img src="images/UserGuide/afterUpdate.png">
 
