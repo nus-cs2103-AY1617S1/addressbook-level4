@@ -66,7 +66,7 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new TaskDateTime("090909"), new TaskDateTime("090909"), new Location("4th street"), "Event")
+                    new Task(new Name("Ali Muster"), new TaskDateTime("090909"), new TaskDateTime("090909"), new Location("4th street"), new UniqueTagList(new Tag("Event")))
 //                    new Task(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
 //                    new Task(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
 //                    new Task(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),

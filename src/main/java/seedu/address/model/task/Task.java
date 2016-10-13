@@ -19,43 +19,26 @@ public class Task implements ReadOnlyTask {
     private TaskDateTime startDateTime;
     private TaskDateTime endDateTime;
     private Location address;
-    private String type;
     
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address) {
-        this(name,startDateTime,endDateTime,address,null);
-    }
-    /**
-     * Every field must be present and not null.
-     */
-    public Task(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address, String type) {
-        assert !CollectionUtil.isAnyNull(name, startDateTime, endDateTime, address);
+    public Task(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startDateTime, endDateTime, address, tags);
         this.name = name;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.address = address;
-        this.tags = new UniqueTagList();
-        this.type = type;
-        if (type != null) {
-            try {
-                this.tags.add(new Tag(type));
-            } catch (DuplicateTagException e) {
-                assert false : "The tag cannot be duplicate";
-            } catch (IllegalValueException e) {
-                assert false : "The tag name cannot be illegal";
-            } // protect internal tags from changes in the arg list
-        }
+        this.tags = new UniqueTagList(tags);
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getType());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getTags());
     }
 
     @Override
@@ -76,11 +59,6 @@ public class Task implements ReadOnlyTask {
     @Override
     public Location getLocation() {
         return address;
-    }
-    
-    @Override
-    public String getType() {
-        return type;
     }
     
     public void setName(Name name) {

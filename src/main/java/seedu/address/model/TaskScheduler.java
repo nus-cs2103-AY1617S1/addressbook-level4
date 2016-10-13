@@ -91,9 +91,8 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
      */
     public void editTask(ReadOnlyTask oldTask, Task newTask) 
             throws UniqueTaskList.DuplicateTaskException, UniqueTaskList.TaskNotFoundException {
-        tasks.edit(oldTask, newTask);
+        tasks.edit(oldTask, newTask);        
         syncTagsWithMasterList(newTask);
-
     }
     
     /**

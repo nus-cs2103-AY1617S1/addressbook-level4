@@ -14,21 +14,21 @@ public class TypicalTestPersons {
     public TypicalTestPersons() {
         try {
             alice =  new TaskBuilder().withName("Do CS2103 Pretut").withAddress("At Home")
-                    .withEndDate("071016").withStartDate("011016").build();
+                    .withEndDate("071016").withStartDate("011016").withTags("Event").build();
             benson = new TaskBuilder().withName("Do CS2103 Project").withAddress("At School")
-                    .withEndDate("141016").withStartDate("071016").build();
+                    .withEndDate("141016").withStartDate("071016").withTags("Event").build();
             carl = new TaskBuilder().withName("Eat Mcdonalds").withAddress("At Technoedge")
-                    .withEndDate("211016").withStartDate("141016").build();
+                    .withEndDate("211016").withStartDate("141016").withTags("Event").build();
             daniel = new TaskBuilder().withName("Flunk CS2103").withAddress("In the exam hall")
-                    .withEndDate("211116").withStartDate("211116").build();
+                    .withEndDate("211116").withStartDate("211116").withTags("Event").build();
             elle = new TaskBuilder().withName("Working at Mcdonalds").withAddress("At Mcdonalds")
-                    .withEndDate("311247").withStartDate("010417").build();
+                    .withEndDate("311247").withStartDate("010417").withTags("Event").build();
             fiona = new TaskBuilder().withName("Send kids to NUS").withAddress("At NUS")
-                    .withEndDate("010451").withStartDate("010847").build();
+                    .withEndDate("010451").withStartDate("010847").withTags("Event").build();
             elle = new TaskBuilder().withName("Make kids study CS2103").withAddress("At ICube Lecture Hall")
-                    .withEndDate("011250").withStartDate("010849").build();
+                    .withEndDate("011250").withStartDate("010849").withTags("Event").build();
             george = new TaskBuilder().withName("Make kids work at Mcdonalds").withAddress("At the same workplace")
-                    .withEndDate("020491").withStartDate("020451").build();
+                    .withEndDate("020491").withStartDate("020451").withTags("Event").build();
             //Manually added
             hoon = new TaskBuilder().withName("Regret working at Mcdonalds").withAddress("At the hospital")
                     .withEndDate("030452").withStartDate("020452").build();

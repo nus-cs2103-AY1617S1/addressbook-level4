@@ -33,7 +33,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyTaskScheduler> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlTaskSchedulerStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -59,21 +59,21 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveTaskScheduler_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTestPersons td = new TypicalTestPersons();
         TaskScheduler original = td.getTypicalAddressBook();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        XmlTaskSchedulerStorage xmlAddressBookStorage = new XmlTaskSchedulerStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
+        xmlAddressBookStorage.saveTaskScheduler(original, filePath);
         ReadOnlyTaskScheduler readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new TaskScheduler(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestPersons.hoon));
         original.removeTask(new Task(TypicalTestPersons.alice));
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
+        xmlAddressBookStorage.saveTaskScheduler(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new TaskScheduler(readBack));
 
@@ -82,17 +82,17 @@ public class XmlAddressBookStorageTest {
     @Test
     public void saveAddressBook_nullAddressBook_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveTaskScheduler(null, "SomeFile.xml");
     }
 
-    private void saveAddressBook(ReadOnlyTaskScheduler addressBook, String filePath) throws IOException {
-        new XmlAddressBookStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void saveTaskScheduler(ReadOnlyTaskScheduler addressBook, String filePath) throws IOException {
+        new XmlTaskSchedulerStorage(filePath).saveTaskScheduler(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
     public void saveAddressBook_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(new TaskScheduler(), null);
+        saveTaskScheduler(new TaskScheduler(), null);
     }
 
 

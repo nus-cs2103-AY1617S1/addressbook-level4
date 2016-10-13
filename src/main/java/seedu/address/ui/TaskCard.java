@@ -45,9 +45,8 @@ public class TaskCard extends UiPart{
         name.setText(person.getName().fullName);
         hideFieldsAccordingToType(person);
         id.setText(displayedIndex + ". ");
-        address.setText(person.getLocation().value + "\n"
-              +  "Start Date: " + person.getStartDate().getDisplayString());
-       // phone.setText();
+        address.setText(person.getLocation().value);
+        phone.setText("Start Date: " + person.getStartDate().getDisplayString());
         email.setText("Due Date: " + person.getEndDate().getDisplayString());
         tags.setText(person.tagsString());
     }
@@ -67,10 +66,11 @@ public class TaskCard extends UiPart{
     }
     
     public void hideFieldsAccordingToType(ReadOnlyTask person) {
-        if (person.getType() == "Reminder") {
+        if (person.tagsString().contains("Event")) {
+        } else if (person.tagsString().contains("Reminder")) {
             phone.setVisible(false);
             address.setVisible(false);
-        } else if (person.getType() == "") {
+        } else {
             phone.setVisible(false);
             address.setVisible(false);
             email.setVisible(false);

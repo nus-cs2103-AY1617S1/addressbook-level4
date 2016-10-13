@@ -14,22 +14,22 @@ import java.util.logging.Logger;
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlTaskSchedulerStorage implements TaskSchedulerStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlTaskSchedulerStorage.class);
 
     private String filePath;
 
-    public XmlAddressBookStorage(String filePath){
+    public XmlTaskSchedulerStorage(String filePath){
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getTaskSchedulerFilePath(){
         return filePath;
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readTaskScheduler()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -49,10 +49,10 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyTaskScheduler)}
+     * Similar to {@link #saveTaskScheduler(ReadOnlyTaskScheduler)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyTaskScheduler addressBook, String filePath) throws IOException {
+    public void saveTaskScheduler(ReadOnlyTaskScheduler addressBook, String filePath) throws IOException {
         assert addressBook != null;
         assert filePath != null;
 
@@ -62,12 +62,12 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyTaskScheduler> readAddressBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskScheduler> readTaskScheduler() throws DataConversionException, IOException {
         return readAddressBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskScheduler addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveTaskScheduler(ReadOnlyTaskScheduler taskScheduler) throws IOException {
+        saveTaskScheduler(taskScheduler, filePath);
     }
 }

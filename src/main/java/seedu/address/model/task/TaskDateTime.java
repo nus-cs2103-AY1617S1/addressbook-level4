@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import java.util.Date;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateFormatter;
 
@@ -12,10 +13,13 @@ public class TaskDateTime {
     
     
     public TaskDateTime() {
-        
+        date = null;
+        time = null;
     }
     
     public TaskDateTime(String args) throws IllegalValueException {
+        if (args.trim().isEmpty())
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_DATE_FORMAT);
         String[] split = args.split(" ");
         if (split.length > 0) {
             date = DateFormatter.convertStringToDate(split[0]);

@@ -15,7 +15,6 @@ public interface ReadOnlyTask {
     TaskDateTime getStartDate();
     TaskDateTime getEndDate();
     Location getLocation();
-    String getType();  
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -48,7 +47,7 @@ public interface ReadOnlyTask {
 //                .append(" Location: ")
                 .append(" " + getLocation());
 //                .append(" Tags: ");
-//        getTags().forEach(builder::append);
+//        getTags().forEach(b -> builder.append(b.tagName + " "));  
         return builder.toString();
     }
 
@@ -65,24 +64,22 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-    
+
     /**  
      * For FindCommand to Formats the person as text,   
      * showing all contact details.  
      */  
-    default String getFindAsText() {  
+    default String getAllFieldAsText() {  
         final StringBuilder builder = new StringBuilder();  
         builder.append(getName())  
             .append(" ")  
             .append(getStartDate().getDisplayString())  
             .append(" ")  
-            .append(getEndDate().getDisplayString())  
+            .append(getStartDate().getDisplayString())  
             .append(" ")  
             .append(getLocation())  
             .append(" ");  
         getTags().forEach(b -> builder.append(b.tagName + " "));  
         return builder.toString();  
-    }
-
-
+    }  
 }

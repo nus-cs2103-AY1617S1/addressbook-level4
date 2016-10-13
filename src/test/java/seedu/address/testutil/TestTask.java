@@ -15,7 +15,6 @@ public class TestTask implements ReadOnlyTask {
     private Location address;
     private TaskDateTime startDate;
     private TaskDateTime endDate;
-    private String type;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -57,12 +56,7 @@ public class TestTask implements ReadOnlyTask {
     public Location getLocation() {
         return address;
     }
-
-    @Override
-    public String getType() {
-        // TODO Auto-generated method stub
-        return type;
-    }
+    
     @Override
     public UniqueTagList getTags() {
         return tags;
@@ -78,7 +72,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add " + this.getName().fullName + " ");
         sb.append("s/" + this.getStartDate() + " ");
         sb.append("e/" + this.getEndDate() + " ");
-        sb.append("a/" + this.getLocation().value);
+        sb.append("at" + this.getLocation().value);
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
@@ -88,7 +82,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append(" " + this.getName().fullName + " ");
         sb.append("s/" + this.getStartDate() + " ");
         sb.append("e/" + this.getEndDate() + " ");
-        sb.append("a/" + this.getLocation().value);
+        sb.append("at" + this.getLocation().value);
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

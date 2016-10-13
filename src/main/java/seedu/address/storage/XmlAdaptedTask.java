@@ -24,8 +24,6 @@ public class XmlAdaptedTask {
     private String email;
     @XmlElement(required = true)
     private String address;
-    @XmlElement(required = true)
-    private String type;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -46,7 +44,6 @@ public class XmlAdaptedTask {
         phone = source.getStartDate().toString();
         email = source.getEndDate().toString();
         address = source.getLocation().value;
-        type = source.getType();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -68,7 +65,6 @@ public class XmlAdaptedTask {
         final TaskDateTime email = new TaskDateTime(this.email);
         final Location address = new Location(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        final String type = this.type;
-        return new Task(name, phone, email, address, type);
+        return new Task(name, phone, email, address, tags);
     }
 }

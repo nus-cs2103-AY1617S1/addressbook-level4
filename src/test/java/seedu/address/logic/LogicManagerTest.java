@@ -155,9 +155,9 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 e/valid@email.butNoPhonePrefix at valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Name p/12345 valid@email.butNoPrefix at valid, address", expectedMessage);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
@@ -165,11 +165,11 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] s/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] s/12345 e/valid@e.mail at valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/not_numbers e/010116 a/valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
+                "add Valid Name s/not_numbers e/010116 at valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
         assertCommandBehavior(
-                "add Valid Name s/010116 e/notAnEmail a/valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
+                "add Valid Name s/010116 e/notAnEmail at valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
 //        assertCommandBehavior(
 //                "add Valid Name s/01012016 e/01012016 a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -390,10 +390,10 @@ public class LogicManagerTest {
             TaskDateTime startDate = new TaskDateTime("090911");
             TaskDateTime endDate = new TaskDateTime("090911");
             Location privateAddress = new Location("111, alpha street");
-//            Tag tag1 = new Tag("tag1");
+            Tag tag1 = new Tag("Event");
 //            Tag tag2 = new Tag("tag2");
-//            UniqueTagList tags = new UniqueTagList();
-            return new Task(name, startDate, endDate, privateAddress, "Reminder");
+            UniqueTagList tags = new UniqueTagList(tag1);
+            return new Task(name, startDate, endDate, privateAddress, tags);
         }
 
         /**
@@ -409,7 +409,7 @@ public class LogicManagerTest {
                     new TaskDateTime("090901"),
                     new TaskDateTime("090901"),
                     new Location("House of " + seed),
-                    "Event"
+                    new UniqueTagList(new Tag("Event"))
                     );
         }
 
@@ -422,7 +422,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append(" s/").append(p.getStartDate());
             cmd.append(" e/").append(p.getEndDate());
-            cmd.append(" a/").append(p.getLocation().value);
+            cmd.append(" at").append(p.getLocation().value);
 
 //            UniqueTagList tags = p.getTags();
 //            for(Tag t: tags){
@@ -508,7 +508,7 @@ public class LogicManagerTest {
                     new TaskDateTime("161216"),
                     new TaskDateTime("161216"),
                     new Location("House of 1"),
-                    "Reminder"//new Tag("tag"))
+                    new UniqueTagList(new Tag("Event"))
             );
         }
     }

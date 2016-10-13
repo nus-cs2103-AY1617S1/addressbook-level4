@@ -11,10 +11,10 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class DateFormatter {
 
     private static DateFormat dateFormatter = new SimpleDateFormat("ddMMyy");
-    private static DateFormat timeFormatter = new SimpleDateFormat("hhmm");
+    private static DateFormat timeFormatter = new SimpleDateFormat("HHmm");
     
     private static DateFormat dateDisplayFormatter = new SimpleDateFormat("dd-MMM-yyyy");
-    private static DateFormat timeDisplayFormatter = new SimpleDateFormat("hh:mm");
+    private static DateFormat timeDisplayFormatter = new SimpleDateFormat("HH:mm aa");
     
     public static Date convertStringToDate(String val) throws IllegalValueException {
         try {

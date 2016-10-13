@@ -20,13 +20,13 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private XmlAddressBookStorage addressBookStorage;
+    private XmlTaskSchedulerStorage addressBookStorage;
     private JsonUserPrefStorage userPrefStorage;
 
 
     public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
         super();
-        this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
+        this.addressBookStorage = new XmlTaskSchedulerStorage(addressBookFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
@@ -46,20 +46,20 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public String getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public String getTaskSchedulerFilePath() {
+        return addressBookStorage.getTaskSchedulerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyTaskScheduler> readAddressBook() throws DataConversionException, FileNotFoundException {
-        logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyTaskScheduler> readTaskScheduler() throws DataConversionException, FileNotFoundException {
+        logger.fine("Attempting to read data from file: " + addressBookStorage.getTaskSchedulerFilePath());
 
-        return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return addressBookStorage.readAddressBook(addressBookStorage.getTaskSchedulerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskScheduler addressBook) throws IOException {
-        addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveTaskScheduler(ReadOnlyTaskScheduler addressBook) throws IOException {
+        addressBookStorage.saveTaskScheduler(addressBook, addressBookStorage.getTaskSchedulerFilePath());
     }
 
 
@@ -68,7 +68,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveTaskScheduler(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

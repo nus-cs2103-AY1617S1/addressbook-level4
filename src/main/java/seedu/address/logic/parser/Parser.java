@@ -22,17 +22,24 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    private static final Pattern INDEX_COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)(?<arguments>.*)");
+
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern TASK_DATA_ARGS_FORMAT_1 = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " s/(?<startDate>[^/]+)"
-                    + " e/(?<endDate>[^/]+)"
-                    + " a/(?<address>[^/]+)"); 
-
+                    + " s/(?<startDate>[^/]*)"
+                    + " e/(?<endDate>[^(at)]*)"
+                    + " at(?<address>.*)"); 
+ 
+    private static final Pattern TASK_DATA_ARGS_FORMAT_2 = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^(by)]+)"
+                    + " by(?<endDate>.*)");
+    
+    
     public Parser() {}
 
     /**
@@ -93,22 +100,28 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
         try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("startDate"),
-                    matcher.group("endDate"),
-                    matcher.group("address"),
-                    getTagsFromArgs("Reminder")
-            );
+            Matcher matcher = TASK_DATA_ARGS_FORMAT_1.matcher(args.trim());
+            // Validate arg string format
+            if (matcher.matches()) {
+                return new AddCommand(matcher.group("name"), matcher.group("startDate"),
+                    matcher.group("endDate"), matcher.group("address"), "Event");
+            }
+    
+            matcher = TASK_DATA_ARGS_FORMAT_2.matcher(args.trim());
+    
+            if (matcher.matches()) {
+                return new AddCommand(matcher.group("name"), "",
+                    matcher.group("endDate"), "", "Reminder");
+            }
+            if (args.trim().length() == 0)
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    
+                return new AddCommand(args, "", "", "");
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+
     }
     
     /**
@@ -118,37 +131,39 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
-        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
-        int index;
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
         try {
-            index = Integer.parseInt(matcher.group("commandWord"));
-        }
-        catch (NumberFormatException nfe) {
-            return new IncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        assert index >= 0;
-        matcher = TASK_DATA_ARGS_FORMAT.matcher(matcher.group("arguments"));
-        
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-        try {
-            return new EditCommand(
-                    index,
-                    matcher.group("name"),
-                    matcher.group("startDate"),
-                    matcher.group("endDate"),
-                    matcher.group("address")
-            );
+            final Matcher matcher = INDEX_COMMAND_FORMAT.matcher(args.trim());
+    
+            // Validate arg string format
+            if (!matcher.matches()) {
+                return new IncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            int index = Integer.parseInt(matcher.group("index"));
+            assert index >= 0;
+            args = matcher.group("arguments");
+            Matcher editMatcher = TASK_DATA_ARGS_FORMAT_1.matcher(args);
+            
+            if (editMatcher.matches()) {
+                return new EditCommand(index, editMatcher.group("name"), editMatcher.group("startDate"),
+                        editMatcher.group("endDate"), editMatcher.group("address"), "Event");
+            }
+            editMatcher = TASK_DATA_ARGS_FORMAT_2.matcher(args);
+            
+            if (editMatcher.matches()) {
+                return new EditCommand(index, editMatcher.group("name"), null,
+                        editMatcher.group("endDate"), "", "Reminder"); 
+            }
+    
+            if (args.trim().length() == 0)
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            
+            return new EditCommand(index, args, null, null, "");
+
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
