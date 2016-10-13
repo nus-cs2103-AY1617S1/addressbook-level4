@@ -27,7 +27,9 @@ public class TaskListDateItem extends MultiComponent {
 
     // FXML
     @FXML
-    private Text dateText;
+    private Text dateHeader;
+    @FXML
+    private Text dateLabel;
     @FXML
     private VBox dateTaskItemsPlaceholder;
 
@@ -43,9 +45,13 @@ public class TaskListDateItem extends MultiComponent {
     @Override
     public void componentDidMount() {
         // Set header for DateItem
-        String dateHeader = String.format("%s (%d %s)", DateUtil.formatDay(dateTime), tasks.size(), 
+        String dateHeaderString = String.format("%s (%d %s)", DateUtil.formatDay(dateTime), tasks.size(), 
                                           StringUtil.pluralizer(tasks.size(), SINGLE_TASK_LABEL, PURAL_TASK_LABEL));
-        dateText.setText(dateHeader);
+        dateHeader.setText(dateHeaderString);
+        
+        // Set date label
+        String dateLabelString = DateUtil.formatShortDate(dateTime);
+        dateLabel.setText(dateLabelString);
 
         // Load task items
         loadTaskItems();
