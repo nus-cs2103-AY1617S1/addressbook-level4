@@ -33,9 +33,20 @@
                                     <Label fx:id="id" styleClass="cell_big_label" />
                                     <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
+                        	<Label fx:id="interval" styleClass="cell_small_label" text="\$interval">
+                     <padding>
+                        <Insets left="5.0" top="10.0" />
+                     </padding></Label>
+                  			<Label fx:id="locationParameter" styleClass="cell_small_label" text="\$location">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+                  			<Label fx:id="remarksParameter" styleClass="cell_small_label" text="\$remarks">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
                     </children>
                 </VBox>
             </children>
