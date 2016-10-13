@@ -138,7 +138,7 @@ Format (date): `update INDEX date UPDATED_VALUE`
 
 > Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 > `task`: Updates the entire task as if `add UPDATED_VALUE` has been executed <br>
-> `tdescription`: Updates the description of the task with `UPDATED_VALUE` <br>
+> `description`: Updates the description of the task with `UPDATED_VALUE` <br>
 > `date`: Updates the date of the task with `UPDATED_VALUE` if it is already has a date
 
 Examples:
