@@ -112,8 +112,8 @@ public class Parser {
 	            return new AddCommand(
 	                    event_matcher.group("name"),
 	                    event_matcher.group("date"),
-	                    event_matcher.group("end"), // start and end are swapped to match ui
-	                    event_matcher.group("start"),
+	                    event_matcher.group("start"), // start and end are swapped to match ui
+	                    event_matcher.group("end"),
 	                    getTagsFromArgs(event_matcher.group("tagArguments"))
 	            );
         	}else if(deadline_matcher.matches()) {
