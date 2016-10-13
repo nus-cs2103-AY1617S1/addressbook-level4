@@ -149,7 +149,7 @@ Example:
 
 ### Editing a task: `edit`
 Edits an existing task in the task manager. Just in case you need to change any details, or add in missing ones! <br>
-Format: `edit INDEX NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Format: `edit INDEX [NAME], [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 > `INDEX` refers to the task number in the current displayed list.<br>
 > Notice that this is similar to the `add` command format!  
 
@@ -158,6 +158,20 @@ Examples:
 * `edit 2 Company meeting tomorrow morning, at 7am to 9am -high`
 * `Buy coffee for boss, by 8am repeat every day`
 * `edit 3 Buy coffee for boss, by 7am repeat every 2 days`
+
+**_Editing out details in a task_**
+ You can also remove any section if they are no longer relevant! <br>
+ Format: `edit INDEX [repeat] [start] [end] -reset`
+ > `INDEX` refers to the task number in the current displayed list.<br>
+> Use [repeat] to remove the recurring time
+> Use [start] to remove the start time
+> Use [end] to remove the end time 
+
+Examples:
+* `Buy coffee for boss, by 8am repeat every day`
+* `edit 1 repeat -reset`
+* `edit 2 start -reset`
+* `edit 3 end -reset`
 
 ### Deleting a task: `delete`
 Deletes an existing task in your task manager. This will remove them from the storage. If you want to mark them as done instead, look at the `done` command. <br>
