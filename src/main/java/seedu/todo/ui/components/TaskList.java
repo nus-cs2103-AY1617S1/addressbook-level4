@@ -15,6 +15,8 @@ import seedu.todo.models.Task;
 import seedu.todo.ui.UiPartLoader;
 
 public class TaskList extends Component {
+    
+    public static final LocalDateTime NO_DATE_VALUE = LocalDateTime.MIN;
 
     private static final String FXML_PATH = "components/TaskList.fxml";
     private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
@@ -72,6 +74,10 @@ public class TaskList extends Component {
 
         for (Task task : tasks) {
             LocalDateTime taskDate = DateUtil.floorDate(task.getCalendarDT());
+            
+            // Handle tasks without a date
+            if (taskDate == null)
+                taskDate = NO_DATE_VALUE;
 
             // Creates ArrayList if not already exists.
             if (!tasksByDate.containsKey(taskDate)) 
