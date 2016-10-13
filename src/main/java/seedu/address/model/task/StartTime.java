@@ -8,11 +8,12 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
  */
 public class StartTime {
-
+    
+    public static final String MESSAGE_TIME_CONSTRAINTS = "Time should follow the format hh:mm am/pm(or h:mm am/pm)";
     public static final String MESSAGE_START_CONSTRAINTS = "Start Time should follow the format hh:mm am/pm(or h:mm am/pm)";
     public static final String START_VALIDATION_REGEX = "((1[012]|0[1-9]|[1-9]):[0-5][0-9](?i)(am|pm)\\sto\\s)?(1[012]|[1-9]|0[1-9]):[0-5][0-9](?i)(am|pm)";
 
-    public final String value;
+    public String value;
 
     /**
      * Validates given start.
@@ -50,6 +51,10 @@ public class StartTime {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+    public void setStartTime(String time) {
+        this.value = time;
     }
 
 }

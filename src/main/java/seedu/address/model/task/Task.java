@@ -14,7 +14,7 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private Date date;
     private StartTime start;
-    private EndTime address;
+    private EndTime end;
 
     private UniqueTagList tags;
 
@@ -26,7 +26,7 @@ public class Task implements ReadOnlyTask {
         this.name = name;
         this.date = date;
         this.start = start;
-        this.address = address;
+        this.end = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -54,7 +54,7 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public EndTime getEndTime() {
-        return address;
+        return end;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, start, address, tags);
+        return Objects.hash(name, date, start, end, tags);
     }
 
     @Override

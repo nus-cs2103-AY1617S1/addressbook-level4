@@ -30,7 +30,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, String start, String address, Set<String> tags)
+    public AddCommand(String name, String date, String start, String end, Set<String> tags)
             throws IllegalValueException {
     	System.out.println("start");
         final Set<Tag> tagSet = new HashSet<>();
@@ -41,7 +41,7 @@ public class AddCommand extends Command {
                 new Name(name),
                 new Date(date),
                 new StartTime(start),
-                new EndTime(address),
+                new EndTime(end),
                 new UniqueTagList(tagSet)
         );
         System.out.println("end");

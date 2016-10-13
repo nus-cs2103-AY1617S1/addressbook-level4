@@ -112,10 +112,21 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
-    public void editName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
+    public void editTaskName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
         tasks.editName(task, newInfo);      
     }
-
+    
+    public void editTaskDate(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
+        tasks.editDate(task, newInfo);
+    }
+    
+    public void editTaskStartTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
+        tasks.editStartTime(task, newInfo);
+    }
+    
+    public void editTaskEndTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
+        tasks.editEndTime(task, newInfo);
+    }
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

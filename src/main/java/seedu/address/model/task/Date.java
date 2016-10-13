@@ -11,7 +11,7 @@ public class Date {
     public static final String MESSAGE_DATE_CONSTRAINTS = "Date numbers should follow the format dd/mm/yy";
     public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][\\d]|3[01])/(0?[1-9]|1[012])/(\\d\\d)";
 
-    public final String value;
+    public String value;
 
     /**
      * Validates given date number.
@@ -50,6 +50,10 @@ public class Date {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+    public void setDate(String date) {
+        this.value = date;
     }
 
 }

@@ -11,8 +11,8 @@ public class EndTime {
     
     public static final String MESSAGE_TIME_CONSTRAINTS = "End Time should follow the format hh:mm am/pm(or h:mm am/pm)";
     public static final String TIME_VALIDATION_REGEX = "((1[012]|0[1-9]|[1-9]):[0-5][0-9](?i)(am|pm)\\sto\\s)?(1[012]|[1-9]|0[1-9]):[0-5][0-9](?i)(am|pm)";
-
-    public final String value;
+    
+    public String value;
 
     /**
      * Validates given address.
@@ -53,6 +53,10 @@ public class EndTime {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+    public void setEndTime(String time) {
+        this.value = time;
     }
 
 }

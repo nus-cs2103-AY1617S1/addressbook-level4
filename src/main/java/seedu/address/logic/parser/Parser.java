@@ -3,6 +3,9 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.task.Date;
+import seedu.address.model.task.EndTime;
+import seedu.address.model.task.StartTime;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -102,10 +105,36 @@ public class Parser {
 
     private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
+        //final String index = matcher.group("index");
+        //final String property = matcher.group("property");
+        //final String newInfo = matcher.group("newInfo"); 
+        //I dont understand why i cant do this. It an error for parser when i try it
+        
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        
+        if (matcher.group("property").toLowerCase().equals("date")) {
+            System.out.println("is it valid date?");
+            System.out.println(matcher.group("newInfo"));
+            if(!Date.isValidDate(matcher.group("newInfo"))) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+            }
+        }
+        if (matcher.group("property").toLowerCase().equals("starttime")) {
+            System.out.println("is it a valid start time?");
+            System.out.println(matcher.group("newInfo"));
+            if(!StartTime.isValidStartTime(matcher.group("newInfo"))) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartTime.MESSAGE_TIME_CONSTRAINTS));
+            }
+        }
+        if (matcher.group("property").toLowerCase().equals("endtime")) {
+            if(!EndTime.isValidEndTime(matcher.group("newInfo"))) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartTime.MESSAGE_TIME_CONSTRAINTS));
+            }
+        }
+        
         return new EditCommand(
                 matcher.group("index"),
                 matcher.group("property"),
