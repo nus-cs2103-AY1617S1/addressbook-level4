@@ -211,23 +211,6 @@ public class LogicManagerTest {
     }
 
 
-    @Test
-    public void execute_list_showsAllPersons() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAB = helper.generateAddressBook(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getPersonList();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-    }
-
-
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -308,7 +291,7 @@ public class LogicManagerTest {
         expectedAB.removePerson(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
-        assertCommandBehavior("delete 2",
+        assertCommandBehavior("delete 12",
                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
                 expectedAB,
                 expectedAB.getPersonList());
