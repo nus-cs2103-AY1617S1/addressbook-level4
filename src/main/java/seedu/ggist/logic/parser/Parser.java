@@ -296,7 +296,7 @@ public class Parser {
         final Matcher matcher = LIST_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SearchCommand.MESSAGE_USAGE));
+                    ListCommand.MESSAGE_USAGE));
         }
         
         final String listing = matcher.group("listing");

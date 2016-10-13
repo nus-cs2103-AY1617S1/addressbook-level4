@@ -8,7 +8,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": retreives completed task or shows all tasks.\n "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": retreives completed tasks or shows all tasks.\n "
             + "Parameter: [LISTING]\n"
             + "Empty paramter lists all task in GGist\n"
             + "Example: " + COMMAND_WORD + "done";
