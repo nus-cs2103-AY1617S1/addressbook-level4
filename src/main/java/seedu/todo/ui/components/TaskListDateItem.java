@@ -12,6 +12,7 @@ import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.models.Task;
+import seedu.todo.models.Event;
 import seedu.todo.ui.UiPartLoader;
 
 public class TaskListDateItem extends MultiComponent {
@@ -22,12 +23,14 @@ public class TaskListDateItem extends MultiComponent {
     // Props
     public LocalDateTime dateTime;
     public List<Task> tasks;
+    public List<Event> events;
 
     // FXML
     @FXML
     private Text dateText;
     @FXML
     private VBox dateTaskItemsPlaceholder;
+    private VBox dateEventItemsPlaceholder;
 
     public static TaskListDateItem load(Stage primaryStage, Pane placeholderPane) {
         return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskListDateItem());
@@ -47,6 +50,7 @@ public class TaskListDateItem extends MultiComponent {
 
         // Load task items
         loadTaskItems();
+        loadEventItems();
     }
 
     private void loadTaskItems() {
@@ -60,6 +64,22 @@ public class TaskListDateItem extends MultiComponent {
 
             // Set the props and render the TaskListTaskItem.
             item.task = task;
+            item.displayIndex = displayIndex;
+            item.render();
+        }
+    }
+    
+    private void loadEventItems() {
+        TaskListEventItem.reset(dateEventItemsPlaceholder);
+
+        for (Event event : events) {
+            TaskListEventItem item = TaskListEventItem.load(primaryStage, dateTaskItemsPlaceholder);
+
+            // Add to EphemeralDB and get the index.
+            int displayIndex = ephemeralDb.addToDisplayedEvent(event);
+
+            // Set the props and render the TaskListTaskItem.
+            item.event = event;
             item.displayIndex = displayIndex;
             item.render();
         }

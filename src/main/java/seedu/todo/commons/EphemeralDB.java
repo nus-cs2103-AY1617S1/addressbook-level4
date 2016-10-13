@@ -3,6 +3,7 @@ package seedu.todo.commons;
 import java.util.List;
 
 import seedu.todo.models.Task;
+import seedu.todo.models.Event;
 
 /**
  * A bit like Redis, essentially a data store for things that should not be
@@ -31,6 +32,9 @@ public class EphemeralDB {
     /** ======== DISPLAYED TASKS ======== **/
 
     public List<Task> displayedTasks;
+    
+    /** ======== DISPLAYED Events ======== **/
+    public List<Event> displayedEvents;
 
     /**
      * Returns a Task from displayedTasks according to their displayed ID.
@@ -50,6 +54,11 @@ public class EphemeralDB {
     public int addToDisplayedTask(Task task) {
         displayedTasks.add(task);
         return displayedTasks.size();
+    }
+    
+    public int addToDisplayedEvent(Event event) {
+        displayedEvents.add(event);
+        return displayedEvents.size();
     }
 
 }
