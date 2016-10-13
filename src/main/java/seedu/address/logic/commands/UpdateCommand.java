@@ -181,22 +181,22 @@ public class UpdateCommand extends Command {
             newDeadline = new Deadline(CommandHelper.convertStringToDate(this.updatedBy));
         }
         if (this.updatedStartTime != null) {
-            if (newPeriod.endTime == null && this.updatedEndTime == null) {
+            if (newPeriod.getEndTime() == null && this.updatedEndTime == null) {
                 throw new IllegalValueException(MESSAGE_PERIOD_NEED_BOTH_START_AND_END_TIME);
-            } else if (newPeriod.endTime == null) {
+            } else if (newPeriod.getEndTime() == null) {
                 newPeriod = new Period(CommandHelper.convertStringToDate(this.updatedStartTime),
                         CommandHelper.convertStringToDate(this.updatedEndTime));
             } else {
                 newPeriod = new Period(CommandHelper.convertStringToDate(this.updatedStartTime),
-                        newPeriod.endTime);
+                        newPeriod.getEndTime());
             }
         }
         if (this.updatedEndTime != null) {
-            if (newPeriod.startTime == null) {
+            if (newPeriod.getStartTime() == null) {
                 throw new IllegalValueException(MESSAGE_PERIOD_NEED_BOTH_START_AND_END_TIME);
             }
 
-            newPeriod = new Period(newPeriod.startTime,
+            newPeriod = new Period(newPeriod.getStartTime(),
                     CommandHelper.convertStringToDate(this.updatedEndTime));
         }
         if (this.updatedDeadlineRecurrence != null) {

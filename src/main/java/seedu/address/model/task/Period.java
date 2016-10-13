@@ -19,9 +19,9 @@ public class Period {
     public static final String TO_STRING_FORMAT = "%s - %s";
     public static final String TO_STRING_NO_PERIOD = "No period.";
     
-    public final boolean hasPeriod;
-    public final Date startTime;
-    public final Date endTime;
+    private final boolean hasPeriod;
+    private final Date startTime;
+    private final Date endTime;
     
     /**
      * Constructor for no period given for task.
@@ -60,8 +60,8 @@ public class Period {
 
     @Override
     public String toString() {
-        if (hasPeriod) {
-            return String.format(TO_STRING_FORMAT, startTime, endTime);
+        if (hasPeriod()) {
+            return String.format(TO_STRING_FORMAT, getStartTime(), getEndTime());
         }
         
         return TO_STRING_NO_PERIOD;
@@ -79,13 +79,25 @@ public class Period {
         
         Period otherPeriod = (Period)other;
         
-        return ObjectUtil.isEquivalentOrBothNull(this.hasPeriod, otherPeriod.hasPeriod) &&
-                ObjectUtil.isEquivalentOrBothNull(this.startTime, otherPeriod.startTime) &&
-                ObjectUtil.isEquivalentOrBothNull(this.endTime, otherPeriod.endTime); // state check
+        return ObjectUtil.isEquivalentOrBothNull(this.hasPeriod(), otherPeriod.hasPeriod()) &&
+                ObjectUtil.isEquivalentOrBothNull(this.getStartTime(), otherPeriod.getStartTime()) &&
+                ObjectUtil.isEquivalentOrBothNull(this.getEndTime(), otherPeriod.getEndTime()); // state check
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startTime, endTime);
+        return Objects.hash(getStartTime(), getEndTime());
+    }
+
+    public boolean hasPeriod() {
+        return hasPeriod;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
     }
 }

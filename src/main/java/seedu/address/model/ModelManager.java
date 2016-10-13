@@ -236,7 +236,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().name, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().getName(), keyword))
                     .findAny()
                     .isPresent();
         }
@@ -281,10 +281,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (task.getDeadline().hasDeadline == false) {
+            if (task.getDeadline().hasDeadline() == false) {
                 return false;
             }
-            return deadline.after(task.getDeadline().deadline);
+            return deadline.after(task.getDeadline().getDeadline());
         }
 
         @Override
@@ -302,10 +302,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (task.getPeriod().hasPeriod) {
-                return startTime.before(task.getPeriod().endTime);
-            } else if (task.getDeadline().hasDeadline) {
-                return startTime.before(task.getDeadline().deadline);
+            if (task.getPeriod().hasPeriod()) {
+                return startTime.before(task.getPeriod().getEndTime());
+            } else if (task.getDeadline().hasDeadline()) {
+                return startTime.before(task.getDeadline().getDeadline());
             }
             return true;
         }
@@ -325,10 +325,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (task.getPeriod().hasPeriod) {
-                return endTime.after(task.getPeriod().startTime);
-            } else if (task.getDeadline().hasDeadline) {
-                return endTime.after(task.getDeadline().deadline);
+            if (task.getPeriod().hasPeriod()) {
+                return endTime.after(task.getPeriod().getStartTime());
+            } else if (task.getDeadline().hasDeadline()) {
+                return endTime.after(task.getDeadline().getDeadline());
             }
             return true;
         }
@@ -350,12 +350,12 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (task.getPeriod().hasPeriod) {
-                return startTime.before(task.getPeriod().endTime) &&
-                        endTime.after(task.getPeriod().startTime);
-            } else if (task.getDeadline().hasDeadline) {
-                return startTime.before(task.getDeadline().deadline) &&
-                        endTime.after(task.getDeadline().deadline);
+            if (task.getPeriod().hasPeriod()) {
+                return startTime.before(task.getPeriod().getEndTime()) &&
+                        endTime.after(task.getPeriod().getStartTime());
+            } else if (task.getDeadline().hasDeadline()) {
+                return startTime.before(task.getDeadline().getDeadline()) &&
+                        endTime.after(task.getDeadline().getDeadline());
             }
             return false;
         }

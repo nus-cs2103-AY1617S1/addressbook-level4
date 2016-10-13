@@ -15,9 +15,9 @@ public class PeriodTest {
     public void defaultConstructor_noInput_returnsEmptyPeriod() {
         Period noPeriod = new Period();
         
-        assertFalse(noPeriod.hasPeriod);
-        assertNull(noPeriod.startTime);
-        assertNull(noPeriod.endTime);
+        assertFalse(noPeriod.hasPeriod());
+        assertNull(noPeriod.getStartTime());
+        assertNull(noPeriod.getEndTime());
     }
 
     @Test
@@ -27,9 +27,9 @@ public class PeriodTest {
         
         Period period = new Period(startTime, endTime);
         
-        assertTrue(period.hasPeriod);
-        assertEquals(startTime, period.startTime);
-        assertEquals(endTime, period.endTime);
+        assertTrue(period.hasPeriod());
+        assertEquals(startTime, period.getStartTime());
+        assertEquals(endTime, period.getEndTime());
     }
     
     @Test (expected = IllegalValueException.class)

@@ -12,8 +12,8 @@ import seedu.address.commons.util.ObjectUtil;
 public class Deadline {
     public static final String TO_STRING_NO_DEADLINE = "No deadline.";
     
-    public final boolean hasDeadline;
-    public final Date deadline;
+    private final boolean hasDeadline;
+    private final Date deadline;
     
     /**
      * Constructor for no deadline.
@@ -37,8 +37,8 @@ public class Deadline {
     
     @Override
     public String toString() {
-        if (hasDeadline) {
-            return deadline.toString();
+        if (hasDeadline()) {
+            return getDeadline().toString();
         }
         
         return TO_STRING_NO_DEADLINE;
@@ -56,12 +56,20 @@ public class Deadline {
         
         Deadline otherDeadline = (Deadline)other;
         
-        return ObjectUtil.isEquivalentOrBothNull(this.hasDeadline, otherDeadline.hasDeadline) &&
-                ObjectUtil.isEquivalentOrBothNull(this.deadline, otherDeadline.deadline); // state checkk
+        return ObjectUtil.isEquivalentOrBothNull(this.hasDeadline(), otherDeadline.hasDeadline()) &&
+                ObjectUtil.isEquivalentOrBothNull(this.getDeadline(), otherDeadline.getDeadline()); // state checkk
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(deadline);
+        return Objects.hash(getDeadline());
+    }
+
+    public boolean hasDeadline() {
+        return hasDeadline;
+    }
+
+    public Date getDeadline() {
+        return deadline;
     }
 }

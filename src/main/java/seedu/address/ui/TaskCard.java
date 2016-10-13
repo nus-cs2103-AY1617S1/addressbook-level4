@@ -43,7 +43,7 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().name);
+        name.setText(task.getName().getName());
         id.setText(displayedIndex + ". ");
         deadline.setText("Deadline: " + task.getDeadline().toString());
         deadlineRecurrence.setText("Deadline Repeat: " + task.getDeadlineRecurrence().toString());
