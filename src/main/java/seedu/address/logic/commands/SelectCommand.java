@@ -21,7 +21,7 @@ public class SelectCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
-    public static final String MESSAGE_SELECT_LAST_EMPTY_LIST = "No last task to select";
+    public static final String MESSAGE_SELECT_EMPTY_LIST = "Can't select from an empty list";
 
     public SelectCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -36,7 +36,7 @@ public class SelectCommand extends Command {
             int listSize = model.getFilteredTaskList().size();
             if(listSize < 1){
                 indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(MESSAGE_SELECT_LAST_EMPTY_LIST);
+                return new CommandResult(MESSAGE_SELECT_EMPTY_LIST);
             }
             EventsCenter.getInstance().post(new JumpToListRequestEvent(listSize - 1));
             return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, listSize));
@@ -45,7 +45,7 @@ public class SelectCommand extends Command {
         if (lastShownList.size() < targetIndex) {
             if(lastShownList.size() < 1){
                 indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + "\n" + MESSAGE_SELECT_EMPTY_LIST);
             }
             else{
                 String validIndexRange = "Valid index range: 1 to " + lastShownList.size();

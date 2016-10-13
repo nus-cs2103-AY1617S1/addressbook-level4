@@ -37,7 +37,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
         if(taskListPanel.getNumberOfTasks() < 1){
-            assertResultMessage("The task index provided is invalid");
+            assertResultMessage("The task index provided is invalid" + "\n" + "Can't select from an empty list");
         }
         else{
             assertResultMessage("The task index provided is invalid" + "\n" + "Valid index range: 1 to " + taskListPanel.getNumberOfTasks());
