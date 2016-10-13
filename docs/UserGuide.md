@@ -131,17 +131,22 @@ Examples:
 
 <br>
 #### Updating a task: `update`
-Updates the description or date of the specified task.<br>
-Format (description): `update INDEX task/description UPDATED_VALUE` <br>
+Updates the entire task, the description of the task or the date of the task.<br>
+Format (task): `update INDEX task UPDATED_VALUE` <br>
+Format (description): `update INDEX description UPDATED_VALUE` <br>
 Format (date): `update INDEX date UPDATED_VALUE`
 
 > Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
-> `task/description`: Updates the description of the task with `UPDATED_VALUE` <br>
+> `task`: Updates the entire task as if `add UPDATED_VALUE` has been executed <br>
+> `tdescription`: Updates the description of the task with `UPDATED_VALUE` <br>
 > `date`: Updates the date of the task with `UPDATED_VALUE` if it is already has a date
 
 Examples:
 * `list`
-* `update 2 task project discussion` or
+* `update 1 task overseas from oct 31 to nov 1` <br>
+  Updates the entire task as though so that the description is `overseas`, the start date is `oct 31` and the end date is `nov 1`
+* `list`
+* `update 2 description project discussion` or
 * `update 2 description project discussion` <br>
   Updates the description of the 2nd task on the list with `project discussion`
 * `list`
@@ -316,7 +321,8 @@ Add monthly | `add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK`
 Add yearly | `add yearly [on] DATE, TASK`
 List | `list`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-Update description | `update INDEX task/description UPDATED_VALUE`
+Update task | `update INDEX task UPDATED_VALUE`
+Update description | `update INDEX description UPDATED_VALUE`
 Update date | `update INDEX date UPDATED_VALUE`
 Delete | `delete INDEX`
 Favorite | `favorite INDEX`
