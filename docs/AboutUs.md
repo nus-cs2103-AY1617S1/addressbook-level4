@@ -26,10 +26,10 @@ Responsibilities: UI
 
 -----
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
+#### [Voon Soo Yin](http://github.com/tessav) 
+<img src="images/SooYin.jpg" width="150"><br>
  Role: Developer <br>  
- Responsibilities: UI
+ Responsibilities: Logic
  
  -----
 
