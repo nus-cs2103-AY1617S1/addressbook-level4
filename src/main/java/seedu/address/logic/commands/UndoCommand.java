@@ -20,9 +20,9 @@ public class UndoCommand extends Command {
 
 	public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo: Adding of new task: %1$s";
 	public static final String MESSAGE_UNDO_DELETE_SUCCESS = "Undo: Deleting task: %1$s";
-	   public static final String MESSAGE_UNDO_EDIT_SUCCESS = "Undo: Editting task from: %1$s, to: %1$s";
+	   public static final String MESSAGE_UNDO_EDIT_SUCCESS = "Undo: Editting task to: %1$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Lifekeeper";
-
+	
 	@Override
 	public CommandResult execute() {
 
@@ -41,10 +41,9 @@ public class UndoCommand extends Command {
                 return undoEdit(toUndo);
 			}
 
-		} else {
-			return new CommandResult(MESSAGE_END_OF_UNDO);
 		}
-		return null;
+		
+			return new CommandResult(MESSAGE_END_OF_UNDO);
 	}
 
 	/**
@@ -85,6 +84,7 @@ public class UndoCommand extends Command {
         Task taskToEdit = toUndo.getUpdatedTask();
         Task edittedTask = toUndo.getOldTask();
 
+        
         try {
             model.editTask(taskToEdit,edittedTask);
             
@@ -94,7 +94,7 @@ public class UndoCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
-        return new CommandResult(String.format(MESSAGE_UNDO_EDIT_SUCCESS, edittedTask, taskToEdit));
+        return new CommandResult(String.format(MESSAGE_UNDO_EDIT_SUCCESS, edittedTask));
     }
 	
 }

@@ -41,11 +41,12 @@ public class PreviousCommand {
 		}
 	}
 	
-	public PreviousCommand(String command, ReadOnlyTask originalTask, Task editedTask) {
+	public PreviousCommand(String command, ReadOnlyTask originalTask, ReadOnlyTask editedTask) {
         COMMAND_WORD = command;
-        updatedTask = editedTask;
-        try {
-        oldTask = new Task(
+        updatedTask = new Task(editedTask);
+        
+        try {            
+            oldTask = new Task(
                 new TaskName(originalTask.getName().toString()),
                 new DueDate(originalTask.getDueDate().toString()),
                 new Priority(originalTask.getPriority().toString()),

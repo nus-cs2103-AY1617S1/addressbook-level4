@@ -26,13 +26,15 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " 1 n/CS2103 T8A2 d/15-10-2016 p/3 r/12-01-2016 t/CS t/project";
     
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task from: %1$s";
     
     public static final String MESSAGE_TASK_EXISTS = "An existing task already contains the specified parameters.";
     
     public final int targetIndex;
     
     public final Task newParams;
+    
+    public Task editedTask;
     
     /**
      * Set parameters to null if they are not provided.
@@ -67,10 +69,13 @@ public class EditCommand extends Command {
 
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
 
+        
         try {
-            model.editTask(taskToEdit, newParams);
+            ReadOnlyTask oldTask = new Task(taskToEdit);
             
-            PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD,taskToEdit,newParams);
+            editedTask = new Task(model.editTask(taskToEdit, newParams));
+            
+            PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD,oldTask,editedTask);
             PreviousCommandsStack.push(editCommand);
             
         } catch (TaskNotFoundException tnfe) {
