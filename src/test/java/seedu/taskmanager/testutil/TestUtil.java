@@ -300,6 +300,22 @@ public class TestUtil {
     public static TestItem[] removeItemFromList(final TestItem[] list, int targetIndexInOneIndexedFormat) {
         return removeItemsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
+    
+    /**
+     * Returns a copy of the list with items at the specified multiple indexes removed.
+     * @param list original list to copy from
+     * @param targetIndexes the array of indexes of the items to be removed
+     */
+    public static TestItem[] removeItemsFromList(final TestItem[] list, int[] targetIndexes) {
+        TestItem[] itemsToRemove = new TestItem[targetIndexes.length];
+        int numToRemove = 0;
+        for (int targetIndex : targetIndexes) {
+            itemsToRemove[numToRemove] = list[targetIndex-1];
+            numToRemove += 1;
+        }
+
+        return removeItemsFromList(list, itemsToRemove);
+    }
 
     /**
      * Replaces items[i] with an item.
