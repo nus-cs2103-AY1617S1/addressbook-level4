@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds a task to the malitio.
+ * Adds a task to Malitio.
  */
 public class AddCommand extends Command {
 
@@ -26,7 +26,7 @@ public class AddCommand extends Command {
     private final Task toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructor for floating tasks using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -41,7 +41,43 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
-
+    
+    /**
+     * Convenience constructor for deadlines using raw values.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, String date, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Name(name),
+                new DateTime(date),
+                new UniqueTagList(tagSet)
+        );
+    }
+    
+    /**
+     * Convenience constructor for deadlines using raw values.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, String start, String end, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Name(name),
+                new DateTime(start),
+                new DateTime(end),
+                new UniqueTagList(tagSet)
+        );
+    }
     @Override
     public CommandResult execute() {
         assert model != null;

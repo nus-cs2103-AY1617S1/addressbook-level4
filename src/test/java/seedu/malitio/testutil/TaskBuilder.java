@@ -20,6 +20,11 @@ public class TaskBuilder {
         return this;
     }
 
+    public TaskBuilder dueOn(String due) throws IllegalValueException {
+        this.Task.setDue(new DateTime(due));
+        return this;
+    }
+    
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             Task.getTags().add(new Tag(tag));
