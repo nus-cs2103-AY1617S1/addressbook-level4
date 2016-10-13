@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
 
 public class UndoCommand extends Command {
 	public static final String COMMAND_WORD = "undo";
@@ -14,5 +12,10 @@ public class UndoCommand extends Command {
 	public CommandResult execute() {
 //		model.undo();
 		return new CommandResult(MESSAGE_UNDO_SUCCESS);
+	}
+	
+	@Override
+	public CommandResult undo() throws UnsupportedOperationException {
+		throw new UnsupportedOperationException("Undo operation cannot be undone. To redo, enter the redo keyword.");
 	}
 }

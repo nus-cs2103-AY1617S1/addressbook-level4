@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Adds a task to the task manager.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -94,4 +94,9 @@ public class AddCommand extends Command {
 
     }
 
+	@Override
+	public CommandResult undo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
