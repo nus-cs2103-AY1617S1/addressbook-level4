@@ -10,6 +10,7 @@ import org.controlsfx.control.StatusBar;
 
 import tars.commons.core.LogsCenter;
 import tars.commons.events.model.TarsChangedEvent;
+import tars.commons.events.storage.TarsStorageDirectoryChangedEvent;
 import tars.commons.util.FxViewUtil;
 
 import java.util.Date;
@@ -95,5 +96,14 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+
+    // @@author A0124333U
+    @Subscribe
+    private void handleTarsStorageChangeDirectoryEvent(TarsStorageDirectoryChangedEvent event) {
+        String lastUpdated = (new Date()).toString();
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setSaveLocation(event.getNewFilePath());
+        setSyncStatus("File Location Change. Last Updated: " + lastUpdated);
     }
 }

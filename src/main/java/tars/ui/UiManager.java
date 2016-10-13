@@ -123,12 +123,5 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadTaskPage(event.getNewSelection());
     }
-    
-    //@@author A0124333U
-    @Subscribe
-    private void handleTarsStorageChangeDirectoryEvent(TarsStorageDirectoryChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));       
-        mainWindow.reloadStatusBarFooter(event.getNewFilePath());
-    }
 
 }
