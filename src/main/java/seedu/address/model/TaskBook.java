@@ -73,7 +73,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
 
-    public boolean removePerson(ReadOnlyItem key) throws UniqueItemList.ItemNotFoundException {
+    public boolean removeItem(ReadOnlyItem key) throws UniqueItemList.ItemNotFoundException {
         if (items.remove(key)) {
             return true;
         } else {
