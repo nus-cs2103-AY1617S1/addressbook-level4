@@ -29,14 +29,16 @@ public class Parser {
 
 
     private static final Pattern TASK_DATA_ARGS_FORMAT_ADD = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+            Pattern.compile("(?<title>[^/]+)"
+                    + " d/(?<description>[^/]+)"
+                    + " sd/(?<startDate>[^/]+)"
+                    + " dd/(?<dueDate>[^/]+)"
+                    + " i/(?<interval>[^/]+)"
+                    + " ti/(?<timeInterval>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     private static final Pattern TASK_DATA_ARGS_FORMAT_EDIT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[^/]+)"
-                    + " (?<isNamePrivate>p?)n/(?<newName>[^/]+)");
+                    + " t/(?<newTitle>[^/]+)");
 
 
     public Parser() {}
@@ -98,7 +100,7 @@ public class Parser {
      * @throws ParseException 
      */
 
-    private Command prepareAdd(String args){
+    private Command prepareAdd(String args) throws ParseException{
         final Matcher matcher = TASK_DATA_ARGS_FORMAT_ADD.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -106,10 +108,12 @@ public class Parser {
         }
         try {
         	return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
+        	        matcher.group("title"),
+                    matcher.group("description"),
+                    matcher.group("startDate"),
+                    matcher.group("dueDate"),
+                    matcher.group("interval"),
+                    matcher.group("timeInterval"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {

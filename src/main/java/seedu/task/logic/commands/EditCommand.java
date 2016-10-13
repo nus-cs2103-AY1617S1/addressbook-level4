@@ -6,7 +6,7 @@ import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyTaskManager;
-import seedu.task.model.task.Name;
+import seedu.task.model.task.Title;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
@@ -24,7 +24,7 @@ public class EditCommand extends Command {
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the address book. "
             + "Parameters: Index n/newName p/phoneNumber"
             + "Example: " + COMMAND_WORD
-            + "1 n/newTaskName p/12345678";
+            + "1 t/newTaskName";
 	
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
@@ -35,7 +35,7 @@ public class EditCommand extends Command {
 	private Task copy, editedTask;
 	private int paramLength;
 	private String[] params;
-	private String newName;
+	private String newTitle;
 	private UnmodifiableObservableList<ReadOnlyTask> taskList;
 	private int taskIndex;
 
@@ -44,11 +44,11 @@ public class EditCommand extends Command {
 	 * @param name the name/identifier of the task
 	 * @param strings the parameters
 	 */
-	public EditCommand(int index, String name, String... strings) {
+	public EditCommand(int index, String title, String... strings) {
 		taskIndex = index;
 		paramLength = strings.length;
 		params = strings;
-		newName = name;
+		newTitle = title;
 	}
 	
 	
@@ -94,7 +94,7 @@ public class EditCommand extends Command {
 	 */
 	public void edit(ReadOnlyTask task) throws IllegalValueException{
 		copy = (Task) selectedTask;
-		iterateParams(newName, params);
+		iterateParams(newTitle, params);
 		editedTask = copy;
 	}
 	
@@ -105,7 +105,7 @@ public class EditCommand extends Command {
 	 */
 	public void iterateParams(String name, String[] params) throws IllegalValueException{
 		if (name != null) {
-			changeName(newName);
+		    changeTitle(newTitle);
 		}
 	}
 	
@@ -114,9 +114,9 @@ public class EditCommand extends Command {
 	 * @param name the new name value
 	 * @throws IllegalValueException if the name value is invalid
 	 */
-	public void changeName(String name) throws IllegalValueException {
-		Name newName = new Name(name);
-		copy = new Task(newName, copy.getPhone(), copy.getEmail(), copy.getAddress(), copy.getTags());
+	public void changeTitle(String title) throws IllegalValueException {
+		Title newTitle = new Title(title);
+		copy = new Task(newTitle, copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTags());
 	}
 
 }
