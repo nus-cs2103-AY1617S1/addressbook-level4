@@ -122,8 +122,13 @@ public class Task implements ReadOnlyTask {
     	return dueByDate.getFriendlyString();  
     }
     
+    /**
+     * Returns a proper parser understandable date string for testing purposes.
+     * @return friendly string of time object.
+     * 
+     * @author A0139661Y
+     */
     public String getFriendlyTime() {
     	return dueByTime.getFriendlyString();
     }
-
 }
