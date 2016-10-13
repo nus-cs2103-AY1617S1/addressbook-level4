@@ -43,7 +43,7 @@ public class DueDate {
             if (!isValidDueDate(date)) {
                 throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
             }
-            if ((date!= "")||!DateValidation.aftertoday(date)) // check if the time is future
+            if (!DateValidation.aftertoday(date)) // check if the time is future
                                                   // time
                 throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
         } catch (ParseException pe) {
