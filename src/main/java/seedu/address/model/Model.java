@@ -26,9 +26,11 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    /** Returns the filtered task list as an {@code UnmodifiableObservaibleList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun);
+    
     /** Updates the filter of the filtered task list to show all undone tasks by default **/
     void updateFilteredListToShowAll();
     
