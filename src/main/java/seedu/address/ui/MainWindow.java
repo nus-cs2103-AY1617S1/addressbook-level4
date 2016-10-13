@@ -13,7 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,6 +29,12 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    
+    
+    //private DeadlineListPanel deadlineListPanel;
+    //private TodoListPanel todoListPanel; 
+     
+    
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
@@ -60,6 +66,13 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+
+    @FXML
+    private AnchorPane deadlineListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane todoListPanelPlaceholder;
+
 
 
     public MainWindow() {
@@ -108,20 +121,31 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        //browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        
+        //deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredPersonList());
+        //todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredPersonList());
+    }
+
+    private AnchorPane getDeadlineListPlaceHolder() {
+        return deadlineListPanelPlaceholder;
+    }
+    
+    private AnchorPane getTodoListPlaceholder() {
+        return todoListPanelPlaceholder;
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
 
-    private AnchorPane getStatusbarPlaceholder() {
+    /*private AnchorPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
-    }
+    } */
 
     private AnchorPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
@@ -185,8 +209,16 @@ public class MainWindow extends UiPart {
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
     }
+    
+    //public DeadlineListPanel getDeadlineListPanel() {
+    //    return this.deadlineListPanel;
+    //}
+    
+   // public TodoListPanel getTodoListPanel() {
+    //    return this.todoListPanel;
+    //}
 
-    public void loadPersonPage(ReadOnlyPerson person) {
+    public void loadPersonPage(ReadOnlyTask person) {
         browserPanel.loadPersonPage(person);
     }
 

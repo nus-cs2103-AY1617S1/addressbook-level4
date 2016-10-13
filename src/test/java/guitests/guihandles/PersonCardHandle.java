@@ -3,16 +3,16 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * Provides a handle to a person card in the person list panel.
  */
 public class PersonCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String ADDRESS_FIELD_ID = "#end";
+    private static final String PHONE_FIELD_ID = "#date";
+    private static final String EMAIL_FIELD_ID = "#start";
 
     private Node node;
 
@@ -41,9 +41,9 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyPerson person){
-        return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value) && getAddress().equals(person.getAddress().value);
+    public boolean isSamePerson(ReadOnlyTask person){
+        return getFullName().equals(person.getName().taskDetails) && getPhone().equals(person.getDate().value)
+                && getEmail().equals(person.getStart().value) && getAddress().equals(person.getEnd().value);
     }
 
     @Override

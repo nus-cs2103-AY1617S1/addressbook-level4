@@ -269,53 +269,133 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ... | So that I can...
--------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+ -------- | :-------- | :--------- | :-----------
+***  |  user  |  add events with a start time and an end time  |
+***  |  user  |  add tasks without a specified time  | 
+***  |  user  |  add tasks without a deadline | 
+***  |  user  |  edit existing events  |  update deadlines or venues  
+***  |  user  |  delete existing events  |  remove entries that is no longer needed
+***  |  user  |  complete events  |  acknowledge the completion of event
+***  |  user  |  undo the most recent operations  | undo wrong commands 
+***  |  user  |  search by partial keyword  |  find related events containing the keyword
+***  |  user  | be able to specify my storage folder | use cloud syncing services on it
+**  |  user  |  add tasks that is recurring  |  
+**  |  user  |  some variations in command keywords
+**  |  user  |  set priorities  |  indicate tasks that are important
+*   |  user  | start the program with a shortcut/ key combination | save mouse clicks
+*   | user   | display completed tasks | know what I have done
+*  |  user  |  hide completed  |  conceal events that are completed
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
-
-#### Use case: Delete person
+#### Use case: Add events with a start time and an end time 
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+1.User requests to add events with start time and end time
+2.Task manager adds events into manager <br>
+Use case ends
+
+**Extensions**
+
+2a. There is already an event in the time slot
+
+>2a1. Task manager shows an error message
+ Use case ends
+ 
+
+#### Use case: Edit existing events
+
+**MSS**
+
+1.User requests to edit existing events
+2.Task manager edits the events<br>
+Use case ends
+
+**Extensions**
+2a. There is no such event requested by the user
+
+>2a1. Task manager shows an error message
+ Use case ends
+
+
+#### Use case: Delete existing events
+
+**MSS**
+
+1.User request to show list of events/task
+2.Task manager shows list of events/task
+3.User request to delete a specific event / task  
+4.Task manager deletes the event / task <br>
+Use case ends
+
 
 **Extensions**
 
 2a. The list is empty
 
-> Use case ends
+>Use case ends
 
-3a. The given index is invalid
+3a. The given event/task is non existent
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+>3a1. Task manager shows an error message <br>
+ Use case ends
 
-{More to be added}
+
+#### Use case: Complete events
+
+**MSS**
+
+1.User request to update a specific event / task to completed  
+2.Task manager updates the event / task as completed<br>
+Use case ends
+
+**Extensions**
+2a. The given event/task is non existent 
+
+>2a1.Task manager shows an error message <br>
+ Use case ends
+
+
+#### Use case: undo the most recent operations
+
+**MSS**
+
+1.User request to undo previous operations
+2.Task manager undoes the operations<br>
+Use case ends
+
+**Extensions**
+2a. There are no previous operations
+
+> 2a1.Task manager shows an warning message <br>
+  Use case ends
+
+
+#### Use case: search by partial keyword
+
+**MSS**
+
+1.User requests to search for an event by keyword
+2.Task Manager shows a list of events/tasks containing the keyword
+Use case ends
+
+**Extensions**
+
+1a. The matching keyword is not found
+
+>1a1.Task manager shows an error message
+ Use case ends
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to max 100 tasks per day.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
-{More to be added}
 
 ## Appendix D : Glossary
 
@@ -323,11 +403,108 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Private task detail
 
-> A contact detail that is not meant to be shared with others
+> A task detail that is not meant to be shared with others
+
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+##Google Calendar
+
+###Pros
+
+1. Quick add function
+2. Similar to what we are trying to achieve, you can type the entire add command in one line with event description, time, location and it will interpret it for you and add as an event. It ties into Google Maps for event locations. So if it is recognised in Google Maps, you can choose an exact meeting place.
+3. Support for recurring events
+4. Google Calendar is remarkably social
+5. Calendar can be shared.
+6. Supports shared events.
+7. Ability to find a common time for everyone to attend a shared event created by you based on their Google Calendars.
+8. Can add a video call such that all attendees to a shared event can join the same video call
+9. Ability to set a specific time zone for each event. For the frequent travellers.
+10. You can add documents, spreadsheets, and other files directly to an event so that your guests have all the information they need right in the event.
+11. Support for multiple calendars for different aspects of life. Eg. one for work, one for family, one for play
+12. Google Calendar automatically synchronises with google account which is heavily integrated into android. 
+13. Colour coding for events so that you can self-categorize according to colour.
+14. Calendar view time frame can be switched. View by week, month.
+
+###Cons
+
+1. Lots of mouse clicks; lots of different columns to fill.
+2. Security. Online so it can be hacked, revealing your life schedule.
+
+##Todoist
+
+###Pros
+
+1. Colour code for priority, not time
+2. Command allows for recurring days eg every day/every Tuesday/ holidays etc.
+3. User able to choose subcatergories like task today, task tomorrow but (involves 1 click)
+4. Task can divide to further catagories called projects like shopping , work personal, errands, or create your own(involves 1 click) >  for bigger projects subcategories can be created. Projects are shareable with others
+6. Filters > priority setting priority1, priority 2, assign to me or assign to others
+7. Adding priority (click 2 times) one for flag menu, two for flag colour 4 priority choices or add
+8. Able to exploit templates for other projects
+9. Lots of filters to choose from 
+10. Add labels/ tags
+11. Premium acc – add files to task. Supports third party integration eg link to dropbox/ integrates with other services like Zapier, Google Drive, Cloud Magic, Sunrise Calendar, and others
+12. Uses drag and drop to shift tasks
+13. Karma system> trend>> shows productivity over time > graph> bar(shows type for task done) / sets goals for the week / enable/ disable for vacations etc… a karma level eg grandmaster 5000+ to make user feel good
+14. History : no limit
+15. Bold italic control i control b
+
+###Cons
+
+1. not jim friendly, involves clicking form filling style eg. Click add> type task>click schedule>click to choose date or for recurring dates > type every day or every week. Edit>click and change
+2. Able to link schedules with other people. Eg assign task to others(jim do not need it?)
+3. Most of Jim’s todo items arrive as emails. 
+4. Divides into too many catagories too messy for jim.
+
+
+##Wunderlist
+
+###Pros
+
+1. It is available across windows, mac, android and ios.
+2. Easy search function
+3. Free for non-premium users
+4. Nice interface
+5. Intuitive options and menu selections that is not complicated
+6. Customizable backgrounds to your own liking
+7. Able to accept recurring events
+8. Can set reminders and notifications
+9. Can share between people
+10. Multiple task lists
+11. Short cuts to starred task, overdues and today task
+12. Cloud syncing
+
+
+###Cons
+
+1. There is no options for subtasks.
+2. No start dates for events
+3. Need to pay for premium
+4. Excel files cannot be uploaded
+5. Have to do organization of tasks, events or other stuff by ourselves, they do not group them up for us.
+6. Does not sync with google
+
+##Trello
+
+###Pros
+
+1. Works both on web and mobile devices
+2. Free subscription, but also offers a professional package, with the privacy and administrative settings required by large enterprises.
+3. Good visual
+4. Track task easily
+5. Able to collaborate with multiple people on a single task
+6. Receive email update when other teammates make changes
+7. Always in sync 
+
+###Cons
+
+1. Does not provide a lot of tools to sort cards or reports
+2. Inability to put due dates
+3. Inability to put tag on members in checklist
+4. Does not have calendar
+
 

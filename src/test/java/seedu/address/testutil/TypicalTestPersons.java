@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.*;
+import seedu.address.model.TaskBook;
+import seedu.address.model.task.*;
 
 /**
  *
@@ -34,17 +34,17 @@ public class TypicalTestPersons {
         }
     }
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static void loadAddressBookWithSampleData(TaskBook ab) {
 
         try {
-            ab.addPerson(new Person(alice));
-            ab.addPerson(new Person(benson));
-            ab.addPerson(new Person(carl));
-            ab.addPerson(new Person(daniel));
-            ab.addPerson(new Person(elle));
-            ab.addPerson(new Person(fiona));
-            ab.addPerson(new Person(george));
-        } catch (UniquePersonList.DuplicatePersonException e) {
+            ab.addPerson(new Task(alice));
+            ab.addPerson(new Task(benson));
+            ab.addPerson(new Task(carl));
+            ab.addPerson(new Task(daniel));
+            ab.addPerson(new Task(elle));
+            ab.addPerson(new Task(fiona));
+            ab.addPerson(new Task(george));
+        } catch (UniqueTaskList.DuplicatePersonException e) {
             assert false : "not possible";
         }
     }
@@ -53,8 +53,8 @@ public class TypicalTestPersons {
         return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
+    public TaskBook getTypicalAddressBook(){
+        TaskBook ab = new TaskBook();
         loadAddressBookWithSampleData(ab);
         return ab;
     }

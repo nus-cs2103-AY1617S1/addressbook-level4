@@ -16,10 +16,10 @@ import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.*;
+import seedu.address.model.TaskBook;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.*;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 import java.io.File;
@@ -60,20 +60,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Person[] samplePersonData = getSamplePersonData();
+    public static final Task[] samplePersonData = getSamplePersonData();
 
-    private static Person[] getSamplePersonData() {
+    private static Task[] getSamplePersonData() {
         try {
-            return new Person[]{
-                    new Person(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Person(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Person(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Person(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Person(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Person(new Name("George Best"), new Phone("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Person(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
+            return new Task[]{
+                    new Task(new Name("Ali Muster"), new Date("948824"), new Start("3333"), new End("1234"), new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), new Date("879245"), new Start("1212"), new End("1111"), new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), new Date("953525"), new Start("1212"), new End("2345"), new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), new Date("876553"), new Start("2222"), new End("7521"), new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), new Date("948222"), new Start("2354"), new End("8542"), new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), new Date("948242"), new Start("1500"), new End("8532"), new UniqueTagList()),
+                    new Task(new Name("George Best"), new Date("948244"), new Start("1235"), new End("1234"), new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), new Date("848242"), new Start("1245"), new End("1212"), new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), new Date("848218"), new Start("0000"), new End("1212"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -97,7 +97,7 @@ public class TestUtil {
         }
     }
 
-    public static List<Person> generateSamplePersonData() {
+    public static List<Task> generateSamplePersonData() {
         return Arrays.asList(samplePersonData);
     }
 
@@ -134,8 +134,8 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+    public static TaskBook generateEmptyAddressBook() {
+        return new TaskBook(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
@@ -326,11 +326,11 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
+    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
         return card.isSamePerson(person);
     }
 
-    public static Tag[] getTagList(String tags) {
+ /*   public static Tag[] getTagList(String tags) {
 
         if (tags.equals("")) {
             return new Tag[]{};
@@ -350,5 +350,5 @@ public class TestUtil {
 
         return collect.toArray(new Tag[split.length]);
     }
-
+*/
 }
