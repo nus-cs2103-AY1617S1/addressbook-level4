@@ -6,6 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -81,6 +82,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
     }
 
+    /**
+     * Adds a person to the address book.
+     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.DuplicatePersonException if an equivalent person already exists.
+     */
+	public void insertTask(int index, Task p) throws UniqueTaskList.DuplicateTaskException {
+		syncTagsWithMasterList(p);
+		persons.insertTask(index, p);
+	}
     /**
      * Ensures that every tag in this person:
      *  - exists in the master list {@link #tags}
@@ -160,4 +172,5 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags);
     }
+
 }
