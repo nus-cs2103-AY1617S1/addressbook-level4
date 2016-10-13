@@ -5,8 +5,8 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-## Quick Start
 
+## Quick Start
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
@@ -27,20 +27,20 @@
 
 
 ## Features
-
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+
 #### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-#### Adding a task/tag
 
+#### Adding a task/tag
 ##### Adding a task: `add`
 Adds a task to the task manager.<br>
 Format: `add DESCRIPTION [pr/RANK] [time/TIME] [a/VENUE] [t/TAG]...`
@@ -54,18 +54,17 @@ Examples:
 * `add get eggs pr/low t/family`
 * `add organize room`
 
-##### Adding tags: `add tag`
+##### Adding tags: `addTag`
 Add tags to specified task.<br>
-Format: `add tag INDEX TAG [MORE_TAGS]`
+Format: `addTag INDEX TAG`
 
 Example:
 * `list`<br>
-  `add tag 2 friend NUS`<br>
-  Adds the tags `friend` and `NUS` to the 2nd contact selected
+  `add tag 2 NUS`<br>
+  Adds the tag `NUS` to the task with the index 2
 
 
 #### Listing all tasks/tags
-
 ##### Listing all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
 Format: `list [-pr] [-t/TAGS]...`
@@ -103,8 +102,8 @@ Examples:
 * `find Return lunch Meeting`<br>
   Returns Any tasks having description containing `Return`, `lunch`, or `Meeting`
 
-#### Deleting a task/tag
 
+#### Deleting a task/tag
 ##### Delete a task: `delete`
 Deletes the specified task from the task manager.<br>
 Format: `delete INDEX`
@@ -114,21 +113,21 @@ Examples:
   `delete 2`<br>
   Deletes the 2nd task in the task manager.
 
-##### Deleting tags from a task: `delete tag`
+##### Deleting tags from a task: `deleteTag`
 Delete tags from specified task.<br>
-Format: `delete tag INDEX TAG [MORE_TAGS]`
+Format: `deleteTag INDEX TAG`
 
 Example:
 * `list`<br>
-  `delete tag 3 foe NTU`<br>
-  Removes the tags `foe` and `NTU` from the 3rd contact selected
+  `deleteTag 3 NTU`<br>
+  Removes the tag `NTU` from the task with the index 3
 
 
-#### Editing a task: `edit`
+#### Editing a task: `update`
 Edits the specified task.<br>
-Format: `edit INDEX INPUT [MORE_INPUT]`
+Format: `update INDEX PROPERTY INPUT`
 
-> * Edits the task by replacing the information stored with the input accordingly
+> * Edits a property of the task with the input index by replacing the information stored with the new information accordingly
 > * Inputs are the same as specified in the `add` functions
 > * Entries can be removed by calling the modifier but not specifying anything
 
@@ -136,6 +135,7 @@ Examples:
 * `list`<br>
   `edit 3 Complete tutorial 7 pr/ time/`<br>
   Edits the 3rd task in the task manager by replacing the description, resetting the priority and removing the deadline
+
 
 #### Completing a task: `complete`
 Tag the task last selected as 'Complete' and remove it from the calendar.<br>
@@ -146,21 +146,26 @@ Examples:
   `complete 2`<br>
   Add a tag `COMPLETE` the 2nd task in the task manager.
 
+
 #### Undo action: `undo`
 Undoes the most recent change from the task manager.<br>
 Format: `undo`
+
 
 #### Clearing entries: `clear`
 Clears all entries from the task manager.<br>
 Format: `clear`
 
+
 #### Exiting the program: `exit`
 Exits the program.<br>
 Format: `exit`
 
+
 #### Saving the data
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
 
 ## FAQ
 
@@ -168,16 +173,17 @@ There is no need to save manually.
 **A**: Install the app in the other computer and overwrite the empty data file it creates with
        the file that contains the data of your previous Task Manager folder.
 
+
 ## Command Summary
 
 Command | Format
 -------- | :--------
 Add Task | `add DESCRIPTION [pr/RANK] [time/TIME] [a/VENUE] [t/TAG]...`
-Add Tag | `add tag INDEX TAG [MORE_TAGS]`
+Add Tag | `addTag INDEX TAG`
 Clear | `clear`
 Delete Task | `delete INDEX`
-Delete Tags | `delete tag INDEX TAG [MORE_TAGS]`
-Edit | `edit INDEX INPUT [MORE_INPUT]`
+Delete Tags | `deleteTag INDEX TAG`
+Edit | `update INDEX PROPERTY NEW_INFORMATION `
 Find Tasks | `find KEYWORD [MORE_KEYWORDS]`
 List Tasks | `list [-pr] [-t/TAG]...`
 List Tags | `list tags`

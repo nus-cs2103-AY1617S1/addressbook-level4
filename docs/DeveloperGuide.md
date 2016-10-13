@@ -166,6 +166,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+
 ## Implementation
 
 ### Logging
@@ -235,6 +236,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  * Solution: Enable assertions in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
+
   
 ## Dev Ops
 
@@ -265,10 +267,10 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :------------
@@ -296,6 +298,26 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise)
 
+#### Use case: Add task
+
+**MSS**
+
+1. User enters command to add task along with task details
+2. TaskManager adds task with the details provided
+Use case ends.
+
+**Extensions**
+
+1a. No task description provided
+
+> 1a1. TaskManager shows an error message and asks user to enter the command again with task description <br>
+  Use case goes back to step 1
+
+1b. No task details provided
+
+> 1b1. TaskManager creates a task with description but no other details <br>
+  Use case ends
+
 #### Use case: Delete task
 
 **MSS**
@@ -317,28 +339,28 @@ Use case ends.
 > 3a1. TaskManager shows an error message <br>
   Use case resumes at step 2
 
-#### Use case: Add task
+#### Use case: Edit task
 
 **MSS**
 
-1. User enters command to add task along with task details
-2. TaskManager adds task with the details provided
+1. User requests to list tasks
+2. TaskManager shows a list of tasks
+3. User requests to edit a specific task in the list
+4. TaskManager prompts the user for new task details
+5. User enters new task details <br>
 Use case ends.
 
 **Extensions**
 
-1a. No task description provided
+2a. The list is empty
 
-> 1a1. TaskManager shows an error message and asks user to enter the command again with task description <br>
-  Use case goes back to step 1
+> Use case ends
 
-1b. No task details provided
+3a. The given index is invalid
 
-> 1b1. TaskManager creates a task with description but no other details <br>
-  Use case ends
+> 3a1. TaskManager shows an error message <br>
+  Use case resumes at step 2
 
-
-{More to be added}
 
 ## Appendix C : Non Functional Requirements
 
@@ -346,8 +368,8 @@ Use case ends.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Commands should run almost instantly
 
-{More to be added}
 
 ## Appendix D : Glossary
 
@@ -358,6 +380,7 @@ Use case ends.
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
+
 
 ## Appendix E : Product Survey
 

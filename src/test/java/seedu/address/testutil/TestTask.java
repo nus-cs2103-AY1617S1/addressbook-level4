@@ -10,7 +10,7 @@ public class TestTask implements ReadOnlyTask {
 
     private Description description;
     private Priority priority;
-    private Venue venue;
+    private Date date;
     private Time time;
     private UniqueTagList tags;
 
@@ -26,8 +26,8 @@ public class TestTask implements ReadOnlyTask {
         this.priority = priority;
     }
 
-    public void setVenue(Venue venue) {
-        this.venue = venue;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setTime(Time time) {
@@ -45,8 +45,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Venue getVenue() {
-        return venue;
+    public Date getDate() {
+        return date;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add " + this.getDescription().fullDescription + " ");
         sb.append("pr/" + this.getPriority().toString() + " ");
         sb.append("time/" + this.getTime().toString() + " ");
-        sb.append("a/" + this.getVenue().toString() + " ");
+        sb.append("a/" + this.getDate().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

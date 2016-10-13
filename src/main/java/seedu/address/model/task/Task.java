@@ -13,7 +13,7 @@ public class Task implements ReadOnlyTask {
 
     private Description description;
     private Time time;
-    private Venue venue;
+    private Date date;
     private Priority priority;
 
     private UniqueTagList tags;
@@ -21,11 +21,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Description description, Priority priority, Time time, Venue venue, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(description, priority, time, venue, tags);
+    public Task(Description description, Priority priority, Time time, Date date, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(description, priority, time, date, tags);
         this.description = description;
         this.time = time;
-        this.venue = venue;
+        this.date = date;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getPriority(), source.getTime(), source.getVenue(), source.getTags());
+        this(source.getDescription(), source.getPriority(), source.getTime(), source.getDate(), source.getTags());
     }
 
     @Override
@@ -42,14 +42,26 @@ public class Task implements ReadOnlyTask {
         return description;
     }
 
+    public void setDescription(Description description){
+    	this.description = description;
+    }
+
     @Override
     public Time getTime() {
         return time;
     }
 
+    public void setTime(Time time){
+    	this.time = time;
+    }
+
     @Override
-    public Venue getVenue() {
-        return venue;
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date){
+    	this.date = date;
     }
 
     @Override
@@ -57,9 +69,13 @@ public class Task implements ReadOnlyTask {
         return priority;
     }
 
+    public void setPriority(Priority priority){
+    	this.priority = priority;
+    }
+
     @Override
     public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
+        return this.tags;
     }
 
     /**
@@ -79,7 +95,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, time, venue, priority, tags);
+        return Objects.hash(description, time, date, priority, tags);
     }
 
     @Override
