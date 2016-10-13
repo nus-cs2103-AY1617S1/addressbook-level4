@@ -226,7 +226,7 @@ There is no need to save manually.
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
 
-**Q**: Is there a way to be notified of upcoming tasks or events that are due soon?
+**Q**: Is there a way to be notified of upcoming tasks or events that are due soon?<br>
 **A**: Jimi will display all overdue tasks, upcoming tasks and events at the top Agenda box, so you will always be notified of the most important details first.
        
 
