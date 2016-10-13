@@ -50,12 +50,17 @@ public class DateUtilTest {
 	
 	@Test
 	public void floorDate_differentDate() {
-		long testEpoch1 = 1476099300000l; // 10/10/2016 @ 11:35am (UTC)
-		long testEpoch2 = 1476185700000l; // 11/10/2016 @ 11:35am (UTC)
-		LocalDateTime testDateTime1 = fromEpoch(testEpoch1);
-		LocalDateTime testDateTime2 = fromEpoch(testEpoch2);
-		
-		assertNotEquals(DateUtil.floorDate(testDateTime1), DateUtil.floorDate(testDateTime2));
+	    long testEpoch1 = 1476099300000l; // 10/10/2016 @ 11:35am (UTC)
+	    long testEpoch2 = 1476185700000l; // 11/10/2016 @ 11:35am (UTC)
+	    LocalDateTime testDateTime1 = fromEpoch(testEpoch1);
+	    LocalDateTime testDateTime2 = fromEpoch(testEpoch2);
+	    
+	    assertNotEquals(DateUtil.floorDate(testDateTime1), DateUtil.floorDate(testDateTime2));
+	}
+	
+	@Test
+	public void floorDate_nullTest() {
+		assertEquals(DateUtil.floorDate(null), null);
 	}
 	
 	@Test
