@@ -13,26 +13,32 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            campaign =  new TaskBuilder().withName("Student Campaign")
+            campaign = new TaskBuilder().withName("Student Campaign")
                     .withInterval("13/10/2016", "9:30am", "18/10/2016", "6pm")
-                    .withLocationParameter("NUS").build();
+                    .withLocationParameter("NUS")
+                    .withRemarksParameter("print flyers").build();
             dinnerMum = new TaskBuilder().withName("Dinner with mum")
                     .withInterval("14 oct 2016", "7pm", "14 oct 2016", "8:30pm")
-                    .withLocationParameter("Star Vista").build();
+                    .withLocationParameter("Star Vista")
+                    .withRemarksParameter("make reservation").build();
             dinnerDad = new TaskBuilder().withName("Dinner with dad")
                     .withInterval("24 oct 2016", "7pm", "24 oct 2016", "8:30pm")
-                    .withLocationParameter("Buona Vista").build();
+                    .withLocationParameter("Buona Vista")
+                    .withRemarksParameter("make reservation").build();
             dinnerChristmas = new TaskBuilder().withName("Christmas dinner")
                     .withInterval("25 dec 2016", "7pm", "25 dec 2016", "8:30pm")
-                    .withLocationParameter("Orchard").build();
+                    .withLocationParameter("Orchard")
+                    .withRemarksParameter("make reservation").build();
           
             //Manually added
             meeting = new TaskBuilder().withName("ABC project meeting")
                     .withInterval("12 oct 2016", "10:00am", "12 oct 2016", "11am")
-                    .withLocationParameter("Orchard").build();
+                    .withLocationParameter("Orchard")
+                    .withRemarksParameter("prepare agenda").build();
             wedding = new TaskBuilder().withName("Jimmy wedding")
                     .withInterval("15 oct 2016", "6:30pm", "15 oct 2016", "11pm")
-                    .withLocationParameter("Orchard").build();
+                    .withLocationParameter("Orchard")
+                    .withRemarksParameter("buy gifts").build();
 
         } catch (IllegalValueException e) {
             e.printStackTrace();

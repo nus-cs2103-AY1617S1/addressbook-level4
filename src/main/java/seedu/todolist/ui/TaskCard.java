@@ -37,7 +37,6 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        locationParameter.setText(task.getLocationParameter().locationParameter);
     }
 
     public HBox getLayout() {
