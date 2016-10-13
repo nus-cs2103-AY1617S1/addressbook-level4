@@ -22,7 +22,7 @@ public class Interval {
         assert startTime != null;
         assert endDate != null;
         assert endTime != null;
-        
+
         this.startDate = new TaskDate(startDate);
         this.startTime = new TaskTime(startTime);
         this.endDate = new TaskDate(endDate);
