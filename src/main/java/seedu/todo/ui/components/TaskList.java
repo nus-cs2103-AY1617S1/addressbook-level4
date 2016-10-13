@@ -74,8 +74,15 @@ public class TaskList extends Component {
             
             TaskListDateItem item = TaskListDateItem.load(primaryStage, taskListDateItemsPlaceholder);
             item.dateTime = dateTime;
-            item.tasks = tasksForDate;
-            item.events = eventsForDate;
+            
+            if (tasksForDate != null) {
+                item.tasks = tasksForDate;
+            }
+            
+            if (eventsForDate != null) {
+                item.events = eventsForDate;
+            }
+            
             item.render();
         }
     }

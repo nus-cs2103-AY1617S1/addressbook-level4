@@ -1,6 +1,7 @@
 package seedu.todo.ui.components;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -25,8 +26,8 @@ public class TaskListDateItem extends MultiComponent {
 
     // Props
     public LocalDateTime dateTime;
-    public List<Task> tasks;
-    public List<Event> events;
+    public List<Task> tasks = new ArrayList<>();
+    public List<Event> events = new ArrayList<>();
 
     // FXML
     @FXML
@@ -57,6 +58,7 @@ public class TaskListDateItem extends MultiComponent {
                     DateUtil.formatDay(dateTime), tasks.size(),
                     StringUtil.pluralizer(tasks.size(), SINGLE_TASK_LABEL, PURAL_TASK_LABEL));
         }
+        
         dateHeader.setText(dateHeaderString);
         
         // Set date label

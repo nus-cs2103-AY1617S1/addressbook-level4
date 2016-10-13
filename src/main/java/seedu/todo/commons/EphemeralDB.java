@@ -1,5 +1,6 @@
 package seedu.todo.commons;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.todo.models.CalendarItem;
@@ -18,7 +19,7 @@ public class EphemeralDB {
     private static EphemeralDB instance = null;
 
     // Stores
-    public List<CalendarItem> displayedCalendarItems;
+    public List<CalendarItem> displayedCalendarItems = new ArrayList<>();
 
     
     protected EphemeralDB() {
@@ -51,9 +52,23 @@ public class EphemeralDB {
         }
     }
 
+    /**
+     * Adds a CalendarItem to displayedCalendarItems in EphemeralDB. 
+     * Returns the 1-indexed index of the added item.
+     * 
+     * @param item   CalendarItem to add to displayedCalendarItems.
+     * @return       List index (1-index) of the added item.
+     */
     public int addToDisplayedCalendarItems(CalendarItem item) {
         displayedCalendarItems.add(item);
         return displayedCalendarItems.size();
+    }
+    
+    /**
+     * Clears displayedCalendarItems.
+     */
+    public void clearDisplayedCalendarItems() {
+        displayedCalendarItems.clear();
     }
 
 }
