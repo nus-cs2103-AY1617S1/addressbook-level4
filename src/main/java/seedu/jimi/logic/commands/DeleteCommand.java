@@ -55,7 +55,7 @@ public class DeleteCommand extends Command {
     }
     
     @Override
-    public boolean isCommandWord(String commandWord) {
+    public boolean isValidCommandWord(String commandWord) {
         for (int i = 1; i <= COMMAND_WORD.length(); i++) {
             if (commandWord.equals(COMMAND_WORD.substring(0, i))) {
                 return true;

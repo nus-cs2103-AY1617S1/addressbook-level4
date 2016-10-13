@@ -20,7 +20,7 @@ public class ClearCommand extends Command {
     }
     
     @Override
-    public boolean isCommandWord(String commandWord) {
+    public boolean isValidCommandWord(String commandWord) {
         return commandWord.equals(COMMAND_WORD);
     }
 }

@@ -33,7 +33,7 @@ public abstract class Command {
      * 
      * @return true if given string is a valid command word of this command.
      */
-    public abstract boolean isCommandWord(String commandWord);
+    public abstract boolean isValidCommandWord(String commandWord);
     
     /**
      * Provides any needed dependencies to the command.

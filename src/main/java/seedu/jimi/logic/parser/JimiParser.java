@@ -77,7 +77,7 @@ public class JimiParser {
     private Command prepareCommand(String commandWord, String arguments) {
         for (Command command : COMMAND_STUB_LIST) {
             // if validation checks implemented by the respective commands are passed
-            if (command.isCommandWord(commandWord)) {
+            if (command.isValidCommandWord(commandWord)) {
                 switch (commandWord) {
                 case AddCommand.COMMAND_WORD :
                     return prepareAdd(arguments);

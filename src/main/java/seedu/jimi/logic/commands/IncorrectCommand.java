@@ -18,7 +18,7 @@ public class IncorrectCommand extends Command {
     }
     
     @Override
-    public boolean isCommandWord(String commandWord) {
+    public boolean isValidCommandWord(String commandWord) {
         return false;
     }
 }
