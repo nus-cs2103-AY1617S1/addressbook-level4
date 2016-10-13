@@ -132,6 +132,11 @@ VBox.header {
   -fx-font-size: 20px;
 }
 
-.tasklist-dateitem-datelabel {
+.tasklist-dateitem-dateheader {
   -fx-font-size: 18px;
+}
+
+.tasklist-dateitem-datelabel {
+  -fx-fill: #999999;
+  -fx-font-size: 12px;
 }

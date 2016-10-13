@@ -80,9 +80,9 @@ public class TaskList extends Component {
                 taskDate = NO_DATE_VALUE;
 
             // Creates ArrayList if not already exists.
-            if (!tasksByDate.containsKey(taskDate)) 
+            if (!tasksByDate.containsKey(taskDate)) {
                 tasksByDate.put(taskDate, new ArrayList<Task>());
-
+            }
             // Adds to the ArrayList.
             tasksByDate.get(taskDate).add(task);
         }
