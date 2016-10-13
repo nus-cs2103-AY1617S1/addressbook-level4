@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "Jimi";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskBookFilePath = "data/addressbook.xml";
+    private String taskBookFilePath = "data/jimi.xml";
     private String taskBookName = "Jimi";
 
 
