@@ -154,43 +154,7 @@ Examples:
   Deletes the 1st and 3rd task in the Lifekeeper task list.
 * `find Dinner`<br>
   `delete 2`<br>
-  Selects the 2nd task in the results of the `find` command and then deletes it.
-
-#### Select: `select`
-Category
-Selects the category identified by the index number used in the last task listing.<br>
-Format: `select INDEX`
-
-> Selects the category at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd category in category list.
-
-Task
-Selects the task identified by the index number used in the last task listing.<br>
-Format: `select INDEX`
-
-> Selects the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd task in Lifekeeper.
-* `find Dinner` <br> 
-  `select 1`<br>
-  Selects the 1st task in the results of the `find` command.
-* `list category` <br> 
-  `select 3`<br>
-  `select 1`<br>
-  Selects the 3rd category in the list and then select the 1st task shown in the category..
+  Deletes the 2nd task listed in the results of the `find` command.
 
 #### Marking a task as done: `done`
 Marks the task as completed.<br>
@@ -259,7 +223,6 @@ Delete | `delete [INDEX]...`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 List Categories | `listcat`
-Select | `select INDEX`
 Done | `done`
 Undo | `undo`
 Help | `help`
