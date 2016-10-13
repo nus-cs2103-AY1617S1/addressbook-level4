@@ -73,7 +73,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
 
-    public boolean removePerson(ReadOnlyItem key) throws UniqueItemList.ItemNotFoundException {
+    public boolean removeItem(ReadOnlyItem key) throws UniqueItemList.ItemNotFoundException {
         if (items.remove(key)) {
             return true;
         } else {
@@ -111,4 +111,5 @@ public class TaskBook implements ReadOnlyTaskBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(items);
     }
+
 }
