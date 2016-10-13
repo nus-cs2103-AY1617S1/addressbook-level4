@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -15,7 +14,6 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.commons.core.LogsCenter;
 
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
