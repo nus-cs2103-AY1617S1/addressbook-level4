@@ -32,13 +32,19 @@ for filename, title in files.items():
     html = md.reset().convert(source)
     soup = BeautifulSoup(html, 'html.parser')
 
-    for figcaption in soup.find_all('figcaption'):
+    for i, figcaption in enumerate(soup.find_all('figcaption')):
+        # Wrap the figure and the caption in a <figure>
         figure = figcaption.find_previous_sibling(True)
         if figure.name == 'p':
             figure.name = 'figure'
         else:
             figure = figure.wrap(soup.new_tag('figure'))
         figure.append(figcaption)
+
+        # Give it a count
+        caption_count = soup.new_tag('strong')
+        caption_count.string = 'Figure {}. '.format(i + 1)
+        figcaption.insert(0, caption_count)
 
     for h in soup.select('h2, h3, h4'):
         next_tag = h.find_next_sibling(True)

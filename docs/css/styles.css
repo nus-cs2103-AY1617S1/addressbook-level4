@@ -226,6 +226,15 @@ ol .admonition {
   margin-bottom: .5rem;
 }
 
+/* Figures */
+figure {
+  margin: 2rem 0;
+}
+
+figcaption {
+  margin-top: 1rem;
+  font-style: italic;
+}
 
 /* User Guide styles */
 .userguide strong + code {
