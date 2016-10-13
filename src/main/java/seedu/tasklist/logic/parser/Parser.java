@@ -25,13 +25,13 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
-            "(?<name>([^/](?<!(at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
+            "(?<name>(([^/](?<! (at|from|to|by) ))|(\\[^/]))*)" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
                     + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
                     + "(?<tagArguments>(?: t/[^/]+)*)"
                     );
     
     private static final Pattern TASK_UPDATE_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
-    		+ "((?: )(?<name>([^/](?<!(at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
+    		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
             + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
             + "(?<tagArguments>(?: t/[^/]+)*)"
             );
@@ -134,7 +134,6 @@ public class Parser {
      */
     private Command prepareAdd(String args) {
         final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-
         if (!taskMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } else {
