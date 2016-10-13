@@ -35,6 +35,7 @@ allprojects {
         junitVersion = '4.12'
         testFxVersion = '4.0.+'
         monocleVersion = '1.8.0_20'
+        nattyVersion = '0.11'
 
         libDir = 'lib'
     }
