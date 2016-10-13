@@ -305,7 +305,6 @@ is better than <br>
 * including those libraries in the repo (this bloats the repo size)<br>
 * requiring developers to download those libraries manually (this creates extra work for developers)<br>
 
-<br></br>
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -330,7 +329,6 @@ Priority | As a ... | I want to ... | So that I can...
 
 {More to be added}
 
-<br></br>
 ## Appendix B : Use Cases
 
 (For all use cases below, the **Program** is the `Task Manager`, unless specified otherwise)
@@ -603,7 +601,6 @@ Use case ends
 
 {More to be added}
 
-<br></br>
 ## Appendix C : Non Functional Requirements
 
 * Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -620,7 +617,6 @@ Use case ends
 
 {More to be added}
 
-<br></br>
 ## Appendix D : Glossary
 
 #### Mainstream OS
