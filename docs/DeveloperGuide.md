@@ -118,7 +118,6 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 The sections below give more details of each component.
 
 <br>
-<br>
 
 ### UI component
 <img src="images/UiClassDiagram.png" width="800"><br>
@@ -140,7 +139,6 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 <br>
-<br>
 
 ### Logic component
 
@@ -158,7 +156,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
 <br>
-<br>
+
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -173,7 +171,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 <br>
-<br>
+
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -185,7 +183,7 @@ The `Storage` component,
 * can save Jimi's data in xml format and read it back.
 
 <br>
-<br>
+
 ### Common classes
 
 Classes used by multiple components are in the `seedu.jimi.commons` package.
@@ -214,7 +212,6 @@ and logging destinations.
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
   
-<br>
 <br>
 
 ### Configuration
