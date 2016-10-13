@@ -30,5 +30,6 @@
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 
+* This is a desktop Task Scheduler application that uses CLI (Command Line Interface) with GUI. It has been refractored from addressbook-level4 application forked from nus-cs2103-AY1617S1.
 
 #### Licence : [MIT](LICENSE)
