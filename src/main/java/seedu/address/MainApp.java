@@ -45,7 +45,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing TaskBook ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -70,20 +70,20 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyTaskBook> taskBookOptional;
+        ReadOnlyTaskBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if(!addressBookOptional.isPresent()){
+            taskBookOptional = storage.readTaskBook();
+            if(!taskBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
             }
-            initialData = addressBookOptional.orElse(new AddressBook());
+            initialData = taskBookOptional.orElse(new TaskBook());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new TaskBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            initialData = new TaskBook();
         }
 
         return new ModelManager(initialData, userPrefs);
