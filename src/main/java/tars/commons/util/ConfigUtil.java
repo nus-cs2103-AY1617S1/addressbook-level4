@@ -2,7 +2,6 @@ package tars.commons.util;
 
 import tars.commons.core.Config;
 import tars.commons.core.LogsCenter;
-import tars.commons.events.storage.DataSavingExceptionEvent;
 import tars.commons.events.storage.TarsStorageDirectoryChangedEvent;
 import tars.commons.exceptions.DataConversionException;
 
