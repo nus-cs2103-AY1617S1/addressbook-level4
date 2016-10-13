@@ -61,7 +61,7 @@
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
-Figure 1: Architechture Diagram
+Figure 1: Architecture Diagram
 
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
