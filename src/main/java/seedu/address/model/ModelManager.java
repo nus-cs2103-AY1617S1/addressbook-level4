@@ -5,6 +5,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.ReadOnlyTask;
@@ -16,6 +17,7 @@ import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.core.ComponentManager;
 
 import java.util.ArrayDeque;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -103,7 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords, Set<String> tags, String startDate, String endDate, String deadline) {
+    public void updateFilteredTaskList(Set<String> keywords, Set<String> tags, Date startDate, Date endDate, Date deadline) {
         updateFilteredTaskList(new PredicateExpression(new FindQualifier(keywords, tags, startDate, endDate, deadline)));
     }
 
@@ -151,6 +153,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
+        	if(nameKeyWords.isEmpty())
+        		return true;
+        		
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()
@@ -200,75 +205,81 @@ public class ModelManager extends ComponentManager implements Model {
     	private final int START_DATE_INDEX = 0;
     	private final int END_DATE_INDEX = 1;
     	
-		private String startTime;
-		private String endTime;
+		private Date startTime;
+		private Date endTime;
 		
-		PeriodQualifier(String startTime, String endTime) {
+		PeriodQualifier(Date startTime, Date endTime) {
 			this.startTime = startTime;
 			this.endTime = endTime;
 		}
 		
-		private String[] extractTaskPeriod(ReadOnlyTask task) {
+		private Date[] extractTaskPeriod(ReadOnlyTask task) {
 			TaskType type = task.getType();
 			if(type.equals(TaskType.FLOATING)) {
 				return null;
 			}
 			
-			String startDate = task.getStartDate().getFormattedDate();
-			String endDate = task.getEndDate().getFormattedDate();
-			
-			if(startDate.isEmpty() || endDate.isEmpty()) {
+			if(task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT
+					|| task.getEndDate().getDate() == TaskDate.DATE_NOT_PRESENT) {
 				return null;
 			}
-			return new String[]{ startDate, endDate };
+			
+			Date startDate = new Date(task.getStartDate().getDate());
+			Date endDate = new Date(task.getEndDate().getDate());
+			return new Date[]{ startDate, endDate };
 		}
 
 		@Override
 		public boolean run(ReadOnlyTask task) {
 			
-			if(this.startTime.isEmpty() || this.endTime.isEmpty())
+			if(this.startTime == null || this.endTime == null)
 				return true;
 				
-			String[] timeArray = extractTaskPeriod(task);
+			Date[] timeArray = extractTaskPeriod(task);
 			if(timeArray == null)
 				return false;
 
-			String startDate = timeArray[START_DATE_INDEX];
-			String endDate = timeArray[END_DATE_INDEX];
+			Date startDate = timeArray[START_DATE_INDEX];
+			Date endDate = timeArray[END_DATE_INDEX];
 			
-			if(startDate.equals(this.startTime)
-					&& endDate.equals(this.endTime))
+			if(startDate.after(this.startTime)
+					&& endDate.before(this.endTime))
 				return true;
 			return false;	
 		}
 		
 		@Override
 		public String toString() {
-			return "start time=" + this.startTime + " end time=" + this.endTime;
+			if(this.startTime == null || this.endTime == null)
+				return "";
+			return "start time=" + this.startTime.toString()
+				+ " end time=" + this.endTime.toString();
 		}
 	}
     
     private class DeadlineQualifier implements Qualifier {
-    	private String deadline;
+    	private Date deadline;
     	
-    	DeadlineQualifier(String deadline) {
+    	DeadlineQualifier(Date deadline) {
     		this.deadline = deadline;
     	}
 
 		@Override
 		public boolean run(ReadOnlyTask task) {
 			
-			if(this.deadline.isEmpty())
+			if(this.deadline == null)
 				return true;
 			
 			if(task.getType().equals(TaskType.FLOATING))
 				return false;
 			
-			String deadline = task.getEndDate().getFormattedDate();
-			if(deadline.isEmpty())
+			if(task.getEndDate().getDate() == TaskDate.DATE_NOT_PRESENT)
 				return false;
 			
-			if(deadline.equals(this.deadline))
+			Date deadline = new Date(task.getEndDate().getDate());
+			
+			if(deadline.before(this.deadline)
+					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
 				return true;
 			
 			return false;
@@ -276,7 +287,10 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	@Override
     	public String toString() {
-    		return "deadline=" + this.deadline;
+    		if(this.deadline == null)
+    			return "";
+    		
+    		return "deadline=" + this.deadline.toString();
     	}
     }
     
@@ -286,7 +300,7 @@ public class ModelManager extends ComponentManager implements Model {
     	private PeriodQualifier periodQualifier;
     	private DeadlineQualifier deadlineQualifier;
     	
-    	FindQualifier(Set<String> keywordSet, Set<String> tagSet, String startTime, String endTime, String deadline) {
+    	FindQualifier(Set<String> keywordSet, Set<String> tagSet, Date startTime, Date endTime, Date deadline) {
     		this.nameQualifier = new NameQualifier(keywordSet);
     		this.tagQualifier = new TagQualifier(tagSet);
     		this.periodQualifier = new PeriodQualifier(startTime, endTime);

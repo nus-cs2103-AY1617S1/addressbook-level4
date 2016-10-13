@@ -6,6 +6,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -32,7 +33,7 @@ public interface Model {
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords, Set<String> tags, String startDate, String endDate, String deadline);
+    void updateFilteredTaskList(Set<String> keywords, Set<String> tags, Date startDate, Date endDate, Date deadline);
     
     /** Updates the file path for current storage manager of the model.*/
 	void changeDirectory(String filePath);

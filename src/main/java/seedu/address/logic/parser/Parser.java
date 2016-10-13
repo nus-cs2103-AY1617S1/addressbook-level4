@@ -1,7 +1,4 @@
 package seedu.address.logic.parser;
-
-
-
 import seedu.address.logic.commands.*;
 import seedu.address.model.task.TaskDate;
 import seedu.address.commons.util.StringUtil;
@@ -38,6 +35,14 @@ public class Parser {
     				+ "(?<deadline>(?: by [^/]+)))"
     				+ "(?<tagArguments>(?: t/[^/]+)*)");
     
+    private static final Pattern FIND_ARGS_WITHOUT_KEYWORD_FORMAT =
+    		Pattern.compile("((?<startTime>(?:from [^/]+)(?<endTime>(?: to [^/]+)))|"
+    				+ "(?<deadline>(?:by [^/]+)))"
+    				+ "(?<tagArguments>(?: t/[^/]+)*)");
+    
+    private static final Pattern FIND_ARGS_WITH_TAG_FORMAT =
+    		Pattern.compile("(?<tagArguments>(?:t/[^/]+)*)");
+    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
@@ -57,9 +62,15 @@ public class Parser {
                     +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
+    private static final int DEADLINE_INDEX = 0;
+    
     private static final int START_TIME_INDEX = 0;
     
     private static final int END_TIME_INDEX = 1;
+    
+    private static final int ONLY_DEADLINE= 1;
+    
+    private static final int TIME_PERIOD = 2;
     
     public Parser() {}
 
@@ -310,41 +321,67 @@ public class Parser {
     private Command prepareFind(String args) {
         final Matcher noDateMatcher = FIND_ARGS_WITHOUT_DATE_FORMAT.matcher(args.trim());
         final Matcher dateMatcher = FIND_ARGS_WITH_DATE_FORMAT.matcher(args.trim());
+        final Matcher tagMatcher = FIND_ARGS_WITH_TAG_FORMAT.matcher(args.trim());
+        final Matcher noKeywordMatcher = FIND_ARGS_WITHOUT_KEYWORD_FORMAT.matcher(args.trim());
         
-        final String[] keywords;
-        final Set<String> keywordSet;
-        String startTime = "";
-        String endTime = "";
-        String deadline = "";
-        final Set<String> tagSet;
+        Set<String> keywordSet = new HashSet<String>();
+        Date startTime = null;
+        Date endTime = null;
+        Date deadline = null;
+        Set<String> tagSet = new HashSet<String>();
         
         boolean dateMatcherMatches = dateMatcher.matches();
         boolean noDateMatcherMatches = noDateMatcher.matches();
+        boolean tagMatcherMatches = tagMatcher.matches();
+        boolean noKeywordMatcherMathces = noKeywordMatcher.matches();
         
         if(dateMatcherMatches) {
-        	keywords = dateMatcher.group("keywords").split("\\s+");
+        	String[] keywords = dateMatcher.group("keywords").split("\\s+");
     		keywordSet = new HashSet<>(Arrays.asList(keywords));
-        	
+    		try {
+    			ArrayList<Date> dateSet = extractDateInfo(dateMatcher);
+    			if(dateSet.size() == ONLY_DEADLINE) {
+        			deadline = dateSet.get(DEADLINE_INDEX);
+        		} else if(dateSet.size() == TIME_PERIOD) {
+        			startTime = dateSet.get(START_TIME_INDEX);
+        			endTime = dateSet.get(END_TIME_INDEX);
+        		}
+    		} catch(IllegalArgumentException iae) {
+    			return new IncorrectCommand(iae.getMessage());
+    		}
+    		
     		try {
         		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
         	} catch(IllegalValueException ive) {
         		return new IncorrectCommand(ive.getMessage());
-        	} 
-    		
-    		try {
-    			
-    			String[] time = dateMatcher.group("startTime").replace(" from ", "").split(" to ");
-    			startTime = reformatDate(time[START_TIME_INDEX]);
-        		endTime = reformatDate(time[END_TIME_INDEX]);
-        		
-    		} catch(Exception ise) {
-        		deadline = reformatDate(dateMatcher.group("deadline").replace(" by ", ""));
         	}
-    		
-        } else if(noDateMatcherMatches) {
-        	keywords = noDateMatcher.group("keywords").split("\\s+");
-    		keywordSet = new HashSet<>(Arrays.asList(keywords));
+        } else if(noKeywordMatcherMathces) {
+        	try {
+    			ArrayList<Date> dateSet = extractDateInfo(noKeywordMatcher);
+    			if(dateSet.size() == ONLY_DEADLINE) {
+        			deadline = dateSet.get(DEADLINE_INDEX);
+        		} else if(dateSet.size() == TIME_PERIOD) {
+        			startTime = dateSet.get(START_TIME_INDEX);
+        			endTime = dateSet.get(END_TIME_INDEX);
+        		}
+    		} catch(IllegalArgumentException iae) {
+    			return new IncorrectCommand(iae.getMessage());
+    		}
         	
+        	try {
+        		tagSet = getTagsFromArgs(noKeywordMatcher.group("tagArguments"));
+        	} catch(IllegalValueException ive) {
+        		return new IncorrectCommand(ive.getMessage());
+        	}
+        } else if(tagMatcherMatches) {
+        	try {
+        		tagSet = getTagsFromArgs(tagMatcher.group("tagArguments"));
+        	} catch(IllegalValueException ive) {
+        		return new IncorrectCommand(ive.getMessage());
+        	}
+        } else if(noDateMatcherMatches) {
+        	String[] keywords = noDateMatcher.group("keywords").split("\\s+");
+    		keywordSet = new HashSet<>(Arrays.asList(keywords));
         	try {
         		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
         	} catch(IllegalValueException ive) {
@@ -354,9 +391,7 @@ public class Parser {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-        
         return new FindCommand(keywordSet, startTime, endTime, deadline, tagSet);
-
     }
     
     /**
@@ -368,6 +403,29 @@ public class Parser {
     	long newDate = getDateFromString(oldDate).getTime();
     	SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma");
         return formatter.format(new Date(newDate));
+    }
+    
+    public static ArrayList<Date> extractDateInfo(Matcher m) throws IllegalArgumentException {
+    	ArrayList<Date> resultSet = new ArrayList<Date>();
+    	try {
+			String[] time = m.group("startTime").replace(" from ", "").split(" to ");
+			resultSet.clear();
+			try {
+				resultSet.add(getDateFromString(time[START_TIME_INDEX]));
+	    		resultSet.add(getDateFromString(time[END_TIME_INDEX]));
+			} catch(Exception cnp) {
+				throw new IllegalArgumentException("Illegal date input");
+			}
+			
+		} catch(Exception ise) {
+			resultSet.clear();
+			try {
+				resultSet.add(getDateFromString(m.group("deadline").replace(" by ", "")));
+			} catch(Exception cnp) {
+				throw new IllegalArgumentException("Illegal date input");
+			}
+    	} 	
+    	return resultSet;
     }
     
     /**
