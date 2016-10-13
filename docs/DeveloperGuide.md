@@ -270,7 +270,8 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-<a id="app-a"></a>## Appendix A : User Stories 
+<a id="app-a"></a>
+## Appendix A : User Stories 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -300,7 +301,8 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | view current output of the input command in real time | check whether its the expected result of the command
 
 
-<a id="app-b"></a>## Appendix B : Use Cases 
+<a id="app-b"></a>
+## Appendix B : Use Cases 
 
 (For all use cases below, the **System** is the `TaskBook` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -538,7 +540,8 @@ Use case ends.
 Use case ends.
 
 
-<a id="app-c"></a>## Appendix C : Non Functional Requirements 
+<a id="app-c"></a>
+## Appendix C : Non Functional Requirements 
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 persons.
@@ -556,7 +559,8 @@ Use case ends.
 14. Should recover from major errors efficiently.
 
 
-<a id="app-d"></a>## Appendix D : Glossary 
+<a id="app-d"></a>
+## Appendix D : Glossary 
 
 
 ##### Private contact detail
@@ -575,7 +579,8 @@ Use case ends.
 ##### Command-line interface
 > User interface to a computer's operating system or an application in which the user responds to a visual prompt by typing in a command on a specified line, receives a response back from the system, and then enters another command, and so forth.
 
-<a id="app-e"></a>## Appendix E : Product Survey 
+<a id="app-e"></a>
+## Appendix E : Product Survey 
 
 | Task Managers | Strengths | Weaknesses |
 | :------------ | :-------- | :--------- |
