@@ -11,6 +11,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -69,29 +70,57 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList.removeTask(target);
         indicateToDoListChanged();
     }
+    
+    @Override
+    public synchronized void doneTask(Task target) throws TaskNotFoundException {
+        target.checkDone().setDone();
+        indicateToDoListChanged();
+        updateFilteredListToShowAll();
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         toDoList.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAll(); 
         indicateToDoListChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
-
-    @Override
+    
+    @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+    	return new UnmodifiableObservableList<>(filteredTasks); 
     }
-
+    
+    @Override 
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun) {
+    	UnmodifiableObservableList<ReadOnlyTask> initList = new UnmodifiableObservableList<>(filteredTasks);
+    	// This prevents even done tasks from showing up at first run.
+    	updateFilteredListToShowAll(false);
+    	return initList;
+    }
+    
+    // By default a list with no done tasks where taskStatus is false
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        updateFilteredListToShowAll(new PredicateExpression(new DetailQualifier()));
     }
-
+    
+    // Used by find done or list done where taskStatus is true
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new DetailQualifier(keywords)));
+    public void updateFilteredListToShowAll(boolean taskStatus) {
+        updateFilteredListToShowAll(new PredicateExpression(new DetailQualifier(taskStatus)));
+    }
+    
+    private void updateFilteredListToShowAll(Expression expression) {
+    	assert expression != null;
+    	filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    // Used by find done <...> or find <...> where taskStatus depends on user input.
+    @Override
+    public void updateFilteredTaskList(Set<String> keywords, boolean taskStatus){
+        updateFilteredTaskList(new PredicateExpression(new DetailQualifier(keywords, taskStatus)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -130,14 +159,42 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class DetailQualifier implements Qualifier {
-        private Set<String> detailKeyWords;
-
-        DetailQualifier(Set<String> detailKeyWords) {
+        private Set<String> detailKeyWords = Collections.EMPTY_SET;
+        private final boolean taskStatus;
+        
+        // Keywords, specified tasks status
+        // Likely a find done <...>
+        DetailQualifier(Set<String> detailKeyWords, boolean taskStatus) {
             this.detailKeyWords = detailKeyWords;
+            this.taskStatus = taskStatus;
         }
-
+        
+        // No keywords, a specified task status
+        // Likely a find done or a list done
+        DetailQualifier(boolean taskStatus) {
+            this.taskStatus = taskStatus;
+        }
+        
+        // No keywords, no specified task status
+        // Likely a list
+        DetailQualifier() {
+        	taskStatus = false;
+        }
+        
+        /*
+         * shows only undone tasks
+         * 
+         * @return boolean: true if match, false if not
+         */
         @Override
         public boolean run(ReadOnlyTask task) {
+        	// Determine if done tasks match the user's filter criteria.
+        	// In this case, no keywords were specified.
+        	if (detailKeyWords.isEmpty()) {
+        		return task.checkDone().value.equals(taskStatus);
+        	}
+        	if (task.checkDone().value != taskStatus)
+        		return false;
             return detailKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getDetail().details, keyword))
                     .findAny()
@@ -149,5 +206,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "detail=" + String.join(", ", detailKeyWords);
         }
     }
+    
+    
 
 }

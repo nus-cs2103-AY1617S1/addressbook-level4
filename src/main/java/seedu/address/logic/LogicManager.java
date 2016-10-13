@@ -26,7 +26,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.parser = MainParser.getInstance();
     }
 
-    @Override
+    @Override	
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
@@ -37,5 +37,10 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun) {
+        return model.getFilteredTaskList(firstRun);
     }
 }

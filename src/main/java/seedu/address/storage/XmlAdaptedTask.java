@@ -73,10 +73,11 @@ public class XmlAdaptedTask {
         }
         
         final Detail detail = new Detail(this.detail);
+        final Done done = new Done(Boolean.parseBoolean(this.done));
         final DueByDate dbd = new DueByDate(LocalDate.parse(this.dueByDate));
         final DueByTime dbt = new DueByTime(LocalTime.parse(this.dueByTime));
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(detail, dbd, dbt, priority, tags);
+        return new Task(detail, done, dbd, dbt, priority, tags);
     }
 }

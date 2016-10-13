@@ -23,9 +23,27 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Detail detail, DueByDate dueByDate, DueByTime dueByTime, Priority priority, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(detail, dueByDate, dueByTime, priority, tags);
+        
+        this.detail = detail;
+        this.dueByDate = dueByDate;
+        this.dueByTime = dueByTime;
+        this.priority = priority;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    
+    /**
+     * This constructor is for the reloading of saved states in XmlAdaptedTask, where done may not be false by default.
+     * 
+     * Every field must be present and not null.
+     * 
+     * @author A0141128R
+     */
+    public Task(Detail detail, Done done, DueByDate dueByDate, DueByTime dueByTime, Priority priority, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(detail, done, dueByDate, dueByTime, priority, tags);
         
         this.detail = detail;
+        this.done = done;
         this.dueByDate = dueByDate;
         this.dueByTime = dueByTime;
         this.priority = priority;
@@ -36,7 +54,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDetail(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getTags());
+        this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getTags());
     }
 
     @Override

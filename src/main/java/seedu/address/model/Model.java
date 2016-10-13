@@ -20,16 +20,24 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    /** Done the given task. */
+    void doneTask(Task target) throws UniqueTaskList.TaskNotFoundException;
+    
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    /** Returns the filtered task list as an {@code UnmodifiableObservaibleList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
-    /** Updates the filter of the filtered task list to show all tasks */
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun);
+    
+    /** Updates the filter of the filtered task list to show all undone tasks by default **/
     void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show all done tasks */
+    void updateFilteredListToShowAll(boolean taskStatus);
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredTaskList(Set<String> keywords, boolean taskStatus);
 
 }
