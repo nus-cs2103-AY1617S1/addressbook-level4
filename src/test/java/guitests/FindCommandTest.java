@@ -1,9 +1,10 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestTask;
+
+import seedu.savvytasker.commons.core.Messages;
+import seedu.savvytasker.testutil.TestPerson;
+import seedu.savvytasker.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
