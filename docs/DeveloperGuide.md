@@ -72,7 +72,10 @@ This developer guide will provide you with the necessary basic information to st
 ## Architecture
 
 <img src="images/ArchitectureClassDiagram.PNG" width="800"><br>
-The **_Architecture Diagram_** given above explains the high-level design of the App.
+
+> Diagram 1: Archicture Class Diagram
+
+The **_Architecture Class Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
@@ -99,17 +102,23 @@ For example, the `Logic` component (see the class diagram given below) defines i
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicComponentClassDiagram.PNG" width="800"><br>
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+> Diagram 2: Logic Componenet Class Diagram
+
+The _Delete Task Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
 <img src="images\DeleteTaskSequenceDiagram.PNG" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+> Diagram 3: Delete Task Sequence Diagram
+
+> Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\DeleteTaskEventHandlingSequenceDiagram.PNG" width="800">
+
+> Diagram 4: Delete Task Event Handing Sequence Diagram
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -122,10 +131,12 @@ The sections below give more details of each component.
 
 <img src="images/UiComponentClassDiagram.PNG" width="800"><br>
 
+> Diagram 5: UI Component Class Diagram
+
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -143,6 +154,8 @@ The `UI` component,
 
 <img src="images/LogicComponentClassDiagram.PNG" width="800"><br>
 
+> Diagram 6: Logic Component Class Diagram
+
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
@@ -155,10 +168,14 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  
 <img src="images/DeleteTaskSequenceDiagramForLogic.PNG" width="800"><br>
 
+> Diagram 7: Delete Task Sequence Diagram within Logic Component
+
 <br>
 ## Model Component
 
 <img src="images/ModelComponentClassDiagram.PNG" width="800"><br>
+
+> Diagram 8: Model Component Class Diagram
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -174,11 +191,13 @@ The `Model`,
 
 <img src="images/StorageComponentClassDiagram.PNG" width="800"><br>
 
+> Diagram 9: Storage Component Class Diagram
+
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Task Manager data in xml format and read it back.
 
 <br>
 ## Commons Component
@@ -276,39 +295,34 @@ To create a new release:
 A project often depends on third-party libraries. For example, Task Manager depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than the following alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+is better than the following alternatives.<br>  
+  - Include those libraries in the repo (this bloats the repo size)<br>  
+  - Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 <br>
 ## Future Development
 
 There are several additions that can be made to Amethyst to further increase its usefulness and usability.
 
-#### GUI testing
-The current implementation does not perform any tests on the GUI component and relies solely on visual 
-feedback to ensure the user interface is showing information correctly.
+#### GUI customisation
+The GUI of the current implementation is fixed and cannot be changed. Allowing the user to customise the GUI
+according to his/ her preferences, would enhance user experience and ease of use.
 
 #### Saving and loading of statistics
-By enabling users to save and load the statistics from a `collate` command, users will be able to view the 
-progression of contributions of authors by collating at different stages of the project.
-
-Furthermore, Collate can show a graph of contribution statistics based on these saved statistics.
+By enabling user to save and load usage and productivity statistics (number of event/ deadline/ someday tasks 
+completed or missed), user will be able to track and improve upon his/ her work productivity.
 
 #### Better command feedback
 Having more specific feedback to users' commands will allow users to find that what exactly happened after 
 the command was entered. Invalid commands will show more intelligent feedback based on what the user entered.
 
 #### Auto-completion of commands
-Allowing users to press a button to auto-complete a command makes it much easier to enter commands and 
+Allowing users to press a key to auto-complete a command makes it much easier to enter commands and 
 reduces the margin of error.
 
 #### History of commands
 Users can traverse this history to re-execute previously typed commands. This becomes especially useful if a 
 user wants to collate the source files in the same folder periodically.
-
-#### Ability to ignore specific files
-Currently, users can only specify certain file types to be collated.
 
 <br>
 ## Appendix A: User Stories
