@@ -716,6 +716,25 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> personList = helper.generatePersonList(2);
+
+        // set AB state to 2 persons
+        model.resetData(new TaskList());
+        for (Task p : personList) {
+            model.addTask(p);
+        }
+
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskList(), personList);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the select command
+     * targeting a single person in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     */
+    private void assertIndexNotFoundBehaviorForCommandSelect(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX + "\n" + "Valid index range: 1 to 2";
         TestDataHelper helper = new TestDataHelper();
         List<Task> personList = helper.generatePersonList(2);
@@ -737,7 +756,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
+        assertIndexNotFoundBehaviorForCommandSelect("select");
     }
 
     @Test
