@@ -19,7 +19,7 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
@@ -29,9 +29,9 @@ public class Parser {
     private static final Pattern TASK_FLOAT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
-    private static final Pattern RELATIVE_PATH_FORMAT =  
-            Pattern.compile("^(?!-)[a-z0-9-]+(?<!-)(/(?!-)[a-z0-9-]+(?<!-))*$"); 
+
+    private static final Pattern RELATIVE_PATH_FORMAT =
+            Pattern.compile("^(?!-)[a-z0-9-]+(?<!-)(/(?!-)[a-z0-9-]+(?<!-))*$");
 
     public Parser() {}
 
@@ -49,7 +49,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(commandWord + arguments); //for adding floating tasks
@@ -80,16 +80,16 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-            
+
         case UndoCommand.COMMAND_WORD:
             return prepareUndo(arguments);
-            
+
         case CompleteCommand.COMMAND_WORD:
             return prepareComplete(arguments);
-            
+
         case UpdateCommand.COMMAND_WORD:
             return prepareUpdate(arguments);
-            
+
         case RelocateCommand.COMMAND_WORD:
             return prepareRelocate(arguments);
 
@@ -133,7 +133,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
+
     /**
      * Parses a raw String of task type into correct task type.
      * Example: UNCOMPLETEDDD many tasks i have -> uncompleted task
@@ -141,7 +141,7 @@ public class Parser {
      * @return correct task type string
      */
     private String parseTaskTypeString(String typeString) {
-        String[] typeWords = {"uncompleted", "completed", "task", "event", 
+        String[] typeWords = {"uncompleted", "completed", "task", "event",
                             "floating", "normal", "timeslot", "free time"};
         typeString = typeString.toLowerCase();
         StringBuffer strBuf = new StringBuffer();
@@ -154,7 +154,7 @@ public class Parser {
         }
         return strBuf.toString();
     }
-    
+
     /**
      * Parses arguments in the context of the list task command.
      *
@@ -170,7 +170,7 @@ public class Parser {
                 return new IncorrectCommand(ive.getMessage());
             }
         }
-        
+
         final KeywordParser parser = new KeywordParser("list", "by", "from", "to", "tag", "sort");
         HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
         String type = parsed.get("list");
@@ -179,7 +179,7 @@ public class Parser {
         String endTime = parsed.get("to");
         String tags = parsed.get("tag");
         String sortingOrder = parsed.get("sort");
-        
+
         type = parseTaskTypeString(type);
 
         if (type != null && type.equals(""))
@@ -219,7 +219,7 @@ public class Parser {
         if (args.trim().equals("show")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
-        
+
         final KeywordParser parser = new KeywordParser("show", "on", "by", "from", "to", "tag");
         HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
         String type = parsed.get("show");
@@ -257,7 +257,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
+
     /**
      * Parses arguments in the context of the hide command.
      *
@@ -268,7 +268,7 @@ public class Parser {
         if (args.trim().equals("hide")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE));
         }
-        
+
         final KeywordParser parser = new KeywordParser("hide", "on", "by", "from", "to", "tag");
         HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
         String type = parsed.get("hide");
@@ -306,7 +306,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
+
     /**
      * Parses arguments in the context of the relocate task command.
      *
@@ -322,10 +322,10 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RelocateCommand.MESSAGE_USAGE));
         }
-        
+
         return new RelocateCommand(args.trim());
     }
-    
+
     /**
      * Extracts the new task's tags from the add/list command's tag arguments string.
      * Merges duplicate tag strings.
@@ -372,7 +372,7 @@ public class Parser {
 
         return new SelectCommand(index.get());
     }
-    
+
     private Command prepareUndo(String args) {
         if (args.equals("")) {
             return new UndoCommand(1);
@@ -384,7 +384,7 @@ public class Parser {
         }
 
         return new UndoCommand(index.get());
-    }    
+    }
 
     /**
      * Parses arguments in the context of the complete task command.
@@ -401,7 +401,7 @@ public class Parser {
         }
 
         return new CompleteCommand(index.get());
-    }   
+    }
 
     /**
      * Parses arguments in the context of the update task command.
@@ -419,7 +419,7 @@ public class Parser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
-        
+
         String name = parsed.get(UpdateCommand.KEYWORD_NAME);
         String by = parsed.get(UpdateCommand.KEYWORD_DEADLINE);
         String startTime = parsed.get(UpdateCommand.KEYWORD_PERIOD_START_TIME);
@@ -458,7 +458,7 @@ public class Parser {
                 periodRecurrence, tagsToAdd, removeDeadline, removePeriod, removeDeadlineRecurrence,
                 removePeriodRecurrence, tagsToRemove);
     }
-    
+
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
@@ -467,7 +467,7 @@ public class Parser {
         if (command == null) {
             return Optional.empty();
         }
-        
+
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
