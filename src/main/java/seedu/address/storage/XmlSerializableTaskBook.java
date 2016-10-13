@@ -3,9 +3,9 @@ package seedu.address.storage;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.ReadOnlyTaskBook;
+import seedu.address.model.item.ReadOnlyItem;
+import seedu.address.model.item.UniqueItemList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,34 +15,35 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable TaskBook that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
+@XmlRootElement(name = "taskbook")
+public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedItem> items;
     @XmlElement
     private List<Tag> tags;
 
     {
-        persons = new ArrayList<>();
+        items = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableTaskBook() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        tags = src.getTagList();
+    public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
+        items.addAll(src.getItemList().stream().map(XmlAdaptedItem::new).collect(Collectors.toList()));
+//        tags = src.getTagList();
     }
-
+    
+    /*
     @Override
     public UniqueTagList getUniqueTagList() {
         try {
@@ -53,13 +54,14 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
             return null;
         }
     }
-
+    */
+    
     @Override
-    public UniquePersonList getUniquePersonList() {
-        UniquePersonList lists = new UniquePersonList();
-        for (XmlAdaptedPerson p : persons) {
+    public UniqueItemList getUniqueItemList() {
+        UniqueItemList lists = new UniqueItemList();
+        for (XmlAdaptedItem i : items) {
             try {
-                lists.add(p.toModelType());
+                lists.add(i.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }
@@ -68,10 +70,10 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
-        return persons.stream().map(p -> {
+    public List<ReadOnlyItem> getItemList() {
+        return items.stream().map(i -> {
             try {
-                return p.toModelType();
+                return i.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
                 //TODO: better error handling
@@ -80,9 +82,11 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /*
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags);
     }
+    */
 
 }

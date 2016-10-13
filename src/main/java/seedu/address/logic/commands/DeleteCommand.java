@@ -44,7 +44,6 @@ public class DeleteCommand extends Command {
         } catch (ItemNotFoundException infe) {
             assert false : "The target item cannot be missing";
         }
-
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
     }
 }
