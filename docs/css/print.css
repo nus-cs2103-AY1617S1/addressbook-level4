@@ -9,14 +9,13 @@ html {
   widows: 3;
 }
 
-table, img, .admonition {
+table, img, .admonition, .no-page-break {
   page-break-inside: avoid;
 }
 
 h2 {
   font-size: 3rem;
   page-break-before: always;
-  padding-top: 3.6rem;
 }
 
 h3, h4 {
@@ -45,6 +44,17 @@ code {
 a {
   color: inherit;
 }
+
+.userguide strong + code {
+  margin-left: .6rem;
+}
+
+.userguide .admonition p code:first-child, 
+.userguide .admonition li code:first-child, 
+.userguide .admonition dt code:first-child {
+  margin-left: 0;
+}
+
 
 /*
 a[href^='http']:after {

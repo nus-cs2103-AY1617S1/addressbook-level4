@@ -125,6 +125,8 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800">
 
+<figcaption>The relation between the Logic subcomponents</figcaption>
+
 **API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
 The logic component is the glue sitting between the UI and the data model. It consists of three separate subcomponents, each of which also defines their own API using interfaces or abstract classes - 
