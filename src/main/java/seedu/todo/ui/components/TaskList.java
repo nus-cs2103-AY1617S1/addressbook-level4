@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.ui.UiPartLoader;
 
@@ -22,7 +23,8 @@ public class TaskList extends Component {
     private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
 
     // Props
-    public List<Task> tasks; // stub
+    public List<Task> tasks;
+    public List<Event> events;
 
     // FXML
     @FXML

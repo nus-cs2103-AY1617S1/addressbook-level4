@@ -32,6 +32,7 @@ public class DestroyController implements Controller {
         // Re-render
         IndexView view = UiManager.loadView(IndexView.class);
         view.tasks = db.getAllTasks();
+        view.events = db.getAllEvents();
         view.render();
     }
 
