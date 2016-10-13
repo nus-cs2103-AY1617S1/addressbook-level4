@@ -61,6 +61,22 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
+     * Retrieves the equivalent task in the list for editing.
+     *
+     * @throws TaskNotFoundException
+     * @author A0139661Y
+     */
+    public void edit(ReadOnlyTask toEdit, Task toEditWith) throws TaskNotFoundException {
+    	assert (toEdit != null && toEditWith != null);
+    	int index = internalList.indexOf(toEdit);
+    	if (index == -1) {
+    		throw new TaskNotFoundException();
+    	}
+    	internalList.remove(toEdit);
+    	internalList.add(toEditWith);
+    }
+    
+    /**
      * Removes the equivalent task from the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.

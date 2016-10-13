@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.*;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -30,6 +31,8 @@ public class MainParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    
+    private static final Pattern TASK_LOOSE_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[^ ]+) (.*)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -88,6 +91,9 @@ public class MainParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+            
+        case EditCommand.COMMAND_WORD:
+        	return prepareEdit(arguments);
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
@@ -138,6 +144,169 @@ public class MainParser {
     		return new IncorrectCommand(ive.getMessage());
     	}
     }
+    
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args){
+        Optional<Integer> checkForIndex = parseLooseIndex(args);
+        if(!checkForIndex.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+    	
+    	String[] splittedArgs = getCleanString(args).split(" ");
+    	Integer index = Integer.valueOf(splittedArgs[0]);
+        if(index == null){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        // Store and remove
+        int targetIndex = index;
+        args = args.replaceFirst("[0-9]+\\s", "");
+        reducedArgs = extractDueByDateAndTime(args);
+        LocalDateTime dt;
+        if (datesAndTimes.size() != 0)
+        	dt = datesAndTimes.get(0);
+        else
+        	dt = LocalDateTime.of(LocalDate.parse(NO_DATE_DEFAULT, DateTimeFormatter.ISO_LOCAL_DATE), 
+        			LocalTime.MAX);
+        // For testing purposes
+        datesAndTimes.clear();
+    	
+    	try {
+    		return new EditCommand(
+    				targetIndex,
+    				extractDetail(reducedArgs),
+    				dt.toLocalDate(),
+    				dt.toLocalTime(),
+    				extractPriority(splittedArgs),
+    				getTagsFromArgs(splittedArgs));
+    	} catch (IllegalValueException ive) {
+    		return new IncorrectCommand(ive.getMessage());
+    	} 
+    }
+
+    /**
+     * Parses arguments in the context of the delete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDelete(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+
+        return new DeleteCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the done task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     * 
+     * @author A0141128R
+     */
+    private Command prepareDone(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(index.get());
+    }
+
+    /**
+     * Parses arguments in the context of the select task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSelect(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        }
+
+        return new SelectCommand(index.get());
+    }
+
+    /**
+     * Parses arguments in the context of the find task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareFind(String args) {
+        boolean taskStatus = false; // we assume the user is searching for undone tasks
+    	final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        if (keywordSet.contains("--done")) {
+        	taskStatus = true;
+        	keywordSet.remove("--done");
+        }
+        return new FindCommand(keywordSet, taskStatus);
+    }
+    
+    /**
+     * Parses arguments in the context of the list task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     * 
+     * @author A0139661Y
+     */
+    private Command prepareList(String args) {
+        boolean taskStatus = false; // we assume the user is searching for undone tasks
+        if (args.contains("--done")) {
+        	taskStatus = true;
+        }
+        return new ListCommand(taskStatus);
+    }
+    
+    /**
+     * Utility method which replaces all redundant spaces
+     * @param args an uncleaan string
+     * @return a cleaned up string
+     * 
+     * @author A0139661Y
+     */
+    private String getCleanString(String args) {
+    	return args.trim().replaceAll("\\s+", " ");
+    }
+    
+    /**
+     * Initialize main parser.
+     * 
+     * Natty is a natural language parser for dates by Joe Stelmach
+     * 
+     * @author A0139661Y
+     */
+    private void init() {
+    	Parser parser = new Parser();
+    	datesAndTimes = new ArrayList<LocalDateTime>();
+    }
+    
+//    ============== HELPER METHODS
     
     /**
      * Extracts the details out of the reduced args string (without date and time)
@@ -247,59 +416,7 @@ public class MainParser {
     	} 
     	return new HashSet<>(tagStrings);
     }
-
-    /**
-     * Parses arguments in the context of the delete task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-
-        return new DeleteCommand(index.get());
-    }
     
-    /**
-     * Parses arguments in the context of the done task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     * 
-     * @author A0141128R
-     */
-    private Command prepareDone(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
-        }
-
-        return new DoneCommand(index.get());
-    }
-
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
-
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
@@ -315,69 +432,22 @@ public class MainParser {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
-
     }
-
+    
     /**
-     * Parses arguments in the context of the find task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
+     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
+     *   Returns an {@code Optional.empty()} otherwise.
      */
-    private Command prepareFind(String args) {
-        boolean taskStatus = false; // we assume the user is searching for undone tasks
-    	final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+    private Optional<Integer> parseLooseIndex(String command) {
+        final Matcher matcher = TASK_LOOSE_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+            return Optional.empty();
         }
 
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        if (keywordSet.contains("--done")) {
-        	taskStatus = true;
-        	keywordSet.remove("--done");
+        String index = matcher.group("targetIndex");
+        if(!StringUtil.isUnsignedInteger(index)){
+            return Optional.empty();
         }
-        return new FindCommand(keywordSet, taskStatus);
-    }
-    
-    /**
-     * Parses arguments in the context of the list task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     * 
-     * @author A0139661Y
-     */
-    private Command prepareList(String args) {
-        boolean taskStatus = false; // we assume the user is searching for undone tasks
-        if (args.contains("--done")) {
-        	taskStatus = true;
-        }
-        return new ListCommand(taskStatus);
-    }
-    
-    /**
-     * Utility method which replaces all redundant spaces
-     * @param args an uncleaan string
-     * @return a cleaned up string
-     * 
-     * @author A0139661Y
-     */
-    private String getCleanString(String args) {
-    	return args.trim().replaceAll("\\s+", " ");
-    }
-    
-    /**
-     * Initialize main parser.
-     * 
-     * Natty is a natural language parser for dates by Joe Stelmach
-     * 
-     * @author A0139661Y
-     */
-    private void init() {
-    	Parser parser = new Parser();
-    	datesAndTimes = new ArrayList<LocalDateTime>();
-    }
+        return Optional.of(Integer.parseInt(index));
+    } 
 }

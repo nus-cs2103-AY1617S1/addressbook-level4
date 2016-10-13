@@ -80,6 +80,20 @@ public class ToDoList implements ReadOnlyToDoList {
         syncTagsWithMasterList(t);
         tasks.add(t);
     }
+    
+    /**
+     * Edits a Task in the address book.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the tast to oint to those in {@link @tags}.
+     * 
+     * @author A0139661Y
+     */
+    public void editTask(ReadOnlyTask toEdit, Task toEditWith) throws UniqueTaskList.TaskNotFoundException {
+    	// Add tags from replacing task
+    	syncTagsWithMasterList(toEditWith);
+    	tasks.edit(toEdit, toEditWith);
+    	
+    }
 
     /**
      * Ensures that every tag in this task:
