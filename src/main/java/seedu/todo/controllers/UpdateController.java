@@ -17,6 +17,17 @@ import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
 public class UpdateController implements Controller {
+    
+    private static String NAME = "Update";
+    private static String DESCRIPTION = "Updates a task by listed index.";
+    private static String COMMAND_SYNTAX = "update <index> <task> by <deadline>";
+    
+    private static CommandDefinition commandDefinition =
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+
+    public static CommandDefinition getCommandDefinition() {
+        return commandDefinition;
+    }
 
     @Override
     public float inputConfidence(String input) {

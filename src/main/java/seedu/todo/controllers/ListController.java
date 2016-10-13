@@ -5,6 +5,17 @@ import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
 public class ListController implements Controller {
+    
+    private static String NAME = "List";
+    private static String DESCRIPTION = "Lists all tasks and events.";
+    private static String COMMAND_SYNTAX = "list";
+    
+    private static CommandDefinition commandDefinition =
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+
+    public static CommandDefinition getCommandDefinition() {
+        return commandDefinition;
+    }
 
     @Override
     public float inputConfidence(String input) {

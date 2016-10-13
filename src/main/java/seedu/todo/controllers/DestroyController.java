@@ -7,6 +7,17 @@ import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
 public class DestroyController implements Controller {
+    
+    private static String NAME = "Destroy";
+    private static String DESCRIPTION = "Destroys a task/event by listed index";
+    private static String COMMAND_SYNTAX = "destroy <index>";
+    
+    private static CommandDefinition commandDefinition =
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+
+    public static CommandDefinition getCommandDefinition() {
+        return commandDefinition;
+    }
 
     @Override
     public float inputConfidence(String input) {
