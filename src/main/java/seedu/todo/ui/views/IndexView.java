@@ -24,10 +24,9 @@ public class IndexView extends View {
     private Pane tasksPane;
 
     // Props
-    public List<Event> events = new ArrayList<Event>();
-    public List<Task> tasks = new ArrayList<Task>();
-    public List<String> tags = new ArrayList<String>();
-    public String indexTextValue;
+    public List<Event> events = new ArrayList<>();
+    public List<Task> tasks = new ArrayList<>();
+    public List<String> tags = new ArrayList<>();
 
 
     public static IndexView load(Stage primaryStage, Pane placeholderPane) {

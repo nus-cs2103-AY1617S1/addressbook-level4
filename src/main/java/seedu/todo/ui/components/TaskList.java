@@ -26,8 +26,8 @@ public class TaskList extends Component {
     private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
 
     // Props
-    public List<Task> tasks;
-    public List<Event> events;
+    public List<Task> tasks = new ArrayList<>();
+    public List<Event> events = new ArrayList<>();
 
     // FXML
     @FXML
