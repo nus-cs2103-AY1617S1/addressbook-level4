@@ -8,57 +8,42 @@ import seedu.task.model.tag.UniqueTagList;
  */
 public class TestTask implements ReadOnlyTask {
 
-    private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
+    private Title title;
+    private Description description;
+    private StartDate startDate;
+    private DueDate dueDate;
+    private Interval interval;
+    private TimeInterval timeInterval;
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public void setTitle(Title title) {
+        this.title = title;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setDescription(Description description) {
+        this.description = description;
     }
 
-    public void setEmail(Email email) {
-        this.email = email;
+    public void setStartDate(StartDate startDate) {
+        this.startDate = startDate;
     }
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    public void setDueDate(DueDate dueDate) {
+        this.dueDate = dueDate;
+    }
+    
+    public void setInterval(Interval interval) {
+        this.interval = interval;
     }
 
-    @Override
-    public Name getName() {
-        return name;
+    public void setTimeInterval(TimeInterval timeInterval) {
+        this.timeInterval = timeInterval;
     }
-
-    @Override
-    public Phone getPhone() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
-    }
-
-    @Override
-    public UniqueTagList getTags() {
-        return tags;
-    }
-
+    
     @Override
     public String toString() {
         return getAsText();
@@ -66,11 +51,48 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("add " + this.getTitle().fullTitle + " ");
+        sb.append("d/" + this.getDescription().fullDescription + " ");
+        sb.append("sd/" + this.getStartDate().toString() + " ");
+        sb.append("dd/" + this.getDueDate().toString() + " ");
+        sb.append("i/" + this.getInterval().value + " ");
+        sb.append("ti/" + this.getTimeInterval().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
+    }
+
+	@Override
+	public Title getTitle() {
+		return this.title;
+	}
+
+	@Override
+	public Description getDescription() {
+		return this.description;
+	}
+
+	@Override
+	public StartDate getStartDate() {
+		return this.startDate;
+	}
+
+	@Override
+	public DueDate getDueDate() {
+		return this.dueDate;
+	}
+
+	@Override
+	public Interval getInterval() {
+		return this.interval;
+	}
+
+	@Override
+	public TimeInterval getTimeInterval() {
+		return this.timeInterval;
+	}
+	
+    @Override
+    public UniqueTagList getTags() {
+        return this.tags;
     }
 }

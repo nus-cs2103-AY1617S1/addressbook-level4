@@ -11,22 +11,27 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
-    private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
-
+    private Title title;
+    private Description description;
+    private StartDate startDate; 
+    private DueDate dueDate; 
+    private Interval interval; 
+    private TimeInterval timeInterval;
+    private Status status;
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
+    public Task(Title title, Description description,StartDate startDate, DueDate dueDate,Interval interval,TimeInterval timeInterval, Status status, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(title, description, startDate, dueDate,interval,timeInterval,tags);
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.dueDate = dueDate;
+        this.interval = interval;
+        this.timeInterval = timeInterval;
+        this.status = status;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,27 +39,42 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getTitle(), source.getDescription(), source.getStartDate(), source.getDueDate(), source.getInterval(), source.getTimeInterval(), source.getStatus(), source.getTags());
     }
 
     @Override
-    public Name getName() {
-        return name;
+    public Title getTitle() {
+        return title;
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public Description getDescription() {
+        return description;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
+    public StartDate getStartDate() {
+        return startDate;
+    }
+    
+    @Override
+    public DueDate getDueDate() {
+        return dueDate;
     }
 
     @Override
-    public Address getAddress() {
-        return address;
+    public Interval getInterval() {
+        return interval;
+    }
+
+    @Override
+    public TimeInterval getTimeInterval() {
+        return timeInterval;
+    }
+    
+    @Override
+    public Status getStatus() {
+        return status;
     }
 
     @Override
@@ -79,7 +99,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(title, description, startDate, dueDate,interval,timeInterval,tags);
     }
 
     @Override

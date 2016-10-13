@@ -6,6 +6,8 @@ import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +17,19 @@ import java.util.List;
 public class XmlAdaptedTask {
 
     @XmlElement(required = true)
-    private String name;
+    private String title;
     @XmlElement(required = true)
-    private String phone;
+    private String description;
     @XmlElement(required = true)
-    private String email;
+    private String startDate;
     @XmlElement(required = true)
-    private String address;
+    private String dueDate;
+    @XmlElement(required = true)
+    private String interval;
+    @XmlElement(required = true)
+    private String timeInterval;
+    @XmlElement(required = true)
+    private String status;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -38,10 +46,13 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        title = source.getTitle().fullTitle;
+        description =  source.getDescription().fullDescription;
+        startDate = source.getStartDate().toString();
+        dueDate = source.getDueDate().toString();
+        interval = source.getInterval().value;
+        timeInterval = source.getTimeInterval().value;
+        status = source.getStatus().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -52,17 +63,22 @@ public class XmlAdaptedTask {
      * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
+     * @throws ParseException 
      */
-    public Task toModelType() throws IllegalValueException {
+    public Task toModelType() throws IllegalValueException, ParseException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
-        final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
+        
+        final Title title = new Title(this.title);
+        final Description description = new Description(this.description);
+        final StartDate startDate = new StartDate(this.startDate);
+        final DueDate dueDate = new DueDate(this.dueDate);
+        final Interval interval = new Interval(this.interval);
+        final TimeInterval timeInterval = new TimeInterval(this.timeInterval);
+        final Status status = new Status(this.status);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, phone, email, address, tags);
+        return new Task(title,description,startDate, dueDate,interval,timeInterval, status, tags);
     }
 }

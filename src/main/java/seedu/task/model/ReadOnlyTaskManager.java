@@ -6,6 +6,7 @@ import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public interface ReadOnlyTaskManager {
 
     UniqueTagList getUniqueTagList();
 
-    UniqueTaskList getUniqueTaskList();
+    UniqueTaskList getUniqueTaskList() throws ParseException;
 
     /**
      * Returns an unmodifiable view of tasks list

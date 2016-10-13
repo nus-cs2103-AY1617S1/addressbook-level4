@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
+import java.text.ParseException;
+
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.task.*;
 import seedu.task.model.tag.Tag;
+import seedu.task.model.tag.UniqueTagList;
 
 /**
  *
@@ -15,30 +18,50 @@ public class TaskBuilder {
         this.task = new TestTask();
     }
 
-    public TaskBuilder withName(String name) throws IllegalValueException {
-        this.task.setName(new Name(name));
+    public TaskBuilder withTitle(String title) throws IllegalValueException {
+        this.task.setTitle(new Title(title));
+        return this;
+    }
+    
+    public TaskBuilder withDescription(String description) throws IllegalValueException {
+        this.task.setDescription(new Description(description));
         return this;
     }
 
+    public TaskBuilder withStartDate(String startDate) throws IllegalValueException{
+        try {
+			this.task.setStartDate(new StartDate(startDate));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return this;
+    }
+    
+    public TaskBuilder withDueDate(String dueDate) throws IllegalValueException {
+        try {
+			this.task.setDueDate(new DueDate(dueDate));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return this;
+    }
+    
+    public TaskBuilder withInterval(String interval) throws IllegalValueException {
+        this.task.setInterval(new Interval(interval));
+        return this;
+    }
+    
+    public TaskBuilder withTimeInterval(String timeInterval) throws IllegalValueException {
+        this.task.setTimeInterval(new TimeInterval(timeInterval));
+        return this;
+    }
+    
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             task.getTags().add(new Tag(tag));
         }
-        return this;
-    }
-
-    public TaskBuilder withAddress(String address) throws IllegalValueException {
-        this.task.setAddress(new Address(address));
-        return this;
-    }
-
-    public TaskBuilder withPhone(String phone) throws IllegalValueException {
-        this.task.setPhone(new Phone(phone));
-        return this;
-    }
-
-    public TaskBuilder withEmail(String email) throws IllegalValueException {
-        this.task.setEmail(new Email(email));
         return this;
     }
 

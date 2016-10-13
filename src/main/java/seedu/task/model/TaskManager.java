@@ -7,6 +7,7 @@ import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,8 +29,9 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     /**
      * Tasks and Tags are copied into this taskmanager
+     * @throws ParseException 
      */
-    public TaskManager(ReadOnlyTaskManager toBeCopied) {
+    public TaskManager(ReadOnlyTaskManager toBeCopied) throws ParseException {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 

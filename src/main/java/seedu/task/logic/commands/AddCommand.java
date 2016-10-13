@@ -5,6 +5,7 @@ import seedu.task.model.task.*;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 
+import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,13 +16,13 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
+            + "Parameters: TITLE d/description sd/start_date dd/due_date i/interval ti/timeinterval [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " HOMEWORK d/math homework sd/11-01-2012 dd/11-01-2012 i/123 ti/12";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
 
@@ -29,18 +30,22 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
+     * @throws ParseException 
      */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
-            throws IllegalValueException {
+    public AddCommand(String title, String description, String startDate, String dueDate, String interval, String timeInterval, Set<String> tags)
+            throws IllegalValueException, ParseException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new Task(
-                new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
+                new Title(title),
+                new Description(description),
+                new StartDate(startDate),
+                new DueDate(dueDate),
+                new Interval(interval),
+                new TimeInterval(timeInterval),
+                new Status("Ongoing"),
                 new UniqueTagList(tagSet)
         );
     }
