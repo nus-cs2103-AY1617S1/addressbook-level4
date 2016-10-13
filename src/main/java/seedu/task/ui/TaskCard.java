@@ -52,8 +52,8 @@ public class TaskCard extends UiPart{
     	title.setText(task.getTitle().fullTitle);
         id.setText(displayedIndex + ". ");
         description.setText(task.getDescription().fullDescription);
-        startDate.setText(dateFormat.format(task.getStartDate().startDate));
-        dueDate.setText(dateFormat.format(task.getDueDate().dueDate));
+        startDate.setText("Start Date: " + dateFormat.format(task.getStartDate().startDate));
+        dueDate.setText("Due Date: " + dateFormat.format(task.getDueDate().dueDate));
         interval.setText(task.getInterval().value);
         timeInterval.setText(task.getTimeInterval().value);
         status.setText(task.getStatus().status.toString());
