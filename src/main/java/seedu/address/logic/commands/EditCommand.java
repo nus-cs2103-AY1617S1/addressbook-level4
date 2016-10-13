@@ -34,8 +34,6 @@ public class EditCommand extends Command {
     
     public final Task newParams;
     
-    private Task editedTask;
-    
     /**
      * Set parameters to null if they are not provided.
      *
@@ -68,23 +66,22 @@ public class EditCommand extends Command {
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-
         
         try {
             ReadOnlyTask oldTask = new Task(taskToEdit);
             
-            editedTask = new Task(model.editTask(taskToEdit, newParams));
+            Task editedTask = new Task(model.editTask(taskToEdit, newParams));
             
             PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD,oldTask,editedTask);
             PreviousCommandsStack.push(editCommand);
             
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task to be edited cannot be missing";
+            return new CommandResult("");
         } catch (DuplicateTaskException dte) {
             return new CommandResult(MESSAGE_TASK_EXISTS);
         }
-
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));
     }
 
 }
