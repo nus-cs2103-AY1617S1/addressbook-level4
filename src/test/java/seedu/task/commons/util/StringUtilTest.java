@@ -1,8 +1,10 @@
-package seedu.address.commons.util;
+package seedu.task.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import seedu.task.commons.util.StringUtil;
 
 import java.io.FileNotFoundException;
 

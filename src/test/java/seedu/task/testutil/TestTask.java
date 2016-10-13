@@ -1,7 +1,7 @@
-package seedu.address.testutil;
+package seedu.task.testutil;
 
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.*;
+import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.*;
 
 /**
  * A mutable task object. For testing only.

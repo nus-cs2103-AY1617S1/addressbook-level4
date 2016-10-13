@@ -1,8 +1,10 @@
-package seedu.address.commons.util;
+package seedu.task.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import seedu.task.commons.util.AppUtil;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -15,7 +17,7 @@ public class AppUtilTest {
 
     @Test
     public void getImage_exitingImage(){
-        assertNotNull(AppUtil.getImage("/images/address_book_32.png"));
+        assertNotNull(AppUtil.getImage("/images/task_manager_32.png"));
     }
 
 

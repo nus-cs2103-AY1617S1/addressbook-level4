@@ -1,8 +1,10 @@
-package seedu.address.commons.core;
+package seedu.task.commons.core;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import seedu.task.commons.core.Config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -14,11 +16,11 @@ public class ConfigTest {
 
     @Test
     public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : Address App\n" +
+        String defaultConfigAsString = "App title : MESS\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data/addressbook.xml\n" +
-                "AddressBook name : MyAddressBook";
+                "Local data file location : data/taskmanager.xml\n" +
+                "taskManager name : MESS";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }

@@ -1,13 +1,15 @@
-package seedu.address.storage;
+package seedu.task.storage;
 
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.model.UserPrefs;
+
+import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.commons.util.FileUtil;
+import seedu.task.model.UserPrefs;
+import seedu.task.storage.JsonUserPrefsStorage;
 
 import java.io.File;
 import java.io.IOException;
