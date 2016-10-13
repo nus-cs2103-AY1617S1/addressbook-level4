@@ -7,6 +7,7 @@ import java.util.List;
 import com.joestelmach.natty.*;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
+import seedu.tasklist.logic.commands.TimePreparser;
 
 /**
  * Represents a Person's phone number in the address book.
@@ -25,14 +26,15 @@ public class EndTime {
      *
      * @throws IllegalValueException if given end time is invalid.
      */
-    public EndTime(String endTime) throws IllegalValueException {
-    	if(endTime != "" && !endTime.equals(new Date(0).toString())){
+    public EndTime(String input) throws IllegalValueException {
+    	String endTime = TimePreparser.preparse(input);
+    	if(!endTime.isEmpty() && !endTime.equals(new Date(0).toString())){
     		List<DateGroup> dates = new Parser().parse(endTime);
     		if(dates.isEmpty()){
-    			throw new IllegalValueException("Start time is invalid!");
+    			throw new IllegalValueException("End time is invalid!");
     		}
     		else if(dates.get(0).getDates().isEmpty()){
-    			throw new IllegalValueException("Start time is invalid!");
+    			throw new IllegalValueException("End time is invalid!");
     		}
     		else{
     			this.endTime = dates.get(0).getDates().get(0);
