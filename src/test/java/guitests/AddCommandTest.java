@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class AddCommandTest extends MalitioGuiTest {
 
     @Test
-    public void add() {
+    public void addTask() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.relax;
@@ -38,6 +38,30 @@ public class AddCommandTest extends MalitioGuiTest {
         commandBox.runCommand("adds run");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
+    
+    @Test
+    public void addDeadline() {
+  /*
+          //add one task
+        TestTask[] currentList = td.getTypicalTasks();
+        TestTask taskToAdd = td.relax;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+
+        //add another task
+        taskToAdd = td.prepare;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+
+        //add duplicate task
+        commandBox.runCommand(td.relax.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(taskListPanel.isListMatching(currentList));
+    */
+        //add to empty list
+        commandBox.runCommand("clear");
+        assertAddSuccess(td.test);
+       }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
