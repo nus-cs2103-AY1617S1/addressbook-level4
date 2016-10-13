@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the task-book level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TaskBook implements ReadOnlyTaskBook {
@@ -24,20 +24,20 @@ public class TaskBook implements ReadOnlyTaskBook {
     public TaskBook() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this taskbook
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
         this(toBeCopied.getUniqueItemList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Items and Tags are copied into this taskbook
      */
     public TaskBook(UniqueItemList items) {
         resetData(items.getInternalList());
     }
 
-    public static ReadOnlyTaskBook getEmptyAddressBook() {
+    public static ReadOnlyTaskBook getEmptyTaskBook() {
         return new TaskBook();
     }
 
@@ -59,20 +59,25 @@ public class TaskBook implements ReadOnlyTaskBook {
         resetData(newData.getItemList());
     }
 
-//// person-level operations
+    /**************************** ITEM-LEVEL OPERATIONS *****************************************/
 
     /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds an item to the task book.
+     * Also checks the new item's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the item to point to those in {@link #tags}.
      *
-     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
+     * @throws UniqueItemList.DuplicateItemException if an equivalent person already exists.
      */
     public void addItem(Item i) throws UniqueItemList.DuplicateItemException {
         items.add(i);
     }
 
-
+    /**
+     * Removes the item given by key.
+     * 
+     * @param key gives the item's 
+     * @throws UniqueItemList.ItemNotFoundException if the item cannot be found.
+     */
     public boolean removeItem(ReadOnlyItem key) throws UniqueItemList.ItemNotFoundException {
         if (items.remove(key)) {
             return true;
@@ -111,4 +116,5 @@ public class TaskBook implements ReadOnlyTaskBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(items);
     }
+
 }
