@@ -79,10 +79,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
-        addressBook.editTask(oldTask, newParams);
+    public synchronized Task editTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
+        Task editedTask = addressBook.editTask(oldTask, newParams);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
+        
+        return editedTask;
     }
 
     //=========== Filtered Person List Accessors ===============================================================
