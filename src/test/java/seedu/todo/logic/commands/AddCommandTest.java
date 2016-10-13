@@ -16,8 +16,8 @@ public class AddCommandTest extends CommandTest {
     @Test
     public void testAddTask() throws Exception {
         setParameter("Hello World");
-        execute();
-        
+        execute(true);
+
         assertTotalTaskCount(1);
         ImmutableTask addedTask = getTaskAt(1);
         assertEquals("Hello World", addedTask.getTitle());
@@ -30,7 +30,7 @@ public class AddCommandTest extends CommandTest {
     public void testAddTaskWithLocation() throws Exception {
         setParameter("Hello NUS");
         setParameter("l", "NUS");
-        execute();
+        execute(true);
         
         ImmutableTask taskWithLocation = getTaskAt(1);
         assertTotalTaskCount(1);
@@ -44,7 +44,7 @@ public class AddCommandTest extends CommandTest {
     public void testAddTaskWithDescription() throws Exception {
         setParameter("Destroy World");
         setParameter("m", "Remember to get Dynamites on sale!");
-        execute();
+        execute(true);
         
         ImmutableTask taskWithDescription = getTaskAt(1);
         assertTotalTaskCount(1);
@@ -58,7 +58,7 @@ public class AddCommandTest extends CommandTest {
     public void testAddPinnedTask() throws Exception {
         setParameter("Li Kai's Presentation");
         setParameter("p", null);
-        execute();
+        execute(true);
         
         ImmutableTask pinnedAddedTask = getTaskAt(1);
         assertTotalTaskCount(1);
@@ -72,7 +72,7 @@ public class AddCommandTest extends CommandTest {
     public void testAddSingleDate() throws Exception {
         setParameter("Test Task");
         setParameter("d", "tomorrow 9am");
-        execute();
+        execute(true);
         
         ImmutableTask task = getTaskAt(1);
         assertFalse(task.isEvent());
@@ -83,7 +83,7 @@ public class AddCommandTest extends CommandTest {
     public void testAddDateRange() throws Exception {
         setParameter("Test Event");
         setParameter("d", "tomorrow 6 to 8pm");
-        execute();
+        execute(true);
 
         ImmutableTask task = getTaskAt(1);
         assertTrue(task.isEvent());
@@ -97,7 +97,7 @@ public class AddCommandTest extends CommandTest {
         setParameter("p", null);
         setParameter("l", "COM1");
         setParameter("m", "Useless task");
-        execute();
+        execute(true);
         
         ImmutableTask taskWithParams = getTaskAt(1);
         assertTotalTaskCount(1);

@@ -6,6 +6,9 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 
 abstract public class Argument<T> implements Parameter {
+    private static final String REQUIRED_ERROR_FORMAT = "The %s parameter is required";
+    private static final String TYPE_ERROR_FORMAT = "The %s should be a %s. You gave '%s'.";
+
     private String name;
     private String description;
     private String flag;
@@ -13,9 +16,7 @@ abstract public class Argument<T> implements Parameter {
     private boolean boundValue = false;
     
     protected T value;
-    protected T defaultValue;
     
-    private static final String REQUIRED_ERROR_FORMAT = "The %s parameter is required";
     private String requiredErrorMessage;
     
     private static final Logger logger = LogsCenter.getLogger(Argument.class);
@@ -109,5 +110,16 @@ abstract public class Argument<T> implements Parameter {
                     String.format(Argument.REQUIRED_ERROR_FORMAT, name) : requiredErrorMessage;
             throw new IllegalValueException(error);
         }
+    }
+
+    /**
+     * Throws an IllegalValueException for a type mismatch between user input and what 
+     * the argument expect 
+     * @param field     name of the argument 
+     * @param expected  the expected type for the argument 
+     * @param actual    what the user actually gave 
+     */
+    protected void typeError(String field, String expected, String actual) throws IllegalValueException {
+        throw new IllegalValueException(String.format(Argument.TYPE_ERROR_FORMAT, field, expected, actual));
     }
 }

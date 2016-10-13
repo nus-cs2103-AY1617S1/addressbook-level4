@@ -1,6 +1,7 @@
 package seedu.todo.logic;
 
 import javafx.collections.ObservableList;
+import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.model.task.ImmutableTask;
 
 /**
@@ -11,7 +12,7 @@ public interface Logic {
      * Executes the command and returns the result.
      * @param input The command as entered by the user.
      */
-    public void execute(String input);
+    public CommandResult execute(String input);
     
     ObservableList<ImmutableTask> getObservableTaskList();
 

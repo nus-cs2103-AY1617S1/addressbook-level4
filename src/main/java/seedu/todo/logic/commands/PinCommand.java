@@ -7,6 +7,8 @@ import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.model.task.ImmutableTask;
 
 public class PinCommand extends BaseCommand {
+    static private final String PIN = "pinned";
+    static private final String UNPIN = "unpinned";
 
     private Argument<Integer> index = new IntArgument("index").required();
 
@@ -16,10 +18,13 @@ public class PinCommand extends BaseCommand {
     }
 
     @Override
-    public void execute() throws IllegalValueException {
+    public CommandResult execute() throws IllegalValueException {
         ImmutableTask toPin = this.getTaskAt(index.getValue());
         boolean isPinned = !toPin.isPinned();
         this.model.update(toPin, task-> task.setPinned(isPinned));
+        
+        String verb = isPinned ? PinCommand.PIN : PinCommand.UNPIN;
+        return taskSuccessfulResult(toPin.getTitle(), verb);
     }
 
 }

@@ -26,14 +26,14 @@ public class DeleteCommandTest extends CommandTest {
     @Test(expected=IllegalValueException.class)
     public void testInvalidDelete() throws Exception {
         setParameter("4");
-        execute();
+        execute(true);
     }
 
     @Test
     public void testDeleteFirst() throws Exception {
         ImmutableTask toDelete = getTaskAt(1);
         setParameter("1");
-        execute();
+        execute(true);
         assertTaskNotExist(toDelete);
     }
     
@@ -44,19 +44,19 @@ public class DeleteCommandTest extends CommandTest {
         ImmutableTask toDeleteLast = getTaskAt(3);
         
         setParameter("1");
-        execute();
+        execute(true);
         assertTaskNotExist(toDeleteFirst);
         assertTaskExist(toDeleteNext);
         assertTaskExist(toDeleteLast);
-        
+
         setParameter("1");
-        execute();
+        execute(true);
         assertTaskNotExist(toDeleteFirst);
         assertTaskNotExist(toDeleteNext);
         assertTaskExist(toDeleteLast);
-        
+
         setParameter("1");
-        execute();
+        execute(true);
         assertTaskNotExist(toDeleteFirst);
         assertTaskNotExist(toDeleteNext);
         assertTaskNotExist(toDeleteLast);

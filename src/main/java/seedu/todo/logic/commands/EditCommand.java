@@ -5,6 +5,7 @@ import seedu.todo.logic.arguments.*;
 import seedu.todo.model.task.ImmutableTask;
 
 public class EditCommand extends BaseCommand {
+    private static final String VERB = "edited";
     
     private Argument<Integer> index = new IntArgument("index").required();
     
@@ -26,7 +27,7 @@ public class EditCommand extends BaseCommand {
     }
 
     @Override
-    public void execute() throws IllegalValueException {
+    public CommandResult execute() throws IllegalValueException {
         ImmutableTask toEdit = this.getTaskAt(index.getValue());
         
         this.model.update(toEdit, task -> {
@@ -47,6 +48,8 @@ public class EditCommand extends BaseCommand {
                 task.setEndTime(date.getValue().getEndTime());
             }
         });
-	}
+        
+        return taskSuccessfulResult(toEdit.getTitle(), EditCommand.VERB);
+    }
 
 }

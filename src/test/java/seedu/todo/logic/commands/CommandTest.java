@@ -45,6 +45,7 @@ public abstract class CommandTest {
     protected MockStorage storage;
     protected BaseCommand command;
     protected StubParseResult params;
+    protected CommandResult result;
     
     abstract protected BaseCommand commandUnderTest();
 
@@ -124,7 +125,7 @@ public abstract class CommandTest {
         assertTaskExist(task); 
         assertTaskNotVisible(task);
     }
-    
+
     /**
      * Sets the positional parameter for command execution. Can be chained. 
      */
@@ -146,9 +147,11 @@ public abstract class CommandTest {
      * @throws IllegalValueException
      * @throws ValidationException 
      */
-    protected void execute() throws IllegalValueException, ValidationException {
+    protected void execute(boolean expectSuccess) throws IllegalValueException, ValidationException {
         command.setArguments(params);
         command.setModel(model);
-        command.execute();
+        result = command.execute();
+        
+        assertEquals(expectSuccess, result.isSuccessful());
     }
 }
