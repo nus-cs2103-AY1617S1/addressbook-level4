@@ -160,6 +160,7 @@ Examples:
 * `edit 3 Buy coffee for boss, by 7am repeat every 2 days`
 
 **_Editing out details in a task_**
+
  You can also remove any section if they are no longer relevant! <br>
  Format: `edit INDEX [repeat] [start] [end] -reset`
  > `INDEX` refers to the task number in the current displayed list.<br>
