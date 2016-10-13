@@ -160,19 +160,21 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] pr/high time/11:11 a/valid, address", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+                "add []\\[;] pr/high time/11:11 d/11.11.2016", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/not_high time/11:11 a/valid, address", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+                "add Valid Name pr/not_high time/11:11 d/11.11.2016", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low time/111:11 a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low time/111:11 d/11.11.2016", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low time/11:111 a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low time/11:111 d/11.11.2016", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low time/111:111 a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low time/111:111 d/11.11.2016", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low time/sum a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low time/sum d/11.11.2016", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/ time/mon a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name pr/ time/mon d/11.11.2016 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name pr/ time/11:11 d/1.1.206", Date.MESSAGE_DATE_CONSTRAINTS);
 
     }
 
@@ -409,7 +411,7 @@ public class LogicManagerTest {
                     new Description("Person " + seed),
                     new Priority(""),
                     new Time("" + Math.abs(seed) + ":" + Math.abs(seed) + Math.abs(seed)),
-                    new Date(seed + "Date"),
+                    new Date("11.11.200" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -423,7 +425,7 @@ public class LogicManagerTest {
             cmd.append(p.getDescription().toString());
             cmd.append(" pr/").append(p.getPriority());
             cmd.append(" time/").append(p.getTime());
-            cmd.append(" a/").append(p.getDate());
+            cmd.append(" d/").append(p.getDate());
 
 
             UniqueTagList tags = p.getTags();
@@ -509,7 +511,7 @@ public class LogicManagerTest {
                     new Description(name),
                     new Priority(""),
                     new Time("1:11"),
-                    new Date("1.1.2016"),
+                    new Date("11.11.2016"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
