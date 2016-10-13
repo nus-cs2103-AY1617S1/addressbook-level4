@@ -7,36 +7,46 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Empty String "" means no deadline (floating task)
  * Guarantees: is valid as declared in {@link #isValidDeadline(String)}
  */
-public class Deadline {
+public class Deadline implements Date{
     
-    public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Deadline" + "should follow DD.MM.YYYY[-Time(in 24 hrs)]";
-    public static final String DEADLINE_VALIDATION_REGEX = "^[0-3]?[0-9].[0-1]?[0-9].([0-9]{4})(-[0-2]?[0-9]?)?";
-    // EXAMPLE = "15.10.2016-14"
+    public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Deadline should follow DD.MM.YYYY[-Time(in 24 hrs)]";
     
-    public String time;
+    public String date;
 
-    public Deadline(String time) throws IllegalValueException {
-        if (!isValidDeadline(time)) {
+    /**
+     * Validates given deadline.
+     *
+     * @throws IllegalValueException if given deadline string is invalid.
+     */
+    public Deadline(String date) throws IllegalValueException {
+        if (!isValidDeadline(date)) {
             throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }
-        this.time = time;
+        this.date = date;
     }
 
+    /**
+     * Returns true if a given string is a valid deadline.
+     */
     public static boolean isValidDeadline(String test) {
-        return test.matches(DEADLINE_VALIDATION_REGEX) || test.equals("");
+        return test.matches(DATE_VALIDATION_REGEX) || test.equals("");
     }
 
+    @Override
     public String toString() {
-        return time;
+        return date;
     }
 
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Deadline // instanceof handles nulls
-                && this.time.equals(((Deadline) other).time)); // state check
+                && this.date.equals(((Deadline) other).date)); // state check
     }
 
+    @Override
     public int hashCode() {
-        return time.hashCode();
+        return date.hashCode();
     }
+    
 }
