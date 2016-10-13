@@ -17,8 +17,6 @@ Please refer to the [Setting up](DeveloperGuide.md#setting-up) section to learn 
 3. Click `Run As` > `Java Application` and choose the `Main` class.
 4. The GUI should appear in a few seconds.
 
-**Include our own app images TBU**
-
 <img src="images/Ui.png">
 
 ## Features
@@ -60,7 +58,7 @@ Examples:
  * `add CS2103 Workshop s/Saturday 9am e/3pm`
  * `add CS2103 V0.3 by next Friday`
  <img src="images/UserGuide/beforeAdd.png">
- <img src="images/UserGuide/AfterAdd.png">
+ <img src="images/UserGuide/afterAdd.png">
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in GetShitDone. Able to filter by type of task (task/event), or based on completed or not.  
@@ -124,7 +122,7 @@ Examples:
 * `delete 3`
   Deletes the 3<sup>rd</sup> task in GetShitDone.
 <img src="images/UserGuide/beforeDelete.png">
-<img src="images/UserGuide/AfterDelete.png">
+<img src="images/UserGuide/afterDelete.png">
 
 * `find assignment2`  
   `delete 1`  
