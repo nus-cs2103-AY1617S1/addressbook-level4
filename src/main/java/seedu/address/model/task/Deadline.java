@@ -4,6 +4,7 @@ package seedu.address.model.task;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -13,8 +14,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Deadline {
     
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task deadline must be in ddmmyy format.";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task deadline must be in ddmmyy or dd-MM-yy format.";
     public static final String DEADLINE_VALIDATION_REGEX = "\\d+";
+    public static final String DEADLINE_DASH_VALIDATION_REGEX = "[\\d]+-[\\d]+-[\\d]+";
 
     public final String value;
 
@@ -25,7 +27,7 @@ public class Deadline {
      */
     public Deadline(String deadline) throws IllegalValueException {
         assert deadline != null;
-        if (!isValidDeadline(deadline) || (deadline.length() != 6)) {
+        if (!isValidDeadline(deadline)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
         this.value = mutateToDash(deadline);
@@ -35,7 +37,7 @@ public class Deadline {
      * Returns true if a given string is a valid task email.
      */
     public static boolean isValidDeadline(String test) {
-        return test.matches(DEADLINE_VALIDATION_REGEX);
+        return (test.matches(DEADLINE_VALIDATION_REGEX) || test.matches(DEADLINE_DASH_VALIDATION_REGEX));
     }
 
     @Override
@@ -56,9 +58,21 @@ public class Deadline {
     }
     
     private String mutateToDash(String deadline) throws IllegalValueException {
+    	
+    	Date date = null;
     	try{
 	    	DateFormat input = new SimpleDateFormat("ddMMyy");
 	    	DateFormat output = new SimpleDateFormat("dd-MM-yy");
+	    	SimpleDateFormat saved = new SimpleDateFormat("dd-MM-yy");
+	    	try{
+		    	date = saved.parse(deadline);
+		    	if(deadline.equals(saved.format(date))){
+		    		return deadline;
+		    	}
+	    	}
+	    	catch (ParseException e1){
+	    		
+	    	}
 	    	String result = output.format(input.parse(deadline));
 	    	return result;
     	}
