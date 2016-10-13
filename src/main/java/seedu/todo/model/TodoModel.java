@@ -6,7 +6,9 @@ import java.util.function.Predicate;
 
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 
 /**
@@ -25,12 +27,13 @@ public interface TodoModel {
      * Adds a new task or event with title and other fields to the todo list.
      * 
      * @param title   the title of the task 
-     * @param update  a mutable {@link Task} is passed into this lambda. All other fields 
+     * @param update  a {@link MutableTask} is passed into this lambda. All other fields 
      *                should be set from inside this lambda. 
      *  
      * @throws IllegalValueException if the values set in the update predicate is invalid
+     * @throws ValidationException   if the fields in the task to be updated are not valid
      */
-    public void add(String title, Consumer<Task> update)  throws IllegalValueException;
+    public void add(String title, Consumer<MutableTask> update) throws IllegalValueException, ValidationException;
     
     /**
      * Deletes the given task from the todo list. This change is also propagated to the 
@@ -45,7 +48,7 @@ public interface TodoModel {
     /**
      * Replaces certain fields in the task. Mutation of the {@link Task} object should 
      * only be done in the <code>update</code> lambda. The lambda takes in one parameter, 
-     * a mutable {@link Task}, and does not expect any return value. For example: 
+     * a {@link MutableTask}, and does not expect any return value. For example: 
      * 
      * <pre><code>todo.update(task, t -> {
      *     t.setEndTime(t.getEndTime.get().plusHours(2)); // Push deadline back by 2h
@@ -54,8 +57,9 @@ public interface TodoModel {
      * 
      * @throws IllegalValueException  if the task does not exist or if the values set in the 
      *                                update predicate is invalid
+     * @throws ValidationException    if the fields in the task to be updated are not valid
      */
-    public void update(ImmutableTask task, Consumer<Task> update) throws IllegalValueException;
+    public void update(ImmutableTask task, Consumer<MutableTask> update) throws IllegalValueException, ValidationException;
     
     /**
      * Changes the filter predicate and sort comparator used to display the tasks. A null

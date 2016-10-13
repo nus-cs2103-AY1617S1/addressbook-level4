@@ -24,6 +24,8 @@ import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.storage.XmlSerializableAddressBook;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -84,6 +86,18 @@ public class TestUtil {
             //not possible
             return null;
         }
+    }
+    
+    public static void assertAllPropertiesEqual(ImmutableTask a, ImmutableTask b) {
+        assertEquals(a.getTitle(), b.getTitle());
+        assertEquals(a.getDescription(), b.getDescription());
+        assertEquals(a.getLocation(), b.getLocation());
+        assertEquals(a.getStartTime(), b.getStartTime());
+        assertEquals(a.getEndTime(), b.getEndTime());
+        assertEquals(a.isPinned(), b.isPinned());
+        assertEquals(a.isCompleted(), b.isCompleted());
+        assertEquals(a.getTags(), b.getTags());
+        assertEquals(a.getUUID(), b.getUUID());
     }
 
     public static final Tag[] sampleTagData = getSampleTagData();

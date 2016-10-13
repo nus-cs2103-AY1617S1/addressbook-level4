@@ -1,6 +1,10 @@
 package seedu.todo.model.task;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static seedu.todo.testutil.TestUtil.assertAllPropertiesEqual;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -20,9 +24,9 @@ public class TaskTest {
      */
     private class UUIDTestTask implements ImmutableTask {
         private UUID uuid;
-        
+
         public UUIDTestTask(UUID uuid) {
-            this.uuid = uuid; 
+            this.uuid = uuid;
         }
 
         @Override
@@ -70,18 +74,8 @@ public class TaskTest {
             return uuid;
         }
     }
-    
+
     private Task task;
-    
-    private void assertAllPropertiesEqual(ImmutableTask a, ImmutableTask b) {
-        assertEquals(a.getTitle(), b.getTitle());
-        assertEquals(a.getDescription(), b.getDescription());
-        assertEquals(a.getLocation(), b.getLocation());
-        assertEquals(a.getStartTime(), b.getStartTime());
-        assertEquals(a.getEndTime(), b.getEndTime());
-        assertEquals(a.getTags(), b.getTags());
-        assertEquals(a.getUUID(), b.getUUID());
-    }
 
     @Before
     public void setUp() throws Exception {
@@ -97,13 +91,13 @@ public class TaskTest {
     public void testTaskImmutableTask() {
         Task original = new Task("Mock Task");
         assertAllPropertiesEqual(original, new Task(original));
-        
-        original = new Task("Mock Task"); 
+
+        original = new Task("Mock Task");
         original.setStartTime(LocalDateTime.now());
         original.setEndTime(LocalDateTime.now().plusHours(2));
         assertAllPropertiesEqual(original, new Task(original));
-        
-        original = new Task("Mock Task"); 
+
+        original = new Task("Mock Task");
         original.setDescription("A Test Description");
         original.setLocation("Test Location");
         assertAllPropertiesEqual(original, new Task(original));
@@ -114,11 +108,11 @@ public class TaskTest {
         task.setTitle("New Title");
         assertEquals("New Title", task.getTitle());
     }
-    
+
     @Test
     public void testDescription() {
         assertFalse(task.getDescription().isPresent());
-        
+
         task.setDescription("A short description");
         assertEquals("A short description", task.getDescription().get());
     }
@@ -135,10 +129,6 @@ public class TaskTest {
     public void testTime() {
         assertFalse(task.getStartTime().isPresent());
         assertFalse(task.getEndTime().isPresent());
-        
-        // TODO: Time definitely needs validation, for example task end time 
-        // should come after start time. Issue #16 https://github.com/CS2103AUG2016-W10-C4/main/issues/16 
-        // is blocking this though
     }
 
     @Test
@@ -160,14 +150,13 @@ public class TaskTest {
     @Test
     public void testTags() throws IllegalValueException {
         assertEquals(0, task.getTags().size());
-        
+
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("Hello"));
         tags.add(new Tag("World"));
         task.setTags(tags);
-        
+
         assertEquals(2, task.getTags().size());
-        // TODO: This should do more when we finalize how tags can be edited 
     }
     
     @Test

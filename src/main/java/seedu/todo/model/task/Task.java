@@ -19,20 +19,20 @@ import seedu.todo.model.tag.Tag;
 /**
  * Represents a single task
  */
-public class Task implements ImmutableTask {
-    private StringProperty title = new SimpleStringProperty(); 
-    private StringProperty description = new SimpleStringProperty(); 
+public class Task implements ImmutableTask, MutableTask {
+    private StringProperty title = new SimpleStringProperty();
+    private StringProperty description = new SimpleStringProperty();
     private StringProperty location = new SimpleStringProperty();
-    
+
     private BooleanProperty pinned = new SimpleBooleanProperty();
     private BooleanProperty completed = new SimpleBooleanProperty();
-    
+
     private ObjectProperty<LocalDateTime> startTime = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDateTime> endTime = new SimpleObjectProperty<>();
-    
+
     private ObjectProperty<Set<Tag>> tags = new SimpleObjectProperty<>(new HashSet<Tag>());
     private UUID uuid;
-       
+
     /**
      * Creates a new task
      */
@@ -40,7 +40,7 @@ public class Task implements ImmutableTask {
         this.setTitle(title);
         this.uuid = UUID.randomUUID();
     }
-    
+
     /**
      * Constructs a Task from a ReadOnlyTask
      */
@@ -54,7 +54,7 @@ public class Task implements ImmutableTask {
         this.setPinned(task.isPinned());
         this.uuid = task.getUUID();
     }
-    
+
     @Override
     public String getTitle() {
         return title.get();
@@ -94,42 +94,49 @@ public class Task implements ImmutableTask {
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags.get());
     }
-    
+
+    @Override
     public void setTitle(String title) {
         this.title.set(title);
     }
 
+    @Override
     public void setPinned(boolean pinned) {
         this.pinned.set(pinned);
     }
 
+    @Override
     public void setCompleted(boolean completed) {
         this.completed.set(completed);
     }
 
+    @Override
     public void setDescription(String description) {
         this.description.set(description);
     }
 
+    @Override
     public void setLocation(String location) {
         this.location.set(location);
     }
 
+    @Override
     public void setStartTime(LocalDateTime startTime) {
         this.startTime.set(startTime);
     }
 
+    @Override
     public void setEndTime(LocalDateTime endTime) {
         this.endTime.set(endTime);
     }
 
+    @Override
     public void setTags(Set<Tag> tags) {
         this.tags.set(tags);
     }
-    
+
     public Observable[] getObservableProperties() {
-        return new Observable[] {
-            title, description, location, startTime, endTime, tags, completed, pinned,
+        return new Observable[] { title, description, location, startTime, endTime, tags, completed, pinned,
         };
     }
 
@@ -137,20 +144,20 @@ public class Task implements ImmutableTask {
     public UUID getUUID() {
         return uuid;
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
-            return true; 
+            return true;
         }
-        
+
         if (!(o instanceof ImmutableTask)) {
             return false;
         }
-        
+
         return uuid.equals(((ImmutableTask) o).getUUID());
     }
-    
+
     @Override
     public int hashCode() {
         return uuid.hashCode();
