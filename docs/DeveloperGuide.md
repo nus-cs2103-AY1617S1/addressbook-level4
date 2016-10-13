@@ -722,7 +722,9 @@ Weaknesses:
 * Cannot 'block' or 'release' multiple slots when timing is uncertain
 * Mouse required for most actions, only task creation uses the keyboard
 
-Summary: Does not store completed tasks, and still requires mouse for most actions
+Summary: 
+
+Does not store completed tasks, and still requires mouse for most actions
 
 #### Microsoft Outlook
 
@@ -751,6 +753,11 @@ Weaknesses:
 * No way to find suitable slots painlessly (no 'Find a Time' feature)
 * A lot of mouse action required (while keyboard shortcuts, exist they are not designed with keyboard shortcuts in mind, but rather with a mouse user)
 * Only one reminder can be created for each task
+
+Summary:
+
+While it provides recurring features, and seperates tasks and events, tasks are not shown on the calendar view, which
+makes it hard to visualise the due dates of the tasks. The use of mouse is required for some features.
 
 #### iCalendar
 
