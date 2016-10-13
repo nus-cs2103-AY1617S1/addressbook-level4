@@ -1,16 +1,15 @@
 package seedu.todo.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+import org.junit.rules.ExpectedException;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -18,30 +17,15 @@ import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.storage.MockStorage;
 
+import static org.junit.Assert.*;
+
 public class TodoTest {
-    private class MockTodoList implements ImmutableTodoList {
-        private ImmutableTask[] tasks;
-
-        public MockTodoList(ImmutableTask[] tasks) {
-            this.tasks = tasks;
-        }
-
-        @Override
-        public List<ImmutableTask> getTasks() {
-            return Arrays.asList(tasks);
-        }
-    }
-
-    private TodoList todo;
-    private UnmodifiableObservableList<ImmutableTask> observableList;
-    private MockStorage storage;
-
-    @Before
-    public void setUp() {
-        storage = new MockStorage();
-        todo = new TodoList(storage);
-        observableList = todo.getObserveableList();
-    }
+    private MockStorage storage = new MockStorage();
+    private TodoList todo = new TodoList(storage);
+    private UnmodifiableObservableList<ImmutableTask> observableList = todo.getObserveableList();
+    
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
 
     @Test
     public void testRestoreFromStorage() {
@@ -218,27 +202,20 @@ public class TodoTest {
 
     @Test
     public void testEditSetEmptyTitle() throws Exception {
-        boolean isExceptionThrown = false;
         todo.add("Task 1");
         ImmutableTask task = getTask(0);
 
         try {
-            todo.update(task, t -> {
-                t.setTitle("");
-            });
+            todo.update(task, t -> t.setTitle(""));
+            fail();
         } catch (ValidationException e) {
-            isExceptionThrown = true;
+            // Check that the bad update didn't go through
+            assertEquals("Task 1", getTask(0).getTitle());
         }
-
-        assertTrue(isExceptionThrown);
-
-        // Check that the bad update didn't go through
-        assertEquals("Task 1", getTask(0).getTitle());
     }
 
     @Test
     public void testEdit() throws Exception {
-        boolean isExceptionThrown = false;
         todo.add("Task 1");
         ImmutableTask task = getTask(0);
 
@@ -247,19 +224,23 @@ public class TodoTest {
                 t.setStartTime(LocalDateTime.now());
                 t.setTitle("Title changed");
             });
+            fail();
         } catch (ValidationException e) {
-            isExceptionThrown = true;
+            assertEquals("Task 1", getTask(0).getTitle());
         }
-
-        assertTrue(isExceptionThrown);
-        assertEquals("Task 1", getTask(0).getTitle());
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
     public void testAddOnlyStartDate() throws Exception {
-        todo.add("Task 1", t -> {
-            t.setStartTime(LocalDateTime.now());
-        });
+        try {
+            todo.add("Task 1", t -> {
+                t.setStartTime(LocalDateTime.now());
+            });
+            fail();
+        } catch (ValidationException e) {
+            // Check that the new task is not added to the list
+            assertEquals(0, todo.getTasks().size());
+        }
     }
 
     @Test(expected = ValidationException.class)
@@ -272,5 +253,18 @@ public class TodoTest {
 
     private ImmutableTask getTask(int index) {
         return todo.getTasks().get(index);
+    }
+
+    private class MockTodoList implements ImmutableTodoList {
+        private ImmutableTask[] tasks;
+
+        public MockTodoList(ImmutableTask[] tasks) {
+            this.tasks = tasks;
+        }
+
+        @Override
+        public List<ImmutableTask> getTasks() {
+            return Arrays.asList(tasks);
+        }
     }
 }
