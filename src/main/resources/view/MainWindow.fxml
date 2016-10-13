@@ -87,13 +87,6 @@
                    </content>
                 </Tab>
             </TabPane>
-            <AnchorPane fx:id="browserPlaceholder" maxWidth="0" >
-                <padding>
-                    <Insets top="10" bottom="10" left="10" right="10"/>
-                </padding>
-
-            </AnchorPane>
-
          </items>
       </SplitPane>
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
