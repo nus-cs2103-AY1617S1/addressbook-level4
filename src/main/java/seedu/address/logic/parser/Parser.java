@@ -30,7 +30,8 @@ public class Parser {
 //                  + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
 //                  + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
 //                  + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+                    + "(?<tagArguments>(?: t/[^/]+)*)" // variable number of tags
+                    + "(?<removeTagArguments>(?: rt/[^/]+)*)");
 
     public Parser() { }
 
@@ -104,19 +105,29 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    /**
+     * Extracts the tags from a tag arguments string.
+     * Merges duplicate tag strings.
+     */
+    private static Set<String> getTagsFromArgs(String argument, String tagArguments) throws IllegalValueException {
+        // no tags
+        if (tagArguments.isEmpty()) {
+            return Collections.emptySet();
+        }
+        // replace first delimiter prefix, then split
+        String argumentPrefix = " " + argument + "/";
+        
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(argumentPrefix, "").split(argumentPrefix));
+        return new HashSet<>(tagStrings);
+    }
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
+        return getTagsFromArgs("t", tagArguments);
     }
 
     /**
@@ -191,7 +202,12 @@ public class Parser {
         }
 
         try {
-            return new UpdateCommand(index.get(), argsMatcher.group("name"), getTagsFromArgs(argsMatcher.group("tagArguments")));
+            return new UpdateCommand(
+                    index.get(),
+                    argsMatcher.group("name"),
+                    getTagsFromArgs(argsMatcher.group("tagArguments")),
+                    getTagsFromArgs("rt", argsMatcher.group("removeTagArguments"))
+            );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

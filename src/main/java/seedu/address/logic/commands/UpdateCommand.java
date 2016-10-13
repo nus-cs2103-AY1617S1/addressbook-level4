@@ -5,6 +5,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.TagNotFoundException;
 import seedu.address.model.task.*;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
@@ -20,7 +21,7 @@ public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update a task in the task list.\n "
-            + "Parameters: INDEX (must be a positive integer) [NAME t/TAG]...\n"
+            + "Parameters: INDEX (must be a positive integer) [NAME t/TAGADD rt/TAGREMOVE]...\n"
             + "Example: " + COMMAND_WORD
             + " 1 cs2103 t/quiz";
     
@@ -31,18 +32,20 @@ public class UpdateCommand extends Command {
     public final int targetIndex;
     
     private final Name newTaskName;
+    private final Set<String> removedTags;
     private final UniqueTagList newTaskTags;
     
-    public UpdateCommand(int targetIndex, String name, Set<String> tags) throws IllegalValueException { 
+    public UpdateCommand(int targetIndex, String name, Set<String> tagsToAdd, Set<String> tagsToRemove) throws IllegalValueException { 
         this.targetIndex = targetIndex;
         this.newTaskName = (name.isEmpty()) ? null : new Name(name);
         
         final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
+        for (String tagName : tagsToAdd) {
             tagSet.add(new Tag(tagName));
         }
         
         this.newTaskTags = new UniqueTagList(tagSet);
+        this.removedTags = tagsToRemove;
     }
     
     @Override
@@ -58,6 +61,16 @@ public class UpdateCommand extends Command {
 
         Name updatedTaskName = (newTaskName == null) ? taskToUpdate.getName() : newTaskName;
         newTaskTags.mergeFrom(taskToUpdate.getTags());
+        
+        for (String tagName : removedTags) {
+            try {
+                newTaskTags.remove(new Tag(tagName));
+            } catch (TagNotFoundException e) {
+                // do nothing, as update is more lenient
+            } catch (IllegalValueException e) {
+                assert false : "Tag cannot be of other type!";
+            }
+        }
         
         Task newTask = new Task(
                 updatedTaskName,
