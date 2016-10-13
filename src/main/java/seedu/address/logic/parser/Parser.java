@@ -256,8 +256,8 @@ public class Parser {
      /**
       * checks field names are valids
       * @param fieldNames
-      * @return true
-      *         if field is valid
+      *         an ArrayList<String> of field names
+      * @return true if all fields are valid, false otherwise
       * @author darren
       */
      private static boolean fieldsAreValid(ArrayList<String> fieldNames) {
