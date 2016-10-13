@@ -11,6 +11,11 @@
 * [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
+## Introduction
+
+Jimi is a simple task manager specifically catered for people like [Jim](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-product). It is a Java desktop application that has both a Text UI and a GUI. Jimi handles most, if not all, input via the command line interface (CLI).
+
+This guide describes the design and implementation of Jimi. It will help you understand how Jimi works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
 
 ## Setting up
 
