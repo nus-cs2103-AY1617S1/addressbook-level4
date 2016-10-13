@@ -13,11 +13,14 @@ import java.util.List;
  * JAXB-friendly version of the Task.
  */
 public class XmlAdaptedTask {
+    
+    private static int START_DATE_INDEX = 0;
+    private static int END_DATE_INDEX = 2;
 
     @XmlElement(required = true)
     private String name;
     @XmlElement
-    private String deadline;
+    private String date;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -35,7 +38,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().taskName;
-        deadline = source.getDeadline().time;
+        date = source.getDate().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -43,7 +46,7 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
@@ -53,8 +56,14 @@ public class XmlAdaptedTask {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Deadline deadline = new Deadline(this.deadline);
+        final Date date;
+        if (Deadline.isValidDeadline(this.date)) {
+            date = new Deadline(this.date);
+        } else {
+            String[] dates = this.date.trim().split(" ");
+            date = new EventDate(dates[START_DATE_INDEX], dates[END_DATE_INDEX]);
+        }
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, deadline, tags);
+        return new Task(name, date, tags);
     }
 }

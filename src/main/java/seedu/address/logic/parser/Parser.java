@@ -31,6 +31,12 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<deadline>(?: d/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + "s/(?<startDate>[^/]+)"
+                    + "e/(?<endDate>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
 
@@ -85,21 +91,28 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+    private Command prepareAdd(String args) {
+        final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format if it is a valid add task command
         try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    getDeadlineFromArg(matcher.group("deadline")),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
+            if (taskMatcher.matches()) {
+                return new AddCommand(taskMatcher.group("name"), 
+                        getDeadlineFromArg(taskMatcher.group("deadline")),
+                        getTagsFromArgs(taskMatcher.group("tagArguments")));
+            }
+            final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
+            // Validate arg string format if it is a valid add event command
+            if (eventMatcher.matches()) {
+                return new AddCommand(eventMatcher.group("name"), 
+                        eventMatcher.group("startDate"),
+                        eventMatcher.group("endDate"),
+                        getTagsFromArgs(eventMatcher.group("tagArguments")));
+            }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                AddCommand.MESSAGE_USAGE));
     }
     
     /**
