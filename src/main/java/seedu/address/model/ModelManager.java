@@ -9,7 +9,6 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.model.item.UniqueItemList;
-import seedu.address.model.item.UniqueItemList.DuplicateItemException;
 import seedu.address.model.item.UniqueItemList.ItemNotFoundException;
 
 import java.util.Set;
