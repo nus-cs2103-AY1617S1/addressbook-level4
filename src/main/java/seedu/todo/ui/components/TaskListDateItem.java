@@ -34,8 +34,7 @@ public class TaskListDateItem extends MultiComponent {
     @FXML
     private Text dateLabel;
     @FXML
-    private VBox dateTaskItemsPlaceholder;
-    private VBox dateEventItemsPlaceholder;
+    private VBox dateCalendarItemsPlaceholder;
 
     public static TaskListDateItem load(Stage primaryStage, Pane placeholderPane) {
         return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskListDateItem());
@@ -64,16 +63,17 @@ public class TaskListDateItem extends MultiComponent {
         String dateLabelString = DateUtil.formatShortDate(dateTime);
         dateLabel.setText(dateLabelString);
 
-        // Load task items
+        // Clear the TaskList of its items
+        TaskListTaskItem.reset(dateCalendarItemsPlaceholder);
+
+        // Load task and event items
         loadTaskItems();
         loadEventItems();
     }
 
     private void loadTaskItems() {
-        TaskListTaskItem.reset(dateTaskItemsPlaceholder);
-
         for (Task task : tasks) {
-            TaskListTaskItem item = TaskListTaskItem.load(primaryStage, dateTaskItemsPlaceholder);
+            TaskListTaskItem item = TaskListTaskItem.load(primaryStage, dateCalendarItemsPlaceholder);
 
             // Add to EphemeralDB and get the index.
             int displayIndex = ephemeralDb.addToDisplayedTask(task);
@@ -86,10 +86,8 @@ public class TaskListDateItem extends MultiComponent {
     }
     
     private void loadEventItems() {
-        TaskListEventItem.reset(dateEventItemsPlaceholder);
-
         for (Event event : events) {
-            TaskListEventItem item = TaskListEventItem.load(primaryStage, dateTaskItemsPlaceholder);
+            TaskListEventItem item = TaskListEventItem.load(primaryStage, dateCalendarItemsPlaceholder);
 
             // Add to EphemeralDB and get the index.
             int displayIndex = ephemeralDb.addToDisplayedEvent(event);
