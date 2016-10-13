@@ -31,6 +31,9 @@ public class CommandHelper {
      * @return List of dates parsed from dateInString
      */
     public static List<Date> convertStringToMultipleDates(String dateInString){
+        if(dateInString.toLowerCase().contains("today")){
+
+        }
         List<Date> dates = new PrettyTimeParser().parse(dateInString);
         return dates;
     }
@@ -42,8 +45,19 @@ public class CommandHelper {
      * @return Date parsed from dateInString
      * @throws Exception
      */
-    //TODO specify exception
+
     public static Date convertStringToDate(String dateInString) throws IllegalValueException{
+        //special case if date is "today", but no valid time given
+        if(dateInString.toLowerCase().contains("today")){
+            List<Date> dates = new PrettyTimeParser().parse(dateInString);
+            if(dates.size() != 1){
+                throw new IllegalValueException("Multiple dates found");
+            }
+            if( (new Date().getDate() == dates.get(0).getDate() )&& ((new Date().after(dates.get(0))) || (new Date().equals(dates.get(0))) ) ){
+                dateInString = "today 11.59pm";
+            }
+        }
+        //normal case
         List<Date> dates = new PrettyTimeParser().parse(dateInString);
         if(dates.size() != 1){
             throw new IllegalValueException("Multiple dates found");
