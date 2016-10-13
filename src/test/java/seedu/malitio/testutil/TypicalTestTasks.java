@@ -9,7 +9,7 @@ import seedu.malitio.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask sleep, eat, read, exercise, lecture, homework, play, relax, prepare;
+    public static TestTask sleep, eat, read, exercise, lecture, homework, play, relax, prepare, test;
 
     public TypicalTestTasks() {
         try {
@@ -22,6 +22,7 @@ public class TypicalTestTasks {
             lecture = new TaskBuilder().withName("cs2103 lecture").build();
             homework = new TaskBuilder().withName("cs2103 homework").build();
             play = new TaskBuilder().withName("play basketball").build();
+            test = new TaskBuilder().withName("test").dueOn("11012015 0006").build();
 
             //Manually added
             relax = new TaskBuilder().withName("spa relaxation").build();

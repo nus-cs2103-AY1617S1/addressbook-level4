@@ -7,22 +7,46 @@ import java.util.Objects;
 
 /**
  * Represents a Task in Malitio.
- * Guarantees: details are present and not null, field values are validated.
+ * Guarantees: field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
-
-
+    private DateTime due = null;
+    private DateTime start = null;
+    private DateTime end = null;
+    
     private UniqueTagList tags;
 
     /**
-     * Every field must be present and not null.
+     * Constructor for floating tasks.
      */
     public Task(Name name, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
 
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    
+    /**
+     * Constructor for deadlines. 
+     */
+    public Task(Name name, DateTime due, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, tags);
+        this.name = name;
+        this.due = due;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    
+    /**
+     * Constructor for events. 
+     */
+    public Task(Name name, DateTime start, DateTime end, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, tags);
+        // end must be > start check
+        this.name = name;
+        this.start = start;
+        this.end = end;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 

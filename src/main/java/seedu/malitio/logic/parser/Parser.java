@@ -30,6 +30,11 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"       
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern EDIT_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>[0-9]+)"
+                    + "(?<name>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)");
 
     public Parser() {}
 
@@ -51,6 +56,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -112,6 +120,31 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+    
+    
+    /**
+     * 
+     * @param arguments
+     * @return the prepared command
+     * @author Bel
+     */
+    private Command prepareEdit(String args) {
+        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        try {
+            Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+            return new EditCommand(
+                    index.get(),
+                    matcher.group("name"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
     /**
