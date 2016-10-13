@@ -3,6 +3,6 @@
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
   "taskListFilePath" : "tasklist.xml",
-  "taskListName" : "MyTaskList",
+  "taskListName" : "TypicalTaskListName",
   "extra" : "extra value"
 }

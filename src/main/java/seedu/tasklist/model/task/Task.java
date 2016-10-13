@@ -11,35 +11,51 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
-    private Title task;
-    private StartDate startDate;
+    private Title title;
     private Description description;
+    private StartDate startDate;
     private DueDate dueDate;
 
     private UniqueTagList tags;
+    
+    private boolean isCompleted;
 
     /**
      * Every field must be present and not null.
      */
     public Task(Title title, StartDate startDate, Description description, DueDate dueDate, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(title, startDate, description, dueDate, tags);
-        this.task = title;
+        this.title = title;
         this.startDate = startDate;
         this.description = description;
         this.dueDate = dueDate;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted = false;
+    }
+    
+    /**
+     * Every field must be present and not null.
+     */
+    public Task(Title title, StartDate startDate, Description description, DueDate dueDate, UniqueTagList tags, boolean isCompleted) {
+        assert !CollectionUtil.isAnyNull(title, startDate, description, dueDate, tags);
+        this.title = title;
+        this.startDate = startDate;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted = isCompleted;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getTitle(), source.getStartDate(), source.getDescription(), source.getDueDate(), source.getTags());
+        this(source.getTitle(), source.getStartDate(), source.getDescription(), source.getDueDate(), source.getTags(), source.isCompleted());
     }
 
     @Override
     public Title getTitle() {
-        return task;
+        return title;
     }
 
     @Override
@@ -61,6 +77,14 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.isCompleted = completed;
+    }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
@@ -79,7 +103,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(task, startDate, description, dueDate, tags);
+        return Objects.hash(title, startDate, description, dueDate, tags);
     }
 
     @Override

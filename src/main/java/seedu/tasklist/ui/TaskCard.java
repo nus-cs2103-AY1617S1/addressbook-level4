@@ -28,7 +28,7 @@ public class TaskCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public TaskCard(){
+    public TaskCard() {
 
     }
 
@@ -47,8 +47,17 @@ public class TaskCard extends UiPart{
         dueDate.setText(task.getDueDate().dueDate);
         description.setText(task.getDescription().description);
         tags.setText(task.tagsString());
+        setBackgroundColor();
     }
 
+    public void setBackgroundColor() {
+        if (task.isCompleted()) {
+            cardPane.setStyle("-fx-background-color: yellow;");
+        } else {
+            cardPane.setStyle("-fx-background-color: white;");
+        }
+    }
+    
     public HBox getLayout() {
         return cardPane;
     }

@@ -9,6 +9,7 @@ import seedu.tasklist.commons.util.StringUtil;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
+import seedu.tasklist.model.task.UniqueTaskList.TaskCompletionException;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -69,10 +70,29 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.removeTask(target);
         indicateTaskListChanged();
     }
+    
+    @Override
+    public void markTask(ReadOnlyTask target) throws TaskNotFoundException, TaskCompletionException {
+        taskList.markTask(target);
+        indicateTaskListChanged();
+    }
+    
+    @Override
+    public void unmarkTask(ReadOnlyTask target) throws TaskNotFoundException, TaskCompletionException {
+        taskList.unmarkTask(target);
+        indicateTaskListChanged();
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskList.addTask(task);
+        updateFilteredListToShowAll();
+        indicateTaskListChanged();
+    }
+    
+    @Override
+    public void editTask(Task taskToEdit, ReadOnlyTask target) throws TaskNotFoundException {
+        taskList.editTask(taskToEdit, target);
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
@@ -139,7 +159,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return titleKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTitle().fullTitle, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getAsText(), keyword))
                     .findAny()
                     .isPresent();
         }
