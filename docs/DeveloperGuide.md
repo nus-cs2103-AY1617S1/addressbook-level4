@@ -471,7 +471,7 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-#### Shi Ya - Google Calendar
+#### Google Calendar
 Pros:
 * Able to color-code different events
 * Able to set notifications
@@ -485,7 +485,7 @@ Cons:
 * Unable to check off completed event (only reminder can)
 * Event name gets truncated <br>
 
-#### Tsai Ti - S Planner
+#### S Planner
 Pros:
 * Able to sync with another calendar product(i.e. Google calendar)
 * Able to set notifications
@@ -502,7 +502,38 @@ Cons:
 * Unable to mark event as done
 * Unable to color-code different events <br>
 
-#### Carina - Cal
+#### Wunderlist
+
+Pros:
+* Able to create many layers - folders, lists, tasks, and subtasks, which allow the user to organize their multi-layered tasks systematically
+* Able to add alarm to a task
+* Able to repeat a task daily, weekly, monthly, or yearly
+* Able to add notes to a task
+* Able to attach files to a task
+* Able to mark a task as complete by a simple click
+* Able to unmark a “completed” task by a simple click
+* Able to share a task list with team members by name or email address
+* Able to sort a list alphabetically, by due date, or creation date
+* Includes two tabs of “today” and “week” which highlight the most recent tasks
+* Includes a search bar for tasks
+* Able to synchronize tasks to cloud
+* Able to star a task to mark its importance
+* Able to create a task without a date, thus allowing the user to keep track of reminders
+* Keeps track of the creation date of a task
+* Worded tabs automatically minimize themselves into icons when the window size is reduced, so as to keep the view uncluttered
+* Keeps track of completed tasks for reference
+
+Cons:
+* Unable to add the start and end time of an event. User is only allowed to set the deadline of a task
+* Unable to undo a deletion of a task
+* Unable to set a specific timing of a due date, e.g. 23:59, 6 am etc.
+* Slow to open / close the window since the user can only do it by mouse movements
+* Slow to resize the window since the user has to do it by mouse movements
+* Does not display today’s date
+* Does not display a calendar
+* Does not allow the addition of venue to a task
+
+#### Cal
 Pros:
 * With a very convenient interface for setting events’ date and time quickly
 * Able to add other participants’ contacts in an event
