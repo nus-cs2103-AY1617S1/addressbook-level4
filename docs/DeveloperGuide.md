@@ -115,9 +115,10 @@ being saved to the hard disk and the status bar of the UI being updated to refle
   coupling between components.
 
 The sections below give more details of each component.
+<br>
+<br>
 
 ### UI component
-
 <img src="images/UiClassDiagram.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
@@ -136,6 +137,9 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+<br>
+<br>
+
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -151,6 +155,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  API call.<br>
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
+<br>
+<br>
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -164,6 +170,8 @@ The `Model`,
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+<br>
+<br>
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -174,10 +182,14 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
 
+<br>
+<br>
 ### Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+<br>
+<br>
 ## Implementation
 
 ### Logging
@@ -190,6 +202,7 @@ and logging destinations.
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
+<br>
 
 **Logging Levels**
 
@@ -203,8 +216,8 @@ and logging destinations.
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
-
-
+<br>
+<br>
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
