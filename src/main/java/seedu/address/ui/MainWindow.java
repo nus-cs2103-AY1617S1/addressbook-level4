@@ -44,8 +44,8 @@ public class MainWindow extends UiPart {
 
     private String addressBookName;
 
-   // @FXML
-   // private AnchorPane welcomeMessagePlaceholder;
+    //@FXML
+    //private Stage welcomeMessagePlaceholder;
     
     @FXML
     private AnchorPane browserPlaceholder;
@@ -168,7 +168,13 @@ public class MainWindow extends UiPart {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
-
+/*
+    @FXML
+    public void handleWelcome() {
+    	WelcomeMessage welcomeMessage = WelcomeMessage.load(primaryStage);
+    	welcomeMessage.show();
+    }
+  */  
     @FXML
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
