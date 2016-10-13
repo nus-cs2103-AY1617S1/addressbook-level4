@@ -273,7 +273,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_select_jumpsToCorrectTask() throws Exception {
+    public void execute_select_jumpsToCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -301,7 +301,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_delete_removesCorrectTask() throws Exception {
+    public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -387,8 +387,8 @@ public class LogicManagerTest {
 
         Task revise() throws Exception {
             Name name = new Name("Revise CS1111");
-            StartTime startTime = new StartTime("11:11");
-            EndTime endTime = new EndTime("22:22");
+            StartTime startTime = new StartTime("1111hrs");
+            EndTime endTime = new EndTime("2222hrs");
             Location location = new Location("111, NUS street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -406,8 +406,8 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new StartTime("11:1" + seed),
-                    new EndTime("11:2" + seed),
+                    new StartTime(seed + "111hrs"),
+                    new EndTime(seed + "111hrs"),
                     new Location("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -505,8 +505,8 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new StartTime("11:11"),
-                    new EndTime("12:34"),
+                    new StartTime("1111hrs"),
+                    new EndTime("1234hrs"),
                     new Location("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
