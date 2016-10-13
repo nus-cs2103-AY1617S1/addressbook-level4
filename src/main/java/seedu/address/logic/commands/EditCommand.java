@@ -26,7 +26,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " 1 n/CS2103 T8A2 d/15-10-2016 p/3 r/12-01-2016 t/CS t/project";
     
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task from: %1$s\n to: %2$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task from: %1$s\nto: %2$s";
     
     public static final String MESSAGE_TASK_EXISTS = "An existing task already contains the specified parameters.";
     
