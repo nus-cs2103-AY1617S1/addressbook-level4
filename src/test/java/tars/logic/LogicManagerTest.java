@@ -298,7 +298,13 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("ls -", expectedMessage);
     }
-
+    
+    /**
+     * Test for list command
+     * 
+     * @@author A0140022H
+     * @throws Exception
+     */
     @Test
     public void execute_list_showsAllUndoneTasks() throws Exception {
         // prepare expectations
@@ -311,7 +317,13 @@ public class LogicManagerTest {
 
         assertCommandBehavior("ls", ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
     }
-
+    
+    /**
+     * Test for list done command
+     * 
+     * @@author A0140022H
+     * @throws Exception
+     */
     @Test
     public void execute_list_showsAllDoneTasks() throws Exception {
         // prepare expectations
@@ -330,7 +342,13 @@ public class LogicManagerTest {
 
         assertCommandBehavior("ls -do", ListCommand.MESSAGE_SUCCESS_DONE, expectedAB, expectedList);
     }
-
+    
+    /**
+     * Test for list all command
+     * 
+     * @@author A0140022H
+     * @throws Exception
+     */
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations

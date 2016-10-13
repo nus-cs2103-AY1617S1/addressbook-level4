@@ -7,6 +7,8 @@ import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Lists all tasks in tars to the user.
+ * 
+ * @@author A0140022H
  */
 public class ListCommand extends Command {
 

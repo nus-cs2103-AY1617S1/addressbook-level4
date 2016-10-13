@@ -11,7 +11,11 @@ import static tars.logic.commands.ListCommand.MESSAGE_SUCCESS_DONE;
 import static tars.logic.commands.ListCommand.MESSAGE_SUCCESS_ALL;
 import static tars.logic.commands.ListCommand.MESSAGE_USAGE;
 
-
+/**
+ * GUI test for list commands
+ * 
+ * @@author A0140022H
+ */
 public class ListCommandTest extends TarsGuiTest{
 	
 	TestTask[] currentList = td.getTypicalTasks();;
