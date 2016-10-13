@@ -4,17 +4,17 @@ import seedu.task.model.person.*;
 import seedu.task.model.tag.UniqueTagList;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Location address;
-    private EndTime email;
-    private StartTime phone;
+    private Location location;
+    private EndTime endTime;
+    private StartTime startTime;
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
@@ -22,16 +22,16 @@ public class TestPerson implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(Location address) {
-        this.address = address;
+    public void setTask(Location location) {
+        this.location = location;
     }
 
-    public void setEmail(EndTime email) {
-        this.email = email;
+    public void setEndTime(EndTime endTime) {
+        this.endTime = endTime;
     }
 
-    public void setPhone(StartTime phone) {
-        this.phone = phone;
+    public void setStartTime(StartTime startTime) {
+        this.startTime = startTime;
     }
 
     @Override
@@ -41,17 +41,17 @@ public class TestPerson implements ReadOnlyTask {
 
     @Override
     public StartTime getStartTime() {
-        return phone;
+        return startTime;
     }
 
     @Override
     public EndTime getEndTime() {
-        return email;
+        return endTime;
     }
 
     @Override
     public Location getLocation() {
-        return address;
+        return location;
     }
 
     @Override

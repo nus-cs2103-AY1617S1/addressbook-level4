@@ -19,9 +19,9 @@ public class TaskCard extends UiPart{
     @FXML
     private Label startTimeLabel;
     @FXML
-    private Label locationLabel;
-    @FXML
     private Label endTimeLabel;
+    @FXML
+    private Label locationLabel;
     @FXML
     private Label tags;
 
@@ -43,9 +43,9 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        startTimeLabel.setText(task.getStartTime().value);
-        locationLabel.setText(task.getLocation().value);
-        endTimeLabel.setText(task.getEndTime().value);
+        startTimeLabel.setText(" from " + task.getStartTime().value);
+        endTimeLabel.setText(" to " + task.getEndTime().value);
+        locationLabel.setText(" at " + task.getLocation().value);
         tags.setText(task.tagsString());
     }
 
