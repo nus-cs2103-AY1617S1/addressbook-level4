@@ -115,15 +115,18 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         }
     }
     
-    public Task editTask(ReadOnlyTask task, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
-        if (tasks.contains(task)) {
-            Task newTask = TaskManager.mapUnaffectedParams(task, newParams);
-            tasks.remove(task);
-            tasks.add(newTask);
-            return newTask;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }
+    public Task editTask(ReadOnlyTask task, Task newParams, String type) throws TaskNotFoundException, DuplicateTaskException {
+        
+
+        
+            if (tasks.contains(task)) {
+                Task newTask = TaskManager.mapUnaffectedParams(task, newParams, type);
+                tasks.remove(task);
+                tasks.add(newTask);
+                return newTask;
+            } else {
+                throw new UniqueTaskList.TaskNotFoundException();
+            }
     }
 
 //// tag-level operations

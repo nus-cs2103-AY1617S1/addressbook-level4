@@ -20,7 +20,7 @@ public class UndoCommand extends Command {
 
 	public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo: Adding of new task: %1$s";
 	public static final String MESSAGE_UNDO_DELETE_SUCCESS = "Undo: Deleting task: %1$s";
-	   public static final String MESSAGE_UNDO_EDIT_SUCCESS = "Undo: Editting task to: %1$s";
+	   public static final String MESSAGE_UNDO_EDIT_SUCCESS = "Undo: Editting task from: %1$s\nto: %2$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Lifekeeper";
 	
 	@Override
@@ -83,18 +83,20 @@ public class UndoCommand extends Command {
     private CommandResult undoEdit(PreviousCommand toUndo) {
         Task taskToEdit = toUndo.getUpdatedTask();
         Task edittedTask = toUndo.getOldTask();
-
+        Task taskAfterEdit = new Task(taskToEdit);
         
         try {
-            model.editTask(taskToEdit,edittedTask);
+            Task taskBeforeEdit = model.undoEditTask(taskToEdit,edittedTask);
             
+            return new CommandResult(String.format(MESSAGE_UNDO_EDIT_SUCCESS, taskBeforeEdit, taskAfterEdit));
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task to be edited cannot be missing";
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
+        return null;
 
-        return new CommandResult(String.format(MESSAGE_UNDO_EDIT_SUCCESS, edittedTask));
+        
     }
 	
 }

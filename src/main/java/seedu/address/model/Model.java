@@ -30,6 +30,11 @@ public interface Model {
      */
     Task editTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException;
 
+    /** Undo edit 
+     * @return The original task before edit
+     */
+    Task undoEditTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException;
+
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
@@ -39,4 +44,5 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
+    
 }

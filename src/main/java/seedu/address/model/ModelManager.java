@@ -80,7 +80,16 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized Task editTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
-        Task editedTask = addressBook.editTask(oldTask, newParams);
+        Task editedTask = addressBook.editTask(oldTask, newParams, "edit");
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+        
+        return editedTask;
+    }
+    
+    @Override
+    public synchronized Task undoEditTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
+        Task editedTask = addressBook.editTask(oldTask, newParams, "undo");
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
         
