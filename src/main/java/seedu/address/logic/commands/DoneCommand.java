@@ -3,8 +3,7 @@ package seedu.address.logic.commands;
 public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the task identified by index as done.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the task identified by index as done.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example 1: " + COMMAND_WORD + " 1\n";
 
