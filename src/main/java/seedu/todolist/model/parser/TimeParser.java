@@ -32,7 +32,7 @@ public class TimeParser {
     public static LocalTime parseTime(String time) throws DateTimeException {
         assert time != null;
         LocalTime parsedTime;
-        
+
         //trim all spaces away
         time = time.replaceAll("\\s+", "");
         
@@ -99,7 +99,6 @@ public class TimeParser {
         if (hour != TIME_COMPONENT_PERIOD_OFFSET) {
             hour = hour + TIME_COMPONENT_PERIOD_OFFSET;
         }
-        
         return LocalTime.of(hour, minute);
     }
     

@@ -17,10 +17,10 @@ public class TaskTime {
     public static final String MESSAGE_TIME_INVALID = "Task time provided is invalid!";
 
     //format: 24-hr
-    public static final String TIME_VALIDATION_REGEX_1 = "(\\p{Digit}){1,2}:(\\p{Digit}){2}";
+    public static final String TIME_VALIDATION_REGEX_2 = "(\\p{Digit}){1,2}:(\\p{Digit}){2}";
     //format: AM/PM
     //minutes can be omitted and assumed to be 00
-    public static final String TIME_VALIDATION_REGEX_2 = "(\\p{Digit}){1,2}(:(\\p{Digit}){2})?\\s?[AaPp][Mm]";
+    public static final String TIME_VALIDATION_REGEX_1 = "(\\p{Digit}){1,2}(:(\\p{Digit}){2})?\\s?[AaPp][Mm]";
     public static final String TIME_VALIDATION_REGEX_FORMAT = TIME_VALIDATION_REGEX_1 + "|" + TIME_VALIDATION_REGEX_2;
 
     public static final String TIME_DISPLAY_FORMAT = "hh:mma";

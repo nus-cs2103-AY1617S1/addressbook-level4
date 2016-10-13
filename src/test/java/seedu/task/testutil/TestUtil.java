@@ -68,7 +68,7 @@ public class TestUtil {
             return new Task[]{
                     new Task(new Name("Ali Muster"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new LocationParameter("home"), new RemarksParameter("buy flowers")),
                     new Task(new Name("Boris Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new LocationParameter("Trinity Church"), new RemarksParameter("bring umbrella")),
-                    new Task(new Name("Carl Kurz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new LocationParameter("school"), new RemarksParameter("ask Tom's opinion")),
+                    new Task(new Name("Carl Kurz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new LocationParameter("school"), new RemarksParameter("ask Toms opinion")),
                     new Task(new Name("Daniel Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new LocationParameter("NUS"), new RemarksParameter("buy drinks")),
                     new Task(new Name("Elle Meyer"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new LocationParameter("Kent Ridge MRT Station"), new RemarksParameter("prepare presents")),
                     new Task(new Name("Fiona Kunz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new LocationParameter("96 Bus Stop"), new RemarksParameter("do rehearsal")),

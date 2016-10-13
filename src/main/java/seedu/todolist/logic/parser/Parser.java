@@ -30,9 +30,9 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>(.)+)"
-                    + "(?<interval>(?:\\bfrom\\b[\\p{Alnum}:/\\s]+))"
-                    + " at (?<locationParameter>[^/]+)" 
-                    + " remarks (?<remarksParameter>[^/]+)");
+                    + "from (?<interval>[\\p{Alnum}:/\\s]+)"
+                    + " at (?<locationParameter>[\\p{Alnum}:/\\s]+)" 
+                    + " remarks (?<remarksParameter>[\\p{Alnum}:/\\s]+)");
     
     public static final int INTERVAL_COMPONENT_TOTAL = 2;
     public static final int INTERVAL_COMPONENT_FROM = 0;
@@ -135,7 +135,6 @@ public class Parser {
      * Returns String[startDate, startTime, endDate, endTime].
      */
     private String[] parseInterval(String interval) {
-        System.out.println("ALL INTERVAL : " + interval);
         String[] intervalComponents = interval.split("to");
         String startDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_DATE];
         String startTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_TIME];
@@ -187,7 +186,6 @@ public class Parser {
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        System.out.println("ALL TAGS : " + tagArguments);
         // no tags
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();
