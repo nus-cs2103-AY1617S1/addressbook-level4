@@ -29,7 +29,6 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.EditCommand.Field;
 
 /**
  * Parses user input.
