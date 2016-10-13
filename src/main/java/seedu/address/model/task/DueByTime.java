@@ -61,7 +61,7 @@ public class DueByTime {
     	if (value.equals(LocalTime.MAX)) {
     		return "";
     	}
-		return new StringBuilder(value.format(DateTimeFormatter.ofPattern("kk:mm"))).toString();
+		return new StringBuilder(value.format(DateTimeFormatter.ofPattern("kkmm"))).toString();
 	}
 
 }
