@@ -83,11 +83,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
 	public void editFloatingTaskName(ReadOnlyTask floatTask, Name name) {
-	    //System.out.println("Line 88: " + name);
 		Task currTask = floatingTasks.getTask(floatTask);
-	    //System.out.println("Line 91: " + currTask.getName());
 		currTask.setName(name);
-	    //System.out.println("Line 91: " + currTask.getName());
 		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);
 	}
 	

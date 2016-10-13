@@ -1,8 +1,13 @@
 package seedu.address.logic.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.history.ReversibleEffect;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -30,7 +35,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
+        assert model != null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredFloatingTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -38,15 +43,19 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deleteTask(personToDelete);
-        } catch (TaskNotFoundException pnfe) {
+            model.deleteTask(taskToDelete);
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target person cannot be missing";
         }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
+        
+        List<Task> affectedTasks = new ArrayList<Task>();
+        Task affectedTaskToDelete = new Task(taskToDelete);
+        affectedTasks.add(affectedTaskToDelete);
+        history.update(new ReversibleEffect(this.COMMAND_WORD, affectedTasks));
+        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, taskToDelete));
     }
 
 }

@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.history.History;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
@@ -25,17 +26,19 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Parser parser;
+    private final History history;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, History history) {
         this.model = model;
         this.parser = new Parser();
+        this.history = history;
     }
 
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        command.setData(model);
+        command.setData(model, history);
         return command.execute();
     }
 

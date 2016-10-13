@@ -15,6 +15,7 @@ import seedu.address.model.item.UniqueTaskList;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -192,6 +193,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
     	filteredFloatingTasks.setPredicate(null);
+    }
+
+
+    @Override
+    public void addTasks(List<Task> tasks) {
+        for (Task task: tasks){
+            addTask(task);
+        }
     }
 
 }

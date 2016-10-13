@@ -10,6 +10,7 @@ import seedu.address.model.item.UniqueTaskList;
 import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,6 +28,9 @@ public interface Model {
 
     /** Adds the given floating task */
     void addTask(Task task);
+       
+    /** Add the given floating tasks */
+    void addTasks(List<Task> tasks);
 
     /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
