@@ -6,8 +6,6 @@ import org.junit.Test;
 import seedu.address.logic.commands.UpdateCommand;
 import static seedu.address.logic.commands.UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS;
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
@@ -54,6 +52,16 @@ public class UpdateCommandTest extends AddressBookGuiTest {
         // invalid index
         commandBox.runCommand("update " + (currentList.length+1) + td.ida.getArgs());
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertTrue(taskListPanel.isListMatching(currentList));
+        
+        // no index provided
+        commandBox.runCommand("update");
+        assertTrue(taskListPanel.isListMatching(currentList));
+
+        //invalid command
+        commandBox.runCommand("updates "+ currentList.length);
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertTrue(taskListPanel.isListMatching(currentList));
     }
 	
 	private void assertUpdateSuccess(int targetIndex, TestTask taskToUpdate, TestTask... currentList) {
