@@ -22,9 +22,9 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the address book. "
-            + "Parameters: Name n/newName p/phoneNumber"
+            + "Parameters: Index n/newName p/phoneNumber"
             + "Example: " + COMMAND_WORD
-            + "originalTaskName n/newTaskName p/12345678";
+            + "1 n/newTaskName p/12345678";
 	
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
