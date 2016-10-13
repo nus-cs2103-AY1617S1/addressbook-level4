@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.commons.exceptions.NotExistDataException;
 
 import java.util.*;
 
@@ -23,6 +24,12 @@ public class UniqueTagList implements Iterable<Tag> {
     public static class DuplicateTagException extends DuplicateDataException {
         protected DuplicateTagException() {
             super("Operation would result in duplicate tags");
+        }
+    }
+
+    public static class NotExistTagException extends NotExistDataException {
+        protected NotExistTagException() {
+            super("Tag does not exist");
         }
     }
 
@@ -117,6 +124,14 @@ public class UniqueTagList implements Iterable<Tag> {
             throw new DuplicateTagException();
         }
         internalList.add(toAdd);
+    }
+
+    public void remove(Tag toRemove) throws NotExistTagException {
+        assert toRemove != null;
+        if (!contains(toRemove)) {
+            throw new NotExistTagException();
+        }
+        internalList.remove(toRemove);
     }
 
     @Override

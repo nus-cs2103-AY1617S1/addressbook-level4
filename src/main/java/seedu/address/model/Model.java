@@ -32,4 +32,7 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
+    /** Adds the given task to a specific position*/
+    void insertTask(int index, Task toAdd) throws UniqueTaskList.DuplicateTaskException;
+
 }

@@ -61,6 +61,19 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
+     * Adds a task to the list at the specific position.
+     *
+     * @throws DuplicateTaskException if the person to add is a duplicate of an existing person in the list.
+     */
+    public void insertTask(int index, Task toAdd) throws DuplicateTaskException {
+        assert toAdd != null;
+        if (contains(toAdd)) {
+            throw new DuplicateTaskException();
+        }
+        internalList.add(index, toAdd);
+    }
+
+    /**
      * Removes the equivalent person from the list.
      *
      * @throws TaskNotFoundException if no such person could be found in the list.

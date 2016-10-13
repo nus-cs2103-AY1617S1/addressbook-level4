@@ -45,15 +45,32 @@ public class AddTagCommand extends Command{
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToAddTag = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
+
+        String description = taskToUpdate.getDescription().toString();;
+        String time = taskToUpdate.getTime().toString();
+        String date = taskToUpdate.getDate().toString();
+        String priority = taskToUpdate.getPriority().toString();
+        UniqueTagList tags =taskToUpdate.getTags();
 
         try {
-			taskToAddTag.getTags().add(tag);
-		} catch (DuplicateTagException e) {
-			return new CommandResult(MESSAGE_DUPLICATE_TAG);
+			tags.add(tag);
+		} catch (DuplicateTagException e1) {
+			return new CommandResult(String.format(MESSAGE_DUPLICATE_TAG));
 		}
+		DeleteCommand delete = new DeleteCommand(targetIndex);
+        delete.model = model;
+		delete.execute();
+		AddCommand add;
+		try {
+			add = new AddCommand(description, priority, time, date, tags, targetIndex-1);
+			add.model = model;
+			add.insert();
+		} catch (IllegalValueException e){
+			return new CommandResult("re-adding failed");
+		};
 
-        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, taskToAddTag));
+        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, taskToUpdate));
     }
 
 }

@@ -4,6 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
-
+    private int index;
     /**
      * Convenience constructor using raw values.
      *
@@ -45,7 +46,7 @@ public class AddCommand extends Command {
         );
     }
 
-    public AddCommand(String description, String priority, String time, String date, UniqueTagList tags)
+    public AddCommand(String description, String priority, String time, String date, UniqueTagList tags, int index)
             throws IllegalValueException {
         this.toAdd = new Task(
                 new Description(description),
@@ -54,6 +55,7 @@ public class AddCommand extends Command {
                 new Date(date),
                 tags
         );
+        this.index = index;
     }
 
     @Override
@@ -65,7 +67,16 @@ public class AddCommand extends Command {
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
+    }
 
+    public CommandResult insert() {
+        assert model != null;
+        try {
+			model.insertTask(index, toAdd);
+		} catch (DuplicateTaskException e) {
+			return new CommandResult(MESSAGE_DUPLICATE_TASK);
+		}
+		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
 }
