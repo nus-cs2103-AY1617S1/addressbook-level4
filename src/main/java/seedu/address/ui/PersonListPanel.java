@@ -65,7 +65,7 @@ public class PersonListPanel extends UiPart {
     private void configure(ObservableList<ReadOnlyTask> undoneTaskList, ObservableList<ReadOnlyTask> doneTaskList) {
         //set up references
         this.undoneTaskList = undoneTaskList;
-        this.doneTaskList = FXCollections.observableArrayList();
+        this.doneTaskList = doneTaskList;
         
         setConnections(undoneTaskList);
         addToPlaceholder();
