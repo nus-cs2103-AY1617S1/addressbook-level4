@@ -117,7 +117,7 @@ Format: `delete INDEX [MORE_INDEX]`
 Examples: 
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd task in the address book.
+  Deletes the 2nd task in the saavy tasker.
 * `find CS1010`<br> 
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` command.
