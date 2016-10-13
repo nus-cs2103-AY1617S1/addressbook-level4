@@ -7,4 +7,6 @@ public interface UndoableCommand {
 	 * The program is taken to the state it was at before the command's execution.
 	 */
 	public CommandResult undo();
+
+	public CommandResult execute();
 }

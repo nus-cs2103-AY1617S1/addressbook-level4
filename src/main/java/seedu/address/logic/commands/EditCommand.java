@@ -17,7 +17,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits a task identified using it's last displayed index from the task manager.
  */
-public class EditCommand extends Command {
+public class EditCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -69,5 +69,12 @@ public class EditCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
+
+
+	@Override
+	public CommandResult undo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
