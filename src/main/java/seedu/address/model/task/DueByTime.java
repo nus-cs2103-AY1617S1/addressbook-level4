@@ -25,7 +25,12 @@ public class DueByTime {
      */
     public DueByTime(LocalTime dueByTime) throws IllegalValueException {
         assert dueByTime != null;
-        this.value = dueByTime.truncatedTo(ChronoUnit.MINUTES);
+        // Enable storage of floating time
+        if (!dueByTime.equals(LocalTime.MAX)) {
+        	this.value = dueByTime.truncatedTo(ChronoUnit.MINUTES);
+        } else {
+        	this.value = dueByTime;
+        }
     }
 
     @Override
@@ -52,7 +57,11 @@ public class DueByTime {
      * @author A0139661Y
      */
     public String getFriendlyString() {
-		return new StringBuilder(value.getHour() +":"+ value.getMinute()).toString();
+		// If floating date, return do not print anything
+    	if (value.equals(LocalTime.MAX)) {
+    		return "";
+    	}
+		return new StringBuilder(value.format(DateTimeFormatter.ofPattern("kkmm"))).toString();
 	}
 
 }

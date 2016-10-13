@@ -58,7 +58,8 @@ public class CMDoController {
 	}
 
 	private void runCommand(String keyboardInput) {
-		MainParser.parseCommand(keyboardInput);
+		MainParser parser = MainParser.getInstance();
+		parser.parseCommand(keyboardInput);
 	}
 	
 }

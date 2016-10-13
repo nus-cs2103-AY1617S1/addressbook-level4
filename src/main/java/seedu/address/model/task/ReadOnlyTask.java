@@ -34,24 +34,32 @@ public interface ReadOnlyTask {
                 && other.getPriority().equals(this.getPriority()));
     }
 
-    /**
-     * Formats the task as text, showing all contact details.
-     */
-    default String getAsText() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getDetail())
-        		.append(" Done: ")
-        		.append(checkDone())
-                .append(" DueDate: ")
-                .append(getDueByDate())
-                .append(" DueTime: ")
-                .append(getDueByTime())
-                .append(" Priority: ")
-                .append(getPriority())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
-        return builder.toString();
-    }
+//    /**
+//     * Formats the task as text, showing all contact details.
+//     */
+//    default String getAsText() {
+//        final StringBuilder builder = new StringBuilder();
+//        builder.append(getDetail())
+//                .append(" due on ")
+//                .append(getDueByDate())
+//                .append(" due at: ")
+//                .append(getDueByTime())
+//                .append(" with ")
+//                .append(getPriority())
+//                .append(" priority.")
+//                .append(" Tags applied: ")
+//        		.append(" Done? ")
+//        		.append(checkDone().value ? "yes" : "no");
+//        getTags().forEach(builder::append);
+//        return builder.toString();
+//    }
+
+  /**
+   * Formats the task as text, showing all contact details.
+   */
+  default String getAsText() {
+	    return getDetail().details;
+  }
 
     /**
      * Returns a string representation of this Task's tags
