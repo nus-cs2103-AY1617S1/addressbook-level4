@@ -91,8 +91,8 @@ public class DateUtilTest {
 	    }
 	    
 	    // Test dates in the past
-	    LocalDateTime pastDate = fromEpoch(946656000000l);
-	    assertEquals(DateUtil.formatShortDate(pastDate), "Sat 01 Jan");
+	    LocalDateTime pastDate = fromEpoch(946656000000l); // 1 Jan 2000 UTC+8
+	    assertEquals(DateUtil.formatShortDate(pastDate), pastDate.format(DateTimeFormatter.ofPattern("E dd MMM")));
 	}
 	
 	private static LocalDateTime fromEpoch(long epoch) {
