@@ -1,5 +1,6 @@
 package tars.storage;
 
+import tars.commons.core.Config;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.events.storage.DataSavingExceptionEvent;
 import tars.commons.exceptions.DataConversionException;
@@ -36,4 +37,11 @@ public interface Storage extends TarsStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleTarsChangedEvent(TarsChangedEvent abce);
+    
+    /** Updates Tars Storage Directory
+     * @@author A0124333U
+     * @param newFilePath
+     * @param newConfig
+     */
+    void updateTarsStorageDirectory(String newFilePath, Config newConfig);
 }

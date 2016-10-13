@@ -114,6 +114,13 @@ public class MainWindow extends UiPart {
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTarsFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
+    
+    /* @@author A0124333U
+     * A method to reload the status bar footer
+     */
+    public void reloadStatusBarFooter(String newTarsFilePath) {
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), newTarsFilePath);
+    }
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;

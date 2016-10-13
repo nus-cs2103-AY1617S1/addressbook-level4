@@ -2,7 +2,6 @@ package tars.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import tars.commons.exceptions.DuplicateDataException;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.util.CollectionUtil;
 
