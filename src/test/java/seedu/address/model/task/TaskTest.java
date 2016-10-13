@@ -19,7 +19,7 @@ public class TaskTest {
         uncompletedTask.setComplete(new Complete(false));
 
         ReadOnlyTask completedTask = Task.convertToComplete(uncompletedTask);
-        assertTrue(completedTask.getComplete().isCompleted);
+        assertTrue(completedTask.getComplete().isCompleted());
     }
 
     @Test (expected=TaskAlreadyCompletedException.class)

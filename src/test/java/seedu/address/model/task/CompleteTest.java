@@ -10,7 +10,7 @@ public class CompleteTest {
     public void defaultConstructor_notCompleted_returnsNotCompleted() {
         Complete notCompleted = new Complete(false);
         
-        assertFalse(notCompleted.isCompleted);
+        assertFalse(notCompleted.isCompleted());
         assertEquals(Complete.TO_STRING_NOT_COMPLETED, notCompleted.toString());
     }
     
@@ -18,7 +18,7 @@ public class CompleteTest {
     public void defaultConstructor_completed_returnsCompleted() {
         Complete completed = new Complete(true);
         
-        assertTrue(completed.isCompleted);
+        assertTrue(completed.isCompleted());
         assertEquals(Complete.TO_STRING_COMPLETED, completed.toString());
     }
 

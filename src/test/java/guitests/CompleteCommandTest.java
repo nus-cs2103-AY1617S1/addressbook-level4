@@ -51,7 +51,7 @@ public class CompleteCommandTest extends AddressBookGuiTest {
      */
     private void assertCompleteAlreadyMarked(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask taskAlreadyCompleted = currentList[targetIndexOneIndexed - 1];
-        assertTrue(taskAlreadyCompleted.getComplete().isCompleted);
+        assertTrue(taskAlreadyCompleted.getComplete().isCompleted());
 
         commandBox.runCommand("complete " + targetIndexOneIndexed);
 

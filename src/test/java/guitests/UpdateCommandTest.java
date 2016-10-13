@@ -56,7 +56,7 @@ public class UpdateCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(newTask.getUpdateCommand(taskIndex, oldTask, newTags, deleteTags));
 
         // confirm the updated card contains the right data
-        TaskCardHandle updatedCard = taskListPanel.navigateToTask(newTask.getName().name);
+        TaskCardHandle updatedCard = taskListPanel.navigateToTask(newTask.getName().getName());
         assertMatching(newTask, updatedCard);
 
         // confirm the list now contains all previous tasks plus the new task

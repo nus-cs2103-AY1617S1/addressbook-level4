@@ -13,7 +13,7 @@ public class Name {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String name;
+    private final String name;
 
     /**
      * Validates given name.
@@ -39,19 +39,23 @@ public class Name {
 
     @Override
     public String toString() {
-        return name;
+        return getName();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && this.name.equals(((Name) other).name)); // state check
+                && this.getName().equals(((Name) other).getName())); // state check
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(getName());
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

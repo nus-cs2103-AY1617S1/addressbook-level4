@@ -55,32 +55,32 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getName().name;
+        name = source.getName().getName();
         
-        isCompleted = source.getComplete().isCompleted;
+        isCompleted = source.getComplete().isCompleted();
         
-        Date tempDeadline = source.getDeadline().deadline;
+        Date tempDeadline = source.getDeadline().getDeadline();
         if (tempDeadline != null) {
         	deadline = sdf.format(new Date(tempDeadline.getTime()));
         }
         
         Period period = source.getPeriod();
-        Date tempStartTime = period.startTime;
+        Date tempStartTime = period.getStartTime();
         if (tempStartTime != null) {
         	startTime = sdf.format(new Date(tempStartTime.getTime()));
         }
-        Date tempEndTime = period.endTime;
+        Date tempEndTime = period.getEndTime();
         if (tempEndTime != null) {
-        	endTime = sdf.format(new Date(period.endTime.getTime()));
+        	endTime = sdf.format(new Date(period.getEndTime().getTime()));
         }
         
         Recurrence deadlineRecurrence = source.getDeadlineRecurrence(); 
-        deadlinePattern = deadlineRecurrence.pattern.name();
-        deadlineFrequency = deadlineRecurrence.frequency;
+        deadlinePattern = deadlineRecurrence.getPattern().name();
+        deadlineFrequency = deadlineRecurrence.getFrequency();
         
         Recurrence periodRecurrence = source.getPeriodRecurrence();
-        periodPattern = periodRecurrence.pattern.name();
-        periodFrequency = periodRecurrence.frequency;
+        periodPattern = periodRecurrence.getPattern().name();
+        periodFrequency = periodRecurrence.getFrequency();
         
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
