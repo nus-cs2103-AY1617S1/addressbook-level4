@@ -59,30 +59,30 @@ Examples:
 * `add Workout`
 * `add watch Star Wars`
 
-If you need a task to be done by a specific date, you can specify it using `/by` or `before`.
+If you need a task to be done by a specific date, you can specify it using `by` or `before`.
 
-Format: `add TASK_NAME /by DATE_TIME`  or `add TASK_NAME /before DATE_TIME`  
+Format: `add TASK_NAME by DATE_TIME`  or `add TASK_NAME /before DATE_TIME`  
 
 > Date formats are not case-sensitive
 
 Examples:  
 
-* `add watch Star Wars /by Fri`
-* `add watch Star Wars /by tonight`
-* `add watch Star Wars /by next Wed`
-* `add watch Star Wars /by 10 Oct, 9.30pm`
+* `add watch Star Wars by Fri`
+* `add watch Star Wars by tonight`
+* `add watch Star Wars by next Wed`
+* `add watch Star Wars by 10 Oct, 9.30pm`
 
-If you need a task to be done within a specific date and time, you can specify it using `/from` and `/to`
+If you need a task to be done within a specific date and time, you can specify it using `from` and `to`
 
-Format: `add TASK_NAME [/from START_DATE_TIME] [/to END_DATE_TIME] ` 
+Format: `add TASK_NAME [from START_DATE_TIME] [to END_DATE_TIME] ` 
 
 > If you specify the time but no days or dates given, the date of creation will be used.  
 
 Examples:
 
-* `add watch Star Wars /from 7pm`
-* `add movie marathon /from today 12pm /to this friday 3pm`
-* `add project meeting /from 10 oct 12pm /to 2pm`
+* `add watch Star Wars from 7pm`
+* `add movie marathon from today 12pm to this friday 3pm`
+* `add project meeting from 10 oct 12pm to 2pm`
 
 The event “watch Star Wars” will begin from 7pm of the date of creation. No end time is specified.  
 The event “project meeting” will start at 12pm on 10 October and end at 2pm on 10 October.
