@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="100" minWidth="100" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.components.HelpCommandItem">
+  <children>
+    <Text fx:id="commandNameText" styleClass="commandtext-name" />
+    <Text fx:id="commandDescriptionText" styleClass="commandtext-description" />
+    <Text fx:id="commandSyntaxText" styleClass="commandtext-syntax" />
+  </children>
+</VBox>
