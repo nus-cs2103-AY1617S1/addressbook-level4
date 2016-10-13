@@ -7,12 +7,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import tars.commons.core.Config;
 import tars.commons.core.EventsCenter;
 import tars.commons.core.Messages;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.events.ui.JumpToListRequestEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
+import tars.commons.exceptions.DataConversionException;
 import tars.commons.flags.Flag;
+import tars.commons.util.ConfigUtil;
 import tars.logic.Logic;
 import tars.logic.LogicManager;
 import tars.logic.commands.AddCommand;
@@ -38,11 +41,13 @@ import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.storage.StorageManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -58,6 +63,9 @@ public class LogicManagerTest {
 
     private Model model;
     private Logic logic;
+    private Config originalConfig;
+    
+    private static final String configFilePath = "config.json";
 
     // These are for checking the correctness of the events raised
     private ReadOnlyTars latestSavedTars;
@@ -81,6 +89,12 @@ public class LogicManagerTest {
 
     @Before
     public void setup() {
+        try {
+            originalConfig = ConfigUtil.readConfig(configFilePath).get();
+        } catch (DataConversionException e) {
+            System.out.println("Config File cannot be found");
+            e.printStackTrace();
+        }
         model = new ModelManager();
         String tempTarsFile = saveFolder.getRoot().getPath() + "TempTars.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
@@ -93,7 +107,8 @@ public class LogicManagerTest {
     }
 
     @After
-    public void teardown() {
+    public void teardown() throws IOException {
+        undoChangeInTarsFilePath();
         EventsCenter.clearSubscribers();
     }
 
@@ -551,7 +566,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_cd_success() throws Exception {
-        assertCommandBehavior("cd testTars.xml", String.format(CdCommand.MESSAGE_SUCCESS, "testTars.xml"));
+        String tempTestTarsFilePath = saveFolder.getRoot().getPath() + "TempTestTars.xml";
+        assertCommandBehavior("cd " + tempTestTarsFilePath , 
+                String.format(CdCommand.MESSAGE_SUCCESS, tempTestTarsFilePath));
     }
 
     @Test
@@ -597,6 +614,13 @@ public class LogicManagerTest {
         expectedAB.addTask(task2);
 
         assertCommandBehavior("mark -ud 1 2", MarkCommand.MESSAGE_MARK_SUCCESS, expectedAB, expectedAB.getTaskList());
+    }
+    
+    /*
+     * A method to undo any changes to the Tars File Path during tests
+     */
+    public void undoChangeInTarsFilePath() throws IOException {
+        ConfigUtil.saveConfig(originalConfig, configFilePath);
     }
 
     /**
