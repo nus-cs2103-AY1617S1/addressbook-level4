@@ -57,7 +57,7 @@ This guide describes the design and implementation of TasKitty. It will help you
 <em>Architecture Diagram</em>
 </p>
 
-The **_Architecture Diagram_** given above explains the high-level design of the App.
+The **_Architecture Diagram_** given above explains the high-level design of the task manager.
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/taskitty/MainApp.java). It is responsible for
@@ -80,14 +80,17 @@ Each of the four components
 * defines its _API_ in an `interface` with the same name as the component.
 * exposes its functionality using a `{Component Name}Manager` class.
 
+
 <p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 <em>Logic Class Diagram</em>
 </p>
 
+
 For example, the `Logic` component (see the class diagram given above) defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
+
 
 <p align="center">
 <img src="images\SDforDeleteTask.png" width="800">
@@ -95,17 +98,20 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <em>Sequence Diagram for Delete Task</em>
 </p>
 
+
 The _Sequence Diagram_ above shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
+
 <p align="center">
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
 <em>Sequence Diagram for Delete Task Event Handling</em>
 </p>
+
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
