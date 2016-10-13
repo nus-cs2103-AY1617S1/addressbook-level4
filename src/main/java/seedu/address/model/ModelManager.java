@@ -85,6 +85,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public synchronized void addDoneTask(Task floatingTask) {
+        taskManager.addDoneTask(floatingTask);
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
     public synchronized void editName(ReadOnlyTask floatingTask, Name name) throws UniqueTaskList.DuplicateTaskException {
         //System.out.println("Name at line 81 " + name);
         taskManager.editFloatingTaskName(floatingTask, name);
@@ -130,7 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDoneTaskList() {
-        return new UnmodifiableObservableList<>(filteredUndoneTasks);
+        return new UnmodifiableObservableList<>(filteredDoneTasks);
     }
 
     public void TaskManager() {
@@ -202,5 +208,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredUndoneTasks.setPredicate(null);
     }
+    
 
 }

@@ -84,6 +84,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         undoneTasks.add(f);
     }
     
+    public void addDoneTask(Task f) {
+        doneTasks.add(f);
+    }
+    
     public boolean removeFloatingTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (undoneTasks.remove(key)) {
             return true;

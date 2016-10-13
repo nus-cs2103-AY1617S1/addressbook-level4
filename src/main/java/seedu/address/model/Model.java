@@ -27,6 +27,9 @@ public interface Model {
 
     /** Adds the given floating task */
     void addTask(Task task);
+    
+    /** Archives the task by adding it into DoneTaskList*/
+    void addDoneTask(Task task);
 
     /** Returns the filtered undone task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredUndoneTaskList();
@@ -55,7 +58,7 @@ public interface Model {
     /** Edits the recurrence of the given floating task. */
 	void editRecurrence(ReadOnlyTask personToEdit, RecurrenceRate recurrenceRate);
 
-    
+
 
 
 }
