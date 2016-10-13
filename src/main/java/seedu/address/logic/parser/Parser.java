@@ -25,7 +25,8 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
+    
+    private static final Pattern TASK_NAME_ARGS_FORMAT=Pattern.compile("[\\p{Alnum} ]+");
     //Note: Temporary, may change it later
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
@@ -137,12 +138,16 @@ public class Parser {
     private Command prepareDelete(String args) {
 
         Optional<Integer> index = parseIndex(args);
+        String name=args;
         if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        	//System.out.println("here");
+        	return new DeleteCommand(name);
+            //return new IncorrectCommand(
+              //      String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
         return new DeleteCommand(index.get());
+       
+        
     }
 
     /**
@@ -178,6 +183,22 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
 
     }
+    
+    /**
+     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
+     *   Returns an {@code Optional.empty()} otherwise.
+     */
+    private Optional<String> parseString(String command) {
+        final Matcher matcher = TASK_NAME_ARGS_FORMAT.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+
+        String name = matcher.group("targetName");
+        return Optional.of(name);
+
+    }
+
 
     /**
      * Parses arguments in the context of the find person command.
