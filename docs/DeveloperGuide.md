@@ -329,5 +329,70 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+### Google Calendar
+#### Strengths
+1. Simple 'what you see is what you get' interface
+2. Multi-platform; can be run on various devices
+3. Data is synchronized via google account
+4. Color coding for organizing scheduled tasks and events
+5. Global Search; data searched through other google products as well; Gmail, Drive, etc.
+6. Automatic generation of start and end times enforcing structure in all entries
+7. Recurring events
 
+#### Weaknesses
+1. No tagging mechanism for more complex organization
+2. No analysis, summary nor statistics of data the user has entered
+3. No anonymous use; must have a google account
+4. Calendar cannot display a filtered set, thus clutter when high volume of data
+
+### Todo.txt (laptop version)
+#### Strength:
+1. Simple editors(use CLI) to manage tasks
+2. Can be used in every text editor, regardless of OS
+3. Controlled by keyboard shortcuts
+4. Able to show what’s the next important thing to get done
+5. Can add the place or situation on your tasks
+6. File contents is human-readable without requiring any tools other than plain text viewer
+7. A single line in text file represents a single task which is easy to manage
+8. Priority can be set for each task
+9. Can be extended to add-ons
+10. Can be connected to Dropbox
+
+#### Weakness:
+1. UI does not look good
+2. All the output will only be shown in CLI format (no colour, no font change)
+3. Need to update whether the task has finished or not by the user
+4. No notification for task near deadline
+5. Require users to remember too many commands
+
+### Wunderlist (Free version)
+
+#### Strength
+1. Easy to use
+2. Cross-platform application
+3. Notification for tasks set by users
+4. Share to-do list with others
+5. Use hashtag to categorize tasks
+6. Plug-in for Microsoft Outlook and Google Calendar
+7. Can take notes (not only task)
+
+#### Weakness
+1. Cannot create task using one line command
+2. Have limited number subtasks (only premium version has unlimited)
+3. Cannot customize the interface (only premium version can do)
+
+### Todoist (Free version)
+#### Strength
+1. Simple to use
+2. Can share tasks with others
+3. Recurring events
+4. Have both online and offline access
+5. Have different priority level for tasks
+6. Can track your productivity and visualize your achievement trends over time.
+
+#### Weakness
+1. tasks for free version
+2. Cannot use label to categorize tasks for free version
+3. Synchronization to different platform is only available for premium version
+
+In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, priority for tasks and the tag for tasks are some important features.

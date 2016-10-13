@@ -2,7 +2,7 @@
 
 * [Quick Start](#quick-start)
 * [Features](#features)
-* [FAQ](#faq)
+* [FAQ](#FAQ)
 * [Command Summary](#command-summary)
 
 ## Quick Start
@@ -11,124 +11,149 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+1. Download the latest `MESS.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your to-do list.
+3. Double-click the file to start the app. The GUI should appear in a few seconds.
+   <img src="images/mockup pic.jpg" width="600"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
+   * **`list`** : lists all tasks
+   * **`add`**`meeting`: adds a task named CS2103 Tutorial
+   * **`find`**`meeting `: searches the task named tutorial   
+   * **`delete`**`presentation`: delete a task named Quiz
+   * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
+   * **`undo`** : undo previous one action
+   * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
 
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
-
-#### Viewing help : `help`
-Format: `help`
-
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+**Command Format**
+* The command is case insensitive.
+* The order of parameters is fixed.
+* Words in `UPPER_CASE` are the parameters.
+* Words in `SQUARE_BRACKET` are optional.
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+#### Adding a task or event: `add`
+Adds a task to the to-do list<br>
+Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 
-> Persons can have any number of tags (including 0)
+> Date format of START_DATE and CLOSE_DATE is DD-MM-YYYY:HHMM e.g. 01/10/2016:2100
+> This is only the standard date time format. There is flexibility on the datetime format. You can use both type of date time format.
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `TASK_NAME` must be unique.
+* If there is no argument, the task will become floating.
+* `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
+* `TAG` is for users to write tags for different tasks. Mulitple tags are available by typing `t/TAG t/TAG`.
+
+
+Examples:
+* `add proposal c/10-10-2016:2100` <br> Adds a proposal task with a deadline on 10-10-2016 at 21:00
+* `add meeting s/01-10-2016:1300 c/01-10-2016:2200`<br> Adds a meeting event which start on 1-10-2016 at 1 p.m. and ends at 10 p.m.
+* `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
+* `add tutorial t/cs2103` <br> Adds a flaoting task named tutorial with a tag CS2013
+* `add quiz t/cs2102 t/easy` <br> Adds a flaoting task named tutorial with a tag CS2012 and easy
+
+Examples on date time flexibility:
+* `add project three days from now` <br> Adds a project task three days later from the time you input this command
+* `add meet with friends in three days` <br> Adds meet with friend as a task three days later from the time you input this command
+
+#### Deleting a task : `delete`
+Deletes a specific task by task name or index from the to-do list.<br>
+Format: `delete TASK_NAME` or `delete INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
+
+Examples:
+* `delete meeting`<br>
+  Deletes `meeting` task.
+* `delete 1`<br>
+  Deletes the first task in the to-do list.
 
 #### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
+Shows a list of tasks and events in the todo list.<br>
 Format: `list`
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+#### Finding all tasks and events containing keyword in their name: `find`
+Finds tasks which have names containing any of the given keywords.<br>
+Format: `find KEYWORD` or `find t/TAG`
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
+> * The search is case insensitive. e.g `meeting` will match `Meeting`
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
+> * Only task name is searched.
 > * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
+	e.g. `Hans` will match `Hans Bo`
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+Examples:
+* `find meeting`<br>
+  Returns tasks having name `meeting` 
+* `find t/cs2103`<br>
+  Returns tasks having tag `cs2103`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+#### Update entries : `update`
+Update a specific task.<br>
+Format: `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+> * INDEX refers to the number appears on the list in front the task name.
+> * The TAG here will be added to the referred task and the orginial tag remains. If you want to delete a tag, use `rt/TO_REMOVE_TAG` to delete tag by name.
+> * TO_REMOVE_TAG refers to the tag (or tags) that you want to be removed by typing the tags' name that you want to delete.
+> * You can choose what to update. It depends on you whether you want to update only one information or update multiple information. 
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+Examples:
+* `update 2 shopping c/03/10/2016:2100`<br>
+   update the taks name of the second task on the list to shopping and the start time to 3/10/2016 9 p.m.
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+* `update 1 t/cs2103`<br>
+  add the tag of the first task on to-do list to cs2103
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+* `update 3 c/three hours later` <br>
+  update the taks name of the third task on the list to a deadline three hours after you type this command
+  
+* `update 2 t/family rt/friends` <br>  
+   add a tag family to the second task and remove the tag named friends
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+#### Undo action : `undo`
+Undo the previous one action.<br>
+Format: `undo`
+
+#### Viewing help : `help`
+Show the help menu. Format: `help`
+> Help is also shown if you enter an incorrect command e.g. `123abc`
 
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+#### Saving the data
+To-do list data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## FAQ
+**Q**: Can I add event which have a start date and time to my to-do list ?<br>
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+**A**: Yes, you can create an event by typing command with a start and end date. For example, you have a trip from 10/10/2016 8:00 to 13/10/2016 21:00. You can type command like this: `add trip s/10/10/2016:0800 c/13/10/2016:2100`.
        
+**Q**: If I don't know the deadline of my task yet, can I still add my task?<br>
+
+**A**: Yes, you can still add your task. You can create a floating task by only type in command `add TASK_NAME` if you don't know the deadline of your task.
+
+> <img src="images/mockup pic2.jpg" width="600"><br>
+In this example, you can see shopping is a floating task without a start time and deadline. 
+  	
 ## Command Summary
 
 Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
+-------- | :--------
+Add | `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
+Delete | `delete TASK_NAME` or `delete INDEX`
 List | `list`
+Find | `find KEYWORD` or `find t/TAG`
+Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
+Undo | `undo`
 Help | `help`
-Select | `select INDEX`
+Exit | `exit`

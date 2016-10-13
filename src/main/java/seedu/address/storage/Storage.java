@@ -30,7 +30,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
+     * Saves the current version of the task list to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */

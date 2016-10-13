@@ -25,6 +25,11 @@ public class UniqueTagList implements Iterable<Tag> {
             super("Operation would result in duplicate tags");
         }
     }
+    
+    /**
+     * Signals that an operation tried to operate on a tag that does not exist
+     */
+    public static class TagNotFoundException extends Exception { }
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
@@ -117,6 +122,19 @@ public class UniqueTagList implements Iterable<Tag> {
             throw new DuplicateTagException();
         }
         internalList.add(toAdd);
+    }
+    
+    /**
+     * Removes a Tag from the list
+     * 
+     * @throws TagNotFoundException if Tag to be removed does not exist in the list.
+     */
+    public void remove(Tag toRemove) throws TagNotFoundException {
+        assert toRemove != null;
+        if (!contains(toRemove)) {
+            throw new TagNotFoundException();
+        }
+        internalList.remove(toRemove);
     }
 
     @Override
