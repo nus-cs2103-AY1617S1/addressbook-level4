@@ -105,13 +105,11 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            return new AddCommand(
-            		matcher.group("title"),
-                    matcher.group("description"),
-                    matcher.group("startDate"),
-                    matcher.group("dueDate"),
-                    matcher.group("interval"),
-                    matcher.group("timeInterval"),
+        	return new AddCommand(
+                    matcher.group("name"),
+                    matcher.group("phone"),
+                    matcher.group("email"),
+                    matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
