@@ -158,7 +158,6 @@ Examples:
 * `edit 2 Company meeting tomorrow morning, at 7am to 9am -high`
 * `Buy coffee for boss, by 8am repeat every day`
 * `edit 3 Buy coffee for boss, by 7am repeat every 2 days`
-* `edit 3 Buy coffee for boss for the last time, by 7am`
 
 ### Deleting a task: `delete`
 Deletes an existing task in your task manager. This will remove them from the storage. If you want to mark them as done instead, look at the `done` command. <br>
