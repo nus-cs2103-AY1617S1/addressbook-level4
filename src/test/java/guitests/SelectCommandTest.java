@@ -12,7 +12,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
     @Test
     public void selectTask_nonEmptyList() {
 
-        assertSelectionInvalid(10); //invalid index
+        assertSelectionInvalid(10); //Out of bounds index
         assertNoTaskSelected();
 
         assertSelectionSuccess(1); //first task in the list
@@ -36,7 +36,12 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("The task index provided is invalid");
+        if(taskListPanel.getNumberOfTasks() < 1){
+            assertResultMessage("The task index provided is invalid");
+        }
+        else{
+            assertResultMessage("The task index provided is invalid" + "\n" + "Valid index range: 1 to " + taskListPanel.getNumberOfTasks());
+        }
     }
 
     private void assertSelectionSuccess(int index) {

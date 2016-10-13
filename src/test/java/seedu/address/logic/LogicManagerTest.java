@@ -224,7 +224,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_list_showsCompletedTasks() throws Exception {
         // prepare expectations
@@ -244,7 +244,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_list_showsByDeadline() throws Exception {
         // prepare expectations
@@ -264,7 +264,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_list_showsFromStartTime() throws Exception {
         // prepare expectations
@@ -284,7 +284,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_list_showsToEndTime() throws Exception {
         // prepare expectations
@@ -304,7 +304,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_list_showsOneTag() throws Exception {
         // prepare expectations
@@ -324,7 +324,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_list_showsMultipleTags() throws Exception {
         // prepare expectations
@@ -344,7 +344,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_list_MultipleFilters_showsCompletedFromStartTimeOneTag() throws Exception {
         // prepare expectations
@@ -364,13 +364,13 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_show_invalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE);
         assertCommandBehavior("show", expectedMessage);
     }
-    
+
     @Test
     public void execute_show_showsCompletedTasks() throws Exception {
         // prepare expectations
@@ -390,7 +390,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_show_showsOnDate() throws Exception {
         // prepare expectations
@@ -410,7 +410,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_show_showsByDeadline() throws Exception {
         // prepare expectations
@@ -430,7 +430,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_show_showsFromStartTime() throws Exception {
         // prepare expectations
@@ -450,7 +450,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_show_showsToEndTime() throws Exception {
         // prepare expectations
@@ -470,7 +470,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_show_showsOneTag() throws Exception {
         // prepare expectations
@@ -490,7 +490,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_show_showsMultipleTags() throws Exception {
         // prepare expectations
@@ -510,7 +510,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_show_MultipleFilters_showsCompletedFromStartTimeOneTag() throws Exception {
         // prepare expectations
@@ -530,13 +530,13 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_hide_invalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE);
         assertCommandBehavior("hide", expectedMessage);
     }
-    
+
     @Test
     public void execute_hide_hidesCompletedTasks() throws Exception {
         // prepare expectations
@@ -556,7 +556,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_hide_hidesOnDate() throws Exception {
         // prepare expectations
@@ -576,7 +576,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_hide_hidesByDeadline() throws Exception {
         // prepare expectations
@@ -596,7 +596,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_hide_hidesFromStartTime() throws Exception {
         // prepare expectations
@@ -616,7 +616,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_hide_hidesToEndTime() throws Exception {
         // prepare expectations
@@ -636,7 +636,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_hide_hidesOneTag() throws Exception {
         // prepare expectations
@@ -656,7 +656,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_hide_hidesMultipleTags() throws Exception {
         // prepare expectations
@@ -676,7 +676,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_hide_MultipleFilters_showsCompletedFromStartTimeOneTag() throws Exception {
         // prepare expectations
@@ -716,7 +716,7 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX + "\n" + "Valid index range: 1 to 2";
         TestDataHelper helper = new TestDataHelper();
         List<Task> personList = helper.generatePersonList(2);
 
@@ -755,7 +755,7 @@ public class LogicManagerTest {
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
-    
+
 
 
     @Test
@@ -768,32 +768,32 @@ public class LogicManagerTest {
     public void execute_updateIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("update");
     }
-    
+
     @Test
     public void execute_update_updatesCorrectTaskWithDeletedInfo() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        
+
         List<Task> threeTasks = helper.generatePersonList(3);
         helper.addToModel(model, threeTasks);
-        
+
         final int taskIndexToUpdate = 1;
-        
+
         UniqueTagList newTagList = threeTasks.get(taskIndexToUpdate).getTags();
-        Tag tagToRemove = newTagList.iterator().next();        
+        Tag tagToRemove = newTagList.iterator().next();
         newTagList.remove(tagToRemove);
 
-        TaskList expectedTaskList = helper.generateAddressBook(threeTasks);     
+        TaskList expectedTaskList = helper.generateAddressBook(threeTasks);
         Task newTask = new Task(threeTasks.get(taskIndexToUpdate).getName(),
                 new Complete(false),
-                new Deadline(), 
-                new Period(), new Recurrence(), 
-                new Recurrence(), 
+                new Deadline(),
+                new Period(), new Recurrence(),
+                new Recurrence(),
                 newTagList);
         expectedTaskList.updateTask(threeTasks.get(taskIndexToUpdate), newTask);
-        
-        String inputString = "update 2 removeby removefrom removeto removerepeatdeadline " 
+
+        String inputString = "update 2 removeby removefrom removeto removerepeatdeadline "
                 + "removerepeattime removetag " + tagToRemove.tagName;
-                
+
         assertCommandBehavior(inputString,
                 String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, newTask),
                 expectedTaskList,
@@ -803,16 +803,16 @@ public class LogicManagerTest {
     @Test
     public void execute_update_updatesCorrectTaskWithNewInfo() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        
+
         List<Task> threeTasks = helper.generatePersonList(3);
         helper.addToModel(model, threeTasks);
-        
+
         final int taskIndexToUpdate = 1;
-        
+
         String deadlineString = "12 May 2000 00:00:00";
         String startTimeString = "9 May 2000 00:00:00";
         String endTimeString = "10 May 2000 00:00:00";
-        
+
         Date deadline = CommandHelper.convertStringToDate(deadlineString);
         Date startTime = CommandHelper.convertStringToDate(startTimeString);
         Date endTime = CommandHelper.convertStringToDate(endTimeString);
@@ -820,17 +820,17 @@ public class LogicManagerTest {
         UniqueTagList newTagList = threeTasks.get(taskIndexToUpdate).getTags();
         newTagList.add(new Tag("Hey"));
 
-        TaskList expectedTaskList = helper.generateAddressBook(threeTasks);     
-        Task newTask = new Task(new Name("New Val"), new Complete(false), new Deadline(deadline), 
-                new Period(startTime, endTime), new Recurrence(Recurrence.Pattern.DAILY, 3), 
-                new Recurrence(Recurrence.Pattern.MONTHLY, 5), 
+        TaskList expectedTaskList = helper.generateAddressBook(threeTasks);
+        Task newTask = new Task(new Name("New Val"), new Complete(false), new Deadline(deadline),
+                new Period(startTime, endTime), new Recurrence(Recurrence.Pattern.DAILY, 3),
+                new Recurrence(Recurrence.Pattern.MONTHLY, 5),
                 newTagList);
         expectedTaskList.updateTask(threeTasks.get(taskIndexToUpdate), newTask);
-        
+
         String inputString = "update 2 name New Val by " + deadlineString + " from "
                 + startTimeString + " to " + endTimeString
                 + " repeatdeadline daily 3 repeattime monthly 5 tag Hey";
-                
+
         assertCommandBehavior(inputString,
                 String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, newTask),
                 expectedTaskList,
@@ -873,7 +873,7 @@ public class LogicManagerTest {
     public void execute_completeIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("complete");
     }
-    
+
     @Test
     public void execute_complete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -976,7 +976,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
         }
-        
+
         // This is a copy of Adam Brown with slightly different values
         Task john() throws Exception {
             Name name = new Name("John Doe");
