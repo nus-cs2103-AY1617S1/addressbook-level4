@@ -319,6 +319,9 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
+    	if(args == null || args.length() == 0)
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
         final Matcher noDateMatcher = FIND_ARGS_WITHOUT_DATE_FORMAT.matcher(args.trim());
         final Matcher dateMatcher = FIND_ARGS_WITH_DATE_FORMAT.matcher(args.trim());
         final Matcher tagMatcher = FIND_ARGS_WITH_TAG_FORMAT.matcher(args.trim());
@@ -328,6 +331,7 @@ public class Parser {
         Date startTime = null;
         Date endTime = null;
         Date deadline = null;
+        Date today = null;
         Set<String> tagSet = new HashSet<String>();
         
         boolean dateMatcherMatches = dateMatcher.matches();
@@ -341,7 +345,7 @@ public class Parser {
     		try {
     			ArrayList<Date> dateSet = extractDateInfo(dateMatcher);
     			if(dateSet.size() == ONLY_DEADLINE) {
-        			deadline = dateSet.get(DEADLINE_INDEX);
+    				deadline = dateSet.get(DEADLINE_INDEX);
         		} else if(dateSet.size() == TIME_PERIOD) {
         			startTime = dateSet.get(START_TIME_INDEX);
         			endTime = dateSet.get(END_TIME_INDEX);

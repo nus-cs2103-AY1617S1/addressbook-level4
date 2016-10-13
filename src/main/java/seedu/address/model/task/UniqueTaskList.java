@@ -60,13 +60,18 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
-     * Returns true if the given task requests to use a blocked timeslot.
+     * Returns true if the given task requests to use a blocked time slot.
      */
     public boolean overlaps(ReadOnlyTask toCheck) {
         assert toCheck != null;
+        //If to check is floating or deadline tasks, ignored.
+        if(toCheck.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
+        	return false;
+        //Only compare tasks with certain time slots.
         for(Task t: internalList){
         	if(t.getType().equals(TaskType.NON_FLOATING)){
-        		if(t.getStartDate().getDate()!=-1){
+        		if(t.getStartDate().getDate()!=TaskDate.DATE_NOT_PRESENT){
+        			System.out.println(t.getAsText());
         			if(!(t.getEndDate().getParsedDate().before(toCheck.getStartDate().getParsedDate())||
         	        	t.getStartDate().getParsedDate().after(toCheck.getEndDate().getParsedDate())))
         	        		return true;
