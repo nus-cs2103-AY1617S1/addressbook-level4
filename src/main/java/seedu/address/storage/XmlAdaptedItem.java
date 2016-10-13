@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
+import seedu.address.model.item.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -12,24 +12,20 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Person.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedItem {
 
     @XmlElement(required = true)
-    private String name;
-    @XmlElement(required = true)
-    private String phone;
-    @XmlElement(required = true)
-    private String email;
-    @XmlElement(required = true)
-    private String address;
+    private String description;
 
+    /*
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
-
+    */
+    
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedItem() {}
 
 
     /**
@@ -37,32 +33,28 @@ public class XmlAdaptedPerson {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(ReadOnlyPerson source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+    public XmlAdaptedItem(ReadOnlyItem source) {
+        description = source.getDescription().getFullDescription();
+        /*
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
+        */
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person object.
+     * Converts this jaxb-friendly adapted item object into the model's Item object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+    public Item toModelType() throws IllegalValueException {
+        /*final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
-        }
-        final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
-        final Address address = new Address(this.address);
-        final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Person(name, phone, email, address, tags);
+        }*/
+        final Description description = new Description(this.description);
+        return new FloatingTask(description);
+        //TODO: use better method to instantiate!!
     }
 }
