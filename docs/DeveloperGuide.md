@@ -11,12 +11,16 @@
 * [Appendix D: Glossary](#app-d)
 * [Appendix E : Product Survey](#app-e)
 
+<br>
+<br>
 ## Introduction
 
 Jimi is a simple task manager specifically catered for people like [Jim](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-product). It is a Java desktop application that has both a Text UI and a GUI. Jimi handles most, if not all, input via the command line interface (CLI).
 
 This guide describes the design and implementation of Jimi. It will help you understand how Jimi works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
 
+<br>
+<br>
 ## Setting up
 
 #### Prerequisites
@@ -31,7 +35,7 @@ This guide describes the design and implementation of Jimi. It will help you und
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
-
+<br>
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
@@ -46,7 +50,8 @@ This guide describes the design and implementation of Jimi. It will help you und
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-  
+
+<br>
 #### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
@@ -58,7 +63,8 @@ This guide describes the design and implementation of Jimi. It will help you und
 * Reason: Required libraries may not have been downloaded during the project import. 
 * Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
  
-
+<br>
+<br>
 ## Design
 
 ### Architecture
@@ -67,7 +73,7 @@ This guide describes the design and implementation of Jimi. It will help you und
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/jimi/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -89,6 +95,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
+<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
@@ -96,7 +103,7 @@ command `delete 3`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
