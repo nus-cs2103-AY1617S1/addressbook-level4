@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the task-book level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TaskBook implements ReadOnlyTaskBook {
@@ -24,20 +24,20 @@ public class TaskBook implements ReadOnlyTaskBook {
     public TaskBook() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this taskbook
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
         this(toBeCopied.getUniqueItemList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this taskbook
      */
     public TaskBook(UniqueItemList items) {
         resetData(items.getInternalList());
     }
 
-    public static ReadOnlyTaskBook getEmptyAddressBook() {
+    public static ReadOnlyTaskBook getEmptyTaskBook() {
         return new TaskBook();
     }
 
@@ -62,7 +62,7 @@ public class TaskBook implements ReadOnlyTaskBook {
 //// person-level operations
 
     /**
-     * Adds a person to the address book.
+     * Adds a person to the task book.
      * Also checks the new person's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the person to point to those in {@link #tags}.
      *
