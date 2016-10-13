@@ -71,7 +71,6 @@ public class UniqueTaskList implements Iterable<Task> {
         for(Task t: internalList){
         	if(t.getType().equals(TaskType.NON_FLOATING)){
         		if(t.getStartDate().getDate()!=TaskDate.DATE_NOT_PRESENT){
-        			System.out.println(t.getAsText());
         			if(!(t.getEndDate().getParsedDate().before(toCheck.getStartDate().getParsedDate())||
         	        	t.getStartDate().getParsedDate().after(toCheck.getEndDate().getParsedDate())))
         	        		return true;
@@ -111,6 +110,8 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+    
+    
 
     public ObservableList<Task> getInternalList() {
         return internalList;

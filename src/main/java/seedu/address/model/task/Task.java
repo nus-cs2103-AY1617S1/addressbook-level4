@@ -87,9 +87,13 @@ public class Task implements ReadOnlyTask {
     public TaskDate getEndDate() {
         return endDate;
     }
-
+    @Override
     public TaskType getType() {
         return type;
+    }
+    @Override
+    public void setType(TaskType type) {
+        this.type = type;
     }
     
     public boolean hasOnlyDateLine() {

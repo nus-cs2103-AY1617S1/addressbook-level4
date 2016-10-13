@@ -143,6 +143,25 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask task);
         String toString();
     }
+    
+    private class TypeQualifier implements Qualifier {
+        private TaskType typeKeyWords;
+
+        TypeQualifier(TaskType typeKeyWords) {
+            this.typeKeyWords = typeKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+
+            return task.getType().equals(typeKeyWords);
+        }
+
+        @Override
+        public String toString() {
+            return "type=" + typeKeyWords.toString();
+        }
+    }
 
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
@@ -299,8 +318,13 @@ public class ModelManager extends ComponentManager implements Model {
     	private TagQualifier tagQualifier;
     	private PeriodQualifier periodQualifier;
     	private DeadlineQualifier deadlineQualifier;
+    	private TypeQualifier typeQualifier = null;
     	
     	FindQualifier(Set<String> keywordSet, Set<String> tagSet, Date startTime, Date endTime, Date deadline) {
+    		if(keywordSet.contains("-C"))
+    			this.typeQualifier = new TypeQualifier(TaskType.COMPLETED);
+    		if(keywordSet.contains("-F"))
+    			this.typeQualifier = new TypeQualifier(TaskType.FLOATING);
     		this.nameQualifier = new NameQualifier(keywordSet);
     		this.tagQualifier = new TagQualifier(tagSet);
     		this.periodQualifier = new PeriodQualifier(startTime, endTime);
@@ -309,6 +333,8 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	@Override
     	public boolean run(ReadOnlyTask task) {
+    		if(this.typeQualifier!=null)
+    			return typeQualifier.run(task);
     		return nameQualifier.run(task)
     				&& tagQualifier.run(task)
     				&& periodQualifier.run(task)

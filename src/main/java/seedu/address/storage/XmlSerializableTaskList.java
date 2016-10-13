@@ -4,6 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskType;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.ReadOnlyTaskList;
 import javax.xml.bind.annotation.XmlElement;

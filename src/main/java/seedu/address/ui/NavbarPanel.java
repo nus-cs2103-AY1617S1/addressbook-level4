@@ -112,6 +112,8 @@ public class NavbarPanel extends UiPart {
     			command = FindCommand.COMMAND_WORD +" by "+ formatter.format(day);
     			return command;
     		case NAVBAR_FLOATING_TASKS:
+    			command = FindCommand.COMMAND_WORD +" -F";
+    			return command;
     		case NAVBAR_COMPLETED:
     		case NAVBAR_TASKS:
     		default:

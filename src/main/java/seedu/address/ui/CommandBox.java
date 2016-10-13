@@ -80,6 +80,16 @@ public class CommandBox extends UiPart {
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
+    
+    public void handleNavigationChanged(String command) {
+        
+        previousCommandTest = command;
+
+        mostRecentResult = logic.execute(previousCommandTest);
+        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+        logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
+    
 
 
     /**

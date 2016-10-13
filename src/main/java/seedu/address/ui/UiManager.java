@@ -128,8 +128,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleNavigationSelectionChangedEvent(NavigationSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        CommandResult result = logic.execute(mainWindow.getNavbarPanel().getNavigationCommand(event.getNewSelection()));
-        mainWindow.getResultDisplay().postMessage(result.feedbackToUser);
+        mainWindow.getCommandBox().handleNavigationChanged(mainWindow.getNavbarPanel().getNavigationCommand(event.getNewSelection()));
     }
 
 }

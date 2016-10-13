@@ -195,8 +195,8 @@ public class MainWindow extends UiPart {
     	return this.navbarPanel;
     }
     
-    public ResultDisplay getResultDisplay() {
-    	return this.resultDisplay;
+    public CommandBox getCommandBox() {
+    	return this.commandBox;
     }
 
     public TaskListPanel getTaskListPanel() {
