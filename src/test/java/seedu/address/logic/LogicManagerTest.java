@@ -395,10 +395,11 @@ public class LogicManagerTest {
         	DueDate dueDate= new DueDate("11-01-2012");
         	Interval interval= new Interval("7");
         	TimeInterval timeInterval = new TimeInterval("4");
+        	Status status = new Status("Ongoing");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(title,description,startDate,dueDate,interval, timeInterval,tags);
+            return new Task(title,description,startDate,dueDate,interval, timeInterval, status,tags);
         }
 
         /**
@@ -411,11 +412,12 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Title("Task " + seed),
-                    new Description("Description" + seed),
+                    new Description("Description " + seed),
                     new StartDate("01-01-2016"),
                     new DueDate("01-01-2016"),
                     new Interval(""+seed),
                     new TimeInterval(""+seed),
+                    new Status("Status"+seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -518,6 +520,7 @@ public class LogicManagerTest {
                     new DueDate("11-01-2012"),
                     new Interval("7"),
                     new TimeInterval("1"),
+                    new Status("Ongoing"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
