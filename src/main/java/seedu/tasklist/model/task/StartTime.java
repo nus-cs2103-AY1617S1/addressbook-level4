@@ -56,7 +56,7 @@ public class StartTime {
     }
     
     public String toCardString() {
-    	if(starttime.equals(new Date(0))){
+    	if(starttime.getTime().equals(new Date(0))){
     		return "-";
     	}
     	else{

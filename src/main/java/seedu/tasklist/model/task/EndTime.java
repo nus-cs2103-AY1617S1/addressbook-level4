@@ -60,7 +60,7 @@ public class EndTime {
     }
     
     public String toCardString() {
-    	if(endtime.equals(new Date(0))){
+    	if(endtime.getTime().equals(new Date(0))){
     		return "-";
     	}
     	else{
