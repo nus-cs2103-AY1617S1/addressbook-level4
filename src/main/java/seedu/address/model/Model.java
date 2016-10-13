@@ -28,8 +28,11 @@ public interface Model {
     /** Adds the given floating task */
     void addTask(Task task);
 
-    /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
+    /** Returns the filtered undone task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredUndoneTaskList();
+    
+    /** Returns the filtered done task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDoneTaskList();
 
     /** Updates the filter of the filtered floating task list to show all floating tasks */
     void updateFilteredListToShowAll();
