@@ -5,30 +5,38 @@ Our project is a Task Manager for Jim.
 
 ## Project Team
 
-#### [Ong Li-Jen]() <br>
-<img src="images/" width="150"><br>
+#### [Ong Li-Jen](https://github.com/lijen1994) <br>
+<img src="images/OngLiJen.png" width="150"><br>
 Role: Project Lead <br>  
 Responsibilities: Code Quality
 
 -----
 
-#### [Anniya Baskaran]()
-<img src="images/" width="150"><br>
+#### [Anniya Baskaran](https://github.com/AnniyaB)
+<img src="images/AnniyaB.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Integration 
 
 -----
 
-#### [Muhammad Arif Bin Syed Nasser]() 
-<img src="images/" width="150"><br>
+#### [Muhammad Arif Bin Syed Nasser](https://github.com/Halo3fanz) 
+<img src="images/M.Arif.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Documentation
 
 -----
 
-#### [Zhang Hao]()
-<img src="images/MartinChoo.jpg" width="150"><br>
+#### [Zhang Hao](https://github.com/e0008233)
+<img src="images/ZhangHao.png" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Dev Ops
+
+-----
+
+## Project Mentor
+
+#### [Pierce Anderson Fu]()
+<img src="images/PierceAndersonFu.png" width="150"><br>
+Phase C tutor
 
 -----
