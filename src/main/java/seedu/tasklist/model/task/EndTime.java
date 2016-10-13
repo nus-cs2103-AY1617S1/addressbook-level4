@@ -7,7 +7,7 @@ import java.util.List;
 import com.joestelmach.natty.*;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.logic.commands.TimePreparser;
+import seedu.tasklist.logic.parser.TimePreparser;
 
 /**
  * Represents a Person's phone number in the address book.

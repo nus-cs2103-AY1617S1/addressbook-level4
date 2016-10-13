@@ -1,4 +1,4 @@
-package seedu.tasklist.logic.commands;
+package seedu.tasklist.logic.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
