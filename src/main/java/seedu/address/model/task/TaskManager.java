@@ -46,6 +46,8 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	
 	@Override
 	public synchronized void updateTask(Task toUpdate, Task newTask) throws ItemNotFoundException {
+		assert tasks.contains(toUpdate);
+		
 		
 	}
 
@@ -61,7 +63,6 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		
 		toFavorite.setAsFavorite();
 		indicateTaskManagerChanged();
-		
 	}
 
 	@Override
@@ -70,7 +71,6 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		
 		toUnfavorite.setAsNotFavorite();
 		indicateTaskManagerChanged();
-		
 	}
 	
     /** Keeps the internal ObservableList sorted.
@@ -93,7 +93,6 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	@Override
 	public void clearTasksFilter() {
 	    filteredTasks.setPredicate(null);
-		
 	}
 
 	@Override

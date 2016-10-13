@@ -1,9 +1,12 @@
 package seedu.address.logic.commands.taskcommands;
 
+import java.util.Date;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.model.task.Description;
 import seedu.address.model.task.Task;
 
 /**
@@ -26,9 +29,26 @@ public class UpdateTaskCommand extends TaskCommand {
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated task: %1$s";
 
     public final int targetIndex;
+    public final Task updatedTask;
 
-    public UpdateTaskCommand(int targetIndex) {
+    public UpdateTaskCommand(int targetIndex, Task newTask) {
         this.targetIndex = targetIndex;
+        updatedTask = newTask;
+    }
+    
+    public UpdateTaskCommand(int targetIndex, Description newDescription) {
+        this.targetIndex = targetIndex;
+        updatedTask = null;
+    }
+    
+    public UpdateTaskCommand(int targetIndex, Date newDeadline) {
+        this.targetIndex = targetIndex;
+        updatedTask = null;
+    }
+    
+    public UpdateTaskCommand(int targetIndex, Date newStartDate, Date newEndDate) {
+        this.targetIndex = targetIndex;
+        updatedTask = null;
     }
 
 
@@ -44,15 +64,11 @@ public class UpdateTaskCommand extends TaskCommand {
 
         Task taskToUpdate = lastShownList.get(targetIndex - 1);
 
-	        try {
-	            model.updateTask(taskToUpdate, null);
-	            if(lastShownList.size() == 0) {
-	                model.clearTasksFilter();
-	            }
-	        } catch (ItemNotFoundException tnfe) {
-	            assert false : "The target item cannot be missing";
-	        }
-
+        try {
+            model.updateTask(taskToUpdate, updatedTask);
+        } catch (ItemNotFoundException tnfe) {
+            assert false : "The target item cannot be missing";
+        }
 
         return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
     }

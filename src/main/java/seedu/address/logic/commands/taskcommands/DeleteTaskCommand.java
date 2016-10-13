@@ -30,7 +30,7 @@ public class DeleteTaskCommand extends TaskCommand {
     @Override
     public CommandResult execute() {
 
-	        ObservableList<Task> lastShownList = model.getCurrentFilteredTasks();
+	    ObservableList<Task> lastShownList = model.getCurrentFilteredTasks();
 
         if (lastShownList.size() < targetIndex || targetIndex <= 0) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -39,15 +39,14 @@ public class DeleteTaskCommand extends TaskCommand {
 
         Task taskToDelete = lastShownList.get(targetIndex - 1);
 
-	        try {
-	            model.deleteTask(taskToDelete);
-	            if(lastShownList.size() == 0) {
-	                model.clearTasksFilter();
-	            }
-	        } catch (ItemNotFoundException tnfe) {
-	            assert false : "The target item cannot be missing";
-	        }
-
+        try {
+            model.deleteTask(taskToDelete);
+            if(lastShownList.size() == 0) {
+                model.clearTasksFilter();
+            }
+        } catch (ItemNotFoundException tnfe) {
+            assert false : "The target item cannot be missing";
+        }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }

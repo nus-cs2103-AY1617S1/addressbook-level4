@@ -7,6 +7,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.taskcommands.UpdateTaskCommand;
+import seedu.address.model.task.Description;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.testutil.TestUtil;
 
@@ -21,7 +22,7 @@ public class UpdateTaskCommandTest {
 		 */
 		InMemoryTaskList model;
 		model = TestUtil.setupEmptyTaskList();
-		UpdateTaskCommand command = new UpdateTaskCommand(1);
+		UpdateTaskCommand command = new UpdateTaskCommand(1, new Description("Hello"));
 		command.setData(model);
 				
 		String expected = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
@@ -36,7 +37,7 @@ public class UpdateTaskCommandTest {
 		 */
 		InMemoryTaskList model;
 		model = TestUtil.setupSomeTasksInTaskList(3);
-		UpdateTaskCommand command = new UpdateTaskCommand(4);
+		UpdateTaskCommand command = new UpdateTaskCommand(4, new Description("Hello"));
 		command.setData(model);
 		
 		String expected = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;

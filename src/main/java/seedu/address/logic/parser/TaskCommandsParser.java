@@ -28,8 +28,7 @@ public class TaskCommandsParser {
     public TaskCommand parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-        	// TODO: Replace this placeholder
-            return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "placeholder"));
+            return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Type help if you want to know the list of commands."));
         }
 
         final String commandWord = matcher.group("commandWord");
