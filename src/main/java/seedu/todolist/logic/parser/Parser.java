@@ -74,6 +74,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case UndoCommand.COMMAND_WORD:
+        	return new UndoCommand();
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

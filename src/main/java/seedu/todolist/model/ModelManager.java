@@ -11,7 +11,9 @@ import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.EmptyStackException;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Task> filteredTasks;
+    private final Stack<ReadOnlyAddressBook> addressBookHistory;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -37,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
+        addressBookHistory = new Stack<ReadOnlyAddressBook>();
     }
 
     public ModelManager() {
@@ -46,11 +50,13 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
+        addressBookHistory = new Stack<ReadOnlyAddressBook>();
     }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
+        addressBookHistory.push(new AddressBook(this.addressBook));
+    	addressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
@@ -59,6 +65,11 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook;
     }
 
+    @Override
+    public void undoAddressBook() throws EmptyStackException {
+    	addressBook.resetData(addressBookHistory.pop());
+    }
+    
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
@@ -66,13 +77,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removeTask(target);
+    	addressBookHistory.push(new AddressBook(this.addressBook));
+    	addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(task);
+    	addressBookHistory.push(new AddressBook(this.addressBook));
+    	addressBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }

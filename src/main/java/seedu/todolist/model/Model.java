@@ -5,6 +5,7 @@ import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
 
+import java.util.EmptyStackException;
 import java.util.Set;
 
 /**
@@ -16,6 +17,9 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+    
+    /** Reverts the previous state of the AddressBook */
+    void undoAddressBook() throws EmptyStackException;
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
