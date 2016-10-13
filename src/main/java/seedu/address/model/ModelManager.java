@@ -7,7 +7,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
@@ -65,7 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
@@ -77,6 +76,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public synchronized void updateTask(ReadOnlyTask originalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.updateTask(originalTask, updateTask);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

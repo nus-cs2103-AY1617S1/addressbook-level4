@@ -298,11 +298,11 @@ public class TestUtil {
      * Replaces Tasks[i] with a Task.
      * @param Tasks The array of Tasks.
      * @param Task The replacement Task
-     * @param index The index of the Task to be replaced.
+     * @param index The index of the Task to be replaced. Index does not begin with 0.
      * @return
      */
     public static TestTask[] replaceTaskFromList(TestTask[] Tasks, TestTask Task, int index) {
-        Tasks[index] = Task;
+        Tasks[index] = Task;    
         return Tasks;
     }
 

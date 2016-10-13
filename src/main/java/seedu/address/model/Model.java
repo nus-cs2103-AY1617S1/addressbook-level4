@@ -6,6 +6,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
+
 import java.util.Set;
 
 /**
@@ -24,6 +25,9 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
+    /** Updates the given task */
+    void updateTask(ReadOnlyTask orginalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException; 
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
