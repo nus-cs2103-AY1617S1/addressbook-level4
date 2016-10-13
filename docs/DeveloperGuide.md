@@ -1,4 +1,3 @@
-
 Developer Guide
 
 Table of contents 
@@ -14,6 +13,14 @@ Appendix B : Use Cases
 Appendix C : Non Functionality Requirements 
 Appendix D : Glossary 
 Appendix E : Product Survey
+
+
+
+
+
+
+
+
 
 Introduction
 
@@ -427,6 +434,8 @@ No
 No
 No
 No
+
+
 
 
 
