@@ -305,10 +305,10 @@ is better than <br>
 * including those libraries in the repo (this bloats the repo size)<br>
 * requiring developers to download those libraries manually (this creates extra work for developers)<br>
 
+<br></br>
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
@@ -330,10 +330,12 @@ Priority | As a ... | I want to ... | So that I can...
 
 {More to be added}
 
+<br></br>
 ## Appendix B : Use Cases
 
 (For all use cases below, the **Program** is the `Task Manager`, unless specified otherwise)
 
+<br></br>
 ### Use case: Create new todo task
 
 **MSS**
@@ -350,7 +352,7 @@ Use case ends
 > * Program returns error message, saying that name given is invalid<br>
   Use case resumes at step 1
 
-
+<br></br>
 ### Use case: Create new deadline task
 
 **MSS**
@@ -377,7 +379,7 @@ Use case ends
 > * Program returns error message, saying that deadline entered is already over<br>
   Use case resumes at step 1
 
-
+<br></br>
 ### Use case: Create new event task
 
 **MSS**
@@ -409,7 +411,7 @@ Use case ends
 > * Program returns error message, saying that the start time cannot be later then the end time<br>
   Use case resumes at step 1
 
-
+<br></br>
 ### Use case: View all tasks
 
 **MSS**
@@ -431,7 +433,7 @@ Use case ends
 > * Program returns a message, saying there are no tasks with deadlines<br>
   Use case ends
   
-  
+<br></br>
 ### Use case: View all tasks at specified date
 
 **MSS**
@@ -458,7 +460,7 @@ Use case ends
 > * Program returns a message, saying there are neither tasks due before nor on the specified date<br>
   Use case ends
 
-
+<br></br>
 ### Use case: View completed tasks
 
 **MSS**
@@ -497,7 +499,7 @@ Use case ends
 > * Program returns errors message, saying that keyword given is invalid<br>
   Use case resumes at step 1
 
-
+<br></br>
 ### Use case: Edit details of a task
 
 **MSS**
@@ -529,7 +531,7 @@ Use case ends
 > * Program returns error message (similar to error messages when creating a new task), depending on type of error<br>
   Use case resumes at step 2
 
-
+<br></br>
 ### Use case: Delete a task
 
 **MSS**
@@ -556,7 +558,7 @@ Use case ends
 > * Program returns error message, saying that alphabet representing the type of task is invalid<br>
   Use case resumes at step 2
 
-
+<br></br>
 ### Use case: Mark a task when done
 
 **MSS**
@@ -583,7 +585,7 @@ Use case ends
 > * Program returns error message, saying that alphabet representing the type of task is invalid<br>
   Use case resumes at step 2
  
- 
+<br></br> 
 ### Use case: Undo previous action
 
 **MSS**
@@ -601,7 +603,7 @@ Use case ends
 
 {More to be added}
 
-
+<br></br>
 ## Appendix C : Non Functional Requirements
 
 * Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -618,6 +620,7 @@ Use case ends
 
 {More to be added}
 
+<br></br>
 ## Appendix D : Glossary
 
 #### Mainstream OS
