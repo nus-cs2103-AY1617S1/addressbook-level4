@@ -25,6 +25,7 @@ public class DueDate {
         assert date != null;
         String time;
         String[] parts;
+        if(date!=""){
         try {
             if (date.contains("today")) {
                 parts = date.split(" ");
@@ -42,12 +43,12 @@ public class DueDate {
             if (!isValidDueDate(date)) {
                 throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
             }
-            if (!DateValidation.aftertoday(date)) // check if the time is future
+            if ((date!= "")||!DateValidation.aftertoday(date)) // check if the time is future
                                                   // time
                 throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
         } catch (ParseException pe) {
             throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
-        }
+        }}
 
         this.value = date;
     }
@@ -56,7 +57,7 @@ public class DueDate {
      * Returns true if a given string is a valid task reminder.
      */
     public static boolean isValidDueDate(String test) {
-        if ((DateValidation.validate(test)))
+        if ((DateValidation.validate(test))|| (test ==""))
             return true;
         else
             return false;

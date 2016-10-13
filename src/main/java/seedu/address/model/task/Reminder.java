@@ -28,6 +28,8 @@ public class Reminder {
         assert date != null;
         String time;
         String[] parts;
+        
+        if(date!=""){
         try {
             if (date.contains("today")) {
                 parts = date.split(" ");
@@ -46,11 +48,10 @@ public class Reminder {
                 throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
             }
             if (!DateValidation.aftertoday(date)) // check if the time is future
-                                                  // time
                 throw new IllegalValueException(MESSAGE_REMINDER_INVALID);
         } catch (ParseException pe) {
             throw new IllegalValueException(MESSAGE_REMINDER_INVALID);
-        }
+        }}
 
         this.value = date;
     }
@@ -59,7 +60,7 @@ public class Reminder {
      * Returns true if a given string is a valid task reminder.
      */
     public static boolean isValidReminder(String test) {
-        if ((DateValidation.validate(test)))
+        if ((DateValidation.validate(test))|| (test ==""))
             return true;
         else
             return false;
