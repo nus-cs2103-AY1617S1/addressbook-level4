@@ -1,11 +1,16 @@
 package seedu.tasklist.logic.commands;
 
+import static seedu.tasklist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Matcher;
 
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
+import seedu.tasklist.logic.parser.CommandParser;
 import seedu.tasklist.model.tag.Tag;
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.Description;
@@ -19,7 +24,7 @@ import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits a task identified using it's last displayed index from the task list.
  */
-public class EditCommand extends Command {
+public class EditCommand extends Command implements CommandParser {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -29,9 +34,11 @@ public class EditCommand extends Command {
 
     private static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
 
-    public final int targetIndex;
-    private final Task toEdit;
+    private int targetIndex;
+    private Task toEdit;
 
+    public EditCommand() {};
+    
     public EditCommand(int targetIndex, String title, String startDate, String description, String dueDate,
             Set<String> tags) throws IllegalValueException {
         this.targetIndex = targetIndex;
@@ -78,6 +85,42 @@ public class EditCommand extends Command {
                 this.toEdit.getDueDate().toString().equals("") ? taskToEdit.getDueDate() : this.toEdit.getDueDate(),
                 this.toEdit.getTags().getInternalList().isEmpty() ? new UniqueTagList(taskToEdit.getTags()) : new UniqueTagList(this.toEdit.getTags())
                         );
+    }
+
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    @Override
+    public Command prepare(String args) {
+        final Matcher matcher = EDIT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        }
+        
+        // Validate arg index
+        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        
+        if(!index.isPresent()){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        }
+        
+        try {            
+            return new EditCommand(
+                    index.get(),
+                    matcher.group("title"),
+                    getDetailsFromArgs(matcher.group("startDate")),
+                    getDetailsFromArgs(matcher.group("description")),
+                    getDetailsFromArgs(matcher.group("dueDate")),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
 }

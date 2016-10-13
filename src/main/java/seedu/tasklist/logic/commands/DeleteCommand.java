@@ -1,14 +1,19 @@
 package seedu.tasklist.logic.commands;
 
+import static seedu.tasklist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.util.Optional;
+
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
+import seedu.tasklist.logic.parser.CommandParser;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the task list.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements CommandParser {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -19,8 +24,10 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
-    public final int targetIndex;
+    private int targetIndex;
 
+    public DeleteCommand() {};
+    
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -45,6 +52,23 @@ public class DeleteCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+    }
+
+    /**
+     * Parses arguments in the context of the delete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    @Override
+    public Command prepare(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        }
+
+        return new DeleteCommand(index.get());
     }
 
 }

@@ -2,11 +2,12 @@ package seedu.tasklist.logic.commands;
 
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.events.ui.ExitAppRequestEvent;
+import seedu.tasklist.logic.parser.CommandParser;
 
 /**
  * Terminates the program.
  */
-public class ExitCommand extends Command {
+public class ExitCommand extends Command implements CommandParser {
 
     public static final String COMMAND_WORD = "exit";
 
@@ -18,6 +19,11 @@ public class ExitCommand extends Command {
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    }
+
+    @Override
+    public Command prepare(String args) {
+        return new ExitCommand();
     }
 
 }
