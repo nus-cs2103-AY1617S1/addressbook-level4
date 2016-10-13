@@ -67,8 +67,8 @@ public class TaskListDateItem extends MultiComponent {
         TaskListTaskItem.reset(dateCalendarItemsPlaceholder);
 
         // Load task and event items
-        loadTaskItems();
         loadEventItems();
+        loadTaskItems();
     }
 
     private void loadTaskItems() {
@@ -90,7 +90,7 @@ public class TaskListDateItem extends MultiComponent {
             TaskListEventItem item = TaskListEventItem.load(primaryStage, dateCalendarItemsPlaceholder);
 
             // Add to EphemeralDB and get the index.
-            int displayIndex = ephemeralDb.addToDisplayedEvent(event);
+            int displayIndex = ephemeralDb.addToDisplayedCalendarItems(event);
 
             // Set the props and render the TaskListTaskItem.
             item.event = event;
