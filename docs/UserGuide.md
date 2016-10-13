@@ -62,7 +62,7 @@ Command | Format
 ## Features
 
 
-#### Viewing help : `help`
+#### <a id="help"></a> Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
