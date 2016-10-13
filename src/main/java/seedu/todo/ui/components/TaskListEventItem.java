@@ -18,6 +18,8 @@ public class TaskListEventItem extends MultiComponent {
     // FXML
     @FXML
     private Text eventText;
+    @FXML
+    private Text rowIndex;
 
     public static TaskListEventItem load(Stage primaryStage, Pane placeholderPane) {
         return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskListEventItem());
@@ -30,7 +32,8 @@ public class TaskListEventItem extends MultiComponent {
 
     @Override
     public void componentDidMount() {
-        eventText.setText(displayIndex + ". " + event.getName());
+        eventText.setText(event.getName());
+        rowIndex.setText(displayIndex + "");
     }
 
 }

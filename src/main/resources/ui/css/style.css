@@ -132,6 +132,11 @@ VBox.header {
   -fx-font-size: 20px;
 }
 
+.tasklist-rowindex {
+  -fx-font-size: 12px;
+  -fx-fill: #999999;
+}
+
 .tasklist-dateitem-dateheader {
   -fx-font-size: 18px;
 }

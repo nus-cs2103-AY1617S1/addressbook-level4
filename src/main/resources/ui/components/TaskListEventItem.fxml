@@ -9,8 +9,8 @@
   fx:controller="seedu.todo.ui.components.TaskListEventItem">
   <children>
   
-    <Text fx:id="eventIndex" styleClass="tasklist-eventitem-index" />
-    <Text fx:id="eventText" styleClass="tasklist-eventitem-label" />
+    <Text fx:id="rowIndex" styleClass="tasklist-rowindex" HBox.hgrow="NEVER" wrappingWidth="20.0" />
+    <Text fx:id="eventText" styleClass="tasklist-eventitem-label" HBox.hgrow="ALWAYS" />
     
   </children>
   <padding>

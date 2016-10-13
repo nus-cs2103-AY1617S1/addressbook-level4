@@ -17,6 +17,8 @@ public class TaskListTaskItem extends MultiComponent {
 
     // FXML
     @FXML
+    private Text rowIndex;
+    @FXML
     private Text taskText;
 
     public static TaskListTaskItem load(Stage primaryStage, Pane placeholderPane) {
@@ -30,11 +32,8 @@ public class TaskListTaskItem extends MultiComponent {
 
     @Override
     public void componentDidMount() {
-        taskText.setText(formatTaskText(displayIndex, task.getName()));
-    }
-    
-    private String formatTaskText(int index, String taskName) {
-        return String.format("%s. %s", index, taskName);
+        taskText.setText(task.getName());
+        rowIndex.setText(displayIndex + "");
     }
 
 }

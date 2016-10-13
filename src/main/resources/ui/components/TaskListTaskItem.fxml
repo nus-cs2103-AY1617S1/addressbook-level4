@@ -10,8 +10,8 @@
   fx:controller="seedu.todo.ui.components.TaskListTaskItem">
   <children>
   
-    <Text fx:id="taskIndex" styleClass="tasklist-taskitem-index" />
-    <Text fx:id="taskText" styleClass="tasklist-taskitem-label" />
+    <Text fx:id="rowIndex" styleClass="tasklist-rowindex" HBox.hgrow="NEVER" wrappingWidth="20.0" />
+    <Text fx:id="taskText" styleClass="tasklist-taskitem-label" HBox.hgrow="ALWAYS" />
     
   </children>
   <padding>
