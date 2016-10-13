@@ -67,7 +67,22 @@ public class EndTime {
     		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     		Date endTimeString = endtime.getTime();
     		String finalEndString = df.format(endTimeString );
-    		return finalEndString;
+    		int hrs;
+    		String build;
+    		String[] store = new String [2];
+    		String[] store2 = new String [2];
+    		store = finalEndString.split(" ");
+    		build = store[0]; 
+    		store2 = store[1].split(":");
+    		hrs= Integer.valueOf(store2[0]);
+    		if(hrs>12){
+    			hrs -=12;
+    			build += " "+hrs+"p.m.";
+    		}
+    		else{
+    			build += " "+hrs+"a.m.";
+    		}
+    		return build;
     	}
     }
 

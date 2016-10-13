@@ -63,7 +63,23 @@ public class StartTime {
     		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     		Date startTimeString = starttime.getTime();
     		String finalStartString = df.format(startTimeString );
-    		return finalStartString;
+    		int hrs;
+    		String build;
+    		String[] store = new String [2];
+    		String[] store2 = new String [2];
+    		store = finalStartString.split(" ");
+    		build = store[0]; 
+    		store2 = store[1].split(":");
+    		hrs= Integer.valueOf(store2[0]);
+    		if(hrs>12){
+    			hrs -=12;
+    			build += " "+hrs+"p.m.";
+    		}
+    		else{
+    			build += " "+hrs+"a.m.";
+    		}
+    		return build;
+    		
     	}
     }
 
