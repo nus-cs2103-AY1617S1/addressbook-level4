@@ -31,6 +31,12 @@ Please refer to the [Setting up](DeveloperGuide.md#setting-up) section to learn 
 Shows a list of all commands in GetShitDone.  
 Format: `help`
 
+Examples:
+
+* `help`  
+  Shows all available commands and examples 
+  <img src="images/UserGuide/help.png">
+
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a task/event: `add`
