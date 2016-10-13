@@ -10,7 +10,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Deletes a task identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "del";
 
@@ -52,5 +52,12 @@ public class DeleteCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete));
     }
+
+
+	@Override
+	public CommandResult undo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

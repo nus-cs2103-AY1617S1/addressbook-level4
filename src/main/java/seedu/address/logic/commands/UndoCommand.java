@@ -13,9 +13,4 @@ public class UndoCommand extends Command {
 //		model.undo();
 		return new CommandResult(MESSAGE_UNDO_SUCCESS);
 	}
-	
-	@Override
-	public CommandResult undo() throws UnsupportedOperationException {
-		throw new UnsupportedOperationException("Undo operation cannot be undone. To redo, enter the redo keyword.");
-	}
 }
