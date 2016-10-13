@@ -19,6 +19,27 @@ public class AddController implements Controller {
         // TODO
         return (input.startsWith("add")) ? 1 : 0;
     }
+    
+    private int splitByKeyword(String args, boolean isTask) {
+        int indexOfBy = args.lastIndexOf("by");
+        int indexOfOn = args.lastIndexOf("on");
+        
+        // support for event from date to date
+        if (!isTask) {
+            int indexOfFrom = args.lastIndexOf("from");
+            int indexOfTo = args.lastIndexOf("to");
+            if (indexOfTo == -1 || indexOfFrom == -1) {
+                indexOfFrom = -1;
+                indexOfTo = -1;
+            } else {
+                // to be updated to supported pair value of from and to
+                return indexOfFrom;
+            }
+        }
+        
+        return Math.max(indexOfBy, indexOfOn);
+        
+    }
 
     @Override
     public void process(String args) {
@@ -37,9 +58,15 @@ public class AddController implements Controller {
         }
         
         // Parse name and date.
-        String[] splitted = args.split("( at | by )", 2);
-        String name = splitted[0].trim();
-        String naturalDate = splitted[1].trim();
+        int splitValue = splitByKeyword(args, isTask);
+        String naturalDate = "Today";
+        String name = args;
+        if (splitValue != -1) {
+            name = args.substring(0, splitValue);
+            naturalDate = args.substring(splitValue);
+        }
+        
+        
         
         // Parse natural date using Natty.
         Parser parser = new Parser();
