@@ -7,24 +7,24 @@
 
 ## Quick Start
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
    Click [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) to download the latest Java version.
    
-1. Download the latest `tars.jar` from the 'releases' tab. [*No releases available yet*]
-2. Copy the file to the folder you want to use as the home folder for your TARS App.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+2. Download the latest `tars.jar` from the 'releases' tab. [*No releases available yet*]
+3. Copy the file to the folder you want to use as the home folder for your TARS App.
+4. Double-click the file to start the app. The GUI should appear in a few seconds. 
+5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
+6. Some example commands you can try:
    * **`ls`** : lists all tasks
    * **`add`**` Complete CS2103 Quiz 3 -dt 23/09/2016 -p h -t Quiz -t CS2103` : 
      adds a task `Complete CS2103 Quiz 3` to TARS.
    * **`del`**` 3` : deletes the 3rd task shown in TARS.
    * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+7. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
