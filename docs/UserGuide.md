@@ -71,7 +71,7 @@ Shows a list of tasks that are not marked done. <br>
 Format: `list -t [-a]`
 
 > Tasks that are marked done will not be shown by default.
-> An `[-a]` optional flag will request the TaskBook to list all tasks, both marked done and not yet marked done. 
+> An `-a` optional flag will request the TaskBook to list all tasks, both marked done and not yet marked done. 
 
 Examples: 
 * `list -t` <br>
@@ -86,7 +86,7 @@ Shows a list of all events that are completed. <br>
 Format: `list -e [-a]` <br>
 
 > Events that are completed will not be shown by default.
-> An `[-a]` optional flag will request the TaskBook to list all events, both completed and passed. 
+> An `-a` optional flag will request the TaskBook to list all events, both completed and passed. 
 
 Examples: 
 * `list -e `<br>
@@ -98,11 +98,12 @@ Examples:
 #### Editing a task
 Edits an existing task/event in TaskBook<br>
 
-Format: `edit -t INDEX /name NEW_TASK_NAME /desc NEW_TASK_DESCRIPTION /by NEW_DEADLINE` <br>
+Format: `edit -t INDEX /name NEW_TASK_NAME /desc NEW_TASK_DESCRIPTION /by NEW_DEADLINE_DATE_TIME` <br>
 
 
 > Edits the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing of tasks.
 > Edits any number of fields of the task. This includes name and/or description and/or deadline.
+> `NEW_DEADLINE_DATE_TIME` can be entered in natural language.
 
 Examples: 
 * `edit -t 1 /desc CS2103 Project /by 30-12-16`<br>
@@ -114,14 +115,15 @@ Examples:
 #### Editing an event
 Edits an existing event in TaskBook<br>
 
-Format: `edit -e INDEX /name NEW_EVENT_NAME /desc NEW_EVENT_DESCRIPTION /from START_DATE END_DATE`
+Format: `edit -e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
 
 > Edits the event at the specified `INDEX`. The index refers to the index number shown in the most recent listing of events.
 > Edits any number of fields of the event. This includes name and/or description and/or duration.
+> `NEW_START_DATE_TIME` and `NEW_END_DATE_TIME` can be entered in natural language.
 
 Examples:
-* `edit -e 1 /desc CS2103 Workshop /from 3-10-16 5-10-16`  
-  Edits the description of the 1st event to “CS2103 Workshop” and the duration to the period of 3-10-16 to  5-10-16
+* `edit -e 1 [/desc CS2103 Workshop] [/from 3-10-16 > 5-10-16]`  
+  Edits the description of the 1st event to “CS2103 Workshop” and the duration to the period of 3-10-16 to 5-10-16
 * `edit -e 4 /desc CS2103 TaskBook Project Meeting 4`  
   Edits the description of the 4th task to “CS2103 TaskBook Project Meeting 4”
 
@@ -188,9 +190,9 @@ Format: `search -e|-t KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 * `search -e CS2103`
-  Returns relative information of "CS2103 Exam" but not "cs2106 Exam"
+  Returns relative information of "CS2103 Exam" but not "cs2103 Exam"
 * `search -t CS2106 CS2103`
-  Returns any tasks or events having CS2106, CS2103 in their names. 
+  Returns any tasks or events having "CS2106", "CS2103" in their names. 
 
 
 #### Exiting the program
@@ -212,7 +214,7 @@ Format : `exit`
 [Add Event](#adding-an-event) | `add EVENT_NAME [/desc DESCRIPTION] [/from START_DATE_TIME > END_DATE_TIME]`
 [List Task or Event](#listing-tasks) | `list -t|-e [-a]`
 [Edit Task](#editing-a-task) | `edit -t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]`
-[Edit Event](#editing-an-event) | `edit -e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from START_DATE_TIME > END_DATE_TIME]`
+[Edit Event](#editing-an-event) | `edit -e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
 [Mark Task](#marking-a-task-as-completed) | `mark INDEX`
 [Delete Task or Event](#deleting-a-task/event) |`delete -t|-e INDEX`
 [Save](#changing-the-save-location) | `save FILEPATH`
