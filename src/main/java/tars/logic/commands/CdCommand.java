@@ -6,7 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import tars.commons.core.Config;
-import tars.commons.util.ConfigUtil;
+import tars.storage.Storage;
+import tars.storage.StorageManager;
 import tars.storage.XmlTarsStorage;
 
 /**
@@ -27,17 +28,17 @@ public class CdCommand extends Command {
             + " include any white spaces and should end with the file type .xml \n" + "Example: " + COMMAND_WORD
             + " data/tars.xml";
 
-    public static final String MESSAGE_SUCCESS = "Directory of tars.xml changed to: '%1$s'. "
-            + "Please restart TARS for changes to take effect.";
+    public static final String MESSAGE_SUCCESS = "Change Directory Success! Directory of TARS storage file"
+            + " changed to: '%1$s'.";
 
     public static final String MESSAGE_FAILURE = "Unable to write to location, please choose another directory";
 
-    private final String filePath;
-    private final static String configFilePath = "config.json";
-    private final static String xmlFileExt = "xml";
+    private final String newFilePath;
+    private final static String xmlFileExt = "xml";;
+    private Storage storageUpdater = new StorageManager();
 
     public CdCommand(String filepath) {
-        this.filePath = filepath;
+        this.newFilePath = filepath;
     }
 
     public final static String getXmlFileExt() {
@@ -46,31 +47,38 @@ public class CdCommand extends Command {
 
     @Override
     public String toString() {
-        return this.filePath;
+        return this.newFilePath;
     }
 
     @Override
     public CommandResult execute() {
-        Config config = new Config();
-        config.setTarsFilePath(filePath);
-        XmlTarsStorage xmlTarsStorage = new XmlTarsStorage(filePath);
+        Config newConfig = new Config();
+        newConfig.setTarsFilePath(newFilePath);
+        XmlTarsStorage xmlTarsStorage = new XmlTarsStorage(newFilePath);
 
         try {
-            xmlTarsStorage.saveTars(model.getTars(), filePath); // copy data
-                                                                // from previous
-                                                                // file to new
-                                                                // file
-            Path path = Paths.get(filePath);
-            if (!Files.exists(path)) {
-                return new CommandResult(MESSAGE_FAILURE);
+            xmlTarsStorage.saveTars(model.getTars(), newFilePath); // try to save TARS data into new file
+            
+            if (!isFileSavedSuccessfully(newFilePath)) {
+                return new CommandResult(MESSAGE_FAILURE); 
             }
-            ConfigUtil.saveConfig(config, configFilePath); // update
-                                                           // tarsFilePath in
-                                                           // config.json
-            return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
+            
+            storageUpdater.updateTarsStorageDirectory(newFilePath, newConfig);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
+            
         } catch (IOException ioe) {
             return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+
+    private boolean isFileSavedSuccessfully(String filePath) {
+        Path path = Paths.get(filePath);
+        if (!Files.exists(path)) {
+            return false;
+        }
+
+        return true;
     }
 
 }
