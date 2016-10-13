@@ -15,7 +15,7 @@ public class FindCommandTest extends TaskManagerGuiTest {
         assertFindResult("find this is a", td.deadline1, td.event2, td.task2); //multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("deleteByIndex 1");
         assertFindResult("find this is a", td.event2, td.task2);
     }
 
