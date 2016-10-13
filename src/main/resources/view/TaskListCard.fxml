@@ -31,10 +31,10 @@
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="startTimeLabel" styleClass="cell_small_label" text="\$phone" />
-                        <Label fx:id="locationLabel" styleClass="cell_small_label" text="\$address" />
-                        <Label fx:id="endTimeLabel" styleClass="cell_small_label" text="\$email" />
-                    </children>
+                        <Label fx:id="startTimeLabel" styleClass="cell_small_label" text="\$startTime" />
+                        <Label fx:id="endTimeLabel" styleClass="cell_small_label" text="\$endTime" />
+                        <Label fx:id="locationLabel" styleClass="cell_small_label" text="\$location" />
+                        </children>
                 </VBox>
             </children>
         </GridPane>
