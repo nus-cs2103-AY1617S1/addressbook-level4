@@ -13,7 +13,7 @@ public class Header extends Component {
 
     private static final String LOGO_IMAGE_PATH = "/images/logo-64x64.png";
     private static final String FXML_PATH = "components/Header.fxml";
-
+    private static final String VERSION_TEXT = "version ";
     // Props
     public String versionString;
 
@@ -38,7 +38,7 @@ public class Header extends Component {
         FxViewUtil.makeFullWidth(this.mainNode);
 
         // Sets version number.
-        headerVersionText.setText("version " + versionString);
+        headerVersionText.setText(VERSION_TEXT + versionString);
 
         // Sets logo image.
         Image image = new Image(LOGO_IMAGE_PATH);

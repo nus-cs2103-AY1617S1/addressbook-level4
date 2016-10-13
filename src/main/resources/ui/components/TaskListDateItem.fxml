@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+<VBox styleClass="tasklist-dateitem" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" 
   xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
   fx:controller="seedu.todo.ui.components.TaskListDateItem">
   <children>
-  
-    <VBox styleClass="tasklist-dateitem">
-      <children>
-        <Text fx:id="dateText" styleClass="font-300, tasklist-dateitem-datelabel" VBox.vgrow="ALWAYS">
-          <VBox.margin>
-            <Insets left="10.0" top="3.0" />
-          </VBox.margin>
-        </Text>
 
-        <VBox fx:id="dateTaskItemsPlaceholder" />
+    <HBox alignment="BOTTOM_LEFT">
+      <children>
+        <Text fx:id="dateHeader" styleClass="font-300, tasklist-dateitem-dateheader" VBox.vgrow="ALWAYS" />
+        <Text fx:id="dateLabel" styleClass="tasklist-dateitem-datelabel" VBox.vgrow="ALWAYS">
+          <HBox.margin>
+            <Insets left="10.0" />
+          </HBox.margin>
+        </Text>
       </children>
-    </VBox>
+      <VBox.margin>
+        <Insets left="10.0" top="3.0" />
+      </VBox.margin>
+    </HBox>
+
+    <VBox fx:id="dateTaskItemsPlaceholder" />
     
   </children>
   <padding>

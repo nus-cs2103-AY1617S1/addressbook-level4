@@ -13,7 +13,7 @@ import seedu.todo.MainApp;
  */
 public class UiPartLoader {
     private final static String FXML_FILE_FOLDER = "/ui/";
-
+    private final static String FXML_ERROR_MESSAGE = "FXML Load Error for ";
     /**
      * Loads the UiPart and returns the view controller.
      *
@@ -58,7 +58,7 @@ public class UiPartLoader {
         try {
             return loader.load();
         } catch (Exception e) {
-            String errorMessage = "FXML Load Error for " + fxmlFileName;
+            String errorMessage = FXML_ERROR_MESSAGE + fxmlFileName;
             throw new RuntimeException(errorMessage, e);
         }
     }

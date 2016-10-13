@@ -17,9 +17,7 @@ Please refer to the [Setting up](DeveloperGuide.md#setting-up) section to learn 
 3. Click `Run As` > `Java Application` and choose the `Main` class.
 4. The GUI should appear in a few seconds.
 
-**Include our own app images TBU**
-
-<img src="images/Ui.png">
+<img src="images/GetShitDone-Ui.png">
 
 ## Features
 
@@ -30,13 +28,13 @@ Please refer to the [Setting up](DeveloperGuide.md#setting-up) section to learn 
 > * The order of optional parameters are flexible.
 
 #### Viewing help : `help`
-Shows a list of all commands in the **the application**.  
+Shows a list of all commands in GetShitDone.  
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a task/event: `add`
-Adds a task/event to the **the application**  
+Adds a task/event to GetShitDone  
 Format: `add NAME [s/START_DATE] [e/END_DATE]] [d/DEADLINE] [t/TAG]...` 
 
 > *Note:* An **event** is a special kind of **task**. It does not have any deadlines, but instead it has start and end dates.
@@ -55,11 +53,15 @@ Format: `add NAME [s/START_DATE] [e/END_DATE]] [d/DEADLINE] [t/TAG]...`
 >   * To add multiple tags, use `t/TAG` successively. e.g. `t/Tag 1 t/Tag 2`
 
 Examples: 
-* `add CS2103 Project d/7 Nov t/CS2103 t/NUS Projects`
-* `add CS2103 Workshop s/Saturday 9am e/3pm`
+
+ * `add CS2103 Project d/7 Nov t/CS2103 t/NUS Projects`
+ * `add CS2103 Workshop s/Saturday 9am e/3pm`
+ * `add CS2103 V0.3 by next Friday`
+ <img src="images/UserGuide/beforeAdd.png">
+ <img src="images/UserGuide/afterAdd.png">
 
 #### Listing all tasks : `list`
-Shows a list of all tasks in the **the application**. Able to filter by type of task (task/event), or based on completed or not.  
+Shows a list of all tasks in GetShitDone. Able to filter by type of task (task/event), or based on completed or not.  
 Format: `list [TYPE]`
 
 > Valid parameters: 
@@ -72,6 +74,8 @@ Examples:
 
 * `list`  
   Lists all tasks and events.
+  <img src="images/UserGuide/list.png">
+  
 * `list events`  
   Lists all events.
 
@@ -91,26 +95,23 @@ Returns `Assignment2` & `assignment2`
 * `find assginment2 project`  
 Returns any tasks having names or tag containing `assignment2`, `Assignment2`,  `project`, `Project`
 
-#### Editing a task : `edit`
+#### Editing a task : `update`
 
-Edits the specified task from the **the application**.
-Format: `edit INDEX [s/START_DATE] [e/END_DATE] [d/DEADLINE] [t/TAG]..`
+Edits the specified task from GetShitDone.
+Format: `update INDEX [NAME] [s/START_DATE] [e/END_DATE] [d/DEADLINE] [t/TAG]..`
 
 > Edits the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
 
 Examples: 
 
-* `list`  
-  `edit 2 Assignment3`  
-  Edits the 2<sup>nd</sup> task's name to Assignment3.
-
-* `find assignment2`  
-  `edit 1 d/tomorrow`  
-  Edits the 1<sup>st</sup> task's deadline in the results of the `find` command to tomorrow.
+* `update 1 CS2107 Project by saturday`  
+  Update the 1<sup>st</sup> task's name to CS2107 Project and change the deadline to Saturday   
+  <img src="images/UserGuide/beforeUpdate.png">
+  <img src="images/UserGuide/afterUpdate.png">
 
 #### Deleting a task : `delete`
 
-Deletes the specified task from the **the application**. Requires confirmation from the user to prevent unintentional deletes.
+Deletes the specified task from GetShitDone. Requires confirmation from the user to prevent unintentional deletes.
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
@@ -118,13 +119,14 @@ Format: `delete INDEX`
 
 Examples: 
 
-* `list`  
-  `delete 2`  
-  Deletes the 2nd task in the **the application**.
+* `delete 3`
+  Deletes the 3<sup>rd</sup> task in GetShitDone.
+<img src="images/UserGuide/beforeDelete.png">
+<img src="images/UserGuide/afterDelete.png">
 
 * `find assignment2`  
   `delete 1`  
-  Deletes the 1st task in the results of the `find` command.
+  Deletes the 1<sup>st</sup> task in the results of the `find` command.
 
 #### Removing a tag : `untag`
 
@@ -138,7 +140,7 @@ Examples:
 
 * `list`  
   `untag 2 CS2103`  
-  Untag the tag of `CS2103` of the 2nd task in the **the application**.
+  Untag the tag of `CS2103` of the 2nd task in GetShitDone.
 
 * `find assignment2`  
   `untag 1 CS2103`  
@@ -160,7 +162,7 @@ Examples:
 
 > **Depend on how we implement this command. We could have a hidden tag from user that it is completed, so we could implement list command to display those without the tag. (TBC)**
 
-Completes the specified task from the **the application**.
+Completes the specified task from GetShitDone.
 Format: `complete INDEX`
 
 > completes the task at the specified `INDEX`. 
@@ -170,7 +172,7 @@ Examples:
 
 * `list `  
   `complete 2`  
-  Completes the 2nd task in the **the application**.
+  Completes the 2nd task in GetShitDone.
 
 * `find assignment2`  
   `complete 1`  
@@ -180,7 +182,7 @@ Examples:
 
 > **Depend on how we implement this command. We could have a hidden tag from user that it is completed, so we could implement list command to display those without the tag. (TBC)**
 
-Uncompletes the specified task from the **the application**.
+Uncompletes the specified task from GetShitDone.
 Format: `uncomplete INDEX`
 
 > uncompletes the task at the specified `INDEX`. 
@@ -190,7 +192,7 @@ Examples:
 
 * `list`  
   `uncomplete 2`  
-  Uncompletes the 2nd task in the **the application**.
+  Uncompletes the 2nd task in GetShitDone.
 
 * `find assignment2`  
   `uncomplete 1`  
@@ -273,7 +275,7 @@ Format: `theme`
 
 #### Changing a theme : `changetheme`
 
-Change the theme of the **the application**.  
+Change the theme of GetShitDone.  
 Format: `changetheme INDEX`
 
 > Change the theme at the specified `INDEX`. 
@@ -283,7 +285,7 @@ Examples:
 
 * `theme`  
 `changetheme 2`  
-Changes to the 2nd theme provided in the **the application**.
+Changes to the 2nd theme provided in GetShitDone.
 
 
 #### Exiting the program : `exit`
@@ -329,7 +331,7 @@ Find | `find KEYWORD [MORE_KEYWORDS]...`
 
 Command | Format  
 -------- | :-------- 
-Edit | `edit INDEX [s/START_DATE] [e/END_DATE] [d/DEADLINE] [t/TAG]...`
+Update | `update INDEX [s/START_DATE] [e/END_DATE] [d/DEADLINE] [t/TAG]...`
 Delete | `delete INDEX`
 Remove Tag | `removetag INDEX TAG_NAME`
 Undo | `undo [COUNT]`

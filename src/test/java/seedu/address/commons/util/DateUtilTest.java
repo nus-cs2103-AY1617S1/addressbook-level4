@@ -3,6 +3,7 @@ package seedu.address.commons.util;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -49,23 +50,54 @@ public class DateUtilTest {
 	
 	@Test
 	public void floorDate_differentDate() {
-		long testEpoch1 = 1476099300000l; // 10/10/2016 @ 11:35am (UTC)
-		long testEpoch2 = 1476185700000l; // 11/10/2016 @ 11:35am (UTC)
-		LocalDateTime testDateTime1 = fromEpoch(testEpoch1);
-		LocalDateTime testDateTime2 = fromEpoch(testEpoch2);
-		
-		assertNotEquals(DateUtil.floorDate(testDateTime1), DateUtil.floorDate(testDateTime2));
+	    long testEpoch1 = 1476099300000l; // 10/10/2016 @ 11:35am (UTC)
+	    long testEpoch2 = 1476185700000l; // 11/10/2016 @ 11:35am (UTC)
+	    LocalDateTime testDateTime1 = fromEpoch(testEpoch1);
+	    LocalDateTime testDateTime2 = fromEpoch(testEpoch2);
+	    
+	    assertNotEquals(DateUtil.floorDate(testDateTime1), DateUtil.floorDate(testDateTime2));
 	}
-
+	
+	@Test
+	public void floorDate_nullTest() {
+		assertEquals(DateUtil.floorDate(null), null);
+	}
+	
 	@Test
 	public void formatDayTests() {
-		LocalDateTime now = LocalDateTime.now();
-		assertEquals(DateUtil.formatDay(now), "Today");
-		assertEquals(DateUtil.formatDay(now.plus(1, ChronoUnit.DAYS)), now.plus(1, ChronoUnit.DAYS).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US));
-		assertEquals(DateUtil.formatDay(now.plus(6, ChronoUnit.DAYS)), now.plus(6, ChronoUnit.DAYS).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US));
-		assertEquals(DateUtil.formatDay(now.minus(1, ChronoUnit.DAYS)), "1 day ago");
-		assertEquals(DateUtil.formatDay(now.minus(6, ChronoUnit.DAYS)), "6 days ago");
-		assertEquals(DateUtil.formatDay(now.minus(14, ChronoUnit.DAYS)), "14 days ago");
+	    LocalDateTime now = LocalDateTime.now();
+	    assertEquals(DateUtil.formatDay(now), "Today");
+	    assertEquals(DateUtil.formatDay(now.plus(1, ChronoUnit.DAYS)), "Tomorrow");
+	    
+	    // Show day of week for d = {n+2,...,n+6} where n = today
+	    for (int i = 2; i <= 6; i++) {
+	        String expected = now.plus(i, ChronoUnit.DAYS).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US);
+	        assertEquals(DateUtil.formatDay(now.plus(i, ChronoUnit.DAYS)), expected);
+	    }
+	    
+	    assertEquals(DateUtil.formatDay(now.minus(1, ChronoUnit.DAYS)), "1 day ago");
+	    assertEquals(DateUtil.formatDay(now.minus(6, ChronoUnit.DAYS)), "6 days ago");
+	    assertEquals(DateUtil.formatDay(now.minus(14, ChronoUnit.DAYS)), "14 days ago");
+	}
+	
+	@Test
+	public void formatShortDateTests() {
+	    LocalDateTime now = LocalDateTime.now();
+	    
+	    String expectedToday = now.format(DateTimeFormatter.ofPattern("E dd MMM"));
+	    assertEquals(DateUtil.formatShortDate(now), expectedToday);
+	    
+	    String expectedTomorrow = now.plus(1,  ChronoUnit.DAYS).format(DateTimeFormatter.ofPattern("E dd MMM"));
+	    assertEquals(DateUtil.formatShortDate(now.plus(1, ChronoUnit.DAYS)), expectedTomorrow);
+	    
+	    for (int i = 2; i <= 6; i++) {
+	        String expected = now.plus(i,  ChronoUnit.DAYS).format(DateTimeFormatter.ofPattern("dd MMM"));
+	        assertEquals(DateUtil.formatShortDate(now.plus(i, ChronoUnit.DAYS)), expected);
+	    }
+	    
+	    // Test dates in the past
+	    LocalDateTime pastDate = fromEpoch(946656000000l); // 1 Jan 2000 UTC+8
+	    assertEquals(DateUtil.formatShortDate(pastDate), pastDate.format(DateTimeFormatter.ofPattern("E dd MMM")));
 	}
 	
 	private static LocalDateTime fromEpoch(long epoch) {

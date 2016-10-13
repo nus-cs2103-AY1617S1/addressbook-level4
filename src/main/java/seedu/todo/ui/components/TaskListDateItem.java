@@ -19,6 +19,9 @@ public class TaskListDateItem extends MultiComponent {
 
     private static final String FXML_PATH = "components/TaskListDateItem.fxml";
     private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
+    private static final String SINGLE_TASK_LABEL = "task";
+    private static final String PURAL_TASK_LABEL = "tasks";
+    private static final String NO_DATE_STRING = "No Deadline";
 
     // Props
     public LocalDateTime dateTime;
@@ -27,7 +30,9 @@ public class TaskListDateItem extends MultiComponent {
 
     // FXML
     @FXML
-    private Text dateText;
+    private Text dateHeader;
+    @FXML
+    private Text dateLabel;
     @FXML
     private VBox dateTaskItemsPlaceholder;
     private VBox dateEventItemsPlaceholder;
@@ -43,10 +48,21 @@ public class TaskListDateItem extends MultiComponent {
 
     @Override
     public void componentDidMount() {
+        String dateHeaderString;
+        
         // Set header for DateItem
-        String dateHeader = String.format("%s (%d %s)", DateUtil.formatDay(dateTime), tasks.size(), 
-                                          StringUtil.pluralizer(tasks.size(), "task", "tasks"));
-        dateText.setText(dateHeader);
+        if (dateTime == TaskList.NO_DATE_VALUE) {
+            dateHeaderString = NO_DATE_STRING;
+        } else {
+            dateHeaderString = String.format("%s (%d %s)",
+                    DateUtil.formatDay(dateTime), tasks.size(),
+                    StringUtil.pluralizer(tasks.size(), SINGLE_TASK_LABEL, PURAL_TASK_LABEL));
+        }
+        dateHeader.setText(dateHeaderString);
+        
+        // Set date label
+        String dateLabelString = DateUtil.formatShortDate(dateTime);
+        dateLabel.setText(dateLabelString);
 
         // Load task items
         loadTaskItems();

@@ -24,6 +24,9 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private MainWindow mainWindow;
     
+    private static final String FATAL_ERROR_DIALOG = "Fatal error during initializing";
+    private static final String LOAD_VIEW_ERROR = "Cannot loadView: UiManager not instantiated.";
+    
     protected UiManager() {
         // Prevent instantiation.
     }
@@ -51,7 +54,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow.show();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
-            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+            showFatalErrorDialogAndShutdown(FATAL_ERROR_DIALOG, e);
         }
     }
 
@@ -62,7 +65,7 @@ public class UiManager extends ComponentManager implements Ui {
 
     public static <T extends View> T loadView(Class<T> viewClass) {
         if (instance == null) {
-            logger.warning("Cannot loadView: UiManager not instantiated.");
+            logger.warning(LOAD_VIEW_ERROR);
             return null;
         }
         

@@ -3,6 +3,7 @@ package seedu.todo.commons.util;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -13,6 +14,13 @@ import java.util.Locale;
  */
 public class DateUtil {
 
+    private static final String FROM_NOW = "later";
+    private static final String TILL_NOW = "ago";
+    private static final String TODAY = "Today";
+    private static final String TOMORROW = "Tomorrow";
+    private static final String DAY = "day";
+    private static final String DAYS = "days";
+    
     /**
      * Converts a LocalDateTime object to a legacy java.util.Date object.
      * 
@@ -31,6 +39,9 @@ public class DateUtil {
      * @return           "Floored" LocalDateTime.
      */
     public static LocalDateTime floorDate(LocalDateTime dateTime) {
+        if (dateTime == null)
+            return null;
+        
         return dateTime.toLocalDate().atTime(0, 0);
     }
 
@@ -46,21 +57,46 @@ public class DateUtil {
         LocalDate date = dateTime.toLocalDate();
         long daysDifference = LocalDate.now().until(date, ChronoUnit.DAYS);
 
-        String fromNow = "later";
-        String tillNow = "ago";
-
         // Consider today's date.
-        if (date.isEqual(LocalDate.now()))
-            return "Today";
+        if (date.isEqual(LocalDate.now())) {
+            return TODAY;
+        }
+        
+        if (daysDifference == 1) {
+            return TOMORROW;
+        }
 
         // Consider dates up to 6 days from today.
-        if (daysDifference > 0 && daysDifference <= 6)
+        if (daysDifference > 1 && daysDifference <= 6) {
             return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US);
+        }
 
         // Otherwise, dates should be a relative days ago/from now format.
         return String.format("%d %s %s", Math.abs(daysDifference), 
-                StringUtil.pluralizer((int) Math.abs(daysDifference), "day", "days"), 
-                daysDifference > 0 ? fromNow : tillNow);
+                StringUtil.pluralizer((int) Math.abs(daysDifference), DAY, DAYS), 
+                daysDifference > 0 ? FROM_NOW : TILL_NOW);
+    }
+    
+    /**
+     * Formats a LocalDateTime to a short date. Excludes the day of week only if
+     * the date is within 2-6 days from now.
+     * 
+     * @param dateTime   LocalDateTime to format, withDaysOfWeek.
+     * @return           Formatted shorten day.
+     */
+    public static String formatShortDate(LocalDateTime dateTime) {
+        LocalDate date = dateTime.toLocalDate();
+        long daysDifference = LocalDate.now().until(date, ChronoUnit.DAYS);
+        String dateFormat;
+        
+        // Don't show dayOfWeek for days d, such that d = {n+2,...,n+6}, where n = date now
+        if (daysDifference >= 2 && daysDifference <= 6) {
+            dateFormat = "dd MMM";
+        } else {
+            dateFormat = "E dd MMM";
+        }
+        
+        return date.format(DateTimeFormatter.ofPattern(dateFormat));
     }
 
 }
