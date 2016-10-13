@@ -147,13 +147,13 @@ Examples:
 Edits the specified detail from the list of tasks. 
 Format: `edit TASK_INDEX DETAIL_MODIFIER EDITS` 
 
-> * Jimi edits the task specified by `TASK_INDEX`.
-> * `EDITS` are simply the edits you want to make. 
-> * `DETAIL_MODIFIER` is used to indicate which detail you want to edit. You may choose one of the following modifiers: 
+Jimi edits the task specified by `TASK_INDEX`.
+`EDITS` are simply the edits you want to make. 
+`DETAIL_MODIFIER` is used to indicate which detail you want to edit. You may choose one of the following modifiers: 
+* `/n` : name of task
+* `/sd` and `/ed`: start date-time and end date-time <br>
+<br>
 
->     * `/n` : name of task
->     * `/sd` and `/ed`: start date and end date
->     * `/st` and `/et` : start time and end time <br><br>
 > * If you want to undo your edit, use the [`undo`](#undo) command.
 > * The index refers to the index number shown in the most recent listing.
 > * The index **must be a positive integer** 1, 2, 3.
