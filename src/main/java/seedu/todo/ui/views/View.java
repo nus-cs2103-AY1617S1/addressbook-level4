@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.ui.UiPart;
 
@@ -13,7 +12,7 @@ public abstract class View extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(View.class);
 
     protected Pane placeHolderPane;
-    protected VBox mainNode;
+    protected Pane mainNode;
 
     /**
      * This method renders the View in the specified placeholder, if provided.
@@ -66,7 +65,7 @@ public abstract class View extends UiPart {
 
     @Override
     public void setNode(Node node) {
-        mainNode = (VBox) node;
+        mainNode = (Pane) node;
     }
 
 }
