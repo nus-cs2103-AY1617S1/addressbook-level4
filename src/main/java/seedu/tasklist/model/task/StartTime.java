@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
+import seedu.tasklist.logic.commands.TimePreparser;
+
 import com.joestelmach.natty.*;
 
 /**
@@ -21,8 +23,9 @@ public class StartTime {
      *
      * @throws IllegalValueException if given start time is invalid.
      */
-    public StartTime(String startTime) throws IllegalValueException {
-    	if(startTime != "" && !startTime.equals(new Date(0).toString())){
+    public StartTime(String input) throws IllegalValueException {
+    	String startTime = TimePreparser.preparse(input);
+    	if(!startTime.isEmpty() && !startTime.equals(new Date(0).toString())){
     		List<DateGroup> dates = new Parser().parse(startTime);
     		if(dates.isEmpty()){
     			throw new IllegalValueException("Start time is invalid!");
