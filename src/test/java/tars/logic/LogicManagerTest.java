@@ -292,6 +292,12 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    
+    @Test
+    public void execute_listInvalidFlags_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("ls -", expectedMessage);
+    }
 
     @Test
     public void execute_list_showsAllUndoneTasks() throws Exception {
@@ -560,6 +566,11 @@ public class LogicManagerTest {
     @Test
     public void execute_cd_incorrectArgsFormat_errorMessageShown() throws Exception {
         assertCommandBehavior("cd ", CdCommand.MESSAGE_INVALID_FILEPATH);
+    }
+    
+    @Test
+    public void execute_cd_invalidFileType_errorMessageShown() throws Exception {
+        assertCommandBehavior("cd invalidFileType", CdCommand.MESSAGE_INVALID_FILEPATH);
     }
 
     @Test
