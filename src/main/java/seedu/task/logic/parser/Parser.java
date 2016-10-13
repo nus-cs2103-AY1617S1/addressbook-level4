@@ -136,7 +136,7 @@ public class Parser {
         try {
 			return new EditCommand(
 			        Integer.parseInt(matcher.group("index")),
-			        matcher.group("newName")
+			        matcher.group("newTitle")
 			);
 		} catch (NumberFormatException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
