@@ -3,27 +3,22 @@
 
 **Table of contents**
 
-- Introduction
-- Setting Up
-- Design
-- Implementation
-- Testing
-- Development Opportunity
-- Appendix A : User Stories
-- Appendix B : Use Cases
-- Appendix C : Non Functionality Requirements
-- Appendix D : Glossary
-- Appendix E : Product Survey
+
+* [Introduction](#introduction)
+* [Setting Up](#setting-up)
+* [Design](#design)
+* [Testing](#testing)
+* [Dev Ops](#dev-ops)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
+* [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
 
 
-
-
-
-
-
-**Introduction**
+## **Introduction**
 
 **Overview**
 
@@ -77,7 +72,7 @@ Certain terms used within this developer guide may seem alien to some. Hence thi
 
 (As of now, we&#39;ve not encountered any yet.)
 
-**Setting up**
+## **Setting up**
 
 **Prerequisites**
 
@@ -101,8 +96,9 @@ Certain terms used within this developer guide may seem alien to some. Hence thi
 
 
 
-**Design**
+## **Design**
 
+> <img src="DeveloperGuideImages/Design_01.png" width="600">
 
 The architectural design shows how the various components work in tandem with each other. Main only has one class MainApp and it is responsible for:
 
@@ -227,7 +223,7 @@ Storage is able to:
 
 
 
-**Testing**
+## **Testing**
 
 Tests can be found in the./src/test/javafolder.
 
@@ -279,7 +275,7 @@ Problem: Tests fail because NullPointException when AssertionError is expected
 
 
 
-**Development Opportunities**
+## **Dev Ops**
 
 While this app has been extensively developed, we feel that there is still room for improvement and can therefore be improved further. As such, the main reason for this section of the developer guide is to suggest possible improvements to _Unburden._
 
@@ -302,7 +298,7 @@ Some possible additions to be made:
 
 
 
-**User Stories**
+## **Appendix A : User Stories**
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -316,29 +312,75 @@ Priority | As a ... | I want to ... | So that I can...
 
 `* * *` | new user | view a command | know how to use that particular command
 
-`* * *` | user | add a task |
+`* * *` | user | add a task | keep track of all my tasks/to-dos
+
+`* * *` | user | add a task with a time and date | keep track of deadlines
+
+`* * *` | user | add a floating task | remind myself on less important tasks
+
+`* * *` | user | add a recurring task | be constantly reminded/won't accidentally delete this task
+
+`* * *` | user | add a task with tags | properly categorize my tasks 
 
 `* * *` | user | delete a task | remove a completed task from the list
 
-`* * *` | user | find a task by name/description |
+`* * *` | user | delete all tasks | declutter my task manager
 
-`* * *` | user | list all tasks | know what are the tasks i have entered
+`* * *` | user | delete all tasks with a certain tag | declutter my task manager
 
-`* * *` | user | edit any information of the task |
+`* * *` | user | find a task by name/description | see what needs to be done
 
+`* * *` | user | find a task by tags | find a task that may be related to another task
+
+`* * *` | user | list all tasks | know what are the tasks I have entered
+
+`* * *` | user | list all tasks due by today | know what are the tasks I need to complete by today
+
+`* * *` | user | list all tasks with a deadline | know what are the tasks I can plan my schedule
+
+`* * *` | user | list all tags | know what tags I can search for
+
+`* * *` | user | edit any information of the task | make changes to the tasks that I have created
 
 
 **Nice-To-Have Features**
 
-`* *` | user | undo previous command | remove any task that is entered wrongly.
+`* *` | user | undo previous command | remove any task that is entered wrongly
+
+`* *` | user | keep my information safe | protect information that is private to me
+
+`* *` | user | be reminded of my deadlines | meet my deadlines
+
+`* *` | user | prioritize my tasks | know which tasks are more important
+
+`* *` | user | keep my deleted tasks temporarily | restore them should I need to
+
+`* *` | user | auto correct my typos when typing a command | not retype/edit the command everytime I make a typo
+
+`* *` | user | asked everytime I add a task | ensure that all fields have been entered correctly
+
+`* *` | user | asked everytime I delete a task | not accidentally lose information
+
+`* *` | user | asked everytime I edit a task | not accidentally change the wrong information
+
 
 **May-Have Features**
 
 `*` | user | find history of tasks of certain past period of time
 
+`*` | user | predict and auto correct my typos | be lazy and not retype everything again
 
 
-**User Cases**
+
+
+
+
+
+
+
+
+
+## **Appendix B: Use Cases**
 
 1) Use case: Add task
 
@@ -373,8 +415,6 @@ Use case ends
 
 
 
-
-
 4) Use case: Edit task
 
 1. 1)User requests to edit a task
@@ -389,26 +429,7 @@ Use case: ends
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-**Non Functionality Requirements**
+## **Appendix C: Non Functional Requirements**
 
 1. 1)The app should run smoothly
 2. 2)The app should be able to run all on all operating systems
@@ -420,7 +441,7 @@ Use case: ends
 8. 8)The app should not do anything else other than what the user inputs
 9. 9)The app should be able to recover from errors easily
 
-**Glossary**
+## **Appendix D: Glossary**
 
 1. 1)UI - User Interface
 2. 2)API - Application Programming Interface
@@ -437,7 +458,7 @@ Use case: ends
 
 
 
-**Product Survey**
+## **Appendix E : Product Survey**
 
 Based on research done, below is a table of some of the applicable features and which applications offer them. In effect, our group intends to sieve out the good features while omitting the less popular ones from these applications and implement them into _Unburden_.
 
