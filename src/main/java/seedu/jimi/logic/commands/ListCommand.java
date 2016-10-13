@@ -27,4 +27,9 @@ public class ListCommand extends Command {
         }
         return false;
     }
+    
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }

@@ -11,7 +11,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
  */
 public class SelectCommand extends Command {
 
-    public final int targetIndex;
+    private int targetIndex;
 
     public static final String COMMAND_WORD = "select";
 
@@ -23,7 +23,7 @@ public class SelectCommand extends Command {
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected FloatingTask: %1$s";
     
     public SelectCommand() {
-        targetIndex = 0;
+        this.targetIndex = 0;
     }
     
     public SelectCommand(int targetIndex) {
@@ -53,5 +53,10 @@ public class SelectCommand extends Command {
             }
         }
         return false;
+    }
+    
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 }
