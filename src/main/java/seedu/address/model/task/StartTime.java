@@ -9,9 +9,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class StartTime {
 
-    public static final String MESSAGE_START_CONSTRAINTS =
-            "Task starts should be 2 alphanumeric/period strings separated by '@'";
-    public static final String START_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    public static final String MESSAGE_START_CONSTRAINTS = "Start Time should follow the format hh:mm am/pm(or h:mm am/pm)";
+    public static final String START_VALIDATION_REGEX = "((1[012]|0[1-9]|[1-9]):[0-5][0-9](?i)(am|pm)\\sto\\s)?(1[012]|[1-9]|0[1-9]):[0-5][0-9](?i)(am|pm)";
 
     public final String value;
 
@@ -23,7 +22,7 @@ public class StartTime {
     public StartTime(String start) throws IllegalValueException {
         assert start != null;
         start = start.trim();
-        if (!isValidStartTime(start)) {
+        if (!isValidStartTime(start) && !start.equals("")) {
             throw new IllegalValueException(MESSAGE_START_CONSTRAINTS);
         }
         this.value = start;

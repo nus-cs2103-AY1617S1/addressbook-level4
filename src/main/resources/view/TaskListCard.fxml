@@ -32,8 +32,8 @@
                             </children>
                         </HBox>
                         <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
-                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
                         <Label fx:id="start" styleClass="cell_small_label" text="\$start" />
+                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
                     </children>
                 </VBox>
             </children>

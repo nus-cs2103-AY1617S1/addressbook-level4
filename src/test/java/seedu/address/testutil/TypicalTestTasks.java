@@ -13,21 +13,21 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withEndTime("123, Jurong West Ave 6, #08-111")
-                    .withStartTime("alice@gmail.com").withDate("85355255")
+            alice =  new TaskBuilder().withName("Alice Pauline").withEndTime("5:00pm")
+                    .withStartTime("5:00am").withDate("06/06/15")
                     .withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier").withEndTime("311, Clementi Ave 2, #02-25")
-                    .withStartTime("johnd@gmail.com").withDate("98765432")
+            benson = new TaskBuilder().withName("Benson Meier").withEndTime("5:00pm")
+                    .withStartTime("5:30am").withDate("04/11/13")
                     .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").withDate("95352563").withStartTime("heinz@yahoo.com").withEndTime("wall street").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").withDate("87652533").withStartTime("cornelia@google.com").withEndTime("10th street").build();
-            elle = new TaskBuilder().withName("Elle Meyer").withDate("9482224").withStartTime("werner@gmail.com").withEndTime("michegan ave").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").withDate("9482427").withStartTime("lydia@gmail.com").withEndTime("little tokyo").build();
-            george = new TaskBuilder().withName("George Best").withDate("9482442").withStartTime("anna@google.com").withEndTime("4th street").build();
+            carl = new TaskBuilder().withName("Carl Kurz").withDate("07/10/13").withStartTime("3:21am").withEndTime("4:10pm").build();
+            daniel = new TaskBuilder().withName("Daniel Meier").withDate("12/09/13").withStartTime("5:12pm").withEndTime("11:32am").build();
+            elle = new TaskBuilder().withName("Elle Meyer").withDate("06/06/11").withStartTime("5:00am").withEndTime("5:12pm").build();
+            fiona = new TaskBuilder().withName("Fiona Kunz").withDate("12/04/12").withStartTime("6:12pm").withEndTime("5:23pm").build();
+            george = new TaskBuilder().withName("George Best").withDate("12/04/12").withStartTime("5:12am").withEndTime("6:11pm").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withDate("8482424").withStartTime("stefan@mail.com").withEndTime("little india").build();
-            ida = new TaskBuilder().withName("Ida Mueller").withDate("8482131").withStartTime("hans@google.com").withEndTime("chicago ave").build();
+            hoon = new TaskBuilder().withName("Hoon Meier").withDate("12/12/12").withStartTime("3:00pm").withEndTime("4:12am").build();
+            ida = new TaskBuilder().withName("Ida Mueller").withDate("11/12/12").withStartTime("6:12pm").withEndTime("3:09pm").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
