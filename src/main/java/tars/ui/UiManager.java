@@ -11,6 +11,7 @@ import tars.commons.core.ComponentManager;
 import tars.commons.core.Config;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.storage.DataSavingExceptionEvent;
+import tars.commons.events.storage.TarsStorageDirectoryChangedEvent;
 import tars.commons.events.ui.JumpToListRequestEvent;
 import tars.commons.events.ui.TaskPanelSelectionChangedEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
@@ -118,9 +119,16 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
+    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadTaskPage(event.getNewSelection());
+    }
+    
+    //@@author A0124333U
+    @Subscribe
+    private void handleTarsStorageChangeDirectoryEvent(TarsStorageDirectoryChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));       
+        mainWindow.reloadStatusBarFooter(event.getNewFilePath());
     }
 
 }
