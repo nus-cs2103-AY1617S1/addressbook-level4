@@ -1,7 +1,5 @@
 package seedu.todo.ui.views;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +23,8 @@ public class IndexView extends View {
     private Pane tasksPane;
 
     // Props
-    public List<Task> tasks = new ArrayList<Task>(); // stub
-    public List<String> tags = new ArrayList<String>(); // stub
+    public List<Task> tasks = new ArrayList<Task>();
+    public List<String> tags = new ArrayList<String>();
     public String indexTextValue;
 
 

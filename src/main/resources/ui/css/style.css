@@ -21,7 +21,14 @@
   src: url("../fonts/Roboto-Medium.ttf");
 }
 
+/* VARIABLES */
+
+* {
+  text-color: #444444;
+}
+
 .main-window {
+  color: text-color;
   -fx-font-family: "Roboto";
 }
 
@@ -68,6 +75,7 @@ VBox.header {
 /* CONSOLE */
 
 .text-field.console-input-textfield, .text-area.console-textarea {
+  -fx-text-fill: text-color;
   -fx-border-width: 0px;
   -fx-border-radius: 0px;
   -fx-background-radius: 0px;
@@ -75,6 +83,10 @@ VBox.header {
 
 .text-field.console-input-textfield:focused, .text-area.console-textarea:focused {
   -fx-effect: none;
+}
+
+.text-field.console-input-textfield.invalid {
+  -fx-text-fill: crimson;
 }
 
 .text-area.console-textarea {

@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 public class Task implements CalendarEvent {
     
     private String name;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDateTime dueDate;
 
     @Override
     public String getName() {
@@ -17,31 +16,23 @@ public class Task implements CalendarEvent {
     public void setName(String name) {
         this.name = name;
     }
+
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
+    }
     
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
-    }
-
     @Override
     public LocalDateTime getCalendarDT() {
-        return getStartDate();
+        return getDueDate();
     }
     
     @Override
     public void setCalendarDT(LocalDateTime date) {
-        setStartDate(date);
+        setDueDate(date);
     }
 
 }

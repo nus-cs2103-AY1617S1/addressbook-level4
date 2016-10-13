@@ -18,7 +18,6 @@ import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
-import seedu.todo.ui.components.Console;
 import seedu.todo.ui.components.ConsoleInput;
 import seedu.todo.ui.components.Header;
 import seedu.todo.ui.views.View;
@@ -34,8 +33,8 @@ public class MainWindow extends View {
     private static final String FXML_PATH = "MainWindow.fxml";
     private static final String ICON_PATH = "/images/logo-512x512.png";
     private static final String OPEN_HELP_KEY_COMBINATION = "F1";
-    public static final int MIN_HEIGHT = 800;
-    public static final int MIN_WIDTH = 1000;
+    public static final int MIN_HEIGHT = 600;
+    public static final int MIN_WIDTH = 600;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -46,8 +45,6 @@ public class MainWindow extends View {
     private MenuItem helpMenuItem;
     @FXML
     private AnchorPane childrenPlaceholder;
-    @FXML
-    private AnchorPane consolePlaceholder;
     @FXML
     private AnchorPane consoleInputPlaceholder;
     @FXML
@@ -85,10 +82,6 @@ public class MainWindow extends View {
         // Load ConsoleInput
         ConsoleInput consoleInput = ConsoleInput.load(primaryStage, getConsoleInputPlaceholder());
         consoleInput.render();
-
-        // Load Console
-        Console console = Console.load(primaryStage, getConsolePlaceholder());
-        console.render();
     }
 
     @Override
@@ -123,7 +116,7 @@ public class MainWindow extends View {
      */
     public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                               (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
     @SuppressWarnings("unchecked")
@@ -149,10 +142,6 @@ public class MainWindow extends View {
 
     public AnchorPane getChildrenPlaceholder() {
         return childrenPlaceholder;
-    }
-
-    public AnchorPane getConsolePlaceholder() {
-        return consolePlaceholder;
     }
 
     public AnchorPane getConsoleInputPlaceholder() {
