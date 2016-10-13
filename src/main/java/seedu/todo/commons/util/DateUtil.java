@@ -3,6 +3,7 @@ package seedu.todo.commons.util;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -55,17 +56,16 @@ public class DateUtil {
 
         // Consider today's date.
         if (date.isEqual(LocalDate.now())) {
-            return String.format("%s %s", TODAY, formatDateDisplay(date, true));
+            return TODAY;
         }
         
         if (daysDifference == 1) {
-            return String.format("%s %s", TOMORROW, formatDateDisplay(date, true));
+            return TOMORROW;
         }
 
         // Consider dates up to 6 days from today.
         if (daysDifference > 1 && daysDifference <= 6) {
-            return String.format("%s %s", date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US), formatDateDisplay(date, false));
-                   
+            return date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US);
         }
 
         // Otherwise, dates should be a relative days ago/from now format.
@@ -75,19 +75,23 @@ public class DateUtil {
     }
     
     /**
-     * Formats a LocalDateTime to a shorten date. 
+     * Formats a LocalDateTime to a short date. Excludes the day of week only if
+     * the date is within 2-6 days from now.
      * 
      * @param dateTime   LocalDateTime to format, withDaysOfWeek.
      * @return           Formatted shorten day.
      */
-    private static String formatDateDisplay(LocalDate date, boolean withDaysOfWeek) {
-        //return with the days of the week
-        if (withDaysOfWeek) {
-            return String.format("%s %s %s", date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US),
-                    date.getDayOfMonth(), date.getMonth().getDisplayName(TextStyle.SHORT, Locale.US));
-        }
-        else {
-            return String.format("%s %s", date.getDayOfMonth(), date.getMonth().getDisplayName(TextStyle.FULL, Locale.US).substring(0, 3));            
+    public static String formatShortDate(LocalDateTime dateTime) {
+        LocalDate date = dateTime.toLocalDate();
+        long daysDifference = LocalDate.now().until(date, ChronoUnit.DAYS);
+        String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US);
+        String shortDate = date.format(DateTimeFormatter.ofPattern("dd MMM"));
+        
+        // Don't show dayOfWeek for days d, such that d = {n+2,...,n+6}, where n = date now
+        if (daysDifference >= 2 && daysDifference <= 6) {
+            return String.format("%s", shortDate);
+        } else {
+            return String.format("%s %s", dayOfWeek, shortDate);
         }
     }
 
