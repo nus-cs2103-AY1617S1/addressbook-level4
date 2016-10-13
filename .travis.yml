@@ -6,6 +6,8 @@ script: travis_retry ./gradlew clean headless allTests coverage coveralls -i
 before_install:
           - "export DISPLAY=:99.0"
           - "sh -e /etc/init.d/xvfb start"
+          - wget -P http://repo1.maven.org/maven2/org/ocpsoft/prettytime/prettytime/4.0.1.Final/prettytime-4.0.1.Final.jar
+          - mvn validate
 
 addons:
   apt:
