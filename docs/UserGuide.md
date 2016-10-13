@@ -83,7 +83,7 @@ Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown be
 
 Deletes the specific task from the address book. Irreversible.<br>
 Format: `delete <Task Index>`
-   > <img src="UserGuideImages/UG_9.JPG" width="300">
+   > <img src="UserGuideImages/UG_9.JPG" width="250">
    
    Examples : <br>
    delete Dance Rehearsal <br>
@@ -96,7 +96,7 @@ Once done, the updated list of tasks will be displayed as shown below
 
 3.1 Shows a list of all tasks in the list of tasks.<br>
 Format: `list`
-   > <img src="UserGuideImages/UG_11.JPG" width="200">
+   > <img src="UserGuideImages/UG_11.JPG" width="150">
 
 You can then see all of the tasks in the application in the display as shown below.
    > <img src="UserGuideImages/UG_12.JPG" width="500">
@@ -105,7 +105,7 @@ You can then see all of the tasks in the application in the display as shown bel
 
 3.1 If you wish to find certain tasks, enter the keywords in the task or the task name<br>
 Format: `find`
-   > <img src="UserGuideImages/UG_13.JPG" width="300">
+   > <img src="UserGuideImages/UG_13.JPG" width="200">
    
    Examples : <br>
    find workout <br>
@@ -120,7 +120,7 @@ For example, i keyed in “find workout” in the command line and the task with
 If you wish to clear all the tasks in the task manager in one go, without having to delete each one by one, you can make use of the “clear” command. 
 <br>
 Format: `clear`
-   > <img src="UserGuideImages/UG_15.JPG" width="200">
+   > <img src="UserGuideImages/UG_15.JPG" width="150">
 				
 Simple type the command “clear” as shown above and all tasks will be automatically deleted and the message that “Unburden has been cleared!” would appear as shown below. 
    > <img src="UserGuideImages/UG_16.JPG" width="500">
@@ -169,7 +169,7 @@ By doing so, the date, start time and end time will be updated and the updated l
 
 If you are new to the application and/or require help
 Format: `help`
-   > <img src="UserGuideImages/UG_23.JPG" width="200">
+   > <img src="UserGuideImages/UG_23.JPG" width="150">
    
 This command will open the help window which our user guide and show you the message as shown below. 
    > <img src="UserGuideImages/UG_24.JPG" width="400">
@@ -179,7 +179,7 @@ This command will open the help window which our user guide and show you the mes
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`
-   > <img src="UserGuideImages/UG_25.JPG" width="200">
+   > <img src="UserGuideImages/UG_25.JPG" width="150">
 
 Simply type `exit` in the command line as shown below
    > <img src="UserGuideImages/UG_26.JPG" width="400">
