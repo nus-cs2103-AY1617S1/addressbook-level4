@@ -14,9 +14,9 @@
 
 ## Introduction
 
-TasKitty is an easy-to-use task manager targeted at the average computer or laptop user who wants to keep track of their busy schedules. It is a Java desktop application that is especially targeted at keyboard lovers, as it implements a command-line interface in its GUI.
+TasKitty is an easy-to-use task manager designed specially for the average computer or laptop user who wants to keep track of their busy schedules. It is a Java desktop application that is perfect for keyboard lovers, as it implements a command-line interface in its GUI.
 
-This guide describes the design and implementation of TasKitty. It will help you gain understanding on how TasKitty works and how you can further contribute to its development. We have organised this guide into the 4 major components that make up the core functionality of TasKitty, so that you can have an overview of how these essential components are linked before reading further into the parts that make up each component respectively.
+This guide describes the design and implementation of TasKitty. It will help you understand how TasKitty works and how you can further contribute to its development. We have organised this guide into the 4 major components that make up the core functionality of TasKitty, so that you can have an overview of how these essential components are linked before reading further into the parts that make up each component respectively.
 
 ## Setting up
 
@@ -26,7 +26,7 @@ This guide describes the design and implementation of TasKitty. It will help you
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+   
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -44,20 +44,23 @@ This guide describes the design and implementation of TasKitty. It will help you
 5. Click `Finish`
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+  > * Depending on your connection speed and server load, it can  take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process).
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  > * You can discard any changes that Eclipse may have auto-changed in any settings files during the import process.
 
 ## Design
 
 ### Architecture
-
+<p align="center">
 <img src="images/Architecture.png" width="600"><br>
+
+<em>Architecture Diagram</em>
+</p>
 
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/taskitty/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/taskitty/MainApp.java). It is responsible for
 * initializing the components in the correct sequence, and connecting them with each other at app launch.
 * shutting down the components and invoking the cleanup method where necessary at shut down.
 
@@ -74,19 +77,23 @@ The rest of the App consists four components.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name as the component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* defines its _API_ in an `interface` with the same name as the component.
+* exposes its functionality using a `{Component Name}Manager` class.
 
+<p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-_Logic Class Diagram_
+<em>Logic Class Diagram</em>
+</p>
 
 For example, the `Logic` component (see the class diagram given above) defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 
+<p align="center">
 <img src="images\SDforDeleteTask.png" width="800">
 
-_Sequence Diagram for Delete Task_
+<em>Sequence Diagram for Delete Task</em>
+</p>
 
 The _Sequence Diagram_ above shows how the components interact for the scenario where the user issues the
 command `delete 1`.
@@ -94,9 +101,11 @@ command `delete 1`.
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
+<p align="center">
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
-_Sequence Diagram for Delete Task Event Handling_
+<em>Sequence Diagram for Delete Task Event Handling</em>
+</p>
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
@@ -109,9 +118,11 @@ The sections below give more details of each component.
 
 ### UI component
 
+<p align="center">
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-_UI Class Diagram_
+<em>UI Class Diagram</em>
+</p>
 
 **API** : [`Ui.java`](../src/main/java/seedu/taskitty/ui/Ui.java)
 
@@ -123,16 +134,18 @@ and they can be loaded using the `UiPartLoader`.
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/taskitty/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml).
 
-The `UI` component,
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+The `UI` component
+* executes user commands using the `Logic` component.
+* binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* responds to events raised from various parts of the App and updates the UI accordingly.
 
 ### Logic component
 
+<p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-_Logic Class Diagram_
+<em>Logic Class Diagram</em>
+</p>
 
 **API** : [`Logic.java`](../src/main/java/seedu/taskitty/logic/Logic.java)
 
@@ -140,23 +153,27 @@ _Logic Class Diagram_
 * This results in a `Command` object which is executed by the `LogicManager`.
 * The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 * The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
- 
+
+<p align="center">
 <img src="images/DeleteTaskSDforLogic.png" width="800"><br>
 
-_Delete Task Sequence Diagram for Logic_
+<em>Delete Task Sequence Diagram for Logic</em>
+</p>
 
 Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
 API call.<br>
 
 ### Model component
 
+<p align="center">
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-_Model Class Diagram_
+<em>Model Class Diagram</em>
+</p>
 
 **API** : [`Model.java`](../src/main/java/seedu/taskitty/model/Model.java)
 
-The `Model`,
+The `Model`component
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Task Manager data.
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
@@ -165,14 +182,16 @@ The `Model`,
 
 ### Storage component
 
+<p align="center">
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-_Storage Class Diagram_
+<em>Storage Class Diagram</em>
+</p>
 
 **API** : [`Storage.java`](../src/main/java/seedu/taskitty/storage/Storage.java)
 
-The `Storage` component,
-* saves `UserPref` objects in json format and reads it back.
+The `Storage` component
+* saves `UserPrefs` objects in json format and reads it back.
 * saves the Task Manager data in xml format and reads it back.
 
 ### Common classes
@@ -181,15 +200,20 @@ Classes used by multiple components are in the `seedu.taskitty.commons` package.
 
 ## Implementation
 
+### Configuration
+
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+(default: `config.json`).
+
 ### Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
+  (See [Configuration](#configuration)).
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level
+  the specified logging level.
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
@@ -200,12 +224,6 @@ and logging destinations.
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
-### Configuration
-
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
-(default: `config.json`):
-
-
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
@@ -215,7 +233,7 @@ Tests can be found in the `./src/test/java` folder.
   as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 * To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
+  `Run as` > `JUnit Test`.
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
@@ -228,12 +246,12 @@ We have two types of tests:
    These are in the `guitests` package.
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ that target the lowest level methods/classes. <br>
+   * _Unit tests_ that target the lowest level methods/classes. <br>
       e.g. `seedu.taskitty.commons.UrlUtilTest`
-   2. _Integration tests_ that check the integration of multiple code units 
+   * _Integration tests_ that check the integration of multiple code units 
      (those code units are assumed to be working).<br>
       e.g. `seedu.taskitty.storage.StorageManagerTest`
-   3. _Hybrids of unit and integration tests_ that check multiple code units as well as 
+   * _Hybrids of unit and integration tests_ that check multiple code units as well as 
       how the are connected together.<br>
       e.g. `seedu.taskitty.logic.LogicManagerTest`
   
@@ -257,11 +275,11 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 
 ### Making a Release
 
-Here are the steps to create a new release.
+Here are the steps to create a new release:
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
- 2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. Tag the repo with the version number. e.g. `v0.1`.
+ 3. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ### Managing Dependencies
@@ -269,9 +287,9 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. For example, Task Manager depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+is better than <br>
+* including those libraries in the repo (this bloats the repo size)<br>
+* requiring developers to download those libraries manually (this creates extra work for developers)<br>
 
 ## Appendix A : User Stories
 
@@ -280,7 +298,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
+`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the task manager
 `* * *` | user | add new tasks with no date and time | keep track of tasks that have no date and time
 `* * *` | user | add new tasks with deadlines | keep track of deadlines
 `* * *` | user | add new tasks with start and end time | keep track of tasks with start time and end time
@@ -302,237 +320,257 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **Program** is the `Task Manager`, unless specified otherwise)
 
-#### Use case: Create new todo task
+### Use case: Create new todo task
 
 **MSS**
 
-1. User creates new task with only name
+1. User creates new task with the name of the task only
 2. Program saves the task with given name as a todo<br>
+
 Use case ends
 
 **Extensions**
 
-1a. Name is invalid
+* Name is invalid
 
-> 1a1. Program returns error message, saying that name given is invalid<br>
+> * Program returns error message, saying that name given is invalid<br>
   Use case resumes at step 1
 
-#### Use case: Create new deadline task
+
+### Use case: Create new deadline task
 
 **MSS**
 
 1. User creates new task with name, date and time
 2. Program saves the task with given name, date and time as a deadline<br>
+
 Use case ends
 
 **Extensions**
 
-1a. Name is invalid
+* Name is invalid
 
-> 1a1. Program returns error message, saying that name given is invalid<br>
+> * Program returns error message, saying that name given is invalid<br>
   Use case resumes at step 1
 
-1b. The date/time given is invalid
+* The date/time given is invalid
 
-> 1b1. Program returns error message, saying that date/time given is invalid<br>
+> * Program returns error message, saying that date/time given is invalid<br>
   Use case resumes at step 1
 	
-1c. The date/time entered is already over
+* The date/time entered is already over
 
-> 1c1. Program returns error message, saying that deadline entered is already over<br>
+> * Program returns error message, saying that deadline entered is already over<br>
   Use case resumes at step 1
 
-#### Use case: Create new event task
+
+### Use case: Create new event task
 
 **MSS**
 
 1. User creates new task with name, date, start and end time
 2. Program saves the task with given name, date, start and end time as an event<br>
+
 Use case ends
 
 **Extensions**
 
-1a. Name is invalid
+* Name is invalid
 
-> 1a1. Program returns error message, saying that name given is invalid<br>
+> * Program returns error message, saying that name given is invalid<br>
   Use case resumes at step 1
 
-1b. The date/time given is invalid
+* The date/time given is invalid
 
-> 1b1. Program returns error message, saying that date/time given is invalid<br>
+> * Program returns error message, saying that date/time given is invalid<br>
   Use case resumes at step 1
 	
-1c. The date/time entered is already over
+* The date/time entered is already over
 
-> 1c1. Program returns error message, saying that deadline entered is already over<br>
+> * Program returns error message, saying that deadline entered is already over<br>
   Use case resumes at step 1
 
-1d. The start time is later then end time
+* The start time is later then end time
 
-> 1d1. Program returns error message, saying that the start time cannot be later then the end time<br>
+> * Program returns error message, saying that the start time cannot be later then the end time<br>
   Use case resumes at step 1
 
-#### Use case: View all tasks
+
+### Use case: View all tasks
 
 **MSS**
 
 1. User requests to view all tasks
 2. Program shows the list of todo tasks, events for today and all deadlines<br>
+
 Use case ends
 
 **Extensions**
 
-2a. There are no events for today
+* There are no events for today
 
-> 2a1. Program returns a message, saying there are no tasks for today<br>
+> * Program returns a message, saying there are no tasks for today<br>
   Use case ends
   
-2b. There are no tasks with deadlines
+* There are no tasks with deadlines
 
-> 2b1. Program returns a message, saying there are no tasks with deadlines<br>
+> * Program returns a message, saying there are no tasks with deadlines<br>
   Use case ends
   
-#### Use case: View all tasks at specified date
+  
+### Use case: View all tasks at specified date
 
 **MSS**
 
 1. User requests to view all tasks at a specified date
 2. Program shows all todo tasks, the list of events for the specified date and deadlines up to the specified date<br>
+
 Use case ends
 
 **Extensions**
 
-1a. Date is invalid
+* Date is invalid
 
-> 1a1. Program returns errors message, saying that date given is invalid<br>
+> * Program returns errors message, saying that date given is invalid<br>
   Use case resumes at step 1
 
-2a. There are no events for the specified date
+* There are no events for the specified date
 
-> 2a1. Program returns a message, saying there are no events for the specified date<br>
+> * Program returns a message, saying there are no events for the specified date<br>
   Use case ends
 
-2b. There are neither deadlines before nor on the specified date
+* There are neither deadlines before nor on the specified date
 
-> 2b1. Program returns a message, saying there are neither tasks due before nor on the specified date<br>
+> * Program returns a message, saying there are neither tasks due before nor on the specified date<br>
   Use case ends
-  
-#### Use case: View completed tasks
+
+
+### Use case: View completed tasks
 
 **MSS**
 
 1. User requests to view all completed tasks
 2. Program shows the list of completed todo tasks<br>
+
 Use case ends
 
 **Extensions**
 
-2a. There are no completed tasks
+* There are no completed tasks
 
-> 2a1. Program returns a message, saying there are no completed tasks<br>
+> * Program returns a message, saying there are no completed tasks<br>
   Use case ends
-  
-#### Use case: Find a specific task
+ 
+ 
+### Use case: Find a specific task
 
 **MSS**
 
 1. User requests to find all tasks with a specified keyword
 2. Program shows the list of tasks that contain the keyword<br>
+
 Use case ends
 
 **Extensions**
 
-1a. Keyword entered is a date
+* Keyword entered is a date
 
-> 1a1. Program returns same results as 'view tasks on specified date' command [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)<br>
+> * Program returns same results as 'view tasks on specified date' command [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)<br>
   Use case ends
 
-1b. Keyword is invalid
+* Keyword is invalid
 
-> 1b1. Program returns errors message, saying that keyword given is invalid<br>
+> * Program returns errors message, saying that keyword given is invalid<br>
   Use case resumes at step 1
 
-#### Use case: Edit details of a task
+
+### Use case: Edit details of a task
 
 **MSS**
 
 1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
 2. User edits the details of a task (selected using the alphabet representing the category and the index)
 3. Program saves changes and shows the updated list tasks for the specified date<br>
+
 Use case ends
 
 **Extension**
 
-1a. There are no tasks for the specified date
+* There are no tasks for the specified date
 
 > Use case ends
 
-2a. The given index is invalid
+* The given index is invalid
 
-> 2a1. Program returns error message, saying that index is invalid<br>
+> * Program returns error message, saying that index is invalid<br>
   Use case resumes at step 2
 
-2b. The given alphabet is invalid (not `t`, `d`, or `e`)
+* The given alphabet is invalid (not `t`, `d`, or `e`)
 
-> 2b1. Program returns error message, saying that alphabet representing the type of task is invalid<br>
+> * Program returns error message, saying that alphabet representing the type of task is invalid<br>
   Use case resumes at step 2
   
-3a. Changes made are invalid
+* Changes made are invalid
 
-> 3a1. Program returns error message (similar to error messages when creating a new task), depending on type of error<br>
+> * Program returns error message (similar to error messages when creating a new task), depending on type of error<br>
   Use case resumes at step 2
 
-#### Use case: Delete a task
+
+### Use case: Delete a task
 
 **MSS**
 
 1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
 2. User requests to delete a task from the list
 3. Program removes the task from storage<br>
+
 Use case ends
 
 **Extension**
 
-1a. There are no tasks for the specified date
+* There are no tasks for the specified date
 
 > Use case ends.
 
-2a. The given index is invalid
+* The given index is invalid
 
-> 2a1. Program returns error message, saying that index is invalid<br>
+> * Program returns error message, saying that index is invalid<br>
   Use case resumes at step 2
 
-2b. The given alphabet is invalid (not `t`, `d`, or `e`)
+* The given alphabet is invalid (not `t`, `d`, or `e`)
 
-> 2b1. Program returns error message, saying that alphabet representing the type of task is invalid<br>
+> * Program returns error message, saying that alphabet representing the type of task is invalid<br>
   Use case resumes at step 2
 
-#### Use case: Mark a task when done
+
+### Use case: Mark a task when done
 
 **MSS**
 
 1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
 2. User requests to mark a task from the list as `done`
 3. Program tags the task as `done`<br>
+
 Use case ends
 
 **Extension**
 
-1a. There are no tasks for the specified date
+* There are no tasks for the specified date
 
 > Use case ends
 
-2a. The given index is invalid
+* The given index is invalid
 
-> 2a1. Program returns error message, saying that index is invalid<br>
+> * Program returns error message, saying that index is invalid<br>
   Use case resumes at step 2
   
-2b. The given alphabet is invalid (not `t`, `d`, or `e`)
+* The given alphabet is invalid (not `t`, `d`, or `e`)
 
-> 2b1. Program returns error message, saying that alphabet representing the type of task is invalid<br>
+> * Program returns error message, saying that alphabet representing the type of task is invalid<br>
   Use case resumes at step 2
-  
-#### Use case: Undo previous action
+ 
+ 
+### Use case: Undo previous action
 
 **MSS**
 
@@ -542,26 +580,27 @@ Use case ends
 
 **Extension**
 
-1a. There are no actions to undo.
+* There are no actions to undo.
 
-> 1a1. Program returns error message, saying that no action was executed since startup of task manager<br>
+> * Program returns error message, saying that no action was executed since startup of task manager<br>
   Use case ends.
 
 {More to be added}
 
+
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should work on a desktop without network/Internet connection.
-3. Should work stand-alone.
-4. Should not use relational databases.
-5. Should work without requiring an installer.
-6. Should come with automated unit tests and open source code.
-7. Should favor DOS style commands over Unix-style commands.
-8. Should react to every command within 0.5 seconds.
-9. Should be able to create tasks as far into the future as the user requires.
-10. Should have intuitive commands for users.
-11. Should store data in a human editable file
+* Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
+* Should work on a desktop without network/Internet connection.
+* Should work stand-alone.
+* Should not use relational databases.
+* Should work without requiring an installer.
+* Should come with automated unit tests and open source code.
+* Should favor DOS style commands over Unix-style commands.
+* Should react to every command within 0.5 seconds.
+* Should be able to create tasks as far into the future as the user requires.
+* Should have intuitive commands for users.
+* Should store data in a human editable file.
 
 {More to be added}
 
@@ -570,94 +609,89 @@ Use case ends
 #### Mainstream OS
 > Windows, Linux, Unix, OS-X
 
-#### Private contact detail
-> A contact detail that is not meant to be shared with others
-
 ## Appendix E : Product Survey
 
 #### Ian: `Google Calendar`
 
 **Pros**
 
-* Can be accessed from almost any device (online/offline)
-* Intuitive (Clicking Interface)
-* Sync calendars with different people
-* Layers for calendar
-* Able to locate common free slots for multiple people
-* Able to automatically detect events from gmail
-* Able to use natural language as input
-* Can undo last action
-* Can add recurring reminders
-* Reminders will add to today if they are written for dates that have already passed
+* Can be accessed from almost any device (online/offline).
+* Is intuitive (Clicking Interface).
+* Can sync calendars with different people.
+* Has layers for calendar.
+* Can locate common free slots for multiple people.
+* Can automatically detect events from gmail.
+* Can use natural language as input.
+* Can undo last action.
+* Can add recurring reminders.
+* Can add reminders to today if they are written for dates that have already passed.
 
 **Cons**
 
-* Unable to label events with different categories
-* Has many functionalities, but they are difficult to find
-* Text is truncated on the calendar
-* Only can mark reminders as done
+* Cannot label events with different categories.
+* Has many functionalities, but they are difficult to find.
+* Truncates text on the calendar.
+* Can only mark reminders as done.
 
 
 #### Jun An: `Wunderlist`
 
 **Pros**
 
-* Cross-platform support: Windows, OS, Android, IOS
-* Easy task management including due dates, reminders, star, and list groups
-* Email and printing for tasks list
-* Cloud sharing tasks lists
-* Group all related lists into folders
-* Filter to see all tasks starred, completed and tasks due within a period
-* Able to add anything from web straight to the list
-* Add notes to tasks for extra details
-* Set on notifications (eg. Email, in-app) for due dates
+* Has cross-platform support: Windows, OS, Android, IOS.
+* Has easy task management tools including due dates, reminders, star, and list groups.
+* Can email and print tasks list.
+* Has cloud sharing for tasks lists.
+* Can group all related lists into folders.
+* Can filter tasks to see all tasks starred, completed and tasks due within a period.
+* Can add anything from web straight to the list.
+* Can add notes to tasks for extra details.
+* Can set on notifications (eg. Email, in-app) for due dates.
   
 **Cons**
 
-* No repeat options for task
-* No options for subtasks or subcontexts
-* No undo function
-* Limited functionalities(eg. Limited number of tasks and limited file sizes) for free versions, requires subscription fee to unlock all functionalities
+* Has no repeat options for task.
+* Has no options for subtasks or subcontexts.
+* Has no undo function.
+* Has limited functionalities(eg. Limited number of tasks and limited file sizes) for free versions, requires subscription fee to unlock all functionalities.
 
-
-	
 
 #### Rachel: `Todo.txt`
 
 **Pros**
 
-* Has many filters to choose from: project, context, priority, keyword, etc, so it is easy to narrow down a long list based on what you want to look for
-* Automatic and fast syncing with Dropbox, so user can conveniently access the list at any place that has an internet connection
-* Can be used on a command line interface e.g. terminal
+* Has many filters to choose from: project, context, priority, keyword, etc, so it is easy to narrow down a long list based on what you want to look for.
+* Can sync with Dropbox automatically and quickly, so the user can conveniently access the list at any place that has an internet connection.
+* Can be used on a command line interface e.g. terminal.
 * Can be used on virtually any platform and edited using any text editor.
 * Saves the list as a file in its original, human-readable format, so that even when the application is deleted or uninstalled, the file left behind retains the same readable format when opened by a text editor.
 * Sorts tasks based on 5 priority labels by default (alphabets A - E, where A corresponds to the highest priority), with non-prioritised tasks listed at the bottom.
-* Has a simple and minimalistic interface 
+* Has a simple and minimalistic interface.
 
 **Cons**
 
 * Requires user to manually edit one of the downloaded files “todo.cfg” in order to specify the directory in which the user wishes the save the file when used on a desktop.
-* No support for routine tasks.
-* No support for subtasks under main tasks.
-* No undo function.
+* Has no support for routine tasks.
+* Has no support for subtasks under main tasks.
+* Has no undo function.
 	
 
 #### Jia Wern: `iCal`
 
 **Pros**
 
-* Events can be added very easily by clicking in the corresponding timeslot
-* Duration of events can be changed easily by dragging the borders of the event
-* There is flexibility in terms of being able to set a task to be a recurring task, setting an event to be an entire day and even setting alarms/reminders for the event
-* Events can be categorized and each category is distinctly colour coded.
-* Works across all platforms (desktop, tablet, phone)
-* Events can be searched.
-* Users can undo their previous action
+* Can add events very easily by clicking in the corresponding timeslot.
+* Can change duration of events easily by dragging the borders of the event.
+* Has flexibility in terms of being able to set a task to be a recurring task, setting an event to be an entire day and even setting alarms/reminders for the event.
+* Can categorize events and each category is distinctly colour coded.
+* Works across all platforms (desktop, tablet, phone).
+* Can search for events.
+* Can undo their previous action.
 
 **Cons**
 
-* Details have to be filled individually into the respective categories. There is no option to type everything in one line and the relevant sections will be filled up automatically.
-* There is no way to mark an item as done.
-* There is no automatic way to block of timings. An actual event has to be created and deleted should the event is not happening anymore.
+* Requires users to fill details individually into the respective categories. There is no option to type everything in one line and the relevant sections will be filled up automatically.
+* Has no way to mark an item as done.
+* Has no automatic way to block of timings. An actual event has to be created and deleted should the event is not happening anymore.
 
 
