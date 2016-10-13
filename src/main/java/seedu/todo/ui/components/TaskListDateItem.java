@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
-import seedu.todo.commons.util.StringUtil;
 import seedu.todo.models.Task;
 import seedu.todo.models.Event;
 import seedu.todo.ui.UiPartLoader;
@@ -20,8 +19,6 @@ public class TaskListDateItem extends MultiComponent {
 
     private static final String FXML_PATH = "components/TaskListDateItem.fxml";
     private static EphemeralDB ephemeralDb = EphemeralDB.getInstance();
-    private static final String SINGLE_TASK_LABEL = "task";
-    private static final String PURAL_TASK_LABEL = "tasks";
     private static final String NO_DATE_STRING = "No Deadline";
 
     // Props
@@ -54,9 +51,7 @@ public class TaskListDateItem extends MultiComponent {
         if (dateTime == TaskList.NO_DATE_VALUE) {
             dateHeaderString = NO_DATE_STRING;
         } else {
-            dateHeaderString = String.format("%s (%d %s)",
-                    DateUtil.formatDay(dateTime), tasks.size(),
-                    StringUtil.pluralizer(tasks.size(), SINGLE_TASK_LABEL, PURAL_TASK_LABEL));
+            dateHeaderString = DateUtil.formatDay(dateTime);
         }
         
         dateHeader.setText(dateHeaderString);
