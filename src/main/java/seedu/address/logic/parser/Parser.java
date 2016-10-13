@@ -28,16 +28,16 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<task>[^/]+)"
-                    + " (?<isDuedatePrivate>p?)d/(?<duedate>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
-                    + " (?<isReminderPrivate>p?)r/(?<reminder>[^/]+)"
+                    + "(?<isDuedatePrivate>p?)(?<duedate>(?: d/[^/]+)?)"
+                    + "(?<isPriorityPrivate>p?)(?<priority>(?: p/[^/]+)?)"
+                    + "(?<isReminderPrivate>p?)(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern PERSON_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<targetIndex>.+)" + " n/(?<task>[^/]+)"
-                    + " (?<isDuedatePrivate>p?)d/(?<duedate>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
-                    + " (?<isReminderPrivate>p?)r/(?<reminder>[^/]+)"
+            Pattern.compile("(?<targetIndex>[0-9]+)" + "(?<task>(?: n/[^/]+)?)"
+                    + "(?<isDuedatePrivate>p?)(?<duedate>(?: d/[^/]+)?)"
+                    + "(?<isPriorityPrivate>p?)(?<priority>(?: p/[^/]+)?)"
+                    + "(?<isReminderPrivate>p?)(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -108,9 +108,9 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("task"),
-                    matcher.group("duedate"),
-                    matcher.group("priority"),
-                    matcher.group("reminder"),
+                    getElement(matcher.group("duedate")," d/"),
+                    getElement(matcher.group("priority")," p/"),
+                    getElement(matcher.group("reminder")," r/"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
@@ -130,8 +130,21 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
-    }
-
+    }   
+    
+    /**
+     * Extracts the new task's element (e.g. DueDate, Priority) from the add command's argument string.
+     */
+    private static String getElement(String argument, String prefix) {
+        // no priority
+        if (argument.isEmpty()) {
+            return "";
+        }
+        // replace first delimiter prefix, then return
+        String priorityValue = argument.replaceFirst(prefix, "");
+        return priorityValue;
+    }   
+    
     /**
      * Parses arguments in the context of the delete person command.
      *
@@ -173,10 +186,10 @@ public class Parser {
         
         try {
             return new EditCommand(index.get(), 
-                    matcher.group("task"),
-                    matcher.group("duedate"),
-                    matcher.group("priority"),
-                    matcher.group("reminder"),
+                    getElement(matcher.group("task"), " n/"),
+                    getElement(matcher.group("duedate")," d/"),
+                    getElement(matcher.group("priority")," p/"),
+                    getElement(matcher.group("reminder")," r/"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {

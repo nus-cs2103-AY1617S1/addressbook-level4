@@ -55,10 +55,14 @@ public class Reminder {
      * Returns true if a given string is a valid task reminder.
      */
     public static boolean isValidReminder(String test) {
+<<<<<<< HEAD
         if ((DateValidation.validate(test)))
             return true;
         else
             return false;
+=======
+        return test.matches(REMINDER_VALIDATION_REGEX)|| test == "";
+>>>>>>> origin/Floating_Task
     }
 
     @Override

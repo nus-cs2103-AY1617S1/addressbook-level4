@@ -29,7 +29,7 @@ public class TaskManager {
     private static TaskName updateTaskName(ReadOnlyTask oldTask, Task newParams) throws IllegalValueException {
         TaskName newTaskName;
 
-        if (newParams.getName() == null) {
+        if (newParams.getName().toString().equals("")) {
             newTaskName = new TaskName(oldTask.getName().toString());
         } else {
             newTaskName = new TaskName(newParams.getName().toString());
@@ -41,7 +41,7 @@ public class TaskManager {
     private static DueDate updateDueDate(ReadOnlyTask oldTask, Task newParams) throws IllegalValueException {
         DueDate newDueDate;
 
-        if (newParams.getDueDate() == null) {
+        if (newParams.getDueDate().toString().equals("")) {
             newDueDate = new DueDate(oldTask.getDueDate().toString());
         } else {
             newDueDate = new DueDate(newParams.getDueDate().toString());
@@ -53,7 +53,7 @@ public class TaskManager {
     private static Priority updatePriority(ReadOnlyTask oldTask, Task newParams) throws IllegalValueException {
         Priority newPriority;
 
-        if (newParams.getPriority() == null) {
+        if (newParams.getPriority().toString().equals("")) {
             newPriority = new Priority(oldTask.getPriority().toString());
         } else {
             newPriority = new Priority(newParams.getPriority().toString());
@@ -65,7 +65,7 @@ public class TaskManager {
     private static Reminder updateReminder(ReadOnlyTask oldTask, Task newParams) throws IllegalValueException {
         Reminder newReminder;
 
-        if (newParams.getReminder() == null) {
+        if (newParams.getReminder().toString().equals("")) {
             newReminder = new Reminder(oldTask.getReminder().toString());
         } else {
             newReminder = new Reminder(newParams.getReminder().toString());

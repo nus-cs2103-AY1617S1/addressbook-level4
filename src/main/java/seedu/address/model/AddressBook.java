@@ -115,12 +115,12 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         }
     }
     
-    public boolean editTask(ReadOnlyTask task, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
+    public Task editTask(ReadOnlyTask task, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
         if (tasks.contains(task)) {
             Task newTask = TaskManager.mapUnaffectedParams(task, newParams);
             tasks.remove(task);
             tasks.add(newTask);
-            return true;
+            return newTask;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }

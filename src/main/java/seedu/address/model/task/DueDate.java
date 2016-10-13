@@ -51,10 +51,14 @@ public class DueDate {
      * Returns true if a given string is a valid task reminder.
      */
     public static boolean isValidDueDate(String test) {
+<<<<<<< HEAD
         if ((DateValidation.validate(test)))
             return true;
         else
             return false;
+=======
+        return test.matches(DUEDATE_VALIDATION_REGEX)|| test == "";
+>>>>>>> origin/Floating_Task
     }
 
     @Override
