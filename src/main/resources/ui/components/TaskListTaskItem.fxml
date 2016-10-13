@@ -3,14 +3,20 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Circle?>
 
 
-<HBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+<HBox maxHeight="40.0" maxWidth="Infinity" minHeight="40.0" minWidth="-Infinity" 
   xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
-  fx:controller="seedu.todo.ui.components.TaskListTaskItem">
+  fx:controller="seedu.todo.ui.components.TaskListTaskItem" alignment="CENTER_LEFT">
   <children>
   
     <Text fx:id="rowIndex" styleClass="tasklist-rowindex" HBox.hgrow="NEVER" wrappingWidth="20.0" />
+    <Circle fx:id="taskCheckMarkCircle" styleClass="tasklist-taskitem-checkmarkcircle" radius="10">
+      <HBox.margin>
+        <Insets right="10.0" />
+      </HBox.margin>
+    </Circle>
     <Text fx:id="taskText" styleClass="tasklist-taskitem-label" HBox.hgrow="ALWAYS" />
     
   </children>

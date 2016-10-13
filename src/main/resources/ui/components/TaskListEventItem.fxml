@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+<HBox maxHeight="40.0" maxWidth="Infinity" minHeight="40.0" minWidth="-Infinity" 
   xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
-  fx:controller="seedu.todo.ui.components.TaskListEventItem">
+  fx:controller="seedu.todo.ui.components.TaskListEventItem" alignment="CENTER_LEFT">
   <children>
   
     <Text fx:id="rowIndex" styleClass="tasklist-rowindex" HBox.hgrow="NEVER" wrappingWidth="20.0" />

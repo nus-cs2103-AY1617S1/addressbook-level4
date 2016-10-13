@@ -2,6 +2,7 @@ package seedu.todo.ui.components;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.todo.models.Task;
@@ -20,6 +21,8 @@ public class TaskListTaskItem extends MultiComponent {
     private Text rowIndex;
     @FXML
     private Text taskText;
+    @FXML
+    private Circle taskCheckMarkCircle;
 
     public static TaskListTaskItem load(Stage primaryStage, Pane placeholderPane) {
         return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskListTaskItem());

@@ -127,7 +127,7 @@ VBox.header {
 .tasklist-pane {
   -fx-background-color: #ffffff;
 }
-
+]
 .tasklist-title {
   -fx-font-size: 20px;
 }
@@ -144,6 +144,11 @@ VBox.header {
 .tasklist-dateitem-datelabel {
   -fx-fill: #999999;
   -fx-font-size: 12px;
+}
+
+.tasklist-taskitem-checkmarkcircle {
+  -fx-fill: transparent;
+  -fx-stroke: #dddddd;
 }
 
 /* HELP VIEW */
