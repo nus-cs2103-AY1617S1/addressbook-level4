@@ -75,7 +75,7 @@ This developer guide will provide you with the necessary basic information to st
 
 > Diagram 1: Archicture Class Diagram
 
-The **_Architecture Class Diagram_** given above explains the high-level design of the App.
+The _Architecture Class Diagram_ given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
@@ -267,7 +267,7 @@ We have two types of tests:
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ That means the developer can do other things on the Computer while the tests are running. 
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
 <br>
@@ -310,7 +310,7 @@ according to his/ her preferences, would enhance user experience and ease of use
 
 #### Saving and loading of statistics
 By enabling user to save and load usage and productivity statistics (number of event/ deadline/ someday tasks 
-completed or missed), user will be able to track and improve upon his/ her work productivity.
+completed or missed), user will be able to track work progress and improve upon his/ her work productivity.
 
 #### Better command feedback
 Having more specific feedback to users' commands will allow users to find that what exactly happened after 
