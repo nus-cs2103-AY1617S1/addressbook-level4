@@ -23,6 +23,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -109,6 +110,9 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -168,6 +172,22 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
+    }
+
+    /**
+     * Parses arguments for done task command
+     * @param args full command args string
+     * @return the prepared done command
+     * @author darren
+     */
+    private Command prepareDone(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(index.get());   
     }
 
     /**
