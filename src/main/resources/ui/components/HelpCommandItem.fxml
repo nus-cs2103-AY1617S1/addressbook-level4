@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="100" minWidth="100" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.components.HelpCommandItem">
+<VBox maxHeight="Infinity" maxWidth="Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.components.HelpCommandItem">
   <children>
-    <Text fx:id="commandNameText" styleClass="commandtext-name" />
-    <Text fx:id="commandDescriptionText" styleClass="commandtext-description" />
-    <Text fx:id="commandSyntaxText" styleClass="commandtext-syntax" />
+    <Text fx:id="commandNameText" styleClass="font-300, commandtext-name">
+      <VBox.margin>
+        <Insets bottom="5.0" />
+      </VBox.margin>
+    </Text>
+    <Text fx:id="commandSyntaxText" styleClass="commandtext-syntax">
+      <VBox.margin>
+        <Insets bottom="5.0" />
+      </VBox.margin>
+    </Text>
+    <Text fx:id="commandDescriptionText" styleClass="commandtext-description">
+      <VBox.margin>
+        <Insets bottom="5.0" />
+      </VBox.margin>
+    </Text>
   </children>
+  <VBox.margin>
+    <Insets bottom="15.0" />
+  </VBox.margin>
 </VBox>

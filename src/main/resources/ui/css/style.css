@@ -146,3 +146,12 @@ VBox.header {
 .help-pane {
   -fx-background-color: #ffffff;
 }
+
+.commandtext-name {
+  -fx-font-size: 18px;
+}
+
+.commandtext-syntax {
+  -fx-background-color: #aaaaaa;
+  -fx-font-family: "Courier New", Courier, monospace;
+}
