@@ -9,7 +9,7 @@ import java.util.Date;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's deadline in the address book.
+ * Represents a Task's deadline in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
  */
 public class Deadline {
