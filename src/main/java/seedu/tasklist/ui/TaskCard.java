@@ -3,12 +3,20 @@ package seedu.tasklist.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
+    private static final String COMPLETED_ICON_URL = 
+    		TaskCard.class.getResource("/images/icon_checkmark.png").toExternalForm();
+    private static final String OVERDUE_ICON_URL = 
+    		TaskCard.class.getResource("/images/icon_exclamation.png").toExternalForm();
+    private static final String INCOMPLETE_ICON_URL = 
+    		TaskCard.class.getResource("/images/icon_incomplete.png").toExternalForm();
 
     @FXML
     private HBox cardPane;
@@ -24,6 +32,8 @@ public class TaskCard extends UiPart{
     private Label priority;
     @FXML
     private Label tags;
+    @FXML
+    private ImageView statusButton;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -46,6 +56,8 @@ public class TaskCard extends UiPart{
         startTime.setText("Starts:   " + task.getStartTime().toCardString());
         priority.setText("Priority: " + String.valueOf(task.getPriority()));
         endTime.setText("Ends:     " + task.getEndTime().toCardString());
+        statusButton.setVisible(true);
+        setStatusButtonColour();
         tags.setText(task.tagsString());
     }
 
@@ -53,6 +65,16 @@ public class TaskCard extends UiPart{
         return cardPane;
     }
 
+    public void setStatusButtonColour() {
+    	//TODO: add if overdue
+    	if(task.isComplete()){
+    		statusButton.setImage(new Image(COMPLETED_ICON_URL));
+    	}
+    	else{
+    		statusButton.setImage(new Image(INCOMPLETE_ICON_URL));
+    	}
+    }
+    
     @Override
     public void setNode(Node node) {
         cardPane = (HBox)node;
