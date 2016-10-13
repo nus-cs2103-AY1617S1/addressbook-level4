@@ -44,16 +44,15 @@ At this point, we know that you are just as excited as we are [about Jimi](https
 > **Command Format**
 > * Replace words in `UPPER_CASE` with your input.
 > * Items in `[]` are optional.
-> * Items with `...` after them can have multiple instances.
 > * The order of your input text is fixed. For instance, `add [DATE/TIME] by [TASK DETAILS]` is invalid.
 
 
 Command | Format  
 -------- | :-------- 
 [Help](#help) | `help`
-[Add](#add) | `add "TASK_DETAILS"`
-&nbsp;| `add "TASK_DETAILS" by DATE/TIME`
-&nbsp;| `add "EVENT_DETAILS" on START_DATE/TIME [to END_DATE/TIME]`
+[Add](#add) | `add "TASK_DETAILS" [t/TAG]`
+&nbsp;| `add "TASK_DETAILS" by DATE/TIME [t/TAG]`
+&nbsp;| `add "EVENT_DETAILS" on START_DATE/TIME [to END_DATE/TIME] [t/TAG]`
 [Complete](#com)| `complete TASK_INDEX`
 [Delete](#del) | `delete TASK_INDEX`
 [Edit](#edit) | `edit INDEX DETAIL_MODIFIER EDITS`
