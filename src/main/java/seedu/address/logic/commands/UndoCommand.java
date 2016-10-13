@@ -21,7 +21,6 @@ public class UndoCommand extends Command {
     
     public static final String TOOL_TIP = "undo";
     
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
 
     public UndoCommand() {
     }

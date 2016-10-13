@@ -203,4 +203,18 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    @Override
+    public void deleteTasks(List<ReadOnlyTask> targets) {
+        for (ReadOnlyTask target : targets){
+            try {
+                deleteTask(target);
+            } catch (TaskNotFoundException e) {
+                // TODO Auto-generated catch block
+                // Do something here? Indicate to user ?
+                e.printStackTrace();
+            }
+        }
+        
+    }
+
 }

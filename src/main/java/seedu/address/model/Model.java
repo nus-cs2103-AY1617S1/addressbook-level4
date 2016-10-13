@@ -28,6 +28,9 @@ public interface Model {
 
     /** Adds the given floating task */
     void addTask(Task task);
+    
+    /** Delete the given floating tasks. */
+    void deleteTasks(List<ReadOnlyTask> targets);
        
     /** Add the given floating tasks */
     void addTasks(List<Task> tasks);
