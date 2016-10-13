@@ -52,7 +52,7 @@ public class UpdateController implements Controller {
         
         // Get record
         EphemeralDB edb = EphemeralDB.getInstance();
-        Task task = edb.getTaskByDisplayedId(index);
+        Task task = edb.getCalendarItemsByDisplayedId(index);
         TodoListDB db = TodoListDB.getInstance();
         if (task != null) {
             task.setName(name);

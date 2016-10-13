@@ -2,8 +2,7 @@ package seedu.todo.commons;
 
 import java.util.List;
 
-import seedu.todo.models.Task;
-import seedu.todo.models.Event;
+import seedu.todo.models.CalendarItem;
 
 /**
  * A bit like Redis, essentially a data store for things that should not be
@@ -18,6 +17,10 @@ public class EphemeralDB {
 
     private static EphemeralDB instance = null;
 
+    // Stores
+    public List<CalendarItem> displayedCalendarItems;
+
+    
     protected EphemeralDB() {
         // Prevent instantiation.
     }
@@ -28,37 +31,29 @@ public class EphemeralDB {
         }
         return instance;
     }
-
-    /** ======== DISPLAYED TASKS ======== **/
-
-    public List<Task> displayedTasks;
     
-    /** ======== DISPLAYED Events ======== **/
-    public List<Event> displayedEvents;
+    
+    /** ======== DISPLAYED CALENDAR ITEMS ======== **/
 
     /**
-     * Returns a Task from displayedTasks according to their displayed ID.
+     * Returns a CalendarItem from all displayedCalendarItems according to their displayed ID.
+     * Note that displayedCalendarItems stores the indexes of the last displayed list of CalendarItems.
      * Their displayed ID is simply their index in the ArrayList + 1 (due to 0-indexing of ArrayLists).
      * 
      * @param id   Display ID of task. Bounded between 1 and the size of the ArrayList.
      * @return     Returns the Task at the specified display index.
      */
-    public Task getTaskByDisplayedId(int id) {
-        if (id <= 0 || id > displayedTasks.size()) {
+    public CalendarItem getCalendarItemsByDisplayedId(int id) {
+        if (id <= 0 || id > displayedCalendarItems.size()) {
             return null;
         } else {
-            return displayedTasks.get(id - 1);
+            return displayedCalendarItems.get(id - 1);
         }
     }
 
-    public int addToDisplayedTask(Task task) {
-        displayedTasks.add(task);
-        return displayedTasks.size();
-    }
-    
-    public int addToDisplayedEvent(Event event) {
-        displayedEvents.add(event);
-        return displayedEvents.size();
+    public int addToDisplayedCalendarItems(CalendarItem item) {
+        displayedCalendarItems.add(item);
+        return displayedCalendarItems.size();
     }
 
 }

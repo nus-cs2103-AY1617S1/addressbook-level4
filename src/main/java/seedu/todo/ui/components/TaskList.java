@@ -48,7 +48,7 @@ public class TaskList extends Component {
         TaskListDateItem.reset(taskListDateItemsPlaceholder);
 
         // Clears displayedTasks in EphemeralDB.
-        ephemeralDb.displayedTasks = new ArrayList<Task>();
+        ephemeralDb.displayedCalendarItems = new ArrayList<Task>();
 
         // Get a list of tasks mapped to each date
         HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = getTasksByDate(tasks);

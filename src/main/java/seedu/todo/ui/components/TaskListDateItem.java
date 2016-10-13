@@ -76,7 +76,7 @@ public class TaskListDateItem extends MultiComponent {
             TaskListTaskItem item = TaskListTaskItem.load(primaryStage, dateCalendarItemsPlaceholder);
 
             // Add to EphemeralDB and get the index.
-            int displayIndex = ephemeralDb.addToDisplayedTask(task);
+            int displayIndex = ephemeralDb.addToDisplayedCalendarItems(task);
 
             // Set the props and render the TaskListTaskItem.
             item.task = task;
