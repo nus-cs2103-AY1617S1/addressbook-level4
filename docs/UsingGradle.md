@@ -35,7 +35,7 @@ Gradle commands look like this:
 ## Creating the JAR file
 
 * **`shadowJar`** <br>
-  Creates the `addressbook.jar` file in the `build/jar` folder, _if the current file is outdated_.<br>
+  Creates the `tary.jar` file in the `build/jar` folder, _if the current file is outdated_.<br>
   e.g. `./gradlew shadowJar`
 
   > To force Gradle to create the JAR file even if the current one is up-to-date, you can '`clean`' first. <br>
