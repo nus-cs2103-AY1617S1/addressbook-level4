@@ -21,6 +21,8 @@ public class TestTask implements ReadOnlyTask {
     public TestTask() {
         taskType = new TaskType("someday");
     	tags = new UniqueTagList();
+    	startDate = Optional.empty();
+    	endDate = Optional.empty();
     }
 
     public void setName(Name name) {
@@ -90,7 +92,7 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTaskType().value + " '");
-        sb.append( this.getName().fullName + "'");
+        sb.append(this.getName().fullName + "'");
         //sb.append("e/" + this.getEmail().value + " ");
         //sb.append("a/" + this.getAddress().value + " ");
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));

@@ -97,18 +97,18 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
-		//
-		// case ClearCommand.COMMAND_WORD:
-		// return new ClearCommand();
-		//
-		// case FindCommand.COMMAND_WORD:
-		// return prepareFind(arguments);
-		//
+		
+		case ClearCommand.COMMAND_WORD:
+			return new ClearCommand();
+		
+//		 case FindCommand.COMMAND_WORD:
+//		 return prepareFind(arguments);
+		
+		case HelpCommand.COMMAND_WORD:
+			return new HelpCommand();
+			 
 		case ExitCommand.COMMAND_WORD:
 			return new ExitCommand();
-		//
-		// case HelpCommand.COMMAND_WORD:
-		// return new HelpCommand();
 
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
