@@ -30,10 +30,16 @@ public abstract class Command {
     
     /**
      * Checks if a given string is a command word of this command.
+     * Critical commands like "Exit" and "Clear" should have the user type the full command word for it to be valid.
      * 
      * @return true if given string is a valid command word of this command.
      */
     public abstract boolean isValidCommandWord(String commandWord);
+    
+    /**
+     * Returns command word corresponding to this command.
+     */
+    public abstract String getCommandWord();
     
     /**
      * Provides any needed dependencies to the command.
