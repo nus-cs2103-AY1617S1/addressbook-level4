@@ -475,7 +475,7 @@ Use case ends
 > * Program returns a message, saying there are no completed tasks<br>
   Use case ends
  
- 
+<br></br> 
 ### Use case: Find a specific task
 
 **MSS**
