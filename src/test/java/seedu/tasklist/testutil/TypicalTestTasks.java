@@ -19,10 +19,10 @@ public class TypicalTestTasks {
             benson = new TaskBuilder().withTitle("Benson Meier").withDueDate("040404")
                     .withDescription("have a hard time in comsci").withStartDate("300303")
                     .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withTitle("Carl Kurz").withStartDate("050505").withDescription("play too hard with Bensen").withDueDate("060606").build();
-            daniel = new TaskBuilder().withTitle("Daniel Meier").withStartDate("051114").withDescription("likes Carl").withDueDate("101118").build();
+            carl = new TaskBuilder().withTitle("Carl Kurz").withStartDate("050505").withDescription("likes to play too hard with Bensen").withDueDate("060606").build();
+            daniel = new TaskBuilder().withTitle("Daniel Meier Failure").withStartDate("051114").withDescription("likes Carl").withDueDate("101118").build();
             elle = new TaskBuilder().withTitle("Elle Meyer").withStartDate("010101").withDescription("love triangle with Daniel").withDueDate("100412").build();
-            fiona = new TaskBuilder().withTitle("Fiona Kunz").withStartDate("030303").withDescription("ditched Elle").withDueDate("050113").build();
+            fiona = new TaskBuilder().withTitle("Fiona Kunz Failure").withStartDate("030303").withDescription("ditched Elle").withDueDate("050113").build();
             george = new TaskBuilder().withTitle("George Best").withStartDate("040404").withDescription("get together with Fiona").withDueDate("050603").build();
 
             //Manually added
