@@ -21,7 +21,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 
 public class NavbarPanel extends UiPart {
-	// private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+	
 	private final Logger logger = LogsCenter.getLogger(NavbarPanel.class);
     private static final String FXML = "NavbarPanel.fxml";
     private VBox panel;
@@ -31,10 +31,10 @@ public class NavbarPanel extends UiPart {
     private final String NAVBAR_DEADLINES = "Deadlines";
     private final String NAVBAR_INCOMING_DEADLINES = "Incoming Deadlines";
     private final String NAVBAR_FLOATING_TASKS = "Floating Tasks";
-    private final String NAVBAR_COMPLETED = "Completed";
+//    private final String NAVBAR_COMPLETED = "Completed";
     
     private final ObservableList<String> navbarElement = FXCollections.observableArrayList(NAVBAR_TASKS, NAVBAR_DEADLINES,
-			  																					 NAVBAR_INCOMING_DEADLINES, NAVBAR_FLOATING_TASKS, NAVBAR_COMPLETED);
+			  																					 NAVBAR_INCOMING_DEADLINES, NAVBAR_FLOATING_TASKS);
     //private variables for navbar commands
     private String command = null;
     private Date day = null;
@@ -108,13 +108,13 @@ public class NavbarPanel extends UiPart {
     			command = FindCommand.COMMAND_WORD +" by "+ formatter.format(day);
     			return command;
     		case NAVBAR_INCOMING_DEADLINES:
-    			day = new Date(System.currentTimeMillis()+24*7*60*60*1000);
+    			day = new Date(System.currentTimeMillis()+24 * 7 * 60 * 60 * 1000);
     			command = FindCommand.COMMAND_WORD +" by "+ formatter.format(day);
     			return command;
     		case NAVBAR_FLOATING_TASKS:
     			command = FindCommand.COMMAND_WORD +" -F";
     			return command;
-    		case NAVBAR_COMPLETED:
+    		//case NAVBAR_COMPLETED:
     		case NAVBAR_TASKS:
     		default:
     			return ListCommand.COMMAND_WORD;
