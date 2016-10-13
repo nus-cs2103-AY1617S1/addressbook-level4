@@ -17,7 +17,7 @@ Please refer to the [Setting up](DeveloperGuide.md#setting-up) section to learn 
 3. Click `Run As` > `Java Application` and choose the `Main` class.
 4. The GUI should appear in a few seconds.
 
-<img src="images/Ui.png">
+<img src="images/GetShitDone-Ui.png">
 
 ## Features
 
