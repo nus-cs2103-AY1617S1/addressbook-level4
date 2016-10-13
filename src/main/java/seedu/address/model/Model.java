@@ -18,13 +18,13 @@ public interface Model {
     ReadOnlyTaskBook getTaskBook();
 
     /** Deletes the given person. */
-    void deletePerson(ReadOnlyItem target) throws UniqueItemList.ItemNotFoundException;
+    void deleteItem(ReadOnlyItem target) throws UniqueItemList.ItemNotFoundException;
 
     /** Adds the given person */
     void addItem(Item item) throws UniqueItemList.DuplicateItemException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyItem> getFilteredPersonList();
+    UnmodifiableObservableList<ReadOnlyItem> getFilteredItemList();
 
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();

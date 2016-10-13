@@ -4,13 +4,13 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.model.item.Item;
 import seedu.address.model.item.ReadOnlyItem;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.item.UniqueItemList;
+import seedu.address.model.item.UniqueItemList.DuplicateItemException;
+import seedu.address.model.item.UniqueItemList.ItemNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -22,72 +22,72 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
-    private final FilteredList<Person> filteredPersons;
+    private final TaskBook taskBook;
+    private final FilteredList<Item> filteredItems;
 
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(TaskBook src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new AddressBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        taskBook = new TaskBook(src);
+        filteredItems = new FilteredList<>(taskBook.getItems());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new TaskBook(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
-    }
-
-    @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
+        taskBook = new TaskBook(initialData);
+        filteredItems = new FilteredList<>(taskBook.getItems());
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void resetData(ReadOnlyTaskBook newData) {
+        taskBook.resetData(newData);
+        indicateTaskBookChanged();
+    }
+
+    @Override
+    public ReadOnlyTaskBook getTaskBook() {
+        return taskBook;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+    private void indicateTaskBookChanged() {
+        raise(new TaskBookChangedEvent(taskBook));
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
-        indicateAddressBookChanged();
+    public synchronized void deleteItem(ReadOnlyItem target) throws ItemNotFoundException {
+        taskBook.removeItem(target);
+        indicateTaskBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public synchronized void addItem(Item item) throws UniqueItemList.DuplicateItemException {
+        taskBook.addItem(item);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
 
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+    public UnmodifiableObservableList<ReadOnlyItem> getFilteredItemList() {
+        return new UnmodifiableObservableList<>(filteredItems);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredItems.setPredicate(null);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredItemList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+        filteredItems.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
