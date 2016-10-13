@@ -8,13 +8,13 @@
 
 
 ## About
-In this modern day, we’re all swamped with numerous tasks to do everyday. It is no wonder that task managers have become an indispensable tool in our everyday lives. However, we often spending more time figuring out where’s the add button or how to edit our tasks. 
+In this modern day, weâ€™re all swamped with numerous tasks to do everyday. It is no wonder that task managers have become an indispensable tool in our everyday lives. However, we often spending more time figuring out whereâ€™s the add button or how to edit our tasks. 
 
-Well, fret not! Here’s introducing Unburden! With Unburden, you won’t need to trouble yourself with what or where to click. Unburden utilizes a simple and intuitive command line interface which only requires you to type. No more clicking or scrolling!
+Well, fret not! Hereâ€™s introducing Unburden! With Unburden, you wonâ€™t need to trouble yourself with what or where to click. Unburden utilizes a simple and intuitive command line interface which only requires you to type. No more clicking or scrolling!
 
-Unburden features a clean interface with colour coding to prioritize your tasks. It’s simple to use and easy to manage! All you need to know is shown on the screen, just type your queries and leave the rest to Unburden! What’s more is that Unburden works offline too! So now you can even use it when your wifi’s down. 
+Unburden features a clean interface with colour coding to prioritize your tasks. Itâ€™s simple to use and easy to manage! All you need to know is shown on the screen, just type your queries and leave the rest to Unburden! Whatâ€™s more is that Unburden works offline too! So now you can even use it when your wifiâ€™s down. 
 
-Need to unburden? Let’s get started!
+Need to unburden? Letâ€™s get started!
 
 
 ## Getting Started
@@ -25,12 +25,12 @@ Need to unburden? Let’s get started!
    
 2. Download the latest `unburden.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for `Unburden`.
-4. Click on the application icon to launch it and wait for the ‘Welcome’ page to appear.
-   > <img src="UserGuideImages/WelcomePage_0.png" width="600">
+4. Click on the application icon to launch it and wait for the application to pop up.
+   > <img src="UserGuideImages/UG_0.JPG" width="400">
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will display the list of commands that can be used in the application.
-   > <img src="UserGuideImages/WelcomePage_1.png" width="600">
+   > <img src="UserGuideImages/UG_1.JPG" width="500">
    
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -40,24 +40,31 @@ Need to unburden? Let’s get started!
 #### 1. Add Command: `add`
 
 1.1  Adding a task with a deadline, start time and end time
-Format: `add <Task Description> <Date> <Start Time> <End Time>`
-   > <img src="UserGuideImages/Add_0_0.png" width="600">
+Format: `add <Task Name> d/<Deadline> s/<Start Time> e/<End Time>`
+   > <img src="UserGuideImages/UG_2.JPG" width="600">
+   
+   Examples : <br>
+   add CS2103 project d/09-07-2016 s/1700 e/1900 t/CS2103 <br>
+   add FC2020 tutorial d/03-05-2008 s/1800 e/2000 <br>
+   add Dance rehersal d/19-09-2015 s/1300 e/1500 <br>
    
 You may type the command as shown below
-   > <img src="UserGuideImages/Add_0_1.png" width="600">
+   > <img src="UserGuideImages/UG_3.JPG" width="400">
    
 Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown below.
-   > <img src="UserGuideImages/Add_0_2.png" width="600">
+   > <img src="UserGuideImages/UG_4.JPG" width="400">
 
 1.2  Adding a task with only a deadline
-Format: `add <Task Description> <Date>`
-   > <img src="UserGuideImages/add_1_0.png" width="600">
-
-You may enter the command as shown below.
-   > <img src="UserGuideImages/add_1_1.png" width="600">
+Format: `add <Task Name> d/<Deadline>`
+   > <img src="UserGuideImages/UG_5.JPG" width="500">
+   
+   Examples : <br>
+   add Orbital Splashdown d/18-06-2016 t/Orbital <br>
+	add Music Talent show d/28-04-2008 t/Show <br>
+	add Complete Workout d/13-03-2009 <br>
    
 Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown below.
-   > <img src="UserGuideImages/add_1_2.png" width="600">
+   > <img src="UserGuideImages/UG_6.JPG" width="600">
    
 1.3 Adding a task without a deadline
 Format: `add <Task Description>`
