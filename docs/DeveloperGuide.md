@@ -77,7 +77,7 @@ command `delete 1`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the to-do list data are changed,
+>Note how the `Model` simply raises a `TaskManager ChangedEvent` when the to-do list data are changed,
 instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -134,7 +134,7 @@ API call.<br>
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the to-do list data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
  so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -234,8 +234,7 @@ Here are the steps to create a new release.
   
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
+A project often depends on third-party libraries. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
