@@ -78,7 +78,8 @@ public class JimiParser {
         for (Command command : COMMAND_STUB_LIST) {
             // if validation checks implemented by the respective commands are passed
             if (command.isValidCommandWord(commandWord)) {
-                switch (commandWord) {
+                // identifying which command this is
+                switch (command.getCommandWord()) {
                 case AddCommand.COMMAND_WORD :
                     return prepareAdd(arguments);
                 case EditCommand.COMMAND_WORD :
