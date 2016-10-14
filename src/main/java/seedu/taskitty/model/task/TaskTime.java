@@ -18,7 +18,7 @@ public class TaskTime {
             "Task times should be in the format hh:mm"; //or hhmm
     public static final String MESSAGE_TIME_INVALID =
             "Task time provided is invalid!";
-    public static final String TIME_DISPLAY_FORMAT = "kk:mm";
+    public static final String TIME_FORMAT = "kk:mm";
     
     //format: hh:mm
     private static final String TIME_VALIDATION_REGEX_FORMAT_1 = "[\\p{Digit}]{1,2}:[\\p{Digit}]{2}";
@@ -59,7 +59,7 @@ public class TaskTime {
 
     @Override
     public String toString() {
-        return time.format(DateTimeFormatter.ofPattern(TIME_DISPLAY_FORMAT));
+        return time.format(DateTimeFormatter.ofPattern(TIME_FORMAT));
     }
 
     @Override
