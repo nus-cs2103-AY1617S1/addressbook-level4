@@ -78,7 +78,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     @Override
     public synchronized void editTask(ReadOnlyTask target) throws TaskNotFoundException {
-        emeraldo.editTask(target);
+        //emeraldo.editTask(target);
         indicateAddressBookChanged();
     }
     //=========== Filtered Person List Accessors ===============================================================

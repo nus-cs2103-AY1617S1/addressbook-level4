@@ -4,6 +4,7 @@ import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniquePersonList;
+import seedu.emeraldo.model.task.UniquePersonList.TaskNotFoundException;
 
 import java.util.Set;
 
@@ -22,6 +23,8 @@ public interface Model {
 
     /** Adds the given person */
     void addPerson(Task person) throws UniquePersonList.DuplicateTaskException;
+    
+    void editTask(ReadOnlyTask target) throws TaskNotFoundException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
@@ -31,5 +34,6 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-
+    
+    
 }
