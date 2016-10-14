@@ -35,13 +35,13 @@ public class AddTaskCommandTest {
 	@Test(expected=IllegalValueException.class)
 	public void addTask_emptyStringDescription() throws IllegalValueException {
 		// Construction of the AddTaskCommand with an empty string should lead to an error
-		AddTaskCommand command = new AddTaskCommand("");
+		new AddTaskCommand("");
 	}
 	
 	@Test(expected=IllegalValueException.class)
 	public void addTask_nullDescription() throws IllegalValueException {
 		// Construction of the AddTaskCommand with null reference should lead to an error
-		AddTaskCommand command = new AddTaskCommand(null);
+		new AddTaskCommand(null);
 	}
 
 }

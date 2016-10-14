@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -13,6 +14,8 @@ import seedu.address.testutil.TestUtil;
 
 public class UpdateTaskCommandTest {
 
+	// Initialized to support the tests
+	InMemoryTaskList model;
 
 	@Test
 	public void updateTask_noTasksAdded() throws IllegalValueException {
@@ -20,7 +23,6 @@ public class UpdateTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * there are no tasks that have been added).
 		 */
-		InMemoryTaskList model;
 		model = TestUtil.setupEmptyTaskList();
 		UpdateTaskCommand command = new UpdateTaskCommand(1, new Description("Hello"));
 		command.setData(model);
@@ -35,7 +37,6 @@ public class UpdateTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * index is too large).
 		 */
-		InMemoryTaskList model;
 		model = TestUtil.setupSomeTasksInTaskList(3);
 		UpdateTaskCommand command = new UpdateTaskCommand(4, new Description("Hello"));
 		command.setData(model);

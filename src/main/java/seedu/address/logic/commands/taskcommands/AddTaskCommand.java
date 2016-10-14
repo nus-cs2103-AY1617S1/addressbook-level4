@@ -1,9 +1,8 @@
 package seedu.address.logic.commands.taskcommands;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import seedu.address.commons.collections.UniqueItemCollection;
+import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
@@ -47,7 +46,7 @@ public class AddTaskCommand extends TaskCommand {
     	if (description == null || description.isEmpty()) {
     		throw new IllegalValueException(MESSAGE_EMPTY_TASK + MESSAGE_USAGE);
     	}
-    	this.toAdd = new FloatingTask(new Description(description));
+    	this.toAdd = new FloatingTask(description);
     }
     
     /**
@@ -92,7 +91,7 @@ public class AddTaskCommand extends TaskCommand {
             model.addTask(toAdd);
             model.clearTasksFilter();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueItemCollection.DuplicateItemException e) {
+        } catch (DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 

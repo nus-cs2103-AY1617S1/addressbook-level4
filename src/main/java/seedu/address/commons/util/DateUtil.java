@@ -3,9 +3,6 @@ package seedu.address.commons.util;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import org.antlr.runtime.tree.Tree;
 
 import com.joestelmach.natty.*;
 
