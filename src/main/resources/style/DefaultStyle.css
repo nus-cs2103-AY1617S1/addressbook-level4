@@ -6,13 +6,6 @@
     -fx-spacing: 4;
 }
 
-.commandFeedback{
-    -fx-fill: #ffffff;
-    -fx-text-fill: white;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 12pt;
-}
-
 .spacing {
     -fx-spacing: 8px;
     -fx-hgap: 8px;
@@ -27,6 +20,18 @@
 
 .subheadingPadding {
     -fx-padding: 0 0 0 2;
+}
+
+
+.commandFeedback{
+    -fx-fill: #ffffff;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12pt;
+}
+
+.commandFeedback .error {
+    -fx-text-fill: #FF6464;
 }
 
 .commandInput {
