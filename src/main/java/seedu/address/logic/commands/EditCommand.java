@@ -11,7 +11,6 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskType;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**

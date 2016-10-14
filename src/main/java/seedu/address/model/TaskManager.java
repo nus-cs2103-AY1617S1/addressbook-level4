@@ -2,10 +2,8 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.logic.CommandManager;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
