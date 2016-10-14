@@ -68,6 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoAddressBook() throws EmptyStackException {
     	addressBook.resetData(addressBookHistory.pop());
+    	indicateAddressBookChanged();
     }
     
     /** Raises an event to indicate the model has changed */
