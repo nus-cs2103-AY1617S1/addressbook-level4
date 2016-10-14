@@ -95,16 +95,7 @@ public class Parser {
     private static final CharSequence IMPORTANCE = "i/";
     private static final CharSequence TAG = "t/";
     
-      /*      Pattern.compile("(?<targetIndex>[^/]+)"
-                    + " n/(?<name>[^/]+)");
-                    + "(?<name>(?: n/[^/]+))"
-                    + "(?<startDate>(?: s/[^/]+))"
-                    + "(?<startTime>(?: st/[^/]+))"
-                    + "(?<endDate>(?: e/[^/]+))"
-                    + "(?<endTime>(?: et/[^/]+))"
-                    + "(?<level>(?: i/[^/]+))"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); */
-    
+   
     public Parser() {}
 
     /**
@@ -528,10 +519,7 @@ public class Parser {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         ListCommand.MESSAGE_USAGE));
             }
-        }
-            
-        
-        
+        }       
     }
 
 }

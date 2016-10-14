@@ -1,5 +1,8 @@
 package seedu.inbx0.logic.commands;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.model.task.Date;
 
@@ -19,27 +22,38 @@ public class ListCommand extends Command {
             + "Example: " + COMMAND_WORD + " today";
     
     private final String checkDate;
+    private final String preposition;
+    private static final Pattern TASKS_DUE_UNTIL_DATE_LIST_FORMAT = Pattern.compile(" due (?<date>[^$]+)");
     
     public ListCommand() {
-        this.checkDate = null;
+        this.checkDate = "";
+        this.preposition = "";
     }
 
     public ListCommand(String arguments) throws IllegalValueException {
-        Date checkDate = new Date (arguments);
-        
-        this.checkDate = checkDate.value;
-        
+        final Matcher matcher = TASKS_DUE_UNTIL_DATE_LIST_FORMAT.matcher(arguments);
+        if(matcher.matches()) {
+            this.preposition = "due";
+            Date checkDate = new Date(matcher.group("date"));
+            this.checkDate = checkDate.value;
+            
+        }
+        else {            
+            Date checkDate = new Date (arguments);
+            this.checkDate = checkDate.value;
+            this.preposition = "";
+        }
     }
 
     @Override
     public CommandResult execute() {
-        if(checkDate == null) {
+        if(checkDate == "") {
             model.updateFilteredListToShowAll();
             return new CommandResult(MESSAGE_SUCCESS);
         }
         else {
-            model.updateFilteredTaskList(checkDate);
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-        }
+                model.updateFilteredTaskList(checkDate, preposition);
+                return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+        }       
     }
 }

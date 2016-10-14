@@ -9,6 +9,7 @@ import seedu.inbx0.commons.exceptions.IllegalValueException;
 import seedu.inbx0.commons.util.StringUtil;
 import seedu.inbx0.model.task.Task;
 import seedu.inbx0.model.tag.Tag;
+import seedu.inbx0.model.task.Date;
 import seedu.inbx0.model.task.ReadOnlyTask;
 import seedu.inbx0.model.task.UniqueTaskList;
 import seedu.inbx0.model.task.UniqueTaskList.DuplicateTaskException;
@@ -116,8 +117,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskList(String date){
-        updateFilteredTaskList(new PredicateExpression(new DateQualifier(date)));
+    public void updateFilteredTaskList(String date, String preposition){
+        System.out.println(preposition);
+        if(preposition == "")
+            updateFilteredTaskList(new PredicateExpression(new StartOnAndEndOnDateQualifier(date)));
+        else
+            updateFilteredTaskList(new PredicateExpression(new EndUntilDateQualifier(date)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -176,16 +181,61 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    private class DateQualifier implements Qualifier {
+    private class StartOnAndEndOnDateQualifier implements Qualifier {
         private String date;
         
-        DateQualifier(String date) {
+        StartOnAndEndOnDateQualifier(String date) {
             this.date = date;
         }
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            return (date.equals(task.getStartDate().value));
+            return (date.equals(task.getStartDate().value) | date.equals(task.getEndDate().value));
+        }
+        
+        @Override
+        public String toString() {
+            return "date= " + date;
+        }
+    }
+    
+    private class EndUntilDateQualifier implements Qualifier {
+        private String date;
+        
+        EndUntilDateQualifier(String date) {
+            this.date = date;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            Date today = null;
+            boolean isBeforeOrOnDueButAfterOrOnCurrent = false;
+            try {
+                today = new Date("today");
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+            
+            int dueByNumberDate = Integer.parseInt(date.replaceAll("\\D+",""));
+            int dueByMonth = dueByNumberDate / 1000000;
+            int dueByDay = (dueByNumberDate / 10000) % 100;
+            int dueByYear = dueByNumberDate % 10000;
+         
+            if(dueByYear > task.getEndDate().getYear() && task.getEndDate().getYear() > today.getYear()) 
+                isBeforeOrOnDueButAfterOrOnCurrent = true;
+            
+            
+            if(dueByYear == task.getEndDate().getYear() && task.getEndDate().getYear() == today.getYear() &&
+               dueByMonth > task.getEndDate().getMonth() && task.getEndDate().getMonth() > today.getMonth())
+                isBeforeOrOnDueButAfterOrOnCurrent = true;
+            
+            if(dueByYear == task.getEndDate().getYear() && task.getEndDate().getYear() == today.getYear() && 
+               dueByMonth == task.getEndDate().getMonth() && task.getEndDate().getMonth() == today.getMonth() &&
+               dueByDay >= task.getEndDate().getDay() && task.getEndDate().getDay() >= today.getDay())
+                isBeforeOrOnDueButAfterOrOnCurrent = true;
+            
+            return isBeforeOrOnDueButAfterOrOnCurrent;
+                   
         }
         
         @Override
