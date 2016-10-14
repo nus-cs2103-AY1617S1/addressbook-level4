@@ -259,7 +259,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | prioritize my task | do the more important ones first
 `* *` | user | search for a task by keywords | view the details of task and complete it
 `* *` | user | undo a command | unexecute the last action that I just performed
-`* *` | user | redo a undo command | redo the last undo action that I just performed
+`* *` | user | redo a command | redo the last action that I just performed
 `* *` | user | add recurring tasks | save time entering the same task over multiple dates
 `* *` | user | choose my data storage location | have the flexibility to use the program on multiple computers as they can read from the same file stored on the cloud e.g. Google Drive
 `* *` | user | add a tag on tasks | categorize my task
