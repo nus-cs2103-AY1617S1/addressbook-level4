@@ -29,7 +29,7 @@ public class CommandController {
         controller.inputView = inputView;
         controller.feedbackView = feedbackView;
         controller.errorView = errorView;
-        return controller;
+        controller.start();
     }
 
 
