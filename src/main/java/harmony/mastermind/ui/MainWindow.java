@@ -222,10 +222,12 @@ public class MainWindow extends UiPart {
     }
 
     @FXML
-    //@@author A0138862W
+    //@@author A0124797R
     private void handleCommandInputChanged() {
         // Take a copy of the command text
         currCommandText = commandField.getText();
+
+        setStyleToIndicateCorrectCommand();
         
         if (!currCommandText.equals(PreviousCommand.COMMAND_WORD)) {
             /*
@@ -235,7 +237,6 @@ public class MainWindow extends UiPart {
              */
             mostRecentResult = logic.execute(currCommandText);
             consoleOutput.setText(mostRecentResult.feedbackToUser);
-            commandField.setText("");
 
             System.out.println();
             
@@ -258,11 +259,21 @@ public class MainWindow extends UiPart {
     }
 
     @Subscribe
+    //@@author A0124797R
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
         restoreCommandText();
     }
+    
+    /**
+     * Sets the command box style to indicate a correct command.
+     */
+    //@@author A0124797R
+    private void setStyleToIndicateCorrectCommand() {
+        commandField.setText("");
+    }
 
+    //@@author A0124797R
     private void restoreCommandText() {
         commandField.setText(currCommandText);
     }

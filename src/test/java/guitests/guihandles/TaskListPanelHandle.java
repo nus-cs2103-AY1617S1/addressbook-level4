@@ -80,10 +80,11 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the list is showing the person details correctly and in correct order.
+     * Returns true if the list is showing the task details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
-     * @param tasks A list of person in the correct order.
+     * @param tasks A list of task in the correct order.
      */
+    //@@author A0124797R
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
         List<ReadOnlyTask> table = getTableView().getItems();
         if (tasks.length + startPosition != table.size()) {

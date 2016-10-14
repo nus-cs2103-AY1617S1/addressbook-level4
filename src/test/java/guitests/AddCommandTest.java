@@ -39,6 +39,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
+    //@@author A0124797R
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         System.out.println(taskToAdd.getAddCommand());
         commandBox.runCommand(taskToAdd.getAddCommand());
