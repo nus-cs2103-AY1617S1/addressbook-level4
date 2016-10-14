@@ -38,18 +38,14 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         
-        //Should I create 3 constructors for task instead? To avoid nulls
-        //But that leads to another problem..?
         if (data.length == Task.TASK_COMPONENT_COUNT) {
             this.toAdd = new Task(
                 new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
-                null, null, null, null,
                 new UniqueTagList(tagSet)
             );
         } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
             this.toAdd = new Task(
                 new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
-                null, null,
                 new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
                 new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME]),
                 new UniqueTagList(tagSet)
