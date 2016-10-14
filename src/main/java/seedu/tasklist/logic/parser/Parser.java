@@ -24,8 +24,9 @@ public class Parser {
      */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        final CommandParser incorrectCommand = new IncorrectCommand();
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            return incorrectCommand.prepare(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -39,7 +40,7 @@ public class Parser {
 
             return ((CommandParser) object).prepare(arguments);
         } catch (Exception e) {
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+            return incorrectCommand.prepare(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
