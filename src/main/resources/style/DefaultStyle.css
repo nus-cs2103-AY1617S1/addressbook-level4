@@ -24,19 +24,24 @@
 
 
 .commandFeedback{
-    -fx-fill: #ffffff;
-    -fx-text-fill: white;
+    -fx-text-fill: #FFFFFF;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 12pt;
 }
 
-.commandFeedback .error {
+.commandFeedback.error {
     -fx-text-fill: #FF6464;
 }
 
 .commandInput {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 14pt;
+}
+
+.commandInput.error {
+    -fx-border-color: #FF6464;
+    -fx-border-width: 2px;
+    -fx-text-fill: #FF6464;
 }
 
 .roundLabel {
