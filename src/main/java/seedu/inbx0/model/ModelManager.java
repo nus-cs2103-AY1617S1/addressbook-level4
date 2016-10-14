@@ -217,8 +217,8 @@ public class ModelManager extends ComponentManager implements Model {
             }
             
             int dueByNumberDate = Integer.parseInt(date.replaceAll("\\D+",""));
-            int dueByMonth = dueByNumberDate / 1000000;
-            int dueByDay = (dueByNumberDate / 10000) % 100;
+            int dueByDay = dueByNumberDate / 1000000;
+            int dueByMonth = (dueByNumberDate / 10000) % 100;
             int dueByYear = dueByNumberDate % 10000;
          
             if(dueByYear > task.getEndDate().getYear() && task.getEndDate().getYear() > today.getYear()) 
