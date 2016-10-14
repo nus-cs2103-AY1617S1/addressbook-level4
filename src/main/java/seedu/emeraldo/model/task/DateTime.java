@@ -10,7 +10,7 @@ import seedu.emeraldo.commons.exceptions.IllegalValueException;
 public class DateTime {
     
     public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
-    public static final String ADDRESS_VALIDATION_REGEX = ".+";
+    public static final String ADDRESS_VALIDATION_REGEX = "(.+)?";
 
     public final String value;
 
