@@ -50,7 +50,7 @@ public class CommandInputView extends UiPart {
      * Sets {@link #commandTextField} to listen out for a command.
      * Once a command is received, calls {@link CommandCallback} interface to process this command.
      */
-    public void listenToCommandInput(CommandCallback listener) {
+    public void listenToCommandExecution(CommandCallback listener) {
         this.commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 String command = commandTextField.getText();

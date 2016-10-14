@@ -45,7 +45,7 @@ public class CommandController {
      * Once the callback returns a command, {@link #submitCommand(String)} will process this command.
      */
     private void start() {
-        inputView.listenToCommandInput(this::submitCommand);
+        inputView.listenToCommandExecution(this::submitCommand);
     }
 
     /**
