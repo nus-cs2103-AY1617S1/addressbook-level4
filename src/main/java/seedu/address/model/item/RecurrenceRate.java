@@ -8,9 +8,10 @@ public class RecurrenceRate {
     
     private static final String STRING_CONSTANT_ONE = "1";
 
-    public static final String MESSAGE_VALUE_CONSTRAINTS = "Format for recurrence rate should be: repeat every [RATE] TIME_PERIOD\n"
-            + "RATE must be a positive integer and TIME_PERIOD must be in one of the formats:\n"
-            + "\"day(s)\", \"week(s)\", \"month(s)\", \"year(s)\", \"Monday\", \"Wed\"\n"
+    public static final String MESSAGE_VALUE_CONSTRAINTS = "RECURRING_INTERVAL Format : repeat every [RATE] TIME_PERIOD\n"
+            + "RATE must be a positive integer and TIME_PERIOD must be in one of the formats: "
+            + "\"hour(s)\", \"day(s)\", \"week(s)\", \"month(s)\", \"year(s)\", "
+            + "or days of the week such as \"Monday\", \"Wed\"\n"
             + "For example: \"repeat every 3 days\", \"repeat every week\", \"repeat every Wed\"";
     
     public static final HashMap<String, TimePeriod> INPUT_TO_TIME_PERIOD_MAP = new HashMap<String, TimePeriod>() {{
@@ -68,19 +69,22 @@ public class RecurrenceRate {
         }
     }
     
-    
     public RecurrenceRate(String timePeriod) throws IllegalValueException {
         this(STRING_CONSTANT_ONE, timePeriod);
     }
 
-    private boolean isValidTimePeriod(String timePeriod) throws IllegalValueException {
+    /**
+     * Validates user input and converts it into TimePeriod.
+     *
+     * @return true if user input is recognised as a valid TimePeriod.
+     */
+    private boolean isValidTimePeriod(String timePeriod) {
         for (String key : INPUT_TO_TIME_PERIOD_MAP.keySet()) {
             if (key.equals(timePeriod.toLowerCase())) {
                 this.timePeriod = INPUT_TO_TIME_PERIOD_MAP.get(key);
                 return true;
             }
         }
-
         return false;
     }
     
