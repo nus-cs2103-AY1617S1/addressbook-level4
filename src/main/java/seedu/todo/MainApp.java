@@ -28,6 +28,8 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     public static final Version VERSION = new Version(1, 0, 0, true);
+    
+    private static final String MESSAGE_WELCOME = "Welcome! What would like to get done today?";
 
     protected UiManager ui;
     protected Config config;
@@ -63,6 +65,9 @@ public class MainApp extends Application {
         view.tasks = TodoListDB.getInstance().getAllTasks();
         view.events = TodoListDB.getInstance().getAllEvents();
         UiManager.renderView(view);
+        
+        // Show welcome message
+        UiManager.updateConsoleMessage(MESSAGE_WELCOME);
     }
 
     @Override
