@@ -61,36 +61,28 @@ public class TestUtil {
 
     public static final Task[] sampleTaskData = getSampleTaskData();
 
+    //@author A0124797R
     private static Task[] getSampleTaskData() {
-        /*
-        try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Time("9482424"), new Date("hans@google.com"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Time("87249245"), new Date("ruth@google.com"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Time("95352563"), new Date("heinz@yahoo.com"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Time("87652533"), new Date("cornelia@google.com"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Time("9482224"), new Date("werner@gmail.com"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Time("9482427"), new Date("lydia@gmail.com"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Time("9482442"), new Date("anna@google.com"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Time("8482424"), new Date("stefan@mail.com"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Time("8482131"), new Date("hans@google.com"), new UniqueTagList())
+                    new Task("do laundry", new UniqueTagList()),
+                    new Task("finish assignment", new UniqueTagList()),
+                    new Task("cs2105 assignment", new UniqueTagList()),
+                    new Task("complete lecture quiz", new UniqueTagList()),
+                    new Task("sweep floor", new UniqueTagList()),
+                    new Task("get groceries", new UniqueTagList()),
+                    new Task("submit user guide", new UniqueTagList()),
+                    new Task("submit developer guide", new UniqueTagList())
             };
-        } catch (IllegalValueException e) {
-            assert false;
-            //not possible
-            return null;
-        }
-        */
-        return null;
     }
 
     public static final Tag[] sampleTagData = getSampleTagData();
 
+    //@@author A0124797R
     private static Tag[] getSampleTagData() {
         try {
             return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
+                    new Tag("homework"),
+                    new Tag("finals")
             };
         } catch (IllegalValueException e) {
             assert false;

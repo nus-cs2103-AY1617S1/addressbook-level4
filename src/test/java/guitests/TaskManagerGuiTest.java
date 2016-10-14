@@ -6,7 +6,7 @@ import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.model.TaskManager;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.testutil.TestUtil;
-import harmony.mastermind.testutil.TypicalTestTask;
+import harmony.mastermind.testutil.TypicalTestTasks;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +31,7 @@ public abstract class TaskManagerGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestTask td = new TypicalTestTask();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -77,7 +77,7 @@ public abstract class TaskManagerGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager tm = TestUtil.generateEmptyTaskManager();
-        TypicalTestTask.loadTaskManagerWithSampleData(tm);
+        TypicalTestTasks.loadTaskManagerWithSampleData(tm);
         return tm;
     }
 

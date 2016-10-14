@@ -7,12 +7,12 @@ import harmony.mastermind.model.task.*;
 /**
  *
  */
-public class TypicalTestTask {
+public class TypicalTestTasks {
 
     public static TestTask task1, task2, task3, task4, task5, task6;
 
     //@@author A0124797R
-    public TypicalTestTask() {
+    public TypicalTestTasks() {
         
         try {
             task1 =  new TaskBuilder().withName("do laundry")
