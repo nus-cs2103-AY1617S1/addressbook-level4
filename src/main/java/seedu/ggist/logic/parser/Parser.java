@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
 import seedu.ggist.logic.commands.*;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 /**
  * Parses user input.
@@ -31,15 +32,15 @@ public class Parser {
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>[^,]+)(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
+            Pattern.compile("(?<taskName>[^,]+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<time>\\d+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<taskDate>.+)\\s*,\\s*(?<startTime>\\d+)\\s*-\\s*(?<endTime>\\d+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<startDateTime>.+)\\s*,\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
    
     public Parser() {}
 
@@ -115,9 +116,10 @@ public class Parser {
                 if (matcher.matches()) {
                     return new AddCommand(
                         matcher.group("taskName"),
-                        matcher.group("taskDate"),
-                        matcher.group("startTime"),
-                        matcher.group("endTime"),
+                        new DateTimeParser(matcher.group("startDateTime")).getDate(),
+                        new DateTimeParser(matcher.group("startDateTime")).getTime(),
+                        new DateTimeParser(matcher.group("endDateTime")).getDate(),
+                        new DateTimeParser(matcher.group("endDateTime")).getTime(),
                         getTagsFromArgs(matcher.group("tagArguments"))
                      );
                 }
@@ -126,8 +128,8 @@ public class Parser {
                 if (matcher.matches()) {
                     return new AddCommand(
                         matcher.group("taskName"),
-                        matcher.group("taskDate"),
-                        matcher.group("time"),
+                        new DateTimeParser(matcher.group("dateTime")).getDate(),
+                        new DateTimeParser(matcher.group("dateTime")).getTime(),
                         getTagsFromArgs(matcher.group("tagArguments"))
                      );
                 }
@@ -145,6 +147,7 @@ public class Parser {
         }
         return null;   
     }
+    
     
     /**
      *  Matches arg string format and validates
@@ -304,3 +307,4 @@ public class Parser {
     }
 
 }
+
