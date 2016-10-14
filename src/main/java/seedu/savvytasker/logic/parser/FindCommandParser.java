@@ -17,7 +17,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
     private static final String REGEX_REF_KEYWORDS_AFTER_TYPE = "After";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "find\\s+(?<"+REGEX_REF_KEYWORDS_BEFORE_TYPE+">([^/]+(\\s+|$))*)" +
+            HEADER+"\\s+(?<"+REGEX_REF_KEYWORDS_BEFORE_TYPE+">([^/]+(\\s+|$))*)" +
             "(t/(?<"+REGEX_REF_FIND_TYPE+">[^/]+?)(?!.*\\st/)(\\s+|$))?" +
             "(?<"+REGEX_REF_KEYWORDS_AFTER_TYPE+">([^/]+(\\s+|$))*)"
             , Pattern.CASE_INSENSITIVE);

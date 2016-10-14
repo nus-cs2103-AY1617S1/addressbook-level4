@@ -5,7 +5,7 @@ import seedu.savvytasker.logic.commands.ClearCommand;
 
 public class ClearCommandParser implements CommandParser<ClearCommand> {
     private static final String HEADER = "clear";
-    private static final String READABLE_FORMAT = "clear";
+    private static final String READABLE_FORMAT = HEADER;
     
     @Override
     public String getHeader() {

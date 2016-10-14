@@ -13,15 +13,13 @@ import seedu.savvytasker.model.task.RecurrenceType;
 
 public class AddCommandParser implements CommandParser<AddCommand> {
     private static final String HEADER = "add";
-    private static final String READABLE_FORMAT = "add TASK_NAME [s/START_DATE] [st/START_TIME] " +
+    private static final String READABLE_FORMAT = HEADER+" TASK_NAME [s/START_DATE] [st/START_TIME] " +
             "[e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] " +
             "[n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]";
     
     private static final String REGEX_REF_TASK_NAME = "TaskName";
     private static final String REGEX_REF_START_DATE = "StartDate";
-    private static final String REGEX_REF_START_TIME = "StartTime";
     private static final String REGEX_REF_END_DATE = "EndDate";
-    private static final String REGEX_REF_END_TIME = "EndTime";
     private static final String REGEX_REF_LOCATION = "Location";
     private static final String REGEX_REF_PRIORITY_LEVEL = "Priority";
     private static final String REGEX_REF_RECURRING_TYPE = "RecurringType";
@@ -30,11 +28,9 @@ public class AddCommandParser implements CommandParser<AddCommand> {
     private static final String REGEX_REF_DESCRIPTION = "Description";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "add\\s+(?<"+REGEX_REF_TASK_NAME+">([^/]+?(\\s+|$))+)((?<=\\s)(" +
+            HEADER+"\\s+(?<"+REGEX_REF_TASK_NAME+">([^/]+?(\\s+|$))+)((?<=\\s)(" +
             "(s/(?<"+REGEX_REF_START_DATE+">[^/]+)(?!.*\\ss/))|" +
-            "(st/(?<"+REGEX_REF_START_TIME+">[^/]+)(?!.*\\sst/))|" +
             "(e/(?<"+REGEX_REF_END_DATE+">[^/]+)(?!.*\\se/))|" +
-            "(et/(?<"+REGEX_REF_END_TIME+">[^/]+)(?!.*\\set/))|" +
             "(l/(?<"+REGEX_REF_LOCATION+">[^/]+)(?!.*\\sl/))|" +
             "(p/(?<"+REGEX_REF_PRIORITY_LEVEL+">[^/]+)(?!.*\\sp/))|" +
             "(r/(?<"+REGEX_REF_RECURRING_TYPE+">[^/]+)(?!.*\\sr/))|" +
@@ -59,10 +55,6 @@ public class AddCommandParser implements CommandParser<AddCommand> {
     public AddCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            /* Pending changes to startTime and endTime */
-            //String startTime = matcher.group(REGEX_REF_START_TIME);
-            //String endTime = matcher.group(REGEX_REF_END_TIME);
-
             InferredDate startDate = TASK_PARSER.parseStartDate(matcher.group(REGEX_REF_START_DATE));
             InferredDate endDate = TASK_PARSER.parseEndDate(matcher.group(REGEX_REF_END_DATE));
             String taskName = TASK_PARSER.parseTaskName(matcher.group(REGEX_REF_TASK_NAME));

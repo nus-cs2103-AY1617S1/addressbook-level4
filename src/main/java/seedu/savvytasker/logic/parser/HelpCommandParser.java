@@ -5,7 +5,7 @@ import seedu.savvytasker.logic.commands.HelpCommand;
 
 public class HelpCommandParser implements CommandParser<HelpCommand> {
     private static final String HEADER = "help";
-    private static final String READABLE_FORMAT = "help";
+    private static final String READABLE_FORMAT = HEADER;
     
     @Override
     public String getHeader() {

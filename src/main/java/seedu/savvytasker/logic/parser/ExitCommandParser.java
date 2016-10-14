@@ -5,7 +5,7 @@ import seedu.savvytasker.logic.commands.ExitCommand;
 
 public class ExitCommandParser implements CommandParser<ExitCommand> {
     private static final String HEADER = "exit";
-    private static final String READABLE_FORMAT = "exit";
+    private static final String READABLE_FORMAT = HEADER;
     
     @Override
     public String getHeader() {

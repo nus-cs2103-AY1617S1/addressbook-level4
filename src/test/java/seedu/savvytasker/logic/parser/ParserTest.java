@@ -274,4 +274,75 @@ public class ParserTest {
     public void parse_exit_valid() throws ParseException {
         assertNotEquals(exitParser.parse("exit"), null);
     }
+
+    //==================================================================================
+    
+    @Test
+    public void parse_mark_noIndexSpecified() throws ParseException {
+        thrown.expect(ParseException.class);
+        markParser.parse("mark");
+    }
+    
+    @Test
+    public void parse_mark_oneIndex() throws ParseException {
+        assertNotEquals(markParser.parse("mark 1"), null);
+    }
+    
+    @Test
+    public void parse_mark_multipleIndices() throws ParseException {
+        assertNotEquals(markParser.parse("mark 1 2 3"), null);
+    }
+    
+    @Test
+    public void parse_mark_multipleSpacesIndices() throws ParseException {
+        assertNotEquals(markParser.parse("mark    1   2     3"), null);
+    }
+
+    @Test
+    public void parse_mark_negativeIndex() throws ParseException {
+        thrown.expect(ParseException.class);
+        markParser.parse("mark -1");
+    }
+
+    @Test
+    public void parse_mark_zeroIndex() throws ParseException {
+        thrown.expect(ParseException.class);
+        markParser.parse("mark 0");
+    }
+
+    //==================================================================================
+    
+    @Test
+    public void parse_unmark_noIndexSpecified() throws ParseException {
+        thrown.expect(ParseException.class);
+        unmarkParser.parse("unmark");
+    }
+    
+    @Test
+    public void parse_unmark_oneIndex() throws ParseException {
+        assertNotEquals(unmarkParser.parse("unmark 1"), null);
+    }
+    
+    @Test
+    public void parse_unmark_multipleIndices() throws ParseException {
+        assertNotEquals(unmarkParser.parse("unmark 1 2 3"), null);
+    }
+    
+    @Test
+    public void parse_unmark_multipleSpacesIndices() throws ParseException {
+        assertNotEquals(unmarkParser.parse("unmark    1   2     3"), null);
+    }
+
+    @Test
+    public void parse_unmark_negativeIndex() throws ParseException {
+        thrown.expect(ParseException.class);
+        unmarkParser.parse("unmark -1");
+    }
+
+    @Test
+    public void parse_unmark_zeroIndex() throws ParseException {
+        thrown.expect(ParseException.class);
+        unmarkParser.parse("unmark 0");
+    }
+    
 }

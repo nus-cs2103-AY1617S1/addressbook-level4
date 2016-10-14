@@ -7,8 +7,8 @@ import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.DeleteCommand;
 import seedu.savvytasker.logic.commands.models.DeleteCommandModel;
 
-public class DeleteCommandParser implements CommandParser<DeleteCommand> {
-    private static final String HEADER = "delete";
+public class MarkCommandParser implements CommandParser<MarkCommand> {
+    private static final String HEADER = "mark";
     private static final String READABLE_FORMAT = HEADER+" INDEX [MORE_INDEX]";
     
     private static final String REGEX_REF_INDICES = "Indices";
@@ -29,13 +29,12 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
     }
 
     @Override
-    public DeleteCommand parse(String commandText) throws ParseException {
+    public MarkCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             int[] indices = parseIndices(matcher.group(REGEX_REF_INDICES));
-            // TODO: Create DeleteCommand
             
-            return new DeleteCommand(new DeleteCommandModel(indices));
+            return new MarkCommand(new MarkCommandModel(indices));
         }
 
         throw new ParseException(commandText, String.format(
