@@ -45,20 +45,22 @@ public class TaskListDateItem extends MultiComponent {
 
     @Override
     public void componentDidMount() {
-        String dateHeaderString;
         
-        // Set header for DateItem
+        // Set header for DateItem using the "x days ago" format
+        String dateHeaderString;
         if (dateTime == TaskList.NO_DATE_VALUE) {
             dateHeaderString = NO_DATE_STRING;
         } else {
             dateHeaderString = DateUtil.formatDay(dateTime);
         }
-        
+
         dateHeader.setText(dateHeaderString);
         
-        // Set date label
-        String dateLabelString = DateUtil.formatShortDate(dateTime);
-        dateLabel.setText(dateLabelString);
+        // Set date label using the short date format (e.g. Fri 14 Oct)
+        if (dateTime != TaskList.NO_DATE_VALUE) {
+            String dateLabelString = DateUtil.formatShortDate(dateTime);
+            dateLabel.setText(dateLabelString);
+        }
 
         // Clear the TaskList of its items
         TaskListTaskItem.reset(dateCalendarItemsPlaceholder);
