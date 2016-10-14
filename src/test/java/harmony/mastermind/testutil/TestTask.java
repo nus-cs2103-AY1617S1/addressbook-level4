@@ -80,6 +80,12 @@ public class TestTask implements ReadOnlyTask {
     public boolean isEvent() {
         return false;
     }
+
+    @Override
+    public boolean isMarked() {
+        // TODO Auto-generated method stub
+        return false;
+    }
     
     @Override
     public UniqueTagList getTags() {

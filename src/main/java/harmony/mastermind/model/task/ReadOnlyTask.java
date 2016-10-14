@@ -14,6 +14,7 @@ public interface ReadOnlyTask {
     public UniqueTagList getTags();
     
     public boolean isSameTask(ReadOnlyTask task);
+    public boolean isMarked();
     public boolean isFloating();
     public boolean isDeadline();
     public boolean isEvent();
