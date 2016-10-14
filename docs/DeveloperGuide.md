@@ -259,6 +259,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | prioritize my task | do the more important ones first
 `* *` | user | search for a task by keywords | view the details of task and complete it
 `* *` | user | undo a command | unexecute the last action that I just performed
+`* *` | user | redo a undo command | redo the last undo action that I just performed
 `* *` | user | add recurring tasks | save time entering the same task over multiple dates
 `* *` | user | choose my data storage location | have the flexibility to use the program on multiple computers as they can read from the same file stored on the cloud e.g. Google Drive
 `* *` | user | add a tag on tasks | categorize my task
@@ -438,12 +439,26 @@ Use case ends.
 **MSS**
 
 1. User requests to undo a previous command
-2. TARS unexecutes (undo) the last command in the history list<br>
+2. TARS unexecutes (undo) the last command in the undo history list and add the command to the redo history list<br>
 Use case ends.
 
 **Extensions**
 
-2a. The history list is empty
+2a. The undo history list is empty
+
+> 2a1. Use case ends
+
+#### Use case: UC10 - Redo a previous undo command
+
+**MSS**
+
+1. User requests to redo a previous command
+2. TARS redo the last command in the redo history list and add the command to the undo history list<br>
+Use case ends.
+
+**Extensions**
+
+2a. The redo history list is empty
 
 > 2a1. Use case ends
 
