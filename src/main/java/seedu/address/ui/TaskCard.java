@@ -21,9 +21,10 @@ public class TaskCard extends UiPart{
     @FXML
     private Label address;
     @FXML
-    private Label email;
+    private Label deadline;
     @FXML
     private Label tags;
+    
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -44,6 +45,10 @@ public class TaskCard extends UiPart{
         name.setText(task.getDescription().toString());
         id.setText(displayedIndex + ". ");
         if(task.getLocation() != null) address.setText(task.getLocation().value);
+        if(task.getDate() != null) deadline.setText("Due: " + task.getDate().toString());
+        else {
+        	deadline.setText("No deadline assigned");
+        }
         tags.setText(task.tagsString());
     }
 

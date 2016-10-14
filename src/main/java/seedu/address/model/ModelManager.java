@@ -69,6 +69,13 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
+    
+    @Override
+    public synchronized void updateTask(ReadOnlyTask target, Task updatedTask) throws TaskNotFoundException {
+    	addressBook.updateTask(target, updatedTask);
+    	updateFilteredListToShowAll();
+    	indicateAddressBookChanged();
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
