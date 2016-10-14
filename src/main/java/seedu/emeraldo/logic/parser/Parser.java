@@ -28,8 +28,8 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("\"(?<description>.+)\""
-                    + "( by )?(?<dateTime>(.+)?)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+                    + "( by )?(?<dateTime>([^#]+)?)"
+                    + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
 
     public Parser() {}
 
@@ -111,7 +111,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" #", "").split(" #"));
         return new HashSet<>(tagStrings);
     }
 
