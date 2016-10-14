@@ -23,10 +23,10 @@ public interface Model {
     void saveState();
     
     /** Reverts back to previous task and tag list before the last command was executed. */
-    void undoState();
+    void loadPreviousState();
     
     /** Redoes an action after an undo. */
-    void redoState();
+    void loadNextState();
 
     /** Deletes the given tasks. */
     void deleteTasks(ArrayList<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;

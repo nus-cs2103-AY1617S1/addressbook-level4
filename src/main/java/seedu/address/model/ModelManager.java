@@ -61,20 +61,26 @@ public class ModelManager extends ComponentManager implements Model {
     
     public void saveState() {
     	stateHistory.push(new TaskManager(taskManager));
+    	// Allow redos only if the previous action is an undo
     	undoHistory.clear();
     }
     
-    public void undoState() throws EmptyStackException {
+    public void loadPreviousState() throws EmptyStackException {
     	TaskManager oldTaskManager = stateHistory.pop();
+    	
+    	undoHistory.push(new TaskManager(taskManager));
+    	
     	taskManager.setTasks(oldTaskManager.getTasks());
     	taskManager.setTags(oldTaskManager.getTagList());
     	
-    	undoHistory.push(new TaskManager(taskManager));
     	indicateTaskManagerChanged();
     }
     
-    public void redoState() throws EmptyStackException {
+    public void loadNextState() throws EmptyStackException {
     	TaskManager oldTaskManager = undoHistory.pop();
+
+    	stateHistory.push(new TaskManager(taskManager));
+    	
     	taskManager.setTasks(oldTaskManager.getTasks());
     	taskManager.setTags(oldTaskManager.getTagList());
     	

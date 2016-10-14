@@ -13,7 +13,7 @@ public class UndoCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		try {
-			model.undoState();
+			model.loadPreviousState();
 			return new CommandResult(MESSAGE_UNDO_SUCCESS);
 		}
 		catch (EmptyStackException e) {
