@@ -1,14 +1,16 @@
 package seedu.todo.storage;
 
+import java.io.IOException;
+
 import seedu.todo.commons.exceptions.CannotRedoException;
 import seedu.todo.commons.exceptions.CannotUndoException;
 import seedu.todo.models.TodoListDB;
 
 public interface Storage {
 
-    public boolean save(TodoListDB db);
+    public void save(TodoListDB db) throws IOException;
 
-    public TodoListDB load();
+    public TodoListDB load() throws IOException;
 
     /**
      * Undo information is on a per-session basis, and should not be

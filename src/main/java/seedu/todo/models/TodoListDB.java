@@ -9,10 +9,13 @@ import java.util.Set;
 
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.commons.util.JsonUtil;
+import seedu.todo.storage.JsonStorage;
+import seedu.todo.storage.Storage;
 
 public class TodoListDB {
 
     private static TodoListDB instance = null;
+    private static Storage storage = new JsonStorage();
     
     private Set<Task> tasks = new HashSet<Task>();
     private Set<Event> events = new HashSet<Event>();
@@ -58,13 +61,9 @@ public class TodoListDB {
         return instance;
     }
     
-    private File getStorageFile() {
-        return new File("database.json");
-    }
-    
     public boolean save() {
         try {
-            FileUtil.writeToFile(getStorageFile(), JsonUtil.toJsonString(this));
+            storage.save(this);
             return true;
         } catch (IOException e) {
             return false;
@@ -73,7 +72,7 @@ public class TodoListDB {
     
     public boolean load() {
         try {
-            instance = JsonUtil.fromJsonString(FileUtil.readFromFile(getStorageFile()), TodoListDB.class);
+            instance = storage.load();
             return true;
         } catch (IOException e) {
             return false;
