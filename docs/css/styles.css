@@ -121,7 +121,9 @@ body {
   counter-reset: h2;
 }
 
-h2:before, h3:before, h4:before {
+h2:before, 
+h3:before, 
+h4:before {
   display: inline-block;
   position: absolute;
   margin-left: -1rem;

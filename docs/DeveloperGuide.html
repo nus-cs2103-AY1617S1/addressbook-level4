@@ -64,7 +64,12 @@
 <li><a href="#managing-dependencies">Managing Dependencies</a></li>
 </ul>
 </li>
-<li><a href="#documentation">Documentation</a></li>
+<li><a href="#documentation">Documentation</a><ul>
+<li><a href="#syntax-highlighting">Syntax Highlighting</a></li>
+<li><a href="#admonition-blocks">Admonition blocks</a></li>
+<li><a href="#captions">Captions</a></li>
+</ul>
+</li>
 <li><a href="#appendix-a-user-stories">Appendix A : User Stories</a></li>
 <li><a href="#appendix-b-use-cases">Appendix B : Use Cases</a><ul>
 <li><a href="#adding-an-event">Adding an event</a></li>
@@ -417,9 +422,103 @@ dependencies {
 
 <ol>
 <li>Make sure you have Python 3.5+ installed. Run <code>python3 --version</code> to check</li>
-<li>Install the dependencies - <code>pip3 install markdown pygments</code> </li>
+<li>Install the dependencies - <code>pip3 install markdown pygments beautifulsoup4</code> </li>
 <li>Run the script - <code>python3 docs/build/converter.py</code></li>
 </ol>
+<div class="no-page-break"><h3 id="syntax-highlighting">Syntax Highlighting<a class="headerlink" href="#syntax-highlighting" title="Permanent link">#</a></h3><p>To get syntax highlighting for your code, use three backticks before and after your code without any additional indentation, and indicate the language on the opening backticks. This is also known as fenced code block. </p></div>
+
+<p>For example, </p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">YourCommand</span> <span class="kd">extends</span> <span class="n">BaseCommand</span> <span class="o">{</span>
+    <span class="c1">// TODO: Define additional parameters here</span>
+    <span class="kd">private</span> <span class="n">Argument</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">index</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntArgument</span><span class="o">(</span><span class="s">"index"</span><span class="o">).</span><span class="na">required</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Parameter</span><span class="o">[]</span> <span class="nf">getArguments</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// TODO: List all command argument objects inside this array</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Parameter</span><span class="o">[]{</span> <span class="n">index</span> <span class="o">};</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<p>is produced by </p>
+<div class="codehilite"><pre><span></span>``` java
+public class YourCommand extends BaseCommand {
+    // TODO: Define additional parameters here
+    private Argument&lt;Integer&gt; index = new IntArgument("index").required();
+
+    @Override
+    protected Parameter[] getArguments() {
+        // TODO: List all command argument objects inside this array
+        return new Parameter[]{ index };
+    }
+}
+```
+</pre></div>
+<div class="no-page-break"><h3 id="admonition-blocks">Admonition blocks<a class="headerlink" href="#admonition-blocks" title="Permanent link">#</a></h3><p>To draw reader's attention to specific things of interest, use the admonition extension </p></div>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an example of a admonition block </p>
+</div>
+<p>The syntax for this the block above is </p>
+<div class="codehilite"><pre><span></span>!!! warning
+    This is an example of a admonition block
+</pre></div>
+<p><code>warning</code> is the style of the box, and also used by default as the title. To add a custom title, add the title after the style in quotation marks. </p>
+<div class="codehilite"><pre><span></span>!!! warning "This is a block with a custom title"
+    This is an example of a admonition block
+</pre></div>
+<p>The following styles are available </p>
+<table>
+<thead>
+<tr>
+<th>Style</th>
+<th>Color</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>note</td>
+<td>Blue</td>
+<td>Drawing reader's attention to specific points of interest</td>
+</tr>
+<tr>
+<td>warning</td>
+<td>Yellow</td>
+<td>Warning the reader about something that may be harmful</td>
+</tr>
+<tr>
+<td>danger</td>
+<td>Red</td>
+<td>A stronger warning to the reader about things they should not do</td>
+</tr>
+<tr>
+<td>example</td>
+<td>Green</td>
+<td>Showing the reader an example of something, like a command in the user guide</td>
+</tr>
+</tbody>
+</table>
+<div class="no-page-break"><h3 id="captions">Captions<a class="headerlink" href="#captions" title="Permanent link">#</a></h3><p>To add a caption to a table, image or a piece of code, use the <a href="https://developer.mozilla.org/en/docs/Web/HTML/Element/figcaption"><code>&lt;figcaption&gt;</code></a> HTML tag. </p></div>
+
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"..."</span> <span class="na">alt</span><span class="o">=</span><span class="s">"..."</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">figcaption</span><span class="p">&gt;</span>
+  The sequence of function calls resulting from the user input 
+  <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>execute 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">figcaption</span><span class="p">&gt;</span>
+</pre></div>
+<p>The document processor will automatically wrap the <code>&lt;figcaption&gt;</code> and the preceeding element in a <code>&lt;figure&gt;</code> element and automatically add a count to it, producing </p>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">figure</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"..."</span> <span class="na">alt</span><span class="o">=</span><span class="s">"..."</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">figcaption</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Figure 2.<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>
+    The sequence of function calls resulting from the user input 
+    <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>execute 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">figcaption</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">figure</span><span class="p">&gt;</span>
+</pre></div>
+<p>Note that Markdown is not processed inside HTML, so you must use HTML to write any additional inline markup you need inside the caption. </p>
 <div class="no-page-break"><h2 id="appendix-a-user-stories">Appendix A : User Stories<a class="headerlink" href="#appendix-a-user-stories" title="Permanent link">#</a></h2><p>Priorities: High (must have) - ★★★ , Medium (nice to have) - ★★ ,  Low (unlikely to have) - ★</p></div>
 
 <table>
