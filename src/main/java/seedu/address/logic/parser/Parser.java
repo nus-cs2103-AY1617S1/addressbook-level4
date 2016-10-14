@@ -95,7 +95,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -335,6 +335,22 @@ public class Parser {
         }
 
         return new SelectCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the select person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareList(String args) {
+        Boolean isListDoneCommand = false;
+        
+        if (args != null && args.trim().toLowerCase().equals("done")) {
+            isListDoneCommand = true;
+        }
+
+        return new ListCommand(isListDoneCommand);
     }
 
     /**
