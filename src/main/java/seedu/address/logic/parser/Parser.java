@@ -153,10 +153,11 @@ public class Parser {
         Optional<Integer> index = parseIndex(args);
         String name=args;
         if(!index.isPresent()){
-        	//System.out.println("here");
-        	return new DeleteCommand(name);
-            //return new IncorrectCommand(
-              //      String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            if (name == null || name.equals("")) {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
+            return new DeleteCommand(name);
         }
         return new DeleteCommand(index.get());
        

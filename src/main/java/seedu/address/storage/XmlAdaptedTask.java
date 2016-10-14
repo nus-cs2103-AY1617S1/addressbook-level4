@@ -57,6 +57,7 @@ public class XmlAdaptedTask {
         }
         final Name name = new Name(this.name);
         final Date date;
+        assert this.date != null;
         if (Deadline.isValidDeadline(this.date)) {
             date = new Deadline(this.date);
         } else {
