@@ -416,8 +416,8 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
-            cmd.append("someday ");
-            cmd.append(p.getName().toString());
+            cmd.append("someday '");
+            cmd.append(p.getName().toString() + "'");
             
             /*UniqueTagList tags = p.getTags();
             for(Tag t: tags){
