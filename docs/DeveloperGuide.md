@@ -348,9 +348,19 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
+##### IDE
+
+> An Integrated Developement Environment used to develop the application.
+
+##### UI
+
+> The User Interface that is presented to the user.
+
 ##### Duplicate Task
 
 > A task that has the same name, start date, start time, end date and end time.
+
+
 
 ## Appendix E : Product Survey
 

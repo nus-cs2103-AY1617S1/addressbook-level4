@@ -75,7 +75,7 @@ allprojects {
     }
     
     shadowJar {
-        archiveName = "addressbook.jar"
+        archiveName = "inbx0.jar"
 
         manifest {
             attributes "Main-Class": "seedu.inbx0.MainApp"
@@ -114,8 +114,8 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
-class AddressBookTest extends Test {
-    public AddressBookTest() {
+class Inbx0Test extends Test {
+    public Inbx0Test() {
     	  forkEvery = 1
         systemProperty 'testfx.setup.timeout', '60000'
     }
@@ -129,7 +129,7 @@ class AddressBookTest extends Test {
     }
 }
 
-task guiTests(type: AddressBookTest) {
+task guiTests(type: Inbx0Test) {
     include 'guitests/**'
 
     jacoco {
@@ -138,8 +138,8 @@ task guiTests(type: AddressBookTest) {
 }
 
 
-task nonGuiTests(type: AddressBookTest) {
-    include 'seedu/address/**'
+task nonGuiTests(type: Inbx0Test) {
+    include 'seedu/inbx0/**'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
@@ -147,7 +147,7 @@ task nonGuiTests(type: AddressBookTest) {
 }
 
 // Test mode depends on whether headless task has been run
-task allTests(type: AddressBookTest) {
+task allTests(type: Inbx0Test) {
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
