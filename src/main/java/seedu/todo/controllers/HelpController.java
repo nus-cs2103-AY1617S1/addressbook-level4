@@ -28,7 +28,7 @@ public class HelpController implements Controller {
     public void process(String input) {
         HelpView view = UiManager.loadView(HelpView.class);
         view.commandDefinitions = Arrays.asList(getAllCommandDefinitions());
-        view.render();
+        UiManager.renderView(view);
     }
     
     private CommandDefinition[] getAllCommandDefinitions() {

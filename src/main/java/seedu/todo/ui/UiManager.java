@@ -76,10 +76,22 @@ public class UiManager extends ComponentManager implements Ui {
     }
     
     /**
+     * Updates the currentView and renders it.
+     * 
+     * @param view   View to render.
+     */
+    public static void renderView(View view) {
+        if (view != null && view.getNode() != null) {
+            currentView = view;
+            view.render();
+        }
+    }
+    
+    /**
      * Sets the message shown in the console and re-renders the current view.
      * Does not do anything if no views have been loaded yet.
      * 
-     * @param consoleMessage
+     * @param consoleMessage   Message to display in the console.
      */
     public static void updateConsoleMessage(String consoleMessage) {
         if (currentView != null) {

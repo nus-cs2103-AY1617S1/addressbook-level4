@@ -62,7 +62,7 @@ public class MainApp extends Application {
         IndexView view = UiManager.loadView(IndexView.class);
         view.tasks = TodoListDB.getInstance().getAllTasks();
         view.events = TodoListDB.getInstance().getAllEvents();
-        view.render();
+        UiManager.renderView(view);
     }
 
     @Override

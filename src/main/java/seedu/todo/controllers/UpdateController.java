@@ -76,7 +76,7 @@ public class UpdateController implements Controller {
         IndexView view = UiManager.loadView(IndexView.class);
         view.tasks = db.getAllTasks();
         view.events = db.getAllEvents();
-        view.render();
+        UiManager.renderView(view);
         
     }
 }
