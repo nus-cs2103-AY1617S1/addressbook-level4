@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
@@ -119,6 +120,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
             if (tasks.contains(task)) {
                 Task newTask = TaskManager.editUnaffectedParams(task, newParams, type);
                 tasks.edit(task, newTask);
+                
                 return newTask;
             } else {
                 throw new UniqueTaskList.TaskNotFoundException();

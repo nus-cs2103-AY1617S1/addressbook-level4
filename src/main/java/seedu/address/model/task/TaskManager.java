@@ -86,12 +86,4 @@ public class TaskManager {
 
         return newTags;
     }
-    
-    public static void updateTask(Task oldTask, Task newParams) {
-        oldTask.setName(newParams.getName());
-        oldTask.setDueDate(newParams.getDueDate());
-        oldTask.setPriority(newParams.getPriority());
-        oldTask.setReminder(newParams.getReminder());
-        oldTask.setTags(newParams.getTags());
-    }
 }

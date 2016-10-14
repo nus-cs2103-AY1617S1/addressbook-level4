@@ -33,11 +33,11 @@ public class Parser {
                     + "(?<isReminderPrivate>p?)(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
-    private static final Pattern PERSON_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<targetIndex>[0-9]+)" + " (?<parameters>.+)"); // variable number of tags
+    private static final Pattern PERSON_EDIT_ARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>[0-9]+)" + "(?<parameters>.+)");
     
     private static final Pattern PERSON_EDIT_PARAMETERS_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<task>(?:n/[^/]+)?)"
+            Pattern.compile("(?<task>(?: n/[^/]+)?)"
                     + "(?<isDuedatePrivate>p?)(?<duedate>(?: d/[^/]+)?)"
                     + "(?<isPriorityPrivate>p?)(?<priority>(?: p/[^/]+)?)"
                     + "(?<isReminderPrivate>p?)(?<reminder>(?: r/[^/]+)?)"
@@ -187,8 +187,8 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        String params = matcherEdit.group("parameters");
-        final Matcher matcherParams = PERSON_EDIT_PARAMETERS_ARGS_FORMAT.matcher(params.trim());
+        String params = " ".concat(matcherEdit.group("parameters").trim());
+        final Matcher matcherParams = PERSON_EDIT_PARAMETERS_ARGS_FORMAT.matcher(params);
         
         if(!matcherParams.matches()) {
             return new IncorrectCommand(
@@ -197,7 +197,7 @@ public class Parser {
         
         try {
             return new EditCommand(index.get(), 
-                    getElement(matcherParams.group("task"), "n/"),
+                    getElement(matcherParams.group("task"), " n/"),
                     getElement(matcherParams.group("duedate")," d/"),
                     getElement(matcherParams.group("priority")," p/"),
                     getElement(matcherParams.group("reminder")," r/"),

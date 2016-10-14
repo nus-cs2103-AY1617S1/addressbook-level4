@@ -79,7 +79,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such person could be found in the list.
      */
-    public void edit(Task task, Task newTask) throws DuplicateTaskException {
+    public void edit(Task task, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
         assert task != null;
         assert newTask != null;
         
@@ -87,7 +87,12 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         
-        TaskManager.updateTask(task, newTask);
+        int index = internalList.indexOf(task);
+        if(index == -1) {
+            throw new TaskNotFoundException();
+        }
+
+        internalList.set(index, newTask);
     }
     
     public ObservableList<Task> getInternalList() {
