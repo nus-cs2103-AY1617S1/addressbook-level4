@@ -24,7 +24,7 @@ public class DestroyController implements Controller {
     @Override
     public float inputConfidence(String input) {
         // TODO
-        return (input.startsWith("delete") || input.startsWith("destroy")) ? 1 : 0;
+        return (input.startsWith("delete") || input.startsWith("destroy")) || input.startsWith("remove") ? 1 : 0;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class DestroyController implements Controller {
         // TODO: Example of last minute work
         
         // Get index.
-        int index = Integer.decode(args.replaceFirst("(delete|destroy)", "").trim());
+        int index = Integer.decode(args.replaceFirst("(delete|destroy|remove)", "").trim());
         
         // Get record
         EphemeralDB edb = EphemeralDB.getInstance();
