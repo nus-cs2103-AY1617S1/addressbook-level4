@@ -37,6 +37,12 @@ public class Task implements ReadOnlyTask {
     public Description getDescription() {
         return description;
     }
+    
+    @Override
+    public void setDescription(Description description){
+       assert !CollectionUtil.isAnyNull(description);
+       this.description = description;
+    }
 
     @Override
     public DateTime getDateTime() {
