@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -26,6 +27,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+	private final FilteredList<Task> filteredTodayTasks;
+	private final FilteredList<Task> filteredTomorrowTasks;
+	private final FilteredList<Task> filteredIn7DaysTasks;
+	private final FilteredList<Task> filteredIn30DaysTasks;
+	private final FilteredList<Task> filteredSomedayTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -40,6 +46,11 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+    	filteredTodayTasks = new FilteredList<>(taskManager.getTodayTasks());
+    	filteredTomorrowTasks = new FilteredList<>(taskManager.getTomorrowTasks());
+    	filteredIn7DaysTasks = new FilteredList<>(taskManager.getIn7DaysTasks());
+    	filteredIn30DaysTasks = new FilteredList<>(taskManager.getIn30DaysTasks());
+    	filteredSomedayTasks = new FilteredList<>(taskManager.getSomedayTasks());
     }
 
     public ModelManager() {
@@ -49,6 +60,11 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+    	filteredTodayTasks = new FilteredList<>(taskManager.getTodayTasks());
+    	filteredTomorrowTasks = new FilteredList<>(taskManager.getTomorrowTasks());
+    	filteredIn7DaysTasks = new FilteredList<>(taskManager.getIn7DaysTasks());
+    	filteredIn30DaysTasks = new FilteredList<>(taskManager.getIn30DaysTasks());
+    	filteredSomedayTasks = new FilteredList<>(taskManager.getSomedayTasks());
     }
 
     @Override
@@ -96,6 +112,31 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
+	@Override
+	public ObservableList<ReadOnlyTask> getFilteredTodayTaskList() {
+		return new UnmodifiableObservableList<>(filteredTodayTasks);
+	}
+
+	@Override
+	public ObservableList<ReadOnlyTask> getFilteredTomorrowTaskList() {
+		return new UnmodifiableObservableList<>(filteredTomorrowTasks);
+	}
+
+	@Override
+	public ObservableList<ReadOnlyTask> getFilteredIn7DaysTaskList() {
+		return new UnmodifiableObservableList<>(filteredIn7DaysTasks);
+	}
+
+	@Override
+	public ObservableList<ReadOnlyTask> getFilteredIn30DaysTaskList() {
+		return new UnmodifiableObservableList<>(filteredIn30DaysTasks);
+	}
+
+	@Override
+	public ObservableList<ReadOnlyTask> getFilteredSomedayTaskList() {
+		return new UnmodifiableObservableList<>(filteredSomedayTasks);
+	}
+	
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);

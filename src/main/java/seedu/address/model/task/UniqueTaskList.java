@@ -35,6 +35,11 @@ public class UniqueTaskList implements Iterable<Task> {
     public static class TaskNotFoundException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+	private final ObservableList<Task> internalTodayList = FXCollections.observableArrayList();
+	private final ObservableList<Task> internalTomorrowList = FXCollections.observableArrayList();
+	private final ObservableList<Task> internalIn7DaysList = FXCollections.observableArrayList();
+	private final ObservableList<Task> internalIn30DaysList = FXCollections.observableArrayList();
+	private final ObservableList<Task> internalSomedayList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
@@ -60,6 +65,19 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
+        filterTaskToAdd(toAdd);
+    }
+    
+    /**
+     * Filter the task being added to the list so as to assign the task to different internal lists.
+     * 
+     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     */
+    public void filterTaskToAdd(Task toAdd) {
+    	if (toAdd.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
+    		internalSomedayList.add(toAdd);
+    		// TO-DO: Sort the toAdd Task according to date(startDate for events and dueDate for deadlines).
+    	}
     }
 
     /**
@@ -96,6 +114,26 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList;
     }
 
+	public List getInternalTodayTaskList() {
+		return internalTodayList;
+	}
+
+	public List getInternalTomorrowTaskList() {
+		return internalTomorrowList;
+	}
+
+	public List getInternalIn7DaysTaskList() {
+		return internalIn7DaysList;
+	}
+
+	public List getInternalIn30DaysTaskList() {
+		return internalIn30DaysList;
+	}
+
+	public List getInternalSomedayTaskList() {
+		return internalSomedayList;
+	}
+	
     @Override
     public Iterator<Task> iterator() {
         return internalList.iterator();
@@ -113,4 +151,5 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
 }

@@ -140,6 +140,31 @@ public class TaskManager implements ReadOnlyTaskManager {
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
+    
+    @Override
+	public List<ReadOnlyTask> getTodayTasks() {
+		return Collections.unmodifiableList(tasks.getInternalTodayTaskList());
+	}
+    
+    @Override
+	public List<ReadOnlyTask> getTomorrowTasks() {
+		return Collections.unmodifiableList(tasks.getInternalTomorrowTaskList());
+	}
+    
+    @Override
+	public List<ReadOnlyTask> getIn7DaysTasks() {
+		return Collections.unmodifiableList(tasks.getInternalIn7DaysTaskList());
+	}
+    
+    @Override
+	public List<ReadOnlyTask> getIn30DaysTasks() {
+		return Collections.unmodifiableList(tasks.getInternalIn30DaysTaskList());
+	}
+
+    @Override
+	public List<ReadOnlyTask> getSomedayTasks() {
+		return Collections.unmodifiableList(tasks.getInternalSomedayTaskList());
+	}
 
     @Override
     public List<Tag> getTagList() {

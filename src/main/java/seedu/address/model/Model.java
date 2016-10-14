@@ -8,6 +8,8 @@ import seedu.address.model.task.UniqueTaskList;
 import java.util.ArrayList;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
+
 /**
  * The API of the Model component.
  */
@@ -29,6 +31,21 @@ public interface Model {
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered task list for today as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+	ObservableList<ReadOnlyTask> getFilteredTodayTaskList();
+
+	/** Returns the filtered task list for tomorrow as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+	ObservableList<ReadOnlyTask> getFilteredTomorrowTaskList();
+
+	/** Returns the filtered task list for the next 7 days as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+	ObservableList<ReadOnlyTask> getFilteredIn7DaysTaskList();
+
+	/** Returns the filtered task list for the next 30 days as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+	ObservableList<ReadOnlyTask> getFilteredIn30DaysTaskList();
+
+	/** Returns the filtered someday task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+	ObservableList<ReadOnlyTask> getFilteredSomedayTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
