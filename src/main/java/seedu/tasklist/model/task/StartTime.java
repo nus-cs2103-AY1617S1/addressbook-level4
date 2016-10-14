@@ -1,5 +1,7 @@
 package seedu.tasklist.model.task;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class StartTime {
 
     public static final String MESSAGE_START_TIME_CONSTRAINTS = "Start time is invalid!";
 
-    public final Date startTime;
+    public final Calendar starttime; 
 
     /**
      * Validates given start time.
@@ -24,6 +26,7 @@ public class StartTime {
      * @throws IllegalValueException if given start time is invalid.
      */
     public StartTime(String input) throws IllegalValueException {
+    	starttime = Calendar.getInstance();
     	String startTime = TimePreparser.preparse(input);
     	if(!startTime.isEmpty() && !startTime.equals(new Date(0).toString())){
     		List<DateGroup> dates = new Parser().parse(startTime);
@@ -34,43 +37,47 @@ public class StartTime {
     			throw new IllegalValueException("Start time is invalid!");
     		}
     		else{
-    			this.startTime = dates.get(0).getDates().get(0);
+    			starttime.setTime(dates.get(0).getDates().get(0));
     		}
     	}
     	else{
-    		this.startTime = new Date(0);
+    		starttime.setTime(new Date(0));
     	}
     }
 
     @Override
     public String toString() {
-    	if(startTime.equals(new Date(0))){
+    	if(starttime.getTime().equals(new Date(0))){
     		return (new Date(0)).toString();
     	}
     	else{
-    		return startTime.toString();
+    		return starttime.getTime().toString();
     	}
     }
     
     public String toCardString() {
-    	if(startTime.equals(new Date(0))){
+    	if(starttime.getTime().equals(new Date(0))){
     		return "-";
     	}
     	else{
-    		return startTime.toString();
+    		DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+    		Date startTimeString = starttime.getTime();
+    		String finalStartString = df.format(startTimeString );
+    		
+    		return finalStartString;
     	}
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (this.startTime != null && ((StartTime) other).startTime != null ) && (other instanceof StartTime // instanceof handles nulls
-                && this.startTime.equals(((StartTime) other).startTime)); // state check
+                || (this.starttime != null && ((StartTime) other).starttime != null ) && (other instanceof StartTime // instanceof handles nulls
+                && this.starttime.equals(((StartTime) other).starttime)); // state check
     }
 
     @Override
     public int hashCode() {
-        return startTime.hashCode();
+        return starttime.hashCode();
     }
 
 }

@@ -63,3 +63,4 @@ public class ResultDisplay extends UiPart {
     }
 
 }
+

@@ -37,9 +37,7 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new TaskDetails(name),
-//              new StartDate(startDate),
                 new StartTime(startTime),
-//              new EndDate(endDate),
                 new EndTime(endTime),
                 new Priority(priority),
                 new UniqueTagList(tagSet)
