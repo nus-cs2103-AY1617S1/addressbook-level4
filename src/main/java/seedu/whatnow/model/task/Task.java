@@ -13,6 +13,7 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     
+    private TaskDate taskDate;
     private UniqueTagList tags;
 
     /**
@@ -30,6 +31,17 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTags());
     }
+    
+    /**
+     * 	Every field must be present and not null
+     * 
+     */
+    public Task(Name name, TaskDate taskDate, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, tags);
+        this.name = name;
+        this.taskDate = taskDate;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
 
     @Override
     public Name getName() {
@@ -40,7 +52,10 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-
+    @Override
+    public TaskDate getTaskDate() {
+    	return taskDate;
+    }
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
@@ -51,7 +66,10 @@ public class Task implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
-
+    
+    public void setTaskDate(TaskDate taskDate) {
+    	this.taskDate = taskDate;
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

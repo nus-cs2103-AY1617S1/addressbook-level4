@@ -13,6 +13,7 @@ import seedu.whatnow.commons.util.FxViewUtil;
 import seedu.whatnow.logic.Logic;
 import seedu.whatnow.logic.commands.*;
 
+import java.text.ParseException;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
@@ -68,7 +69,7 @@ public class CommandBox extends UiPart {
 
 
     @FXML
-    private void handleCommandInputChanged() {
+    private void handleCommandInputChanged() throws ParseException {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
 

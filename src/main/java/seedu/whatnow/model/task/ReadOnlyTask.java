@@ -50,4 +50,6 @@ public interface ReadOnlyTask {
         }
     }
 
+	TaskDate getTaskDate();
+
 }
