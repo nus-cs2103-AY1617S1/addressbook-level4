@@ -88,7 +88,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
     
     /**
-     * Sets the message shown in the console and re-renders the current view.
+     * Sets the message shown in the console and reloads the console box.
      * Does not do anything if no views have been loaded yet.
      * 
      * @param consoleMessage   Message to display in the console.
@@ -96,7 +96,7 @@ public class UiManager extends ComponentManager implements Ui {
     public static void updateConsoleMessage(String consoleMessage) {
         if (currentView != null) {
             currentView.consoleMessage = consoleMessage;
-            currentView.render();
+            instance.mainWindow.loadComponents();
         }
     }
 
