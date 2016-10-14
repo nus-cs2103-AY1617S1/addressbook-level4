@@ -46,7 +46,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestTask[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, personToAdd);
         assertTrue(personListPanel.isListMatching(expectedList));
     }
 
