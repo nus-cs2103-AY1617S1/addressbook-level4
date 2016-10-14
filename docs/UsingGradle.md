@@ -44,7 +44,7 @@ Gradle commands look like this:
 If we package only our own class files into the JAR file, it will not work properly unless the user has all the other
   JAR files (i.e. third party libraries) our classes depend on, which is rather inconvenient. 
   Therefore, we package all dependencies into a single JAR files, creating what is also known as a _fat_ JAR file. 
-  To create a fat JAR fil, we are using the Gradle plugin [shadow jar](https://github.com/johnrengelman/shadow).
+  To create a fat JAR file, we are using the Gradle plugin [shadow jar](https://github.com/johnrengelman/shadow).
 
 ## Running Tests
 

@@ -84,7 +84,7 @@ public class MainWindow extends UiPart {
     }
 
     private void configure(String appTitle, String tarsName, Config config, UserPrefs prefs,
-                           Logic logic) {
+            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
@@ -113,6 +113,13 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTarsFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+    }
+    
+    /* @@author A0124333U
+     * A method to reload the status bar footer
+     */
+    public void reloadStatusBarFooter(String newTarsFilePath) {
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), newTarsFilePath);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {

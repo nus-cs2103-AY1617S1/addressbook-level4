@@ -81,7 +81,7 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format. Will be starting with an empty Tars");
             initialData = new Tars();
         } catch (FileNotFoundException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty Tars");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Tars");
             initialData = new Tars();
         }
 
@@ -164,7 +164,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping TARS ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

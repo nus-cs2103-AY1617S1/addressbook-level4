@@ -1,26 +1,38 @@
 package tars.logic.parser;
 
+import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tars.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.time.DateTimeException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import tars.commons.core.Messages;
 import tars.commons.exceptions.IllegalValueException;
+import tars.commons.flags.Flag;
+import tars.commons.util.DateTimeUtil;
+import tars.commons.util.ExtractorUtil;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.AddCommand;
+import tars.logic.commands.CdCommand;
 import tars.logic.commands.ClearCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.DeleteCommand;
+import tars.logic.commands.EditCommand;
 import tars.logic.commands.ExitCommand;
 import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
+import tars.logic.commands.MarkCommand;
 import tars.logic.commands.SelectCommand;
-
-import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tars.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import java.time.DateTimeException;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import tars.logic.commands.UndoCommand;
 
 /**
  * Parses user input.
@@ -32,15 +44,13 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    
+    private static final Pattern FILEPATH_ARGS_FORMAT = Pattern.compile("(?<filepath>\\S+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
+    private static final Pattern KEYWORDS_ARGS_FORMAT = 
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
-    private static final String FLAG_DATETIME = "-dt";
-    private static final String FLAG_PRIORITY = "-p";
-    private static final String FLAG_TAG = "-t";
-
     public Parser() {}
 
     /**
@@ -65,6 +75,9 @@ public class Parser {
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
@@ -75,7 +88,20 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            if (arguments != null && !arguments.isEmpty()) {
+                return prepareList(arguments);
+            } else {
+                return new ListCommand();
+            }
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(arguments);
+
+        case CdCommand.COMMAND_WORD:
+            return prepareCd(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -91,138 +117,86 @@ public class Parser {
     /**
      * Parses arguments in the context of the add task command.
      *
+     * @@author A0139924W
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
+        // there is no arguments
+        if (args.trim().length() == 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
         String name = "";
-        Option priorityOpt = new Option(FLAG_PRIORITY, true);
-        Option dateTimeOpt = new Option(FLAG_DATETIME, true);
-        Option tagOpt = new Option(FLAG_TAG, false);
-        
-        Option[] options = {
-                priorityOpt, 
-                dateTimeOpt, 
-                tagOpt
-        };
-        
-        TreeMap<Integer, Option> flagsPosMap = getFlagPos(args, options);
-        HashMap<Option, String> optionFlagNArgMap = getOptionFlagNArg(args, options, flagsPosMap);
-        
-        if(flagsPosMap.size() == 0) {
+
+        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
+        Flag tagFlag = new Flag(Flag.TAG, true);
+
+        Flag[] flags = { priorityFlag, dateTimeFlag, tagFlag };
+
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
+
+        if (flagsPosMap.size() == 0) {
             name = args;
         } else if (flagsPosMap.firstKey() == 0) {
-         // name should be the first argument
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            // there are arguments but name should be the first argument
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } else {
             name = args.substring(0, flagsPosMap.firstKey()).trim();
         }
-        
+
         try {
             return new AddCommand(
                     name,
-                    getDateTimeFromArgs(optionFlagNArgMap.get(dateTimeOpt).replace(FLAG_DATETIME + " ", "")),
-                    optionFlagNArgMap.get(priorityOpt).replace(FLAG_PRIORITY + " ", ""),
-                    getTagsFromArgs(optionFlagNArgMap.get(tagOpt)));
+                    DateTimeUtil.getDateTimeFromArgs(argumentMap.get(dateTimeFlag).replace(Flag.DATETIME + " ", "")),
+                    argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
+                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag)
+            );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
         }
     }
-    
-    /**
-     * Extracts the new task's datetime from the add command's task arguments string.
-     */
-    private static String[] getDateTimeFromArgs(String taskArguments) {
-        if (taskArguments.equals("")) {
-            return new String[] {"", ""};
-        } else if (taskArguments.contains("to")) {
-            int toIndex = taskArguments.indexOf("to");
-            String startDateTime = taskArguments.substring(0, toIndex).trim();
-            String endDateTime = taskArguments.substring(toIndex + 2).trim();
-            return new String[] {startDateTime, endDateTime};
-        } else {
-            return new String[] {"", taskArguments.trim()};
-        }
-    }
 
     /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
+     * Parses arguments in the context of the edit task command.
+     * 
+     * @@author A0121533W
+     * @param args full command args string
+     * @return the prepared command
      */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.equals("")) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments
-                                                                .replaceFirst(FLAG_TAG + " ", "")
-                                                                .split(" " + FLAG_TAG + " "));
-        return new HashSet<>(tagStrings);
-    }
-    
-    /**
-     * Gets all flag position from arguments string
-     */
-    private static TreeMap<Integer, Option> getFlagPos(String args, Option[] options) {
+    private Command prepareEdit(String args) {
         args = args.trim();
-        TreeMap<Integer, Option> flagsPosMap = new TreeMap<Integer, Option>();
-        
-        if (args != null && args.length() > 0 && options.length > 0) {
-            for (int i = 0; i < options.length; i++) {
-                int indexOf = -1;
-                do {
-                    indexOf = args.indexOf(options[i].flag, indexOf + 1);
-                    if (indexOf >= 0) {
-                        flagsPosMap.put(indexOf, options[i]);
-                    }
-                    if (options[i].hasMultiple) {
-                        break;
-                    }
-                } while (indexOf >= 0);
-            }
-        }
-        
-        return flagsPosMap;
-    }
-    
-    /**
-     * Extracts the option's flag and arg from arguments string.
-     */
-    private static HashMap<Option, String> getOptionFlagNArg(String args, Option[] options, TreeMap<Integer, Option> flagsPosMap) {
-        args = args.trim();
-        HashMap<Option, String> flagsValueMap = new HashMap<Option, String>();
-        
-        if (args != null && args.length() > 0 && options.length > 0) {
-            // initialize the flagsValueMap
-            for (int i = 0; i < options.length; i++) {
-                flagsValueMap.put(options[i], "");
-            }
-
-            int endPos = args.length();
-            for (Map.Entry<Integer, Option> entry : flagsPosMap.descendingMap().entrySet()) {
-                Option option = entry.getValue();
-                Integer pos = entry.getKey();
-                
-                if(pos == -1) {
-                    continue;
-                }
-
-                String arg = args.substring(pos, endPos);
-                endPos = pos;
-
-                if (flagsValueMap.containsKey(option)) {
-                    flagsValueMap.put(option, flagsValueMap.get(option).concat(" ").concat(arg));
-                } else {
-                    flagsValueMap.put(option, arg);
-                }
-            }
+        int targetIndex = 0;
+        if (args.indexOf(" ") != -1) {
+            targetIndex = args.indexOf(" ");
         }
 
-        return flagsValueMap;
+        Optional<Integer> index = parseIndex(args.substring(0, targetIndex));
+
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        Flag nameFlag = new Flag(Flag.NAME, false);
+        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
+        Flag addTagFlag = new Flag(Flag.ADDTAG, true);
+        Flag removeTagFlag = new Flag(Flag.REMOVETAG, true);
+
+        Flag[] flags = { nameFlag, priorityFlag, dateTimeFlag, addTagFlag, removeTagFlag };
+
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
+
+        if (flagsPosMap.size() == 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        return new EditCommand(index.get(), argumentMap);
     }
 
     /**
@@ -234,12 +208,38 @@ public class Parser {
     private Command prepareDelete(String args) {
 
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
         return new DeleteCommand(index.get());
+    }
+
+    /**
+     * Parses arguments in the context of the mark task command.
+     *
+     * @@author A0121533W
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMark(String args) {
+
+        Flag doneFlag = new Flag(Flag.DONE, false);
+        Flag undoneFlag = new Flag(Flag.UNDONE, false);
+
+        Flag[] flags = { doneFlag, undoneFlag, };
+
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
+
+        if (flagsPosMap.size() == 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        }
+
+        String markDone = argumentMap.get(doneFlag).replace(Flag.DONE + " ", "");
+        String markUndone = argumentMap.get(undoneFlag).replace(Flag.UNDONE + " ", "");
+
+        return new MarkCommand(markDone, markUndone);
     }
 
     /**
@@ -250,26 +250,26 @@ public class Parser {
      */
     private Command prepareSelect(String args) {
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
 
         return new SelectCommand(index.get());
     }
 
     /**
-     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+     * Returns the specified index in the {@code command} IF a positive unsigned
+     * integer is given as the index. Returns an {@code Optional.empty()}
+     * otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
 
         String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
+        if (!StringUtil.isUnsignedInteger(index)) {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
@@ -285,8 +285,7 @@ public class Parser {
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         // keywords delimited by whitespace
@@ -295,27 +294,61 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
-}
+    /**
+     * Parses arguments in the context of the list task command.
+     *
+     * @@author @A0140022H
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareList(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        }
 
-
-class Option {
-    public String flag;
-    public boolean hasMultiple;
-
-    public Option(String flag, boolean hasMultiple) {
-        this.flag = flag;
-        this.hasMultiple = hasMultiple;
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new ListCommand(keywordSet);
     }
-    
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Option // instanceof handles nulls
-                && this.flag.equals(((Option) other).flag)); // state check
+
+    /**
+     * Parses arguments in the context of the change storage file directory (cd)
+     * command.
+     * 
+     * @@author A0124333U
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareCd(String args) {
+        final Matcher matcher = FILEPATH_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(CdCommand.MESSAGE_INVALID_FILEPATH));
+        }
+
+        if (!isFileTypeValid(args.trim())) {
+            return new IncorrectCommand(String.format(CdCommand.MESSAGE_INVALID_FILEPATH));
+        }
+
+        return new CdCommand(args.trim());
     }
 
-    @Override
-    public int hashCode() {
-        return flag.hashCode();
+    /**
+     * Checks if new file type is a valid file type
+     * 
+     * @@author A0124333U
+     * @param args
+     * @return Boolean variable of whether the file type is valid
+     **/
+
+    private Boolean isFileTypeValid(String args) {
+        String filePath = args.trim();
+        String extension = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
+        if (extension.equals(CdCommand.getXmlFileExt())) {
+            return true;
+        }
+        return false;
     }
+
 }

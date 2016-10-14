@@ -9,17 +9,20 @@ import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends TarsGuiTest {
 
+    //@@author A0124333U
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Meeting"); //no results
-        assertFindResult("find Task B", 
+        assertFindResult("find Task B",
+                td.taskB); //single result
+        assertFindResult("find Task", 
                 td.taskA, td.taskB,
                 td.taskC, td.taskD,
                 td.taskE, td.taskF,
                 td.taskG); //multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("del 1");
         assertFindResult("find A");
     }
 

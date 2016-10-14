@@ -2,7 +2,7 @@ package tars.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import tars.commons.exceptions.DuplicateDataException;
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.util.CollectionUtil;
 
 import java.util.*;
@@ -16,15 +16,6 @@ import java.util.*;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<Task> {
-
-    /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
-     */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate tasks");
-        }
-    }
 
     /**
      * Signals that an operation targeting a specified task in the list would fail because

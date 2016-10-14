@@ -1,7 +1,10 @@
 package tars.logic.commands;
 
+import tars.commons.core.Messages;
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.task.*;
+import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 
@@ -11,8 +14,10 @@ import java.util.Set;
 
 /**
  * Adds a task to tars.
+ * 
+ * @@author A0139924W
  */
-public class AddCommand extends Command {
+public class AddCommand extends UndoableCommand {
 
 	public static final String COMMAND_WORD = "add";
 
@@ -23,6 +28,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK= "This task already exists in tars";
+    public static final String MESSAGE_UNDO = "Deleted: %1$s";
 
     private final Task toAdd;
     
@@ -40,8 +46,13 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         
-        this.toAdd = new Task(new Name(name), new DateTime(dateTime[0], dateTime[1]), new Priority(priority),
-                new Status(), new UniqueTagList(tagSet));
+        this.toAdd = new Task(
+                new Name(name),
+                new DateTime(dateTime[0], dateTime[1]),
+                new Priority(priority),
+                new Status(),
+                new UniqueTagList(tagSet)
+        );
 
     }
 
@@ -51,10 +62,21 @@ public class AddCommand extends Command {
         try {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
+    }
+    
+    @Override
+    public CommandResult undo() {
+        assert model != null;
+        try {
+            model.deleteTask(toAdd);
+            return new CommandResult(String.format(MESSAGE_UNDO, toAdd));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult(Messages.MESSAGE_TASK_CANNOT_BE_FOUND);
+        }
     }
 
 }

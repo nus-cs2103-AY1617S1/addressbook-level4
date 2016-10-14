@@ -8,7 +8,7 @@ import java.time.format.ResolverStyle;
 import tars.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's datetime in tars.
+ * Represents a Task's dateTime in tars.
  */
 public class DateTime {
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task datetime should be spaces or alphanumeric characters";
@@ -18,6 +18,12 @@ public class DateTime {
 
     public String startDateString;
     public String endDateString;
+    
+    private static final DateTimeFormatter formatter = DateTimeFormatter
+            .ofPattern("d/M/uuuu HHmm")
+            .withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter stringFormatter = DateTimeFormatter
+            .ofPattern("dd/MM/uuuu HHmm");
     
     /**
      * Default constructor
@@ -32,10 +38,6 @@ public class DateTime {
      */
     public DateTime(String startDate, String endDate)
             throws DateTimeException, IllegalDateException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm")
-                .withResolverStyle(ResolverStyle.STRICT);
-        DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm");
-
         if (endDate != null && endDate.length() > 0) {
             this.endDate = LocalDateTime.parse(endDate, formatter);
             this.endDateString = this.endDate.format(stringFormatter);
@@ -48,15 +50,6 @@ public class DateTime {
                 throw new IllegalDateException("End dateTime should be after start dateTime.");
             }
         }
-
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
     }
 
     @Override

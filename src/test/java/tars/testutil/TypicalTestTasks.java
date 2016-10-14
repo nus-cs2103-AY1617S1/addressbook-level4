@@ -1,5 +1,6 @@
 package tars.testutil;
 
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.Tars;
 import tars.model.task.*;
@@ -23,7 +24,7 @@ public class TypicalTestTasks {
             taskD = new TaskBuilder().withName("Task D").withDateTime("04/09/2016 1400" , "05/09/2016 1400").withPriority("h").build();
             taskE = new TaskBuilder().withName("Task E").withDateTime("05/09/2016 1400" , "06/09/2016 1400").withPriority("m").build();
             taskF = new TaskBuilder().withName("Task F").withDateTime("06/09/2016 1400" , "07/09/2016 1400").withPriority("l").build();
-            taskG = new TaskBuilder().withName("Task G").withDateTime("07/09/2016 1400" , "08/09/2016 1400").withPriority("h").build();
+            taskG = new TaskBuilder().withName("Task G").withDateTime("07/09/2016 1400" , "08/09/2016 1400").withPriority("h").withStatus().build();
 
             //Manually added
             taskH = new TaskBuilder().withName("Task H").withDateTime("08/09/2016 1400" , "09/09/2016 1400").withPriority("m").build();
@@ -44,7 +45,7 @@ public class TypicalTestTasks {
             ab.addTask(new Task(taskE));
             ab.addTask(new Task(taskF));
             ab.addTask(new Task(taskG));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
