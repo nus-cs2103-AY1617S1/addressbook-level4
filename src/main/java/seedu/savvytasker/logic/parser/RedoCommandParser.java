@@ -2,9 +2,11 @@ package seedu.savvytasker.logic.parser;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.ExitCommand;
+import seedu.savvytasker.logic.commands.RedoCommand;
+import seedu.savvytasker.logic.commands.UndoCommand;
 
-public class ExitCommandParser implements CommandParser<ExitCommand> {
-    private static final String HEADER = "exit";
+public class RedoCommandParser implements CommandParser<RedoCommand> {
+    private static final String HEADER = "redo";
     private static final String READABLE_FORMAT = HEADER;
     
     @Override
@@ -18,9 +20,9 @@ public class ExitCommandParser implements CommandParser<ExitCommand> {
     }
 
     @Override
-    public ExitCommand parse(String commandText) throws ParseException {
+    public RedoCommand parse(String commandText) throws ParseException {
         if (commandText.trim().equalsIgnoreCase(HEADER)) {
-            return new ExitCommand();
+            return new RedoCommand();
         }
 
         throw new ParseException(commandText, String.format(

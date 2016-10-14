@@ -3,22 +3,22 @@ package seedu.savvytasker.logic.parser;
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.HelpCommand;
 
-public class HelpCommandParser extends CommandParser<HelpCommand> {
+public class HelpCommandParser implements CommandParser<HelpCommand> {
     private static final String HEADER = "help";
-    private static final String READABLE_FORMAT = "help";
+    private static final String READABLE_FORMAT = HEADER;
     
     @Override
-    protected String getHeader() {
+    public String getHeader() {
         return HEADER;
     }
 
     @Override
-    protected String getRequiredFormat() {
+    public String getRequiredFormat() {
         return READABLE_FORMAT;
     }
 
     @Override
-    protected HelpCommand parse(String commandText) throws ParseException {
+    public HelpCommand parse(String commandText) throws ParseException {
         if (commandText.trim().equalsIgnoreCase(HEADER)) {
             return new HelpCommand();
         }

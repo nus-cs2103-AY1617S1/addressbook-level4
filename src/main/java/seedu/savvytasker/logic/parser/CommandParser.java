@@ -3,14 +3,14 @@ package seedu.savvytasker.logic.parser;
 import seedu.savvytasker.logic.commands.Command;
 
 /**
- * This class should be extended by specialized parsers that want to 
+ * This interface should be implemented by specialized parsers that want to 
  * parse a specific command. The text passed to such a parser will be 
  * guaranteed to have its header (the leading word) matching the String
  * returned by the abstract getHeader() method supplied by its implementation.
  *
  * @param <T> A Command that this Parser is going to produce upon successful parsing
  */
-public abstract class CommandParser<T extends Command> {    
+public interface CommandParser<T extends Command> {    
     /**
      * Indicates whether this parser would like to have the text supplied to it
      * preprocessed. The default behaviour is to allow preprocessing. 
@@ -19,7 +19,7 @@ public abstract class CommandParser<T extends Command> {
      * 
      * @return true if preprocessing is desired, false otherwise
      */
-    protected boolean shouldPreprocess() {
+    public default boolean shouldPreprocess() {
         return true;
     }
     
@@ -34,7 +34,7 @@ public abstract class CommandParser<T extends Command> {
      * 
      * @return header string
      */
-    protected abstract String getHeader();
+    public String getHeader();
     
     /**
      * Gets the human-readable format of the string required by this command parser to 
@@ -43,7 +43,7 @@ public abstract class CommandParser<T extends Command> {
      * 
      * @return a human-readable format required by this parser
      */
-    protected abstract String getRequiredFormat();
+    public String getRequiredFormat();
     
     /**
      * Parses the command text and returns the resulting command built from the parse.
@@ -54,6 +54,6 @@ public abstract class CommandParser<T extends Command> {
      * @return the resulting command object which can then be executed
      * @throws ParseException if the commandText has an incorrect syntax
      */
-    protected abstract T parse(String commandText) throws ParseException;
+    public T parse(String commandText) throws ParseException;
     
 }

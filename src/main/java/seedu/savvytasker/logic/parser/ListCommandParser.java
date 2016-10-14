@@ -8,32 +8,32 @@ import seedu.savvytasker.logic.commands.ListCommand;
 import seedu.savvytasker.logic.commands.models.ListCommandModel;
 import seedu.savvytasker.model.task.ListType;
 
-public class ListCommandParser extends CommandParser<ListCommand> {
+public class ListCommandParser implements CommandParser<ListCommand> {
     private static final String HEADER = "list";
-    private static final String READABLE_FORMAT = "list [t/LIST_TYPE]";
+    private static final String READABLE_FORMAT = HEADER+" [t/LIST_TYPE]";
     
     private static final String REGEX_REF_LIST_TYPE = "ListType";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "list\\s*((?<=\\s)t/(?<"+REGEX_REF_LIST_TYPE+">[^/]+))?",
+            HEADER+"\\s*((?<=\\s)t/(?<"+REGEX_REF_LIST_TYPE+">[^/]+))?",
             Pattern.CASE_INSENSITIVE);
     
     @Override
-    protected String getHeader() {
+    public String getHeader() {
         return HEADER;
     }
 
     @Override
-    protected String getRequiredFormat() {
+    public String getRequiredFormat() {
         return READABLE_FORMAT;
     }
 
     @Override
-    protected ListCommand parse(String commandText) throws ParseException {
+    public ListCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             ListType listType = parseListType(matcher.group(REGEX_REF_LIST_TYPE));
-            // TODO: return ListCommand
+            
             return new ListCommand(new ListCommandModel(listType));
         }
         

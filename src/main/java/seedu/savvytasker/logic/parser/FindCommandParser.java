@@ -8,7 +8,7 @@ import seedu.savvytasker.logic.commands.FindCommand;
 import seedu.savvytasker.logic.commands.models.FindCommandModel;
 import seedu.savvytasker.model.task.FindType;
 
-public class FindCommandParser extends CommandParser<FindCommand> {
+public class FindCommandParser implements CommandParser<FindCommand> {
     private static final String HEADER = "find";
     private static final String READABLE_FORMAT = "find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]";
 
@@ -17,30 +17,29 @@ public class FindCommandParser extends CommandParser<FindCommand> {
     private static final String REGEX_REF_KEYWORDS_AFTER_TYPE = "After";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            "find\\s+(?<"+REGEX_REF_KEYWORDS_BEFORE_TYPE+">([^/]+(\\s+|$))*)" +
+            HEADER+"\\s+(?<"+REGEX_REF_KEYWORDS_BEFORE_TYPE+">([^/]+(\\s+|$))*)" +
             "(t/(?<"+REGEX_REF_FIND_TYPE+">[^/]+?)(?!.*\\st/)(\\s+|$))?" +
             "(?<"+REGEX_REF_KEYWORDS_AFTER_TYPE+">([^/]+(\\s+|$))*)"
             , Pattern.CASE_INSENSITIVE);
     
     @Override
-    protected String getHeader() {
+    public String getHeader() {
         return HEADER;
     }
 
     @Override
-    protected String getRequiredFormat() {
+    public String getRequiredFormat() {
         return READABLE_FORMAT;
     }
 
     @Override
-    protected FindCommand parse(String commandText) throws ParseException {
+    public FindCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             FindType findType = parseFindType(matcher.group(REGEX_REF_FIND_TYPE));
             String[] keywords = parseKeywords(matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE),
                     matcher.group(REGEX_REF_KEYWORDS_AFTER_TYPE));
             
-            // TODO: Return FindCommand here (require integration).
             return new FindCommand(new FindCommandModel(findType, keywords));
         }
         
@@ -59,9 +58,14 @@ public class FindCommandParser extends CommandParser<FindCommand> {
     }
     
     private String[] parseKeywords(String keywordsBefore, String keywordsAfter) throws ParseException {
-        String[] keywordsArr1 = keywordsBefore.trim().split("\\s+");
-        String[] keywordsArr2 = keywordsAfter.trim().split("\\s+");
-
+        keywordsBefore = keywordsBefore.trim();
+        keywordsAfter = keywordsAfter.trim();
+        
+        String[] keywordsArr1 = new String[0];
+        String[] keywordsArr2 = new String[0];
+        if (!keywordsBefore.isEmpty()) keywordsArr1 = keywordsBefore.split("\\s+");
+        if (!keywordsAfter.isEmpty()) keywordsArr2 = keywordsAfter.split("\\s+");
+        
         if (keywordsArr1.length == 0 && keywordsArr2.length == 0)
             throw new ParseException(keywordsBefore + " ... " + keywordsAfter,
                     "KEYWORD: Need to specify at least one keyword!");

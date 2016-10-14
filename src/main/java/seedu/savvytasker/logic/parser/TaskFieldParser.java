@@ -1,30 +1,26 @@
 package seedu.savvytasker.logic.parser;
 
-import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.RecurrenceType;
 
 /**
  * This class contains common parsing methods for parsing Task fields.
- * CommandParsers should extend this class if they need this facility.
- *
- * @param <T> A Command that this Parser is going to produce upon successful parsing
  */
-public abstract class TaskModelCommandParser<T extends Command> extends CommandParser<T> {
+public class TaskFieldParser {
     private DateParser dateParser;
     
-    protected TaskModelCommandParser() {
+    public TaskFieldParser() {
         this.dateParser = new DateParser();
     }
     
-    protected String parseTaskName(String taskNameText) throws ParseException {
+    public String parseTaskName(String taskNameText) throws ParseException {
         if (taskNameText == null)
             return null;
         return taskNameText.trim();
     }
     
-    protected InferredDate parseStartDate(String dateText) throws ParseException {
+    public InferredDate parseStartDate(String dateText) throws ParseException {
         try {
             if (dateText == null)
                 return null;
@@ -35,7 +31,7 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
         }
     }
     
-    protected InferredDate parseEndDate(String dateText) throws ParseException {
+    public InferredDate parseEndDate(String dateText) throws ParseException {
         try {
             if (dateText == null)
                 return null;
@@ -46,13 +42,13 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
         }
     }
     
-    protected String parseLocation(String locationText) throws ParseException {
+    public String parseLocation(String locationText) throws ParseException {
         if (locationText == null)
             return null;
         return locationText.trim();
     }
     
-    protected PriorityLevel parsePriorityLevel(String priorityLevelText) throws ParseException {
+    public PriorityLevel parsePriorityLevel(String priorityLevelText) throws ParseException {
         try {
             if (priorityLevelText == null)
                 return null;
@@ -63,7 +59,7 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
         }
     }
     
-    protected RecurrenceType parseRecurrenceType(String recurrenceTypeText) throws ParseException {
+    public RecurrenceType parseRecurrenceType(String recurrenceTypeText) throws ParseException {
         try {
             if (recurrenceTypeText == null)
                 return null;
@@ -74,7 +70,7 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
         }
     }
     
-    protected Integer parseNumberOfRecurrence(String numRecurrenceText) throws ParseException {
+    public Integer parseNumberOfRecurrence(String numRecurrenceText) throws ParseException {
         if (numRecurrenceText == null)
             return null;
         
@@ -96,13 +92,13 @@ public abstract class TaskModelCommandParser<T extends Command> extends CommandP
         return numRecurrence;
     }
 
-    protected String parseCategory(String categoryText) throws ParseException {
+    public String parseCategory(String categoryText) throws ParseException {
         if (categoryText == null)
             return null;
         return categoryText.trim();
     }
     
-    protected String parseDescription(String descriptionText) throws ParseException {
+    public String parseDescription(String descriptionText) throws ParseException {
         if (descriptionText == null)
             return null;
         return descriptionText.trim();
