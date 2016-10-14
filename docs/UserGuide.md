@@ -79,8 +79,8 @@ Examples (deadline):
 * `add Project meeting by OcToBeR 10 2017`
 
 Examples (event):
-* `add Project meeting from 5pm-6pm`
-* `add Project meeting from 5pm to 6pm`
+* `add Project meeting from Oct1-Oct2`
+* `add Project meeting from Oct 1 to Oct 2`
 * `add Overseas work from 1 Aug 2016 to 31 Aug 2017`
 * `add Overseas work from 1 August 2016 - 31 August 2017`
   For event tasks, make sure that `START_DATE` is earlier than `END_DATE` or it will be rejected.
@@ -98,8 +98,8 @@ Format (yearly): `add yearly [on] DATE, TASK` <br>
 
 Examples:
 * `add daily, Morning exercise`
-* `add weekly on Monday, dance lesson Wednesday from 3pm-4pm`
-* `add weekly on Mondays, dance lesson Wednesday from 3pm-4pm`
+* `add weekly on Monday, dance lesson Wednesday from Oct 1 - Oct 2`
+* `add weekly on Mondays, dance lesson Wednesday from Oct 1 - Oct 2`
 * `add monthly 20, Project review with colleagues`
 * `add monthly on 20, Project review with colleagues`
 * `add monthly on 21st, Project review with colleagues`
