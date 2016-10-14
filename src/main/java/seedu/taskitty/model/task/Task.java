@@ -64,13 +64,11 @@ public class Task implements ReadOnlyTask {
     
     /**
      * Constructor for a "event" Task.
-     * "event" is a Task all fields.
-     * Every field must be present and not null.
+     * "event" is a Task with all fields.
+     * This constructor allows nulls and can be used when unsure which values are null
      */
     public Task(Name name, TaskDate startDate, TaskTime startTime,
             TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, startDate, startTime, endDate, endTime, tags);
-        
         this.name = name;
         this.startDate = startDate;
         this.startTime = startTime;
