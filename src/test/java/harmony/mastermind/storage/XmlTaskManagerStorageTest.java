@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class XmlTaskManagerStorageTest {
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskManagerStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -87,8 +87,8 @@ public class XmlTaskManagerStorageTest {
         saveTaskManager(null, "SomeFile.xml");
     }
 
-    private void saveTaskManager(ReadOnlyTaskManager addressBook, String filePath) throws IOException {
-        new XmlTaskManagerStorage(filePath).saveTaskManager(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
+        new XmlTaskManagerStorage(filePath).saveTaskManager(taskManager, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

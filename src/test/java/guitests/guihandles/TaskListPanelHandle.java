@@ -19,12 +19,11 @@ import java.util.Set;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Provides a handle for the panel containing the person list.
+ * Provides a handle for the panel containing the task list.
  */
 public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String TASK_LIST_VIEW_ID = "#taskTable";
 
@@ -43,7 +42,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the list is showing the person details correctly and in correct order.
+     * Returns true if the list is showing the task details correctly and in correct order.
      * @param tasks A list of task in the correct order.
      */
     public boolean isListMatching(ReadOnlyTask... tasks) {
@@ -59,7 +58,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
+     * Returns true if the {@code tasks} appear as the sub list (in that order) at position {@code startPosition}.
      */
     public boolean containsInOrder(int startPosition, ReadOnlyTask... tasks) {
         List<ReadOnlyTask> tasksInList = getTableView().getItems();
@@ -89,7 +88,7 @@ public class TaskListPanelHandle extends GuiHandle {
         List<ReadOnlyTask> table = getTableView().getItems();
         if (tasks.length + startPosition != table.size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (table.size() - 1) + " persons");
+                    "Expected " + (table.size() - 1) + " tasks");
         }
         assertTrue(this.containsInOrder(startPosition, tasks));
         
@@ -149,10 +148,6 @@ public class TaskListPanelHandle extends GuiHandle {
      */
     public ReadOnlyTask getTask(int index) {
         return getTableView().getItems().get(index);
-    }
-
-    protected Set<Node> getAllCardNodes() {
-        return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
     public int getNumberOfTask() {

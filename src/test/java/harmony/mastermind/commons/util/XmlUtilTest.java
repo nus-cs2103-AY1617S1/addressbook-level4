@@ -87,7 +87,7 @@ public class XmlUtilTest {
         //TODO: use equality instead of string comparisons
 
         TaskManagerBuilder builder = new TaskManagerBuilder(new TaskManager());
-        dataToWrite = new XmlSerializableTaskManager(builder.withPerson(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
+        dataToWrite = new XmlSerializableTaskManager(builder.withTask(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
