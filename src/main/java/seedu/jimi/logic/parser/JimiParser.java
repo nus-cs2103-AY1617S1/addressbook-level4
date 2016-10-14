@@ -86,7 +86,7 @@ public class JimiParser {
         for (Command command : COMMAND_STUB_LIST) {
             // if validation checks implemented by the respective commands are passed
             if (command.isValidCommandWord(commandWord)) {
-                // identifying which command this is
+                // identify which command this is
                 if (command instanceof AddCommand) {
                     return prepareAdd(arguments);
                 } else if (command instanceof EditCommand) {
@@ -97,7 +97,7 @@ public class JimiParser {
                     return prepareDelete(arguments);
                 } else if (command instanceof FindCommand) {
                     return prepareFind(arguments);
-                } else {
+                } else { // commands that do not require arguments e.g. exit
                     return command;
                 }
             }
