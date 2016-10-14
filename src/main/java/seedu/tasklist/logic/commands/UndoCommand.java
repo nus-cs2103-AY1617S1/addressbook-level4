@@ -3,6 +3,8 @@ package seedu.tasklist.logic.commands;
 import seedu.tasklist.model.ModelManager;
 import seedu.tasklist.model.UndoInfo;
 import seedu.tasklist.model.task.ReadOnlyTask;
+import seedu.tasklist.model.task.UniqueTaskList;
+import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class UndoCommand extends Command {
 
@@ -33,7 +35,7 @@ public class UndoCommand extends Command {
         ModelManager.redoStack.push(undoInfo);
         int undoID = undoInfo.getUndoID();
         switch (undoID) {
-            case ADD_CMD_ID:
+            case ADD_CMD_ID:               
                 undoAdd(undoInfo.getTasks().get(CURRENT_TASK));
                 return new CommandResult(MESSAGE_SUCCESS);
             case DEL_CMD_ID:
@@ -51,19 +53,38 @@ public class UndoCommand extends Command {
     }
     
     private void undoAdd(ReadOnlyTask task){
-        
+        try {
+            model.deleteTask(task);
+        }
+        catch (TaskNotFoundException e) {
+            assert false: "The target task cannot be missing";
+        }
     }
     
     private void undoDelete(ReadOnlyTask task){
-        
+        try {
+            model.addTask(task);  
+        } 
+        catch (UniqueTaskList.DuplicateTaskException e) {
+            e.printStackTrace();
+        }
     }
 
     private void undoUpdate(ReadOnlyTask newTask, ReadOnlyTask originalTask){
-        
+        try {
+            model.updateTask(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority());
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            e.printStackTrace();
+        }
     }
 
     private void undoDone(ReadOnlyTask task){
-        
+        try {
+            model.markTaskAsComplete(task);
+        } 
+        catch (TaskNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }
