@@ -312,13 +312,13 @@ public class Parser {
      */
     private Command prepareDone(String args) {
 
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        Optional<List<Integer>> indexes = parseIndexes(args);
+        if(!indexes.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
 
-        return new DoneCommand(index.get());
+        return new DoneCommand(indexes.get());
     }
 
     /**
@@ -368,6 +368,31 @@ public class Parser {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
+
+    }
+    
+    /**
+     * Returns the specified indexes in the {@code command} IF any positive unsigned integer is given as the index.
+     *   Returns an {@code Optional.empty()} otherwise.
+     */
+    private Optional<List<Integer>> parseIndexes(String command) {
+        final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+
+        String indexes = matcher.group("targetIndex");
+        String[] indexesArray = indexes.split(" ");
+        List<Integer> indexesToHandle = new ArrayList<Integer>();
+        for (String index: indexesArray) {
+            if (StringUtil.isUnsignedInteger(index)) {
+                indexesToHandle.add(Integer.parseInt(index));
+            }
+        }
+        if (indexesToHandle.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(indexesToHandle);
 
     }
 
