@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private TaskManager taskManager;
+    private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
     private Stack<TaskManager> stateHistory;
     private Stack<TaskManager> undoHistory;
@@ -64,12 +64,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     public void undoState() {
-    	taskManager = stateHistory.pop();
+    	TaskManager oldTaskManager = stateHistory.pop();
+    	taskManager.setTasks(oldTaskManager.getTasks());
+    	taskManager.setTags(oldTaskManager.getTagList());
+    	
     	undoHistory.push(new TaskManager(taskManager));
+    	indicateTaskManagerChanged();
     }
     
     public void redoState() {
-    	taskManager = undoHistory.push(new TaskManager(taskManager));
+    	TaskManager oldTaskManager = undoHistory.pop();
+    	taskManager.setTasks(oldTaskManager.getTasks());
+    	taskManager.setTags(oldTaskManager.getTagList());
+    	
+    	indicateTaskManagerChanged();
     }
     
 
