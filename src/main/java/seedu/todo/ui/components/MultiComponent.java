@@ -15,6 +15,11 @@ public abstract class MultiComponent extends Component {
         componentDidMount();
     }
 
+    /**
+     * Resets the items in the specified {@code placeholder}.
+     * 
+     * @param placeholder    Placeholder pane whose children items are to be cleared.
+     */
     public static void reset(Pane placeholder) {
         placeholder.getChildren().clear();
     }
