@@ -4,6 +4,7 @@ import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.flags.Flag;
+import tars.commons.util.MarkTaskTracker;
 import tars.model.task.*;
 import java.util.ArrayList;
 
@@ -27,13 +28,16 @@ public class MarkCommand extends Command {
 
     private String markDone;
     private String markUndone;
-
+    
+    private MarkTaskTracker tracker;
+    
     /**
      * Convenience constructor using raw values.
      */
     public MarkCommand(String markDone, String markUndone) {
         this.markDone = markDone.replace(Flag.DONE, " ").trim();
         this.markUndone = markUndone.replace(Flag.UNDONE, " ").trim();
+        this.tracker = new MarkTaskTracker();
     }
 
 
@@ -43,7 +47,8 @@ public class MarkCommand extends Command {
         if (!this.markDone.equals("") || !this.markUndone.equals("")) {
             if (!this.markDone.equals("")) {
                 try {
-                    ArrayList<ReadOnlyTask> markDoneTasks = getTasksFromIndexes(this.markDone.split(" "));
+                    Status done = new Status(true);
+                    ArrayList<ReadOnlyTask> markDoneTasks = getTasksFromIndexes(this.markDone.split(" "), done);
                     model.mark(markDoneTasks, Flag.DONE);
                 } catch (InvalidTaskDisplayedException e) {
                     return new CommandResult(e.getMessage());
@@ -53,7 +58,8 @@ public class MarkCommand extends Command {
             } 
             if (!this.markUndone.equals("")) {
                 try {
-                    ArrayList<ReadOnlyTask> markUndoneTasks = getTasksFromIndexes(this.markUndone.split(" "));
+                    Status undone = new Status(false);
+                    ArrayList<ReadOnlyTask> markUndoneTasks = getTasksFromIndexes(this.markUndone.split(" "), undone);
                     model.mark(markUndoneTasks, Flag.UNDONE);
                 } catch (InvalidTaskDisplayedException e) {
                     return new CommandResult(e.getMessage());
@@ -61,10 +67,20 @@ public class MarkCommand extends Command {
                     return new CommandResult(dte.getMessage());
                 }
             }
-            return new CommandResult(MESSAGE_MARK_SUCCESS);
+            return new CommandResult(prepareMessage());
         }
-        return new CommandResult(MESSAGE_MARK_FAILURE);
+        return new CommandResult(prepareMessage());
     }
+
+    /**
+     * Prepares feedback message to user 
+     * @return
+     */
+    private String prepareMessage() {
+        String commandResult = tracker.getResult();
+        return commandResult;
+    }
+
 
     /**
      * Gets Tasks to mark done or undone from indexes
@@ -72,7 +88,7 @@ public class MarkCommand extends Command {
      * @return
      * @throws InvalidTaskDisplayedException
      */
-    private ArrayList<ReadOnlyTask> getTasksFromIndexes(String[] indexes) throws InvalidTaskDisplayedException {
+    private ArrayList<ReadOnlyTask> getTasksFromIndexes(String[] indexes, Status status) throws InvalidTaskDisplayedException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         ArrayList<ReadOnlyTask> tasksList = new ArrayList<ReadOnlyTask>();
 
@@ -84,7 +100,12 @@ public class MarkCommand extends Command {
             }
 
             ReadOnlyTask task = lastShownList.get(targetIndex - 1);
-            tasksList.add(task);
+            if (!task.getStatus().equals(status)) {
+                tasksList.add(task);
+                tracker.addToMark(targetIndex, status);
+            } else {
+                tracker.addAlreadyMarked(targetIndex, status);
+            }
         }
         return tasksList;
     }
