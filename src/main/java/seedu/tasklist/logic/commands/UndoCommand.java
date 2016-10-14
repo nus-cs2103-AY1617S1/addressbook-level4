@@ -72,7 +72,7 @@ public class UndoCommand extends Command {
         }
     }
 
-    private void undoUpdate(Task newTask, ReadOnlyTask originalTask){
+    private void undoUpdate(Task newTask, Task originalTask){
         try {
             model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getTags());
         } catch (UniqueTaskList.DuplicateTaskException e) {

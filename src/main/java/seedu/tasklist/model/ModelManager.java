@@ -112,10 +112,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime,
             EndTime endTime, Priority priority, UniqueTagList tags) throws UniqueTaskList.DuplicateTaskException {
+        Task originalTask = new Task(taskToUpdate);
         taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        Task originalTask = new Task(taskDetails, startTime, endTime, priority, tags);
         if (callDidNotComeFromUndoCommand()) {
             addToUndoStack(UndoCommand.UPD_CMD_ID, taskToUpdate, originalTask);
         }
