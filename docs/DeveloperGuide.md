@@ -102,15 +102,15 @@ Certain terms used within this developer guide may seem alien to some. Hence thi
 
 The architectural design shows how the various components work in tandem with each other. Main only has one class MainApp and it is responsible for:
 
- 1)Starting up _Unburden_: Initializes all components in order and ensures that the app starts to run
- 2)Exiting _Unburden_: Shuts down all components in order and clears the memory
+ 1. Starting up _Unburden_: Initializes all components in order and ensures that the app starts to run
+ 2. Exiting _Unburden_: Shuts down all components in order and clears the memory
 
 The rest of the app consists of 4 main components other than main. They are :
 
- 1)Logic : Decides what to output with the inputs and executes commands
- 2)Model : Holds the data during runtime
- 3)UI: Controls the UI of the app
- 4)Storage: Reads and writes data to the hard disk
+ 1. Logic : Decides what to output with the inputs and executes commands
+ 2. Model : Holds the data during runtime
+ 3. UI: Controls the UI of the app
+ 4. Storage: Reads and writes data to the hard disk
 
 Each component has a interface which all its classes implements and is named after the component itself.
 
@@ -129,17 +129,17 @@ In essence, the UI makes use of JavaFx UI framework and majority of the classes 
 
 The UI component consists mainly of:
 
- 1)UI class
- 2)UIManager class
- 3)UIPart class
- 4)UILoader class
- 5)BrowserPanel class
- 6)CommandBox class
- 7)MainWindow class
- 8)ResultDisplay class
- 9)HelpWindow class
- 10) TaskCard class
- 11) TaskListPanel class
+ 1. UI class
+ 2. UIManager class
+ 3. UIPart class
+ 4. UILoader class
+ 5. BrowserPanel class
+ 6. CommandBox class
+ 7. MainWindow class
+ 8. ResultDisplay class
+ 9. HelpWindow class
+ 10. TaskCard class
+ 11. TaskListPanel class
 
 These classes work together to form the interface which the user interacts with when using the app. Each of the class are meant to function solely on one part of the UI. For instance, the ResultDisplay class is responsible for displaying the results of a command from the user.
 
@@ -176,10 +176,10 @@ The Logic component consists of the Parser class which is responsible to taking 
 
 The API of the Logic component consists mainly of:
 
- 1)Logic class
- 2)LogicManager class
- 3)Parser class
- 4)All the command classes eg. AddCommand, EditCommand, DeleteCommand
+ 1. Logic class
+ 2. LogicManager class
+ 3. Parser class
+ 4. All the command classes eg. AddCommand, EditCommand, DeleteCommand
 
 These classes work together to categorize the different possible inputs from the user and sieves the important keywords out so that Model can continue executing the command entered by the user.
 
@@ -215,11 +215,11 @@ The Storage component primarily focuses on storing data. Any data related to the
 
 The API of the Model component consists mainly of:
 
- 1)Model class
- 2)ModelManager class
- 3)ListOfTask class
- 4)UserPref class
- 5)ReadOnlyListOfTask class
+ 1. Model class
+ 2. ModelManager class
+ 3. ListOfTask class
+ 4. UserPref class
+ 5. ReadOnlyListOfTask class
 
 These classes are responsible for storing the data from the user and also works with the Model component to execute the commands given by the user.
 
@@ -440,22 +440,22 @@ Use case: ends
 
 ## **Appendix C : Non Functional Requirements**
 
- 1) The app should run smoothly <br>
- 2) The app should be able to run all on all operating systems <br>
- 3) The app should be able to store up to 1000 tasks per user <br>
- 4) The app should not take up a lot of space <br>
- 5) The app should be start up quickly <br>
- 6) The app should be able to process requests from the user in under 1ms <br>
- 7) The app should not crash <br>
- 8) The app should not do anything else other than what the user inputs <br>
- 9) The app should be able to recover from errors easily <br>
+ 1. The app should run smoothly 
+ 2. The app should be able to run all on all operating systems 
+ 3. The app should be able to store up to 1000 tasks per user 
+ 4. The app should not take up a lot of space 
+ 5. The app should be start up quickly 
+ 6. The app should be able to process requests from the user in under 1ms 
+ 7. The app should not crash 
+ 8. The app should not do anything else other than what the user inputs 
+ 9. The app should be able to recover from errors easily 
 
 ## **Appendix D : Glossary**
 
- 1) UI - User Interface <br>
- 2) API - Application Programming Interface <br>
- 3) App - Application <br>
- 4) IDE - Integrated Development environment <br>
+ 1. UI - User Interface 
+ 2. API - Application Programming Interface 
+ 3. App - Application 
+ 4. IDE - Integrated Development environment 
 
 
 
