@@ -29,7 +29,6 @@ import tars.logic.commands.ExitCommand;
 import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.ListCommand;
-import tars.logic.commands.MarkCommand;
 import tars.logic.commands.SelectCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.Tars;
@@ -401,7 +400,9 @@ public class LogicManagerTest {
         }
     }
 
-    //@@author A0124333U
+    /**
+     * @@author A0124333U
+     */
     private void assertInvalidInputBehaviorForEditCommand(String inputCommand, String expectedMessage)
             throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -522,7 +523,9 @@ public class LogicManagerTest {
                 expectedAB, expectedList);
     }
 
-    // @@author A0124333U
+    /**
+     *  @@author A0124333U
+     */
     @Test
     public void execute_edit_invalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -600,6 +603,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_mark_allTaskAsDone() throws Exception {
+        Status done = new Status(true);
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.generateTaskWithName("task1");
         Task task2 = helper.generateTaskWithName("task2");
@@ -609,22 +613,49 @@ public class LogicManagerTest {
         Tars expectedAB = new Tars();
         helper.addToModel(model, taskList);
 
+        Task task1Expected = helper.generateTaskWithName("task1");
+        Task task2Expected = helper.generateTaskWithName("task2");
+        task1Expected.setStatus(done);
+        task2Expected.setStatus(done);
+
+        expectedAB.addTask(task1Expected);
+        expectedAB.addTask(task2Expected);
+
+        assertCommandBehavior("mark -do 1 2", "Task: 1, 2 marked done successfully.\n", expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_mark_alreadyDone() throws Exception {
         Status done = new Status(true);
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("task1");
+        Task task2 = helper.generateTaskWithName("task2");
         task1.setStatus(done);
         task2.setStatus(done);
+        
+        List<Task> taskList = helper.generateTaskList(task1, task2);
 
-        expectedAB.addTask(task1);
-        expectedAB.addTask(task2);
+        Tars expectedAB = new Tars();
+        helper.addToModel(model, taskList);
+        
+        Task task1Expected = helper.generateTaskWithName("task1");
+        Task task2Expected = helper.generateTaskWithName("task2");
+        task1Expected.setStatus(done);
+        task2Expected.setStatus(done);
 
-        assertCommandBehavior("mark -do 1 2", MarkCommand.MESSAGE_MARK_SUCCESS, expectedAB, expectedAB.getTaskList());
+        expectedAB.addTask(task1Expected);
+        expectedAB.addTask(task2Expected);
+
+        assertCommandBehavior("mark -do 1 2", "Task: 1, 2 already marked done.\n", expectedAB, expectedAB.getTaskList());
     }
 
     @Test
     public void execute_mark_allTaskAsUndone() throws Exception {
+        Status done = new Status(true);
+        
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.generateTaskWithName("task1");
         Task task2 = helper.generateTaskWithName("task2");
-        Status done = new Status(true);
         task1.setStatus(done);
         task2.setStatus(done);
 
@@ -633,14 +664,33 @@ public class LogicManagerTest {
         Tars expectedAB = new Tars();
         helper.addToModel(model, taskList);
 
-        Status undone = new Status(false);
-        task1.setStatus(undone);
-        task2.setStatus(undone);
+        Task task1Expected = helper.generateTaskWithName("task1");
+        Task task2Expected = helper.generateTaskWithName("task2");
 
-        expectedAB.addTask(task1);
-        expectedAB.addTask(task2);
+        expectedAB.addTask(task1Expected);
+        expectedAB.addTask(task2Expected);
 
-        assertCommandBehavior("mark -ud 1 2", MarkCommand.MESSAGE_MARK_SUCCESS, expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior("mark -ud 1 2", "Task: 1, 2 marked undone successfully.\n", expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_mark_alreadyUndone() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("task1");
+        Task task2 = helper.generateTaskWithName("task2");
+
+        List<Task> taskList = helper.generateTaskList(task1, task2);
+
+        Tars expectedAB = new Tars();
+        helper.addToModel(model, taskList);
+
+        Task task1Expected = helper.generateTaskWithName("task1");
+        Task task2Expected = helper.generateTaskWithName("task2");
+
+        expectedAB.addTask(task1Expected);
+        expectedAB.addTask(task2Expected);
+
+        assertCommandBehavior("mark -ud 1 2", "Task: 1, 2 already marked undone.\n", expectedAB, expectedAB.getTaskList());
     }
     
     /*
