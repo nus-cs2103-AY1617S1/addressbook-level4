@@ -5,6 +5,7 @@ import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
+import seedu.tasklist.logic.commands.UndoCommand;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.ReadOnlyTask;
@@ -30,8 +31,8 @@ import java.util.regex.Pattern;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private LinkedList<UndoInfo> undoStack = new LinkedList<UndoInfo>();
-    private LinkedList<UndoInfo> redoStack = new LinkedList<UndoInfo>();
+    public static LinkedList<UndoInfo> undoStack = new LinkedList<UndoInfo>();
+    public static LinkedList<UndoInfo> redoStack = new LinkedList<UndoInfo>();
     
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
@@ -81,7 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.removeTask(target);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        addToUndoStack(target);
+        addToUndoStack(UndoCommand.DEL_CMD_ID, target);
     }
 
     @Override
@@ -89,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.addTask(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        addToUndoStack(task);
+        addToUndoStack(UndoCommand.ADD_CMD_ID, task);
     }
     
     @Override
@@ -98,7 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
         Task originalTask = new Task(taskDetails, startTime, endTime, priority, null);
-        addToUndoStack(taskToUpdate, originalTask);
+        addToUndoStack(UndoCommand.UPD_CMD_ID, taskToUpdate, originalTask);
     }
     
     @Override
@@ -106,11 +107,17 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.markTaskAsComplete(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        addToUndoStack(task);
+        addToUndoStack(UndoCommand.DONE_CMD_ID, task);
     }
 
-    private void addToUndoStack(ReadOnlyTask... tasks) {
-        
+    private void addToUndoStack(int undoID, ReadOnlyTask... tasks) {
+        if (undoStack.size()==3){
+            undoStack.remove(undoStack.size()-1);
+        }
+        else{
+            UndoInfo undoInfo = new UndoInfo(undoID, tasks);
+            undoStack.push(undoInfo);
+        }
     }
 
     //=========== Filtered Person List Accessors ===============================================================

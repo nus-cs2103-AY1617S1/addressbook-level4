@@ -80,6 +80,9 @@ public class Parser {
         
         case ShowCommand.COMMAND_WORD:
         	return prepareShow(arguments);
+        	
+        case UndoCommand.COMMAND_WORD:
+            return prepareUndo();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -90,6 +93,10 @@ public class Parser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    private Command prepareUndo() {
+        return new UndoCommand();
     }
 
     private Command prepareUpdate(String args) {
