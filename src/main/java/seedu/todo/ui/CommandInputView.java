@@ -23,8 +23,6 @@ public class CommandInputView extends UiPart {
     private AnchorPane placeHolderPane;
     private AnchorPane commandInputPane;
     private CommandFeedbackView commandFeedbackView;
-    String previousCommandText;
-
     private Logic logic;
 
     @FXML
@@ -82,7 +80,7 @@ public class CommandInputView extends UiPart {
         //Do not execute an empty command. TODO: This check should be done in the parser class.
         if (!StringUtil.isEmpty(commandText)) {
             commandTextField.setDisable(true);
-            CommandResult result = logic.execute(previousCommandText);
+            CommandResult result = logic.execute(commandText);
             handleCommandResult(result);
         }
     }
