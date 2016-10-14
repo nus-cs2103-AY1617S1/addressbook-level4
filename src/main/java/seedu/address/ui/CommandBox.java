@@ -85,6 +85,22 @@ public class CommandBox extends UiPart {
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
+    
+    /**
+     * Show previous command string input in history entered commands
+     */
+    private void handleUpKey() {
+    	// TODO attach to up key
+    	commandHistoryManager.getPreviousCommand();
+    }
+    
+    /**
+     * Show next command string input in history of entered commands
+     */
+    private void handleDownKey() {
+    	// TODO attach to up key
+    	commandHistoryManager.getNextCommand();
+    }
 
 
     /**
