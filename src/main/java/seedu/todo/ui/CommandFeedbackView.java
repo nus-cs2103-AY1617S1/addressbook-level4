@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 public class CommandFeedbackView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
     private static final String FXML = "CommandFeedbackView.fxml";
+    private static final String ERROR_STYLE = "error";
     
     @FXML
     private TextFlow commandFeedbackTextFlow;
@@ -41,6 +42,19 @@ public class CommandFeedbackView extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(textFlowContainer, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandFeedbackTextFlow, 0.0, 0.0, 0.0, 0.0);
         this.placeHolder.getChildren().add(textFlowContainer);
+    }
+    /**
+     * Indicate an error visually on the {@link #commandFeedbackTextFlow}
+     */
+    public void flagError() {
+        commandFeedbackTextFlow.getStyleClass().add(ERROR_STYLE);
+    }
+
+    /**
+     * Remove the error flag visually on the {@link #commandFeedbackTextFlow}
+     */
+    public void unFlagError() {
+        commandFeedbackTextFlow.getStyleClass().remove(ERROR_STYLE);
     }
     
     @Override
