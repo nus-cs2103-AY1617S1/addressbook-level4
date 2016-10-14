@@ -14,8 +14,8 @@ public class Config {
     private String appTitle = "Task Manager App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskManagerFilePath = "data/taskmanager.xml";
-    private String taskManagerName = "MyTaskManagerBook";
+    private String taskManagerFilePath = "data/taskManager.xml";
+    private String taskManagerName = "MyTaskManager";
 
 
     public Config() {
@@ -92,7 +92,7 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + taskManagerFilePath);
-        sb.append("\nTaskManagerBook name : " + taskManagerName);
+        sb.append("\nTaskManager name : " + taskManagerName);
         return sb.toString();
     }
 
