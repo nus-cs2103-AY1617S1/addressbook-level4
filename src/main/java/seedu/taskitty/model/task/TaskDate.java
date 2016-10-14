@@ -17,6 +17,8 @@ public class TaskDate {
             "Task dates should be in the format dd/mm/yyyy or ddmmyyyy or dd monthname yyyy";
     public static final String MESSAGE_DATE_INVALID =
             "Task date provided is invalid!";
+    public static final String MESSAGE_DATE_MISSING =
+            "Task date must be provided";
     public static final String DATE_FORMAT = "dd/MM/yyyy";
     
     //format: dd/mm/yyyy TODO currently not working for input
@@ -42,7 +44,10 @@ public class TaskDate {
      * @throws IllegalValueException if given name string is invalid.
      */
     public TaskDate(String date) throws IllegalValueException {
-        assert date != null;
+        if (date == null) {
+            throw new IllegalValueException(MESSAGE_DATE_MISSING);
+        }
+        
         date = date.trim();
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);

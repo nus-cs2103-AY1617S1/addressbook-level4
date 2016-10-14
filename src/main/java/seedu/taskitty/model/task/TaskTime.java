@@ -18,6 +18,8 @@ public class TaskTime {
             "Task times should be in the format hh:mm"; //or hhmm
     public static final String MESSAGE_TIME_INVALID =
             "Task time provided is invalid!";
+    public static final String MESSAGE_TIME_MISSING =
+            "Task time must be provided";
     public static final String TIME_FORMAT = "kk:mm";
     
     //format: hh:mm
@@ -36,7 +38,10 @@ public class TaskTime {
      * @throws IllegalValueException if given name string is invalid.
      */
     public TaskTime(String time) throws IllegalValueException {
-        assert time != null;
+        if (time == null) {
+            throw new IllegalValueException(MESSAGE_TIME_MISSING);
+        }
+        
         time = time.trim();
         if (!isValidName(time)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
