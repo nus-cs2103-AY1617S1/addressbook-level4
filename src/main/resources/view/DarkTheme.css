@@ -23,7 +23,7 @@
     -fx-opacity: 1;
 }
 
-.text-field {
+.auto-complete-text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
 }
