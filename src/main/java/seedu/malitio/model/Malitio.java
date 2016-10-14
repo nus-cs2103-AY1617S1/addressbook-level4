@@ -18,10 +18,12 @@ import java.util.stream.Collectors;
 public class Malitio implements ReadOnlyMalitio {
 
     private final UniqueTaskList tasks;
+    private final UniqueTaskList tasks2;
     private final UniqueTagList tags;
 
     {
         tasks = new UniqueTaskList();
+        tasks2 = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
@@ -31,14 +33,14 @@ public class Malitio implements ReadOnlyMalitio {
      * Tasks and Tags are copied into this Malitio
      */
     public Malitio(ReadOnlyMalitio toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTaskList2(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Tasks and Tags are copied into this Malitio
      */
-    public Malitio(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+    public Malitio(UniqueTaskList tasks, UniqueTaskList tasks2, UniqueTagList tags) {
+        resetData(tasks.getInternalList(), tasks2.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyMalitio getEmptymalitio() {
@@ -59,13 +61,14 @@ public class Malitio implements ReadOnlyMalitio {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends ReadOnlyTask> newTasks2, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
+        setTasks(newTasks2.stream().map(FloatingTask::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyMalitio newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTaskList2(), newData.getTagList());
     }
 
 //// task-level operations
@@ -131,6 +134,11 @@ public class Malitio implements ReadOnlyMalitio {
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
+    
+    @Override
+    public List<ReadOnlyTask> getTaskList2() {
+        return Collections.unmodifiableList(tasks.getInternalList());
+    }
 
     @Override
     public List<Tag> getTagList() {
@@ -139,6 +147,11 @@ public class Malitio implements ReadOnlyMalitio {
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
+        return this.tasks;
+    }
+    
+    @Override
+    public UniqueTaskList getUniqueTaskList2() {
         return this.tasks;
     }
 

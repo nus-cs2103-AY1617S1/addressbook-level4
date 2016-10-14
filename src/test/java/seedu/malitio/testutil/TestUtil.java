@@ -135,7 +135,7 @@ public class TestUtil {
     }
 
     public static Malitio generateEmptymalitio() {
-        return new Malitio(new UniqueTaskList(), new UniqueTagList());
+        return new Malitio(new UniqueTaskList(), new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableMalitio generateSampleStoragemalitio() {

@@ -16,11 +16,18 @@ public interface ReadOnlyMalitio {
     UniqueTagList getUniqueTagList();
 
     UniqueTaskList getUniqueTaskList();
+    
+    UniqueTaskList getUniqueTaskList2();
 
     /**
      * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getTaskList();
+    
+    /**
+     * Returns an unmodifiable view of tasks list
+     */
+    List<ReadOnlyTask> getTaskList2();
 
     /**
      * Returns an unmodifiable view of tags list

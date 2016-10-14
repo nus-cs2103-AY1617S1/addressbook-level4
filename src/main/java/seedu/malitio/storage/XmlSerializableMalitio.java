@@ -23,10 +23,13 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
     @XmlElement
     private List<XmlAdaptedTask> tasks;
     @XmlElement
+    private List<XmlAdaptedTask> tasks2;
+    @XmlElement
     private List<Tag> tags;
 
     {
         tasks = new ArrayList<>();
+        tasks2 = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -40,6 +43,7 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
      */
     public XmlSerializableMalitio(ReadOnlyMalitio src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        tasks2.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -66,10 +70,35 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
         }
         return lists;
     }
+    
+    @Override
+    public UniqueTaskList getUniqueTaskList2() {
+        UniqueTaskList lists = new UniqueTaskList();
+        for (XmlAdaptedTask p : tasks2) {
+            try {
+                lists.add(p.toModelType());
+            } catch (IllegalValueException e) {
+                //TODO: better error handling
+            }
+        }
+        return lists;
+    }
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                //TODO: better error handling
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
+    
+    public List<ReadOnlyTask> getTaskList2() {
+        return tasks2.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
