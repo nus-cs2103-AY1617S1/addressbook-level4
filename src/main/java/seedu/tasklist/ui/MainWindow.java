@@ -1,5 +1,7 @@
 package seedu.tasklist.ui;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -29,7 +31,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private CategoryPanel categoryPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -44,7 +46,7 @@ public class MainWindow extends UiPart {
     private String taskListName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane categoryPanelPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -108,7 +110,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+    	categoryPanel = CategoryPanel.load(primaryStage, getCategoryPanelPlaceholder());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
@@ -130,7 +132,11 @@ public class MainWindow extends UiPart {
     public AnchorPane getTaskListPlaceholder() {
         return personListPanelPlaceholder;
     }
-
+    
+    public AnchorPane getCategoryPanelPlaceholder() {
+        return categoryPanelPlaceholder;
+    }
+    
     public void hide() {
         primaryStage.hide();
     }
@@ -186,11 +192,11 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
+//    public void loadTaskPage(ReadOnlyTask task) {
+//        browserPanel.loadTaskPage(task);
+//    }
 
     public void releaseResources() {
-        browserPanel.freeResources();
+//        browserPanel.freeResources();
     }
 }
