@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Emeraldo addressBook;
+    private final Emeraldo emeraldo;
     private final FilteredList<Task> filteredPersons;
 
     /**
@@ -35,8 +35,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new Emeraldo(src);
-        filteredPersons = new FilteredList<>(addressBook.getTasks());
+        emeraldo = new Emeraldo(src);
+        filteredPersons = new FilteredList<>(emeraldo.getTasks());
     }
 
     public ModelManager() {
@@ -44,41 +44,41 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyEmeraldo initialData, UserPrefs userPrefs) {
-        addressBook = new Emeraldo(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getTasks());
+        emeraldo = new Emeraldo(initialData);
+        filteredPersons = new FilteredList<>(emeraldo.getTasks());
     }
 
     @Override
     public void resetData(ReadOnlyEmeraldo newData) {
-        addressBook.resetData(newData);
+        emeraldo.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
     public ReadOnlyEmeraldo getAddressBook() {
-        return addressBook;
+        return emeraldo;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new EmeraldoChangedEvent(addressBook));
+        raise(new EmeraldoChangedEvent(emeraldo));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removePerson(target);
+        emeraldo.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addPerson(Task person) throws UniquePersonList.DuplicateTaskException {
-        addressBook.addPerson(person);
+        emeraldo.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
     @Override
     public synchronized void editTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.editTask(target);
+        emeraldo.editTask(target);
         indicateAddressBookChanged();
     }
     //=========== Filtered Person List Accessors ===============================================================
