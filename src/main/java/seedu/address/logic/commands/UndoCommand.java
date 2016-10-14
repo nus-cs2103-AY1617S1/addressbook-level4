@@ -58,7 +58,7 @@ public class UndoCommand extends Command {
                 return new CommandResult("Undid last command:\n\t" + commandName + " " + firstAffectedTask);
                 
             case "delete":
-                model.addTask(firstAffectedTask);
+                model.addTasks(tasksAffected);
                 return new CommandResult("Undid last command:\n\t" + commandName + " " + firstAffectedTask);
             
             
@@ -80,10 +80,12 @@ public class UndoCommand extends Command {
                 model.addTasks(tasksAffected);
                 return new CommandResult("Undid last command:\n\t" + commandName);
             
-            /*
+            
             case "done":
-                break;
-            */
+                model.deleteDoneTasks(readOnlyTasksAffected);
+                model.addTasks(tasksAffected);
+                return new CommandResult("Undid last command:\n\t" + commandName);
+            
                 
             default:
                 return new CommandResult("Nothing to undo.");
@@ -102,7 +104,7 @@ public class UndoCommand extends Command {
         Priority oldPriority = prevStateOfEditedTask.getPriorityValue();
         Optional<RecurrenceRate> oldReccurence = prevStateOfEditedTask.getRecurrenceRate();
         
-        Task taskInListToRevert = model.getTaskManager().getUniqueTaskList().getTask(editedTaskToRevert);
+        Task taskInListToRevert = model.getTaskManager().getUniqueUndoneTaskList().getTask(editedTaskToRevert);
       
         model.editName(taskInListToRevert, oldTaskName);
         

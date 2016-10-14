@@ -17,10 +17,12 @@ import java.util.stream.Collectors;
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
-    private final UniqueTaskList floatingTasks;
+    private final UniqueTaskList undoneTasks;
+    private final UniqueTaskList doneTasks;
 
     {
-        floatingTasks = new UniqueTaskList();
+        undoneTasks = new UniqueTaskList();
+        doneTasks = new UniqueTaskList();
     }
 
     public TaskManager() {}
@@ -29,14 +31,14 @@ public class TaskManager implements ReadOnlyTaskManager {
      * FloatingTasks and Tags are copied into this addressbook
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniqueTaskList());
+        this(toBeCopied.getUniqueUndoneTaskList(), toBeCopied.getUniqueDoneTaskList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public TaskManager(UniqueTaskList floatingTasks) {
-        resetData(floatingTasks.getInternalList());
+    public TaskManager(UniqueTaskList undoneTasks, UniqueTaskList doneTasks) {
+        resetData(undoneTasks.getInternalList(), doneTasks.getInternalList());
     }
 
     public static ReadOnlyTaskManager getEmptyTaskManager() {
@@ -45,22 +47,30 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getFloatingTasks() {
-        return floatingTasks.getInternalList();
+    public ObservableList<Task> getUndoneTasks() {
+        return undoneTasks.getInternalList();
+    }
+    
+    public ObservableList<Task> getDoneTasks() {
+        return doneTasks.getInternalList();
     }
 
-    public void setFloatingTasks(List<Task> floatingTasks) {
-        this.floatingTasks.getInternalList().setAll(floatingTasks);
+    public void setUndoneTasks(List<Task> undoneTasks) {
+        this.undoneTasks.getInternalList().setAll(undoneTasks);
+    }
+
+    public void setDoneTasks(List<Task> doneTasks){
+        this.doneTasks.getInternalList().setAll(doneTasks);
     }
 
 
-
-    public void resetData(Collection<? extends ReadOnlyTask> newFloatingTasks) {
-        setFloatingTasks(newFloatingTasks.stream().map(Task::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyTask> newUndoneTasks, Collection<? extends ReadOnlyTask> newDoneTasks) {
+        setUndoneTasks(newUndoneTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setDoneTasks(newDoneTasks.stream().map(Task::new).collect(Collectors.toList()));
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getTaskList());
+        resetData(newData.getUndoneTaskList(), newData.getDoneTaskList());
     }
 
 //// person-level operations
@@ -70,12 +80,24 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Also checks the new person's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the person to point to those in {@link #tags}.
      */
-    public void addFloatingTask(Task f) {
-        floatingTasks.add(f);
+    public void addTask(Task f) {
+        undoneTasks.add(f);
+    }
+    
+    public void addDoneTask(Task f) {
+        doneTasks.add(f);
     }
     
     public boolean removeFloatingTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (floatingTasks.remove(key)) {
+        if (undoneTasks.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean removeDoneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (doneTasks.remove(key)){
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -83,65 +105,75 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
 	public void editFloatingTaskName(ReadOnlyTask floatTask, Name name) {
-		//Task currTask = new Task(floatingTasks.getTask(floatTask));
-	    Task currTask = floatingTasks.getTask(floatTask);
+		Task currTask = undoneTasks.getTask(floatTask);
 		currTask.setName(name);
-		floatingTasks.set(floatingTasks.getIndex(currTask), currTask);
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);
 	}
 	
 	public void editFloatingTaskStartDate(ReadOnlyTask floatTask, Date startDate) {
-		Task currTask = floatingTasks.getTask(floatTask);
+		Task currTask = undoneTasks.getTask(floatTask);
 		currTask.setStartDate(startDate);
-		floatingTasks.set(floatingTasks.getIndex(currTask), currTask);
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);
 	}
 	
 	public void editFloatingTaskEndDate(ReadOnlyTask floatTask, Date endDate) {
-		Task currTask = floatingTasks.getTask(floatTask);
+		Task currTask = undoneTasks.getTask(floatTask);
 		currTask.setEndDate(endDate);
-		floatingTasks.set(floatingTasks.getIndex(currTask), currTask);
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);
 	}
 	
 	public void editFloatingTaskpriority(ReadOnlyTask floatTask, Priority priority) {
-		Task currTask = floatingTasks.getTask(floatTask);
+		Task currTask = undoneTasks.getTask(floatTask);
 		currTask.setPriority(priority);
-		floatingTasks.set(floatingTasks.getIndex(currTask), currTask);	
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);	
 	}
 
 	public void editFloatingTaskRecurrence(ReadOnlyTask floatTask, RecurrenceRate recurrenceRate) {
-		Task currTask = floatingTasks.getTask(floatTask);
+		Task currTask = undoneTasks.getTask(floatTask);
 		currTask.setRecurrence(recurrenceRate);
-		floatingTasks.set(floatingTasks.getIndex(currTask), currTask);			
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);			
 	}
 	
 //// util methods
 
 	@Override
     public String toString() {
-        return floatingTasks.getInternalList().size() + " floating tasks";
+        return undoneTasks.getInternalList().size() + " floating tasks";
         // TODO: refine later
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(floatingTasks.getInternalList());
+    public List<ReadOnlyTask> getUndoneTaskList() {
+        return Collections.unmodifiableList(undoneTasks.getInternalList());
+    }
+    
+    @Override
+    public List<ReadOnlyTask> getDoneTaskList() {
+        return Collections.unmodifiableList(doneTasks.getInternalList());
     }
 
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
-        return this.floatingTasks;
+    public UniqueTaskList getUniqueUndoneTaskList() {
+        return this.undoneTasks;
+    }
+    
+    @Override
+    public UniqueTaskList getUniqueDoneTaskList() {
+        return this.doneTasks;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                && this.floatingTasks.equals(((TaskManager) other).floatingTasks));
+                && this.undoneTasks.equals(((TaskManager) other).undoneTasks));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(floatingTasks);
+        return Objects.hash(undoneTasks);
     }
+
 }

@@ -111,7 +111,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredFloatingTaskList());
+        assertEquals(expectedShownList, model.getFilteredUndoneTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskManager, model.getTaskManager());
@@ -179,13 +179,13 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         TaskManager expectedAB = new TaskManager();
-        expectedAB.addFloatingTask(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getUndoneTaskList());
 
     }
 
@@ -217,7 +217,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getUndoneTaskList();
 
         // prepare address book state
         helper.addToModel(model, 2);
@@ -283,9 +283,9 @@ public class LogicManagerTest {
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getUndoneTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredFloatingTaskList().get(1), threePersons.get(1));
+        assertEquals(model.getFilteredUndoneTaskList().get(1), threePersons.get(1));
     }
 
 
@@ -312,7 +312,7 @@ public class LogicManagerTest {
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, threePersons.get(1)),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getUndoneTaskList());
     }
 
 
@@ -450,7 +450,7 @@ public class LogicManagerTest {
          */
         void addToTaskManager(TaskManager addressBook, List<Task> floatingTasksToAdd) throws Exception{
             for(Task p: floatingTasksToAdd){
-                addressBook.addFloatingTask(p);
+                addressBook.addTask(p);
             }
         }
 

@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
-    <tasks>
+    <undoneTasks>
         <name>Meet Hans Muster</name>
         <priorityValue>high</priorityValue>
 		<recurrenceRate>0</recurrenceRate>
-    </tasks>
-    <tasks>
+    </undoneTasks>
+    <undoneTasks>
         <name>Meet Ruth Mueller</name>
         <priorityValue>high</priorityValue>
 		<recurrenceRate>0</recurrenceRate>
-    </tasks>
-    <tasks>
+    </undoneTasks>
+    <undoneTasks>
         <name>Meet Heinz Kurz</name>
         <priorityValue>high</priorityValue>
 		<recurrenceRate>0</recurrenceRate>
-    </tasks>
-    <tasks>
+    </undoneTasks>
+    <undoneTasks>
         <name>Meet Cornelia Meier</name>
         <priorityValue>medium</priorityValue>
 		<recurrenceRate>0</recurrenceRate>
-    </tasks>
-    <tasks>
+    </undoneTasks>
+    <undoneTasks>
         <name>Meet Werner Meyer</name>
         <priorityValue>medium</priorityValue>
 		<recurrenceRate>0</recurrenceRate>
-    </tasks>
-    <tasks>
+    </undoneTasks>
+    <undoneTasks>
         <name>Meet Lydia Kunz</name>
         <priorityValue>medium</priorityValue>
 		<recurrenceRate>0</recurrenceRate>
-    </tasks>
-    <tasks>
+    </undoneTasks>
+    <undoneTasks>
         <name>Meet Anna Best</name>
         <priorityValue>low</priorityValue>
 		<recurrenceRate>0</recurrenceRate>
-    </tasks>
-    <tasks>
+    </undoneTasks>
+    <undoneTasks>
         <name>Meet Stefan Meier</name>
         <priorityValue>low</priorityValue>
 		<recurrenceRate>0</recurrenceRate>
-    </tasks>
-    <tasks>
+    </undoneTasks>
+    <undoneTasks>
         <name>Meet Martin Mueller</name>
         <priorityValue>low</priorityValue>
 		<recurrenceRate>0</recurrenceRate>
-    </tasks>
+    </undoneTasks>
 </taskmanager>

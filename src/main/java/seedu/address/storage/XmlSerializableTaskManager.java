@@ -20,10 +20,17 @@ import java.util.stream.Collectors;
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTask> undoneTasks;
     {
-        tasks = new ArrayList<>();
+        undoneTasks = new ArrayList<>();
     }
+    
+    @XmlElement
+    private List<XmlAdaptedTask> doneTasks;
+    {
+        doneTasks = new ArrayList<>();
+    }
+
 
     /**
      * Empty constructor required for marshalling
@@ -34,13 +41,14 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
      * Conversion
      */
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        undoneTasks.addAll(src.getUndoneTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        doneTasks.addAll(src.getDoneTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
+    public UniqueTaskList getUniqueUndoneTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : tasks) {
+        for (XmlAdaptedTask p : undoneTasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException | ParseException e) {
@@ -52,8 +60,39 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
-        return tasks.stream().map(p -> {
+    public List<ReadOnlyTask> getUndoneTaskList() {
+        return undoneTasks.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException | ParseException e) {
+                e.printStackTrace();
+                System.out.println("Parse exception");
+
+                //TODO: better error handling
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+
+    @Override
+    public UniqueTaskList getUniqueDoneTaskList() {
+        UniqueTaskList lists = new UniqueTaskList();
+        for (XmlAdaptedTask p : doneTasks) {
+            try {
+                lists.add(p.toModelType());
+            } catch (IllegalValueException | ParseException e) {
+                System.out.println("Parse exception");
+                //TODO: better error handling
+            }
+        }
+        return lists;
+    }
+
+
+    @Override
+    public List<ReadOnlyTask> getDoneTaskList() {
+        return doneTasks.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException | ParseException e) {

@@ -25,7 +25,7 @@ public class ClearCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         
-        List<Task> affectedTasks = new ArrayList<Task>(model.getTaskManager().getUniqueTaskList().getInternalList());
+        List<Task> affectedTasks = new ArrayList<Task>(model.getTaskManager().getUniqueUndoneTaskList().getInternalList());
         history.update(new ReversibleEffect(this.COMMAND_WORD, affectedTasks));
         model.resetData(TaskManager.getEmptyTaskManager());
         return new CommandResult(MESSAGE_SUCCESS);

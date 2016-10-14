@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,25 +12,21 @@ import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
-/**
- * Deletes a person identified using it's last displayed index from the address book.
- */
-public class DeleteCommand extends Command {
-
-    public static final String COMMAND_WORD = "delete";
+public class DoneCommand extends Command {
+    public static final String COMMAND_WORD = "done";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the item identified by the index number used in the last item listing.\n"
+            + ": Archives the item identified by the index number used in the last item listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     
-    public static final String TOOL_TIP = "delete INDEX";
+    public static final String TOOL_TIP = "done INDEX";
 
-    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
+    public static final String MESSAGE_DONE_ITEM_SUCCESS = "Archived Item: %1$s";
 
     public final List<Integer> targetIndexes;
 
-    public DeleteCommand(List<Integer> targetIndexes) {
+    public DoneCommand(List<Integer> targetIndexes) {
         assert targetIndexes != null;
         this.targetIndexes = targetIndexes;
     }
@@ -37,8 +34,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        assert model != null;
-        List<String> displayDeletedTasks = new ArrayList<String>();
+        List<String> displayArchivedTasks = new ArrayList<String>();
         Collections.sort(targetIndexes);
         int adjustmentForRemovedTask = 0;
         
@@ -53,24 +49,26 @@ public class DeleteCommand extends Command {
                 return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }
     
-            ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
-    
+            ReadOnlyTask taskToArchive = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
+            model.addDoneTask(new Task(taskToArchive));
+            
             try {
-                model.deleteTask(taskToDelete);
-                Task affectedTaskToDelete = new Task(taskToDelete);
-                affectedTasks.add(affectedTaskToDelete);
+                model.deleteTask(taskToArchive);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
             }
-            displayDeletedTasks.add(taskToDelete.toString());
+            
+            // update history
+            Task affectedTaskToArchive = new Task(taskToArchive);
+            affectedTasks.add(affectedTaskToArchive);
+            
+            displayArchivedTasks.add(taskToArchive.toString());
             adjustmentForRemovedTask++;
         }
         
-       
         history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
-
-        String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay));
+        
+        String toDisplay = displayArchivedTasks.toString().replace("[", "").replace("]", "");
+        return new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay));
     }
-
 }

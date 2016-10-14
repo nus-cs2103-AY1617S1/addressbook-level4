@@ -53,12 +53,8 @@ public class RedoCommand extends Command {
                 return new CommandResult("Redid last undo command:\n\t" + commandName + " " + firstAffectedTask);
                 
             case "delete":
-                try {
-                    model.deleteTask(firstAffectedTask);
-                } catch (TaskNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    return new CommandResult("Unable to redo the delete command that was undid.");
-                }
+                model.deleteTasks(readOnlyTasksAffected);
+                // TODO: inform user if task is not found and so not deleted if necessary, exception somewhere..
                 return new CommandResult("Redid last undo command:\n\t" + commandName + " " + firstAffectedTask);
             
             
@@ -80,10 +76,11 @@ public class RedoCommand extends Command {
                 model.deleteTasks(readOnlyTasksAffected);
                 return new CommandResult("Redid last command:\n\t" + commandName);
             
-            /*
+            
             case "done":
-                break;
-            */
+                model.addDoneTasks(tasksAffected);
+                model.deleteTasks(readOnlyTasksAffected);
+                return new CommandResult("Undid last command:\n\t" + commandName);
                 
             default:
                 return new CommandResult("Nothing to redo.");
@@ -102,7 +99,7 @@ public class RedoCommand extends Command {
         Priority oldPriority = prevStateOfEditedTask.getPriorityValue();
         Optional<RecurrenceRate> oldReccurence = prevStateOfEditedTask.getRecurrenceRate();
        
-        Task taskInListToRevert = model.getTaskManager().getUniqueTaskList().getTask(editedTaskToRevert);
+        Task taskInListToRevert = model.getTaskManager().getUniqueUndoneTaskList().getTask(editedTaskToRevert);
         
         model.editName(taskInListToRevert, oldTaskName);
         

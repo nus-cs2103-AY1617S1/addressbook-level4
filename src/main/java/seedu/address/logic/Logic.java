@@ -15,8 +15,11 @@ public interface Logic {
      */
     CommandResult execute(String commandText);
 
-    /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
+    /** Returns the filtered list of undone tasks */
+    ObservableList<ReadOnlyTask> getFilteredUndoneTaskList();
+    
+    /** Returns the filtered list of done tasks **/
+    ObservableList<ReadOnlyTask> getFilteredDoneTaskList();
 
     String decideToolTip(String commandText);
 

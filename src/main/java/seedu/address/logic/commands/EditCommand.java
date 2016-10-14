@@ -90,7 +90,7 @@ public class EditCommand extends Command{
 	@Override
 	public CommandResult execute() {	    
 		assert model != null;
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredFloatingTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

@@ -11,6 +11,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.ChangeToListDoneViewEvent;
+import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
@@ -117,6 +119,16 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
     }
 
+    @Subscribe
+    private void handleChangeToListDoneViewEvent(ChangeToListDoneViewEvent event) {
+        mainWindow.getPersonListPanel().handleSwitchTaskListView(true);
+    }
+    
+    @Subscribe
+    private void handleChangeToListUndoneViewEvent(ChangeToListUndoneViewEvent event) {
+        mainWindow.getPersonListPanel().handleSwitchTaskListView(false);
+    }
+    
     /*
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
