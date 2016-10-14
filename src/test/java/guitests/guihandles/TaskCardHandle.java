@@ -15,7 +15,8 @@ public class TaskCardHandle extends GuiHandle {
     private static final String DUE_DATE_FIELD_ID = "#dueDate";
     private static final String INTERVAL_FIELD_ID = "#interval";
     private static final String TIME_INTERVAL_FIELD_ID = "#timeInterval";
-
+    private static final String STATUS_FIELD_ID = "#status";
+    
     private Node node;
 
     public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
@@ -51,10 +52,14 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(TIME_INTERVAL_FIELD_ID);
     }
     
+    public String getStatus() {
+        return getTextFromLabel(STATUS_FIELD_ID);
+    }
+    
     public boolean isSameTask(ReadOnlyTask task){
-        return getTitle().equals(task.getTitle().fullTitle) && getDescription().equals(task.getDescription().fullDescription)
-                && getStartDate().equals(task.getStartDate().startDate.toString()) && getDueDate().equals(task.getDueDate().dueDate.toString())
-                && getInterval().equals(task.getInterval().value) && getTimeInterval().equals(task.getTimeInterval().value);
+    	return getTitle().equals(task.getTitle().fullTitle) && getDescription().equals(task.getDescription().fullDescription)
+                && getStartDate().equals(task.getStartDate().toString()) && getDueDate().equals(task.getDueDate().toString())
+                && getInterval().equals(task.getInterval().value) && getTimeInterval().equals(task.getTimeInterval().value) && getStatus().equals(task.getStatus().status);
     }
 
     @Override
@@ -66,13 +71,14 @@ public class TaskCardHandle extends GuiHandle {
                     && getStartDate().equals(handle.getStartDate())
                     && getDueDate().equals(handle.getDueDate())
                     && getInterval().equals(handle.getInterval())
-                    && getTimeInterval().equals(handle.getTimeInterval()); //TODO: compare the rest
+                    && getTimeInterval().equals(handle.getTimeInterval())
+                    && getStatus().equals(handle.getStatus()); 
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getTitle() + " " + getDescription()+ " " + getStartDate()+ " " + getDueDate()+ " " + getInterval()+ " " + getTimeInterval();
+        return getTitle() + " " + getDescription()+ " " + getStartDate()+ " " + getDueDate()+ " " + getInterval()+ " " + getTimeInterval()+" " + getStatus();
     }
 }

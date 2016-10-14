@@ -7,6 +7,7 @@
         <dueDate>01-01-2012</dueDate>
         <interval>1</interval>
         <timeInterval>1</timeInterval>
+        <status>Upcoming</status>
     </tasks>
     <tasks>
         <title>HOMEWORK</title>
@@ -15,6 +16,7 @@
         <dueDate>01-01-2012</dueDate>
         <interval>1</interval>
         <timeInterval>1</timeInterval>
+        <status>Upcoming</status>
     </tasks>
     <tasks>
         <title>HOMEWORK</title>
@@ -23,6 +25,7 @@
         <dueDate>01-01-2012</dueDate>
         <interval>1</interval>
         <timeInterval>1</timeInterval>
+        <status>Upcoming</status>
     </tasks>
     <tasks>
         <title>HOMEWORK</title>
@@ -31,6 +34,7 @@
         <dueDate>01-01-2012</dueDate>
         <interval>1</interval>
         <timeInterval>1</timeInterval>
+        <status>Upcoming</status>
     </tasks>
     <tasks>
         <title>HOMEWORK</title>
@@ -39,6 +43,7 @@
         <dueDate>01-01-2012</dueDate>
         <interval>1</interval>
         <timeInterval>1</timeInterval>
+        <status>Upcoming</status>
     </tasks>
     <tasks>
         <title>HOMEWORK</title>
@@ -47,6 +52,7 @@
         <dueDate>01-01-2012</dueDate>
         <interval>1</interval>
         <timeInterval>1</timeInterval>
+        <status>Upcoming</status>
     </tasks>
     <tasks>
         <title>HOMEWORK</title>
@@ -55,6 +61,7 @@
         <dueDate>01-01-2012</dueDate>
         <interval>1</interval>
         <timeInterval>1</timeInterval>
+        <status>Upcoming</status>
     </tasks>
     <tasks>
         <title>HOMEWORK</title>
@@ -63,6 +70,7 @@
         <dueDate>01-01-2012</dueDate>
         <interval>1</interval>
         <timeInterval>1</timeInterval>
+        <status>Upcoming</status>
     </tasks>
     <tasks>
         <title>HOMEWORK</title>
@@ -71,5 +79,6 @@
         <dueDate>01-01-2012</dueDate>
         <interval>1</interval>
         <timeInterval>1</timeInterval>
+        <status>Upcoming</status>
     </tasks>
 </TaskManager>

@@ -50,8 +50,8 @@ public class XmlAdaptedTask {
         description =  source.getDescription().fullDescription;
         startDate = source.getStartDate().toString();
         dueDate = source.getDueDate().toString();
-        interval = source.getInterval().value;
-        timeInterval = source.getTimeInterval().value;
+        interval = source.getInterval().toString();
+        timeInterval = source.getTimeInterval().toString();
         status = source.getStatus().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
