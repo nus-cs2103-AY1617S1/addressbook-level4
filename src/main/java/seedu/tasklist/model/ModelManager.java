@@ -16,6 +16,7 @@ import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -29,6 +30,9 @@ import java.util.regex.Pattern;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private LinkedList<UndoInfo> undoStack = new LinkedList<UndoInfo>();
+    private LinkedList<UndoInfo> redoStack = new LinkedList<UndoInfo>();
+    
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
 
