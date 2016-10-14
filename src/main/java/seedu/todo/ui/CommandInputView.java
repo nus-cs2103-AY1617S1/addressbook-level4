@@ -79,12 +79,12 @@ public class CommandInputView extends UiPart {
 
     /**
      * Sets {@link #commandTextField} to listen out for a command.
-     * Once a command is received, calls {@link #submitCommandText(String)} to submit that command.
+     * Once a command is received, calls {@link #submitCommandInput(String)} to submit that command.
      */
     private void listenToCommandInput() {
         this.commandTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                submitCommandText(commandTextField.getText());
+                submitCommandInput(commandTextField.getText());
                 event.consume(); //To prevent commandTextField from printing a new line.
             }
         });
@@ -95,7 +95,7 @@ public class CommandInputView extends UiPart {
      * {@link #handleCommandResult(CommandResult)}
      * @param commandText command submitted by user via {@link #commandTextField}
      */
-    private void submitCommandText(String commandText) {
+    private void submitCommandInput(String commandText) {
         //Do not execute an empty command. TODO: This check should be done in the parser class.
         if (!StringUtil.isEmpty(commandText)) {
             commandTextField.setDisable(true);
