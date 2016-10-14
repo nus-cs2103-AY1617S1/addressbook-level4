@@ -30,6 +30,8 @@ public class Parser {
             Pattern.compile("\"(?<description>.+)\""
                     + "(?: by )?(?<dateTime>([^#]+)?)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
+    
+    private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\S+)(?<field>.+)");
 
     public Parser() {}
 
@@ -135,9 +137,31 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
     
-    private Command prepareEdit(String arguments) {
-        // TODO Auto-generated method stub
-        return null;
+    /**
+     * Parses arguments in the context of the edit person command.
+     * 
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        
+        final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new EditCommand(
+                    matcher.group("targetIndex"),
+                    matcher.group("field"));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }        
     }
 
     /**
