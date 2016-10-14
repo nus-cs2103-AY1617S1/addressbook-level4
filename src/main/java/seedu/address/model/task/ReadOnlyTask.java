@@ -23,6 +23,7 @@ public interface ReadOnlyTask {
      * Returns the type of the class, whether it is FLOATING or NON_FLOATING type
      */
     TaskType getType();
+    void setType(TaskType type);
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

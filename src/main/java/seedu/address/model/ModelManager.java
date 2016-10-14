@@ -77,6 +77,13 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.removeTask(target);
         indicateTaskListChanged();
     }
+    
+    @Override
+    public synchronized void archiveTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskList.archiveTask(target);
+        indicateTaskListChanged();
+        updateFilteredListToShowAll();
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
@@ -101,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate(new PredicateExpression(new TypeQualifier(TaskType.COMPLETED))::unsatisfies);
     }
 
     @Override
@@ -132,6 +139,11 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean satisfies(ReadOnlyTask task) {
             return qualifier.run(task);
         }
+        
+        
+        public boolean unsatisfies(ReadOnlyTask task) {
+            return !qualifier.run(task);
+        }
 
         @Override
         public String toString() {
@@ -142,6 +154,25 @@ public class ModelManager extends ComponentManager implements Model {
     interface Qualifier {
         boolean run(ReadOnlyTask task);
         String toString();
+    }
+    
+    private class TypeQualifier implements Qualifier {
+        private TaskType typeKeyWords;
+
+        TypeQualifier(TaskType typeKeyWords) {
+            this.typeKeyWords = typeKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+
+            return task.getType().equals(typeKeyWords);
+        }
+
+        @Override
+        public String toString() {
+            return "type=" + typeKeyWords.toString();
+        }
     }
 
     private class NameQualifier implements Qualifier {
@@ -242,8 +273,8 @@ public class ModelManager extends ComponentManager implements Model {
 			Date startDate = timeArray[START_DATE_INDEX];
 			Date endDate = timeArray[END_DATE_INDEX];
 			
-			if(startDate.after(this.startTime)
-					&& endDate.before(this.endTime))
+			if((startDate.after(this.startTime)||(startDate.getDate()==this.startTime.getDate()&&startDate.getMonth()==this.startTime.getMonth()))
+					&& (endDate.before(this.endTime)||(endDate.getDate()==this.endTime.getDate()&&endDate.getMonth()==this.endTime.getMonth())))
 				return true;
 			return false;	
 		}
@@ -264,6 +295,7 @@ public class ModelManager extends ComponentManager implements Model {
     		this.deadline = deadline;
     	}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public boolean run(ReadOnlyTask task) {
 			
@@ -281,7 +313,9 @@ public class ModelManager extends ComponentManager implements Model {
 			if(deadline.before(this.deadline)
 					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
 				return true;
-			
+			if(deadline.getDate()==this.deadline.getDate()&&deadline.getMonth()==this.deadline.getMonth()
+					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
+				return true;
 			return false;
 		}
     	
@@ -299,8 +333,13 @@ public class ModelManager extends ComponentManager implements Model {
     	private TagQualifier tagQualifier;
     	private PeriodQualifier periodQualifier;
     	private DeadlineQualifier deadlineQualifier;
+    	private TypeQualifier typeQualifier = null;
     	
     	FindQualifier(Set<String> keywordSet, Set<String> tagSet, Date startTime, Date endTime, Date deadline) {
+    		if(keywordSet.contains("-C"))
+    			this.typeQualifier = new TypeQualifier(TaskType.COMPLETED);
+    		if(keywordSet.contains("-F"))
+    			this.typeQualifier = new TypeQualifier(TaskType.FLOATING);
     		this.nameQualifier = new NameQualifier(keywordSet);
     		this.tagQualifier = new TagQualifier(tagSet);
     		this.periodQualifier = new PeriodQualifier(startTime, endTime);
@@ -309,6 +348,8 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	@Override
     	public boolean run(ReadOnlyTask task) {
+    		if(this.typeQualifier!=null)
+    			return typeQualifier.run(task);
     		return nameQualifier.run(task)
     				&& tagQualifier.run(task)
     				&& periodQualifier.run(task)
