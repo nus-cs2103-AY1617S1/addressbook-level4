@@ -86,7 +86,13 @@ public class ModelManager extends ComponentManager implements Model {
         if (callDidNotComeFromUndoCommand())
             addToUndoStack(UndoCommand.DEL_CMD_ID, (Task) target);
     }
-
+    @Override
+    public void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException {
+        taskList.removeTask(target);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+    }
+    
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskList.addTask(task);
@@ -96,6 +102,13 @@ public class ModelManager extends ComponentManager implements Model {
             addToUndoStack(UndoCommand.ADD_CMD_ID, task);
     }
 
+    @Override
+    public void addTaskUndo(Task task) throws UniqueTaskList.DuplicateTaskException {
+        taskList.addTask(task);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+    }
+    
     @Override
     public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime,
             EndTime endTime, Priority priority, UniqueTagList tags) throws UniqueTaskList.DuplicateTaskException {
@@ -108,6 +121,13 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    @Override
+    public void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) throws UniqueTaskList.DuplicateTaskException {
+        taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+    }
+    
     @Override
     public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
         taskList.markTaskAsComplete(task);
@@ -122,8 +142,6 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.markTaskAsIncomplete(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        if (callDidNotComeFromUndoCommand())
-            addToUndoStack(UndoCommand.DONE_CMD_ID, (Task) task);
     }
 
     private boolean callDidNotComeFromUndoCommand() {

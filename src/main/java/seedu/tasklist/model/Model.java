@@ -63,4 +63,11 @@ public interface Model {
     void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority,
             UniqueTagList tags) throws DuplicateTaskException;
 
+    void addTaskUndo(Task task) throws DuplicateTaskException;
+
+    void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
+            Priority priority, UniqueTagList tags) throws DuplicateTaskException;
+
+    void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException;
+
 }

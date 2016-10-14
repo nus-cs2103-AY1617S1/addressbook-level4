@@ -56,7 +56,7 @@ public class UndoCommand extends Command {
     
     private void undoAdd(Task task){
         try {
-            model.deleteTask(task);
+            model.deleteTaskUndo(task);
         }
         catch (TaskNotFoundException e) {
             assert false: "The target task cannot be missing";
@@ -65,7 +65,7 @@ public class UndoCommand extends Command {
     
     private void undoDelete(Task task){
         try {
-            model.addTask(task);  
+            model.addTaskUndo(task);  
         } 
         catch (UniqueTaskList.DuplicateTaskException e) {
             e.printStackTrace();
@@ -74,7 +74,7 @@ public class UndoCommand extends Command {
 
     private void undoUpdate(Task newTask, ReadOnlyTask originalTask){
         try {
-            model.updateTask(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getTags());
+            model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getTags());
         } catch (UniqueTaskList.DuplicateTaskException e) {
             e.printStackTrace();
         }
