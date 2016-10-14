@@ -5,8 +5,12 @@ import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
+import seedu.tasklist.model.task.EndTime;
+import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.ReadOnlyTask;
+import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.Task;
+import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -78,6 +82,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskList.addTask(task);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+    }
+    
+    @Override
+    public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority) throws UniqueTaskList.DuplicateTaskException {
+        taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
     }

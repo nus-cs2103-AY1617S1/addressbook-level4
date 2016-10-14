@@ -51,7 +51,7 @@ public class DoneCommand extends Command {
     private CommandResult doneUsingIndex(){
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if(targetIndex >= lastShownList.size()){
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         else{
             ReadOnlyTask taskToMark = lastShownList.get(targetIndex);

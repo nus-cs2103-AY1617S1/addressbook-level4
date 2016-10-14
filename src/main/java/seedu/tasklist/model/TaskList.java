@@ -3,8 +3,12 @@ package seedu.tasklist.model;
 import javafx.collections.ObservableList;
 import seedu.tasklist.model.tag.Tag;
 import seedu.tasklist.model.tag.UniqueTagList;
+import seedu.tasklist.model.task.EndTime;
+import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.ReadOnlyTask;
+import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.Task;
+import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.model.task.UniqueTaskList;
 
 import java.util.*;
@@ -156,5 +160,18 @@ public class TaskList implements ReadOnlyTaskList {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
+    }
+
+    public void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
+            Priority priority) {
+        
+        if (taskDetails != null) 
+            taskToUpdate.setTaskDetails(taskDetails); 
+        if (startTime != null) 
+            taskToUpdate.setStartTime(startTime); 
+        if (endTime != null) 
+            taskToUpdate.setEndTime(endTime); 
+        if (priority != null)
+            taskToUpdate.setPriority(priority);
     }
 }
