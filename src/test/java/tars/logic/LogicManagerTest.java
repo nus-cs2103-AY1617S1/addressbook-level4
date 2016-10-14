@@ -90,7 +90,6 @@ public class LogicManagerTest {
         try {
             originalConfig = ConfigUtil.readConfig(configFilePath).get();
         } catch (DataConversionException e) {
-            System.out.println("Config File cannot be found");
             e.printStackTrace();
         }
         model = new ModelManager();
@@ -223,6 +222,46 @@ public class LogicManagerTest {
 
         assertCommandBehavior("undo",
                 UndoCommand.MESSAGE_SUCCESS + "\nAction: " + String.format(DeleteCommand.MESSAGE_UNDO, toBeUndo),
+                expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_undo_edit_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task taskToAdd = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(taskToAdd);
+
+        Flag nameOpt = new Flag(Flag.NAME, false);
+        Flag priorityOpt = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeOpt = new Flag(Flag.DATETIME, false);
+        Flag addTagOpt = new Flag(Flag.ADDTAG, true);
+        Flag removeTagOpt = new Flag(Flag.REMOVETAG, true);
+
+        // edit task
+        HashMap<Flag, String> argsToEdit = new HashMap<Flag, String>();
+        argsToEdit.put(nameOpt, "-n Meet Betty Green");
+        argsToEdit.put(dateTimeOpt, "-dt 20/09/2016 1800 to 21/09/2016 1800");
+        argsToEdit.put(priorityOpt, "-p h");
+        argsToEdit.put(addTagOpt, "-ta tag3");
+        argsToEdit.put(removeTagOpt, "-tr tag2");
+
+        model.addTask(taskToAdd);
+        Task editedTask = expectedAB.editTask(taskToAdd, argsToEdit);
+
+        String inputCommand = "edit 1 -n Meet Betty Green -dt 20/09/2016 1800 "
+                + "to 21/09/2016 1800 -p h -tr tag2 -ta tag3";
+        
+        // execute command
+        assertCommandBehavior(inputCommand, String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
+                expectedAB, expectedAB.getTaskList());
+        
+        
+        expectedAB.replaceTask(editedTask, taskToAdd);
+        
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS + "\nAction: "
+                        + String.format(EditCommand.MESSAGE_UNDO, taskToAdd),
                 expectedAB, expectedAB.getTaskList());
     }
 
