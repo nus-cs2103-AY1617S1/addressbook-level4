@@ -22,6 +22,8 @@ public class UpdateController implements Controller {
     private static String DESCRIPTION = "Updates a task by listed index.";
     private static String COMMAND_SYNTAX = "update <index> <task> by <deadline>";
     
+    private static final String MESSAGE_UPDATE_SUCCESS = "Item successfully updated!";
+    
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
 
@@ -78,5 +80,6 @@ public class UpdateController implements Controller {
         view.events = db.getAllEvents();
         UiManager.renderView(view);
         
+        UiManager.updateConsoleMessage(MESSAGE_UPDATE_SUCCESS);
     }
 }
