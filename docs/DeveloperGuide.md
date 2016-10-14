@@ -17,7 +17,7 @@
 
 ## Introduction
 
-Agendum is a task manager for the user to manage their schedules and todo tasks via keyboard commands. It is a Java desktop application that has a **GUI**.
+Agendum is a task manager for the user to manage their schedules and todo tasks via keyboard commands. It is a Java desktop application that has a **GUI** implemented with JavaFX.
 
 This guide describes the design and implementation of Agendum. It will help developers understand how Agendum works and how they can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
 
@@ -76,22 +76,26 @@ The **_Architecture Diagram_** given above explains the high-level design of the
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/agendum/MainApp.java). It is responsible for,
+
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#6-common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
+
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
+
 * [**`UI`**](#2-ui-component) : The UI of tha App.
 * [**`Logic`**](#3-logic-component) : The command executor.
 * [**`Model`**](#4-model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#5-storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
+
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
@@ -133,6 +137,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
+
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
@@ -157,8 +162,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/agendum/model/Model.java)
-
 The `Model`,
+
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Agendum data.
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
@@ -172,6 +177,7 @@ The `Model`,
 **API** : [`Storage.java`](../src/main/java/seedu/agendum/storage/Storage.java)
 
 The `Storage` component,
+
 * can save `UserPref` objects in json format and read it back.
 * can save the Agendum data in xml format and read it back.
 
