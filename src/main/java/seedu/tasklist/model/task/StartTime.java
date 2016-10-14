@@ -48,15 +48,6 @@ public class StartTime {
     @Override
     public String toString() {
     	if(starttime.getTime().equals(new Date(0))){
-    		return (new Date(0)).toString();
-    	}
-    	else{
-    		return starttime.getTime().toString();
-    	}
-    }
-    
-    public String toCardString() {
-    	if(starttime.getTime().equals(new Date(0))){
     		return "-";
     	}
     	else{
@@ -67,6 +58,7 @@ public class StartTime {
     		return finalStartString;
     	}
     }
+    
 
     @Override
     public boolean equals(Object other) {

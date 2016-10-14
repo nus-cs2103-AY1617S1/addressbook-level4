@@ -53,9 +53,9 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getTaskDetails().taskDetails);
         id.setText(displayedIndex + ". ");
-        startTime.setText("Starts:   " + task.getStartTime().toCardString());
+        startTime.setText("Starts:   " + task.getStartTime().toString());
         priority.setText("Priority: " + String.valueOf(task.getPriority()));
-        endTime.setText("Ends:     " + task.getEndTime().toCardString());
+        endTime.setText("Ends:     " + task.getEndTime().toString());
         statusButton.setVisible(true);
         setStatusButtonColour();
         tags.setText(task.tagsString());
