@@ -3,4 +3,6 @@ import seedu.todo.ui.components.Component;
 
 public abstract class View extends Component {
     
+    public String consoleMessage = "";
+    
 }
