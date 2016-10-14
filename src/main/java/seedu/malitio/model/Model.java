@@ -25,11 +25,20 @@ public interface Model {
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered task list2 as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList2();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list2 to show all tasks */
+    void updateFilteredList2ToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredTaskList2(Set<String> keywords);
 
 }

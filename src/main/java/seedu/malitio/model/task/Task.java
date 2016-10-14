@@ -12,9 +12,6 @@ import java.util.Objects;
 public abstract class Task implements ReadOnlyTask {
 
     private Name name;
-    private DateTime due = null;
-    private DateTime start = null;
-    private DateTime end = null;
     
     private UniqueTagList tags;
 

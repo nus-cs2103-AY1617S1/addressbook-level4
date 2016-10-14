@@ -23,6 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Malitio malitio;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredTasks2;
 
     /**
      * Initializes a ModelManager with the given Malitio
@@ -37,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         malitio = new Malitio(src);
         filteredTasks = new FilteredList<>(malitio.getTasks());
+        filteredTasks2 = new FilteredList<>(malitio.getTasks2());
     }
 
     public ModelManager() {
@@ -46,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyMalitio initialData, UserPrefs userPrefs) {
         malitio = new Malitio(initialData);
         filteredTasks = new FilteredList<>(malitio.getTasks());
+        filteredTasks2 = new FilteredList<>(malitio.getTasks2());
     }
 
     @Override
@@ -74,6 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         malitio.addTask(task);
         updateFilteredListToShowAll();
+        updateFilteredList2ToShowAll();
         indicatemalitioChanged();
     }
 
@@ -83,10 +87,20 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList2() {
+        return new UnmodifiableObservableList<>(filteredTasks2);
+    }
 
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    }
+    
+    @Override
+    public void updateFilteredList2ToShowAll() {
+        filteredTasks2.setPredicate(null);
     }
 
     @Override
@@ -96,6 +110,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredTaskList2(Set<String> keywords){
+        updateFilteredTaskList2(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredTaskList2(Expression expression) {
+        filteredTasks2.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

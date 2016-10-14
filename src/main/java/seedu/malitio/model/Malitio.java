@@ -52,9 +52,17 @@ public class Malitio implements ReadOnlyMalitio {
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
+    
+    public ObservableList<Task> getTasks2() {
+        return tasks2.getInternalList();
+    }
 
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
+    }
+    
+    public void setTasks2(List<Task> tasks) {
+        this.tasks2.getInternalList().setAll(tasks);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -84,6 +92,18 @@ public class Malitio implements ReadOnlyMalitio {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
+    
+    /**
+     * Adds a task to Malitio.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     */
+    public void addTask2(Task p) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList(p);
+        tasks2.add(p);
+    }
 
     /**
      * Ensures that every tag in this task:
@@ -110,6 +130,14 @@ public class Malitio implements ReadOnlyMalitio {
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean removeTask2(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks2.remove(key)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
