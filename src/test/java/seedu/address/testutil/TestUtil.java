@@ -312,15 +312,11 @@ public class TestUtil {
      * @param tasksToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-<<<<<<< HEAD
+
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
         List<TestTask> listOfPersons = asList(tasks);
         listOfPersons.addAll(asList(tasksToAdd));
-=======
-    public static TestTask[] addPersonsToList(final TestTask[] persons, TestTask... personsToAdd) {
-        List<TestTask> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
->>>>>>> e56ae7b38b2e0a1b1133fb40d95b25c096221439
+
         return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
