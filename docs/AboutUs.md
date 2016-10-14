@@ -1,52 +1,29 @@
 # About Us
+---
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg), doing this project for our [CS2103](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/) module. We hope this app proves to be useful for people and that this app's scope is not limited solely to our module project.
 
-## Project Team
+## Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+### [Bey Hao Yun](https://github.com/cardboardcode) <br>
 
------
+**Role**: Team Lead, Documentation, Deliverables, Scheduling, Visual Expert, Code Developer
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+---
 
------
+### [Ruth Chew](https://github.com/chewwt)<br>
+**Role**: Integration, Github Master, Code Developer  
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
 
------
+---
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+### [Goh Quan Yang Daryl](https://github.com/darylgqy) <br>
+**Role**: Documentation, Code Quality, Code Developer
 
------
+---
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
+### [Chandraanshu Garg](https://github.com/Chandraanshu)<br>
+**Role**: Code Testing, Code Quality, Code Developer
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
+---
 
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
