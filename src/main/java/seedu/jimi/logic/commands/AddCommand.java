@@ -17,9 +17,9 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Adds a task to Jimi with one optional tag.\n"
-            + "Parameters: \"TASK_DETAILS\" [by DATE_TIME] [t/TAG]\n"
-            + "Example: " + COMMAND_WORD
-            + " \"do dishes\" t/important";
+            + "Parameters: \"TASK_DETAILS\" [due DATE_TIME] [t/TAG]\n"
+            + "Example: " + COMMAND_WORD + " \"do dishes\" t/important\n"
+            + "> Tip: typing `a` or `ad` instead of `add` works too.";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
@@ -69,10 +69,5 @@ public class AddCommand extends Command {
             }
         }
         return false;
-    }
-
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
     }
 }

@@ -21,9 +21,4 @@ public class IncorrectCommand extends Command {
     public boolean isValidCommandWord(String commandWord) {
         return false;
     }
-    
-    @Override
-    public String getCommandWord() {
-        return null;
-    }
 }

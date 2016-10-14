@@ -3,13 +3,29 @@ package seedu.jimi.logic.parser;
 import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jimi.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.StringUtil;
-import seedu.jimi.logic.commands.*;
+import seedu.jimi.logic.commands.AddCommand;
+import seedu.jimi.logic.commands.ClearCommand;
+import seedu.jimi.logic.commands.Command;
+import seedu.jimi.logic.commands.DeleteCommand;
+import seedu.jimi.logic.commands.EditCommand;
+import seedu.jimi.logic.commands.ExitCommand;
+import seedu.jimi.logic.commands.FindCommand;
+import seedu.jimi.logic.commands.HelpCommand;
+import seedu.jimi.logic.commands.IncorrectCommand;
+import seedu.jimi.logic.commands.ListCommand;
+import seedu.jimi.logic.commands.SelectCommand;
 
 /**
  * Parses user input.
@@ -33,19 +49,11 @@ public class JimiParser {
             Pattern.compile("(?<targetIndex>\\d+\\s)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
     
     private static final Pattern DETAILS_ARGS_FORMAT = 
-            Pattern.compile("(\"(?<taskDetails>.+)\")( by (?<dateTime>.+))?");
+            Pattern.compile("(\"(?<taskDetails>.+)\")( due (?<dateTime>.+))?");
     
-    private static final List<Command> COMMAND_STUB_LIST = Arrays.asList(
-            new AddCommand(),
-            new EditCommand(),
-            new SelectCommand(),
-            new DeleteCommand(),
-            new ClearCommand(),
-            new FindCommand(),
-            new ListCommand(),
-            new ExitCommand(),
-            new HelpCommand()
-    );
+    private static final List<Command> COMMAND_STUB_LIST =
+            Arrays.asList(new AddCommand(), new EditCommand(), new SelectCommand(), new DeleteCommand(),
+                    new ClearCommand(), new FindCommand(), new ListCommand(), new ExitCommand(), new HelpCommand());
     
     public JimiParser() {}
 
@@ -78,19 +86,18 @@ public class JimiParser {
         for (Command command : COMMAND_STUB_LIST) {
             // if validation checks implemented by the respective commands are passed
             if (command.isValidCommandWord(commandWord)) {
-                // identifying which command this is
-                switch (command.getCommandWord()) {
-                case AddCommand.COMMAND_WORD :
+                // identify which command this is
+                if (command instanceof AddCommand) {
                     return prepareAdd(arguments);
-                case EditCommand.COMMAND_WORD :
+                } else if (command instanceof EditCommand) {
                     return prepareEdit(arguments);
-                case SelectCommand.COMMAND_WORD :
+                } else if (command instanceof SelectCommand) {
                     return prepareSelect(arguments);
-                case DeleteCommand.COMMAND_WORD :
+                } else if (command instanceof DeleteCommand) {
                     return prepareDelete(arguments);
-                case FindCommand.COMMAND_WORD :
+                } else if (command instanceof FindCommand) {
                     return prepareFind(arguments);
-                default : // commands which do not require arguments for instantiation
+                } else { // commands that do not require arguments e.g. exit
                     return command;
                 }
             }

@@ -37,11 +37,6 @@ public abstract class Command {
     public abstract boolean isValidCommandWord(String commandWord);
     
     /**
-     * Returns command word corresponding to this command.
-     */
-    public abstract String getCommandWord();
-    
-    /**
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
