@@ -479,8 +479,7 @@ Extensions
 are 
   - free.
   - do not require any installation by the user of your software.
-  - do not violate other constraints.
-- Should not work with third-party software that can interfere with the learning objectives of the module. 
+  - do not violate other constraints. 
 
 
 {More to be added}
