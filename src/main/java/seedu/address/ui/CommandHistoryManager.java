@@ -4,17 +4,13 @@ import java.util.Stack;
 
 public class CommandHistoryManager {
 	
-	private Stack<String> previousCommands;
-	private Stack<String> nextCommands;
-	private String firstEnteredCommand;
-	private boolean isFirstCommand;
+	private Stack<String> previousCommands = new Stack<>();;
+	private Stack<String> nextCommands = new Stack<>();;
+	private String firstEnteredCommand = "";
+	private String latestCommand = "";
+	private boolean isFirstCommand = true;
 	
-	public CommandHistoryManager() {
-		previousCommands = new Stack<>();
-		nextCommands = new Stack<>();
-		firstEnteredCommand = "";
-		isFirstCommand = true;
-	}
+	public CommandHistoryManager() {}
 	
 	public void rememberCommand(String command) {
 		if (isFirstCommand) {
@@ -22,6 +18,7 @@ public class CommandHistoryManager {
 			isFirstCommand = false;
 		}
 		
+		latestCommand = command;
 		previousCommands.push(command);
 		nextCommands.clear();
 	}
@@ -31,8 +28,10 @@ public class CommandHistoryManager {
 			return firstEnteredCommand;
 		}
 		else {
-			String cmd = previousCommands.pop();
-			nextCommands.push(cmd);
+			String cmd = previousCommands.pop();			
+			if (!cmd.equals(latestCommand)) {
+				nextCommands.push(cmd);
+			}
 			return cmd;
 		}
 	}
