@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.logic.parser.CommandParser;
 import seedu.tasklist.model.tag.Tag;
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.Description;
@@ -24,7 +23,7 @@ import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits a task identified using it's last displayed index from the task list.
  */
-public class EditCommand extends Command implements CommandParser {
+public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

@@ -1,12 +1,11 @@
 package seedu.tasklist.logic.commands;
 
-import seedu.tasklist.logic.parser.CommandParser;
 import seedu.tasklist.model.TaskList;
 
 /**
  * Clears the task list.
  */
-public class ClearCommand extends Command implements CommandParser {
+public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Task list has been cleared!";

@@ -7,13 +7,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 
-import seedu.tasklist.logic.parser.CommandParser;
-
 /**
  * Finds and lists all tasks in task list whose title contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
-public class FindCommand extends Command implements CommandParser {
+public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 

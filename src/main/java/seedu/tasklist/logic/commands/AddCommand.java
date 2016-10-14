@@ -1,7 +1,6 @@
 package seedu.tasklist.logic.commands;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.logic.parser.CommandParser;
 import seedu.tasklist.model.tag.Tag;
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
@@ -15,7 +14,7 @@ import java.util.regex.Matcher;
 /**
  * Adds a task to the task list.
  */
-public class AddCommand extends Command implements CommandParser {
+public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 

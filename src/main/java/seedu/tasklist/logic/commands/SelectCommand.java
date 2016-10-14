@@ -8,13 +8,12 @@ import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.ui.JumpToListRequestEvent;
-import seedu.tasklist.logic.parser.CommandParser;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
 /**
  * Selects a task identified using it's last displayed index from the task list.
  */
-public class SelectCommand extends Command implements CommandParser {
+public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
 

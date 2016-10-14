@@ -3,12 +3,11 @@ package seedu.tasklist.logic.commands;
 
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.events.ui.ShowHelpRequestEvent;
-import seedu.tasklist.logic.parser.CommandParser;
 
 /**
  * Format full help instructions for every command for display.
  */
-public class HelpCommand extends Command implements CommandParser {
+public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 

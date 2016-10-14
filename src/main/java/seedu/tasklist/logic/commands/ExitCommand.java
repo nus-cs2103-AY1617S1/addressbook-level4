@@ -2,12 +2,11 @@ package seedu.tasklist.logic.commands;
 
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.events.ui.ExitAppRequestEvent;
-import seedu.tasklist.logic.parser.CommandParser;
 
 /**
  * Terminates the program.
  */
-public class ExitCommand extends Command implements CommandParser {
+public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
 

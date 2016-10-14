@@ -2,7 +2,6 @@ package seedu.tasklist.logic.commands;
 
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
-import seedu.tasklist.logic.parser.CommandParser;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.UniqueTaskList.TaskCompletionException;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
@@ -14,7 +13,7 @@ import java.util.Optional;
 /**
  * Unmarks a task identified using it's last displayed index from the task list.
  */
-public class UnmarkCommand extends Command implements CommandParser {
+public class UnmarkCommand extends Command {
     
     public static final String COMMAND_WORD = "unmark";
 

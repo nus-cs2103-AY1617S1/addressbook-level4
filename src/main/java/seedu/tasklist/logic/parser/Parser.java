@@ -39,7 +39,6 @@ public class Parser {
 
             return ((CommandParser) object).prepare(arguments);
         } catch (Exception e) {
-            System.out.println(e);
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
