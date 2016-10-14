@@ -20,6 +20,10 @@ Responsible for:
 * Maintaining a co-operative, motivated and successful team.
 * Continuously learn and improve skills.
 
+Tool Expert:
+* Windows Environment Tester
+* JUnit
+* EclEmma
 -----
 
 #### [Calvin Yang Jiawei](http://github.com/origiri) <br>
@@ -31,6 +35,9 @@ Responsible for:
 * Ensuring the proper integration of the project management processes.
 * Continuously learn and improve skills.
 
+Tool Expert:
+* SourceTree
+* Eclipse
 -----
 
 #### [Chia Wei Kang](http://github.com/weikangchia) <br>
@@ -43,6 +50,10 @@ Responsible for:
 * Analysing the system-in-use so as to continually refine usability and the user interface.
 * Continuously learn and improve skills.
 
+Tool Expert:
+* Regex
+* Travis
+
 -----
 
 #### [Foo En Teng Joel](http://github.com/jaeoheeail) <br>
@@ -54,4 +65,6 @@ Resonsible for:
 * Continuously learn and improve skills.
 * Guiding look-and-feel decisions.
 
+Tool Expert:
+* Scene Builder
  -----
