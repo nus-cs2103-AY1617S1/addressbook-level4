@@ -56,6 +56,39 @@ public class AddController implements Controller {
             return;
         }
         
+        // Task or event?
+        boolean isTask = true;
+        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[0].equals("event"))
+            isTask = false;
+        
+        // Name - Disambiguate if null.
+        String name = null;
+        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null)
+            name = parsedResult.get("default")[1];
+        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[1] != null)
+            name = parsedResult.get("eventType")[1];
+        if (name == null) {
+            renderDisambiguation(parsedResult);
+            return;
+        }
+        
+        // Time - Disambiguate if "to" without "from" OR "task" and two timings.
+        String naturalFrom = null;
+        String naturalTo = null;
+        setTime: {
+            if (parsedResult.get("time") != null && parsedResult.get("time")[1] != null) {
+                naturalFrom = parsedResult.get("time")[1];
+                break setTime;
+            }
+            if (parsedResult.get("timeFrom") != null && parsedResult.get("timeFrom")[1] != null)
+                naturalFrom = parsedResult.get("timeFrom")[1];
+            if (parsedResult.get("timeTo") != null && parsedResult.get("timeTo")[1] != null)
+                naturalFrom = parsedResult.get("timeTo")[1];
+        }
+        if ((naturalFrom == null && naturalTo != null) || (isTask && naturalTo != null)) {
+            renderDisambiguation(parsedResult);
+            return;
+        }
         
         // Create and persist task / event.
         TodoListDB db = TodoListDB.getInstance();
