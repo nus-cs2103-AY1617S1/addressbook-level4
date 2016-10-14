@@ -46,18 +46,12 @@ Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE_AND_TIME] [from [STA
 
 Type of task to be added | Examples
 -------------------------|----------
-For a task with no date or time specified, only the task description is required to be specified.
-|`add "Do tutorial"`
-For a task with a deadline, the date and time must be specified.
-|`add "Do tutorial" by 23 May, 2pm`
-For a task with date but no time specified, it would be taken be as an all day event.
-|`add "Do tutorial" on 23 May`
-For a scheduled task within the same day, the date, start and end time must be specified.
-|`add "Do tutorial" on 23 May from 2pm to 4pm`
-For a scheduled task longer than a day, the date, start and end time must be specified.
-|`add "Do tutorial" from 23 May, 2pm to 25 May, 4pm`
-For any tasks with tags, specify the tags as the last parameter.
-|`add "CS2103T Lecture" on 7 Oct 2016 from 2pm to 4pm #Important`
+For a task with no date or time specified, only the task description is required to be specified.|`add "Do tutorial"`
+For a task with a deadline, the date and time must be specified.|`add "Do tutorial" by 23 May, 2pm`
+For a task with date but no time specified, it would be taken be as an all day event.|`add "Do tutorial" on 23 May`
+For a scheduled task within the same day, the date, start and end time must be specified.|`add "Do tutorial" on 23 May from 2pm to 4pm`
+For a scheduled task longer than a day, the date, start and end time must be specified.|`add "Do tutorial" from 23 May, 2pm to 25 May, 4pm`
+For any tasks with tags, specify the tags as the last parameter.|`add "CS2103T Lecture" on 7 Oct 2016 from 2pm to 4pm #Important`
 
 <br>
 
