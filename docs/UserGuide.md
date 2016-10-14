@@ -37,19 +37,18 @@ Format: `help`
 #### Adding a task: `add`
 Adds a task to the MustDoList.<br>
 
-Format1: **`add`**`TASK_NAME`<br>
-Format2: **`add`**`TASK_NAME by ed/END_DATE`<br>
-Format3: **`add`**`TASK_NAME by [sd/START_DATE] ed/END_DATE [st/START_TIME] et/END_TIME`
+Format1: **`add`**`FLOATING_TASK_NAME`<br>
+Format2: **`add`**`DEADLINE_NAME by END_DATE`<br>
+Format3: **`add`**`EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION
 
-> [parameter] are optional, with or without this parameter it will work.<br>
 DATE Format: DDMMYY<br>
 TIME Format: 12HR<br>
 
 Examples:<br> 
 * **`add`**`Submission of CS2103 Project`<br>
-* **`add`**`Submission of CS2103 Project by ed/11112016`<br>
-* **`add`**`Submission of CS2103 Project by ed/11112016 et/0900`<br>
-* **`add`**`Submission of CS2103 Project by sd/01102016 ed/11112016 st/0900 et/0900`<br>
+* **`add`**`Submission of CS2103 Project by 111116`<br>
+* **`add`**`Submission of CS2103 Project by 111116 0900`<br>
+* **`add`**`CS2103 Tutorial s/011016 e/111116 at COM1 B103`<br>
 
 #### Listing all tasks: `list`
 Shows a list of all tasks in the MustDoList.<br>
@@ -67,14 +66,14 @@ Examples:<br>
 * **`find`**`CS2103`<br>
   Returns `Submission of CS2103 Project`
 * **`find`**`Submission of CS2103 Project`<br>
-  Returns Any task having names `Submission `, `CS2103 `, or `Project`
-* **`find`**`9am`<br>
-  Returns Any task having `9am`
+  Returns Any task(s) having names `Submission`, `of`, `CS2103`, or `Project`
+* **`find`**`09-oct-16`<br>
+  Returns Any task(s) with date 09-oct-16
 
 #### Select a task : `select`
 Selects a task from MustDoList by index.<br>
 
-Format: `select INDEX`
+Format: **`select`**`INDEX`
 
 > Index refers to the index number shown in the most recent listing.<br>
 Selecting a task will open the web browser without clicking it with a mouse.<br>
@@ -88,7 +87,7 @@ Examples:<br>
   Selects the 1st task in the results of the `find` command.
 
 #### Deleting a task: `delete`
-Deletes a task from the MustDoList by index. Irreversible.<br>
+Deletes a task from the MustDoList by index. <br>
 
 Format: **`delete`**`INDEX`
 
@@ -103,34 +102,34 @@ Examples:<br>
   Deletes the 1st task in the results of the `find` command.
 
 #### Clearing all entries : `clear`
-Clears all entries from the MustDoThis.<br>
+Clears all entries from the TaskListPanel.<br>
 
 Format: `clear`  
 
 #### Edit a task : `edit`
 Edits a task parameter from the MustDoList by index.<br>
 
-Format: **`edit`**`INDEX PARAMETER`
+Format: **`edit`**`INDEX PARAMETERS`
 
-> PARAMETER refers to: ‘sd/START_DATE’ , ‘ed/END_DATE’ , ‘st/START_TIME’ , ‘et/END_TIME’ . <br>
+> PARAMETERS refers to: ‘s/START_DATE_TIME e/END_DATE_TIME at LOCATION’
 
 Examples:<br>
 * `list`<br>
-  **`edit`**`2 st/1000`<br>
-  Edit the 2nd task in the MustDoList by PAREMETER st/START_TIME.
+  **`edit`**`2 new task name s/101016 e/101016 at somewhere
+  Edit the 2nd task in the MustDoList by the given PARAMETERS.
 * **`find`**`Submission` <br>
-  **`edit`**`1 et/1200`<br>
+  **`edit`**`1 another new task name s/111016 e/111016 at there `<br>
   Edit the 1st task in the results of the `find` command by PARAMETER et/END_TIME.
 
 #### Undo a previous task : `undo`
-Undo a previously added or edited task parameter from the MustdoList.<br>
+Undo a previously add, edit, delete, mark command in the MustdoList.<br>
 
 Format: `undo`
 
 #### Mark a completed task : `mark`
 Marks a completed task by index.<br>
 
-Format: `mark INDEX`
+Format: **`mark`**`INDEX`
 
 > INDEX refers to the index number shown in the most recent listing.<br>
 
@@ -142,15 +141,15 @@ Examples:<br>
   **`mark`**`1`<br>
   Marks the 1st task in the results of the `find` command as completed.  
 
-#### Change preference for default storage : `setsavepath`
+#### Change preference for default storage : `setpath`
 Changes the default storage path to user's preferred path.<br>
 
-Format: `setsavepath ADDRESS`
+Format: **`setpath`**`FILE_DIRECTORY`
 
-> ADDRESS refers to the address of user's preferred storage path.<br>
+> FILE_DIRECTORY refers to the location of user's preferred storage file.<br>
 
 Examples:<br>
-* **`setsavepath`**`task`<br>
+* **`setpath`**`task`<br>
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -169,26 +168,26 @@ There is no need to save manually.
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous MustDoList.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MustDoList.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | **`add`**`TASK_NAME by [sd/START_DATE] ed/END_DATE [st/START_TIME] et/END_TIME`
+Add |  **`add`**`FLOATING_TASK_NAME`<br>
+Add | **`add`**`DEADLINE_NAME by END_DATE`<br>
+Add | **`add`**`EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION
 List | `list`
 Find | **`find`**`KEYWORD`
 Select | **`select`**`INDEX`
 Delete | **`delete`**`INDEX`
 Clear | `clear`
-Edit | **`edit`**`INDEX PARAMETER`
+Edit | **`edit`**`INDEX NEW_PARAMETERS`
 Undo | `undo`
 Mark | **`mark`**`INDEX`
-Change preference for default storage | **`setsavepath`**`ADDRESS` 
+Change preference for default storage | **`setpath`**`FILE_DIRECTORY` 
 Exit | `exit`
 Switching to next or previous commands | `up-arrow or down-arrow`
 Indicate overdue task | color code (RED)
 Save | system save automatically
-
