@@ -1,14 +1,12 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+
+import seedu.cmdo.testutil.TestTask;
+import seedu.cmdo.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
-/*
- * done command test passed, 12/10/16, @author A0141128R
- */
+import static seedu.cmdo.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
 
 public class DoneCommandTest extends ToDoListGuiTest {
 
