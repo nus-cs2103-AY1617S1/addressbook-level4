@@ -149,7 +149,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
-    
     @Override
     public void updateFilteredTaskListToShowUndone() {
         updateFilteredTaskListToShowUndone(new PredicateExpression(new NotDoneQualifier()));
@@ -164,7 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredTaskList(Expression expression) {
+    public void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
