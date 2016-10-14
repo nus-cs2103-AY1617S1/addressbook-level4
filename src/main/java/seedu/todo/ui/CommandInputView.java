@@ -14,6 +14,7 @@ import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.util.TextAreaResizerUtil;
 import seedu.todo.logic.Logic;
+import seedu.todo.logic.commands.CommandResult;
 
 import java.util.logging.Logger;
 
@@ -105,9 +106,8 @@ public class CommandInputView extends UiPart {
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
-        logic.execute(previousCommandText);
-        //TODO: Update the command output with actual implementation.
-        commandFeedbackView.displayMessage("Command \"" + previousCommandText + "\" was executed.");
+        CommandResult result = logic.execute(previousCommandText);
+        commandFeedbackView.displayMessage(result.getFeedback());
 
     }
 
