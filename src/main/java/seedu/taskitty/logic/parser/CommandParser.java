@@ -190,7 +190,7 @@ public class CommandParser {
      * @param date retrieved using Natty
      */
     private String extractLocalDate(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(TaskDate.DATE_FORMAT);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(TaskDate.DATE_FORMAT_STRING);
         return dateFormat.format(date);
     }
     
@@ -201,7 +201,7 @@ public class CommandParser {
      * @param date retrieved using Natty
      */
     private String extractLocalTime(Date date) {
-        SimpleDateFormat timeFormat = new SimpleDateFormat(TaskTime.TIME_FORMAT);
+        SimpleDateFormat timeFormat = new SimpleDateFormat(TaskTime.TIME_FORMAT_STRING);
         String currentTime = timeFormat.format(new Date());
         String inputTime = timeFormat.format(date);
         

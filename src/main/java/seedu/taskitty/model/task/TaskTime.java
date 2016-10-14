@@ -20,15 +20,11 @@ public class TaskTime {
             "Task time provided is invalid!";
     public static final String MESSAGE_TIME_MISSING =
             "Task time must be provided";
-    public static final String TIME_FORMAT = "kk:mm";
+    public static final String TIME_FORMAT_STRING = "kk:mm";
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT_STRING);
     
     //format: hh:mm
-    private static final String TIME_VALIDATION_REGEX_FORMAT_1 = "[\\p{Digit}]{1,2}:[\\p{Digit}]{2}";
-    //format: hhmm TODO currently not working for input
-    //private static final String TIME_VALIDATION_REGEX_FORMAT_2 = "[\\p{Digit}]{4}";
-    public static final String TIME_VALIDATION_REGEX_FORMAT =
-            TIME_VALIDATION_REGEX_FORMAT_1;
-            //+ "|" + TIME_VALIDATION_REGEX_FORMAT_2;
+    private static final String TIME_VALIDATION_FORMAT = "[\\p{Digit}]{1,2}:[\\p{Digit}]{2}";
 
     public final LocalTime time;
 
@@ -47,24 +43,20 @@ public class TaskTime {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         
-        try {
-            this.time = TimeUtil.parseTime(time);
-        } catch (DateTimeException dateTimeException) {
-            throw new IllegalValueException(MESSAGE_TIME_INVALID);
-        }
+        this.time = LocalTime.parse(time, TIME_FORMATTER);
     }
 
     /**
      * Returns true if a given string is a valid person name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(TIME_VALIDATION_REGEX_FORMAT);
+        return test.matches(TIME_VALIDATION_FORMAT);
     }
 
 
     @Override
     public String toString() {
-        return time.format(DateTimeFormatter.ofPattern(TIME_FORMAT));
+        return time.format(TIME_FORMATTER);
     }
 
     @Override

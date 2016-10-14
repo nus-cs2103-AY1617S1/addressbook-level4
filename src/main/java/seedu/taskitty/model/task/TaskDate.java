@@ -19,22 +19,11 @@ public class TaskDate {
             "Task date provided is invalid!";
     public static final String MESSAGE_DATE_MISSING =
             "Task date must be provided";
-    public static final String DATE_FORMAT = "dd/MM/yyyy";
+    public static final String DATE_FORMAT_STRING = "MM/dd/yyyy";
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT_STRING);
     
-    //format: dd/mm/yyyy TODO currently not working for input
-    private static final String DATE_VALIDATION_REGEX_FORMAT_1 =
-            "[\\p{Digit}]{1,2}/[\\p{Digit}]{1,2}/[\\p{Digit}]{4}";
-    //format: ddmmyyyy
-    private static final String DATE_VALIDATION_REGEX_FORMAT_2 =
-            "[\\p{Digit}]{8}";
-    //format: dd monthname yyyy
-    //Shortest allowed monthname is 3 characters, longest monthname is September (9 characters)
-    private static final String DATE_VALIDATION_REGEX_FORMAT_3 =
-            "[\\p{Digit}]{1,2}[ ]?[\\p{Alpha}]{3,9}[ ]?[\\p{Digit}]{4}";
-    public static final String DATE_VALIDATION_REGEX_FORMAT = 
-            DATE_VALIDATION_REGEX_FORMAT_1 + "|"
-            + DATE_VALIDATION_REGEX_FORMAT_2 + "|"
-            + DATE_VALIDATION_REGEX_FORMAT_3;
+    //format: mm/dd/yyyy
+    private static final String DATE_VALIDATION_REGEX = "[\\p{Digit}]{1,2}/[\\p{Digit}]{1,2}/[\\p{Digit}]{4}";
 
     public final LocalDate date;
 
@@ -53,24 +42,20 @@ public class TaskDate {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         
-        try {
-            this.date = DateUtil.parseDate(date);
-        } catch (DateTimeException dateTimeException) {
-            throw new IllegalValueException(MESSAGE_DATE_INVALID);
-        }
+        this.date = LocalDate.parse(date, DATE_FORMATTER);
     }
 
     /**
      * Returns true if a given string is a valid person name.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(DATE_VALIDATION_REGEX_FORMAT);
+        return test.matches(DATE_VALIDATION_REGEX);
     }
 
 
     @Override
     public String toString() {
-        return date.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
+        return date.format(DATE_FORMATTER);
     }
 
     @Override
