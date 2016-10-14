@@ -37,11 +37,42 @@ public class Task implements ReadOnlyTask {
     private UniqueTagList tags;
 
     /**
+     * Constructor for a "todo" Task.
+     * "todo" is a Task only has name
+     * Every field must be present and not null.
+     */
+    public Task(Name name, UniqueTagList tags) {
+        System.out.println("TODO");
+        assert !CollectionUtil.isAnyNull(name, tags);
+        
+        this.name = name;
+        this.tags = new UniqueTagList(tags);
+    }
+    
+    /**
+     * Constructor for a "deadline" Task.
+     * "deadline" is a Task only has name, endDate and endTime
+     * Every field must be present and not null.
+     */
+    public Task(Name name, TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
+        System.out.println("DEADLINE");
+        assert !CollectionUtil.isAnyNull(name, endDate, endTime, tags);
+        
+        this.name = name;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.tags = new UniqueTagList(tags);
+    }
+    
+    /**
+     * Constructor for a "event" Task.
+     * "event" is a Task all fields.
      * Every field must be present and not null.
      */
     public Task(Name name, TaskDate startDate, TaskTime startTime,
             TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, tags);
+        System.out.println("EVENT");
+        assert !CollectionUtil.isAnyNull(name, startDate, startTime, endDate, endTime, tags);
         
         this.name = name;
         this.startDate = startDate;
