@@ -28,6 +28,6 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 #### [Qiang Yu](https://github.com/Hastyrush) <br>
 <img src="images/Qiang Yu.png" width="150"><br>
 **Role**: Developer <br>  
-**Responsibilities**: Dev Ops
+**Responsibilities**: UI
 
 -----
