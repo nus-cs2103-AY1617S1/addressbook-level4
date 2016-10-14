@@ -52,25 +52,40 @@ To get started, proceed to the Quick Start section below.
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
-> * `DATE` parameter can accept different formats. 1 Jan 2015, 010115, 01/01/2015 are all acceptable to represent 1 Jan 2015.
-> * `START_TIME` and `END_TIME` parameters can accept different formats. 3pm, 15:00, 1500 are all acceptable to represent 3pm.
-> * The order of parameters is not fixed.
+> * `DATE_TIME` parameter can accept different formats. 2 Jan 2015 3pm, 15:00 1/2/2015 are acceptable formats to represent 2 Jan 2015, 15:00.
+> * `DATE_TIME` parameter can also accept relative date formats such as tomorrow and next friday.
+> * The order of parameters is fixed.
 
 #### Viewing help : `help`
 Format: `help`
 
 > A pop-up windonw displaying the command summary will be shown. Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
 > <img src="images/UIhelp.png" width="600">
+> 
+#### View all tasks: `view`
+View all tasks for the specified date and deadlines up to the specified date.<br>
+Format: `view [DATE]`
 
+> All tasks for the specified date and deadlines up to the specified date will be displayed. If no date is specified, all tasks for today and all deadlines will be displayed.
+
+Examples:
+
+* `view`
+  > <img src="images/UIview.png" width="600">
+
+* `view 1 Jan 2015`
+  > <img src="images/UIviewDate.png" width="600">
+  
 #### Create a new task: `add`
 Add a new task to the tasks list or a new event to the event calendar.<br>
 Todo format: `add NAME`<br>
-Deadline format: `add NAME DATE END_TIME`<br>
-Event format: `add NAME DATE START_TIME END_TIME`
+Deadline format: `add NAME END_DATE_TIME`<br>
+Event format: `add NAME START_DATE_TIME to END_DATE_TIME`
 
 > Depending on the input format, the task will be saved into 1 of 3 categories: todo, deadline or event.
 
 Examples:
+
 * `add study for test`<br>
   Add a todo task with NAME as `study for test`.
   > <img src="images/UItodo.png" width="600">
@@ -79,28 +94,14 @@ Examples:
   Add a deadline task with NAME as `assignment 4`, DATE as `17 Oct 2016`, END_TIME as `2pm`.
   > <img src="images/UIdeadline.png" width="600">
 
-* `add walk dog 5 Oct 2016 17:00 18:00`<br>
-  Add an event task with NAME as `walk dog`, DATE as `5 Oct 2016`, START_TIME as `17:00`, END_TIME as `18:00`.
+* `add walk dog 5 Oct 2016 17:00 to 18:00`<br>
+  Add an event task with NAME as `walk dog`, DATE as `5 Oct 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.
   > <img src="images/UIevent.png" width="600">
 
-* `add bring dog to vet 8 Oct 2016 17:00 18:00`<br>
-  Add an event task with NAME as `walk dog`, DATE as `8 Oct 2016`, START_TIME as `17:00`, END_TIME as `18:00`.
+* `add bring dog to vet 8 Oct 2016 17:00 to 18:00`<br>
+  Add an event task with NAME as `walk dog`, DATE as `8 Oct 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.
   > Note that this event is set in the future, so please enter `view 8 Oct 2016` to view the timetable for the added event.<br>
   > <img src="images/UIeventFuture.png" width="600">
-  
-
-#### View all tasks: `view`
-View all tasks for the specified date and deadlines up to the specified date.<br>
-Format: `view [DATE]`
-
-> All tasks for the specified date and deadlines up to the specified date will be displayed. If no date is specified, all tasks for today and all deadlines will be displayed.
-
-Examples: 
-* `view`
-  > <img src="images/UIview.png" width="600">
-
-* `view 1 Jan 2015`
-  > <img src="images/UIviewDate.png" width="600">
 
 #### Find tasks: `find`
 Find tasks based on keywords.<br>
@@ -120,6 +121,7 @@ Format: `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 > Format depends on the type of task being edited. When only 1 TIME is provided, it is treated as END_TIME for both deadline and event.
 
 Examples:
+
 * `view`<br>
   `edit d 1 assignment 2 15 Oct 2016`<br>
   Edit the 1st task under the todo tasks section. Changes the NAME to `assignment 2` and DATE to `15 Oct 2016`.<br>
@@ -137,6 +139,7 @@ Delete event format: `delete e INDEX`
 > Delete a task at the specified INDEX under the tasks `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.
 
 Examples:
+
 * `view`<br>
   `delete d 1`<br>
   Delete the 1st task under the deadlines section as shown by the `view` command.<br>
@@ -167,6 +170,7 @@ Event done format: `done e INDEX`
 > Note that tasks that are done are moved to the bottom of the list in their respective sections.
 
 Examples:
+
 * `view`<br>
   `done t 1`<br>
   Mark the 1st task today under the todo section shown by the `view` command as completed.<br>
