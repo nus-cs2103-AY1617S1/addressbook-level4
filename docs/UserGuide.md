@@ -36,17 +36,12 @@ Examples:
 * `add CS2103 Project pd/hard to do s/051016 1200 e/051116 1200  t/priority1`
 
 ## Listing all tasks : `list`
-Shows a list of all unfinished tasks/tasks in 7 days/tasks today in the task list or <br>
+Shows a list of all the task <br>
 Format: `list [KEYWORD]`
 
 Example:
 * `list’
-list all uncompleted task
-* `list 7days’’
-list all uncompleted task for the next 7 days
-* `list today’
-list all uncompleted tasks today
-
+list all task
 
 ## Finding all tasks containing any keyword in their title/description/datetime/tag: `find`
 Finds tasks whose title/description/datetime/tag contain any of the given keywords.<br>
@@ -62,27 +57,6 @@ Examples:
   Display tasks containing `cs1010`, `cs1020`, or `cs2103`
 * `find lab`<br>
   Display tasks containing `lab`.
-
-## Set file location: `storage`
-Set the storage file location. <br>
-Format: storage FILEPATH
-
-Example:
-* `storage C:\Users\` <br>
-
-## Change command name: `change`
-Change the command to user’s preference <br>
-Format : change COMMAND_WORD PREFERED_COMMAND_WORD
-
-Example:
-* `change delete d` <br>
-
-## Set username: `username`
-Set the username to indicate the application is belong to which user <br>
-Format: username USERNAME
-
-Example:
-* `username Jim`<br>
 
 ##Edit a task: `edit`
 Edit the task’s information from the task list <br>
@@ -127,34 +101,6 @@ Examples:
 * `find CS2103` <br>
   `select 1`<br>
   Selects the 1st task in the results of the `find` command.
-
-## Mark task as done : `mark`
-Mark the task as done at the specified ‘INDEX’.<br>
-Format: `mark INDEX`
-
-Examples:
-* `list`<br>
-  `mark 2`<br>
-  Marks the 2nd task in the task list.
-* `find CS2103` <br>
-  `mark 1`<br>
-  Marks the 1st task in the results of the `find` command.
-
-## Unmark task as done : `unmark`
-Unmark the task as done at the specified ‘INDEX’.<br>
-Format: `unmark INDEX`
-
-Examples:
-* `list`<br>
-  `unmark 2`<br>
-  Unmarks the 2nd task in the task list.
-* `find CS2103` <br>
-  `unmark 1`<br>
-  Unmarks the 1st task in the results of the `find` command.
-
-## Undo previous command : `undo`
-Undo the last command from the task list.<br>
-Format: `undo`
 
 ## Clearing all entries : `clear`
 Clears all task from the task list.<br>

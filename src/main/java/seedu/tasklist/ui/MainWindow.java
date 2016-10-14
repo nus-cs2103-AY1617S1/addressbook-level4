@@ -4,7 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -16,8 +18,8 @@ import seedu.tasklist.model.UserPrefs;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart {
 
@@ -61,7 +63,6 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-
     public MainWindow() {
         super();
     }
@@ -77,22 +78,20 @@ public class MainWindow extends UiPart {
     }
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
         mainWindow.configure(config.getAppTitle(), config.getTaskListName(), config, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String taskListName, Config config, UserPrefs prefs,
-                           Logic logic) {
+    private void configure(String appTitle, String taskListName, Config config, UserPrefs prefs, Logic logic) {
 
-        //Set dependencies
+        // Set dependencies
         this.logic = logic;
         this.taskListName = taskListName;
         this.config = config;
         this.userPrefs = prefs;
 
-        //Configure the UI
+        // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
@@ -101,10 +100,86 @@ public class MainWindow extends UiPart {
         primaryStage.setScene(scene);
 
         setAccelerators();
+        setEventFilters();
     }
 
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+    }
+
+    private void setEventFilters() {
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.F1) {
+                handleHelp();
+            } else if (event.getCode() == KeyCode.F11) {
+                handleFullScreen();
+            } else if (event.getCode() == KeyCode.HOME) {
+                handleListPanelSelectFirst();
+            } else if (event.getCode() == KeyCode.END) {
+                handleListPanelSelectLast();
+            } else if (event.getCode() == KeyCode.PAGE_UP) {
+                handleListPanelSelectPrevious();
+            } else if (event.getCode() == KeyCode.PAGE_DOWN) {
+                handleListPanelSelectNext();
+            } else if (event.getCode() == KeyCode.UP) {
+                handlePreviousCommandTextNext();
+            } else if (event.getCode() == KeyCode.DOWN) {
+                handlePreviousCommandTextPrevious();
+            }
+        });
+    }
+
+    /**
+     * Scroll to the first task in the list view
+     */
+    private void handleListPanelSelectFirst() {
+        taskListPanel.selectFirst();
+    }
+    
+    /**
+     * Scroll to the last task in the list view
+     */
+    private void handleListPanelSelectLast() {
+        taskListPanel.selectLast();
+    }
+    
+    /**
+     * Scroll up and select the next task in the list view
+     */
+    private void handleListPanelSelectPrevious() {
+        taskListPanel.selectPrevious();
+    }
+    
+    /**
+     * Scroll down and select the next task in the list view
+     */
+    private void handleListPanelSelectNext() {
+        taskListPanel.selectNext();
+    }
+    
+    /**
+     * Set the main Window into and out of full screen mode
+     */
+    private void handleFullScreen() {
+        if (primaryStage.isFullScreen()) {
+            primaryStage.setFullScreen(false);
+        } else {
+            primaryStage.setFullScreen(true);
+        }
+    }
+
+    /**
+     * Scroll through the previous commands by pressing the Up Key
+     */
+    private void handlePreviousCommandTextNext() {
+        commandBox.selectPreviousCommandTextNext();
+    }
+
+    /**
+     * Scroll through the previous commands by pressing the Down Key
+     */
+    private void handlePreviousCommandTextPrevious() {
+        commandBox.selectPreviousCommandTextPrevious();
     }
 
     void fillInnerParts() {
@@ -160,8 +235,8 @@ public class MainWindow extends UiPart {
      * Returns the current size and the position of the main Window.
      */
     public GuiSettings getCurrentGuiSetting() {
-        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(), (int) primaryStage.getX(),
+                (int) primaryStage.getY());
     }
 
     @FXML
