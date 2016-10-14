@@ -57,6 +57,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -130,6 +133,11 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
+    }
+    
+    private Command prepareEdit(String arguments) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     /**
