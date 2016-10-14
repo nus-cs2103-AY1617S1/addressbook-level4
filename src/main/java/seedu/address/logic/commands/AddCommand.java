@@ -27,16 +27,22 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List. "
-            + "Parameters: NAME [from/at START_DATE START_TIME] [to/by END_DATE END_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
+            + "Parameters: [add] NAME, [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
-            + " read Harry Potter and the Akshay -low";
+            + " feed cat, by today 11:30am repeat every day -high";
     
-    public static final String TOOL_TIP = "add NAME [from/at START_DATE START_TIME] [to/by END_DATE END_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
+    public static final String TOOL_TIP = "add NAME, [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n";
     
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
-
-    private static final String INVALID_START_DATE = "Invalid start date";
-    private static final String INVALID_END_DATE = "Invalid end date";
+    
+    //TODO: Create a class to slot this in?
+    private static final String INVALID_START_DATE = "Invalid start date!\n";
+    private static final String INVALID_END_DATE = "Invalid end date!\n";
+    public static final String MESSAGE_VALUE_CONSTRAINTS = "DATE_TIME format: "
+            + "DATE must be in one of the formats: "
+            + "\"13th Sep 2015\", \"02-08-2015\" (mm/dd/yyyy) \n"
+            + "TIME must be in one of the formats: "
+            + "\"7:30am\", \"19:30\"";
     
     private Task toAdd;
 
@@ -76,12 +82,16 @@ public class AddCommand extends Command {
             throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
         } 
 
-        priority = verifyPriority(priorityString);
+        priority = stringToPriority(priorityString);
             
         this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
     }
 
-    private Priority verifyPriority(String priorityString) {
+    //TODO: Comments suck
+    /**
+     * Converts given String into Priority
+     */
+    private Priority stringToPriority(String priorityString) {
         Priority priority;
         switch (priorityString) {
         case ("low"):
@@ -119,9 +129,8 @@ public class AddCommand extends Command {
             }
             //TODO: Should I not catch exception instead?
         } catch (IndexOutOfBoundsException ioobe) {
-            throw new IllegalValueException(errorMessage);
+            throw new IllegalValueException(errorMessage + MESSAGE_VALUE_CONSTRAINTS);
         }
-        
         
         return date;
     }
