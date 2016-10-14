@@ -44,13 +44,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyTaskManager latestSavedAddressBook;
+    private ReadOnlyTaskManager latestSavedTaskManager;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
-        latestSavedAddressBook = new TaskManager(abce.data);
+        latestSavedTaskManager = new TaskManager(abce.data);
     }
 
     @Subscribe
@@ -66,12 +66,12 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskmanager.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempTaskManagerFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
+        latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -90,7 +90,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'task manager' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskManager, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -100,12 +100,12 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     *      - the internal task manager data are same as those in the {@code expectedTaskManager} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedAddressBook} was saved to the storage file. <br>
+     *      - {@code expectedTaskManager} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyTaskManager expectedAddressBook,
+                                       ReadOnlyTaskManager expectedTaskManager,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
@@ -116,8 +116,8 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getTaskManager());
-        assertEquals(expectedAddressBook, latestSavedAddressBook);
+        assertEquals(expectedTaskManager, model.getTaskManager());
+        assertEquals(expectedTaskManager, latestSavedTaskManager);
     }
 
 
@@ -151,15 +151,10 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args 12/10/2016", expectedMessage);
+                "add no time args 12/10/2016", TaskTime.MESSAGE_TIME_MISSING);
         assertCommandBehavior(
-                "add invalid number of args 12/10/2016", expectedMessage);
-        assertCommandBehavior(
-                "add invalid number of time 12/10/2016 08:00 09:00 10:00", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name t/invalid_-[.tag", expectedMessage);
+                "add Valid Name t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
@@ -192,7 +187,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
 

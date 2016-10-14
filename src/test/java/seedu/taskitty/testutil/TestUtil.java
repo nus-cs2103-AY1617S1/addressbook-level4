@@ -61,20 +61,23 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Task[] samplePersonData = getSamplePersonData();
+    public static final Task[] sampleTaskData = getSampleTaskData();
 
-    private static Task[] getSamplePersonData() {
+    private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), null, null, null, null, new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), null, null, null, null, new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), null, null, null, null, new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), null, null, null, null, new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), null, null, null, null, new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), null, null, null, null, new UniqueTagList()),
-                    new Task(new Name("George Best"), null, null, null, null, new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), null, null, null, null, new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), null, null, null, null, new UniqueTagList())
+                    new Task(new Name("todo task"), new UniqueTagList()),
+                    new Task(new Name("deadline task"), new TaskDate("12/23/2016"), new TaskTime("08:00"),
+                            new UniqueTagList()),
+                    new Task(new Name("event task"), new TaskDate("12/13/2016"), new TaskTime("13:00"),
+                            new TaskDate("12/15/2016"), new TaskTime("10:00"), new UniqueTagList()),
+                    new Task(new Name("read clean code task"), new UniqueTagList()),
+                    new Task(new Name("spring cleaning task"), new TaskDate("12/31/2016"), new TaskTime("15:00"),
+                            new UniqueTagList()),
+                    new Task(new Name("shop for xmas task"), new TaskDate("12/12/2016"), new TaskTime("10:00"),
+                            new TaskDate("12/12/2016"), new TaskTime("19:00"), new UniqueTagList()),
+                    new Task(new Name("xmas dinner task"), new TaskDate("12/25/2016"), new TaskTime("18:30"),
+                            new TaskDate("12/26/2016"), new TaskTime("02:00"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -98,8 +101,8 @@ public class TestUtil {
         }
     }
 
-    public static List<Task> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
+    public static List<Task> generateSampleTaskData() {
+        return Arrays.asList(sampleTaskData);
     }
 
     /**

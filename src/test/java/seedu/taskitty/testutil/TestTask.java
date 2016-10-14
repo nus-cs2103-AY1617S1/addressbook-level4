@@ -23,6 +23,22 @@ public class TestTask implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
+    
+    public void setStartDate(TaskDate startDate) {
+        this.startDate = startDate;
+    }
+    
+    public void setStartTime(TaskTime startTime) {
+        this.startTime = startTime;
+    }
+    
+    public void setEndDate(TaskDate endDate) {
+        this.endDate = endDate;
+    }
+    
+    public void setEndTime(TaskTime endTime) {
+        this.endTime = endTime;
+    }
 
     @Override
     public Name getName() {
@@ -62,6 +78,12 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
+        if (startDate != null && startTime != null) {
+            sb.append(startDate.toString() + " " + startTime.toString() + " to ");
+        }
+        if (endDate != null && endTime != null) {
+            sb.append(endDate.toString() + " " + endTime.toString() + " ");
+        }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

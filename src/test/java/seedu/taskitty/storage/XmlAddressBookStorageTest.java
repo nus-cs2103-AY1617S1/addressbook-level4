@@ -62,9 +62,9 @@ public class XmlAddressBookStorageTest {
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String filePath = testFolder.getRoot().getPath() + "TempTaskManager.xml";
         TypicalTestTask td = new TypicalTestTask();
-        TaskManager original = td.getTypicalAddressBook();
+        TaskManager original = td.getTypicalTaskManager();
         XmlTaskManagerStorage xmlAddressBookStorage = new XmlTaskManagerStorage(filePath);
 
         //Save in new file and read back
@@ -73,14 +73,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new TaskManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTask.hoon));
-        original.removeTask(new Task(TypicalTestTask.alice));
+        original.addTask(new Task(TypicalTestTask.todo));
+        original.removeTask(new Task(TypicalTestTask.dinner));
         xmlAddressBookStorage.saveTaskManager(original, filePath);
         readBack = xmlAddressBookStorage.readTaskManager(filePath).get();
         assertEquals(original, new TaskManager(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTask.ida));
+        original.addTask(new Task(TypicalTestTask.deadline));
         xmlAddressBookStorage.saveTaskManager(original); //file path not specified
         readBack = xmlAddressBookStorage.readTaskManager().get(); //file path not specified
         assertEquals(original, new TaskManager(readBack));

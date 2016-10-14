@@ -11,23 +11,23 @@ public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find Meier", td.benson, td.daniel); //multiple results
+        assertFindResult("find task"); //no results
+        assertFindResult("find xmas", td.shop, td.dinner); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Meier",td.daniel);
+        assertFindResult("find xmas",td.dinner);
     }
 
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
+        assertFindResult("find todo"); //no results
     }
 
     @Test
     public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+        commandBox.runCommand("findevent");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
@@ -35,6 +35,6 @@ public class FindCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");
-        assertTrue(personListPanel.isListMatching(expectedHits));
+        assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }

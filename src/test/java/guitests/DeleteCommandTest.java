@@ -16,7 +16,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     public void deleteWithoutCategory() {
 
         //delete the first in the list
-        TestTask[] currentList = td.getTypicalPersons();
+        TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -40,7 +40,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     public void deleteWithCategory() {
 
         //delete first todo in the list
-        TestTask[] currentList = td.getTypicalPersons();
+        TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         String category = "t";
         assertDeleteSuccess(targetIndex, category, currentList);
@@ -74,7 +74,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous persons except the deleted person
-        assertTrue(personListPanel.isListMatching(expectedRemainder));
+        assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, CATEGORIES[0], personToDelete));
@@ -93,7 +93,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("delete " + category + " " + targetIndexOneIndexed);
         int categoryIndex = StringUtil.getCategoryIndex(category);
         //confirm the list now contains all previous persons except the deleted person
-        assertTrue(personListPanel.isListMatching(expectedRemainder));
+        assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, CATEGORIES[categoryIndex], personToDelete));
