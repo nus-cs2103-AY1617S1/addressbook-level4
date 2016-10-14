@@ -34,6 +34,16 @@ public class AddController implements Controller {
         // TODO
         return (input.startsWith("add")) ? 1 : 0;
     }
+    
+    private static Map<String, String[]> getTokenDefinitions() {
+        Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
+        tokenDefinitions.put("default", new String[] {"add"});
+        tokenDefinitions.put("eventType", new String[] { "event", "task" });
+        tokenDefinitions.put("time", new String[] { "at", "by", "before", "time" });
+        tokenDefinitions.put("timeFrom", new String[] { "from" });
+        tokenDefinitions.put("timeTo", new String[] { "to" });
+        return tokenDefinitions;
+    }
 
     @Override
     public void process(String input) {
