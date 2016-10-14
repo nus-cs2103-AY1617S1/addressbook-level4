@@ -76,7 +76,7 @@ This will open up a help window that will direct you back to this User Guide if 
 #### <a id="add"></a>2. Adding a task: `add`
 Let's get started by adding tasks to the tasklist! You may use any of the below formats to get started.
 
-1. Adds a floating task.<br>
+1) Adds a floating task.<br>
 Format: `add TASK [i/IMPORTANCE] [t/TAGS]...` 
 
 > Floating tasks are tasks without deadlines.
@@ -86,7 +86,7 @@ Examples:
 * `add Wash dishes i/green` <br>
 <br>
 
-2. Adds a task with deadlines.<br>
+2) Adds a task with deadlines.<br>
 Format: `add TASK e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]` 
 
 Examples: 
@@ -94,7 +94,7 @@ Examples:
 * `add Finish Project Paper e/1 March et/12am i/green t/For GEH1027` <br>
 <br>
 
-3. Adds an event.<br>
+3) Adds an event.<br>
 Format: `add TASK s/START_DATE st/START_TIME e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]`
 
 > Events are tasks with a starting and ending point.
@@ -109,7 +109,7 @@ Examples:
 1. Listing all the tasks. <br>
 Format: `list`
 
-The List Command shows a list of all tasks in the task manager so that you will be able to keep track of different tasks on different days.
+The List Command shows a list of all tasks in the task manager so that you can take a look at your tasks all at one go.
 
 You will be able to view all of today’s tasks and  tasks that are due before a specific date. There will be index numbers allocated at the side of each task which will be needed for other operations such as deleting a task or selecting a task.
 
@@ -321,7 +321,7 @@ Command | Format
        the file that contains the data of your previous Address Book folder.
 
 **Q**: How do check if I have the correct Java Version?<br>
-**A**: 
+**A**: <br>
 On Windows:
  1. Click Start on the task bar.
  2. Select Control Panel (or Settings > Control Panel) from the Start menu. The Control Panel is displayed.
