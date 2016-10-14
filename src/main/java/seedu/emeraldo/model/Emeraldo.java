@@ -111,7 +111,11 @@ public class Emeraldo implements ReadOnlyEmeraldo {
             throw new UniquePersonList.TaskNotFoundException();
         }
     }
-
+    
+    public void editTask(ReadOnlyTask key, ReadOnlyTask description) {
+        // TODO Auto-generated method stub
+    }
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
