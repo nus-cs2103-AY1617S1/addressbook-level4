@@ -11,7 +11,7 @@ public class Tag {
 
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "[\\p{Alnum}]+";
-    public static final String TAG_VALIDATION_REGEX_PREFIX = "t/";
+    public static final String TAG_VALIDATION_REGEX_PREFIX = " t/";
     public static final String TAG_VALIDATION_REGEX_FORMAT = 
             TAG_VALIDATION_REGEX_PREFIX + TAG_VALIDATION_REGEX;
 
