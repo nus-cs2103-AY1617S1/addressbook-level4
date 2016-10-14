@@ -79,7 +79,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
+>Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -98,7 +98,7 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
@@ -120,7 +120,7 @@ The `UI` component,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
@@ -135,8 +135,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Task Manager data.
-* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
+* stores the Address Book data.
+* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -148,11 +148,11 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Task Manager data in xml format and read it back.
+* can save the Address Book data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.taskmanager.commons` package.
+Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 ## Implementation
 
@@ -241,7 +241,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Task Manager depends on the
+A project often depends on third-party libraries. For example, Address Book depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -255,27 +255,40 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task |
-`* * *` | user | delete a task | remove entries that I no longer need
-`* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many tasks in the address book | sort tasks by name | locate a task easily
+`* * *` | user | add floating tasks without date or time | I can keep track of tasks which need to be done whenever I have time.
+`* * *` | user | add deadline tasks with a date and end time | I can keep track of deadlines.
+`* * *` | user | add event tasks with a date, start time and end time| I can keep track of events.
+`* * *` | user | search for tasks | review the details of the task. 
+`* * *` | user | delete a task | can get rid of tasks that I no longer care to track. 
+`* * *` | user | view more information about various command | learn how to use those commands. 
+`* * *` | user | edit the details of a specific task | reschedule the task if the deadline has changed.
+`* * *` | new user | view the availability of all the possible commands | understand what features there are in the product.
+`* * *` | user | view all my tasks | I have an idea about the pending tasks.
+`* * *` | user | mark a task as done | it will be removed from my list of things to do.
+`* * *` | user | add floating tasks without date or time | I can do that task whenever I want.
+`* *` | user | undo a command | go back to the previous command if I have made a mistake.
+`* *` | user | rearrange my task based on certain commands | make my schedule more flexible.
+`* *` | user | set the priority of the task when I'm adding a new task | know the urgency of the task.
+`*` | user | have a done list | see what has been done for the day to know how productive I've been.
+`*` | user | sort my task according to the priority | can work on the important task first.
+
+
+
 
 {More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete task
+#### Use case: Delete person
 
 **MSS**
 
-1. User requests to list tasks
-2. TaskManager shows a list of tasks
-3. User requests to delete a specific task in the list
-4. TaskManager deletes the task <br>
+1. User requests to list persons
+2. AddressBook shows a list of persons
+3. User requests to delete a specific person in the list
+4. AddressBook deletes the person <br>
 Use case ends.
 
 **Extensions**
@@ -286,31 +299,244 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. TaskManager shows an error message <br>
+> 3a1. AddressBook shows an error message <br>
   Use case resumes at step 2
+  
+Appendix B: Use Cases
+(For all the use cases below, the **System** is the `ForgetMeNot` and the **Actor** is the `user`, unless specified otherwise)
+
+	
+#### Use Case: Add task
+
+**MSS**
+1. User types in a task to be added.
+2. ForgetMeNot adds the task in the list of tasks
+      Use case ends.
+
+**Extensions**
+
+1a. User enters an incorrect command
+
+> 1a1. ForgetMeNot shows an error and help message
+
+
+
+#### Use Case: Delete Task
+
+**MSS**
+
+1. User requests to list tasks
+2. ForgetMeNot shows the list of tasks to the user
+3. User requests to delete a particular task
+4. ForgetMeNot deletes the task
+      Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. Use case ends
+
+3a. The task is not found
+
+> 3a1. ForgetMeNot displays an error message
+> Use case resumes at step 2
+
+#### Use Case: View information on various commands
+
+**MSS**
+
+1. User requests help to find information about various commands
+2. ForgetMeNot shows the user the list of commands the user can use, along with the format in which they are supposed to be used
+3. User requests to view more information about a particular command
+4. ForgetMeNot show the user more examples on how the particular command can be used
+     Use case ends.
+
+**Extensions**
+
+3a. Invalid command entered
+
+> 3a1. ForgetMeNot displays an error message
+
+> 3a1. Use case resumes at step 2
+
+#### Use case: Sort tasks
+
+**MSS**
+
+1. User requests to sort
+2. ForgetMeNot displays a list of sort options
+3. User requests to sort in a specific way
+4. ForgetMeNot displays the list of tasks after sorting
+      Use case ends
+      
+**Extensions**
+	1a. List of tasks is empty
+	
+> ForgetMeNot shows list is empty message
+
+	3a. Requested sorting manner does not exists
+	
+> ForgetMeNot shows error message
+
+#### Use case: Edit a task
+
+**MSS**
+
+1. User requests to edit a task.
+2. System prompts for confirmation.
+3. User confirms.
+4. System shows user that the task is edited.
+	 Use case ends.
+
+**Extensions**
+
+	1a. Input command incorrect.
+	
+> System shows help message
+
+	1b. The task does not exist.
+	
+> System suggests user to check the input or add a new task
+
+	2a. User changed his mind
+	
+> Command is removed.
+
+#### Use case: List Commands
+
+**MSS**
+
+1. User requests to view a list of commands.
+2. System shows list of commands
+	 Use case ends.
+	 
+**Extensions**
+
+	1a. Input command incorrect.
+	
+> System shows help message
+
+#### Use case: Mark task as done
+
+**MSS**
+1. User request to mark a specific task as done.
+2. System prompts for confirmation.
+3. User confirms.
+4. System shows user that the task is marked as done.
+       Use case ends
+**Extensions**
+
+    1a. Input command incorrect.
+    
+> System shows help message.
+
+	1b. Task entered does not exist
+	
+> System prompts user to check input or add a new task
+	
+	2a. User changed his mind
+	
+> Command is removed.
+
+#### Use case: List task
+
+**MSS**
+
+1. User request to list tasks.
+2. System shows user the list of task.
+      Use case ends
+**Extensions**
+
+	1a. Input command incorrect.
+	
+> System shows help message.
+	
+    1b. No task inside the list.
+    
+> System shows error message
+> Prompt user to add tasks
+
+
+#### Use Case: Undo a task
+
+**MSS**
+
+1. User undo a task
+2. ForgetMeNot undo the most recent command executed
+
+**Extension**
+
+	1a. No command to be undone
+	
+> ForgetMeNot shows error message
+
+	1b. User input an invalid input
+	
+> ForgetMeNot shows help message
+
+
 
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 tasks.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+1. Should be able to hold up to 100 tasks.
+2. Should be able to display request under 0.5 seconds.
+3. Should work on any mainstream OS as long as it has Java 8 or higher installed.
+4. Should be able to add task up to 1 year ahead.
+5. Should be able to operate without internet connection.
+6. Should come with automated unit tests.
+7. Should be able to use the product efficiently after using it for 30 minutes.
+
 
 {More to be added}
 
 ## Appendix D : Glossary
 
-##### Mainstream OS
-
+Mainstream OS: 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
 
-> A contact detail that is not meant to be shared with others
+Day:
+> From 0000 to 2359 of the current day
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+1. **Fantastical**
+
+1a. It has a good and clean UI, really simple to use
+1b. It has integration with all iOS products, i.e. mac, iphone, ipad etc.
+1c. Includes all CRUD features
+1d. It has a reminder function
+1e. Has a list of all upcoming tasks for the week at the left hand side
+1f. Has natural language processing, can add events using Siri
+1g. Locations added when creating events are automatically shown in google/apple map when clicked
+1h. Automatically syncs with apple calendar, updates and syncs on the go.
+
+2. **Google Cal**
+
+2a. It has CRUD features.
+2b. It can link to external applications such as Gmail and Contacts.
+2c. It has cross-platform features.
+2d. It has a reminder function.
+2e. It can support multiple accounts in one device.
+2f. It can create Event, Reminder or Goal.
+2g. All task created are automatically grouped and colour coded.
+2h Clean and simple UI.
+3i. It can be used online or offline.
+3j. It has different kind of viewing options such as Day, 3-day, Week and Month.
+
+3. **Any.do**
+
+3a. It has support for events, deadlines(Today category/Notification reminder), floating task(Someday category)
+3b. It has CRUD
+3c. It has a search function
+3d. It has a way to keep track of which items are done and yet to be done reminders
+3e. It has CRUD features.
+3f. It has a search function.
+3g. It has different tabs for today, tomorrow and date-wise events.
+3h. It allows to set priorities for different tasks.
+3i. It allows to repeat reminders on a periodic basis.
+3j. It can show all previous events which are marked done.
 
