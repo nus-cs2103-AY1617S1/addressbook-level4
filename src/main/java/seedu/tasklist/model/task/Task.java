@@ -1,5 +1,9 @@
 package seedu.tasklist.model.task;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
 import seedu.tasklist.commons.util.CollectionUtil;
@@ -19,7 +23,6 @@ public class Task implements ReadOnlyTask {
     private Priority priority;
     private int uniqueID;
     private boolean isComplete;
-
     private UniqueTagList tags;
 
     /**
@@ -109,11 +112,25 @@ public class Task implements ReadOnlyTask {
         this.priority = priority;
     }
     
+    public boolean isFloating(){
+    	return endTime.isMissing()&&startTime.isMissing();
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
+    }
+    
+    public boolean isOverDue(){
+    	if(!isFloating()){
+      int hours = endTime.endtime.get(Calendar.HOUR_OF_DAY);
+      Calendar today = Calendar.getInstance();
+      today.set(Calendar.HOUR_OF_DAY, hours);
+      
+      return endTime.endtime.after(today);
+    	}
+    	else return false;
     }
 
     @Override

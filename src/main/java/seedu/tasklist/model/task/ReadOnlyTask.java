@@ -13,6 +13,8 @@ public interface ReadOnlyTask {
     EndTime getEndTime();
     Priority getPriority();
     int getUniqueID();
+    boolean isFloating();
+    boolean isOverDue();
     boolean isComplete();
 
     /**

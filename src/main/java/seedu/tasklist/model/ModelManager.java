@@ -144,6 +144,18 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));
     }
+    
+    @Override
+    public void updateFilteredListToShowFloating(){
+    	updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new FloatingQualifier()));
+    }
+    
+    @Override
+    public void updateFilteredListToShowOverDue(){
+    	updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new OverDueQualifier()));
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -195,6 +207,20 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    private class FloatingQualifier implements Qualifier {
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return person.isFloating();
+        }
+    }
+    
+    private class OverDueQualifier implements Qualifier {
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return person.isOverDue();
+        }
+    }
+    
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
         private Pattern NAME_QUERY;

@@ -36,7 +36,13 @@ public class ShowCommand extends Command {
     		
         case "p/high": case "p/med": case "p/low":
             model.updateFilteredListToShowPriority(keyword); break;
-    	
+            
+        case "floating":
+        	model.updateFilteredListToShowFloating(); break;
+        	
+        case "overdue":
+        	model.updateFilteredListToShowOverDue(); break;
+        	
         default:
             return new CommandResult(String.format(MESSAGE_SHOW_FAILURE));
     	}
