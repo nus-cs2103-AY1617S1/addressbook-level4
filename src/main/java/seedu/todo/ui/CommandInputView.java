@@ -91,23 +91,17 @@ public class CommandInputView extends UiPart {
     }
 
     /**
-     * Process the submitted command
+     * Submits a command to logic, and handle the result of CommandResult with
+     * {@link #handleCommandResult(CommandResult)}
+     * @param commandText command submitted by user via {@link #commandTextField}
      */
     private void submitCommandText(String commandText) {
-        //Do not execute an empty command.
-        if (StringUtil.isEmpty(commandText)) {
-            return;
+        //Do not execute an empty command. TODO: This check should be done in the parser class.
+        if (!StringUtil.isEmpty(commandText)) {
+            commandTextField.setDisable(true);
+            CommandResult result = logic.execute(previousCommandText);
+            handleCommandResult(result);
         }
-        
-        //Take a copy of the command text
-        this.previousCommandText = commandText;
-
-        /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
-         * in the event handling code {@link #handleIncorrectCommandAttempted}
-         */
-        CommandResult result = logic.execute(previousCommandText);
-        commandFeedbackView.displayMessage(result.getFeedback());
-
     }
 
     /**
