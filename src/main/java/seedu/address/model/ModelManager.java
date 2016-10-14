@@ -79,16 +79,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized Task editTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
+    public synchronized Task editTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
         Task editedTask = addressBook.editTask(oldTask, newParams, "edit");
-        updateFilteredListToShowAll();
+        //updateFilteredListToShowAll();
         indicateAddressBookChanged();
         
         return editedTask;
     }
     
     @Override
-    public synchronized Task undoEditTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
+    public synchronized Task undoEditTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
         Task editedTask = addressBook.editTask(oldTask, newParams, "undo");
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -100,6 +100,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return new UnmodifiableObservableList<>(filteredPersons);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<Task> getFilteredTaskListForEditing() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
