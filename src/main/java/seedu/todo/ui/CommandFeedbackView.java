@@ -24,14 +24,6 @@ public class CommandFeedbackView extends UiPart {
     
     private AnchorPane placeHolder, textFlowContainer;
 
-    public void displayMessage(String message) {
-        commandFeedbackTextFlow.getChildren().clear();
-        Text text = new Text(message);
-        text.getStyleClass().add("commandFeedback");
-        commandFeedbackTextFlow.getChildren().add(text);
-        logger.info("Message returned: " + message);
-    }
-
     public static CommandFeedbackView load(Stage primaryStage, AnchorPane placeHolder) {
         CommandFeedbackView feedbackView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandFeedbackView());
         feedbackView.configure();
@@ -43,6 +35,19 @@ public class CommandFeedbackView extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandFeedbackTextFlow, 0.0, 0.0, 0.0, 0.0);
         this.placeHolder.getChildren().add(textFlowContainer);
     }
+
+    /**
+     * Displays a message onto the {@link #commandFeedbackTextFlow}
+     * @param message to be shown
+     */
+    public void displayMessage(String message) {
+        commandFeedbackTextFlow.getChildren().clear();
+        Text text = new Text(message);
+        text.getStyleClass().add("commandFeedback");
+        commandFeedbackTextFlow.getChildren().add(text);
+        logger.info("Message returned: " + message);
+    }
+
     /**
      * Indicate an error visually on the {@link #commandFeedbackTextFlow}
      */
