@@ -1,5 +1,7 @@
 package seedu.emeraldo.logic.commands;
 
+import seedu.emeraldo.commons.exceptions.IllegalValueException;
+
 public class EditCommand extends Command{
     
     public static final String COMMAND_WORD = "edit";
@@ -15,8 +17,8 @@ public class EditCommand extends Command{
     
     public final String field;
     
-    public EditCommand(int targetIndex, String field) {
-        this.targetIndex = targetIndex;
+    public EditCommand(String targetIndex, String field) throws IllegalValueException {
+        this.targetIndex = Integer.parseInt(targetIndex);
         this.field = field;
     }
     
