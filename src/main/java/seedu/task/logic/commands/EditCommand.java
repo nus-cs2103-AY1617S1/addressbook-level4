@@ -1,5 +1,6 @@
 package seedu.task.logic.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.task.commons.core.Messages;
@@ -17,14 +18,15 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
  * Edits a task in the address book.
  * Specifically, it finds the details that requires editing and creates a new task, deleting the old one.
  * Currently, it can only edit the name of a task.
+ * This Command is currently VERY INEFFICIENT because it uses deep copying instead of actual editing.
  */
 
 public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the address book. "
-            + "Parameters: Index t/newTaskName p/phoneNumber"
-            + "Example: " + COMMAND_WORD
-            + "1 t/newTaskName";
+            + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate i/interval ti/timeInterval s/status ts/tagSet"
+            + " Example: " + COMMAND_WORD
+            + " 1 t/newTaskName";
 	
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
@@ -38,6 +40,7 @@ public class EditCommand extends Command {
 	private String newTitle;
 	private UnmodifiableObservableList<ReadOnlyTask> taskList;
 	private int taskIndex;
+	private ArrayList<Task> tempCopy = new ArrayList<Task>();
 
 	/**
 	 * Constructor
@@ -71,12 +74,10 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
 		try {
 			selectedTask = searchTask(taskIndex);
 			edit(selectedTask);
-			model.deleteTask(selectedTask);
-			model.addTask(editedTask);
+			modifyList();
 		} catch (TaskNotFoundException e) {
 			return new CommandResult(MESSAGE_NOT_FOUND);
 		} catch (DuplicateTaskException e) {
@@ -85,6 +86,25 @@ public class EditCommand extends Command {
 			return new CommandResult(MESSAGE_PARAM);
 		}
 		return new CommandResult(MESSAGE_SUCCESS);
+	}
+
+	/**
+	 * Begins the modification process in the original list
+	 * @throws TaskNotFoundException
+	 * @throws DuplicateTaskException
+	 */
+	private void modifyList() throws TaskNotFoundException, DuplicateTaskException {
+		for (int i = taskIndex; i < taskList.size(); i++) {
+			tempCopy.add((Task) taskList.get(i));
+		}
+		model.deleteTask(selectedTask);
+		for (int i = 0; i < tempCopy.size(); i++) {
+			model.deleteTask(tempCopy.get(i));
+		}
+		model.addTask(editedTask);
+		for (int i = 0; i < tempCopy.size(); i++) {
+			model.addTask((Task) tempCopy.get(i));
+		}
 	}
 	
 	/**
