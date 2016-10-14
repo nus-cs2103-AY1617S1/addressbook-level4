@@ -37,12 +37,12 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ UserPrefs methods ==============================
 
     @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException, FileNotFoundException {
         return userPrefsStorage.readUserPrefs();
     }
 
     @Override
-    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
+    public void saveUserPrefs(UserPrefs userPrefs) throws IOException, FileNotFoundException {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
@@ -55,23 +55,23 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException, FileNotFoundException {
         return readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, IOException, FileNotFoundException {
         logger.fine("Attempting to read data from file: " + filePath);
         return addressBookStorage.readAddressBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException, FileNotFoundException {
         saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException, FileNotFoundException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
