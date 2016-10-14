@@ -1,5 +1,6 @@
 # Developer Guide 
 
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -10,6 +11,13 @@
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
+
+<br>
+## Introduction
+
+Emeraldo is a simple app for users to manage their daily tasks and for folks who can type fast and spend their time near a computer, and prefer typing over mouse/voice commands. It is a Java desktop application that has a GUI.
+
+This guide describes the design and implementation of Emeraldo. It will help you understand how Emeraldo works and how you can further contribute to its development.
 
 <br>
 ## Setting up
