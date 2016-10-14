@@ -12,6 +12,7 @@ import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
 import seedu.todo.ui.controller.CommandController;
+import seedu.todo.ui.view.CommandErrorView;
 import seedu.todo.ui.view.CommandFeedbackView;
 import seedu.todo.ui.view.CommandInputView;
 
@@ -31,6 +32,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private CommandInputView commandInputView;
     private CommandFeedbackView commandFeedbackView;
+    private CommandErrorView commandErrorView;
     
     private TodoListPanel todoListPanel;
     private Config config;
@@ -94,7 +96,8 @@ public class MainWindow extends UiPart {
         todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getObservableTaskList());
         commandFeedbackView = CommandFeedbackView.load(primaryStage, getResultDisplayPlaceholder());
         commandInputView = CommandInputView.load(primaryStage, getCommandBoxPlaceholder());
-        CommandController.constructLink(logic, commandInputView, commandFeedbackView, null);
+        commandErrorView = new CommandErrorView();
+        CommandController.constructLink(logic, commandInputView, commandFeedbackView, commandErrorView);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
