@@ -1,6 +1,5 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.logic.commands.AddCommand;
 import harmony.mastermind.testutil.TestTask;
@@ -17,19 +16,19 @@ public class AddCommandTest extends TaskManagerGuiTest {
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.task1;
+        TestTask taskToAdd = td.task5;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
-        taskToAdd = td.task2;
+        taskToAdd = td.task6;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
-        commandBox.runCommand(td.task1.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+//        commandBox.runCommand(td.task5.getAddCommand());
+//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+//        assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -40,13 +39,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
+    //@@author A0124797R
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
-
-        //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToPerson(taskToAdd);
-        assertMatching(taskToAdd, addedCard);
-
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));

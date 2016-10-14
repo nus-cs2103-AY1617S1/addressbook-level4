@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <id>1</id>
+        <name>sweep floor</name>
+        <startDate></startDate>
+        <endDate></endDate>
+    </tasks>
+    <tags>
+        <name>Chores</name>
+    </tags>
+</taskmanager>

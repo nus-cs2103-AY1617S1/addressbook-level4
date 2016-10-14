@@ -10,7 +10,7 @@ import harmony.mastermind.model.ReadOnlyTaskManager;
 import harmony.mastermind.model.TaskManager;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.storage.StorageManager;
-import harmony.mastermind.testutil.TypicalTestTask;
+import harmony.mastermind.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertEquals;
 
@@ -49,12 +49,13 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
-        TaskManager original = new TypicalTestTask().getTypicalTaskManager();
+    public void taskManagerReadSave() throws Exception {
+        TaskManager original = new TypicalTestTasks().getTypicalTaskManager();
         storageManager.saveTaskManager(original);
         ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
+        
         assertEquals(original, new TaskManager(retrieved));
-        //More extensive testing of TaskManager saving/reading is done in XmlAddressBookStorageTest
+        //More extensive testing of TaskManager saving/reading is done in XmlTaskManagerStorageTest
     }
 
 

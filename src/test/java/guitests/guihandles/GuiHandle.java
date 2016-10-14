@@ -47,6 +47,8 @@ public class GuiHandle {
 
     protected Node getNode(String query) {
         return guiRobot.lookup(query).tryQuery().get();
+
+        
     }
 
     protected String getTextFieldText(String filedName) {
@@ -64,7 +66,10 @@ public class GuiHandle {
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+        
+        String s = ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+        System.out.println("in getText:" + s);
+        return s;
     }
 
     public void focusOnSelf() {
