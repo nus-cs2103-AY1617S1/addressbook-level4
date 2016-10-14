@@ -51,17 +51,9 @@ public class JimiParser {
     private static final Pattern DETAILS_ARGS_FORMAT = 
             Pattern.compile("(\"(?<taskDetails>.+)\")( by (?<dateTime>.+))?");
     
-    private static final List<Command> COMMAND_STUB_LIST = Arrays.asList(
-            new AddCommand(),
-            new EditCommand(),
-            new SelectCommand(),
-            new DeleteCommand(),
-            new ClearCommand(),
-            new FindCommand(),
-            new ListCommand(),
-            new ExitCommand(),
-            new HelpCommand()
-    );
+    private static final List<Command> COMMAND_STUB_LIST =
+            Arrays.asList(new AddCommand(), new EditCommand(), new SelectCommand(), new DeleteCommand(),
+                    new ClearCommand(), new FindCommand(), new ListCommand(), new ExitCommand(), new HelpCommand());
     
     public JimiParser() {}
 
