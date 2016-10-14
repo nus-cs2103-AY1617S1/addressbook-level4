@@ -397,7 +397,7 @@ Priority | As a ... | I want to ... | So that I can...
 - Unburden will add the task
 - Unburden will show the task added
 
-Use case ends
+  Use case ends
 
 
 
@@ -408,7 +408,7 @@ Use case ends
 - User confirms with Unburden
 - Unburden will delete the task
 
-Use case ends
+  Use case ends
 
 
 
@@ -420,7 +420,7 @@ Use case ends
 - Unburden will show a list of the tasks
 - User is able to remember what he/she needs to do
 
-Use case ends
+  Use case ends
 
 
 
@@ -433,7 +433,7 @@ Use case ends
 - User will confirm with Unburden
 - Unburden will update the new changes
 
-Use case: ends
+  Use case: ends
 
 
 
