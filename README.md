@@ -3,7 +3,7 @@
 
 # Daily Planner
 
-
+<img src="docs/images/whiteboard drawing.jpg" width="600"><br>
 
 * This is a desktop Daily Planner application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a To-Do List application that helps the user plan and organise their daily schedule automatically.
