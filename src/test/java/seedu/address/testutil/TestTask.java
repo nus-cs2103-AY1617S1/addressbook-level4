@@ -6,15 +6,15 @@ import seedu.address.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
-    private Email email;
-    private Phone phone;
+
+    private Date date;
+
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
@@ -22,16 +22,11 @@ public class TestPerson implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
-    public void setEmail(Email email) {
-        this.email = email;
-    }
+    public void setDeadline(Date time) {
+        this.date = time;
 
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+ 
     }
 
     @Override
@@ -40,18 +35,8 @@ public class TestPerson implements ReadOnlyTask {
     }
 
     @Override
-    public Deadline getDeadline() {
-        return phone;
-    }
-
-    @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Address getAddress() {
-        return address;
+    public Date getDate() {
+        return date;
     }
 
     @Override
@@ -67,9 +52,15 @@ public class TestPerson implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskName + " ");
-        sb.append("p/" + this.getDeadline().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        sb.append("a/" + this.getAddress().value + " ");
+
+        if (date instanceof EventDate) {
+            EventDate eventDate = (EventDate) this.getDate();
+            sb.append("s/" + eventDate.getStartDate() + " ");
+            sb.append("e/" + eventDate.getEndDate() + " ");
+        } else {
+            assert date instanceof Deadline;
+            sb.append("d/" + this.getDate().getValue() + " ");
+        }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

@@ -18,6 +18,7 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 or horror night";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
 
     public final int targetIndex;
     public final String name;
@@ -59,8 +60,13 @@ public class DeleteCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, TaskToDelete));
+        String successMessage;
+        if (TaskToDelete.isEvent()) {
+            successMessage = MESSAGE_DELETE_EVENT_SUCCESS;
+        } else {
+            successMessage = MESSAGE_DELETE_TASK_SUCCESS;
+        }
+        return new CommandResult(String.format(successMessage, TaskToDelete));
     }
 
 }
