@@ -214,20 +214,6 @@ public class CommandParser {
         
     }
 
-    /*private static Set<String> getTagsFromArgs(String data) throws IllegalValueException {
-        Pattern tagPattern = Pattern.compile(Tag.TAG_VALIDATION_REGEX_FORMAT); //Does this name make sense?
-        Matcher tagMatcher = tagPattern.matcher(data);
-        ArrayList<String> tagStrings = new ArrayList<String>();
-        
-        while (tagMatcher.find()) {
-            String tag = tagMatcher.group().replaceFirst("t/", "");
-            System.out.println(tag);
-            tagStrings.add(tag);
-        }
-        
-        return new HashSet<>(tagStrings);
-    }*/
-    
     /**
      * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.

@@ -42,7 +42,6 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Name name, UniqueTagList tags) {
-        System.out.println("TODO");
         assert !CollectionUtil.isAnyNull(name, tags);
         
         this.name = name;
@@ -55,7 +54,6 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Name name, TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
-        System.out.println("DEADLINE");
         assert !CollectionUtil.isAnyNull(name, endDate, endTime, tags);
         
         this.name = name;
@@ -71,7 +69,6 @@ public class Task implements ReadOnlyTask {
      */
     public Task(Name name, TaskDate startDate, TaskTime startTime,
             TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
-        System.out.println("EVENT");
         assert !CollectionUtil.isAnyNull(name, startDate, startTime, endDate, endTime, tags);
         
         this.name = name;
