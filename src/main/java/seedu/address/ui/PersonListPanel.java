@@ -90,15 +90,11 @@ public class PersonListPanel extends UiPart {
         });
     }
     
-    @FXML
-    private void handleSwitchTaskListView(){
-        System.out.println("hello");
-        if (taskListView.getItems() == undoneTaskList){
-            System.out.println("switch from undone to done");
+    public void handleSwitchTaskListView(Boolean isRequiredViewListDoneView) {
+        if (isRequiredViewListDoneView) {
             taskListView.setItems(doneTaskList);
         }
-        else{
-            System.out.println("switch from done to undone");
+        else {
             taskListView.setItems(undoneTaskList);
         }
             
