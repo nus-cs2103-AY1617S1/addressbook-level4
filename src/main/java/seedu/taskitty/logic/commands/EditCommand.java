@@ -54,6 +54,7 @@ public class EditCommand extends Command{
                 null,
                 null,
                 null,
+                null,
                 new UniqueTagList(tagSet)
         );
     }

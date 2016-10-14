@@ -43,22 +43,23 @@ public class AddCommand extends Command {
         if (data.length == Task.TASK_COMPONENT_COUNT) {
             this.toAdd = new Task(
                 new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
-                null, null, null,
+                null, null, null, null,
                 new UniqueTagList(tagSet)
             );
         } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
             this.toAdd = new Task(
                 new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
-                new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_DATE]),
-                null,
+                null, null,
+                new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
                 new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME]),
                 new UniqueTagList(tagSet)
             );
         } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
             this.toAdd = new Task(
                 new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
-                new TaskDate(data[Task.EVENT_COMPONENT_INDEX_DATE]),
+                new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
                 new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
+                new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
                 new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME]),
                 new UniqueTagList(tagSet)
             );

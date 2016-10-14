@@ -29,7 +29,7 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
-    public TaskDate getDate() {
+    public TaskDate getStartDate() {
         return date;
     }
 
