@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
@@ -64,7 +65,7 @@ public class CommandInputView extends UiPart {
      * Once a command is received, calls {@link #submitCommandInput(String)} to submit that command.
      */
     private void listenToCommandInput() {
-        this.commandTextField.setOnKeyPressed(event -> {
+        this.commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 submitCommandInput(commandTextField.getText());
                 event.consume(); //To prevent commandTextField from printing a new line.
