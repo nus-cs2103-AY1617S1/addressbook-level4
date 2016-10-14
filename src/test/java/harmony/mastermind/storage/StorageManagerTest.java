@@ -49,12 +49,13 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void taskManagerReadSave() throws Exception {
         TaskManager original = new TypicalTestTask().getTypicalTaskManager();
         storageManager.saveTaskManager(original);
         ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
+        
         assertEquals(original, new TaskManager(retrieved));
-        //More extensive testing of TaskManager saving/reading is done in XmlAddressBookStorageTest
+        //More extensive testing of TaskManager saving/reading is done in XmlTaskManagerStorageTest
     }
 
 

@@ -94,8 +94,23 @@ public class TestTask implements ReadOnlyTask {
     
     //@@author A0124797R
     @Override 
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Task // instanceof handles nulls
+                && this.getName().equals(((Task) other).getName())); // state check
+        
+    }
+    
+    //@@author A0124797R
+    @Override
     public boolean isSameTask(ReadOnlyTask task) {
-        return getName().equals(task.getName());
+        return this.getName().equals(task.getName());
+    }
+    
+    //@@author A0124797R
+    @Override
+    public String toString() {
+        return getAsText();
     }
     
 }
