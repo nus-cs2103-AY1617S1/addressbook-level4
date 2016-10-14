@@ -10,7 +10,7 @@
 * [Introduction](#1-introduction)
 * [Site Map](#2-site-map)
 * [Acknowledgements](#3-acknowledgements)
-* [License](4-license)
+* [License](4-license-mit)
 
 
 ### 1. IntroductionHello! Do you have too many tasks and are unable to finish all of them? Are you looking for a hassle-free task manager which works swiftly?Enter Agendum.
