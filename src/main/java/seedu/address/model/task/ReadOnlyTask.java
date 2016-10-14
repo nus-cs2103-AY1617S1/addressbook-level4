@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import java.time.LocalDateTime;
+
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -9,9 +11,10 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Description getDescription();
-    Deadline getDeadline();
     Location getLocation();
-
+	LocalDateTime getDate();
+	Priority getPriority();
+	
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
@@ -25,7 +28,7 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getDescription().equals(this.getDescription()) // state checks here onwards
-                && other.getDeadline().equals(this.getDeadline())
+                && other.getDate().equals(this.getDate())
                 && other.getLocation().equals(this.getLocation()));
     }
 
@@ -38,11 +41,11 @@ public interface ReadOnlyTask {
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Deadline: ")
-                .append(getDeadline())
+                .append(getDate())
                 .append(" Location: ")
-                .append(getLocation())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getLocation());
+//                .append(" Tags: ");
+//        getTags().forEach(builder::append);
         return builder.toString();
     }
 
@@ -59,5 +62,6 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+
 
 }

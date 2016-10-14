@@ -21,9 +21,9 @@ public class Location {
      */
     public Location(String location) throws IllegalValueException {
         assert location != null;
-        if (!isValidLocation(location)) {
-            throw new IllegalValueException(MESSAGE_LOCATION_CONSTRAINTS);
-        }
+//        if (!isValidLocation(location)) {
+//            throw new IllegalValueException(MESSAGE_LOCATION_CONSTRAINTS);
+//        }
         this.value = location;
     }
 
