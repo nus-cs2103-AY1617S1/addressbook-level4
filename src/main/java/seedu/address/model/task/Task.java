@@ -6,23 +6,29 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Task (with or without deadline) in the task manager.
+ * Represents an event or a task (with or without deadline) in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
+    private boolean isEvent;
     private Name name;
-    private Deadline deadline;
+    private Date date;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Deadline deadline, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, deadline, tags);
+    public Task(Name name, Date date, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
-        this.deadline = deadline;
+        this.date = date;
+        if (date instanceof EventDate) {
+            isEvent = true;
+        } else {
+            isEvent = false;
+        }
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -30,17 +36,22 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDeadline(), source.getTags());
+        this(source.getName(), source.getDate(), source.getTags());
     }
-
+    
     @Override
     public Name getName() {
         return name;
     }
 
     @Override
-    public Deadline getDeadline() {
-        return deadline;
+    public Date getDate() {
+        return date;
+    }
+    
+    @Override
+    public boolean isEvent() {
+        return isEvent;
     }
 
     @Override
@@ -65,7 +76,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, deadline, tags);
+        return Objects.hash(name, date, tags);
     }
 
     @Override

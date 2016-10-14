@@ -16,7 +16,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertNoPersonSelected();
 
         assertSelectionSuccess(1); //first person in the list
-        int personCount = td.getTypicalPersons().length;
+        int personCount = td.getTypicalTasks().length;
         assertSelectionSuccess(personCount); //last person in the list
         int middleIndex = personCount / 2;
         assertSelectionSuccess(middleIndex); //a person in the middle of the list
@@ -36,7 +36,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("The person index provided is invalid");
+        assertResultMessage("The task index provided is invalid");
     }
 
     private void assertSelectionSuccess(int index) {
