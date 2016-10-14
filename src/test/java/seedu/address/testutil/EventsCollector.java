@@ -1,8 +1,9 @@
 package seedu.address.testutil;
 
 import com.google.common.eventbus.Subscribe;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.BaseEvent;
+
+import seedu.dailyplanner.commons.core.EventsCenter;
+import seedu.dailyplanner.commons.events.BaseEvent;
 
 import java.util.ArrayList;
 import java.util.List;

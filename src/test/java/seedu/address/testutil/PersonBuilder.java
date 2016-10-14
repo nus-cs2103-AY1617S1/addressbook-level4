@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.*;
+import seedu.dailyplanner.commons.exceptions.IllegalValueException;
+import seedu.dailyplanner.model.tag.Tag;
+import seedu.dailyplanner.model.task.*;
 
 /**
  *

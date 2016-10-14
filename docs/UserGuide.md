@@ -112,21 +112,23 @@ help
 
 ### Adding a task : `add`
 
-Adds a task to the planner <br>
+Adds a task to the planner <br><br>
 Format:<br> 
 ```
 1. add TASKNAME DATE(optional)
 2. add TASKNAME DATE(optional) STARTTIME to ENDTIME isRECURRING(optional)
 3. add TASKNAME DATE(optional) by ENDTIME(optional) isRECURRING(optional)
 ```
-<br>
 
 Examples:<br>
 1. `add gym today` <br>
-> Task with no specified timing is added to today's schedule
+> Task with no specified timing is added to today's schedule<br>
+
 2. `add meeting tomorrow 2pm to 4pm` <br>
-> Fixed task is added from 2pm to 4pm the next day
+
+> Fixed task is added from 2pm to 4pm the next day<br>
 3. `add math homework by 6pm` <br>
+
 > Task with a deadline is added, no date is specified so today’s date is assumed<br>
 
 
@@ -142,7 +144,7 @@ show DATE(optional)
 
 Examples:<br>
 1. `show today`
->Shows schedule for today
+>Shows schedule for today<br>
 2. `show next wednesday`
 >Shows schedule for next wednesday <br>
 

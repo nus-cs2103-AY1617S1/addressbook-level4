@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.AddressBook;
+import seedu.dailyplanner.commons.exceptions.IllegalValueException;
+import seedu.dailyplanner.model.AddressBook;
+import seedu.dailyplanner.model.tag.Tag;
+import seedu.dailyplanner.model.task.Task;
+import seedu.dailyplanner.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Addressbook objects.

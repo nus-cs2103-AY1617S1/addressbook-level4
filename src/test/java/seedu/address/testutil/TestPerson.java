@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.*;
+import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.task.*;
 
 /**
  * A mutable person object. For testing only.
