@@ -11,6 +11,7 @@ import java.util.*;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
+ * The tasks in this list get filtered to different individual lists.
  *
  * Supports a minimal set of list operations.
  *
@@ -69,11 +70,12 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
-     * Filter the task being added to the list so as to assign the task to different internal lists.
+     * Filter the task being added to the overall internal list
+     * so as to add the task to corresponding individual internal lists.
      * 
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
     public void filterTaskToAdd(Task toAdd) {
+    	assert toAdd != null;
     	if (toAdd.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
     		internalSomedayList.add(toAdd);
     		// TO-DO: Sort the toAdd Task according to date(startDate for events and dueDate for deadlines).
@@ -91,26 +93,54 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
+        filterTaskToRemove(toRemove);
         return taskFoundAndDeleted;
+    }
+    
+    /**
+     * Filter the task being removed from the overall internal list
+     * so as to remove the task from corresponding individual internal lists.
+     * 
+     */
+    public void filterTaskToRemove(ReadOnlyTask toRemove) {
+    	assert toRemove != null;
+    	if (toRemove.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
+    		internalSomedayList.remove(toRemove);
+    		// TO-DO: Sort the toRemove Task according to date(startDate for events and dueDate for deadlines).
+    	}
     }
     
     /**
      * set the equivalent task to the specified index of the list
      * @throws TaskNotFoundException if no such task could be found in the list.
      */ 			
-    public boolean set(int key, Task Task) throws TaskNotFoundException {
-        assert Task != null;
+    public boolean set(int key, Task toSet) throws TaskNotFoundException {
+        assert toSet != null;
         boolean isFound = false;
         if (internalList.size() < key) {
             throw new TaskNotFoundException();
         } else {
-        	internalList.set(key-1, Task);
+        	internalList.set(key-1, toSet);
+        	filterTaskToSet(key-1, toSet);
         	isFound = true;
         }
         return isFound;
     }
 
-    public ObservableList<Task> getInternalList() {
+    /**
+     * Filter the task being set from the overall internal list
+     * so as to edit the task in corresponding individual internal lists.
+     * 
+     */
+    private void filterTaskToSet(int key, Task toSet) {
+		assert toSet != null;
+		if (toSet.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
+		    internalSomedayList.set(key, toSet);
+		    // TO-DO: Sort the toSet Task according to date(startDate for events and dueDate for deadlines).
+		}
+	}
+
+	public ObservableList<Task> getInternalList() {
         return internalList;
     }
 
