@@ -1,9 +1,16 @@
 # User Guide
 
+* [Introduction](#introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+
+
+## Introduction
+This application is a task manager created to solve Jim's problems. Jim is a person who prefers typing over clicking, and to that end this task manager has Command Line Interface as the primary mode of input. A Graphical User Interface is present for visual feedback purposes.
+
+This user guide covers the features of the application and has a short summary of commands at the end for reference.
 
 
 ## Quick Start
@@ -34,14 +41,14 @@
 > * The order of parameters is fixed.
 
 
-#### Viewing help : `help`
+#### View help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 
-#### Adding a task/tag
-##### Adding a task: `add`
+#### Add a task/tag
+##### Add a task: `add`
 Adds a task to the task manager.<br>
 Format: `add DESCRIPTION [pr/RANK] [time/TIME] [a/VENUE] [t/TAG]...`
 
@@ -54,7 +61,7 @@ Examples:
 * `add get eggs pr/low t/family`
 * `add organize room`
 
-##### Adding tags: `addTag`
+##### Add tags: `add tag`
 Add tags to specified task.<br>
 Format: `addTag INDEX TAG`
 
@@ -64,8 +71,8 @@ Example:
   Adds the tag `NUS` to the task with the index 2
 
 
-#### Listing all tasks/tags
-##### Listing all tasks: `list`
+#### List all tasks/tags
+##### List all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
 Format: `list [-pr] [-t/TAGS]...`
 
@@ -73,23 +80,23 @@ Format: `list [-pr] [-t/TAGS]...`
 > * Tasks without deadlines are listed at the end when chronologically sorted
 
 Modifiers | Action
----|:---
+--- | :---
 -pr | Tasks are listed by priority
--t/TAG | Tasks with the specified tag are listed
+-t/TAG | Tasks with the specified tag are listed 
 
 <img src="images/UserGuide Mock up2.png" title="Task manager listing tasks by priority" width="900">
 <figcaption>Fig. 2: Task manager listing tasks by priority</figcaption>
 
-##### Listing all tags used: `list tags`
+##### List all tags used: `list tags`
 Lists all the tags used in the task manager.<br>
 Format: `list tags`
 
 
-#### Finding all tasks containing any keyword in their description: `find`
+#### Find all tasks containing any keyword in their description: `find`
 Finds tasks whose description contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is case sensitive. e.g `Gives` will not match `give`
+> * The search is not case sensitive. e.g `Gives` will match `give`
 > * The order of the keywords does not matter. e.g. `Give Eggs` will match `Eggs Give`
 > * Only the description is searched.
 > * Only full words will be matched e.g. `Return` will not match `Returns`
@@ -103,7 +110,7 @@ Examples:
   Returns Any tasks having description containing `Return`, `lunch`, or `Meeting`
 
 
-#### Deleting a task/tag
+#### Delete a task/tag
 ##### Delete a task: `delete`
 Deletes the specified task from the task manager.<br>
 Format: `delete INDEX`
@@ -113,7 +120,7 @@ Examples:
   `delete 2`<br>
   Deletes the 2nd task in the task manager.
 
-##### Deleting tags from a task: `deleteTag`
+##### Delete tags from a task: `delete tag`
 Delete tags from specified task.<br>
 Format: `deleteTag INDEX TAG`
 
@@ -123,7 +130,7 @@ Example:
   Removes the tag `NTU` from the task with the index 3
 
 
-#### Editing a task: `update`
+#### Edit a task: `edit`
 Edits the specified task.<br>
 Format: `update INDEX PROPERTY INPUT`
 
@@ -137,7 +144,7 @@ Examples:
   Edits the 3rd task in the task manager by replacing the description, resetting the priority and removing the deadline
 
 
-#### Completing a task: `complete`
+#### Complete a task: `complete`
 Tag the task last selected as 'Complete' and remove it from the calendar.<br>
 Format: `complete INDEX`
 
@@ -152,17 +159,17 @@ Undoes the most recent change from the task manager.<br>
 Format: `undo`
 
 
-#### Clearing entries: `clear`
+#### Clear entries: `clear`
 Clears all entries from the task manager.<br>
 Format: `clear`
 
 
-#### Exiting the program: `exit`
+#### Exit the program: `exit`
 Exits the program.<br>
 Format: `exit`
 
 
-#### Saving the data
+#### Save data
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 

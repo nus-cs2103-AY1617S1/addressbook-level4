@@ -16,19 +16,19 @@ import java.util.Optional;
 public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException, FileNotFoundException;
 
     @Override
-    void saveUserPrefs(UserPrefs userPrefs) throws IOException;
+    void saveUserPrefs(UserPrefs userPrefs) throws IOException, FileNotFoundException;
 
     @Override
     String getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException, FileNotFoundException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException, FileNotFoundException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.
