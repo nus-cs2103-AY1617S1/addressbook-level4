@@ -74,7 +74,9 @@ This will open up a help window that will direct you back to this User Guide if 
 <br><br>
  
 #### <a id="add"></a>2. Adding a task: `add`
-\\1. Adds a floating task.<br>
+Let's get started by adding tasks to the tasklist! You may use any of the below formats to get started.
+
+1. Adds a floating task.<br>
 Format: `add TASK [i/IMPORTANCE] [t/TAGS]...` 
 
 > Floating tasks are tasks without deadlines.
@@ -84,7 +86,7 @@ Examples:
 * `add Wash dishes i/green` <br>
 <br>
 
-\2. Adds a task with deadlines.<br>
+2. Adds a task with deadlines.<br>
 Format: `add TASK e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]` 
 
 Examples: 
@@ -92,7 +94,7 @@ Examples:
 * `add Finish Project Paper e/1 March et/12am i/green t/For GEH1027` <br>
 <br>
 
-\3. Adds an event.<br>
+3. Adds an event.<br>
 Format: `add TASK s/START_DATE st/START_TIME e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]`
 
 > Events are tasks with a starting and ending point.
@@ -104,7 +106,7 @@ Examples:
 <br><br>
 
 #### <a id="list"></a>3. Listing tasks: `list`
-\\1. Listing all the tasks. <br>
+1. Listing all the tasks. <br>
 Format: `list`
 
 The List Command shows a list of all tasks in the task manager so that you will be able to keep track of different tasks on different days.
@@ -112,7 +114,7 @@ The List Command shows a list of all tasks in the task manager so that you will 
 You will be able to view all of today’s tasks and  tasks that are due before a specific date. There will be index numbers allocated at the side of each task which will be needed for other operations such as deleting a task or selecting a task.
 
 
-\\2. Listing today’s task. <br>
+2. Listing today’s task. <br>
 Format: `list today`
 
 In order to shows a list of the tasks due today in the task manager, you have to type the following in the command line <br>
@@ -121,7 +123,7 @@ In order to shows a list of the tasks due today in the task manager, you have to
 
 This will bring up all your tasks in a list which is sorted accordingly to the time that the task will be starting. <br>
 
-\3. Listing tasks due before a specific date. <br>
+3. Listing tasks due before a specific date. <br>
 Format: `list DATE`
 
 By keying in the following, it will display a list of the tasks due before the input date in the task manager.
