@@ -114,25 +114,25 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList;
     }
 
-	public List getInternalTodayTaskList() {
-		return internalTodayList;
-	}
+    public List getInternalTodayTaskList() {
+        return internalTodayList;
+    }
 
-	public List getInternalTomorrowTaskList() {
-		return internalTomorrowList;
-	}
+    public List getInternalTomorrowTaskList() {
+        return internalTomorrowList;
+    }
 
-	public List getInternalIn7DaysTaskList() {
-		return internalIn7DaysList;
-	}
+    public List getInternalIn7DaysTaskList() {
+        return internalIn7DaysList;
+    }
 
-	public List getInternalIn30DaysTaskList() {
-		return internalIn30DaysList;
-	}
+    public List getInternalIn30DaysTaskList() {
+        return internalIn30DaysList;
+    }
 
-	public List getInternalSomedayTaskList() {
-		return internalSomedayList;
-	}
+    public List getInternalSomedayTaskList() {
+        return internalSomedayList;
+    }
 	
     @Override
     public Iterator<Task> iterator() {
