@@ -1,11 +1,12 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.logic.commands.ShowCommand;
-import seedu.address.testutil.TestTask;
+
+import teamfour.tasc.logic.commands.ShowCommand;
+import teamfour.tasc.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static teamfour.tasc.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class ShowCommandTest extends AddressBookGuiTest {
 

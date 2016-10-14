@@ -1,10 +1,10 @@
 package guitests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static teamfour.tasc.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.RelocateCommand;
+import teamfour.tasc.logic.commands.RelocateCommand;
 
 public class RelocateCommandTest extends AddressBookGuiTest {
     @Test

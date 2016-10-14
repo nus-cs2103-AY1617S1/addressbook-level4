@@ -1,7 +1,8 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestTask;
+
+import teamfour.tasc.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 

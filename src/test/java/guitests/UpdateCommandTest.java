@@ -10,13 +10,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.task.Deadline;
-import seedu.address.model.task.Name;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+import teamfour.tasc.commons.core.Messages;
+import teamfour.tasc.commons.exceptions.IllegalValueException;
+import teamfour.tasc.logic.commands.AddCommand;
+import teamfour.tasc.model.task.Deadline;
+import teamfour.tasc.model.task.Name;
+import teamfour.tasc.testutil.TestTask;
+import teamfour.tasc.testutil.TestUtil;
 
 public class UpdateCommandTest extends AddressBookGuiTest {
 

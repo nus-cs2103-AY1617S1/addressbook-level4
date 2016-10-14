@@ -6,10 +6,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
-import seedu.address.testutil.TestUtil;
+import teamfour.tasc.TestApp;
+import teamfour.tasc.model.task.ReadOnlyTask;
+import teamfour.tasc.model.task.Task;
+import teamfour.tasc.testutil.TestUtil;
 
 import java.util.List;
 import java.util.Optional;

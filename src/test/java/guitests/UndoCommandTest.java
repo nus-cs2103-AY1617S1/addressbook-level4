@@ -2,10 +2,10 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.logic.LogicManager;
-
 import static org.junit.Assert.assertTrue;
-import seedu.address.logic.commands.UndoCommand;
+
+import teamfour.tasc.logic.LogicManager;
+import teamfour.tasc.logic.commands.UndoCommand;
 
 public class UndoCommandTest extends AddressBookGuiTest {
     public static int commandsInStack;

@@ -1,14 +1,14 @@
 package guitests;
 
 import static org.junit.Assert.*;
-import static seedu.address.logic.commands.CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS;
-import static seedu.address.logic.commands.CompleteCommand.MESSAGE_COMPLETE_TASK_ALREADY_COMPLETED;
+import static teamfour.tasc.logic.commands.CompleteCommand.MESSAGE_COMPLETE_TASK_ALREADY_COMPLETED;
+import static teamfour.tasc.logic.commands.CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS;
 
 import org.junit.Test;
 
-import seedu.address.model.task.Complete;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+import teamfour.tasc.model.task.Complete;
+import teamfour.tasc.testutil.TestTask;
+import teamfour.tasc.testutil.TestUtil;
 
 public class CompleteCommandTest extends AddressBookGuiTest {
 
