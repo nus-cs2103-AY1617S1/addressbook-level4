@@ -13,9 +13,9 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
+            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, 08-111")
                     .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
+            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, 02-25")
                     .withTags("owesMoney", "friends").build();
             carl = new PersonBuilder().withName("Carl Kurz").withAddress("wall street").build();
             daniel = new PersonBuilder().withName("Daniel Meier").withAddress("10th street").build();
