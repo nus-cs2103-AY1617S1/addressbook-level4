@@ -192,13 +192,27 @@ Given below is the Sequence Diagram for interactions within the **`Logic`** comp
 
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
+**`Logic` Interface:**
+
+The `Logic` interface allows you to request for any logic-related operation, such as parsing and executing commands, without having to know anything about the implementation of the `LogicManager` class.
+
+Notable APIs
+
+Return type | Method and Description
+----------- | ----------------------
+CommandResult() | `execute(String commandText)`: Identifies and executes the command found in the input string `commandText`.
+ObservableList() | `getFilteredTaskList()`: Retrieves the filtered task list from the **`Model`** component.
+
 **`Logic Manager` Class:**
 
-The `Logic Manager` class exposes the functionality of the **`Logic`** component, executing the input string containing the command passed from the **`UI`** component, and passing the result to **`Model`**. First, it passes the command string to the `Parser` class to get a `Command` object. Then, it executes the `Command` to produce a `CommandResult`. This `CommandResult` is then passed back to the **`UI`** component.
+The `Logic Manager` class implements the **`Logic`** interface, and provides all the services and functionality
+specifed in the **`Logic`** interface. It executes the command in the input string passed from the **`UI`** component. First, it passes the command string to the `Parser` class to get a `Command` object. Then, it executes the `Command` to produce a `CommandResult`. This `CommandResult` is then passed back to the **`UI`** component.
+
+Other components should reference this class indirectly by using the `Logic` interface. You should not directly use this class outside the **`Logic`** component
 
 **`Parser` Class:**
 
-The `Parser` class parses the given input string and returns the corresponding `Command`. It uses predefined keywords to identify which `Command` to return, and to extract the arguments relevant to the `Command`. `Parser` then calls the  constructor for the identified `Command`, and passes in the extracted arguments.
+The `Parser` class parses the given input string and returns the corresponding `Command`. It uses predefined keywords to identify which `Command` to return, and to extract the arguments relevant to the `Command`. `Parser` then calls the constructor for the identified `Command`, and passes in the extracted arguments.
 
 **`Command` Class:**
 
