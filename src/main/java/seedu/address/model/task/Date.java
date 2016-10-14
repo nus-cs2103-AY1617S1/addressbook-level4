@@ -9,6 +9,8 @@ public interface Date {
     public static final String DATE_VALIDATION_REGEX = "^[0-3]?[0-9].[0-1]?[0-9].([0-9]{4})(-[0-2]?[0-9]?)?";
     // EXAMPLE = "15.10.2016-14"
 
+    String getValue();
+    
     String toString();
 
     int hashCode();
