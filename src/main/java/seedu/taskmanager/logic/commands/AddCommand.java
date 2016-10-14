@@ -91,7 +91,7 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addItem(toAdd);
+            model.addItem(toAdd, String.format(MESSAGE_SUCCESS, toAdd));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueItemList.DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ITEM);

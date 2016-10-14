@@ -41,7 +41,7 @@ public class UndoneCommand extends Command {
         ReadOnlyItem itemToEdit = lastShownList.get(targetIndex - 1);
         
         try {
-            model.setUndone(itemToEdit);
+            model.setUndone(itemToEdit, String.format(MESSAGE_DONE_SUCCESS, itemToEdit));
         } catch (ItemNotFoundException pnfe) {
             assert false : "The target item cannot be missing";
         }

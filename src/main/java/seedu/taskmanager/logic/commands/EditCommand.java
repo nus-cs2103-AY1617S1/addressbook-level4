@@ -100,7 +100,7 @@ public class EditCommand extends Command {
         }
         
         try {
-            model.replaceItem(itemToEdit, itemToReplace);
+            model.replaceItem(itemToEdit, itemToReplace, String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
         } catch (ItemNotFoundException pnfe) {
             assert false : "The target item cannot be missing";
         } catch (UniqueItemList.DuplicateItemException e) {

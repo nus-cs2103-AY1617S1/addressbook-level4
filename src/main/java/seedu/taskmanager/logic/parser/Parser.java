@@ -18,6 +18,7 @@ import seedu.taskmanager.logic.commands.ListTaskCommand;
 import seedu.taskmanager.logic.commands.SelectCommand;
 import seedu.taskmanager.logic.commands.DoneCommand;
 import seedu.taskmanager.logic.commands.UndoneCommand;
+import seedu.taskmanager.logic.commands.UndoCommand;
 import seedu.taskmanager.model.item.Date;
 
 import java.text.SimpleDateFormat;
@@ -135,6 +136,9 @@ public class Parser {
 
         case UndoneCommand.COMMAND_WORD:
             return prepareUndone(arguments);
+            
+        case UndoCommand.COMMAND_WORD:
+        	return new UndoCommand();
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

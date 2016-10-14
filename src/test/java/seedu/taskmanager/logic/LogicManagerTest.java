@@ -157,9 +157,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addItem(helper.generateItem(1));
-        model.addItem(helper.generateItem(2));
-        model.addItem(helper.generateItem(3));
+        model.addItem(helper.generateItem(1), String.format(AddCommand.MESSAGE_SUCCESS, helper.generateItem(1)));
+        model.addItem(helper.generateItem(2), String.format(AddCommand.MESSAGE_SUCCESS, helper.generateItem(2)));
+        model.addItem(helper.generateItem(3), String.format(AddCommand.MESSAGE_SUCCESS, helper.generateItem(3)));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
@@ -239,7 +239,7 @@ public class LogicManagerTest {
         expectedAB.addItem(toBeAdded);
 
         // setup starting state
-        model.addItem(toBeAdded); // person already in internal address book
+        model.addItem(toBeAdded, String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded)); // person already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -292,9 +292,9 @@ public class LogicManagerTest {
         List<Item> itemList = helper.generateItemList(2);
 
         // set AB state to 2 persons
-        model.resetData(new TaskManager());
+        model.resetData(new TaskManager(), ClearCommand.MESSAGE_SUCCESS);
         for (Item p : itemList) {
-            model.addItem(p);
+            model.addItem(p, String.format(AddCommand.MESSAGE_SUCCESS, p));
         }
 
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), itemList);
@@ -567,7 +567,7 @@ public class LogicManagerTest {
          */
         void addToModel(Model model, List<Item> itemsToAdd) throws Exception{
             for(Item p: itemsToAdd){
-                model.addItem(p);
+                model.addItem(p, String.format(AddCommand.MESSAGE_SUCCESS, p));
             }
         }
 

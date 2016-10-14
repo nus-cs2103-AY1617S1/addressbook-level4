@@ -41,7 +41,7 @@ public class DoneCommand extends Command {
         ReadOnlyItem itemToEdit = lastShownList.get(targetIndex - 1);
         
         try {
-            model.setDone(itemToEdit);
+            model.setDone(itemToEdit, String.format(MESSAGE_DONE_SUCCESS, itemToEdit));
         } catch (ItemNotFoundException pnfe) {
             assert false : "The target item cannot be missing";
         }

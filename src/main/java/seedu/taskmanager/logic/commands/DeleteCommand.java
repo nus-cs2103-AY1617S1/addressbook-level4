@@ -60,7 +60,7 @@ public class DeleteCommand extends Command {
             ReadOnlyItem personToDelete = lastShownList.get(targetIndex - 1);
             
             try {
-                model.deleteItem(personToDelete);
+                model.deleteItem(personToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
             } catch (ItemNotFoundException pnfe) {
                 assert false : "The target item cannot be missing";
             }
@@ -82,7 +82,7 @@ public class DeleteCommand extends Command {
             deletedItems.add(personToDelete);
             
             try {
-                model.deleteItem(personToDelete);
+                model.deleteItem(personToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
             } catch (ItemNotFoundException pnfe) {
                 assert false : "The target item cannot be missing";
             }
