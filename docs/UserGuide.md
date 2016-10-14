@@ -3,8 +3,8 @@
 * [About](#about)
 * [Quick Start](#quick-start)
 * [Features](#features)
-* [FAQ](#faq)
 * [Command Summary](#command-summary)
+* [FAQ](#faq)
 
 ##**About**
 Inbx_0 (pronounced as Inbox Zero) is a personal task managing assistant that helps to keep your tasks in order. It will help you manage your email inbox easily so as to keep your inbox uncluttered. 
@@ -56,12 +56,13 @@ et/END_TIME: The time of the end of the task <br>
 i/IMPORTANCE: The priority of the task. Can be `green`, `yellow` or `red`, in that order of importance <br>
 t/TAGS: Tags that are assigned to the task <br>
 
-> *For Dates and Times, the program utiilises natural language processing and can take in multiple formats such as "tmr, next week, next wed, 3 days later, noon, 8am, 1400"
+> 
+* For Dates and Times, the program utiilises natural language processing and can take in multiple formats such as "tmr, next week, next wed, 3 days later, noon, 8am, 1400"
 * The IMPORTANCE parameter takes in these formats "red, green, yellow, r, g, y, R, G, Y, Red".
 
 The rest of the guide will be using the general command format to describe what is needed to execute each command.
 
-#### <a id="help"></a>1. Getting Help
+#### <a id="help"></a>1. Getting help: `help`
 Format: `help`
 
 Looking for help? If you ever need a reminder on how to input certain commands or have some troubleshooting issues, you can easily access the ‘help’ command which will guide you to the right direction.
@@ -74,7 +75,7 @@ This will open up a help window that will direct you back to this User Guide if 
 <br><br>
  
 #### <a id="add"></a>2. Adding a task: `add`
-1. Adds a floating task.<br>
+\1. Adds a floating task.<br>
 Format: `add TASK [i/IMPORTANCE] [t/TAGS]...` 
 
 > Floating tasks are tasks without deadlines.
@@ -82,15 +83,17 @@ Format: `add TASK [i/IMPORTANCE] [t/TAGS]...`
 Examples: 
 * `add Buy Groceries` <br>
 * `add Wash dishes i/green` <br>
+<br>
 
-2. Adds a task with deadlines.<br>
+\2. Adds a task with deadlines.<br>
 Format: `add TASK e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]` 
 
 Examples: 
 * `add Do CS2103 Homework e/tomorrow et/10am, i/red`
 * `add Finish Project Paper e/1 March et/12am i/green t/For GEH1027` <br>
+<br>
 
-3. Adds an event.<br>
+\3. Adds an event.<br>
 Format: `add TASK s/START_DATE st/START_TIME e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]`
 
 > Events are tasks with a starting and ending point.
@@ -102,6 +105,7 @@ Examples:
 <br><br>
 
 #### <a id="list"></a>3. Listing tasks: `list`
+\1. Listing all the tasks. <br>
 Format: `list`
 
 The List Command shows a list of all tasks in the task manager so that you will be able to keep track of different tasks on different days.
@@ -109,7 +113,7 @@ The List Command shows a list of all tasks in the task manager so that you will 
 You will be able to view all of today’s tasks and  tasks that are due before a specific date. There will be index numbers allocated at the side of each task which will be needed for other operations such as deleting a task or selecting a task.
 
 
-Listing today’s task. <br>
+\2. Listing today’s task. <br>
 Format: `list today`
 
 In order to shows a list of the tasks due today in the task manager, you have to type the following in the command line <br>
@@ -118,7 +122,7 @@ In order to shows a list of the tasks due today in the task manager, you have to
 
 This will bring up all your tasks in a list which is sorted accordingly to the time that the task will be starting. <br>
 
-Listing tasks due before a specific date. <br>
+\3. Listing tasks due before a specific date. <br>
 Format: `list DATE`
 
 By keying in the following, it will display a list of the tasks due before the input date in the task manager.
@@ -126,15 +130,8 @@ By keying in the following, it will display a list of the tasks due before the i
 > list DATE
 
 Examples:
-* `list tomorrow` shows every task from now to the end of tomorrow
-* `list 1st Jan` shows every task from now till the end of 1st January 2017
-
-Listing tasks with a certain importance. <br>
-Format: `list i/[IMPORTANT]`
-
-By keying in the following, it will display a list of the tasks associated with the input importance.
-
-> list i/[IMPORTANCE]
+* `list tomorrow` shows every task from now to the end of tomorrow <br>
+* `list 1st Jan` shows every task from now till the end of 1st January 2017 <br>
 
 <br><br>
 
