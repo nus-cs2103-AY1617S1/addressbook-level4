@@ -14,6 +14,7 @@ import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -63,7 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
     	undoHistory.clear();
     }
     
-    public void undoState() {
+    public void undoState() throws EmptyStackException {
     	TaskManager oldTaskManager = stateHistory.pop();
     	taskManager.setTasks(oldTaskManager.getTasks());
     	taskManager.setTags(oldTaskManager.getTagList());
@@ -72,7 +73,7 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskManagerChanged();
     }
     
-    public void redoState() {
+    public void redoState() throws EmptyStackException {
     	TaskManager oldTaskManager = undoHistory.pop();
     	taskManager.setTasks(oldTaskManager.getTasks());
     	taskManager.setTags(oldTaskManager.getTagList());
