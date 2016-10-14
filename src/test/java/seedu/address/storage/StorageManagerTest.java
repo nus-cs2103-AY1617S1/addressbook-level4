@@ -51,6 +51,7 @@ public class StorageManagerTest {
         storageManager.saveTaskList(original);
         ReadOnlyTaskList retrieved = storageManager.readTaskList().get();
         assertEquals(original, new TaskList(retrieved));
+        
         //More extensive testing of TaskList saving/reading is done in XmlTaskListStorageTest
     }
 

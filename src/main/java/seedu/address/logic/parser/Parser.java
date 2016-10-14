@@ -101,6 +101,9 @@ public class Parser {
         
         case ChangeDirectoryCommand.COMMAND_WORD:
         	return new ChangeDirectoryCommand(arguments.trim());
+        	
+        case CompleteCommand.COMMAND_WORD:
+        	return prepareComplete(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -278,6 +281,17 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
+    }
+    
+    private Command prepareComplete(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+
+        return new CompleteCommand(index.get());
     }
     
     

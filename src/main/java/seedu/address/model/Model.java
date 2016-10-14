@@ -4,6 +4,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.Date;
@@ -37,5 +38,7 @@ public interface Model {
     
     /** Updates the file path for current storage manager of the model.*/
 	void changeDirectory(String filePath);
+
+	void archiveTask(ReadOnlyTask target) throws TaskNotFoundException;
 
 }

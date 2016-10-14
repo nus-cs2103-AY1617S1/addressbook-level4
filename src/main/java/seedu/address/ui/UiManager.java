@@ -10,6 +10,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.NavigationSelectionChangedEvent;
@@ -106,6 +107,12 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
     }
+    
+//    @Subscribe
+//    private void handleTaskListChangedEvent(TaskListChangedEvent event){
+//    	logger.info(LogsCenter.getEventHandlingLogMessage(event));
+//    	mainWindow.getNavbarPanel().scrollTo(0);
+//    }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {

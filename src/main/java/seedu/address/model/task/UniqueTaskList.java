@@ -134,4 +134,17 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+	public boolean archive(ReadOnlyTask target) {
+		assert target != null;
+        boolean taskFoundAndArchived = false;
+        System.out.println(internalList.contains(target));
+        for(ReadOnlyTask t : internalList){
+        	if(t.equals(target)){
+        		t.setType(TaskType.COMPLETED);
+        		taskFoundAndArchived = true;
+        	}
+        }
+        return taskFoundAndArchived;
+	}
 }

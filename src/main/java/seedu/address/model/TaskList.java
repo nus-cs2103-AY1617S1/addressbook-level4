@@ -3,9 +3,13 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskType;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.*;
@@ -162,4 +166,26 @@ public class TaskList implements ReadOnlyTaskList {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
+	@Override
+	public ReadOnlyTaskList purify() throws TaskNotFoundException  {
+		// TODO Auto-generated method stub
+		TaskList newList = new TaskList(this); 
+		for(Task t: tasks){
+			if(t.getType()==TaskType.COMPLETED) {
+				Task copyToRemove = new Task(t);
+				newList.removeTask(copyToRemove);					
+			}
+		}
+		return new TaskList(newList);
+	}
+
+	public boolean archiveTask(ReadOnlyTask target) throws TaskNotFoundException {
+		// TODO Auto-generated method stub
+		if (tasks.archive(target)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+	}
 }

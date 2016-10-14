@@ -77,6 +77,13 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.removeTask(target);
         indicateTaskListChanged();
     }
+    
+    @Override
+    public synchronized void archiveTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskList.archiveTask(target);
+        indicateTaskListChanged();
+        updateFilteredListToShowAll();
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
@@ -101,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate(new PredicateExpression(new TypeQualifier(TaskType.COMPLETED))::unsatisfies);
     }
 
     @Override
@@ -131,6 +138,11 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean satisfies(ReadOnlyTask task) {
             return qualifier.run(task);
+        }
+        
+        
+        public boolean unsatisfies(ReadOnlyTask task) {
+            return !qualifier.run(task);
         }
 
         @Override
