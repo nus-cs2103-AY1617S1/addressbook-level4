@@ -33,7 +33,7 @@ public class Tokenizer {
         }
     }
 
-    public static HashMap<String, String[]> tokenize(HashMap<String, String[]> tokenDefinitions, String inputCommand)
+    public static Map<String, String[]> tokenize(Map<String, String[]> tokenDefinitions, String inputCommand)
             throws UnmatchedQuotesException {
         
         // Generate token -> tokenType mapping and list of tokens
@@ -70,8 +70,10 @@ public class Tokenizer {
             TokenizedString currString = tokenizedSplitString.get(i);
             if (currString.isQuote)
                 continue;
+            
+            // Record token.
             if (currString.isToken) {
-                tokenIndices.put(currString.string, i);
+                tokenIndices.put(getTokenType.get(currString.string), i);
                 tokens.remove(currString.string);
                 continue;
             }
@@ -95,25 +97,28 @@ public class Tokenizer {
                     replacedSplitStrings.add(new TokenizedString(postString, false, false));
                 tokenizedSplitString.addAll(i, replacedSplitStrings);
                 
-                // Update currString and resume.
-                currString = tokenizedSplitString.get(i);
-                if (currString.isQuote)
-                    break;
-                if (currString.isToken) {
-                    tokenIndices.put(currString.string, i);
-                    tokens.remove(currString.string);
-                    break;
-                }
+                // Restart outer loop at current index.
+                i--;
+                break;
             }   
         }
         
         // Get arraylist of indices
         // Get dictionary of tokenType -> index
         
+        Map<String, String[]> parsedResult = new HashMap<String, String[]>();
+        for (Map.Entry<String, Integer> tokenIndex : tokenIndices.entrySet()) {
+            String tokenType = tokenIndex.getKey();
+            String token = tokenizedSplitString.get(tokenIndex.getValue()).string;
+            String tokenField = null;
+            // Should just EAFP instead of LBYL, but oh well.
+            if (tokenIndex.getValue() + 1 < tokenizedSplitString.size() && !tokenizedSplitString.get(tokenIndex.getValue() + 1).isToken)
+                tokenField = tokenizedSplitString.get(tokenIndex.getValue() + 1).string;
+            parsedResult.put(tokenType, new String[] { token, tokenField });
+        }
+        
         // Return dictionary of tokenType -> {token, tokenField}
-        
-        
-        return null;
+        return parsedResult;
     }
 
 }
