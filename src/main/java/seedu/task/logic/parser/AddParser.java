@@ -2,6 +2,7 @@ package seedu.task.logic.parser;
 
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,15 +21,13 @@ import seedu.task.logic.commands.IncorrectCommand;
 public class AddParser implements Parser {
 
     public AddParser() {}
-    
-    // remember to trim 
+     
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?: /desc (?<description>[^/]+))*"
-                    + "(?: /by (?<deadline>[^/]+))*$"
+                    + "(?<deadline>(?: /by [^/]+)*)"
                     );
     
- // remember to trim 
     private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?: /desc (?<description>[^/]+))*"
@@ -36,7 +35,7 @@ public class AddParser implements Parser {
                     );
     
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add task or event command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -48,11 +47,20 @@ public class AddParser implements Parser {
         
         if (taskMatcher.matches()) {
             try {
-                return new AddTaskCommand(
+                Optional <String> dl = getDeadlineFromArgs(taskMatcher.group("deadline"));
+                if (dl.isPresent()) { 
+                    return new AddTaskCommand(
                         taskMatcher.group("name").trim(),
-                        taskMatcher.group("description").trim()
-    //                    ,matcher.group("deadline")
-                );
+                        taskMatcher.group("description").trim(),
+                        dl.get().trim()
+                    );
+                } else {
+                    return new AddTaskCommand(
+                            taskMatcher.group("name").trim(),
+                            taskMatcher.group("description").trim()
+                    );
+                }
+                
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -68,6 +76,15 @@ public class AddParser implements Parser {
             }
         }else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+    }
+
+    private Optional <String> getDeadlineFromArgs(String deadlineArgs) {
+        if (deadlineArgs.isEmpty()) {
+            return Optional.empty();
+        } else {
+            deadlineArgs = deadlineArgs.replace("/by","");
+            return Optional.of(deadlineArgs);
         }
     }
     

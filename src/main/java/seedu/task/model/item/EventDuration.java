@@ -1,11 +1,15 @@
 package seedu.task.model.item;
 
 import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.commons.util.StringUtil;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
@@ -23,8 +27,9 @@ public class EventDuration {
 			Pattern.compile("^(?<startTime>[^\\>]+)"+"(?:\\>\\s(?<endTime>[^\\>]+))?");
 	private static final int DATE_INDEX = 0;
 	private static final String MESSAGE_DURATION_FORMAT = "%1$s > %2$s";
+	private static final long DEFAULT_DURATION = 1;
 	
-	private Duration duration;
+	
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 	
@@ -46,23 +51,29 @@ public class EventDuration {
 		
 		if(matcher.matches()) {
 			//store the start date and end date 
-			assert(matcher.group("startTime") != null);
-			setStartTime(parseDate(parser, matcher.group("startTime")));
+			Optional<String> startTimeArg = Optional.ofNullable(matcher.group("startTime"));
+			Optional<String> endTimeArg = Optional.ofNullable(matcher.group("endTime"));
 			
-			if(matcher.group("endTime") != null) {
-				setEndTime(parseDate(parser, matcher.group("endTime")));	
-			} else {
-				setEndTime(getStartTime()); /* if no endTime, set endTime equal to startTime */
-			}
+			parseStartAndEndTime(startTimeArg, endTimeArg, parser);
 		} else {
 			throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
 		}
-		assert(getStartTime() != null);
-		assert(getEndTime() != null);
-		
-		setDuration(Duration.between(getStartTime(), getEndTime()));
 	}
 	
+	private void parseStartAndEndTime(Optional<String> startTimeArg, Optional<String> endTimeArg, PrettyTimeParser parser) throws IllegalValueException {
+		if(!startTimeArg.isPresent()) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
+
+		setStartTime(parseTime(parser, startTimeArg.get()));
+		assert getStartTime() != null;
+		
+		if(endTimeArg.isPresent()) {
+			setEndTime(parseTime(parser, endTimeArg.get()));
+		} else {
+			setEndTime(getStartTime().plusHours(DEFAULT_DURATION));
+		}
+		assert getEndTime() != null;
+	}
+
 	/**
 	 * Parse a String argument into date format. 
 	 * @param parser
@@ -70,11 +81,8 @@ public class EventDuration {
 	 * @return date in LocalDateTime format
 	 * @throws IllegalValueException
 	 */
-	private LocalDateTime parseDate(PrettyTimeParser parser, String dateArg) throws IllegalValueException {
+	private LocalDateTime parseTime(PrettyTimeParser parser, String dateArg) throws IllegalValueException {
 		//invalid start date
-		
-		System.out.println("Date is\n"+ dateArg);
-		
 		if(dateArg == null) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
 		
 		List<Date> parsedResult = parser.parse(dateArg);
@@ -85,13 +93,6 @@ public class EventDuration {
 		return LocalDateTime.ofInstant(parsedResult.get(DATE_INDEX).toInstant(), ZoneId.systemDefault()); 
 	}
 	
-	private Duration getDuration() {
-		return duration;
-	}
-
-	private void setDuration(Duration duration) {
-		this.duration = duration;
-	}
 
 	public LocalDateTime getStartTime() {
 		return startTime;
@@ -111,14 +112,15 @@ public class EventDuration {
 
 	@Override
 	public String toString() {
-		return String.format(MESSAGE_DURATION_FORMAT, getStartTime().toString(), getEndTime().toString());
+		return String.format(MESSAGE_DURATION_FORMAT, 
+				getStartTime().format(StringUtil.DATE_FORMATTER), 
+				getEndTime().format(StringUtil.DATE_FORMATTER));
 	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
 		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
 		result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
 		return result;
@@ -133,11 +135,6 @@ public class EventDuration {
 		if (getClass() != obj.getClass())
 			return false;
 		EventDuration other = (EventDuration) obj;
-		if (duration == null) {
-			if (other.duration != null)
-				return false;
-		} else if (!duration.equals(other.duration))
-			return false;
 		if (endTime == null) {
 			if (other.endTime != null)
 				return false;

@@ -40,8 +40,8 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getTask().fullName);
         index.setText(displayedIndex + ". ");
-//        phone.setText(task.getDeadline().value);
         description.setText(task.getDescription().value);
+        deadline.setText(task.getDeadlineToString().trim());
     }
 
     public HBox getLayout() {

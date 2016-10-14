@@ -1,14 +1,19 @@
 package seedu.task.model.item;
 
+import java.util.Optional;
+
 /**
  * A read-only immutable interface for a task in the task book.
- * Implementations should guarantee: details are present and not null, field values are validated.
+ * Implementations should guarantee: 
+ *      Details are present and not null, with the exception of Deadline field. 
+ *      Field values are validated.
+ * @author kian ming
  */
 public interface ReadOnlyTask {
 
     Name getTask();
     Description getDescription();
-//    Deadline getDeadline();
+    Optional<Deadline> getDeadline();
     Boolean getTaskStatus();
 
     /**
@@ -18,7 +23,7 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getTask().equals(this.getTask()) // state checks here onwards
-//                && other.getDeadline().equals(this.getDeadline())
+                && other.getDeadline().equals(this.getDeadline())
                 && other.getTaskStatus().equals(this.getTaskStatus())
                 && other.getDescription().equals(this.getDescription()));
     }
@@ -31,30 +36,34 @@ public interface ReadOnlyTask {
         builder.append(getTask())
                 .append(" Desc: ")
                 .append(getDescription())
-                .append(" Status: ");
-//              .append(" Deadline: ")
-//              .append(getDeadline())
-        if (getTaskStatus()) {
-            builder.append("Completed");
-        } else {
-            builder.append("Not completed");
-        }
+                .append(getDeadlineToString())
+                .append(getTaskStatusToString());
         
         return builder.toString();
     }
-
-/*    *//**
-     * Returns a string representation of this Person's tags
-     *//*
-    default String tagsString() {
-        final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
-        if (buffer.length() == 0) {
-            return "";
-        } else {
-            return buffer.substring(0, buffer.length() - separator.length());
-        }
-    }*/
+    
+    /**
+     * Formats the deadline as text.
+     * If null, empty string is returned
+     */
+    default String getDeadlineToString() {
+        return getDeadline().isPresent()? " Deadline: " + getDeadline().get().toString() : "";
+    }
+    
+    /**
+     * Formats the deadline as string.
+     * If null, empty string is returned
+     */
+    default String getDeadlineValue() {
+        return getDeadline().isPresent()? getDeadline().get().toString() : "";
+    }
+    
+    
+    /**
+     * Formats the task status as text
+     */
+    default String getTaskStatusToString() {
+        return getTaskStatus() ? " Status: Completed" : " Status: Not completed";
+    }
 
 }

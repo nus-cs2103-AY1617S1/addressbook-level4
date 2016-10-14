@@ -18,16 +18,17 @@ public class AddTaskCommand extends AddCommand {
 
 	/**
 	 * Convenience constructor using raw values.
-	 * TODO: 
-	 * 	1. allow tasks with deadline
-	 *  
 	 * @throws IllegalValueException
 	 *             if any of the raw values are invalid
 	 */
 
-	public AddTaskCommand(String name, String description) throws IllegalValueException {
-		this.toAdd = new Task(new Name(name), new Description(description), DEFAULT_STATUS); //TODO: more flexible of tasks type
+	public AddTaskCommand(String name, String description, String deadline) throws IllegalValueException {
+		this.toAdd = new Task(new Name(name), new Description(description), new Deadline(deadline), DEFAULT_STATUS);
 	}
+	
+	public AddTaskCommand(String name, String description) throws IllegalValueException {
+        this.toAdd = new Task(new Name(name), new Description(description), DEFAULT_STATUS);
+    }
 
 	@Override
 	public CommandResult execute() {

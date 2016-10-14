@@ -1,5 +1,7 @@
 package seedu.task.testutil;
 
+import java.util.Optional;
+
 import seedu.task.model.item.*;
 
 /**
@@ -9,10 +11,13 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Description description;
+    private Optional<Deadline> deadline;
     private Boolean isTaskCompleted;
 
     public TestTask() {
-        isTaskCompleted = false;
+    	//default fields
+        this.isTaskCompleted = false;
+        this.deadline = Optional.empty();
     }
 
     public void setName(Name name) {
@@ -21,6 +26,11 @@ public class TestTask implements ReadOnlyTask {
 
     public void setDescription(Description description) {
         this.description = description;
+    }
+    
+    public void setDeadline(Deadline deadline) {
+        this.deadline = Optional.of(deadline);
+    
     }
     
     public void setStatus(Boolean status) {
@@ -35,6 +45,10 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Description getDescription() {
         return description;
+    }
+
+    public Deadline getDeadlineRaw() {
+        return this.deadline.get();
     }
 
     @Override
@@ -53,5 +67,12 @@ public class TestTask implements ReadOnlyTask {
         sb.append("/desc " + this.getDescription().value + " ");
         return sb.toString();
     }
+
+    @Override
+    public Optional<Deadline> getDeadline() {
+        return this.deadline;
+    }
+    
+    
 
 }

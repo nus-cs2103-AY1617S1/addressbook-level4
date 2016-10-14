@@ -6,6 +6,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's deadline in the task book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
+ * @author kian ming
  */
 public class Deadline {
 
@@ -22,6 +23,7 @@ public class Deadline {
     public Deadline(String deadline) throws IllegalValueException {
         assert deadline != null;
         deadline = deadline.trim();
+   
         if (!isValidDeadline(deadline)) {
             throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }

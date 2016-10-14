@@ -30,10 +30,6 @@ public class AddCommandTest extends TaskBookGuiTest {
         assertResultMessage(AddTaskCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
-        //add to empty list
-//        commandBox.runCommand("clear");
-//        assertAddSuccess(td.cs1010);
-
         //invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);

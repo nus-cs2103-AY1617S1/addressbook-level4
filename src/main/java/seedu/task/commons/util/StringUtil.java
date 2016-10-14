@@ -2,6 +2,8 @@ package seedu.task.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,6 +11,11 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+	/**
+	 * DateTimeFormatter for LocalTimeDate fields. 
+	 */
+	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);
+	
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);

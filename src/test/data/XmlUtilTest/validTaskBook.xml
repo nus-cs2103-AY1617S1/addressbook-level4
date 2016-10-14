@@ -3,31 +3,37 @@
     <tasks>
         <name>cs2103</name>
         <description>do project</description>
+        <deadline>01-01-01</deadline>
         <status>false</status>
     </tasks>
     <tasks>
         <name>cs2106 v0.2</name>
         <description>doing a MVP</description>
+        <deadline>01-01-01</deadline>
         <status>false</status>
     </tasks>
     <tasks>
         <name>Meeting</name>
         <description>at Utown</description>
+        <deadline>01-01-01</deadline>
         <status>false</status>
     </tasks>
     <tasks>
         <name>Homework1</name>
         <description>On ivle</description>
+        <deadline>01-01-01</deadline>
         <status>false</status>
     </tasks>
     <tasks>
         <name>Shopping</name>
         <description>buy food</description>
+        <deadline>01-01-01</deadline>
         <status>false</status>
     </tasks>
     <tasks>
         <name>Sleep early tonight</name>
         <description>no shit</description>
+        <deadline>01-01-01</deadline>
         <status>false</status>
     </tasks>
 </taskbook>
