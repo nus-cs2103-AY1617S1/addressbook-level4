@@ -79,13 +79,13 @@ public class CommandInputView extends UiPart {
     }
 
     /**
-     * Sets the listener for {@link #commandTextField} to listen for command submission.
+     * Sets {@link #commandTextField} to listen out for a command.
+     * Once a command is received, calls {@link #submitCommandText(String)} to submit that command.
      */
-    private void setCommandInputListener() {
+    private void listenToCommandInput() {
         this.commandTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 submitCommandText(commandTextField.getText());
-                resetCommandTextField();
                 event.consume(); //To prevent commandTextField from printing a new line.
             }
         });
