@@ -81,6 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.removeTask(target);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
+        addToUndoStack(target);
     }
 
     @Override
@@ -88,6 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.addTask(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
+        addToUndoStack(task);
     }
     
     @Override
@@ -95,6 +97,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
+        Task originalTask = new Task(taskDetails, startTime, endTime, priority, null);
+        addToUndoStack(taskToUpdate, originalTask);
     }
     
     @Override
@@ -102,6 +106,11 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.markTaskAsComplete(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
+        addToUndoStack(task);
+    }
+
+    private void addToUndoStack(ReadOnlyTask... tasks) {
+        
     }
 
     //=========== Filtered Person List Accessors ===============================================================

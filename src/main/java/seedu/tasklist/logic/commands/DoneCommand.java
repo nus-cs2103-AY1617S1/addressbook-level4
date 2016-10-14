@@ -21,6 +21,7 @@ public class DoneCommand extends Command {
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Completed Task: %1$s";
     public static final String MESSAGE_DONE_TASK_FAILURE = "No such task was found.";
     public static final String MESSAGE_DONE_IN_NEXT_STEP = "Multiple tasks were found containing the entered keywords. Please check below and mark as complete by index.";
+    public static final String MESSAGE_ALREADY_DONE = "This task is already marked as complete.";
 
     public final boolean doneByIndex;
 
@@ -55,6 +56,9 @@ public class DoneCommand extends Command {
         }
         else{
             ReadOnlyTask taskToMark = lastShownList.get(targetIndex);
+            if(taskToMark.isComplete()){
+                return new CommandResult(MESSAGE_ALREADY_DONE);
+            }
             try{
                 model.markTaskAsComplete(taskToMark);
             }
