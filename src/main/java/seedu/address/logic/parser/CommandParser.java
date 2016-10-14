@@ -125,7 +125,7 @@ public class CommandParser {
         String taskName = null;
         String startDate = null;
         String endDate = null;
-        String recurrenceRate = null;
+        String rate = null;
         String timePeriod = null;
         String priority = null;  
         
@@ -161,7 +161,7 @@ public class CommandParser {
                 } 
                 
                 if (recurrenceMatcher.group("rate") != null) {
-                    recurrenceRate = recurrenceMatcher.group("rate");
+                    rate = recurrenceMatcher.group("rate");
                 }
                 
                 timePeriod = recurrenceMatcher.group("timePeriod");
@@ -169,22 +169,12 @@ public class CommandParser {
 
             if (matcher.group("priority") != null) {
                 priority = matcher.group("priority");
-                
-                // SHOULDN't WE DO THE CHECK HERE? PARSER SHOULD RETURN INCORRECT CCOMMAND IF INVALID.
-                switch (priority){
-                    case ("l"): case ("low"):
-                    case ("m"): case ("med"): case("medium"):
-                    case ("h"): case ("high"):
-                        break;
-                    default:
-                        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-                }
             } else {
                 priority = "medium";
             }
-            return new AddCommand(taskName, startDate, endDate, recurrenceRate, timePeriod, priority);
+            return new AddCommand(taskName, startDate, endDate, rate, timePeriod, priority);
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
         }
         
     }
