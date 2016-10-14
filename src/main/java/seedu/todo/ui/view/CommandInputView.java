@@ -10,10 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.util.FxViewUtil;
-import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.util.TextAreaResizerUtil;
-import seedu.todo.logic.Logic;
-import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
 
@@ -47,8 +44,23 @@ public class CommandInputView extends UiPart {
 
     private void configure() {
         setCommandInputHeightAutoResizeable();
-        listenToCommandInput();
     }
+
+    /**
+     * Sets {@link #commandTextField} to listen out for a command.
+     * Once a command is received, calls {@link CommandCallback} interface to process this command.
+     */
+    public void listenToCommandInput(CommandCallback listener) {
+        this.commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                String command = commandTextField.getText();
+                listener.onCommandReceived(command);
+                event.consume(); //To prevent commandTextField from printing a new line.
+            }
+        });
+    }
+
+    /* UI Methods */
 
     /**
      * Allow {@link #commandTextField} to adjust automatically with the height of the content of the text area itself.
@@ -58,23 +70,12 @@ public class CommandInputView extends UiPart {
     }
 
     /**
-     * Sets {@link #commandTextField} to listen out for a command.
-     * Once a command is received, calls {@link #submitCommandInput(String)} to submit that command.
+     * Resets the state of the text box, by clearing the text box and clear the errors.
      */
-    private void listenToCommandInput() {
-        this.commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                submitCommandInput(commandTextField.getText());
-                event.consume(); //To prevent commandTextField from printing a new line.
-            }
-        });
+    public void resetViewState() {
+        unflagError();
+        clear();
     }
-
-
-
-
-
-    /* UI Methods */
 
     /**
      * Indicate an error visually on the {@link #commandTextField}
@@ -86,8 +87,15 @@ public class CommandInputView extends UiPart {
     /**
      * Remove the error flag visually on the {@link #commandTextField}
      */
-    public void unflagError() {
+    private void unflagError() {
         commandTextField.getStyleClass().remove(ERROR_STYLE);
+    }
+
+    /**
+     * Clears the texts inside the text box
+     */
+    private void clear() {
+        commandTextField.clear();
     }
 
     /* Override Methods */
