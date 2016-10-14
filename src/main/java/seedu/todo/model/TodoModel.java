@@ -30,20 +30,19 @@ public interface TodoModel {
      * @param update  a {@link MutableTask} is passed into this lambda. All other fields 
      *                should be set from inside this lambda. 
      *  
-     * @throws IllegalValueException if the values set in the update predicate is invalid
      * @throws ValidationException   if the fields in the task to be updated are not valid
      */
-    public void add(String title, Consumer<MutableTask> update) throws IllegalValueException, ValidationException;
+    public void add(String title, Consumer<MutableTask> update) throws ValidationException;
     
     /**
      * Deletes the given task from the todo list. This change is also propagated to the 
      * underlying persistence layer.  
      * 
-     * @param task  a reference to the task that needs to be deleted
+     * @param index  the 1-indexed position of the task that needs to be deleted
      * 
-     * @throws IllegalValueException if the task does not exist
+     * @throws ValidationException if the task does not exist
      */
-    public void delete(ImmutableTask task) throws IllegalValueException;
+    public void delete(int index) throws ValidationException;
     
     /**
      * Replaces certain fields in the task. Mutation of the {@link Task} object should 
@@ -55,11 +54,10 @@ public interface TodoModel {
      *     t.setPin(true); // Pin this task
      * });</code></pre>
      * 
-     * @throws IllegalValueException  if the task does not exist or if the values set in the 
-     *                                update predicate is invalid
-     * @throws ValidationException    if the fields in the task to be updated are not valid
+     * @throws ValidationException    if the task does not exist or if the fields in the 
+     *                                task to be updated are not valid
      */
-    public void update(ImmutableTask task, Consumer<MutableTask> update) throws IllegalValueException, ValidationException;
+    public void update(int index, Consumer<MutableTask> update) throws ValidationException;
     
     /**
      * Changes the filter predicate and sort comparator used to display the tasks. A null

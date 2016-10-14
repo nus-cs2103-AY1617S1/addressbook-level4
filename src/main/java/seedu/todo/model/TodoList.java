@@ -29,7 +29,9 @@ import seedu.todo.storage.Storage;
  * serialized and persisted directly
  */
 public class TodoList implements ImmutableTodoList, TodoModel {
-    private ObservableList<Task> tasks = FXCollections.observableArrayList(t -> t.getObservableProperties());
+    private static final String INDEX_OUT_OF_BOUND_ERROR = "Task not found in task list";
+    
+    private ObservableList<Task> tasks = FXCollections.observableArrayList(Task::getObservableProperties);
     private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
     private SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
 
@@ -55,6 +57,12 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     private void initTodoList(ImmutableTodoList initialData) {
         tasks.setAll(initialData.getTasks().stream().map(Task::new).collect(Collectors.toList()));
     }
+    
+    private void outOfBoundError() throws ValidationException {
+        ErrorBag e = new ErrorBag();
+        e.put("index", TodoList.INDEX_OUT_OF_BOUND_ERROR);
+        e.validate("There was a problem with your command");
+    }
 
     @Override
     public void add(String title) {
@@ -67,7 +75,6 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     public void add(String title, Consumer<MutableTask> update) throws ValidationException {
         ValidationTask validationTask = new ValidationTask(title);
         update.accept(validationTask);
-        validationTask.validate();
 
         tasks.add(validationTask.convertToTask());
 
@@ -75,30 +82,35 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     }
 
     @Override
-    public void delete(ImmutableTask task) throws IllegalValueException {
-        if (!tasks.remove(task)) {
-            throw new IllegalValueException("Task not found in todo list");
+    public void delete(int index) throws ValidationException {
+        try {
+            tasks.remove(index - 1);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            outOfBoundError();
+            return;
         }
 
         storage.saveTodoList(this);
     }
 
     @Override
-    public void update(ImmutableTask key, Consumer<MutableTask> update) throws IllegalValueException, ValidationException {
-        int index = tasks.indexOf(key);
-
-        if (index < 0) {
-            throw new IllegalValueException("Task not found in todo list");
-        } else {
-            Task task = tasks.get(index);
-            ValidationTask validationTask = new ValidationTask(task);
-            update.accept(validationTask);
-            validationTask.validate();
-
-            // changes are validated and accepted
-            update.accept(task);
-            storage.saveTodoList(this);
+    public void update(int index, Consumer<MutableTask> update) throws ValidationException {
+        Task task; 
+        
+        try {
+            task = tasks.get(index - 1);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            outOfBoundError();
+            return;
         }
+
+        ValidationTask validationTask = new ValidationTask(task);
+        update.accept(validationTask);
+        validationTask.validate();
+
+        // changes are validated and accepted
+        update.accept(task);
+        storage.saveTodoList(this);
     }
 
     @Override
