@@ -49,7 +49,7 @@ public class JimiParser {
             Pattern.compile("(?<targetIndex>\\d+\\s)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
     
     private static final Pattern DETAILS_ARGS_FORMAT = 
-            Pattern.compile("(\"(?<taskDetails>.+)\")( by (?<dateTime>.+))?");
+            Pattern.compile("(\"(?<taskDetails>.+)\")( due (?<dateTime>.+))?");
     
     private static final List<Command> COMMAND_STUB_LIST =
             Arrays.asList(new AddCommand(), new EditCommand(), new SelectCommand(), new DeleteCommand(),
