@@ -143,6 +143,32 @@ public class LogicManagerTest {
         assertEquals(expectedTaskBook, latestSavedTaskBook);
     }
     
+    /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
+     *      - the internal task book data are same as those in the {@code expectedTaskBook} <br>
+     *      - the backing list shown by UI matches the {@code shownList} <br>
+     *      - {@code expectedTaskBook} was saved to the storage file. <br>
+     */
+    private void assertTaskAndEventCommandBehavior(String inputCommand, String expectedMessage,
+                                       ReadOnlyTaskBook expectedTaskBook,
+                                       List<? extends ReadOnlyTask> expectedTaskList, 
+                                       List<? extends ReadOnlyEvent> expectedEventList) throws Exception {
+
+        //Execute the command
+        CommandResult result = logic.execute(inputCommand);
+        
+        //Confirm the ui display elements should contain the right data
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedTaskList, model.getFilteredTaskList());
+        assertEquals(expectedEventList, model.getFilteredEventList());
+
+        //Confirm the state of data (saved and in-memory) is as expected
+        assertEquals(expectedTaskBook, model.getTaskBook());
+        assertEquals(expectedTaskBook, latestSavedTaskBook);
+    }
+    
+    
 
     @Ignore
     @Test
@@ -529,71 +555,127 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
     
-    @Ignore
+    
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
 
-    @Ignore
+
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void execute_find_onlyMatchesFullWordsInNamesOrDescription() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        
+        //prepare Tasks
+        Task tTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task tTarget2 = helper.generateTaskWithDescription("KEY bla bla bla");
+        
+        Task t1 = helper.generateTaskWithName("KE Y");
+        Task t2 = helper.generateTaskWithDescription("KE Y");
 
-        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        TaskBook expectedAB = helper.generateTaskBook_Tasks(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addTaskToModel(model, fourTasks);
+        //prepare Events
+        Event eTarget1 = helper.generateEventWithName("bla bla KEY bla");
+        Event eTarget2 = helper.generateEventWithDescription("KEY bla bla bla");
 
-        assertTaskCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+        Event e1 = helper.generateEventWithName("KE Y");
+        Event e2 = helper.generateEventWithDescription("KE YYYY");
+        
+        
+        List<Task> fourTasks = helper.generateTaskList(t1, tTarget1, t2, tTarget2);
+        List<Event> fourEvents = helper.generateEventList(e1, eTarget1, e2, eTarget2);
+        
+        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(fourTasks, fourEvents);
+        
+        List<Task> expectedTaskList = helper.generateTaskList(tTarget1, tTarget2);
+        List<Event> expectedEventList = helper.generateEventList(eTarget1, eTarget2);
+        
+        helper.addTaskToModel(model,fourTasks);
+        helper.addEventToModel(model, fourEvents);
+
+        assertTaskAndEventCommandBehavior("find KEY",
+                Command.getMessageForTaskListShownSummary(expectedTaskList.size()) 
+                + "\n"
+                + Command.getMessageForEventListShownSummary(expectedEventList.size()),
                 expectedAB,
-                expectedList);
+                expectedTaskList, expectedEventList);
     }
 
-    @Ignore
+    
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generateTaskWithName("key key");
-        Task p4 = helper.generateTaskWithName("KEy sduauo");
-
-        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        TaskBook expectedAB = helper.generateTaskBook_Tasks(fourTasks);
-        List<Task> expectedList = fourTasks;
+        //Tasks
+        Task t1 = helper.generateTaskWithName("bla bla Key non capital bla");
+        Task tTarget1 = helper.generateTaskWithName("KEY haha");
+        
+        Task t2 = helper.generateTaskWithDescription("bla dsda Key haa");
+        Task tTarget2 = helper.generateTaskWithDescription("blada KEY haa");
+        
+        //Events
+        Event e1 = helper.generateEventWithName("blabla kEY keY");
+        Event eTarget1 = helper.generateEventWithName("blabla KEY keY");
+        
+        Event e2 = helper.generateEventWithDescription("key key KEy");
+        Event eTarget2 = helper.generateEventWithDescription("keasdsy KEY");
+        
+        
+        List<Task> fourTasks = helper.generateTaskList(t1, tTarget1, t2, tTarget2);
+        List<Event> fourEvents = helper.generateEventList(e1, eTarget1, e2, eTarget2);
+        
+        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(fourTasks, fourEvents);
+        
+        List<Task> expectedTaskList = fourTasks;
+        List<Event> expectedEventList = fourEvents;
+        
         helper.addTaskToModel(model, fourTasks);
+        helper.addEventToModel(model, fourEvents);
 
-        assertTaskCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+        assertTaskAndEventCommandBehavior("find KEY",
+                Command.getMessageForTaskListShownSummary(expectedTaskList.size())
+                +"\n"
+                + Command.getMessageForEventListShownSummary(expectedEventList.size()),
                 expectedAB,
-                expectedList);
+                expectedTaskList, expectedEventList);
     }
 
-    @Ignore
+    
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generateTaskWithName("key key");
-        Task p1 = helper.generateTaskWithName("sduauo");
-
-        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskBook expectedAB = helper.generateTaskBook_Tasks(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
+    	TestDataHelper helper = new TestDataHelper();
+        //Tasks
+        Task t1 = helper.generateTaskWithName("bla bla Key non capital bla");
+        Task tTarget1 = helper.generateTaskWithName("KEY haha");
+        
+        Task t2 = helper.generateTaskWithDescription("bla dsda Key haa");
+        Task tTarget2 = helper.generateTaskWithDescription("blada KEY haa");
+        
+        //Events
+        Event e1 = helper.generateEventWithName("blabla kEY keY");
+        Event eTarget1 = helper.generateEventWithName("blabla KEY keY");
+        
+        Event e2 = helper.generateEventWithDescription("key key KEy");
+        Event eTarget2 = helper.generateEventWithDescription("keasdsy KEY");
+        
+        
+        List<Task> fourTasks = helper.generateTaskList(t1, tTarget1, t2, tTarget2);
+        List<Event> fourEvents = helper.generateEventList(e1, eTarget1, e2, eTarget2);
+        
+        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(fourTasks, fourEvents);
+        
+        List<Task> expectedTaskList = fourTasks;
+        List<Event> expectedEventList = fourEvents;
+        
         helper.addTaskToModel(model, fourTasks);
+        helper.addEventToModel(model, fourEvents);
 
-        assertTaskCommandBehavior("find key rAnDoM",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+
+        assertTaskAndEventCommandBehavior("find KEY rAnDom",
+                Command.getMessageForTaskListShownSummary(expectedTaskList.size())
+                +"\n"
+                + Command.getMessageForEventListShownSummary(expectedEventList.size()),
                 expectedAB,
-                expectedList);
+                expectedTaskList, expectedEventList);
     }
 
 
@@ -713,6 +795,19 @@ public class LogicManagerTest {
             addEventsToTaskBook(taskBook, numGenerated);
             return taskBook;
         }
+        
+        /**
+         * Generates an TaskBook with auto-generated tasks.
+         */
+        TaskBook generateTaskBookTasksAndEvents(List<Task> tasks, List<Event> events) throws Exception{
+            TaskBook taskBook = new TaskBook();
+            addEventsToTaskBook(taskBook, events);
+            addTasksToTaskBook(taskBook, tasks);
+            
+            return taskBook;
+        }
+        
+        
 
         /**
          * Generates TaskBookook based on the list of tasks given.
@@ -828,6 +923,39 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Description("dummy description"),
+                    false
+            );
+        }
+        
+        /**
+         * Generates a Task object with given description. Other fields will have some dummy values.
+         */
+        Event generateEventWithDescription(String desc) throws Exception {
+            return new Event(
+                    new Name("dummy name"),
+                    new Description(desc),
+                    new EventDuration("today 4pm > today 5pm")
+            );
+        }
+        
+        /**
+         * Generates a Task object with given name. Other fields will have some dummy values.
+         */
+        Event generateEventWithName(String name) throws Exception {
+            return new Event(
+                    new Name(name),
+                    new Description("dummy description"),
+                    new EventDuration("today 4pm > today 5pm")
+            );
+        }
+        
+        /**
+         * Generates a Task object with given description. Other fields will have some dummy values.
+         */
+        Task generateTaskWithDescription(String desc) throws Exception {
+            return new Task(
+                    new Name("dummy name"),
+                    new Description(desc),
                     false
             );
         }

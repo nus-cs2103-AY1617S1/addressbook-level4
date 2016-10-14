@@ -17,19 +17,19 @@ public class TypicalTestEvents {
 		try {
 			meeting1 = new EventBuilder()
 					.withName("ms v0")
-					.withDescription("for CS2103 project")
+					.withDescription("for CS2103t project")
 					.withDuration("yesterday 1pm > yesterday 2pm")
 					.build();
 			
 			meeting2 = new EventBuilder()
 					.withName("ms v1")
-					.withDescription("for CS2103 project")
+					.withDescription("for CS2103t project")
 					.withDuration("tomorrow 3pm > tomorrow 4pm")
 					.build();
 			
 			meeting3 = new EventBuilder()
 					.withName("ms v2")
-					.withDescription("for CS2103 project")
+					.withDescription("for CS2103 discussion")
 					.withDuration("tomorrow 8pm > tomorrow 11pm")
 					.build();
 		} catch (IllegalValueException e) {

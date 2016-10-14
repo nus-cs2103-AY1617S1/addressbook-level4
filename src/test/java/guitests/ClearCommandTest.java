@@ -20,7 +20,7 @@ public class ClearCommandTest extends TaskBookGuiTest {
         commandBox.runCommand(td.arts.getAddCommand());
         assertTrue(taskListPanel.isListMatching(td.arts));
         commandBox.runCommand("delete 1");
-        assertListSize(0);
+        assertTaskListSize(0);
 
         //verify clear command works when the list is empty
         assertClearCommandSuccess();
@@ -28,7 +28,7 @@ public class ClearCommandTest extends TaskBookGuiTest {
 
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
-        assertListSize(0);
+        assertTaskListSize(0);
         assertResultMessage("Task book has been cleared!");
     }
 }

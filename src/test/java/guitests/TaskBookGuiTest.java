@@ -111,9 +111,17 @@ public abstract class TaskBookGuiTest {
     /**
      * Asserts the size of the task list is equal to the given number.
      */
-    protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfTasks();
-        assertEquals(size, numberOfPeople);
+    protected void assertTaskListSize(int size) {
+        int numberOfTasks = taskListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
+    /**
+     * Asserts the size of the event list is equal to the given number.
+     */
+    protected void assertEventListSize(int size) {
+        int numberOfEvents = eventListPanel.getNumberOfEvents();
+        assertEquals(size, numberOfEvents);
     }
 
     /**

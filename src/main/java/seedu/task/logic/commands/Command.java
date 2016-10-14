@@ -12,15 +12,25 @@ public abstract class Command {
     protected Model model;
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
      *
      * @param displaySize used to generate summary
-     * @return summary message for persons displayed
+     * @return summary message for tasks displayed
      */
     public static String getMessageForTaskListShownSummary(int displaySize) {
         return String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, displaySize);
     }
 
+    /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of events.
+     *
+     * @param displaySize used to generate summary
+     * @return summary message for events displayed
+     */
+    public static String getMessageForEventListShownSummary(int displaySize) {
+        return String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, displaySize);
+    }
+    
     /**
      * Executes the command and returns the result message.
      *

@@ -128,6 +128,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public void updateFilteredEventList(Set<String> keywords){
+        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+    
+    @Override
 	public void updateFilteredTaskListToShowWithStatus(Boolean status) {
 		updateFilteredTaskList(new PredicateExpression(new StatusQualifier(status)));
 		
@@ -199,7 +204,8 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTask().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTask().fullName, keyword) 
+                    		|| StringUtil.containsIgnoreCase(task.getDescription().value, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -211,8 +217,11 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyEvent event) {
-			// TODO Auto-generated method stub
-			return false;
+			return taskKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(event.getEvent().fullName, keyword)
+                    		|| StringUtil.containsIgnoreCase(event.getDescription().value, keyword))
+                    .findAny()
+                    .isPresent();
 		}
     }
     

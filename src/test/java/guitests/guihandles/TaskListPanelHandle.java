@@ -48,6 +48,8 @@ public class TaskListPanelHandle extends GuiHandle {
         return this.isListMatching(0, tasks);
     }
     
+   
+    
     /**
      * Clicks on the ListView.
      */
