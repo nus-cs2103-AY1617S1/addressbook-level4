@@ -55,7 +55,7 @@ This guide contains all necessary information for both new and experienced contr
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -65,7 +65,7 @@ This guide contains all necessary information for both new and experienced contr
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -116,7 +116,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the **`Model`** simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the **`Model`** simply raises a `TaskListChangedEvent` when the TaSc data are changed,
  instead of asking the **`Storage`** to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -125,7 +125,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the **`Storage`** and **`UI`** without **`Model`** having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The sections below give more details of each component.
@@ -157,11 +157,11 @@ Figure 1 shows where each `UiPart` is attached to the `MainWindow`. The `TaskLis
 
 **`TaskCard` Class:**
 
- Each `TaskCard` is assigned a unique index in increasing order, which is used in other commands to specify a task, e.g. `delete 3` deletes the third item in the list. 
+ Each `TaskCard` is assigned a unique index in increasing order, which is used in other commands to specify a task, e.g. `delete 3` deletes the third item in the list.
 
 **`HelpWindow` Class:**
 
-The `HelpWindow` is a window separate from the `MainWindow`. It shows our product's User Guide from *https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md*. Accessing this User Guide requires an active Internet connection. 
+The `HelpWindow` is a window separate from the `MainWindow`. It shows our product's User Guide from *https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md*. Accessing this User Guide requires an active Internet connection.
 
 
 ### Logic component
@@ -172,22 +172,22 @@ The `HelpWindow` is a window separate from the `MainWindow`. It shows our produc
 
 1. **`Logic`** uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the **`Model`** (e.g. adding a person) and/or raise events.
+3. The command execution can affect the **`Model`** (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the **`Logic`** component for the `execute("delete 1")`
  API call.<br>
- 
+
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
-**`Logic Manager` Class:** 
+**`Logic Manager` Class:**
 
 The `Logic Manager` class exposes the functionality of the **`Logic`** component, executing the input string containing the command passed from the **`UI`** component, and passing the result to **`Model`**. First, it passes the command string to the `Parser` class to get a `Command` object. Then, it executes the `Command` to produce a `CommandResult`. This `CommandResult` is then passed back to the **`UI`** component.
 
 **`Parser` Class:**
 
 The `Parser` class parses the given input string and returns the corresponding `Command`. It uses predefined keywords to identify which `Command` to return, and to extract the arguments relevant to the `Command`. `Parser` then calls the  constructor for the identified `Command`, and passes in the extracted arguments.
-    
+
 **`Command` Class:**
 
 The `Command` class takes input arguments from the `Parser`class, and produces a `CommandResult` based on the input. There are multiple `Command` subclasses, which takes different input parameters and produces different `CommandResult`s. The **`Logic`** class executes `Command`s to change the data in **`Model`** according to the command type and input arguments.
@@ -201,7 +201,7 @@ The `Command` class takes input arguments from the `Parser`class, and produces a
 The **`Model`**
 * Stores a `UserPref` object that contains the user's preferences.
 * Stores task list's data.
-* Exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
     * However, other components are heavily dependent on this component.
@@ -225,7 +225,7 @@ void | `resetTaskListFilter()`: Resets all filters that was used to view only a 
 **`ModelManager` Class:**
 
 The `ModelManager` class implements the **`Model`** interface, and provides all the services and functionality
-specifed in the **`Model`** interface. 
+specifed in the **`Model`** interface.
 
 Other components should reference this class indirectly by using the **`Model`** interface. You should not
 directly use this class outside the model component.
@@ -243,7 +243,7 @@ any method of this class directly. Instead, you should request for retrieval and
 
 **`UserPrefs` Class:**
 
-The `UserPrefs` class stores the program settings. 
+The `UserPrefs` class stores the program settings.
 
 > The program settings and user configuration settings are different.
 
@@ -313,7 +313,7 @@ void | `saveTaskList(ReadOnlyTaskList taskList)`: Saves the tasklist.
 **`StorageManager` Class:**
 
 The `StorageManager` class implements the **`Storage`** interface, and provides all the services and functionality
-specified in the **`Storage`** interface. 
+specified in the **`Storage`** interface.
 
 Other components should reference this class indirectly by using the **`Storage`** interface. You should not
 directly use this class outside the **`Storage`** component.
@@ -369,7 +369,7 @@ and logging destinations.
 
 ### Configuration
 
-You can control certain properties of the application (e.g App name, logging level) through the configuration file 
+You can control certain properties of the application (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
 
@@ -391,26 +391,26 @@ You can find the tests in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ checking the integration of multiple code units 
+   2. _Integration tests_ checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These tests check multiple code units as well as 
+   3. Hybrids of unit and integration tests. These tests check multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
-  
+
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In headless mode, GUI tests do not show up on the screen.
  That means you can do other things on the computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+
 ## Dev Ops
 
 ### Build Automation
@@ -425,15 +425,15 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 ### Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
-   
+
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, TaSc depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives:<br>
@@ -468,6 +468,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | User | Show only tasks/events with specified tag(s) and date | See only the related tasks/events from the list
 `* *` | User | Hide tasks/events with specified tag(s) and date | Hide tasks/events which I do not care about in the list
 `* *` | User | Undo my changes | Reverse any wrong action that was taken
+`* *` | User | View a calendar interface | Visualise all my tasks in a calendar format
 `*` | User | Convert an email to a task | Create a task based on email that I have received
 `*` | User | Add a location to a task | Make my event happen on a location
 `*` | User | See all free time within a time range | Easily schedule other tasks/events into a free time
@@ -559,7 +560,7 @@ Use case ends
 1a. The given index is invalid
 > 1a1. Program shows an error message<br>
   Use case ends
-  
+
 1b. The status of the task is already 'completed'
 > 1b1. Program returns error message<br>
   Use case ends.
@@ -697,7 +698,7 @@ Weaknesses:
 * Unable to reserve multiple slots
 * Unable to mark event with statuses such as 'completed', 'canceled'
 
-Summary: 
+Summary:
 
 The calendar view is a useful feature to help users visualize their schedules. On the other hand, the lack of ability to add floating tasks may cause inconvenience to users.
 
@@ -722,7 +723,7 @@ Weaknesses:
 * Cannot 'block' or 'release' multiple slots when timing is uncertain
 * Mouse required for most actions, only task creation uses the keyboard
 
-Summary: 
+Summary:
 
 Does not store completed tasks, and still requires mouse for most actions
 
