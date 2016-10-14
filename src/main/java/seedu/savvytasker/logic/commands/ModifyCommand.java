@@ -56,7 +56,7 @@ public class ModifyCommand extends Command {
     }
     
     @Override
-    protected boolean canUndo() {
+    public boolean canUndo() {
         return true;
     }
 
@@ -65,7 +65,7 @@ public class ModifyCommand extends Command {
      * @return true if the operation completed successfully, false otherwise
      */
     @Override
-    protected boolean redo() {
+    public boolean redo() {
         // TODO Auto-generated method stub
         return false;
     }
@@ -75,7 +75,7 @@ public class ModifyCommand extends Command {
      * @return true if the operation completed successfully, false otherwise
      */
     @Override
-    protected boolean undo() {
+    public boolean undo() {
         // TODO Auto-generated method stub
         return false;
     }

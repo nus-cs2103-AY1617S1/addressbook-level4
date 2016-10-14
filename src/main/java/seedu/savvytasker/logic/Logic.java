@@ -18,4 +18,18 @@ public interface Logic {
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
+    /**
+     * Undoes the previous command. Does nothing but return false if there is 
+     * no command to undo.
+     * 
+     * @return true if a command was undone, false otherwise
+     */
+    boolean undo();
+    
+    /**
+     * Redoes the previous undone command. Does nothing if there is nothing to redo.
+     * 
+     * @return true if a command was redone, false otherwise
+     */
+    boolean redo();
 }

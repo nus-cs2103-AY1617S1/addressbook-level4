@@ -19,7 +19,7 @@ public class IncorrectCommand extends Command {
     }
     
     @Override
-    protected boolean canUndo() {
+    public boolean canUndo() {
         return false;
     }
 

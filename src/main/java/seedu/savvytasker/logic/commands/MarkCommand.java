@@ -9,19 +9,19 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    protected boolean canUndo() {
+    public boolean canUndo() {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    protected boolean redo() {
+    public boolean redo() {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    protected boolean undo() {
+    public boolean undo() {
         // TODO Auto-generated method stub
         return false;
     }
