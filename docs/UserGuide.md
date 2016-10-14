@@ -75,7 +75,7 @@ The multiple edit task functions allow you to update specific task details.
 
 >Format: **Edit** &lt;index&gt; [&lt;event description&gt;; &lt;date&gt;; &lt;start time&gt;; &lt;end time&gt;; &lt;tags&gt;; !] 
 
->Format: **Edit** &lt;index&gt; &lt;deadline description&gt;; &lt;date&gt;; &lt;end time&gt;; &lt;tags&gt; 
+>Format: **Edit** &lt;index&gt; &lt;deadline description&gt;; &lt;date&gt;; &lt;end time&gt;; &lt;tags&gt;; !
  
 >Format: **Edit** &lt;index&gt; &lt;to-do description&gt;; !
 
