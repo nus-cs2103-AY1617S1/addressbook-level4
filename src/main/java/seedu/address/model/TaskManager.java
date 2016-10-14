@@ -83,33 +83,34 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
 	public void editFloatingTaskName(ReadOnlyTask floatTask, Name name) {
-		Task currTask = floatingTasks.getTask(floatTask);
+		//Task currTask = new Task(floatingTasks.getTask(floatTask));
+	    Task currTask = floatingTasks.getTask(floatTask);
 		currTask.setName(name);
-		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);
+		floatingTasks.set(floatingTasks.getIndex(currTask), currTask);
 	}
 	
 	public void editFloatingTaskStartDate(ReadOnlyTask floatTask, Date startDate) {
 		Task currTask = floatingTasks.getTask(floatTask);
 		currTask.setStartDate(startDate);
-		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);
+		floatingTasks.set(floatingTasks.getIndex(currTask), currTask);
 	}
 	
 	public void editFloatingTaskEndDate(ReadOnlyTask floatTask, Date endDate) {
 		Task currTask = floatingTasks.getTask(floatTask);
 		currTask.setEndDate(endDate);
-		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);
+		floatingTasks.set(floatingTasks.getIndex(currTask), currTask);
 	}
 	
 	public void editFloatingTaskpriority(ReadOnlyTask floatTask, Priority priority) {
 		Task currTask = floatingTasks.getTask(floatTask);
 		currTask.setPriority(priority);
-		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);	
+		floatingTasks.set(floatingTasks.getIndex(currTask), currTask);	
 	}
 
 	public void editFloatingTaskRecurrence(ReadOnlyTask floatTask, RecurrenceRate recurrenceRate) {
 		Task currTask = floatingTasks.getTask(floatTask);
 		currTask.setRecurrence(recurrenceRate);
-		floatingTasks.set(floatingTasks.getIndex(new Task(floatTask)), currTask);			
+		floatingTasks.set(floatingTasks.getIndex(currTask), currTask);			
 	}
 	
 //// util methods

@@ -87,9 +87,60 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Task // instanceof handles nulls
-                && this.compareTo((Task)other) == 0);
+        // same object       
+        if (other == this) {
+            return true;
+        }
+        
+        if (other instanceof Task) {
+            Task otherTask = (Task) other;
+            
+            // check if same name
+            if (!this.getName().equals(otherTask.getName())) {
+                return false;
+            }
+            
+            // check if both have same priority
+            if (!this.getPriorityValue().equals(otherTask.getPriorityValue())) {
+                return false;
+            }
+            
+            // check if both have start date and are same start date, or both do not have a start date
+            boolean bothHaveStartDate = this.getStartDate().isPresent() && otherTask.getStartDate().isPresent();
+            boolean bothMissingStartDate = !this.getStartDate().isPresent() && !otherTask.getStartDate().isPresent();
+            
+            if ((bothHaveStartDate && this.getStartDate().get().equals(otherTask.getStartDate().get()))
+                    || bothMissingStartDate) {}
+            else {
+                return false;
+            }
+            
+            // check if both have end date and are same end date, or both do not have a end date
+            boolean bothHaveEndDate = this.getEndDate().isPresent() && otherTask.getEndDate().isPresent();
+            boolean bothMissingEndtDate = !this.getEndDate().isPresent() && !otherTask.getEndDate().isPresent();
+            
+            if ((bothHaveEndDate && this.getEndDate().get().equals(otherTask.getEndDate().get()))
+                    || bothMissingEndtDate) {}
+            else {
+                return false;
+            }
+            
+            // check if both have have recurrence rate and are same recurrence rate, or both do not have a recurrence rate
+            boolean bothHaveRecurrenceRate = this.getRecurrenceRate().isPresent() && otherTask.getRecurrenceRate().isPresent();
+            boolean bothMissingRecurrenceRate = !this.getRecurrenceRate().isPresent() && !otherTask.getRecurrenceRate().isPresent();
+            
+            if ((bothHaveRecurrenceRate && this.getRecurrenceRate().get().equals(otherTask.getRecurrenceRate().get()))
+                    || bothMissingRecurrenceRate) {}
+            else {
+                return false;
+            }
+            
+            return true;
+
+            
+        }
+        
+        return false;
     }
 
     @Override

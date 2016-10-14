@@ -45,7 +45,7 @@ public interface Model {
     void updateFilteredFloatingTaskList(Set<String> keywords);
 
     /** Edits the name of the given floating task. */
-	void editName(ReadOnlyTask personToEdit, Name taskName) throws DuplicateTaskException;
+	void editName(ReadOnlyTask personToEdit, Name taskName);
     
 	/** Edits the start date of the given floating task. */
 	void editStartDate(ReadOnlyTask personToEdit, Date startDate);

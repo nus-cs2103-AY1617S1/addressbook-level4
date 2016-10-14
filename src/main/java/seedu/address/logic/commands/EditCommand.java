@@ -102,13 +102,8 @@ public class EditCommand extends Command{
         // Copy this task for history usage
         Task affectedTaskToEdit = new Task(taskToEdit);  
         
-        if (taskName != null) {
-            try {            
-				model.editName(taskToEdit, taskName);
-			} catch (DuplicateTaskException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        if (taskName != null) {        
+            model.editName(taskToEdit, taskName);
         }
         
         if (startDate != null) {
@@ -136,6 +131,7 @@ public class EditCommand extends Command{
         // add the updated task
         Task updatedTask = new Task(taskToEdit);
         affectedTasks.add(updatedTask);
+        System.out.println("What edit inserted into history" + affectedTasks);
         history.update(new ReversibleEffect(this.COMMAND_WORD, affectedTasks));
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));

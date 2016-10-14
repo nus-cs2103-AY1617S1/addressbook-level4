@@ -1,10 +1,15 @@
 package seedu.address.logic.commands;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.history.ReversibleEffect;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
@@ -56,18 +61,20 @@ public class UndoCommand extends Command {
                 model.addTask(firstAffectedTask);
                 return new CommandResult("Undid last command:\n\t" + commandName + " " + firstAffectedTask);
             
-            /*
+            
             case "edit":
                 assert tasksAffected.size() == 2;
                 
                 // this is the updated task
-                Task secondTaskInList = getSecondTaskInList(tasksAffected);
+                Task editedTaskToRevert = getSecondTaskInList(tasksAffected);
                 
-                // replace the updated task (find by index) with the old, unedited task
-                model.
+                // keep a deep copy for printing since the task will be changed
+                Task copyOfEditedTask = new Task(editedTaskToRevert);
                 
-                break;
-            */
+                Task prevStateOfEditedTask = firstAffectedTask;
+                                
+                undoEditCommand(prevStateOfEditedTask, editedTaskToRevert);
+                return new CommandResult("Undid last command:\n\t" + commandName + " " + copyOfEditedTask + " reverted back to " + prevStateOfEditedTask);    
             
             case "clear":
                 model.addTasks(tasksAffected);
@@ -85,6 +92,50 @@ public class UndoCommand extends Command {
         
     }
     
+    private void undoEditCommand(Task prevStateOfEditedTask, Task editedTaskToRevert) {
+        // temporary method of undoing edit by editing back all fields 
+        // until there is a single unified edit method
+        
+        Name oldTaskName = prevStateOfEditedTask.getName();
+        Optional<Date> oldStartDate = prevStateOfEditedTask.getStartDate();
+        Optional<Date> oldEndDate = prevStateOfEditedTask.getEndDate();
+        Priority oldPriority = prevStateOfEditedTask.getPriorityValue();
+        Optional<RecurrenceRate> oldReccurence = prevStateOfEditedTask.getRecurrenceRate();
+        
+        Task taskInListToRevert = model.getTaskManager().getUniqueTaskList().getTask(editedTaskToRevert);
+      
+        model.editName(taskInListToRevert, oldTaskName);
+        
+        model.editPriority(taskInListToRevert, oldPriority);
+        
+        /*
+        // edit back the start date
+        if (oldStartDate.isPresent()){
+            model.editStartDate(editedTaskToRevert, oldStartDate.get());
+        }
+        else {
+            model.editStartDate(editedTaskToRevert, null);
+        }
+        
+        // edit back the end date
+        if (oldEndDate.isPresent()){
+            model.editEndDate(editedTaskToRevert, oldEndDate.get());
+        }
+        else {
+            model.editEndDate(editedTaskToRevert, null);
+        }
+        
+        // edit back the recurrence rate
+        if (oldReccurence.isPresent()){
+            model.editRecurrence(editedTaskToRevert, oldReccurence.get());
+        }
+        else{
+            model.editRecurrence(editedTaskToRevert, null);
+        }
+        */
+        
+    }
+
     private List<ReadOnlyTask> convertTaskListToReadOnlyTaskList(List<Task> tasks){
         List<ReadOnlyTask> readOnlyTaskList = new ArrayList<ReadOnlyTask>();
         for (Task task: tasks){

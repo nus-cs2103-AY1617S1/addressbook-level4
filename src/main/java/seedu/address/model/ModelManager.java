@@ -82,8 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editName(ReadOnlyTask floatingTask, Name name) throws UniqueTaskList.DuplicateTaskException {
-        //System.out.println("Name at line 81 " + name);
+    public synchronized void editName(ReadOnlyTask floatingTask, Name name) {
         taskManager.editFloatingTaskName(floatingTask, name);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
