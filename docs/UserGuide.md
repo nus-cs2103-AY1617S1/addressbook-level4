@@ -41,7 +41,7 @@ Examples:
  
 #### Adding a task/event: `add`
 Adds a task/event to GetShitDone  
-Format: `add NAME [s/START_DATE] [e/END_DATE]] [d/DEADLINE] [t/TAG]...` 
+Format: `add [event] NAME [by/on deadline] [t/TAG]...` 
 
 > *Note:* An **event** is a special kind of **task**. It does not have any deadlines, but instead it has start and end dates.
  
@@ -61,7 +61,10 @@ Format: `add NAME [s/START_DATE] [e/END_DATE]] [d/DEADLINE] [t/TAG]...`
 Examples: 
 
  * `add CS2103 Project`
- * `add CS2103 Workshop by Prof Damith on Wednesday`
+ * `add event CS2103 Workshop on Wednesday`  
+ <img src="images/UserGuide/beforeEvent.png">
+ <img src="images/UserGuide/afterEvent.png">
+
  * `add CS2103 V0.3 by next Friday`
  <img src="images/UserGuide/beforeAdd.png">
  <img src="images/UserGuide/afterAdd.png">
