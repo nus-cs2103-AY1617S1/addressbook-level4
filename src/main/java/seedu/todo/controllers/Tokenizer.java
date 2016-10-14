@@ -65,10 +65,16 @@ public class Tokenizer {
         }
         
         // --- Split by tokens
+        Map<String, Integer> tokenIndices = new HashMap<String, Integer>();
         for (int i = 0; i < tokenizedSplitString.size(); i++) { // Java doesn't eager-evaluate the terminating condition
             TokenizedString currString = tokenizedSplitString.get(i);
-            if (currString.isQuote || currString.isToken)
+            if (currString.isQuote)
                 continue;
+            if (currString.isToken) {
+                tokenIndices.put(currString.string, i);
+                tokens.remove(currString.string);
+                continue;
+            }
             
             // Try to match all the tokens
             for (String token : tokens) {
@@ -91,8 +97,13 @@ public class Tokenizer {
                 
                 // Update currString and resume.
                 currString = tokenizedSplitString.get(i);
-                if (currString.isQuote || currString.isToken)
+                if (currString.isQuote)
                     break;
+                if (currString.isToken) {
+                    tokenIndices.put(currString.string, i);
+                    tokens.remove(currString.string);
+                    break;
+                }
             }   
         }
         
