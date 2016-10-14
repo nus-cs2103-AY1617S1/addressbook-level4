@@ -55,6 +55,7 @@ public class DoneCommand extends Command {
             displayArchivedTasks.add(taskToArchive.toString());
             adjustmentForRemovedTask++;
         }
-        return new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, displayArchivedTasks));
+        String toDisplay = displayArchivedTasks.toString().replace("[", "").replace("]", "");
+        return new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay));
     }
 }

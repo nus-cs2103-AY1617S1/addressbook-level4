@@ -57,8 +57,8 @@ public class DeleteCommand extends Command {
             displayDeletedTasks.add(taskToDelete.toString());
             adjustmentForRemovedTask++;
         }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, displayDeletedTasks));
+        String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
+        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay));
     }
 
 }
