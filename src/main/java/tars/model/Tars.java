@@ -69,7 +69,7 @@ public class Tars implements ReadOnlyTars {
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
-    
+
     /**
      * Replaces task in tars internal list
      *
@@ -206,7 +206,7 @@ public class Tars implements ReadOnlyTars {
                     Task toMark = new Task(t);
                     toMark.setStatus(done);
                     replaceTask(t, toMark);
-                } 
+                }
             }
         } else if (status.equals(Flag.UNDONE)) {
             Status undone = new Status(false);

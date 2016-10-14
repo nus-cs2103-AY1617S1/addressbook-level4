@@ -227,7 +227,7 @@ public class Parser {
         Flag doneFlag = new Flag(Flag.DONE, false);
         Flag undoneFlag = new Flag(Flag.UNDONE, false);
 
-        Flag[] flags = { doneFlag, undoneFlag, };
+        Flag[] flags = {doneFlag, undoneFlag};
 
         TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
         HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
