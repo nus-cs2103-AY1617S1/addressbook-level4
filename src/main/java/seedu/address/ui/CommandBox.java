@@ -29,7 +29,10 @@ public class CommandBox extends UiPart {
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
+    
+    private CommandHistoryManager commandHistoryManager = new CommandHistoryManager();
 
+    
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
             ResultDisplay resultDisplay, Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
@@ -71,7 +74,9 @@ public class CommandBox extends UiPart {
     private void handleCommandInputChanged() {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
-
+        
+        commandHistoryManager.rememberCommand(previousCommandTest);
+        
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
