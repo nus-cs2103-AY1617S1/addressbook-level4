@@ -6,6 +6,7 @@ import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.events.model.MalitioChangedEvent;
 import seedu.malitio.commons.util.StringUtil;
+import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.ReadOnlyTask;
 import seedu.malitio.model.task.Task;
 import seedu.malitio.model.task.UniqueTaskList;
@@ -75,7 +76,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        malitio.addTask(task);
+    	if (task instanceof FloatingTask)
+    		malitio.addTask(task);
+    	else
+    		malitio.addTask2(task);
         updateFilteredListToShowAll();
         updateFilteredScheduleToShowAll();
         indicatemalitioChanged();
