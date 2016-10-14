@@ -38,7 +38,6 @@ public class Task implements ReadOnlyTask {
         return description;
     }
     
-    @Override
     public void setDescription(Description description){
        assert !CollectionUtil.isAnyNull(description);
        this.description = description;

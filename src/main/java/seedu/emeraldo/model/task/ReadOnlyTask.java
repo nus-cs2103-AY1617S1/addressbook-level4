@@ -10,7 +10,6 @@ public interface ReadOnlyTask {
 
     Description getDescription();
     DateTime getDateTime();
-    void setDescription(Description s);
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
