@@ -14,6 +14,9 @@ public class DestroyController implements Controller {
     private static String DESCRIPTION = "Destroys a task/event by listed index";
     private static String COMMAND_SYNTAX = "destroy <index>";
     
+    private static String MESSAGE_DELETE_SUCCESS = "Item deleted successfully!\n" + "To undo, type \"undo\".";
+    private static String MESSAGE_INVALID_CALENDARITEM = "Could not delete task/event: invalid index provided!";
+    
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
 
@@ -39,12 +42,17 @@ public class DestroyController implements Controller {
         CalendarItem calendarItem = edb.getCalendarItemsByDisplayedId(index);
         TodoListDB db = TodoListDB.getInstance();
         
-        if (calendarItem != null) {
-            if (calendarItem instanceof Task) {
-                db.destroyTask((Task) calendarItem);
-            } else {
-                db.destroyEvent((Event) calendarItem);
-            }
+        if (calendarItem == null) {
+            UiManager.updateConsoleMessage(MESSAGE_INVALID_CALENDARITEM);
+            return;
+        }
+        
+        assert calendarItem != null;
+        
+        if (calendarItem instanceof Task) {
+            db.destroyTask((Task) calendarItem);
+        } else {
+            db.destroyEvent((Event) calendarItem);
         }
         
         // Re-render
@@ -52,6 +60,9 @@ public class DestroyController implements Controller {
         view.tasks = db.getAllTasks();
         view.events = db.getAllEvents();
         UiManager.renderView(view);
+        
+        // Show console message
+        UiManager.updateConsoleMessage(MESSAGE_DELETE_SUCCESS);
     }
 
 }
