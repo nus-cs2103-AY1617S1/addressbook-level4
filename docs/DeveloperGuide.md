@@ -135,8 +135,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* stores ForgetMeNot's data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -279,30 +279,6 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
-
-#### Use case: Delete person
-
-**MSS**
-
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
-  
-Appendix B: Use Cases
 (For all the use cases below, the **System** is the `ForgetMeNot` and the **Actor** is the `user`, unless specified otherwise)
 
 	
@@ -340,7 +316,7 @@ Appendix B: Use Cases
 3a. The task is not found
 
 > 3a1. ForgetMeNot displays an error message
-> Use case resumes at step 2
+> 2a2. Use case resumes at step 2
 
 #### Use Case: View information on various commands
 
@@ -358,7 +334,7 @@ Appendix B: Use Cases
 
 > 3a1. ForgetMeNot displays an error message
 
-> 3a1. Use case resumes at step 2
+> 3a2. Use case resumes at step 2
 
 #### Use case: Sort tasks
 
@@ -373,11 +349,11 @@ Appendix B: Use Cases
 **Extensions**
 	1a. List of tasks is empty
 	
-> ForgetMeNot shows list is empty message
+> 1a1. ForgetMeNot shows list is empty message
 
-	3a. Requested sorting manner does not exists
+	2a. Requested sorting manner does not exists
 	
-> ForgetMeNot shows error message
+> 2a1. ForgetMeNot shows error message
 
 #### Use case: Edit a task
 
@@ -393,15 +369,15 @@ Appendix B: Use Cases
 
 	1a. Input command incorrect.
 	
-> System shows help message
+> 1a1. System shows help message
 
 	1b. The task does not exist.
 	
-> System suggests user to check the input or add a new task
+> 1b1. System suggests user to check the input or add a new task
 
 	2a. User changed his mind
 	
-> Command is removed.
+> 2a1. Command is removed.
 
 #### Use case: List Commands
 
@@ -415,7 +391,7 @@ Appendix B: Use Cases
 
 	1a. Input command incorrect.
 	
-> System shows help message
+> 1a1. System shows help message
 
 #### Use case: Mark task as done
 
@@ -425,19 +401,20 @@ Appendix B: Use Cases
 3. User confirms.
 4. System shows user that the task is marked as done.
        Use case ends
+       
 **Extensions**
 
     1a. Input command incorrect.
     
-> System shows help message.
+> 1a1. System shows help message.
 
 	1b. Task entered does not exist
 	
-> System prompts user to check input or add a new task
+> 1b1. System prompts user to check input or add a new task
 	
 	2a. User changed his mind
 	
-> Command is removed.
+> 2a1. Command is removed.
 
 #### Use case: List task
 
@@ -446,16 +423,17 @@ Appendix B: Use Cases
 1. User request to list tasks.
 2. System shows user the list of task.
       Use case ends
+      
 **Extensions**
 
 	1a. Input command incorrect.
 	
-> System shows help message.
+> 1a1. System shows help message.
 	
     1b. No task inside the list.
     
-> System shows error message
-> Prompt user to add tasks
+> 1b1. System shows error message
+> 1b2. Prompt user to add tasks
 
 
 #### Use Case: Undo a task
@@ -464,16 +442,32 @@ Appendix B: Use Cases
 
 1. User undo a task
 2. ForgetMeNot undo the most recent command executed
-
+      Use case ends
+      
 **Extension**
 
 	1a. No command to be undone
 	
-> ForgetMeNot shows error message
+> 1a1. ForgetMeNot shows error message
 
 	1b. User input an invalid input
 	
-> ForgetMeNot shows help message
+> 1b1.ForgetMeNot shows help message
+
+#### User Case: Set priority while creating a task
+
+**MSS**
+
+1. User sets priority when creating a task
+2. ForgetMeNot adds the task to the list with high priority
+3. ForgetMeNot automatically shows the task at the top of the list
+      Use case ends
+      
+**Extension**
+
+    1a. Priority entered by user is of invalid format
+    
+> 1a1. ForgetMeNot shows error message and displays the correct format to input priority when creating a task 
 
 
 
