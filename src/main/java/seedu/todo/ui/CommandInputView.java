@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class CommandInputView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandInputView.class);
     private static final String FXML = "CommandInputView.fxml";
+    private static final String ERROR_STYLE = "error";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandInputPane;
@@ -90,14 +91,33 @@ public class CommandInputView extends UiPart {
      * @param result produced by Logic class
      */
     private void handleCommandResult(CommandResult result) {
+
         if (result.isSuccessful()) {
             commandFeedbackView.unFlagError();
+            this.unflagError();
             commandTextField.clear();
         } else {
             commandFeedbackView.flagError();
+            this.flagError();
         }
         commandFeedbackView.displayMessage(result.getFeedback());
         commandTextField.setDisable(false);
+    }
+
+    /* UI Methods */
+
+    /**
+     * Indicate an error visually on the {@link #commandTextField}
+     */
+    private void flagError() {
+        commandTextField.getStyleClass().add(ERROR_STYLE);
+    }
+
+    /**
+     * Remove the error flag visually on the {@link #commandTextField}
+     */
+    private void unflagError() {
+        commandTextField.getStyleClass().remove(ERROR_STYLE);
     }
 
     /* Override Methods */
