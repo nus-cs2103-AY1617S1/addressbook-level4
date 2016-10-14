@@ -24,6 +24,7 @@ Tool Expert:
 * Windows Environment Tester
 * JUnit
 * EclEmma
+
 -----
 
 #### [Calvin Yang Jiawei](http://github.com/origiri) <br>
@@ -53,6 +54,7 @@ Responsible for:
 Tool Expert:
 * Regex
 * Travis
+* Slack
 
 -----
 
@@ -66,5 +68,7 @@ Resonsible for:
 * Guiding look-and-feel decisions.
 
 Tool Expert:
-* Scene Builder
+* SceneBuilder
+* CSS
+
  -----
