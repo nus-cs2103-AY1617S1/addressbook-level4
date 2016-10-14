@@ -105,4 +105,12 @@ public class CommandInputView extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
+
+    /*Interface Declarations*/
+    /**
+     * Defines an interface for controller class to receive a command from this view class, and process it.
+     */
+    public interface CommandCallback {
+        void onCommandReceived(String command);
+    }
 }
