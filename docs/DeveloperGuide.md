@@ -102,15 +102,15 @@ Certain terms used within this developer guide may seem alien to some. Hence thi
 
 The architectural design shows how the various components work in tandem with each other. Main only has one class MainApp and it is responsible for:
 
-1. 1)Starting up _Unburden_: Initializes all components in order and ensures that the app starts to run
-2. 2)Exiting _Unburden_: Shuts down all components in order and clears the memory
+ 1)Starting up _Unburden_: Initializes all components in order and ensures that the app starts to run
+ 2)Exiting _Unburden_: Shuts down all components in order and clears the memory
 
 The rest of the app consists of 4 main components other than main. They are :
 
-1. 1)Logic : Decides what to output with the inputs and executes commands
-2. 2)Model : Holds the data during runtime
-3. 3)UI: Controls the UI of the app
-4. 4)Storage: Reads and writes data to the hard disk
+ 1)Logic : Decides what to output with the inputs and executes commands
+ 2)Model : Holds the data during runtime
+ 3)UI: Controls the UI of the app
+ 4)Storage: Reads and writes data to the hard disk
 
 Each component has a interface which all its classes implements and is named after the component itself.
 
@@ -202,8 +202,8 @@ The API of the Model component is in the Model class which consists of the main 
 
 ModelManager is able to:
 
-1. 1)Store the user preference
-2. 2)Store _Unburden&#39;s_ data
+ 1)Store the user preference
+ 2)Store _Unburden&#39;s_ data
 
 **Storage component**
 
