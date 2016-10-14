@@ -48,6 +48,14 @@ public class AddController implements Controller {
     @Override
     public void process(String input) {
         
+        Map<String, String[]> parsedResult;
+        try {
+            parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);            
+        } catch (UnmatchedQuotesException e) {
+            System.out.println("Unmatched quote!");
+            return;
+        }
+        
         
         // Create and persist task / event.
         TodoListDB db = TodoListDB.getInstance();
