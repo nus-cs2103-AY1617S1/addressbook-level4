@@ -33,9 +33,4 @@ public class HelpCommand extends Command {
         }
         return false;
     }
-    
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }

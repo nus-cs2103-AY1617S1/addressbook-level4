@@ -23,9 +23,4 @@ public class ClearCommand extends Command {
     public boolean isValidCommandWord(String commandWord) {
         return commandWord.equals(COMMAND_WORD);
     }
-    
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }
