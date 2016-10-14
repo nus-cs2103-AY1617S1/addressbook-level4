@@ -37,18 +37,12 @@ Format: `help`
 #### Adding a task: `add`
 Adds a task to the MustDoList.<br>
 
-Format1: **`add`**`FLOATING_TASK_NAME`<br>
-Format2: **`add`**`DEADLINE_NAME by END_DATE`<br>
-Format3: **`add`**`EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION
+Format: **`add`**`EVENT_NAME s/START_DATE e/END_DATE a/LOCATION`
 
-DATE Format: DDMMYY<br>
-TIME Format: 12HR<br>
+> DATE Format: DDMMYYYY<br>
 
 Examples:<br> 
-* **`add`**`Submission of CS2103 Project`<br>
-* **`add`**`Submission of CS2103 Project by 111116`<br>
-* **`add`**`Submission of CS2103 Project by 111116 0900`<br>
-* **`add`**`CS2103 Tutorial s/011016 e/111116 at COM1 B103`<br>
+* **`add`**`CS2103 Tutorial s/011016 e/111116 a/COM1 B103`<br>
 
 #### Listing all tasks: `list`
 Shows a list of all tasks in the MustDoList.<br>
@@ -60,15 +54,15 @@ Finds a task by keywords.<br>
 
 Format: **`find`**`KEYWORD`
 
-> KEYWORD refers to: task_name, location, date, time<br> 
+> KEYWORD refers to: task_name, location, date, mark<br> 
 
 Examples:<br> 
 * **`find`**`CS2103`<br>
-  Returns `Submission of CS2103 Project`
-* **`find`**`Submission of CS2103 Project`<br>
   Returns Any task(s) having names `Submission`, `of`, `CS2103`, or `Project`
-* **`find`**`09-oct-16`<br>
-  Returns Any task(s) with date 09-oct-16
+* **`find`**`09102016`<br>
+  Returns Any task(s) with date 09 Oct 2016
+* **`find`**`completed`<br>
+  Returns Any task(s) are mark completed
 
 #### Select a task : `select`
 Selects a task from MustDoList by index.<br>
@@ -109,17 +103,17 @@ Format: `clear`
 #### Edit a task : `edit`
 Edits a task parameter from the MustDoList by index.<br>
 
-Format: **`edit`**`INDEX PARAMETERS`
+Format: **`edit`**`INDEX s/START_DATE_TIME e/END_DATE_TIME a/LOCATION`
 
-> PARAMETERS refers to: ‘s/START_DATE_TIME e/END_DATE_TIME at LOCATION’
+> DATE Format: DDMMYYYY<br>
 
 Examples:<br>
 * `list`<br>
-  **`edit`**`2 new task name s/101016 e/101016 at somewhere
+  **`edit`**`2 new task name s/101016 e/101016 a/NUS`
   Edit the 2nd task in the MustDoList by the given PARAMETERS.
 * **`find`**`Submission` <br>
-  **`edit`**`1 another new task name s/111016 e/111016 at there `<br>
-  Edit the 1st task in the results of the `find` command by PARAMETER et/END_TIME.
+  **`edit`**`1 another new task name s/111016 e/111016 a/there `<br>
+  Edit the 1st task in the results of the `find` command by PARAMETERS.
 
 #### Undo a previous task : `undo`
 Undo a previously add, edit, delete, mark command in the MustdoList.<br>
@@ -141,25 +135,9 @@ Examples:<br>
   **`mark`**`1`<br>
   Marks the 1st task in the results of the `find` command as completed.  
 
-#### Change preference for default storage : `setpath`
-Changes the default storage path to user's preferred path.<br>
-
-Format: **`setpath`**`FILE_DIRECTORY`
-
-> FILE_DIRECTORY refers to the location of user's preferred storage file.<br>
-
-Examples:<br>
-* **`setpath`**`task`<br>
-
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit` 
-
-#### Switching to next or previous (reuse) commands : `up-arrow or down-arrow`   (Pressing)
-Switching to next or previous commands when press up-arrow or down-arrow.
-
-#### Indicating overdue task : `color code (red)`
-Indicating overdue task with color code (red)
 
 ####Saving the data 
 MustDoList data are saved in the hard disk automatically after any command that changes the data.<br>
@@ -175,19 +153,14 @@ There is no need to save manually.
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add |  **`add`**`FLOATING_TASK_NAME`<br>
-Add | **`add`**`DEADLINE_NAME by END_DATE`<br>
-Add | **`add`**`EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION
+Add | **`add`**`EVENT_NAME s/START_DATE e/END_DATE a/LOCATION`
 List | `list`
 Find | **`find`**`KEYWORD`
 Select | **`select`**`INDEX`
 Delete | **`delete`**`INDEX`
 Clear | `clear`
-Edit | **`edit`**`INDEX NEW_PARAMETERS`
+Edit | **`edit`**`INDEX EVENT_NAME s/START_DATE e/END_DATE a/LOCATION`
 Undo | `undo`
-Mark | **`mark`**`INDEX`
-Change preference for default storage | **`setpath`**`FILE_DIRECTORY` 
+Mark | **`mark`**`INDEX` 
 Exit | `exit`
-Switching to next or previous commands | `up-arrow or down-arrow`
-Indicate overdue task | color code (RED)
 Save | system save automatically
