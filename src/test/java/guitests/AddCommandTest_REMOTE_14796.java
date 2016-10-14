@@ -14,19 +14,19 @@ public class AddCommandTest extends AddressBookGuiTest {
     @Test
     public void add() {
         //add one person
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.hoon;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        TestTask[] currentList = td.getTypicalPersons();
+        TestTask personToAdd = td.hoon;
+        assertAddSuccess(personToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
         //add another person
-        taskToAdd = td.ida;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        personToAdd = td.ida;
+        assertAddSuccess(personToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
         //add duplicate person
         commandBox.runCommand(td.hoon.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
         assertTrue(personListPanel.isListMatching(currentList));
 
         //add to empty list
