@@ -15,6 +15,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -24,8 +25,10 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskManager taskManager;
+    private TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private Stack<TaskManager> stateHistory;
+    private Stack<TaskManager> undoHistory;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -40,6 +43,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        stateHistory = new Stack<>();
+        undoHistory = new Stack<>();
     }
 
     public ModelManager() {
@@ -49,7 +54,24 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        stateHistory = new Stack<>();
+        undoHistory = new Stack<>();
     }
+    
+    public void saveState() {
+    	stateHistory.push(new TaskManager(taskManager));
+    	undoHistory.clear();
+    }
+    
+    public void undoState() {
+    	taskManager = stateHistory.pop();
+    	undoHistory.push(new TaskManager(taskManager));
+    }
+    
+    public void redoState() {
+    	taskManager = undoHistory.push(new TaskManager(taskManager));
+    }
+    
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {

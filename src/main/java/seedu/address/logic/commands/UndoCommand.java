@@ -10,7 +10,7 @@ public class UndoCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-		// TODO
-		return null;
+		model.undoState();
+		return new CommandResult(MESSAGE_UNDO_SUCCESS);
 	}
 }

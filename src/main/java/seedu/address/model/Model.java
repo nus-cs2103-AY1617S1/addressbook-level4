@@ -18,6 +18,15 @@ public interface Model {
 
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
+    
+    /** Saves the state of the model in case the user wishes to undo an action. */
+    void saveState();
+    
+    /** Reverts back to previous task and tag list before the last command was executed. */
+    void undoState();
+    
+    /** Redoes an action after an undo. */
+    void redoState();
 
     /** Deletes the given tasks. */
     void deleteTasks(ArrayList<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;

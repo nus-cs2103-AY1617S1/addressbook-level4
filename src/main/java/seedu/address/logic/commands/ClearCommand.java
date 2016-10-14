@@ -5,7 +5,7 @@ import seedu.address.model.TaskManager;
 /**
  * Clears the address book.
  */
-public class ClearCommand extends Command implements UndoableCommand {
+public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Task manager has been cleared!";
@@ -16,14 +16,10 @@ public class ClearCommand extends Command implements UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
+        
+        model.saveState();
+        
         model.resetData(TaskManager.getEmptyTaskManager());
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
-
-	@Override
-	public CommandResult undo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

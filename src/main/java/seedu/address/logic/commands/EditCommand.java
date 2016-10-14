@@ -16,7 +16,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits a task identified using it's last displayed index from the task manager.
  */
-public class EditCommand extends Command implements UndoableCommand {
+public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -45,6 +45,8 @@ public class EditCommand extends Command implements UndoableCommand {
     @Override
     public CommandResult execute() {
 
+        model.saveState();
+        
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -65,15 +67,8 @@ public class EditCommand extends Command implements UndoableCommand {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-
+        
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
-
-
-	@Override
-	public CommandResult undo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

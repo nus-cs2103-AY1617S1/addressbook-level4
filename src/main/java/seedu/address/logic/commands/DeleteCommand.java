@@ -11,7 +11,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Deletes a task identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends Command implements UndoableCommand {
+public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "del";
 
@@ -33,6 +33,9 @@ public class DeleteCommand extends Command implements UndoableCommand {
 
     @Override
     public CommandResult execute() {
+    	
+    	model.saveState();
+    	
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         ArrayList<ReadOnlyTask> tasksToDelete = new ArrayList<>();
@@ -61,17 +64,17 @@ public class DeleteCommand extends Command implements UndoableCommand {
     }
 
 
-	@Override
-	public CommandResult undo() {
-		AddCommand addCommand;
-		
-		for (Task task : recentDeletedTasks) {
-			addCommand = new AddCommand(task);
-			addCommand.setData(model);
-			addCommand.execute();
-		}
-		
-		return new CommandResult(String.format(MESSAGE_UNDO_DELETE_SUCCESS, recentDeletedTasks));
-	}
+//	@Override
+//	public CommandResult undo() {
+//		AddCommand addCommand;
+//		
+//		for (Task task : recentDeletedTasks) {
+//			addCommand = new AddCommand(task);
+//			addCommand.setData(model);
+//			addCommand.execute();
+//		}
+//		
+//		return new CommandResult(String.format(MESSAGE_UNDO_DELETE_SUCCESS, recentDeletedTasks));
+//	}
 
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Adds a task to the task manager.
  */
-public class AddCommand extends Command implements UndoableCommand {
+public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
@@ -93,17 +93,16 @@ public class AddCommand extends Command implements UndoableCommand {
     public CommandResult execute() {
     	assert model != null;
         try {
+        	model.saveState();
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
+        	// If adding was unsuccessful, then the state should not be saved - no change was made.
+        	// TODO avoid undo pushing state into redo stack
+        	model.undoState();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }
 
-	@Override
-	public CommandResult undo() {
-		// TODO
-		return null;
-	}
 }
