@@ -11,6 +11,9 @@ import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
+import seedu.todo.ui.controller.CommandController;
+import seedu.todo.ui.view.CommandFeedbackView;
+import seedu.todo.ui.view.CommandInputView;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -90,7 +93,8 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getObservableTaskList());
         commandFeedbackView = CommandFeedbackView.load(primaryStage, getResultDisplayPlaceholder());
-        commandInputView = CommandInputView.load(primaryStage, getCommandBoxPlaceholder(), commandFeedbackView, logic);
+        commandInputView = CommandInputView.load(primaryStage, getCommandBoxPlaceholder());
+        CommandController.constructLink(logic, commandInputView, commandFeedbackView, null);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
