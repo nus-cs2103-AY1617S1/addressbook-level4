@@ -113,11 +113,12 @@ public class Parser {
             String startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             String endTime = (matcher.group("end") == null) ? null : matcher.group("end");
             String priority = (matcher.group("priority") == null) ? null : matcher.group("priority");
-            String tagList = (matcher.group("tagArguments") == null) ? null : matcher.group("tagArguments");
             UniqueTagList utags = null;
             try {
-                utags = new UniqueTagList(getTags(tagList.split(" ")));
+                utags = new UniqueTagList(new Tag("Hi"));
             } catch (DuplicateTagException e) {
+                e.printStackTrace();
+            } catch (IllegalValueException e) {
                 e.printStackTrace();
             }
             

@@ -83,7 +83,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.removeTask(target);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        addToUndoStack(UndoCommand.DEL_CMD_ID, (Task)target);
+        if(callDidNotComeFromUndoCommand())
+           addToUndoStack(UndoCommand.DEL_CMD_ID, (Task)target);
     }
 
     @Override
@@ -91,7 +92,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.addTask(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        addToUndoStack(UndoCommand.ADD_CMD_ID, task);
+        if(callDidNotComeFromUndoCommand())
+           addToUndoStack(UndoCommand.ADD_CMD_ID, task);
     }
     
     @Override
@@ -100,7 +102,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
         Task originalTask = new Task(taskDetails, startTime, endTime, priority, tags);
-        addToUndoStack(UndoCommand.UPD_CMD_ID, taskToUpdate, originalTask);
+        if(callDidNotComeFromUndoCommand()){
+           addToUndoStack(UndoCommand.UPD_CMD_ID, taskToUpdate, originalTask);
+           System.out.println("No undo");
+        }
+        else System.out.println("undo");
     }
     
     @Override
@@ -108,7 +114,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.markTaskAsComplete(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        addToUndoStack(UndoCommand.DONE_CMD_ID, (Task)task);
+        if(callDidNotComeFromUndoCommand())
+           addToUndoStack(UndoCommand.DONE_CMD_ID, (Task)task);
     }
     
     @Override
@@ -116,7 +123,14 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.markTaskAsIncomplete(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        addToUndoStack(UndoCommand.DONE_CMD_ID, (Task)task);
+        if(callDidNotComeFromUndoCommand())
+           addToUndoStack(UndoCommand.DONE_CMD_ID, (Task)task);
+    }
+
+    private boolean callDidNotComeFromUndoCommand() {
+        //TO-DO
+        //return !(Thread.currentThread().getStackTrace().getClass().getName().equals("UndoCommand"));
+        return true;
     }
 
     private void addToUndoStack(int undoID, Task... tasks) {
