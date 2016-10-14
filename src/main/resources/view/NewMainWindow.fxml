@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65">
+   <children>
+      <MenuBar VBox.vgrow="NEVER">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </AnchorPane>
+      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
+         <items>
+            <VBox>
+               <children>
+                  <AnchorPane fx:id="resultDisplayPlaceholder" prefHeight="200.0" prefWidth="400.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </AnchorPane>
+                  <AnchorPane fx:id="taskListPanelPlaceholder" prefHeight="300.0" prefWidth="400.0" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <TabPane tabClosingPolicy="UNAVAILABLE" tabMaxHeight="15.0" tabMaxWidth="70.0">
+               <tabs>
+                  <Tab text="Today">
+                     <content>
+                        <AnchorPane>
+                           <styleClass>
+                              <String fx:value="anchor-pane-with-border" />
+                              <String fx:value="tab-pane" />
+                           </styleClass>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Tomorrow">
+                     <content>
+                        <AnchorPane styleClass="anchor-pane-with-border" />
+                     </content>
+                  </Tab>
+                  <Tab text="In 7 Days">
+                     <content>
+                        <AnchorPane styleClass="anchor-pane-with-border" />
+                     </content>
+                  </Tab>
+                  <Tab text="In 30 Days">
+                     <content>
+                        <AnchorPane styleClass="anchor-pane-with-border" />
+                     </content>
+                  </Tab>
+                  <Tab text="Someday">
+                     <content>
+                        <AnchorPane prefHeight="523.0" prefWidth="409.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+               <styleClass>
+                  <String fx:value="background" />
+                  <String fx:value="anchor-pane-with-border" />
+               </styleClass>
+            </TabPane>
+         </items>
+      </SplitPane>
+      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+   </children>
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+</VBox>
