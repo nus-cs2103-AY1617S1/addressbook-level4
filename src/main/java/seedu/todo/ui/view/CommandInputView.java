@@ -44,6 +44,7 @@ public class CommandInputView extends UiPart {
 
     private void configure() {
         setCommandInputHeightAutoResizeable();
+        unflagErrorWhileTyping();
     }
 
     /**
@@ -60,6 +61,13 @@ public class CommandInputView extends UiPart {
         });
     }
 
+    /**
+     * Resets the text box by {@link #unflagError()} after a key is pressed
+     */
+    private void unflagErrorWhileTyping() {
+        this.commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> unflagError());
+    }
+    
     /* UI Methods */
 
     /**
