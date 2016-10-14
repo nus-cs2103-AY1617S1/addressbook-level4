@@ -10,7 +10,7 @@
 * [Introduction](#1-introduction)
 * [Site Map](#2-site-map)
 * [Acknowledgements](#3-acknowledgements)
-* [License](4-license-mit)
+* [License](#4-license)
 
 
 ### 1. IntroductionHello! Do you have too many tasks and are unable to finish all of them? Are you looking for a hassle-free task manager which works swiftly?Enter Agendum.
@@ -32,4 +32,5 @@
   [GitHub repo](https://github.com/nus-cs2103-AY1617S1/addressbook-level4) by *nus-cs2103-AY1617S1*. 
 
 
-### 4. License : [MIT](LICENSE)
+### 4. License
+* [MIT](LICENSE)
