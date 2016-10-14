@@ -127,7 +127,7 @@ VBox.header {
 .tasklist-pane {
   -fx-background-color: #ffffff;
 }
-]
+
 .tasklist-title {
   -fx-font-size: 20px;
 }
@@ -154,6 +154,11 @@ VBox.header {
 .tasklist-itemtime {
   -fx-font-size: 11px;
   -fx-fill: #999999;
+}
+
+.tasklist-taskitem-label.completed {
+  -fx-fill: #9BBAAD;
+  -fx-strikethrough: true;
 }
 
 /* HELP VIEW */
