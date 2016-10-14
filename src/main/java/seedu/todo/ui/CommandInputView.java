@@ -44,9 +44,8 @@ public class CommandInputView extends UiPart {
     public void configure(CommandFeedbackView commandFeedbackView, Logic logic) {
         this.commandFeedbackView = commandFeedbackView;
         this.logic = logic;
-        registerAsAnEventHandler(this);
         setCommandInputHeightAutoResizeable();
-        setCommandInputListener();
+        listenToCommandInput();
     }
 
     private void addToPlaceholder() {
