@@ -70,37 +70,9 @@ public class CommandInputView extends UiPart {
         });
     }
 
-    /**
-     * Submits a command to logic, and handle the result of CommandResult with
-     * {@link #handleCommandResult(CommandResult)}
-     * @param commandText command submitted by user via {@link #commandTextField}
-     */
-    private void submitCommandInput(String commandText) {
-        //Do not execute an empty command. TODO: This check should be done in the parser class.
-        if (!StringUtil.isEmpty(commandText)) {
-            commandTextField.setDisable(true);
-            CommandResult result = logic.execute(commandText);
-            handleCommandResult(result);
-        }
-    }
 
-    /**
-     * Handles a CommandResult object, and updates the user interface to reflect the result.
-     * @param result produced by Logic class
-     */
-    private void handleCommandResult(CommandResult result) {
 
-        if (result.isSuccessful()) {
-            commandFeedbackView.unFlagError();
-            this.unflagError();
-            commandTextField.clear();
-        } else {
-            commandFeedbackView.flagError();
-            this.flagError();
-        }
-        commandFeedbackView.displayMessage(result.getFeedback());
-        commandTextField.setDisable(false);
-    }
+
 
     /* UI Methods */
 
