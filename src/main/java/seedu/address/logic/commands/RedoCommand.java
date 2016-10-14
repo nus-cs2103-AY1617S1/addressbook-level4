@@ -107,32 +107,32 @@ public class RedoCommand extends Command {
         model.editName(taskInListToRevert, oldTaskName);
         
         model.editPriority(taskInListToRevert, oldPriority);
-        /*
+        
         // edit back the start date
         if (oldStartDate.isPresent()){
-            model.editStartDate(editedTaskToRevert, oldStartDate.get());
+            model.editStartDate(taskInListToRevert, oldStartDate.get());
         }
         else {
-            model.editStartDate(editedTaskToRevert, null);
+            model.editStartDate(taskInListToRevert, null);
         }
         
         // edit back the end date
         if (oldEndDate.isPresent()){
-            model.editEndDate(editedTaskToRevert, oldEndDate.get());
+            model.editEndDate(taskInListToRevert, oldEndDate.get());
         }
         else {
-            model.editEndDate(editedTaskToRevert, null);
+            model.editEndDate(taskInListToRevert, null);
         }
         
         // edit back the recurrence rate
         if (oldReccurence.isPresent()){
-            model.editRecurrence(editedTaskToRevert, oldReccurence.get());
+            model.editRecurrence(taskInListToRevert, oldReccurence.get());
         }
         else{
-            model.editRecurrence(editedTaskToRevert, null);
+            model.editRecurrence(taskInListToRevert, null);
         }
         
-        */
+        
     }
 
     private List<ReadOnlyTask> convertTaskListToReadOnlyTaskList(List<Task> tasks){
