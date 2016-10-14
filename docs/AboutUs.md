@@ -12,7 +12,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 -----
 
 #### [Teh Chee Yeo](https://github.com/cheo1994) <br>
-<img src="images/Chee Yeo.JPG" width="150"><br>
+<img src="images/Chee Yeo.png" width="150"><br>
 **Role**: Developer <br>  
 **Responsibilities**: Logic
 
@@ -26,7 +26,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 -----
 
 #### [Qiang Yu](https://github.com/Hastyrush) <br>
-<img src="images/Qiang Yu.JPG" width="150"><br>
+<img src="images/Qiang Yu.png" width="150"><br>
 **Role**: Developer <br>  
 **Responsibilities**: Dev Ops
 
