@@ -14,8 +14,8 @@ import seedu.savvytasker.model.task.RecurrenceType;
 public class ModifyCommandParser implements CommandParser<ModifyCommand> {
     private static final String HEADER = "modify";
     private static final String READABLE_FORMAT = HEADER+" INDEX [t/TASK_NAME] [s/START_DATE] "
-            + "[st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] "
-            + "[r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]";
+            + "[e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] "
+            + "[n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]";
 
     private static final String REGEX_REF_INDEX = "Index";
     private static final String REGEX_REF_TASK_NAME = "TaskName";

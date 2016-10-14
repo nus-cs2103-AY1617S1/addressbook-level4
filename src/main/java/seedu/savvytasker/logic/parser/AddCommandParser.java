@@ -13,8 +13,8 @@ import seedu.savvytasker.model.task.RecurrenceType;
 
 public class AddCommandParser implements CommandParser<AddCommand> {
     private static final String HEADER = "add";
-    private static final String READABLE_FORMAT = HEADER+" TASK_NAME [s/START_DATE] [st/START_TIME] " +
-            "[e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] " +
+    private static final String READABLE_FORMAT = HEADER+" TASK_NAME [s/START_DATE] " +
+            "[e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] " +
             "[n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]";
     
     private static final String REGEX_REF_TASK_NAME = "TaskName";
