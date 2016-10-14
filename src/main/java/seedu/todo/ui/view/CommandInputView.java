@@ -79,14 +79,14 @@ public class CommandInputView extends UiPart {
     /**
      * Indicate an error visually on the {@link #commandTextField}
      */
-    private void flagError() {
+    public void flagError() {
         commandTextField.getStyleClass().add(ERROR_STYLE);
     }
 
     /**
      * Remove the error flag visually on the {@link #commandTextField}
      */
-    private void unflagError() {
+    public void unflagError() {
         commandTextField.getStyleClass().remove(ERROR_STYLE);
     }
 
