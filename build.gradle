@@ -76,7 +76,7 @@ allprojects {
     }
 
     shadowJar {
-        archiveName = "addressbook.jar"
+        archiveName = "TaSc.jar"
 
         manifest {
             attributes "Main-Class": "seedu.address.MainApp"
