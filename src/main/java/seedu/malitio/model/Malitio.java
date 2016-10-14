@@ -49,11 +49,11 @@ public class Malitio implements ReadOnlyMalitio {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
+    public ObservableList<Task> getFloatingTasks() {
         return tasks.getInternalList();
     }
     
-    public ObservableList<Task> getTasks2() {
+    public ObservableList<Task> getEventAndDeadlines() {
         return tasks2.getInternalList();
     }
 

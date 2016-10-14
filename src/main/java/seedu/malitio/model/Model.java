@@ -23,22 +23,22 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
     
-    /** Returns the filtered task list2 as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList2();
+    /** Returns the filtered events and deadlines as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredEventsAndDeadlines();
 
-    /** Updates the filter of the filtered task list to show all tasks */
+    /** Updates the filter of the filtered floating task list to show all tasks */
     void updateFilteredListToShowAll();
     
-    /** Updates the filter of the filtered task list2 to show all tasks */
-    void updateFilteredList2ToShowAll();
+    /** Updates the filter of the filtered events and deadlines to show all tasks */
+    void updateFilteredScheduleToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList2(Set<String> keywords);
+    /** Updates the filter of the filtered events and deadlines to filter by the given keywords*/
+    void updateFilteredSchedule(Set<String> keywords);
 
 }

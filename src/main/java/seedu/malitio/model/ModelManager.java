@@ -22,8 +22,8 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Malitio malitio;
-    private final FilteredList<Task> filteredTasks;
-    private final FilteredList<Task> filteredTasks2;
+    private final FilteredList<Task> filteredFloatingTasks;
+    private final FilteredList<Task> filteredEventsAndDeadlines;
 
     /**
      * Initializes a ModelManager with the given Malitio
@@ -37,8 +37,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with malitio: " + src + " and user prefs " + userPrefs);
 
         malitio = new Malitio(src);
-        filteredTasks = new FilteredList<>(malitio.getTasks());
-        filteredTasks2 = new FilteredList<>(malitio.getTasks2());
+        filteredFloatingTasks = new FilteredList<>(malitio.getFloatingTasks());
+        filteredEventsAndDeadlines = new FilteredList<>(malitio.getEventAndDeadlines());
     }
 
     public ModelManager() {
@@ -47,8 +47,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyMalitio initialData, UserPrefs userPrefs) {
         malitio = new Malitio(initialData);
-        filteredTasks = new FilteredList<>(malitio.getTasks());
-        filteredTasks2 = new FilteredList<>(malitio.getTasks2());
+        filteredFloatingTasks = new FilteredList<>(malitio.getFloatingTasks());
+        filteredEventsAndDeadlines = new FilteredList<>(malitio.getEventAndDeadlines());
     }
 
     @Override
@@ -77,30 +77,30 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         malitio.addTask(task);
         updateFilteredListToShowAll();
-        updateFilteredList2ToShowAll();
+        updateFilteredScheduleToShowAll();
         indicatemalitioChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
+        return new UnmodifiableObservableList<>(filteredFloatingTasks);
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList2() {
-        return new UnmodifiableObservableList<>(filteredTasks2);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventsAndDeadlines() {
+        return new UnmodifiableObservableList<>(filteredEventsAndDeadlines);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        filteredFloatingTasks.setPredicate(null);
     }
     
     @Override
-    public void updateFilteredList2ToShowAll() {
-        filteredTasks2.setPredicate(null);
+    public void updateFilteredScheduleToShowAll() {
+        filteredEventsAndDeadlines.setPredicate(null);
     }
 
     @Override
@@ -109,16 +109,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+        filteredFloatingTasks.setPredicate(expression::satisfies);
     }
     
     @Override
-    public void updateFilteredTaskList2(Set<String> keywords){
-        updateFilteredTaskList2(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredSchedule(Set<String> keywords){
+    	updateFilteredSchedule(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredTaskList2(Expression expression) {
-        filteredTasks2.setPredicate(expression::satisfies);
+    private void updateFilteredSchedule(Expression expression) {
+        filteredEventsAndDeadlines.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

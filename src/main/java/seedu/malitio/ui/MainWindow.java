@@ -113,8 +113,8 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPanelPlaceholder(), logic.getFilteredTaskList());
-        taskListPanel2 = TaskListPanel2.load(primaryStage, getTaskListPanelPlaceholder2(), logic.getFilteredTaskList2());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPanelPlaceholder(), logic.getFilteredFloatingTaskList());
+        taskListPanel2 = TaskListPanel2.load(primaryStage, getTaskListPanelPlaceholder2(), logic.getFilteredEventsAndDeadlines());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getMalitioFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
