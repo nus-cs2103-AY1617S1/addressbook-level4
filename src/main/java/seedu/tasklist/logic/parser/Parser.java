@@ -25,15 +25,15 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
-            "(?<name>(([^/](?<! (at|from|to|by) ))|(\\[^/]))*)" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
-                    + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"
+            "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
+                    + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
+                    + "(?<tagArguments>(?: t/[^;]+)*)"
                     );
     
     private static final Pattern TASK_UPDATE_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
-    		+ "((?: )(?<name>(([^/](?<! (at|from|to|by) ))|(\\[^/]))*))?" + "((?: (at|from) )(?<start>(([^/](?<! (to|by) ))|(\\[^/]))+))?"
-            + "((?: (to|by) )(?<end>(([^/](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
-            + "(?<tagArguments>(?: t/[^/]+)*)"
+    		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
+            + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
+            + "(?<tagArguments>(?: t/[^;]+)*)"
             );
     
     
@@ -139,6 +139,7 @@ public class Parser {
         } else {
             String startTime = (taskMatcher.group("start") == null) ? "" : taskMatcher.group("start");
             String endTime = (taskMatcher.group("end") == null) ? "" : taskMatcher.group("end");
+        
             try {
                 return new AddCommand(taskMatcher.group("name").replace("\\", ""), startTime, endTime,
                         taskMatcher.group("priority"), getTagsFromArgs(taskMatcher.group("tagArguments")));
