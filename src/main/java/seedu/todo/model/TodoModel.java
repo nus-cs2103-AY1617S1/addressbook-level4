@@ -18,10 +18,11 @@ public interface TodoModel {
     /**
      * Adds a new task or event with title only to the todo list.
      * 
-     * @param title  the title of the task 
+     * @param title  the title of the task
+     * @return the task that was just created 
      * @throws IllegalValueException if the values set in the update predicate is invalid
      */
-    public void add(String title) throws IllegalValueException;
+    public ImmutableTask add(String title) throws IllegalValueException;
     
     /**
      * Adds a new task or event with title and other fields to the todo list.
@@ -29,20 +30,20 @@ public interface TodoModel {
      * @param title   the title of the task 
      * @param update  a {@link MutableTask} is passed into this lambda. All other fields 
      *                should be set from inside this lambda. 
-     *  
+     * @return the task that was just created
      * @throws ValidationException   if the fields in the task to be updated are not valid
      */
-    public void add(String title, Consumer<MutableTask> update) throws ValidationException;
+    public ImmutableTask add(String title, Consumer<MutableTask> update) throws ValidationException;
     
     /**
      * Deletes the given task from the todo list. This change is also propagated to the 
      * underlying persistence layer.  
      * 
      * @param index  the 1-indexed position of the task that needs to be deleted
-     * 
+     * @return the task that was just deleted
      * @throws ValidationException if the task does not exist
      */
-    public void delete(int index) throws ValidationException;
+    public ImmutableTask delete(int index) throws ValidationException;
     
     /**
      * Replaces certain fields in the task. Mutation of the {@link Task} object should 
@@ -54,10 +55,12 @@ public interface TodoModel {
      *     t.setPin(true); // Pin this task
      * });</code></pre>
      * 
+     * @return the task that was just updated
+     * 
      * @throws ValidationException    if the task does not exist or if the fields in the 
      *                                task to be updated are not valid
      */
-    public void update(int index, Consumer<MutableTask> update) throws ValidationException;
+    public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException;
     
     /**
      * Changes the filter predicate and sort comparator used to display the tasks. A null

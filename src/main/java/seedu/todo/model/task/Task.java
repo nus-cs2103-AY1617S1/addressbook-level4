@@ -19,7 +19,7 @@ import seedu.todo.model.tag.Tag;
 /**
  * Represents a single task
  */
-public class Task implements ImmutableTask, MutableTask {
+public class Task implements MutableTask {
     private StringProperty title = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();
     private StringProperty location = new SimpleStringProperty();

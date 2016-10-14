@@ -1,6 +1,7 @@
 package seedu.todo.logic.commands;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
@@ -20,9 +21,8 @@ public class DeleteCommand extends BaseCommand {
     }
 
     @Override
-    public CommandResult execute() throws IllegalValueException {
-        ImmutableTask toDelete = this.getTaskAt(index.getValue());
-        this.model.delete(toDelete);
-        return taskSuccessfulResult(toDelete.getTitle(), DeleteCommand.VERB);
+    public CommandResult execute() throws ValidationException {
+        ImmutableTask deletedTask = this.model.delete(index.getValue());
+        return taskSuccessfulResult(deletedTask.getTitle(), DeleteCommand.VERB);
     }
 }

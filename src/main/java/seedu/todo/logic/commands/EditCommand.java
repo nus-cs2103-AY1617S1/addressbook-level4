@@ -29,9 +29,7 @@ public class EditCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws IllegalValueException, ValidationException {
-        ImmutableTask toEdit = this.getTaskAt(index.getValue());
-        
-        this.model.update(toEdit, task -> {
+        ImmutableTask editedTask = this.model.update(index.getValue(), task -> {
             if (description.hasBoundValue()) {
                 task.setDescription(description.getValue());
             }
@@ -50,7 +48,7 @@ public class EditCommand extends BaseCommand {
             }
         });
         
-        return taskSuccessfulResult(toEdit.getTitle(), EditCommand.VERB);
+        return taskSuccessfulResult(editedTask.getTitle(), EditCommand.VERB);
     }
 
 }

@@ -15,7 +15,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
@@ -58,51 +57,57 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         tasks.setAll(initialData.getTasks().stream().map(Task::new).collect(Collectors.toList()));
     }
     
-    private void outOfBoundError() throws ValidationException {
-        ErrorBag e = new ErrorBag();
-        e.put("index", TodoList.INDEX_OUT_OF_BOUND_ERROR);
-        e.validate("There was a problem with your command");
-    }
-
-    @Override
-    public void add(String title) {
-        tasks.add(new Task(title));
-
-        storage.saveTodoList(this);
-    }
-
-    @Override
-    public void add(String title, Consumer<MutableTask> update) throws ValidationException {
-        ValidationTask validationTask = new ValidationTask(title);
-        update.accept(validationTask);
-
-        tasks.add(validationTask.convertToTask());
-
-        storage.saveTodoList(this);
-    }
-
-    @Override
-    public void delete(int index) throws ValidationException {
-        try {
-            tasks.remove(index - 1);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            outOfBoundError();
-            return;
-        }
-
-        storage.saveTodoList(this);
-    }
-
-    @Override
-    public void update(int index, Consumer<MutableTask> update) throws ValidationException {
-        Task task; 
+    private int getTaskIndex(int index) throws ValidationException {
+        int taskIndex; 
         
         try {
-            task = tasks.get(index - 1);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            outOfBoundError();
-            return;
+            ImmutableTask task = getObserveableList().get(index - 1);
+            taskIndex = tasks.indexOf(task);
+        } catch (IndexOutOfBoundsException e) {
+            taskIndex = -1;
         }
+        
+        if (taskIndex == -1) {
+            ErrorBag bag = new ErrorBag();
+            bag.put("index", TodoList.INDEX_OUT_OF_BOUND_ERROR);
+            bag.validate("There was a problem with your command");
+        }
+        
+        return taskIndex;
+    }
+
+    @Override
+    public ImmutableTask add(String title) {
+        Task task = new Task(title);
+        tasks.add(task);
+        
+        storage.saveTodoList(this);
+        return task;
+    }
+
+    @Override
+    public ImmutableTask add(String title, Consumer<MutableTask> update) throws ValidationException {
+        ValidationTask validationTask = new ValidationTask(title);
+        update.accept(validationTask);
+        Task task = validationTask.convertToTask();
+        tasks.add(task);
+
+        storage.saveTodoList(this);
+        return task;
+    }
+
+    @Override
+    public ImmutableTask delete(int index) throws ValidationException {
+        Task task;
+        task = tasks.remove(getTaskIndex(index));
+        storage.saveTodoList(this);
+        return task;
+    }
+
+    @Override
+    public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
+        Task task;
+        task = tasks.get(getTaskIndex(index));
 
         ValidationTask validationTask = new ValidationTask(task);
         update.accept(validationTask);
@@ -111,6 +116,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         // changes are validated and accepted
         update.accept(task);
         storage.saveTodoList(this);
+        return task;
     }
 
     @Override

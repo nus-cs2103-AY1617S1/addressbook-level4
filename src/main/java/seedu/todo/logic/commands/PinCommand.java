@@ -20,12 +20,9 @@ public class PinCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws IllegalValueException, ValidationException {
-        ImmutableTask toPin = this.getTaskAt(index.getValue());
-        boolean isPinned = !toPin.isPinned();
-        this.model.update(toPin, task-> task.setPinned(isPinned));
-        
-        String verb = isPinned ? PinCommand.PIN : PinCommand.UNPIN;
-        return taskSuccessfulResult(toPin.getTitle(), verb);
+        ImmutableTask task = this.model.update(index.getValue(), t -> t.setPinned(!t.isPinned()));
+        String verb = task.isPinned() ? PinCommand.PIN : PinCommand.UNPIN;
+        return taskSuccessfulResult(task.getTitle(), verb);
     }
 
 }

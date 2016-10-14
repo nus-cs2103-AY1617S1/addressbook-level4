@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TimeUtil;
 
@@ -36,7 +37,7 @@ public class EditCommandTest extends CommandTest {
     }
     
     
-    @Test(expected=IllegalValueException.class)
+    @Test(expected=ValidationException.class)
     public void testEditInvalidIndex() throws Exception {
         setParameter("4");
         setParameter("l", "If this prints out this might hurt");
