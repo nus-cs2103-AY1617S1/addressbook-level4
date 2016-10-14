@@ -22,6 +22,7 @@ public class CommandManager {
 			executionStack.push((UndoableCommand) cmd);
 		}
 		
+		// Empty stack of commands to redo if the previous command is not an undo
 		undoneStack.clear();
 		return cmd.execute();
 	}

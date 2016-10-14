@@ -67,6 +67,7 @@ public class DeleteCommand extends Command implements UndoableCommand {
 		
 		for (Task task : recentDeletedTasks) {
 			addCommand = new AddCommand(task);
+			addCommand.setData(model);
 			addCommand.execute();
 		}
 		

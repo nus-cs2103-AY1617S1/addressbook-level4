@@ -91,7 +91,7 @@ public class AddCommand extends Command implements UndoableCommand {
 
     @Override
     public CommandResult execute() {
-        assert model != null;
+    	assert model != null;
         try {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
