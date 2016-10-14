@@ -17,7 +17,7 @@ public class TaskDate {
             "Task dates should be in the format dd/mm/yyyy or ddmmyyyy or dd monthname yyyy";
     public static final String MESSAGE_DATE_INVALID =
             "Task date provided is invalid!";
-    public static final String DATE_DISPLAY_FORMAT = "dd/MM/yyyy";
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
     
     //format: dd/mm/yyyy TODO currently not working for input
     private static final String DATE_VALIDATION_REGEX_FORMAT_1 =
@@ -65,7 +65,7 @@ public class TaskDate {
 
     @Override
     public String toString() {
-        return date.format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
+        return date.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
     }
 
     @Override
