@@ -22,7 +22,7 @@ public class CommandFeedbackView extends UiPart {
     private TextFlow commandFeedbackTextFlow;
     
     private AnchorPane placeHolder, textFlowContainer;
-    
+
     public void displayMessage(String message) {
         commandFeedbackTextFlow.getChildren().clear();
         Text text = new Text(message);
@@ -36,7 +36,7 @@ public class CommandFeedbackView extends UiPart {
         feedbackView.configure();
         return feedbackView;
     }
-    
+
     private void configure() {
         FxViewUtil.applyAnchorBoundaryParameters(textFlowContainer, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandFeedbackTextFlow, 0.0, 0.0, 0.0, 0.0);
@@ -52,7 +52,7 @@ public class CommandFeedbackView extends UiPart {
     public void setNode(Node node) {
         this.textFlowContainer = (AnchorPane) node;
     }
-
+    
     @Override
     public String getFxmlPath() {
         return FXML;
