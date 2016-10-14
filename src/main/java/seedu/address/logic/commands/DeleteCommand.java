@@ -68,6 +68,7 @@ public class DeleteCommand extends Command {
         
        
         history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
+        history.resetRedo();
 
         String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay));

@@ -67,6 +67,7 @@ public class DoneCommand extends Command {
         }
         
         history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
+        history.resetRedo();
         
         String toDisplay = displayArchivedTasks.toString().replace("[", "").replace("]", "");
         return new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay));

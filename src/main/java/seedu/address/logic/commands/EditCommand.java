@@ -14,7 +14,6 @@ import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.RecurrenceRate;
-import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
 
 public class EditCommand extends Command{
 
@@ -132,7 +131,9 @@ public class EditCommand extends Command{
         Task updatedTask = new Task(taskToEdit);
         affectedTasks.add(updatedTask);
         System.out.println("What edit inserted into history" + affectedTasks);
-        history.update(new ReversibleEffect(this.COMMAND_WORD, affectedTasks));
+        history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
+        history.resetRedo();
+
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         

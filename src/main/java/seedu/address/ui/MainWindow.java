@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.history.History;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.item.ReadOnlyTask;
@@ -27,6 +28,7 @@ public class MainWindow extends UiPart {
     public static final int MIN_WIDTH = 450;
 
     private Logic logic;
+    private History history;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -76,21 +78,22 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, History history) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic, history);
         return mainWindow;
     }
 
     private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           Logic logic) {
+                           Logic logic, History history) {
 
         //Set dependencies
         this.logic = logic;
         this.addressBookName = addressBookName;
         this.config = config;
         this.userPrefs = prefs;
+        this.history = history;
 
         //Configure the UI
         setTitle(appTitle);
@@ -113,7 +116,7 @@ public class MainWindow extends UiPart {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, history);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {

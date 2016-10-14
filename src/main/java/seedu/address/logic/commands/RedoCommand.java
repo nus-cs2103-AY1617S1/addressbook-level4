@@ -11,7 +11,6 @@ import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.Task;
-import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Selects a person identified using it's last displayed index from the address book.

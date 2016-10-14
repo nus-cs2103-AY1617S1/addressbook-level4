@@ -96,7 +96,8 @@ public class AddCommand extends Command {
         
         List<Task> affectedTasks = new ArrayList<Task>();
         affectedTasks.add(toAdd);
-        history.update(new ReversibleEffect(this.COMMAND_WORD, affectedTasks));
+        history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
+        history.resetRedo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
