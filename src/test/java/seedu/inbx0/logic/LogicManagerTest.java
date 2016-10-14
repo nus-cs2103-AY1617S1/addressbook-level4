@@ -164,11 +164,11 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] s/today st/12pm e/today et/4pm i/r", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
                 "add Valid Name s/invalid st/12pm e/today et/4pm i/r", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name s/today st/invalid e/today et/4pm i/r", Time.MESSAGE_TIME_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name s/today st/12pm e/today et/4pm i/invalid", Importance.MESSAGE_IMPORTANCE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name s/today st/12pm e/today et/4pm i/r t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
