@@ -90,6 +90,10 @@ public class AddController implements Controller {
             return;
         }
         
+        // Parse natural date using Natty.
+        LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
+        LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+        
         // Create and persist task / event.
         TodoListDB db = TodoListDB.getInstance();
         if (isTask) {
