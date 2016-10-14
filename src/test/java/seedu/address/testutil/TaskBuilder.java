@@ -58,6 +58,11 @@ public class TaskBuilder {
         return this;
     }
     
+    public TaskBuilder withStatus(String status) throws IllegalValueException {
+        this.task.setStatus(new Status(status));
+        return this;
+    }
+    
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             task.getTags().add(new Tag(tag));

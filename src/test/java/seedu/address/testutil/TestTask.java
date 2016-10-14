@@ -14,6 +14,7 @@ public class TestTask implements ReadOnlyTask {
     private DueDate dueDate;
     private Interval interval;
     private TimeInterval timeInterval;
+    private Status status;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -42,6 +43,10 @@ public class TestTask implements ReadOnlyTask {
 
     public void setTimeInterval(TimeInterval timeInterval) {
         this.timeInterval = timeInterval;
+    }
+    
+    public void setStatus(Status status) {
+        this.status = status;
     }
     
     @Override
@@ -99,6 +104,6 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Status getStatus() {
         // TODO Auto-generated method stub
-        return null;
+        return this.status;
     }
 }
