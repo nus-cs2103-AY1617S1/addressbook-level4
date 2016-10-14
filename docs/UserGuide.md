@@ -56,9 +56,8 @@ et/END_TIME: The time of the end of the task <br>
 i/IMPORTANCE: The priority of the task. Can be `green`, `yellow` or `red`, in that order of importance <br>
 t/TAGS: Tags that are assigned to the task <br>
 
-> 
-* For Dates and Times, the program utiilises natural language processing and can take in multiple formats such as "tmr, next week, next wed, 3 days later, noon, 8am, 1400"
-* The IMPORTANCE parameter takes in these formats "red, green, yellow, r, g, y, R, G, Y, Red".
+>  For Dates and Times, the program utiilises natural language processing and can take in multiple formats such as "tmr, next week, next wed, 3 days later, noon, 8am, 1400" <br>
+The IMPORTANCE parameter takes in these formats "red, green, yellow, r, g, y, R, G, Y, Red".
 
 The rest of the guide will be using the general command format to describe what is needed to execute each command.
 
@@ -75,7 +74,7 @@ This will open up a help window that will direct you back to this User Guide if 
 <br><br>
  
 #### <a id="add"></a>2. Adding a task: `add`
-\1. Adds a floating task.<br>
+\\1. Adds a floating task.<br>
 Format: `add TASK [i/IMPORTANCE] [t/TAGS]...` 
 
 > Floating tasks are tasks without deadlines.
@@ -105,7 +104,7 @@ Examples:
 <br><br>
 
 #### <a id="list"></a>3. Listing tasks: `list`
-\1. Listing all the tasks. <br>
+\\1. Listing all the tasks. <br>
 Format: `list`
 
 The List Command shows a list of all tasks in the task manager so that you will be able to keep track of different tasks on different days.
@@ -113,7 +112,7 @@ The List Command shows a list of all tasks in the task manager so that you will 
 You will be able to view all of today’s tasks and  tasks that are due before a specific date. There will be index numbers allocated at the side of each task which will be needed for other operations such as deleting a task or selecting a task.
 
 
-\2. Listing today’s task. <br>
+\\2. Listing today’s task. <br>
 Format: `list today`
 
 In order to shows a list of the tasks due today in the task manager, you have to type the following in the command line <br>
@@ -158,7 +157,7 @@ Examples:
 <br><br>
 
 #### <a id="edit"></a>5. Editing a task: `edit`
-1. Editing any parameter of a task <br>
+\1. Editing any parameter of a task <br>
 Format: `edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [st/END_TIME], [i/IMPORTANCE]`
 
 Made a spelling mistake or your event was postponed? You can use the Edit Command to swiftly rectify any tasks on the task list.
@@ -176,7 +175,7 @@ Examples
   `edit 1 n/Business Lunch st/1pm`<br>
   Changes the name of 1st task in the results of the `find` command to ‘Business Lunch at 1 pm’  
 
-2. Converting a task to a floating task. <br>
+\2. Converting a task to a floating task. <br>
 Format: `edit INDEX float`
 
 Use the keyword "float" to convert any task into a floating task by removing the starting and ending dates and times.
