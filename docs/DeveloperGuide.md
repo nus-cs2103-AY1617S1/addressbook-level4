@@ -129,17 +129,17 @@ In essence, the UI makes use of JavaFx UI framework and majority of the classes 
 
 The UI component consists mainly of:
 
-1. 1)UI class
-2. 2)UIManager class
-3. 3)UIPart class
-4. 4)UILoader class
-5. 5)BrowserPanel class
-6. 6)CommandBox class
-7. 7)MainWindow class
-8. 8)ResultDisplay class
-9. 9)HelpWindow class
-10. 10) TaskCard class
-11. 11) TaskListPanel class
+ 1)UI class
+ 2)UIManager class
+ 3)UIPart class
+ 4)UILoader class
+ 5)BrowserPanel class
+ 6)CommandBox class
+ 7)MainWindow class
+ 8)ResultDisplay class
+ 9)HelpWindow class
+ 10) TaskCard class
+ 11) TaskListPanel class
 
 These classes work together to form the interface which the user interacts with when using the app. Each of the class are meant to function solely on one part of the UI. For instance, the ResultDisplay class is responsible for displaying the results of a command from the user.
 
@@ -176,10 +176,10 @@ The Logic component consists of the Parser class which is responsible to taking 
 
 The API of the Logic component consists mainly of:
 
-1. 1)Logic class
-2. 2)LogicManager class
-3. 3)Parser class
-4. 4)All the command classes eg. AddCommand, EditCommand, DeleteCommand
+ 1)Logic class
+ 2)LogicManager class
+ 3)Parser class
+ 4)All the command classes eg. AddCommand, EditCommand, DeleteCommand
 
 These classes work together to categorize the different possible inputs from the user and sieves the important keywords out so that Model can continue executing the command entered by the user.
 
@@ -215,18 +215,18 @@ The Storage component primarily focuses on storing data. Any data related to the
 
 The API of the Model component consists mainly of:
 
-1. 1)Model class
-2. 2)ModelManager class
-3. 3)ListOfTask class
-4. 4)UserPref class
-5. 5)ReadOnlyListOfTask class
+ 1)Model class
+ 2)ModelManager class
+ 3)ListOfTask class
+ 4)UserPref class
+ 5)ReadOnlyListOfTask class
 
 These classes are responsible for storing the data from the user and also works with the Model component to execute the commands given by the user.
 
 Storage is able to:
 
-1. 1)Save the data entered in by the user and also read it back to Model when requested
-2. 2)Save user preferences and read it back when needed
+ 1)Save the data entered in by the user and also read it back to Model when requested
+ 2)Save user preferences and read it back when needed
 
 
 
@@ -426,12 +426,12 @@ Use case ends
 
 4) Use case: Edit task
 
-1. 1)User requests to edit a task
-2. 2)Unburden will search for the task based on the user&#39;s input
-3. 3)User will type in the new task description
-4. 4)Unburden will request the user to confirm the changes
-5. 5)User will confirm with Unburden
-6. 6)Unburden will update the new changes
+- User requests to edit a task
+- Unburden will search for the task based on the user&#39;s input
+- User will type in the new task description
+- Unburden will request the user to confirm the changes
+- User will confirm with Unburden
+- Unburden will update the new changes
 
 Use case: ends
 
@@ -440,22 +440,22 @@ Use case: ends
 
 ## **Appendix C : Non Functional Requirements**
 
-1. 1)The app should run smoothly
-2. 2)The app should be able to run all on all operating systems
-3. 3)The app should be able to store up to 1000 tasks per user
-4. 4)The app should not take up a lot of space
-5. 5)The app should be start up quickly
-6. 6)The app should be able to process requests from the user in under 1ms
-7. 7)The app should not crash
-8. 8)The app should not do anything else other than what the user inputs
-9. 9)The app should be able to recover from errors easily
+ 1)The app should run smoothly
+ 2)The app should be able to run all on all operating systems
+ 3)The app should be able to store up to 1000 tasks per user
+ 4)The app should not take up a lot of space
+ 5)The app should be start up quickly
+ 6)The app should be able to process requests from the user in under 1ms
+ 7)The app should not crash
+ 8)The app should not do anything else other than what the user inputs
+ 9)The app should be able to recover from errors easily
 
 ## **Appendix D : Glossary**
 
-1. 1)UI - User Interface
-2. 2)API - Application Programming Interface
-3. 3)App - Application
-4. 4)IDE - Integrated Development environment
+ 1)UI - User Interface
+ 2)API - Application Programming Interface
+ 3)App - Application
+ 4)IDE - Integrated Development environment
 
 
 
