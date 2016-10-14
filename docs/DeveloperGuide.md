@@ -271,7 +271,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
 
 As a ... | I want to ... | so that ...
 ---------|--------------|------------
-new user | see usage instructions | I can refer to instructions when i use the Task Manager.<br>
+new user | see usage instructions | I can refer to instructions when I use the Task Manager.<br>
 new user | view more information about a particular command | I can learn how to use various commands.<br>
 user | add a task by specifying a task description and the date and time | I can record tasks that need to be done by that date and time.<br>
 user | add a scheduled event by specifying the event name and duration and location | I can record events that I need to attend.<br>
