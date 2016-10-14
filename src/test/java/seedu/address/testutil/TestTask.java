@@ -9,9 +9,9 @@ import seedu.address.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-
     private Date date;
-
+    private boolean isEvent;
+    
     private UniqueTagList tags;
 
     public TestTask() {
@@ -23,10 +23,13 @@ public class TestTask implements ReadOnlyTask {
     }
 
 
-    public void setDeadline(Date time) {
-        this.date = time;
-
- 
+    public void setDeadline(Date date) {
+        this.date = date;
+        if (date instanceof EventDate) {
+            isEvent = true;
+        } else {
+            isEvent = false;
+        }
     }
 
     @Override
@@ -37,6 +40,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Date getDate() {
         return date;
+    }
+    
+    @Override 
+    public boolean isEvent() {
+        return isEvent;
     }
 
     @Override
@@ -52,8 +60,7 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskName + " ");
-
-        if (date instanceof EventDate) {
+        if (isEvent) {
             EventDate eventDate = (EventDate) this.getDate();
             sb.append("s/" + eventDate.getStartDate() + " ");
             sb.append("e/" + eventDate.getEndDate() + " ");
