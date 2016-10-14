@@ -19,34 +19,11 @@ public abstract class Task implements ReadOnlyTask {
     private UniqueTagList tags;
 
     /**
-     * Constructor for floating tasks.
+     * Constructor for tasks.
      */
     public Task(Name name, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
-
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-    
-    /**
-     * Constructor for deadlines. 
-     */
-    public Task(Name name, DateTime due, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, tags);
-        this.name = name;
-        this.due = due;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-    
-    /**
-     * Constructor for events. 
-     */
-    public Task(Name name, DateTime start, DateTime end, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, tags);
-        // end must be > start check
-        this.name = name;
-        this.start = start;
-        this.end = end;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
