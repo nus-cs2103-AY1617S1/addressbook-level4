@@ -1,7 +1,6 @@
 package harmony.mastermind.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.TaskCardHandle;
 import harmony.mastermind.TestApp;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.util.FileUtil;
@@ -137,12 +136,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static TaskManager generateEmptyAddressBook() {
+    public static TaskManager generateEmptyTaskManager() {
         return new TaskManager(new UniqueTaskList(), new UniqueTagList(), new ArchiveTaskList());
     }
 
     public static XmlSerializableTaskManager generateSampleStorageAddressBook() {
-        return new XmlSerializableTaskManager(generateEmptyAddressBook());
+        return new XmlSerializableTaskManager(generateEmptyTaskManager());
     }
 
     /**
@@ -310,15 +309,15 @@ public class TestUtil {
     }
 
     /**
-     * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
+     * Appends persons to the array of tasks.
+     * @param tasks A array of tasks.
+     * @param tasksToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestTask[] addTasksToList(final TestTask[] persons, TestTask... personsToAdd) {
-        List<TestTask> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
+    public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.addAll(asList(tasksToAdd));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -329,8 +328,9 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask person) {
-        return card.isSameTask(person);
+    public static boolean compareTasks(ReadOnlyTask t1, ReadOnlyTask t2) {
+        return t1.isSameTask(t2);
+
     }
 
     public static Tag[] getTagList(String tags) {

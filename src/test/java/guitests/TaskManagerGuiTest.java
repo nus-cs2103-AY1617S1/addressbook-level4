@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for TaskManger.
  */
 public abstract class TaskManagerGuiTest {
 
@@ -39,7 +39,7 @@ public abstract class TaskManagerGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle taskListPanel;
+    protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -76,7 +76,7 @@ public abstract class TaskManagerGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected TaskManager getInitialData() {
-        TaskManager tm = TestUtil.generateEmptyAddressBook();
+        TaskManager tm = TestUtil.generateEmptyTaskManager();
         TypicalTestTask.loadTaskManagerWithSampleData(tm);
         return tm;
     }
@@ -95,18 +95,18 @@ public abstract class TaskManagerGuiTest {
     }
 
     /**
-     * Asserts the person shown in the card is same as the given person
+     * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, person));
+    public void assertMatching(ReadOnlyTask t1, ReadOnlyTask t2) {
+        assertTrue(TestUtil.compareTasks(t1, t2));
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+        int numberOfTask = taskListPanel.getNumberOfTask();
+        assertEquals(size, numberOfTask);
     }
 
     /**

@@ -98,4 +98,10 @@ public class Task implements ReadOnlyTask {
     public boolean isEvent() {
         return startDate != null && endDate != null;
     }
+
+    //@@author A0124797R
+    @Override 
+    public boolean isSameTask(ReadOnlyTask task) {
+        return getName().equals(task.getName());
+    }
 }

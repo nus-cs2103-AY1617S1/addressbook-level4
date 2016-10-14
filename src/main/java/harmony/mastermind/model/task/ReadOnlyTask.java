@@ -13,6 +13,7 @@ public interface ReadOnlyTask {
     public Date getEndDate();
     public UniqueTagList getTags();
     
+    public boolean isSameTask(ReadOnlyTask task);
     public boolean isFloating();
     public boolean isDeadline();
     public boolean isEvent();

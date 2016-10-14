@@ -9,7 +9,7 @@ import harmony.mastermind.model.task.*;
  */
 public class TypicalTestTask {
 
-    public static TestTask task1, task2, task3, task4, task5;
+    public static TestTask task1, task2, task3, task4, task5, task6;
 
     //@@author A0124797R
     public TypicalTestTask() {
@@ -24,6 +24,7 @@ public class TypicalTestTask {
                     .withTags("homework").build();
             task5 = new TaskBuilder().withName("complete cs2105 assignment")
                     .withTags("homework").build();
+            task6 = new TaskBuilder().withName("sweep floor").build();
             
         } catch (IllegalValueException e) {
             e.printStackTrace();
@@ -33,14 +34,13 @@ public class TypicalTestTask {
     }
 
     //@@author A0124797R
-    public static void loadTaskManagerWithSampleData(TaskManager ab) {
+    public static void loadTaskManagerWithSampleData(TaskManager tm) {
 
         try {
-            ab.addTask(new Task(task1));
-            ab.addTask(new Task(task2));
-            ab.addTask(new Task(task3));
-            ab.addTask(new Task(task4));
-            ab.addTask(new Task(task5));
+            tm.addTask(new Task(task1));
+            tm.addTask(new Task(task2));
+            tm.addTask(new Task(task3));
+            tm.addTask(new Task(task4));
             
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";

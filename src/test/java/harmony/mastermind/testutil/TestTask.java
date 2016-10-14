@@ -39,9 +39,13 @@ public class TestTask implements ReadOnlyTask {
     //@@author A0124797R
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\"add " + this.getName() + "\" ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("tags/\"" + s.tagName + "\" "));
+        sb.append("add name/\"" + this.getName() + "\" ");
+        sb.append("tags/");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append(s.tagName + ","));
+
+        sb.deleteCharAt(sb.length()-1);
         return sb.toString();
+        
     }
 
     //@@author A0124797R
@@ -80,6 +84,12 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public UniqueTagList getTags() {
         return tags;
+    }
+    
+    //@@author A0124797R
+    @Override 
+    public boolean isSameTask(ReadOnlyTask task) {
+        return getName().equals(task.getName());
     }
     
 }
