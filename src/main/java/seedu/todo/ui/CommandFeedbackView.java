@@ -2,9 +2,8 @@ package seedu.todo.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.util.FxViewUtil;
@@ -18,9 +17,9 @@ public class CommandFeedbackView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
     private static final String FXML = "CommandFeedbackView.fxml";
     private static final String ERROR_STYLE = "error";
-    
+
     @FXML
-    private TextFlow commandFeedbackTextFlow;
+    private Label commandFeedbackLabel;
     private AnchorPane placeHolder, textFlowContainer;
 
     /**
@@ -40,34 +39,30 @@ public class CommandFeedbackView extends UiPart {
      */
     private void configure() {
         FxViewUtil.applyAnchorBoundaryParameters(textFlowContainer, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(commandFeedbackTextFlow, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(commandFeedbackLabel, 0.0, 0.0, 0.0, 0.0);
         this.placeHolder.getChildren().add(textFlowContainer);
     }
 
     /**
-     * Displays a message onto the {@link #commandFeedbackTextFlow}
+     * Displays a message onto the {@link #commandFeedbackLabel}
      * @param message to be shown
      */
     public void displayMessage(String message) {
-        commandFeedbackTextFlow.getChildren().clear();
-        Text text = new Text(message);
-        text.getStyleClass().add("commandFeedback");
-        commandFeedbackTextFlow.getChildren().add(text);
-        logger.info("Message returned: " + message);
+        commandFeedbackLabel.setText("Message " + message);
     }
 
     /**
-     * Indicate an error visually on the {@link #commandFeedbackTextFlow}
+     * Indicate an error visually on the {@link #commandFeedbackLabel}
      */
     public void flagError() {
-        commandFeedbackTextFlow.getStyleClass().add(ERROR_STYLE);
+        commandFeedbackLabel.getStyleClass().add(ERROR_STYLE);
     }
 
     /**
-     * Remove the error flag visually on the {@link #commandFeedbackTextFlow}
+     * Remove the error flag visually on the {@link #commandFeedbackLabel}
      */
     public void unFlagError() {
-        commandFeedbackTextFlow.getStyleClass().remove(ERROR_STYLE);
+        commandFeedbackLabel.getStyleClass().remove(ERROR_STYLE);
     }
 
     /* Override Methods */
