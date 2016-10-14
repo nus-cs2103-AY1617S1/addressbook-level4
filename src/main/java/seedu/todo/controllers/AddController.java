@@ -70,4 +70,18 @@ public class AddController implements Controller {
         view.render();
     }
     
+    private LocalDateTime parseNatural(String natural) {
+        Parser parser = new Parser();
+        List<DateGroup> groups = parser.parse(natural);
+        Date date = null;
+        try {
+            date = groups.get(0).getDates().get(0);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error!"); // TODO
+            return null;
+        }
+        LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        return ldt;
+    }
+    
 }
