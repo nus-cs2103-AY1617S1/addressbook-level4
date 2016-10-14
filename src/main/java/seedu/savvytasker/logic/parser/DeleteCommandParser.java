@@ -8,7 +8,7 @@ import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.DeleteCommand;
 import seedu.savvytasker.logic.commands.models.DeleteCommandModel;
 
-public class DeleteCommandParser extends CommandParser<DeleteCommand> {
+public class DeleteCommandParser implements CommandParser<DeleteCommand> {
     private static final String HEADER = "delete";
     private static final String READABLE_FORMAT = "delete INDEX [MORE_INDEX]";
     
@@ -18,17 +18,17 @@ public class DeleteCommandParser extends CommandParser<DeleteCommand> {
             "delete\\s+(?<"+REGEX_REF_INDICES+">[^/]+)", Pattern.CASE_INSENSITIVE);
     
     @Override
-    protected String getHeader() {
+    public String getHeader() {
         return HEADER;
     }
 
     @Override
-    protected String getRequiredFormat() {
+    public String getRequiredFormat() {
         return READABLE_FORMAT;
     }
 
     @Override
-    protected DeleteCommand parse(String commandText) throws ParseException {
+    public DeleteCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             int[] indices = parseIndices(matcher.group(REGEX_REF_INDICES));

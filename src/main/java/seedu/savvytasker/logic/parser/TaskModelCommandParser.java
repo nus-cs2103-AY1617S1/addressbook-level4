@@ -11,7 +11,7 @@ import seedu.savvytasker.model.task.RecurrenceType;
  *
  * @param <T> A Command that this Parser is going to produce upon successful parsing
  */
-public abstract class TaskModelCommandParser<T extends Command> extends CommandParser<T> {
+public abstract class TaskModelCommandParser<T extends Command> implements CommandParser<T> {
     private DateParser dateParser;
     
     protected TaskModelCommandParser() {

@@ -44,17 +44,17 @@ public class AddCommandParser extends TaskModelCommandParser<AddCommand> {
             ")(\\s|$)){0,10}", Pattern.CASE_INSENSITIVE);
     
     @Override
-    protected String getHeader() {
+    public String getHeader() {
         return HEADER;
     }
 
     @Override
-    protected String getRequiredFormat() {
+    public String getRequiredFormat() {
         return READABLE_FORMAT;
     }
 
     @Override
-    protected AddCommand parse(String commandText) throws ParseException {
+    public AddCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             /* Pending changes to startTime and endTime */

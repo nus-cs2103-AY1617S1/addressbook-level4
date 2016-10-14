@@ -8,7 +8,7 @@ import seedu.savvytasker.logic.commands.FindCommand;
 import seedu.savvytasker.logic.commands.models.FindCommandModel;
 import seedu.savvytasker.model.task.FindType;
 
-public class FindCommandParser extends CommandParser<FindCommand> {
+public class FindCommandParser implements CommandParser<FindCommand> {
     private static final String HEADER = "find";
     private static final String READABLE_FORMAT = "find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]";
 
@@ -23,17 +23,17 @@ public class FindCommandParser extends CommandParser<FindCommand> {
             , Pattern.CASE_INSENSITIVE);
     
     @Override
-    protected String getHeader() {
+    public String getHeader() {
         return HEADER;
     }
 
     @Override
-    protected String getRequiredFormat() {
+    public String getRequiredFormat() {
         return READABLE_FORMAT;
     }
 
     @Override
-    protected FindCommand parse(String commandText) throws ParseException {
+    public FindCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             FindType findType = parseFindType(matcher.group(REGEX_REF_FIND_TYPE));

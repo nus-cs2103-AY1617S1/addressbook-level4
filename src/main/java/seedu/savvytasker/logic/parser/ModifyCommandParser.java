@@ -46,17 +46,17 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
             ")(\\s|$)){0,11}", Pattern.CASE_INSENSITIVE);
 
     @Override
-    protected String getHeader() {
+    public String getHeader() {
         return HEADER;
     }
 
     @Override
-    protected String getRequiredFormat() {
+    public String getRequiredFormat() {
         return READABLE_FORMAT;
     }
 
     @Override
-    protected ModifyCommand parse(String commandText) throws ParseException {
+    public ModifyCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
 
