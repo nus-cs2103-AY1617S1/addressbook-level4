@@ -1,4 +1,3 @@
-
 # User Guide
 
 * [Quick Start](#quick-start)
@@ -47,7 +46,7 @@ Example:
  
 ### Adding a task: `add`
 Adds a task into the task manager.<br>
-Format: `add NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Format: `[add] NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 >To make the command format more natural, we allow you to substitute `start` with `from/at`, `end` with `to/by`.
 
@@ -57,7 +56,7 @@ Format: `add NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INT
 
 You can assign your task a `PRIORITY` of `low`, `medium` or `high`. <br>
 Tasks have `medium` `PRIORITY` by default.<br>
-Format: `-PRIORITY`
+Keyword: `-PRIORITY`
 
 `PRIORITY` also accepts variations of `low`, `medium` and `high`.
 
@@ -94,12 +93,16 @@ Format: `repeat every RECURRING_INTERVAL`
 > To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add/edit command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
 
 Supported `RECURRING_INTERVAL`
-* `day`, `2 days`, `3 days`, ...
-* `week`, `2 weeks`, `3 weeks`, ...
-* `month`, `2 months`, `3 months`, ...
+* `hour`, `8 hours`, ...
+* `day`, `3 days`, ...
+* `week`, `5 weeks`, ...
+* `month`, `2 months`, ...
+* `year`, ...
+* Any day of the week e.g `mon`, `monday`, `thurs`, `sun`, ...
 
 Examples: 
 * `Go run at track, at 7am repeat every 3 days`
+* `Go visit mum, repeat every sun`
 
 > You cannot have a repeated task without specifying a time. Read on to see how to do so.
 
@@ -112,21 +115,25 @@ Format: `NAME, end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 >`DATE_TIME` is flexible!
 >* If no `DATE` is specified, `DATE` will be assumed to be the current date
->* `DATE`
+>* `DATE` formats:
 >   * `today`, `tonight` can be used to refer to the current day
 >   * `tmr`, `tomorrow` can be used to refer to the next day
 >   * `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday` and `Sunday` refers to the nearest matching day from the current date
->* `TIME`
+>   * Dates such as `13th Sep`, `10 October 2016`, `02/10/2016 (mm/dd/yyyy)` are acceptable too. Note that the year must be specified in full e.g `10 October 2016` is allowed, but not `10 October 16`
+>   * Relative dates such as `3 days later`, `1 week later`, `next sat` can be used as well
+>* If no `TIME` is specified, `TIME` will be assumed to be 11:59pm
+>* `TIME` formats:
 >   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
 >   * `midnight` can be used to specify 12AM
 >   * `noon` can be used to specify 12PM
->   * `20:15` - 24-hour clock format is also accepted
+>   * 24-hour clock format such as `20:15` are also accepted
+>> Take note to demarcate the hours and minutes with a colon. The following examples are not allowed: `730am`, `2015`.
 
 Examples:
 * `Do project proposal, by 5pm tomorrow`
 * `eat lunch, by 1pm today -h`
-* `Buy coffee for boss, by 7am repeat every day`
-* 
+* `Buy coffee for boss, by 7:00 repeat every day`
+* `finish CS2101 assignment, by 13th Sep`
 
 > Notice how the `end` keyword can be substituted with `by`.
 
@@ -150,7 +157,7 @@ Example:
 
 ### Editing a task: `edit`
 Edits an existing task in the task manager. Just in case you need to change any details, or add in missing ones! <br>
-Format: `edit INDEX NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Format: `edit INDEX [NAME], [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 > `INDEX` refers to the task number in the current displayed list.<br>
 > Notice that this is similar to the `add` command format!  
 
@@ -159,7 +166,21 @@ Examples:
 * `edit 2 Company meeting tomorrow morning, at 7am to 9am -high`
 * `Buy coffee for boss, by 8am repeat every day`
 * `edit 3 Buy coffee for boss, by 7am repeat every 2 days`
-* `edit 3 Buy coffee for boss for the last time, by 7am`
+
+**_Editing out details in a task_**
+
+ You can also remove any section if they are no longer relevant! <br>
+ Format: `edit INDEX [repeat] [start] [end] -reset`
+ > `INDEX` refers to the task number in the current displayed list.<br>
+> Use [repeat] to remove the recurring time
+> Use [start] to remove the start time
+> Use [end] to remove the end time 
+
+Examples:
+* `Buy coffee for boss, by 8am repeat every day`
+* `edit 1 repeat -reset`
+* `edit 2 start -reset`
+* `edit 3 end -reset`
 
 ### Deleting a task: `delete`
 Deletes an existing task in your task manager. This will remove them from the storage. If you want to mark them as done instead, look at the `done` command. <br>
@@ -273,7 +294,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Add | `[add] NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 Edit | `edit INDEX [NAME], [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 Delete | `delete INDEX`
 Undo | `undo`
