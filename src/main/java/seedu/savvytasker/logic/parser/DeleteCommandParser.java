@@ -17,6 +17,8 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
     private static final Pattern REGEX_PATTERN = Pattern.compile(
             "delete\\s+(?<"+REGEX_REF_INDICES+">[^/]+)", Pattern.CASE_INSENSITIVE);
     
+    private static final IndexParser INDEX_PARSER = new IndexParser();
+    
     @Override
     public String getHeader() {
         return HEADER;
@@ -42,29 +44,11 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
     }
     
     private int[] parseIndices(String indicesText) throws ParseException {
-        boolean parseError = false;
-        
-        int[] indices = null;
         try {
-            indices = Arrays
-                .stream(indicesText.trim().split("\\s+"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
-            
-            for(int index : indices) {
-                if (index <= 0) {
-                    parseError = true;
-                    break;
-                }
-            }
-        } catch (NumberFormatException ex) {
-            parseError = true;
+            return INDEX_PARSER.parseMultiple(indicesText);
+        } catch (ParseException ex) {
+            throw new ParseException(indicesText, "INDEX [MORE_INDEX]: " + ex.getFailureDetails());
         }
-        
-        if (parseError)
-            throw new ParseException(indicesText, "INDEX: Must be a nonnegative whole number!");
-            
-        return indices;
     }
 
 }

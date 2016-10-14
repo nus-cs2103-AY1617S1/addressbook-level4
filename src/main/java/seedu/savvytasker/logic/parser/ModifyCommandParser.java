@@ -11,7 +11,7 @@ import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.RecurrenceType;
 
-public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
+public class ModifyCommandParser implements CommandParser<ModifyCommand> {
     private static final String HEADER = "modify";
     private static final String READABLE_FORMAT = "modify INDEX [t/TASK_NAME] [s/START_DATE] "
             + "[st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] "
@@ -45,6 +45,9 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
             "(d/(?<"+REGEX_REF_DESCRIPTION+">[^/]+)(?!.*\\sd/))" +
             ")(\\s|$)){0,11}", Pattern.CASE_INSENSITIVE);
 
+    private static final TaskFieldParser TASK_PARSER = new TaskFieldParser();
+    private static final IndexParser INDEX_PARSER = new IndexParser();
+    
     @Override
     public String getHeader() {
         return HEADER;
@@ -61,15 +64,15 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
         if (matcher.matches()) {
 
             int index = parseIndex(matcher.group(REGEX_REF_INDEX));
-            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE));
-            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE));
-            String taskName = parseTaskName(matcher.group(REGEX_REF_TASK_NAME));
-            String location = parseLocation(matcher.group(REGEX_REF_LOCATION));
-            PriorityLevel priority = parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL));
-            RecurrenceType recurrence = parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE));
-            Integer nrOfRecurrence = parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
-            String category = parseCategory(matcher.group(REGEX_REF_CATEGORY));
-            String description = parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
+            InferredDate startDate = TASK_PARSER.parseStartDate(matcher.group(REGEX_REF_START_DATE));
+            InferredDate endDate = TASK_PARSER.parseEndDate(matcher.group(REGEX_REF_END_DATE));
+            String taskName = TASK_PARSER.parseTaskName(matcher.group(REGEX_REF_TASK_NAME));
+            String location = TASK_PARSER.parseLocation(matcher.group(REGEX_REF_LOCATION));
+            PriorityLevel priority = TASK_PARSER.parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL));
+            RecurrenceType recurrence = TASK_PARSER.parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE));
+            Integer nrOfRecurrence = TASK_PARSER.parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
+            String category = TASK_PARSER.parseCategory(matcher.group(REGEX_REF_CATEGORY));
+            String description = TASK_PARSER.parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
             
                
             // TODO: Create ModifyCommand here (require integration)
@@ -91,22 +94,10 @@ public class ModifyCommandParser extends TaskModelCommandParser<ModifyCommand> {
     }
 
     private int parseIndex(String indexText) throws ParseException {
-        boolean parseError = false;
-        
-        int index = 0;
         try {
-            indexText = indexText.trim();
-            index = Integer.parseInt(indexText);
-            
-            if (index <= 0)
-                parseError = true;
-        } catch (NumberFormatException ex) {
-            parseError = true;
+            return INDEX_PARSER.parseSingle(indexText);
+        } catch (ParseException ex) {
+            throw new ParseException(indexText, "INDEX: " + ex.getFailureDetails());
         }
-        
-        if (parseError)
-            throw new ParseException(indexText, "INDEX: Must be a nonnegative whole number.");
-            
-        return index;
     }
 }

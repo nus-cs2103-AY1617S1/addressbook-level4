@@ -19,7 +19,7 @@ public interface CommandParser<T extends Command> {
      * 
      * @return true if preprocessing is desired, false otherwise
      */
-    default boolean shouldPreprocess() {
+    public default boolean shouldPreprocess() {
         return true;
     }
     
@@ -34,7 +34,7 @@ public interface CommandParser<T extends Command> {
      * 
      * @return header string
      */
-    String getHeader();
+    public String getHeader();
     
     /**
      * Gets the human-readable format of the string required by this command parser to 
@@ -43,7 +43,7 @@ public interface CommandParser<T extends Command> {
      * 
      * @return a human-readable format required by this parser
      */
-    String getRequiredFormat();
+    public String getRequiredFormat();
     
     /**
      * Parses the command text and returns the resulting command built from the parse.
@@ -54,6 +54,6 @@ public interface CommandParser<T extends Command> {
      * @return the resulting command object which can then be executed
      * @throws ParseException if the commandText has an incorrect syntax
      */
-    T parse(String commandText) throws ParseException;
+    public T parse(String commandText) throws ParseException;
     
 }

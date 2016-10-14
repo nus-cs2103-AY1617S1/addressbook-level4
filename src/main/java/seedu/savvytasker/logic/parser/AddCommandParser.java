@@ -11,7 +11,7 @@ import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.RecurrenceType;
 
-public class AddCommandParser extends TaskModelCommandParser<AddCommand> {
+public class AddCommandParser implements CommandParser<AddCommand> {
     private static final String HEADER = "add";
     private static final String READABLE_FORMAT = "add TASK_NAME [s/START_DATE] [st/START_TIME] " +
             "[e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] " +
@@ -42,6 +42,8 @@ public class AddCommandParser extends TaskModelCommandParser<AddCommand> {
             "(c/(?<"+REGEX_REF_CATEGORY+">[^/]+)(?!.*\\sc/))|" +
             "(d/(?<"+REGEX_REF_DESCRIPTION+">[^/]+)(?!.*\\sd/))" +
             ")(\\s|$)){0,10}", Pattern.CASE_INSENSITIVE);
+
+    private static final TaskFieldParser TASK_PARSER = new TaskFieldParser();
     
     @Override
     public String getHeader() {
@@ -61,15 +63,15 @@ public class AddCommandParser extends TaskModelCommandParser<AddCommand> {
             //String startTime = matcher.group(REGEX_REF_START_TIME);
             //String endTime = matcher.group(REGEX_REF_END_TIME);
 
-            InferredDate startDate = parseStartDate(matcher.group(REGEX_REF_START_DATE));
-            InferredDate endDate = parseEndDate(matcher.group(REGEX_REF_END_DATE));
-            String taskName = parseTaskName(matcher.group(REGEX_REF_TASK_NAME));
-            String location = parseLocation(matcher.group(REGEX_REF_LOCATION));
-            PriorityLevel priority = parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL));
-            RecurrenceType recurrence = parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE));
-            Integer nrOfRecurrence = parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
-            String category = parseCategory(matcher.group(REGEX_REF_CATEGORY));
-            String description = parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
+            InferredDate startDate = TASK_PARSER.parseStartDate(matcher.group(REGEX_REF_START_DATE));
+            InferredDate endDate = TASK_PARSER.parseEndDate(matcher.group(REGEX_REF_END_DATE));
+            String taskName = TASK_PARSER.parseTaskName(matcher.group(REGEX_REF_TASK_NAME));
+            String location = TASK_PARSER.parseLocation(matcher.group(REGEX_REF_LOCATION));
+            PriorityLevel priority = TASK_PARSER.parsePriorityLevel(matcher.group(REGEX_REF_PRIORITY_LEVEL));
+            RecurrenceType recurrence = TASK_PARSER.parseRecurrenceType(matcher.group(REGEX_REF_RECURRING_TYPE));
+            Integer nrOfRecurrence = TASK_PARSER.parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
+            String category = TASK_PARSER.parseCategory(matcher.group(REGEX_REF_CATEGORY));
+            String description = TASK_PARSER.parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
             
             // TODO: Create AddCommand here (require integration)
             Date startDateTime = null, endDateTime = null;
