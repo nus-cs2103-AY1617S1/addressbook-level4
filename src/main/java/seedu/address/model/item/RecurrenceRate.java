@@ -1,44 +1,46 @@
 package seedu.address.model.item;
 
-import java.util.Date;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 public class RecurrenceRate {
     
-    public static final String MESSAGE_VALUE_CONSTRAINTS = "Recurrence rate should be more than or equals to 0 days";
+    private static final String STRING_CONSTANT_ONE = "1";
+
+    public static final String MESSAGE_VALUE_CONSTRAINTS = "Format for recurrence rate should be: repeat every [RATE] TIME_PERIOD\n"
+            + "RATE must be a positive integer and TIME_PERIOD must be in one of the formats:\n"
+            + "\"day(s)\", \"week(s)\", \"month(s)\", \"year(s)\", \"Monday\", \"Wed\"\n"
+            + "For example: \"repeat every 3 days\", \"repeat every week\", \"repeat every Wed\"";
     
-    public Integer recurrenceRate;
+    public static final String[] arr = {"hour", "hours", "day", "days", "week", "weeks", ""};
+    
+    public Integer rate;
     public TimePeriod timePeriod;
 
     /**
-     * Validates given recurrence rate.
+     * Validates given rate and timePeriod.
      *
-     * @throws IllegalValueException if given recurrence rate is invalid.
+     * @throws IllegalValueException if either values are invalid.
      */
-    public RecurrenceRate(String recurrenceRateString, String timePeriod) throws IllegalValueException {
-        if (timePeriod != null) {
-            timePeriod = timePeriod.trim();
-            isValidTimePeriod(timePeriod);
+    public RecurrenceRate(String rate, String timePeriod) throws IllegalValueException {
+        assert timePeriod != null;
+        assert rate != null;
+        
+        isValidTimePeriod(timePeriod.trim());
+        
+        if (Integer.valueOf(rate) <= 0) {   
+            throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
         }
+        
         try {
-            if (recurrenceRateString != null) {
-                this.recurrenceRate = Integer.valueOf(recurrenceRateString);
-            }
+            this.rate = Integer.valueOf(rate);
         } catch (NumberFormatException nfe) {
             throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
         }
     }
     
     
-    //TODO: Anything better than null?
     public RecurrenceRate(String timePeriod) throws IllegalValueException {
-        this(null, timePeriod);
-    }
-        
-    //TODO: Anything better than null?
-    public RecurrenceRate() throws IllegalValueException {
-        this(null, null);
+        this(STRING_CONSTANT_ONE, timePeriod);
     }
 
     private void isValidTimePeriod(String timePeriod) throws IllegalValueException {
@@ -64,22 +66,21 @@ public class RecurrenceRate {
         }
     }
     
-    //TODO: Update this thing
     @Override
     public String toString() {
-        return Integer.toString(recurrenceRate);
+        return Integer.toString(rate) + " " + timePeriod.toString().toLowerCase();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RecurrenceRate // instanceof handles nulls
-                && this.recurrenceRate.equals(((RecurrenceRate) other).recurrenceRate) // state check
+                && this.rate.equals(((RecurrenceRate) other).rate) // state check
                 && this.timePeriod.equals(((RecurrenceRate) other).timePeriod));
     }
 
     @Override
     public int hashCode() {
-        return recurrenceRate.hashCode();
+        return rate.hashCode();
     }
 }
