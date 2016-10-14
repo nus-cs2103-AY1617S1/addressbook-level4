@@ -48,7 +48,7 @@ public class CommandFeedbackView extends UiPart {
      * @param message to be shown
      */
     public void displayMessage(String message) {
-        commandFeedbackLabel.setText("Message " + message);
+        commandFeedbackLabel.setText(message);
     }
 
     /**
