@@ -440,22 +440,22 @@ Use case: ends
 
 ## **Appendix C : Non Functional Requirements**
 
- 1)The app should run smoothly
- 2)The app should be able to run all on all operating systems
- 3)The app should be able to store up to 1000 tasks per user
- 4)The app should not take up a lot of space
- 5)The app should be start up quickly
- 6)The app should be able to process requests from the user in under 1ms
- 7)The app should not crash
- 8)The app should not do anything else other than what the user inputs
- 9)The app should be able to recover from errors easily
+ 1)The app should run smoothly <br>
+ 2)The app should be able to run all on all operating systems <br>
+ 3)The app should be able to store up to 1000 tasks per user <br>
+ 4)The app should not take up a lot of space <br>
+ 5)The app should be start up quickly <br>
+ 6)The app should be able to process requests from the user in under 1ms <br>
+ 7)The app should not crash <br>
+ 8)The app should not do anything else other than what the user inputs <br>
+ 9)The app should be able to recover from errors easily <br>
 
 ## **Appendix D : Glossary**
 
- 1)UI - User Interface
- 2)API - Application Programming Interface
- 3)App - Application
- 4)IDE - Integrated Development environment
+ 1)UI - User Interface <br>
+ 2)API - Application Programming Interface <br>
+ 3)App - Application <br>
+ 4)IDE - Integrated Development environment <br>
 
 
 
