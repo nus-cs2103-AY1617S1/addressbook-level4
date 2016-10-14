@@ -20,6 +20,9 @@ public class UiManager extends ComponentManager implements Ui {
 
     // Only one instance of UiManager should be present. 
     private static UiManager instance = null;
+    
+    // Only one currentView.
+    public static View currentView;
 
     private Config config;
     private MainWindow mainWindow;
@@ -71,11 +74,24 @@ public class UiManager extends ComponentManager implements Ui {
         
         return instance.mainWindow.loadView(viewClass);
     }
+    
+    /**
+     * Sets the message shown in the console and re-renders the current view.
+     * Does not do anything if no views have been loaded yet.
+     * 
+     * @param consoleMessage
+     */
+    public static void updateConsoleMessage(String consoleMessage) {
+        if (currentView != null) {
+            currentView.consoleMessage = consoleMessage;
+            currentView.render();
+        }
+    }
 
 
     /** ================ DISPLAY ERRORS ================== **/
 
-    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+    private void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
