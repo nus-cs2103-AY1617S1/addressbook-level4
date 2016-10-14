@@ -19,7 +19,7 @@
             <children>
                 <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
                     <stylesheets>
-                        <URL value="@DarkTheme.css" />
+                        <URL value="@TarsTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
@@ -30,28 +30,49 @@
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                    <Label fx:id="id" styleClass="cell_index_label" />
+                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first">
+                              <HBox.margin>
+                                 <Insets bottom="5.0" />
+                              </HBox.margin></Label>
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags">
+                           <HBox.margin>
+                              <Insets bottom="5.0" />
+                           </HBox.margin></Label>
                             </children>
                         </HBox>
                   <Label fx:id="startDate" layoutX="25.0" layoutY="52.0" styleClass="cell_small_label" text="\$startDate">
                      <graphic>
-                        <Label text="Start:" />
+                        <Label styleClass="cell_medium_label" text="Start:">
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding></Label>
                      </graphic>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </Label>
                         <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate">
                      <graphic>
-                        <Label text="End:" />
+                        <Label styleClass="cell_medium_label" text="End:">
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding></Label>
                      </graphic></Label>
                         <Label fx:id="priority" styleClass="cell_small_label" text="\$priority">
                      <graphic>
-                        <Label text="Priority:" />
+                        <Label styleClass="cell_medium_label" text="Priority:">
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding></Label>
                      </graphic></Label>
                         <Label fx:id="status" styleClass="cell_small_label" text="\$status">
                      <graphic>
-                        <Label text="Status:" />
+                        <Label styleClass="cell_medium_label" text="Status:">
+                           <padding>
+                              <Insets left="5.0" right="5.0" />
+                           </padding></Label>
                      </graphic></Label>
                     </children>
                 </VBox>

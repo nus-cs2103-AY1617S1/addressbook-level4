@@ -84,7 +84,7 @@ public class MainWindow extends UiPart {
     }
 
     private void configure(String appTitle, String tarsName, Config config, UserPrefs prefs,
-                           Logic logic) {
+            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
