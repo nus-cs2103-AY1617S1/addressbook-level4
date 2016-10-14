@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.item.ReadOnlyTask;
@@ -21,32 +25,40 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
 
-    public final int targetIndex;
+    public final List<Integer> targetIndexes;
 
-    public DeleteCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(List<Integer> targetIndexes) {
+        assert targetIndexes != null;
+        this.targetIndexes = targetIndexes;
     }
 
 
     @Override
     public CommandResult execute() {
+        List<String> displayDeletedTasks = new ArrayList<String>();
+        Collections.sort(targetIndexes);
+        int adjustmentForRemovedTask = 0;
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        for (int targetIndex: targetIndexes) {
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
+    
+            if (lastShownList.size() < targetIndex - adjustmentForRemovedTask) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            }
+    
+            ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
+    
+            try {
+                model.deleteTask(taskToDelete);
+            } catch (TaskNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
+            }
+            displayDeletedTasks.add(taskToDelete.toString());
+            adjustmentForRemovedTask++;
         }
 
-        ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
-
-        try {
-            model.deleteTask(personToDelete);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
-        }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, displayDeletedTasks));
     }
 
 }

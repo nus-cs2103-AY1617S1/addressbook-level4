@@ -33,7 +33,7 @@ public class DoneCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        List<String> displayTasksToArchive = new ArrayList<String>();
+        List<String> displayArchivedTasks = new ArrayList<String>();
         Collections.sort(targetIndexes);
         int adjustmentForRemovedTask = 0;
 
@@ -46,15 +46,15 @@ public class DoneCommand extends Command {
             }
     
             ReadOnlyTask taskToArchive = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
-            displayTasksToArchive.add(taskToArchive.toString());
             model.addDoneTask(new Task(taskToArchive));
             try {
                 model.deleteTask(taskToArchive);
             } catch (TaskNotFoundException pnfe) {
-                assert false : "The target person cannot be missing";
+                assert false : "The target task cannot be missing";
             }
+            displayArchivedTasks.add(taskToArchive.toString());
             adjustmentForRemovedTask++;
         }
-        return new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, displayTasksToArchive));
+        return new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, displayArchivedTasks));
     }
 }
