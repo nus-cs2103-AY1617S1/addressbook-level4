@@ -13,10 +13,10 @@ public class TypicalTestPersons {
 
     public TypicalTestPersons() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
+            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, 08-111")
                     .withPhone("85355255")
                     .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
+            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, 02-25")
                     .withPhone("98765432")
                     .withTags("owesMoney", "friends").build();
             carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withAddress("wall street").build();
