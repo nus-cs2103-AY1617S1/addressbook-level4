@@ -41,9 +41,9 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTaskDetails()+ "\n")
                 .append("Start time: ")
-                .append(getStartTime() + "\t ")
+                .append(getStartTime().toCardString() + "\t ")
                 .append("End time:")
-                .append(getEndTime()+ "\n")
+                .append(getEndTime().toCardString()+ "\n")
                 .append("Priority: ")
                 .append(getPriority()+ "\n")
                 .append("Tags: ");

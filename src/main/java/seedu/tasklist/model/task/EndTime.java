@@ -52,6 +52,15 @@ public class EndTime {
     @Override
     public String toString() {
     	if(endtime.getTime().equals(new Date(0))){
+    		return (new Date(0)).toString();
+    	}
+    	else{
+    		return endtime.getTime().toString();
+    	}
+    }
+    
+    public String toCardString() {
+    	if(endtime.getTime().equals(new Date(0))){
     		return "-";
     	}
     	else{
