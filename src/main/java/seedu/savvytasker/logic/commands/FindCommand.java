@@ -32,7 +32,7 @@ public class FindCommand extends Command {
     }
     
     @Override
-    protected boolean canUndo() {
+    public boolean canUndo() {
         return false;
     }
 

@@ -10,6 +10,7 @@ import seedu.savvytasker.model.Model;
 import seedu.savvytasker.model.person.ReadOnlyTask;
 import seedu.savvytasker.storage.Storage;
 
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -20,13 +21,16 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final MasterParser parser;
+    private final Stack<Command> undoStack;
+    private final Stack<Command> redoStack;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new MasterParser();
+        this.undoStack = new Stack<Command>();
+        this.redoStack = new Stack<Command>();
         
         registerAllDefaultCommandParsers();
-
     }
 
     @Override
@@ -34,7 +38,14 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parse(commandText);
         command.setData(model);
-        return command.execute();
+        
+        CommandResult result = command.execute();
+        if (command.canUndo()) {
+            undoStack.push(command);
+            redoStack.clear();
+        }
+        
+        return result;
     }
 
     @Override
@@ -55,5 +66,33 @@ public class LogicManager extends ComponentManager implements Logic {
         parser.registerCommandParser(new UnmarkCommandParser());
         parser.registerCommandParser(new UndoCommandParser());
         parser.registerCommandParser(new RedoCommandParser());
+    }
+
+    @Override
+    public boolean undo() {
+        boolean undone = false;
+        
+        if (!undoStack.isEmpty()) {
+            Command command = undoStack.pop();
+            command.undo();
+            redoStack.push(command);
+            undone = true;
+        }
+        
+        return undone;
+    }
+
+    @Override
+    public boolean redo() {
+        boolean redone = false;
+        
+        if (!redoStack.isEmpty()) {
+            Command command = redoStack.pop();
+            command.redo();
+            undoStack.push(command);
+            redone = true;
+        }
+        
+        return redone;
     }
 }

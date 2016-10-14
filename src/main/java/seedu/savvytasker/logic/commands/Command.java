@@ -48,17 +48,17 @@ public abstract class Command {
      * Checks if a command can perform undo operations
      * @return true if the command supports undo, false otherwise
      */
-    protected abstract boolean canUndo();
+    public abstract boolean canUndo();
     
     /**
-     * Redo the command
+     * Redo the command.
      * @return true if the operation completed successfully, false otherwise
      */
-    protected abstract boolean redo();
+    public abstract boolean redo();
     
     /**
      * Undo the command
      * @return true if the operation completed successfully, false otherwise
      */
-    protected abstract boolean undo();
+    public abstract boolean undo();
 }
