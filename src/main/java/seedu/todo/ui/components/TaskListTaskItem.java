@@ -1,5 +1,7 @@
 package seedu.todo.ui.components;
 
+import java.time.LocalDateTime;
+
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,9 +45,13 @@ public class TaskListTaskItem extends MultiComponent {
 
     @Override
     public void componentDidMount() {
-        taskText.setText(task.getName());
-        taskTime.setText(DateUtil.formatTime(task.getCalendarDT()));
         rowIndex.setText(displayIndex.toString());
+        taskText.setText(task.getName());
+        
+        LocalDateTime dateTime = task.getCalendarDT();
+        if (dateTime != null) {
+            taskTime.setText(DateUtil.formatTime(dateTime));
+        }
         
         if (task.isCompleted()) {
             showCompleted();
