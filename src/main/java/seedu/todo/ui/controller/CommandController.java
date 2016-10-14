@@ -19,8 +19,11 @@ public class CommandController {
     private CommandFeedbackView feedbackView;
     private CommandErrorView errorView;
 
-    public static CommandController constructLink(Logic logic, CommandInputView inputView, CommandFeedbackView feedbackView,
-                                                  CommandErrorView errorView) {
+    /**
+     * Constructs a link between the classes defined in the parameters.
+     */
+    public static void constructLink(Logic logic, CommandInputView inputView,
+                                                  CommandFeedbackView feedbackView, CommandErrorView errorView) {
         CommandController controller = new CommandController();
         controller.logic = logic;
         controller.inputView = inputView;
