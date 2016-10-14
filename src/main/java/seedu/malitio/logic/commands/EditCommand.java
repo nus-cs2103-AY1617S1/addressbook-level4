@@ -8,6 +8,7 @@ import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
+import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.Name;
 import seedu.malitio.model.task.ReadOnlyTask;
 import seedu.malitio.model.task.Task;
@@ -65,7 +66,7 @@ public class EditCommand extends Command{
         for (String tagName : newTags) {
             tagSet.add(new Tag(tagName));
         }
-        this.editedTask = new Task(
+        this.editedTask = new FloatingTask(
                 new Name(name),
                 new UniqueTagList(tagSet)
         );      

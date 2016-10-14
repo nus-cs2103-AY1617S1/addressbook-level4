@@ -36,13 +36,13 @@ public class TypicalTestTasks {
     public static void loadmalitioWithSampleData(Malitio ab) {
 
         try {
-            ab.addTask(new Task(sleep));
-            ab.addTask(new Task(eat));
-            ab.addTask(new Task(read));
-            ab.addTask(new Task(exercise));
-            ab.addTask(new Task(lecture));
-            ab.addTask(new Task(homework));
-            ab.addTask(new Task(play));
+            ab.addTask(new FloatingTask(sleep));
+            ab.addTask(new FloatingTask(eat));
+            ab.addTask(new FloatingTask(read));
+            ab.addTask(new FloatingTask(exercise));
+            ab.addTask(new FloatingTask(lecture));
+            ab.addTask(new FloatingTask(homework));
+            ab.addTask(new FloatingTask(play));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }

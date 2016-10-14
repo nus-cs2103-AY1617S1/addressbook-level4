@@ -11,6 +11,7 @@ import seedu.malitio.commons.exceptions.DataConversionException;
 import seedu.malitio.commons.util.FileUtil;
 import seedu.malitio.model.Malitio;
 import seedu.malitio.model.ReadOnlyMalitio;
+import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.Task;
 import seedu.malitio.storage.XmlMalitioStorage;
 
@@ -73,14 +74,14 @@ public class XmlMalitioStorageTest {
         assertEquals(original, new Malitio(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.relax));
-        original.removeTask(new Task(TypicalTestTasks.sleep));
+        original.addTask(new FloatingTask(TypicalTestTasks.relax));
+        original.removeTask(new FloatingTask(TypicalTestTasks.sleep));
         xmlmalitioStorage.savemalitio(original, filePath);
         readBack = xmlmalitioStorage.readMalitio(filePath).get();
         assertEquals(original, new Malitio(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTasks.prepare));
+        original.addTask(new FloatingTask(TypicalTestTasks.prepare));
         xmlmalitioStorage.savemalitio(original); //file path not specified
         readBack = xmlmalitioStorage.readMalitio().get(); //file path not specified
         assertEquals(original, new Malitio(readBack));

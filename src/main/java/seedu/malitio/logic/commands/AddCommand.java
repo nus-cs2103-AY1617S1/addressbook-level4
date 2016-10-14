@@ -36,7 +36,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
+        this.toAdd = new FloatingTask(
                 new Name(name),
                 new UniqueTagList(tagSet)
         );
@@ -53,7 +53,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
+        this.toAdd = new Deadlines(
                 new Name(name),
                 new DateTime(date),
                 new UniqueTagList(tagSet)
@@ -72,7 +72,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         // check if start < end
-        this.toAdd = new Task(
+        this.toAdd = new Events(
                 new Name(name),
                 new DateTime(start),
                 new DateTime(end),

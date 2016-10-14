@@ -3,6 +3,7 @@ package seedu.malitio.model;
 import javafx.collections.ObservableList;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
+import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.ReadOnlyTask;
 import seedu.malitio.model.task.Task;
 import seedu.malitio.model.task.UniqueTaskList;
@@ -59,7 +60,7 @@ public class Malitio implements ReadOnlyMalitio {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 

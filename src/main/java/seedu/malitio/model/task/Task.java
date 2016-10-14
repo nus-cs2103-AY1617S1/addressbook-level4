@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a Task in Malitio.
  * Guarantees: field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public abstract class Task implements ReadOnlyTask {
 
     private Name name;
     private DateTime due = null;

@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.malitio.TestApp;
 import seedu.malitio.testutil.TestUtil;
+import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.ReadOnlyTask;
 import seedu.malitio.model.task.Task;
 
@@ -147,7 +148,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     public TaskCardHandle getTaskCardHandle(int index) {
-        return getTaskCardHandle(new Task(getListView().getItems().get(index)));
+        return getTaskCardHandle(new FloatingTask(getListView().getItems().get(index)));
     }
 
     public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
