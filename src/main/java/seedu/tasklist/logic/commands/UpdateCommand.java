@@ -3,6 +3,7 @@ package seedu.tasklist.logic.commands;
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
+import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.StartTime;
@@ -27,8 +28,9 @@ public class UpdateCommand extends Command {
     private StartTime startTime;
     private EndTime endTime;
     private Priority priority;
+    private UniqueTagList tags;
 
-    public UpdateCommand(int targetIndex, String taskDetails, String startTime, String endTime, String priority)
+    public UpdateCommand(int targetIndex, String taskDetails, String startTime, String endTime, String priority, UniqueTagList tags)
             throws IllegalValueException {
         this.targetIndex = targetIndex - 1;
         if (taskDetails != null)
@@ -39,6 +41,7 @@ public class UpdateCommand extends Command {
             this.endTime = new EndTime(endTime);
         if (priority != null)
             this.priority = new Priority(priority);
+        this.tags = new UniqueTagList(tags);
     }
 
     @Override
@@ -50,7 +53,7 @@ public class UpdateCommand extends Command {
         } else {
             Task taskToUpdate = lastShownList.get(targetIndex);
             try {
-                model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority);
+                model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, tags);
                 return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
             } catch (UniqueTaskList.DuplicateTaskException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_TASK);

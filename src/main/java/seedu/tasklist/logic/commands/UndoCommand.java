@@ -3,6 +3,7 @@ package seedu.tasklist.logic.commands;
 import seedu.tasklist.model.ModelManager;
 import seedu.tasklist.model.UndoInfo;
 import seedu.tasklist.model.task.ReadOnlyTask;
+import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -30,7 +31,8 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        
+        if((ModelManager.undoStack.isEmpty()))
+           return new CommandResult(MESSAGE_FAILURE);
         undoInfo = ModelManager.undoStack.pop();
         ModelManager.redoStack.push(undoInfo);
         int undoID = undoInfo.getUndoID();
@@ -52,7 +54,7 @@ public class UndoCommand extends Command {
         }
     }
     
-    private void undoAdd(ReadOnlyTask task){
+    private void undoAdd(Task task){
         try {
             model.deleteTask(task);
         }
@@ -61,7 +63,7 @@ public class UndoCommand extends Command {
         }
     }
     
-    private void undoDelete(ReadOnlyTask task){
+    private void undoDelete(Task task){
         try {
             model.addTask(task);  
         } 
@@ -70,9 +72,9 @@ public class UndoCommand extends Command {
         }
     }
 
-    private void undoUpdate(ReadOnlyTask newTask, ReadOnlyTask originalTask){
+    private void undoUpdate(Task newTask, ReadOnlyTask originalTask){
         try {
-            model.updateTask(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority());
+            model.updateTask(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getTags());
         } catch (UniqueTaskList.DuplicateTaskException e) {
             e.printStackTrace();
         }
@@ -80,7 +82,7 @@ public class UndoCommand extends Command {
 
     private void undoDone(ReadOnlyTask task){
         try {
-            model.markTaskAsComplete(task);
+            model.markTaskAsIncomplete(task);
         } 
         catch (TaskNotFoundException e) {
             e.printStackTrace();

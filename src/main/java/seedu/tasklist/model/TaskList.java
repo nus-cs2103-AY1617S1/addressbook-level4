@@ -10,6 +10,7 @@ import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.model.task.UniqueTaskList;
+import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -173,5 +174,14 @@ public class TaskList implements ReadOnlyTaskList {
             taskToUpdate.setEndTime(endTime); 
         if (priority != null)
             taskToUpdate.setPriority(priority);
+    }
+
+    public void markTaskAsIncomplete(ReadOnlyTask task) {
+        try {
+            tasks.setIncomplete(task);
+        } 
+        catch (TaskNotFoundException e) {
+            e.printStackTrace();
+        }        
     }
 }

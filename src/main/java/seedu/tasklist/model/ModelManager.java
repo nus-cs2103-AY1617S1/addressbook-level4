@@ -6,6 +6,7 @@ import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
 import seedu.tasklist.logic.commands.UndoCommand;
+import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.ReadOnlyTask;
@@ -82,7 +83,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.removeTask(target);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        addToUndoStack(UndoCommand.DEL_CMD_ID, target);
+        addToUndoStack(UndoCommand.DEL_CMD_ID, (Task)target);
     }
 
     @Override
@@ -94,11 +95,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) throws UniqueTaskList.DuplicateTaskException {
         taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        Task originalTask = new Task(taskDetails, startTime, endTime, priority, null);
+        Task originalTask = new Task(taskDetails, startTime, endTime, priority, tags);
         addToUndoStack(UndoCommand.UPD_CMD_ID, taskToUpdate, originalTask);
     }
     
@@ -107,10 +108,18 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.markTaskAsComplete(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
-        addToUndoStack(UndoCommand.DONE_CMD_ID, task);
+        addToUndoStack(UndoCommand.DONE_CMD_ID, (Task)task);
+    }
+    
+    @Override
+    public synchronized void markTaskAsIncomplete(ReadOnlyTask task) throws TaskNotFoundException {
+        taskList.markTaskAsIncomplete(task);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+        addToUndoStack(UndoCommand.DONE_CMD_ID, (Task)task);
     }
 
-    private void addToUndoStack(int undoID, ReadOnlyTask... tasks) {
+    private void addToUndoStack(int undoID, Task... tasks) {
         if (undoStack.size()==3){
             undoStack.remove(undoStack.size()-1);
         }

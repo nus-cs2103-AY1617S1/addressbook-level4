@@ -76,6 +76,16 @@ public class UniqueTaskList implements Iterable<Task> {
         throw new TaskNotFoundException();
     }
     
+    public boolean setIncomplete(ReadOnlyTask task) throws TaskNotFoundException {
+        assert task != null;
+        for (Task i: internalList){
+            if(i.getUniqueID()==task.getUniqueID()){
+                i.markAsIncomplete();
+                return true;
+            }
+        }
+        throw new TaskNotFoundException();
+    }
 
     /**
      * Removes the equivalent person from the list.
@@ -114,4 +124,5 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
 }

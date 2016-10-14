@@ -93,6 +93,10 @@ public class Task implements ReadOnlyTask {
         isComplete = true;
     }
     
+    public void markAsIncomplete() {
+        isComplete = false;
+    }
+    
     public void setTaskDetails(TaskDetails taskDetails){
         this.taskDetails = taskDetails;
     }

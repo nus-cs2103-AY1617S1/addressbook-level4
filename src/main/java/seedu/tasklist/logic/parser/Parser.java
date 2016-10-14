@@ -9,6 +9,9 @@ import java.util.regex.Pattern;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.*;
+import seedu.tasklist.model.tag.Tag;
+import seedu.tasklist.model.tag.UniqueTagList;
+import seedu.tasklist.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * Parses user input.
@@ -110,14 +113,34 @@ public class Parser {
             String startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             String endTime = (matcher.group("end") == null) ? null : matcher.group("end");
             String priority = (matcher.group("priority") == null) ? null : matcher.group("priority");
+            String tagList = (matcher.group("tagArguments") == null) ? null : matcher.group("tagArguments");
+            UniqueTagList utags = null;
+            try {
+                utags = new UniqueTagList(getTags(tagList.split(" ")));
+            } catch (DuplicateTagException e) {
+                e.printStackTrace();
+            }
             
             try {
-                return new UpdateCommand(targetIndex, taskDetails, startTime, endTime, priority);
+                return new UpdateCommand(targetIndex, taskDetails, startTime, endTime, priority, utags);
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
         }
 
+    }
+
+    private Tag[] getTags(String[] tagList) {
+        Tag[] tags = new Tag[tagList.length];
+        for(int i=0; i<tagList.length; i++){
+            try {
+                tags[i] = new Tag(tagList[i]);
+            } 
+            catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+        }
+        return tags;
     }
 
     private Command prepareDone(String args) {
