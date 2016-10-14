@@ -18,11 +18,14 @@ public class TypicalTestTask {
             task1 =  new TaskBuilder().withName("do laundry")
                     .withTags("chores").build();
             task2 = new TaskBuilder().withName("finish assignment").build();
-            task3 = new TaskBuilder().withName("do past year papers")
+            task3 = new TaskBuilder().withName("cs2105 assignment")
                     .withTags("examPrep").build();
             task4 = new TaskBuilder().withName("complete cs2103 lecture quiz")
                     .withTags("homework").build();
-            task5 = new TaskBuilder().withName("complete cs2105 assignment")
+            
+            
+            //manual inputs
+            task5 = new TaskBuilder().withName("do past year papers")
                     .withTags("homework").build();
             task6 = new TaskBuilder().withName("sweep floor").build();
             
