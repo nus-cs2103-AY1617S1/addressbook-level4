@@ -1,6 +1,5 @@
 package seedu.tasklist.logic.commands;
 
-
 /**
  * Lists all tasks in the task list to the user.
  */
@@ -16,5 +15,10 @@ public class ListCommand extends Command {
     public CommandResult execute() {
         model.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public Command prepare(String args) {
+        return new ListCommand();
     }
 }

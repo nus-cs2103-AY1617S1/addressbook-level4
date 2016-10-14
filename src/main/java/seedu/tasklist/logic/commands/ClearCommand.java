@@ -19,4 +19,9 @@ public class ClearCommand extends Command {
         model.resetData(TaskList.getEmptyTaskList());
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public Command prepare(String args) {
+        return new ClearCommand();
+    }
 }

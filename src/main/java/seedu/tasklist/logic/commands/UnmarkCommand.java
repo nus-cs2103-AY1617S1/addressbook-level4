@@ -6,6 +6,10 @@ import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.UniqueTaskList.TaskCompletionException;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
+import static seedu.tasklist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.util.Optional;
+
 /**
  * Unmarks a task identified using it's last displayed index from the task list.
  */
@@ -21,7 +25,9 @@ public class UnmarkCommand extends Command {
     public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Task unmarked: %1$s";
     public static final String MESSAGE_UNMARKED_TASK = "This task is already unmarked in the task list.";
 
-    public final int targetIndex;
+    public int targetIndex;
+    
+    public UnmarkCommand() {};
     
     public UnmarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -49,7 +55,23 @@ public class UnmarkCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
     }
-    
-    
 
+    /**
+     * Parses arguments in the context of the unmark task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    @Override
+    public Command prepare(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
+        }
+
+        return new UnmarkCommand(index.get());
+
+    }
+    
 }

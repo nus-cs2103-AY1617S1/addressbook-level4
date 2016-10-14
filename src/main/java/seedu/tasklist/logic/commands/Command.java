@@ -3,12 +3,13 @@ package seedu.tasklist.logic.commands;
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.tasklist.logic.parser.CommandParser;
 import seedu.tasklist.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
-public abstract class Command {
+public abstract class Command implements CommandParser {
     protected Model model;
 
     /**

@@ -27,6 +27,7 @@ public class TaskListPanel extends UiPart {
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
+    private int taskListViewIndex = 0;
 
     public TaskListPanel() {
         super();
@@ -48,9 +49,8 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+            ObservableList<ReadOnlyTask> taskList) {
+        TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
@@ -84,6 +84,30 @@ public class TaskListPanel extends UiPart {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);
             taskListView.getSelectionModel().clearAndSelect(index);
+        });
+    }
+
+    public void selectPrevious() {
+        Platform.runLater(() -> {
+            taskListView.getSelectionModel().selectPrevious();
+        });
+    }
+
+    public void selectNext() {
+        Platform.runLater(() -> {
+            taskListView.getSelectionModel().selectNext();
+        });
+    }
+    
+    public void selectLast() {
+        Platform.runLater(() -> {
+            taskListView.getSelectionModel().selectLast();
+        });
+    }
+    
+    public void selectFirst() {
+        Platform.runLater(() -> {
+            taskListView.getSelectionModel().selectFirst();;
         });
     }
 
