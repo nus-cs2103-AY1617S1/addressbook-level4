@@ -21,15 +21,23 @@ public class CommandFeedbackView extends UiPart {
     
     @FXML
     private TextFlow commandFeedbackTextFlow;
-    
     private AnchorPane placeHolder, textFlowContainer;
 
+    /**
+     * Loads the feedback view element to the placeHolder
+     * @param primaryStage of the application
+     * @param placeHolder where the view element {@link #textFlowContainer} should be placed
+     * @return an instance of this class
+     */
     public static CommandFeedbackView load(Stage primaryStage, AnchorPane placeHolder) {
         CommandFeedbackView feedbackView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandFeedbackView());
         feedbackView.configure();
         return feedbackView;
     }
 
+    /**
+     * Configure the UI properties of CommandFeedbackView
+     */
     private void configure() {
         FxViewUtil.applyAnchorBoundaryParameters(textFlowContainer, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandFeedbackTextFlow, 0.0, 0.0, 0.0, 0.0);
@@ -62,6 +70,7 @@ public class CommandFeedbackView extends UiPart {
         commandFeedbackTextFlow.getStyleClass().remove(ERROR_STYLE);
     }
     
+    /* Override Methods */
     @Override
     public void setPlaceholder(AnchorPane placeholder) {
         this.placeHolder = placeholder;
@@ -71,7 +80,7 @@ public class CommandFeedbackView extends UiPart {
     public void setNode(Node node) {
         this.textFlowContainer = (AnchorPane) node;
     }
-    
+
     @Override
     public String getFxmlPath() {
         return FXML;
