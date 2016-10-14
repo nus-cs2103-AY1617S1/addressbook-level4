@@ -43,5 +43,11 @@ public interface Model {
 	
 	/**Updates the filter of the filtered item list to filter by event */
 	void updateFilteredListToShowEvent();
+	
+    /** Sets item as done */
+    void setDone(ReadOnlyItem target) throws UniqueItemList.ItemNotFoundException;
+    
+    /** Sets item as undone */
+    void setUndone(ReadOnlyItem target) throws UniqueItemList.ItemNotFoundException;
 
 }

@@ -6,6 +6,7 @@ import seedu.taskmanager.commons.core.ComponentManager;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
+import seedu.taskmanager.commons.events.ui.ChangeDoneEvent;
 import seedu.taskmanager.commons.util.StringUtil;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ReadOnlyItem;
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskManager addressBook;
+    private final TaskManager taskManger;
     private final FilteredList<Item> filteredItems;
 
     /**
@@ -38,8 +39,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new TaskManager(src);
-        filteredItems = new FilteredList<>(addressBook.getItems());
+        taskManger = new TaskManager(src);
+        filteredItems = new FilteredList<>(taskManger.getItems());
     }
 
     public ModelManager() {
@@ -47,35 +48,49 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
-        addressBook = new TaskManager(initialData);
-        filteredItems = new FilteredList<>(addressBook.getItems());
+        taskManger = new TaskManager(initialData);
+        filteredItems = new FilteredList<>(taskManger.getItems());
     }
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
-        addressBook.resetData(newData);
+        taskManger.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
     public ReadOnlyTaskManager getAddressBook() {
-        return addressBook;
+        return taskManger;
+    }
+    
+    @Override
+    public synchronized void setDone(ReadOnlyItem target) throws ItemNotFoundException {
+        taskManger.setDone(target);
+        raise(new ChangeDoneEvent());
+        indicateAddressBookChanged();
+    }
+    
+    @Override
+    public synchronized void setUndone(ReadOnlyItem target) throws ItemNotFoundException {
+        taskManger.setUndone(target);
+        raise(new ChangeDoneEvent());
+        indicateAddressBookChanged();
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new TaskManagerChangedEvent(addressBook));
+        raise(new TaskManagerChangedEvent(taskManger));
     }
 
     @Override
     public synchronized void deleteItem(ReadOnlyItem target) throws ItemNotFoundException {
-        addressBook.removeItem(target);
+        taskManger.removeItem(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addItem(Item item) throws UniqueItemList.DuplicateItemException {
-        addressBook.addItem(item);
+        taskManger.addItem(item);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -83,7 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void replaceItem(ReadOnlyItem target, Item toReplace) 
             throws ItemNotFoundException, UniqueItemList.DuplicateItemException {
-        addressBook.replaceItem(target, toReplace);
+        taskManger.replaceItem(target, toReplace);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }

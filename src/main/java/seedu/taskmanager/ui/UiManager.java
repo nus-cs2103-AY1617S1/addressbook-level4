@@ -12,6 +12,7 @@ import seedu.taskmanager.commons.core.Config;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskmanager.commons.events.ui.JumpToListRequestEvent;
+import seedu.taskmanager.commons.events.ui.ChangeDoneEvent;
 import seedu.taskmanager.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.taskmanager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.taskmanager.commons.util.StringUtil;
@@ -121,6 +122,11 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleItemPanelSelectionChangedEvent(ItemPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadItemPage(event.getNewSelection());
+    }
+    
+    @Subscribe
+    private void handleChangeDoneEvent(ChangeDoneEvent event) {
+        mainWindow.getItemListPanel().updateIndex();
     }
 
 }

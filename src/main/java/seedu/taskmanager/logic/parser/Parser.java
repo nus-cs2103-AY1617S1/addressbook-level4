@@ -16,6 +16,8 @@ import seedu.taskmanager.logic.commands.ListDeadlineCommand;
 import seedu.taskmanager.logic.commands.ListEventCommand;
 import seedu.taskmanager.logic.commands.ListTaskCommand;
 import seedu.taskmanager.logic.commands.SelectCommand;
+import seedu.taskmanager.logic.commands.DoneCommand;
+import seedu.taskmanager.logic.commands.UndoneCommand;
 import seedu.taskmanager.model.item.Date;
 
 import java.text.SimpleDateFormat;
@@ -127,7 +129,13 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
 
+        case UndoneCommand.COMMAND_WORD:
+            return prepareUndone(arguments);
+            
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -356,7 +364,41 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
     }
+    
+    /**
+     * Parses arguments in the context of the done person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDone(String args) {
 
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(index.get());
+    }
+
+    /**
+     * Parses arguments in the context of the undone person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUndone(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new UndoneCommand(index.get());
+    }    
+    
     /**
      * Parses arguments in the context of the select person command.
      *

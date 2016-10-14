@@ -92,6 +92,26 @@ public class UniqueItemList implements Iterable<Item> {
         }
         return itemFoundAndDeleted;
     }
+    
+    public void setDone(ReadOnlyItem toEdit) throws ItemNotFoundException {
+        assert toEdit != null;
+        if (internalList.contains(toEdit)) {
+            int idx = internalList.indexOf(toEdit);
+            internalList.get(idx).setDone();
+        } else {
+        	throw new ItemNotFoundException();
+        }
+    }
+    
+    public void setUndone(ReadOnlyItem toEdit) throws ItemNotFoundException {
+        assert toEdit != null;
+        if (internalList.contains(toEdit)) {
+            int idx = internalList.indexOf(toEdit);
+            internalList.get(idx).setUndone();
+        } else {
+        	throw new ItemNotFoundException();
+        }
+    }
 
     public ObservableList<Item> getInternalList() {
         return internalList;

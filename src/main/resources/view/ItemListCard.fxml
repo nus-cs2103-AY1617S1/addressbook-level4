@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -44,6 +43,10 @@
                         </HBox>
                         <HBox>
                             <Label fx:id="endFromNow" styleClass="cell_small_label" text="\$endFromNow" />
+                        </HBox>
+                        <HBox>
+                            <Button fx:id="doneButton" text="Not Done" onAction="#doneButtonAction"/>
+                            <Button fx:id="deleteButton" text="Delete" onAction="#deleteButtonAction"/>
                         </HBox>
                     </children>
                 </VBox>

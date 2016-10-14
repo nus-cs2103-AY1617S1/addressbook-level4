@@ -129,8 +129,6 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        System.out.println(expectedShownList);
-        System.out.println(model.getFilteredItemList().size());
         assertEquals(expectedShownList, model.getFilteredItemList());
 
         //Confirm the state of data (saved and in-memory) is as expected
@@ -262,10 +260,6 @@ public class LogicManagerTest {
 
         // prepare address book state
         helper.addToModel(model, 2);
-        System.out.println("Expected");
-        System.out.println(expectedAB);
-        System.out.println("Actual");
-        System.out.println(expectedList);
 
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,

@@ -126,6 +126,20 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueItemList.ItemNotFoundException();
         }
     }
+    
+    /**
+     * Set Item as done
+     */
+    public void setDone(ReadOnlyItem key) throws UniqueItemList.ItemNotFoundException {
+        items.setDone(key);
+    }
+    
+    /**
+     * Set Item as undone
+     */
+    public void setUndone(ReadOnlyItem key) throws UniqueItemList.ItemNotFoundException {
+        items.setUndone(key);
+    }
 
 //// tag-level operations
 

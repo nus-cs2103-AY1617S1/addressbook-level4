@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.taskmanager.model.item.ReadOnlyItem;
+import seedu.taskmanager.logic.Logic;
 
 import java.util.logging.Logger;
 
@@ -24,6 +25,7 @@ public class ItemListPanel extends UiPart {
     private static final String FXML = "ItemListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private Logic logic;
 
     @FXML
     private ListView<ReadOnlyItem> itemListView;
@@ -48,10 +50,11 @@ public class ItemListPanel extends UiPart {
     }
 
     public static ItemListPanel load(Stage primaryStage, AnchorPane itemListPlaceholder,
-                                       ObservableList<ReadOnlyItem> itemList) {
+                                       ObservableList<ReadOnlyItem> itemList, Logic logic) {
         ItemListPanel itemListPanel =
                 UiPartLoader.loadUiPart(primaryStage, itemListPlaceholder, new ItemListPanel());
         itemListPanel.configure(itemList);
+        itemListPanel.logic = logic;
         return itemListPanel;
     }
 
@@ -86,10 +89,15 @@ public class ItemListPanel extends UiPart {
             itemListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
+    public void updateIndex() {
+        itemListView.setCellFactory(listView -> new ItemListViewCell());
+    }
 
     class ItemListViewCell extends ListCell<ReadOnlyItem> {
 
         public ItemListViewCell() {
+
         }
 
         @Override
@@ -100,7 +108,7 @@ public class ItemListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(ItemCard.load(item, getIndex() + 1).getLayout());
+                setGraphic(ItemCard.load(item, getIndex() + 1, logic).getLayout());
             }
         }
     }
