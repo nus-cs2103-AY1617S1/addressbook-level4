@@ -82,11 +82,7 @@ public class Parser {
 			return prepareAdd(arguments);
 
 		case ListCommand.COMMAND_WORD:
-			if (arguments.equals("")) {
-				return new ListCommand();
-			} else {
-				return prepareList(arguments);
-			}
+			return prepareList(arguments);
 
 		case DeleteCommand.COMMAND_WORD:
 			return prepareDelete(arguments);
@@ -270,6 +266,10 @@ public class Parser {
 
 	// Only supports task type and done|not-done options.
 	private Command prepareList(String arguments) {
+		if (arguments.equals("")) {
+			return new ListCommand();
+		}
+		
 		String[] args = arguments.split(" ");
 
 		System.out.println(Arrays.toString(args));
