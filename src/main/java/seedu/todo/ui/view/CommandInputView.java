@@ -16,6 +16,10 @@ import seedu.todo.ui.UiPartLoader;
 
 import java.util.logging.Logger;
 
+/**
+ * A view class that handles the Input text box directly.
+ * @author Wang Xien Dong
+ */
 public class CommandInputView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandInputView.class);
     private static final String FXML = "CommandInputView.fxml";
@@ -28,7 +32,6 @@ public class CommandInputView extends UiPart {
     private TextArea commandTextField;
 
     public static CommandInputView load(Stage primaryStage, AnchorPane commandBoxPlaceholder) {
-        
         CommandInputView commandInputView = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandInputView());
         commandInputView.addToPlaceholder();
         commandInputView.configure();
@@ -61,14 +64,13 @@ public class CommandInputView extends UiPart {
         });
     }
 
+    /* UI Methods */
     /**
      * Resets the text box by {@link #unflagError()} after a key is pressed
      */
     private void unflagErrorWhileTyping() {
         this.commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> unflagError());
     }
-    
-    /* UI Methods */
 
     /**
      * Allow {@link #commandTextField} to adjust automatically with the height of the content of the text area itself.
