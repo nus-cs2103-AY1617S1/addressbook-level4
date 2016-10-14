@@ -391,7 +391,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## **Appendix B : Use Cases**
 
-1) Use case: Add task
+1. Use case: Add task
 
 - User requests to add a task
 - Unburden will add the task
@@ -401,7 +401,7 @@ Use case ends
 
 
 
-2) Use case: Delete task
+2. Use case: Delete task
 
 - User requests to delete a specific task
 - Unburden will request the user to confirm
@@ -412,7 +412,7 @@ Use case ends
 
 
 
-3) Use case: Find task
+3. Use case: Find task
 
 - User requests to find a specific task
 - Unburden will search through the library of existing tasks
@@ -424,7 +424,7 @@ Use case ends
 
 
 
-4) Use case: Edit task
+4. Use case: Edit task
 
 - User requests to edit a task
 - Unburden will search for the task based on the user&#39;s input
