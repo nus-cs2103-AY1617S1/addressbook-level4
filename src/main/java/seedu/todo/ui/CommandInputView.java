@@ -1,6 +1,5 @@
 package seedu.todo.ui;
 
-import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
@@ -9,7 +8,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.util.TextAreaResizerUtil;
@@ -55,21 +53,6 @@ public class CommandInputView extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
 
-    @Override
-    public void setNode(Node node) {
-        commandInputPane = (AnchorPane) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
-    }
-
     /**
      * Allow {@link #commandTextField} to adjust automatically with the height of the content of the text area itself.
      */
@@ -105,32 +88,33 @@ public class CommandInputView extends UiPart {
     }
 
     /**
-     * Resets the {@link #commandTextField} to default state
+     * Handles a CommandResult object, and updates the user interface to reflect the result.
+     * @param result produced by Logic class
      */
-    private void resetCommandTextField() {
-        commandTextField.getStyleClass().remove("error");
-        commandTextField.clear();
+    private void handleCommandResult(CommandResult result) {
+        if (result.isSuccessful()) {
+            commandFeedbackView.unFlagError();
+            commandTextField.clear();
+        } else {
+            commandFeedbackView.flagError();
+        }
+        commandFeedbackView.displayMessage(result.getFeedback());
+        commandTextField.setDisable(false);
     }
 
-    /**
-     * Restores the command box text to the previously entered command
-     */
-    private void restoreCommandText() {
-        commandTextField.setText(previousCommandText);
+    /* Override Methods */
+    @Override
+    public void setNode(Node node) {
+        commandInputPane = (AnchorPane) node;
     }
 
-    /**
-     * Sets the command box style to indicate an error
-     */
-    private void setStyleToIndicateIncorrectCommand() {
-        commandTextField.getStyleClass().add("error");
+    @Override
+    public String getFxmlPath() {
+        return FXML;
     }
 
-    @Subscribe
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandText));
-        setStyleToIndicateIncorrectCommand();
-        restoreCommandText();
+    @Override
+    public void setPlaceholder(AnchorPane pane) {
+        this.placeHolderPane = pane;
     }
-
 }

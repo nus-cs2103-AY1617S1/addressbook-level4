@@ -69,7 +69,7 @@ public class CommandFeedbackView extends UiPart {
     public void unFlagError() {
         commandFeedbackTextFlow.getStyleClass().remove(ERROR_STYLE);
     }
-    
+
     /* Override Methods */
     @Override
     public void setPlaceholder(AnchorPane placeholder) {
