@@ -1,8 +1,11 @@
 package seedu.address.logic.commands;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
@@ -16,21 +19,25 @@ import com.joestelmach.natty.*;
  */
 public class AddCommand extends Command {
 
+    private final Logger logger = LogsCenter.getLogger(AddCommand.class);
+    
+    private static final String STRING_CONSTANT_ONE = "1";
     private static final int BASE_INDEX = 0;
 
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List. "
-            + "Parameters: NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]\n"
+            + "Parameters: NAME [from/at START_DATE START_TIME] [to/by END_DATE END_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
             + " read Harry Potter and the Akshay -low";
     
-    public static final String TOOL_TIP = "add NAME [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]";
-
-    public static final String MESSAGE_DUPLICATE_FLOATING_TASK = "This task already exists in the task manager";
-
+    public static final String TOOL_TIP = "add NAME [from/at START_DATE START_TIME] [to/by END_DATE END_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
+    
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
 
+    private static final String INVALID_START_DATE = "Invalid start date";
+    private static final String INVALID_END_DATE = "Invalid end date";
+    
     private Task toAdd;
 
     /**
@@ -43,33 +50,39 @@ public class AddCommand extends Command {
         this.toAdd = new Task(new Name(taskName));
     }
 
-    public AddCommand(String taskNameString, String startDateString, String endDateString, String recurrenceRateString,
+    public AddCommand(String taskNameString, String startDateString, String endDateString, String rateString,
             String timePeriodString, String priorityString) throws IllegalValueException {
-        com.joestelmach.natty.Parser dateParser = new com.joestelmach.natty.Parser();
+        assert taskNameString != null;
+        
     	Name taskName = new Name(taskNameString);
         Date startDate = null;
         Date endDate = null;
-        RecurrenceRate recurrenceRate;
+        RecurrenceRate recurrenceRate = null;
         Priority priority;
 
         if (startDateString != null) {
-            List<DateGroup> startDateGroup = dateParser.parse(startDateString);
-            startDate = startDateGroup.get(BASE_INDEX).getDates().get(BASE_INDEX);
+            startDate = verifyDate(startDateString, INVALID_START_DATE);
         }
 
         if (endDateString != null) {
-            List<DateGroup> endDateGroup = dateParser.parse(endDateString);
-            endDate = endDateGroup.get(BASE_INDEX).getDates().get(BASE_INDEX);
+            endDate = verifyDate(endDateString, INVALID_END_DATE);
         }
 
-        if (recurrenceRateString == null && timePeriodString == null) {
-            recurrenceRate = null;
-        } else if (recurrenceRateString == null) {
-            recurrenceRate = new RecurrenceRate("1", timePeriodString);
-        } else {
-            recurrenceRate = new RecurrenceRate(recurrenceRateString, timePeriodString);
-        }
+        if (rateString != null && timePeriodString != null) {
+            recurrenceRate = new RecurrenceRate(rateString, timePeriodString);
+        } else if (rateString == null && timePeriodString != null) {
+            recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString);
+        } else if (rateString != null && timePeriodString == null) {
+            throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
+        } 
 
+        priority = verifyPriority(priorityString);
+            
+        this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
+    }
+
+    private Priority verifyPriority(String priorityString) {
+        Priority priority;
         switch (priorityString) {
         case ("low"):
         case ("l"):
@@ -80,11 +93,50 @@ public class AddCommand extends Command {
             priority = Priority.HIGH;
             break;
         case ("medium"):
+        case ("med"):
+        case ("m"):
         default:
             priority = Priority.MEDIUM;
         }
-            
-        this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
+        return priority;
+    }
+
+    /**
+     * Converts given String into a Date object
+     *
+     * @throws IllegalValueException
+     *             if given String cannot be converted into a valid Date object
+     */
+    private Date verifyDate(String dateString, String errorMessage)
+            throws IllegalValueException {
+        Date date;
+        List<DateGroup> dates = new Parser().parse(dateString);
+        try {
+            date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
+            String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
+            if(!syntaxTree.contains("EXPLICIT_TIME")) {
+                date = setTimeToEndOfDay(date);
+            }
+            //TODO: Should I not catch exception instead?
+        } catch (IndexOutOfBoundsException ioobe) {
+            throw new IllegalValueException(errorMessage);
+        }
+        
+        
+        return date;
+    }
+
+    /**
+     * Sets time of Date object to end of the day i.e "23:59:59"
+     */
+    private Date setTimeToEndOfDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        date = calendar.getTime();
+        return date;
     }
 
     @Override
