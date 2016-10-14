@@ -32,6 +32,7 @@ for filename, title in files.items():
     html = md.reset().convert(source)
     soup = BeautifulSoup(html, 'html.parser')
 
+    # Addition figure captions 
     for i, figcaption in enumerate(soup.find_all('figcaption')):
         # Wrap the figure and the caption in a <figure>
         figure = figcaption.find_previous_sibling(True)
@@ -46,7 +47,26 @@ for filename, title in files.items():
         caption_count.string = 'Figure {}. '.format(i + 1)
         figcaption.insert(0, caption_count)
 
-    for h in soup.select('h2, h3, h4'):
+    # Adding numbering and no-page-break wrappers around headings 
+    sections = [0, 0, 0]
+    for h in soup.find_all(['h2', 'h3', 'h4']):
+        # Number the heading 
+        if h.name == 'h2':
+            sections = [sections[0] + 1, 0, 0]
+            number = '{} '.format(sections[0])
+        elif h.name == 'h3':
+            sections[1] += 1
+            sections[2] = 0
+            number = '{}.{} '.format(*sections[0:2])
+        elif h.name == 'h4':
+            sections[2] += 1
+            number = '{}.{}.{} '.format(*sections)
+
+        number_tag = soup.new_tag('span')
+        number_tag.string = number
+        h.insert(0, number_tag)
+
+        # Wrap the tag 
         next_tag = h.find_next_sibling(True)
         if not next_tag:
             continue

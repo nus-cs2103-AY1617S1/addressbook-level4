@@ -117,41 +117,14 @@ pre {
 
 /*  */
 
-body {
-  counter-reset: h2;
-}
-
-h2:before, 
-h3:before, 
-h4:before {
+h2 span, 
+h3 span, 
+h4 span {
   display: inline-block;
   position: absolute;
   margin-left: -1rem;
   color: #999;
   transform: translateX(-100%);
-}
-
-h2:before {
-  counter-increment: h2;
-  content: counter(h2) '. ';
-}
-
-h2 {
-  counter-reset: h3;
-}
-
-h3:before {
-  counter-increment: h3;
-  content: counter(h2) '.' counter(h3) '. ';
-}
-
-h3 {
-  counter-reset: h4;
-}
-
-h4:before {
-  counter-increment: h4;
-  content: counter(h2) '.' counter(h3) '.' counter(h4) '. ';
 }
 
 .headerlink {
