@@ -42,7 +42,7 @@ public class ExtractorUtil {
     public static TreeMap<Integer, Flag> getFlagPositon(String args, Flag[] prefixes) {
         TreeMap<Integer, Flag> flagsPosMap = new TreeMap<Integer, Flag>();
 
-        if (args != null && args.length() > 0 && prefixes.length > 0) {
+        if (args != null && args.length() > 0 && prefixes != null && prefixes.length > 0) {
             args = args.trim();
             for (int i = 0; i < prefixes.length; i++) {
                 int curIndexPos = INVALID_POS;
@@ -69,7 +69,7 @@ public class ExtractorUtil {
     public static HashMap<Flag, String> getArguments(String args, Flag[] flags, TreeMap<Integer, Flag> flagsPosMap) {
         HashMap<Flag, String> flagsValueMap = new HashMap<Flag, String>();
 
-        if (args != null && args.length() > 0 && flags.length > 0) {
+        if (args != null && args.length() > 0 && flags != null && flags.length > 0) {
             args = args.trim();
 
             // initialize the flagsValueMap
@@ -89,11 +89,7 @@ public class ExtractorUtil {
                 String arg = args.substring(pos, endPos);
                 endPos = pos;
 
-                if (flagsValueMap.containsKey(prefix)) {
-                    flagsValueMap.put(prefix, flagsValueMap.get(prefix).concat(" ").concat(arg));
-                } else {
-                    flagsValueMap.put(prefix, arg);
-                }
+                flagsValueMap.put(prefix, flagsValueMap.get(prefix).concat(" ").concat(arg));
             }
         }
 
