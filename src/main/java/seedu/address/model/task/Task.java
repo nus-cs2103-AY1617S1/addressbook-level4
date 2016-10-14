@@ -11,6 +11,7 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
+    public boolean isEvent;
     private Name name;
     private Date date;
 
@@ -23,6 +24,11 @@ public class Task implements ReadOnlyTask {
         assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
         this.date = date;
+        if (date instanceof EventDate) {
+            isEvent = true;
+        } else {
+            isEvent = false;
+        }
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 

@@ -11,7 +11,7 @@ public class Deadline implements Date{
     
     public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Deadline should follow DD.MM.YYYY[-Time(in 24 hrs)]";
     
-    public String date;
+    private String date;
 
     /**
      * Validates given deadline.
@@ -30,6 +30,11 @@ public class Deadline implements Date{
      */
     public static boolean isValidDeadline(String test) {
         return test.matches(DATE_VALIDATION_REGEX) || test.equals("");
+    }
+    
+    @Override
+    public String getValue() {
+        return date;
     }
 
     @Override

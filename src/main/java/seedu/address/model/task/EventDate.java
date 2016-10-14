@@ -12,8 +12,10 @@ public class EventDate implements Date{
     
     public static final String MESSAGE_EVENT_DATE_CONSTRAINTS = "Event date should follow DD.MM.YYYY[-Time(in 24 hrs)]";
     
-    String startDate;
-    String endDate;
+    private String date;
+    
+    private String startDate;
+    private String endDate;
     
     /**
      * Validates given date.
@@ -28,6 +30,7 @@ public class EventDate implements Date{
         }
         this.startDate = startDate;
         this.endDate = endDate;
+        this.date = startDate + " to " + endDate;
     }
     
     /**
@@ -38,8 +41,13 @@ public class EventDate implements Date{
     }
     
     @Override
+    public String getValue() {
+        return date;
+    }
+    
+    @Override
     public String toString() {
-        return startDate + " to " + endDate;
+        return date;
     }
     
     @Override
