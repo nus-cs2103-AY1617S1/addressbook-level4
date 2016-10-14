@@ -1,5 +1,5 @@
 # Travis CI
-
+(testing)
 [Travis CI](https://travis-ci.org/) is a _Continuous Integration_ platform for GitHub projects.
 
 Travis CI can run the projects' tests automatically whenever new code is pushed to the repo.
