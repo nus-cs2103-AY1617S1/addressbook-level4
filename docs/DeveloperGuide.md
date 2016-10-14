@@ -1,5 +1,8 @@
 # Developer Guide 
 
+## Table of contents
+
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -11,107 +14,102 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
-&nbsp;
+
+## Introduction
+
+Agendum is a task manager for the user to manage their schedules and todo tasks via keyboard commands. It is a Java desktop application that has a **GUI**.
+
+This guide describes the design and implementation of Agendum. It will help developers understand how Agendum works and how they can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
 
 ## Setting up
 
-### Prerequisites
+#### 1. Prerequisites
 
-1. **JDK `1.8.0_60`**  or later<br>
+* **JDK `1.8.0_60`**  or later<br>
 
     > Having any Java 8 version is not enough. <br>
     This application will not work with earlier versions of Java 8.
+    
+* **Eclipse** IDE
 
-2. **Eclipse** IDE
-
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+* **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
    
-4. **Buildship Gradle Integration** plugin from the 
+* **Buildship Gradle Integration** plugin from the 
    [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
 
-4. **Buildship Gradle Integration** plugin from the 
-   [Eclipse Marketplace](https://marketplace.eclipse.org/content/buildship-gradle-integration)
 
-### Importing the project into Eclipse
+#### 2. Importing the project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
-
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+* Fork this repo, and clone the fork to your computer
+* Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
    in the prerequisites above)
-   
-2. Click `File` > `Import`
+* Click `File` > `Import`
+* Click `Gradle` > `Gradle Project` > `Next` > `Next`
+* Click `Browse`, then locate the project's directory
+* Click `Finish`
 
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-
-4. Click `Browse`, then locate the project's directory
-
-5. Click `Finish`
-
-  > * If you are prompted to 'keep' or 'overwrite' config files, choose to 'keep'.
+  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
   
-#### Troubleshooting project setup
+#### 3. Troubleshooting project setup
 
-**Problem: Eclipse reports compile errors after new commits are pulled from Git**
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
-* Solution: Refresh the project in Eclipse:<br> 
-  Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
+* **Problem: Eclipse reports compile errors after new commits are pulled from Git**
+	* Reason: Eclipse fails to recognize new files that appeared due to the Git 	pull. 
+	* Solution: Refresh the project in Eclipse:<br> 
+	Right click on the project (in Eclipse package explorer), choose `Gradle` -> 	`Refresh Gradle Project`.
   
-**Problem: Eclipse reports some required libraries missing**
-* Reason: Required libraries may not have been downloaded during the project import. 
-* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
- 
+* **Problem: Eclipse reports some required libraries missing**
 
-&nbsp;
+	* Reason: Required libraries may not have been downloaded during the project 	import. 
+	* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the 	libraries).
+ 
 
 ## Design
 
-### Architecture
+### 1. Architecture
 
 <img src="images/Architecture.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). Listed below are its functions:
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/agendum/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level:
+[**`Commons`**](#6-common-classes) represents a collection of classes used by multiple other components.
+Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists four components:
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+The rest of the App consists four components.
+* [**`UI`**](#2-ui-component) : The UI of tha App.
+* [**`Logic`**](#3-logic-component) : The command executor.
+* [**`Model`**](#4-model-component) : Holds the data of the App in-memory.
+* [**`Storage`**](#5-storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.
-
-<img src="images/LogicClassDiagram.png" width="800">
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+interface and exposes its functionality using the `LogicManager.java` class.<br>
+<img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SDforDeleteTask.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `ToDoListChangedEvent` when the Agendum data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
-
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+<img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -119,82 +117,77 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 The sections below give more details of each component.
 
-### UI component
+### 2. UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/agendum/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.
- 
-For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ that are in the `src/main/resources/view` folder.<br>
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/agendum/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component has the following functions:
-* Execute user commands using the `Logic` component
-* Bind itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Respond to events raised from various parts of the App and update the UI accordingly
+The `UI` component,
+* Executes user commands using the `Logic` component.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.
 
-### Logic component
+### 3. Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/agendum/logic/Logic.java)
 
-The `Logic` component works in the following manner:
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
- 
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+ API call.<br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
-### Model component
+### 4. Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/agendum/model/Model.java)
 
-The `Model` component has the following functions:
-* Store a `UserPref` object that represents the user's preferences
-* Store Agendum data
-* Expose a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' 
-  e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+The `Model`,
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Agendum data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
+  so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
 
-> This component does not depend on any of the other three components.
-
-### Storage component
+### 5. Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/agendum/storage/Storage.java)
 
-The `Storage` component has the following functions:
-* Save `UserPref` objects in json format and read it back
-* Save the Address Book data in xml format and read it back
+The `Storage` component,
+* can save `UserPref` objects in json format and read it back.
+* can save the Agendum data in xml format and read it back.
 
-### Common classes
+### 6. Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
-
-&nbsp;
+Classes used by multiple components are in the `seedu.agendum.commons` package.
 
 ## Implementation
 
-### Logging
+### 1. Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
+  (See [Configuration](#2-configuration))
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
@@ -207,71 +200,72 @@ and logging destinations.
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
-### Configuration
+### 2. Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
-&nbsp;
 
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
 
-**In Eclipse**:
+**1. In Eclipse**:
+
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
-**Using Gradle**:
+**2. Using Gradle**:
+
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
-We have two types of tests:
+**3. Type of tests**:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
-   These are in the `guitests` package.
+* **GUI Tests**	<br>
+These are _System Tests_ that test the entire App by simulating user actions on the GUI. They are in the `guitests` package.
   
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+* **Non-GUI Tests**<br>
+These are tests not involving the GUI. They include,
+   * _Unit tests_ targeting the lowest level methods/classes. <br>
+      e.g. `seedu.agendum.commons.UrlUtilTest`
+   * _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+      e.g. `seedu.agendum.storage.StorageManagerTest`
+   * Hybrids of _unit and integration tests_. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.agendum.logic.LogicManagerTest`
   
-**Headless GUI Testing** :
+**4. Headless GUI Testing** :
+
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
  
-#### Troubleshooting tests
- **Problem: Tests fail because NullPointException when AssertionError is expected**
- * Reason: Assertions are not enabled for JUnit tests. 
+>#### Troubleshooting tests
+>**Problem: Tests fail because NullPointException when AssertionError is expected**
+
+>* Reason: Assertions are not enabled for JUnit tests. 
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described 
+>* Solution: Enable assertions in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
   
-
-&nbsp;
-
 ## Dev Ops
 
-### Build Automation
+### 1. Build Automation
 
 See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
-### Continuous Integration
+### 2. Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
 See [UsingTravis.md](UsingTravis.md) for more details.
 
-### Making a Release
+### 3. Making a Release
 
 Here are the steps to create a new release.
  
@@ -280,20 +274,18 @@ Here are the steps to create a new release.
  2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
-### Managing Dependencies
+### 4. Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+A project often depends on third-party libraries. For example, Agendum depends on the
+[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these dependencies can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
-&nbsp;
+* Include those libraries in the repo
+* Require developers to download those libraries manually
+
 
 ## Appendix A : User Stories
 
-Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
+>Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
@@ -335,20 +327,19 @@ Priority | As a ... | I want to ... | So that I can...
 `* Unlikely` | Busy User | Search for a time when I am free | Find a suitable slot to schedule an item
 `* Unlikely` | Busy user | Can specify a priority of a task | Keep track of what tasks are more important
 
-&nbsp;
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is `Agendum` and the **Actor** is the `user`, unless specified otherwise)
+>For all use cases below, the **System** is `Agendum` and the **Actor** is the `user`, unless specified otherwise
 
 ### Use case 01 - Add a task
 
 **MSS**
 
-1. System prompts the Actor to enter a command
-2. Actor enters an add command with the task name into the input box.
+1. System prompts the user to enter a command
+2. User enters an add command with the task name into the input box.
 3. System adds the task.
-4. System shows a feedback message (“Task <name> added”) and displays the updated list.
+4. System shows a feedback message (“Task <name> added”) and displays the updated list containing the new task on the interface.
 5. Use case ends.
 
 **Extensions**
@@ -371,7 +362,7 @@ Priority | As a ... | I want to ... | So that I can...
 2. System shows a list of tasks
 3. Actor requests to delete a specific task in the list by its index
 4. System deletes the task.
-5. System shows a feedback message (“Task <index> deleted”) and displays the updated list.
+5. System shows a feedback message (“Task <index> deleted”) and displays the updated list without the deleted task.
 6. Use case ends.
 
 **Extensions**
@@ -391,9 +382,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Actor requests to list tasks
 2. System shows a list of tasks
-3. Actor inputs index followed by new name of task to be modified
+3. Actor requests to rename a specific task in the list by its index and also input the new task name
 4. System updates the task 
-5. System shows a feedback message (“Task <index> updated”) and displays the updated list.
+5. System shows a feedback message (“Task <index> updated”) and displays the updated list with the edited task name.
 6. Use case ends.
 
 **Extensions**
@@ -423,9 +414,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Actor requests to list tasks
 2. System shows a list of tasks
-3. Actor inputs index followed by the new start/end time or deadline
+3. Actor requests to set time of a specific task in the list by its index and also input the new start/end time or deadline
 4. System updates the task 
-5. System shows a feedback message (“Task <index> ’s time updated”) and displays the updated list.
+5. System shows a feedback message (“Task <index> ’s time updated”) and displays the updated list on the interface.
 6. Use case ends.
 
 **Extensions**
@@ -449,9 +440,9 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. Actor enters an undo command
-2. System finds the most recent command that modified the task list
-3. System undoes the identified command
-4. System shows a feedback message (“The command <last-command> has been undone”) and displays the updated list.
+2. System finds the latest command that modified the task list
+3. System undo the identified command
+4. System shows a feedback message (“The command <last-command> has been undone”) and displays the updated list on the interface.
 5. Use case ends.
 
 **Extensions**
@@ -467,7 +458,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Actor requests to list tasks
 2. System show a list of tasks
-3. Actor inputs index of the task to be marked
+3. Actor requests to mark a task specified by its index in the list as completed
 4. System updates the task
 5. System shows a feedback message (“Task <index> is marked as completed”) and hides the marked task.
 6. Use case ends
@@ -487,8 +478,8 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. Actor enters an alias command followed by the original command
-2. System stores the new alias
+1. Actor enters a alias command and specify the name and new alias name of the command
+2. System alias the command
 3. System shows a feedback message (“The command <original-command> can now be keyed in as <new-command>”)
 4. Use case ends.
 
@@ -514,16 +505,16 @@ Priority | As a ... | I want to ... | So that I can...
 > *b1.  System gives an error message (“We do not understand the command: <invalid-command>”)
 > *b2. System displays a short list of valid commands
 
-&nbsp;
 
 ## Appendix C : Non Functional Requirements
 
 1.  Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2.	Should be able to hold up to 1000 total tasks.
+2.	Should be able to hold up to 500 tasks.
 3.	Should come with automated unit tests.
 4.	Should use a Continuous Integration server for real time status of master’s health.
 5.	Should be kept open source code.
 6.	Should favour DOS style commands over Unix-style commands.
+7.	Should be able to accept minor mistakes in the commands entered.
 8.	Should adopt an object oriented design.
 9.	Should not violate any copyrights.
 10.	Should have a response time of less than 1 second, for every action performed.
@@ -534,33 +525,32 @@ Priority | As a ... | I want to ... | So that I can...
 15.	Should not require an installer.
 16.	Should not use paid libraries and frameworks.
 
-&nbsp;
-
 ## Appendix D : Glossary
 
-##### Mainstream OS
+##### Mainstream OS: 
 
-> Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X
 
 ## Appendix E : Product Survey
 
 #### Wunderlist
 
-Strengths:
-- Clearly displays tasks that have not been completed
-- Tasks can be categorized under different lists
-- Tasks can have sub tasks
-- Possible to highlight tasks by marking as important (starred) or pinning tasks
-- Can set deadlines for tasks
-- Can create recurring tasks
-- Can associate files with tasks
-- Can be used offline
-- Keyboard friendly – keyboard shortcuts to mark tasks as completed and important
-- Search and sort functionality makes finding and organizing tasks easier
-- Possible to synchronize across devices
-- Give notifications and reminders for tasks near deadline or overdue
+*Strengths:*
 
-Weaknesses:
-- Wunderlist has a complex interface and might require multiple clicks to get specific tasks done. For example, it has separate field to add tasks, search for tasks and a sort button. There are various lists & sub-lists. Each list has a completed/uncompleted  section and each task needs to be clicked to display the associated subtasks, notes, files and comment.
-- New users might not know how to use the advanced features e.g. creating recurring tasks
+* Clearly display tasks that have not been completed
+* Tasks can be categorized under different lists
+* Tasks can have sub tasks
+* Possible to highlight tasks by marking as important (starred) or pinning tasks
+* Can set deadlines for tasks
+* Can create recurring tasks
+* Can associate files with tasks
+* Can be used offline
+* Keyboard friendly – keyboard shortcuts to mark tasks as completed and important
+* Search and sort functionality makes finding and organizing tasks easier
+* Possible to synchronize across devices
+* Give notifications and reminders for tasks near deadline or overdue
 
+*Weaknesses:*
+
+* Wunderlist has a complex interface and might require multiple clicks to get specific tasks done. For example, it has separate field to add tasks, search for tasks and a sort button. There are various lists & sub-lists. Each list has a completed/uncompleted  section and each task needs to be clicked to display the associated subtasks, notes, files and comment.
+* New users might not know how to use the advanced features e.g. creating recurring tasks
