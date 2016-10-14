@@ -30,6 +30,7 @@ public class UndoCommand extends Command {
         assert model != null;
         
         undoInfo = ModelManager.undoStack.pop();
+        ModelManager.redoStack.push(undoInfo);
         int undoID = undoInfo.getUndoID();
         switch (undoID) {
             case ADD_CMD_ID:
