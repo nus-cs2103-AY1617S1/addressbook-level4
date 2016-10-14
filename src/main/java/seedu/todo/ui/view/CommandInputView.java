@@ -26,8 +26,6 @@ public class CommandInputView extends UiPart {
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandInputPane;
-    private CommandFeedbackView commandFeedbackView;
-    private Logic logic;
 
     @FXML
     private TextArea commandTextField;
@@ -36,14 +34,8 @@ public class CommandInputView extends UiPart {
         
         CommandInputView commandInputView = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandInputView());
         commandInputView.addToPlaceholder();
+        commandInputView.configure();
         return commandInputView;
-    }
-
-    public void configure(CommandFeedbackView commandFeedbackView, Logic logic) {
-        this.commandFeedbackView = commandFeedbackView;
-        this.logic = logic;
-        setCommandInputHeightAutoResizeable();
-        listenToCommandInput();
     }
 
     private void addToPlaceholder() {
@@ -51,6 +43,11 @@ public class CommandInputView extends UiPart {
         placeHolderPane.getChildren().add(commandTextField);
         FxViewUtil.applyAnchorBoundaryParameters(commandInputPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+    }
+
+    private void configure() {
+        setCommandInputHeightAutoResizeable();
+        listenToCommandInput();
     }
 
     /**
