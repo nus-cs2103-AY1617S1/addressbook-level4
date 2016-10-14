@@ -21,13 +21,13 @@ Unlike all the other task managers out there, Inbx\_0 is a simple program that r
 2. Copy the file to the folder you want to use as the home folder for your Task Manager
 3. Double-click the Task Manager
 4. Double-click the  Task Manager.jar file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+   > <img src="images/GUI.png" width="600">
 
 5. Type a command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 6. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**:`add EE2020 Midterms s/next thursday st/0900 e/next thursday et/1100 i/red` :  adds a task called `EE2020 Midterms` to the Task Manager
+   * **`add`**:`add EE2020` :  adds a task called `EE2020 Midterms` to the Task Manager
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 7. Refer to the [Features](#features) section below for details of each command.<br>
@@ -47,9 +47,21 @@ All the features in Inbx_0 are performed by typing in commands in the command li
 <br>
 4.  The order of parameters is fixed and needs to be strictly followed.
 
+Common Parameters used: <br>
+TASK: Name of the task <br>
+s/START_DATE: The date that the task will start on <br>
+st/START_TIME: The time of the start of the task <br>
+e/END_DATE: The date of the task that the task will end on <br>
+et/END_TIME: The time of the end of the task <br>
+i/IMPORTANCE: The priority of the task. Can be `green`, `yellow` or `red`, in that order of importance <br>
+t/TAGS: Tags that are assigned to the task <br>
+
+> *For Dates and Times, the program utiilises natural language processing and can take in multiple formats such as "tmr, next week, next wed, 3 days later, noon, 8am, 1400"
+* The IMPORTANCE parameter takes in these formats "red, green, yellow, r, g, y, R, G, Y, Red".
+
 The rest of the guide will be using the general command format to describe what is needed to execute each command.
 
-#### <a id="help"></a>Help Command
+#### <a id="help"></a>1. Getting Help
 Format: `help`
 
 Looking for help? If you ever need a reminder on how to input certain commands or have some troubleshooting issues, you can easily access the ‘help’ command which will guide you to the right direction.
@@ -61,45 +73,35 @@ This will open up a help window that will direct you back to this User Guide if 
 
 <br><br>
  
-#### <a id="add"></a>Adding a task: `add`
-Adds a floating task.<br>
-Format: `add TASK` 
+#### <a id="add"></a>2. Adding a task: `add`
+1. Adds a floating task.<br>
+Format: `add TASK [i/IMPORTANCE] [t/TAGS]...` 
 
 > Floating tasks are tasks without deadlines.
 
 Examples: 
 * `add Buy Groceries` <br>
+* `add Wash dishes i/green` <br>
 
-Adds a task with deadlines.<br>
+2. Adds a task with deadlines.<br>
 Format: `add TASK e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]` 
 
 Examples: 
 * `add Do CS2103 Homework e/tomorrow et/10am, i/red`
 * `add Finish Project Paper e/1 March et/12am i/green t/For GEH1027` <br>
 
-Adds an event.<br>
+3. Adds an event.<br>
 Format: `add TASK s/START_DATE st/START_TIME e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]`
 
 > Events are tasks with a starting and ending point.
 
-Parameters: <br>
-TASK: Name of the task <br>
-s/START_DATE: The date that the task will start on <br>
-st/START_TIME: The time of the start of the task <br>
-e/END_DATE: The date of the task that the task will end on <br>
-et/END_TIME: The time of the end of the task <br>
-i/IMPORTANCE: The priority of the task. Can be `green`, `yellow` or `red` <br>
-t/TAGS: Tags that are assigned to the task
-
-> Tasks can have any number of tags (including 0)
-
 Examples:
-* `add Doctor's appointment s/2 July 2016 st/5pm, e/2 July 2016 et/7:30pm i/green t/painful`
+* `add Doctor's appointment s/2 July 2016 st/5pm e/2 July 2016 et/7:30pm i/green t/painful`
 * `add SO’s Birthday s/29 Feb st/12am e/1 March et/12am i/green t/flowers t/chocolates`
 
 <br><br>
 
-#### <a id="list"></a>Listing tasks: `list`
+#### <a id="list"></a>3. Listing tasks: `list`
 Format: `list`
 
 The List Command shows a list of all tasks in the task manager so that you will be able to keep track of different tasks on different days.
@@ -121,12 +123,7 @@ Format: `list DATE`
 
 By keying in the following, it will display a list of the tasks due before the input date in the task manager.
 
-> list d/[DATE]
-
-> acceptable formats of DATE input: 
->     today/tomorrow/tmr
->     this/next + MON/TUE/WED/THU/FRI/SAT/SUN
->     next month, week, year
+> list DATE
 
 Examples:
 * `list tomorrow` shows every task from now to the end of tomorrow
@@ -139,13 +136,9 @@ By keying in the following, it will display a list of the tasks associated with 
 
 > list i/[IMPORTANCE]
 
-> acceptable formats of IMPORTANT input: 
->     1,2,3 -- where 1 means the most important tasks
->     red, yellow, green
-
 <br><br>
 
-#### <a id="find"></a>Finding all tasks containing any keyword in their name: `find`
+#### <a id="find"></a>4. Finding specific tasks: `find`
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 The Find command will search all tasks which contain any of the given keywords.
@@ -167,25 +160,15 @@ Examples:
 
 <br><br>
 
-#### <a id="edit"></a>Editing a task: `edit`
+#### <a id="edit"></a>5. Editing a task: `edit`
+1. Editing any parameter of a task <br>
 Format: `edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [st/END_TIME], [i/IMPORTANCE]`
 
 Made a spelling mistake or your event was postponed? You can use the Edit Command to swiftly rectify any tasks on the task list.
 
 This can be done by typing the following:
 
-> edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [et/END_TIME], [i/IMPORTANCE]
-
-Parameters: <br>
-INDEX: the number that was linked to the task you wish to edit <br>
-[n/NAME]: the name you wish to change to <br>
-[s/START_DATE]: the start date you wish to change to <br>
-[st/START_TIME]: the start time you wish to change to <br>
-[e/END_DATE]: the end date you wish to change to <br>
-[et/END_TIME]: the end time you wish to change to <br>
-[i/IMPORTANCE]: the level of priority you wish to change to
-
-Other than the INDEX which is required, only one of the rest of the parameters in the square brackets is required in order for the Edit Command to work.
+> edit INDEX [n/NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [i/IMPORTANCE]
 
 Examples
 * `list today`<br>
@@ -196,25 +179,28 @@ Examples
   `edit 1 n/Business Lunch st/1pm`<br>
   Changes the name of 1st task in the results of the `find` command to ‘Business Lunch at 1 pm’  
 
-Converting a task to a floating task. <br>
+2. Converting a task to a floating task. <br>
 Format: `edit INDEX float`
 
-Immediately makes a task a floating task by removing the starting and ending dates and times.
+Use the keyword "float" to convert any task into a floating task by removing the starting and ending dates and times.
 
 This can be done by typing the following:
 
 > edit INDEX float
 
+Examples:
+* `edit 2 float` will convert the 2nd task in the list into a floating task.
+
 <br><br>
 
-#### <a id="del"></a>Deleting a task: `del`
+#### <a id="del"></a>6. Deleting a task: `del`
 Format: `del INDEX`
 
-If you have incorrectly keyed in the task and wish to remove it, you can delete the specified task from the task list by typing the following: <br>
+If you have wish to remove a particular task from the list, you can do it by typing the following: <br>
 
 > del INDEX
 
-This will remove the task from task list. Do note that such a deletion is irreversible and you should double check whether you are deleting the correct task.
+This will remove the task from task list.
 
 > Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
@@ -231,7 +217,7 @@ Examples:
 
 <br><br>
 
-#### <a id="sel"></a>Select a task : `sel`
+#### <a id="sel"></a>7. Select a task : `sel`
 Format: `sel INDEX`
 
 In order to view more details on a task that you have created, you can select the task identified by the index number in the last listing. The Select Command can be performed by typing:
@@ -255,7 +241,7 @@ Examples:
 
 <br><br>
 
-#### <a id="undo"></a>Undo previous action: `undo`
+#### <a id="undo"></a>8. Undo previous action: `undo`
 Format: `undo`
 
 Undos the previous action done in the task manager if you've made a mistake. <br>
@@ -264,7 +250,7 @@ Undos the previous action done in the task manager if you've made a mistake. <br
 
 <br><br>
 
-#### <a id="clr"></a>Clearing all tasks : `clr`
+#### <a id="clr"></a>9. Clearing all tasks : `clr`
 Format: `clr`
 
 Tasks can easily become obsolete and checking off tasks individually can be quite a hassle. The Clear command will help you to remove all tasks and can be accessed by typing the following:
@@ -277,7 +263,7 @@ Adding the date in the command line is optional and by default it will clear the
 
 <br><br>
 
-#### <a id="done"></a>Mark a task as `done`
+#### <a id="done"></a>10. Mark a task as `done`
 Format: `done + INDEX`
 
 If you have finished a certain task and wish to mark it as finished you can give a `done` label to the specified task in the task list by typing the following: <br>
@@ -296,7 +282,7 @@ Example:
 
 <br><br>
 
-#### <a id="exit"></a>Exiting the program : 
+#### <a id="exit"></a>11. Exiting the program : 
 Format: `exit`
 
 After using Inbx_0, you can easily exit the program by typing the following in the command line:
@@ -311,6 +297,25 @@ This will initiate a final save and after which, the program will close automati
 Task Manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
+## **Command Summary**
+
+Command | Format  
+-------- | :-------- 
+[Help](#help) | `help`
+[Add](#add) | `add NAME [i/IMPORTANCE] [t/TAGS]`
+&nbsp; | `add NAME e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]...`
+&nbsp; | `add NAME s/START_DATE st/START_TIME e/END_DATE et/END_TIME i/IMPORTANCE [t/TAGS]...`
+[List](#list) | `list [DATE]`
+&nbsp; | `list i/[IMPORTANCE]`
+[Find](#find) | `find KEYWORD [MORE_KEYWORDS]`
+[Edit](#edit) | `edit INDEX [n/NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [i/IMPORTANCE]`
+[Delete](#del) | `del INDEX`
+[Select](#sel) | `sel INDEX`
+[Undo](#undo) | `undo`
+[Clear](#clr) | `clr [DATE]`
+[Done](#done) | `done INDEX`
+[Exit](#exit) | `exit`
+
 ## **FAQ**
 
 **Q**: How do I transfer my data to another Computer?<br>
@@ -319,6 +324,7 @@ There is no need to save manually.
 
 **Q**: How do check if I have the correct Java Version?<br>
 **A**: 
+On Windows:
  1. Click Start on the task bar.
  2. Select Control Panel (or Settings > Control Panel) from the Start menu. The Control Panel is displayed.
  3. Select Java. The Java Control Panel dialog box is displayed .
@@ -327,23 +333,6 @@ There is no need to save manually.
  6. In the Java Application Runtime Setting box, click View. The JNLP Runtime Settings dialog box is displayed.
 
        
-## **Command Summary**
 
-Command | Format  
--------- | :-------- 
-[Help](#help) | `help`
-[Add](#add) | `add NAME`
-&nbsp; | `add NAME e/END_DATE et/END_TIME i/IMPORTANCE, [t/TAGS]...`
-&nbsp; | `add NAME s/START_DATE st/START_TIME e/END_DATE et/END_TIME i/IMPORTANCE, [t/TAGS]...`
-[List](#list) | `list [DATE]`
-&nbsp; | `list i/[IMPORTANCE]`
-[Find](#find) | `find KEYWORD [MORE_KEYWORDS]`
-[Edit](#edit) | `edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [et/END_TIME], [i/IMPORTANCE]`
-[Delete](#del) | `del INDEX`
-[Select](#sel) | `sel INDEX`
-[Undo](#undo) | `undo`
-[Clear](#clr) | `clr [DATE]`
-[Done](#done) | `done INDEX`
-[Exit](#exit) | `exit`
 
 
