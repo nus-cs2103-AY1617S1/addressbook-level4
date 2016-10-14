@@ -1,5 +1,7 @@
 package seedu.address.model.item;
 
+import java.util.HashMap;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 public class RecurrenceRate {
@@ -11,12 +13,33 @@ public class RecurrenceRate {
             + "\"day(s)\", \"week(s)\", \"month(s)\", \"year(s)\", \"Monday\", \"Wed\"\n"
             + "For example: \"repeat every 3 days\", \"repeat every week\", \"repeat every Wed\"";
     
-    //TODO: Design decision?
-    public static final String[][] TIME_PERIOD_INPUT = {{"hour", "hours", "day", "days", "week", "weeks", "month", "months", 
-        "year", "years", "mon", "monday", "tues", "tuesday", "wed", "wednesday", "thur", "thurs", "thursday", 
-        "fri", "friday", "sat", "saturday", "sun", "sunday"}, {"hour", "hour", "day", "day", "week", "week", "month", "month", 
-            "year", "year", "monday", "monday", "tuesday", "tuesday", "wednesday", "wednesday", "thursday", "thursday", "thursday", 
-            "friday", "friday", "saturday", "saturday", "sunday", "sunday"}};
+    public static final HashMap<String, TimePeriod> INPUT_TO_TIME_PERIOD_MAP = new HashMap<String, TimePeriod>() {{
+        put("hour", TimePeriod.HOUR);
+        put("hours", TimePeriod.HOUR);
+        put("day", TimePeriod.DAY);
+        put("days", TimePeriod.DAY);
+        put("week", TimePeriod.WEEK);
+        put("weeks", TimePeriod.WEEK);
+        put("month", TimePeriod.MONTH);
+        put("months", TimePeriod.MONTH);
+        put("year", TimePeriod.YEAR);
+        put("years", TimePeriod.YEAR);
+        put("mon", TimePeriod.MONDAY);
+        put("monday", TimePeriod.MONDAY);
+        put("tues", TimePeriod.TUESDAY);
+        put("tuesday", TimePeriod.TUESDAY);
+        put("wed", TimePeriod.WEDNESDAY);
+        put("wednesday", TimePeriod.WEDNESDAY);
+        put("thur", TimePeriod.THURSDAY);
+        put("thurs", TimePeriod.THURSDAY);
+        put("thursday", TimePeriod.THURSDAY);
+        put("fri", TimePeriod.FRIDAY);
+        put("friday", TimePeriod.FRIDAY);
+        put("sat", TimePeriod.SATURDAY);
+        put("saturday", TimePeriod.SATURDAY);
+        put("sun", TimePeriod.SUNDAY);
+        put("sunday", TimePeriod.SUNDAY);
+    }};
     
     public Integer rate;
     public TimePeriod timePeriod;
@@ -30,7 +53,9 @@ public class RecurrenceRate {
         assert timePeriod != null;
         assert rate != null;
         
-        isValidTimePeriod(timePeriod.trim());
+        if (!isValidTimePeriod(timePeriod.trim())) {
+            throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
+        }
         
         if (Integer.valueOf(rate) <= 0) {   
             throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
@@ -48,56 +73,15 @@ public class RecurrenceRate {
         this(STRING_CONSTANT_ONE, timePeriod);
     }
 
-    private void isValidTimePeriod(String timePeriod) throws IllegalValueException {
-        String validTimePeriod = null;
-        
-        for (int j = 0; j < TIME_PERIOD_INPUT[0].length; j++) {
-            if (TIME_PERIOD_INPUT[0][j].equals(timePeriod.toLowerCase())) {
-                validTimePeriod = TIME_PERIOD_INPUT[1][j];
-                break;
+    private boolean isValidTimePeriod(String timePeriod) throws IllegalValueException {
+        for (String key : INPUT_TO_TIME_PERIOD_MAP.keySet()) {
+            if (key.equals(timePeriod.toLowerCase())) {
+                this.timePeriod = INPUT_TO_TIME_PERIOD_MAP.get(key);
+                return true;
             }
         }
-        
-        switch (validTimePeriod) {
-        case ("hour"):
-            this.timePeriod = TimePeriod.HOUR;
-            break;
-        case ("day"):
-            this.timePeriod = TimePeriod.DAY; 
-            break;
-        case ("week"):
-            this.timePeriod = TimePeriod.WEEK;
-            break;
-        case ("month"):
-            this.timePeriod = TimePeriod.MONTH;
-            break;
-        case ("year"):
-            this.timePeriod = TimePeriod.YEAR;
-            break;
-        case ("monday"):
-            this.timePeriod = TimePeriod.MONDAY;
-            break;
-        case ("tuesday"):
-            this.timePeriod = TimePeriod.TUESDAY;
-            break;
-        case ("wednesday"):
-            this.timePeriod = TimePeriod.WEDNESDAY;
-            break;
-        case ("thursday"):
-            this.timePeriod = TimePeriod.THURSDAY;
-            break;
-        case ("friday"):
-            this.timePeriod = TimePeriod.FRIDAY;
-            break;
-        case ("saturday"):
-            this.timePeriod = TimePeriod.SATURDAY;
-            break;
-        case ("sunday"):
-            this.timePeriod = TimePeriod.SUNDAY;
-            break;
-        default:
-            throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
-        }
+
+        return false;
     }
     
     @Override
