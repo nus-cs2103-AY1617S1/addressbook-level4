@@ -12,6 +12,8 @@ public class HelpController implements Controller {
     private static String DESCRIPTION = "Shows documentation for all valid commands.";
     private static String COMMAND_SYNTAX = "help";
     
+    private static final String MESSAGE_HELP_SUCCESS = "Showing all commands.";
+    
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
 
@@ -29,6 +31,8 @@ public class HelpController implements Controller {
         HelpView view = UiManager.loadView(HelpView.class);
         view.commandDefinitions = Arrays.asList(getAllCommandDefinitions());
         UiManager.renderView(view);
+        
+        UiManager.updateConsoleMessage(MESSAGE_HELP_SUCCESS);
     }
     
     private CommandDefinition[] getAllCommandDefinitions() {
