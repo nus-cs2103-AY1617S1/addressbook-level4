@@ -1,4 +1,4 @@
-package seedu.todo.ui;
+package seedu.todo.ui.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -14,6 +14,8 @@ import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.util.TextAreaResizerUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.logic.commands.CommandResult;
+import seedu.todo.ui.UiPart;
+import seedu.todo.ui.UiPartLoader;
 
 import java.util.logging.Logger;
 
@@ -30,11 +32,9 @@ public class CommandInputView extends UiPart {
     @FXML
     private TextArea commandTextField;
 
-    public static CommandInputView load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-                                        CommandFeedbackView commandFeedbackView, Logic logic) {
+    public static CommandInputView load(Stage primaryStage, AnchorPane commandBoxPlaceholder) {
         
         CommandInputView commandInputView = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandInputView());
-        commandInputView.configure(commandFeedbackView, logic);
         commandInputView.addToPlaceholder();
         return commandInputView;
     }

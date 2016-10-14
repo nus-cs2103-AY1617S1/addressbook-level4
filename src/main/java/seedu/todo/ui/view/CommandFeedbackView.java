@@ -1,4 +1,4 @@
-package seedu.todo.ui;
+package seedu.todo.ui.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -7,11 +7,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.ui.UiPart;
+import seedu.todo.ui.UiPartLoader;
 
 import java.util.logging.Logger;
 
 /**
- * Display rich textual feedback to command input via this view with {@link #displayMessage(String)}.
+ * Display textual feedback to command input via this view with {@link #displayMessage(String)}.
  */
 public class CommandFeedbackView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
