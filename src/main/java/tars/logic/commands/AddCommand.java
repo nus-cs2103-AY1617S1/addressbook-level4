@@ -28,7 +28,7 @@ public class AddCommand extends UndoableCommand {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK= "This task already exists in tars";
-    public static final String MESSAGE_UNDO = "Deleted: %1$s";
+    public static final String MESSAGE_UNDO = "Removed %1$s";
 
     private final Task toAdd;
     
@@ -61,6 +61,7 @@ public class AddCommand extends UndoableCommand {
         assert model != null;
         try {
             model.addTask(toAdd);
+            model.getUndoableCmdHist().push(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

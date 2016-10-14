@@ -90,11 +90,18 @@ public class ModelManager extends ComponentManager implements Model {
      * @@author A0121533W
      */
     public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
-            throws TaskNotFoundException, DateTimeException, IllegalDateException, DuplicateTagException,
-            TagNotFoundException, IllegalValueException {
+            throws TaskNotFoundException, DateTimeException, IllegalDateException,
+            DuplicateTagException, TagNotFoundException, IllegalValueException {
         Task editedTask = tars.editTask(toEdit, argsToEdit);
         indicateTarsChanged();
         return editedTask;
+    }
+    
+    @Override
+    public synchronized void unEditTask(Task toUndo, Task replacement)
+            throws DuplicateTaskException {
+        tars.replaceTask(toUndo, replacement);
+        indicateTarsChanged();
     }
 
     @Override

@@ -21,7 +21,7 @@ public class DeleteCommand extends UndoableCommand {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     
-    public static final String MESSAGE_UNDO = "Added: %1$s";
+    public static final String MESSAGE_UNDO = "Added back %1$s";
 
     public final int targetIndex;
     
@@ -46,6 +46,7 @@ public class DeleteCommand extends UndoableCommand {
 
         try {
             model.deleteTask(taskToDelete);
+            model.getUndoableCmdHist().push(this);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
