@@ -116,18 +116,19 @@ Adds a task to the planner <br><br>
 Format:<br> 
 ```
 1. add TASKNAME d/DATE(optional)
-2. add TASKNAME d/DATE(optional) st/STARTTIME et/ENDTIME r/isRECURRING(optional)
-3. add TASKNAME d/DATE(optional) et/ENDTIME(optional) r/isRECURRING(optional)
+2. add TASKNAME d/DATE(optional) s/STARTTIME e/ENDTIME r/isRECURRING(optional)
+3. add TASKNAME d/DATE(optional) e/ENDTIME(optional) r/isRECURRING(optional)
 ```
 
 Examples:<br>
-1. `add gym today` <br>
+
+1. `add gym d/today` <br>
 > Task with no specified timing is added to today's schedule<br>
  
-2. `add meeting tomorrow 2pm to 4pm` <br>
+2. `add meeting d/tomorrow s/2pm e/4pm` <br>
 > Fixed task is added from 2pm to 4pm the next day<br>
 
-3. `add math homework by 6pm` <br>
+3. `add math homework e/6pm` <br>
 > Task with a deadline is added, no date is specified so today’s date is assumed<br>
 
 
