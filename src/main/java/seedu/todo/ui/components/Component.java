@@ -10,7 +10,6 @@ import seedu.todo.ui.views.View;
 
 public abstract class Component extends UiPart {
 
-
     private static final Logger logger = LogsCenter.getLogger(View.class);
 
     protected Pane placeHolderPane;
