@@ -15,6 +15,10 @@ public class ParserTest {
     private FindCommandParser findParser;
     private HelpCommandParser helpParser;
     private ExitCommandParser exitParser;
+    private MarkCommandParser markParser;
+    private UnmarkCommandParser unmarkParser;
+    private UndoCommandParser undoParser;
+    private RedoCommandParser redoParser;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -29,6 +33,10 @@ public class ParserTest {
         findParser = new FindCommandParser();
         helpParser = new HelpCommandParser();
         exitParser = new ExitCommandParser();
+        markParser = new MarkCommandParser();
+        unmarkParser = new UnmarkCommandParser();
+        undoParser = new UndoCommandParser();
+        redoParser = new RedoCommandParser();
     }
     
     @Test
@@ -343,6 +351,42 @@ public class ParserTest {
     public void parse_unmark_zeroIndex() throws ParseException {
         thrown.expect(ParseException.class);
         unmarkParser.parse("unmark 0");
+    }
+
+    //==================================================================================
+
+    @Test
+    public void parse_undo_spaces() throws ParseException {
+        assertNotEquals(undoParser.parse("undo     "), null);
+    }
+    
+    @Test
+    public void parse_undo_invalid() throws ParseException {
+        thrown.expect(ParseException.class);
+        helpParser.parse("undo 1");
+    }
+    
+    @Test
+    public void parse_undo_valid() throws ParseException {
+        assertNotEquals(undoParser.parse("undo"), null);
+    }
+
+    //==================================================================================
+
+    @Test
+    public void parse_redo_spaces() throws ParseException {
+        assertNotEquals(redoParser.parse("redo     "), null);
+    }
+    
+    @Test
+    public void parse_redo_invalid() throws ParseException {
+        thrown.expect(ParseException.class);
+        helpParser.parse("redo 1");
+    }
+    
+    @Test
+    public void parse_redo_valid() throws ParseException {
+        assertNotEquals(redoParser.parse("redo"), null);
     }
     
 }

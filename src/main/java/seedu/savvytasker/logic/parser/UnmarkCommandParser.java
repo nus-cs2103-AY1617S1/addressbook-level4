@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.DeleteCommand;
+import seedu.savvytasker.logic.commands.UnmarkCommand;
 import seedu.savvytasker.logic.commands.models.DeleteCommandModel;
 
 public class UnmarkCommandParser implements CommandParser<UnmarkCommand> {
@@ -34,7 +35,8 @@ public class UnmarkCommandParser implements CommandParser<UnmarkCommand> {
         if (matcher.matches()) {
             int[] indices = parseIndices(matcher.group(REGEX_REF_INDICES));
             
-            return new UnmarkCommand(new UnmarkCommandModel(indices));
+            // TODO: Integrate UnmarkCommand properly!
+            return new UnmarkCommand();
         }
 
         throw new ParseException(commandText, String.format(

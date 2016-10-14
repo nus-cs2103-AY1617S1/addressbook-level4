@@ -70,8 +70,6 @@ public class ModifyCommandParser implements CommandParser<ModifyCommand> {
             String category = TASK_PARSER.parseCategory(matcher.group(REGEX_REF_CATEGORY));
             String description = TASK_PARSER.parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
             
-               
-            // TODO: Create ModifyCommand here (require integration)
             Date startDateTime = null, endDateTime = null;
             int numberOfRecurrence = 0;
             if (nrOfRecurrence != null) numberOfRecurrence = nrOfRecurrence.intValue();

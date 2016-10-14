@@ -33,7 +33,7 @@ public class ListCommandParser implements CommandParser<ListCommand> {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             ListType listType = parseListType(matcher.group(REGEX_REF_LIST_TYPE));
-            // TODO: return ListCommand
+            
             return new ListCommand(new ListCommandModel(listType));
         }
         

@@ -33,7 +33,6 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             int[] indices = parseIndices(matcher.group(REGEX_REF_INDICES));
-            // TODO: Create DeleteCommand
             
             return new DeleteCommand(new DeleteCommandModel(indices));
         }

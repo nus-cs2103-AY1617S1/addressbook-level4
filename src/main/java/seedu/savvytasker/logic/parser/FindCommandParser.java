@@ -40,7 +40,6 @@ public class FindCommandParser implements CommandParser<FindCommand> {
             String[] keywords = parseKeywords(matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE),
                     matcher.group(REGEX_REF_KEYWORDS_AFTER_TYPE));
             
-            // TODO: Return FindCommand here (require integration).
             return new FindCommand(new FindCommandModel(findType, keywords));
         }
         
