@@ -84,6 +84,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -92,7 +95,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -292,13 +295,30 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
 
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        Optional<List<Integer>> indexes = parseIndexes(args);
+        if(!indexes.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
-        return new DeleteCommand(index.get());
+        return new DeleteCommand(indexes.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the done person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDone(String args) {
+
+        Optional<List<Integer>> indexes = parseIndexes(args);
+        if(!indexes.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(indexes.get());
     }
 
     /**
@@ -316,6 +336,22 @@ public class Parser {
 
         return new SelectCommand(index.get());
     }
+    
+    /**
+     * Parses arguments in the context of the select person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareList(String args) {
+        Boolean isListDoneCommand = false;
+        
+        if (args != null && args.trim().toLowerCase().equals("done")) {
+            isListDoneCommand = true;
+        }
+
+        return new ListCommand(isListDoneCommand);
+    }
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
@@ -332,6 +368,31 @@ public class Parser {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
+
+    }
+    
+    /**
+     * Returns the specified indexes in the {@code command} IF any positive unsigned integer is given as the index.
+     *   Returns an {@code Optional.empty()} otherwise.
+     */
+    private Optional<List<Integer>> parseIndexes(String command) {
+        final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+
+        String indexes = matcher.group("targetIndex");
+        String[] indexesArray = indexes.split(" ");
+        List<Integer> indexesToHandle = new ArrayList<Integer>();
+        for (String index: indexesArray) {
+            if (StringUtil.isUnsignedInteger(index)) {
+                indexesToHandle.add(Integer.parseInt(index));
+            }
+        }
+        if (indexesToHandle.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(indexesToHandle);
 
     }
 

@@ -24,9 +24,13 @@ public class PersonListPanel extends UiPart {
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    
+    // store reference to undone and done task list for switching between views
+    private ObservableList<ReadOnlyTask> undoneTaskList;
+    private ObservableList<ReadOnlyTask> doneTaskList;
 
     @FXML
-    private ListView<ReadOnlyTask> personListView;
+    private ListView<ReadOnlyTask> taskListView;
 
     public PersonListPanel() {
         super();
@@ -48,21 +52,27 @@ public class PersonListPanel extends UiPart {
     }
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyTask> personList) {
+                                       ObservableList<ReadOnlyTask> undoneTaskList, ObservableList<ReadOnlyTask> doneTaskList) {
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList);
+        personListPanel.configure(undoneTaskList, doneTaskList);
+
         return personListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> personList) {
-        setConnections(personList);
+    private void configure(ObservableList<ReadOnlyTask> undoneTaskList, ObservableList<ReadOnlyTask> doneTaskList) {
+        //set up references
+        this.undoneTaskList = undoneTaskList;
+        this.doneTaskList = doneTaskList;
+        
+        setConnections(undoneTaskList);
         addToPlaceholder();
     }
 
+    // can use this for init and when switching between undone and done task view.
     private void setConnections(ObservableList<ReadOnlyTask> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        taskListView.setItems(personList);
+        taskListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -72,18 +82,28 @@ public class PersonListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
                 raise(new PersonPanelSelectionChangedEvent(newValue));
             }
         });
     }
+    
+    public void handleSwitchTaskListView(Boolean isRequiredViewListDoneView) {
+        if (isRequiredViewListDoneView) {
+            taskListView.setItems(doneTaskList);
+        }
+        else {
+            taskListView.setItems(undoneTaskList);
+        }
+            
+    }
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            taskListView.scrollTo(index);
+            taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 

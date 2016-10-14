@@ -129,7 +129,7 @@ public class TestUtil {
     }
 
     public static TaskManager generateEmptyTaskManager() {
-        return new TaskManager(new UniqueTaskList());
+        return new TaskManager(new UniqueTaskList(), new UniqueTaskList());
     }
 
     public static XmlSerializableTaskManager generateSampleStorageTaskManager() {

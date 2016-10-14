@@ -44,14 +44,15 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().name;
         priorityValue = source.getPriorityValue().toString().toLowerCase();    
-        if (source.getStartDate().isPresent()){
+        if (source.getStartDate().isPresent()) {
             startDate = source.getStartDate().get().toString();
         }
-        if (source.getEndDate().isPresent()){
+        if (source.getEndDate().isPresent()) {
             endDate = source.getEndDate().get().toString();
         }
-        if (source.getRecurrenceRate().isPresent())
+        if (source.getRecurrenceRate().isPresent()) {
             recurrenceRate = new XmlAdaptedRecurrenceRate(source.getRecurrenceRate().get());
+        }
     }
 
     /**

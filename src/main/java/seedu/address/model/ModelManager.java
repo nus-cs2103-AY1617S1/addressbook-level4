@@ -26,7 +26,8 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<Task> filteredFloatingTasks;
+    private final FilteredList<Task> filteredUndoneTasks;
+    private final FilteredList<Task> filteredDoneTasks;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -40,7 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
-        filteredFloatingTasks = new FilteredList<>(taskManager.getFloatingTasks());
+        filteredUndoneTasks = new FilteredList<>(taskManager.getUndoneTasks());
+        filteredDoneTasks = new FilteredList<>(taskManager.getDoneTasks());
     }
 
     public ModelManager() {
@@ -49,7 +51,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
-        filteredFloatingTasks = new FilteredList<>(taskManager.getFloatingTasks());
+        filteredUndoneTasks = new FilteredList<>(taskManager.getUndoneTasks());
+        filteredDoneTasks = new FilteredList<>(taskManager.getDoneTasks());
+        
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
@@ -75,8 +79,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task floatingTask) {
-        taskManager.addFloatingTask(floatingTask);
+        taskManager.addTask(floatingTask);
         updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void addDoneTask(Task floatingTask) {
+        taskManager.addDoneTask(floatingTask);
         indicateTaskManagerChanged();
     }
     
@@ -120,12 +130,17 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
-        return new UnmodifiableObservableList<>(filteredFloatingTasks);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredUndoneTaskList() {
+        return new UnmodifiableObservableList<>(filteredUndoneTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDoneTaskList() {
+        return new UnmodifiableObservableList<>(filteredDoneTasks);
     }
 
     public void TaskManager() {
-        filteredFloatingTasks.setPredicate(null);
+        filteredUndoneTasks.setPredicate(null);
     }
 
     @Override
@@ -134,7 +149,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredFloatingTaskList(Expression expression) {
-        filteredFloatingTasks.setPredicate(expression::satisfies);
+        filteredUndoneTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -191,7 +206,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-    	filteredFloatingTasks.setPredicate(null);
+        filteredUndoneTasks.setPredicate(null);
     }
+    
 
 }

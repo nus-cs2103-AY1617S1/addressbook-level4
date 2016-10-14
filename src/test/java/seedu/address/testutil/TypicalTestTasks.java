@@ -32,13 +32,13 @@ public class TypicalTestTasks {
     }
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
-        ab.addFloatingTask(new Task(alice));
-        ab.addFloatingTask(new Task(benson));
-        ab.addFloatingTask(new Task(carl));
-        ab.addFloatingTask(new Task(daniel));
-        ab.addFloatingTask(new Task(elle));
-        ab.addFloatingTask(new Task(fiona));
-        ab.addFloatingTask(new Task(george));
+        ab.addTask(new Task(alice));
+        ab.addTask(new Task(benson));
+        ab.addTask(new Task(carl));
+        ab.addTask(new Task(daniel));
+        ab.addTask(new Task(elle));
+        ab.addTask(new Task(fiona));
+        ab.addTask(new Task(george));
     }
 
     public TestTask[] getTypicalTasks() {
