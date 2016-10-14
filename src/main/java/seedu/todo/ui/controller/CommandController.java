@@ -83,7 +83,7 @@ public class CommandController {
 
     private void resetViewState() {
         inputView.resetViewState();
-        feedbackView.resetViewState();
+        feedbackView.unFlagError();
     }
 
     private void displayMessage(String message) {
