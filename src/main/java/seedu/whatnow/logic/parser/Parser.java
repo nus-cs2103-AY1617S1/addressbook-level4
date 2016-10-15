@@ -60,11 +60,11 @@ public class Parser {
 			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?\\s" +
 					"(?<dateArguments>(?: [^/(t/)]]+)*)" + "(\\s?<tagArguments>(?: t/[^/]+)*)");
 	private static final Pattern TEMP2 = 
-			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?\\s" +
-					"(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d(?:,)");
+			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?" +
+					" (?<date>[^;]+");
 	private static final Pattern TEMP3 = 
 			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?\\s");
-	
+				
 	private static final int TASK_TYPE = 0;
 	private static final int INDEX = 1;
 	private static final int ARG_TYPE = 2;
