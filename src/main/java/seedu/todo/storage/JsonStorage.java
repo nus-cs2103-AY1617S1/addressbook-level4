@@ -81,8 +81,8 @@ public class JsonStorage implements Storage {
     }
     
     @Override
-    public boolean canUndo(int num) {
-        return historyPatch.size() >= num;
+    public int undoSize() {
+        return historyPatch.size();
     }
 
     @Override
@@ -107,8 +107,8 @@ public class JsonStorage implements Storage {
     }
     
     @Override
-    public boolean canRedo(int num) {
-        return futurePatch.size() >= num;
+    public int redoSize() {
+        return futurePatch.size();
     }
 
 }

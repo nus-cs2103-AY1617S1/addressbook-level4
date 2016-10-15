@@ -81,8 +81,8 @@ public class TodoListDB {
         }
     }
     
-    public boolean canUndo(int num) {
-        return storage.canUndo(num);
+    public int undoSize() {
+        return storage.undoSize();
     }
     
     public boolean undo() {
@@ -94,8 +94,8 @@ public class TodoListDB {
         }
     }
     
-    public boolean canRedo(int num) {
-        return storage.canRedo(num);
+    public int redoSize() {
+        return storage.redoSize();
     }
     
     public boolean redo() {

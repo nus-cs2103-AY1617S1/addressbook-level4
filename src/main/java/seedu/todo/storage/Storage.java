@@ -23,8 +23,8 @@ public interface Storage {
 
     public TodoListDB redo() throws CannotRedoException, IOException;
     
-    public boolean canUndo(int num);
+    public int undoSize();
     
-    public boolean canRedo(int num);
+    public int redoSize();
 
 }
