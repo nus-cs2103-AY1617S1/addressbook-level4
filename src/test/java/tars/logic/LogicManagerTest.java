@@ -346,50 +346,6 @@ public class LogicManagerTest {
      * @throws Exception
      */
     @Test
-    public void execute_list_showsAllUndoneTasks() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        Tars expectedAB = helper.generateTars(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-
-        // prepare tars state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("ls", ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
-    }
-    
-    /**
-     * Test for list done command
-     * 
-     * @@author A0140022H
-     * @throws Exception
-     */
-    @Test
-    public void execute_list_showsAllDoneTasks() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        Tars expectedAB = new Tars();
-        Task task1 = helper.meetAdam();
-        Status done = new Status(true);
-        task1.setStatus(done);
-        List<Task> taskList = new ArrayList<Task>();
-        taskList.add(task1);
-        expectedAB.addTask(task1);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-
-        // prepare tars state
-        helper.addToModel(model, taskList);
-
-        assertCommandBehavior("ls -do", ListCommand.MESSAGE_SUCCESS_DONE, expectedAB, expectedList);
-    }
-    
-    /**
-     * Test for list all command
-     * 
-     * @@author A0140022H
-     * @throws Exception
-     */
-    @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
@@ -399,7 +355,7 @@ public class LogicManagerTest {
         // prepare tars state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("ls -all", ListCommand.MESSAGE_SUCCESS_ALL, expectedAB, expectedList);
+        assertCommandBehavior("ls", ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
     }
 
     /**

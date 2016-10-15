@@ -19,7 +19,10 @@ import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.DateTimeException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -35,8 +38,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final Stack<Command> undoableCmdHistStack;
 
-    private static final String LIST_KEYWORD_DONE = "done";
-    private static final String LIST_KEYWORD_UNDONE = "undone";
+    private static final String LIST_ARG_DATETIME = "-dt";
+    private static final String LIST_ARG_PRIORITY = "-p";
 
     /**
      * Initializes a ModelManager with the given Tars Tars and its variables
@@ -142,7 +145,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords) {
-        if (keywords.contains(LIST_KEYWORD_DONE) || keywords.contains(LIST_KEYWORD_UNDONE)) {
+        if (keywords.contains(LIST_ARG_DATETIME)||keywords.contains(LIST_ARG_PRIORITY)) {
             updateFilteredTaskList(new PredicateExpression(new ListQualifier(keywords)));
         } else {
             updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
@@ -210,18 +213,27 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    
+    /**
+     * @author A0140022H
+     */
+    
     private class ListQualifier implements Qualifier {
         private Set<String> listArguments;
 
         ListQualifier(Set<String> listArguments) {
             this.listArguments = listArguments;
+            if(listArguments.contains(LIST_ARG_PRIORITY)) {
+            	listArguments.add("l");
+            	listArguments.add("m");
+            	listArguments.add("h");
+            }
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
             return listArguments.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus().toString(), keyword)).findAny()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getPriority().toString(), keyword)).findAny()
                     .isPresent();
         }
 
