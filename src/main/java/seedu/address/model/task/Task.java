@@ -131,4 +131,22 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
+	@Override
+	public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
+		if(name != null)
+			this.name = name;
+		
+		if(tags != null)
+			this.tags = tags;
+		
+		if(startDate != null) {
+			this.startDate = startDate;
+		} else if(endDate != null) {
+			this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+		}
+		
+		if(endDate != null)
+			this.endDate = endDate;
+	}
+
 }
