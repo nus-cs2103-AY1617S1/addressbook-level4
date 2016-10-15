@@ -44,7 +44,11 @@ public class UndoController implements Controller {
         
         // We don't really have a nice way to support SQL transactions, so yeah >_<
         TodoListDB db = TodoListDB.getInstance();
-        if (db.undoSize() < numUndo || numUndo < 0) {
+        if (numUndo <= 0) {
+            UiManager.updateConsoleMessage(MESSAGE_FAILURE);
+            return;
+        }
+        if (db.undoSize() < numUndo) {
             UiManager.updateConsoleMessage(String.format(MESSAGE_MULTIPLE_FAILURE,
                     numUndo, StringUtil.pluralizer(numUndo, "command", "commands"),
                     db.undoSize(), StringUtil.pluralizer(db.undoSize(), "command", "commands")));

@@ -44,7 +44,11 @@ public class RedoController implements Controller {
         
         // We don't really have a nice way to support SQL transactions, so yeah >_<
         TodoListDB db = TodoListDB.getInstance();
-        if (db.redoSize() < numRedo || numRedo < 0) {
+        if (numRedo <= 0) {
+            UiManager.updateConsoleMessage(MESSAGE_FAILURE);
+            return;
+        }
+        if (db.redoSize() < numRedo) {
             UiManager.updateConsoleMessage(String.format(MESSAGE_MULTIPLE_FAILURE,
                     numRedo, StringUtil.pluralizer(numRedo, "command", "commands"),
                     db.redoSize(), StringUtil.pluralizer(db.redoSize(), "command", "commands")));
