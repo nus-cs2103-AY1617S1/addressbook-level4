@@ -357,6 +357,62 @@ public class LogicManagerTest {
 
         assertCommandBehavior("ls", ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
     }
+    
+    /**
+     * Test for list command
+     * 
+     * @@author A0140022H
+     * @throws Exception
+     */
+    @Test
+    public void execute_list_showsAllTasksByPriority() throws Exception {
+    	TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("task1");
+        Task task2 = helper.generateTaskWithName("task2");
+        Task task3 = helper.generateTaskWithName("task3");
+        task1.setPriority(new Priority("l"));
+        task2.setPriority(new Priority("m"));
+        task3.setPriority(new Priority("h"));
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(task1);
+        expectedAB.addTask(task2);
+        expectedAB.addTask(task3);
+        List<Task> listToSort = helper.generateTaskList(task1, task2, task3);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        helper.addToModel(model, listToSort);
+        
+        System.out.println(expectedAB.getTaskList());
+        System.out.println(listToSort);
+        assertCommandBehavior("ls -p", ListCommand.MESSAGE_SUCCESS_PRIORITY, expectedAB, expectedList);
+    }
+    
+    /**
+     * Test for list command
+     * 
+     * @@author A0140022H
+     * @throws Exception
+     */
+    @Test
+    public void execute_list_showsAllTasksByPriorityDescending() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("task1");
+        Task task2 = helper.generateTaskWithName("task2");
+        Task task3 = helper.generateTaskWithName("task3");
+        task1.setPriority(new Priority("l"));
+        task2.setPriority(new Priority("m"));
+        task3.setPriority(new Priority("h"));
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(task3);
+        expectedAB.addTask(task2);
+        expectedAB.addTask(task1);
+        List<Task> listToSort = helper.generateTaskList(task3, task2, task1);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        helper.addToModel(model, listToSort);
+        
+        System.out.println(expectedAB.getTaskList());
+        System.out.println(listToSort);
+        assertCommandBehavior("ls -p dsc", ListCommand.MESSAGE_SUCCESS_PRIORITY_DESCENDING, expectedAB, expectedList);
+    }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given
