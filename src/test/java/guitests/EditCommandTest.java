@@ -5,10 +5,10 @@ import org.junit.Test;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.logic.commands.EditCommand;
-import seedu.taskmanager.model.item.Date;
+import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
-import seedu.taskmanager.model.item.Time;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.testutil.TestItem;
 import seedu.taskmanager.testutil.TestUtil;
 
@@ -18,8 +18,8 @@ import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPL
 import static seedu.taskmanager.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_EDIT_ITEM_SUCCESS;
 import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_USAGE;
-import static seedu.taskmanager.model.item.Time.MESSAGE_TIME_CONSTRAINTS;
-import static seedu.taskmanager.model.item.Date.MESSAGE_DATE_CONSTRAINTS;
+import static seedu.taskmanager.model.item.ItemTime.MESSAGE_TIME_CONSTRAINTS;
+import static seedu.taskmanager.model.item.ItemDate.MESSAGE_DATE_CONSTRAINTS;
 
 import java.util.logging.Logger;
 
@@ -44,7 +44,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertEditSuccess(targetIndex, null, validStartDate, null, null, null, currentList);
         
         itemToEdit.setName(new Name(firstTestName));
-        itemToEdit.setStartDate(new Date(validStartDate));
+        itemToEdit.setStartDate(new ItemDate(validStartDate));
         currentList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndex-1);
 
         //edit the last in the list which is an event
@@ -130,16 +130,16 @@ public class EditCommandTest extends TaskManagerGuiTest {
             itemToEdit.setName(new Name(name));
         }
         if (startDate != null) {
-            itemToEdit.setStartDate(new Date(startDate));
+            itemToEdit.setStartDate(new ItemDate(startDate));
         }
         if (startTime != null) {
-            itemToEdit.setStartTime(new Time(startTime));
+            itemToEdit.setStartTime(new ItemTime(startTime));
         }
         if (endDate != null) {
-            itemToEdit.setEndDate(new Date(endDate));
+            itemToEdit.setEndDate(new ItemDate(endDate));
         }
         if (endTime != null) {
-            itemToEdit.setEndTime(new Time(endTime));
+            itemToEdit.setEndTime(new ItemTime(endTime));
         }
 
         TestItem[] expectedList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndexOneIndexed-1);
@@ -170,7 +170,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(commandBuilder.toString());
 
         //confirm the list now contains all items including the edited item
-        assertTrue(personListPanel.isListMatching(expectedList));
+        assertTrue(itemListPanel.isListMatching(expectedList));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToEdit));

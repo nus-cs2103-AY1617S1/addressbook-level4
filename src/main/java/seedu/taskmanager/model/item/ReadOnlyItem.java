@@ -11,10 +11,10 @@ public interface ReadOnlyItem {
 
     ItemType getItemType();
     Name getName();
-    Date getStartDate();
-    Time getStartTime();
-    Date getEndDate();
-    Time getEndTime();
+    ItemDate getStartDate();
+    ItemTime getStartTime();
+    ItemDate getEndDate();
+    ItemTime getEndTime();
     boolean getDone();
     void setDone();
     void setUndone();

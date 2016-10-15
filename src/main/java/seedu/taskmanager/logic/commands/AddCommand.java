@@ -1,11 +1,11 @@
 package seedu.taskmanager.logic.commands;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
-import seedu.taskmanager.model.item.Date;
+import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
-import seedu.taskmanager.model.item.Time;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
@@ -22,6 +22,8 @@ public class AddCommand extends Command {
     public static final String SHORT_COMMAND_WORD = "a";
     public static final String DEFAULT_END_TIME = "23:59";
     public static final String DEFAULT_START_TIME = "00:00";
+    
+    public static final String NLP_MESSAGE_USAGE = "Sorry. Could not recognize datetime.";
     
     public static final String EVENT_MESSAGE_USAGE = "Event start datetime must come before end datetime";
 
@@ -49,7 +51,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String itemType, String name, Set<String> tags)
             throws IllegalValueException {
-    	this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, Date.EMPTY_DATE, Time.EMPTY_TIME, tags);
+    	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, tags);
     }
     
     /**
@@ -59,7 +61,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String itemType, String name, String endDate, String endTime, Set<String> tags)
             throws IllegalValueException {
-    	this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, endDate, endTime, tags);
+    	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, endDate, endTime, tags);
     }
     
     /**
@@ -93,10 +95,10 @@ public class AddCommand extends Command {
         this.toAdd = new Item(
                 new ItemType(itemType),
                 new Name(name),
-                new Date(startDate),
-                new Time(startTime),
-                new Date(endDate),
-                new Time(endTime),
+                new ItemDate(startDate),
+                new ItemTime(startTime),
+                new ItemDate(endDate),
+                new ItemTime(endTime),
                 new UniqueTagList(tagSet)
         );
     }

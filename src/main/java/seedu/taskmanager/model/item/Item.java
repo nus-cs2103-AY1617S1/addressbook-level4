@@ -15,10 +15,10 @@ public class Item implements ReadOnlyItem {
 
     private ItemType itemType;
     private Name name;
-    private Date startDate;
-    private Time startTime;
-    private Date endDate;
-    private Time endTime;
+    private ItemDate startDate;
+    private ItemTime startTime;
+    private ItemDate endDate;
+    private ItemTime endTime;
     private boolean done;
 
     private UniqueTagList tags;
@@ -28,22 +28,22 @@ public class Item implements ReadOnlyItem {
      *
      */
     public Item(ItemType itemType, Name name, UniqueTagList tags) {
-        this(itemType, name, new Date(), new Time(), new Date(), new Time(), tags);
+        this(itemType, name, new ItemDate(), new ItemTime(), new ItemDate(), new ItemTime(), tags);
     }
     
     /**
      * Convenience constructor for deadlines. Calls primary constructor with empty fields for startDate and startTime
      *
      */
-    public Item(ItemType itemType, Name name, Date endDate, Time endTime, UniqueTagList tags) {
-        this(itemType, name, new Date(), new Time(), endDate, endTime, tags);
+    public Item(ItemType itemType, Name name, ItemDate endDate, ItemTime endTime, UniqueTagList tags) {
+        this(itemType, name, new ItemDate(), new ItemTime(), endDate, endTime, tags);
     }
     
     
     /**
      * Every field must be present and not null.
      */
-    public Item(ItemType itemType, Name name, Date startDate, Time startTime, Date endDate, Time endTime, UniqueTagList tags) {
+    public Item(ItemType itemType, Name name, ItemDate startDate, ItemTime startTime, ItemDate endDate, ItemTime endTime, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(itemType, name, startDate, startTime, endDate, endTime, tags);
         this.itemType = itemType;
         this.name = name;
@@ -58,7 +58,7 @@ public class Item implements ReadOnlyItem {
     /**
      * Every field must be present and not null.
      */
-    public Item(ItemType itemType, Name name, Date startDate, Time startTime, Date endDate, Time endTime, boolean done, UniqueTagList tags) {
+    public Item(ItemType itemType, Name name, ItemDate startDate, ItemTime startTime, ItemDate endDate, ItemTime endTime, boolean done, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(itemType, name, startDate, startTime, endDate, endTime, done, tags);
         this.itemType = itemType;
         this.name = name;
@@ -92,34 +92,34 @@ public class Item implements ReadOnlyItem {
     }
     
     @Override
-    public Date getStartDate() {
+    public ItemDate getStartDate() {
         return startDate;
     }
     
     public void setStartDate(String startDate) throws IllegalValueException {
-        this.startDate = new Date(startDate);
+        this.startDate = new ItemDate(startDate);
     }
 
     @Override
-    public Time getStartTime() {
+    public ItemTime getStartTime() {
         return startTime;
     }    
     
     public void setStartTime(String startTime) throws IllegalValueException {
-        this.startTime = new Time(startTime);
+        this.startTime = new ItemTime(startTime);
     }
     
     @Override
-    public Date getEndDate() {
+    public ItemDate getEndDate() {
         return endDate;
     }
 
     public void setEndDate(String endDate) throws IllegalValueException {
-        this.endDate = new Date(endDate);
+        this.endDate = new ItemDate(endDate);
     }
     
     @Override
-    public Time getEndTime() {
+    public ItemTime getEndTime() {
         return endTime;
     }
     
@@ -139,7 +139,7 @@ public class Item implements ReadOnlyItem {
     }
 
     public void setEndTime(String endTime) throws IllegalValueException {
-        this.endTime = new Time(endTime);
+        this.endTime = new ItemTime(endTime);
     }
     
     @Override

@@ -9,7 +9,7 @@ import seedu.taskmanager.commons.exceptions.IllegalValueException;
  * Represents a Item's date in the task manager.
  * Can be either startDate or endDate
  */
-public class Date {
+public class ItemDate {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Item dates should be of the form YYYY-MM-DD or MM-DD (with year inferred)";
@@ -23,7 +23,7 @@ public class Date {
      * Convenience constructor for empty Date
      *
      */
-    public Date() {
+    public ItemDate() {
         value = EMPTY_DATE;
     }
     
@@ -32,7 +32,7 @@ public class Date {
      *
      * @throws IllegalValueException if given date string is invalid.
      */
-    public Date(String date) throws IllegalValueException {
+    public ItemDate(String date) throws IllegalValueException {
         assert date != null;
         date = date.trim();
         if (date != null && !date.isEmpty()) {
@@ -68,8 +68,8 @@ public class Date {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Date // instanceof handles nulls
-                && this.value.equals(((Date) other).value)); // state check
+                || (other instanceof ItemDate // instanceof handles nulls
+                && this.value.equals(((ItemDate) other).value)); // state check
     }
 
     @Override

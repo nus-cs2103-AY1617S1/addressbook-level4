@@ -100,7 +100,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
 
-    public TaskCardHandle navigateToPerson(String name) {
+    public TaskCardHandle navigateToItem(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyItem> person = getListView().getItems().stream().filter(p -> p.getName().value.equals(name)).findAny();
         if (!person.isPresent()) {

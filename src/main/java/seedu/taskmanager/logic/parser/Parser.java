@@ -19,13 +19,15 @@ import seedu.taskmanager.logic.commands.SelectCommand;
 import seedu.taskmanager.logic.commands.DoneCommand;
 import seedu.taskmanager.logic.commands.UndoneCommand;
 import seedu.taskmanager.logic.commands.UndoCommand;
-import seedu.taskmanager.model.item.Date;
+import seedu.taskmanager.model.item.ItemDate;
+import seedu.taskmanager.model.item.ItemType;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskmanager.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -67,6 +69,19 @@ public class Parser {
                     + "(st/(?<startTime>[^/]+))?"
                     + "ed/(?<endDate>[^/]+)"
                     + "(et/(?<endTime>[^/]+))?"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern DEADLINE_NLP_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?\\s*"
+                    + "(n/)?(?<name>[^/]+)"
+                    + "edt/(?<endDateTime>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    private static final Pattern EVENT_NLP_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?\\s*"
+                    + "(n/)?(?<name>[^/]+)"
+            		+ "sdt/(?<startDateTime>[^/]+)"
+                    + "edt/(?<endDateTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_COMMAND_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[\\d]+)" 
@@ -157,27 +172,85 @@ public class Parser {
         final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher deadlineMatcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher deadlineNlpMatcher = DEADLINE_NLP_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher eventNlpMatcher = EVENT_NLP_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        if (!taskMatcher.matches() && !deadlineMatcher.matches() && !eventMatcher.matches()) {
-        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        if (!taskMatcher.matches() && !deadlineMatcher.matches() && !eventMatcher.matches() && 
+                !deadlineNlpMatcher.matches() && !eventNlpMatcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
             if (taskMatcher.matches()) {
                 return new AddCommand(
-                    "task",
+                    ItemType.TASK_WORD,
                     taskMatcher.group("name"),
                     getTagsFromArgs(taskMatcher.group("tagArguments"))
                 );
             } else if (deadlineMatcher.matches()) {
-            	return addDeadline(deadlineMatcher);
+                return addDeadline(deadlineMatcher);
             } else if (eventMatcher.matches()) {
                 return addEvent(eventMatcher);
+            } else if (deadlineNlpMatcher.matches()) {
+                return addNlpDeadline(deadlineNlpMatcher);
+            } else if (eventNlpMatcher.matches()) {
+                return addNlpEvent(eventNlpMatcher);
             } else {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    private Command addNlpEvent(final Matcher eventNlpMatcher) throws IllegalValueException {
+        String endDateTime = eventNlpMatcher.group("endDateTime");
+        String startDateTime = eventNlpMatcher.group("startDateTime");
+        List<Date> startDateTimes = new PrettyTimeParser().parse(startDateTime); 
+        List<Date> endDateTimes = new PrettyTimeParser().parse(endDateTime);
+        // Just Take First Value for Start and End
+        if (startDateTimes.isEmpty() || endDateTimes.isEmpty()) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.NLP_MESSAGE_USAGE));
+        }
+        Date processedStartDateTime = startDateTimes.get(0);
+        Date processedEndDateTime = endDateTimes.get(0);
+        if (processedEndDateTime.before(processedStartDateTime)) {
+	        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+	    }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String startDate = dateFormat.format(processedStartDateTime);
+        String startTime = timeFormat.format(processedStartDateTime);
+        String endDate = dateFormat.format(processedEndDateTime);
+        String endTime = timeFormat.format(processedEndDateTime);
+    	return new AddCommand(ItemType.EVENT_WORD,
+                eventNlpMatcher.group("name"), 
+                startDate, 
+                startTime, 
+                endDate, 
+                endTime, 
+                getTagsFromArgs(eventNlpMatcher.group("tagArguments")));
+    }
+    
+    private Command addNlpDeadline(final Matcher deadlineNlpMatcher) throws IllegalValueException {
+    	String endDateTime = deadlineNlpMatcher.group("endDateTime");
+        List<Date> endDateTimes = new PrettyTimeParser().parse(endDateTime);
+        // Just Take First Value for Start and End
+        if (endDateTimes.isEmpty()) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.NLP_MESSAGE_USAGE));
+        }
+        for (int i=0; i<endDateTimes.size(); ++i) {
+            System.out.println(endDateTimes.get(i));
+        }
+        Date processedEndDateTime = endDateTimes.get(0);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String endDate = dateFormat.format(processedEndDateTime);
+        String endTime = timeFormat.format(processedEndDateTime);
+    	return new AddCommand(ItemType.DEADLINE_WORD,
+                deadlineNlpMatcher.group("name"),
+                endDate, 
+                endTime, 
+                getTagsFromArgs(deadlineNlpMatcher.group("tagArguments")));
     }
 
 	private Command addEvent(final Matcher eventMatcher) throws IllegalValueException {
@@ -219,9 +292,9 @@ public class Parser {
 		        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
 		    }
 		} catch (ParseException e) {
-		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
 		}
-		return new AddCommand("event", 
+		return new AddCommand(ItemType.EVENT_WORD, 
 		                      eventMatcher.group("name"), 
 		                      eventMatcher.group("startDate"), 
 		                      startTime, 
@@ -243,9 +316,9 @@ public class Parser {
 		        df2.parse(deadlineMatcher.group("endDate"));
 		    }
 		} catch (ParseException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
 		}
-		return new AddCommand("deadline",
+		return new AddCommand(ItemType.DEADLINE_WORD,
 		                      deadlineMatcher.group("name"), 
 		                      deadlineMatcher.group("endDate"),
 		                      deadlineMatcher.group("endTime"),

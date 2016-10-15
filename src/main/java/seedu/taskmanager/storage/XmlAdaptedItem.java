@@ -1,12 +1,12 @@
 package seedu.taskmanager.storage;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
-import seedu.taskmanager.model.item.Date;
+import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.ReadOnlyItem;
-import seedu.taskmanager.model.item.Time;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
 
@@ -74,10 +74,10 @@ public class XmlAdaptedItem {
         }
         final ItemType itemType = new ItemType(this.itemType);
         final Name name = new Name(this.name);
-        final Date startDate = new Date(this.startDate);
-        final Time startTime = new Time(this.startTime);
-        final Date endDate = new Date(this.endDate);
-        final Time endTime = new Time(this.endTime);
+        final ItemDate startDate = new ItemDate(this.startDate);
+        final ItemTime startTime = new ItemTime(this.startTime);
+        final ItemDate endDate = new ItemDate(this.endDate);
+        final ItemTime endTime = new ItemTime(this.endTime);
         final UniqueTagList tags = new UniqueTagList(itemTags);
         return new Item(itemType, name, startDate, startTime, endDate, endTime, this.done, tags);
     }

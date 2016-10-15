@@ -57,7 +57,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous items except the deleted item
-        assertTrue(personListPanel.isListMatching(expectedRemainder));
+        assertTrue(itemListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
@@ -86,7 +86,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("delete " + targetIndexesStringFormat);
 
         //confirm the list now contains all previous items except the deleted items
-        assertTrue(personListPanel.isListMatching(expectedRemainder));
+        assertTrue(itemListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemsToDelete));

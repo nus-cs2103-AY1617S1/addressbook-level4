@@ -7,7 +7,7 @@ import seedu.taskmanager.commons.exceptions.IllegalValueException;
  * Represents a Item's time in the task maanger.
  * Can be startTime or endTime
  */
-public class Time {
+public class ItemTime {
     
     public static final String MESSAGE_TIME_CONSTRAINTS = "Time format must be HH:MM";
     public static final String TIME_VALIDATION_REGEX = "(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])";
@@ -19,7 +19,7 @@ public class Time {
      * Validates given time.
      *
      */
-    public Time() {
+    public ItemTime() {
         value = EMPTY_TIME;
     }
     
@@ -28,7 +28,7 @@ public class Time {
      *
      * @throws IllegalValueException if given time string is invalid.
      */
-    public Time(String time) throws IllegalValueException {
+    public ItemTime(String time) throws IllegalValueException {
         assert time != null;
         time = time.trim();
         if (!isValidTime(time)) {
@@ -55,8 +55,8 @@ public class Time {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Time // instanceof handles nulls
-                && this.value.equals(((Time) other).value)); // state check
+                || (other instanceof ItemTime // instanceof handles nulls
+                && this.value.equals(((ItemTime) other).value)); // state check
     }
 
     @Override

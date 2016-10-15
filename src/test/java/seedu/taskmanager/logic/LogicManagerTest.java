@@ -27,12 +27,12 @@ import seedu.taskmanager.model.TaskManager;
 import seedu.taskmanager.model.Model;
 import seedu.taskmanager.model.ModelManager;
 import seedu.taskmanager.model.ReadOnlyTaskManager;
-import seedu.taskmanager.model.item.Date;
+import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.ReadOnlyItem;
-import seedu.taskmanager.model.item.Time;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
 import seedu.taskmanager.storage.StorageManager;
@@ -195,10 +195,10 @@ public class LogicManagerTest {
                 "add deadline n/not_numbers ed/2016-08-08 et/18:00", Name.MESSAGE_NAME_CONSTRAINTS);
         // Invalid EndDate
         assertCommandBehavior(
-                "add deadline n/12345 ed/notADate et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+                "add deadline n/12345 ed/notADate et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
         // Invalid EndTime
         assertCommandBehavior(
-                "add deadline n/12345 ed/2016-08-08 et/notATime", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add deadline n/12345 ed/2016-08-08 et/notATime", ItemTime.MESSAGE_TIME_CONSTRAINTS);
         // Invalid Tag
         assertCommandBehavior(
                 "add deadline n/12345 ed/2016-08-08 et/18:00 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
@@ -207,10 +207,10 @@ public class LogicManagerTest {
                 "add event n/12345 sd/2016-08-08 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
        // Invalid Date
         assertCommandBehavior(
-                "add event n/12345 sd/2016-02-30 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+                "add event n/12345 sd/2016-02-30 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
        // Invalid Date
         assertCommandBehavior(
-                "add deadline n/12345 ed/2016-11-31 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+                "add deadline n/12345 ed/2016-11-31 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
 
     }
 
@@ -427,10 +427,10 @@ public class LogicManagerTest {
         Item adam() throws Exception {
             ItemType itemType = new ItemType("deadline");
             Name privateName = new Name("111111");
-            Date startDate = new Date("");
-            Time startTime = new Time("");
-            Date endDate = new Date("2016-08-08");
-            Time endTime = new Time("01:59");
+            ItemDate startDate = new ItemDate("");
+            ItemTime startTime = new ItemTime("");
+            ItemDate endDate = new ItemDate("2016-08-08");
+            ItemTime endTime = new ItemTime("01:59");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -459,30 +459,30 @@ public class LogicManagerTest {
                 return new Item(
                     new ItemType(itemType),
                     new Name("" + Math.abs(seed)),
-                    new Date(""),
-                    new Time(""),
-                    new Date(""),
-                    new Time(""),
+                    new ItemDate(""),
+                    new ItemTime(""),
+                    new ItemDate(""),
+                    new ItemTime(""),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
                 );
             } else if (itemType == ItemType.DEADLINE_WORD) {
                 return new Item(
                     new ItemType(itemType),
                     new Name("" + Math.abs(seed)),
-                    new Date(""),
-                    new Time(""),
-                    new Date(endDate),
-                    new Time(endTime),
+                    new ItemDate(""),
+                    new ItemTime(""),
+                    new ItemDate(endDate),
+                    new ItemTime(endTime),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
                 );
             } else {
                 return new Item(
                     new ItemType(itemType),
                     new Name("" + Math.abs(seed)),
-                    new Date(startDate),
-                    new Time(startTime),
-                    new Date(endDate),
-                    new Time(endTime),
+                    new ItemDate(startDate),
+                    new ItemTime(startTime),
+                    new ItemDate(endDate),
+                    new ItemTime(endTime),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
                 );
             }
@@ -594,10 +594,10 @@ public class LogicManagerTest {
             return new Item(
                     new ItemType(itemType),
                     new Name(name),
-                    new Date(""),
-                    new Time(""),
-                    new Date("2016-12-15"),
-                    new Time("01:39"),
+                    new ItemDate(""),
+                    new ItemTime(""),
+                    new ItemDate("2016-12-15"),
+                    new ItemTime("01:39"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

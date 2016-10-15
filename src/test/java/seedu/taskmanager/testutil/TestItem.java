@@ -1,11 +1,11 @@
 package seedu.taskmanager.testutil;
 
 import seedu.taskmanager.logic.commands.AddCommand;
-import seedu.taskmanager.model.item.Date;
+import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.ReadOnlyItem;
-import seedu.taskmanager.model.item.Time;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.tag.UniqueTagList;
 
 /**
@@ -14,10 +14,10 @@ import seedu.taskmanager.model.tag.UniqueTagList;
 public class TestItem implements ReadOnlyItem {
 
     private ItemType itemType;
-    private Date startDate;
-    private Time startTime;
-    private Date endDate;
-    private Time endTime;
+    private ItemDate startDate;
+    private ItemTime startTime;
+    private ItemDate endDate;
+    private ItemTime endTime;
     private Name name;
     private boolean done;
     private UniqueTagList tags;
@@ -30,19 +30,19 @@ public class TestItem implements ReadOnlyItem {
         this.itemType = itemType;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(ItemTime startTime) {
         this.startTime = startTime;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(ItemDate startDate) {
         this.startDate = startDate;
     }    
     
-    public void setEndTime(Time endTime) {
+    public void setEndTime(ItemTime endTime) {
         this.endTime = endTime;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(ItemDate endDate) {
         this.endDate = endDate;
     }
 
@@ -61,22 +61,22 @@ public class TestItem implements ReadOnlyItem {
     }
 
     @Override
-    public Date getStartDate() {
+    public ItemDate getStartDate() {
         return startDate;
     }
 
     @Override
-    public Time getStartTime() {
+    public ItemTime getStartTime() {
         return startTime;
     }
     
     @Override
-    public Date getEndDate() {
+    public ItemDate getEndDate() {
         return endDate;
     }
 
     @Override
-    public Time getEndTime() {
+    public ItemTime getEndTime() {
         return endTime;
     }
 
