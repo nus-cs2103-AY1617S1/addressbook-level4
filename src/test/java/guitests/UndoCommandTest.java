@@ -24,8 +24,8 @@ public class UndoCommandTest extends TarsGuiTest {
         commandBox.runCommand("undo");
         currentList = td.getTypicalTasks();
         assertTrue(taskListPanel.isListMatching(currentList));
-        assertResultMessage(UndoCommand.MESSAGE_SUCCESS + "\nAction: "
-                + String.format(AddCommand.MESSAGE_UNDO, taskToUndo));
+        assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS,
+                String.format(AddCommand.MESSAGE_UNDO, taskToUndo)));
     }
     
     //@@author A0139924W
@@ -39,7 +39,7 @@ public class UndoCommandTest extends TarsGuiTest {
         commandBox.runCommand("undo");
         currentList = td.getTypicalTasks();
         assertTrue(taskListPanel.isListMatching(currentList));
-        assertResultMessage(UndoCommand.MESSAGE_SUCCESS + "\nAction: "
-                + String.format(DeleteCommand.MESSAGE_UNDO, taskToUndo));
+        assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS,
+                String.format(DeleteCommand.MESSAGE_UNDO, taskToUndo)));
     }
 }
