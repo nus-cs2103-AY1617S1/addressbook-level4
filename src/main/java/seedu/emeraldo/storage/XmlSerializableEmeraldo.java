@@ -5,7 +5,7 @@ import seedu.emeraldo.model.ReadOnlyEmeraldo;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.ReadOnlyTask;
-import seedu.emeraldo.model.task.UniquePersonList;
+import seedu.emeraldo.model.task.UniqueTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -55,8 +55,8 @@ public class XmlSerializableEmeraldo implements ReadOnlyEmeraldo {
     }
 
     @Override
-    public UniquePersonList getUniqueTaskList() {
-        UniquePersonList lists = new UniquePersonList();
+    public UniqueTaskList getUniqueTaskList() {
+        UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedPerson p : persons) {
             try {
                 lists.add(p.toModelType());

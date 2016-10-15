@@ -135,7 +135,7 @@ public class TestUtil {
     }
 
     public static Emeraldo generateEmptyAddressBook() {
-        return new Emeraldo(new UniquePersonList(), new UniqueTagList());
+        return new Emeraldo(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableEmeraldo generateSampleStorageAddressBook() {

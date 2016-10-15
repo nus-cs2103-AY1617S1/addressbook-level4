@@ -3,7 +3,7 @@ package seedu.emeraldo.model;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
-import seedu.emeraldo.model.task.UniquePersonList;
+import seedu.emeraldo.model.task.UniqueTaskList;
 
 import java.util.Set;
 
@@ -18,10 +18,10 @@ public interface Model {
     ReadOnlyEmeraldo getAddressBook();
 
     /** Deletes the given person. */
-    void deleteTask(ReadOnlyTask target) throws UniquePersonList.TaskNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given person */
-    void addTask(Task person) throws UniquePersonList.DuplicateTaskException;
+    void addTask(Task person) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

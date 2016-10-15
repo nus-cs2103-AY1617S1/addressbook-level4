@@ -8,8 +8,8 @@ import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.util.StringUtil;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
-import seedu.emeraldo.model.task.UniquePersonList;
-import seedu.emeraldo.model.task.UniquePersonList.TaskNotFoundException;
+import seedu.emeraldo.model.task.UniqueTaskList;
+import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -66,13 +66,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removePerson(target);
+        addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addTask(Task person) throws UniquePersonList.DuplicateTaskException {
-        addressBook.addPerson(person);
+    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.addTask(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }

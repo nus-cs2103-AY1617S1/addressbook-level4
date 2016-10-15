@@ -165,7 +165,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         Emeraldo expectedAB = new Emeraldo();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
@@ -181,7 +181,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         Emeraldo expectedAB = new Emeraldo();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
         model.addTask(toBeAdded); // person already in internal address book
@@ -290,7 +290,7 @@ public class LogicManagerTest {
         List<Task> threePersons = helper.generatePersonList(3);
 
         Emeraldo expectedAB = helper.generateAddressBook(threePersons);
-        expectedAB.removePerson(threePersons.get(1));
+        expectedAB.removeTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
@@ -442,7 +442,7 @@ public class LogicManagerTest {
          */
         void addToAddressBook(Emeraldo addressBook, List<Task> personsToAdd) throws Exception{
             for(Task p: personsToAdd){
-                addressBook.addPerson(p);
+                addressBook.addTask(p);
             }
         }
 

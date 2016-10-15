@@ -4,7 +4,7 @@ import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.Emeraldo;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.task.Task;
-import seedu.emeraldo.model.task.UniquePersonList;
+import seedu.emeraldo.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -19,8 +19,8 @@ public class AddressBookBuilder {
         this.addressBook = addressBook;
     }
 
-    public AddressBookBuilder withPerson(Task person) throws UniquePersonList.DuplicateTaskException {
-        addressBook.addPerson(person);
+    public AddressBookBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.addTask(person);
         return this;
     }
 
