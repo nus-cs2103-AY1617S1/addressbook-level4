@@ -12,9 +12,9 @@ import seedu.todo.ui.UiPartLoader;
 
 import java.util.logging.Logger;
 
+//@@author A0315805H
 /**
  * Display textual feedback to command input via this view with {@link #displayMessage(String)}.
- * @author Wang Xien Dong
  */
 public class CommandFeedbackView extends UiPart {
 

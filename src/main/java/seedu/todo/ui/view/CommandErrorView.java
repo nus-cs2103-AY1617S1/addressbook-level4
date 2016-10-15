@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+//@@author A0315805H
 /**
  * A view class that displays specific command errors in greater detail.
- * @author Wang Xien Dong
  */
 public class CommandErrorView extends UiPart {
 

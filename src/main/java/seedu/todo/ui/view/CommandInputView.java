@@ -15,9 +15,9 @@ import seedu.todo.ui.UiPartLoader;
 
 import java.util.logging.Logger;
 
+//@@author A0315805H
 /**
  * A view class that handles the Input text box directly.
- * @author Wang Xien Dong
  */
 public class CommandInputView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandInputView.class);
