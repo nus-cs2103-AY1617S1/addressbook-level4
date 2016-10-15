@@ -6,13 +6,13 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Task in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
-    private Name name;
-    private DueDate dueDate;
+    private TaskName name;
+    private DateTime dueDate;
     private DueTime dueTime;
     private Address address;
 
@@ -21,7 +21,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, DueDate dueDate, DueTime dueTime, Address address, UniqueTagList tags) {
+    public Task(TaskName name, DateTime dueDate, DueTime dueTime, Address address, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, dueDate, dueTime, address, tags);
         this.name = name;
         this.dueDate = dueDate;
@@ -38,12 +38,12 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Name getName() {
+    public TaskName getName() {
         return name;
     }
 
     @Override
-    public DueDate getDueDate() {
+    public DateTime getDueDate() {
         return dueDate;
     }
 

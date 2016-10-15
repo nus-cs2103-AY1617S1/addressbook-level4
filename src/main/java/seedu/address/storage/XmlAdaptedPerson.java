@@ -39,8 +39,8 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
         name = source.getName().fullName;
-        phone = source.getDueDate().value;
-        email = source.getDueTime().value;
+        phone = source.getDueDate().date_value;
+        email = source.getDueDate().time_value;
         address = source.getAddress().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -58,8 +58,8 @@ public class XmlAdaptedPerson {
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
-        final Name name = new Name(this.name);
-        final DueDate phone = new DueDate(this.phone);
+        final TaskName name = new TaskName(this.name);
+        final DateTime phone = new DateTime(this.phone);
         final DueTime email = new DueTime(this.email);
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);

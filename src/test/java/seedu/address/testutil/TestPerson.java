@@ -8,17 +8,17 @@ import seedu.address.model.person.*;
  */
 public class TestPerson implements ReadOnlyTask {
 
-    private Name name;
+    private TaskName name;
     private Address address;
     private DueTime email;
-    private DueDate phone;
+    private DateTime phone;
     private UniqueTagList tags;
 
     public TestPerson() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
+    public void setName(TaskName name) {
         this.name = name;
     }
 
@@ -30,17 +30,17 @@ public class TestPerson implements ReadOnlyTask {
         this.email = email;
     }
 
-    public void setPhone(DueDate phone) {
+    public void setPhone(DateTime phone) {
         this.phone = phone;
     }
 
     @Override
-    public Name getName() {
+    public TaskName getName() {
         return name;
     }
 
     @Override
-    public DueDate getDueDate() {
+    public DateTime getDueDate() {
         return phone;
     }
 

@@ -27,11 +27,15 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-            		+ " (?<isTimePrivate>p?)(\\s)*(at|by)(\\s)+(?<time>[^/]+)"
-            		+ " (?<isDatePrivate>p?)(\\s)*on(\\s)+(?<date>[^/]+)"
-            		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+            Pattern.compile("(?<name1>[^/]+)"
+            		+ "\\s+(at|by|on|every)\\s+(?<dateTime1>[^/]+)" 
+            		+ "(\\s+(at|by|on)\\s+(?<dateTime2>[^/]+))"
+            		+ "(?<tagArguments1>(?: t/[^/]+)*)|"
+            		+ "(?<name2>[^/]+)"
+            		+ "\\s+(at|by|on|every)\\s+(?<dateTime3>[^/]+)"
+            		+ "(?<tagArguments2>(?: t/[^/]+)*)"); // variable number of tags
             		/*
+            		"(?<name>[^/]+)"
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
@@ -98,12 +102,25 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            return new AddCommand(
-            		matcher.group("name"),
-            		matcher.group("time"),
-                    matcher.group("date"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
+        	if (matcher.group("name1") != null) {
+        		// Case: Double date/time parameters provided
+        		return new AddCommand(
+                		matcher.group("name1"),
+                		matcher.group("dateTime1"),
+                		matcher.group("dateTime2"),
+                        getTagsFromArgs(matcher.group("tagArguments1"))
+                );
+        	} else if (matcher.group("name2") != null) {
+        		// Case: Single date/time parameter provided
+        		return new AddCommand(
+                		matcher.group("name2"),
+                		matcher.group("dateTime3"),
+                		"",
+                        getTagsFromArgs(matcher.group("tagArguments2"))
+                );
+        	} else {
+        		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        	}
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

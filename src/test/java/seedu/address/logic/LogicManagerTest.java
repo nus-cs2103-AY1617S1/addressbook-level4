@@ -162,9 +162,9 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", TaskName.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", DueDate.MESSAGE_DATE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", DateTime.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/notAnEmail a/valid, address", DueTime.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
@@ -383,8 +383,8 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            DueDate privatePhone = new DueDate("111111");
+            TaskName name = new TaskName("Adam Brown");
+            DateTime privatePhone = new DateTime("111111");
             DueTime email = new DueTime("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
@@ -402,8 +402,8 @@ public class LogicManagerTest {
          */
         Task generatePerson(int seed) throws Exception {
             return new Task(
-                    new Name("Person " + seed),
-                    new DueDate("" + Math.abs(seed)),
+                    new TaskName("Person " + seed),
+                    new DateTime("" + Math.abs(seed)),
                     new DueTime(seed + "@email"),
                     new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -501,8 +501,8 @@ public class LogicManagerTest {
          */
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
-                    new Name(name),
-                    new DueDate("1"),
+                    new TaskName(name),
+                    new DateTime("1"),
                     new DueTime("1@email"),
                     new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))

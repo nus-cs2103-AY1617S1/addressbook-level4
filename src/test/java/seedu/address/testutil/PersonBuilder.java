@@ -16,7 +16,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+        this.person.setName(new TaskName(name));
         return this;
     }
 
@@ -33,7 +33,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new DueDate(phone));
+        this.person.setPhone(new DateTime(phone));
         return this;
     }
 
