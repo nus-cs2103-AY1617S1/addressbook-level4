@@ -54,6 +54,7 @@ allprojects {
         compile "com.google.guava:guava:$guavaVersion"
         compile "org.ocpsoft.prettytime:prettytime:4.0.1.Final"
         compile "org.ocpsoft.prettytime:prettytime-nlp:3.2.5.Final"
+        compile group: "org.jfxtras", name: "jfxtras-agenda", version: "8.0-r5"
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
