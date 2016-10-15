@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.BaseCommand;
 import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.logic.parser.ParseResult;
@@ -35,6 +36,11 @@ public class TodoLogic implements Logic {
     }
     
     public CommandResult execute(String input) {
+        // Sanity check
+        if (StringUtil.isEmpty(input)) {
+            return new CommandResult("");
+        }
+        
         ParseResult parseResult = parser.parse(input);
         BaseCommand command;
         logger.fine("Parsed command: " + parseResult.toString());
