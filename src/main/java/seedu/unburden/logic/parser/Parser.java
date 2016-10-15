@@ -27,7 +27,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern KEYWORDS_DATE_FORMAT = 
-    		Pattern.compile("\\[0-9]{2}[/][0-9]{2}[/][0-9]{4}"); 
+    		Pattern.compile("?<dates>\\[0-9]{2}[/][0-9]{2}[/][0-9]{4}"); 
 
     private static final Pattern ADD_FORMAT_1 = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)" + 
