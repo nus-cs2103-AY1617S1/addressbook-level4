@@ -54,7 +54,8 @@ public class MainApp extends Application {
         ui = UiManager.getInstance();
 
         // Load DB
-        TodoListDB.getInstance().load(); 
+        if (!TodoListDB.getInstance().load())
+            TodoListDB.getInstance().save();
     }
 
     @Override
