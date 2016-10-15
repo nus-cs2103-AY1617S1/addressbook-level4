@@ -9,7 +9,7 @@ import seedu.tasklist.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask task1, task2, task3, task4, task5, task6, task7, task8, task9;
+    public static TestTask task1, task2, task3, task4, task5, task6, task7, task8, task9, task10, task11;
 
     public TypicalTestTasks() {
         try {
@@ -28,6 +28,8 @@ public class TypicalTestTasks {
             //Manually added
             task8 = new TaskBuilder().withTaskDetails("Work on CS2103T Project").withStartTime("6pm").withEndTime("9pm").withUniqueID(8).withPriority("high").build();
             task9 = new TaskBuilder().withTaskDetails("Buy groceries").withStartTime("5pm").withEndTime("").withUniqueID(9).withPriority("med").build();
+            task10 = new TaskBuilder().withTaskDetails("Study for EE2021").withStartTime("").withEndTime("").withUniqueID(10).withPriority("med").build();
+            task11 = new TaskBuilder().withTaskDetails("Work on CS2103T Project").withStartTime("10/10/15 5pm").withEndTime("21/09/2016").withUniqueID(8).withPriority("high").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -44,6 +46,8 @@ public class TypicalTestTasks {
             ab.addTask(new Task(task5));
             ab.addTask(new Task(task6));
             ab.addTask(new Task(task7));
+            ab.addTask(new Task(task10));
+            ab.addTask(new Task(task11));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "Some of the tasks could not be added!";
         }

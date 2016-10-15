@@ -17,164 +17,164 @@ import java.util.stream.Collectors;
 public class TaskList implements ReadOnlyTaskList{
 
 
-    private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
+	private final UniqueTaskList tasks;
+	private final UniqueTagList tags;
 
-    {
-        tasks = new UniqueTaskList();
-        tags = new UniqueTagList();
-    }
+	{
+		tasks = new UniqueTaskList();
+		tags = new UniqueTagList();
+	}
 
-    public TaskList() {
-    	
-    }
-    
+	public TaskList() {
 
-    /**
-     * tasks and Tags are copied into this task list
-     */
-    public TaskList(ReadOnlyTaskList toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
-     
-        Iterator itr = tasks.iterator();
-    	while(itr.hasNext()){
-    		Task task = (Task)itr.next();
-    		if(!task.isComplete())
-            	task.INCOMPLETE_COUNTER++;
-    	    if(task.isFloating())
-               task.FLOAT_COUNTER++;
-            
-            if(task.isOverDue())
-            	task.OVERDUE_COUNTER++;
-    	}
-    }
+	}
 
-    /**
-     * tasks and Tags are copied into this task list
-     */
-    public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
-    }
 
-    public static ReadOnlyTaskList getEmptyTaskList() {
-        return new TaskList();
-    }
+	/**
+	 * tasks and Tags are copied into this task list
+	 */
+	public TaskList(ReadOnlyTaskList toBeCopied) {
+		this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
 
-//// list overwrite operations
+		Iterator itr = tasks.iterator();
+		while(itr.hasNext()){
+			Task task = (Task)itr.next();
+			if(!task.isComplete())
+				task.IncompleteCounter++;
+			if(task.isFloating())
+				task.floatCounter++;
 
-    public ObservableList<Task> getTasks() {
-        return tasks.getInternalList();
-    }
+			if(task.isOverDue())
+				task.overdueCounter++;
+		}
+	}
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks.getInternalList().setAll(tasks);
-    }
+	/**
+	 * tasks and Tags are copied into this task list
+	 */
+	public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
+		resetData(tasks.getInternalList(), tags.getInternalList());
+	}
 
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
-    }
+	public static ReadOnlyTaskList getEmptyTaskList() {
+		return new TaskList();
+	}
 
-    public void resetData(Collection<? extends ReadOnlyTask> newtasks, Collection<Tag> newTags) {
-        setTasks(newtasks.stream().map(Task::new).collect(Collectors.toList()));
-        setTags(newTags);
-    }
+	//// list overwrite operations
 
-    public void resetData(ReadOnlyTaskList newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
-    }
+	public ObservableList<Task> getTasks() {
+		return tasks.getInternalList();
+	}
 
-//// person-level operations
+	public void setTasks(List<Task> tasks) {
+		this.tasks.getInternalList().setAll(tasks);
+	}
 
-    /**
-     * Adds a task to the to-do list.
-     *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
-     */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
-        tasks.add(p);
-    }
+	public void setTags(Collection<Tag> tags) {
+		this.tags.getInternalList().setAll(tags);
+	}
 
-    /**
-     * Ensures that every tag in this person:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
-     */
-    private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList personTags = task.getTags();
-        tags.mergeFrom(personTags);
+	public void resetData(Collection<? extends ReadOnlyTask> newtasks, Collection<Tag> newTags) {
+		setTasks(newtasks.stream().map(Task::new).collect(Collectors.toList()));
+		setTags(newTags);
+	}
 
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
+	public void resetData(ReadOnlyTaskList newData) {
+		resetData(newData.getTaskList(), newData.getTagList());
+	}
 
-        // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
-    }
+	//// person-level operations
 
-    public void removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        tasks.remove(key);
-    }
-    
-    public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-    	tasks.setComplete(key);
-    }
+	/**
+	 * Adds a task to the to-do list.
+	 *
+	 * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
+	 */
+	public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+		syncTagsWithMasterList(p);
+		tasks.add(p);
+	}
 
-//// tag-level operations
+	/**
+	 * Ensures that every tag in this person:
+	 *  - exists in the master list {@link #tags}
+	 *  - points to a Tag object in the master list
+	 */
+	private void syncTagsWithMasterList(Task task) {
+		final UniqueTagList personTags = task.getTags();
+		tags.mergeFrom(personTags);
 
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
+		// Create map with values = tag object references in the master list
+		final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+		for (Tag tag : tags) {
+			masterTagObjects.put(tag, tag);
+		}
 
-//// util methods
+		// Rebuild the list of person tags using references from the master list
+		final Set<Tag> commonTagReferences = new HashSet<>();
+		for (Tag tag : personTags) {
+			commonTagReferences.add(masterTagObjects.get(tag));
+		}
+		task.setTags(new UniqueTagList(commonTagReferences));
+	}
 
-    @Override
-    public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
-    }
+	public void removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+		tasks.remove(key);
+	}
 
-    @Override
-    public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
-    }
+	public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+		tasks.setComplete(key);
+	}
 
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
+	//// tag-level operations
 
-    @Override
-    public UniqueTaskList getUniqueTaskList() {
-        return this.tasks;
-    }
-    
+	public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
+		tags.add(t);
+	}
 
-    public boolean isEmpty(){
-    	return tasks.isEmpty();
-    }
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
+	//// util methods
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TaskList // instanceof handles nulls
-                && this.tasks.equals(((TaskList) other).tasks)
-                && this.tags.equals(((TaskList) other).tags));
-    }
+	@Override
+	public String toString() {
+		return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+		// TODO: refine later
+	}
 
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
-    }
+	@Override
+	public List<ReadOnlyTask> getTaskList() {
+		return Collections.unmodifiableList(tasks.getInternalList());
+	}
+
+	@Override
+	public List<Tag> getTagList() {
+		return Collections.unmodifiableList(tags.getInternalList());
+	}
+
+	@Override
+	public UniqueTaskList getUniqueTaskList() {
+		return this.tasks;
+	}
+
+
+	public boolean isEmpty(){
+		return tasks.isEmpty();
+	}
+	@Override
+	public UniqueTagList getUniqueTagList() {
+		return this.tags;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		return other == this // short circuit if same object
+				|| (other instanceof TaskList // instanceof handles nulls
+						&& this.tasks.equals(((TaskList) other).tasks)
+						&& this.tags.equals(((TaskList) other).tags));
+	}
+
+	@Override
+	public int hashCode() {
+		// use this method for custom fields hashing instead of implementing your own
+		return Objects.hash(tasks, tags);
+	}
 }
