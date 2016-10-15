@@ -1,9 +1,14 @@
 package teamfour.tasc.ui;
 
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import teamfour.tasc.model.task.Complete;
 import teamfour.tasc.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -26,6 +31,8 @@ public class TaskCard extends UiPart{
     private Label periodRecurrence;
     @FXML
     private Label tags;
+    @FXML
+    private Label completeStatus;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -50,6 +57,17 @@ public class TaskCard extends UiPart{
         period.setText("Period : " + task.getPeriod().toString());
         periodRecurrence.setText("Period Repeat: " + task.getPeriodRecurrence().toString());
         tags.setText(task.tagsString().equals("") ? "" : "Tags: " + task.tagsString());
+        completeStatus.setText(task.getComplete().toString());
+        if (task.getDeadline().hasDeadline()) {
+            if (task.getDeadline().getDeadline().getTime() < Instant.now().toEpochMilli() &&
+                    completeStatus.getText().equals(Complete.TO_STRING_NOT_COMPLETED)) {
+                completeStatus.setText("Overdue");
+                completeStatus.setStyle("-fx-text-fill: #ff0000;");
+            }
+        }
+        if (task.getComplete().isCompleted()) {
+            completeStatus.setStyle("-fx-text-fill: #008600;");
+        }
     }
 
     public HBox getLayout() {
