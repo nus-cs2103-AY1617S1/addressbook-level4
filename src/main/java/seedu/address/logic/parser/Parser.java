@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.Messages;
