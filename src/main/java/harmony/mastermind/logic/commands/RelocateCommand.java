@@ -3,7 +3,10 @@ package harmony.mastermind.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.common.eventbus.Subscribe;
+
 import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.commons.events.storage.AccessDeniedEvent;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.model.tag.Tag;
@@ -46,5 +49,10 @@ public class RelocateCommand extends Command {
         } catch (FolderDoesNotExistException fdnee) {
             return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
         }
+    }
+    
+    @Subscribe
+    public CommandResult handleAccessDeniedEvent (AccessDeniedEvent event) {
+        return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
     }
 }

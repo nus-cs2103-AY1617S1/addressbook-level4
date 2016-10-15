@@ -6,8 +6,8 @@ import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
+import harmony.mastermind.commons.events.storage.AccessDeniedEvent;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
-import harmony.mastermind.commons.events.storage.FileDoesNotExistEvent;
 import harmony.mastermind.commons.exceptions.DataConversionException;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.model.ReadOnlyTaskManager;
@@ -15,6 +15,7 @@ import harmony.mastermind.model.UserPrefs;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -83,9 +84,15 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleRelocateEvent(RelocateFilePathEvent event) {
         assert event.newFilePath != null;
         String oldPath = taskManagerStorage.getTaskManagerFilePath();
-        taskManagerStorage.setTaskManagerFilePath(event.newFilePath);
+        String newPath = event.newFilePath + "/mastermind.xml";
+        taskManagerStorage.setTaskManagerFilePath(newPath);
         try {
             taskManagerStorage.migrateIntoNewFolder(oldPath, event.newFilePath);
+        } catch (AccessDeniedException ade) {
+            logger.warning("Permission to access " + newPath + " denied." );
+            logger.warning("Reverting save location back to " + oldPath);
+            taskManagerStorage.setTaskManagerFilePath(oldPath);
+            raise(new AccessDeniedEvent(newPath, oldPath));
         } catch (IOException e) {
             e.printStackTrace();
         }

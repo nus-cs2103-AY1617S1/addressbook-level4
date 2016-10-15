@@ -30,6 +30,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     public String getTaskManagerFilePath(){
+        System.out.println(filePath);
         return filePath;
     }
     
@@ -83,9 +84,23 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
 
     //@author A0139194X
     public void migrateIntoNewFolder(String oldPath, String newPath) throws IOException {
+        assert oldPath != null;
+        assert newPath != null;
         newPath = newPath + "/mastermind.xml";
         Path oldDirectory = Paths.get(oldPath);
         Path newDirectory = Paths.get(newPath);
         Files.copy(oldDirectory, newDirectory, StandardCopyOption.REPLACE_EXISTING);
+        deleteFile(oldPath);
+    }
+    
+    //@author A0139194X
+    public void deleteFile(String filePath) {
+        assert filePath != null;
+        File toDelete = new File(filePath);
+        if (toDelete.delete()) {
+            logger.fine("Deleted " + filePath);
+        } else {
+            logger.warning("Failed to delete " + filePath);
         }
+    }
 }
