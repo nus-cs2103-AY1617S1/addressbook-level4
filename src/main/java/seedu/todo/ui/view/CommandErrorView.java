@@ -63,18 +63,35 @@ public class CommandErrorView extends UiPart {
         displayNonFieldErrors(errorBag.getNonFieldErrors());
     }
 
+    /**
+     * Feeds non field errors to the {@link #nonFieldErrorGrid}.
+     * If there are no non-field errors, then {@link #nonFieldErrorBox} will be hidden.
+     * @param nonFieldErrors that stores a list of non-field errors
+     */
     private void displayNonFieldErrors(List<String> nonFieldErrors) {
-        int rowCounter = 0;
-        for (String error : nonFieldErrors) {
-            addRowToGrid(nonFieldErrorGrid, rowCounter++, rowCounter + ".", error);
+        if (nonFieldErrors.isEmpty()) {
+            hideErrorBox(nonFieldErrorBox);
+        } else {
+            int rowCounter = 0;
+            for (String error : nonFieldErrors) {
+                addRowToGrid(nonFieldErrorGrid, rowCounter++, rowCounter + ".", error);
+            }
         }
     }
 
+    /**
+     * Feeds field errors to the {@link #fieldErrorGrid}.
+     * If there are no field errors, then {@link #fieldErrorBox} will be hidden.
+     * @param fieldErrors that stores the field errors
+     */
     private void displayFieldErrors(Map<String, String> fieldErrors) {
-        int rowCounter = 0;
-
-        for (Map.Entry<String, String> fieldError : fieldErrors.entrySet()) {
-            addRowToGrid(fieldErrorGrid, rowCounter++, fieldError.getKey(), fieldError.getValue());
+        if (fieldErrors.isEmpty()) {
+            hideErrorBox(fieldErrorBox);
+        } else {
+            int rowCounter = 0;
+            for (Map.Entry<String, String> fieldError : fieldErrors.entrySet()) {
+                addRowToGrid(fieldErrorGrid, rowCounter++, fieldError.getKey(), fieldError.getValue());
+            }
         }
     }
 
