@@ -23,6 +23,7 @@
 * [Emoji One](http://emojione.com/)
 * [jbootx Java Bootstrap CSS](https://github.com/dicolar/jbootx)
 * [Natty](http://natty.joestelmach.com/)
+* [Google Diff-Match-Patch](https://bitbucket.org/cowwoc/google-diff-match-patch/overview)
 
 #### License 
 
