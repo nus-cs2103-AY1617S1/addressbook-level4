@@ -22,7 +22,7 @@ public class XmlAdaptedSchedule {
 
 
     @XmlElement
-    private String due; //Not used yet.
+    private String due; 
     private String start;
     private String end;
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -56,18 +56,8 @@ public class XmlAdaptedSchedule {
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
-        if (start == null) {
-            final Name name = new Name(this.name);
-            final DateTime due = new DateTime(this.due);
-            final UniqueTagList tags = new UniqueTagList(taskTags);
-            return new Deadlines(name, due, tags);
-        }
-        else {
-            final Name name = new Name(this.name);
-            final DateTime start = new DateTime(this.start);
-            final DateTime end = new DateTime(this.end);
-            final UniqueTagList tags = new UniqueTagList(taskTags);
-            return new Events(name, start, end , tags);
-        }
+        final Name name = new Name(this.name);
+        final UniqueTagList tags = new UniqueTagList(taskTags);
+            return new Schedule(name,tags);
     }
 }
