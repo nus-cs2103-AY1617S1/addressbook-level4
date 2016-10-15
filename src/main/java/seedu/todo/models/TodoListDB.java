@@ -78,6 +78,10 @@ public class TodoListDB {
         }
     }
     
+    public int undoSize() {
+        return storage.undoSize();
+    }
+    
     public boolean undo() {
         try {
             instance = storage.undo();
@@ -85,6 +89,10 @@ public class TodoListDB {
         } catch (CannotUndoException | IOException e) {
             return false;
         }
+    }
+    
+    public int redoSize() {
+        return storage.redoSize();
     }
     
     public boolean redo() {

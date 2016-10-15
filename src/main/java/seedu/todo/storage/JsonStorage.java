@@ -82,6 +82,11 @@ public class JsonStorage implements Storage {
         FileUtil.writeToFile(getStorageFile(), this.currJson);
         return JsonUtil.fromJsonString(this.currJson, TodoListDB.class);
     }
+    
+    @Override
+    public int undoSize() {
+        return historyPatch.size();
+    }
 
     @Override
     public TodoListDB redo() throws CannotRedoException, IOException {
@@ -103,6 +108,11 @@ public class JsonStorage implements Storage {
         this.currJson = newJson;
         FileUtil.writeToFile(getStorageFile(), this.currJson);
         return JsonUtil.fromJsonString(this.currJson, TodoListDB.class);
+    }
+    
+    @Override
+    public int redoSize() {
+        return futurePatch.size();
     }
 
 }
