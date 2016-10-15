@@ -12,7 +12,6 @@ import seedu.todo.ui.view.CommandInputView;
  * Processes the input command from {@link CommandInputView}, pass it to {@link seedu.todo.logic.Logic}
  * and hands the {@link seedu.todo.logic.commands.CommandResult}
  * to {@link CommandFeedbackView} and {@link CommandErrorView}
- *
  * @author Wang Xien Dong
  */
 public class CommandController {
@@ -84,14 +83,20 @@ public class CommandController {
         errorView.displayErrors(errorBag);
     }
 
+    /**
+     * Displays success behaviour in the respective UI elements
+     */
     private void viewDisplaySuccess() {
         inputView.resetViewState();
         feedbackView.unFlagError();
         errorView.hideCommandErrorView();
     }
 
+    /**
+     * Displays a message with regards to the user's input
+     * @param message to be displayed to user
+     */
     private void displayMessage(String message) {
         feedbackView.displayMessage(message);
     }
-
 }
