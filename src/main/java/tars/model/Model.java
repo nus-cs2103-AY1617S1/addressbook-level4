@@ -54,5 +54,8 @@ public interface Model {
 
     /** Returns the undoable command history stack */
     Stack<Command> getUndoableCmdHist();
+    
+    /** Returns the redoable command history stack */
+    Stack<Command> getRedoableCmdHist();
 
 }

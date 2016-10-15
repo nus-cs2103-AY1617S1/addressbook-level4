@@ -21,7 +21,8 @@ public class DeleteCommand extends UndoableCommand {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     
-    public static final String MESSAGE_UNDO = "Added back %1$s";
+    public static final String MESSAGE_UNDO = "Added %1$s";
+    public static final String MESSAGE_REDO = "Deleted %1$s";
 
     public final int targetIndex;
     
@@ -59,9 +60,24 @@ public class DeleteCommand extends UndoableCommand {
         try {
             Task taskToAdd = new Task(taskToDelete);
             model.addTask(taskToAdd);
-            return new CommandResult(String.format(MESSAGE_UNDO, taskToAdd));
+            return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
+                    String.format(MESSAGE_UNDO, taskToAdd)));
         } catch (DuplicateTaskException e) {
-            return new CommandResult(AddCommand.MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(
+                    String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
+        }
+    }
+    
+    @Override
+    public CommandResult redo() {
+        try {
+            Task taskToAdd = new Task(taskToDelete);
+            model.deleteTask(taskToAdd);
+            return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS,
+                    String.format(MESSAGE_REDO, taskToAdd)));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS,
+                    Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
         }
     }
 

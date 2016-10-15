@@ -31,6 +31,7 @@ import tars.logic.commands.ExitCommand;
 import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.ListCommand;
+import tars.logic.commands.RedoCommand;
 import tars.logic.commands.SelectCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.Tars;
@@ -183,51 +184,128 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_undo_add_successful() throws Exception {
+    public void execute_undo_and_redo_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeUndo = helper.meetAdam();
+        Task toBeAdded = helper.meetAdam();
         Tars expectedAB = new Tars();
-        expectedAB.addTask(toBeUndo);
+        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeUndo), String.format(AddCommand.MESSAGE_SUCCESS, toBeUndo),
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded), String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB, expectedAB.getTaskList());
 
-        expectedAB.removeTask(toBeUndo);
+        expectedAB.removeTask(toBeAdded);
 
         assertCommandBehavior("undo",
-                UndoCommand.MESSAGE_SUCCESS + "\nAction: " + String.format(AddCommand.MESSAGE_UNDO, toBeUndo),
+                String.format(UndoCommand.MESSAGE_SUCCESS,
+                        String.format(AddCommand.MESSAGE_UNDO, toBeAdded)),
                 expectedAB, expectedAB.getTaskList());
-    }
-
-    @Test
-    public void execute_undo_delete_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeUndo = helper.meetAdam();
-        Tars expectedAB = new Tars();
-        expectedAB.addTask(toBeUndo);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeUndo), String.format(AddCommand.MESSAGE_SUCCESS, toBeUndo),
-                expectedAB, expectedAB.getTaskList());
-
-        expectedAB.removeTask(toBeUndo);
-
-        // execute command and verify result
-        assertCommandBehavior("del 1", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeUndo), expectedAB,
-                expectedAB.getTaskList());
-
-        expectedAB.addTask(toBeUndo);
-
-        assertCommandBehavior("undo",
-                UndoCommand.MESSAGE_SUCCESS + "\nAction: " + String.format(DeleteCommand.MESSAGE_UNDO, toBeUndo),
+        
+        expectedAB.addTask(toBeAdded);
+        
+        assertCommandBehavior("redo",
+                String.format(RedoCommand.MESSAGE_SUCCESS,
+                        String.format(AddCommand.MESSAGE_REDO, toBeAdded)),
                 expectedAB, expectedAB.getTaskList());
     }
     
     @Test
-    public void execute_undo_edit_successful() throws Exception {
+    public void execute_undo_and_redo_add_unsuccessful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded), String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB, expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeAdded);
+        model.deleteTask(toBeAdded);
+
+        assertCommandBehavior("undo",
+                String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_TASK_CANNOT_BE_FOUND),
+                expectedAB, expectedAB.getTaskList());
+        
+        model.addTask(toBeAdded);
+        expectedAB.addTask(toBeAdded);
+        
+        assertCommandBehavior("redo",
+                String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK),
+                expectedAB, expectedAB.getTaskList());
+    }
+
+    @Test
+    public void execute_undo_and_redo_delete_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeRemoved = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeRemoved);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeRemoved), String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved),
+                expectedAB, expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeRemoved);
+
+        // execute command and verify result
+        assertCommandBehavior("del 1", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeRemoved), expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.addTask(toBeRemoved);
+
+        assertCommandBehavior("undo",
+                String.format(UndoCommand.MESSAGE_SUCCESS,
+                        String.format(DeleteCommand.MESSAGE_UNDO, toBeRemoved)),
+                expectedAB, expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeRemoved);
+
+        assertCommandBehavior("redo",
+                String.format(RedoCommand.MESSAGE_SUCCESS,
+                        String.format(DeleteCommand.MESSAGE_REDO, toBeRemoved)),
+                expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_undo_and_redo_delete_unsuccessful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeRemoved = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeRemoved);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeRemoved), String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved),
+                expectedAB, expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeRemoved);
+
+        // execute command and verify result
+        assertCommandBehavior("del 1", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeRemoved), expectedAB,
+                expectedAB.getTaskList());
+
+        expectedAB.addTask(toBeRemoved);
+        model.addTask(toBeRemoved);
+
+        assertCommandBehavior("undo",
+                String.format(UndoCommand.MESSAGE_UNSUCCESS,
+                        String.format(DeleteCommand.MESSAGE_UNDO, toBeRemoved)),
+                expectedAB, expectedAB.getTaskList());
+
+        expectedAB.removeTask(toBeRemoved);
+        model.deleteTask(toBeRemoved);
+
+        assertCommandBehavior("redo",
+                String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_TASK_CANNOT_BE_FOUND),
+                expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_undo_and_redo_edit_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task taskToAdd = helper.meetAdam();
@@ -261,9 +339,22 @@ public class LogicManagerTest {
         
         expectedAB.replaceTask(editedTask, taskToAdd);
         
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS + "\nAction: "
-                        + String.format(EditCommand.MESSAGE_UNDO, taskToAdd),
+        assertCommandBehavior("undo",
+                String.format(UndoCommand.MESSAGE_SUCCESS,
+                        String.format(EditCommand.MESSAGE_UNDO, taskToAdd)),
                 expectedAB, expectedAB.getTaskList());
+        
+        expectedAB.replaceTask(taskToAdd, editedTask);
+        
+        assertCommandBehavior("redo",
+                String.format(RedoCommand.MESSAGE_SUCCESS,
+                        String.format(EditCommand.MESSAGE_REDO, taskToAdd)),
+                expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_redo_emptyCmdHistStack() throws Exception {
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_EMPTY_REDO_CMD_HIST);
     }
 
     @Test
@@ -343,7 +434,7 @@ public class LogicManagerTest {
         model.addTask(toBeAdded); // task already in internal address book
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded), AddCommand.MESSAGE_DUPLICATE_TASK, expectedAB,
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded), Messages.MESSAGE_DUPLICATE_TASK, expectedAB,
                 expectedAB.getTaskList());
 
     }

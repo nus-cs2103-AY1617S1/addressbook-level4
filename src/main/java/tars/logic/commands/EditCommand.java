@@ -30,7 +30,9 @@ public class EditCommand extends UndoableCommand {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
 
     private static final String MESSAGE_MISSING_TASK = "The target task cannot be missing";
-    public static final String MESSAGE_UNDO = "Edited back to %1$s to %1$s";
+    
+    public static final String MESSAGE_UNDO = "Edited to %1$s to %1$s";
+    public static final String MESSAGE_REDO = "Edited to %1$s to %1$s";
 
     public final int targetIndex;
     
@@ -78,9 +80,30 @@ public class EditCommand extends UndoableCommand {
         assert model != null;
         try {
             model.unEditTask(editedTask, new Task(toEdit));
-            return new CommandResult(String.format(MESSAGE_UNDO, toEdit));
+            return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
+                    String.format(MESSAGE_UNDO, toEdit)));
         } catch (DuplicateTaskException e) {
-            return new CommandResult(e.getMessage());
+            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
+        }
+    }
+    
+    @Override
+    public CommandResult redo() {
+        assert model != null;
+        try {
+            model.editTask(toEdit, this.argsToEdit);
+            return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS,
+                    String.format(MESSAGE_REDO, toEdit)));
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS, e.getMessage()));
+        } catch (DateTimeException e) {
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_INVALID_DATE));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS, MESSAGE_MISSING_TASK));
+        } catch (IllegalValueException | TagNotFoundException e) {
+            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS, e.getMessage()));
         }
     }
 

@@ -27,8 +27,8 @@ public class AddCommand extends UndoableCommand {
             + " cs2103 project meeting -dt 05/09/2016 1400 to 06/09/2016 2200 -p h -t project";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK= "This task already exists in tars";
     public static final String MESSAGE_UNDO = "Removed %1$s";
+    public static final String MESSAGE_REDO = "Added %1$s";
 
     private final Task toAdd;
     
@@ -64,7 +64,7 @@ public class AddCommand extends UndoableCommand {
             model.getUndoableCmdHist().push(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
         }
 
     }
@@ -74,9 +74,24 @@ public class AddCommand extends UndoableCommand {
         assert model != null;
         try {
             model.deleteTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_UNDO, toAdd));
+            return new CommandResult(
+                    String.format(UndoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_UNDO, toAdd)));
         } catch (TaskNotFoundException e) {
-            return new CommandResult(Messages.MESSAGE_TASK_CANNOT_BE_FOUND);
+            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
+                    Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
+        }
+    }
+    
+    @Override
+    public CommandResult redo() {
+        assert model != null;
+        try {
+            model.addTask(toAdd);
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_REDO, toAdd)));
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
         }
     }
 

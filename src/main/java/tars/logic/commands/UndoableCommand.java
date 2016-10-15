@@ -8,4 +8,6 @@ package tars.logic.commands;
 public abstract class UndoableCommand extends Command {
     
     public abstract CommandResult undo();
+    
+    public abstract CommandResult redo();
 }
