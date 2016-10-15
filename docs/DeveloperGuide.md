@@ -1,316 +1,481 @@
-# Developer Guide 
+#
+# Developer Guide
 
+**Table of contents**
+
+
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
-* [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
-## Setting up
-
-#### Prerequisites
-
-1. **JDK `1.8.0_60`**  or later<br>
-
-    > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
-    
-2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 
-#### Importing the project into Eclipse
+## **Introduction**
 
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
-   in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+**Overview**
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+_Unburden_ is an application which will help you to manage your tasks better. Unburden provides a simple command line interface which does not require any form of clicking. _Unburden_ is written in Java.
 
-## Design
+**Purpose**
 
-### Architecture
-
-<img src="images/Architecture.png" width="600"><br>
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
-
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
-
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
-The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
-
-Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
-
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
-
-<img src="images\SDforDeletePerson.png" width="800">
-
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.
-
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
-
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
-  coupling between components.
-
-The sections below give more details of each component.
-
-### UI component
-
-<img src="images/UiClassDiagram.png" width="800"><br>
-
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
-
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
-
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
- [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
-
-The `UI` component,
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
-
-### Logic component
-
-<img src="images/LogicClassDiagram.png" width="800"><br>
-
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
-
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
-
-### Model component
-
-<img src="images/ModelClassDiagram.png" width="800"><br>
-
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
-
-The `Model`,
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-### Storage component
-
-<img src="images/StorageClassDiagram.png" width="800"><br>
-
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
-
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
-
-### Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
-
-## Implementation
-
-### Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
-and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-**Logging Levels**
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size
-
-### Configuration
-
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
-(default: `config.json`):
+This developer guide focuses primarily on the APIs used, the different components that work together and the main 4 components of _Unburden_. This developer guide will clearly explain the design of the software and also to showcase the core functionalities of the software. As such, the main purpose of this developer guide is to provide a general introduction and summary of the classes and components that are used within this application to help prospective developers who wish to develop _Unburden_ further.
 
 
-## Testing
 
-Tests can be found in the `./src/test/java` folder.
 
-**In Eclipse**:
-> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
-  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
-* To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
-  to run as a JUnit test.
 
-**Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+
+
+
+
+
+
+
+
+
+
+
+**Audience**
+
+The main audience of this developer&#39;s guide is directed towards the students who may be interested to further develop this application or even prospective team members. This developer guide may also interest developers who are interested to join the team.
+
+**Level of Difficulty**
+
+The entire application uses a huge range of APIs and requires a deep understanding of:
+
+-  Java programming language
+
+Since the entire piece of code is written in Java, prospective developers have to be adept with the Java programming language. In addition, APIs are used extensively throughout the entire code.
+
+- Eclipse IDE
+
+The main code is very long and hence it requires an integrated development environment to help in the process of editing and testing.
+
+- JavaFX
+
+Being familiar with JavaFX will enable prospective developers to edit the user interface smoothly.
+
+In essence, having all of the skills above will definitely help to enhance the understanding of the code and hence allow future developers to add on to the existing code easily and efficiently.
+
+**Technical Jargon**
+
+Certain terms used within this developer guide may seem alien to some. Hence this section is dedicated to define those terms used here.
+
+(As of now, we&#39;ve not encountered any yet.)
+
+## **Setting up**
+
+**Prerequisites**
+
+1. JDK 8.0\_60 or later
+2. Having any Java 8 version is not enough.
+3. This app will not work with earlier versions of Java 8.
+4. Eclipse IDE
+5. e(fx)clipse plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+6. Buildship Gradle Integration plugin from the Eclipse Marketplace
+
+**Importing the project into Eclipse**
+
+1. Fork this repo, and clone the fork to your computer
+2. Open Eclipse (Note: Ensure you have installed the e(fx)clipse and buildship plugins as given in the prerequisites above)
+3. Click File &gt; Import
+4. Click Gradle &gt; Gradle Project &gt; Next &gt; Next
+5. Click Browse, then locate the project&#39;s directory
+6. Click Finish
+
+
+
+
+
+## **Design**
+
+> <img src="DeveloperGuideImages/Design_01.png" width="600">
+
+The architectural design shows how the various components work in tandem with each other. Main only has one class MainApp and it is responsible for:
+
+ 1. Starting up _Unburden_: Initializes all components in order and ensures that the app starts to run
+ 2. Exiting _Unburden_: Shuts down all components in order and clears the memory
+
+The rest of the app consists of 4 main components other than main. They are :
+
+ 1. Logic : Decides what to output with the inputs and executes commands
+ 2. Model : Holds the data during runtime
+ 3. UI: Controls the UI of the app
+ 4. Storage: Reads and writes data to the hard disk
+
+Each component has a interface which all its classes implements and is named after the component itself.
+
+**UI component**
+
+> <img src="DeveloperGuideImages/UI_01.png" width="600">
+
+
+The UI component focuses on interacting with the user by displaying the necessary information to the user when requested. It is also responsible for the outlook of the application. The UI component consists of the abstract UiPart class which is the base class for the UI parts and each &quot;UI part&quot; is represented by a distinct part of the UI such as the panels or status bars.
+
+In essence, the UI makes use of JavaFx UI framework and majority of the classes import javafx methods. The various layouts of each &quot;UI part&quot; are stores as .fxml files in the src/main/resources/viewfolder. These files are named according to the respective class names. For example, the layout of the HelpWindow.java is stored in src/main/resources/view/HelpWindow.fxml
+
+
+
+**API**
+
+The UI component consists mainly of:
+
+ 1. UI class
+ 2. UIManager class
+ 3. UIPart class
+ 4. UILoader class
+ 5. BrowserPanel class
+ 6. CommandBox class
+ 7. MainWindow class
+ 8. ResultDisplay class
+ 9. HelpWindow class
+ 10. TaskCard class
+ 11. TaskListPanel class
+
+These classes work together to form the interface which the user interacts with when using the app. Each of the class are meant to function solely on one part of the UI. For instance, the ResultDisplay class is responsible for displaying the results of a command from the user.
+
+
+
+The UI also consists of a MainWindow class which is made up of these &quot;UI parts&quot; such as CommandBox, ResultDisplay, PersonListPanel, StatusBarFooter, BrowserPanel.
+
+All of these classes, including the MainWindow class inherit from the abstract UiPart class.
+
+The UI component,
+
+- Executes user commands using the Logic component.
+- Auto-updates when data in the Model change.
+- Responds to events raised from various parts of the App
+- Updates the UI accordingly.
+
+
+
+
+
+
+
+
+
+**Logic component**
+
+> <img src="DeveloperGuideImages/Logic_01.png" width="600">
+
+The Logic component consists of the Parser class which is responsible to taking in the inputs from the UI component, deciphering it, and then creating a Command class that can handle the user&#39;s input correctly. LogicManager will then execute the command.
+
+
+
+**API**
+
+The API of the Logic component consists mainly of:
+
+ 1. Logic class
+ 2. LogicManager class
+ 3. Parser class
+ 4. All the command classes eg. AddCommand, EditCommand, DeleteCommand
+
+These classes work together to categorize the different possible inputs from the user and sieves the important keywords out so that Model can continue executing the command entered by the user.
+
+TheLogiccomponent,
+
+- Logic takes in the user&#39;s input and passes it to the Parser class
+- Parser class will decide which Command class is able to handle the request
+- LogicManager class takes the command and executes it by calling Model
+- TaskResult class is created and returned to the UI to be displayed to the user
+
+**Model component**
+
+> <img src="DeveloperGuideImages/Model_01.png" width="600">
+
+The Model component is mainly responsible for executing the outputs from the Logic component. It is also responsible for storing all the in-app data such as the user&#39;s preferences anddata which is needed when executing commands.
+
+**API**
+
+The API of the Model component is in the Model class which consists of the main features of the task manager such as &#39;add&#39;, &#39;delete&#39; and updates the task manager accordingly. The ModelManager class, which represents the in-memory model of the task manager data, inherit from the Model interface.
+
+ModelManager is able to:
+
+ 1)Store the user preference
+ 2)Store _Unburden&#39;s_ data
+
+**Storage component**
+
+> <img src="DeveloperGuideImages/Storage_01.png" width="600">
+
+The Storage component primarily focuses on storing data. Any data related to the application will be saved within Storage and can be accessed later when requested. Storage works closely with Modelto read and write data from the app as and when the user requests to add or show existing data.
+
+**API**
+
+The API of the Model component consists mainly of:
+
+ 1. Model class
+ 2. ModelManager class
+ 3. ListOfTask class
+ 4. UserPref class
+ 5. ReadOnlyListOfTask class
+
+These classes are responsible for storing the data from the user and also works with the Model component to execute the commands given by the user.
+
+Storage is able to:
+
+ 1)Save the data entered in by the user and also read it back to Model when requested
+ 2)Save user preferences and read it back when needed
+
+
+
+
+
+## **Testing**
+
+Tests can be found in the./src/test/javafolder.
+
+In Eclipse:
+
+- To run all tests, right-click on the src/test/java folder and choose Run as &gt; JUnit Test
+- To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.
+
+Using Gradle:
+
+- See [md](https://github.com/nus-cs2103-AY1617S1/addressbook-level4/blob/master/docs/UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
-   These are in the `guitests` package.
-  
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
-  
-**Headless GUI Testing** :
-Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
- See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
-## Dev Ops
+1. GUI Tests - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the guitests package.
+2. Non-GUI Tests - These are tests not involving the GUI. They include,
+  1. _Unit tests_ targeting the lowest level methods/classes.
+  2. g. address.commons.UrlUtilTest
+  3. _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working).
+  4. g. address.storage.StorageManagerTest
+  5. Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.
+  6. g. address.logic.LogicManagerTest
 
-### Build Automation
 
-See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
-### Continuous Integration
+Headless GUI Testing : Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
-We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
+See [UsingGradle.md](https://github.com/nus-cs2103-AY1617S1/addressbook-level4/blob/master/docs/UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
-### Making a Release
+**Troubleshooting tests**
 
-Here are the steps to create a new release.
- 
- 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
- 2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
-    and upload the JAR file your created.
-   
-### Managing Dependencies
+Problem: Tests fail because NullPointException when AssertionError is expected
 
-A project often depends on third-party libraries. For example, Address Book depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+- Reason: Assertions are not enabled for JUnit tests. This can happen if you are not using a recent Eclipse version (i.e. _Neon_r later)
+- Solution: Enable assertions in JUnit tests as described.
+- Delete run configurations created when you ran tests earlier.
 
-## Appendix A : User Stories
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## **Dev Ops**
+
+While this app has been extensively developed, we feel that there is still room for improvement and can therefore be improved further. As such, the main reason for this section of the developer guide is to suggest possible improvements to _Unburden._
+
+For future and prospective developers or students who are interested to join our team, do note that the following list is not exhaustive.
+
+Some possible additions to be made:
+
+- Allow this app to be run on a mobile device such as a mobile phone or tablet
+- Create a login system which will protect each user&#39;s data and allow them to access their data from any device
+- Add animations so as to appeal to a larger audience
+- Implement a synchronous system based on a clock that will remind the user (possibly even when the application is not running) when he/she has a deadline approaching
+
+
+
+
+
+
+
+
+
+
+
+## **Appendix A : User Stories**
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
+**Must-Have Features**
 
 Priority | As a ... | I want to ... | So that I can...
--------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
 
-{More to be added}
+---------- | :-------- | :--------- | :-----------
 
-## Appendix B : Use Cases
+`* * *` | new user | list all the commands | know how to use the program
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+`* * *` | new user | view a command | know how to use that particular command
 
-#### Use case: Delete person
+`* * *` | user | add a task | keep track of all my tasks/to-dos
 
-**MSS**
+`* * *` | user | add a task with a time and date | keep track of deadlines
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
-Use case ends.
+`* * *` | user | add a floating task | remind myself on less important tasks
 
-**Extensions**
+`* * *` | user | add a recurring task | be constantly reminded/won't accidentally delete this task
 
-2a. The list is empty
+`* * *` | user | add a task with tags | properly categorize my tasks 
 
-> Use case ends
+`* * *` | user | delete a task | remove a completed task from the list
 
-3a. The given index is invalid
+`* * *` | user | delete all tasks | declutter my task manager
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+`* * *` | user | delete all tasks with a certain tag | declutter my task manager
 
-{More to be added}
+`* * *` | user | find a task by name/description | see what needs to be done
 
-## Appendix C : Non Functional Requirements
+`* * *` | user | find a task by tags | find a task that may be related to another task
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+`* * *` | user | list all tasks | know what are the tasks I have entered
 
-{More to be added}
+`* * *` | user | list all tasks due by today | know what are the tasks I need to complete by today
 
-## Appendix D : Glossary
+`* * *` | user | list all tasks with a deadline | know what are the tasks I can plan my schedule
 
-##### Mainstream OS
+`* * *` | user | list all tags | know what tags I can search for
 
-> Windows, Linux, Unix, OS-X
+`* * *` | user | edit any information of the task | make changes to the tasks that I have created
 
-##### Private contact detail
 
-> A contact detail that is not meant to be shared with others
+**Nice-To-Have Features**
 
-## Appendix E : Product Survey
+`* *` | user | undo previous command | remove any task that is entered wrongly
 
-{TODO: Add a summary of competing products}
+`* *` | user | keep my information safe | protect information that is private to me
 
+`* *` | user | be reminded of my deadlines | meet my deadlines
+
+`* *` | user | prioritize my tasks | know which tasks are more important
+
+`* *` | user | keep my deleted tasks temporarily | restore them should I need to
+
+`* *` | user | auto correct my typos when typing a command | not retype/edit the command everytime I make a typo
+
+`* *` | user | asked everytime I add a task | ensure that all fields have been entered correctly
+
+`* *` | user | asked everytime I delete a task | not accidentally lose information
+
+`* *` | user | asked everytime I edit a task | not accidentally change the wrong information
+
+
+**May-Have Features**
+
+`*` | user | find history of tasks of certain past period of time
+
+`*` | user | predict and auto correct my typos | be lazy and not retype everything again
+
+
+
+
+
+
+
+
+
+
+
+## **Appendix B : Use Cases**
+
+1. Use case: Add task
+
+- User requests to add a task
+- Unburden will add the task
+- Unburden will show the task added
+
+  Use case ends
+
+
+
+2. Use case: Delete task
+
+- User requests to delete a specific task
+- Unburden will request the user to confirm
+- User confirms with Unburden
+- Unburden will delete the task
+
+  Use case ends
+
+
+
+3. Use case: Find task
+
+- User requests to find a specific task
+- Unburden will search through the library of existing tasks
+- Unburden will sieve out tasks that contain the keywords typed in
+- Unburden will show a list of the tasks
+- User is able to remember what he/she needs to do
+
+  Use case ends
+
+
+
+4. Use case: Edit task
+
+- User requests to edit a task
+- Unburden will search for the task based on the user&#39;s input
+- User will type in the new task description
+- Unburden will request the user to confirm the changes
+- User will confirm with Unburden
+- Unburden will update the new changes
+
+  Use case: ends
+
+
+
+
+## **Appendix C : Non Functional Requirements**
+
+ 1. The app should run smoothly 
+ 2. The app should be able to run all on all operating systems 
+ 3. The app should be able to store up to 1000 tasks per user 
+ 4. The app should not take up a lot of space 
+ 5. The app should be start up quickly 
+ 6. The app should be able to process requests from the user in under 1ms 
+ 7. The app should not crash 
+ 8. The app should not do anything else other than what the user inputs 
+ 9. The app should be able to recover from errors easily 
+
+## **Appendix D : Glossary**
+
+ 1. UI - User Interface 
+ 2. API - Application Programming Interface 
+ 3. App - Application 
+ 4. IDE - Integrated Development environment 
+
+
+
+
+
+
+
+
+
+
+
+## **Appendix E : Product Survey**
+
+Based on research done, below is a table of some of the applicable features and which applications offer them. In effect, our group intends to sieve out the good features while omitting the less popular ones from these applications and implement them into _Unburden_.
+
+|   | **Todoist** | **Wunderlist** | **Any.do** | **Remember the milk** | **Clear** |
+| --- | --- | --- | --- | --- | --- |
+| **Easy to setup and manage** | _Yes_ | _Yes, easy to understand_ | _Yes but not as well as the Wunderlist_ | _Yes_ | _Yes, but can be more intuitive_ |
+| **Able to collaborate with other people** | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_ | _Yes, able to share with other people_  |
+| **Focuses on tasks with specific deadline** | _No_ | _No_ | _Yes_ | _No_ | _No_ |
+| **Using color tags to differentiate different tasks or lists** | _No_ | _No_ | _No_ | _No_ | _Yes, able to colour code tasks and lists so that it is easier to differentiate_ |
+| **Able to set certain tasks as &quot;recurring&quot;** | _No_ | _No_ | _Yes, &quot;recurring&quot; tasks will continue to remind the user_ | _No_ | _No_ |
+| **Able to navigate around using only command line** | _No_ | _No_ | _No_ | _No_ | _No_ |
