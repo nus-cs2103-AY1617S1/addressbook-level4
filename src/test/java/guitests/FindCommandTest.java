@@ -18,6 +18,10 @@ public class FindCommandTest extends TaskManagerGuiTest {
         //find after deleting one result
         commandBox.runCommand("delete 1");
         assertFindResult("find assignment",td.task3);
+        
+        assertListSize(1); // should only contain task3
+        assertResultMessage("1 tasks listed!");
+        assertTrue(taskListPanel.isListMatching(td.task3));
     }
 
     @Test

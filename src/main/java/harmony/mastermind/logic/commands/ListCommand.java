@@ -46,7 +46,7 @@ public class ListCommand extends Command {
         if (!archives) {
             model.updateFilteredListToShowAll();
             
-            return new CommandResult(MESSAGE_SUCCESS+"\n"+model.getTaskManager().getTaskList().toString());
+            return new CommandResult(MESSAGE_SUCCESS);
         
         }else{
             return new CommandResult(MESSAGE_SUCCESS_ARCHIVED);
