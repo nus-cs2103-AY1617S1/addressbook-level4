@@ -106,33 +106,23 @@ Examples:
 <br><br>
 
 #### <a id="list"></a>3. Listing tasks: `list`
-1. Listing all the tasks. <br>
+1) Listing all the tasks. <br>
 Format: `list`
 
-The List Command shows a list of all tasks in the task manager so that you can take a look at your tasks all at one go.
+The List Command shows a list of all tasks in the task manager so that you can take a look at your tasks all at one Groceries.
 
-You will be able to view all of today’s tasks and  tasks that are due before a specific date. There will be index numbers allocated at the side of each task which will be needed for other operations such as deleting a task or selecting a task.
+ There will be index numbers allocated at the side of each task which will be needed for other operations such as deleting a task or selecting a task.
 
+2) Listing tasks due before a specific date. <br>
+Format: `list due DATE`
 
-2. Listing today’s task. <br>
-Format: `list today`
+You will be able to view all of today’s tasks and  tasks that are due before a specific date. By keying in the following, it will display a list of all the tasks due before the input date in the task manager.
 
-In order to shows a list of the tasks due today in the task manager, you have to type the following in the command line <br>
-
-> list today
-
-This will bring up all your tasks in a list which is sorted accordingly to the time that the task will be starting. <br>
-
-3. Listing tasks due before a specific date. <br>
-Format: `list DATE`
-
-By keying in the following, it will display a list of the tasks due before the input date in the task manager.
-
-> list DATE
+> list due DATE
 
 Examples:
-* `list tomorrow` shows every task from now to the end of tomorrow <br>
-* `list 1st Jan` shows every task from now till the end of 1st January 2017 <br>
+* `list due tomorrow` shows every task from now to the end of tomorrow <br>
+* `list due 1st Jan` shows every task from now till the end of 1st January 2017 <br>
 
 <br><br>
 
@@ -159,8 +149,8 @@ Examples:
 <br><br>
 
 #### <a id="edit"></a>5. Editing a task: `edit`
-\1. Editing any parameter of a task <br>
-Format: `edit INDEX [n/NAME], [s/START_DATE], [st/START_TIME], [e/END_DATE], [st/END_TIME], [i/IMPORTANCE]`
+1) Editing any parameter of a task <br>
+Format: `edit INDEX [n/NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [i/IMPORTANCE]`
 
 Made a spelling mistake or your event was postponed? You can use the Edit Command to swiftly rectify any tasks on the task list.
 
@@ -177,7 +167,7 @@ Examples
   `edit 1 n/Business Lunch st/1pm`<br>
   Changes the name of 1st task in the results of the `find` command to ‘Business Lunch at 1 pm’  
 
-\2. Converting a task to a floating task. <br>
+2) Converting a task to a floating task. <br>
 Format: `edit INDEX float`
 
 Use the keyword "float" to convert any task into a floating task by removing the starting and ending dates and times.
