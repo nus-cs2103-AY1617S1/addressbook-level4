@@ -1,6 +1,5 @@
 package seedu.todo.controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.todo.ui.UiManager;

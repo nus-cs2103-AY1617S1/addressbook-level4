@@ -3,6 +3,7 @@ package seedu.todo.ui.components;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -54,8 +55,8 @@ public class TaskList extends Component {
         ephemeralDb.clearDisplayedCalendarItems();
 
         // Get a list of tasks mapped to each date
-        HashMap<LocalDateTime, ArrayList<Task>> tasksByDate = getItemsByDate(tasks);
-        HashMap<LocalDateTime, ArrayList<Event>> eventsByDate = getItemsByDate(events);
+        Map<LocalDateTime, ArrayList<Task>> tasksByDate = getItemsByDate(tasks);
+        Map<LocalDateTime, ArrayList<Event>> eventsByDate = getItemsByDate(events);
 
         // Get unique task/event dates
         Set<LocalDateTime> uniqueDateSet = new HashSet<>();
@@ -87,20 +88,22 @@ public class TaskList extends Component {
         }
     }
 
-    private <T extends CalendarItem> HashMap<LocalDateTime, ArrayList<T>> getItemsByDate(List<T> calendarItems) {
-        HashMap<LocalDateTime, ArrayList<T>> itemsByDate = new HashMap<>();
+    private <T extends CalendarItem> Map<LocalDateTime, ArrayList<T>> getItemsByDate(List<T> calendarItems) {
+        Map<LocalDateTime, ArrayList<T>> itemsByDate = new HashMap<>();
 
         for (T item : calendarItems) {
             LocalDateTime itemDate = DateUtil.floorDate(item.getCalendarDT());
             
             // Handle tasks without a date
-            if (itemDate == null)
+            if (itemDate == null) {
                 itemDate = NO_DATE_VALUE;
+            }
 
             // Creates ArrayList if not already exists.
             if (!itemsByDate.containsKey(itemDate)) {
                 itemsByDate.put(itemDate, new ArrayList<T>());
             }
+            
             // Adds to the ArrayList.
             itemsByDate.get(itemDate).add(item);
         }

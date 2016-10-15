@@ -1,6 +1,5 @@
 package seedu.todo.models;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,8 +8,6 @@ import java.util.Set;
 
 import seedu.todo.commons.exceptions.CannotRedoException;
 import seedu.todo.commons.exceptions.CannotUndoException;
-import seedu.todo.commons.util.FileUtil;
-import seedu.todo.commons.util.JsonUtil;
 import seedu.todo.storage.JsonStorage;
 import seedu.todo.storage.Storage;
 
