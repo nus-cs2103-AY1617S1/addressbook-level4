@@ -3,7 +3,7 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's date number in the address book.
+ * Represents a task's date number in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
@@ -29,7 +29,7 @@ public class Date {
     }
 
     /**
-     * Returns true if a given string is a valid person date number.
+     * Returns true if a given string is a valid task date number.
      */
     public static boolean isValidDate(String test) {
         return test.matches(DATE_VALIDATION_REGEX);

@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 
 /**
- * Lists all tasks in the address book to the user.
+ * Shows all tasks in the task manager to the user.
  */
 public class ShowCommand extends Command {
 

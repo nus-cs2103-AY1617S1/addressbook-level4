@@ -4,7 +4,7 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a task's address in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidEndTime(String)}
  */
 public class EndTime {
@@ -30,7 +30,7 @@ public class EndTime {
     }
 
     /**
-     * Returns true if a given string is a valid person start.
+     * Returns true if a given string is a valid task start.
      */
     public static boolean isValidEndTime(String test) {
 
