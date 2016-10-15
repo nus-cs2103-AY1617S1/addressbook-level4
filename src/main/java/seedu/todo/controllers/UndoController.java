@@ -12,6 +12,7 @@ import seedu.todo.ui.views.IndexView;
 public class UndoController implements Controller {
     
     private static final String MESSAGE_SUCCESS = "Successfully undid %s %s!\nTo redo, type \"redo\".";
+    private static final String MESSAGE_MULTIPLE_FAILURE = "We cannot undo %s %s! At most, you can undo %s %s.";
     private static final String MESSAGE_FAILURE = "There is no command to undo!";
 
     @Override
@@ -43,6 +44,12 @@ public class UndoController implements Controller {
         
         // We don't really have a nice way to support SQL transactions, so yeah >_<
         TodoListDB db = TodoListDB.getInstance();
+        if (db.undoSize() < numUndo || numUndo < 0) {
+            UiManager.updateConsoleMessage(String.format(MESSAGE_MULTIPLE_FAILURE,
+                    numUndo, StringUtil.pluralizer(numUndo, "command", "commands"),
+                    db.undoSize(), StringUtil.pluralizer(db.undoSize(), "command", "commands")));
+            return;
+        }
         for (int i = 0; i < numUndo; i++) {
             if (!db.undo()) {
                 UiManager.updateConsoleMessage(MESSAGE_FAILURE);
