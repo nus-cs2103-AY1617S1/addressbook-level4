@@ -29,9 +29,13 @@ public class CommandErrorView extends UiPart {
     private AnchorPane placeholder;
     private VBox errorViewBox;
     @FXML
-    private VBox nonFieldErrorBox, fieldErrorBox;
+    private VBox nonFieldErrorBox;
     @FXML
-    private GridPane nonFieldErrorGrid, fieldErrorGrid;
+    private VBox fieldErrorBox;
+    @FXML
+    private GridPane nonFieldErrorGrid;
+    @FXML
+    private GridPane fieldErrorGrid;
 
     public static CommandErrorView load(Stage primaryStage, AnchorPane placeHolder) {
         CommandErrorView errorView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandErrorView());
