@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.tag.Tag;
@@ -139,31 +138,6 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
-    }
-    
-    @Override
-    public List<ReadOnlyTask> getTodayTasks() {
-        return Collections.unmodifiableList(tasks.getSubInternalTodayTaskList());
-    }
-    
-    @Override
-    public List<ReadOnlyTask> getTomorrowTasks() {
-        return Collections.unmodifiableList(tasks.getSubInternalTomorrowTaskList());
-    }
-    
-    @Override
-    public List<ReadOnlyTask> getIn7DaysTasks() {
-        return Collections.unmodifiableList(tasks.getSubInternalIn7DaysTaskList());
-    }
-    
-    @Override
-    public List<ReadOnlyTask> getIn30DaysTasks() {
-        return Collections.unmodifiableList(tasks.getSubInternalIn30DaysTaskList());
-    }
-
-    @Override
-    public List<ReadOnlyTask> getSomedayTasks() {
-        return Collections.unmodifiableList(tasks.getSubInternalSomedayTaskList());
     }
 
     @Override

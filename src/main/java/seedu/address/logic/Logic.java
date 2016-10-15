@@ -18,19 +18,4 @@ public interface Logic {
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
-     /** Returns the filtered list of tasks for today*/
-    ObservableList<ReadOnlyTask> getFilteredTodayTaskList();
-
-    /** Returns the filtered list of tasks for tomorrow*/
-    ObservableList<ReadOnlyTask> getFilteredTomorrowTaskList();
-
-    /** Returns the filtered list of tasks for the next 7 days*/
-    ObservableList<ReadOnlyTask> getFilteredIn7DaysTaskList();
-
-    /** Returns the filtered list of tasks for the next 30 days*/
-    ObservableList<ReadOnlyTask> getFilteredIn30DaysTaskList();
-
-    /** Returns the filtered list of all someday tasks */
-    ObservableList<ReadOnlyTask> getFilteredSomedayTaskList();
-
 }

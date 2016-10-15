@@ -31,11 +31,11 @@ public class NewMainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListLeftPanel;
-    private TaskListPanel taskListRightTodayPanel;
-    private TaskListPanel taskListRightTomorrowPanel;
-    private TaskListPanel taskListRightIn7DaysPanel;
-    private TaskListPanel taskListRightIn30DaysPanel;
-    private TaskListPanel taskListRightSomedayPanel;
+    private TaskListPanel todayTaskListTabPanel;
+    private TaskListPanel tomorrowTaskListTabPanel;
+    private TaskListPanel in7DaysTaskListTabPanel;
+    private TaskListPanel in30DaysTaskListTabPanel;
+    private TaskListPanel somedayTaskListTabPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -55,22 +55,22 @@ public class NewMainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane taskListPanelLeftPlaceholder;
+    private AnchorPane taskListLeftPanelPlaceholder;
 
     @FXML 
-	private AnchorPane taskListPanelRightTodayPlaceholder;
+	private AnchorPane todayTaskListTabPanelPlaceholder;
     
     @FXML
-	private AnchorPane taskListPanelRightTomorrowPlaceholder;
+	private AnchorPane tomorrowTaskListTabPanelPlaceholder;
     
     @FXML
-	private AnchorPane taskListPanelRightIn7DaysPlaceholder;
+	private AnchorPane in7DaystaskListTabPanelPlaceholder;
     
     @FXML
-	private AnchorPane taskListPanelRightIn30DaysPlaceholder;
+	private AnchorPane in30DaystaskListTabPanelPlaceholder;
     
     @FXML
-	private AnchorPane taskListPanelRightSomedayPlaceholder;
+	private AnchorPane somedaytaskListTabPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -126,11 +126,11 @@ public class NewMainWindow extends UiPart {
 
     void fillInnerParts() {
         taskListLeftPanel = TaskListPanel.load(primaryStage, getTaskListLeftPlaceholder(), logic.getFilteredTaskList());
-        taskListRightTodayPanel = TaskListPanel.load(primaryStage, getTaskRightTodayListPlaceholder(), logic.getFilteredTodayTaskList());
-        taskListRightTomorrowPanel = TaskListPanel.load(primaryStage, getTaskListRightTomorrowPlaceholder(), logic.getFilteredTomorrowTaskList());
-        taskListRightIn7DaysPanel = TaskListPanel.load(primaryStage, getTaskListRightIn7DaysPlaceholder(), logic.getFilteredIn7DaysTaskList());
-        taskListRightIn30DaysPanel = TaskListPanel.load(primaryStage, getTaskListRightIn30DaysPlaceholder(), logic.getFilteredIn30DaysTaskList());
-        taskListRightSomedayPanel = TaskListPanel.load(primaryStage, getTaskListRightSomedayPlaceholder(), logic.getFilteredSomedayTaskList());
+        todayTaskListTabPanel = TaskListPanel.load(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
+        tomorrowTaskListTabPanel = TaskListPanel.load(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
+        in7DaysTaskListTabPanel = TaskListPanel.load(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
+        in30DaysTaskListTabPanel = TaskListPanel.load(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
+        somedayTaskListTabPanel = TaskListPanel.load(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -149,27 +149,27 @@ public class NewMainWindow extends UiPart {
     }
 
     public AnchorPane getTaskListLeftPlaceholder() {
-        return taskListPanelLeftPlaceholder;
+        return taskListLeftPanelPlaceholder;
     }
 
-	private AnchorPane getTaskRightTodayListPlaceholder() {
-		return taskListPanelRightTodayPlaceholder;
+	private AnchorPane getTodayTaskListTabPanelPlaceholder() {
+		return todayTaskListTabPanelPlaceholder;
 	}
 
-	private AnchorPane getTaskListRightTomorrowPlaceholder() {
-		return taskListPanelRightTomorrowPlaceholder;
+	private AnchorPane getTomorrowTaskListTabPanelPlaceholder() {
+		return tomorrowTaskListTabPanelPlaceholder;
 	}
 	
-	private AnchorPane getTaskListRightIn7DaysPlaceholder() {
-		return taskListPanelRightIn7DaysPlaceholder;
+	private AnchorPane getIn7DaysTaskListTabPanelPlaceholder() {
+		return in7DaystaskListTabPanelPlaceholder;
 	}
 
-	private AnchorPane getTaskListRightIn30DaysPlaceholder() {
-		return taskListPanelRightIn30DaysPlaceholder;
+	private AnchorPane getIn30DaysTaskListTabPanelPlaceholder() {
+		return in30DaystaskListTabPanelPlaceholder;
 	}
     
-    private AnchorPane getTaskListRightSomedayPlaceholder() {
-    	return taskListPanelRightSomedayPlaceholder;
+    private AnchorPane getSomedayTaskListTabPanelPlaceholder() {
+    	return somedaytaskListTabPanelPlaceholder;
 	}
 
     public void hide() {
@@ -224,6 +224,6 @@ public class NewMainWindow extends UiPart {
     }
 
     public TaskListPanel getTaskListPanel() {
-        return this.taskListPanel;
+        return this.taskListLeftPanel;
     }
 }
