@@ -11,7 +11,7 @@ public class ItemType {
 	public static final String DEADLINE_WORD = "deadline";
 	public static final String TASK_WORD = "task";
 	
-    public static final String MESSAGE_ITEMTYPE_CONSTRAINTS = "Item types should only be 'task', 'deadline' or 'event'.";
+    public static final String MESSAGE_ITEM_TYPE_CONSTRAINTS = "Item types should only be 'task', 'deadline' or 'event'.";
     public static final String ITEMTYPE_VALIDATION_REGEX = EVENT_WORD + "|" + DEADLINE_WORD + "|" + TASK_WORD;
 
     public final String value;
@@ -25,7 +25,7 @@ public class ItemType {
         assert itemType != null;
         itemType = itemType.trim();
         if (!isValidItemType(itemType.toLowerCase())) {
-            throw new IllegalValueException(MESSAGE_ITEMTYPE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_ITEM_TYPE_CONSTRAINTS);
         }
         this.value = itemType;
     }
