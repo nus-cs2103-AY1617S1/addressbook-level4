@@ -32,6 +32,7 @@ public class MainApp extends Application {
     private static final String MESSAGE_WELCOME = "Welcome! What would like to get done today?";
 
     private static Config config;
+    private static String configFilePath;
     
     protected UiManager ui;
 
@@ -40,9 +41,12 @@ public class MainApp extends Application {
     @Override
     public void init() throws Exception {
         super.init();
+        
+        // Read app param
+        configFilePath = getApplicationParameter("config");
 
         // Initialize config from config file, or create a new one.
-        setConfig(initConfig(getApplicationParameter("config")));
+        config = initConfig();
 
         // Initialize logging
         initLogging(getConfig());
@@ -55,8 +59,9 @@ public class MainApp extends Application {
         ui = UiManager.getInstance();
 
         // Load DB
-        if (!TodoListDB.getInstance().load())
+        if (!TodoListDB.getInstance().load()) {
             TodoListDB.getInstance().save();
+        }
     }
 
     @Override
@@ -98,16 +103,18 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
-    private Config initConfig(String configFilePath) {
+    private Config initConfig() {
         Config initializedConfig;
         String configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
-        if(configFilePath != null) {
+        if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
         }
+        
+        configFilePath = configFilePathUsed;
 
         logger.info("Using config file : " + configFilePathUsed);
 
@@ -129,6 +136,14 @@ public class MainApp extends Application {
 
         return initializedConfig;
     }
+    
+    public static String getConfigFilePath() {
+        return configFilePath;
+    }
+
+    public static Config getConfig() {
+        return config;
+    }
 
     private void initEventsCenter() {
         EventsCenter.getInstance().registerHandler(this);
@@ -146,13 +161,5 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public static Config getConfig() {
-        return config;
-    }
-
-    public static void setConfig(Config config) {
-        MainApp.config = config;
     }
 }

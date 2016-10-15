@@ -1,5 +1,6 @@
 package seedu.todo.commons.core;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -81,6 +82,17 @@ public class Config {
         ConfigDefinition configDatabaseFilePath = new ConfigDefinition("databaseFilePath", "Database File Path", databaseFilePath);
                 
         return Arrays.asList(configAppTitle, configDatabaseFilePath);
+    }
+    
+    public List<String> getDefinitionsNames() {
+        List<ConfigDefinition> definitions = getDefinitions();
+        List<String> names = new ArrayList<>();
+        
+        for (ConfigDefinition definition : definitions) {
+            names.add(definition.getConfigName());
+        }
+        
+        return names;
     }
 
 }
