@@ -28,9 +28,19 @@ public class Parser {
 
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
-                    + " (?<isStartTimePrivate>p?)s/(?<startTime>[^/]+)"
-                    + " (?<isEndTimePrivate>p?)e/(?<endTime>[^/]+)");
+                    + "d/^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$/"
+                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)");
+    
+    private static final Pattern event_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + "d/^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$/"
+                    + " (?<StartTime>p?)s/(?<StartTime>[^/]+)"
+                    + " (?<EndTime>p?)e/(?<EndTime>[^/]+)");
+    
+    private static final Pattern deadline_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + "d/^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$/"
+                    + " (?<EndTime>p?)e/(?<EndTime>[^/]+)");
 
     public Parser() {}
 
@@ -50,11 +60,8 @@ public class Parser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddTaskCommand.COMMAND_WORD_TASK:
-            return prepareAddTask(arguments);
-            
-        case AddEventCommand.COMMAND_WORD_EVENT:
-            return prepareAddEvent(arguments);    
+        case AddCommand.COMMAND_WORD:
+            return prepareAdd(arguments);   
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -88,46 +95,47 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAddTask(String args){
-        final Matcher matcher = task_DATA_ARGS_FORMAT.matcher(args.trim());
+    private Command prepareAdd(String args){
+        final Matcher matcher_task = task_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_event = event_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_deadline = deadline_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
+        if (matcher_task.matches()) {
+            try {
+                return new AddCommand(
+                        matcher_task.group("name"),
+                        matcher_task.group("date"),
+                        matcher_task.group("priority")
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+            
+        }else if(matcher_event.matches()){
+            try {
+                return new AddCommand(
+                        matcher_event.group("name"),
+                        matcher_event.group("date"),
+                        matcher_event.group("startTime"),
+                        matcher_event.group("endTime")
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }else if(matcher_deadline.matches()){
+            try {
+                return new AddCommand(
+                        matcher_deadline.group("name"),
+                        matcher_deadline.group("date"),
+                        matcher_deadline.group("endTime")
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }else{
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE)); 
         }
-        try {
-            return new AddTaskCommand(
-                    matcher.group("name"),
-                    matcher.group("priority"),
-                    matcher.group("startTime"),
-                    matcher.group("endTime")
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-    }
-    
-    /**
-     * Parses arguments in the context of the add event command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareAddEvent(String args){
-        final Matcher matcher = task_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
-        }
-        try {
-            return new AddEventCommand(
-                    matcher.group("name"),
-                    matcher.group("priority"),
-                    matcher.group("startTime"),
-                    matcher.group("endTime")
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+       
     }
 
     /**
