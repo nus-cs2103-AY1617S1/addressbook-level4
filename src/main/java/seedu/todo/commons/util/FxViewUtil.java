@@ -21,6 +21,7 @@ public class FxViewUtil {
     
     /**
      * Hides a specified UI element, and ensures that it does not occupy any space.
+     * @author Wang Xien Dong
      */
     public static void setCollapsed(Node node, boolean isCollapsed) {
         node.setVisible(!isCollapsed);
@@ -29,6 +30,7 @@ public class FxViewUtil {
     
     /**
      * Set the text to UI element when available, collapse the UI element when not.
+     * @author Wang Xien Dong
      */
     public static void displayTextWhenAvailable(Label labelToDisplay, Node nodeToHide, Optional<String> optionalString) {
         if (optionalString.isPresent()) {
@@ -40,6 +42,7 @@ public class FxViewUtil {
     
     /**
      * Constructs a label view with a dark grey rounded background.
+     * @author Wang Xien Dong
      */
     public static Label constructRoundedText(String text) {
         Label label = new Label();

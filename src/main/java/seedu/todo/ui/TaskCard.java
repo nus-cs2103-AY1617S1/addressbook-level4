@@ -64,6 +64,9 @@ public class TaskCard extends UiPart{
         return UiPartLoader.loadUiPart(taskListCard);
     }
 
+    /**
+     * Initialise all the view elements in a task card.
+     */
     @FXML
     public void initialize() {
         displayEverythingElse();
