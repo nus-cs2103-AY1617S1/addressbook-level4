@@ -4,7 +4,7 @@ import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
 
@@ -77,10 +77,9 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getDetail().value + " ");
-        sb.append("e/" + this.getOnDate().toString() + " ");
-        sb.append("a/" + this.getByDate().toString() + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("on " + this.getOnDate().toString() + " ");
+        sb.append("by " + this.getByDate().toString() + " ");
+        sb.append("; " + this.getDetail().value + " ");
         return sb.toString();
     }
 }

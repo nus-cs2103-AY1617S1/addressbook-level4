@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A GUI Test class for ToDoList.
  */
-public abstract class AddressBookGuiTest {
+public abstract class ToDoListGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -40,7 +40,7 @@ public abstract class AddressBookGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle personListPanel;
+    protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -60,13 +60,13 @@ public abstract class AddressBookGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            personListPanel = mainGui.getPersonListPanel();
+            taskListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
+        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData/*, getDataFileLocation()*/));
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();
@@ -77,7 +77,7 @@ public abstract class AddressBookGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected ToDoList getInitialData() {
-        ToDoList ab = TestUtil.generateEmptyAddressBook();
+        ToDoList ab = TestUtil.generateEmptyToDoList();
         TypicalTestTasks.loadToDoListWithSampleData(ab);
         return ab;
     }
@@ -86,9 +86,9 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the data file location.
      * @return
      */
-    protected String getDataFileLocation() {
+/*    protected String getDataFileLocation() {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
-    }
+    }*/
 
     @After
     public void cleanup() throws TimeoutException {
@@ -98,7 +98,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyTask person, PersonCardHandle card) {
+    public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
@@ -106,7 +106,7 @@ public abstract class AddressBookGuiTest {
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = personListPanel.getNumberOfPeople();
+        int numberOfPeople = taskListPanel.getNumberOfPeople();
         assertEquals(size, numberOfPeople);
     }
 

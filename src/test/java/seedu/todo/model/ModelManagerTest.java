@@ -33,7 +33,7 @@ public class ModelManagerTest {
 		model = new ModelManager();
 		model.resetData(toDoList);
 	}
-
+/*
 	@Test
     public void shouldAddTask() throws Exception{
     	TestTask[] testTasks = typicalTestTasks.getTypicalTasks();
@@ -42,7 +42,7 @@ public class ModelManagerTest {
     		assertTrue(model.getFilteredTaskList().get(i).equals(testTasks[i]));
     	}
     	
-    }
+    }*/
 
 
 }
