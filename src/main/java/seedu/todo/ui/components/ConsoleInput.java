@@ -58,6 +58,14 @@ public class ConsoleInput extends Component {
     @FXML
     public void handleConsoleInputChanged() {
         lastCommandEntered = consoleInputTextField.getText();
+        
+        // Don't change anything if our command is empty.
+        if (lastCommandEntered.length() <= 0) {
+            return;
+        }
+        
+        assert lastCommandEntered.length() > 0;
+        
         boolean isValidCommand = inputHandler.processInput(lastCommandEntered);
         
         if (!isValidCommand) {
