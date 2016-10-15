@@ -4,7 +4,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
 
@@ -23,7 +23,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
 
-    public void setDeadline(Date date) {
+    public void setDate(Date date) {
         this.date = date;
         if (date instanceof EventDate) {
             isEvent = true;
@@ -31,7 +31,7 @@ public class TestTask implements ReadOnlyTask {
             isEvent = false;
         }
     }
-
+    
     @Override
     public Name getName() {
         return name;
@@ -61,12 +61,16 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskName + " ");
         if (isEvent) {
+            assert date instanceof EventDate;
             EventDate eventDate = (EventDate) this.getDate();
             sb.append("s/" + eventDate.getStartDate() + " ");
             sb.append("e/" + eventDate.getEndDate() + " ");
         } else {
             assert date instanceof Deadline;
-            sb.append("d/" + this.getDate().getValue() + " ");
+            String deadline = this.getDate().getValue();
+            if (!deadline.equals("")) {
+                sb.append("d/" + deadline + " ");
+            }
         }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();

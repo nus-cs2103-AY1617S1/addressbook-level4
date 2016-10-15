@@ -29,6 +29,7 @@ public class Deadline implements Date{
      * Returns true if a given string is a valid deadline.
      */
     public static boolean isValidDeadline(String test) {
+        assert test != null;
         return test.matches(DATE_VALIDATION_REGEX) || test.equals("");
     }
     

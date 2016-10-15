@@ -68,7 +68,7 @@ public class EventDate implements Date{
     }
     
     public String getEndDate() {
-        return startDate;
+        return endDate;
     }
     
 }
