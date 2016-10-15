@@ -13,6 +13,7 @@ import seedu.todo.model.ErrorBag;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -106,6 +107,9 @@ public class CommandErrorView extends UiPart {
         if (fieldErrors.isEmpty()) {
             hideErrorBox(fieldErrorBox);
         } else {
+            List<Map.Entry<String, String>> sortedErrors = new ArrayList<>(fieldErrors.entrySet());
+            sortedErrors.sort((o1, o2) -> o1.getKey().compareTo(o2.getKey()));
+
             int rowCounter = 0;
             for (Map.Entry<String, String> fieldError : fieldErrors.entrySet()) {
                 addRowToGrid(fieldErrorGrid, rowCounter++, fieldError.getKey(), fieldError.getValue());
