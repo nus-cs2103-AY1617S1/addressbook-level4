@@ -41,8 +41,9 @@ public class DeleteCommand extends Command {
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
+            Task taskToSave = new Task(taskToDelete);
         	model.deleteTask(taskToDelete);
-        	CommandHistory.addMutateCmd(new Undo(COMMAND_WORD, targetIndex, (Task)taskToDelete));
+        	CommandHistory.addMutateCmd(new Undo(COMMAND_WORD, targetIndex, taskToSave));
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
