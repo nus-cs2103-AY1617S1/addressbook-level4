@@ -39,6 +39,7 @@ public class HelpController implements Controller {
                                          AddController.getCommandDefinition(),
                                          ListController.getCommandDefinition(),
                                          UpdateController.getCommandDefinition(),
-                                         DestroyController.getCommandDefinition() };
+                                         DestroyController.getCommandDefinition(),
+                                         ExitController.getCommandDefinition() };
     }
 }
