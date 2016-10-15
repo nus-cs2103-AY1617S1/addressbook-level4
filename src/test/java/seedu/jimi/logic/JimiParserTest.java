@@ -14,7 +14,7 @@ public class JimiParserTest {
     @Test
     public void test() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         JimiParser parser = new JimiParser();
-        String userInput = "add \"chore\" by 12-31-2017";
+        String userInput = "add \"chore\" due 12-31-2017";
         Command c = parser.parseCommand(userInput);
         assert c instanceof AddCommand;
         Field field = AddCommand.class.getDeclaredField("toAdd");
