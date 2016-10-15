@@ -1,5 +1,6 @@
 package seedu.taskman.model.event;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import com.google.common.base.Objects;
 
 import seedu.taskman.commons.exceptions.IllegalValueException;
@@ -15,6 +16,7 @@ public class Frequency {
     public static final String FREQUENCY_VALIDATION_REGEX = "^" + DateTimeParser.SINGLE_DURATION + "$";
 
     public final Long seconds;
+    public final PrettyTime p = new PrettyTime();
 
     public Frequency(String frequency) throws IllegalValueException {
         assert frequency != null;
