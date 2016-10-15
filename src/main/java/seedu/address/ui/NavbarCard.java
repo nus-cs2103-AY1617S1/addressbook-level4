@@ -27,6 +27,7 @@ public class NavbarCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(label);
+        
     }
 
     public HBox getLayout() {
