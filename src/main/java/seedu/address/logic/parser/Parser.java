@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import com.joestelmach.natty.DateGroup;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.IncorrectCommandException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -122,22 +123,32 @@ public class Parser {
 	}
 
 	private Command prepareDone(String arguments) {
+		int[] indices;
+		try {
+			indices = prepareIndexList(arguments);
+		} catch (IncorrectCommandException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+		}
+
+		return new DoneCommand(indices);
+	}
+
+
+	private int[] prepareIndexList(String arguments) throws IncorrectCommandException{
 		ArrayList<Optional<Integer>> indexOptionals = parseIndices(arguments);
 
 		int[] indices = new int[indexOptionals.size()];
 		int i = 0;
 		for (Optional<Integer> index : indexOptionals) {
 			if (!index.isPresent()) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+				throw new IncorrectCommandException("Incorrect Command");
 			}
 			indices[i] = index.get();
 			i++;
 		}
 
 		System.out.println("indices: " + Arrays.toString(indices));
-
-		// TODO return new TMDeleteCommand(indices);
-		return new DoneCommand(indices);
+		return indices;
 	}
 
 
@@ -361,21 +372,12 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareDelete(String arguments) {
-		ArrayList<Optional<Integer>> indexOptionals = parseIndices(arguments);
-
-		int[] indices = new int[indexOptionals.size()];
-		int i = 0;
-		for (Optional<Integer> index : indexOptionals) {
-			if (!index.isPresent()) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-			}
-			indices[i] = index.get();
-			i++;
+		int[] indices;
+		try {
+			indices = prepareIndexList(arguments);
+		} catch (IncorrectCommandException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 		}
-
-		System.out.println("indices: " + Arrays.toString(indices));
-
-		// TODO return new TMDeleteCommand(indices);
 		return new DeleteCommand(indices);
 	}
 
