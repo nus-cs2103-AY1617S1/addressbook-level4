@@ -37,7 +37,7 @@ public class CommandFeedbackView extends UiPart {
     }
 
     /**
-     * Configure the UI properties of CommandFeedbackView
+     * Configure the UI properties of {@link CommandFeedbackView}
      */
     private void configure() {
         FxViewUtil.applyAnchorBoundaryParameters(textContainer, 0.0, 0.0, 0.0, 0.0);
