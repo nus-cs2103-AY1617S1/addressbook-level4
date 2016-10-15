@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 /**
  * Display textual feedback to command input via this view with {@link #displayMessage(String)}.
+ * @author Wang Xien Dong
  */
 public class CommandFeedbackView extends UiPart {
 
