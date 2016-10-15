@@ -26,6 +26,12 @@ public interface Model {
     /** Edits the given task */
     void editTask(ReadOnlyTask target, String targetProperty, String newInfo) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Marks the given task as done */
+    void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Marks the given task as undone */
+    void undoneTask (ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

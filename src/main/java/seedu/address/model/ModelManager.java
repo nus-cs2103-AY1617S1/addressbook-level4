@@ -69,6 +69,20 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeTask(target);
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	addressBook.doneTask(target);
+    	indicateTaskManagerChanged();
+    	
+    }
+    
+    @Override
+    public synchronized void undoneTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	addressBook.undoneTask(target);
+    	indicateTaskManagerChanged();
+    	
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {

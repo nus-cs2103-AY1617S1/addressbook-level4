@@ -15,7 +15,8 @@ public class Task implements ReadOnlyTask {
     private Date date;
     private StartTime start;
     private EndTime end;
-
+    private boolean done = false;
+    
     private UniqueTagList tags;
 
     /**
@@ -61,6 +62,11 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    @Override
+    public boolean getDone() {
+    	return done;
+    }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
@@ -85,6 +91,16 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    public void setDone() {
+    	System.out.println("done");
+    	this.done = true;
+    }
+    
+    public void setUndone() {
+    	System.out.println("undone");
+    	this.done = false;
     }
 
 }

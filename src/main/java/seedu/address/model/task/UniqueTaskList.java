@@ -96,6 +96,33 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(internalList.indexOf(toEdit), taskFound);
     }
     
+    /**
+     * Mark a task as done from the list.
+     * @return 
+     */
+    public void done(ReadOnlyTask toDone) throws TaskNotFoundException {
+    	assert toDone != null;
+        if(!internalList.contains(toDone))
+            throw new TaskNotFoundException();
+        Task taskFound = internalList.get(internalList.indexOf(toDone));
+        taskFound.setDone();
+        internalList.set(internalList.indexOf(toDone), taskFound);
+    }
+    
+    /**
+     * Mark a task as undone from the list.
+     * @return 
+     */
+    
+    public void undone(ReadOnlyTask toUndone) throws TaskNotFoundException {
+    	assert toUndone != null;
+        if(!internalList.contains(toUndone))
+            throw new TaskNotFoundException();
+        Task taskFound = internalList.get(internalList.indexOf(toUndone));
+        taskFound.setUndone();
+        internalList.set(internalList.indexOf(toUndone), taskFound);
+    }
+    
     
     /**
      * Removes the equivalent task from the list.
