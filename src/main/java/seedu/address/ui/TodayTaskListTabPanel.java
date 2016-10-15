@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class TodayTaskListTabPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TodayTaskListTabPanel.class);
-    private static final String FXML = "TaskListPanel.fxml";
+    private static final String FXML = "TodayTaskListTabPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 

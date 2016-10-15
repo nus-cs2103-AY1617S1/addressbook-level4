@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="547.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.NewMainWindow">
    <children>
       <MenuBar VBox.vgrow="NEVER">
          <menus>
@@ -28,7 +28,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                </items>
             </Menu>
          </menus>
@@ -54,32 +54,52 @@
                <tabs>
                   <Tab text="Today">
                      <content>
-                        <AnchorPane fx:id="todayTaskListTabPanelPlaceholder">
-                           <styleClass>
-                              <String fx:value="anchor-pane-with-border" />
-                              <String fx:value="tab-pane" />
-                           </styleClass>
-                        </AnchorPane>
+                        <VBox fx:id="todayTaskList" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <AnchorPane fx:id="todayTaskListTabPanelPlaceholder">
+                                 <styleClass>
+                                    <String fx:value="anchor-pane-with-border" />
+                                    <String fx:value="tab-pane" />
+                                 </styleClass>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
                      </content>
                   </Tab>
-                  <Tab fx:id="tomorrowTaskListTabPanelPlaceholder" text="Tomorrow">
+                  <Tab text="Tomorrow">
                      <content>
-                        <AnchorPane fx:id="todayTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" />
+                        <VBox fx:id="tomorrowTaskList" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <AnchorPane fx:id="tomorrowTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" />
+                           </children>
+                        </VBox>
                      </content>
                   </Tab>
-                  <Tab fx:id="in7DaysTaskListTabPanelPlaceholder" text="In 7 Days">
+                  <Tab text="In 7 Days">
                      <content>
-                        <AnchorPane styleClass="anchor-pane-with-border" />
+                        <VBox fx:id="in7DaysTaskList" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <AnchorPane fx:id="in7DaysTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" />
+                           </children>
+                        </VBox>
                      </content>
                   </Tab>
-                  <Tab fx:id="in30DaysTaskListTabPanelPlaceholder" text="In 30 Days">
+                  <Tab text="In 30 Days">
                      <content>
-                        <AnchorPane styleClass="anchor-pane-with-border" />
+                        <VBox fx:id="in30DaysTaskList" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <AnchorPane fx:id="in30DaysTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" />
+                           </children>
+                        </VBox>
                      </content>
                   </Tab>
-                  <Tab fx:id="somedayTaskListTabPanelPlaceholder" text="Someday">
+                  <Tab text="Someday">
                      <content>
-                        <AnchorPane prefHeight="523.0" prefWidth="409.0" />
+                        <VBox fx:id="somedayTaskList" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <AnchorPane fx:id="somedayTaskListTabPanelPlaceholder" prefHeight="523.0" prefWidth="409.0" />
+                           </children>
+                        </VBox>
                      </content>
                   </Tab>
                </tabs>
