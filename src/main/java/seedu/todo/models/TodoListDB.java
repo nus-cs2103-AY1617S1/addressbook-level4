@@ -1,13 +1,16 @@
 package seedu.todo.models;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import seedu.todo.commons.exceptions.CannotRedoException;
 import seedu.todo.commons.exceptions.CannotUndoException;
+import seedu.todo.commons.util.DateUtil;
 import seedu.todo.storage.JsonStorage;
 import seedu.todo.storage.Storage;
 
@@ -21,6 +24,56 @@ public class TodoListDB {
     
     protected TodoListDB() {
         // Prevent instantiation.
+    }
+    
+    public List<Task> getTaskByDate(LocalDateTime givenDate) {
+        ArrayList<Task> taskByDate = new ArrayList<Task>();
+        Iterator<Task> iterator = tasks.iterator();
+        while (iterator.hasNext()) {
+            Task currTask = iterator.next();
+            if (DateUtil.floorDate(currTask.getDueDate()).equals(givenDate)) {
+                taskByDate.add(currTask);
+            }
+        }
+        return taskByDate;
+    }
+    
+    public List<Task> getTaskByRange (LocalDateTime fromDate , LocalDateTime toDate) {
+        ArrayList<Task> taskByRange = new ArrayList<Task>();
+        Iterator<Task> iterator = tasks.iterator();
+        while (iterator.hasNext()) {
+            Task currTask = iterator.next();
+            if (DateUtil.floorDate(currTask.getDueDate()).compareTo(fromDate) >= 0 && 
+                    DateUtil.floorDate(currTask.getDueDate()).compareTo(toDate) <= 0) {
+                taskByRange.add(currTask);
+            }
+        }
+        return taskByRange;
+    }
+    
+    public List<Event> getEventbyDate(LocalDateTime givenDate) {
+        ArrayList<Event> eventByDate = new ArrayList<Event>();
+        Iterator<Event> iterator = events.iterator();
+        while (iterator.hasNext()) {
+            Event currEvent = iterator.next();
+            if (DateUtil.floorDate(currEvent.getCalendarDT()).equals(givenDate)) {
+                eventByDate.add(currEvent);
+            }
+        }
+        return eventByDate;
+    }
+    
+    public List<Event> getEventByRange (LocalDateTime fromDate , LocalDateTime toDate) {
+        ArrayList<Event> eventByRange = new ArrayList<Event>();
+        Iterator<Event> iterator = events.iterator();
+        while (iterator.hasNext()) {
+            Event currEvent = iterator.next();
+            if (DateUtil.floorDate(currEvent.getStartDate()).compareTo(fromDate) >= 0 && 
+                    DateUtil.floorDate(currEvent.getEndDate()).compareTo(toDate) <= 0) {
+                eventByRange.add(currEvent);
+            }
+        }
+        return eventByRange;
     }
     
     public List<Task> getAllTasks() {
