@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.malitio.model.task.ReadOnlySchedule;
 import seedu.malitio.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
@@ -26,7 +27,7 @@ public class TaskListPanel2 extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView2;
+    private ListView<ReadOnlySchedule> taskListView2;
 
     public TaskListPanel2() {
         super();
@@ -48,19 +49,19 @@ public class TaskListPanel2 extends UiPart {
     }
 
     public static TaskListPanel2 load(Stage primaryStage, AnchorPane taskListPanelPlaceholder2,
-                                       ObservableList<ReadOnlyTask> taskList) {
+                                       ObservableList<ReadOnlySchedule> taskList) {
         TaskListPanel2 taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPanelPlaceholder2, new TaskListPanel2());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    private void configure(ObservableList<ReadOnlySchedule> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    private void setConnections(ObservableList<ReadOnlySchedule> taskList) {
         taskListView2.setItems(taskList);
         taskListView2.setCellFactory(listView -> new TaskListViewCell2());
         setEventHandlerForSelectionChangeEvent();
@@ -87,13 +88,13 @@ public class TaskListPanel2 extends UiPart {
         });
     }
 
-    class TaskListViewCell2 extends ListCell<ReadOnlyTask> {
+    class TaskListViewCell2 extends ListCell<ReadOnlySchedule> {
 
         public TaskListViewCell2() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
+        protected void updateItem(ReadOnlySchedule task, boolean empty) {
             super.updateItem(task, empty);
 
             if (empty || task == null) {

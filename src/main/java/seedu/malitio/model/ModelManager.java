@@ -7,9 +7,13 @@ import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.events.model.MalitioChangedEvent;
 import seedu.malitio.commons.util.StringUtil;
 import seedu.malitio.model.task.FloatingTask;
+import seedu.malitio.model.task.ReadOnlySchedule;
 import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.Schedule;
 import seedu.malitio.model.task.Task;
+import seedu.malitio.model.task.UniqueScheduleList.DuplicateScheduleException;
 import seedu.malitio.model.task.UniqueTaskList;
+import seedu.malitio.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.malitio.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -24,7 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Malitio malitio;
     private final FilteredList<Task> filteredFloatingTasks;
-    private final FilteredList<Task> filteredEventsAndDeadlines;
+    private final FilteredList<Schedule> filteredEventsAndDeadlines;
 
     /**
      * Initializes a ModelManager with the given Malitio
@@ -39,7 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         malitio = new Malitio(src);
         filteredFloatingTasks = new FilteredList<>(malitio.getFloatingTasks());
-        filteredEventsAndDeadlines = new FilteredList<>(malitio.getEventAndDeadlines());
+        filteredEventsAndDeadlines = new FilteredList<>(malitio.getSchedules());
     }
 
     public ModelManager() {
@@ -49,7 +53,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyMalitio initialData, UserPrefs userPrefs) {
         malitio = new Malitio(initialData);
         filteredFloatingTasks = new FilteredList<>(malitio.getFloatingTasks());
-        filteredEventsAndDeadlines = new FilteredList<>(malitio.getEventAndDeadlines());
+        filteredEventsAndDeadlines = new FilteredList<>(malitio.getSchedules());
     }
 
     @Override
@@ -75,14 +79,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-    	if (task instanceof FloatingTask)
-    		malitio.addTask(task);
-    	else
-    		malitio.addTask2(task);
+    public void addFloatingTask(FloatingTask task) throws DuplicateTaskException {
+        malitio.addFloatingTask(task);
         updateFilteredListToShowAll();
+        indicatemalitioChanged();
+    }
+
+    @Override
+    public void addSchedule(Schedule schedule) throws DuplicateScheduleException {
+        malitio.addSchedule(schedule);
         updateFilteredScheduleToShowAll();
         indicatemalitioChanged();
+        
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -93,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventsAndDeadlines() {
+    public UnmodifiableObservableList<ReadOnlySchedule> getFilteredEventsAndDeadlines() {
         return new UnmodifiableObservableList<>(filteredEventsAndDeadlines);
     }
 
@@ -129,6 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
+        boolean satisfies(ReadOnlySchedule schedule);
         String toString();
     }
 
@@ -144,6 +153,11 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean satisfies(ReadOnlyTask task) {
             return qualifier.run(task);
         }
+        
+        @Override
+        public boolean satisfies(ReadOnlySchedule schedule) {
+            return qualifier.run(schedule);
+        }
 
         @Override
         public String toString() {
@@ -153,6 +167,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
+        boolean run(ReadOnlySchedule schedule);
         String toString();
     }
 
@@ -168,6 +183,18 @@ public class ModelManager extends ComponentManager implements Model {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()
+                    .isPresent();
+        }
+        
+        @Override
+        public boolean run(ReadOnlySchedule schedule) {
+            return nameKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(schedule.getName().fullName
+                            + " " + schedule.getDue().toString()
+                            + " " + schedule.getStart().toString()
+                            + " " + schedule.getEnd().toString(), 
+                            keyword))
+                    .findAny() 
                     .isPresent();
         }
 

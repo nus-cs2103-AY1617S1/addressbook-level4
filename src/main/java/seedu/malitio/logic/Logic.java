@@ -2,6 +2,7 @@ package seedu.malitio.logic;
 
 import javafx.collections.ObservableList;
 import seedu.malitio.logic.commands.CommandResult;
+import seedu.malitio.model.task.ReadOnlySchedule;
 import seedu.malitio.model.task.ReadOnlyTask;
 
 /**
@@ -18,6 +19,6 @@ public interface Logic {
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
     
-    ObservableList<ReadOnlyTask> getFilteredEventsAndDeadlines();
+    ObservableList<ReadOnlySchedule> getFilteredEventsAndDeadlines();
 
 }

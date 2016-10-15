@@ -1,8 +1,11 @@
 package seedu.malitio.model;
 
 import seedu.malitio.commons.core.UnmodifiableObservableList;
+import seedu.malitio.model.task.FloatingTask;
+import seedu.malitio.model.task.ReadOnlySchedule;
 import seedu.malitio.model.task.ReadOnlyTask;
-import seedu.malitio.model.task.Task;
+import seedu.malitio.model.task.Schedule;
+import seedu.malitio.model.task.UniqueScheduleList;
 import seedu.malitio.model.task.UniqueTaskList;
 
 import java.util.Set;
@@ -20,14 +23,17 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    /** Adds the given floating task */
+    void addFloatingTask(FloatingTask task) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Adds the given Schedule task */
+    void addSchedule(Schedule schedule) throws UniqueScheduleList.DuplicateScheduleException;
 
     /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
     
-    /** Returns the filtered events and deadlines as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredEventsAndDeadlines();
+    /** Returns the filtered events and deadlines as an {@code UnmodifiableObservableList<ReadOnlySchedule>} */
+    UnmodifiableObservableList<ReadOnlySchedule> getFilteredEventsAndDeadlines();
 
     /** Updates the filter of the filtered floating task list to show all tasks */
     void updateFilteredListToShowAll();

@@ -3,7 +3,9 @@ package seedu.malitio.model;
 
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
+import seedu.malitio.model.task.ReadOnlySchedule;
 import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.UniqueScheduleList;
 import seedu.malitio.model.task.UniqueTaskList;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public interface ReadOnlyMalitio {
 
     UniqueTaskList getUniqueTaskList();
     
-    UniqueTaskList getUniqueTaskList2();
+    UniqueScheduleList getUniqueScheduleList();
 
     /**
      * Returns an unmodifiable view of tasks list
@@ -27,7 +29,7 @@ public interface ReadOnlyMalitio {
     /**
      * Returns an unmodifiable view of tasks list
      */
-    List<ReadOnlyTask> getTaskList2();
+    List<ReadOnlySchedule> getScheduleList();
 
     /**
      * Returns an unmodifiable view of tags list

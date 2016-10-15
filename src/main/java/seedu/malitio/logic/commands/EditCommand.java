@@ -34,7 +34,7 @@ public class EditCommand extends Command{
     
     private final int targetIndex;
     
-    private final Task editedTask;
+    private final FloatingTask editedTask;
     
     public String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited task.\nOld: %1$s\nNew: %2$s";
     
@@ -132,7 +132,7 @@ public class EditCommand extends Command{
                 
         try {
             assert model != null;
-            model.addTask(editedTask);
+            model.addFloatingTask(editedTask);
             model.deleteTask(taskToEdit);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";

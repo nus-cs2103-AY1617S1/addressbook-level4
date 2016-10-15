@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.malitio.model.task.ReadOnlySchedule;
 import seedu.malitio.model.task.ReadOnlyTask;
 
 public class TaskCard2 extends UiPart{
@@ -16,28 +17,29 @@ public class TaskCard2 extends UiPart{
     private Label name;
     @FXML
     private Label id;
+
     @FXML
     private Label tags;
 
-    private ReadOnlyTask task;
+    private ReadOnlySchedule schedule;
     private int displayedIndex;
 
     public TaskCard2(){
 
     }
 
-    public static TaskCard2 load(ReadOnlyTask task, int displayedIndex){
+    public static TaskCard2 load(ReadOnlySchedule schedule, int displayedIndex){
         TaskCard2 card = new TaskCard2();
-        card.task = task;
+        card.schedule = schedule;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().fullName);
+        name.setText(schedule.getName().fullName);
         id.setText(displayedIndex + ". ");
-        tags.setText(task.tagsString());
+        tags.setText(schedule.tagsString());
     }
 
     public HBox getLayout() {

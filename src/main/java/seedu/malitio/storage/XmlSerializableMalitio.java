@@ -4,7 +4,9 @@ import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.ReadOnlyMalitio;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
+import seedu.malitio.model.task.ReadOnlySchedule;
 import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.UniqueScheduleList;
 import seedu.malitio.model.task.UniqueTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -23,13 +25,13 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
     @XmlElement
     private List<XmlAdaptedTask> tasks;
     @XmlElement
-    private List<XmlAdaptedTask> tasks2;
+    private List<XmlAdaptedSchedule> schedules;
     @XmlElement
     private List<Tag> tags;
 
     {
         tasks = new ArrayList<>();
-        tasks2 = new ArrayList<>();
+        schedules = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -43,7 +45,7 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
      */
     public XmlSerializableMalitio(ReadOnlyMalitio src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tasks2.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        schedules.addAll(src.getScheduleList().stream().map(XmlAdaptedSchedule::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -72,19 +74,6 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
     }
     
     @Override
-    public UniqueTaskList getUniqueTaskList2() {
-        UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : tasks2) {
-            try {
-                lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
-        }
-        return lists;
-    }
-
-    @Override
     public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
             try {
@@ -97,8 +86,28 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
     
-    public List<ReadOnlyTask> getTaskList2() {
-        return tasks2.stream().map(p -> {
+
+    @Override
+    public List<Tag> getTagList() {
+        return Collections.unmodifiableList(tags);
+    }
+
+    @Override
+    public UniqueScheduleList getUniqueScheduleList() {
+        UniqueScheduleList lists = new UniqueScheduleList();
+        for (XmlAdaptedSchedule p : schedules) {
+            try {
+                lists.add(p.toModelType());
+            } catch (IllegalValueException e) {
+                //TODO: better error handling
+            }
+        }
+        return lists;
+    }
+
+    @Override
+    public List<ReadOnlySchedule> getScheduleList() {
+        return schedules.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
@@ -107,11 +116,6 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
     }
 
 }
