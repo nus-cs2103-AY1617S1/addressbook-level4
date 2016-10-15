@@ -24,7 +24,7 @@ public class DeleteCommand extends Command implements Undoable{
     public static final String COMMAND_SUMMARY = "Deleting a task:"
             + "\n" + COMMAND_WORD + " INDEX";
     
-    public static final String MESSAGE_UNDO_SUCCESS = "[Undo Delete Command] Task deleted: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS = "[Undo Delete Command] Task added: %1$s";
 
     public final int targetIndex;
     
