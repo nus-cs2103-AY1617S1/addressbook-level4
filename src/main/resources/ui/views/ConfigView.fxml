@@ -10,19 +10,23 @@
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="100" minWidth="100" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.views.ConfigView">
   <children>
+    <HBox alignment="CENTER_LEFT">
+      <children>
+        <ImageView fitHeight="32.0" fitWidth="32.0" fx:id="configImageView" pickOnBounds="true" preserveRatio="true">
+          <HBox.margin>
+            <Insets right="10.0" />
+          </HBox.margin>
+        </ImageView>
+        <Text styleClass="font-300, view-title-text" text="Settings" />
+      </children>
+
+      <padding>
+        <Insets top="20.0" left="20.0" bottom="20.0" right="20.0" />
+      </padding>
+    </HBox>
+
     <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
       <content>
-        <HBox>
-          <children>
-            <ImageView fitHeight="40.0" fitWidth="40.0" fx:id="configImageView" pickOnBounds="true" preserveRatio="true">
-              <HBox.margin>
-                <Insets top="10.0" left="10.0" bottom="10.0" right="10.0" />
-              </HBox.margin>
-            </ImageView>
-            <Text styleClass="config-title-text" text="Settings" />
-          </children>
-        </HBox>
-
         <VBox styleClass="config-pane" fx:id="configsPlaceholder" VBox.vgrow="ALWAYS">
           <padding>
             <Insets left="20.0" top="20.0" right="20.0" bottom="20.0" />
