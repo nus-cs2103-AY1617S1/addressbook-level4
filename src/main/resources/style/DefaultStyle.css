@@ -55,6 +55,7 @@
     -fx-hgap: 16pt;
     -fx-vgap: 2pt;
     -fx-background-color: #3D3D3D;
+    -fx-padding: 2 8 2 8;
 }
 
 .roundLabel {
