@@ -2,6 +2,12 @@ package seedu.todo.storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.LinkedList;
+
+import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
+import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch.Patch;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -12,6 +18,14 @@ import seedu.todo.commons.util.JsonUtil;
 import seedu.todo.models.TodoListDB;
 
 public class JsonStorage implements Storage {
+    
+    // Ideally this would be a single circular-queue, but there is such built-in
+    // mechanism, and we would really really like to keep this operation O(1).
+    private Deque<LinkedList<Patch>> historyPatch = new ArrayDeque<LinkedList<Patch>>();
+    private Deque<LinkedList<Patch>> futurePatch = new ArrayDeque<LinkedList<Patch>>();
+    private String currJson;
+    private final int HISTORY_SIZE = 1000;
+    private final DiffMatchPatch dmp = new DiffMatchPatch();
 
     private File getStorageFile() {
         return new File("database.json");
