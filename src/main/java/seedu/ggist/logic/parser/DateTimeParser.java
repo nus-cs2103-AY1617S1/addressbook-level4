@@ -3,6 +3,7 @@ package seedu.ggist.logic.parser;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
+import seedu.ggist.model.task.TaskTime;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
 
 public class DateTimeParser {
 
+    private Date dateTime;
     private String date;
     private String time;
     
@@ -19,31 +21,30 @@ public class DateTimeParser {
         if (dateTimeData.size() == 0) {
             throw new IllegalValueException("Invalid date or time format");
         }
-        Date dateTime = dateTimeData.get(0);
-        date = parseDate(dateTime);
-        time = parseTime(dateTime);
+        dateTime = dateTimeData.get(0);
     }
     
-    private String parseTime(Date dateTime) throws IllegalValueException {
+    private void parseTime(Date dateTime) throws IllegalValueException {
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
-        String time = sdf.format(dateTime).toString();
+        time = sdf.format(dateTime).toString();
         String currentTime = sdf.format(new Date()).toString();
         if (currentTime.equals(time)) {
-            throw new IllegalValueException("Seems like you missed out the time.");
+            throw new IllegalValueException(TaskTime.MESSAGE_TIME_CONSTRAINTS);
         }
-        return time;
     }
     
-    private String parseDate(Date dateTime) {
+    private void parseDate(Date dateTime) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yy");
-        return sdf.format(dateTime).toString();
+        date = sdf.format(dateTime).toString();
     }
     
     public String getDate() {
+        parseDate(dateTime);
         return date;
     }
     
-    public String getTime() {
+    public String getTime() throws IllegalValueException {
+        parseTime(dateTime);
         return time;
     }
 }
