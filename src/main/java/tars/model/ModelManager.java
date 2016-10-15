@@ -158,8 +158,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
-    public void updateFilteredTaskListUsingLazySearch(ArrayList<String> lazySearchKeywords) {
-        updateFilteredTaskList(new PredicateExpression(new LazySearchQualifier(lazySearchKeywords)));
+    public void updateFilteredTaskListUsingQuickSearch(ArrayList<String> quickSearchKeywords) {
+        updateFilteredTaskList(new PredicateExpression(new QuickSearchQualifier(quickSearchKeywords)));
     }
 
     public void updateFilteredTaskListUsingFlags(TaskQuery taskQuery) {
@@ -203,11 +203,11 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
-    private class LazySearchQualifier implements Qualifier {
-        private final ArrayList<String> lazySearchKeywords;
+    private class QuickSearchQualifier implements Qualifier {
+        private final ArrayList<String> quickSearchKeywords;
 
-        LazySearchQualifier(ArrayList<String> lazySearchKeywords) {
-            this.lazySearchKeywords = lazySearchKeywords;
+        QuickSearchQualifier(ArrayList<String> quickSearchKeywords) {
+            this.quickSearchKeywords = quickSearchKeywords;
         }
 
         private String removeLabels(String taskAsString) {
@@ -219,8 +219,8 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             String taskAsString = removeLabels(task.getAsText());
-            return lazySearchKeywords.stream().filter(keyword -> StringUtil.containsIgnoreCase(taskAsString, keyword))
-                    .count() == lazySearchKeywords.size();
+            return quickSearchKeywords.stream().filter(keyword -> StringUtil.containsIgnoreCase(taskAsString, keyword))
+                    .count() == quickSearchKeywords.size();
         }
 
     }

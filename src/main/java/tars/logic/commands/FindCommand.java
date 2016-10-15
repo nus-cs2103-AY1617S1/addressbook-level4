@@ -19,15 +19,15 @@ public class FindCommand extends Command {
             + COMMAND_WORD + " -n CS2103 projects -dt 10/09/2016 1000 to " + "20/09/2016 0100 -t school projects -do";
 
     private TaskQuery taskQuery = null;
-    private ArrayList<String> lazySearchKeywords = null;
+    private ArrayList<String> quickSearchKeywords = null;
     private String searchKeywords = "";
 
     public FindCommand(TaskQuery taskQuery) {
         this.taskQuery = taskQuery;
     }
 
-    public FindCommand(ArrayList<String> lazySearchKeywords) {
-        this.lazySearchKeywords = lazySearchKeywords;
+    public FindCommand(ArrayList<String> quickSearchKeywords) {
+        this.quickSearchKeywords = quickSearchKeywords;
     }
 
     @Override
@@ -37,9 +37,9 @@ public class FindCommand extends Command {
             searchKeywords = "\n" + taskQuery.toString();
         }
 
-        if (lazySearchKeywords != null) {
-            model.updateFilteredTaskListUsingLazySearch(lazySearchKeywords);
-            searchKeywords = "\nQuick Search Keywords: " + lazySearchKeywords.toString();
+        if (quickSearchKeywords != null) {
+            model.updateFilteredTaskListUsingQuickSearch(quickSearchKeywords);
+            searchKeywords = "\nQuick Search Keywords: " + quickSearchKeywords.toString();
         }
         return new CommandResult(
                 getMessageForTaskListShownSummary(model.getFilteredTaskList().size()) + searchKeywords);
