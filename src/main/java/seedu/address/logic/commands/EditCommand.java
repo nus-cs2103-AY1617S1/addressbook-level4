@@ -17,7 +17,8 @@ public class EditCommand extends Command {
             + "Parameters: INDEX PROPERTY NEW_INPUT\n"
             + "Example: " + COMMAND_WORD 
             + " 1 name oranges";
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Editted Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "You've successfully editted the task!\n"
+            + "Editted Task: %1$s";
     
     private int targetIndex;
     private String targetProperty;
