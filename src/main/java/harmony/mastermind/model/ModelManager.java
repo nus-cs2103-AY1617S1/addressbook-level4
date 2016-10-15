@@ -89,7 +89,10 @@ public class ModelManager extends ComponentManager implements Model {
     /** undo last action performed**/
     //@@author A0138862W
     public CommandResult undo() throws EmptyStackException{
-        return undoHistory.pop().undo();
+        CommandResult commandResult = undoHistory.pop().undo();
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+        return commandResult;
     }
 
     @Override
