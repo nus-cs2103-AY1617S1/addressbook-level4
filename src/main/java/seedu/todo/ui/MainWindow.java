@@ -127,7 +127,9 @@ public class MainWindow extends View {
         try {
             Method loadMethod = viewClass.getMethod("load", Stage.class, Pane.class);
             loadedView = (View) loadMethod.invoke(null, primaryStage, getChildrenPlaceholder());
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
+            logger.severe(e.getTargetException().getMessage());
+        } catch (NoSuchMethodException | IllegalAccessException e) {
             logger.severe(String.format("View class %s does not have a mandatory method with the method signature: \n" + 
                                         "public static View load(Stage stage, Pane placeholder) \n" +
                                         "This method is mandatory.", 
