@@ -11,19 +11,12 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_TASK_USAGE = COMMAND_WORD + ": Adds a task to the TodoList.\n"
-            + "Parameters: TASK_NAME p/PRIORITY d/DATE \n"
-            + "Example: " + COMMAND_WORD
-            + " Assignment 3 p/1 d/DD-MM-YYYY \n";
-            
-    
-    public static final String MESSAGE_EVENT_USAGE = COMMAND_WORD + ": Adds an event to the TodoList.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the TodoList.\n"
             + "Parameters: TASK_NAME d/DATE s/START_TIME e/END_TIME\n"
             + "Example: " + COMMAND_WORD
-            + " Time's birthday party d/25-12-2016 s/1400 e/1600\n";
-    
-    public static final String MESSAGE_DEADLINE_USAGE = COMMAND_WORD + ": Adds a deadline to the TodoList.\n"
-            + "Parameters: TASK_NAME d/DATE e/END_TIME\n"
+            + " Assignment 3 p/1\n"
+            + "Example: " + COMMAND_WORD
+            + " Time's birthday party d/25-12-2016 s/1400 e/1600\n"
             + "Example: " + COMMAND_WORD
             + " CS2103 v0.2 d/25-12-2016 e/1600\n";
 
