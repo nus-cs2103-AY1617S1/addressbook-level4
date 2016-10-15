@@ -17,6 +17,7 @@ public class ClearCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         model.resetData(Tars.getEmptyTars());
+        model.getUndoableCmdHist().clear();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
