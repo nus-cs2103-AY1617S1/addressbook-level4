@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.TimePeriod;
 
@@ -20,7 +22,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label priority;
+    private Rectangle priority;
     @FXML
     private Label startDate;
     @FXML
@@ -53,8 +55,22 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().name);
-        priority.setText(task.getPriorityValue().toString());
-        id.setText(displayedIndex + "");
+        switch(task.getPriorityValue()){
+            case LOW:
+                priority.setFill(Paint.valueOf("green"));
+                break;
+            case MEDIUM:
+                priority.setFill(Paint.valueOf("yellow"));
+                break;
+            case HIGH:
+                priority.setFill(Paint.valueOf("red"));
+                break;
+            default:
+                assert false: "priority should only be LOW, MEDIUM, or HIGH";
+        }       
+
+        
+        id.setText(displayedIndex + ".");
         
         SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("h:mm a");
