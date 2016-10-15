@@ -48,6 +48,9 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[\\p{Alnum} ]+)");
     
+    private static final Pattern SETPATH_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<args>[^/]+)");
+    
     
     public Parser() {}
 
@@ -111,14 +114,21 @@ public class Parser {
     /**
      * Parses arguments in the context of the set save path command.
      * 
-     * 
-     * @param
-     * @return
+     * @param args full command args string
+     * @return the custom saved path
      */
 
     private Command setSavePath(String args) {
-        String path = args.trim().concat(".xml");
-        return new SetPathCommand(path);
+        args = args.trim();
+        Matcher matcher = SETPATH_DATA_ARGS_FORMAT.matcher(args);
+        // Validate arg string format
+        if (matcher.matches()) {
+            String path = "data/".concat(args.trim().concat(".xml"));
+            return new SetPathCommand(path); 
+        }
+        else {   
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetPathCommand.MESSAGE_USAGE));
+        }
     }
 
     /**
