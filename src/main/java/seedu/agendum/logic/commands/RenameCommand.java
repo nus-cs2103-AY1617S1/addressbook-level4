@@ -50,7 +50,9 @@ public class RenameCommand extends Command {
         ReadOnlyTask taskToRename = lastShownList.get(targetIndex - 1);
 
         try {
-            model.renameTask(taskToRename, newTaskName);
+            Task renamedTask = new Task(taskToRename);
+            renamedTask.setName(newTaskName);
+            model.updateTask(taskToRename, renamedTask);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException e) {

@@ -81,17 +81,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void renameTask(ReadOnlyTask target, Name newTaskName)
+    public synchronized void updateTask(ReadOnlyTask target, Task updatedTask)
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
-        toDoList.renameTask(target, newTaskName);
+        toDoList.updateTask(target, updatedTask);
         updateFilteredListToShowAll();
-        indicateToDoListChanged();
-    }
-
-    @Override
-    public synchronized void scheduleTask(ReadOnlyTask target, Optional<LocalDateTime> startDateTime,
-            Optional<LocalDateTime> endDateTime) throws UniqueTaskList.TaskNotFoundException {
-        toDoList.scheduleTask(target, startDateTime, endDateTime);
         indicateToDoListChanged();
     }
 

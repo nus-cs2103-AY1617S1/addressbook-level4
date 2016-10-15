@@ -27,13 +27,9 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
-    /** Rename the given task */
-    void renameTask(ReadOnlyTask target, Name newTaskName)
+    /** Updates the given task */
+    void updateTask(ReadOnlyTask target, Task updatedTask)
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
-    
-    /**Schedules the given task */
-    void scheduleTask(ReadOnlyTask target, Optional<LocalDateTime> startDateTime,
-            Optional<LocalDateTime> endDateTime) throws UniqueTaskList.TaskNotFoundException;
        
     /** Marks the given task as completed */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

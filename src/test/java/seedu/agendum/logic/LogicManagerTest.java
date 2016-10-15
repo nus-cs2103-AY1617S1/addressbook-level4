@@ -417,13 +417,10 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeDuplicated = helper.adam();
         Task toBeRenamed = helper.generateTask(1);
-        ToDoList expectedTDL = new ToDoList();
-        expectedTDL.addTask(toBeDuplicated);
-        expectedTDL.addTask(toBeRenamed);
+        List<Task> twoTasks = helper.generateTaskList(toBeDuplicated, toBeRenamed);
+        ToDoList expectedTDL = helper.generateToDoList(twoTasks);
 
-        model.resetData(new ToDoList());
-        model.addTask(toBeDuplicated); // task already in internal to do list
-        model.addTask(toBeRenamed);
+        model.resetData(expectedTDL);
 
         // execute command and verify result
         assertCommandBehavior(
@@ -439,25 +436,20 @@ public class LogicManagerTest {
         List<Task> threeTasks = helper.generateTaskList(2);
         Task taskToRename = helper.generateCompletedTask(3);
         //TODO: replace taskToRename with a task with deadlines etc. Check if other attributes are preserved
-        String originalTaskName = taskToRename.getName().toString();
-        String newTaskName = "a brand new task name";
-        
         threeTasks.add(taskToRename);
 
         ToDoList expectedTDL = helper.generateToDoList(threeTasks);
-        expectedTDL.renameTask(taskToRename, new Name(newTaskName));
+        Task renamedTask = new Task(taskToRename);
+        String newTaskName = "a brand new task name";
+        renamedTask.setName(new Name(newTaskName));
+        expectedTDL.updateTask(taskToRename, renamedTask);
         model.resetData(new ToDoList());
         helper.addToModel(model, threeTasks);
 
-        assertCommandBehavior("rename 3 a brand new task name",
+        assertCommandBehavior("rename 3 " + newTaskName,
                 String.format(RenameCommand.MESSAGE_SUCCESS, "3", newTaskName),
                 expectedTDL,
                 expectedTDL.getTaskList());
-        
-        //Check if attributes are preserved
-        //rename task back to original name
-        expectedTDL.renameTask(expectedTDL.getTaskList().get(2), new Name(originalTaskName));
-        assertTrue(expectedTDL.getTasks().contains(taskToRename));
     }
 
 

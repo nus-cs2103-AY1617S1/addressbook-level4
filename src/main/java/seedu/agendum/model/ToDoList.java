@@ -115,23 +115,14 @@ public class ToDoList implements ReadOnlyToDoList {
     }
 
     /**
-     * Renames an existing task to the to-do list.
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
-     * @throws UniqueTaskList.TaskNotFoundException if no such task could be found in the list.
+     * Updates an existing task in the to-do list.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task (to updatedTask) already exists.
+     * @throws UniqueTaskList.TaskNotFoundException if no such task (key) could be found in the list.
      */
-    public boolean renameTask(ReadOnlyTask key, Name newTaskName)
+    public boolean updateTask(ReadOnlyTask key, Task updatedTask)
             throws UniqueTaskList.TaskNotFoundException,
             UniqueTaskList.DuplicateTaskException {
-        return tasks.rename(key, newTaskName);
-    }
-
-    public boolean scheduleTask(ReadOnlyTask key, Optional<LocalDateTime> startDateTime,
-            Optional<LocalDateTime> endDateTime) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.schedule(key, startDateTime, endDateTime)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }
+        return tasks.update(key, updatedTask);
     }
 
     public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
