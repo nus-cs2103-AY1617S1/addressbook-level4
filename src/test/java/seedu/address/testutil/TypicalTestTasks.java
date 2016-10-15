@@ -9,7 +9,7 @@ import seedu.emeraldo.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
     public TypicalTestTasks() {
         try {
@@ -32,7 +32,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadAddressBookWithSampleData(Emeraldo ab) {
+    public static void loadEmeraldoWithSampleData(Emeraldo ab) {
 
         try {
             ab.addTask(new Task(alice));
@@ -47,13 +47,13 @@ public class TypicalTestTasks {
         }
     }
 
-    public TestPerson[] getTypicalTasks() {
-        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+    public TestTask[] getTypicalTasks() {
+        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public Emeraldo getTypicalEmeraldo(){
         Emeraldo ab = new Emeraldo();
-        loadAddressBookWithSampleData(ab);
+        loadEmeraldoWithSampleData(ab);
         return ab;
     }
 }
