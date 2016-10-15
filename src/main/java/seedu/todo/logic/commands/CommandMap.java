@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.Map;
 
 public class CommandMap {
+    // List of command classes. Remember to register new commands here so that the
+    // dispatcher can recognize them
     public static List<Class<? extends BaseCommand>> commandClasses = ImmutableList.<Class<? extends BaseCommand>>builder()
         .add(AddCommand.class)
         .add(CompleteCommand.class)
         .add(DeleteCommand.class)
         .add(EditCommand.class)
         .add(ExitCommand.class)
+        .add(HelpCommand.class)
         .add(PinCommand.class)
         .build();
     
@@ -22,7 +25,7 @@ public class CommandMap {
         commandMap = new LinkedHashMap<>();
         
         for (Class<? extends BaseCommand> command : CommandMap.commandClasses) {
-            String commandName = getCommand(command).getCommandName();
+            String commandName = getCommand(command).getCommandName().toLowerCase();
             commandMap.put(commandName, command);
         }
     }
