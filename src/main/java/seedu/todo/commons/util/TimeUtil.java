@@ -132,6 +132,31 @@ public class TimeUtil {
                 + endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_TIME_WITH_YEAR));
     }
     
+    /**
+     * Gives a formatted text of the dateTime based on the current system time, and then returns one of the following:
+     *      "Yesterday", "Today", "Tonight", "Tomorrow",
+     *      full date without year if same year,
+     *      full date with year if different year.
+     *
+     * @param dateTime to format the date with
+     * @return a formatted date string described above
+     */
+    private String getDateText(LocalDateTime dateTime) {
+        LocalDateTime currentTime = LocalDateTime.now(clock);
+        if (isYesterday(currentTime, dateTime)) {
+            return DUE_YESTERDAY;
+        } else if (isTonight(currentTime, dateTime)) {
+            return DUE_TONIGHT;
+        } else if (isToday(currentTime, dateTime)) {
+            return DUE_TODAY;
+        } else if (isTomorrow(currentTime, dateTime)) {
+            return DUE_TOMORROW;
+        } else if (isSameYear(currentTime, dateTime)) {
+            return dateTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_NO_YEAR);
+        } else {
+            return dateTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_WITH_YEAR));
+        }
+    }
     private boolean isTomorrow(LocalDateTime dateTimeToday, LocalDateTime dateTimeTomorrow) {
         LocalDate dayBefore = dateTimeToday.toLocalDate();
         LocalDate dayAfter = dateTimeTomorrow.toLocalDate();
