@@ -46,7 +46,7 @@ public class TodoLogic implements Logic {
         logger.fine("Parsed command: " + parseResult.toString());
         
         try {
-            command = dispatcher.dispatch(parseResult);
+            command = dispatcher.dispatch(parseResult.getCommand());
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage(), new ErrorBag());
         }

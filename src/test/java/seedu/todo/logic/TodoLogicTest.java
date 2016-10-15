@@ -22,6 +22,7 @@ import static org.junit.Assert.*;
 
 public class TodoLogicTest {
     private static final String INPUT = "input";
+    private static final String COMMAND = "command";
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
@@ -39,7 +40,9 @@ public class TodoLogicTest {
         // Wire up some default behavior 
         when(parser.parse(TodoLogicTest.INPUT))
             .thenReturn(parseResult);
-        when(dispatcher.dispatch(parseResult))
+        when(parseResult.getCommand())
+            .thenReturn(TodoLogicTest.COMMAND);
+        when(dispatcher.dispatch(TodoLogicTest.COMMAND))
             .thenReturn(command);
 
         logic = new TodoLogic(parser, model, dispatcher);
@@ -49,7 +52,7 @@ public class TodoLogicTest {
         CommandResult r = logic.execute(TodoLogicTest.INPUT);
 
         verify(parser).parse(TodoLogicTest.INPUT);
-        verify(dispatcher).dispatch(parseResult);
+        verify(dispatcher).dispatch(TodoLogicTest.COMMAND);
         
         return r;
     }
@@ -102,7 +105,7 @@ public class TodoLogicTest {
         // Create a stub exception for execute to throw
         IllegalValueException e = mock(IllegalValueException.class);
         when(e.getMessage()).thenReturn("Test message");
-        doThrow(e).when(dispatcher).dispatch(parseResult);
+        doThrow(e).when(dispatcher).dispatch(TodoLogicTest.COMMAND);
 
         CommandResult r = execute();
 
