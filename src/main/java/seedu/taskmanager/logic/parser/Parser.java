@@ -116,6 +116,7 @@ public class Parser {
             return prepareAdd(arguments);
 
         case EditCommand.COMMAND_WORD:
+        case EditCommand.SHORT_COMMAND_WORD:
             return prepareEdit(arguments);
             
         case SelectCommand.COMMAND_WORD:

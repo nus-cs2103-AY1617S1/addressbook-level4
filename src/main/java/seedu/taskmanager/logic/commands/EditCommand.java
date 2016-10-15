@@ -19,6 +19,7 @@ import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 public class EditCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
     public static final String COMMAND_WORD = "edit";
+    public static final String SHORT_COMMAND_WORD = "e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
                                                + ": Edits the item identified by the index number used in the last item listing.\n"
