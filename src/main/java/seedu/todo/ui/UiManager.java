@@ -95,7 +95,7 @@ public class UiManager extends ComponentManager implements Ui {
      */
     public static void updateConsoleMessage(String consoleMessage) {
         if (currentView != null) {
-            currentView.consoleMessage = consoleMessage;
+            View.consoleMessage = consoleMessage;
             instance.mainWindow.loadComponents();
         }
     }

@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
 
 public class Tokenizer {
