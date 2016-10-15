@@ -276,7 +276,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a new task |
 `* * *` | user | edit details of a task | make changes to tasks
 `* * *` | user | delete a task | remove entries that I no longer need
-`* * *` | user | to mark tasks as done | keep track of completed tasks |
+`* * *` | user | to mark tasks as done | keep track of completed tasks 
 `* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
 `* *`   | user | categorise my tasks by date | view which tasks are due on certain dates
 `* *`   | user | change storage location | access the file data easily
@@ -284,7 +284,6 @@ Priority | As a ... | I want to ... | So that I can...
 `*`     | user | be reminded of upcoming tasks | remember tasks
 `*`     | user | auto-complete my commands | be more efficient with typing commands
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
@@ -310,6 +309,34 @@ Use case ends.
      Steps 1b1-1b2 are repeated until data contains no errors
      Use case resumes from step 2.
 
+#### Use case: List all tasks
+
+**MSS**
+
+1. User requests to list all tasks
+2. Inbx_0 shows the list of tasks
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+#### Use case: List all tasks that are due before a specific date
+
+**MSS**
+
+1. User requests to list tasks that are due before a specific date
+2. Inbx_0 retrieves the required tasks and displays them in a list
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
 #### Use case: Delete task
 
 **MSS**
@@ -328,10 +355,33 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. Inbx_0 shows an error message <br>
+> 3a1. Inbx_0 shows an invalid INDEX error message <br>
   Use case resumes at step 2
 
-{More to be added}
+#### Use case: Undo add task
+
+**MSS**
+
+1. User requests to undo his add task action
+2. Inbx_0 deletes the most recenty added task
+Use case ends.
+
+#### Use case: Undo delete task
+
+**MSS**
+
+1. User requests to undo his delete task action
+2. Inbx_0 readds the most recenty deleted task
+Use case ends.
+
+#### Use case: Clear the tasklist
+
+**MSS**
+
+1. User requests to clear the list of tasks
+2. Inbx_0 deletes the entire task list
+Use case ends.
+
 
 ## Appendix C : Non Functional Requirements
 
@@ -339,8 +389,7 @@ Use case ends.
 2. Should be able to hold up to 5000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-
-{More to be added}
+5. Should have an easy to use GUI.
 
 ## Appendix D : Glossary
 
@@ -364,5 +413,6 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+A Product Survey was conducted to study existing products on the market to gather insights and inspiration for our own product. We looked at various Task Managers on the market such as Google Calendar, Wunerlist, Todo.txt, Evernote and Google Keep. We then evaluated their common features and benefits that they offer to the consumers. We will then implement the more useful features while leaving out the more superfluous ones.
+
 
