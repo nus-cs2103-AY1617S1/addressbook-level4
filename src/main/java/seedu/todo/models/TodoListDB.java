@@ -50,6 +50,10 @@ public class TodoListDB {
         if (fromDate == null) {
             fromDate = LocalDateTime.MIN;
         }
+        
+        if (toDate == null) {
+            toDate = LocalDateTime.MAX;
+        }
         while (iterator.hasNext()) {
             Task currTask = iterator.next();
             if (listAllStatus) {
@@ -83,6 +87,15 @@ public class TodoListDB {
     public List<Event> getEventByRange (LocalDateTime fromDate , LocalDateTime toDate) {
         ArrayList<Event> eventByRange = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
+        
+        //if either date are null, set it to min or max
+        if (fromDate == null) {
+            fromDate = LocalDateTime.MIN;
+        }
+        
+        if (toDate == null) {
+            toDate = LocalDateTime.MAX;
+        }
         while (iterator.hasNext()) {
             Event currEvent = iterator.next();
             if (DateUtil.floorDate(currEvent.getStartDate()).compareTo(fromDate) >= 0 && 
