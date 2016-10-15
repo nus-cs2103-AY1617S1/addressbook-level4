@@ -33,7 +33,7 @@ public abstract class DateTime {
      * @throws IllegalValueException
      *             if given String cannot be converted into a valid Date object
      */
-    public static Date verifyDate(String dateString, String errorMessage)
+    public static Date verifyDate(String dateString, String errorMessage, boolean isStartDate)
             throws IllegalValueException {
         Date date;
         List<DateGroup> dates = new Parser().parse(dateString);
@@ -41,7 +41,10 @@ public abstract class DateTime {
             date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
             String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
             
-            if (!syntaxTree.contains("EXPLICIT_TIME")) {
+            if (!syntaxTree.contains("EXPLICIT_TIME") && isStartDate) {
+                date = setTimeToStartOfDay(date);
+            }
+            if (!syntaxTree.contains("EXPLICIT_TIME") && !isStartDate) {
                 date = setTimeToEndOfDay(date);
             }
             //TODO: Should I not catch exception instead?
@@ -80,6 +83,7 @@ public abstract class DateTime {
         try {
             dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
             int parsePosition = dates.get(BASE_INDEX).getPosition();
+            System.out.println(parsePosition);
             
             if (parsePosition > INTEGER_CONSTANT_ONE) {
                 return false;
@@ -97,7 +101,7 @@ public abstract class DateTime {
     private static Date setTimeToStartOfDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         
@@ -111,7 +115,7 @@ public abstract class DateTime {
     private static Date setTimeToEndOfDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.set(Calendar.HOUR, 23);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         

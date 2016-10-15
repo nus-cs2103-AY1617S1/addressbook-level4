@@ -61,11 +61,11 @@ public class AddCommand extends Command {
         Priority priority;
 
         if (startDateString != null) {
-            startDate = DateTime.verifyDate(startDateString, DateTime.INVALID_START_DATE);
+            startDate = DateTime.verifyDate(startDateString, DateTime.INVALID_START_DATE, true);
         }
 
         if (endDateString != null) {
-            endDate = DateTime.verifyDate(endDateString, DateTime.INVALID_END_DATE);
+            endDate = DateTime.verifyDate(endDateString, DateTime.INVALID_END_DATE, false);
         }
 
         if (rateString != null && timePeriodString != null) {

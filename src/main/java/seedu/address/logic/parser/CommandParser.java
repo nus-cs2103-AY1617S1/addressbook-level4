@@ -52,12 +52,12 @@ public class CommandParser {
     private static final String REGEX_GREEDY_SELECT = ".*?";
     private static final String REGEX_NAME_NO_CLOSE_BRACE = "(?<taskName>.*?";
     private static final String REGEX_ADDITIONAL_KEYWORD = "(?:"
-            +"(?: from)"
-            +"|(?: at)"
-            +"|(?: start)"
-            +"|(?: by)"
-            +"|(?: to)"
-            +"|(?: end)"
+            +"(?: from )"
+            +"|(?: at )"
+            +"|(?: start )"
+            +"|(?: by )"
+            +"|(?: to )"
+            +"|(?: end )"
             +")";
     private static final String REGEX_FIRST_DATE = "(?:"
             +"(?: from (?<startDateFormatOne>.*?))"
@@ -182,7 +182,6 @@ public class CommandParser {
                 }
 
                 taskName = matcher.group("taskName").trim();
-                System.out.println(matcher.group("taskName"));
 
                 if (matcher.group("recurrenceRate") != null) {
                     String recurrenceString = matcher.group("recurrenceRate");
@@ -198,7 +197,6 @@ public class CommandParser {
                 
                     assert recurrenceMatcher.group("timePeriod") != null;
                     timePeriod = recurrenceMatcher.group("timePeriod").trim();
-                    System.out.println(matcher.group("recurrenceRate"));
                 }
             
                 if (matcher.group("priority") != null) {
@@ -252,7 +250,6 @@ public class CommandParser {
                 }
 
                 taskName = matcher.group("taskName").trim();
-                System.out.println(matcher.group("taskName"));
             
                 if (matcher.group("recurrenceRate") != null) {
                     String recurrenceString = matcher.group("recurrenceRate");
@@ -268,7 +265,6 @@ public class CommandParser {
                 
                     assert recurrenceMatcher.group("timePeriod") != null;
                     timePeriod = recurrenceMatcher.group("timePeriod").trim();
-                    System.out.println(matcher.group("recurrenceRate"));
                 }
 
                 if (matcher.group("priority") != null) {
@@ -359,7 +355,6 @@ public class CommandParser {
                 }
             
                 taskName = matcher.group("taskName").trim();
-                System.out.println(matcher.group("taskName"));
             
                 if (matcher.group("recurrenceRate") != null) {
                     String recurrenceString = matcher.group("recurrenceRate");
@@ -375,7 +370,6 @@ public class CommandParser {
                 
                     assert recurrenceMatcher.group("timePeriod") != null;
                     timePeriod = recurrenceMatcher.group("timePeriod").trim();
-                    System.out.println(matcher.group("recurrenceRate"));
                 }
 
                 if (matcher.group("priority") != null) {
@@ -481,7 +475,6 @@ public class CommandParser {
                 }
             
                 taskName = matcher.group("taskName").trim();
-                System.out.println(matcher.group("taskName"));
             
                 if (matcher.group("recurrenceRate") != null) {
                     String recurrenceString = matcher.group("recurrenceRate");
@@ -497,7 +490,6 @@ public class CommandParser {
                 
                     assert recurrenceMatcher.group("timePeriod") != null;
                     timePeriod = recurrenceMatcher.group("timePeriod").trim();
-                    System.out.println(matcher.group("recurrenceRate"));
                 }
 
                 if (matcher.group("priority") != null) {
