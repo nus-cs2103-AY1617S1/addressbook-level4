@@ -8,8 +8,8 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": retreives completed task or shows all tasks.\n "
-            + "Parameter: [LISTING]\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": retreives incomplete, completed or all task in GGist.\n "
+            + "Parameter: [all] and [done]\n"
             + "Empty paramter lists all task in GGist\n"
             + "Example: " + COMMAND_WORD + "done";
     
@@ -21,10 +21,12 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (listing.equals("")) {
+        if (listing.equals("all")) {
             model.updateFilteredListToShowAll();
         } else if (listing.equals("done")) {
             model.updateFilteredListToShowAllDone();
+        } else {
+            model.updateFilteredTaskListToShowUndone();
         }
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }

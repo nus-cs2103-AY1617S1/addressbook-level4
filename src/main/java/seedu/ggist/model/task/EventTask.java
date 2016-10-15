@@ -14,20 +14,20 @@ public class EventTask extends Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public EventTask(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskTime endTime, UniqueTagList tags) {
-        super(taskName, taskDate, startTime, endTime, tags);
+    public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
+        super(taskName, startDate, startTime, endDate, endTime, tags);
     }
    
     /**
      * Copy constructor.
      */
     public EventTask(ReadOnlyTask source) {
-        this(source.getTaskName(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
+        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskName, taskDate, startTime, endTime, tags);
+        return Objects.hash(taskName, startDate, startTime, endDate, endTime, tags);
     }
 }
