@@ -54,7 +54,8 @@ public class InputHandler {
                                   new UncompleteTaskController(),
                                   new UpdateController(),
                                   new UndoController(),
-                                  new RedoController() };
+                                  new RedoController(),
+                                  new ConfigController() };
     }
 
 }
