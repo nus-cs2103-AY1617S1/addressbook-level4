@@ -20,7 +20,7 @@ public class DoneCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     
-    public static final String TOOL_TIP = "done INDEX";
+    public static final String TOOL_TIP = "done INDEX [ANOTHER_INDEX ...]";
 
     public static final String MESSAGE_DONE_ITEM_SUCCESS = "Archived Item: %1$s";
 

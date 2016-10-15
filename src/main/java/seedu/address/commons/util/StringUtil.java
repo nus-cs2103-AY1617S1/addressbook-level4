@@ -9,8 +9,8 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
-    public static boolean isSubstring(String source, String query) {
-        return source.indexOf(query) != -1;
+    public static boolean isSubstringFromStart(String source, String query) {
+        return source.indexOf(query) == 0;
     }
     
     public static boolean containsIgnoreCase(String source, String query) {
