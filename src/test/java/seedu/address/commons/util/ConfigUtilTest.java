@@ -7,12 +7,16 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.todo.commons.core.Config;
+import seedu.todo.commons.core.ConfigDefinition;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.ConfigUtil;
 import seedu.todo.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 
@@ -82,6 +86,10 @@ public class ConfigUtilTest {
         return config;
     }
 
+    private List<String> getTypicalConfigNames() {
+        return Arrays.asList("appTitle", "databaseFilePath");
+    }
+
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         return ConfigUtil.readConfig(configFilePath);
@@ -116,6 +124,24 @@ public class ConfigUtilTest {
         ConfigUtil.saveConfig(original, configFilePath);
         readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
+    }
+    
+    @Test
+    public void getDefinitions_configInOrder_configNamesCorrect() {
+        List<String> expected = getTypicalConfigNames();
+        List<ConfigDefinition> actualDefinitions = new Config().getDefinitions();
+        List<String> actual = new ArrayList<>();
+        
+        for (ConfigDefinition defn : actualDefinitions) {
+            actual.add(defn.getConfigName());
+        }
+        
+        assertEquals(expected.size(), actual.size());
+        
+        for (String configName : expected) {
+            boolean isInExpected = actual.indexOf(configName) >= 0;
+            assertEquals(isInExpected, true);
+        }
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
