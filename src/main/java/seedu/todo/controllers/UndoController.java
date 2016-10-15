@@ -4,13 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
 public class UndoController implements Controller {
     
-    private static final String MESSAGE_SUCCESS = "Successfully undid last command!\nTo redo, type \"redo\".";
+    private static final String MESSAGE_SUCCESS = "Successfully undid %s %s!\nTo redo, type \"redo\".";
     private static final String MESSAGE_FAILURE = "There is no command to undo!";
 
     @Override
@@ -57,6 +58,7 @@ public class UndoController implements Controller {
         UiManager.renderView(view);
         
         // Update console message
-        UiManager.updateConsoleMessage(MESSAGE_SUCCESS);
+        UiManager.updateConsoleMessage(String.format(MESSAGE_SUCCESS, numUndo,
+                StringUtil.pluralizer(numUndo, "command", "commands")));
     }
 }
