@@ -101,6 +101,11 @@
     -fx-text-fill: #010504;
 }
 
+.complete_status {
+    -fx-font-size: 14px;
+    -fx-text-fill: #010504;
+}
+
 .cell_small_label {
     -fx-font-size: 11px;
     -fx-text-fill: #010504;
