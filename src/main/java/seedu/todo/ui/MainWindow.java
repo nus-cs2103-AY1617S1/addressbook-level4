@@ -56,7 +56,7 @@ public class MainWindow extends View {
         return mainWindow;
     }
 
-    public void configure(Config config) {
+    private void configure(Config config) {
         String appTitle = config.getAppTitle();
 
         // Configure the UI
@@ -73,7 +73,7 @@ public class MainWindow extends View {
         loadComponents();
     }
 
-    private void loadComponents() {
+    protected void loadComponents() {
         // Load Header
         Header header = Header.load(primaryStage, getHeaderPlaceholder());
         header.versionString = MainApp.VERSION.toString();
@@ -81,6 +81,7 @@ public class MainWindow extends View {
 
         // Load ConsoleInput
         ConsoleInput consoleInput = ConsoleInput.load(primaryStage, getConsoleInputPlaceholder());
+        consoleInput.consoleOutput = consoleMessage;
         consoleInput.render();
     }
 
@@ -120,7 +121,7 @@ public class MainWindow extends View {
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends View> T loadView(Class<T> viewClass) {
+    protected <T extends View> T loadView(Class<T> viewClass) {
         View loadedView = null;
 
         try {

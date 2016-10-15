@@ -22,6 +22,8 @@ public class AddController implements Controller {
     private static String DESCRIPTION = "Adds a task / event to the to-do list.";
     private static String COMMAND_SYNTAX = "add <task> by <deadline> || add <event> at <time>";
     
+    private static final String MESSAGE_ADD_SUCCESS = "Item successfully added!";
+    
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
 
@@ -112,7 +114,8 @@ public class AddController implements Controller {
         IndexView view = UiManager.loadView(IndexView.class);
         view.tasks = db.getAllTasks();
         view.events = db.getAllEvents();
-        view.render();
+        UiManager.renderView(view);
+        UiManager.updateConsoleMessage(MESSAGE_ADD_SUCCESS);
     }
     
     private LocalDateTime parseNatural(String natural) {

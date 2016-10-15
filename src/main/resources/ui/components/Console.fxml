@@ -8,6 +8,6 @@
   
   <children>
     <TextArea fx:id="consoleTextArea" editable="false" focusTraversable="false" mouseTransparent="true"  
-      promptText="Console text" styleClass="console-textarea" stylesheets="@../css/style.css" wrapText="true" />
+      promptText="Console text" styleClass="console-textarea" wrapText="true" />
   </children>
 </VBox>

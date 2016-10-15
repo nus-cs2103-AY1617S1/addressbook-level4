@@ -8,7 +8,7 @@
   fx:controller="seedu.todo.ui.components.ConsoleInput">
   
   <children>
-    <AnchorPane fx:id="consolePlaceholder" minHeight="100.0" VBox.vgrow="NEVER" />
+    <AnchorPane fx:id="consolePlaceholder" prefHeight="80.0" VBox.vgrow="ALWAYS" />
     
     <TextField fx:id="consoleInputTextField" styleClass="console-input-textfield" onAction="#handleConsoleInputChanged" 
       promptText="Enter command here..."/>
