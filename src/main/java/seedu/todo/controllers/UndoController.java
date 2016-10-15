@@ -40,10 +40,13 @@ public class UndoController implements Controller {
             numUndo = Integer.parseInt(parsedResult.get("default")[1]);
         }   
         
+        // We don't really have a nice way to support SQL transactions, so yeah >_<
         TodoListDB db = TodoListDB.getInstance();
-        if (!db.undo()) {
-            UiManager.updateConsoleMessage(MESSAGE_FAILURE);
-            return;
+        for (int i = 0; i < numUndo; i++) {
+            if (!db.undo()) {
+                UiManager.updateConsoleMessage(MESSAGE_FAILURE);
+                return;
+            }
         }
         db = TodoListDB.getInstance();
         
