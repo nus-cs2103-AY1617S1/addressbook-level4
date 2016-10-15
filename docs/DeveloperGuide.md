@@ -811,3 +811,7 @@ Weaknesses:
 * Problem in importing from other app: duplicates may appear sometimes
 * No feature for reserving time blocks
 * No priority/importance feature
+
+Summary:
+
+It is designed very user-friendly, and since it is supported by other powerful modules of Apple, it has relatively complete features and functionalities. However, it could be better if further details of tasks and events are supported.
