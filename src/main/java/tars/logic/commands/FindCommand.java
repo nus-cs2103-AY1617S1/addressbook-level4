@@ -1,10 +1,6 @@
 package tars.logic.commands;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-
-import tars.commons.flags.Flag;
 import tars.model.task.TaskQuery;
 
 /**
