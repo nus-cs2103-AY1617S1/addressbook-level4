@@ -30,8 +30,14 @@ public class EditCommand extends BaseCommand {
     }
 
     @Override
+    public String getCommandName() {
+        return "edit";
+    }
+
+    @Override
     public List<CommandSummary> getCommandSummary() {
-        return ImmutableList.of(new CommandSummary("Edit task", "delete", getArgumentSummary()));
+        return ImmutableList.of(new CommandSummary("Edit task", getCommandName(), 
+            getArgumentSummary()));
 
     }
 

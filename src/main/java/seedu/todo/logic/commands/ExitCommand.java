@@ -26,8 +26,13 @@ public class ExitCommand extends BaseCommand {
     }
 
     @Override
+    public String getCommandName() {
+        return "exit";
+    }
+
+    @Override
     public List<CommandSummary> getCommandSummary() {
-        return ImmutableList.of(new CommandSummary("Close this app :(", "exit"));
+        return ImmutableList.of(new CommandSummary("Close this app :(", getCommandName()));
     }
 
 }

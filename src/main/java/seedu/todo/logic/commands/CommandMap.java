@@ -1,22 +1,47 @@
 package seedu.todo.logic.commands;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableList;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CommandMap {
-    public static Map<String, Class<? extends BaseCommand>> COMMAND_MAP = ImmutableMap.<String, Class<? extends BaseCommand>>builder()
-        .put("add", AddCommand.class)
-        .put("complete", CompleteCommand.class)
-        .put("delete", DeleteCommand.class)
-        .put("edit", EditCommand.class)
-        .put("exit", ExitCommand.class)
-        .put("pin", PinCommand.class)
+    public static List<Class<? extends BaseCommand>> commandClasses = ImmutableList.<Class<? extends BaseCommand>>builder()
+        .add(AddCommand.class)
+        .add(CompleteCommand.class)
+        .add(DeleteCommand.class)
+        .add(EditCommand.class)
+        .add(ExitCommand.class)
+        .add(PinCommand.class)
         .build();
     
-    public static BaseCommand getInstance(String key) {
+    private static Map<String, Class<? extends BaseCommand>> commandMap;
+    
+    private static void buildCommandMap() {
+        commandMap = new LinkedHashMap<>();
+        
+        for (Class<? extends BaseCommand> command : CommandMap.commandClasses) {
+            String commandName = getCommand(command).getCommandName();
+            commandMap.put(commandName, command);
+        }
+    }
+
+    public static Map<String, Class<? extends BaseCommand>> getCommandMap() {
+        if (commandMap == null) {
+            buildCommandMap();
+        }
+        
+        return commandMap;
+    }
+    
+    public static BaseCommand getCommand(String key) {
+        return getCommand(getCommandMap().get(key));
+    }
+    
+    public static BaseCommand getCommand(Class<? extends BaseCommand> command) {
         try {
-            return CommandMap.COMMAND_MAP.get(key).newInstance();
+            return command.newInstance();
         } catch (InstantiationException|IllegalAccessException e) {
             e.printStackTrace();
             return null; // This shouldn't happen

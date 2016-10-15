@@ -33,12 +33,17 @@ public class AddCommand extends BaseCommand {
     }
 
     @Override
+    public String getCommandName() {
+        return "add";
+    }
+
+    @Override
     public List<CommandSummary> getCommandSummary() {
         String eventArguments = Joiner.on(" ").join(title, "/d start and end time", description, location, pin);
         
         return ImmutableList.of(
-            new CommandSummary("Add task", "add", getArgumentSummary()), 
-            new CommandSummary("Add event", "add", eventArguments));
+            new CommandSummary("Add task", getCommandName(), getArgumentSummary()), 
+            new CommandSummary("Add event", getCommandName(), eventArguments));
     }
 
     @Override

@@ -33,14 +33,19 @@ public class HelpCommand extends BaseCommand {
     }
 
     @Override
+    public String getCommandName() {
+        return "help";
+    }
+
+    @Override
     public List<CommandSummary> getCommandSummary() {
-        return ImmutableList.of(new CommandSummary("Get summary of commands", "help"));
+        return ImmutableList.of(new CommandSummary("Get summary of commands", getCommandName()));
     }
     
     private List<CommandSummary> collectCommandSummaries() {
         List<CommandSummary> summaries = new ArrayList<>();
-        for (String key : CommandMap.COMMAND_MAP.keySet()) {
-            summaries.addAll(CommandMap.getInstance(key).getCommandSummary());
+        for (String key : CommandMap.getCommandMap().keySet()) {
+            summaries.addAll(CommandMap.getCommand(key).getCommandSummary());
         }
         return summaries;
     }

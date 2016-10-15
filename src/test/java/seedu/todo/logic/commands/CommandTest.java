@@ -9,7 +9,6 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.model.TodoList;
@@ -147,6 +146,7 @@ public abstract class CommandTest {
     @Test
     public void testCommonProperties() {
         assertNotNull(command.getArguments());
+        assertThat(command.getCommandName(), not(containsString(" ")));
         assertThat(command.getCommandSummary().size(), greaterThan(0));
     }
     

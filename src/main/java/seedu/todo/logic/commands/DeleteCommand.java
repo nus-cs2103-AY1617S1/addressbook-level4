@@ -23,8 +23,14 @@ public class DeleteCommand extends BaseCommand {
     }
 
     @Override
+    public String getCommandName() {
+        return "delete";
+    }
+
+    @Override
     public List<CommandSummary> getCommandSummary() {
-        return ImmutableList.of(new CommandSummary("Delete a task", "delete", getArgumentSummary()));
+        return ImmutableList.of(new CommandSummary("Delete a task", getCommandName(), 
+            getArgumentSummary()));
     }
 
     @Override

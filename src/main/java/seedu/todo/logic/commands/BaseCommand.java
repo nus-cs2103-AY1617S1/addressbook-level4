@@ -34,6 +34,11 @@ public abstract class BaseCommand {
     abstract protected Parameter[] getArguments();
 
     /**
+     * Return the name of the command, which is used to call it
+     */
+    abstract public String getCommandName();
+
+    /**
      * Returns a list of command summaries for the command. This function returns a 
      * list because commands may (rarely) be responsible for more than one thing, 
      * like the <code>add</code> command. 

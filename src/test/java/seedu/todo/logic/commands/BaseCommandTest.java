@@ -97,6 +97,11 @@ public class BaseCommandTest extends CommandTest {
         }
 
         @Override
+        public String getCommandName() {
+            return "stub";
+        }
+
+        @Override
         public List<CommandSummary> getCommandSummary() {
             return ImmutableList.of(mock(CommandSummary.class));
         }

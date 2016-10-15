@@ -20,8 +20,14 @@ public class CompleteCommand extends BaseCommand {
     }
 
     @Override
+    public String getCommandName() {
+        return "complete";
+    }
+
+    @Override
     public List<CommandSummary> getCommandSummary() {
-        return ImmutableList.of(new CommandSummary("Mark task as completed", "complete", getArgumentSummary()));
+        return ImmutableList.of(new CommandSummary("Mark task as completed", getCommandName(), 
+            getArgumentSummary()));
     }
 
     @Override

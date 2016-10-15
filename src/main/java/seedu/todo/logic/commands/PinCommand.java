@@ -21,8 +21,14 @@ public class PinCommand extends BaseCommand {
     }
 
     @Override
+    public String getCommandName() {
+        return "pin";
+    }
+
+    @Override
     public List<CommandSummary> getCommandSummary() {
-        return ImmutableList.of(new CommandSummary("Pin task to top of list", "pin", getArgumentSummary()));
+        return ImmutableList.of(new CommandSummary("Pin task to top of list", getCommandName(), 
+            getArgumentSummary()));
     }
 
     @Override
