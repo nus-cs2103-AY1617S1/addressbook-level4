@@ -45,10 +45,13 @@ public class MainWindow extends UiPart {
     private String todoListName;
 
     @FXML
+    private AnchorPane todoListPanelPlaceholder;
+
+    @FXML
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private AnchorPane todoListPanelPlaceholder;
+    private AnchorPane errorViewPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -97,6 +100,7 @@ public class MainWindow extends UiPart {
         commandFeedbackView = CommandFeedbackView.load(primaryStage, getResultDisplayPlaceholder());
         commandInputView = CommandInputView.load(primaryStage, getCommandBoxPlaceholder());
         commandErrorView = new CommandErrorView();
+        commandErrorView = CommandErrorView.load(primaryStage, errorViewPlaceholder);
         CommandController.constructLink(logic, commandInputView, commandFeedbackView, commandErrorView);
     }
 
