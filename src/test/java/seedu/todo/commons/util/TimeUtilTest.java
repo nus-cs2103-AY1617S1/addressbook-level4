@@ -1,20 +1,20 @@
 package seedu.todo.commons.util;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
- * Tests TimeUtil class
- * In this test, today is 3 May 2016, 13:15:10
+ * Tests the TimeUtil class
  */
 public class TimeUtilTest {
-    
+
+    //@@author A0135805H
     /**
      * A subclass of TimeUtil that provides the ability to override the current system time, 
      * so that time sensitive components can be conveniently tested. 
@@ -48,10 +48,11 @@ public class TimeUtilTest {
         assertEquals(expectedOutput, generatedOutput);
     }
         
-    @Test (expected = AssertionError.class)
+    @Test
     public void getTaskDeadlineString_nullEndTime() {
         TimeUtil timeUtil = new TimeUtil();
-        timeUtil.getTaskDeadlineText(null);
+        String outcome = timeUtil.getTaskDeadlineText(null);
+        assertEquals("", outcome);
     }
     
     @Test
@@ -231,7 +232,8 @@ public class TimeUtilTest {
         LocalDateTime laterEndTime = LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 35);
         assertTrue(timeUtil.isOverdue(laterEndTime));
     }
-    
+
+    //@@author
     @Test
     public void toAmericanDateFormat_matches() {
         assertEquals("12/6", TimeUtil.toAmericanDateFormat("6/12"));
