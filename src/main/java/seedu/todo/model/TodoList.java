@@ -15,7 +15,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
@@ -29,7 +28,9 @@ import seedu.todo.storage.Storage;
  * serialized and persisted directly
  */
 public class TodoList implements ImmutableTodoList, TodoModel {
-    private ObservableList<Task> tasks = FXCollections.observableArrayList(t -> t.getObservableProperties());
+    private static final String INDEX_OUT_OF_BOUND_ERROR = "Task not found in task list";
+    
+    private ObservableList<Task> tasks = FXCollections.observableArrayList(Task::getObservableProperties);
     private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
     private SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
 
@@ -55,50 +56,67 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     private void initTodoList(ImmutableTodoList initialData) {
         tasks.setAll(initialData.getTasks().stream().map(Task::new).collect(Collectors.toList()));
     }
-
-    @Override
-    public void add(String title) {
-        tasks.add(new Task(title));
-
-        storage.saveTodoList(this);
+    
+    private int getTaskIndex(int index) throws ValidationException {
+        int taskIndex; 
+        
+        try {
+            ImmutableTask task = getObserveableList().get(index - 1);
+            taskIndex = tasks.indexOf(task);
+        } catch (IndexOutOfBoundsException e) {
+            taskIndex = -1;
+        }
+        
+        if (taskIndex == -1) {
+            ErrorBag bag = new ErrorBag();
+            bag.put("index", TodoList.INDEX_OUT_OF_BOUND_ERROR);
+            bag.validate("There was a problem with your command");
+        }
+        
+        return taskIndex;
     }
 
     @Override
-    public void add(String title, Consumer<MutableTask> update) throws ValidationException {
+    public ImmutableTask add(String title) {
+        Task task = new Task(title);
+        tasks.add(task);
+        
+        storage.saveTodoList(this);
+        return task;
+    }
+
+    @Override
+    public ImmutableTask add(String title, Consumer<MutableTask> update) throws ValidationException {
         ValidationTask validationTask = new ValidationTask(title);
+        update.accept(validationTask);
+        Task task = validationTask.convertToTask();
+        tasks.add(task);
+
+        storage.saveTodoList(this);
+        return task;
+    }
+
+    @Override
+    public ImmutableTask delete(int index) throws ValidationException {
+        Task task;
+        task = tasks.remove(getTaskIndex(index));
+        storage.saveTodoList(this);
+        return task;
+    }
+
+    @Override
+    public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
+        Task task;
+        task = tasks.get(getTaskIndex(index));
+
+        ValidationTask validationTask = new ValidationTask(task);
         update.accept(validationTask);
         validationTask.validate();
 
-        tasks.add(validationTask.convertToTask());
-
+        // changes are validated and accepted
+        update.accept(task);
         storage.saveTodoList(this);
-    }
-
-    @Override
-    public void delete(ImmutableTask task) throws IllegalValueException {
-        if (!tasks.remove(task)) {
-            throw new IllegalValueException("Task not found in todo list");
-        }
-
-        storage.saveTodoList(this);
-    }
-
-    @Override
-    public void update(ImmutableTask key, Consumer<MutableTask> update) throws IllegalValueException, ValidationException {
-        int index = tasks.indexOf(key);
-
-        if (index < 0) {
-            throw new IllegalValueException("Task not found in todo list");
-        } else {
-            Task task = tasks.get(index);
-            ValidationTask validationTask = new ValidationTask(task);
-            update.accept(validationTask);
-            validationTask.validate();
-
-            // changes are validated and accepted
-            update.accept(task);
-            storage.saveTodoList(this);
-        }
+        return task;
     }
 
     @Override

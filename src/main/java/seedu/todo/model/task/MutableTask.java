@@ -5,7 +5,7 @@ import java.util.Set;
 
 import seedu.todo.model.tag.Tag;
 
-public interface MutableTask {
+public interface MutableTask extends ImmutableTask {
     public void setTitle(String title);
 
     public void setPinned(boolean pinned);

@@ -12,7 +12,7 @@ import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.tag.Tag;
 
-public class ValidationTask implements ImmutableTask, MutableTask {
+public class ValidationTask implements MutableTask {
     private static final String END_TIME = "endTime";
     private static final String TITLE = "title";
     private static final String ONLY_START_TIME_ERROR_MESSAGE = "You must define an ending time.";
