@@ -3,7 +3,7 @@ package seedu.emeraldo.logic.commands;
 import seedu.emeraldo.model.Emeraldo;
 
 /**
- * Clears the address book.
+ * Clears the Emeraldo.
  */
 public class ClearCommand extends Command {
 
