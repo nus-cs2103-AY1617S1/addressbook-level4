@@ -35,13 +35,14 @@ public class UpdateTaskCommand extends TaskCommand {
     public static final String MESSAGE_INVALID_UPDATE = "Invalid update to the task";
 
     public final int targetIndex;
+    private Task updatedTask;
     
     // Values that are to be updated. If it is not supposed to be updated, it will be null
-    public Task newTask;
-    public Description newDescription;
-    public Date newDeadline;
-    public Date newStartDate;
-    public Date newEndDate;
+    private Task newTask;
+    private Description newDescription;
+    private Date newDeadline;
+    private Date newStartDate;
+    private Date newEndDate;
 
     /**
      * This constructor is called by the user enters a command to replace the entire task.
@@ -93,8 +94,7 @@ public class UpdateTaskCommand extends TaskCommand {
     /**
      * Given the task that is to be updated, retrieve the new values that have been assigned by constructors
      */
-    public Task prepareUpdatedTask(Task taskToUpdate) throws IllegalValueException {
-    	Task updatedTask = null;
+    public void prepareUpdatedTask(Task taskToUpdate) throws IllegalValueException {
     	if (newTask != null) {
     		// User wants to change the entire task
     		updatedTask = newTask;
@@ -114,7 +114,6 @@ public class UpdateTaskCommand extends TaskCommand {
     	} else {
     		assert false : "At least task, description or date should have new values";
     	}
-    	return updatedTask;
     }
     
     public Task prepareUpdatedDescriptionForTask(Task taskToUpdate) throws IllegalValueException {
@@ -156,6 +155,23 @@ public class UpdateTaskCommand extends TaskCommand {
 			throw new IllegalValueException("Event task required for update of start date and end date");
 		}
     }
+    
+    /**
+     * Retrieve the details of the values to be updated for testing purposes
+     */
+    public String getTaskDetails() {
+    	if (newTask != null) {
+    		return String.format("[Update Task][Task: %s]", newTask);
+    	} else if (newDescription != null) {
+    		return String.format("[Update Task][Description: %s]", newDescription);
+    	} else if (newDeadline != null) {
+    		return String.format("[Update Task][Deadline: %s]", newDeadline);
+    	} else if (newStartDate != null && newEndDate != null) {
+    		return String.format("[Update Task][Start date: %s][End date: %s]", newStartDate, newEndDate);
+    	} else {
+    		return "Error";
+    	}
+    }
 
 
     @Override
@@ -171,7 +187,7 @@ public class UpdateTaskCommand extends TaskCommand {
         Task taskToUpdate = lastShownList.get(targetIndex - 1);
 
         try {
-        	Task updatedTask = prepareUpdatedTask(taskToUpdate);
+        	prepareUpdatedTask(taskToUpdate);
             model.updateTask(taskToUpdate, updatedTask);
         } catch (DuplicateItemException die) {
         	assert false : "Deletion of the original task (before addition of an updated task) has failed";

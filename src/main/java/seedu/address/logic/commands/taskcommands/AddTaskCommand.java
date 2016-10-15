@@ -83,6 +83,13 @@ public class AddTaskCommand extends TaskCommand {
     public String getTaskDetails() {
     	return toAdd.toString();
     }
+    
+    /**
+     * Retrieve the task to add
+     */
+    public Task getTask() {
+    	return toAdd;
+    }
 
     @Override
     public CommandResult execute() {
