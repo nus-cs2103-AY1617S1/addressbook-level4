@@ -57,7 +57,7 @@ public class Parser {
                     + " (from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     + " to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     + "|by (?<deadline>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+))"
-                    + " (?<recurring>(?:[^ ]+))"
+                    + "(?<recurring>(?: [^/(t/) ]+)*)"
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
         
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -189,7 +189,7 @@ public class Parser {
         try {
             RecurringType recurringType;
             
-            if (matcher.group("recurring") == null) {
+            if (matcher.group("recurring").isEmpty()) {
                 recurringType = RecurringType.NONE;
             }
             else {

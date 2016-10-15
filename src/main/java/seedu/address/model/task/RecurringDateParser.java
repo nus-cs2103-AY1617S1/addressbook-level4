@@ -16,15 +16,13 @@ public class RecurringDateParser {
     }
 
     private void populateSupportedRecurringTypes() {
+        recurringTypes = new HashSet<RecurringType>();
         for(RecurringType t : RecurringType.values()) {
             recurringTypes.add(t);
         }
     }
     
     public RecurringType getRecurringType(String input) {
-        if (RecurringType.valueOf(input) == null) {
-            return RecurringType.NONE;
-        }
         if (recurringTypes.contains(RecurringType.valueOf(input))) {
             return RecurringType.valueOf(input);
         }

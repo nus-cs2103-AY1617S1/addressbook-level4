@@ -45,8 +45,8 @@ public class XmlAdaptedTask {
             tagged.add(new XmlAdaptedTag(tag));
         }
         if (source.getTaskType() == TaskType.NON_FLOATING) {
-            startDate = source.getStartDate().getDate();
-            endDate = source.getEndDate().getDate();
+            startDate = source.getStartDate().getDateInLong();
+            endDate = source.getEndDate().getDateInLong();
         }
         if (source.getTaskType() == TaskType.FLOATING) {
             startDate = TaskDate.DATE_NOT_PRESENT;
@@ -81,6 +81,10 @@ public class XmlAdaptedTask {
     private Task toModelTypeNonFloating(final Name name, final UniqueTagList tags) {
         final TaskDate taskStartDate = new TaskDate(startDate);
         final TaskDate taskEndDate = new TaskDate(endDate);
-        return new Task(name, tags, taskStartDate, taskEndDate, RecurringType.valueOf(recurringType));
+        RecurringType toBeAdded = RecurringType.NONE;
+        if (recurringType != null ) {
+            toBeAdded = RecurringType.valueOf(recurringType);
+        }
+        return new Task(name, tags, taskStartDate, taskEndDate, toBeAdded);
     }
 }

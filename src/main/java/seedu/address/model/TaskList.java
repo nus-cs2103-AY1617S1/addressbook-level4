@@ -169,7 +169,6 @@ public class TaskList implements ReadOnlyTaskList {
 
 	@Override
 	public ReadOnlyTaskList purify() throws TaskNotFoundException  {
-		// TODO Auto-generated method stub
 		TaskList newList = new TaskList(this); 
 		for(Task t: tasks){
 			if(t.getTaskType()==TaskType.COMPLETED) {

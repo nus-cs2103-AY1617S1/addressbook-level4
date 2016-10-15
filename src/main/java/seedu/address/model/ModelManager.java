@@ -4,6 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.RepeatingTaskManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
@@ -13,6 +14,7 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.commons.events.model.TaskListChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.core.ComponentManager;
 
@@ -54,6 +56,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
         taskList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(taskList.getTasks());
+        RepeatingTaskManager.getInstance().setInitialisedTime();
+        RepeatingTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
     }
 
     @Override
@@ -250,13 +254,13 @@ public class ModelManager extends ComponentManager implements Model {
 				return null;
 			}
 			
-			if(task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT
-					|| task.getEndDate().getDate() == TaskDate.DATE_NOT_PRESENT) {
+			if(task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT
+					|| task.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
 				return null;
 			}
 			
-			Date startDate = new Date(task.getStartDate().getDate());
-			Date endDate = new Date(task.getEndDate().getDate());
+			Date startDate = new Date(task.getStartDate().getDateInLong());
+			Date endDate = new Date(task.getEndDate().getDateInLong());
 			return new Date[]{ startDate, endDate };
 		}
 
@@ -305,16 +309,16 @@ public class ModelManager extends ComponentManager implements Model {
 			if(task.getTaskType().equals(TaskType.FLOATING))
 				return false;
 			
-			if(task.getEndDate().getDate() == TaskDate.DATE_NOT_PRESENT)
+			if(task.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
 				return false;
 			
-			Date deadline = new Date(task.getEndDate().getDate());
+			Date deadline = new Date(task.getEndDate().getDateInLong());
 			
 			if(deadline.before(this.deadline)
-					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
+					&& task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
 				return true;
 			if(deadline.getDate()==this.deadline.getDate()&&deadline.getMonth()==this.deadline.getMonth()
-					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
+					&& task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
 				return true;
 			return false;
 		}

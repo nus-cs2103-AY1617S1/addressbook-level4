@@ -11,6 +11,18 @@ public class TaskDate {
     public static final int DATE_NOT_PRESENT = -1;
     private long date;
     
+    /**
+     * Date is not present by default if nothing is specified
+     * Convenience and defensive
+     */
+    public TaskDate() {
+        this.date = DATE_NOT_PRESENT;
+    }
+    
+    public TaskDate(Date date) {
+        this.date = date.getTime();
+    }
+    
     public TaskDate(long date) {
         this.date = date;
     }
@@ -47,7 +59,7 @@ public class TaskDate {
         return formatter.format(new Date(date));
     }
     
-    public long getDate() {
+    public long getDateInLong() {
         return date;
     } 
     
@@ -55,14 +67,18 @@ public class TaskDate {
      * Parses the date in Long and provides it in the Date class format
      * @return
      */
-    public Date getParsedDate(){
+    public Date getDate() {
     	return new Date(date);
+    }
+    
+    public void extendByDay() {
+        
     }
     
     @Override
     public boolean equals(Object other){
 		return other == this ||
 				(other instanceof TaskDate // instanceof handles nulls
-		                && this.getDate() == ((TaskDate) other).getDate());
+		                && this.getDateInLong() == ((TaskDate) other).getDateInLong());
     }
 }

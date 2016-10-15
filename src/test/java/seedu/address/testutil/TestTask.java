@@ -51,6 +51,11 @@ public class TestTask extends Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return tags;
     }
+    
+    @Override
+    public RecurringType getRecurringType() {
+        return recurringType;
+    }
 
     @Override
     public String toString() {

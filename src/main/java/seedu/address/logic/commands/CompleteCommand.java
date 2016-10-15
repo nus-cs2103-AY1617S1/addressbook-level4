@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -46,5 +48,4 @@ public class CompleteCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToDelete));
     }
-
 }

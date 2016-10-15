@@ -65,14 +65,14 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean overlaps(ReadOnlyTask toCheck) {
         assert toCheck != null;
         //If to check is floating or deadline tasks, ignored.
-        if(toCheck.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
+        if(toCheck.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
         	return false;
         //Only compare tasks with certain time slots.
         for(Task t: internalList){
         	if(t.getTaskType().equals(TaskType.NON_FLOATING)){
-        		if(t.getStartDate().getDate()!=TaskDate.DATE_NOT_PRESENT){
-        			if(!(t.getEndDate().getParsedDate().before(toCheck.getStartDate().getParsedDate())||
-        	        	t.getStartDate().getParsedDate().after(toCheck.getEndDate().getParsedDate())))
+        		if(t.getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
+        			if(!(t.getEndDate().getDate().before(toCheck.getStartDate().getDate())||
+        	        	t.getStartDate().getDate().after(toCheck.getEndDate().getDate())))
         	        		return true;
         		}
         	}

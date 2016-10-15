@@ -826,7 +826,7 @@ public class LogicManagerTest {
         }
 
         private void generateAddNonFloatingCommand(Task p, StringBuffer cmd) {            
-            if (p.hasOnlyDateLine()) {
+            if (p.hasOnlyEndDate()) {
                 generateAddNonFloatingCommandByDate(p, cmd);
             } else {
                 generateAddNonFloatingCommandFromDateToDate(p, cmd);   

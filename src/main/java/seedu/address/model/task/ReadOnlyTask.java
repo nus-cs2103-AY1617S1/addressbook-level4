@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import java.util.List;
+
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -18,6 +20,7 @@ public interface ReadOnlyTask {
 
     TaskDate getStartDate();
     TaskDate getEndDate();
+    List<TaskDateComponent> getTaskDateComponent();
     
     /**
      * Returns the type of the class, whether it is FLOATING or NON_FLOATING type
@@ -45,11 +48,11 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        if(getStartDate().getDate()!=-1){
+        if(getStartDate().getDateInLong()!=-1){
         	builder.append(" From: ");
         	builder.append(getStartDate().getFormattedDate());
         }
-        if(getEndDate().getDate()!=-1){
+        if(getEndDate().getDateInLong()!=-1){
         	builder.append(" To: ");
         	builder.append(getEndDate().getFormattedDate());
         }
