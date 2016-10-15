@@ -37,9 +37,9 @@ public class UndoController implements Controller {
         }
         
         int numUndo = 1;
-        if (parsedResult.get("default") != null) {
+        if (parsedResult.get("default")[1] != null) {
             numUndo = Integer.parseInt(parsedResult.get("default")[1]);
-        }   
+        }
         
         // We don't really have a nice way to support SQL transactions, so yeah >_<
         TodoListDB db = TodoListDB.getInstance();
