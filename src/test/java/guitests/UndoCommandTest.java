@@ -10,32 +10,32 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
-public class UndoCommandTest extends AddressBookGuiTest {
+public class UndoCommandTest extends TaskSchedulerGuiTest {
 	
 	@Test
     public void undo() {
 
 		//undo a task
 		CommandHistory.flushMutateCmd();
-        TestTask[] currentList = td.getTypicalPersons();
+        TestTask[] currentList = td.getTypicalTasks();
         ReadOnlyTask task = td.hoon;
         commandBox.runCommand(td.hoon.getAddCommand());
         assertUndoSuccess(task,currentList);
         
         
-        task = personListPanel.getPerson(0);
+        task = taskListPanel.getTask(0);
         commandBox.runCommand("delete 1");
         assertUndoSuccess(task,currentList);
 
-        task = personListPanel.getPerson(2);
+        task = taskListPanel.getTask(2);
         commandBox.runCommand("delete 3");
         assertUndoSuccess(task,currentList);
 
-        task = personListPanel.getPerson(1);
+        task = taskListPanel.getTask(1);
         commandBox.runCommand("edit " + 2 + " " + td.ida.getTaskString());
         assertUndoSuccess(task,currentList);
 
-        task = personListPanel.getPerson(4);
+        task = taskListPanel.getTask(4);
         commandBox.runCommand("mark 5");
         assertUndoSuccess(task,currentList);
         
@@ -47,7 +47,7 @@ public class UndoCommandTest extends AddressBookGuiTest {
         for (int i = 0; i < 5; i++) {
         	commandBox.runCommand("undo");
         }
-        assertTrue(personListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.isListMatching(currentList));
         
 		commandBox.runCommand("undo");
 		assertResultMessage(UndoCommand.MESSAGE_FAILURE);
@@ -58,8 +58,8 @@ public class UndoCommandTest extends AddressBookGuiTest {
     	commandBox.runCommand("undo");
 
         //confirm the list now contains all previous tasks with the edited task
-        TestTask[] expectedList = TestUtil.addPersonsToList(currentList);
-        assertTrue(personListPanel.isListMatching(expectedList));
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList);
+        assertTrue(taskListPanel.isListMatching(expectedList));
         assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS, task.getAsText()));
     }
 }
