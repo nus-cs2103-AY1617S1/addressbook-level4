@@ -14,6 +14,7 @@ public class History {
     
     // command inputs
     private Stack<String> prevCommands;
+    private String currentStoredCommandShown;
     private Stack<String> nextCommands;
     
     public History(){
@@ -21,6 +22,7 @@ public class History {
         redoableEffects = new Stack<ReversibleEffect>();
         prevCommands = new Stack<String>();
         nextCommands = new Stack<String>();
+        currentStoredCommandShown = "";
     }
     
     // Methods dealing with undo and redo
@@ -56,8 +58,23 @@ public class History {
     
     // Methods dealing with up and down arrow to retrieve prev/next entered commands
     public void updateInputHistory(String userInput){
-        assert prevCommands != null;
-        prevCommands.push(userInput);
+        assert prevCommands != null && nextCommands != null && currentStoredCommandShown != null;
+        
+        if (!isLatestCommand()) {
+            pushPrevCommandInput(currentStoredCommandShown);
+        }
+        
+        while (!isLatestCommand()) {
+            // last 'next' is the one that i typed halfway, don't push it in my history 
+            if (nextCommands.size() == 1){
+                nextCommands.pop();
+                break;
+            }
+                
+            prevCommands.push(nextCommands.pop());
+        }
+        pushPrevCommandInput(userInput);
+        currentStoredCommandShown = "";
     }
     
     public boolean isEarliestCommand(){
@@ -72,7 +89,8 @@ public class History {
     
     public String popPrevCommandInput(){
         assert prevCommands != null;
-        return prevCommands.pop();
+        this.currentStoredCommandShown = prevCommands.pop();
+        return currentStoredCommandShown;
     }
     
     public String pushPrevCommandInput(String input){
@@ -82,12 +100,22 @@ public class History {
     
     public String popNextCommandInput(){
         assert nextCommands != null;
-        return nextCommands.pop();
+        this.currentStoredCommandShown = nextCommands.pop();
+        return currentStoredCommandShown;
     }
     
     public String pushNextCommandInput(String input){
         assert nextCommands != null;
         return nextCommands.push(input);
+    }
+    
+    public void updateCurrentShownCommand(String input){
+        assert input != null;
+        this.currentStoredCommandShown = input;
+    }
+    
+    public String getStoredCurrentShownCommand(){
+        return currentStoredCommandShown;
     }
     
 }

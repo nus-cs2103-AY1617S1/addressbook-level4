@@ -108,8 +108,14 @@ public class CommandBox extends UiPart {
         // handle differently depending on up or left arrow
         if (wantPrevious){
             // store the current input into the next first
-            history.pushNextCommandInput(currentInput);
-            
+            if (history.isLatestCommand()) {
+                history.pushNextCommandInput(commandTextField.getText());
+            }
+                
+            else {
+                history.pushNextCommandInput(history.getStoredCurrentShownCommand());
+            }
+                
             // get a previous command input and replace current input
             commandTextField.setText(history.popPrevCommandInput());
         }
@@ -117,7 +123,7 @@ public class CommandBox extends UiPart {
         // or down or right arrow
         else {
             // store the current input into the prev first
-            history.pushPrevCommandInput(currentInput);
+            history.pushPrevCommandInput(history.getStoredCurrentShownCommand());
             
             // get a next command input and replace current input
             commandTextField.setText(history.popNextCommandInput());
@@ -132,7 +138,8 @@ public class CommandBox extends UiPart {
     private void handleCommandInputEntered() {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
-       
+        
+        // first push back all 'next' commands into 'prev' command       
         // immediately add it to the history of command inputs
         history.updateInputHistory(previousCommandTest); 
 
