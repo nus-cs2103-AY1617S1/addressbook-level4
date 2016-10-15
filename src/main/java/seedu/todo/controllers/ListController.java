@@ -1,7 +1,14 @@
 package seedu.todo.controllers;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
 import seedu.todo.commons.util.StringUtil;
@@ -33,7 +40,7 @@ public class ListController implements Controller {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
         tokenDefinitions.put("default", new String[] {"list"});
         tokenDefinitions.put("eventType", new String[] { "event", "task"});
-        tokenDefinitions.put("status", new String[] { "complete", "uncomplete"});
+        tokenDefinitions.put("status", new String[] { "complete" , "completed", "uncomplete", "uncompleted"});
         tokenDefinitions.put("time", new String[] { "at", "by", "on", "before", "time" });
         tokenDefinitions.put("timeFrom", new String[] { "from" });
         tokenDefinitions.put("timeTo", new String[] { "to" });
@@ -56,6 +63,8 @@ public class ListController implements Controller {
         boolean isEvent = true;
         boolean listAll = true;
         boolean isCompleted = true;
+        String naturalFrom = null;
+        String naturalTo = null;
         
         for(int i = 0; i <parsedResult.get("eventType").length; i ++){
             System.out.println(parsedResult.get("eventType")[i]);
@@ -74,37 +83,51 @@ public class ListController implements Controller {
         //check if required to list only completed or uncomplete
         if (parsedResult.get("stauts") != null) {
             listAll = false;
-            
+            if (parsedResult.get("status")[0].equals("uncomplete")) {
+                isCompleted = false;
+            }
         } 
+        
+        if (parsedResult.get("time") == null) {
+            if (parsedResult.get("timeFrom") != null) {
+                naturalFrom = parsedResult.get("timeFrom")[1];
+            }
+            if (parsedResult.get("timeTo") != null) {
+                naturalTo = parsedResult.get("timeTo")[1];
+            }
+        } else {
+            naturalFrom = parsedResult.get("time")[1];
+        }
 
+        // Parse natural date using Natty.
+        LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
+        LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+     
+        TodoListDB db = TodoListDB.getInstance();
+        IndexView view = UiManager.loadView(IndexView.class);
         
-        // Name - Disambiguate if null.
-//        String name = null;
-//        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null)
-//            name = parsedResult.get("default")[1];
-//        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[1] != null)
-//            name = parsedResult.get("eventType")[1];
-//        if (name == null) {
-//            renderDisambiguation(parsedResult);
-//            return;
-//        }
-        
-        // old process
-//        TodoListDB db = TodoListDB.getInstance();
-//        
-//        // Render
-//        IndexView view = UiManager.loadView(IndexView.class);
-//        view.tasks = db.getAllTasks();
-//        view.events = db.getAllEvents();
-//        UiManager.renderView(view);
-//
-//        // Update console message
-//        int numTasks = db.getAllTasks().size();
-//        int numEvents = db.getAllEvents().size();
-//        String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS,
-//                numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"),
-//                numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
-//        UiManager.updateConsoleMessage(consoleMessage);
+        UiManager.renderView(view);
+        // Update console message
+        int numTasks = db.getAllTasks().size();
+        int numEvents = db.getAllEvents().size();
+        String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, 
+                numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"), 
+                numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
+        UiManager.updateConsoleMessage(consoleMessage);
+    }
+    
+    private LocalDateTime parseNatural(String natural) {
+        Parser parser = new Parser();
+        List<DateGroup> groups = parser.parse(natural);
+        Date date = null;
+        try {
+            date = groups.get(0).getDates().get(0);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error!"); // TODO
+            return null;
+        }
+        LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        return ldt;
     }
 
 }
