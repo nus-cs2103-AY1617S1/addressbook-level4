@@ -8,13 +8,13 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlFileStorage;
 
-public class SetSavePathCommand extends Command {
+public class SetPathCommand extends Command {
 
     public static final String COMMAND_WORD = "setpath";
     
     private String savedPathLink;
     
-    public SetSavePathCommand(String arguments) {
+    public SetPathCommand(String arguments) {
         this.savedPathLink = arguments;
     }
 

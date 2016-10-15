@@ -100,7 +100,7 @@ public class Parser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();   
 
-        case SetSavePathCommand.COMMAND_WORD:
+        case SetPathCommand.COMMAND_WORD:
             return setSavePath(arguments);
             
         default:
@@ -118,7 +118,7 @@ public class Parser {
 
     private Command setSavePath(String args) {
         String path = args.trim().concat(".xml");
-        return new SetSavePathCommand(path);
+        return new SetPathCommand(path);
     }
 
     /**
