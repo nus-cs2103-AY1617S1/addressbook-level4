@@ -36,11 +36,11 @@ public class UniqueTaskList implements Iterable<Task> {
     public static class TaskNotFoundException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Task> internalTodayList = FXCollections.observableArrayList();
-    private final ObservableList<Task> internalTomorrowList = FXCollections.observableArrayList();
-    private final ObservableList<Task> internalIn7DaysList = FXCollections.observableArrayList();
-    private final ObservableList<Task> internalIn30DaysList = FXCollections.observableArrayList();
-    private final ObservableList<Task> internalSomedayList = FXCollections.observableArrayList();
+    private final ObservableList<Task> subInternalTodayList = FXCollections.observableArrayList();
+    private final ObservableList<Task> subInternalTomorrowList = FXCollections.observableArrayList();
+    private final ObservableList<Task> subInternalIn7DaysList = FXCollections.observableArrayList();
+    private final ObservableList<Task> subInternalIn30DaysList = FXCollections.observableArrayList();
+    private final ObservableList<Task> subInternalSomedayList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
@@ -77,7 +77,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void filterTaskToAdd(Task toAdd) {
     	assert toAdd != null;
     	if (toAdd.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
-    		internalSomedayList.add(toAdd);
+    		subInternalSomedayList.add(toAdd);
     		// TO-DO: Sort the toAdd Task according to date(startDate for events and dueDate for deadlines).
     	}
     }
@@ -105,7 +105,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void filterTaskToRemove(ReadOnlyTask toRemove) {
     	assert toRemove != null;
     	if (toRemove.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
-    		internalSomedayList.remove(toRemove);
+    		subInternalSomedayList.remove(toRemove);
     		// TO-DO: Sort the toRemove Task according to date(startDate for events and dueDate for deadlines).
     	}
     }
@@ -120,8 +120,9 @@ public class UniqueTaskList implements Iterable<Task> {
         if (internalList.size() < key) {
             throw new TaskNotFoundException();
         } else {
+        	Task beforeSet = internalList.get(key-1);
         	internalList.set(key-1, toSet);
-        	filterTaskToSet(key-1, toSet);
+        	filterTaskToSet(beforeSet, toSet);
         	isFound = true;
         }
         return isFound;
@@ -132,36 +133,54 @@ public class UniqueTaskList implements Iterable<Task> {
      * so as to edit the task in corresponding individual internal lists.
      * 
      */
-    private void filterTaskToSet(int key, Task toSet) {
+    private void filterTaskToSet(Task beforeSet, Task toSet) {
 		assert toSet != null;
 		if (toSet.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
-		    internalSomedayList.set(key, toSet);
+			editTaskInSubInternalList(beforeSet, toSet, subInternalSomedayList);		    
 		    // TO-DO: Sort the toSet Task according to date(startDate for events and dueDate for deadlines).
 		}
 	}
+    /**
+     * Edit the task in the different sub internal lists according to user
+     * 
+     */
+	private void editTaskInSubInternalList(Task beforeSet, Task toSet, ObservableList<Task> List) {
+		int toSetTaskIndex;
+		toSetTaskIndex = List.indexOf(beforeSet);
+		List.remove(toSetTaskIndex);
+		List.add(toSetTaskIndex, toSet);
+	}
 
+	/**
+	 * Update the different sub internal lists according to local time (or system time?)
+	 * when Amethyst is opened for the first time every day.
+	 */
+	public void updateSubInternalListsByLocalTime () {
+		//TO-DO
+	}
+	
 	public ObservableList<Task> getInternalList() {
         return internalList;
     }
 
-    public List getInternalTodayTaskList() {
-        return internalTodayList;
+    public ObservableList<Task> getSubInternalTodayTaskList() {
+        return subInternalTodayList;
     }
 
-    public List getInternalTomorrowTaskList() {
-        return internalTomorrowList;
+    public ObservableList<Task> getSubInternalTomorrowTaskList() {
+        return subInternalTomorrowList;
     }
 
-    public List getInternalIn7DaysTaskList() {
-        return internalIn7DaysList;
+    public ObservableList<Task> getSubInternalIn7DaysTaskList() {
+        return subInternalIn7DaysList;
     }
 
-    public List getInternalIn30DaysTaskList() {
-        return internalIn30DaysList;
+    public ObservableList<Task> getSubInternalIn30DaysTaskList() {
+        return subInternalIn30DaysList;
     }
 
-    public List getInternalSomedayTaskList() {
-        return internalSomedayList;
+    public ObservableList<Task> getSubInternalSomedayTaskList() {
+        return subInternalSomedayList;
     }
 	
     @Override
