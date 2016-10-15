@@ -13,13 +13,14 @@
 
     <HBox alignment="CENTER_LEFT">
       <children>
-        <Text fx:id="configSetting" styleClass="configitem-setting" VBox.vgrow="ALWAYS" />
-        <Text fx:id="configValue" styleClass="configitem-value" VBox.vgrow="ALWAYS" />
+        <Text fx:id="configDescription" styleClass="font-500" wrappingWidth="150.0" VBox.vgrow="ALWAYS" />
+        <Text fx:id="configName" wrappingWidth="150.0" VBox.vgrow="ALWAYS" />
+        <Text fx:id="configValue" VBox.vgrow="ALWAYS" />
       </children>
     </HBox>
     
   </children>
   <padding>
-    <Insets bottom="10.0" top="10.0" />
+    <Insets bottom="10.0" />
   </padding>
 </VBox>

@@ -19,20 +19,20 @@
         </ImageView>
         <Text styleClass="font-300, view-title-text" text="Settings" />
       </children>
-
-      <padding>
-        <Insets top="20.0" left="20.0" bottom="20.0" right="20.0" />
-      </padding>
     </HBox>
 
     <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
       <content>
         <VBox styleClass="config-pane" fx:id="configsPlaceholder" VBox.vgrow="ALWAYS">
           <padding>
-            <Insets left="20.0" top="20.0" right="20.0" bottom="20.0" />
+            <Insets top="20.0" bottom="20.0" />
           </padding>
         </VBox>
       </content>
     </ScrollPane>
   </children>
+
+  <padding>
+    <Insets top="20.0" left="20.0" bottom="20.0" right="20.0" />
+  </padding>
 </VBox>

@@ -16,7 +16,9 @@ public class ConfigItem extends MultiComponent {
     
     // FXML
     @FXML
-    private Text configSetting;
+    private Text configDescription;
+    @FXML
+    private Text configName;
     @FXML
     private Text configValue;
     
@@ -32,7 +34,8 @@ public class ConfigItem extends MultiComponent {
     @Override
     public void componentDidMount() {
         if (configDefinition != null) {
-            configSetting.setText(configDefinition.getConfigDescription());
+            configDescription.setText(configDefinition.getConfigDescription());
+            configName.setText(configDefinition.getConfigName());
             configValue.setText(configDefinition.getConfigValue());
         }
     }
