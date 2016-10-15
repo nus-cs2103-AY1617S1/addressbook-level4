@@ -42,11 +42,11 @@ public class XmlAdaptedTask {
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
-        if (source.getType() == TaskType.NON_FLOATING) {
+        if (source.getTaskType() == TaskType.NON_FLOATING) {
             startDate = source.getStartDate().getDate();
             endDate = source.getEndDate().getDate();
         }
-        if (source.getType() == TaskType.FLOATING) {
+        if (source.getTaskType() == TaskType.FLOATING) {
             startDate = TaskDate.DATE_NOT_PRESENT;
             endDate = TaskDate.DATE_NOT_PRESENT;
         }

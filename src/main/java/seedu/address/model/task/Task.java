@@ -23,7 +23,9 @@ public class Task implements ReadOnlyTask {
     private UniqueTagList tags;
     
     private TaskDate startDate, endDate;
-    private TaskType type;
+    private TaskType taskType;
+    
+    private RecurringType recurringType;
     
     /**
      * Every field must be present and not null.
@@ -34,18 +36,20 @@ public class Task implements ReadOnlyTask {
         this.tags = tags;
         this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         this.endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
-        type = TaskType.FLOATING;
+        taskType = TaskType.FLOATING;
+        recurringType = RecurringType.NONE;
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
+    public Task(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) {
         this(name, tags);
         assert !CollectionUtil.isAnyNull(name, tags);
         this.startDate = startDate;
         this.endDate = endDate;
-        type = TaskType.NON_FLOATING;
+        this.taskType = TaskType.NON_FLOATING;
+        this.recurringType = recurringType;
     }
     
     public Task(){}
@@ -62,9 +66,9 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags(), source.getStartDate(), source.getEndDate());
+        this(source.getName(), source.getTags(), source.getStartDate(), source.getEndDate(), source.getRecurringType());
         if (source.getEndDate().getDate() == TaskDate.DATE_NOT_PRESENT) {
-            type = TaskType.FLOATING;
+            taskType = TaskType.FLOATING;
         }
     }
 
@@ -88,16 +92,23 @@ public class Task implements ReadOnlyTask {
         return endDate;
     }
     @Override
-    public TaskType getType() {
-        return type;
+    public TaskType getTaskType() {
+        return taskType;
     }
     @Override
+    public RecurringType getRecurringType() {
+        return recurringType;
+    }
+    
     public void setType(TaskType type) {
-        this.type = type;
+        this.taskType = type;
+    }
+    public void setRecurringType(RecurringType type) {
+        this.recurringType = type;
     }
     
     public boolean hasOnlyDateLine() {
-        if (type == TaskType.FLOATING) {
+        if (taskType == TaskType.FLOATING) {
             return false;
         }
         if (startDate.getDate() != TaskDate.DATE_NOT_PRESENT){

@@ -56,7 +56,7 @@ public class TestTask extends Task implements ReadOnlyTask {
     }
     
     @Override
-    public TaskType getType(){
+    public TaskType getTaskType(){
     	return type;
     }
     

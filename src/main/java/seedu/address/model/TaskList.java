@@ -172,7 +172,7 @@ public class TaskList implements ReadOnlyTaskList {
 		// TODO Auto-generated method stub
 		TaskList newList = new TaskList(this); 
 		for(Task t: tasks){
-			if(t.getType()==TaskType.COMPLETED) {
+			if(t.getTaskType()==TaskType.COMPLETED) {
 				Task copyToRemove = new Task(t);
 				newList.removeTask(copyToRemove);					
 			}

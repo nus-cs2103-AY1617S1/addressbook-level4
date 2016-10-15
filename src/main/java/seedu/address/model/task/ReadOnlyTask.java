@@ -22,8 +22,9 @@ public interface ReadOnlyTask {
     /**
      * Returns the type of the class, whether it is FLOATING or NON_FLOATING type
      */
-    TaskType getType();
-    void setType(TaskType type);
+    TaskType getTaskType();
+    
+    RecurringType getRecurringType();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -32,7 +33,7 @@ public interface ReadOnlyTask {
     		return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getType().equals(this.getType())
+                && other.getTaskType().equals(this.getTaskType())
                 && other.getStartDate().equals(this.getStartDate())
                 && other.getEndDate().equals(this.getEndDate())
                 );
@@ -70,5 +71,4 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
 }

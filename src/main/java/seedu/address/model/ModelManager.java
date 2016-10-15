@@ -166,7 +166,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
 
-            return task.getType().equals(typeKeyWords);
+            return task.getTaskType().equals(typeKeyWords);
         }
 
         @Override
@@ -245,7 +245,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 		
 		private Date[] extractTaskPeriod(ReadOnlyTask task) {
-			TaskType type = task.getType();
+			TaskType type = task.getTaskType();
 			if(type.equals(TaskType.FLOATING)) {
 				return null;
 			}
@@ -302,7 +302,7 @@ public class ModelManager extends ComponentManager implements Model {
 			if(this.deadline == null)
 				return true;
 			
-			if(task.getType().equals(TaskType.FLOATING))
+			if(task.getTaskType().equals(TaskType.FLOATING))
 				return false;
 			
 			if(task.getEndDate().getDate() == TaskDate.DATE_NOT_PRESENT)

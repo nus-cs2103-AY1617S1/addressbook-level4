@@ -806,7 +806,7 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
             cmd.append(p.getName().toString());
-            if(p.getType().equals(TaskType.NON_FLOATING)){
+            if(p.getTaskType().equals(TaskType.NON_FLOATING)){
                 generateAddNonFloatingCommand(p, cmd);
             }
             UniqueTagList tags = p.getTags();

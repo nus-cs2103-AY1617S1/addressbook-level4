@@ -69,7 +69,7 @@ public class UniqueTaskList implements Iterable<Task> {
         	return false;
         //Only compare tasks with certain time slots.
         for(Task t: internalList){
-        	if(t.getType().equals(TaskType.NON_FLOATING)){
+        	if(t.getTaskType().equals(TaskType.NON_FLOATING)){
         		if(t.getStartDate().getDate()!=TaskDate.DATE_NOT_PRESENT){
         			if(!(t.getEndDate().getParsedDate().before(toCheck.getStartDate().getParsedDate())||
         	        	t.getStartDate().getParsedDate().after(toCheck.getEndDate().getParsedDate())))
