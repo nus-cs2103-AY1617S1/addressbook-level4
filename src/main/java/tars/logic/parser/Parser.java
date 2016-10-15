@@ -31,6 +31,7 @@ import tars.logic.commands.HelpCommand;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.MarkCommand;
+import tars.logic.commands.RedoCommand;
 import tars.logic.commands.SelectCommand;
 import tars.logic.commands.UndoCommand;
 
@@ -96,6 +97,9 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
