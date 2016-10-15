@@ -23,6 +23,7 @@ import seedu.address.storage.StorageManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -198,20 +199,22 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task[] toBeAdded = {helper.adam(), helper.bravo(), helper.charlie(), helper.desmond(), helper.elize(), helper.fiona()};
         AddressBook expectedAB = new AddressBook();
-        expectedAB.addTask(toBeAdded);
+        for (Task task : toBeAdded) {
+
+            expectedAB.addTask(task);
 
         // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
+        model.addTask(task); // person already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
+                helper.generateAddCommand(task),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getPersonList());
-
+        }
     }
 
 
@@ -399,6 +402,52 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(description, priority, time, date, tags);
+        }
+        
+        Task bravo() throws Exception {
+            Description description = new Description("Bravo Christ");
+            Time time = new Time("");
+            Date date = new Date("");
+            Priority priority = new Priority("");
+            UniqueTagList tags = new UniqueTagList();
+            return new Task(description, priority, time, date, tags);
+        }
+        
+        Task charlie() throws Exception {
+            Description description = new Description("Charlie Denver");
+            Time time = new Time("15:30");
+            Date date = new Date("");
+            Priority priority = new Priority("");
+            UniqueTagList tags = new UniqueTagList();
+            return new Task(description, priority, time, date, tags);
+        }
+        
+        Task desmond() throws Exception {
+            Description description = new Description("Desmond Exteli");
+            Time time = new Time("");
+            Date date = new Date("12.10.2013");
+            Priority priority = new Priority("");
+            UniqueTagList tags = new UniqueTagList();
+            return new Task(description, priority, time, date, tags);
+        }
+        
+        Task elize() throws Exception {
+            Description description = new Description("Elize Faraday");
+            Time time = new Time("");
+            Date date = new Date("");
+            Priority priority = new Priority("low");
+            UniqueTagList tags = new UniqueTagList();
+            return new Task(description, priority, time, date, tags);
+        }
+        
+        Task fiona() throws Exception {
+            Description description = new Description("Fiona Gandalf");
+            Time time = new Time("");
+            Date date = new Date("");
+            Priority priority = new Priority("");
+            Tag tag1 = new Tag("tag1");
+            UniqueTagList tags = new UniqueTagList(tag1);
             return new Task(description, priority, time, date, tags);
         }
 
