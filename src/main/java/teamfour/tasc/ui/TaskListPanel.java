@@ -1,6 +1,7 @@
 package teamfour.tasc.ui;
 
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,9 +12,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import teamfour.tasc.commons.core.LogsCenter;
+import teamfour.tasc.commons.events.ui.TaskPanelListChangedEvent;
 import teamfour.tasc.commons.events.ui.TaskPanelSelectionChangedEvent;
 import teamfour.tasc.model.task.ReadOnlyTask;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -64,6 +68,7 @@ public class TaskListPanel extends UiPart {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
+        setEventHandlerForListChangeEvent();
     }
 
     private void addToPlaceholder() {
@@ -77,6 +82,18 @@ public class TaskListPanel extends UiPart {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
+        });
+    }
+    
+    private void setEventHandlerForListChangeEvent() {
+        taskListView.getItems().addListener(new ListChangeListener<ReadOnlyTask>() {
+
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends ReadOnlyTask> changed) {
+                logger.fine("List has changed!");
+                raise(new TaskPanelListChangedEvent(taskListView.getItems()));
+            }
+            
         });
     }
 

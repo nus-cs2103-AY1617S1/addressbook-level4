@@ -13,10 +13,12 @@ import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.events.storage.DataSavingExceptionEvent;
 import teamfour.tasc.commons.events.ui.JumpToListRequestEvent;
 import teamfour.tasc.commons.events.ui.ShowHelpRequestEvent;
+import teamfour.tasc.commons.events.ui.TaskPanelListChangedEvent;
 import teamfour.tasc.commons.events.ui.TaskPanelSelectionChangedEvent;
 import teamfour.tasc.commons.util.StringUtil;
 import teamfour.tasc.logic.Logic;
 import teamfour.tasc.model.UserPrefs;
+import teamfour.tasc.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 
@@ -62,6 +64,7 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
+        mainWindow.releaseResources();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -119,6 +122,17 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getCalendarPanel().selectTask(event.getNewSelection());
     }
 
+
+    /** 
+     * Handle the event when the task list is changed.
+     * @param event
+     */
+    @Subscribe
+    public void handleTaskListPanelChangedEvent(TaskPanelListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getCalendarPanel().refreshTasks(event.getNewTaskList());
+    }
 }
