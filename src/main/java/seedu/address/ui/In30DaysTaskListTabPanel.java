@@ -14,7 +14,6 @@ import seedu.address.commons.events.ui.In30DaysTaskTabPanelSelectionChangedEvent
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskFilter;
 import seedu.address.model.task.TaskType;
-import seedu.address.ui.In7DaysTaskListTabPanel.TaskListViewCell;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.function.Predicate;
