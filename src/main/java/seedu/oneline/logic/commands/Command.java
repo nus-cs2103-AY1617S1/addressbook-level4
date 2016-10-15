@@ -43,4 +43,9 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
+    
+    /**
+     * Returns whether or not the command can be undone
+     */
+    public abstract boolean isMutating();
 }
