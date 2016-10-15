@@ -17,11 +17,11 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a to-do task to Simply. "
             + "Parameters: Task details #tag #...."
-            + "                                     "
+            + "                                                "
             + " Example: " + COMMAND_WORD
             + " go swimming #IMPT\n" + COMMAND_WORD + ": Adds a deadline task to Simply. "
             + "Parameters: Task details; date; end time #tag #...."
-            + "            "
+            + "                   "
             + "Example: " + COMMAND_WORD
             + " report; 120516; 1200 #LIFE\n" + COMMAND_WORD + ": Adds a event task to Simply. "
             + "Parameters: [Task details; date; start time; end time] #tag #..."
