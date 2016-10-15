@@ -50,6 +50,8 @@ public class InputHandler {
                                   new AddController(),
                                   new ListController(),
                                   new DestroyController(),
+                                  new CompleteTaskController(),
+                                  new UncompleteTaskController(),
                                   new UpdateController() };
     }
 
