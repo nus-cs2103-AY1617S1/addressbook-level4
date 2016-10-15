@@ -1,6 +1,5 @@
 package seedu.todo.controllers;
 
-import seedu.todo.commons.util.StringUtil;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
