@@ -76,6 +76,7 @@ public class MainWindow extends View {
     protected void loadComponents() {
         // Load Header
         Header header = Header.load(primaryStage, getHeaderPlaceholder());
+        header.appTitle = MainApp.getConfig().getAppTitle();
         header.versionString = MainApp.VERSION.toString();
         header.render();
 
@@ -103,11 +104,11 @@ public class MainWindow extends View {
         primaryStage.hide();
     }
 
-    private void setTitle(String appTitle) {
+    public void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
     }
 
-    private void setWindowMinSize() {
+    public void setWindowMinSize() {
         primaryStage.setMinHeight(MIN_HEIGHT);
         primaryStage.setMinWidth(MIN_WIDTH);
     }

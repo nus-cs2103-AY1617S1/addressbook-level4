@@ -65,6 +65,10 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         mainWindow.hide();
     }
+    
+    public MainWindow getMainWindow() {
+        return mainWindow;
+    }
 
     public static <T extends View> T loadView(Class<T> viewClass) {
         if (instance == null) {

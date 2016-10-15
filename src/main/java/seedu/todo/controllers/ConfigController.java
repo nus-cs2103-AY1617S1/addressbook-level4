@@ -94,6 +94,7 @@ public class ConfigController implements Controller {
         switch (configName) {
         case "appTitle":
             config.setAppTitle(configValue);
+            UiManager.getInstance().getMainWindow().setTitle(configValue);
             break;
         case "databaseFilePath":
             config.setDatabaseFilePath(configValue);

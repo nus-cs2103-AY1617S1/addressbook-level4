@@ -21,7 +21,7 @@
         <VBox>
           <children>
           
-            <Text styleClass="font-300, header-text" text="GetShitDone">
+            <Text fx:id="headerAppTitle" styleClass="font-300, header-text">
               <VBox.margin>
                 <Insets bottom="5.0" left="10.0" right="10.0" top="20.0" />
               </VBox.margin>
