@@ -5,7 +5,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
@@ -187,5 +189,14 @@ public class TaskList implements ReadOnlyTaskList {
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
+	}
+	
+	public boolean updateTask(ReadOnlyTask target, Name name, UniqueTagList tags,
+    		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
+		if (tasks.updateTask(target, name, tags, startDate, endDate)) {
+			return true;
+		} else {
+			throw new UniqueTaskList.TaskNotFoundException();
+		}
 	}
 }
