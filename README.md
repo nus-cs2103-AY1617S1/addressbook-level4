@@ -17,6 +17,12 @@
 
 * Built on top of SE.edu's sample [Address Book project](https://github.com/se-edu/addressbook-level4).
 
+**Resources used**
+
+* [Emoji One](http://emojione.com/)
+* [jbootx Java Bootstrap CSS](https://github.com/dicolar/jbootx)
+* [Natty](http://natty.joestelmach.com/)
+
 #### License 
 
 [MIT](LICENSE)

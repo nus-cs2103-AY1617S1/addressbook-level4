@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.shape.Circle?>
@@ -13,11 +13,14 @@
   <children>
   
     <Text fx:id="rowIndex" styleClass="tasklist-rowindex" HBox.hgrow="NEVER" wrappingWidth="20.0" />
-    <Circle fx:id="taskCheckMarkCircle" styleClass="tasklist-checkmarkcircle" radius="10">
+    
+    <Circle fx:id="taskCheckMarkCircle" styleClass="tasklist-checkmarkcircle" radius="10" />
+    <ImageView fitHeight="20.0" fitWidth="20.0" fx:id="taskCheckMarkImage" pickOnBounds="true" preserveRatio="true">
       <HBox.margin>
         <Insets right="10.0" />
       </HBox.margin>
-    </Circle>
+    </ImageView>
+    
     <Text fx:id="taskText" styleClass="tasklist-taskitem-label" HBox.hgrow="ALWAYS" />
     <Text fx:id="taskTime" styleClass="tasklist-itemtime" HBox.hgrow="ALWAYS">
       <HBox.margin>
