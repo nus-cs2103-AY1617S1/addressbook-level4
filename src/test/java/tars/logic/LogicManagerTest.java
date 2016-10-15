@@ -193,24 +193,22 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded), String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getTaskList());
 
         expectedAB.removeTask(toBeAdded);
 
         assertCommandBehavior("undo",
-                String.format(UndoCommand.MESSAGE_SUCCESS,
-                        String.format(AddCommand.MESSAGE_UNDO, toBeAdded)),
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(AddCommand.MESSAGE_UNDO, toBeAdded)),
                 expectedAB, expectedAB.getTaskList());
-        
+
         expectedAB.addTask(toBeAdded);
-        
+
         assertCommandBehavior("redo",
-                String.format(RedoCommand.MESSAGE_SUCCESS,
-                        String.format(AddCommand.MESSAGE_REDO, toBeAdded)),
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(AddCommand.MESSAGE_REDO, toBeAdded)),
                 expectedAB, expectedAB.getTaskList());
     }
-    
+
     @Test
     public void execute_undo_and_redo_add_unsuccessful() throws Exception {
         // setup expectations
@@ -220,21 +218,20 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded), String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getTaskList());
 
         expectedAB.removeTask(toBeAdded);
         model.deleteTask(toBeAdded);
 
         assertCommandBehavior("undo",
-                String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_TASK_CANNOT_BE_FOUND),
-                expectedAB, expectedAB.getTaskList());
-        
+                String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_TASK_CANNOT_BE_FOUND), expectedAB,
+                expectedAB.getTaskList());
+
         model.addTask(toBeAdded);
         expectedAB.addTask(toBeAdded);
-        
-        assertCommandBehavior("redo",
-                String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK),
+
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK),
                 expectedAB, expectedAB.getTaskList());
     }
 
@@ -247,30 +244,28 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeRemoved);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeRemoved), String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved),
-                expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior(helper.generateAddCommand(toBeRemoved),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved), expectedAB, expectedAB.getTaskList());
 
         expectedAB.removeTask(toBeRemoved);
 
         // execute command and verify result
-        assertCommandBehavior("del 1", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeRemoved), expectedAB,
-                expectedAB.getTaskList());
+        assertCommandBehavior("del 1", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeRemoved),
+                expectedAB, expectedAB.getTaskList());
 
         expectedAB.addTask(toBeRemoved);
 
         assertCommandBehavior("undo",
-                String.format(UndoCommand.MESSAGE_SUCCESS,
-                        String.format(DeleteCommand.MESSAGE_UNDO, toBeRemoved)),
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(DeleteCommand.MESSAGE_UNDO, toBeRemoved)),
                 expectedAB, expectedAB.getTaskList());
 
         expectedAB.removeTask(toBeRemoved);
 
         assertCommandBehavior("redo",
-                String.format(RedoCommand.MESSAGE_SUCCESS,
-                        String.format(DeleteCommand.MESSAGE_REDO, toBeRemoved)),
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(DeleteCommand.MESSAGE_REDO, toBeRemoved)),
                 expectedAB, expectedAB.getTaskList());
     }
-    
+
     @Test
     public void execute_undo_and_redo_delete_unsuccessful() throws Exception {
         // setup expectations
@@ -280,31 +275,30 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeRemoved);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeRemoved), String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved),
-                expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior(helper.generateAddCommand(toBeRemoved),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved), expectedAB, expectedAB.getTaskList());
 
         expectedAB.removeTask(toBeRemoved);
 
         // execute command and verify result
-        assertCommandBehavior("del 1", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeRemoved), expectedAB,
-                expectedAB.getTaskList());
+        assertCommandBehavior("del 1", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeRemoved),
+                expectedAB, expectedAB.getTaskList());
 
         expectedAB.addTask(toBeRemoved);
         model.addTask(toBeRemoved);
 
         assertCommandBehavior("undo",
-                String.format(UndoCommand.MESSAGE_UNSUCCESS,
-                        String.format(DeleteCommand.MESSAGE_UNDO, toBeRemoved)),
+                String.format(UndoCommand.MESSAGE_UNSUCCESS, String.format(DeleteCommand.MESSAGE_UNDO, toBeRemoved)),
                 expectedAB, expectedAB.getTaskList());
 
         expectedAB.removeTask(toBeRemoved);
         model.deleteTask(toBeRemoved);
 
         assertCommandBehavior("redo",
-                String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_TASK_CANNOT_BE_FOUND),
-                expectedAB, expectedAB.getTaskList());
+                String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_TASK_CANNOT_BE_FOUND), expectedAB,
+                expectedAB.getTaskList());
     }
-    
+
     @Test
     public void execute_undo_and_redo_edit_successful() throws Exception {
         // setup expectations
@@ -332,27 +326,24 @@ public class LogicManagerTest {
 
         String inputCommand = "edit 1 -n Meet Betty Green -dt 20/09/2016 1800 "
                 + "to 21/09/2016 1800 -p h -tr tag2 -ta tag3";
-        
+
         // execute command
         assertCommandBehavior(inputCommand, String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
                 expectedAB, expectedAB.getTaskList());
-        
-        
+
         expectedAB.replaceTask(editedTask, taskToAdd);
-        
+
         assertCommandBehavior("undo",
-                String.format(UndoCommand.MESSAGE_SUCCESS,
-                        String.format(EditCommand.MESSAGE_UNDO, taskToAdd)),
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(EditCommand.MESSAGE_UNDO, taskToAdd)),
                 expectedAB, expectedAB.getTaskList());
-        
+
         expectedAB.replaceTask(taskToAdd, editedTask);
-        
+
         assertCommandBehavior("redo",
-                String.format(RedoCommand.MESSAGE_SUCCESS,
-                        String.format(EditCommand.MESSAGE_REDO, taskToAdd)),
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(EditCommand.MESSAGE_REDO, taskToAdd)),
                 expectedAB, expectedAB.getTaskList());
     }
-    
+
     @Test
     public void execute_redo_emptyCmdHistStack() throws Exception {
         assertCommandBehavior("redo", RedoCommand.MESSAGE_EMPTY_REDO_CMD_HIST);
@@ -392,7 +383,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getTaskList());
     }
-    
+
     @Test
     public void execute_add_end_date_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -403,8 +394,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getTaskList());
     }
 
     @Test
@@ -558,7 +548,6 @@ public class LogicManagerTest {
         }
     }
 
-
     // @@author A0124333U
 
     private void assertInvalidInputBehaviorForEditCommand(String inputCommand, String expectedMessage)
@@ -631,7 +620,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void execute_find_quickSearch_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -651,7 +640,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
+    public void execute_find_quickSearch_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithName("bla bla KEY bla");
         Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -662,30 +651,112 @@ public class LogicManagerTest {
         Tars expectedAB = helper.generateTars(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
-        
+
         String searchKeywords = "\nQuick Search Keywords: [KEY]";
 
-        assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedAB,
+        assertCommandBehavior("find KEY",
+                Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedAB,
                 expectedList);
     }
 
     @Test
-    public void execute_find_matchesIfAllKeywordPresent() throws Exception {
+    public void execute_find_quickSearch_matchesIfAllKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generateTaskWithName("key key rAnDoM");
-        Task p1 = helper.generateTaskWithName("sduauo");
+        Task p1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task p2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task p3 = helper.generateTaskWithName("sduauo");
+        Task pTarget1 = helper.generateTaskWithName("key key rAnDoM");
 
-        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
+        List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, pTarget1);
         Tars expectedAB = helper.generateTars(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget3);
+        List<Task> expectedList = helper.generateTaskList(pTarget1);
         helper.addToModel(model, fourTasks);
-        
+
         String searchKeywords = "\nQuick Search Keywords: [key, rAnDoM]";
 
-        assertCommandBehavior("find key rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords,
-                expectedAB, expectedList);
+        assertCommandBehavior("find key rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_find_filterSearch_matchesIfAllKeywordPresent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.meetAdam();
+        Task p1 = helper.generateTask(2);
+        Task p2 = helper.generateTask(3);
+
+        List<Task> threeTasks = helper.generateTaskList(pTarget1, p1, p2);
+        Tars expectedAB = helper.generateTars(threeTasks);
+        List<Task> expectedList = helper.generateTaskList(pTarget1);
+        helper.addToModel(model, threeTasks);
+
+        String searchKeywords = "\nFilter Search Keywords: [Task Name: adam] "
+                + "[DateTime: 01/09/2016 1400 to 01/09/2016 1500] [Priority: medium] " + "[Status: Undone] [Tags: tag1]";
+
+        assertCommandBehavior("find -n adam -dt 01/09/2016 1400 to 01/09/2016 1500 -p medium -ud -t tag1",
+                Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_find_filterSearch_withoutDateTimeQuery() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.meetAdam();
+        Task p1 = helper.generateTask(2);
+        Task p2 = helper.generateTask(3);
+
+        List<Task> threeTasks = helper.generateTaskList(pTarget1, p1, p2);
+        Tars expectedAB = helper.generateTars(threeTasks);
+        List<Task> expectedList = helper.generateTaskList(pTarget1);
+        helper.addToModel(model, threeTasks);
+        
+        String searchKeywords = "\nFilter Search Keywords: [Task Name: adam] "
+                + "[DateTime: ] [Priority: medium] " + "[Status: Undone] [Tags: tag1]";
+
+        assertCommandBehavior("find -n adam -p medium -ud -t tag1",
+                Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_find_filterSearch_singleDateTimeQuery() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.meetAdam();
+        Task p1 = helper.generateTask(2);
+        Task p2 = helper.generateTask(3);
+
+        List<Task> threeTasks = helper.generateTaskList(pTarget1, p1, p2);
+        Tars expectedAB = helper.generateTars(threeTasks);
+        List<Task> expectedList = helper.generateTaskList(pTarget1);
+        helper.addToModel(model, threeTasks);
+        
+        String searchKeywords = "\nFilter Search Keywords: [Task Name: ] "
+                + "[DateTime: 01/09/2016 1400] [Priority: ] " + "[Status: ] [Tags: ]";
+
+        assertCommandBehavior("find -dt 01/09/2016 1400",
+                Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_find_filterSearch_taskNotFound() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.meetAdam();
+        Task p1 = helper.generateTask(2);
+        Task p2 = helper.generateTask(3);
+
+        List<Task> threeTasks = helper.generateTaskList(pTarget1, p1, p2);
+        Tars expectedAB = helper.generateTars(threeTasks);
+        List<Task> expectedList = helper.generateTaskList();
+        helper.addToModel(model, threeTasks);
+        
+        String searchKeywords = "\nFilter Search Keywords: [Task Name: ] "
+                + "[DateTime: 01/09/2010 1400] [Priority: ] " + "[Status: ] [Tags: ]";
+
+        assertCommandBehavior("find -dt 01/09/2010 1400",
+                Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedAB,
+                expectedList);
     }
 
     /**
@@ -768,6 +839,7 @@ public class LogicManagerTest {
 
     /**
      * Logic tests for mark command
+     * 
      * @@author A0121533W
      */
     @Test
@@ -934,7 +1006,7 @@ public class LogicManagerTest {
         Assert.assertEquals(taskA, taskB);
         Assert.assertEquals(taskA.hashCode(), taskB.hashCode());
     }
-    
+
     @Test
     public void check_name_equals() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -1091,27 +1163,17 @@ public class LogicManagerTest {
          * dummy values.
          */
         Task generateTaskWithName(String name) throws Exception {
-            return new Task(
-                    new Name(name),
-                    new DateTime("05/09/2016 1400", "06/09/2016 2200"),
-                    new Priority("h"),
-                    new Status(false),
-                    new UniqueTagList(new Tag("tag"))
-            );
+            return new Task(new Name(name), new DateTime("05/09/2016 1400", "06/09/2016 2200"), new Priority("h"),
+                    new Status(false), new UniqueTagList(new Tag("tag")));
         }
-        
+
         /**
          * Generates a Task object with given name. Other fields will have some
          * dummy values.
          */
         Task generateTaskWithEndDateOnly(String name) throws Exception {
-            return new Task(
-                    new Name(name),
-                    new DateTime(null, "06/09/2016 2200"),
-                    new Priority("h"),
-                    new Status(false),
-                    new UniqueTagList(new Tag("tag"))
-            );
+            return new Task(new Name(name), new DateTime(null, "06/09/2016 2200"), new Priority("h"), new Status(false),
+                    new UniqueTagList(new Tag("tag")));
         }
     }
 }

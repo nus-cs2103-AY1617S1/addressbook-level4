@@ -59,7 +59,7 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to filter by the given keywords of a string 
      * consisting of all the attributes of each task*/
-    void updateFilteredTaskListUsingLazySearch(ArrayList<String> lazySearchKeywords);
+    void updateFilteredTaskListUsingQuickSearch(ArrayList<String> lazySearchKeywords);
 
     /** Returns the undoable command history stack */
     Stack<Command> getUndoableCmdHist();
