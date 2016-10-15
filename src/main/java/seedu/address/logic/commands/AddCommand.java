@@ -17,7 +17,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
-            + "Parameters: DESCRIPTION [pr/PRIORITY] [time/TIME] [d/Date] [t/TAG]...\n"
+            + "Parameters: DESCRIPTION [pr/PRIORITY] [start/TIME] [end/TIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " Lose Sleep pr/high time/23:35 d/12.10.2016 t/CS2103 t/WhatIsSleep";
 
@@ -31,7 +31,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String description, String priority, String time, String date, Set<String> tags)
+    public AddCommand(String description, String priority, String timeStart, String timeEnd, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -40,19 +40,19 @@ public class AddCommand extends Command {
         this.toAdd = new Task(
                 new Description(description),
                 new Priority(priority),
-                new Time(time),
-                new Date(date),
+                new Time(timeStart),
+                new Time(timeEnd),
                 new UniqueTagList(tagSet)
         );
     }
 
-    public AddCommand(String description, String priority, String time, String date, UniqueTagList tags, int index)
+    public AddCommand(String description, String priority, String timeStart, String timeEnd, UniqueTagList tags, int index)
             throws IllegalValueException {
         this.toAdd = new Task(
                 new Description(description),
                 new Priority(priority),
-                new Time(time),
-                new Date(date),
+                new Time(timeStart),
+                new Time(timeEnd),
                 tags
         );
         this.index = index;

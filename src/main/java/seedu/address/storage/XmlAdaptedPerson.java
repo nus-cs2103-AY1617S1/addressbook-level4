@@ -17,9 +17,9 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String description;
     @XmlElement(required = true)
-    private String time;
+    private String timeStart;
     @XmlElement(required = true)
-    private String date;
+    private String timeEnd;
     @XmlElement(required = true)
     private String priority;
 
@@ -38,10 +38,10 @@ public class XmlAdaptedPerson {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
-        description = source.getDescription().fullDescription;
-        time = source.getTime().toString();
-        date = source.getDate().toString();
-        priority = source.getPriority().value;
+        description = source.getDescription().toString();
+        timeStart = source.getTimeStart().toString();
+        timeEnd = source.getTimeEnd().toString();
+        priority = source.getPriority().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -59,10 +59,10 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
         final Description description = new Description(this.description);
-        final Time time = new Time(this.time);
-        final Date date = new Date(this.date);
+        final Time timeStart = new Time(this.timeStart);
+        final Time timeEnd = new Time(this.timeEnd);
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(description, priority, time, date, tags);
+        return new Task(description, priority, timeStart, timeEnd, tags);
     }
 }

@@ -12,8 +12,8 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Description description;
-    private Time time;
-    private Date date;
+    private Time timeStart;
+    private Time timeEnd;
     private Priority priority;
 
     private UniqueTagList tags;
@@ -21,11 +21,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Description description, Priority priority, Time time, Date date, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(description, priority, time, date, tags);
+    public Task(Description description, Priority priority, Time timeStart, Time timeEnd, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(description, priority, timeStart, timeEnd, tags);
         this.description = description;
-        this.time = time;
-        this.date = date;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getPriority(), source.getTime(), source.getDate(), source.getTags());
+        this(source.getDescription(), source.getPriority(), source.getTimeStart(), source.getTimeEnd(), source.getTags());
     }
 
     @Override
@@ -47,21 +47,21 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Time getTime() {
-        return time;
+    public Time getTimeStart() {
+        return timeStart;
     }
 
-    public void setTime(Time time){
-    	this.time = time;
+    public void setTimeStart(Time time){
+    	this.timeStart = time;
     }
 
     @Override
-    public Date getDate() {
-        return date;
+    public Time getTimeEnd() {
+        return timeEnd;
     }
 
-    public void setDate(Date date){
-    	this.date = date;
+    public void setTimeEnd(Time time){
+    	this.timeEnd = time;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, time, date, priority, tags);
+        return Objects.hash(description, priority, timeStart, timeEnd, tags);
     }
 
     @Override

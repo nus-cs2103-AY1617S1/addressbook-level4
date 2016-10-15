@@ -49,8 +49,8 @@ public class DeleteTagCommand extends Command{
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
 
         String description = taskToUpdate.getDescription().toString();;
-        String time = taskToUpdate.getTime().toString();
-        String date = taskToUpdate.getDate().toString();
+        String timeStart = taskToUpdate.getTimeStart().toString();
+        String timeEnd = taskToUpdate.getTimeEnd().toString();
         String priority = taskToUpdate.getPriority().toString();
         UniqueTagList tags =taskToUpdate.getTags();
 
@@ -64,7 +64,7 @@ public class DeleteTagCommand extends Command{
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description, priority, time, date, tags, targetIndex-1);
+			add = new AddCommand(description, priority, timeStart, timeEnd, tags, targetIndex-1);
 			add.model = model;
 			add.insert();
 		} catch (IllegalValueException e){

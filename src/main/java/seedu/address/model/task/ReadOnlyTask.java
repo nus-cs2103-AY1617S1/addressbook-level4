@@ -9,9 +9,9 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Description getDescription();
-    Time getTime();
     Priority getPriority();
-    Date getDate();
+    Time getTimeStart();
+    Time getTimeEnd();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -27,8 +27,8 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getDescription().equals(this.getDescription()) // state checks here onwards
                 && other.getPriority().equals(this.getPriority())
-                && other.getTime().equals(this.getTime())
-                && other.getDate().equals(this.getDate()));
+                && other.getTimeStart().equals(this.getTimeStart())
+                && other.getTimeEnd().equals(this.getTimeEnd()));
     }
 
     /**
@@ -39,10 +39,10 @@ public interface ReadOnlyTask {
         builder.append(getDescription())
                 .append(" Priority: ")
                 .append(getPriority())
-                .append(" Time: ")
-                .append(getTime())
-                .append(" Date: ")
-                .append(getDate())
+                .append(" Time Start: ")
+                .append(getTimeStart())
+                .append(" Time End: ")
+                .append(getTimeEnd())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
