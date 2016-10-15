@@ -17,9 +17,13 @@ public class CommandSummary {
      */
     public final String arguments;
     
+    public CommandSummary(String scenario, String command) {
+        this(scenario, command, "");
+    }
+    
     public CommandSummary(String scenario, String command, String arguments) {
-        this.scenario = scenario;
-        this.command = command;
-        this.arguments = arguments;
+        this.scenario = scenario.trim();
+        this.command = command.toLowerCase().trim();
+        this.arguments = arguments.trim();
     }
 }
