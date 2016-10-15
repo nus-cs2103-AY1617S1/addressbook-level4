@@ -94,6 +94,7 @@ public class JsonStorage implements Storage {
         
         // Create undo
         LinkedList<Patch> undoPatch = dmp.patchMake(newJson, this.currJson);
+        historyPatch.addLast(undoPatch);
         
         // Apply redo
         this.currJson = newJson;
