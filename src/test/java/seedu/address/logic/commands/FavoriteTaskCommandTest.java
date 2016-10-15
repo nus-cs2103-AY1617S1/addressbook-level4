@@ -35,7 +35,7 @@ public class FavoriteTaskCommandTest {
 		 * index is too large).
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		FavoriteTaskCommand command = new FavoriteTaskCommand(4);
 		command.setData(model);
 		
@@ -50,7 +50,7 @@ public class FavoriteTaskCommandTest {
 		 * index is too small).
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		FavoriteTaskCommand command = new FavoriteTaskCommand(-1);
 		command.setData(model);
 		
@@ -65,7 +65,7 @@ public class FavoriteTaskCommandTest {
 		 * to favoriteTaskCommand constructor is within the range of added tasks.
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		FavoriteTaskCommand command = new FavoriteTaskCommand(2);
 		command.setData(model);
 		

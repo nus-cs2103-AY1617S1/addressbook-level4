@@ -7,6 +7,7 @@ import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemExcep
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.Description;
@@ -26,14 +27,22 @@ public class UpdateTaskCommand extends TaskCommand {
             + "Depending on whether 'task', 'description' or 'date' is stated, the task will be updated accordingly.\n"
             + "1) Parameters: INDEX (must be a positive integer) task UPDATED_VALUE\n"
             + "Example: " + COMMAND_WORD + " 1 task Meeting from Oct 31 to Nov 1\n"
-            + "2) Parameters: INDEX (must be a positive integer) task UPDATED_VALUE\n"
+            + "2) Parameters: INDEX (must be a positive integer) description UPDATED_VALUE\n"
             + "Example: " + COMMAND_WORD + " 1 description Meeting in town\n"
-            + "3) Parameters: INDEX (must be a positive integer) task UPDATED_VALUE\n"
+            + "3) Parameters: INDEX (must be a positive integer) date UPDATED_VALUE\n"
             + "Example: " + COMMAND_WORD + " 1 date Oct 31 to Nov 1";
 
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated task: %1$s";
     public static final String MESSAGE_INVALID_UPDATE = "Invalid update to the task";
-
+    public static final String MESSAGE_CANNOT_UPDATE_TASK = "Selected task's description cannot be updated";
+    public static final String MESSAGE_DEADLINE_TASK_REQUIRED = "Deadline task required for update of deadline";
+    public static final String MESSAGE_EVENT_TASK_REQUIRED = "Event task required for update of start date and end date";
+    
+    public static final String TASK_DETAILS_UPDATE_TASK = "[Update Task][Task: %s]";
+    public static final String TASK_DETAILS_UPDATE_DESCRIPTION = "[Update Task][Description: %s]";
+    public static final String TASK_DETAILS_UPDATE_DEADLINE = "[Update Task][Deadline: %s]";
+    public static final String TASK_DETAILS_UPDATE_START_END_DATE = "[Update Task][Start date: %s][End date: %s]";
+    
     public final int targetIndex;
     private Task updatedTask;
     
@@ -130,7 +139,7 @@ public class UpdateTaskCommand extends TaskCommand {
 			return new EventTask(newDescription.getContent(), task.getStartDate(), task.getEndDate());	
 		
 		} else {
-			throw new IllegalValueException("Task's description cannot be updated");
+			throw new IllegalValueException(MESSAGE_CANNOT_UPDATE_TASK);
 		}
     }
     
@@ -141,7 +150,7 @@ public class UpdateTaskCommand extends TaskCommand {
 			return new DeadlineTask(task.getDescription().getContent(), task.getDeadline());
 			
 		} else {
-			throw new IllegalValueException("Deadline task required for update of deadline");
+			throw new IllegalValueException(MESSAGE_DEADLINE_TASK_REQUIRED);
 		}
     }
     
@@ -152,7 +161,7 @@ public class UpdateTaskCommand extends TaskCommand {
 			return new EventTask(task.getDescription().getContent(), newStartDate, newEndDate);
 			
 		} else {
-			throw new IllegalValueException("Event task required for update of start date and end date");
+			throw new IllegalValueException(MESSAGE_EVENT_TASK_REQUIRED);
 		}
     }
     
@@ -161,13 +170,15 @@ public class UpdateTaskCommand extends TaskCommand {
      */
     public String getTaskDetails() {
     	if (newTask != null) {
-    		return String.format("[Update Task][Task: %s]", newTask);
+    		return String.format(TASK_DETAILS_UPDATE_TASK, newTask);
     	} else if (newDescription != null) {
-    		return String.format("[Update Task][Description: %s]", newDescription);
+    		return String.format(TASK_DETAILS_UPDATE_DESCRIPTION, newDescription);
     	} else if (newDeadline != null) {
-    		return String.format("[Update Task][Deadline: %s]", newDeadline);
+    		return String.format(TASK_DETAILS_UPDATE_DEADLINE,
+    				DateUtil.dateFormat.format(newDeadline));
     	} else if (newStartDate != null && newEndDate != null) {
-    		return String.format("[Update Task][Start date: %s][End date: %s]", newStartDate, newEndDate);
+    		return String.format(TASK_DETAILS_UPDATE_START_END_DATE, 
+    				DateUtil.dateFormat.format(newStartDate), DateUtil.dateFormat.format(newEndDate));
     	} else {
     		return "Error";
     	}

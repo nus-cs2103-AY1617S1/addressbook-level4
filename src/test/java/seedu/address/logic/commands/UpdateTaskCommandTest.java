@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -17,41 +18,120 @@ public class UpdateTaskCommandTest {
 	// Initialized to support the tests
 	InMemoryTaskList model;
 
-	@Test
-	public void updateTask_noTasksAdded() throws IllegalValueException {
-		/*
-		 * CommandResult should return a string that denotes that execution failed (since
-		 * there are no tasks that have been added).
-		 */
-		model = TestUtil.setupEmptyTaskList();
-		UpdateTaskCommand command = new UpdateTaskCommand(1, new Description("Hello"));
-		command.setData(model);
-				
-		String expected = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-		assertCommandFeedback(command, expected);
-	}
-	
-	@Test
-	public void updateTask_indexTooLarge() throws IllegalValueException {
-		/*
-		 * CommandResult should return a string that denotes that execution failed (since
-		 * index is too large).
-		 */
-		model = TestUtil.setupSomeTasksInTaskList(3);
-		UpdateTaskCommand command = new UpdateTaskCommand(4, new Description("Hello"));
-		command.setData(model);
-		
-		String expected = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-		assertCommandFeedback(command, expected);
-	}
-	
-	/*
-	 * Given a command and an expected string, execute the command
-	 * and assert that the feedback corresponds to the expected string
+	/**
+	 * Format of update command: update INDEX task/description/date(update type) UPDATED_VALUE
+	 * 
+	 * Testing correct handling of invalid indices, invalid update types, invalid dates and invalid 
 	 */
-	public void assertCommandFeedback(UpdateTaskCommand command, String expected) {
-		CommandResult result = command.execute();
-		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(expected));
+	@Test
+	public void prepareCommand_invalidIndex() throws IllegalValueException {
+		/*
+		 * Testing correct handling of invalid indices
+		 */
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_invalidUpdateType() throws IllegalValueException {
+		/*
+		 * Testing correct handling of invalid update types
+		 */
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_invalidDate() throws IllegalValueException {
+		/*
+		 * Testing correct handling of invalid dates
+		 */
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_invalidUpdatedValue() throws IllegalValueException {
+		/*
+		 * Testing correct handling of an invalid updated value
+		 */
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	
+	/**
+	 * Testing correct updating of tasks from Floating <--> Deadline, Deadline <--> Event, Floating <--> Event
+	 */
+	@Test
+	public void prepareCommand_floatingToDeadline() throws IllegalValueException {
+		// 
+		// TODO: ADD A FLOATING TASK
+		//
+		model = TestUtil.setupMixedTasks(6);
+		//UpdateTaskCommand command = (UpdateTaskCommand) parser.prepareCommand("1 task overseas from oct 1 to oct 2");
+		String expectedTask = "[Update Task][Task: [Floating Task][Description: overseas][Start date: 01.10.16][End date: 02.10.16]]";
+		//String actualTask = command.getTaskDetails();
+		//assertEquals(actualTask, expectedTask);
+	}
+	
+	@Test
+	public void prepareCommand_deadlineToFloating() throws IllegalValueException {
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_deadlineToEvent() throws IllegalValueException {
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_eventToDeadline() throws IllegalValueException {
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_floatingToEvent() throws IllegalValueException {
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_eventToFloating() throws IllegalValueException {
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	/**
+	 * Testing correct updating of description of tasks (Floating, Deadline & Event)
+	 */
+	@Test
+	public void prepareCommand_floatingTask_updateDescription() throws IllegalValueException {
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_deadlineTask_updateDescription() throws IllegalValueException {
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_eventTask_updateDescription() throws IllegalValueException {
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	/**
+	 * Testing correct updating of dates of tasks (Floating - should fail, Deadline & Event) 
+	 */
+	@Test
+	public void prepareCommand_floatingTask_updateDate() throws IllegalValueException {
+		/*
+		 * Should fail
+		 */
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_deadlineTask_updateDate() throws IllegalValueException {
+		model = TestUtil.setupMixedTasks(6);
+	}
+	
+	@Test
+	public void prepareCommand_eventTask_updateDate() throws IllegalValueException {
+		model = TestUtil.setupMixedTasks(6);
 	}
 }

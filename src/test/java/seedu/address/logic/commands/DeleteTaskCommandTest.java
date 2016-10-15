@@ -36,7 +36,7 @@ public class DeleteTaskCommandTest {
 		 * index is too large).
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		DeleteTaskCommand command = new DeleteTaskCommand(4);
 		command.setData(model);
 		
@@ -51,7 +51,7 @@ public class DeleteTaskCommandTest {
 		 * index is too small).
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		DeleteTaskCommand command = new DeleteTaskCommand(-1);
 		command.setData(model);
 		
@@ -66,7 +66,7 @@ public class DeleteTaskCommandTest {
 		 * to DeleteTaskCommand constructor is within the range of added tasks.
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		DeleteTaskCommand command = new DeleteTaskCommand(2);
 		command.setData(model);
 		

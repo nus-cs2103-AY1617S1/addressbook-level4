@@ -35,7 +35,7 @@ public class UnfavoriteTaskCommandTest {
 		 * index is too large).
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		UnfavoriteTaskCommand command = new UnfavoriteTaskCommand(4);
 		command.setData(model);
 		
@@ -50,7 +50,7 @@ public class UnfavoriteTaskCommandTest {
 		 * index is too small).
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		UnfavoriteTaskCommand command = new UnfavoriteTaskCommand(-1);
 		command.setData(model);
 		
@@ -65,7 +65,7 @@ public class UnfavoriteTaskCommandTest {
 		 * to unfavoriteTaskCommand constructor is within the range of added tasks.
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		UnfavoriteTaskCommand command = new UnfavoriteTaskCommand(2);
 		command.setData(model);
 		

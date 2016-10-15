@@ -1,9 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
 import java.util.Date;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +24,12 @@ import seedu.address.model.task.Task;
 public class UpdateCommandParser extends CommandParser {
 	public static final String COMMAND_WORD = UpdateTaskCommand.COMMAND_WORD;
     private static final Pattern UPDATE_COMMAND_FORMAT = Pattern.compile("(?<targetIndex>\\S+) (?<updateType>\\S+) (?<arguments>.+)");
-	private Matcher matcher;
+    private Matcher matcher;
+    
+    public static final String MESSAGE_INVALID_UPDATE_TYPE = "Update type must be either task, description or date\n Examples: \n"
+    		+ "1) update INDEX task Meeting with colleagues by 20 Oct \n"
+    		+ "2) update INDEX description \n"
+    		+ "3) update INDEX date 20 Oct to 31 Oct";
     
     /**
      * Parses arguments in the context of the delete task command.
@@ -67,36 +73,58 @@ public class UpdateCommandParser extends CommandParser {
 		
 		// Depending on the update type, choose an appropriate TaskCommand
 		if (updateType.equals("task")) {
-			// Use AddCommandParser to create the new task that the user wants
-			AddCommandParser parser = new AddCommandParser();
-			Task task = ((AddTaskCommand) parser.prepareCommand(arguments)).getTask();
-			taskCommand = new UpdateTaskCommand(index, task);
+			taskCommand = createTaskUpdateTaskCommand(index, arguments);
 			
 		} else if (updateType.equals("description")) {
-			Description description = new Description(arguments);
-			taskCommand = new UpdateTaskCommand(index, description);
+			taskCommand = createDescriptionUpdateTaskCommand(index, arguments);
 			
 		} else if (updateType.equals("date")) {
-			// Check if the arguments that the user provided is a valid date or a valid date range.
-			// Then, call the appropriate UpdateTaskCommands or throw an exception (if date is invalid).
-			if (DateUtil.isValidDateFormat(arguments)) {
-				Date newDeadline = DateUtil.getDate(arguments);
-				return new UpdateTaskCommand(index, newDeadline);
-				
-			} else if (DateUtil.isValidStartDateToEndDateFormat(arguments)) {
-	    		Date[] startAndEndDates = DateUtil.getStartAndEndDates(arguments);
-	    		Date newStartDate = startAndEndDates[0];
-	    		Date newEndDate = startAndEndDates[1];
-				return new UpdateTaskCommand(index, newStartDate, newEndDate);
-				
-			} else {
-				throw new IllegalValueException("Date is invalid");
-			}
+			taskCommand = createDateUpdateTaskCommand(index, arguments);
+			
 		} else {
-			assert false : "Update type must equal to either task, description or date";
+			assert false : MESSAGE_INVALID_UPDATE_TYPE;
 		}
 		
 		return taskCommand;
+	}
+	
+	/**
+	 * Creates an UpdateTaskCommand to update the entire task
+	 */
+	private TaskCommand createTaskUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
+		// Use AddCommandParser to create the new task that the user wants
+		AddCommandParser parser = new AddCommandParser();
+		Task task = ((AddTaskCommand) parser.prepareCommand(arguments)).getTask();
+		return new UpdateTaskCommand(index, task);
+	}
+	
+	/**
+	 * Creates an UpdateTaskCommand to update the description
+	 */
+	private TaskCommand createDescriptionUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
+		Description description = new Description(arguments);
+		return new UpdateTaskCommand(index, description);
+	}
+	
+	/**
+	 * Creates an UpdateTaskCommand to update the date
+	 */
+	private TaskCommand createDateUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
+		// Check if the arguments that the user provided is a valid date or a valid date range.
+		// Then, call the appropriate UpdateTaskCommands or throw an exception (if date is invalid).
+		if (DateUtil.isValidDateFormat(arguments)) {
+			Date newDeadline = DateUtil.getDate(arguments);
+			return new UpdateTaskCommand(index, newDeadline);
+			
+		} else if (DateUtil.isValidStartDateToEndDateFormat(arguments)) {
+    		Date[] startAndEndDates = DateUtil.getStartAndEndDates(arguments);
+    		Date newStartDate = startAndEndDates[0];
+    		Date newEndDate = startAndEndDates[1];
+			return new UpdateTaskCommand(index, newStartDate, newEndDate);
+			
+		} else {
+			throw new IllegalValueException(MESSAGE_INVALID_DATE_FORMAT);
+		}
 	}
 	
 	/**
@@ -112,13 +140,13 @@ public class UpdateCommandParser extends CommandParser {
         // Check if the index that user gave is valid
         String index = matcher.group("targetIndex");
         if(!StringUtil.isUnsignedInteger(index)){
-            return new IncorrectTaskCommand("Target index must be positive");
+            return new IncorrectTaskCommand(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
         // Check if the updateType that user gave is valid
         String updateType = matcher.group("updateType");
         if(!updateType.equals("task") && !updateType.equals("description") && !updateType.equals("date")) {
-        	return new IncorrectTaskCommand("Update type must be equal to either task, description or date");
+        	return new IncorrectTaskCommand(MESSAGE_INVALID_UPDATE_TYPE);
         }
         return null;
 	}

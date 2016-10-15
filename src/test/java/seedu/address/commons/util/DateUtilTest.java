@@ -14,7 +14,7 @@ import org.junit.Test;
 public class DateUtilTest {
 
 	// Format for displaying dates
-	SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+	SimpleDateFormat dateFormat = DateUtil.dateFormat;
 	
 	/**
 	 * Testing isValidDateFormat
@@ -22,7 +22,6 @@ public class DateUtilTest {
 	@Test
 	public void isValidDateFormat_validFormats() {
 		// Many variations of a valid date format
-		DateUtil.getDate("31Oct2016");
 		assertTrue(DateUtil.isValidDateFormat("Oct 31"));
 		assertTrue(DateUtil.isValidDateFormat("OcT 31")); // Case insensitivity
 		assertTrue(DateUtil.isValidDateFormat("Oct31")); // Spaces can be removed for <day> <month> formats
