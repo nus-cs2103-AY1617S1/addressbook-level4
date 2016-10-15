@@ -6,7 +6,9 @@ import java.util.Optional;
 
 import org.junit.Before;
 import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
 
+import org.junit.Test;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.parser.ParseResult;
@@ -142,12 +144,16 @@ public abstract class CommandTest {
         return this;
     }
     
+    @Test
+    public void testCommonProperties() {
+        assertNotNull(command.getArguments());
+        assertThat(command.getCommandSummary().size(), greaterThan(0));
+    }
+    
     /**
      * Executes the command
-     * @throws IllegalValueException
-     * @throws ValidationException 
      */
-    protected void execute(boolean expectSuccess) throws IllegalValueException, ValidationException {
+    protected void execute(boolean expectSuccess) throws ValidationException {
         command.setArguments(params);
         command.setModel(model);
         result = command.execute();
