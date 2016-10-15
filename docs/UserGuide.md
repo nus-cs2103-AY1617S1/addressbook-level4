@@ -1,4 +1,3 @@
-
 # User Guide
 
 * [Quick Start](#quick-start)
@@ -94,12 +93,16 @@ Format: `repeat every RECURRING_INTERVAL`
 > To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add/edit command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
 
 Supported `RECURRING_INTERVAL`
-* `day`, `2 days`, `3 days`, ...
-* `week`, `2 weeks`, `3 weeks`, ...
-* `month`, `2 months`, `3 months`, ...
+* `hour`, `8 hours`, ...
+* `day`, `3 days`, ...
+* `week`, `5 weeks`, ...
+* `month`, `2 months`, ...
+* `year`, ...
+* Any day of the week e.g `mon`, `monday`, `thurs`, `sun`, ...
 
 Examples: 
 * `Go run at track, at 7am repeat every 3 days`
+* `Go visit mum, repeat every sun`
 
 > You cannot have a repeated task without specifying a time. Read on to see how to do so.
 
@@ -112,20 +115,25 @@ Format: `NAME, end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 >`DATE_TIME` is flexible!
 >* If no `DATE` is specified, `DATE` will be assumed to be the current date
->* `DATE`
+>* `DATE` formats:
 >   * `today`, `tonight` can be used to refer to the current day
 >   * `tmr`, `tomorrow` can be used to refer to the next day
 >   * `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday` and `Sunday` refers to the nearest matching day from the current date
->* `TIME`
+>   * Dates such as `13th Sep`, `10 October 2016`, `02/10/2016 (mm/dd/yyyy)` are acceptable too. Note that the year must be specified in full e.g `10 October 2016` is allowed, but not `10 October 16`
+>   * Relative dates such as `3 days later`, `1 week later`, `next sat` can be used as well
+>* If no `TIME` is specified, `TIME` will be assumed to be 11:59pm
+>* `TIME` formats:
 >   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
 >   * `midnight` can be used to specify 12AM
 >   * `noon` can be used to specify 12PM
->   * `20:15` - 24-hour clock format is also accepted
+>   * 24-hour clock format such as `20:15` are also accepted
+>> Take note to demarcate the hours and minutes with a colon. The following examples are not allowed: `730am`, `2015`.
 
 Examples:
 * `Do project proposal, by 5pm tomorrow`
 * `eat lunch, by 1pm today -h`
-* `Buy coffee for boss, by 7am repeat every day`
+* `Buy coffee for boss, by 7:00 repeat every day`
+* `finish CS2101 assignment, by 13th Sep`
 
 > Notice how the `end` keyword can be substituted with `by`.
 

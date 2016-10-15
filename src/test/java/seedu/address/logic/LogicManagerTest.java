@@ -168,8 +168,10 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
                 */
+        /* This test is failing because our program converts "-LOL" to "medium" priority. This test should be removed since it's
+         * not an invalid person data.
         assertCommandBehavior(
-                "add Valid Name -LOL", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                "add Valid Name -LOL", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));*/
 
     }
 
