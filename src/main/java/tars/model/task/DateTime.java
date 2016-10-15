@@ -53,6 +53,14 @@ public class DateTime {
             }
         }
     }
+    
+    public LocalDateTime getStartDate() {
+        return this.startDate;      
+    }
+    
+    public LocalDateTime getEndDate() {
+        return this.endDate;
+    }
 
     @Override
     public String toString() {

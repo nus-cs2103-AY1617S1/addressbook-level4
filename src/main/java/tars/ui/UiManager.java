@@ -11,7 +11,6 @@ import tars.commons.core.ComponentManager;
 import tars.commons.core.Config;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.storage.DataSavingExceptionEvent;
-import tars.commons.events.storage.TarsStorageDirectoryChangedEvent;
 import tars.commons.events.ui.JumpToListRequestEvent;
 import tars.commons.events.ui.TaskPanelSelectionChangedEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;

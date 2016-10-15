@@ -11,8 +11,10 @@ import tars.commons.flags.Flag;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
 import tars.model.task.Task;
+import tars.model.task.TaskQuery;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
+import tars.model.task.DateTime;
 import tars.model.task.DateTime.IllegalDateException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
@@ -129,8 +131,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * @@author A0121533W
      */
-    public synchronized void mark(ArrayList<ReadOnlyTask> toMarkList, String status)
-            throws DuplicateTaskException {
+    public synchronized void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
         tars.mark(toMarkList, status);
         indicateTarsChanged();
 
@@ -155,6 +156,14 @@ public class ModelManager extends ComponentManager implements Model {
         } else {
             updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
         }
+    }
+
+    public void updateFilteredTaskListUsingLazySearch(ArrayList<String> lazySearchKeywords) {
+        updateFilteredTaskList(new PredicateExpression(new LazySearchQualifier(lazySearchKeywords)));
+    }
+
+    public void updateFilteredTaskListUsingFlags(TaskQuery taskQuery) {
+        updateFilteredTaskList(new PredicateExpression(new FlagSearchQualifier(taskQuery)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -192,6 +201,131 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask task);
 
         String toString();
+    }
+
+    private class LazySearchQualifier implements Qualifier {
+        private final ArrayList<String> lazySearchKeywords;
+
+        LazySearchQualifier(ArrayList<String> lazySearchKeywords) {
+            this.lazySearchKeywords = lazySearchKeywords;
+        }
+
+        private String removeLabels(String taskAsString) {
+            String editedString = taskAsString.replace("[", "").replace("]", " ").replace("DateTime: ", "")
+                    .replace("Priority: ", "").replace("Status: ", "").replace("Tags: ", "");
+            return editedString;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            String taskAsString = removeLabels(task.getAsText());
+            return lazySearchKeywords.stream().filter(keyword -> StringUtil.containsIgnoreCase(taskAsString, keyword))
+                    .count() == lazySearchKeywords.size();
+        }
+
+    }
+
+    private class FlagSearchQualifier implements Qualifier {
+        TaskQuery taskQuery;
+        private final static String EMPTY_STRING = "";
+
+        FlagSearchQualifier(TaskQuery taskQuery) {
+            this.taskQuery = taskQuery;
+        }
+
+        private boolean isDateTimeWithinRange(DateTime dateTimeSource, DateTime dateTimeQuery) {
+            boolean isTaskDateWithinRange = true;
+
+            // Return false if task is a floating task (i.e. not start or end
+            // dateTime
+            if (dateTimeSource.getEndDate() == null) {
+                return false;
+            }
+
+            // Return false if dateTimeSource Start Date is after dateTimeQuery
+            // End Date AND if dateTimeSource End Date is before dateTimeQuery
+            // Start Date
+            if (dateTimeQuery.getStartDate() != null) {
+
+                if (dateTimeSource.getEndDate().isBefore(dateTimeQuery.getStartDate())) {
+                    return false;
+                }
+
+                if (dateTimeSource.getStartDate() != null) {
+                    if (dateTimeSource.getStartDate().isAfter(dateTimeQuery.getEndDate())) {
+                        return false;
+                    } else {
+                        if (dateTimeSource.getEndDate().isAfter(dateTimeQuery.getEndDate())) {
+                            return false;
+                        }
+                    }
+                }
+            } else {
+
+                if (dateTimeSource.getStartDate() != null) {
+                    if (dateTimeQuery.getEndDate().isBefore(dateTimeSource.getStartDate())
+                            || dateTimeQuery.getEndDate().isAfter(dateTimeSource.getEndDate())) {
+                        return false;
+                    }
+                } else {
+                    if (!dateTimeQuery.getEndDate().equals(dateTimeSource.getEndDate())) {
+                        return false;
+                    }
+                }
+            }
+
+            return isTaskDateWithinRange;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+
+            Boolean isTaskFound = true;
+
+            if (taskQuery.getNameKeywordsAsList().get(0) != EMPTY_STRING) {
+                isTaskFound = taskQuery.getNameKeywordsAsList().stream()
+                        .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
+                        .count() == taskQuery.getNameKeywordsAsList().size();
+                if (!isTaskFound) {
+                    return false;
+                }
+            }
+
+            if (taskQuery.getDateTimeQueryRange() != null) {
+                isTaskFound = isDateTimeWithinRange(task.getDateTime(), taskQuery.getDateTimeQueryRange());
+                if (!isTaskFound) {
+                    return false;
+                }
+            }
+
+            if (taskQuery.getPriorityKeywordsAsList().get(0) != EMPTY_STRING) {
+                isTaskFound = taskQuery.getPriorityKeywordsAsList().stream()
+                        .filter(keyword -> StringUtil.containsIgnoreCase(task.priorityString(), keyword))
+                        .count() == taskQuery.getPriorityKeywordsAsList().size();
+                if (!isTaskFound) {
+                    return false;
+                }
+            }
+
+            if (taskQuery.getStatusQuery() != EMPTY_STRING) {
+                isTaskFound = taskQuery.getStatusQuery() == task.getStatus().toString();
+                if (!isTaskFound) {
+                    return false;
+                }
+            }
+
+            if (taskQuery.getTagKeywordsAsList().get(0) != EMPTY_STRING) {
+                String stringOfTags = task.tagsString().replace(",", "").replace("[", "").replace("]", "");
+                isTaskFound = taskQuery.getTagKeywordsAsList().stream()
+                        .filter(keyword -> StringUtil.containsIgnoreCase(stringOfTags, keyword))
+                        .count() == taskQuery.getTagKeywordsAsList().size();
+                if (!isTaskFound) {
+                    return false;
+                }
+            }
+
+            return isTaskFound;
+        }
     }
 
     private class NameQualifier implements Qualifier {
