@@ -6,6 +6,7 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
 import tars.logic.commands.Command;
 import tars.model.task.Task;
+import tars.model.task.TaskQuery;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
@@ -47,6 +48,14 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    /** Updates the filter of the filtered task list to filter by the given keywords of each given
+     * task attribute*/
+    void updateFilteredTaskListUsingFlags(TaskQuery taskQuery);
+    
+    /** Updates the filter of the filtered task list to filter by the given keywords of a string 
+     * consisting of all the attributes of each task*/
+    void updateFilteredTaskListUsingLazySearch(ArrayList<String> lazySearchKeywords);
 
     /** Returns the undoable command history stack */
     Stack<Command> getUndoableCmdHist();

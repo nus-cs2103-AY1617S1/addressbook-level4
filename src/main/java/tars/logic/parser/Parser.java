@@ -4,6 +4,7 @@ import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tars.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.time.DateTimeException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,6 +34,7 @@ import tars.logic.commands.ListCommand;
 import tars.logic.commands.MarkCommand;
 import tars.logic.commands.SelectCommand;
 import tars.logic.commands.UndoCommand;
+import tars.model.task.TaskQuery;
 
 /**
  * Parses user input.
@@ -45,18 +47,22 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-    
+
     private static final Pattern FILEPATH_ARGS_FORMAT = Pattern.compile("(?<filepath>\\S+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT = 
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    
-    public Parser() {}
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
+                                                                                                           // or
+                                                                                                           // more
+                                                                                                 // whitespace
+
+    public Parser() {
+    }
 
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput
+     *            full user input string
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
@@ -118,7 +124,8 @@ public class Parser {
      * Parses arguments in the context of the add task command.
      *
      * @@author A0139924W
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
@@ -148,12 +155,10 @@ public class Parser {
         }
 
         try {
-            return new AddCommand(
-                    name,
+            return new AddCommand(name,
                     DateTimeUtil.getDateTimeFromArgs(argumentMap.get(dateTimeFlag).replace(Flag.DATETIME + " ", "")),
                     argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
-                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag)
-            );
+                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
@@ -165,7 +170,8 @@ public class Parser {
      * Parses arguments in the context of the edit task command.
      * 
      * @@author A0121533W
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
@@ -181,13 +187,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        Flag nameFlag = new Flag(Flag.NAME, false);
-        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
-        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
-        Flag addTagFlag = new Flag(Flag.ADDTAG, true);
-        Flag removeTagFlag = new Flag(Flag.REMOVETAG, true);
-
-        Flag[] flags = { nameFlag, priorityFlag, dateTimeFlag, addTagFlag, removeTagFlag };
+        Flag[] flags = generateFlagArrayForEditCommand();
 
         TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
         HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
@@ -199,10 +199,23 @@ public class Parser {
         return new EditCommand(index.get(), argumentMap);
     }
 
+    private Flag[] generateFlagArrayForEditCommand() {
+        Flag nameFlag = new Flag(Flag.NAME, false);
+        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
+        Flag addTagFlag = new Flag(Flag.ADDTAG, true);
+        Flag removeTagFlag = new Flag(Flag.REMOVETAG, true);
+
+        Flag[] flags = { nameFlag, priorityFlag, dateTimeFlag, addTagFlag, removeTagFlag };
+
+        return flags;
+    }
+
     /**
      * Parses arguments in the context of the delete task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
@@ -219,7 +232,8 @@ public class Parser {
      * Parses arguments in the context of the mark task command.
      *
      * @@author A0121533W
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareMark(String args) {
@@ -245,7 +259,8 @@ public class Parser {
     /**
      * Parses arguments in the context of the select task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
@@ -279,7 +294,8 @@ public class Parser {
     /**
      * Parses arguments in the context of the find task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareFind(String args) {
@@ -288,17 +304,72 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        Flag[] flags = generateFlagArrayForFindCommand();
+
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args.trim(), flags);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args.trim(), flags, flagsPosMap);
+
+        if (flagsPosMap.size() == 0) {
+            return new FindCommand(generateKeywordSetFromArgs(args.trim()));
+        }
+        
+        
+        TaskQuery taskQuery;
+        try {
+            taskQuery = createTaskQuery(argumentMap, flags);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        } catch (DateTimeException dte) {
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
+        }
+
+        return new FindCommand(taskQuery);
+    }
+
+    private TaskQuery createTaskQuery(HashMap<Flag, String> argumentMap, Flag[] flags)
+            throws DateTimeException, IllegalValueException {
+        TaskQuery taskQuery = new TaskQuery();
+        Boolean statusDone = true;
+        Boolean statusUndone = false;
+
+        taskQuery.createNameQuery(argumentMap.get(flags[0]).replace(Flag.NAME, "").trim());
+        taskQuery.createDateTimeQuery(DateTimeUtil.getDateTimeFromArgs(argumentMap.get(flags[1]).replace(Flag.DATETIME, "").trim()));
+        taskQuery.createPriorityQuery(argumentMap.get(flags[2]).replace(Flag.PRIORITY, "").trim());
+        if (!argumentMap.get(flags[3]).isEmpty()) {
+            taskQuery.createStatusQuery(statusDone);
+        }
+        if (!argumentMap.get(flags[4]).isEmpty()) {
+            taskQuery.createStatusQuery(statusUndone);
+        }
+        taskQuery.createTagsQuery(argumentMap.get(flags[5]).replace(Flag.TAG, "").trim());
+
+        return taskQuery;
+    }
+
+    private ArrayList<String> generateKeywordSetFromArgs(String keywordsArgs) {
+        String[] keywordsArray = keywordsArgs.split("\\s+");
+        return new ArrayList<String>(Arrays.asList(keywordsArray));
+    }
+
+    private Flag[] generateFlagArrayForFindCommand() {
+        Flag nameFlag = new Flag(Flag.NAME, false);
+        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
+        Flag doneFlag = new Flag(Flag.DONE, false);
+        Flag undoneFlag = new Flag(Flag.UNDONE, false);
+        Flag tagFlag = new Flag(Flag.TAG, false);
+
+        Flag[] flags = { nameFlag, dateTimeFlag, priorityFlag, doneFlag, undoneFlag, tagFlag };
+
+        return flags;
     }
 
     /**
      * Parses arguments in the context of the list task command.
      *
      * @@author @A0140022H
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareList(String args) {
@@ -318,7 +389,8 @@ public class Parser {
      * command.
      * 
      * @@author A0124333U
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareCd(String args) {
