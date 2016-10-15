@@ -107,7 +107,19 @@ public class ListController implements Controller {
         // isTask and isEvent = true, list all type
         if (listAll) {
             //no event or task keyword found
+            isTask = false;
+            isEvent = false;
             //check for date and complete
+            if (dateFrom == null && dateTo == null && dateOn == null) {
+                view.tasks = db.getAllTasks();
+                view.events = db.getAllEvents();
+            } else if (dateOn != null) { //by keyword found
+                view.tasks = db.getTaskByDate(dateOn, isCompleted, listAllStatus);
+                view.events = db.getEventbyDate(dateOn);
+            } else {
+                view.tasks = db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+                view.events = db.getEventByRange(dateFrom, dateTo);
+            }
         }
         
         if (isTask) {
@@ -115,8 +127,6 @@ public class ListController implements Controller {
             if (dateFrom == null && dateTo == null && dateOn == null) {
                 view.tasks = db.getAllTasks();
             } else if (dateOn != null) { //by keyword found
-                System.out.println(listAllStatus);
-                System.out.println(isCompleted);
                 view.tasks = db.getTaskByDate(dateOn, isCompleted, listAllStatus);
             } else {
                 view.tasks = db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
