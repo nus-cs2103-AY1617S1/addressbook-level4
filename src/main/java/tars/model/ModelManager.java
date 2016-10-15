@@ -34,6 +34,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final Tars tars;
     private final FilteredList<Task> filteredTasks;
     private final Stack<Command> undoableCmdHistStack;
+    private final Stack<Command> redoableCmdHistStack;
 
     private static final String LIST_KEYWORD_DONE = "done";
     private static final String LIST_KEYWORD_UNDONE = "undone";
@@ -52,6 +53,7 @@ public class ModelManager extends ComponentManager implements Model {
         tars = new Tars(src);
         filteredTasks = new FilteredList<>(tars.getTasks());
         undoableCmdHistStack = new Stack<>();
+        redoableCmdHistStack = new Stack<>();
     }
 
     public ModelManager() {
@@ -62,6 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
         tars = new Tars(initialData);
         filteredTasks = new FilteredList<>(tars.getTasks());
         undoableCmdHistStack = new Stack<>();
+        redoableCmdHistStack = new Stack<>();
     }
 
     @Override
@@ -78,6 +81,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public Stack<Command> getUndoableCmdHist() {
         return undoableCmdHistStack;
+    }
+    
+    @Override
+    public Stack<Command> getRedoableCmdHist() {
+        return redoableCmdHistStack;
     }
 
     /** Raises an event to indicate the model has changed */
