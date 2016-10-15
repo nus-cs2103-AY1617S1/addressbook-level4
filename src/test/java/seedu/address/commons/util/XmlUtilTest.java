@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.EmeraldoBuilder;
 import seedu.address.testutil.TestUtil;
 import seedu.emeraldo.commons.util.FileUtil;
 import seedu.emeraldo.commons.util.XmlUtil;
@@ -86,7 +86,7 @@ public class XmlUtilTest {
         assertEquals((new Emeraldo(dataToWrite)).toString(),(new Emeraldo(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        AddressBookBuilder builder = new AddressBookBuilder(new Emeraldo());
+        EmeraldoBuilder builder = new EmeraldoBuilder(new Emeraldo());
         dataToWrite = new XmlSerializableEmeraldo(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
