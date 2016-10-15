@@ -111,7 +111,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        calendarPanel = CalendarPanel.load(getCalendarPlaceholder());
+        calendarPanel = CalendarPanel.load(getCalendarPlaceholder(), logic.getFilteredTaskList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());

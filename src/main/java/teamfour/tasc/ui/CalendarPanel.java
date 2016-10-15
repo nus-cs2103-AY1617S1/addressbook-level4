@@ -38,12 +38,15 @@ public class CalendarPanel extends UiPart {
         
     }
     
-    public static CalendarPanel load(AnchorPane placeholder) {
+    public static CalendarPanel load(AnchorPane placeholder, List<ReadOnlyTask> initialTaskList) {
         logger.info("Initializing calendar view");
         CalendarPanel calendarPanel = new CalendarPanel();
         calendarPanel.setupAgendaView();
+        calendarPanel.refreshTasks(initialTaskList);
+        
         FxViewUtil.applyAnchorBoundaryParameters(calendarPanel.agendaView, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(calendarPanel.agendaView);
+        
         return calendarPanel;
     }
 
