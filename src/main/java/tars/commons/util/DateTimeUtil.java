@@ -34,10 +34,6 @@ public class DateTimeUtil {
                 .replaceAll("(\\b\\d{1,2})-(\\d{1,2})", "$2-$1")
         );
         
-        System.out.println(dateArgs.trim());
-        System.out.println("after: " + dateArgs.trim()
-                .replaceAll("(^[a-zA-Z_ ]*\\d{1,2})/(\\d{1,2})", "$2/$1")
-                .replaceAll("(^[a-zA-Z_ ]*\\d{1,2})-(\\d{1,2})", "$2-$1"));
         for (DateGroup group : groups) {
             dateList.addAll(group.getDates());
         }
