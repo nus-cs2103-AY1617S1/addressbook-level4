@@ -55,6 +55,9 @@ allprojects {
         
         // https://mvnrepository.com/artifact/com.joestelmach/natty
         compile group: 'com.joestelmach', name: 'natty', version: '0.12'
+        
+        // https://mvnrepository.com/artifact/org.bitbucket.cowwoc/diff-match-patch
+        compile group: 'org.bitbucket.cowwoc', name: 'diff-match-patch', version: '1.1'
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
