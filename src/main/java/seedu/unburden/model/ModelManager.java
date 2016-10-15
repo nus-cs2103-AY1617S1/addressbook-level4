@@ -101,6 +101,10 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    public void updateFilteredTaskListForDate(Set<String> keywords){
+    	updateFilteredPersonList(new PredicateExpression(new DateQualifier(keywords)));
+    }
 
     private void updateFilteredPersonList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
@@ -109,7 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyTask person);
+        boolean satisfies(ReadOnlyTask task);
         String toString();
     }
 
@@ -133,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask person);
+        boolean run(ReadOnlyTask task);
         String toString();
     }
 
@@ -156,6 +160,22 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    
+    private class DateQualifier implements Qualifier {
+    	private Set<String> dateKeyWords;
+    	
+    	DateQualifier(Set<String> dateKeyWords){
+    		this.dateKeyWords = dateKeyWords;
+    	}
+    	
+    	@Override
+    	public boolean run(ReadOnlyTask task){
+    		return dateKeyWords.stream()
+    				.filter(keyword -> StringUtil.containsIgnoreCase(task.getDate().fullDate, keyword))
+    				.findAny()
+    				.isPresent();
+    	}
     }
 
 }
