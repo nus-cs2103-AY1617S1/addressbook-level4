@@ -23,6 +23,7 @@ public class EventDate implements Date{
      * @throws IllegalValueException if given dates string is invalid.
      */
     public EventDate(String startDate, String endDate) throws IllegalValueException {
+        assert startDate != null && endDate != null;
         startDate = startDate.trim();
         endDate = endDate.trim();
         if (!isValidDate(startDate) || !isValidDate(endDate)) {
@@ -68,7 +69,7 @@ public class EventDate implements Date{
     }
     
     public String getEndDate() {
-        return startDate;
+        return endDate;
     }
     
 }

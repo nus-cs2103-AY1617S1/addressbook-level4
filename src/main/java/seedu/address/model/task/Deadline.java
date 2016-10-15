@@ -19,6 +19,7 @@ public class Deadline implements Date{
      * @throws IllegalValueException if given deadline string is invalid.
      */
     public Deadline(String date) throws IllegalValueException {
+        assert date != null;
         if (!isValidDeadline(date)) {
             throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }

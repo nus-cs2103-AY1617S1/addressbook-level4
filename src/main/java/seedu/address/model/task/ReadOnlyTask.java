@@ -36,10 +36,10 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         if (!getDate().isEmptyDate()) {
-            if (getDate() instanceof Deadline) {
-                builder.append(" Deadline: ");
-            } else {
+            if (isEvent()) {
                 builder.append(" Event Date: ");
+            } else {
+                builder.append(" Deadline: ");
             }
             builder.append(getDate());
         }

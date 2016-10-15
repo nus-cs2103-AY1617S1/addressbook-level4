@@ -9,23 +9,23 @@ import seedu.address.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask friend, lunch, book, work, movie, meeting, travel, project, workshop;
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withDeadline("11.10.2016")
+            friend =  new TaskBuilder().withName("Meet old friends").withDeadline("")
                     .withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier").withDeadline("11.10.2016")
-                    .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").withDeadline("11.10.2016").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").withDeadline("11.10.2016").build();
-            elle = new TaskBuilder().withName("Elle Meyer").withDeadline("11.10.2016").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").withDeadline("11.10.2016").build();
-            george = new TaskBuilder().withName("George Best").withDeadline("11.10.2016").build();
+            lunch = new TaskBuilder().withName("Eat lunch with friends").withDeadline("11.10.2016-12")
+                    .withTags("lunch", "friends").build();
+            book = new TaskBuilder().withName("Read book").withDeadline("").build();
+            work = new TaskBuilder().withName("Work").withDeadline("11.10.2016").build();
+            movie = new TaskBuilder().withName("Watch movie").withDeadline("11.10.2016-16").build();
+            meeting = new TaskBuilder().withName("Project meeting").withEventDate("11.10.2016-10", "11.10.2016-12").build();
+            travel = new TaskBuilder().withName("Travel").withEventDate("11.10.2016", "15.10.2016").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withDeadline("11.10.2016").build();
-            ida = new TaskBuilder().withName("Ida Mueller").withDeadline("11.10.2016").build();
+            project = new TaskBuilder().withName("Project due").withDeadline("11.10.2016").build();
+            workshop = new TaskBuilder().withName("Attend workshop").withEventDate("11.10.2016-10", "11.10.2016-16").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -35,20 +35,20 @@ public class TypicalTestTasks {
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
+            ab.addTask(new Task(friend));
+            ab.addTask(new Task(lunch));
+            ab.addTask(new Task(book));
+            ab.addTask(new Task(work));
+            ab.addTask(new Task(movie));
+            ab.addTask(new Task(meeting));
+            ab.addTask(new Task(travel));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[]{friend, lunch, book, work, movie, meeting, travel};
     }
 
     public TaskManager getTypicalTaskManager(){
