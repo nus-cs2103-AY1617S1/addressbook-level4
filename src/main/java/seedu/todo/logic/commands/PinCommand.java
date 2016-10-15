@@ -1,10 +1,13 @@
 package seedu.todo.logic.commands;
 
+import com.google.common.collect.ImmutableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.model.task.ImmutableTask;
+
+import java.util.List;
 
 public class PinCommand extends BaseCommand {
     static private final String PIN = "pinned";
@@ -15,6 +18,11 @@ public class PinCommand extends BaseCommand {
     @Override
     protected Parameter[] getArguments() {
         return new Parameter[]{ index };
+    }
+
+    @Override
+    public List<CommandSummary> getCommandSummary() {
+        return ImmutableList.of(new CommandSummary("Pin task to top of list", "pin", getArgumentSummary()));
     }
 
     @Override

@@ -1,9 +1,12 @@
 package seedu.todo.logic.commands;
 
+import com.google.common.collect.ImmutableList;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Parameter;
+
+import java.util.List;
 
 /**
  * Terminates the program.
@@ -20,6 +23,11 @@ public class ExitCommand extends BaseCommand {
     @Override
     protected Parameter[] getArguments() {
         return new Parameter[]{};
+    }
+
+    @Override
+    public List<CommandSummary> getCommandSummary() {
+        return ImmutableList.of(new CommandSummary("Close this app :(", "exit"));
     }
 
 }
