@@ -74,13 +74,16 @@ public class CommandController {
         }
     }
 
-    /* Helper Methods */
+    /**
+     * Displays error in the respective UI elements
+     * @param errorBag group of errors to display
+     */
     private void displayError(ErrorBag errorBag) {
         inputView.flagError();
         feedbackView.flagError();
         errorView.displayErrorDetails(errorBag);
     }
-
+    
     private void resetViewState() {
         inputView.resetViewState();
         feedbackView.unFlagError();
