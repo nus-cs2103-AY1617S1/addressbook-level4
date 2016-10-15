@@ -82,8 +82,22 @@ public class JsonStorage implements Storage {
 
     @Override
     public TodoListDB redo() throws CannotRedoException, IOException {
-        // TODO Auto-generated method stub
-        return null;
+        // Get redo
+        LinkedList<Patch> redoPatch;
+        try {
+            redoPatch = futurePatch.removeLast();
+        } catch (NoSuchElementException e) {
+            throw new CannotRedoException(e);
+        }
+        
+        String newJson = (String)dmp.patchApply(redoPatch, this.currJson)[0];
+        
+        // Create undo
+        LinkedList<Patch> undoPatch = dmp.patchMake(newJson, this.currJson);
+        
+        // Apply redo
+        this.currJson = newJson;
+        return JsonUtil.fromJsonString(this.currJson, TodoListDB.class);
     }
 
 }
