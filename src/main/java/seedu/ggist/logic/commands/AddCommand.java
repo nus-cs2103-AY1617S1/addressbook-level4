@@ -47,14 +47,15 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String taskName, String date, String startTime, String endTime, Set<String> tags) throws IllegalValueException {      
+    public AddCommand(String taskName, String startDate, String startTime, String endDate, String endTime, Set<String> tags) throws IllegalValueException {      
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new EventTask(
                 new TaskName(taskName),
-                new TaskDate(date),
+                new TaskDate(startDate),
                 new TaskTime(startTime),
+                new TaskDate(endDate),
                 new TaskTime(endTime),
                 new UniqueTagList(tagSet)
         );
@@ -72,8 +73,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new DeadlineTask(
                 new TaskName(taskName),
-                new TaskDate(date),
+                new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),
                 new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
+                new TaskDate(date),
                 new TaskTime(endTime),
                 new UniqueTagList(tagSet)
         );
@@ -91,8 +93,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new FloatingTask(
                 new TaskName(taskName),
-                new TaskDate(Messages.MESSAGE_NO_DATE_SPECIFIED),
+                new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),
                 new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
+                new TaskDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED),
                 new TaskTime(Messages.MESSAGE_NO_END_TIME_SET),
                 new UniqueTagList(tagSet)
         );

@@ -56,8 +56,7 @@ Adds a task to GGist<br>
 General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
 
 > **`Date` Format**
-> * [MMM DD] or [DAY]
-> * Eg. `OCT 10` or `MON`
+> `10 Oct` , `tuesday`, `tomorrow` , `next fri` works!
  
 > **`TIME` Format**
 > * 24-Hour [HHMM] 
@@ -82,7 +81,7 @@ Examples:
 Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
 
 Examples: 
-* `add write diary, jul 10, 1300`
+* `add write diary, tomorrow, 1300`
 * `add prepare presentation slides, mon, 1400, high`
 
 
@@ -90,7 +89,7 @@ Examples:
 > For this kind of task, the `TIME` is in the format `START-END`.
 
 Examples: 
-* `add dad's birthday celebration, jul 10, 1900-2100, high`
+* `add dad's birthday celebration, next thurs, 1900-2100, high`
 * `add company's D&D, sun, 1900-2200`
 
 ##### Recurring
@@ -104,9 +103,12 @@ Examples:
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in a particular day.<br>
-Format: `list DATE`
+Format: `list [PARAMETERS]`
 
-> `list` without `DATE` shows all tasks in GGist 
+> **Available Listing**
+> *`list` shows all incomplete tasks
+> *`list all` shows all tasks
+> *`list done` shows all completed tasks
 
 #### Searching tasks by keywords: `search`
 Searches and lists all tasks that contain the specified keyword, inclusive of `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY`.<br>

@@ -27,7 +27,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<Task> filteredTasks;
+    private FilteredList<Task> filteredTasks;
     
     public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
 
@@ -93,9 +93,9 @@ public class ModelManager extends ComponentManager implements Model {
     			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
     		}
     		break;
-    	case "date":
+    	case "start date":
     		try{
-    		 toBeEditedTask.getDate().editDate(toEdit);
+    		 toBeEditedTask.getStartDate().editDate(toEdit);
     		} catch (IllegalValueException ive) {
     			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
     		}
@@ -117,7 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
     	default:
     		throw new TaskTypeNotFoundException();
     	}
-        updateFilteredListToShowAll();
+    	updateFilteredListToShowChanges();
     	indicateTaskManagerChanged();
     }
 
@@ -145,18 +145,18 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAllDone(new PredicateExpression(new DoneQualifier()));
     }
     
-    public void updateFilteredListToShowAllDone(Expression expression) {
+    private void updateFilteredListToShowAllDone(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-    
     
     @Override
     public void updateFilteredTaskListToShowUndone() {
         updateFilteredTaskListToShowUndone(new PredicateExpression(new NotDoneQualifier()));
     }
     
-    public void updateFilteredTaskListToShowUndone(Expression expression) {
+    private void updateFilteredTaskListToShowUndone(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+        System.out.println(filteredTasks.getPredicate());
     }
 
     @Override
@@ -166,6 +166,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredListToShowChanges() {
+        System.out.println(filteredTasks.getPredicate());
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -204,10 +209,7 @@ public class ModelManager extends ComponentManager implements Model {
         NotDoneQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
-            if (!task.getDone()) {
-                return true;
-            }
-            return false;
+            return (!task.getDone());
         }
     }
     
@@ -241,5 +243,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", taskNameKeyWords);
         }
     }
-
 }
