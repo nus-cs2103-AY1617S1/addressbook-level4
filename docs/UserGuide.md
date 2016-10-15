@@ -109,10 +109,10 @@ Examples:
 Shows a list of all tasks in a particular day.<br>
 Format: `list [PARAMETERS]`
 
-> **Available Listing**
-> *`list` shows all incomplete tasks
-> *`list all` shows all tasks
-> *`list done` shows all completed tasks
+>**Available Listing**
+> * `list` shows all incomplete tasks
+> * `list all` shows all tasks
+> * `list done` shows all completed tasks
 
 #### Searching tasks by keywords: `search`
 Searches and lists all tasks that contain the specified keyword, inclusive of `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY`.<br>
