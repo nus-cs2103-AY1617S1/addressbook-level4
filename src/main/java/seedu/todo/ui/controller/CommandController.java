@@ -29,7 +29,7 @@ public class CommandController {
     /**
      * Constructs a link between the classes defined in the parameters.
      */
-    public static void constructLink(Logic logic, CommandInputView inputView,
+    public static CommandController constructLink(Logic logic, CommandInputView inputView,
                                                   CommandFeedbackView feedbackView, CommandErrorView errorView) {
         CommandController controller = new CommandController();
         controller.logic = logic;
@@ -37,6 +37,7 @@ public class CommandController {
         controller.feedbackView = feedbackView;
         controller.errorView = errorView;
         controller.start();
+        return controller;
     }
 
     /**
