@@ -19,13 +19,10 @@ public class BaseCommandTest extends CommandTest {
     private Argument<Boolean> flagArgument = mock(FlagArgument.class);
     private Argument<Integer> intArgument = mock(IntArgument.class);
     private Argument<String> stringArgument = mock(StringArgument.class);
-    
-    private StubCommand testCommand;
 
     @Override
     protected BaseCommand commandUnderTest() {
-        this.testCommand = new StubCommand(); 
-        return this.testCommand;
+        return new StubCommand();
     }
     
     @Before
@@ -80,12 +77,6 @@ public class BaseCommandTest extends CommandTest {
         
         execute(false);
     }
-    
-    @Test(expected=IllegalValueException.class)
-    public void testInvalidGetTaskAt() throws Exception {
-        execute(true);
-        testCommand.accessInvalidIndex();
-    }
 
     private class StubCommand extends BaseCommand {
         @Override
@@ -97,10 +88,6 @@ public class BaseCommandTest extends CommandTest {
         public CommandResult execute() throws ValidationException {
             // Does nothing
             return new CommandResult("Great Success!");
-        }
-
-        public void accessInvalidIndex() throws IllegalValueException {
-            getTaskAt(100);
         }
     }
     
