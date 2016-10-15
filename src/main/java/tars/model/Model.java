@@ -28,8 +28,12 @@ public interface Model {
     ReadOnlyTars getTars();
 
     /** Edits the given task and returns the edited task */
-    Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit) throws UniqueTaskList.TaskNotFoundException, 
-    DateTimeException, IllegalValueException, TagNotFoundException;
+    Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
+            throws UniqueTaskList.TaskNotFoundException, DateTimeException, IllegalValueException,
+            TagNotFoundException;
+    
+    /** Undo an edited task */
+    void unEditTask(Task toUndo, Task replacement) throws DuplicateTaskException;
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
@@ -59,5 +63,8 @@ public interface Model {
 
     /** Returns the undoable command history stack */
     Stack<Command> getUndoableCmdHist();
+    
+    /** Returns the redoable command history stack */
+    Stack<Command> getRedoableCmdHist();
 
 }

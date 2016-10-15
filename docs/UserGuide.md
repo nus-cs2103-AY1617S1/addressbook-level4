@@ -177,18 +177,21 @@ Examples:
 
 #### Marking tasks : `mark`
 Marks a particular task(s) with the status `done` or `undone` <br>
-Format: `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...] -ud <INDEX>[, <INDEX>, <INDEX>, …]`
+Format: `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...] -ud <INDEX>[, <INDEX>, <INDEX>, …]` <br>
+Format: `mark -do <START_INDEX>..<END_INDEX> -ud <START_INDEX>..<END_INDEX>`
 
 > Marks the task at the specific `<INDEX>`
 > The index refers to the index number shown in the tag list.
-> The index **must be a positive integer** 1, 2, 3, ...
-> 
-> Use -do to mark a task(s) as `done` <br>
+> The index **must be a positive integer** 1, 2, 3, ..
+> Start index of range must be before end index
+> Use -do to mark a task(s) as `done`
 > Use -ud to mark a task(s) as `undone`
 
 Examples:
-* `mark -do 3, 5, 7`
-* `mark -ud 2, 3`
+* `mark -do 2 4 6`
+* `mark -ud 3 5 7`
+* `mark -do 3 5 7 -ud 2 4 6`
+* `mark -do 1..3 -ud 4..6`
 
 #### Deleting a task : `del`
 Deletes a particular task, or a list of task based on a specific criteria (i.e. INDEX, done/undone status, date, tags, priority) <br>

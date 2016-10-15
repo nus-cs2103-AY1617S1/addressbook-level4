@@ -32,6 +32,7 @@ import tars.logic.commands.HelpCommand;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.MarkCommand;
+import tars.logic.commands.RedoCommand;
 import tars.logic.commands.SelectCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.task.TaskQuery;
@@ -102,6 +103,9 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
@@ -241,7 +245,7 @@ public class Parser {
         Flag doneFlag = new Flag(Flag.DONE, false);
         Flag undoneFlag = new Flag(Flag.UNDONE, false);
 
-        Flag[] flags = { doneFlag, undoneFlag, };
+        Flag[] flags = {doneFlag, undoneFlag};
 
         TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
         HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);

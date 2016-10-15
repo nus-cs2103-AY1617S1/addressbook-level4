@@ -69,21 +69,22 @@ public class Tars implements ReadOnlyTars {
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
-    
+
     /**
      * Replaces task in tars internal list
      *
      * @@author A0121533W
      * @throws DuplicateTaskException if replacement task is the same as the task to replace
      */
-    public void replaceTask(ReadOnlyTask toReplace, Task replacement) throws DuplicateTaskException {
+    public void replaceTask(ReadOnlyTask toReplace, Task replacement)
+            throws DuplicateTaskException {
         if (toReplace.isSameStateAs(replacement)) {
             throw new DuplicateTaskException();
         }
         ObservableList<Task> list = this.tasks.getInternalList();
         int toReplaceIndex = -1;
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).isSameStateAs(toReplace)){
+            if (list.get(i).isSameStateAs(toReplace)) {
                 toReplaceIndex = i;
                 break;
             }
@@ -128,8 +129,9 @@ public class Tars implements ReadOnlyTars {
      * @throws TagNotFoundException if no such tag could be found.
      * @throws IllegalValueException if argument(s) in argsToEdit is/are invalid.
      */
-    public Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit) throws TaskNotFoundException, DateTimeException, 
-    DuplicateTagException, TagNotFoundException, IllegalValueException {
+    public Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
+            throws TaskNotFoundException, DateTimeException, DuplicateTagException,
+            TagNotFoundException, IllegalValueException {
         if (!tasks.getInternalList().contains(toEdit)) {
             throw new TaskNotFoundException();
         }
@@ -206,7 +208,7 @@ public class Tars implements ReadOnlyTars {
                     Task toMark = new Task(t);
                     toMark.setStatus(done);
                     replaceTask(t, toMark);
-                } 
+                }
             }
         } else if (status.equals(Flag.UNDONE)) {
             Status undone = new Status(false);

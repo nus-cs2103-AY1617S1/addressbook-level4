@@ -27,7 +27,7 @@ public class AddCommandTest extends TarsGuiTest {
 
         // add duplicate task
         commandBox.runCommand(td.taskH.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         // add to empty list
