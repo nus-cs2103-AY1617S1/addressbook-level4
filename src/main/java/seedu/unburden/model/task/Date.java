@@ -9,7 +9,7 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task dates should be in the format dd-mm-yyyy";
-    public static final String DATE_VALIDATION_REGEX = "\\[0-9]{2}[/][0-9]{2}[/][0-9]{4}";
+    public static final String DATE_VALIDATION_REGEX = "[0-9]{2}[-][0-9]{2}[-][0-9]{4}$";
     
    
 
@@ -21,13 +21,12 @@ public class Date {
      * @throws IllegalValueException if given date string is invalid.
      */
     public Date(String date) throws IllegalValueException {
-       // assert date != null;
-       // date = date.trim();
-        /*
+        assert date != null;
+        date = date.trim();
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        */
+        
         this.fullDate = date;
     }
 
