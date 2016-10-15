@@ -54,10 +54,10 @@ Format: `help`
 Adds a task to GGist<br>
 General format: `add TASK,[DATE] [TIME], [PRIORITY], [FREQUENCY]`
 
-> `[DATE]` and `[TIME]` has to separated by a space.
+> * `[DATE]` and `[TIME]` has to separated by a space.
 
-> **`Date` Format**
-> *`10 Oct` , `tuesday`, `tomorrow` , `next fri` works!
+>**`Date` Format**
+> * `10 Oct` , `tuesday`, `tomorrow` , `next fri` works!
 
 >**`PRIORITY` Format**
 > * `low` , `med` , `high`
@@ -81,8 +81,8 @@ Examples:
 * `add write diary, tomorrow 1300`
 * `add prepare presentation slides by monday 2pm, high`
 
-> `[DATE]` and `[TIME]` has to separated by a space.<br>
-> The comma after `[TASK]` can be replaced with a `by`.
+> * `[DATE]` and `[TIME]` has to separated by a space.
+> * The comma after `[TASK]` can be replaced with a `by`.
 
 
 ##### With start and end time
@@ -92,9 +92,9 @@ Examples:
 * `add dad's birthday celebration, next thurs 1900, next thurs 2100, high`
 * `add going overseas from fri 1pm to next fri 10pm`
 
-> `[DATE]` and `[TIME]` has to separated by a space. <br>
-> The comma after `[TASK]` can be replaced with a `from`. <br>
-> The comma after `[START DATE TIME]` can be replaced with a `to`.
+> * `[DATE]` and `[TIME]` has to separated by a space. <br>
+> * The comma after `[TASK]` can be replaced with a `from`. <br>
+> * The comma after `[START DATE TIME]` can be replaced with a `to`.
 
 ##### Recurring
 To make tasks repeating, simply  add the FREQUENCY parameter at the back.
