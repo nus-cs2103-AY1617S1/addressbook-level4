@@ -63,6 +63,7 @@ public class AddCommand extends Command {
         		Optional.of(LocalDateTime.parse(endDate)),
         		new UniqueTagList()
                 );
+    	System.out.println("deadline added: " + toAdd);
     }
     
     /**

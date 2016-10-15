@@ -8,6 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.task.TaskType;
@@ -20,6 +21,7 @@ public class ParserTest {
 	private AddCommand addCommand;
 	private ListCommand listCommand;
 	private DeleteCommand deleteCommand;
+	private EditCommand editCommand;
 	
 	public ParserTest() throws IllegalValueException {
 		parser = new Parser();
@@ -27,6 +29,7 @@ public class ParserTest {
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
+		editCommand = new EditCommand(1,"editing");
 	}
 	
 	@Test
@@ -143,7 +146,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineNoTime_incorrectCommandReturned() {
-		String userInput = "add deadline 'submission all day' by 36/2/";
+		String userInput = "add deadline 'submission all day' by 16/2/";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -298,7 +301,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_delValidIndex_deleteCommandReturned() {
-		String userInput = "delete 2";
+		String userInput = "del 2";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(deleteCommand.getClass(), command.getClass());
@@ -306,7 +309,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_delValidIndices_deleteCommandReturned() {
-		String userInput = "delete 3 2";
+		String userInput = "del 3 2";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(deleteCommand.getClass(), command.getClass());
@@ -344,6 +347,6 @@ public class ParserTest {
 		String userInput = "edit 1 'new name'";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(addCommand.getClass(), command.getClass());
+		assertEquals(editCommand.getClass(), command.getClass());
 	}
 }

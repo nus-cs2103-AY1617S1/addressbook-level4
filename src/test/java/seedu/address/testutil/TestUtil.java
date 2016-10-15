@@ -304,6 +304,7 @@ public class TestUtil {
      */
     public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
         tasks[index] = task;
+        System.out.println("replaced: " + tasks[index]);
         return tasks;
     }
 
