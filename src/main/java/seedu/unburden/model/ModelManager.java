@@ -102,6 +102,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
     
+    @Override
     public void updateFilteredTaskListForDate(Set<String> keywords){
     	updateFilteredPersonList(new PredicateExpression(new DateQualifier(keywords)));
     }
@@ -176,6 +177,11 @@ public class ModelManager extends ComponentManager implements Model {
     				.findAny()
     				.isPresent();
     	}
+    	
+    	@Override
+        public String toString() {
+    		return "date=" + String.join(", ", dateKeyWords);
+        }
     }
 
 }
