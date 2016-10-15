@@ -12,7 +12,7 @@ public class ArgumentTest {
     private class TestArgument extends Argument<String> {
 
         public TestArgument() {
-            super("Test Argument");
+            super("Test");
         }
         
     }
@@ -60,10 +60,24 @@ public class ArgumentTest {
     }
     
     @Test
-    public void voidTestDescription() {
+    public void testDescription() {
         assertNull(arg.getDescription());
         arg.description("Hello World");
         assertEquals("Hello World", arg.getDescription());
+    }
+    
+    @Test
+    public void testToString() {
+        assertEquals("[Test]", arg.toString());
+        assertEquals("[Something]", arg.toString("Something"));
+        
+        arg.flag("t");
+        assertEquals("[/t Test]", arg.toString());
+        assertEquals("[/t Something]", arg.toString("Something"));
+        
+        arg.required(); 
+        assertEquals("/t Test", arg.toString());
+        assertEquals("/t Something", arg.toString("Something"));
     }
 
 }

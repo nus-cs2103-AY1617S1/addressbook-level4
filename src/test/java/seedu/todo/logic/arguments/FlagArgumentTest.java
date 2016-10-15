@@ -34,5 +34,14 @@ public class FlagArgumentTest {
         argument.setValue("Hello World");
         assertTrue(argument.getValue());
     }
+    
+    @Test
+    public void testToString() {
+        argument.flag("t");
+        assertEquals("[/t]", argument.toString());
+        
+        argument.required();
+        assertEquals("/t", argument.toString());
+    }
 
 }
