@@ -16,33 +16,42 @@ import java.util.logging.Logger;
  * Display textual feedback to command input via this view with {@link #displayMessage(String)}.
  */
 public class CommandFeedbackView extends UiPart {
+
     private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
     private static final String FXML = "CommandFeedbackView.fxml";
     private static final String ERROR_STYLE = "error";
 
     @FXML
     private Label commandFeedbackLabel;
-    private AnchorPane placeHolder, textContainer;
+    private AnchorPane placeHolder;
+    private AnchorPane textContainer;
 
     /**
-     * Loads the feedback view element to the placeHolder
+     * Loads and initialise the feedback view element to the placeHolder
      * @param primaryStage of the application
      * @param placeHolder where the view element {@link #textContainer} should be placed
      * @return an instance of this class
      */
     public static CommandFeedbackView load(Stage primaryStage, AnchorPane placeHolder) {
         CommandFeedbackView feedbackView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandFeedbackView());
-        feedbackView.configure();
+        feedbackView.addToPlaceholder();
+        feedbackView.configureLayout();
         return feedbackView;
     }
 
     /**
-     * Configure the UI properties of {@link CommandFeedbackView}
+     * Adds this view element to external placeholder
      */
-    private void configure() {
+    private void addToPlaceholder() {
+        this.placeHolder.getChildren().add(textContainer);
+    }
+
+    /**
+     * Configure the UI layout of {@link CommandFeedbackView}
+     */
+    private void configureLayout() {
         FxViewUtil.applyAnchorBoundaryParameters(textContainer, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandFeedbackLabel, 0.0, 0.0, 0.0, 0.0);
-        this.placeHolder.getChildren().add(textContainer);
     }
 
     /**

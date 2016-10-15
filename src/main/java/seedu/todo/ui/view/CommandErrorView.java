@@ -38,28 +38,35 @@ public class CommandErrorView extends UiPart {
     private GridPane fieldErrorGrid;
 
     /**
-     * Loads the feedback view element to the placeHolder
+     * Loads and initialise the feedback view element to the placeHolder
      * @param primaryStage of the application
      * @param placeHolder where the view element {@link #errorViewBox} should be placed
      * @return an instance of this class
      */
     public static CommandErrorView load(Stage primaryStage, AnchorPane placeHolder) {
         CommandErrorView errorView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandErrorView());
-        errorView.configure();
+        errorView.addToPlaceholder();
+        errorView.configureLayout();
         errorView.hideCommandErrorView();
         return errorView;
     }
 
     /**
-     * Configure the UI properties of {@link CommandErrorView}
+     * Adds this view element to external placeholder
      */
-    private void configure() {
+    private void addToPlaceholder() {
+        this.placeholder.getChildren().add(errorViewBox);
+    }
+
+    /**
+     * Configure the UI layout of {@link CommandErrorView}
+     */
+    private void configureLayout() {
         FxViewUtil.applyAnchorBoundaryParameters(errorViewBox, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(nonFieldErrorBox, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(fieldErrorBox, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(fieldErrorGrid, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(nonFieldErrorGrid, 0.0, 0.0, 0.0, 0.0);
-        this.placeholder.getChildren().add(errorViewBox);
     }
 
     /**

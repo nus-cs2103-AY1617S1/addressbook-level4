@@ -24,29 +24,47 @@ public class CommandInputView extends UiPart {
     private static final String FXML = "CommandInputView.fxml";
     private static final String ERROR_STYLE = "error";
 
-    private AnchorPane placeHolderPane;
+    private AnchorPane placeHolder;
     private AnchorPane commandInputPane;
 
     @FXML
     private TextArea commandTextField;
 
-    public static CommandInputView load(Stage primaryStage, AnchorPane commandBoxPlaceholder) {
-        CommandInputView commandInputView = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandInputView());
+    /**
+     * Loads and initialise the input view element to the placeHolder
+     * @param primaryStage of the application
+     * @param placeHolder where the view element {@link #commandInputPane} should be placed
+     * @return an instance of this class
+     */
+    public static CommandInputView load(Stage primaryStage, AnchorPane placeHolder) {
+        CommandInputView commandInputView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandInputView());
         commandInputView.addToPlaceholder();
-        commandInputView.configure();
+        commandInputView.configureLayout();
+        commandInputView.configureProperties();
         return commandInputView;
     }
 
+    /**
+     * Adds this view element to external placeholder
+     */
     private void addToPlaceholder() {
-        placeHolderPane.getChildren().add(commandInputPane);
-
+        placeHolder.getChildren().add(commandInputPane);
     }
 
-    private void configure() {
-        setCommandInputHeightAutoResizeable();
-        unflagErrorWhileTyping();
+    /**
+     * Configure the UI layout of {@link CommandInputView}
+     */
+    private void configureLayout() {
         FxViewUtil.applyAnchorBoundaryParameters(commandInputPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+    }
+
+    /**
+     * Configure the UI properties of {@link CommandInputView}
+     */
+    private void configureProperties() {
+        setCommandInputHeightAutoResizeable();
+        unflagErrorWhileTyping();
     }
 
     /**
@@ -120,7 +138,7 @@ public class CommandInputView extends UiPart {
 
     @Override
     public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
+        this.placeHolder = pane;
     }
 
     /*Interface Declarations*/
