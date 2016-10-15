@@ -13,8 +13,8 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Location address;
-    private Date startDate;
-    private Date endDate;
+    private TaskDateTime startDate;
+    private TaskDateTime endDate;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -29,10 +29,10 @@ public class TestTask implements ReadOnlyTask {
         this.address = address;
     }
 
-    public void setStartDate(Date date) {
+    public void setStartDate(TaskDateTime date) {
         this.startDate = date;
     }
-    public void setEndDate(Date date) {
+    public void setEndDate(TaskDateTime date) {
         this.endDate = date;
     }
 
@@ -43,12 +43,12 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Date getStartDate() {
+    public TaskDateTime getStartDate() {
         return startDate;
     }
 
     @Override
-    public Date getEndDate() {
+    public TaskDateTime getEndDate() {
         return endDate;
     }
 
@@ -56,7 +56,7 @@ public class TestTask implements ReadOnlyTask {
     public Location getLocation() {
         return address;
     }
-
+    
     @Override
     public UniqueTagList getTags() {
         return tags;
@@ -70,9 +70,9 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("s/" + DateFormatter.convertDateToString(this.getStartDate()) + " ");
-        sb.append("e/" + DateFormatter.convertDateToString(this.getEndDate()) + " ");
-        sb.append("a/" + this.getLocation().value);
+        sb.append("s/" + this.getStartDate() + " ");
+        sb.append("e/" + this.getEndDate() + " ");
+        sb.append("at" + " " + this.getLocation().value);
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
@@ -80,10 +80,11 @@ public class TestTask implements ReadOnlyTask {
     public String getTaskString() {
         StringBuilder sb = new StringBuilder();
         sb.append(" " + this.getName().fullName + " ");
-        sb.append("s/" + DateFormatter.convertDateToString(this.getStartDate()) + " ");
-        sb.append("e/" + DateFormatter.convertDateToString(this.getEndDate()) + " ");
-        sb.append("a/" + this.getLocation().value);
+        sb.append("s/" + this.getStartDate() + " ");
+        sb.append("e/" + this.getEndDate() + " ");
+        sb.append("at" + " " + this.getLocation().value);
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
 }

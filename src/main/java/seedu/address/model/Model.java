@@ -17,7 +17,7 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskScheduler newData);
 
-    /** Returns the AddressBook */
+    /** Returns the TaskScheduler */
     ReadOnlyTaskScheduler getTaskScheduler();
 
     /** Deletes the given task. */
@@ -42,7 +42,7 @@ public interface Model {
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Updates the filter of the filtered person list to show all tasks */
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/

@@ -10,7 +10,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
 import java.util.Set;
@@ -27,8 +27,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given TaskScheduler
+     * TaskScheduler and its variables should not be null
      */
     public ModelManager(TaskScheduler src, UserPrefs userPrefs) {
         super();
@@ -63,7 +63,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskSchedulerChanged() {
-        raise(new AddressBookChangedEvent(taskScheduler));
+        raise(new TaskSchedulerChangedEvent(taskScheduler));
     }
 
     @Override
@@ -178,7 +178,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getFindAsText(), keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getAllFieldAsText(), keyword))
                     .findAny()
                     .isPresent();
         }

@@ -10,28 +10,28 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Represents a Task in the address book.
+ * Represents a Task in the task scheduler.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Date startDate;
-    private Date endDate;
+    private TaskDateTime startDateTime;
+    private TaskDateTime endDateTime;
     private Location address;
-
+    
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Date startDate, Date endDate, Location address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, startDate, endDate, address, tags);
+    public Task(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startDateTime, endDateTime, address, tags);
         this.name = name;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         this.address = address;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags);
     }
 
     /**
@@ -47,13 +47,13 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Date getStartDate() {
-        return startDate;
+    public TaskDateTime getStartDate() {
+        return startDateTime;
     }
 
     @Override
-    public Date getEndDate() {
-        return endDate;
+    public TaskDateTime getEndDate() {
+        return endDateTime;
     }
 
     @Override
@@ -65,12 +65,12 @@ public class Task implements ReadOnlyTask {
         this.name = name;
     }
     
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartDate(TaskDateTime startDate) {
+        this.startDateTime = startDate;
     }
     
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndDate(TaskDateTime endDate) {
+        this.endDateTime = endDate;
     }
 
     public void setLocation(Location address) {
@@ -121,7 +121,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startDate, endDate, address);
+        return Objects.hash(name, startDateTime, endDateTime, address);
     }
 
     @Override

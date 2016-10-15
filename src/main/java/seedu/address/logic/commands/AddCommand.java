@@ -19,9 +19,13 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the scheduler. "
-            + "Parameters: TASK s/START_DATE e/END_DATE a/LOCATION  [t/TAG]...\n"
+            + "Parameters: TASK_NAME s/START_DATE e/END_DATE at LOCATION  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Do CS2103 Pretut s/09092009 e/10102011 a/NUS COM1-B103";
+            + " Do CS2103 Pretut\n"
+            + "Example: " + COMMAND_WORD
+            + " Do CS2103 Pretut by 011016\n"
+            + "Example: " + COMMAND_WORD
+            + " CS2103 Tutorial s/011016 e/011016 at NUS COM1-B103\n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 
@@ -32,19 +36,26 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String startDate, String endDate, String address, Set<String> tags)
+    public AddCommand(String name, String startDate, String endDate, String address)
             throws IllegalValueException {
+        
+        this.toAdd = new Task(
+                new Name(name),
+                new TaskDateTime(startDate),
+                new TaskDateTime(endDate),
+                new Location(address),
+                new UniqueTagList()
+        );
+    }
+    public AddCommand(String name, String startDate, String endDate, String address, String... tags)
+            throws IllegalValueException {
+        
+        this(name,startDate,endDate,address);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
-                new Name(name),
-                DateFormatter.convertStringToDate(startDate),
-                DateFormatter.convertStringToDate(endDate),
-                new Location(address),
-                new UniqueTagList()
-        );
+        this.toAdd.setTags(new UniqueTagList(tagSet));
     }
 
     @Override

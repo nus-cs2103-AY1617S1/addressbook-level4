@@ -6,14 +6,14 @@ import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Task in the addressbook.
+ * A read-only immutable interface for a Task in the task scheduler.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
 
     Name getName();
-    Date getStartDate();
-    Date getEndDate();
+    TaskDateTime getStartDate();
+    TaskDateTime getEndDate();
     Location getLocation();
 
     /**
@@ -41,13 +41,13 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
 //                .append(" Start Date: ")
-                .append(" " + DateFormatter.convertDateToDisplayString(getStartDate()))
+                .append(" " + getStartDate().getDisplayString())
 //                .append(" Due Date: ")
-                .append(" " + DateFormatter.convertDateToDisplayString(getEndDate()))
+                .append(" " + getEndDate().getDisplayString())
 //                .append(" Location: ")
                 .append(" " + getLocation());
 //                .append(" Tags: ");
-//        getTags().forEach(builder::append);
+//        getTags().forEach(b -> builder.append(b.tagName + " "));  
         return builder.toString();
     }
 
@@ -64,24 +64,22 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-    
+
     /**  
-     * For FindCommand to Formats the person as text,   
-     * showing all contact details.  
+     * For FindCommand to Formats the task as text,   
+     * showing all parameters details.  
      */  
-    default String getFindAsText() {  
+    default String getAllFieldAsText() {  
         final StringBuilder builder = new StringBuilder();  
         builder.append(getName())  
             .append(" ")  
-            .append(DateFormatter.convertDateToString(getStartDate()))  
+            .append(getStartDate().getDisplayString())  
             .append(" ")  
-            .append(DateFormatter.convertDateToString(getEndDate()))  
+            .append(getEndDate().getDisplayString())  
             .append(" ")  
             .append(getLocation())  
             .append(" ");  
         getTags().forEach(b -> builder.append(b.tagName + " "));  
         return builder.toString();  
     }  
-
-
 }

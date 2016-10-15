@@ -6,14 +6,13 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.DateFormatter;
-import seedu.address.model.Undo;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Location;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDateTime;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -25,9 +24,13 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the scheduler. "
-            + "Parameters: INDEX TASK s/START_DATE e/END_DATE a/LOCATION \n"
+            + "Parameters: INDEX TASK s/START_DATE e/END_DATE at LOCATION \n"
             + "Example: " + COMMAND_WORD
-            + " 1 MUST do CS2103 Pretut s/07102016 e/10102016 a/NUS COM1-B103";
+            + " 1 Must Do CS2103 Pretut\n"
+            + "Example: " + COMMAND_WORD
+            + " 1 Must Do CS2103 Pretut by 011016\n"
+            + "Example: " + COMMAND_WORD
+            + " 1 CS2103 Lecture s/011016 e/011016 at NUS COM1-B103\n";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
     
@@ -39,18 +42,28 @@ public class EditCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
+
     public EditCommand(int targetIndex, String name, String startDate, String endDate, String address)
             throws IllegalValueException {
- 
+        
         this.targetIndex = targetIndex;
-        final Set<Tag> tagSet = new HashSet<>();
         this.toCopy = new Task(
                 new Name(name),
-                DateFormatter.convertStringToDate(startDate),
-                DateFormatter.convertStringToDate(endDate),
+                new TaskDateTime(startDate),
+                new TaskDateTime(endDate),
                 new Location(address),
-                new UniqueTagList(tagSet)
+                new UniqueTagList()
         );
+    }
+    public EditCommand(int targetIndex, String name, String startDate, String endDate, String address, String... tags)
+            throws IllegalValueException {
+        this(targetIndex,name,startDate,endDate,address);
+        
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toCopy.setTags(new UniqueTagList(tagSet));
     }
 
 
@@ -66,7 +79,7 @@ public class EditCommand extends Command {
         ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
 
         try {
-            toCopy.setTags(personToEdit.getTags());
+//            toCopy.setTags(personToEdit.getTags());
             model.editTask(personToEdit, toCopy);
             CommandHistory.addMutateCmd(new Undo(COMMAND_WORD, targetIndex, (Task)personToEdit));
         } catch (DuplicateTaskException dpe) {

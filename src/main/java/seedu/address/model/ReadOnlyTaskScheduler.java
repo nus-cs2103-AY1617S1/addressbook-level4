@@ -9,7 +9,7 @@ import seedu.address.model.task.UniqueTaskList;
 import java.util.List;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an task scheduler
  */
 public interface ReadOnlyTaskScheduler {
 
@@ -18,7 +18,7 @@ public interface ReadOnlyTaskScheduler {
     UniqueTaskList getUniqueTaskList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getTaskList();
 

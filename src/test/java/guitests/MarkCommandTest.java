@@ -11,13 +11,13 @@ import seedu.address.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
-public class MarkCommandTest extends AddressBookGuiTest {
+public class MarkCommandTest extends TaskSchedulerGuiTest {
 
     @Test
     public void mark() {
 
         //mark the first in the list
-        TestTask[] currentList = td.getTypicalPersons();
+        TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         assertMarkSuccess(targetIndex, currentList);
         
@@ -52,7 +52,7 @@ public class MarkCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("mark " + targetIndexOneIndexed);
         
         //confirm the task card is now marked completed.
-        assertTrue(personListPanel.navigateToPerson(targetIndexOneIndexed - 1).getTags().contains("[Completed]"));
+        assertTrue(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getTags().contains("[Completed]"));
         
         //confirm the result message is correct
         assertResultMessage(String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, taskToMark));

@@ -10,11 +10,11 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 public class DateFormatter {
 
-    private static DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy");
-    private static DateFormat timeFormatter = new SimpleDateFormat("hhmm");
+    private static DateFormat dateFormatter = new SimpleDateFormat("ddMMyy");
+    private static DateFormat timeFormatter = new SimpleDateFormat("HHmm");
     
-    private static DateFormat dateDisplayFormatter = new SimpleDateFormat("dd MMM yyyy");
-    private static DateFormat timeDisplayFormatter = new SimpleDateFormat("hh:mm");
+    private static DateFormat dateDisplayFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+    private static DateFormat timeDisplayFormatter = new SimpleDateFormat("HH:mm aa");
     
     public static Date convertStringToDate(String val) throws IllegalValueException {
         try {
@@ -32,6 +32,24 @@ public class DateFormatter {
         }
     }
 
+    public static boolean isValidDateString(String val) {
+        try {
+            dateFormatter.parse(val);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    } 
+    
+    public static boolean isValidTimeString(String val) {
+        try {
+            timeFormatter.parse(val);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+    
     public static String convertDateToString(Date val) {
         return dateFormatter.format(val);
     }
