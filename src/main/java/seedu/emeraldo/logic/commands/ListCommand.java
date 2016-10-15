@@ -2,7 +2,7 @@ package seedu.emeraldo.logic.commands;
 
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all tasks in Emeraldo to the user.
  */
 public class ListCommand extends Command {
 
