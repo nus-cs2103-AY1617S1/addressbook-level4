@@ -95,7 +95,8 @@ public class Time {
                 || (other instanceof Time // instanceof handles nulls
                 && (this.startValue != null) ? this.startValue.equals(((Time) other).startValue) // state check
                    : ((Time) other).startValue == null
-                && this.endValue.equals(((Time) other).endValue)
+                && (this.endValue != null) ? this.endValue.equals(((Time) other).endValue) // state check
+                        : ((Time) other).endValue == null
                 && this.dayAdded == ((Time) other).dayAdded
                 && this.startTimeAdded == ((Time) other).startTimeAdded); 
     }
