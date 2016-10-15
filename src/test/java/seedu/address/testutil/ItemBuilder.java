@@ -8,7 +8,7 @@ public class ItemBuilder {
     private TestItem item;
     
     public ItemBuilder(){
-        this.item = new Item();
+        this.item = new TestItem();
     }
     
     public ItemBuilder withDescription(String description) throws IllegalValueException{
@@ -32,7 +32,7 @@ public class ItemBuilder {
     }
     
     public TestItem build(){
-        return this.item();
+        return this.item;
     }
     
 }

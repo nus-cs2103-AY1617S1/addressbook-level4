@@ -15,15 +15,15 @@ public class TypicalTestItems {
     public TypicalTestItems() {
         try {
             always  = new ItemBuilder().withDescription("Always brush teeth").build();
-            bags    = new ItemBuilder().withDescription("Pack bag with the thing that I need to bring").build();
+            bags    = new ItemBuilder().withDescription("Pack bag with the thing that I always need to bring").build();
             cs2103  = new ItemBuilder().withDescription("Finish my CS2103 homework").build();
             dover   = new ItemBuilder().withDescription("Dover Road").build();
             eating  = new ItemBuilder().withDescription("eat a child").build();
             frolick = new ItemBuilder().withDescription("frolick in the grass").build();
             grass   = new ItemBuilder().withDescription("You are allergic to grass").build();
             //Manually added
-            help    = new ItemBuilder().withDescription("Read \"help\" instructions").build();
-            indeed  = new ItemBuilder().withDescription("Indeed, this is a test item").build();
+            help    = new ItemBuilder().withDescription("Read help instructions").build();
+            indeed  = new ItemBuilder().withDescription("Indeed this is a test item").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

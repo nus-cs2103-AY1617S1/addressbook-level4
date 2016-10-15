@@ -71,7 +71,7 @@ public class TestItem implements ReadOnlyItem {
     
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getDescription().getFullDescription());
+        sb.append("add \"" + this.getDescription().getFullDescription() + "\"");
         // this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
