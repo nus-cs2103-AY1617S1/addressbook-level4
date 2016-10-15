@@ -17,6 +17,7 @@ public class ConfigController implements Controller {
     private static String COMMAND_SYNTAX = "config [<setting> <value>]";
     
     private static final String MESSAGE_SHOWING = "Showing all settings.";
+    private static final String MESSAGE_SUCCESS = "Successfully updated %s.";
     private static final String MESSAGE_FAILURE = "Could not update settings: %s";
     private static final String MESSAGE_FAILURE_DBFILEPATH = "Could not update the storage location!";
     private static final String MESSAGE_INVALID_INPUT = "Invalid config setting provided!";
@@ -40,7 +41,12 @@ public class ConfigController implements Controller {
     public void process(String input) {
         input = input.replaceFirst("config", "").trim();
         
-        if (input.length() > 0) {
+        if (input.length() <= 0) {
+            
+            // Update console message
+            UiManager.updateConsoleMessage(MESSAGE_SHOWING);
+        
+        } else {
             
             String[] args = input.split(SPACE);
             
@@ -76,14 +82,13 @@ public class ConfigController implements Controller {
                 failWithMessage(String.format(MESSAGE_FAILURE, e.getMessage()));
             }
             
+            // Update console
+            UiManager.updateConsoleMessage(String.format(MESSAGE_SUCCESS, configName));
         }
         
         // Re-render
         ConfigView view = UiManager.loadView(ConfigView.class);
         view.render();
-        
-        // Update console message
-        UiManager.updateConsoleMessage(MESSAGE_SHOWING);
     }
     
     private void failWithMessage(String message) {
