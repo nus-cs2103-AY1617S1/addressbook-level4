@@ -9,8 +9,9 @@ import seedu.taskitty.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private TaskDate date;
+    private TaskDate startDate;
     private TaskTime startTime;
+    private TaskDate endDate;
     private TaskTime endTime;
     private boolean isDone;
     private UniqueTagList tags;
@@ -22,6 +23,22 @@ public class TestTask implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
+    
+    public void setStartDate(TaskDate startDate) {
+        this.startDate = startDate;
+    }
+    
+    public void setStartTime(TaskTime startTime) {
+        this.startTime = startTime;
+    }
+    
+    public void setEndDate(TaskDate endDate) {
+        this.endDate = endDate;
+    }
+    
+    public void setEndTime(TaskTime endTime) {
+        this.endTime = endTime;
+    }
 
     @Override
     public Name getName() {
@@ -29,8 +46,13 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
-    public TaskDate getDate() {
-        return date;
+    public TaskDate getStartDate() {
+        return startDate;
+    }
+    
+    @Override
+    public TaskDate getEndDate() {
+        return endDate;
     }
 
     @Override
@@ -56,6 +78,12 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
+        if (startDate != null && startTime != null) {
+            sb.append(startDate.toString() + " " + startTime.toString() + " to ");
+        }
+        if (endDate != null && endTime != null) {
+            sb.append(endDate.toString() + " " + endTime.toString() + " ");
+        }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

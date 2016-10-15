@@ -11,14 +11,20 @@ import seedu.taskitty.model.task.TaskTime;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
+
 /**
  * Parses user input.
  */
-public class Parser {
+public class CommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -30,15 +36,15 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<data>[\\p{Alnum}/: ]+)");
+    private static final Pattern TASK_DATA_ARGS_FORMAT = //Tags must be at the end
+            Pattern.compile("(?<arguments>[\\p{Graph} ]+)"); // \p{Graph} is \p{Alnum} or \p{Punct}
     
     private static final Pattern EDIT_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>.)"
                     + "(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public Parser() {}
+    public CommandParser() {}
 
     /**
      * Parses user input into command for execution.
@@ -104,32 +110,121 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            String data = matcher.group("data");
+            String arguments = matcher.group("arguments");
+            String taskDetailArguments = getTaskDetailArguments(arguments);
+            String tagArguments = getTagArguments(arguments);
             
             return new AddCommand(
-                    extractTaskDetails(data),
-                    getTagsFromArgs(data)
+                    extractTaskDetailsNatty(taskDetailArguments),
+                    getTagsFromArgs(tagArguments)
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
     /**
-     * Extracts the new person's tags from the add command's data string.
-     * Merges duplicate tag strings.
+     * Parses the argument to get a string of all the relevant details of the task
+     * 
+     * @param arguments command args string without command word
      */
-    private static Set<String> getTagsFromArgs(String data) throws IllegalValueException {
-        Pattern tagPattern = Pattern.compile(Tag.TAG_VALIDATION_REGEX_FORMAT); //Does this name make sense?
-        Matcher tagMatcher = tagPattern.matcher(data);
-        ArrayList<String> tagStrings = new ArrayList<String>();
-        
-        while (tagMatcher.find()) {
-            String tag = tagMatcher.group().replaceFirst("t/", "");
-            System.out.println(tag);
-            tagStrings.add(tag);
+    private String getTaskDetailArguments(String arguments) {
+        //Have 2 magic numbers.. where should I put them..
+        //-1 is NOT_FOUND
+        //0 is START_OF_ARGUMENT
+        int detailLastIndex = arguments.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
+        if (detailLastIndex == -1) {
+            detailLastIndex = arguments.length();
         }
         
+        return arguments.substring(0, detailLastIndex).trim();
+    }
+    
+    /**
+     * Parses the argument to get a string of all tags, including the Tag prefix
+     * 
+     * @param arguments command args string without command word
+     */
+    private String getTagArguments(String arguments) {
+        //This line is exactly the same as the 1st line of getTaskDetailArguments.. how?
+        int tagStartIndex = arguments.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
+        if (tagStartIndex == -1) {
+            tagStartIndex = arguments.length();
+        }
+        
+        return arguments.substring(tagStartIndex);
+    }
+    
+    /**
+     * Extracts the task details into a String array representing the name, date, time.
+     * Details are arranged according to index shown in Task
+     * 
+     * @param dataArguments command args string with only name, date, time arguments
+     */
+    private String[] extractTaskDetailsNatty(String dataArguments) {
+        Parser dateTimeParser = new Parser();
+        List<DateGroup> dateGroups = dateTimeParser.parse(dataArguments);
+        
+        int nameEndIndex = dataArguments.length();
+        ArrayList<String> details = new ArrayList<String>();
+        for (DateGroup group : dateGroups) {
+            List<Date> dates = group.getDates();
+            nameEndIndex = Math.min(nameEndIndex, group.getPosition() - 1);
+            for (Date date : dates) {
+                details.add(extractLocalDate(date));
+                details.add(extractLocalTime(date));
+            }
+        }
+        details.add(0, dataArguments.substring(0, nameEndIndex).trim());
+        
+        String[] returnDetails = new String[details.size()];
+        details.toArray(returnDetails);
+        return returnDetails;
+        
+    }
+    
+    /**
+     * Takes in a date from Natty and converts it into a string representing date
+     * Format of date returned is according to TaskDate
+     * 
+     * @param date retrieved using Natty
+     */
+    private String extractLocalDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(TaskDate.DATE_FORMAT_STRING);
+        return dateFormat.format(date);
+    }
+    
+    /**
+     * Takes in a date from Natty and converts it into a string representing time
+     * Format of time returned is according to TaskTime
+     * 
+     * @param date retrieved using Natty
+     */
+    private String extractLocalTime(Date date) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat(TaskTime.TIME_FORMAT_STRING);
+        String currentTime = timeFormat.format(new Date());
+        String inputTime = timeFormat.format(date);
+        
+        if (currentTime.equals(inputTime)) {
+            //Natty parses the current time if string does not include time.
+            //We want to ignore input when current time equal input time
+            return null;
+        }
+        return inputTime;
+        
+    }
+
+    /**
+     * Extracts the new person's tags from the add command's tag arguments string.
+     * Merges duplicate tag strings.
+     */
+    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+        // no tags
+        if (tagArguments.isEmpty()) {
+            return Collections.emptySet();
+        }
+        // replace first delimiter prefix, then split
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
 
@@ -260,98 +355,4 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
-    
-    /**
-     * Returns an array of String representing 
-     * 
-     * @param args full command args String
-     */
-    //Should return an object instead of String[].. but how?
-    private String[] extractTaskDetails(String args) {
-        ArrayList<String> details = new ArrayList<String>();
-        Pattern datePattern = Pattern.compile(TaskDate.DATE_VALIDATION_REGEX_FORMAT);
-        Pattern timePattern = Pattern.compile(TaskTime.TIME_VALIDATION_REGEX_FORMAT);
-        
-        //default name is the entire argument up til the first tag unless there are no tags
-        int startOfTags = args.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
-        int nameLastIndex = args.length();
-        if (startOfTags != -1) { //What should this -1 be called?
-            nameLastIndex = args.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
-        }
-        
-        Matcher dateMatcher = datePattern.matcher(args);
-        //Max only have 1 date
-        if (dateMatcher.find()) {
-            nameLastIndex = Math.min(nameLastIndex, dateMatcher.start());
-            details.add(dateMatcher.group());
-        }
-        
-        Matcher timeMatcher = timePattern.matcher(args);
-        //Max only have 2 times
-        while (timeMatcher.find()) {
-            nameLastIndex = Math.min(nameLastIndex, timeMatcher.start());
-            details.add(timeMatcher.group());
-        }
-        
-        //Do I need to declare the 0 as START_OF_ALL_STRINGS_IN_THE_WORLD?
-        details.add(Task.TASK_COMPONENT_INDEX_NAME, args.substring(0, nameLastIndex));
-        
-        String[] returnDetails = new String[details.size()];
-        details.toArray(returnDetails);
-        return returnDetails;
-    }
-    
-    /**
-     * Returns the date found from the arguments as a String or null if no date is found
-     * 
-     * @param args full command args string
-     */
-    private String findDate(String args) {
-        Pattern datePattern = Pattern.compile(TaskDate.DATE_VALIDATION_REGEX_FORMAT);
-        Matcher dateMatcher = datePattern.matcher(args);
-        
-        //Max of 2 dates
-        String date = null;
-        if (dateMatcher.find()) {
-            date = dateMatcher.group();
-        }
-
-        return date;
-    }
-    
-    /**
-     * Returns the times found from the arguments as a String array
-     * The length of the array represents the number of times found
-     * 
-     * @param args full command args string
-     */
-    private String[] findTimes(String args) {
-        Pattern timePattern = Pattern.compile(TaskTime.TIME_VALIDATION_REGEX_FORMAT);
-        Matcher timeMatcher = timePattern.matcher(args);
-        
-        //Max of 2 dates
-        int timesArraySize = 0;
-        String firstTime = null;
-        if (timeMatcher.find()) {
-            timesArraySize++;
-            firstTime = timeMatcher.group();
-        }
-        
-        String secondTime = null;
-        if (timeMatcher.find()) {
-            timesArraySize++;
-            secondTime = timeMatcher.group();
-        }
-        
-        String[] times = new String[timesArraySize];
-        if (timesArraySize == 1) {
-            times[0] = firstTime;
-        } else if (timesArraySize == 2){
-            times[0] = firstTime;
-            times[1] = secondTime;
-        }
-        
-        return times;
-    }
-
 }

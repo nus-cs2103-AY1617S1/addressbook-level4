@@ -17,7 +17,9 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement
-    private String date;
+    private String startDate;
+    @XmlElement
+    private String endDate;
     @XmlElement
     private String startTime;
     @XmlElement
@@ -39,11 +41,15 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        TaskDate sourceDate = source.getDate();
+        TaskDate sourceStartDate = source.getStartDate();
+        TaskDate sourceEndDate = source.getEndDate();
         TaskTime sourceStartTime = source.getStartTime();
         TaskTime sourceEndTime = source.getEndTime();
-        if (sourceDate != null) {
-            date = sourceDate.toString();
+        if (sourceStartDate != null) {
+            startDate = sourceStartDate.toString();
+        }
+        if (sourceEndDate != null) {
+            endDate = sourceEndDate.toString();
         }
         if (sourceStartTime != null) {
             startTime = sourceStartTime.toString();
@@ -69,9 +75,14 @@ public class XmlAdaptedTask {
         }
         final Name name = new Name(this.name);
         
-        TaskDate date = null;
-        if (this.date != null) {
-            date = new TaskDate(this.date);
+        TaskDate startDate = null;
+        if (this.startDate != null) {
+            startDate = new TaskDate(this.startDate);
+        }
+        
+        TaskDate endDate = null;
+        if (this.endDate != null) {
+            endDate = new TaskDate(this.endDate);
         }
         
         TaskTime startTime = null;
@@ -84,6 +95,6 @@ public class XmlAdaptedTask {
             endTime = new TaskTime(this.endTime);
         }
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, date, startTime, endTime, tags);
+        return new Task(name, startDate, startTime, endDate, endTime, tags);
     }
 }

@@ -10,7 +10,8 @@ public interface ReadOnlyTask {
 
     Name getName();
     boolean getIsDone();
-    TaskDate getDate();
+    TaskDate getStartDate();
+    TaskDate getEndDate();
     TaskTime getStartTime();
     TaskTime getEndTime();
 

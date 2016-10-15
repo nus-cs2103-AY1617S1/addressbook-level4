@@ -5,7 +5,7 @@ import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.logic.commands.Command;
 import seedu.taskitty.logic.commands.CommandResult;
-import seedu.taskitty.logic.parser.Parser;
+import seedu.taskitty.logic.parser.CommandParser;
 import seedu.taskitty.model.Model;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.storage.Storage;
@@ -19,11 +19,11 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final Parser parser;
+    private final CommandParser parser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.parser = new Parser();
+        this.parser = new CommandParser();
     }
 
     @Override

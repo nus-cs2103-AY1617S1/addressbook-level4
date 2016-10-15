@@ -23,7 +23,7 @@ public class AddCommand extends Command {
             + " finish CS2103T t/friends t/owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the task manager";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
 
@@ -38,27 +38,24 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         
-        //Should I create 3 constructors for task instead? To avoid nulls
-        //But that leads to another problem..?
         if (data.length == Task.TASK_COMPONENT_COUNT) {
             this.toAdd = new Task(
                 new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
-                null, null, null,
                 new UniqueTagList(tagSet)
             );
         } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
             this.toAdd = new Task(
                 new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
-                new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_DATE]),
-                null,
+                new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
                 new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME]),
                 new UniqueTagList(tagSet)
             );
         } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
             this.toAdd = new Task(
                 new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
-                new TaskDate(data[Task.EVENT_COMPONENT_INDEX_DATE]),
+                new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
                 new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
+                new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
                 new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME]),
                 new UniqueTagList(tagSet)
             );
@@ -74,7 +71,7 @@ public class AddCommand extends Command {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }

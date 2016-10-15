@@ -16,32 +16,63 @@ public class Task implements ReadOnlyTask {
     public static final int TASK_COMPONENT_COUNT = 1;
     
     public static final int DEADLINE_COMPONENT_INDEX_NAME = 0;
-    public static final int DEADLINE_COMPONENT_INDEX_DATE = 1;
+    public static final int DEADLINE_COMPONENT_INDEX_END_DATE = 1;
     public static final int DEADLINE_COMPONENT_INDEX_END_TIME = 2;
     public static final int DEADLINE_COMPONENT_COUNT = 3;
     
     public static final int EVENT_COMPONENT_INDEX_NAME = 0;
-    public static final int EVENT_COMPONENT_INDEX_DATE = 1;
+    public static final int EVENT_COMPONENT_INDEX_START_DATE = 1;
     public static final int EVENT_COMPONENT_INDEX_START_TIME = 2;
-    public static final int EVENT_COMPONENT_INDEX_END_TIME = 3;
-    public static final int EVENT_COMPONENT_COUNT = 4;
+    public static final int EVENT_COMPONENT_INDEX_END_DATE = 3;
+    public static final int EVENT_COMPONENT_INDEX_END_TIME = 4;
+    public static final int EVENT_COMPONENT_COUNT = 5;
 
     private Name name;
-    private boolean isDone;
-    private TaskDate date;
+    private TaskDate startDate;
     private TaskTime startTime;
+    private TaskDate endDate;
     private TaskTime endTime;
+    private boolean isDone;
 
     private UniqueTagList tags;
 
     /**
+     * Constructor for a "todo" Task.
+     * "todo" is a Task only has name
      * Every field must be present and not null.
      */
-    public Task(Name name, TaskDate date, TaskTime startTime, TaskTime endTime, UniqueTagList tags) {
+    public Task(Name name, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
+        
         this.name = name;
-        this.date = date;
+        this.tags = new UniqueTagList(tags);
+    }
+    
+    /**
+     * Constructor for a "deadline" Task.
+     * "deadline" is a Task only has name, endDate and endTime
+     * Every field must be present and not null.
+     */
+    public Task(Name name, TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, endDate, endTime, tags);
+        
+        this.name = name;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.tags = new UniqueTagList(tags);
+    }
+    
+    /**
+     * Constructor for a "event" Task.
+     * "event" is a Task with all fields.
+     * This constructor allows nulls and can be used when unsure which values are null
+     */
+    public Task(Name name, TaskDate startDate, TaskTime startTime,
+            TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
+        this.name = name;
+        this.startDate = startDate;
         this.startTime = startTime;
+        this.endDate = startDate;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -50,8 +81,8 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getStartTime(),
-                source.getEndTime(), source.getTags());
+        this(source.getName(), source.getStartDate(), source.getStartTime(),
+                source.getEndDate(), source.getEndTime(), source.getTags());
     }
 
     @Override
@@ -60,8 +91,13 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
-    public TaskDate getDate() {
-        return date;
+    public TaskDate getStartDate() {
+        return startDate;
+    }
+    
+    @Override
+    public TaskDate getEndDate() {
+        return endDate;
     }
 
     @Override
