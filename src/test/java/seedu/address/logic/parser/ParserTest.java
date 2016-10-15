@@ -8,6 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -22,6 +23,7 @@ public class ParserTest {
 	private final AddCommand addCommand;
 	private final ListCommand listCommand;
 	private final DeleteCommand deleteCommand;
+	private final DoneCommand doneCommand;
 	private final EditCommand editCommand;
 	private final UndoCommand undoCommand;
 	private final RedoCommand redoCommand;
@@ -32,6 +34,7 @@ public class ParserTest {
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
+		doneCommand = new DoneCommand(new int[]{1});
 		editCommand = new EditCommand(1, "editing");
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
@@ -319,7 +322,50 @@ public class ParserTest {
 
 		assertEquals(deleteCommand.getClass(), command.getClass());
 	}
+
+	/*
+	 * Tests for the `done` command
+	 */
+	@Test
+	public void parseCommand_doneNonIntegerIndex_incorrectCommandReturned() {
+		String userInput = "done 1 r 5";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
 	
+	@Test
+	public void parseCommand_doneNegativeIndex_incorrectCommandReturned() {
+		String userInput = "done -3";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_doneZeroIndex_incorrectCommandReturned() {
+		String userInput = "done 0";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_doneValidIndex_doneCommandReturned() {
+		String userInput = "done 2";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(doneCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_doneValidIndices_doneCommandReturned() {
+		String userInput = "done 3 2";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(doneCommand.getClass(), command.getClass());
+	}
+
 	/*
 	 * Tests for the `edit` command
 	 */
