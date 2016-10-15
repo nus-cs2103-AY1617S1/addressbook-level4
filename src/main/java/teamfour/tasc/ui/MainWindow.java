@@ -29,6 +29,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private CalendarPanel calendarPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -59,6 +60,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane calendarPlaceholder;
 
 
     public MainWindow() {
@@ -107,10 +111,15 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
+        calendarPanel = CalendarPanel.load(getCalendarPlaceholder());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+    }
+    
+    private AnchorPane getCalendarPlaceholder() {
+        return calendarPlaceholder;
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -182,5 +191,9 @@ public class MainWindow extends UiPart {
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
+    }
+
+    public void releaseResources() {
+        calendarPanel.freeResources();
     }
 }
