@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch;
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch.Patch;
@@ -60,8 +61,23 @@ public class JsonStorage implements Storage {
 
     @Override
     public TodoListDB undo() throws CannotUndoException, IOException {
-        // TODO Auto-generated method stub
-        return null;
+        // Get undo
+        LinkedList<Patch> undoPatch;
+        try {
+            undoPatch = historyPatch.removeLast();
+        } catch (NoSuchElementException e) {
+            throw new CannotUndoException(e);
+        }
+        
+        String newJson = (String)dmp.patchApply(undoPatch, this.currJson)[0];
+        
+        // Create redo
+        LinkedList<Patch> redoPatch = dmp.patchMake(newJson, this.currJson);
+        futurePatch.addLast(redoPatch);
+        
+        // Apply undo
+        this.currJson = newJson;
+        return JsonUtil.fromJsonString(this.currJson, TodoListDB.class);
     }
 
     @Override
