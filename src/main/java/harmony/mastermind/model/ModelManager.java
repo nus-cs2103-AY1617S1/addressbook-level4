@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.util.Collections;
+import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -14,6 +15,8 @@ import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.Command;
+import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.Undoable;
 import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ArchiveTaskList;
@@ -32,7 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
-    private final Stack<Command> commandHistory;
+    private final Stack<Undoable> undoHistory;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -47,7 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        commandHistory = new Stack<>();
+        undoHistory = new Stack<>();
     }
 
     public ModelManager() {
@@ -57,7 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        commandHistory = new Stack<>();
+        undoHistory = new Stack<>();
     }
 
     @Override
@@ -77,8 +80,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public Stack<Command> getCommandHistory() {
-        return commandHistory;
+    //@@author A0138862W
+    public void pushToUndoHistory(Undoable command) {
+        undoHistory.push(command);
+    }
+    
+    @Override
+    /** undo last action performed**/
+    //@@author A0138862W
+    public CommandResult undo() throws EmptyStackException{
+        CommandResult commandResult = undoHistory.pop().undo();
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+        return commandResult;
     }
 
     @Override

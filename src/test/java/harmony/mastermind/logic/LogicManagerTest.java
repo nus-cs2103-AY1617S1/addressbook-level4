@@ -175,6 +175,200 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    
+    @Test
+    //@@author A0138862W
+    public void execute_undo_add() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.task();
+
+        logic.execute(helper.generateAddCommand(toBeAdded));
+        
+        assertCommandBehavior("undo", "Undo successfully.\n"
+                + "=====Undo Details=====\n"
+                + "[Undo Add Command] Task deleted: task Tags: [tag1],[tag2]\n"
+                + "==================",
+                model.getTaskManager(),
+                model.getTaskManager().getTaskList());
+    }
+    
+    @Test
+    //@@author A0138862W
+    public void execute_undo_edit() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeEdited = helper.task();
+        List<Task> onePerson = helper.generateTaskList(toBeEdited);
+        TaskManager expectedTM = helper.generateTaskManager(onePerson);
+        List<Task>expectedList = onePerson;
+        
+        helper.addToModel(model, onePerson);
+
+        logic.execute(helper.generateEditCommand());
+        
+        assertCommandBehavior("undo",
+                "Undo successfully.\n"
+                + "=====Undo Details=====\n"
+                + "[Undo Edit Command] Task reverted: task Tags: [tag1],[tag2]\n"
+                + "==================",       
+                expectedTM,
+                expectedList);
+    }
+    
+    @Test
+    //@@author A0138862W
+    public void execute_undo_delete() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeEdited = helper.task();
+        List<Task> onePerson = helper.generateTaskList(toBeEdited);
+        TaskManager expectedTM = helper.generateTaskManager(onePerson);
+        List<Task>expectedList = onePerson;
+        
+        helper.addToModel(model, onePerson);
+
+        logic.execute("delete 1");
+        
+        assertCommandBehavior("undo",
+                "Undo successfully.\n"
+                + "=====Undo Details=====\n"
+                + "[Undo Delete Command] Task added: task Tags: [tag1],[tag2]\n"
+                + "==================",       
+                expectedTM,
+                expectedList);
+    }
+    
+    @Test
+    //@@author A0138862W
+    public void execute_undo_mark() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeEdited = helper.task();
+        List<Task> onePerson = helper.generateTaskList(toBeEdited);
+        TaskManager expectedTM = helper.generateTaskManager(onePerson);
+        List<Task>expectedList = onePerson;
+        
+        helper.addToModel(model, onePerson);
+
+        logic.execute("mark 1");
+        
+        assertCommandBehavior("undo",
+                "Undo successfully.\n"
+                + "=====Undo Details=====\n"
+                + "[Undo Mark Command] task Tags: [tag1],[tag2] has been unmarked\n"
+                + "==================",       
+                expectedTM,
+                expectedList);
+    }
+    
+    @Test
+    //@@author A0138862W
+    public void execute_undo_unmark() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeEdited = helper.task();
+        List<Task> onePerson = helper.generateTaskList(toBeEdited);
+        TaskManager expectedTM = helper.generateTaskManager(onePerson);
+        List<Task>expectedList;
+        
+        helper.addToModel(model, onePerson);
+        
+        logic.execute("mark 1");
+        
+        logic.execute("unmark 1");
+        
+        assertCommandBehavior("undo",
+                "Undo successfully.\n"
+                + "=====Undo Details=====\n"
+                + "[Undo Unmark Command] task Tags: [tag1],[tag2] has been archived\n"
+                + "==================",       
+                model.getTaskManager(),
+                model.getListToMark());
+    }
+    
+    @Test
+    //@@author A0138862W
+    public void execute_undo_invalidAddTaskNotFound() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.task();
+
+        logic.execute(helper.generateAddCommand(toBeAdded));
+        
+        model.deleteTask(toBeAdded);
+        
+        assertCommandBehavior("undo", "Undo successfully.\n"
+                + "=====Undo Details=====\n"
+                + "Task could not be found in Mastermind\n"
+                + "==================",
+                model.getTaskManager(),
+                model.getTaskManager().getTaskList());
+    }
+    
+    @Test
+    //@@author A0138862W
+    public void execute_undo_invalidEditTaskNotFound() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeEdited = helper.task();
+        List<Task> onePerson = helper.generateTaskList(toBeEdited);
+        helper.addToModel(model, onePerson);
+
+        logic.execute(helper.generateEditCommand());
+        
+        model.deleteTask(toBeEdited);
+        
+        assertCommandBehavior("undo", "Undo successfully.\n"
+                + "=====Undo Details=====\n"
+                + "Task could not be found in Mastermind\n"
+                + "==================",
+                model.getTaskManager(),
+                model.getFilteredTaskList());
+    }
+    
+    @Test
+    //@@author A0138862W
+    public void execute_undo_invalidEditDuplicate() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("edited2 task name");
+        Task task2 = helper.generateTaskWithName("edited2 task name");
+        
+        List<Task> twoTasks = helper.generateTaskList(task1);
+        TaskManager expectedTM = helper.generateTaskManager(twoTasks);
+        List<Task>expectedList = twoTasks;
+        
+        model.addTask(task1);
+
+        logic.execute(helper.generateEditCommand());
+
+        model.getTaskManager().getUniqueTaskList().getInternalList().add(task1);
+        model.getTaskManager().getUniqueTaskList().getInternalList().add(task2);
+        
+        assertCommandBehavior("undo", "Undo successfully.\n"
+                + "=====Undo Details=====\n"
+                + "This task already exists in Mastermind\n"
+                + "==================",
+                model.getTaskManager(),
+                model.getFilteredTaskList());
+    }
+    
+    @Test
+    //@@author A0138862W
+    public void execute_undo_invalidDeleteDuplicate() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("edited2 task name");
+        Task task2 = helper.generateTaskWithName("edited2 task name");
+        
+        List<Task> twoTasks = helper.generateTaskList(task1);
+        
+        model.addTask(task1);
+
+        logic.execute("delete 1");
+
+        model.getTaskManager().getUniqueTaskList().getInternalList().add(task1);
+        model.getTaskManager().getUniqueTaskList().getInternalList().add(task2);
+        
+        assertCommandBehavior("undo", "Undo successfully.\n"
+                + "=====Undo Details=====\n"
+                + "This task already exists in Mastermind\n"
+                + "==================",
+                model.getTaskManager(),
+                model.getFilteredTaskList());
+    }
 
     /*
     @Test
@@ -182,7 +376,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.task();
-        TaskManager expectedAB = new TaskManager();
+        TaskManager expectedAB =        new TaskManager();
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
@@ -199,7 +393,7 @@ public class LogicManagerTest {
 */
 
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskManager expectedAB = helper.generateTaskManager(2);
@@ -320,9 +514,9 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("KE Y");
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        List<Task> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         TaskManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
@@ -339,7 +533,7 @@ public class LogicManagerTest {
         Task p3 = helper.generateTaskWithName("key key");
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
-        List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
+        List<Task> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
         TaskManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Task> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
@@ -358,9 +552,9 @@ public class LogicManagerTest {
         Task pTarget3 = helper.generateTaskWithName("key key");
         Task p1 = helper.generateTaskWithName("sduauo");
 
-        List<Task> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
+        List<Task> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
         TaskManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find key rAnDoM",
@@ -419,6 +613,18 @@ public class LogicManagerTest {
                 cmd.append(t.tagName);
                 cmd.append(',');
             }
+            
+            cmd.deleteCharAt(cmd.length()-1);
+
+            return cmd.toString();
+        }
+        
+        String generateEditCommand() {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("edit 1");
+
+            cmd.append(" name/\"edited task name\"");
             
             cmd.deleteCharAt(cmd.length()-1);
 
@@ -488,7 +694,7 @@ public class LogicManagerTest {
             return persons;
         }
 
-        List<Task> generatePersonList(Task... persons) {
+        List<Task> generateTaskList(Task... persons) {
             return Arrays.asList(persons);
         }
 
@@ -500,7 +706,7 @@ public class LogicManagerTest {
                     name,
                     new Date(),
                     new Date(),
-                    new UniqueTagList(new Tag("tag"))
+                    new UniqueTagList(new Tag("tag1"), new Tag("tag2"))
             );
         }
     }
