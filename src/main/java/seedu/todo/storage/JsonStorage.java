@@ -79,6 +79,11 @@ public class JsonStorage implements Storage {
         this.currJson = newJson;
         return JsonUtil.fromJsonString(this.currJson, TodoListDB.class);
     }
+    
+    @Override
+    public boolean canUndo(int num) {
+        return historyPatch.size() >= num;
+    }
 
     @Override
     public TodoListDB redo() throws CannotRedoException, IOException {
@@ -99,6 +104,11 @@ public class JsonStorage implements Storage {
         // Apply redo
         this.currJson = newJson;
         return JsonUtil.fromJsonString(this.currJson, TodoListDB.class);
+    }
+    
+    @Override
+    public boolean canRedo(int num) {
+        return futurePatch.size() >= num;
     }
 
 }
