@@ -67,30 +67,30 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-            .append("Completion Status: ")
+            .append("\nCompletion Status: ")
             .append(getComplete());
         
         if (getDeadline().hasDeadline()) {
-            builder.append("Deadline: ")
+            builder.append("\nDeadline: ")
                 .append(getDeadline());
         }
         
         if (getPeriod().hasPeriod()) {
-            builder.append("Period: ")
+            builder.append("\nPeriod: ")
                 .append(getPeriod());
         }
 
         if (getDeadlineRecurrence().hasRecurrence()) {
-            builder.append("Recurrence (deadline): ")
+            builder.append("\nRecurrence (deadline): ")
                 .append(getDeadlineRecurrence());
         }
 
         if (getPeriodRecurrence().hasRecurrence()) {
-            builder.append("Recurrence (period): ")
+            builder.append("\nRecurrence (period): ")
                 .append(getPeriodRecurrence());
         }
         
-        builder.append(" Tags: ");
+        builder.append("\nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
