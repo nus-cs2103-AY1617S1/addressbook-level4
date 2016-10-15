@@ -8,23 +8,25 @@ import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class UndoneCommand extends Command {
+public class NotDoneCommand extends Command {
 
-    public static final String COMMAND_WORD = "undone";
+    public static final String COMMAND_WORD = "notdone";
+    public static final String SHORT_COMMAND_WORD = "nd";
 
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Mark the item identified by the index number used in the last item listing as done.\n"
+            + ": Mark the item identified by the index number used in the last item listing as not done.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DONE_SUCCESS = "Done Item: %1$s";
+    public static final String MESSAGE_NOT_DONE_SUCCESS = "Not Done Item: %1$s";
 
     public final int targetIndex;
 
     /*
      * Deletes deadline, task, or event by keyword.
      */
-    public UndoneCommand(int targetIndex) {
+    public NotDoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -41,12 +43,12 @@ public class UndoneCommand extends Command {
         ReadOnlyItem itemToEdit = lastShownList.get(targetIndex - 1);
         
         try {
-            model.setUndone(itemToEdit, String.format(MESSAGE_DONE_SUCCESS, itemToEdit));
+            model.setUndone(itemToEdit, String.format(MESSAGE_NOT_DONE_SUCCESS, itemToEdit));
         } catch (ItemNotFoundException pnfe) {
             assert false : "The target item cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DONE_SUCCESS, itemToEdit));
+        return new CommandResult(String.format(MESSAGE_NOT_DONE_SUCCESS, itemToEdit));
     }
 
 }

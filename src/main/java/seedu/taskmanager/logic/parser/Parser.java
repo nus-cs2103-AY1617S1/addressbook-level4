@@ -17,7 +17,7 @@ import seedu.taskmanager.logic.commands.ListEventCommand;
 import seedu.taskmanager.logic.commands.ListTaskCommand;
 import seedu.taskmanager.logic.commands.SelectCommand;
 import seedu.taskmanager.logic.commands.DoneCommand;
-import seedu.taskmanager.logic.commands.UndoneCommand;
+import seedu.taskmanager.logic.commands.NotDoneCommand;
 import seedu.taskmanager.logic.commands.UndoCommand;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemType;
@@ -153,8 +153,9 @@ public class Parser {
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
 
-        case UndoneCommand.COMMAND_WORD:
-            return prepareUndone(arguments);
+        case NotDoneCommand.COMMAND_WORD:
+        case NotDoneCommand.SHORT_COMMAND_WORD:
+            return prepareNotDone(arguments);
             
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
@@ -472,12 +473,12 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the undone person command.
+     * Parses arguments in the context of the not done item command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareUndone(String args) {
+    private Command prepareNotDone(String args) {
 
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
@@ -485,7 +486,7 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
 
-        return new UndoneCommand(index.get());
+        return new NotDoneCommand(index.get());
     }    
     
     /**

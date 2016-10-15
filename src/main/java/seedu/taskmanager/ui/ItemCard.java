@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.taskmanager.logic.commands.DoneCommand;
-import seedu.taskmanager.logic.commands.UndoneCommand;
+import seedu.taskmanager.logic.commands.NotDoneCommand;
 import seedu.taskmanager.logic.Logic;
 import seedu.taskmanager.logic.commands.DeleteCommand;
 import seedu.taskmanager.model.item.ItemType;
@@ -64,7 +64,7 @@ public class ItemCard extends UiPart{
             logic.execute(DoneCommand.COMMAND_WORD + " " + displayedIndex);
         } else {
             button.setText(UNDONE_TEXT);
-            logic.execute(UndoneCommand.COMMAND_WORD + " " + displayedIndex);
+            logic.execute(NotDoneCommand.COMMAND_WORD + " " + displayedIndex);
         }
     }
     
