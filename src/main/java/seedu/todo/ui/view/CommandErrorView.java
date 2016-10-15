@@ -37,12 +37,22 @@ public class CommandErrorView extends UiPart {
     @FXML
     private GridPane fieldErrorGrid;
 
+    /**
+     * Loads the feedback view element to the placeHolder
+     * @param primaryStage of the application
+     * @param placeHolder where the view element {@link #errorViewBox} should be placed
+     * @return an instance of this class
+     */
     public static CommandErrorView load(Stage primaryStage, AnchorPane placeHolder) {
         CommandErrorView errorView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandErrorView());
         errorView.configure();
+        errorView.hideCommandErrorView();
         return errorView;
     }
 
+    /**
+     * Configure the UI properties of {@link CommandErrorView}
+     */
     private void configure() {
         FxViewUtil.applyAnchorBoundaryParameters(errorViewBox, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(nonFieldErrorBox, 0.0, 0.0, 0.0, 0.0);
@@ -95,9 +105,7 @@ public class CommandErrorView extends UiPart {
         }
     }
 
-
     /* Override Methods */
-
     @Override
     public void setPlaceholder(AnchorPane placeholder) {
         this.placeholder = placeholder;
@@ -113,14 +121,7 @@ public class CommandErrorView extends UiPart {
         return FXML;
     }
 
-    private void clearErrorsFromViews() {
-        clearGrid(nonFieldErrorGrid);
-        clearGrid(fieldErrorGrid);
-    }
-
-
     /*Helper Methods*/
-
     /**
      * Adds a row of text to the targetGrid
      * @param targetGrid to add a row of text on
@@ -134,6 +135,11 @@ public class CommandErrorView extends UiPart {
         targetGrid.addRow(rowIndex, leftLabel, rightLabel);
     }
 
+    /**
+     * Generates a {@link Label} object that is used to feed into the error grids later on.
+     * @param text to be wrapped in the {@link Label} object
+     * @return a {@link Label} object
+     */
     private Label generateLabel(String text) {
         Label label = new Label(text);
         label.getStyleClass().add("commandError");
@@ -141,7 +147,50 @@ public class CommandErrorView extends UiPart {
         return label;
     }
 
+    /**
+     * Clears all elements in the given grid.
+     */
     private void clearGrid(GridPane gridPane) {
         gridPane.getChildren().clear();
+    }
+
+    /**
+     * Hides a field or non-field error box.
+     * @param vBox can be either {@link #fieldErrorBox} or {@link #nonFieldErrorBox}
+     */
+    private void hideErrorBox(VBox vBox) {
+        FxViewUtil.setCollapsed(vBox, true);
+    }
+
+    /**
+     * Shows a field or non-field error box.
+     * @param vBox can be either {@link #fieldErrorBox} or {@link #nonFieldErrorBox}
+     */
+    private void showErrorBox(VBox vBox) {
+        FxViewUtil.setCollapsed(vBox, false);
+    }
+
+    /**
+     * Hides the entire {@link CommandErrorView}
+     */
+    public void hideCommandErrorView() {
+        FxViewUtil.setCollapsed(placeholder, true);
+    }
+
+    /**
+     * Displays the entire {@link CommandErrorView}
+     */
+    private void showCommandErrorView() {
+        FxViewUtil.setCollapsed(placeholder, false);
+    }
+
+    /**
+     * Clears previous errors from the grid, and then unhide all the error boxes.
+     */
+    private void clearOldErrorsFromViews() {
+        clearGrid(nonFieldErrorGrid);
+        clearGrid(fieldErrorGrid);
+        showErrorBox(nonFieldErrorBox);
+        showErrorBox(fieldErrorBox);
     }
 }

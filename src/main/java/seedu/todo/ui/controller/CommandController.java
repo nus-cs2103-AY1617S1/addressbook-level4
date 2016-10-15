@@ -87,6 +87,7 @@ public class CommandController {
     private void viewDisplaySuccess() {
         inputView.resetViewState();
         feedbackView.unFlagError();
+        errorView.hideCommandErrorView();
     }
 
     private void displayMessage(String message) {
