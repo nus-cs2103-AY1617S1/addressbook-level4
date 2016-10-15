@@ -11,17 +11,20 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.model.task.TaskType;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 
 public class ParserTest {
 
-	private Parser parser;
-	private IncorrectCommand incorrectCommand;
-	private AddCommand addCommand;
-	private ListCommand listCommand;
-	private DeleteCommand deleteCommand;
-	private EditCommand editCommand;
+	private final Parser parser;
+	private final IncorrectCommand incorrectCommand;
+	private final AddCommand addCommand;
+	private final ListCommand listCommand;
+	private final DeleteCommand deleteCommand;
+	private final EditCommand editCommand;
+	private final UndoCommand undoCommand;
+	private final RedoCommand redoCommand;
 	
 	public ParserTest() throws IllegalValueException {
 		parser = new Parser();
@@ -29,7 +32,9 @@ public class ParserTest {
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
-		editCommand = new EditCommand(1,"editing");
+		editCommand = new EditCommand(1, "editing");
+		undoCommand = new UndoCommand();
+		redoCommand = new RedoCommand();
 	}
 	
 	@Test
@@ -348,5 +353,41 @@ public class ParserTest {
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(editCommand.getClass(), command.getClass());
+	}
+	
+	/*
+	 * Tests for the `undo` and `redo` commands
+	 */
+	
+	@Test
+	public void parseCommand_undoExtraArgs_undoCommandReturned() {
+		String userInput = "undo blah";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(undoCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_undoValid_undoCommandReturned() {
+		String userInput = "undo";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(undoCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_redoExtraArgs_redoCommandReturned() {
+		String userInput = "redo blah";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(redoCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_redoValid_undoCommandReturned() {
+		String userInput = "redo";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(redoCommand.getClass(), command.getClass());
 	}
 }

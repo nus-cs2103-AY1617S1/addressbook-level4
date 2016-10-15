@@ -81,15 +81,26 @@ public class AddCommand extends Command {
         		new UniqueTagList()
                 );
     }
+    
+    /**
+     * Copy constructor.
+     */
+    public AddCommand(ReadOnlyTask source) {
+        this.toAdd = new Task(source);
+    }
 
 
     @Override
     public CommandResult execute() {
-        assert model != null;
+    	assert model != null;
         try {
+        	model.saveState();
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
+        	// If adding was unsuccessful, then the state should not be saved - no change was made.
+        	// TODO avoid undo pushing state into redo stack
+        	model.loadPreviousState();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 

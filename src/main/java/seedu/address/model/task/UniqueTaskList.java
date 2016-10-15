@@ -3,9 +3,7 @@ package seedu.address.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.exceptions.DuplicateDataException;
-import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 

@@ -14,7 +14,9 @@ import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -26,6 +28,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private Stack<TaskManager> stateHistory;
+    private Stack<TaskManager> undoHistory;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -40,6 +44,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        stateHistory = new Stack<>();
+        undoHistory = new Stack<>();
     }
 
     public ModelManager() {
@@ -49,7 +55,38 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        stateHistory = new Stack<>();
+        undoHistory = new Stack<>();
     }
+    
+    public void saveState() {
+    	stateHistory.push(new TaskManager(taskManager));
+    	// Allow redos only if the previous action is an undo
+    	undoHistory.clear();
+    }
+    
+    public void loadPreviousState() throws EmptyStackException {
+    	TaskManager oldTaskManager = stateHistory.pop();
+    	
+    	undoHistory.push(new TaskManager(taskManager));
+    	
+    	taskManager.setTasks(oldTaskManager.getTasks());
+    	taskManager.setTags(oldTaskManager.getTagList());
+    	
+    	indicateTaskManagerChanged();
+    }
+    
+    public void loadNextState() throws EmptyStackException {
+    	TaskManager oldTaskManager = undoHistory.pop();
+
+    	stateHistory.push(new TaskManager(taskManager));
+    	
+    	taskManager.setTasks(oldTaskManager.getTasks());
+    	taskManager.setTags(oldTaskManager.getTagList());
+    	
+    	indicateTaskManagerChanged();
+    }
+    
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
