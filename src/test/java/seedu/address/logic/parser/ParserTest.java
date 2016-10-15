@@ -8,18 +8,23 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.model.task.TaskType;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 
 public class ParserTest {
 
-	private Parser parser;
-	private IncorrectCommand incorrectCommand;
-	private AddCommand addCommand;
-	private ListCommand listCommand;
-	private DeleteCommand deleteCommand;
+	private final Parser parser;
+	private final IncorrectCommand incorrectCommand;
+	private final AddCommand addCommand;
+	private final ListCommand listCommand;
+	private final DeleteCommand deleteCommand;
+	private final EditCommand editCommand;
+	private final UndoCommand undoCommand;
+	private final RedoCommand redoCommand;
 	
 	public ParserTest() throws IllegalValueException {
 		parser = new Parser();
@@ -27,6 +32,9 @@ public class ParserTest {
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
+		editCommand = new EditCommand(1, "editing");
+		undoCommand = new UndoCommand();
+		redoCommand = new RedoCommand();
 	}
 	
 	@Test
@@ -143,7 +151,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineNoTime_incorrectCommandReturned() {
-		String userInput = "add deadline 'submission all day' by 36/2/";
+		String userInput = "add deadline 'submission all day' by 16/2/";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -298,7 +306,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_delValidIndex_deleteCommandReturned() {
-		String userInput = "delete 2";
+		String userInput = "del 2";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(deleteCommand.getClass(), command.getClass());
@@ -306,7 +314,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_delValidIndices_deleteCommandReturned() {
-		String userInput = "delete 3 2";
+		String userInput = "del 3 2";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(deleteCommand.getClass(), command.getClass());
@@ -344,6 +352,42 @@ public class ParserTest {
 		String userInput = "edit 1 'new name'";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(addCommand.getClass(), command.getClass());
+		assertEquals(editCommand.getClass(), command.getClass());
+	}
+	
+	/*
+	 * Tests for the `undo` and `redo` commands
+	 */
+	
+	@Test
+	public void parseCommand_undoExtraArgs_undoCommandReturned() {
+		String userInput = "undo blah";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(undoCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_undoValid_undoCommandReturned() {
+		String userInput = "undo";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(undoCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_redoExtraArgs_redoCommandReturned() {
+		String userInput = "redo blah";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(redoCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_redoValid_undoCommandReturned() {
+		String userInput = "redo";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(redoCommand.getClass(), command.getClass());
 	}
 }

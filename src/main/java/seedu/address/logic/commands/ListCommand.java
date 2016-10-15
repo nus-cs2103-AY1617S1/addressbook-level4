@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.task.Status;
+import seedu.address.model.task.TaskType;
 
 /**
  * Lists all tasks in the address book to the user.
@@ -14,12 +16,23 @@ public class ListCommand extends Command {
             + " someday not-done\n";  
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
-
-    public ListCommand() {}
+    
+    private TaskType taskType;
+    private Status status;
+    
+    public ListCommand() {
+    	taskType = null;
+    	status = null;
+    }
+    
+    public ListCommand(TaskType taskType, Status status) {
+    	this.taskType = taskType;
+    	this.status = status;
+    }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll();
+    	model.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -31,7 +31,9 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
-
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.task.Name;
 
 public class Parser {
 
@@ -64,15 +66,13 @@ public class Parser {
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>(\\s*[^\\s+])+)'");
 
 	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
-	
-	
-	private com.joestelmach.natty.Parser nattyParser; 
-	
+
+	private com.joestelmach.natty.Parser nattyParser;
+
 	public Parser() {
-		nattyParser = new com.joestelmach.natty.Parser(); 
+		nattyParser = new com.joestelmach.natty.Parser();
 	}
 
-	
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
@@ -90,11 +90,7 @@ public class Parser {
 			return prepareAdd(arguments);
 
 		case ListCommand.COMMAND_WORD:
-			if (arguments.equals("")) {
-				return new ListCommand();
-			} else {
-				return prepareList(arguments);
-			}
+			return prepareList(arguments);
 
 		case DeleteCommand.COMMAND_WORD:
 			return prepareDelete(arguments);
@@ -107,15 +103,24 @@ public class Parser {
 		
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
-		
-//		 case FindCommand.COMMAND_WORD:
-//		 return prepareFind(arguments);
-		
+
+		// case FindCommand.COMMAND_WORD:
+		// return prepareFind(arguments);
+
 		case HelpCommand.COMMAND_WORD:
 			return new HelpCommand();
-			 
+
 		case ExitCommand.COMMAND_WORD:
 			return new ExitCommand();
+
+		// case HelpCommand.COMMAND_WORD:
+		// return new HelpCommand();
+
+		case UndoCommand.COMMAND_WORD:
+			return new UndoCommand();
+
+		case RedoCommand.COMMAND_WORD:
+			return new RedoCommand();
 
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -265,9 +270,10 @@ public class Parser {
 					dateTime = parseDate(dateTimeString);
 				} catch (ParseException e) {
 					// TODO better command
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+					return new IncorrectCommand(
+							String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 				}
-				
+
 				break;
 			}
 		}
@@ -300,36 +306,42 @@ public class Parser {
 		try {
 			return new AddCommand(taskName);
 		} catch (IllegalValueException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+			return new IncorrectCommand(e.getMessage());
 		}
 	}
-	
+
 	/**
-	 * Uses Natty to parse the date/time contained in the input string.
-	 * If no time is specified, time at instant of parsing is taken.
+	 * Uses Natty to parse the date/time contained in the input string. If no
+	 * time is specified, time at instant of parsing is taken.
 	 * 
-	 * @param string that contains date/time to be parsed
+	 * @param string
+	 *            that contains date/time to be parsed
 	 * @return LocalDateTime
-	 * @throws ParseException if 0, or more than one date is found
+	 * @throws ParseException
+	 *             if 0, or more than one date is found
 	 */
 	private LocalDateTime parseDate(String string) throws ParseException {
 		List<DateGroup> groups = nattyParser.parse(string);
 		List<Date> dates = groups.get(0).getDates();
-		
+
 		if (groups.size() > 1 || groups.size() == 0 || dates.size() > 1 || dates.size() == 0) {
 			System.out.println("parsing error");
-			//TODO better err msg
-			throw new ParseException("Error while parsing date and time. Trying entering the date in yyyy-mm-dd instead", 0);
+			// TODO better err msg
+			throw new ParseException(
+					"Error while parsing date and time. Trying entering the date in yyyy-mm-dd instead", 0);
 		}
-		
+
 		Date input = dates.get(0);
 		Instant instant = input.toInstant();
 		return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
 	}
-	
-	
+
 	// Only supports task type and done|not-done options.
 	private Command prepareList(String arguments) {
+		if (arguments.equals("")) {
+			return new ListCommand();
+		}
+
 		String[] args = arguments.split(" ");
 
 		System.out.println(Arrays.toString(args));
