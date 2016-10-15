@@ -14,6 +14,7 @@ public class SelectCommand extends Command {
     public final int targetIndex;
 
     public static final String COMMAND_WORD = "select";
+    public static final String SHORT_COMMAND_WORD = "s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the person identified by the index number used in the last person listing.\n"

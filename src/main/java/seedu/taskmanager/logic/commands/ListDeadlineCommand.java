@@ -7,6 +7,7 @@ package seedu.taskmanager.logic.commands;
 public class ListDeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "listdeadline";
+    public static final String SHORT_COMMAND_WORD = "ld";
 
     public static final String MESSAGE_SUCCESS = "Listed all deadlines";
     

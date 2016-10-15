@@ -11,6 +11,7 @@ import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
+    public static final String SHORT_COMMAND_WORD = "u";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Undo last action that led to a change in Todo list"

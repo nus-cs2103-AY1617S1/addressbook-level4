@@ -120,6 +120,7 @@ public class Parser {
             return prepareEdit(arguments);
             
         case SelectCommand.COMMAND_WORD:
+        case SelectCommand.SHORT_COMMAND_WORD:
             return prepareSelect(arguments);
 
         case DeleteCommand.COMMAND_WORD:
@@ -127,30 +128,39 @@ public class Parser {
             return prepareDelete(arguments);
 
         case ClearCommand.COMMAND_WORD:
+        case ClearCommand.SHORT_COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_WORD:            
+        case FindCommand.SHORT_COMMAND_WORD:
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
+        case ListCommand.SHORT_COMMAND_WORD:
             return new ListCommand();
             
         case ListTaskCommand.COMMAND_WORD:
+        case ListTaskCommand.SHORT_COMMAND_WORD:
         	return new ListTaskCommand();
         	
         case ListDeadlineCommand.COMMAND_WORD:
+        case ListDeadlineCommand.SHORT_COMMAND_WORD:
         	return new ListDeadlineCommand();
         	
         case ListEventCommand.COMMAND_WORD:
+        case ListEventCommand.SHORT_COMMAND_WORD:
         	return new ListEventCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+        case HelpCommand.SHORT_COMMAND_WORD:
             return new HelpCommand();
             
         case DoneCommand.COMMAND_WORD:
+        case DoneCommand.SHORT_COMMAND_WORD:
+        case DoneCommand.ALTERNATE_SHORT_COMMAND_WORD:
             return prepareDone(arguments);
 
         case NotDoneCommand.COMMAND_WORD:
@@ -158,6 +168,7 @@ public class Parser {
             return prepareNotDone(arguments);
             
         case UndoCommand.COMMAND_WORD:
+        case UndoCommand.SHORT_COMMAND_WORD:
         	return new UndoCommand();
             
         default:
@@ -456,7 +467,7 @@ public class Parser {
     }
     
     /**
-     * Parses arguments in the context of the done person command.
+     * Parses arguments in the context of the done item command.
      *
      * @param args full command args string
      * @return the prepared command
