@@ -6,18 +6,27 @@ import seedu.agendum.model.tag.UniqueTagList;
 import seedu.agendum.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JAXB-friendly version of the Task.
  */
 public class XmlAdaptedTask {
 
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
     private String isCompleted;
+    @XmlElement(required = false)
+    private String startDateTime;
+    @XmlElement(required = false)
+    private String endDateTime;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -37,6 +46,12 @@ public class XmlAdaptedTask {
         name = source.getName().fullName;
         isCompleted = Boolean.toString(source.isCompleted());
         tagged = new ArrayList<>();
+        if (source.getStartDateTime().isPresent()) {
+            startDateTime = source.getStartDateTime().get().format(formatter);
+        }
+        if (source.getEndDateTime().isPresent()) {
+            endDateTime = source.getEndDateTime().get().format(formatter);
+        }
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
@@ -59,6 +74,12 @@ public class XmlAdaptedTask {
         Task newTask = new Task(name,tags);
         if (markedAsCompleted) {
             newTask.markAsCompleted();
+        }
+        if (startDateTime != null) {
+            newTask.setStartDateTime(Optional.ofNullable(LocalDateTime.parse(this.startDateTime, formatter)));
+        }
+        if (endDateTime != null) {
+            newTask.setEndDateTime(Optional.ofNullable(LocalDateTime.parse(this.endDateTime, formatter)));
         }
         return newTask;
     }
