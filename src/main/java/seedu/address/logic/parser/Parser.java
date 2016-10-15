@@ -1,7 +1,10 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -97,10 +100,26 @@ public class Parser {
             
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();   
+
+        case SetSavePathCommand.COMMAND_WORD:
+            return setSavePath(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+    
+    /**
+     * Parses arguments in the context of the set save path command.
+     * 
+     * 
+     * @param
+     * @return
+     */
+
+    private Command setSavePath(String args) {
+        String path = args.trim().concat(".xml");
+        return new SetSavePathCommand(path);
     }
 
     /**
