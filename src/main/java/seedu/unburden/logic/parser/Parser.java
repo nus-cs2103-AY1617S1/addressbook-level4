@@ -23,8 +23,11 @@ public class Parser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
+    private static final Pattern KEYWORDS_NAME_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    
+    private static final Pattern KEYWORDS_DATE_FORMAT = 
+    		Pattern.compile("\\[0-9]{2}[/][0-9]{2}[/][0-9]{4}"); 
 
     private static final Pattern ADD_FORMAT_1 = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)" + 
@@ -234,16 +237,24 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
+        final Matcher matcherName = KEYWORDS_NAME_FORMAT.matcher(args.trim());
+        final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
+        if (!matcherName.matches() && !matcherDate.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
 
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        if(matcherName.matches()){
+        	final String[] keywords = matcherName.group("keywords").split("\\s+");
+        	final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        	return new FindCommand(keywordSet);
+        }
+        else{
+        	final String keyword = matcherDate.group("dates");
+        	final Set<String> dateKeyword = new HashSet<>(Arrays.asList(keyword));
+        	return new FindCommand(dateKeyword);
+        }
     }
 
 }
