@@ -6,12 +6,11 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.storage.XmlFileStorage;
 
 public class SetSavePathCommand extends Command {
 
-    public static final String COMMAND_WORD = "setsavepath";
+    public static final String COMMAND_WORD = "setpath";
     
     private String savedPathLink;
     
@@ -26,17 +25,11 @@ public class SetSavePathCommand extends Command {
         String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
         
         try {
-            config.setAddressBookFilePath(savedPathLink);
+            config.setTaskSchedulerFilePath(savedPathLink);
             ConfigUtil.saveConfig(config, configFilePathUsed);
-            new CommandResult("Saved Path Changed: " + savedPathLink);
-            
-            new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
-            new XmlAddressBookStorage(savedPathLink);
-            
-            return new CommandResult("Updated");
+            return new CommandResult("Saved Path Changed: " + savedPathLink + "\n Updated \n");
         } catch (IOException e) {
-            System.out.println("Failed to save config file : " + StringUtil.getDetails(e));
-            return new CommandResult("Yo mama");
+            return new CommandResult("Failed to save config file : " + StringUtil.getDetails(e));
         }
         
         
