@@ -109,45 +109,60 @@ public class ListController implements Controller {
             //no event or task keyword found
             isTask = false;
             isEvent = false;
-            //check for date and complete
-            if (dateFrom == null && dateTo == null && dateOn == null) {
-                view.tasks = db.getAllTasks();
-                view.events = db.getAllEvents();
-            } else if (dateOn != null) { //by keyword found
-                view.tasks = db.getTaskByDate(dateOn, isCompleted, listAllStatus);
-                view.events = db.getEventbyDate(dateOn);
-            } else {
-                view.tasks = db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
-                view.events = db.getEventByRange(dateFrom, dateTo);
-            }
+            setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
+            setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
         }
         
         if (isTask) {
-            // no date provided
-            if (dateFrom == null && dateTo == null && dateOn == null) {
-                view.tasks = db.getAllTasks();
-            } else if (dateOn != null) { //by keyword found
-                view.tasks = db.getTaskByDate(dateOn, isCompleted, listAllStatus);
-            } else {
-                view.tasks = db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
-            }
+            setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
         }
         
         if (isEvent) {
-            
+            setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
         }
         
-//        view.tasks = db.getAllTasks();
-//        view.events = db.getAllEvents();
         UiManager.renderView(view);
         
         // Update console message
-        int numTasks = db.getAllTasks().size();
-        int numEvents = db.getAllEvents().size();
+        int numTasks = view.tasks.size();
+        int numEvents = view.events.size();
         String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, 
                 numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"), 
                 numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
         UiManager.updateConsoleMessage(consoleMessage);
+    }
+
+    private void setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
+            LocalDateTime dateTo, TodoListDB db, IndexView view) {
+        if (dateFrom == null && dateTo == null && dateOn == null) {
+            if (listAllStatus) {
+                view.events = db.getAllEvents();
+            } else if (isCompleted) {
+                System.out.println(LocalDateTime.now());
+                view.events = db.getEventByRange(null, LocalDateTime.now());
+            } else {
+                view.events = db.getEventByRange(LocalDateTime.now(), null);
+            }
+        } else if (dateOn != null) { //by keyword found
+            view.events = db.getEventbyDate(dateOn);
+        } else {
+            view.events = db.getEventByRange(dateFrom, dateTo);
+        }
+    }
+
+    private void setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
+            LocalDateTime dateTo, TodoListDB db, IndexView view) {
+        if (dateFrom == null && dateTo == null && dateOn == null) {
+            if (listAllStatus) {
+                view.tasks = db.getAllTasks();
+            } else {
+                view.tasks = db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+            }
+        } else if (dateOn != null) { //by keyword found
+            view.tasks = db.getTaskByDate(dateOn, isCompleted, listAllStatus);
+        } else {
+            view.tasks = db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+        }
     }
     
     private LocalDateTime parseNatural(String natural) {
