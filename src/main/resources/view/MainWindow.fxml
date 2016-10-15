@@ -27,9 +27,9 @@
                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Customize">
+            <Menu mnemonicParsing="false" text="Customize Skin">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleCustomize" text="Change Skin" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleCustomize" text="I'm feeling lucky!" />
                </items>
             </Menu>
          </menus>
