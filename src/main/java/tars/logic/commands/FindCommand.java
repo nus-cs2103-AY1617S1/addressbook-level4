@@ -11,9 +11,12 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n" + "Example: " + COMMAND_WORD + " CS2103 projects";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds task based on the specified"
+            + "keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters (Quick Search Mode): KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters (Filter Search Mode): -n NAME -dt DATETIME -p PRIORITY -t TAGS -do [or -ud] \n"
+            + "Examples (Quick Serach Mode): " + COMMAND_WORD + " CS2103 projects" + "Examples (Filter Search Mode): "
+            + COMMAND_WORD + " -n CS2103 projects -dt 10/09/2016 1000 to " + "20/09/2016 0100 -t school projects -do";
 
     private TaskQuery taskQuery = null;
     private ArrayList<String> lazySearchKeywords = null;
@@ -26,8 +29,7 @@ public class FindCommand extends Command {
     public FindCommand(ArrayList<String> lazySearchKeywords) {
         this.lazySearchKeywords = lazySearchKeywords;
     }
-    
-    
+
     @Override
     public CommandResult execute() {
         if (taskQuery != null) {
