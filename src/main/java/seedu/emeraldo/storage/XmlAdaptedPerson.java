@@ -34,7 +34,7 @@ public class XmlAdaptedPerson {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
-        name = source.getDescription().fullName;
+        name = source.getDescription().fullDescription;
         address = source.getDateTime().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {

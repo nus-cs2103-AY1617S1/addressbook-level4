@@ -9,7 +9,7 @@ import seedu.emeraldo.model.task.UniqueTaskList;
 import java.util.List;
 
 /**
- * Unmodifiable view of a task manager
+ * Unmodifiable view of Emeraldo
  */
 public interface ReadOnlyEmeraldo {
 

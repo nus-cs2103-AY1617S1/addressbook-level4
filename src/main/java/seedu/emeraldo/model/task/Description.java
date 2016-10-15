@@ -11,7 +11,7 @@ public class Description {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String fullName;
+    public final String fullDescription;
 
     /**
      * Validates given name.
@@ -24,7 +24,7 @@ public class Description {
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = name;
+        this.fullDescription = name;
     }
 
     /**
@@ -37,19 +37,19 @@ public class Description {
 
     @Override
     public String toString() {
-        return fullName;
+        return fullDescription;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Description // instanceof handles nulls
-                && this.fullName.equals(((Description) other).fullName)); // state check
+                && this.fullDescription.equals(((Description) other).fullDescription)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return fullDescription.hashCode();
     }
 
 }

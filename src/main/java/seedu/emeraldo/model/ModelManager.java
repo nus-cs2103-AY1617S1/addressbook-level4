@@ -21,22 +21,22 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Emeraldo addressBook;
-    private final FilteredList<Task> filteredPersons;
+    private final Emeraldo emeraldo;
+    private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given Emeraldo
+     * Emeraldo and its variables should not be null
      */
     public ModelManager(Emeraldo src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Emeraldo: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new Emeraldo(src);
-        filteredPersons = new FilteredList<>(addressBook.getTasks());
+        emeraldo = new Emeraldo(src);
+        filteredTasks = new FilteredList<>(emeraldo.getTasks());
     }
 
     public ModelManager() {
@@ -44,64 +44,64 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyEmeraldo initialData, UserPrefs userPrefs) {
-        addressBook = new Emeraldo(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getTasks());
+        emeraldo = new Emeraldo(initialData);
+        filteredTasks = new FilteredList<>(emeraldo.getTasks());
     }
 
     @Override
     public void resetData(ReadOnlyEmeraldo newData) {
-        addressBook.resetData(newData);
-        indicateAddressBookChanged();
+        emeraldo.resetData(newData);
+        indicateEmeraldoChanged();
     }
 
     @Override
-    public ReadOnlyEmeraldo getAddressBook() {
-        return addressBook;
+    public ReadOnlyEmeraldo getEmeraldo() {
+        return emeraldo;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new EmeraldoChangedEvent(addressBook));
+    private void indicateEmeraldoChanged() {
+        raise(new EmeraldoChangedEvent(emeraldo));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removeTask(target);
-        indicateAddressBookChanged();
+        emeraldo.removeTask(target);
+        indicateEmeraldoChanged();
     }
 
     @Override
-    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(person);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        emeraldo.addTask(task);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateEmeraldoChanged();
     }
 
-    //=========== Filtered Person List Accessors ===============================================================
+    //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredTasks.setPredicate(null);
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+        filteredTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyTask person);
+        boolean satisfies(ReadOnlyTask task);
         String toString();
     }
 
@@ -114,8 +114,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask person) {
-            return qualifier.run(person);
+        public boolean satisfies(ReadOnlyTask task) {
+            return qualifier.run(task);
         }
 
         @Override
@@ -125,28 +125,28 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask person);
+        boolean run(ReadOnlyTask task);
         String toString();
     }
 
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+    private class DescriptionQualifier implements Qualifier {
+        private Set<String> descriptionKeyWords;
 
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
+        DescriptionQualifier(Set<String> nameKeyWords) {
+            this.descriptionKeyWords = nameKeyWords;
         }
 
         @Override
-        public boolean run(ReadOnlyTask person) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getDescription().fullName, keyword))
+        public boolean run(ReadOnlyTask task) {
+            return descriptionKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDescription().fullDescription, keyword))
                     .findAny()
                     .isPresent();
         }
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
+            return "description=" + String.join(", ", descriptionKeyWords);
         }
     }
 

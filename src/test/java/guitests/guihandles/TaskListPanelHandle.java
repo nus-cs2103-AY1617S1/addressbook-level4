@@ -68,7 +68,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getDescription().fullName.equals(tasks[i].getDescription().fullName)){
+            if (!tasksInList.get(startPosition + i).getDescription().fullDescription.equals(tasks[i].getDescription().fullDescription)){
                 return false;
             }
         }
@@ -101,7 +101,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public TaskCardHandle navigateToPerson(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> person = getListView().getItems().stream().filter(p -> p.getDescription().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyTask> person = getListView().getItems().stream().filter(p -> p.getDescription().fullDescription.equals(name)).findAny();
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }

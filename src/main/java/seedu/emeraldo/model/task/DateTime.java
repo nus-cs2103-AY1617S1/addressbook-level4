@@ -4,8 +4,8 @@ package seedu.emeraldo.model.task;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Represents a Task's date and time in Emeraldo.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(String)}
  */
 public class DateTime {
     
