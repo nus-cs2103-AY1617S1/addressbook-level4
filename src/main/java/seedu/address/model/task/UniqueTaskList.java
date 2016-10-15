@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -146,5 +147,40 @@ public class UniqueTaskList implements Iterable<Task> {
         	}
         }
         return taskFoundAndArchived;
+	}
+	
+	private boolean checkUpdateOverlapping(ReadOnlyTask target, TaskDate startDate,
+			TaskDate endDate) {
+		if(startDate != null && endDate != null) {
+			for(Task t: internalList){
+				if(!t.equals(target)) {
+					if(t.getType().equals(TaskType.NON_FLOATING)){
+		        		if(t.getStartDate().getDate()!=TaskDate.DATE_NOT_PRESENT){
+		        			if(!(t.getEndDate().getParsedDate().before(startDate.getParsedDate())||
+		        	        	t.getStartDate().getParsedDate().after(endDate.getParsedDate())))
+		        	        		return true;
+		        		}
+		        	}
+				}
+	        }
+		}
+		return false;
+	}
+
+	public boolean updateTask(ReadOnlyTask target, Name name, UniqueTagList tags, TaskDate startDate,
+			TaskDate endDate) throws TimeslotOverlapException {
+		assert target != null;
+
+		boolean taskFoundAndUpdated = false;
+		for(ReadOnlyTask t : internalList) {
+        	if(t.equals(target)) {
+        		if(checkUpdateOverlapping(target, startDate, endDate))
+        			throw new TimeslotOverlapException();
+        		
+        		t.updateTask(name, tags, startDate, endDate);;
+        		taskFoundAndUpdated = true;
+        	}
+        }
+		return taskFoundAndUpdated;
 	}
 }
