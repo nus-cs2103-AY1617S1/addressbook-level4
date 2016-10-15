@@ -43,7 +43,7 @@ public class UpdateCommand extends Command{
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
@@ -98,7 +98,9 @@ public class UpdateCommand extends Command{
 		} catch (IllegalValueException e) {
 			return new CommandResult(String.format(MESSAGE_EDIT_FAIL));
 		}
-
+		SelectCommand select = new SelectCommand(targetIndex);
+		select.model = model;
+		select.execute();
         return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, taskToUpdate));
 	}
 }
