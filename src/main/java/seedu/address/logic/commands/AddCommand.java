@@ -36,28 +36,9 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String startDate, String endDate, String address)
-            throws IllegalValueException {
-        
-        this.toAdd = new Task(
-                new Name(name),
-                new TaskDateTime(startDate),
-                new TaskDateTime(endDate),
-                new Location(address),
-                new UniqueTagList()
-        );
+    public AddCommand(Task toAdd) {
+        this.toAdd = toAdd;
     }
-    public AddCommand(String name, String startDate, String endDate, String address, String... tags)
-            throws IllegalValueException {
-        
-        this(name,startDate,endDate,address);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd.setTags(new UniqueTagList(tagSet));
-    }
-
     @Override
     public CommandResult execute() {
         assert model != null;

@@ -14,6 +14,9 @@ public class Location {
 
     public final String value;
 
+    public Location() {
+        value = "";
+    }
     /**
      * Validates given address.
      *
