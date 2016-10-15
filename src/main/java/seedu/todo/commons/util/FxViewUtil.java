@@ -1,10 +1,11 @@
 package seedu.todo.commons.util;
 
-import java.util.Optional;
-import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+
+import java.util.Optional;
 
 /**
  * Contains utility methods for JavaFX views
@@ -47,4 +48,25 @@ public class FxViewUtil {
         label.setPadding(new Insets(0, 8, 0, 8));
         return label;
     }
+
+    /**
+     * Adds only one instance of the class style to the node object
+     * @author Wang Xien Dong
+     */
+    public static void addClassStyle(Node node, String classStyle) {
+        if (!node.getStyleClass().contains(classStyle)) {
+            node.getStyleClass().add(classStyle);
+        }
+    }
+
+    /**
+     * Removes all instances of the class style
+     * @author Wang Xien Dong
+     */
+    public static void removeClassStyle(Node node, String classStyle) {
+        while (node.getStyleClass().contains(classStyle)) {
+            node.getStyleClass().remove(classStyle);
+        }
+    }
+
 }

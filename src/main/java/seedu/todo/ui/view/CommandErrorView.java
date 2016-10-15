@@ -25,6 +25,7 @@ public class CommandErrorView extends UiPart {
 
     private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
     private static final String FXML = "CommandErrorView.fxml";
+    private static final String TEXT_STYLE = "commandError";
 
     private AnchorPane placeholder;
     private VBox errorViewBox;
@@ -149,7 +150,7 @@ public class CommandErrorView extends UiPart {
      */
     private Label generateLabel(String text) {
         Label label = new Label(text);
-        label.getStyleClass().add("commandError");
+        FxViewUtil.addClassStyle(label, TEXT_STYLE);
         label.autosize();
         return label;
     }

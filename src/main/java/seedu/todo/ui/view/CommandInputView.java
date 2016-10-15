@@ -108,14 +108,14 @@ public class CommandInputView extends UiPart {
      * Indicate an error visually on the {@link #commandTextField}
      */
     public void flagError() {
-        commandTextField.getStyleClass().add(ERROR_STYLE);
+        FxViewUtil.addClassStyle(commandTextField, ERROR_STYLE);
     }
 
     /**
      * Remove the error flag visually on the {@link #commandTextField}
      */
     private void unflagError() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE);
+        FxViewUtil.removeClassStyle(commandTextField, ERROR_STYLE);
     }
 
     /**

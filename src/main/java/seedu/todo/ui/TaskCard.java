@@ -1,22 +1,21 @@
 package seedu.todo.ui;
 
-import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.Optional;
-
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.image.ImageView;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
+
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Optional;
 
 /**
  * This class links up with TaskCard.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.  
@@ -124,14 +123,13 @@ public class TaskCard extends UiPart{
      * Sets style according to the status (e.g. completed, overdue, etc) of the task.
      */
     private void setStyle() {
-        ObservableList<String> styleClasses = taskCard.getStyleClass();
         boolean isCompleted = task.isCompleted();
         boolean isOverdue = task.getEndTime().isPresent() && timeUtil.isOverdue(task.getEndTime().get());
         
         if (isCompleted) {
-            styleClasses.add(STYLE_COMPLETED);
+            FxViewUtil.addClassStyle(taskCard, STYLE_COMPLETED);
         } else if (isOverdue) {
-            styleClasses.add(STYLE_OVERDUE);
+            FxViewUtil.addClassStyle(taskCard, STYLE_OVERDUE);
         }
         
         //styleClasses .add(STYLE_COLLAPSED); TODO: Disabled until implemented
