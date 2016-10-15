@@ -105,10 +105,5 @@ public class EditCommand extends Command {
         }
         return null;
     }
-    
-    @Override
-    public boolean isMutating() {
-        return true;
-    }
 
 }

@@ -25,9 +25,4 @@ public class HelpCommand extends Command {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE, true);
     }
-    
-    @Override
-    public boolean isMutating() {
-        return false;
-    }
 }

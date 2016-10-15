@@ -19,9 +19,4 @@ public class ListCommand extends Command {
         model.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS, true);
     }
-    
-    @Override
-    public boolean isMutating() {
-        return true;
-    }
 }
