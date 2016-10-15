@@ -39,12 +39,23 @@ public class JsonStorage implements Storage {
 
     @Override
     public void save(TodoListDB db) throws JsonProcessingException, IOException {
-        FileUtil.writeToFile(getStorageFile(), JsonUtil.toJsonString(db));
+        String newJson = JsonUtil.toJsonString(db);
+        
+        // Store the undo patch.
+        historyPatch.addLast(dmp.patchMake(newJson, this.currJson));
+        pruneHistory();
+        futurePatch.clear(); // A forward move nullifies all future patches.
+        
+        // Update currJson and persist to disk.
+        this.currJson = newJson;
+        FileUtil.writeToFile(getStorageFile(), this.currJson);
     }
 
     @Override
     public TodoListDB load() throws IOException {
-        return JsonUtil.fromJsonString(FileUtil.readFromFile(getStorageFile()), TodoListDB.class);
+        this.currJson = FileUtil.readFromFile(getStorageFile());
+        historyPatch.clear(); // It does not make sense to preserve history on load.
+        return JsonUtil.fromJsonString(this.currJson, TodoListDB.class);
     }
 
     @Override
