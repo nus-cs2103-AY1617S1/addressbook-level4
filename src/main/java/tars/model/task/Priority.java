@@ -1,7 +1,5 @@
 package tars.model.task;
 
-import java.util.Comparator;
-
 import tars.commons.exceptions.IllegalValueException;
 
 /**
@@ -12,7 +10,7 @@ public class Priority implements Comparable<Priority> {
 	public static final String PRIORITY_VALIDATION_REGEX = "^[hml]$";
 
 	public String priorityLevel;
-	public Integer level;
+	public int level;
 
 	/**
 	 * Validates given task priority level.
@@ -27,9 +25,10 @@ public class Priority implements Comparable<Priority> {
 			throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
 		}
 		this.priorityLevel = priorityLevel;
-		if (this.priorityLevel == "l")
+		
+		if (this.priorityLevel.equals("l"))
 			level = 1;
-		else if (this.priorityLevel == "m")
+		else if (this.priorityLevel.equals("m"))
 			level = 2;
 		else
 			level = 3;
@@ -46,7 +45,7 @@ public class Priority implements Comparable<Priority> {
 	public String toString() {
 		return priorityLevel;
 	}
-
+	
 	@Override
 	public boolean equals(Object other) {
 		return other == this // short circuit if same object
@@ -57,12 +56,13 @@ public class Priority implements Comparable<Priority> {
 
 	@Override
 	public int compareTo(Priority o) {
-		if (this.level > o.level)
+		if (this.level > o.level) {
 			return 1;
-		else if (this.level < o.level)
+		} else if (this.level < o.level) {
 			return -1;
-		else
+		} else {
 			return 0;
+		}
 	}
 
 }

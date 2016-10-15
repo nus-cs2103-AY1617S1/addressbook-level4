@@ -54,5 +54,12 @@ public interface Model {
 
     /** Returns the undoable command history stack */
     Stack<Command> getUndoableCmdHist();
+    
+    /**
+     * Sorts the filtered task list by the given keywords
+     * 
+     * @@author A0140022H
+     */
+	void sortFilteredTaskList(Set<String> keywords);
 
 }

@@ -38,12 +38,11 @@ public class ListCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-		System.out.println(keywords);
 		if (keywords != null && !keywords.isEmpty()) {
 			if (keywords.contains(LIST_ARG_DATETIME) || keywords.contains(LIST_ARG_PRIORITY)
 					|| keywords.contains(LIST_KEYWORD_DESCENDING)) {
 
-				model.updateFilteredTaskList(keywords);
+				model.sortFilteredTaskList(keywords);
 
 				if (keywords.contains(LIST_KEYWORD_DESCENDING)) {
 					if (keywords.contains(LIST_ARG_DATETIME))
