@@ -614,17 +614,14 @@ public class LogicManagerTest {
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toComplete);
         model.addTask(toComplete);
-        
-        CommandResult result = logic.execute("done 1");
-      //Confirm the ui display elements should contain the right data
-        assertEquals(String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete), result.feedbackToUser);
-        assertEquals(new TaskList().getTaskList(), model.getFilteredTaskList());
 
-        //Confirm the state of data (saved and in-memory) is as expected
-        //In this case, memory state is not considered because the latestlist is not up to date
-        //as internal changes take place.
+        assertCommandBehavior("done 1", 
+        		String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete),
+        	    expectedAB,
+        	    new TaskList().getTaskList());
+        		
         assertEquals(expectedAB, model.getTaskList());
-        
+        assertEquals(expectedAB, latestSavedTaskList);
     }
 
 

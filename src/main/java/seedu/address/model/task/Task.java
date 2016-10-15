@@ -63,9 +63,12 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTags(), source.getStartDate(), source.getEndDate());
+        
         if (source.getEndDate().getDate() == TaskDate.DATE_NOT_PRESENT) {
             type = TaskType.FLOATING;
         }
+        
+        if(source.getType() == TaskType.COMPLETED) type = TaskType.COMPLETED;
     }
 
     @Override
