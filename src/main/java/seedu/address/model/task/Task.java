@@ -91,7 +91,6 @@ public class Task implements ReadOnlyTask {
         }
     }
     
-    
     public void copyField(Task task) {
         setName(task.getName());
         setStartDate(task.getStartDate());

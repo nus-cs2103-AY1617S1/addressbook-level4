@@ -81,10 +81,11 @@ public class EditCommand extends Command {
         try {
 //            toCopy.setTags(personToEdit.getTags());
             model.editTask(personToEdit, toCopy);
+            CommandHistory.addMutateCmd(new Undo(COMMAND_WORD, targetIndex, (Task)personToEdit));
         } catch (DuplicateTaskException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            assert false : "The target task cannot be missing"; 
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit));
     }

@@ -6,29 +6,22 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Peh Xian Bin, Eugene](https://github.com/eugenepeh) <br>
 <img src="images/EPXB.jpg" width="150"><br>
-Role: Integration, Team lead <br>  
-Responsibilities: Logic
+Role: Team lead <br>  
+Responsibilities: Logic, Model, Integration
 
 -----
 
 #### [Tan Suan Zhi](https://github.com/e0003892)
 <img src="images/TSZ.jpg" width="150"><br>
-Role: Documentation <br>  
-Responsibilities: UI
+Role: Project Manager <br>  
+Responsibilities: UI, Documentation
 
 -----
 
 #### [Chua Jun Wen](https://github.com/JunWen991) 
 <img src="images/CJW.jpg" width="150"><br>
-Role: Testing <br>  
-Responsibilities: Model
-
------
-
-#### [YUAN WENYI](https://github.com/ywy13250)
-<img src="images/YWY.jpg" width="150"><br>
-Role: Code quality <br>  
-Responsibilities: Storage
+Role: Editor <br>  
+Responsibilities: Storage, Testing, Code quality
 
 -----
 

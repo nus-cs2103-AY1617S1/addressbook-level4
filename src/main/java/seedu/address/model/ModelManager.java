@@ -97,6 +97,25 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskSchedulerChanged();
         
     }
+    
+    @Override
+    public void replaceTask(Task oldTask, Task newTask) 
+            throws TaskNotFoundException {
+        taskScheduler.replaceTask(oldTask, newTask);
+        updateFilteredListToShowAll();
+        indicateTaskSchedulerChanged();
+        
+    }
+    
+    @Override
+    public void insertTask(Task oldTask, Task newTask) 
+            throws TaskNotFoundException {
+        taskScheduler.insertTask(oldTask, newTask);
+        updateFilteredListToShowAll();
+        indicateTaskSchedulerChanged();
+        
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
