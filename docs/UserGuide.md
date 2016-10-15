@@ -1,6 +1,6 @@
 # User Guide
 
-Now, we know you are just as excited as we are [about this product](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/README.md). But before you start throwing your money at us (even though it's free), you should first learn **how to use Jimi**. What follows should guide you on how to setup, install and use Jimi easily. 
+At this point, we know you are just as excited as we are [about Jimi](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/README.md). But before you start throwing your money at us (even though Jimi is entirely free), you should first learn **how to use Jimi properly**. What follows should guide you on how to setup, install and use Jimi easily. 
 
 <br>
 
@@ -44,16 +44,15 @@ Now, we know you are just as excited as we are [about this product](https://gith
 > **Command Format**
 > * Replace words in `UPPER_CASE` with your input.
 > * Items in `[]` are optional.
-> * Items with `...` after them can have multiple instances.
 > * The order of your input text is fixed. For instance, `add [DATE/TIME] by [TASK DETAILS]` is invalid.
 
 
 Command | Format  
 -------- | :-------- 
 [Help](#help) | `help`
-[Add](#add) | `add "TASK_DETAILS"`
-&nbsp;| `add "TASK_DETAILS" by DATE/TIME`
-&nbsp;| `add "EVENT_DETAILS" on START DATE/TIME [to END DATE/TIME]`
+[Add](#add) | `add "TASK_DETAILS" [t/TAG]`
+&nbsp;| `add "TASK_DETAILS" by DATE/TIME [t/TAG]`
+&nbsp;| `add "EVENT_DETAILS" on START_DATE/TIME [to END_DATE/TIME] [t/TAG]`
 [Complete](#com)| `complete TASK_INDEX`
 [Delete](#del) | `delete TASK_INDEX`
 [Edit](#edit) | `edit INDEX DETAIL_MODIFIER EDITS`
@@ -100,7 +99,7 @@ Examples:
 
 <br>
 Adds an event to Jimi.<br>
-Format: `add "EVENT_DETAILS" on START DATE/TIME [to END DATE/TIME]`
+Format: `add "EVENT_DETAILS" on START_DATE/TIME [to END_DATE/TIME]`
 
 > * If the event is more than a day long, you may include the end date/time. <br>
 > * You may define the start and end time of the event if you wish.
@@ -147,13 +146,13 @@ Examples:
 Edits the specified detail from the list of tasks. 
 Format: `edit TASK_INDEX DETAIL_MODIFIER EDITS` 
 
-> * Jimi edits the task specified by `TASK_INDEX`.
-> * `EDITS` are simply the edits you want to make. 
-> * `DETAIL_MODIFIER` is used to indicate which detail you want to edit. You may choose one of the following modifiers: 
+Jimi edits the task specified by `TASK_INDEX`.
+`EDITS` are simply the edits you want to make. 
+`DETAIL_MODIFIER` is used to indicate which detail you want to edit. You may choose one of the following modifiers: 
+* `/n` : name of task
+* `/sd` and `/ed`: start date-time and end date-time <br>
+<br>
 
->     * `/n` : name of task
->     * `/sd` and `/ed`: start date and end date
->     * `/st` and `/et` : start time and end time <br><br>
 > * If you want to undo your edit, use the [`undo`](#undo) command.
 > * The index refers to the index number shown in the most recent listing.
 > * The index **must be a positive integer** 1, 2, 3.
