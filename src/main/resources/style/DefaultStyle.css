@@ -46,7 +46,7 @@
 
 .commandError {
     -fx-text-fill: #FFFFFF;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Segoe UI";
     -fx-font-size: 12pt;
     -fx-wrap-text: true;
 }
