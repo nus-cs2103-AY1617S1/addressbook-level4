@@ -2,6 +2,7 @@ package seedu.unburden.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,6 +14,11 @@ public class StringUtil {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
         return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
+    }
+    
+    public static boolean containsDate(String source, String query){
+    	List<String> strings = new ArrayList<String>(Arrays.asList(source));
+    	return strings.stream().filter(s -> s.equals(query)).count() > 0;
     }
 
     /**

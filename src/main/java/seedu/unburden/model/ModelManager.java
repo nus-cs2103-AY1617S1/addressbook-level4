@@ -173,7 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
     	@Override
     	public boolean run(ReadOnlyTask task){
     		return dateKeyWords.stream()
-    				.filter(keyword -> StringUtil.containsIgnoreCase(task.getDate().fullDate, keyword))
+    				.filter(keyword -> StringUtil.containsDate(task.getDate().fullDate, keyword))
     				.findAny()
     				.isPresent();
     	}
