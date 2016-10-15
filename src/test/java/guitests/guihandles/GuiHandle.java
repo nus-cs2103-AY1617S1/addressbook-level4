@@ -5,6 +5,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
@@ -49,6 +51,10 @@ public class GuiHandle {
         return guiRobot.lookup(query).tryQuery().get();
     }
 
+    protected String getGridPaneStyle(String filedName) {
+        return ((GridPane) getNode(filedName)).getStyle();
+    }
+    
     protected String getTextFieldText(String filedName) {
         return ((TextField) getNode(filedName)).getText();
     }
@@ -62,7 +68,10 @@ public class GuiHandle {
     public void pressEnter() {
         guiRobot.type(KeyCode.ENTER).sleep(500);
     }
-
+    
+    protected String getStyleFromHBox(String fieldId, Node parentNode) {
+        return ((HBox) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getStyle();
+    }
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }

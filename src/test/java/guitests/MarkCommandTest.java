@@ -7,7 +7,9 @@ import seedu.address.logic.commands.MarkCommand;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.ui.TaskCard;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
@@ -37,6 +39,11 @@ public class MarkCommandTest extends TaskSchedulerGuiTest {
         targetIndex = 1;
         commandBox.runCommand("mark " + targetIndex);
         assertResultMessage(MarkCommand.MESSAGE_MARK_TASK_FAIL);
+        
+        //mark empty list
+        commandBox.runCommand("clear");
+        commandBox.runCommand("mark " + currentList.length + 1);
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 
     }
 
@@ -53,7 +60,8 @@ public class MarkCommandTest extends TaskSchedulerGuiTest {
         
         //confirm the task card is now marked completed.
         assertTrue(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getTags().contains("[Completed]"));
-        
+        assertTrue(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getHBoxStyle().equals(TaskCard.COMPLETED_INDICATION));
+        assertFalse(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getHBoxStyle().equals(TaskCard.OVERDUE_INDICATION));
         //confirm the result message is correct
         assertResultMessage(String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }

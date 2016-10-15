@@ -1,9 +1,17 @@
 package seedu.address.ui;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.task.ReadOnlyTask;
 
@@ -29,6 +37,9 @@ public class TaskCard extends UiPart{
     private ReadOnlyTask person;
     private int displayedIndex;
 
+    public static final String COMPLETED_INDICATION = "-fx-background-color: #ccffcc;";
+    public static final String OVERDUE_INDICATION = "-fx-background-color:  #ffcce6;";
+    
     public TaskCard(){
 
     }
@@ -44,6 +55,7 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(person.getName().fullName);
         hideFieldsAccordingToType(person);
+        indicatingColourByCondition(person);
         id.setText(displayedIndex + ". ");
         address.setText(person.getLocation().value);
         phone.setText("Start Date: " + person.getStartDate().getDisplayString());
@@ -65,9 +77,10 @@ public class TaskCard extends UiPart{
         return FXML;
     }
     
-    public void hideFieldsAccordingToType(ReadOnlyTask person) {
-        if (person.tagsString().contains("Event")) {
-        } else if (person.tagsString().contains("Reminder")) {
+    public void hideFieldsAccordingToType(ReadOnlyTask task) {
+        
+        if (task.tagsString().contains("Event")) {
+        } else if (task.tagsString().contains("Reminder")) {
             phone.setVisible(false);
             address.setVisible(false);
         } else {
@@ -75,5 +88,17 @@ public class TaskCard extends UiPart{
             address.setVisible(false);
             email.setVisible(false);
         }
+    }
+    
+    public void indicatingColourByCondition(ReadOnlyTask task) {
+        
+        if (task.tagsString().contains("Completed")) {
+            // if task completed
+            cardPane.setStyle(COMPLETED_INDICATION);
+        } else if (task.getEndDate().getDate().before(new Date())) {
+            // if task overdue
+            cardPane.setStyle(OVERDUE_INDICATION);
+        }
+        
     }
 }
