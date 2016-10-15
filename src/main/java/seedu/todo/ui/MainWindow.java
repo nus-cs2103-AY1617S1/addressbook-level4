@@ -96,24 +96,11 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getObservableTaskList());
-        commandFeedbackView = CommandFeedbackView.load(primaryStage, getResultDisplayPlaceholder());
-        commandInputView = CommandInputView.load(primaryStage, getCommandBoxPlaceholder());
-        commandErrorView = new CommandErrorView();
+        todoListPanel = TodoListPanel.load(primaryStage, todoListPanelPlaceholder, logic.getObservableTaskList());
+        commandFeedbackView = CommandFeedbackView.load(primaryStage, resultDisplayPlaceholder);
+        commandInputView = CommandInputView.load(primaryStage, commandBoxPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, errorViewPlaceholder);
         CommandController.constructLink(logic, commandInputView, commandFeedbackView, commandErrorView);
-    }
-
-    private AnchorPane getCommandBoxPlaceholder() {
-        return commandBoxPlaceholder;
-    }
-
-    private AnchorPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
-    }
-
-    public AnchorPane getTodoListPlaceholder() {
-        return todoListPanelPlaceholder;
     }
 
     public void hide() {

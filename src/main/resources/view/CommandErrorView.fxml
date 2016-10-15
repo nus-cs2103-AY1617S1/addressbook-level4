@@ -8,36 +8,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefWidth="300.0" style="-fx-background-color: #2D2D2D;" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.CommandErrorView">
+<VBox maxHeight="-Infinity" minWidth="-Infinity" styleClass="spacing" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.CommandErrorView">
    <children>
       <VBox fx:id="nonFieldErrorBox" prefWidth="100.0">
          <children>
             <Label text="Non-Field Problems" textFill="WHITE">
                <font>
-                  <Font name="Segoe UI Semibold" size="10.0" />
+                  <Font name="Segoe UI Semibold" size="17.0" />
                </font>
             </Label>
-            <GridPane fx:id="nonFieldErrorGrid" alignment="CENTER_LEFT">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.5" minWidth="10.0" prefWidth="279.5" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="1." textFill="WHITE">
-                     <font>
-                        <Font name="Segoe UI" size="10.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </GridPane.margin>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-               </VBox.margin>
+            <GridPane fx:id="nonFieldErrorGrid" alignment="CENTER_LEFT" styleClass="commandErrorGrid">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="SOMETIMES" />
+               </rowConstraints>
             </GridPane>
          </children>
       </VBox>
@@ -45,29 +32,19 @@
          <children>
             <Label text="Field Problems" textFill="WHITE">
                <font>
-                  <Font name="Segoe UI Semibold" size="10.0" />
+                  <Font name="Segoe UI Semibold" size="17.0" />
                </font>
             </Label>
-            <GridPane fx:id="fieldErrorGrid" alignment="CENTER_LEFT">
+            <GridPane fx:id="fieldErrorGrid" alignment="CENTER_LEFT" styleClass="commandErrorGrid">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.5" minWidth="10.0" prefWidth="279.5" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
-               <children>
-                  <Label text="Deadline" textFill="WHITE">
-                     <font>
-                        <Font name="Segoe UI" size="10.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </padding>
-                  </Label>
-               </children>
                <VBox.margin>
-                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                  <Insets />
                </VBox.margin>
             </GridPane>
          </children>

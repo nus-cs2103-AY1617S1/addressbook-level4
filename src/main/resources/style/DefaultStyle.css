@@ -44,6 +44,19 @@
     -fx-text-fill: #FF6464;
 }
 
+.commandError {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 12pt;
+    -fx-wrap-text: true;
+}
+
+.commandErrorGrid {
+    -fx-hgap: 16pt;
+    -fx-vgap: 2pt;
+    -fx-background-color: #3D3D3D;
+}
+
 .roundLabel {
     -fx-background-radius: 10;
     -fx-text-fill: #ffffff;

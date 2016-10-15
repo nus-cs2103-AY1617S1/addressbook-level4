@@ -2,6 +2,7 @@ package seedu.todo.ui.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -12,6 +13,8 @@ import seedu.todo.model.ErrorBag;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
 
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -38,13 +41,40 @@ public class CommandErrorView extends UiPart {
 
     private void configure() {
         FxViewUtil.applyAnchorBoundaryParameters(errorViewBox, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(nonFieldErrorBox, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(fieldErrorBox, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(fieldErrorGrid, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(nonFieldErrorGrid, 0.0, 0.0, 0.0, 0.0);
         this.placeholder.getChildren().add(errorViewBox);
     }
 
     public void displayErrorDetails(ErrorBag errorBag) {
-        System.out.println(errorBag.getNonFieldErrors());
-        System.out.println(errorBag.getNonFieldErrors());
+        errorBag.getFieldErrors().put("-d", "Deadline is not valid.");
+        errorBag.getFieldErrors().put("-m", "Message is too long.");
+        errorBag.getFieldErrors().put("-p", "Pin has no parameters.");
+        errorBag.getNonFieldErrors().add("You have something wrong that needs solving tomorrow");
+        errorBag.getNonFieldErrors().add("Meh, I'm just too lazy to deal with them muahahaha");
+
+        clearErrorsFromViews();
+        displayFieldErrors(errorBag.getFieldErrors());
+        displayNonFieldErrors(errorBag.getNonFieldErrors());
     }
+
+    private void displayNonFieldErrors(List<String> nonFieldErrors) {
+        int rowCounter = 0;
+        for (String error : nonFieldErrors) {
+            addRowToGrid(nonFieldErrorGrid, rowCounter++, rowCounter + ".", error);
+        }
+    }
+
+    private void displayFieldErrors(Map<String, String> fieldErrors) {
+        int rowCounter = 0;
+
+        for (Map.Entry<String, String> fieldError : fieldErrors.entrySet()) {
+            addRowToGrid(fieldErrorGrid, rowCounter++, fieldError.getKey(), fieldError.getValue());
+        }
+    }
+
 
     /* Override Methods */
 
@@ -61,5 +91,37 @@ public class CommandErrorView extends UiPart {
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+
+    private void clearErrorsFromViews() {
+        clearGrid(nonFieldErrorGrid);
+        clearGrid(fieldErrorGrid);
+    }
+
+
+    /*Helper Methods*/
+
+    /**
+     * Adds a row of text to the targetGrid
+     * @param targetGrid to add a row of text on
+     * @param rowIndex which row to add this row of text
+     * @param leftText text for the first column
+     * @param rightText text for the second column
+     */
+    private void addRowToGrid(GridPane targetGrid, int rowIndex, String leftText, String rightText) {
+        Label leftLabel = generateLabel(leftText);
+        Label rightLabel = generateLabel(rightText);
+        targetGrid.addRow(rowIndex, leftLabel, rightLabel);
+    }
+
+    private Label generateLabel(String text) {
+        Label label = new Label(text);
+        label.getStyleClass().add("commandError");
+        label.autosize();
+        return label;
+    }
+
+    private void clearGrid(GridPane gridPane) {
+        gridPane.getChildren().clear();
     }
 }
