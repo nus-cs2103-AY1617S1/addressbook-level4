@@ -36,11 +36,11 @@ public class Parser {
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|by)\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<startDateTime>.+)\\s*,\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|from)\\s*(?<startDateTime>.+)\\s*(,|to)\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
    
     public Parser() {}
 

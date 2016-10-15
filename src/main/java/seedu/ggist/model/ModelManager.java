@@ -100,20 +100,27 @@ public class ModelManager extends ComponentManager implements Model {
     			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
     		}
     		 break;
-    	case "start":
+    	case "start time":
     		try{
     		toBeEditedTask.getStartTime().editTime(toEdit);
     		} catch (IllegalValueException ive) {
     			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
     		}
     		break;
-    	case "end":
+    	case "end date":
     		try{
     		toBeEditedTask.getEndTime().editTime(toEdit);
     		} catch (IllegalValueException ive) {
     			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
     		}
     		break;
+        case "end time":
+            try{
+            toBeEditedTask.getEndTime().editTime(toEdit);
+            } catch (IllegalValueException ive) {
+                System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
+            }
+            break;
     	default:
     		throw new TaskTypeNotFoundException();
     	}
@@ -156,7 +163,6 @@ public class ModelManager extends ComponentManager implements Model {
     
     private void updateFilteredTaskListToShowUndone(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
-        System.out.println(filteredTasks.getPredicate());
     }
 
     @Override
