@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.model.datetime.DateTime;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
@@ -31,7 +33,7 @@ public class AddCommand extends Command {
     }
     
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructor using raw values to add tasks.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -41,14 +43,28 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         if (dateTime == null) {
-            this.toAdd = 
-                    new FloatingTask(new Name(name), new UniqueTagList(tagSet));
+            this.toAdd = new FloatingTask(new Name(name), new UniqueTagList(tagSet));
         } else {
-            this.toAdd = 
-                    new DeadlineTask(new Name(name), new DateTime(dateTime), new UniqueTagList(tagSet));
+            this.toAdd = new DeadlineTask(new Name(name), new DateTime(dateTime), new UniqueTagList(tagSet));
         }
     }
     
+    /**
+     * Convenience constructor using raw values to add events.
+     * 
+     * @throws IllegalValueException
+     */
+    public AddCommand(String name, String startDateTime, String endDateTime, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        
+        this.toAdd = new Event(new Name(name), new DateTime(startDateTime), new DateTime(endDateTime),
+                new UniqueTagList(tagSet));
+    }
+
     @Override
     public CommandResult execute() {
         assert model != null;

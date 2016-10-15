@@ -1,4 +1,4 @@
-package seedu.jimi.model.task;
+package seedu.jimi.model.datetime;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +8,10 @@ import java.util.Objects;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 
 public class DateTime implements Comparable<DateTime> {
-    public static final String MESSAGE_DATETIME_CONSTRAINTS =
-            "Date and time must be in the format: " + DateTimeFormatter.ISO_DATE_TIME.toString();
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = 
+            "Date and time are invalid!\n" 
+            + "> Tip: try avoiding keywords like `on`, `to` and `due` in your dates and times.\n" 
+            + "> Jimi might misinterpret your input!";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String TIME_FORMAT = "HH:mm";
     public static final String DATETIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
