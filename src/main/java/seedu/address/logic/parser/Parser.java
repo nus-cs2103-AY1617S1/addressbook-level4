@@ -260,7 +260,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
 
-        String[] command = args.trim().split(" ");
+        String[] command = args.trim().split(" ",3);
         Optional<Integer> index = parseIndex(command[0]);
         if(!index.isPresent()){
             return new IncorrectCommand(
