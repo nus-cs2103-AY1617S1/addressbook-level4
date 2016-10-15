@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.task.ImmutableTask;
 
 public class PinCommandTest extends CommandTest {
@@ -21,24 +20,24 @@ public class PinCommandTest extends CommandTest {
         model.add("Task 2");
         model.add("Task 1", task -> task.setPinned(true));
     }
+    
+    private long getPinnedCount() {
+        return model.getObserveableList().stream().filter(ImmutableTask::isPinned).count();
+    }
+    
     @Test
     public void testPinFirst() throws Exception {
-        ImmutableTask toPin = getTaskAt(3);
         setParameter("3");
         execute(true);
-        
-        ImmutableTask currPinned = getTaskAt(2);
-        assertEquals(currPinned, toPin);
-        assertTrue(toPin.isPinned());
+
+        assertEquals(2, getPinnedCount());
     }
+    
     @Test
     public void testUnpinFirst() throws Exception {
-        ImmutableTask toUnpin = getTaskAt(1);
         setParameter("1");
         execute(true);
-
-        ImmutableTask currUnpinned = getTaskAt(1);
-        assertEquals(currUnpinned, toUnpin);
-        assertFalse(toUnpin.isPinned());
+            
+        assertEquals(0, getPinnedCount());
     }
 }

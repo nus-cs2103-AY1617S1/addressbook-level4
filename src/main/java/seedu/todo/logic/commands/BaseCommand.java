@@ -32,7 +32,7 @@ public abstract class BaseCommand {
     
     abstract protected Parameter[] getArguments();
     
-    abstract public CommandResult execute() throws IllegalValueException, ValidationException;
+    abstract public CommandResult execute() throws ValidationException;
     
     /**
      * Binds the data model to the command object
@@ -40,22 +40,7 @@ public abstract class BaseCommand {
     public void setModel(TodoModel model) {
         this.model = model;
     }
-    
-    /**
-     * Obtains the task at the specified index that is currently displayed to the 
-     * user. The index is 1-indexed, as the list of tasks shown to the user starts 
-     * at 1. 
-     * 
-     * @throws IllegalValueException if the task does not exist
-     */
-    public ImmutableTask getTaskAt(int index) throws IllegalValueException {
-        try {
-            return model.getObserveableList().get(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalValueException("The specified index does not exist");
-        }
-    }
-    
+
     /**
      * Binds the both positional and named command arguments from the parse results 
      * to the command object itself 

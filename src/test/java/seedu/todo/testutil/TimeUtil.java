@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class TimeUtil {
+    public static final LocalDateTime now = LocalDateTime.now();
+    
     public static LocalDateTime today() {
         return LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0));
     }

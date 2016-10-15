@@ -8,6 +8,7 @@ import org.mockito.Mock;
 
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.commands.BaseCommand;
 import seedu.todo.logic.commands.CommandResult;
@@ -77,9 +78,44 @@ public class TodoLogicTest {
         CommandResult r = execute();
         
         assertFalse(r.isSuccessful());
-
-        verifyZeroInteractions(model);
+        // Make sure the command is never executed 
+        verify(command, never()).execute();
     }
     
-    // TODO: Create a test for exceptions thrown on BaseCommand.execute()
+    @Test
+    public void testExecuteError() throws Exception {
+        // Create a stub exception for execute to throw
+        ValidationException e = mock(ValidationException.class);
+        ErrorBag errors = mock(ErrorBag.class);
+
+        when(e.getErrors()).thenReturn(errors);
+        doThrow(e).when(command).execute();
+
+        CommandResult r = execute();
+        
+        assertFalse(r.isSuccessful());
+        assertEquals(errors, r.getErrors());
+    }
+    
+    @Test
+    public void testDispatchError() throws Exception {
+        // Create a stub exception for execute to throw
+        IllegalValueException e = mock(IllegalValueException.class);
+        when(e.getMessage()).thenReturn("Test message");
+        doThrow(e).when(dispatcher).dispatch(parseResult);
+
+        CommandResult r = execute();
+
+        assertFalse(r.isSuccessful());
+        assertEquals("Test message", r.getFeedback());
+    }
+    
+    @Test
+    public void testEmptyInput() throws Exception {
+        CommandResult r = logic.execute("");
+        
+        assertNotNull(r);
+        assertNotNull(r.getFeedback());
+        verifyZeroInteractions(parser);
+    }
 }

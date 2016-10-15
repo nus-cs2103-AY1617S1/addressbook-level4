@@ -23,7 +23,7 @@ public class DeleteCommandTest extends CommandTest {
     }
     
     
-    @Test(expected=IllegalValueException.class)
+    @Test(expected=ValidationException.class)
     public void testInvalidDelete() throws Exception {
         setParameter("4");
         execute(true);
