@@ -32,7 +32,7 @@ public abstract class BaseCommand {
     
     abstract protected Parameter[] getArguments();
     
-    abstract public CommandResult execute() throws IllegalValueException, ValidationException;
+    abstract public CommandResult execute() throws ValidationException;
     
     /**
      * Binds the data model to the command object

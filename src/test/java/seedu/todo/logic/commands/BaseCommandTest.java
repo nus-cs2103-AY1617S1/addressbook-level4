@@ -94,7 +94,7 @@ public class BaseCommandTest extends CommandTest {
         }
 
         @Override
-        public CommandResult execute() throws IllegalValueException {
+        public CommandResult execute() throws ValidationException {
             // Does nothing
             return new CommandResult("Great Success!");
         }

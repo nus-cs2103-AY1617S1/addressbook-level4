@@ -1,6 +1,5 @@
 package seedu.todo.logic.commands;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
@@ -19,7 +18,7 @@ public class PinCommand extends BaseCommand {
     }
 
     @Override
-    public CommandResult execute() throws IllegalValueException, ValidationException {
+    public CommandResult execute() throws ValidationException {
         ImmutableTask task = this.model.update(index.getValue(), t -> t.setPinned(!t.isPinned()));
         String verb = task.isPinned() ? PinCommand.PIN : PinCommand.UNPIN;
         return taskSuccessfulResult(task.getTitle(), verb);
