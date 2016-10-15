@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
 public class TodoDispatcherTest {
-    Dispatcher d = new TodoDispatcher();
+    private Dispatcher d = new TodoDispatcher();
     
     @Test
     public void testFullCommand() throws Exception {

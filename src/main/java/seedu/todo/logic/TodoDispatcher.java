@@ -17,6 +17,9 @@ public class TodoDispatcher implements Dispatcher {
     private final static String AMBIGUOUS_COMMAND_FORMAT = "Do you mean %s?";
     
     public BaseCommand dispatch(String input) throws IllegalValueException {
+        // Implements character by character matching of input to the list of command names
+        // Since this eliminates non-matches at every character, it is fast even though 
+        // it is theoretically O(n^2) in the worst case.
         Set<String> commands = new HashSet<>(CommandMap.getCommandMap().keySet());
         
         for (int i = 0; i < input.length(); i++) {
@@ -30,6 +33,9 @@ public class TodoDispatcher implements Dispatcher {
                 }
             }
             
+            // Return immediately when there's one match left. This allow the user to 
+            // type as little as possible, and is also good for autocomplete if that's 
+            // on the radar
             if (commands.size() == 1) {
                 String key = commands.iterator().next();
                 return CommandMap.getCommand(key);

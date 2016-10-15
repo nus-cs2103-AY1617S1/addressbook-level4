@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddCommand extends BaseCommand {
