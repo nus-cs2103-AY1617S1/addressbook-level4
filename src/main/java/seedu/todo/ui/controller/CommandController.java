@@ -68,9 +68,9 @@ public class CommandController {
     private void handleCommandResult(CommandResult result) {
         displayMessage(result.getFeedback());
         if (result.isSuccessful()) {
-            resetViewState();
+            viewDisplaySuccess();
         } else {
-            displayError(result.getErrors());
+            viewDisplayError(result.getErrors());
         }
     }
 
@@ -78,13 +78,13 @@ public class CommandController {
      * Displays error in the respective UI elements
      * @param errorBag group of errors to display
      */
-    private void displayError(ErrorBag errorBag) {
+    private void viewDisplayError(ErrorBag errorBag) {
         inputView.flagError();
         feedbackView.flagError();
-        errorView.displayErrorDetails(errorBag);
+        errorView.displayErrors(errorBag);
     }
-    
-    private void resetViewState() {
+
+    private void viewDisplaySuccess() {
         inputView.resetViewState();
         feedbackView.unFlagError();
     }
