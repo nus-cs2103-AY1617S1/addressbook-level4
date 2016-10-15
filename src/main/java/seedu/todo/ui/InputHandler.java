@@ -52,7 +52,9 @@ public class InputHandler {
                                   new DestroyController(),
                                   new CompleteTaskController(),
                                   new UncompleteTaskController(),
-                                  new UpdateController() };
+                                  new UpdateController(),
+                                  new UndoController(),
+                                  new RedoController() };
     }
 
 }
