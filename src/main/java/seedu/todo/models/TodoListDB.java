@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.todo.commons.exceptions.CannotRedoException;
+import seedu.todo.commons.exceptions.CannotUndoException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.commons.util.JsonUtil;
 import seedu.todo.storage.JsonStorage;
@@ -75,6 +77,24 @@ public class TodoListDB {
             instance = storage.load();
             return true;
         } catch (IOException e) {
+            return false;
+        }
+    }
+    
+    public boolean undo() {
+        try {
+            instance = storage.undo();
+            return true;
+        } catch (CannotUndoException | IOException e) {
+            return false;
+        }
+    }
+    
+    public boolean redo() {
+        try {
+            instance = storage.redo();
+            return true;
+        } catch (CannotRedoException | IOException e) {
             return false;
         }
     }
