@@ -19,7 +19,8 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to WhatNow. "
 			+ "Parameters: TASK_NAME [t/TAG]...\n"
 			+ "Example: " + COMMAND_WORD
-			+ " Buy groceries t/highPriority";
+			+ " Buy groceries 18 January t/highPriority\n"
+			+ " Buy dinner 18/10/2016 t/lowPriority\n";
 
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
