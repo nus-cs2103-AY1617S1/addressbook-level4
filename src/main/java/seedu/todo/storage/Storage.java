@@ -19,8 +19,8 @@ public interface Storage {
      * @return TodoListDB
      * @throws CannotUndoException
      */
-    public TodoListDB undo() throws CannotUndoException;
+    public TodoListDB undo() throws CannotUndoException, IOException;
 
-    public TodoListDB redo() throws CannotRedoException;
+    public TodoListDB redo() throws CannotRedoException, IOException;
 
 }

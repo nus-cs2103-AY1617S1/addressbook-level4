@@ -59,13 +59,13 @@ public class JsonStorage implements Storage {
     }
 
     @Override
-    public TodoListDB undo() throws CannotUndoException {
+    public TodoListDB undo() throws CannotUndoException, IOException {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public TodoListDB redo() throws CannotRedoException {
+    public TodoListDB redo() throws CannotRedoException, IOException {
         // TODO Auto-generated method stub
         return null;
     }
