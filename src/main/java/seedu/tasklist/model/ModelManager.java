@@ -1,5 +1,5 @@
 package seedu.tasklist.model;
-import seedu.tasklist.model.task;
+import seedu.tasklist.model.task.*;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.tasklist.commons.core.ComponentManager;
