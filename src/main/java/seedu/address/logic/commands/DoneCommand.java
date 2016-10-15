@@ -47,10 +47,10 @@ public class DoneCommand extends Command {
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
 
-            tasksDoneList.add(lastShownList.get(targetIndices[i] - 1));
-        	taskDone = new Task(lastShownList.get(targetIndices[i] - 1));
+            taskDone = new Task(lastShownList.get(targetIndices[i] - 1));
             taskDone.setStatus(new Status("done"));
-            
+            tasksDoneList.add(taskDone);
+        	
             try {
                 model.editTask(targetIndices[i], taskDone);
             } catch (TaskNotFoundException pnfe) {

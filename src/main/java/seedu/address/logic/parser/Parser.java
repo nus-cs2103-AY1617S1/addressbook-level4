@@ -21,9 +21,12 @@ import com.joestelmach.natty.DateGroup;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -97,6 +100,9 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
+			
+		case DoneCommand.COMMAND_WORD:
+			return prepareDone(arguments);
 		
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
@@ -114,6 +120,26 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
+
+	private Command prepareDone(String arguments) {
+		ArrayList<Optional<Integer>> indexOptionals = parseIndices(arguments);
+
+		int[] indices = new int[indexOptionals.size()];
+		int i = 0;
+		for (Optional<Integer> index : indexOptionals) {
+			if (!index.isPresent()) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+			}
+			indices[i] = index.get();
+			i++;
+		}
+
+		System.out.println("indices: " + Arrays.toString(indices));
+
+		// TODO return new TMDeleteCommand(indices);
+		return new DoneCommand(indices);
+	}
+
 
 	private Command prepareAdd(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
