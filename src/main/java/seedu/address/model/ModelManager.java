@@ -108,9 +108,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void insertTask(Task oldTask, Task newTask) 
+    public void insertTask(int index, Task newTask) 
             throws TaskNotFoundException {
-        taskScheduler.insertTask(oldTask, newTask);
+        taskScheduler.insertTask(index, newTask);
         updateFilteredListToShowAll();
         indicateTaskSchedulerChanged();
         

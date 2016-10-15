@@ -129,10 +129,10 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void insertTask(Task oldTask, Task newTask) 
+    public void insertTask(int index, Task newTask) 
             throws UniqueTaskList.TaskNotFoundException {
         syncTagsWithMasterList(newTask);
-        tasks.insert(oldTask, newTask);
+        tasks.insert(index, newTask);
     }
 
     /**

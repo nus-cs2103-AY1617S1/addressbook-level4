@@ -17,7 +17,7 @@ public class UndoCommand extends Command{
 	
 	public static final String COMMAND_WORD = "undo";
 
-	public static final String MESSAGE_SUCCESS = "Undid: %1$s";
+	public static final String MESSAGE_SUCCESS = "Undid %s: %s";
 
 	public static final String MESSAGE_FAILURE = "The task scheduler is at initial stage";
    
@@ -34,8 +34,7 @@ public class UndoCommand extends Command{
     				model.deleteTask(toUndo.getTask());
     				break;
     			case "delete":
-    		        ReadOnlyTask taskToInsert = lastShownList.get(toUndo.getIndex() - 1);
-    				model.insertTask((Task)taskToInsert, toUndo.getTask());
+    				model.insertTask(toUndo.getIndex(), toUndo.getTask());
     				break;
     			case "mark":
     			case "edit":
@@ -43,7 +42,7 @@ public class UndoCommand extends Command{
     				model.replaceTask((Task)taskToUndo, toUndo.getTask());
     				break;
     		}
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getTask()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommandKey(), toUndo.getTask()));
         } catch (TaskNotFoundException e) {
         	assert false: "The task cannot be missing";
         	return new CommandResult("The task cannot be missing");

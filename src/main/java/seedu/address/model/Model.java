@@ -33,7 +33,7 @@ public interface Model {
 	void replaceTask(Task oldTask, Task newTask) throws TaskNotFoundException;
 	
 	/** Insert the newTask into oldTask's position */
-	void insertTask(Task oldTask, Task newTask) throws TaskNotFoundException;
+	void insertTask(int index, Task newTask) throws TaskNotFoundException;
 
     /** Edits the given task. 
      * @throws DuplicateTaskException */

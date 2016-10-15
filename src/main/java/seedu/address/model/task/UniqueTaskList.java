@@ -114,13 +114,10 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException
      */
-    public void insert(Task oldTask, Task newTask) throws TaskNotFoundException {
-        assert oldTask != null;
-        int index = internalList.indexOf(oldTask);
-        if (index < 0) {
-            throw new TaskNotFoundException();
-        }
-        internalList.add(index, newTask);
+    public void insert(int index, Task newTask) throws TaskNotFoundException {
+        assert newTask != null;
+        assert index > 0;
+        internalList.add(index-1, newTask);
     }
 
     /**
