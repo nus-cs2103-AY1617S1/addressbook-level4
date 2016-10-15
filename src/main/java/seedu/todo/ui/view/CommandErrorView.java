@@ -52,14 +52,13 @@ public class CommandErrorView extends UiPart {
         this.placeholder.getChildren().add(errorViewBox);
     }
 
-    public void displayErrorDetails(ErrorBag errorBag) {
-        errorBag.getFieldErrors().put("-d", "Deadline is not valid.");
-        errorBag.getFieldErrors().put("-m", "Message is too long.");
-        errorBag.getFieldErrors().put("-p", "Pin has no parameters.");
-        errorBag.getNonFieldErrors().add("You have something wrong that needs solving tomorrow");
-        errorBag.getNonFieldErrors().add("Meh, I'm just too lazy to deal with them muahahaha");
-
-        clearErrorsFromViews();
+    /**
+     * Displays both field and non-field errors to the user
+     * @param errorBag that contains both field and non-field errors
+     */
+    public void displayErrors(ErrorBag errorBag) {
+        showCommandErrorView();
+        clearOldErrorsFromViews();
         displayFieldErrors(errorBag.getFieldErrors());
         displayNonFieldErrors(errorBag.getNonFieldErrors());
     }
