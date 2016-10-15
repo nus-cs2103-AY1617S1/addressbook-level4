@@ -48,7 +48,7 @@ public class PersonCardHandle extends GuiHandle {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof PersonCardHandle) {
+        if (obj instanceof PersonCardHandle) {
             PersonCardHandle handle = (PersonCardHandle) obj;
             return getFullName().equals(handle.getFullName())
                     && getAddress().equals(handle.getAddress()); //TODO: compare the rest

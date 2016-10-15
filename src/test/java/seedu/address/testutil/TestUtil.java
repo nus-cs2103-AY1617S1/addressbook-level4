@@ -38,18 +38,18 @@ import java.util.stream.Collectors;
  */
 public class TestUtil {
 
-    public static String LS = System.lineSeparator();
+    public static final String LS = System.lineSeparator();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
             executable.run();
-        }
-        catch (Throwable actualException) {
-            if (!actualException.getClass().isAssignableFrom(expected)) {
-                String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
-                        actualException.getClass().getName());
-                throw new AssertionFailedError(message);
-            } else return;
+        } catch (Throwable actualException) {
+            if (actualException.getClass().isAssignableFrom(expected)) {
+                return;
+            }
+            String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
+                    actualException.getClass().getName());
+            throw new AssertionFailedError(message);
         }
         throw new AssertionFailedError(
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
@@ -58,7 +58,7 @@ public class TestUtil {
     /**
      * Folder used for temp files created during testing. Ignored by Git.
      */
-    public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
+    public static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     public static final Task[] samplePersonData = getSamplePersonData();
 
@@ -75,20 +75,21 @@ public class TestUtil {
                     new Task(new Description("Hoon Meier"), new Priority("high"), new Time("13:58"), new Date(""), new UniqueTagList()),
                     new Task(new Description("Ida Mueller"), new Priority(""), new Time("9:10"), new Date("11.10.2016"), new UniqueTagList())
             };
+            //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
             assert false;
-            //not possible
+            // not possible
             return null;
         }
     }
 
-    public static final Tag[] sampleTagData = getSampleTagData();
+    public static final Tag[] SAMPLE_TAG_DATA = getSampleTagData();
 
     private static Tag[] getSampleTagData() {
         try {
             return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
+                new Tag("relatives"),
+                new Tag("friends")
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -185,7 +186,8 @@ public class TestUtil {
                 .collect(Collectors.joining("\n"));
     }
 
-    public static void setFinalStatic(Field field, Object newValue) throws NoSuchFieldException, IllegalAccessException{
+    public static void setFinalStatic(Field field, Object newValue) throws NoSuchFieldException,
+                                                                           IllegalAccessException {
         field.setAccessible(true);
         // remove final modifier from field
         Field modifiersField = Field.class.getDeclaredField("modifiers");
@@ -233,7 +235,7 @@ public class TestUtil {
     public static Point2D getScreenMidPoint(Node node) {
         double x = getScreenPos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
         double y = getScreenPos(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x,y);
+        return new Point2D(x, y);
     }
 
     /**
@@ -244,7 +246,7 @@ public class TestUtil {
     public static Point2D getSceneMidPoint(Node node) {
         double x = getScenePos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
         double y = getScenePos(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x,y);
+        return new Point2D(x, y);
     }
 
     /**
@@ -288,7 +290,7 @@ public class TestUtil {
     /**
      * Returns a copy of the list with the person at specified index removed.
      * @param list original list to copy from
-     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed
      */
     public static TestTask[] removePersonFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
@@ -320,7 +322,7 @@ public class TestUtil {
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
-        for(T obj : objs) {
+        for (T obj : objs) {
             list.add(obj);
         }
         return list;
@@ -331,7 +333,6 @@ public class TestUtil {
     }
 
     public static Tag[] getTagList(String tags) {
-
         if (tags.equals("")) {
             return new Tag[]{};
         }
