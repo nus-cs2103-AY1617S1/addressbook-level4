@@ -14,18 +14,16 @@ public class TypicalTestItems {
 
     public TypicalTestItems() {
         try {
-            always  = new ItemBuilder().withDescription("always brush your teeth123").build();
-            bags    = new ItemBuilder().withDescription("bag, bags, bags, bags").build();
-            cs2103  = new ItemBuilder().withDescription("I want to finish my CS2103 homework").build();
+            always  = new ItemBuilder().withDescription("Always brush teeth").build();
+            bags    = new ItemBuilder().withDescription("Pack bag with the thing that I need to bring").build();
+            cs2103  = new ItemBuilder().withDescription("Finish my CS2103 homework").build();
             dover   = new ItemBuilder().withDescription("Dover Road").build();
             eating  = new ItemBuilder().withDescription("eat a child").build();
             frolick = new ItemBuilder().withDescription("frolick in the grass").build();
             grass   = new ItemBuilder().withDescription("You are allergic to grass").build();
             //Manually added
-            help    = new ItemBuilder().withDescription("\"help\", she yelled!!").build();
-            indeed  = new ItemBuilder().withDescription("indeed I am a very long description but "
-                    + "perhaps this will not be a bad thing??????????????????? but who knows really")
-                    .build();
+            help    = new ItemBuilder().withDescription("Read \"help\" instructions").build();
+            indeed  = new ItemBuilder().withDescription("Indeed, this is a test item").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
