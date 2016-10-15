@@ -6,7 +6,9 @@ import java.util.List;
 import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.history.ReversibleEffect;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -35,9 +37,13 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        assert model != null;
         List<String> displayDeletedTasks = new ArrayList<String>();
         Collections.sort(targetIndexes);
         int adjustmentForRemovedTask = 0;
+        
+        // update history
+        List<Task> affectedTasks = new ArrayList<Task>();
 
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
@@ -51,12 +57,19 @@ public class DeleteCommand extends Command {
     
             try {
                 model.deleteTask(taskToDelete);
+                Task affectedTaskToDelete = new Task(taskToDelete);
+                affectedTasks.add(affectedTaskToDelete);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
             }
             displayDeletedTasks.add(taskToDelete.toString());
             adjustmentForRemovedTask++;
         }
+        
+       
+        history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
+        history.resetRedo();
+
         String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay));
     }

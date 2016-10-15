@@ -11,6 +11,7 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.history.History;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.*;
@@ -20,7 +21,6 @@ import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -37,6 +37,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
+    protected History history; //TODO
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
@@ -57,10 +58,12 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        history = new History();
+        
+        logic = new LogicManager(model, storage, history);
 
-        ui = new UiManager(logic, config, userPrefs);
-
+        ui = new UiManager(logic, config, userPrefs, history);
+        
         initEventsCenter();
     }
 

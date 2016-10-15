@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.history.ReversibleEffect;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
@@ -91,7 +93,11 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         model.addTask(toAdd);
-
+        
+        List<Task> affectedTasks = new ArrayList<Task>();
+        affectedTasks.add(toAdd);
+        history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
+        history.resetRedo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

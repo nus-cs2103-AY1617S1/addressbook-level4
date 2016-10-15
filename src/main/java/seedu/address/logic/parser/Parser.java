@@ -105,6 +105,12 @@ public class Parser {
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
+        
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+        
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         default:
             return prepareAdd(commandWord + arguments);

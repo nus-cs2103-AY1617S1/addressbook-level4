@@ -1,19 +1,19 @@
 package seedu.address.logic.commands;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.history.ReversibleEffect;
 import seedu.address.logic.parser.DateParser;
 import seedu.address.model.item.Task;
-import seedu.address.model.Model;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.RecurrenceRate;
-import seedu.address.model.item.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 public class EditCommand extends Command{
 
@@ -96,32 +96,44 @@ public class EditCommand extends Command{
             return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         
-        if (taskName != null) {
-            try {            
-				model.editName(personToEdit, taskName);
-			} catch (DuplicateTaskException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        // Copy this task for history usage
+        Task affectedTaskToEdit = new Task(taskToEdit);  
+        
+        if (taskName != null) {        
+            model.editName(taskToEdit, taskName);
         }
         
         if (startDate != null) {
-            model.editStartDate(personToEdit, startDate);
+            model.editStartDate(taskToEdit, startDate);
         }
 
         if (endDate != null) {
-            model.editEndDate(personToEdit, endDate);
+            model.editEndDate(taskToEdit, endDate);
         }
 
         if (priority != null){
-            model.editPriority(personToEdit, priority);
+            model.editPriority(taskToEdit, priority);
         }
         
         if (recurrenceRate != null) {
-            model.editRecurrence(personToEdit, recurrenceRate);
+            model.editRecurrence(taskToEdit, recurrenceRate);
         }
+        
+        // update the history
+        List<Task> affectedTasks = new ArrayList<Task>();
+        
+        // add the original, unmodified task
+        affectedTasks.add(affectedTaskToEdit);
+        
+        // add the updated task
+        Task updatedTask = new Task(taskToEdit);
+        affectedTasks.add(updatedTask);
+        System.out.println("What edit inserted into history" + affectedTasks);
+        history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
+        history.resetRedo();
+
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         

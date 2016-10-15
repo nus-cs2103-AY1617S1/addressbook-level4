@@ -15,6 +15,7 @@ import seedu.address.model.item.UniqueTaskList;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -91,8 +92,56 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editName(ReadOnlyTask floatingTask, Name name) throws UniqueTaskList.DuplicateTaskException {
-        //System.out.println("Name at line 81 " + name);
+    public synchronized void deleteDoneTask(ReadOnlyTask floatingTask) throws TaskNotFoundException {
+        taskManager.removeDoneTask(floatingTask);
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void addTasks(List<Task> tasks) {
+        for (Task task: tasks){
+            addTask(task);
+        }
+    }
+
+    @Override
+    public void deleteTasks(List<ReadOnlyTask> targets) {
+        for (ReadOnlyTask target : targets){
+            try {
+                deleteTask(target);
+            } catch (TaskNotFoundException e) {
+                // TODO Auto-generated catch block
+                // Do something here? Indicate to user ?
+                e.printStackTrace();
+            }
+        }
+        
+    }
+    
+    @Override
+    public void addDoneTasks(List<Task> tasks) {
+        for (Task task: tasks) {
+            addDoneTask(task);
+        }
+        
+    }
+
+    @Override
+    public void deleteDoneTasks(List<ReadOnlyTask> targets) {
+        for (ReadOnlyTask target : targets) {
+            try {
+                deleteDoneTask(target);
+            } catch (TaskNotFoundException e) {
+                // TODO Auto-generated catch block
+                // Do something here? Indicate to user ?
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    @Override
+    public synchronized void editName(ReadOnlyTask floatingTask, Name name) {
+
         taskManager.editFloatingTaskName(floatingTask, name);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
@@ -209,5 +258,4 @@ public class ModelManager extends ComponentManager implements Model {
         filteredUndoneTasks.setPredicate(null);
     }
     
-
 }

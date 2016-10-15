@@ -7,6 +7,7 @@ import java.util.List;
 import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.history.ReversibleEffect;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
@@ -36,6 +37,9 @@ public class DoneCommand extends Command {
         List<String> displayArchivedTasks = new ArrayList<String>();
         Collections.sort(targetIndexes);
         int adjustmentForRemovedTask = 0;
+        
+        // update history
+        List<Task> affectedTasks = new ArrayList<Task>();
 
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
@@ -47,14 +51,24 @@ public class DoneCommand extends Command {
     
             ReadOnlyTask taskToArchive = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
             model.addDoneTask(new Task(taskToArchive));
+            
             try {
                 model.deleteTask(taskToArchive);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
             }
+            
+            // update history
+            Task affectedTaskToArchive = new Task(taskToArchive);
+            affectedTasks.add(affectedTaskToArchive);
+            
             displayArchivedTasks.add(taskToArchive.toString());
             adjustmentForRemovedTask++;
         }
+        
+        history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
+        history.resetRedo();
+        
         String toDisplay = displayArchivedTasks.toString().replace("[", "").replace("]", "");
         return new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay));
     }

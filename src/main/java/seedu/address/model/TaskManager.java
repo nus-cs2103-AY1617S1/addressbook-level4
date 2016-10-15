@@ -95,38 +95,43 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public boolean removeDoneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (doneTasks.remove(key)){
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 
 	public void editFloatingTaskName(ReadOnlyTask floatTask, Name name) {
-	    //System.out.println("Line 88: " + name);
 		Task currTask = undoneTasks.getTask(floatTask);
-	    //System.out.println("Line 91: " + currTask.getName());
 		currTask.setName(name);
-	    //System.out.println("Line 91: " + currTask.getName());
-		undoneTasks.set(undoneTasks.getIndex(new Task(floatTask)), currTask);
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);
 	}
 	
 	public void editFloatingTaskStartDate(ReadOnlyTask floatTask, Date startDate) {
 		Task currTask = undoneTasks.getTask(floatTask);
 		currTask.setStartDate(startDate);
-		undoneTasks.set(undoneTasks.getIndex(new Task(floatTask)), currTask);
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);
 	}
 	
 	public void editFloatingTaskEndDate(ReadOnlyTask floatTask, Date endDate) {
 		Task currTask = undoneTasks.getTask(floatTask);
 		currTask.setEndDate(endDate);
-		undoneTasks.set(undoneTasks.getIndex(new Task(floatTask)), currTask);
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);
 	}
 	
 	public void editFloatingTaskpriority(ReadOnlyTask floatTask, Priority priority) {
 		Task currTask = undoneTasks.getTask(floatTask);
 		currTask.setPriority(priority);
-		undoneTasks.set(undoneTasks.getIndex(new Task(floatTask)), currTask);	
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);	
 	}
 
 	public void editFloatingTaskRecurrence(ReadOnlyTask floatTask, RecurrenceRate recurrenceRate) {
 		Task currTask = undoneTasks.getTask(floatTask);
 		currTask.setRecurrence(recurrenceRate);
-		undoneTasks.set(undoneTasks.getIndex(new Task(floatTask)), currTask);			
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);			
 	}
 	
 //// util methods
@@ -170,4 +175,5 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(undoneTasks);
     }
+
 }
