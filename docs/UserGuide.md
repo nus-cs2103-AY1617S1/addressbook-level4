@@ -185,18 +185,27 @@ View all events
 
 ##When you want to delete a deadline, task or event
 
-If you know the name of the task
+1. Type `delete [index]`.
 
-1. Type ‘delete [taskname]’. 
+2. Press Enter.
 
+##When you want are done with a deadline, task or event
 
-If you know the keyword of the task
+1. Type `done [INDEX]`.
 
-1. Type ‘searchAndDelete [keyword]’. 
+2. Press Enter.
 
+##When you want are not done with a deadline, task or event
 
-If you know the index of the task
-1. Type ‘deleteByIndex [index]’.
+1. Type `undone [INDEX]`.
+
+2. Press Enter.
+
+##When you want to undo your last action that caused a changed in your todo list
+
+1. Type `undo`.
+
+2. Press Enter.
 
 # FAQ
 
@@ -204,11 +213,11 @@ If you know the index of the task
 
 Command | Format  
 -------- | :-------- 
-Add Task | `add n/NAME`
-Add Deadline | `n/NAME ed/DATE et/TIME`
-Add Event | `add n/NAME sd/DATE st/TIME ed/DATE et/TIME`
+Add Task | `a[dd] t[ask] [n/]NAME`
+Add Deadline | `a[dd] d[eadline] [n/]NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT`
+Add Event | `a[dd] e[vent] [n/]NAME sd/DATE st/TIME ed/DATE et/TIME` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT edt/END_DATE_TIME_TEXT`
 Clear | `clear`
-Delete | `delete INDEX`
+Delete | `delete INDEX [MORE_INDEXES]`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List Tasks | `listtask`
 List Deadlines | `listdeadline`
@@ -217,8 +226,11 @@ List all items | `list`
 Help | `help`
 Select | `select INDEX`
 Edit Task | `edit INDEX n/[NEW_NAME]`
-Edit Deadline | `edit INDEX n/[NEW_NAME] ed/[NEW_END_DATE] et/[NEW_END_TIME]``
+Edit Deadline | `edit INDEX n/[NEW_NAME] ed/[NEW_END_DATE] et/[NEW_END_TIME]`
 Edit Event | `edit INDEX n/[NEW_NAME] sd/[NEW_START_DATE] st/[NEW_START_TIME]  ed/[NEW_END_DATE] et/[NEW_END_TIME]`
+Done | `done INDEX`
+Undone | `undone INDEX`
+Undo | `undo`
 
 #Credits
 
