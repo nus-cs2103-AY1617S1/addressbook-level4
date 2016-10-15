@@ -19,8 +19,8 @@ allprojects {
     targetCompatibility = JavaVersion.VERSION_1_8
 
     repositories {
-        jcenter()
         mavenCentral()
+        jcenter()
         maven { url "https://repo.eclipse.org/content/repositories/egit-releases/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
@@ -53,7 +53,7 @@ allprojects {
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
         compile group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.1.Final'
-        //compile group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'
+        compile group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'
 
 
 
