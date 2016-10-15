@@ -18,9 +18,16 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = 
-            COMMAND_WORD + ": Adds a task to Jimi with one optional tag.\n"
+            COMMAND_WORD + ": Adds a task or event to Jimi with one optional tag.\n"
+            + "\n"
+            + "To add a task:\n"
             + "Parameters: \"TASK_DETAILS\" [due DATE_TIME] [t/TAG]\n"
             + "Example: " + COMMAND_WORD + " \"do dishes\" t/important\n"
+            + "\n"
+            + "To add an event:\n"
+            + "Parameters: \"TASK_DETAILS\" on START_DATE_TIME [to END_DATE_TIME] [t/TAG]\n"
+            + "Example: " + COMMAND_WORD + " \"linkin park concert\" on sunday 2pm t/fun\n"
+            + "\n"
             + "> Tip: typing `a` or `ad` instead of `add` works too.";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
