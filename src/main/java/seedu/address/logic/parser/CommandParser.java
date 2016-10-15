@@ -25,7 +25,6 @@ public class CommandParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
-    //TODO: Parser failing test case "add complete stuff by mon, at myhouse, from 8am" because of ", at..."
     private static final Pattern TASK_ARGS_FORMAT = Pattern.compile("(?i:(?<taskName>.*?)"
                                                         +"(?:"
                                                         +"(?:, by (?<endDateFormatOne>.*?))"
@@ -56,6 +55,33 @@ public class CommandParser {
             											+"(?:-(?<priority>.*?))?)");
     
     private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
+    
+    private static final String regexCaseIgnoreOpening = "(?i:";
+    private static final String regexCaseIgnoreClosing = ")";
+    private static final String regexName = "(?<taskName>.*?)";
+    private static final String regexAdditionalKeyword = "(?:"
+            +"(?: from)"
+            +"|(?: at)"
+            +"|(?: start)"
+            +"|(?: by)"
+            +"|(?: to)"
+            +"|(?: end)"
+            +")";
+    private static final String regexFirstDate = "(?:"
+            +"(?: from (?<startDateFormatOne>.*?))"
+            +"|(?: at (?<startDateFormatTwo>.*?))"
+            +"|(?: start (?<startDateFormatThree>.*?))"
+            +"|(?: by (?<endDateFormatOne>.*?))"
+            +"|(?: to (?<endDateFormatTwo>.*?))"
+            +"|(?: end (?<endDateFormatThree>.*?))"
+            +")?";
+    private static final String regexSecondDate = "(?:"
+            +"(?: by (?<endDateFormatFour>.*?))"
+            +"|(?: to (?<endDateFormatFive>.*?))"
+            +"|(?: end (?<endDateFormatSix>.*?))"
+            +")";
+    private static final String regexRecurrenceAndPriority = "(?: repeat every (?<recurrenceRate>.*?))?"
+            +"(?: -(?<priority>.*?))?";
 
     public CommandParser() {}
 
@@ -115,7 +141,6 @@ public class CommandParser {
      */
     private Command prepareAdd(String args){
         
-        //TODO: Test for "add"
         if(args.trim().isEmpty()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -134,22 +159,23 @@ public class CommandParser {
         }
         
         try {
-            taskName = matcher.group("taskName");
+            assert matcher.group("taskName") != null;
+            taskName = matcher.group("taskName").trim();
             
             if (matcher.group("startDateFormatOne") != null) {
-                startDate = matcher.group("startDateFormatOne");
+                startDate = matcher.group("startDateFormatOne").trim();
             } else if (matcher.group("startDateFormatTwo") != null) {
-                startDate = matcher.group("startDateFormatTwo");
+                startDate = matcher.group("startDateFormatTwo").trim();
             } else if (matcher.group("startDateFormatThree") != null) {
-                startDate = matcher.group("startDateFormatThree");
+                startDate = matcher.group("startDateFormatThree").trim();
             }
             
             if (matcher.group("endDateFormatOne") != null) {
-                endDate = matcher.group("endDateFormatOne"); 
+                endDate = matcher.group("endDateFormatOne").trim(); 
             } else if (matcher.group("endDateFormatTwo") != null) {
-                endDate = matcher.group("endDateFormatTwo");
+                endDate = matcher.group("endDateFormatTwo").trim();
             } else if (matcher.group("endDateFormatThree") != null) {
-                endDate = matcher.group("endDateFormatThree");
+                endDate = matcher.group("endDateFormatThree").trim();
             } 
 
             if (matcher.group("recurrenceRate") != null) {
@@ -161,14 +187,15 @@ public class CommandParser {
                 } 
                 
                 if (recurrenceMatcher.group("rate") != null) {
-                    rate = recurrenceMatcher.group("rate");
+                    rate = recurrenceMatcher.group("rate").trim();
                 }
                 
-                timePeriod = recurrenceMatcher.group("timePeriod");
+                assert recurrenceMatcher.group("timePeriod") != null;
+                timePeriod = recurrenceMatcher.group("timePeriod").trim();
             } 
 
             if (matcher.group("priority") != null) {
-                priority = matcher.group("priority");
+                priority = matcher.group("priority").trim();
             } else {
                 priority = "medium";
             }
@@ -409,4 +436,8 @@ public class CommandParser {
         }
     }
 
+    //TODO: Seems weird
+    public static Pattern getRegexAddTask() {
+        return TASK_ARGS_FORMAT;
+    }
 }
