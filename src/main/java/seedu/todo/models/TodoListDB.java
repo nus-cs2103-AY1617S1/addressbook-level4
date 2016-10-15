@@ -2,7 +2,9 @@ package seedu.todo.models;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.todo.commons.exceptions.CannotRedoException;
 import seedu.todo.commons.exceptions.CannotUndoException;
@@ -14,8 +16,8 @@ public class TodoListDB {
     private static TodoListDB instance = null;
     private static Storage storage = new JsonStorage();
     
-    private List<Task> tasks = new ArrayList<Task>();
-    private List<Event> events = new ArrayList<Event>();
+    private Set<Task> tasks = new LinkedHashSet<Task>();
+    private Set<Event> events = new LinkedHashSet<Event>();
     
     protected TodoListDB() {
         // Prevent instantiation.
