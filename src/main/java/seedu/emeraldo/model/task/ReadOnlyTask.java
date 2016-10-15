@@ -28,14 +28,14 @@ public interface ReadOnlyTask {
     }
 
     /**
-     * Formats the task as text, showing all contact details.
+     * Formats the task as text, showing all task details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getDescription())
-                .append(" DateTime: ")
+                .append(" | Date and Time: ")
                 .append(getDateTime())
-                .append(" Tags: ");
+                .append(" | Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

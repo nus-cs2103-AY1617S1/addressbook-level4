@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access Emeraldo data stored as an xml file on the hard disk.
  */
 public class XmlEmeraldoStorage implements EmeraldoStorage {
 
@@ -36,29 +36,29 @@ public class XmlEmeraldoStorage implements EmeraldoStorage {
     public Optional<ReadOnlyEmeraldo> readEmeraldo(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
-        File addressBookFile = new File(filePath);
+        File emeraldoFile = new File(filePath);
 
-        if (!addressBookFile.exists()) {
-            logger.info("AddressBook file "  + addressBookFile + " not found");
+        if (!emeraldoFile.exists()) {
+            logger.info("Emeraldofile "  + emeraldoFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyEmeraldo addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyEmeraldo emeraldoOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(addressBookOptional);
+        return Optional.of(emeraldoOptional);
     }
 
     /**
      * Similar to {@link #saveEmeraldo(ReadOnlyEmeraldo)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveEmeraldo(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
-        assert addressBook != null;
+    public void saveEmeraldo(ReadOnlyEmeraldo emeraldo, String filePath) throws IOException {
+        assert emeraldo != null;
         assert filePath != null;
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableEmeraldo(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableEmeraldo(emeraldo));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class XmlEmeraldoStorage implements EmeraldoStorage {
     }
 
     @Override
-    public void saveEmeraldo(ReadOnlyEmeraldo addressBook) throws IOException {
-        saveEmeraldo(addressBook, filePath);
+    public void saveEmeraldo(ReadOnlyEmeraldo emeraldo) throws IOException {
+        saveEmeraldo(emeraldo, filePath);
     }
 }

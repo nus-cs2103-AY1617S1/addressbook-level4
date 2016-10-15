@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<emeraldo>
+    <tasks>
+        <description>Hans Muster</description>
+        <dateTime isPrivate="false">4th street</dateTime>
+    </tasks>
+    <tasks>
+        <description>Ruth Mueller</description>
+        <dateTime isPrivate="false">81th street</dateTime>
+    </tasks>
+    <tasks>
+        <description>Heinz Kurz</description>
+        <dateTime isPrivate="false">wall street</dateTime>
+    </tasks>
+    <tasks>
+        <description>Cornelia Meier</description>
+        <dateTime isPrivate="false">10th street</dateTime>
+    </tasks>
+    <tasks>
+        <description>Werner Meyer</description>
+        <dateTime isPrivate="false">michegan ave</dateTime>
+    </tasks>
+    <tasks>
+        <description>Lydia Kunz</description>
+        <dateTime isPrivate="false">little tokyo</dateTime>
+    </tasks>
+    <tasks>
+        <description>Anna Best</description>
+        <dateTime isPrivate="false">4th street</dateTime>
+    </tasks>
+    <tasks>
+        <description>Stefan Meier</description>
+        <dateTime isPrivate="false">little india</dateTime>
+    </tasks>
+    <tasks>
+        <description>Martin Mueller</description>
+        <dateTime isPrivate="false">chicago ave</dateTime>
+    </tasks>
+</emeraldo>

@@ -31,14 +31,14 @@ public interface EmeraldoStorage {
 
     /**
      * Saves the given {@link ReadOnlyEmeraldo} to the storage.
-     * @param addressBook cannot be null.
+     * @param emeraldo cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveEmeraldo(ReadOnlyEmeraldo addressBook) throws IOException;
+    void saveEmeraldo(ReadOnlyEmeraldo emeraldo) throws IOException;
 
     /**
      * @see #saveEmeraldo(ReadOnlyEmeraldo)
      */
-    void saveEmeraldo(ReadOnlyEmeraldo addressBook, String filePath) throws IOException;
+    void saveEmeraldo(ReadOnlyEmeraldo emeraldo, String filePath) throws IOException;
 
 }
