@@ -64,19 +64,15 @@
 
 ###Add a deadline
 
-1. Type `add deadline n/NAME ed/DATE et/TIME`.
+1. Type `add deadline n/NAME ed/DATE et/TIME` or `add deadline n/NAME edt/DATE_TIME_TEXT(e.g. next wed 3pm)`.
 
 2. `add` can be replaced by `a`. `deadline` can be replaced by `d`. `n/` prefix for NAME is optional.
 
 3. If et is not specified, et is assumed to be 23:59.
 
-4. If ed is not specified, ed is assumed to be today.
+4. Press Enter.
 
-5. If both et and ed are not specified, created task is a floating task (see b). 
-
-6. Press Enter.
-
-7. The deadline will be added to your to do list.
+5. The deadline will be added to your to do list.
 
 ###Add a task 
 
@@ -90,7 +86,7 @@
 
 ###Add an event 
 
-1. Add an event by typing `add event n/NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME`.
+1. Add an event by typing `add event n/NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME` or `add event n/NAME sdt/START_DATE_TIME_TEXT(e.g. two hours later) edt/END_DATE_TIME_TEXT(e.g. next wed 3pm)`.
 
 2. `add` can be replaced by `a`. `event` can be replaced by `e`. `n/` prefix for NAME is optional.
 
@@ -98,9 +94,7 @@
 
 4. If et is empty, et is assumed to be 23:59.
 
-5. If sd or ed is empty, sd or ed is assumed to be the current system date.
-
-6. Press Enter.
+5. Press Enter.
 
 ##When you need to edit a deadline, task or event 
 
