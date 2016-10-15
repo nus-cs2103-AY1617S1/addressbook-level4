@@ -18,6 +18,8 @@ public class TaskCard extends UiPart{
     private Label id;
     @FXML
     private Label tags;
+    @FXML
+    private Label completed;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -38,6 +40,12 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
+        if (task.getStatus()) {
+            completed.setText("Completed");
+        } else {
+            completed.setText("");
+        }
+        
     }
 
     public HBox getLayout() {

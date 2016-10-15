@@ -14,21 +14,24 @@ public class Task implements ReadOnlyTask {
     private Name name;
     
     private UniqueTagList tags;
+    
+    private boolean isCompleted;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
+    public Task(Name name, UniqueTagList tags, boolean isCompleted) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted = isCompleted;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getTags(), source.getStatus());
     }
 
     @Override
@@ -40,6 +43,11 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    @Override
+    public boolean getStatus() {
+        return isCompleted;
+    }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
@@ -50,6 +58,19 @@ public class Task implements ReadOnlyTask {
     
     public void setName(Name name) {
         this.name = name;
+    }
+    
+    public void setStatus(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+    
+    public void toggleComplete() {
+        if (isCompleted) {
+            isCompleted = false; 
+        }
+        else {
+            isCompleted = true;
+        }
     }
 
     @Override

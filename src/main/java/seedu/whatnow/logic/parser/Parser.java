@@ -81,6 +81,9 @@ public class Parser {
             
         case UpdateCommand.COMMAND_WORD:
             return prepareUpdate(arguments);
+            
+        case MarkDoneCommand.COMMAND_WORD:
+            return prepareMarkDone(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -147,13 +150,13 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareUpdate(String args) {
-        String[] ArgComponents= args.trim().split(" ");
-        String type = ArgComponents[TASK_TYPE];
-        String argType = ArgComponents[ARG_TYPE];
+        String[] argComponents= args.trim().split(" ");
+        String type = argComponents[TASK_TYPE];
+        String argType = argComponents[ARG_TYPE];
         String arg = "";
-        Optional<Integer> index = parseIndex(ArgComponents[INDEX]);
-        for (int i = ARG; i < ArgComponents.length; i++) {
-            arg += ArgComponents[i] + " ";
+        Optional<Integer> index = parseIndex(argComponents[INDEX]);
+        for (int i = ARG; i < argComponents.length; i++) {
+            arg += argComponents[i] + " ";
         }
         if(!index.isPresent()){
             return new IncorrectCommand(
@@ -173,6 +176,22 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    /**
+     * Parses arguments in the context of the markDone task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMarkDone(String args) {
+        String[] argComponents = args.trim().split(" ");
+        Optional<Integer> index = parseIndex(argComponents[INDEX]);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_USAGE));
+        }
+        return new MarkDoneCommand(argComponents[TASK_TYPE], index.get());
     }
     
     /**

@@ -24,6 +24,12 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()));
     }
+    
+    /**
+     * Return true if the task was previously marked as completed, false if otherwise.
+     * @return
+     */
+    boolean getStatus();
 
     /**
      * Formats the task as text, showing all contact details.

@@ -89,6 +89,20 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndUpdated;
     }
     
+    /**
+     * Mark the equivalent task from the list as completed.
+     */
+    public boolean mark(ReadOnlyTask target) throws TaskNotFoundException {
+        assert target!= null;
+        final boolean taskFoundAndMarked = internalList.contains(target);
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        internalList.get(internalList.indexOf(target)).toggleComplete();
+        internalList.set(internalList.indexOf(target), internalList.get(internalList.indexOf(target)));
+        return taskFoundAndMarked;
+    }
+    
 
     public ObservableList<Task> getInternalList() {
         return internalList;

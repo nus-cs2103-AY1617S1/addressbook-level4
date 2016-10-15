@@ -34,4 +34,7 @@ public interface Model {
     
     /** Update the given task */
     void updateTask(ReadOnlyTask old, Task toUpdate) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Mark the given task as completed */
+    void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 }
