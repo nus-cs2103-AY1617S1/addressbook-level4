@@ -78,6 +78,15 @@ public class TodoListDB {
         }
     }
     
+    public boolean move(String newPath) {
+        try {
+            storage.move(newPath);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+    
     public int undoSize() {
         return storage.undoSize();
     }

@@ -6,6 +6,7 @@ import java.util.List;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.util.ConfigUtil;
+import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.ConfigView;
 
@@ -17,6 +18,7 @@ public class ConfigController implements Controller {
     
     private static final String MESSAGE_SHOWING = "Showing all settings.";
     private static final String MESSAGE_FAILURE = "Could not update settings: %s";
+    private static final String MESSAGE_FAILURE_DBFILEPATH = "Could not update the storage location!";
     private static final String MESSAGE_INVALID_INPUT = "Invalid config setting provided!";
     private static final String SPACE = " ";
     private static final int ARGS_LENGTH = 2;
@@ -93,11 +95,25 @@ public class ConfigController implements Controller {
     private Config updateConfigByName(Config config, String configName, String configValue) {
         switch (configName) {
         case "appTitle":
-            config.setAppTitle(configValue);
+            // Updates MainWindow title
             UiManager.getInstance().getMainWindow().setTitle(configValue);
+            
+            // Update config
+            config.setAppTitle(configValue);
+            
             break;
+            
         case "databaseFilePath":
+            // Move the DB file to the new location
+            boolean hasMoved = TodoListDB.getInstance().move(configValue);
+            if (!hasMoved) {
+                failWithMessage(MESSAGE_FAILURE_DBFILEPATH);
+                break;
+            }
+            
+            // Update config
             config.setDatabaseFilePath(configValue);
+            
             break;
         }
         

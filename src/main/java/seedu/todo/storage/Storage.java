@@ -12,6 +12,8 @@ public interface Storage {
 
     public TodoListDB load() throws IOException;
 
+    public void move(String newPath) throws IOException;
+
     /**
      * Undo information is on a per-session basis, and should not be
      * persisted to disk.
