@@ -9,25 +9,25 @@ import seedu.emeraldo.commons.exceptions.IllegalValueException;
  */
 public class DateTime {
     
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task date and time can be in any format";
     public static final String ADDRESS_VALIDATION_REGEX = "(.+)?";
 
     public final String value;
 
     /**
-     * Validates given address.
+     * Validates given date and time.
      *
      * @throws IllegalValueException if given address string is invalid.
      */
-    public DateTime(String address) throws IllegalValueException {
-        assert address != null;
-        if (!isValidAddress(address)) {
+    public DateTime(String dateTime) throws IllegalValueException {
+        assert dateTime != null;
+        if (!isValidDateTime(dateTime)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        this.value = address;
+        this.value = dateTime;
     }
 
-    private static boolean isValidAddress(String test) {
+    private static boolean isValidDateTime(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 

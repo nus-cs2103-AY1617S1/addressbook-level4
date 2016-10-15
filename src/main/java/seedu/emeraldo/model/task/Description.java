@@ -3,34 +3,34 @@ package seedu.emeraldo.model.task;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents a Task's description in Emeraldo.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Task description should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullDescription;
 
     /**
-     * Validates given name.
+     * Validates given description.
      *
-     * @throws IllegalValueException if given name string is invalid.
+     * @throws IllegalValueException if given description string is invalid.
      */
-    public Description(String name) throws IllegalValueException {
-        assert name != null;
-        name = name.trim();
-        if (!isValidName(name)) {
+    public Description(String description) throws IllegalValueException {
+        assert description != null;
+        description = description.trim();
+        if (!isValidDescription(description)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullDescription = name;
+        this.fullDescription = description;
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid task description.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidDescription(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
