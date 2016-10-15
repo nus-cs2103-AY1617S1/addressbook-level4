@@ -2,7 +2,6 @@ package seedu.todo.ui.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -39,15 +38,15 @@ public class CommandInputView extends UiPart {
     }
 
     private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(commandTextField);
-        FxViewUtil.applyAnchorBoundaryParameters(commandInputPane, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+        placeHolderPane.getChildren().add(commandInputPane);
+
     }
 
     private void configure() {
         setCommandInputHeightAutoResizeable();
         unflagErrorWhileTyping();
+        FxViewUtil.applyAnchorBoundaryParameters(commandInputPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
 
     /**
