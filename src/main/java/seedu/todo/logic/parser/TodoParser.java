@@ -21,6 +21,8 @@ import com.google.common.collect.Lists;
  * optionally many named arguments. 
  */
 public class TodoParser implements Parser {
+    public static String FLAG_TOKEN = "/";
+    
     private class TodoResult implements ParseResult {
         private final String command;
         private final String positional;
@@ -52,7 +54,7 @@ public class TodoParser implements Parser {
             StringJoiner sj = new StringJoiner(" ");
             sj.add(command).add(getPositionalArgument().orElse(""));
             for (Entry<String, String> e : getNamedArguments().entrySet()) {
-                sj.add("/" + e.getKey()).add(e.getValue());
+                sj.add(TodoParser.FLAG_TOKEN + e.getKey()).add(e.getValue());
             }
             return sj.toString();
         }
@@ -73,7 +75,7 @@ public class TodoParser implements Parser {
     }
     
     private boolean isFlag(String token) {
-        return token.startsWith("/") && token.length() > 1;
+        return token.startsWith(TodoParser.FLAG_TOKEN) && token.length() > 1;
     }
     
     @Override
