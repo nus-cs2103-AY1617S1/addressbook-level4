@@ -43,9 +43,11 @@ public class JsonStorage implements Storage {
         String newJson = JsonUtil.toJsonString(db);
         
         // Store the undo patch.
-        historyPatch.addLast(dmp.patchMake(newJson, this.currJson));
-        pruneHistory();
-        futurePatch.clear(); // A forward move nullifies all future patches.
+        if (this.currJson != null) {
+            historyPatch.addLast(dmp.patchMake(newJson, this.currJson));
+            pruneHistory();
+            futurePatch.clear(); // A forward move nullifies all future patches.
+        }
         
         // Update currJson and persist to disk.
         this.currJson = newJson;
