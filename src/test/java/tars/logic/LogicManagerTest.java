@@ -279,6 +279,8 @@ public class LogicManagerTest {
         assertCommandBehavior("add name - hello world -dt 05/09/2016 1400 to 06/09/2016 2200 -p m",
                 Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior("add Valid Task Name -dt @@@notAValidDate@@@ -p m", Messages.MESSAGE_INVALID_DATE);
+        assertCommandBehavior("add Valid Task Name -dt 05/09/2016 1400 to 01/09/2016 2200 -p m",
+                Messages.MESSAGE_INVALID_END_DATE);
         assertCommandBehavior("add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p medium",
                 Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior("add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p m -t invalid_-[.tag",
@@ -297,7 +299,20 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_add_end_date_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.generateTaskWithEndDateOnly("Jane");
+        Tars expectedAB = new Tars();
+        expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
 
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
+                expectedAB.getTaskList());
     }
 
     @Test
@@ -967,8 +982,27 @@ public class LogicManagerTest {
          * dummy values.
          */
         Task generateTaskWithName(String name) throws Exception {
-            return new Task(new Name(name), new DateTime("05/09/2016 1400", "06/09/2016 2200"), new Priority("h"),
-                    new Status(false), new UniqueTagList(new Tag("tag")));
+            return new Task(
+                    new Name(name),
+                    new DateTime("05/09/2016 1400", "06/09/2016 2200"),
+                    new Priority("h"),
+                    new Status(false),
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+        
+        /**
+         * Generates a Task object with given name. Other fields will have some
+         * dummy values.
+         */
+        Task generateTaskWithEndDateOnly(String name) throws Exception {
+            return new Task(
+                    new Name(name),
+                    new DateTime(null, "06/09/2016 2200"),
+                    new Priority("h"),
+                    new Status(false),
+                    new UniqueTagList(new Tag("tag"))
+            );
         }
     }
 }

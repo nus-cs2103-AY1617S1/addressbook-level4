@@ -5,13 +5,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
+import tars.commons.core.Messages;
 import tars.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's dateTime in tars.
  */
 public class DateTime {
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task datetime should be spaces or alphanumeric characters";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS =
+            "Task datetime should be spaces or alphanumeric characters";
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -47,7 +49,7 @@ public class DateTime {
             this.startDate = LocalDateTime.parse(startDate, formatter);
             this.startDateString = this.startDate.format(stringFormatter);
             if (this.endDate.isBefore(this.startDate) || this.endDate.isEqual(this.startDate)) {
-                throw new IllegalDateException("End dateTime should be after start dateTime.");
+                throw new IllegalDateException(Messages.MESSAGE_INVALID_END_DATE);
             }
         }
     }
@@ -56,7 +58,7 @@ public class DateTime {
     public String toString() {
         if (this.startDate != null && this.endDate != null) {
             return startDateString + " to " + endDateString;
-        } else if (this.startDate == null && this.endDate != null) {
+        } else if (this.endDate != null) {
             return endDateString;
         } else {
             return "";
