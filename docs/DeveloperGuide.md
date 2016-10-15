@@ -125,6 +125,8 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800">
 
+<figcaption>The relation between the Logic subcomponents</figcaption>
+
 **API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
 The logic component is the glue sitting between the UI and the data model. It consists of three separate subcomponents, each of which also defines their own API using interfaces or abstract classes - 
@@ -394,8 +396,102 @@ After that rerun the Gradle `build` command and make sure the file has been edit
 Our documentation and user guides are written in [GitHub Flavor Markdown][gfm] with a number of extensions including tables, definition lists and warning blocks that help enable richer styling options for our documentation. These extensions are documented on the [Extensions page of the Python Markdown package][py-markdown], the package we use to help transform the Markdown into HTML. We use HTML because it allows greater flexibility in styling and is generally more user friendly than raw Markdown. To set up the script:
 
 1. Make sure you have Python 3.5+ installed. Run `python3 --version` to check
-2. Install the dependencies - `pip3 install markdown pygments` 
+2. Install the dependencies - `pip3 install markdown pygments beautifulsoup4` 
 3. Run the script - `python3 docs/build/converter.py`
+
+### Syntax Highlighting 
+
+To get syntax highlighting for your code, use three backticks before and after your code without any additional indentation, and indicate the language on the opening backticks. This is also known as fenced code block. 
+
+For example, 
+
+``` java
+public class YourCommand extends BaseCommand {
+    // TODO: Define additional parameters here
+    private Argument<Integer> index = new IntArgument("index").required();
+
+    @Override
+    protected Parameter[] getArguments() {
+        // TODO: List all command argument objects inside this array
+        return new Parameter[]{ index };
+    }
+}
+```
+
+is produced by 
+
+    ``` java
+    public class YourCommand extends BaseCommand {
+        // TODO: Define additional parameters here
+        private Argument<Integer> index = new IntArgument("index").required();
+
+        @Override
+        protected Parameter[] getArguments() {
+            // TODO: List all command argument objects inside this array
+            return new Parameter[]{ index };
+        }
+    }
+    ```
+
+
+### Admonition blocks 
+
+To draw reader's attention to specific things of interest, use the admonition extension 
+
+!!! warning
+    This is an example of a admonition block 
+
+The syntax for this the block above is 
+
+    !!! warning
+        This is an example of a admonition block 
+
+`warning` is the style of the box, and also used by default as the title. To add a custom title, add the title after the style in quotation marks. 
+
+
+    !!! warning "This is a block with a custom title"
+        This is an example of a admonition block 
+
+The following styles are available 
+
+Style    | Color    | Used for 
+-------- | -------- | --------------------------------------------------
+note     | Blue     | Drawing reader's attention to specific points of interest 
+warning  | Yellow   | Warning the reader about something that may be harmful 
+danger   | Red      | A stronger warning to the reader about things they should not do 
+example  | Green    | Showing the reader an example of something, like a command in the user guide 
+
+### Captions 
+
+To add a caption to a table, image or a piece of code, use the [`<figcaption>`][figcaption] HTML tag. 
+
+```html 
+<img src="..." alt="...">
+
+<figcaption>
+  The sequence of function calls resulting from the user input 
+  <code>execute 1</code>
+</figcaption>
+```
+
+The document processor will automatically wrap the `<figcaption>` and the preceeding element in a `<figure>` element and automatically add a count to it, producing 
+
+```html 
+<figure>
+  <img src="..." alt="...">
+
+  <figcaption>
+    <strong>Figure 2.</strong>
+    The sequence of function calls resulting from the user input 
+    <code>execute 1</code></figcaption>
+</figure>
+```
+
+Note that Markdown is not processed inside HTML, so you must use HTML to write any additional inline markup you need inside the caption. 
+
+
+[figcaption]: https://developer.mozilla.org/en/docs/Web/HTML/Element/figcaption
+
 
 ## Appendix A : User Stories
 
