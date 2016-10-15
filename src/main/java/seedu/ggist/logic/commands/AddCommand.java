@@ -19,7 +19,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task\n"
             + "Parameters: TASK, [DATE], [TIME]\n"
             + "Example: " + COMMAND_WORD
-            + " go run, 12 oct, 1200-1230";
+            + " examination period, friday 1pm to next friday 12pm";
     
     public static final String MESSAGE_SUCCESS = "New %1$s task added: %2$s";
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";

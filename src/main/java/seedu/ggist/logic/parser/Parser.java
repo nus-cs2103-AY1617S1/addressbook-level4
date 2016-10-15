@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
 import seedu.ggist.logic.commands.*;
-import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 /**
  * Parses user input.
@@ -32,7 +31,7 @@ public class Parser {
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>[^,]+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
+            Pattern.compile("(?<taskName>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
@@ -114,6 +113,7 @@ public class Parser {
             if(taskType.equals("eventTask")) {
                 matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
+                    System.out.println("events");
                     return new AddCommand(
                         matcher.group("taskName"),
                         new DateTimeParser(matcher.group("startDateTime")).getDate(),
@@ -126,6 +126,7 @@ public class Parser {
             } else if (taskType.equals("deadlineTask")) {
                 matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
+                    System.out.println("deadline");
                     return new AddCommand(
                         matcher.group("taskName"),
                         new DateTimeParser(matcher.group("dateTime")).getDate(),
@@ -136,6 +137,7 @@ public class Parser {
             } else if (taskType.equals("floatingTask")) {
                 matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
+                    System.out.println("floating");
                     return new AddCommand(
                         matcher.group("taskName"),
                         getTagsFromArgs(matcher.group("tagArguments"))
