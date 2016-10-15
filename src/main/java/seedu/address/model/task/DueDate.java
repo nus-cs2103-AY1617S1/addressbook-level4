@@ -1,8 +1,12 @@
 package seedu.address.model.task;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.DateValidation;
 
 /**
@@ -13,7 +17,8 @@ public class DueDate {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task's DueDate should only contain valid date";
     public static final String MESSAGE_DUEDATE_INVALID = "reminder time has passed";
-    public final String value;
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
+    public final Calendar value;
 
     /**
      * Validates given Due Date.
@@ -23,41 +28,43 @@ public class DueDate {
      */
     public DueDate(String date) throws IllegalValueException {
         assert date != null;
-        String time;
-        String[] parts;
-        if(date!=""){
-        try {
-            if (date.contains("today")) {
-                parts = date.split(" ");
-                time = parts[1];
-                date = DateValidation.TodayDate();
-                date = date + " " + time;
-            } // allow user to key in today instead of today's date
-            else if (date.contains("tomorrow")) {
-                parts = date.split(" ");
-                time = parts[1];
-                date = DateValidation.TodayDate();
-                date = date + " " + time;
-                date = DateValidation.TomorrowDate();
-            } // allow user to key in "tomorrow" instead of tomorrow's date
-            if (!isValidDueDate(date)) {
-                throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
-            }
-            if (!DateValidation.aftertoday(date)) // check if the time is future
-                                                  // time
-                throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
-        } catch (ParseException pe) {
-            throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
-        }}
+        this.value = null;
+        
+        if (!isValidDueDate(date)) {
+            throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
+        }
 
-        this.value = date;
+        if (date != "") {
+            try {
+                if (date.equalsIgnoreCase("today")) { // allow user to key in "today" instead of today's date
+                    this.value.setTime(Calendar.getInstance().getTime());
+                } else if (date.equalsIgnoreCase("tomorrow")) { // allow user to key in "tomorrow" instead of tomorrow's/ date
+                    this.value.setTime(Calendar.getInstance().getTime());
+                    value.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                if (!DateValidation.aftertoday(date)) // check if the time is
+                                                      // future
+                                                      // time
+                    throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
+            } catch (ParseException pe) {
+                throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
+            }
+
+            Date taskDate = DateUtil.parseDate(date);
+            
+            if (taskDate == null) {
+                assert false : "Date should not be null";
+            }
+            
+            this.value.setTime(taskDate);
+        }
     }
 
     /**
      * Returns true if a given string is a valid task reminder.
      */
     public static boolean isValidDueDate(String test) {
-        if ((DateValidation.validate(test))|| (test ==""))
+        if (DateUtil.validate(test) || test == "")
             return true;
         else
             return false;
@@ -65,7 +72,7 @@ public class DueDate {
 
     @Override
     public String toString() {
-        return value;
+        return DATE_FORMAT.format(value.getTime());
     }
 
     @Override
