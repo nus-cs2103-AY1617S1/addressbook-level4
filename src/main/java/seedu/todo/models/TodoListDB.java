@@ -26,26 +26,43 @@ public class TodoListDB {
         // Prevent instantiation.
     }
     
-    public List<Task> getTaskByDate(LocalDateTime givenDate) {
+    public List<Task> getTaskByDate(LocalDateTime givenDate, boolean isCompleted, boolean listAllStatus) {
         ArrayList<Task> taskByDate = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
         while (iterator.hasNext()) {
             Task currTask = iterator.next();
-            if (DateUtil.floorDate(currTask.getDueDate()).equals(givenDate)) {
-                taskByDate.add(currTask);
+            if (listAllStatus) {
+                if (DateUtil.floorDate(currTask.getDueDate()).equals(givenDate)) {
+                    taskByDate.add(currTask);
+                }
+            } else {
+                if (DateUtil.floorDate(currTask.getDueDate()).equals(givenDate) && currTask.isCompleted() == isCompleted) {
+                    taskByDate.add(currTask);
+                }
             }
         }
         return taskByDate;
     }
     
-    public List<Task> getTaskByRange (LocalDateTime fromDate , LocalDateTime toDate) {
+    public List<Task> getTaskByRange (LocalDateTime fromDate , LocalDateTime toDate, boolean isCompleted, boolean listAllStatus) {
         ArrayList<Task> taskByRange = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
+        if (fromDate == null) {
+            fromDate = LocalDateTime.MIN;
+        }
         while (iterator.hasNext()) {
             Task currTask = iterator.next();
-            if (DateUtil.floorDate(currTask.getDueDate()).compareTo(fromDate) >= 0 && 
-                    DateUtil.floorDate(currTask.getDueDate()).compareTo(toDate) <= 0) {
-                taskByRange.add(currTask);
+            if (listAllStatus) {
+                if (DateUtil.floorDate(currTask.getDueDate()).compareTo(fromDate) >= 0 && 
+                        DateUtil.floorDate(currTask.getDueDate()).compareTo(toDate) <= 0) {
+                    taskByRange.add(currTask);
+                }
+            } else {
+                if (DateUtil.floorDate(currTask.getDueDate()).compareTo(fromDate) >= 0 && 
+                        DateUtil.floorDate(currTask.getDueDate()).compareTo(toDate) <= 0 &&
+                        currTask.isCompleted() == isCompleted) {
+                    taskByRange.add(currTask);
+                }
             }
         }
         return taskByRange;
