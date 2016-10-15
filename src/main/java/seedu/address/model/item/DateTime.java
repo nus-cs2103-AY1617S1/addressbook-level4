@@ -75,7 +75,7 @@ public abstract class DateTime {
      * Verifies if given String conforms to what was specified in User Guide e.g 
      * "5pm tomorrow", "02/10/2016", "13 Sep"
      */
-    public static boolean verifyDateObject(String dateString) {
+    public static boolean isStringValidDate(String dateString) {
         List<DateGroup> dates = new Parser().parse(dateString);
         try {
             dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
