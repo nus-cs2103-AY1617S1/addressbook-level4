@@ -1,4 +1,5 @@
 package seedu.tasklist.model;
+import seedu.tasklist.model.task;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.tasklist.commons.core.ComponentManager;
@@ -41,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
+         
     }
 
     public ModelManager() {
@@ -54,6 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyTaskList newData) {
+    	
         taskList.resetData(newData);
         indicateTaskListChanged();
     }
@@ -70,6 +73,16 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+          if(target instanceof Task){
+        	  Task myTask = (Task) target;
+        	  myTask.INCOMPLETE_COUNTER--;
+        	  if(myTask.isOverDue()&&!myTask.isComplete()){
+        		  myTask.OVERDUE_COUNTER--;
+        	  }
+              if(myTask.isFloating()&&!myTask.isComplete()){
+              	myTask.FLOAT_COUNTER--;
+              }	
+          }
         taskList.removeTask(target);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
@@ -77,6 +90,16 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    	  if(task instanceof Task){
+        	  Task myTask = (Task) task;
+        	  myTask.INCOMPLETE_COUNTER++;
+        	  if(myTask.isOverDue()){
+        		  myTask.OVERDUE_COUNTER++;
+        	  }
+              if(myTask.isFloating()){
+              	myTask.FLOAT_COUNTER++;
+              }	
+          }
         taskList.addTask(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
@@ -84,6 +107,16 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
+    	if(task instanceof Task){
+        	  Task myTask = (Task) task;
+        	  myTask.INCOMPLETE_COUNTER--;
+        	  if(myTask.isOverDue()){
+            	  myTask.OVERDUE_COUNTER--;
+        	  }
+              if(myTask.isFloating()){
+              	myTask.FLOAT_COUNTER--;
+              }	
+          }
         taskList.markTaskAsComplete(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();

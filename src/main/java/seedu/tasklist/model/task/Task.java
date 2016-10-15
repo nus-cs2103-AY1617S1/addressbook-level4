@@ -14,7 +14,7 @@ import seedu.tasklist.model.tag.UniqueTagList;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
-
+	
 	private static int currentID = 0;
 	
     private TaskDetails taskDetails;
@@ -24,7 +24,9 @@ public class Task implements ReadOnlyTask {
     private int uniqueID;
     private boolean isComplete;
     private UniqueTagList tags;
-
+	public static int FLOAT_COUNTER;
+	public static int INCOMPLETE_COUNTER;
+	public static int OVERDUE_COUNTER;
     /**
      * Every field must be present and not null.
      */
@@ -37,8 +39,17 @@ public class Task implements ReadOnlyTask {
         this.uniqueID = currentID++;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isComplete = false;
+        /*if(!isComplete())
+        	INCOMPLETE_COUNTER++;
+        if(isFloating())
+           FLOAT_COUNTER++;
+        
+        if(isOverDue())
+        	OVERDUE_COUNTER++;
+        	*/
+        System.out.println("Over: "+isOverDue());
     }
-
+    
     /**
      * Copy constructor.
      */
@@ -54,11 +65,6 @@ public class Task implements ReadOnlyTask {
     @Override
     public StartTime getStartTime() {
         return startTime;
-    }
-
-    @Override
-    public EndTime getEndTime() {
-        return endTime;
     }
 
     @Override
@@ -96,6 +102,10 @@ public class Task implements ReadOnlyTask {
         isComplete = true;
     }
     
+    public EndTime getEndTime(){
+    	return endTime;
+    }
+    
     public void setTaskDetails(TaskDetails taskDetails){
         this.taskDetails = taskDetails;
     }
@@ -127,8 +137,7 @@ public class Task implements ReadOnlyTask {
       int hours = endTime.endtime.get(Calendar.HOUR_OF_DAY);
       Calendar today = Calendar.getInstance();
       today.set(Calendar.HOUR_OF_DAY, hours);
-      
-      return endTime.endtime.after(today);
+      return endTime.endtime.before(today);
     	}
     	else return false;
     }

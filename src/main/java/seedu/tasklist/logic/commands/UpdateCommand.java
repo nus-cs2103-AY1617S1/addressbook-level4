@@ -63,12 +63,24 @@ public class UpdateCommand extends Command {
             */
             if (taskDetails != null)
                 taskToUpdate.setTaskDetails(taskDetails);
-            if (startTime != null)
+            if (startTime != null){
+            	if(taskToUpdate.isFloating()){
+                	taskToUpdate.FLOAT_COUNTER--;
+                }
                 taskToUpdate.setStartTime(startTime);
+                
+            }
             // if (startDate != null)
             // taskToUpdate.setStartDate(startDate);
-            if (endTime != null)
-                taskToUpdate.setEndTime(endTime);
+            if (endTime != null){
+            	if(taskToUpdate.getEndTime().endtime.before(endTime.endtime)){
+            		taskToUpdate.OVERDUE_COUNTER--;
+            	}
+            	if(taskToUpdate.isFloating()){
+                	taskToUpdate.FLOAT_COUNTER--;
+                }
+                taskToUpdate.setEndTime(endTime);         
+            }
             // if (endDate != null)
             // taskToUpdate.setEndDate(endTime);
             if (priority != null)

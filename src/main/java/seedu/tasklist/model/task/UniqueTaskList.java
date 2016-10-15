@@ -101,6 +101,10 @@ public class UniqueTaskList implements Iterable<Task> {
     public Iterator<Task> iterator() {
         return internalList.iterator();
     }
+    
+    public boolean isEmpty(){
+    	return internalList.isEmpty();
+    }
 
     @Override
     public boolean equals(Object other) {

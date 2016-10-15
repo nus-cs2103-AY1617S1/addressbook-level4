@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
  * Wraps all data at the task-list level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskList implements ReadOnlyTaskList {
+public class TaskList implements ReadOnlyTaskList{
+
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -24,13 +25,28 @@ public class TaskList implements ReadOnlyTaskList {
         tags = new UniqueTagList();
     }
 
-    public TaskList() {}
+    public TaskList() {
+    	
+    }
+    
 
     /**
      * tasks and Tags are copied into this task list
      */
     public TaskList(ReadOnlyTaskList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+     
+        Iterator itr = tasks.iterator();
+    	while(itr.hasNext()){
+    		Task task = (Task)itr.next();
+    		if(!task.isComplete())
+            	task.INCOMPLETE_COUNTER++;
+    	    if(task.isFloating())
+               task.FLOAT_COUNTER++;
+            
+            if(task.isOverDue())
+            	task.OVERDUE_COUNTER++;
+    	}
     }
 
     /**
@@ -138,7 +154,11 @@ public class TaskList implements ReadOnlyTaskList {
     public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
     }
+    
 
+    public boolean isEmpty(){
+    	return tasks.isEmpty();
+    }
     @Override
     public UniqueTagList getUniqueTagList() {
         return this.tags;
