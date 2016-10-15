@@ -59,6 +59,8 @@ public class Parser {
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT_2 = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern ADD_TAGS_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<targetIndex>\\S+)(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern TASK_EDIT_DATA_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\S+)(?<arguments>.*)");
     private static final CharSequence NAME = "n/";
@@ -96,6 +98,9 @@ public class Parser {
             
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
+            
+        case TagCommand.COMMAND_WORD:
+            return prepareTag(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -326,6 +331,35 @@ public class Parser {
         else
             return null;                
     }
+    
+    /**
+     * Parses arguments in the context of the add task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    //@@author A0139481Y
+    private Command prepareTag(String args){
+    	final Matcher matcher = ADD_TAGS_ARGS_FORMAT.matcher(args.trim());
+    	if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
+    	
+    	Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+    	System.out.println(index);
+    	if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
+    	try{   
+            return new TagCommand(
+                   index.get(),
+                   getTagsFromArgs(matcher.group("tagArguments"))
+           );            
+           } catch (IllegalValueException ive) {
+        	   return new IncorrectCommand(ive.getMessage());
+           }
+    }
 
     /**
      * Parses arguments in the context of the delete task command.
@@ -333,6 +367,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author generated
     private Command prepareDelete(String args) {
 
         Optional<Integer> index = parseIndex(args);
@@ -350,6 +385,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author generated
     private Command prepareSelect(String args) {
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
@@ -427,7 +463,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-       
+    //@@author generated
     private Command prepareList(String arguments) {
         if (arguments.length() == 0)
             return new ListCommand();
