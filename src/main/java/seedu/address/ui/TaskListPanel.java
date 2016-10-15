@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskType;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -100,7 +101,13 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(SomedayTaskCard.load(task, getIndex() + 1).getLayout());
+            	if (task.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
+                    setGraphic(SomedayTaskCard.load(task, getIndex() + 1).getLayout());
+            	} else if (task.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
+            		setGraphic(DeadlineTaskCard.load(task, getIndex() + 1).getLayout());
+            	} else {
+            		setGraphic(EventTaskCard.load(task, getIndex() + 1).getLayout());
+            	}
             }
         }
     }

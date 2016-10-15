@@ -8,6 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -21,6 +22,7 @@ public class ParserTest {
 	private final AddCommand addCommand;
 	private final ListCommand listCommand;
 	private final DeleteCommand deleteCommand;
+	private final EditCommand editCommand;
 	private final UndoCommand undoCommand;
 	private final RedoCommand redoCommand;
 	
@@ -30,6 +32,7 @@ public class ParserTest {
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
+		editCommand = new EditCommand(1, "editing");
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
 	}
@@ -148,7 +151,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineNoTime_incorrectCommandReturned() {
-		String userInput = "add deadline 'submission all day' by 36/2/";
+		String userInput = "add deadline 'submission all day' by 16/2/";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -303,7 +306,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_delValidIndex_deleteCommandReturned() {
-		String userInput = "delete 2";
+		String userInput = "del 2";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(deleteCommand.getClass(), command.getClass());
@@ -311,7 +314,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_delValidIndices_deleteCommandReturned() {
-		String userInput = "delete 3 2";
+		String userInput = "del 3 2";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(deleteCommand.getClass(), command.getClass());
@@ -349,7 +352,7 @@ public class ParserTest {
 		String userInput = "edit 1 'new name'";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(addCommand.getClass(), command.getClass());
+		assertEquals(editCommand.getClass(), command.getClass());
 	}
 	
 	/*

@@ -6,9 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
 
-public class SomedayTaskCard extends UiPart{
+public class DeadlineTaskCard extends UiPart{
 
-    private static final String FXML = "SomedayTaskCard.fxml";
+    private static final String FXML = "DeadlineTaskCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -18,16 +18,18 @@ public class SomedayTaskCard extends UiPart{
     private Label id;
     @FXML
     private Label taskType;
+    @FXML
+    private Label dueDateAndTime;
 
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public SomedayTaskCard(){
+    public DeadlineTaskCard(){
 
     }
 
-    public static SomedayTaskCard load(ReadOnlyTask task, int displayedIndex){
-    	SomedayTaskCard card = new SomedayTaskCard();
+    public static DeadlineTaskCard load(ReadOnlyTask task, int displayedIndex){
+    	DeadlineTaskCard card = new DeadlineTaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
@@ -38,6 +40,7 @@ public class SomedayTaskCard extends UiPart{
         taskName.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         taskType.setText(task.getTaskType().toString());
+        dueDateAndTime.setText(task.getEndDate().toString());
     }
 
     public HBox getLayout() {
