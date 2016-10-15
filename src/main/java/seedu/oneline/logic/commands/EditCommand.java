@@ -46,7 +46,7 @@ public class EditCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, false);
         }
 
         ReadOnlyTask oldTask = lastShownList.get(targetIndex - 1);
@@ -86,25 +86,24 @@ public class EditCommand extends Command {
                 }
             }
         } catch (IllegalValueException e) {
-            return new CommandResult(e.getMessage());
+            return new CommandResult(e.getMessage(), false);
         }
         
         Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTags);
         
         if (model.getTaskBook().getTaskList().contains(newTask)) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(MESSAGE_DUPLICATE_TASK, false);
         }
         
         try {
             model.replaceTask(oldTask, newTask);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.toString()), true);
         } catch (UniqueTaskList.TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "The update task should not already exist";
         }
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.toString()));
+        return null;
     }
     
     @Override
