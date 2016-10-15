@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.emeraldo.ui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

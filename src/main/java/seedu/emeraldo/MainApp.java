@@ -4,8 +4,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
 import seedu.emeraldo.commons.core.Config;
 import seedu.emeraldo.commons.core.EventsCenter;
 import seedu.emeraldo.commons.core.LogsCenter;
@@ -19,6 +17,8 @@ import seedu.emeraldo.logic.LogicManager;
 import seedu.emeraldo.model.*;
 import seedu.emeraldo.storage.Storage;
 import seedu.emeraldo.storage.StorageManager;
+import seedu.emeraldo.ui.Ui;
+import seedu.emeraldo.ui.UiManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

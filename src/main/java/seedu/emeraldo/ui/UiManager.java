@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.emeraldo.ui;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
