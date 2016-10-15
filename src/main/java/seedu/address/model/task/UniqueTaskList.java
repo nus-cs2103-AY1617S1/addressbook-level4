@@ -2,7 +2,6 @@ package seedu.address.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.exceptions.DuplicateDataException;
@@ -37,7 +36,6 @@ public class UniqueTaskList implements Iterable<Task> {
     public static class TaskNotFoundException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-    private final FilteredTaskLists filteredTaskLists = new FilteredTaskLists(internalList);
 
 
     /**
@@ -162,25 +160,25 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList;
     }
 
-    public ObservableList<Task> getSubInternalTodayTaskList() {
-        return filteredTaskLists.getTodayTaskList();
-    }
-
-    public ObservableList<Task> getSubInternalTomorrowTaskList() {
-        return filteredTaskLists.getTomorrowTaskList();
-    }
-
-    public ObservableList<Task> getSubInternalIn7DaysTaskList() {
-        return filteredTaskLists.getIn7DaysTaskList();
-    }
-
-    public ObservableList<Task> getSubInternalIn30DaysTaskList() {
-        return filteredTaskLists.getIn30DaysTaskList();
-    }
-
-    public ObservableList<Task> getSubInternalSomedayTaskList() {
-        return filteredTaskLists.getSomedayTaskList();
-    }
+//    public ObservableList<Task> getSubInternalTodayTaskList() {
+//        return filteredTaskLists.getTodayTaskList();
+//    }
+//
+//    public ObservableList<Task> getSubInternalTomorrowTaskList() {
+//        return filteredTaskLists.getTomorrowTaskList();
+//    }
+//
+//    public ObservableList<Task> getSubInternalIn7DaysTaskList() {
+//        return filteredTaskLists.getIn7DaysTaskList();
+//    }
+//
+//    public ObservableList<Task> getSubInternalIn30DaysTaskList() {
+//        return filteredTaskLists.getIn30DaysTaskList();
+//    }
+//
+//    public ObservableList<Task> getSubInternalSomedayTaskList() {
+//        return filteredTaskLists.getSomedayTaskList();
+//    }
 	
     @Override
     public Iterator<Task> iterator() {
