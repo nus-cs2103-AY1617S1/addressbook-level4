@@ -20,7 +20,12 @@ public class FlagArgumentTest {
 
     @Test
     public void testDefaultValue() {
+        assertEquals("t", argument.getFlag());
         assertFalse(argument.getValue());
+        
+        argument = new FlagArgument("Pin", true);
+        assertTrue(argument.getValue());
+        assertEquals("p", argument.getFlag());
     }
     
     @Test
@@ -33,6 +38,15 @@ public class FlagArgumentTest {
     public void testSetStringValue() throws IllegalValueException {
         argument.setValue("Hello World");
         assertTrue(argument.getValue());
+    }
+    
+    @Test
+    public void testToString() {
+        argument.flag("t");
+        assertEquals("[/t]", argument.toString());
+        
+        argument.required();
+        assertEquals("/t", argument.toString());
     }
 
 }

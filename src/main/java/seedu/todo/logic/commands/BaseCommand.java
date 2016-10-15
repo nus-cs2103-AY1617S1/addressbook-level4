@@ -1,6 +1,8 @@
 package seedu.todo.logic.commands;
 
+import java.util.List;
 import java.util.Map.Entry;
+import java.util.StringJoiner;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -8,7 +10,6 @@ import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.TodoModel;
-import seedu.todo.model.task.ImmutableTask;
 
 /**
  * The base class for commands. All commands need to implement an execute function 
@@ -31,6 +32,18 @@ public abstract class BaseCommand {
     protected ErrorBag errors = new ErrorBag(); 
     
     abstract protected Parameter[] getArguments();
+
+    /**
+     * Return the name of the command, which is used to call it
+     */
+    abstract public String getCommandName();
+
+    /**
+     * Returns a list of command summaries for the command. This function returns a 
+     * list because commands may (rarely) be responsible for more than one thing, 
+     * like the <code>add</code> command. 
+     */
+    abstract public List<CommandSummary> getCommandSummary();
     
     abstract public CommandResult execute() throws ValidationException;
     
@@ -124,5 +137,16 @@ public abstract class BaseCommand {
      */
     protected CommandResult taskSuccessfulResult(String title, String verb) {
         return new CommandResult(String.format(BaseCommand.TASK_MODIFIED_SUCCESS_MESSAGE, title, verb));
+    }
+
+    /**
+     * Turns the arguments into a string summary using their toString function
+     */
+    protected String getArgumentSummary() {
+        StringJoiner sj = new StringJoiner(" ");
+        for (Parameter p : getArguments()) {
+            sj.add(p.toString());
+        }
+        return sj.toString();
     }
 }

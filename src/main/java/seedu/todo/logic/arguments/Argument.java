@@ -4,11 +4,15 @@ import java.util.logging.Logger;
 
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.logic.parser.TodoParser;
 
 abstract public class Argument<T> implements Parameter {
     private static final String REQUIRED_ERROR_FORMAT = "The %s parameter is required";
     private static final String TYPE_ERROR_FORMAT = "The %s should be a %s. You gave '%s'.";
-
+    
+    protected static final String OPTIONAL_ARGUMENT_FORMAT = "[%s]";
+    protected static final String FLAG_ARGUMENT_FORMAT = "%s%s %s";
+    
     private String name;
     private String description;
     private String flag;
@@ -121,5 +125,22 @@ abstract public class Argument<T> implements Parameter {
      */
     protected void typeError(String field, String expected, String actual) throws IllegalValueException {
         throw new IllegalValueException(String.format(Argument.TYPE_ERROR_FORMAT, field, expected, actual));
+    }
+    
+    @Override
+    public String toString() {
+        return toString(name);
+    }
+    
+    public String toString(String name) {
+        if (!isPositional()) {
+            name = String.format(FLAG_ARGUMENT_FORMAT, TodoParser.FLAG_TOKEN, flag, name);
+        }
+
+        if (isOptional()) {
+            name = String.format(OPTIONAL_ARGUMENT_FORMAT, name);
+        }
+
+        return name;
     }
 }

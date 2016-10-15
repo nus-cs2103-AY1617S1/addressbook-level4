@@ -1,7 +1,11 @@
 package seedu.todo.logic.commands;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.*;
+
+import java.util.List;
 
 public class AddCommand extends BaseCommand {
     private static final String VERB = "added";
@@ -17,7 +21,7 @@ public class AddCommand extends BaseCommand {
     private Argument<String> location = new StringArgument("location")
             .flag("l");
     
-    private Argument<DateRange> date = new DateRangeArgument("date")
+    private Argument<DateRange> date = new DateRangeArgument("deadline")
             .flag("d");
 
     @Override
@@ -25,6 +29,20 @@ public class AddCommand extends BaseCommand {
         return new Parameter[] {
             title, date, description, location, pin,
         };
+    }
+
+    @Override
+    public String getCommandName() {
+        return "add";
+    }
+
+    @Override
+    public List<CommandSummary> getCommandSummary() {
+        String eventArguments = Joiner.on(" ").join(title, "/d start and end time", description, location, pin);
+        
+        return ImmutableList.of(
+            new CommandSummary("Add task", getCommandName(), getArgumentSummary()), 
+            new CommandSummary("Add event", getCommandName(), eventArguments));
     }
 
     @Override

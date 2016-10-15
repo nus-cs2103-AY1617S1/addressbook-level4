@@ -1,5 +1,6 @@
 package seedu.todo.logic.commands;
 
+import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +12,8 @@ import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -19,24 +22,31 @@ public class BaseCommandTest extends CommandTest {
     private Argument<Boolean> flagArgument = mock(FlagArgument.class);
     private Argument<Integer> intArgument = mock(IntArgument.class);
     private Argument<String> stringArgument = mock(StringArgument.class);
+    
+    private StubCommand stubCommand;
 
     @Override
     protected BaseCommand commandUnderTest() {
-        return new StubCommand();
+        stubCommand = new StubCommand();
+        return stubCommand;
     }
     
     @Before
     public void setUp() throws Exception {
         when(requiredArgument.isPositional()).thenReturn(true);
+        when(requiredArgument.toString()).thenReturn("required");
         
         when(flagArgument.isOptional()).thenReturn(true);
         when(flagArgument.getFlag()).thenReturn("f");
+        when(flagArgument.toString()).thenReturn("flag");
         
         when(intArgument.isOptional()).thenReturn(true);
         when(intArgument.getFlag()).thenReturn("i");
+        when(intArgument.toString()).thenReturn("int");
         
         when(stringArgument.isOptional()).thenReturn(true);
         when(stringArgument.getFlag()).thenReturn("s");
+        when(stringArgument.toString()).thenReturn("string");
     }
     
     @Test
@@ -57,17 +67,19 @@ public class BaseCommandTest extends CommandTest {
     @Test
     public void testCustomArgumentError() throws Exception {
         command = new CommandWithOverrideMethods();
-        boolean exceptionThrown = false; 
         
         try {
             execute(false);
+            fail();
         } catch (ValidationException e) {
-            exceptionThrown = true;
             assertEquals("Test error message", e.getMessage());
             assertTrue(e.getErrors().getNonFieldErrors().contains("Test error"));
         }
-        
-        assertTrue(exceptionThrown);
+    }
+    
+    @Test
+    public void getArgumentSummary() {
+        assertEquals("required flag int string", stubCommand.getArgumentSummaryResult());
     }
 
     @Test(expected=ValidationException.class)
@@ -85,9 +97,23 @@ public class BaseCommandTest extends CommandTest {
         }
 
         @Override
+        public String getCommandName() {
+            return "stub";
+        }
+
+        @Override
+        public List<CommandSummary> getCommandSummary() {
+            return ImmutableList.of(mock(CommandSummary.class));
+        }
+
+        @Override
         public CommandResult execute() throws ValidationException {
             // Does nothing
             return new CommandResult("Great Success!");
+        }
+        
+        public String getArgumentSummaryResult() {
+            return getArgumentSummary();
         }
     }
     

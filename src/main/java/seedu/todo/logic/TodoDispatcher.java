@@ -1,57 +1,50 @@
 package seedu.todo.logic;
 
+import com.google.common.base.Joiner;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.BaseCommand;
-import seedu.todo.logic.commands.CompleteCommand;
-import seedu.todo.logic.commands.AddCommand;
-import seedu.todo.logic.commands.DeleteCommand;
-import seedu.todo.logic.commands.EditCommand;
-import seedu.todo.logic.commands.ExitCommand;
-import seedu.todo.logic.commands.PinCommand;
-import seedu.todo.logic.parser.ParseResult;
+import seedu.todo.logic.commands.CommandMap;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Selects the correct command based on the parser results
  */
 public class TodoDispatcher implements Dispatcher {
-    public BaseCommand dispatch(ParseResult parser) throws IllegalValueException {
-        BaseCommand command;
+    private final static String COMMAND_NOT_FOUND_FORMAT = "'%s' doesn't look like any command we know.";
+    private final static String AMBIGUOUS_COMMAND_FORMAT = "Do you mean %s?";
+    
+    public BaseCommand dispatch(String input) throws IllegalValueException {
+        // Implements character by character matching of input to the list of command names
+        // Since this eliminates non-matches at every character, it is fast even though 
+        // it is theoretically O(n^2) in the worst case.
+        Set<String> commands = new HashSet<>(CommandMap.getCommandMap().keySet());
         
-        switch (parser.getCommand()) {
-        case "add":
-        case "a":
-            command = new AddCommand();
-            break;
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
 
-        case "complete":
-        case "comp":
-        case "c":
-            command= new CompleteCommand();
-            break;
-
-        case "delete":
-        case "d":
-            command = new DeleteCommand();
-            break;
-
-        case "edit":
-        case "e":
-            command = new EditCommand();
-            break;
-
-        case "exit":
-            command = new ExitCommand();
-            break;
-
-        case "pin":
-        case "p":
-            command = new PinCommand();
-            break;
-
-        default:
-            throw new IllegalValueException("Command not recognized");
+            Iterator<String> s = commands.iterator();
+            while (s.hasNext()) {
+                String commandName = s.next();
+                if (input.length() > commandName.length() || commandName.charAt(i) != c) {
+                    s.remove();
+                }
+            }
+            
+            // Return immediately when there's one match left. This allow the user to 
+            // type as little as possible, and is also good for autocomplete if that's 
+            // on the radar
+            if (commands.size() == 1) {
+                String key = commands.iterator().next();
+                return CommandMap.getCommand(key);
+            } else if (commands.isEmpty()) {
+                throw new IllegalValueException(String.format(TodoDispatcher.COMMAND_NOT_FOUND_FORMAT, input));
+            }
         }
         
-        return command;
+        String ambiguousCommands = Joiner.on(" or ").join(commands);
+        throw new IllegalValueException(String.format(TodoDispatcher.AMBIGUOUS_COMMAND_FORMAT, ambiguousCommands));
     }
 }
