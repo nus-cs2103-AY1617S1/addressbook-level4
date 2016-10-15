@@ -6,13 +6,6 @@
     -fx-spacing: 4;
 }
 
-.commandFeedback{
-    -fx-fill: #ffffff;
-    -fx-text-fill: white;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 12pt;
-}
-
 .spacing {
     -fx-spacing: 8px;
     -fx-hgap: 8px;
@@ -29,9 +22,40 @@
     -fx-padding: 0 0 0 2;
 }
 
+
+.commandFeedback{
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12pt;
+}
+
+.commandFeedback.error {
+    -fx-text-fill: #FF6464;
+}
+
 .commandInput {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 14pt;
+}
+
+.commandInput.error {
+    -fx-border-color: #FF6464;
+    -fx-border-width: 2px;
+    -fx-text-fill: #FF6464;
+}
+
+.commandError {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12pt;
+    -fx-wrap-text: true;
+}
+
+.commandErrorGrid {
+    -fx-hgap: 16pt;
+    -fx-vgap: 2pt;
+    -fx-background-color: #3D3D3D;
+    -fx-padding: 2 8 2 8;
 }
 
 .roundLabel {

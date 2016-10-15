@@ -10,6 +10,7 @@
          <VBox.margin>
             <Insets />
          </VBox.margin></AnchorPane>
+      <AnchorPane fx:id="errorViewPlaceholder" />
        <AnchorPane fx:id="resultDisplayPlaceholder" prefHeight="16.0" VBox.vgrow="NEVER">
          <VBox.margin>
             <Insets />

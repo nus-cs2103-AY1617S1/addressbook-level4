@@ -11,6 +11,10 @@ import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
+import seedu.todo.ui.controller.CommandController;
+import seedu.todo.ui.view.CommandErrorView;
+import seedu.todo.ui.view.CommandFeedbackView;
+import seedu.todo.ui.view.CommandInputView;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -28,6 +32,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private CommandInputView commandInputView;
     private CommandFeedbackView commandFeedbackView;
+    private CommandErrorView commandErrorView;
     
     private TodoListPanel todoListPanel;
     private Config config;
@@ -40,10 +45,13 @@ public class MainWindow extends UiPart {
     private String todoListName;
 
     @FXML
+    private AnchorPane todoListPanelPlaceholder;
+
+    @FXML
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private AnchorPane todoListPanelPlaceholder;
+    private AnchorPane errorViewPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -88,21 +96,11 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getObservableTaskList());
-        commandFeedbackView = CommandFeedbackView.load(primaryStage, getResultDisplayPlaceholder());
-        commandInputView = CommandInputView.load(primaryStage, getCommandBoxPlaceholder(), commandFeedbackView, logic);
-    }
-
-    private AnchorPane getCommandBoxPlaceholder() {
-        return commandBoxPlaceholder;
-    }
-
-    private AnchorPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
-    }
-
-    public AnchorPane getTodoListPlaceholder() {
-        return todoListPanelPlaceholder;
+        todoListPanel = TodoListPanel.load(primaryStage, todoListPanelPlaceholder, logic.getObservableTaskList());
+        commandFeedbackView = CommandFeedbackView.load(primaryStage, resultDisplayPlaceholder);
+        commandInputView = CommandInputView.load(primaryStage, commandBoxPlaceholder);
+        commandErrorView = CommandErrorView.load(primaryStage, errorViewPlaceholder);
+        CommandController.constructLink(logic, commandInputView, commandFeedbackView, commandErrorView);
     }
 
     public void hide() {
