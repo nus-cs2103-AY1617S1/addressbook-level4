@@ -13,4 +13,13 @@ public class CommandMap {
         .put("exit", ExitCommand.class)
         .put("pin", PinCommand.class)
         .build();
+    
+    public static BaseCommand getInstance(String key) {
+        try {
+            return CommandMap.COMMAND_MAP.get(key).newInstance();
+        } catch (InstantiationException|IllegalAccessException e) {
+            e.printStackTrace();
+            return null; // This shouldn't happen
+        }
+    }
 }

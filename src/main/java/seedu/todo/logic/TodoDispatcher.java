@@ -3,6 +3,7 @@ package seedu.todo.logic;
 import com.google.common.base.Joiner;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.BaseCommand;
+import seedu.todo.logic.commands.CommandMap;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,12 +34,7 @@ public class TodoDispatcher implements Dispatcher {
             
             if (commands.size() == 1) {
                 String key = commands.iterator().next();
-                
-                try {
-                    return COMMAND_MAP.get(key).newInstance();
-                } catch (InstantiationException|IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                return CommandMap.getInstance(key);
             } else if (commands.isEmpty()) {
                 throw new IllegalValueException(String.format(TodoDispatcher.COMMAND_NOT_FOUND_FORMAT, input));
             }
