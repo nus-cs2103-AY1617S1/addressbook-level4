@@ -84,7 +84,12 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleRelocateEvent(RelocateFilePathEvent event) {
         assert event.newFilePath != null;
         String oldPath = taskManagerStorage.getTaskManagerFilePath();
-        String newPath = event.newFilePath + "/mastermind.xml";
+        String newPath = event.newFilePath;
+        if (event.newFilePath.endsWith("/")) {
+            newPath = newPath + "mastermind.xml";
+        } else {
+            newPath = newPath + "/mastermind.xml";
+        }
         taskManagerStorage.setTaskManagerFilePath(newPath);
         try {
             taskManagerStorage.migrateIntoNewFolder(oldPath, event.newFilePath);

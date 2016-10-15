@@ -15,7 +15,7 @@ import harmony.mastermind.model.task.*;
 
 /**
  * @author A0139194X
- * Adds a task to the task manager.
+ * Relocates save location
  */
 public class RelocateCommand extends Command {
 

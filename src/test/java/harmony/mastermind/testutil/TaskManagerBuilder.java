@@ -7,29 +7,29 @@ import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building taskManager objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code taskManager ab = new taskManagerBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
 public class TaskManagerBuilder {
 
-    private TaskManager addressBook;
+    private TaskManager taskManager;
 
-    public TaskManagerBuilder(TaskManager addressBook){
-        this.addressBook = addressBook;
+    public TaskManagerBuilder(TaskManager taskManager){
+        this.taskManager = taskManager;
     }
 
     public TaskManagerBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(person);
+        taskManager.addTask(person);
         return this;
     }
 
     public TaskManagerBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+        taskManager.addTag(new Tag(tagName));
         return this;
     }
 
     public TaskManager build(){
-        return addressBook;
+        return taskManager;
     }
 }
