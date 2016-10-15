@@ -7,7 +7,7 @@ import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the person list panel.
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
@@ -47,7 +47,7 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(TAGS_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyTask task){
+    public boolean isSameTask(ReadOnlyTask task){
         return getFullName().equals(task.getName().fullName) && getStartDate().equals(task.getStartDate().getDisplayString())
                 && getEndDate().equals(task.getEndDate().getDisplayString()) && getLocation().equals(task.getLocation().value);
     }

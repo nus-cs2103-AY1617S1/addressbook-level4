@@ -72,7 +72,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add " + this.getName().fullName + " ");
         sb.append("s/" + this.getStartDate() + " ");
         sb.append("e/" + this.getEndDate() + " ");
-        sb.append("at" + this.getLocation().value);
+        sb.append("at" + " " + this.getLocation().value);
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
@@ -82,7 +82,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append(" " + this.getName().fullName + " ");
         sb.append("s/" + this.getStartDate() + " ");
         sb.append("e/" + this.getEndDate() + " ");
-        sb.append("at" + this.getLocation().value);
+        sb.append("at" + " " + this.getLocation().value);
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

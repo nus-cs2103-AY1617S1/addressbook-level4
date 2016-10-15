@@ -41,7 +41,7 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskScheduler getEmptyAddressBook() {
+    public static ReadOnlyTaskScheduler getEmptyTaskScheduler() {
         return new TaskScheduler();
     }
 

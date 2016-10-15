@@ -18,7 +18,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the scheduler. "
-            + "Parameters: TASK s/START_DATE e/END_DATE at LOCATION  [t/TAG]...\n"
+            + "Parameters: TASK_NAME s/START_DATE e/END_DATE at LOCATION  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " Do CS2103 Pretut\n"
             + "Example: " + COMMAND_WORD

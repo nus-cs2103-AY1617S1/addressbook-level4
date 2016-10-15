@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskScheduler;
@@ -28,12 +28,12 @@ public interface Storage extends TaskSchedulerStorage, UserPrefsStorage {
     Optional<ReadOnlyTaskScheduler> readTaskScheduler() throws DataConversionException, FileNotFoundException;
 
     @Override
-    void saveTaskScheduler(ReadOnlyTaskScheduler addressBook) throws IOException;
+    void saveTaskScheduler(ReadOnlyTaskScheduler taskScheduler) throws IOException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
+     * Saves the current version of the Task Scheduler to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleTaskSchedulerChangedEvent(TaskSchedulerChangedEvent abce);
 }

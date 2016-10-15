@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * A class to access AddressBook data stored as an xml file on the hard disk.
+ * A class to access TaskScheduler data stored as an xml file on the hard disk.
  */
 public class XmlTaskSchedulerStorage implements TaskSchedulerStorage {
 
@@ -33,37 +33,37 @@ public class XmlTaskSchedulerStorage implements TaskSchedulerStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTaskScheduler> readAddressBook(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyTaskScheduler> readTaskScheduler(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
-        File addressBookFile = new File(filePath);
+        File taskSchedulerFile = new File(filePath);
 
-        if (!addressBookFile.exists()) {
-            logger.info("AddressBook file "  + addressBookFile + " not found");
+        if (!taskSchedulerFile.exists()) {
+            logger.info("TaskScheduler file "  + taskSchedulerFile + " not found");
             return Optional.empty();
         }
 
-        ReadOnlyTaskScheduler addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTaskScheduler taskSchedulerOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        return Optional.of(addressBookOptional);
+        return Optional.of(taskSchedulerOptional);
     }
 
     /**
      * Similar to {@link #saveTaskScheduler(ReadOnlyTaskScheduler)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveTaskScheduler(ReadOnlyTaskScheduler addressBook, String filePath) throws IOException {
-        assert addressBook != null;
+    public void saveTaskScheduler(ReadOnlyTaskScheduler taskScheduler, String filePath) throws IOException {
+        assert taskScheduler != null;
         assert filePath != null;
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskScheduler(taskScheduler));
     }
 
     @Override
     public Optional<ReadOnlyTaskScheduler> readTaskScheduler() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+        return readTaskScheduler(filePath);
     }
 
     @Override

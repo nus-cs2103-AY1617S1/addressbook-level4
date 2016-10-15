@@ -7,11 +7,11 @@ import seedu.address.model.task.*;
 /**
  *
  */
-public class TypicalTestPersons {
+public class TypicalTestTasks {
 
     public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestPersons() {
+    public TypicalTestTasks() {
         try {
             alice =  new TaskBuilder().withName("Do CS2103 Pretut").withAddress("At Home")
                     .withEndDate("071016").withStartDate("011016").withTags("Event").build();
@@ -40,7 +40,7 @@ public class TypicalTestPersons {
         }
     }
 
-    public static void loadAddressBookWithSampleData(TaskScheduler ab) {
+    public static void loadTaskSchedulerWithSampleData(TaskScheduler ab) {
 
         try {
             ab.addTask(new Task(alice));
@@ -55,13 +55,13 @@ public class TypicalTestPersons {
         }
     }
 
-    public TestTask[] getTypicalPersons() {
+    public TestTask[] getTypicalTasks() {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public TaskScheduler getTypicalAddressBook(){
+    public TaskScheduler getTypicalTaskScheduler(){
         TaskScheduler ab = new TaskScheduler();
-        loadAddressBookWithSampleData(ab);
+        loadTaskSchedulerWithSampleData(ab);
         return ab;
     }
 }

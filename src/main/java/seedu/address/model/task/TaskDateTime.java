@@ -18,14 +18,14 @@ public class TaskDateTime {
     }
     
     public TaskDateTime(String args) throws IllegalValueException {
-        if (args.trim().isEmpty())
-            throw new IllegalValueException(Messages.MESSAGE_INVALID_DATE_FORMAT);
-        String[] split = args.split(" ");
+        if (args == null || args.trim().isEmpty())
+            return;
+        String[] split = args.trim().replace("at", "").split("\\s+");
         if (split.length > 0) {
-            date = DateFormatter.convertStringToDate(split[0]);
+            date = DateFormatter.convertStringToDate(split[0].trim());
         }
-        if (split.length > 1) {
-            time = DateFormatter.convertStringToTime(split[1]);
+        if (split.length > 1 && !split[1].trim().isEmpty()) {
+            time = DateFormatter.convertStringToTime(split[1].trim());
         }
     }
     

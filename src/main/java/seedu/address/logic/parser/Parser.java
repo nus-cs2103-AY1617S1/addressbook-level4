@@ -29,15 +29,22 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
-    private static final Pattern TASK_DATA_ARGS_FORMAT_1 = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " s/(?<startDate>[^/]*)"
-                    + " e/(?<endDate>[^(at)]*)"
-                    + " at(?<address>.*)"); 
+                    + " e/(?<endDate>.*)"
+                    + "(?>\\s+\\bat\\b)"
+                    + "(?<address>.*)"
+                    ); 
  
-    private static final Pattern TASK_DATA_ARGS_FORMAT_2 = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^(by)]+)"
-                    + " by(?<endDate>.*)");
+    private static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>.+)"
+                    + "(?>\\s+\\bby\\b)"
+                    + "(?<endDate>.*)"
+                    );
+    
+    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[\\p{Alnum} ]+)");
     
     
     public Parser() {}
@@ -101,23 +108,28 @@ public class Parser {
      */
     private Command prepareAdd(String args){
         try {
-            Matcher matcher = TASK_DATA_ARGS_FORMAT_1.matcher(args.trim());
+            args = args.trim();
+            Matcher matcher = EVENT_DATA_ARGS_FORMAT.matcher(args);
             // Validate arg string format
             if (matcher.matches()) {
                 return new AddCommand(matcher.group("name"), matcher.group("startDate"),
                     matcher.group("endDate"), matcher.group("address"), "Event");
             }
     
-            matcher = TASK_DATA_ARGS_FORMAT_2.matcher(args.trim());
+            matcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args);
     
             if (matcher.matches()) {
-                return new AddCommand(matcher.group("name"), "",
+                return new AddCommand(matcher.group("name"), null,
                     matcher.group("endDate"), "", "Reminder");
             }
-            if (args.trim().length() == 0)
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-    
-                return new AddCommand(args, "", "", "");
+            matcher = TASK_DATA_ARGS_FORMAT.matcher(args);
+            
+            
+            if (matcher.matches()) {
+                return new AddCommand(args, null, null, "");
+             } else {   
+                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -132,7 +144,8 @@ public class Parser {
      */
     private Command prepareEdit(String args) {
         try {
-            final Matcher matcher = INDEX_COMMAND_FORMAT.matcher(args.trim());
+            args = args.trim();
+            final Matcher matcher = INDEX_COMMAND_FORMAT.matcher(args);
     
             // Validate arg string format
             if (!matcher.matches()) {
@@ -140,24 +153,26 @@ public class Parser {
             }
             int index = Integer.parseInt(matcher.group("index"));
             assert index >= 0;
-            args = matcher.group("arguments");
-            Matcher editMatcher = TASK_DATA_ARGS_FORMAT_1.matcher(args);
+            args = matcher.group("arguments").trim();
+            Matcher editMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args);
             
             if (editMatcher.matches()) {
                 return new EditCommand(index, editMatcher.group("name"), editMatcher.group("startDate"),
                         editMatcher.group("endDate"), editMatcher.group("address"), "Event");
             }
-            editMatcher = TASK_DATA_ARGS_FORMAT_2.matcher(args);
+            editMatcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args);
             
             if (editMatcher.matches()) {
                 return new EditCommand(index, editMatcher.group("name"), null,
                         editMatcher.group("endDate"), "", "Reminder"); 
             }
-    
-            if (args.trim().length() == 0)
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             
-            return new EditCommand(index, args, null, null, "");
+            editMatcher = TASK_DATA_ARGS_FORMAT.matcher(args);
+            if (editMatcher.matches()) {
+                return new EditCommand(index, args, null, null, "");
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));      
+            }
 
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

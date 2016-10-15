@@ -6,7 +6,7 @@ import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Task in the addressbook.
+ * A read-only immutable interface for a Task in the task scheduler.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
@@ -66,8 +66,8 @@ public interface ReadOnlyTask {
     }
 
     /**  
-     * For FindCommand to Formats the person as text,   
-     * showing all contact details.  
+     * For FindCommand to Formats the task as text,   
+     * showing all parameters details.  
      */  
     default String getAllFieldAsText() {  
         final StringBuilder builder = new StringBuilder();  
@@ -75,7 +75,7 @@ public interface ReadOnlyTask {
             .append(" ")  
             .append(getStartDate().getDisplayString())  
             .append(" ")  
-            .append(getStartDate().getDisplayString())  
+            .append(getEndDate().getDisplayString())  
             .append(" ")  
             .append(getLocation())  
             .append(" ");  

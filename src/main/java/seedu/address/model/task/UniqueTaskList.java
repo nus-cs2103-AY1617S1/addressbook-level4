@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.DuplicateDataException;
 import java.util.*;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
  *

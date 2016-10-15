@@ -14,8 +14,8 @@ public class Config {
     private String appTitle = "Must Do List";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/addressbook.xml";
-    private String addressBookName = "MustDoList";
+    private String taskSchedulerFilePath = "data/taskscheduler.xml";
+    private String taskSchedulerName = "MustDoList";
 
 
     public Config() {
@@ -45,20 +45,20 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getAddressBookFilePath() {
-        return addressBookFilePath;
+    public String getTaskSchedulerFilePath() {
+        return taskSchedulerFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setTaskSchedulerFilePath(String taskSchedulerFilePath) {
+        this.taskSchedulerFilePath = taskSchedulerFilePath;
     }
 
-    public String getAddressBookName() {
-        return addressBookName;
+    public String getTaskSchedulerName() {
+        return taskSchedulerName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.addressBookName = addressBookName;
+    public void setTaskSchedulerName(String taskSchedulerName) {
+        this.taskSchedulerName = taskSchedulerName;
     }
 
 
@@ -76,13 +76,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(addressBookName, o.addressBookName);
+                && Objects.equals(taskSchedulerFilePath, o.taskSchedulerFilePath)
+                && Objects.equals(taskSchedulerName, o.taskSchedulerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, addressBookFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskSchedulerFilePath, taskSchedulerName);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nAddressBook name : " + addressBookName);
+        sb.append("\nLocal data file location : " + taskSchedulerFilePath);
+        sb.append("\nTaskScheduler name : " + taskSchedulerName);
         return sb.toString();
     }
 
