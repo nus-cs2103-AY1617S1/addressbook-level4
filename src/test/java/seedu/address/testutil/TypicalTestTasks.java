@@ -9,7 +9,7 @@ import seedu.address.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida, overdue;
 
     public TypicalTestTasks() {
         try {
@@ -33,6 +33,8 @@ public class TypicalTestTasks {
             hoon = new TaskBuilder().withName("Regret working at Mcdonalds").withAddress("At the hospital")
                     .withEndDate("030452").withStartDate("020452").build();
             ida = new TaskBuilder().withName("Thinking about what happen if I fail CS2103").withAddress("At ICube Lecture Hall")
+                    .withEndDate("071016").withStartDate("071016").build();
+            overdue = new TaskBuilder().withName("Overdue Task Colour Test").withAddress("At ICube Lecture Hall")
                     .withEndDate("071016").withStartDate("071016").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();

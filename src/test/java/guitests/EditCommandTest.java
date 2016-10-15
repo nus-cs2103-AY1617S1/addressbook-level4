@@ -1,5 +1,6 @@
 package guitests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -10,6 +11,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.ui.TaskCard;
 
 
 public class EditCommandTest extends TaskSchedulerGuiTest {
@@ -25,9 +27,13 @@ public class EditCommandTest extends TaskSchedulerGuiTest {
         currentList = TestUtil.addTasksToList(currentList);
         
         //edit another task
-        taskToCopy = td.ida;
+        taskToCopy = td.overdue;
         indexToEdit = 3;
-        assertEditSuccess(indexToEdit, taskToCopy, currentList);
+        assertEditSuccess(indexToEdit, taskToCopy, currentList);        
+        //assert that overdue task is red
+        assertTrue(taskListPanel.navigateToTask(indexToEdit - 1).getHBoxStyle().equals(TaskCard.OVERDUE_INDICATION));
+        assertFalse(taskListPanel.navigateToTask(indexToEdit - 1).getHBoxStyle().equals(TaskCard.COMPLETED_INDICATION));
+
         currentList[indexToEdit - 1] = taskToCopy;
         currentList = TestUtil.addTasksToList(currentList);
 

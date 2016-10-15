@@ -2,6 +2,7 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.scene.Node;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.task.ReadOnlyTask;
@@ -10,6 +11,7 @@ import seedu.address.model.task.ReadOnlyTask;
  * Provides a handle to a task card in the person list panel.
  */
 public class TaskCardHandle extends GuiHandle {
+    private static final String CARDPANE_FIELD_ID = "#cardPane";
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String START_DATE_FIELD_ID = "#phone";
@@ -23,10 +25,19 @@ public class TaskCardHandle extends GuiHandle {
         this.node = node;
     }
 
+    protected String getStyleFromHBox(String fieldId) {
+        return getStyleFromHBox(fieldId, node);
+    }
+    
     protected String getTextFromLabel(String fieldId) {
         return getTextFromLabel(fieldId, node);
     }
 
+
+    public String getHBoxStyle() {
+        return getStyleFromHBox(CARDPANE_FIELD_ID);
+    }
+    
     public String getFullName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
