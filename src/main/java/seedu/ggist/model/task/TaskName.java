@@ -8,8 +8,8 @@ import seedu.ggist.commons.exceptions.IllegalValueException;
  */
 public class TaskName {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Tasks should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+//    public static final String MESSAGE_NAME_CONSTRAINTS = "Tasks should be spaces or alphanumeric characters";
+//    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public String taskName;
 
@@ -21,27 +21,27 @@ public class TaskName {
     public TaskName(String taskName) throws IllegalValueException {
         assert taskName != null;
         taskName = taskName.trim();
-        if (!isValidName(taskName)) {
+/*        if (!isValidName(taskName)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
-        }
+        } */
         this.taskName = taskName;
     }
     
     public void editTaskName(String newTaskName) throws IllegalValueException {
         assert newTaskName != null;
         newTaskName = newTaskName.trim();
-        if (!isValidName(newTaskName)) {
+/*        if (!isValidName(newTaskName)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
-        }
+        } */
         this.taskName = newTaskName;
     }
     /**
      * Returns true if a given string is a valid task name.
      */
-    public static boolean isValidName(String test) {
+ /*   public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
     }
-    
+    */
 
     @Override
     public String toString() {
