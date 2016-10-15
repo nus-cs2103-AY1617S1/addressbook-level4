@@ -34,7 +34,7 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(1, 0, 0, true);
 
-    protected Ui ui;
+    protected Ui ui  ;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
@@ -166,7 +166,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping CMDo ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
