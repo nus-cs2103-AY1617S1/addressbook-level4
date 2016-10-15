@@ -52,7 +52,6 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
-        compile group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.1.Final'
         compile group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'
 
 
