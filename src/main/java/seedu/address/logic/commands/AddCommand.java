@@ -21,8 +21,9 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103, add Project Deadline d/14.10.2016 t/CS2103"; //p/3
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_EVENT_SUCCESS = "New event added: %1$s";
+    public static final String MESSAGE_TASK_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "It's already exists in the task manager";
 
     private final Task toAdd;
 
@@ -67,9 +68,17 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            return new CommandResult(String.format(getSuccessMessage(toAdd), toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        }
+    }
+    
+    public static String getSuccessMessage(Task toAdd) {
+        if (toAdd.isEvent()) {
+            return MESSAGE_EVENT_SUCCESS;
+        } else {
+            return MESSAGE_TASK_SUCCESS;
         }
     }
 

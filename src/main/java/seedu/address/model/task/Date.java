@@ -16,7 +16,7 @@ public interface Date {
     int hashCode();
     
     default boolean isEmptyDate() {
-        return toString().equals("");
+        return getValue().equals("");
     }
 
 }

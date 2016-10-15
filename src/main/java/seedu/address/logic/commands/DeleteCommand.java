@@ -60,8 +60,7 @@ public class DeleteCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-        String successMessage = getDeleteSuccessMessage(TaskToDelete);
-        return new CommandResult(String.format(successMessage, TaskToDelete));
+        return new CommandResult(String.format(getDeleteSuccessMessage(TaskToDelete), TaskToDelete));
     }
 
     public static String getDeleteSuccessMessage(ReadOnlyTask TaskToDelete) {
