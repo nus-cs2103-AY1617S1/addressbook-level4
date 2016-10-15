@@ -24,6 +24,8 @@ public class XmlAdaptedTask {
     private long startDate;
     @XmlElement
     private long endDate;
+    @XmlElement
+    private String recurringType;
     
     /**
      * No-arg constructor for JAXB use.
@@ -50,6 +52,7 @@ public class XmlAdaptedTask {
             startDate = TaskDate.DATE_NOT_PRESENT;
             endDate = TaskDate.DATE_NOT_PRESENT;
         }
+        recurringType = source.getRecurringType().name();
     }
 
     /**
@@ -78,6 +81,6 @@ public class XmlAdaptedTask {
     private Task toModelTypeNonFloating(final Name name, final UniqueTagList tags) {
         final TaskDate taskStartDate = new TaskDate(startDate);
         final TaskDate taskEndDate = new TaskDate(endDate);
-        return new Task(name, tags, taskStartDate, taskEndDate);
+        return new Task(name, tags, taskStartDate, taskEndDate, RecurringType.valueOf(recurringType));
     }
 }

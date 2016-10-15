@@ -15,11 +15,13 @@ public class TestTask extends Task implements ReadOnlyTask {
     private TaskType type = TaskType.FLOATING;
     private TaskDate startDate;
     private TaskDate endDate;
+    private RecurringType recurringType;
 
     public TestTask() {
         tags = new UniqueTagList();
         startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+        recurringType = RecurringType.NONE;
     }
 
     public void setName(Name name) {

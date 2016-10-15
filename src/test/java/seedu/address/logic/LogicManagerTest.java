@@ -243,9 +243,11 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
-        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"), 
+        						  RecurringType.NONE);
         Task toBeAddedAfter = new Task(new Name("Task two"), new UniqueTagList(),
-				  new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"));
+				  new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"), 
+				  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
 
@@ -266,9 +268,11 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
-        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"),
+        						  RecurringType.NONE);
         Task toBeAddedAfter = new Task(new Name("Task two"), new UniqueTagList(),
-				  new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 11am"));
+				  new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 11am"),
+				  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
         expectedAB.addTask(toBeAddedAfter);
@@ -290,7 +294,8 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
-        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"));
+        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"),
+        						  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
 
         // execute command and verify result
@@ -301,7 +306,6 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-
 
     @Test
     public void execute_list_showsAllTasks() throws Exception {
@@ -328,7 +332,8 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
-				  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+				  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"), 
+				  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
 
@@ -345,9 +350,11 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
-        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"), 
+        						  RecurringType.NONE);
         Task toBeAddedAfter = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
-				  new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"));
+				  new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"),
+				  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeBlocked);
 
@@ -368,7 +375,8 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
-        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"));
+        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"),
+        						  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
 
         // execute command and verify result
@@ -774,7 +782,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             TaskDate startDate = new TaskDate("19 oct 10pm");
             TaskDate endDate = new TaskDate("20 oct 11am");
-            return new Task(name, tags, startDate, endDate);
+            return new Task(name, tags, startDate, endDate, RecurringType.NONE);
         }
 
         Task nonFloatingByDate() throws Exception {
@@ -784,7 +792,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             TaskDate startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
             TaskDate endDate = new TaskDate("20 oct 11am");
-            return new Task(name, tags, startDate, endDate);
+            return new Task(name, tags, startDate, endDate, RecurringType.NONE);
         }        
         
         /**

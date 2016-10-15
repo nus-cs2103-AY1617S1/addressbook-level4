@@ -104,6 +104,9 @@ public class Task implements ReadOnlyTask {
         this.taskType = type;
     }
     public void setRecurringType(RecurringType type) {
+        if (taskType == TaskType.FLOATING) {
+            assert (!type.equals(RecurringType.NONE)) : "Floating Task cannot be a recurring task";
+        }
         this.recurringType = type;
     }
     

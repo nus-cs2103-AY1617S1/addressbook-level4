@@ -139,7 +139,7 @@ public class UniqueTaskList implements Iterable<Task> {
 		assert target != null;
         boolean taskFoundAndArchived = false;
         System.out.println(internalList.contains(target));
-        for(ReadOnlyTask t : internalList){
+        for(Task t : internalList){
         	if(t.equals(target)){
         		t.setType(TaskType.COMPLETED);
         		taskFoundAndArchived = true;
