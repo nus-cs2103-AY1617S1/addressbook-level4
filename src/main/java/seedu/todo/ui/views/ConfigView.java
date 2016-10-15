@@ -1,6 +1,5 @@
 package seedu.todo.ui.views;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -8,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import seedu.todo.MainApp;
 import seedu.todo.commons.core.ConfigDefinition;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.UiPartLoader;
@@ -18,9 +18,6 @@ public class ConfigView extends View {
     private static final String FXML_PATH = "views/ConfigView.fxml";
 
     private static final String ICON_PATH = "/images/icon-settings.png";
-
-    // Props
-    public List<ConfigDefinition> configDefinitions = new ArrayList<>();
 
     // FXML
     @FXML
@@ -44,6 +41,9 @@ public class ConfigView extends View {
 
         // Load image
         configImageView.setImage(new Image(ICON_PATH));
+        
+        // Get definitions
+        List<ConfigDefinition> configDefinitions = MainApp.getConfig().getDefinitions();
 
         // Clear items
         ConfigItem.reset(configsPlaceholder);

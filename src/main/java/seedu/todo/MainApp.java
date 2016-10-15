@@ -31,8 +31,9 @@ public class MainApp extends Application {
     
     private static final String MESSAGE_WELCOME = "Welcome! What would like to get done today?";
 
+    private static Config config;
+    
     protected UiManager ui;
-    protected Config config;
 
     public MainApp() {}
 
@@ -41,16 +42,16 @@ public class MainApp extends Application {
         super.init();
 
         // Initialize config from config file, or create a new one.
-        config = initConfig(getApplicationParameter("config"));
+        setConfig(initConfig(getApplicationParameter("config")));
 
         // Initialize logging
-        initLogging(config);
+        initLogging(getConfig());
 
         // Initialize events center
         initEventsCenter();
 
         // Initialize UI config
-        UiManager.initialize(config);
+        UiManager.initialize(getConfig());
         ui = UiManager.getInstance();
 
         // Load DB
@@ -145,5 +146,13 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static Config getConfig() {
+        return config;
+    }
+
+    public static void setConfig(Config config) {
+        MainApp.config = config;
     }
 }
