@@ -123,6 +123,7 @@ public class Parser {
             return prepareSelect(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.SHORT_COMMAND_WORD:
             return prepareDelete(arguments);
 
         case ClearCommand.COMMAND_WORD:

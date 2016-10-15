@@ -13,7 +13,8 @@ import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-
+    public static final String SHORT_COMMAND_WORD = "del";
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by the index number used in the last item listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
