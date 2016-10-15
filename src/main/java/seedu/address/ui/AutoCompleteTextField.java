@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.controlsfx.control.textfield.TextFields;
+
 public class AutoCompleteTextField extends TextField
 {
 
@@ -28,8 +30,7 @@ public class AutoCompleteTextField extends TextField
 		dictionaryPopup = new ContextMenu();
 		textProperty().addListener(new ChangeListener<String>(){
 			@Override
-			public void changed(ObservableValue<? extends String> observableValue, String oldString, String newString) {
-				
+			public void changed(ObservableValue<? extends String> observableValue, String oldString, String newString) {				
 				if (getText().length() == 0){
 					dictionaryPopup.hide();
 				} else {
@@ -38,7 +39,7 @@ public class AutoCompleteTextField extends TextField
 					if (dictionary.size() > 0){
 						populatePopup(searchResult);
 						if (!dictionaryPopup.isShowing()){
-							dictionaryPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
+							dictionaryPopup.show(AutoCompleteTextField.this, Side.BOTTOM, getText().length()*8, 0);
 						}
 					} else {
 						dictionaryPopup.hide();
@@ -97,7 +98,8 @@ public class AutoCompleteTextField extends TextField
 		//date
 		String[] dateWords = {"jan","feb","mar","apr","may","jun","jul",
 							  "aug","sep","oct","nov","dec","today","tomorrow",
-							  "mon","tue","wed","thur","fri","sat","sun"};
+							  "mon","tue","wed","thur","fri","sat","sun",
+							  "daily", "weekly", "monthly"};
 		for(String s: dateWords) dictionary.add(s);
 	}
 	
