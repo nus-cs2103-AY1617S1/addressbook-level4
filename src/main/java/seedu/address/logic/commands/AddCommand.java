@@ -1,18 +1,16 @@
 package seedu.address.logic.commands;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.item.DateTime;
 import seedu.address.model.item.Task;
+import seedu.address.model.item.TimePeriod;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.RecurrenceRate;
-
-import com.joestelmach.natty.*;
 
 /**
  * Adds a person to the address book.
@@ -22,7 +20,6 @@ public class AddCommand extends Command {
     private final Logger logger = LogsCenter.getLogger(AddCommand.class);
     
     private static final String STRING_CONSTANT_ONE = "1";
-    private static final int BASE_INDEX = 0;
 
     public static final String COMMAND_WORD = "add";
 
@@ -35,14 +32,8 @@ public class AddCommand extends Command {
     
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     
-    //TODO: Create a class to slot this in?
-    private static final String INVALID_START_DATE = "Invalid start date!\n";
-    private static final String INVALID_END_DATE = "Invalid end date!\n";
-    public static final String MESSAGE_VALUE_CONSTRAINTS = "DATE_TIME format: "
-            + "DATE must be in one of the formats: "
-            + "\"13th Sep 2015\", \"02-08-2015\" (mm/dd/yyyy) \n"
-            + "TIME must be in one of the formats: "
-            + "\"7:30am\", \"19:30\"";
+    public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
+            + "at least one DATE_TIME must be provided";
     
     private Task toAdd;
 
@@ -67,11 +58,11 @@ public class AddCommand extends Command {
         Priority priority;
 
         if (startDateString != null) {
-            startDate = verifyDate(startDateString, INVALID_START_DATE);
+            startDate = DateTime.verifyDate(startDateString, DateTime.INVALID_START_DATE);
         }
 
         if (endDateString != null) {
-            endDate = verifyDate(endDateString, INVALID_END_DATE);
+            endDate = DateTime.verifyDate(endDateString, DateTime.INVALID_END_DATE);
         }
 
         if (rateString != null && timePeriodString != null) {
@@ -81,6 +72,16 @@ public class AddCommand extends Command {
         } else if (rateString != null && timePeriodString == null) {
             throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
         } 
+        
+        if (recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
+                recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
+                startDate == null && endDate == null) {
+            startDate = DateTime.assignStartDate(recurrenceRate.timePeriod.toString());
+        }
+        
+        if (recurrenceRate != null && startDate == null && endDate == null) {
+            throw new IllegalValueException(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
+        }
 
         priority = stringToPriority(priorityString);
             
@@ -109,43 +110,6 @@ public class AddCommand extends Command {
             priority = Priority.MEDIUM;
         }
         return priority;
-    }
-
-    /**
-     * Converts given String into a Date object
-     *
-     * @throws IllegalValueException
-     *             if given String cannot be converted into a valid Date object
-     */
-    private Date verifyDate(String dateString, String errorMessage)
-            throws IllegalValueException {
-        Date date;
-        List<DateGroup> dates = new Parser().parse(dateString);
-        try {
-            date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
-            String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
-            if(!syntaxTree.contains("EXPLICIT_TIME")) {
-                date = setTimeToEndOfDay(date);
-            }
-            //TODO: Should I not catch exception instead?
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw new IllegalValueException(errorMessage + MESSAGE_VALUE_CONSTRAINTS);
-        }
-        
-        return date;
-    }
-
-    /**
-     * Sets time of Date object to end of the day i.e "23:59:59"
-     */
-    private Date setTimeToEndOfDay(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        date = calendar.getTime();
-        return date;
     }
 
     @Override
