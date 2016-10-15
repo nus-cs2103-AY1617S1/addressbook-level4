@@ -192,6 +192,10 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
+    
+    public CalendarPanel getCalendarPanel() {
+        return this.calendarPanel;
+    }
 
     public void releaseResources() {
         calendarPanel.freeResources();
