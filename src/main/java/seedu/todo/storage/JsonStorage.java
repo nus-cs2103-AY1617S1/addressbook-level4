@@ -79,6 +79,7 @@ public class JsonStorage implements Storage {
         
         // Apply undo
         this.currJson = newJson;
+        FileUtil.writeToFile(getStorageFile(), this.currJson);
         return JsonUtil.fromJsonString(this.currJson, TodoListDB.class);
     }
 
@@ -100,6 +101,7 @@ public class JsonStorage implements Storage {
         
         // Apply redo
         this.currJson = newJson;
+        FileUtil.writeToFile(getStorageFile(), this.currJson);
         return JsonUtil.fromJsonString(this.currJson, TodoListDB.class);
     }
 
