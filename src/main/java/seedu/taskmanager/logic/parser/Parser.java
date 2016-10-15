@@ -49,24 +49,24 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(T|t)(A|a)(S|s)(K|k)"
-                    + " n/(?<name>[^/]+)"
+            Pattern.compile("(T|t)((A|a)(S|s)(K|k))?\\s*"
+                    + "(n/)?(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(D|d)(E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e)"
-                    + " n/(?<name>[^/]+)"
-                    + " ed/(?<endDate>[^/]+)"
-                    + " et/(?<endTime>[^/]+)"
+            Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?\\s*"
+                    + "(n/)?(?<name>[^/]+)"
+                    + "ed/(?<endDate>[^/]+)"
+                    + "(et/(?<endTime>[^/]+))?"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(E|e)(V|v)(E|e)(N|n)(T|t)"
-                    + " n/(?<name>[^/]+)"
+            Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?\\s*"
+                    + "(n/)?(?<name>[^/]+)"
             		+ "sd/(?<startDate>[^/]+)"
-                    + "st/(?<startTime>[^/]+)"
-                    + " ed/(?<endDate>[^/]+)"
-                    + " et/(?<endTime>[^/]+)"
+                    + "(st/(?<startTime>[^/]+))?"
+                    + "ed/(?<endDate>[^/]+)"
+                    + "(et/(?<endTime>[^/]+))?"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_COMMAND_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[\\d]+)" 
@@ -97,10 +97,12 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+        case AddCommand.SHORT_COMMAND_WORD:
             return prepareAdd(arguments);
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
+            
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
@@ -181,6 +183,8 @@ public class Parser {
 	private Command addEvent(final Matcher eventMatcher) throws IllegalValueException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String endTime = eventMatcher.group("endTime");
+		String startTime = eventMatcher.group("startTime");
 		try {	
 		    df.setLenient(false);
 		    // If yyyy-MM-dd
@@ -205,7 +209,13 @@ public class Parser {
 		        startDateString = ldt.getYear() + "-" + eventMatcher.group("startDate");
 		        df.parse(startDateString);
 		    }
-		    if (sdf.parse(endDateString + " " + eventMatcher.group("endTime")).before(sdf.parse(startDateString + " " + eventMatcher.group("startTime")))) {
+		    if (endTime == null) {
+		        endTime = AddCommand.DEFAULT_END_TIME;
+		    }
+		    if (startTime == null) {
+		        startTime = AddCommand.DEFAULT_START_TIME;
+		    }
+		    if (sdf.parse(endDateString + " " + endTime).before(sdf.parse(startDateString + " " + startTime))) {
 		        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
 		    }
 		} catch (ParseException e) {
@@ -214,9 +224,9 @@ public class Parser {
 		return new AddCommand("event", 
 		                      eventMatcher.group("name"), 
 		                      eventMatcher.group("startDate"), 
-		                      eventMatcher.group("startTime"), 
+		                      startTime, 
 		                      eventMatcher.group("endDate"), 
-		                      eventMatcher.group("endTime"), 
+		                      endTime, 
 		                      getTagsFromArgs(eventMatcher.group("tagArguments")));
 	}
 

@@ -30,6 +30,7 @@ public class Time {
      */
     public Time(String time) throws IllegalValueException {
         assert time != null;
+        time = time.trim();
         if (!isValidTime(time)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }

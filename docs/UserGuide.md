@@ -2,9 +2,9 @@
 
 * [Quick Start](#quick-start)
 * [Features](#features)
-* [FAQ] (#faq)  
-* [Command Summary] (#command-summary)  
-* [Credits] (#credits)
+* [FAQ](#faq)  
+* [Command Summary](#command-summary)  
+* [Credits](#credits)
 
 ## Quick Start
 
@@ -62,39 +62,45 @@
 
 ## When you have a new deadline, task or event
 
-Add a deadline
+###Add a deadline
 
 1. Type `add deadline n/NAME ed/DATE et/TIME`.
 
-2. If et is not specified, et is assumed to be 23:59.
+2. `add` can be replaced by `a`. `deadline` can be replaced by `d`. `n/` prefix for NAME is optional.
 
-3. If ed is not specified, ed is assumed to be today.
+3. If et is not specified, et is assumed to be 23:59.
 
-4. If both et and ed are not specified, created task is a floating task (see b). 
+4. If ed is not specified, ed is assumed to be today.
 
-5. Press Enter.
+5. If both et and ed are not specified, created task is a floating task (see b). 
 
-6. The deadline will be added to your to do list.
+6. Press Enter.
 
-Add a task 
+7. The deadline will be added to your to do list.
+
+###Add a task 
 
 1. Type `add task n/NAME`. 
 
-2. Press Enter.
+2. `add` can be replaced by `a`. `task` can be replaced by `t`. `n/` prefix for NAME is optional.
 
-3. The task will be added to your to do list.
+3. Press Enter.
 
-Add an event 
+4. The task will be added to your to do list.
+
+###Add an event 
 
 1. Add an event by typing `add event n/NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME`.
 
-2. If st is empty, st is assumed to be 00:00.
+2. `add` can be replaced by `a`. `event` can be replaced by `e`. `n/` prefix for NAME is optional.
 
-3. If et is empty, et is assumed to be 23:59.
+3. If st is empty, st is assumed to be 00:00.
 
-4. If sd or ed is empty, sd or ed is assumed to be the current system date.
+4. If et is empty, et is assumed to be 23:59.
 
-5. Press Enter.
+5. If sd or ed is empty, sd or ed is assumed to be the current system date.
+
+6. Press Enter.
 
 ##When you need to edit a deadline, task or event 
 

@@ -19,6 +19,9 @@ import java.util.Set;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
+    public static final String SHORT_COMMAND_WORD = "a";
+    public static final String DEFAULT_END_TIME = "23:59";
+    public static final String DEFAULT_START_TIME = "00:00";
     
     public static final String EVENT_MESSAGE_USAGE = "Event start datetime must come before end datetime";
 
@@ -31,7 +34,9 @@ public class AddCommand extends Command {
             + "Example (Deadline): " + COMMAND_WORD +  " " + ItemType.DEADLINE_WORD 
             + " n/Cheat death ed/2000-12-13 et/12:34" + "\n"
             + "Example (Event): " + COMMAND_WORD +  " " + ItemType.EVENT_WORD
-            + " n/Win at Life sd/1900-01-01 st/00:07 ed/2300-01-01 et/12:34";
+            + " n/Win at Life sd/1900-01-01 st/00:07 ed/2300-01-01 et/12:34 \n"
+            + "Note: " + COMMAND_WORD + " can be replaced by " + SHORT_COMMAND_WORD + "\n"
+            + "Note: n/ prefix for name is optional.";
 
     public static final String MESSAGE_SUCCESS = "Added %1$s";
 
@@ -54,7 +59,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String itemType, String name, String endDate, String endTime, Set<String> tags)
             throws IllegalValueException {
-        this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, endDate, endTime, tags);
+    	this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, endDate, endTime, tags);
     }
     
     /**
@@ -65,6 +70,15 @@ public class AddCommand extends Command {
     public AddCommand(String itemType, String name, String startDate, String startTime, String endDate, String endTime, Set<String> tags)
             throws IllegalValueException {
         assert itemType != null;
+        if (itemType == ItemType.DEADLINE_WORD && endTime == null) {
+            endTime = DEFAULT_END_TIME;
+        }
+        if (itemType == ItemType.EVENT_WORD && startTime == null) {
+            endTime = DEFAULT_START_TIME;
+        }
+        if (itemType == ItemType.EVENT_WORD && endTime == null) {
+            endTime = DEFAULT_END_TIME;
+        }
         assert name != null;
         assert startDate != null;
         assert startTime != null;

@@ -8,7 +8,7 @@ public class CommandBoxTest extends TaskManagerGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.deadline1.getAddCommand());
+        commandBox.runCommand(td.deadline1.getAddCommand(false, false, false, false, false));
         assertEquals(commandBox.getCommandInput(), "");
     }
 

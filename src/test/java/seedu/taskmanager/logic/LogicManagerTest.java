@@ -170,19 +170,19 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         // Missing Prefix
         assertCommandBehavior(
-        		"add event n/12345 ed/2016-08-08 et/18:00", expectedMessage);
+        		"add event 12345 ed/2016-08-08 et/18:00", expectedMessage);
         // Additional Prefix
         assertCommandBehavior(
-        		"add task n/12345 ed/2016-08-08 et/18:00", expectedMessage);
-        // No Name Prefix
-        assertCommandBehavior(
-                "add deadline 12345 ed/2016-08-08 et/18:00", expectedMessage);
+        		"add task 12345 ed/2016-08-08 et/18:00", expectedMessage);
+        // Have Name Prefix
+        // assertCommandBehavior(
+        //         "add deadline n/12345 ed/2016-08-08 et/18:00", expectedMessage);
         // No EndDate Prefix
         assertCommandBehavior(
-                "add deadline n/12345 2016-08-08 et/18:00", expectedMessage);
+                "add deadline 12345 2016-08-08 et/18:00", expectedMessage);
         // No EndTime Prefix
-        assertCommandBehavior(
-                "add deadline n/12345 ed/2016-08-08 18:00", expectedMessage);
+        // assertCommandBehavior(
+        //         "add deadline 12345 ed/2016-08-08 18:00", expectedMessage);
     }
 
     @Test
