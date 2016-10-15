@@ -30,6 +30,12 @@ public class JsonStorage implements Storage {
     private File getStorageFile() {
         return new File("database.json");
     }
+    
+    private void pruneHistory() {
+        // Don't need to worry about future because it cannot exceed limit.
+        while (historyPatch.size() > HISTORY_SIZE)
+            historyPatch.removeFirst();
+    }
 
     @Override
     public void save(TodoListDB db) throws JsonProcessingException, IOException {
