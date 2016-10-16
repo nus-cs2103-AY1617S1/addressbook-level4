@@ -310,12 +310,16 @@ public class ModelManager extends ComponentManager implements Model {
 			
 			Date deadline = new Date(task.getEndDate().getDate());
 			
+			//Strictly before
 			if(deadline.before(this.deadline)
 					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
 				return true;
-			if(deadline.getDate()==this.deadline.getDate()&&deadline.getMonth()==this.deadline.getMonth()
+			
+			//When only enter a date
+			if(deadline.getDate()==this.deadline.getDate() && deadline.getMonth()==this.deadline.getMonth()
 					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
 				return true;
+			
 			return false;
 		}
     	
