@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 import teamfour.tasc.commons.util.DateUtil;
+import teamfour.tasc.model.tag.UniqueTagList;
 import teamfour.tasc.model.task.Complete;
 import teamfour.tasc.model.task.ReadOnlyTask;
 import teamfour.tasc.model.task.Task;
@@ -113,5 +114,17 @@ public class TaskTest {
                 .withDeadline(new Date(0)).build();
 
         assertFalse(taskWithDeadline.isFloatingTask());
+    }
+    
+    @Test
+    public void constructor_floatingTaskWithRecurrence_recurrenceIsRemoved() throws IllegalValueException {
+        Task floatingTask = new Task(new Name("Floating Task"),
+                new Complete(false),
+                new Deadline(),
+                new Period(),
+                new Recurrence(Recurrence.Pattern.DAILY, 3),
+                new UniqueTagList());
+        
+        assertEquals(false, floatingTask.getRecurrence().hasRecurrence());
     }
 }
