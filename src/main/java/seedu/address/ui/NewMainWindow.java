@@ -30,11 +30,11 @@ public class NewMainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListLeftPanel;
-    private TaskListPanel todayTaskListTabPanel;
-    private TaskListPanel tomorrowTaskListTabPanel;
-    private TaskListPanel in7DaysTaskListTabPanel;
-    private TaskListPanel in30DaysTaskListTabPanel;
-    private TaskListPanel somedayTaskListTabPanel;
+    private TodayTaskListTabPanel todayTaskListTabPanel;
+    private TomorrowTaskListTabPanel tomorrowTaskListTabPanel;
+    private In7DaysTaskListTabPanel in7DaysTaskListTabPanel;
+    private In30DaysTaskListTabPanel in30DaysTaskListTabPanel;
+    private SomedayTaskListTabPanel somedayTaskListTabPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -63,13 +63,13 @@ public class NewMainWindow extends UiPart {
 	private AnchorPane tomorrowTaskListTabPanelPlaceholder;
     
     @FXML
-	private AnchorPane in7DaystaskListTabPanelPlaceholder;
+	private AnchorPane in7DaysTaskListTabPanelPlaceholder;
     
     @FXML
-	private AnchorPane in30DaystaskListTabPanelPlaceholder;
+	private AnchorPane in30DaysTaskListTabPanelPlaceholder;
     
     @FXML
-	private AnchorPane somedaytaskListTabPanelPlaceholder;
+	private AnchorPane somedayTaskListTabPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -124,17 +124,17 @@ public class NewMainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskListLeftPanel = TaskListPanel.load(primaryStage, getTaskListLeftPlaceholder(), logic.getFilteredTaskList());
-        todayTaskListTabPanel = TaskListPanel.load(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
-        tomorrowTaskListTabPanel = TaskListPanel.load(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
-        in7DaysTaskListTabPanel = TaskListPanel.load(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
-        in30DaysTaskListTabPanel = TaskListPanel.load(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
-        somedayTaskListTabPanel = TaskListPanel.load(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        taskListLeftPanel = TaskListPanel.load(primaryStage, getTaskListLeftPlaceholder(), logic.getFilteredTaskList());
+        todayTaskListTabPanel = TodayTaskListTabPanel.load(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
+        tomorrowTaskListTabPanel = TomorrowTaskListTabPanel.load(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
+        in7DaysTaskListTabPanel = In7DaysTaskListTabPanel.load(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
+        in30DaysTaskListTabPanel = In30DaysTaskListTabPanel.load(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());   
+        somedayTaskListTabPanel = SomedayTaskListTabPanel.load(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
     }
-
+    
 	private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -160,15 +160,15 @@ public class NewMainWindow extends UiPart {
 	}
 	
 	private AnchorPane getIn7DaysTaskListTabPanelPlaceholder() {
-		return in7DaystaskListTabPanelPlaceholder;
+		return in7DaysTaskListTabPanelPlaceholder;
 	}
 
 	private AnchorPane getIn30DaysTaskListTabPanelPlaceholder() {
-		return in30DaystaskListTabPanelPlaceholder;
+		return in30DaysTaskListTabPanelPlaceholder;
 	}
     
     private AnchorPane getSomedayTaskListTabPanelPlaceholder() {
-    	return somedaytaskListTabPanelPlaceholder;
+    	return somedayTaskListTabPanelPlaceholder;
 	}
 
     public void hide() {

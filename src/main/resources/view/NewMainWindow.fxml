@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
@@ -38,7 +37,7 @@
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
       </AnchorPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
+      <SplitPane id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
          <items>
             <VBox>
                <children>
@@ -47,66 +46,85 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </padding>
                   </AnchorPane>
-                  <AnchorPane fx:id="taskListLeftPanelPlaceholder" prefHeight="300.0" prefWidth="400.0" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
-               </children>
-            </VBox>
-            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="15.0" tabMaxWidth="70.0">
-               <tabs>
-                  <Tab text="Today">
-                     <content>
-                        <VBox fx:id="todayTaskList" prefHeight="200.0" prefWidth="100.0">
+                  <SplitPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <items>
+                        <VBox fx:id="taskList" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <AnchorPane fx:id="todayTaskListTabPanelPlaceholder">
-                                 <styleClass>
-                                    <String fx:value="anchor-pane-with-border" />
-                                    <String fx:value="tab-pane" />
-                                 </styleClass>
-                              </AnchorPane>
+                              <AnchorPane fx:id="taskListLeftPanelPlaceholder" prefHeight="300.0" prefWidth="400.0" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
+                     </items>
+                  </SplitPane>
+               </children>
+            </VBox>
+            <TabPane tabClosingPolicy="UNAVAILABLE" tabMaxHeight="15.0" tabMaxWidth="70.0">
+               <tabs>
+                  <Tab text="Someday">
+                     <content>
+                        <SplitPane>
+                           <items>
+                              <VBox fx:id="somedayTaskList">
+                                 <children>
+                                    <AnchorPane fx:id="somedayTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Today">
+                     <content>
+                        <SplitPane>
+                           <items>
+                              <VBox fx:id="todayTaskList">
+                                 <children>
+                                    <AnchorPane fx:id="todayTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
                      </content>
                   </Tab>
                   <Tab text="Tomorrow">
                      <content>
-                        <VBox fx:id="tomorrowTaskList" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <AnchorPane fx:id="tomorrowTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" />
-                           </children>
-                        </VBox>
+                        <SplitPane>
+                           <items>
+                              <VBox fx:id="tomorrowTaskList">
+                                 <children>
+                                    <AnchorPane fx:id="tomorrowTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
                      </content>
                   </Tab>
                   <Tab text="In 7 Days">
                      <content>
-                        <VBox fx:id="in7DaysTaskList" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <AnchorPane fx:id="in7DaysTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" />
-                           </children>
-                        </VBox>
+                        <SplitPane>
+                           <items>
+                              <VBox fx:id="in7DaysTaskList">
+                                 <children>
+                                    <AnchorPane fx:id="in7DaysTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
                      </content>
                   </Tab>
                   <Tab text="In 30 Days">
                      <content>
-                        <VBox fx:id="in30DaysTaskList" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <AnchorPane fx:id="in30DaysTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" />
-                           </children>
-                        </VBox>
-                     </content>
-                  </Tab>
-                  <Tab text="Someday">
-                     <content>
-                        <VBox fx:id="somedayTaskList" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <AnchorPane fx:id="somedayTaskListTabPanelPlaceholder" prefHeight="523.0" prefWidth="409.0" />
-                           </children>
-                        </VBox>
+                        <SplitPane>
+                           <items>
+                              <VBox fx:id="in30DaysTaskList">
+                                 <children>
+                                    <AnchorPane fx:id="in30DaysTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
                      </content>
                   </Tab>
                </tabs>
-               <styleClass>
-                  <String fx:value="background" />
-                  <String fx:value="anchor-pane-with-border" />
-               </styleClass>
             </TabPane>
          </items>
       </SplitPane>
