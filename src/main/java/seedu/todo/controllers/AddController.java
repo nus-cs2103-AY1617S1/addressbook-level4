@@ -81,6 +81,18 @@ public class AddController implements Controller {
         
         // Create and persist task / event.
         TodoListDB db = TodoListDB.getInstance();
+        createCalendarItem(db, isTask, name, dateFrom, dateTo);
+        
+        // Re-render
+        IndexView view = UiManager.loadView(IndexView.class);
+        view.tasks = db.getAllTasks();
+        view.events = db.getAllEvents();
+        UiManager.renderView(view);
+        UiManager.updateConsoleMessage(MESSAGE_ADD_SUCCESS);
+    }
+
+    private void createCalendarItem(TodoListDB db, 
+            boolean isTask, String name, LocalDateTime dateFrom, LocalDateTime dateTo) {
         if (isTask) {
             Task newTask = db.createTask();
             newTask.setName(name);
@@ -92,13 +104,6 @@ public class AddController implements Controller {
             newEvent.setEndDate(dateTo);
         }
         db.save();
-        
-        // Re-render
-        IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getAllTasks();
-        view.events = db.getAllEvents();
-        UiManager.renderView(view);
-        UiManager.updateConsoleMessage(MESSAGE_ADD_SUCCESS);
     }
 
     
