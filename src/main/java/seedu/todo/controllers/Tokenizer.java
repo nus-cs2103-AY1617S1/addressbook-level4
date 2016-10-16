@@ -11,6 +11,12 @@ import org.apache.commons.lang.StringUtils;
 
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
 
+/**
+ * Class to store the static method <code>tokenizer</code>.
+ * 
+ * @author louietyj
+ *
+ */
 public class Tokenizer {
 
     private final static String QUOTE = "\"";
