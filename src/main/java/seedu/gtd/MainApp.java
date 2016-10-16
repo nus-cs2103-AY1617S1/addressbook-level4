@@ -45,7 +45,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing TaskList ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -75,14 +75,14 @@ public class MainApp extends Application {
         try {
             addressBookOptional = storage.readAddressBook();
             if(!addressBookOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty AddressBook");
+                logger.info("Data file not found. Will be starting with an empty TaskList");
             }
             initialData = addressBookOptional.orElse(new AddressBook());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty TaskList");
             initialData = new AddressBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskList");
             initialData = new AddressBook();
         }
 
@@ -139,7 +139,7 @@ public class MainApp extends Application {
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskList");
             initializedPrefs = new UserPrefs();
         }
 
@@ -159,13 +159,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting TaskList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Task List ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
