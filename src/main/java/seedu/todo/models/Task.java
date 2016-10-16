@@ -18,10 +18,18 @@ public class Task implements CalendarItem {
         this.name = name;
     }
 
+    /**
+     * Get the due date of a Task.
+     * @return dueDate
+     */
     public LocalDateTime getDueDate() {
         return dueDate;
     }
 
+    /**
+     * Set the due date of a Task.
+     * @param dueDate
+     */
     public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
     }
@@ -45,14 +53,24 @@ public class Task implements CalendarItem {
         }
     }
 
+    /**
+     * Returns true if the Task is completed, false otherwise.
+     * @return isCompleted
+     */
     public boolean isCompleted() {
         return isCompleted;
     }
     
+    /**
+     * Marks a Task as completed.
+     */
     public void setCompleted() {
         this.isCompleted = true;
     }
 
+    /**
+     * Marks a Task as incomplete.
+     */
     public void setIncomplete() {
         this.isCompleted = false;
     }
