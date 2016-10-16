@@ -49,7 +49,7 @@ public class TaskCard extends UiPart{
         else {
         	deadline.setText("No deadline assigned");
         }
-        tags.setText(task.tagsString());
+ //       tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {

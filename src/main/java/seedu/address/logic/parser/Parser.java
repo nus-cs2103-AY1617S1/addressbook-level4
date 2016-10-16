@@ -106,27 +106,32 @@ public class Parser {
      */
     private Command prepareAdd(String args){
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        matcher.matches();
         // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+//        if (!matcher.matches()) {
+//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+//        }
         System.out.println(matcher.groupCount());
-        for(int i = 0; i < matcher.groupCount(); i++){
-        	System.out.println(matcher.group(i));
+        
+        String[] sections = args.split("\\sby\\s");
+        String date = null;
+        String description = sections[0];
+        if(sections.length > 1){
+        	date = sections[1];
         }
+     
+    
         LocalDateTime ldt = null;
-        if(matcher.group("deadline") != null){
-        	String date = matcher.group("deadline").trim();
+        if(date != null){
         	date.replaceAll("\\n", "");
-        	System.out.println(date);
         	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
         	ldt = LocalDateTime.parse(date, formatter);
         }
         try {
             return new AddCommand(
-                    matcher.group("description"),
-                    ldt,
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    description,
+                    ldt//,
+ //                   getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
