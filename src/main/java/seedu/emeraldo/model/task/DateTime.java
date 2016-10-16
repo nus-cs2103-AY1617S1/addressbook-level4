@@ -9,7 +9,7 @@ import seedu.emeraldo.commons.exceptions.IllegalValueException;
  */
 public class DateTime {
     
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task date and time can be in any format";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task date and time must follow this format YY/MM/DD HH:MM";
     public static final String ADDRESS_VALIDATION_REGEX = "(.+)?";
 
     public final String value;
