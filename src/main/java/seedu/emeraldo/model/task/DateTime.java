@@ -9,8 +9,9 @@ import seedu.emeraldo.commons.exceptions.IllegalValueException;
  */
 public class DateTime {
     
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task date and time must follow this format YY/MM/DD HH:MM";
-    public static final String ADDRESS_VALIDATION_REGEX = "(.+)?";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task date and time must follow this format DD/MM/YYYY HH:MM in 24 hours format";
+    public static final String DATETIME_VALIDATION_REGEX = "((0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|[1][0-2])/(([0-9][0-9])?[0-9][0-9])){1}"
+                                                            + "( ([01][0-9]|[2][0-3]):([0-5][0-9]))?";
 
     public final String value;
 
@@ -22,13 +23,16 @@ public class DateTime {
     public DateTime(String dateTime) throws IllegalValueException {
         assert dateTime != null;
         if (!isValidDateTime(dateTime)) {
-            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
         this.value = dateTime;
     }
 
     private static boolean isValidDateTime(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+        if(test.equals(""))
+            return true;
+        else
+            return test.matches(DATETIME_VALIDATION_REGEX);
     }
 
     @Override
