@@ -152,14 +152,22 @@ public class Parser {
 
     /**
      * Takes in a string and return null if it is empty,
-     * or returns the string itself otherwise.
-     * 
-     * @param string the string to check
-     * @return null if string is null or empty, the string itself otherwise
+     * or otherwise returns the string itself.
      */
     private String setToNullIfIsEmptyString(String string) {
         if (string == null || string.equals(""))
             return null;
+        return string;
+    }
+    
+    /**
+     * Precondition: argument is not null.
+     * Takes in a string and remove all occurrences of full stops and commas.
+     */
+    private String removeFullStopsAndCommas(String string) {
+        assert string != null;
+        string = string.replace(",", "");
+        string = string.replace(".", "");
         return string;
     }
     
@@ -193,7 +201,14 @@ public class Parser {
 
         if(tags == null){
             tags = "";
+        } else {
+            tags = removeFullStopsAndCommas(tags);
         }
+        
+        if (sortingOrder != null) {
+            sortingOrder = removeFullStopsAndCommas(sortingOrder);
+        }
+
         try {
             return new ListCommand(
                     type,
@@ -233,7 +248,10 @@ public class Parser {
 
         if(tags == null){
             tags = "";
+        } else {
+            tags = removeFullStopsAndCommas(tags);
         }
+        
         try {
             return new ShowCommand(
                     type,
@@ -273,7 +291,10 @@ public class Parser {
 
         if(tags == null){
             tags = "";
+        } else {
+            tags = removeFullStopsAndCommas(tags);
         }
+        
         try {
             return new HideCommand(
                     type,
