@@ -1,16 +1,20 @@
 package seedu.todo.logic.commands;
 
+import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.Messages;
 import seedu.todo.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todo.model.Model;
+import seedu.todo.storage.Storage;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
     protected Model model;
-
+    protected Config config;
+    protected Storage storage;
+    
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *
@@ -33,8 +37,16 @@ public abstract class Command {
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(Model model) {
+    public void setModel(Model model) {
         this.model = model;
+    }
+    
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+    
+    public void setStorage(Storage storage) {
+        this.storage = storage;
     }
 
     /**

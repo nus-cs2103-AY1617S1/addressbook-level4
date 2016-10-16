@@ -2,6 +2,7 @@ package seedu.todo.logic;
 
 import com.google.common.eventbus.Subscribe;
 
+import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
 import seedu.todo.commons.events.ui.JumpToListRequestEvent;
@@ -43,6 +44,7 @@ public class LogicManagerTest {
 
     private Model model;
     private Logic logic;
+    private Config config;
 
     //These are for checking the correctness of the events raised
     private ReadOnlyToDoList latestSavedToDoList;
@@ -69,7 +71,7 @@ public class LogicManagerTest {
         model = new ModelManager();
         String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, config, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedToDoList = new ToDoList(model.getToDoList()); // last saved assumed to be up to date before.

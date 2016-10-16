@@ -49,7 +49,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getToDoListFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -57,7 +57,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model, config, storage);
 
         ui = new UiManager(logic, config, userPrefs);
 
@@ -96,8 +96,8 @@ public class MainApp extends Application {
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
         String configFilePathUsed;
-
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+        
+        configFilePathUsed = Config.USER_CONFIG_FILE;
 
         if(configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
