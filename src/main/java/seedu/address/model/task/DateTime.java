@@ -10,12 +10,26 @@ public abstract class DateTime {
     public final Calendar value;
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
     protected static final DateUtil DATE_PARSER = new DateUtil();
-    
+
+    public DateTime(Calendar date) {
+        if (date == null) {
+            this.value = null;
+        } else {
+            this.value = Calendar.getInstance();
+            this.value.setTime(date.getTime());
+        }
+    }
+
     public DateTime(String date) throws IllegalValueException {
         assert date != null;
-        this.value = Calendar.getInstance();
+
+        if (date == "") {
+            this.value = null;
+        } else {
+            this.value = Calendar.getInstance();
+        }
     }
-    
+
     /**
      * Returns true if a given string is a valid task reminder.
      */
@@ -24,6 +38,10 @@ public abstract class DateTime {
             return true;
         else
             return false;
+    }
+
+    public Calendar getCalendarValue() {
+        return this.value;
     }
 
     @Override
@@ -40,7 +58,7 @@ public abstract class DateTime {
         return other == this // short circuit if same object
                 || (other instanceof DateTime // instanceof handles nulls
                         && this.value.equals(((DateTime) other).value)); // state
-                                                                        // check
+                                                                         // check
     }
 
     @Override

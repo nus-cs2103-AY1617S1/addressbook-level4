@@ -69,7 +69,6 @@ public class EditCommand extends Command {
         
         try {
             Task oldTask = new Task(taskToEdit);
-            
             Task editedTask = new Task(model.editTask(taskToEdit, newParams));
             
             PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD,oldTask,editedTask);

@@ -18,6 +18,10 @@ public class DueDate extends DateTime {
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task's DueDate should only contain valid date";
     public static final String MESSAGE_DUEDATE_INVALID = "reminder time has passed";
 
+    public DueDate(Calendar date) {
+        super(date);
+    }
+    
     /**
      * Validates given Due Date.
      *

@@ -41,9 +41,9 @@ public class TaskManager {
         DueDate newDueDate;
 
         if (newParams.getDueDate().toString().equals(NULL_ENTRY)&& type == "edit") {
-            newDueDate = new DueDate(oldTask.getDueDate().toString());
+            newDueDate = new DueDate(oldTask.getDueDate().getCalendarValue());
         } else {
-            newDueDate = new DueDate(newParams.getDueDate().toString());
+            newDueDate = new DueDate(newParams.getDueDate().getCalendarValue());
         }
 
         return newDueDate;
@@ -65,9 +65,9 @@ public class TaskManager {
         Reminder newReminder;
 
         if (newParams.getReminder().toString().equals(NULL_ENTRY)&& type == "edit") {
-            newReminder = new Reminder(oldTask.getReminder().toString());
+            newReminder = new Reminder(oldTask.getReminder().getCalendarValue());
         } else {
-            newReminder = new Reminder(newParams.getReminder().toString());
+            newReminder = new Reminder(newParams.getReminder().getCalendarValue());
         }
 
         return newReminder;

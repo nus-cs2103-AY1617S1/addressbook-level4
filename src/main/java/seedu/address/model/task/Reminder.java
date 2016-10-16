@@ -19,6 +19,10 @@ public class Reminder extends DateTime {
     public static final String MESSAGE_REMINDER_CONSTRAINTS = "Task reminder can only be in date format";
     public static final String MESSAGE_REMINDER_INVALID = "reminder time has passed";
 
+    public Reminder(Calendar date) {
+        super(date);
+    }
+    
     /**
      * Validates given reminder.
      *
