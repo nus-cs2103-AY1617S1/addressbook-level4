@@ -163,6 +163,7 @@ Finally, if you need to sort your tasks, do the following:
 > **Tip:**<br>
 > Sorting order includes `earliest first`, `latest first` for date and time,
   and `a-z`, `z-a` for task descriptions, or `none` to use the default order.<br>
+> For your convenience, `earliest first` is automatically applied whenever you enter `list`.
 
 <img src="images/Ui-List.png" width="600">
 
