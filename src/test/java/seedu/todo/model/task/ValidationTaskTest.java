@@ -159,6 +159,13 @@ public class ValidationTaskTest {
     }
 
     @Test
+    public void testLastUpdated() {
+        assertNotNull(task.getLastUpdated());
+        task.setLastUpdated();
+        assertEquals(LocalDateTime.now(), task.getLastUpdated());
+    }
+
+    @Test
     public void testTags() throws IllegalValueException {
         assertEquals(0, task.getTags().size());
 

@@ -27,6 +27,8 @@ public interface ImmutableTask {
     }
     
     public Set<Tag> getTags();
+
+    public LocalDateTime getLastUpdated();
     
     public UUID getUUID();
 }

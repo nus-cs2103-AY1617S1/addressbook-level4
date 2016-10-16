@@ -20,9 +20,7 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String title;
-    @XmlElement(required = false)
     private String description;
-    @XmlElement(required = false)
     private String location;
 
     @XmlElement(required = true)
@@ -30,13 +28,14 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private boolean completed;
 
-    @XmlElement(required = false)
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime startTime;
-    @XmlElement(required = false)
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime endTime;
 
+    @XmlElement(required = true)
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    private LocalDateTime lastUpdated;
     @XmlElement(required = true)
     private UUID uuid;
 
@@ -71,6 +70,7 @@ public class XmlAdaptedTask {
             tags.add(new XmlAdaptedTag(tag));
         }
 
+        lastUpdated = source.getLastUpdated();
         uuid = source.getUUID();
     }
 
@@ -93,11 +93,13 @@ public class XmlAdaptedTask {
         task.setStartTime(startTime);
         task.setEndTime(endTime);
 
-        Set<Tag> setOfTags = new HashSet<Tag>();
+        Set<Tag> setOfTags = new HashSet<>();
         for (XmlAdaptedTag tag : tags) {
             setOfTags.add(tag.toModelType());
         }
         task.setTags(setOfTags);
+
+        task.setLastUpdated(lastUpdated);
         return task;
     }
 }

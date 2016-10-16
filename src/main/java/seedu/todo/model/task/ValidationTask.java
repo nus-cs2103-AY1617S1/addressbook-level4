@@ -33,10 +33,12 @@ public class ValidationTask implements MutableTask {
     private LocalDateTime endTime;
 
     private Set<Tag> tags = new HashSet<Tag>();
+    private LocalDateTime lastUpdated;
     private UUID uuid;
 
     public ValidationTask(String title) {
         this.setTitle(title);
+        this.setLastUpdated();
         this.uuid = UUID.randomUUID();
     }
 
@@ -51,6 +53,7 @@ public class ValidationTask implements MutableTask {
         this.setEndTime(task.getEndTime().orElse(null));
         this.setCompleted(task.isCompleted());
         this.setPinned(task.isPinned());
+        this.setLastUpdated();
         this.uuid = task.getUUID();
     }
 
@@ -136,6 +139,9 @@ public class ValidationTask implements MutableTask {
     }
 
     @Override
+    public LocalDateTime getLastUpdated() { return lastUpdated; };
+
+    @Override
     public UUID getUUID() {
         return uuid;
     }
@@ -179,5 +185,8 @@ public class ValidationTask implements MutableTask {
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
+
+    @Override
+    public void setLastUpdated() { this.lastUpdated = LocalDateTime.now(); }
 
 }
