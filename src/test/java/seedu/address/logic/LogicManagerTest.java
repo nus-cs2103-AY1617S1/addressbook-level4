@@ -164,7 +164,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] d/12345 date/11.11.11 time/1111", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/can_be_anything date/not_valid_date time/1111", Date.MESSAGE_EMAIL_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/not_valid_date time/1111", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name d/can_be_anything date/11.11.11 time/5678", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
