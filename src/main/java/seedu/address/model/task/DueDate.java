@@ -13,13 +13,10 @@ import seedu.address.commons.util.DateValidation;
  * Represents a Task's DueDate in the Lifekeeper. Guarantees: immutable; is
  * valid as declared in {@link #isValidDueDate(String)}
  */
-public class DueDate {
+public class DueDate extends DateTime {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task's DueDate should only contain valid date";
     public static final String MESSAGE_DUEDATE_INVALID = "reminder time has passed";
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
-    public static DateUtil DATE_PARSER;
-    public final Calendar value;
 
     /**
      * Validates given Due Date.
@@ -28,19 +25,17 @@ public class DueDate {
      *             if given due date string is invalid.
      */
     public DueDate(String date) throws IllegalValueException {
-        assert date != null;
-        this.value = Calendar.getInstance();
-        DATE_PARSER = new DateUtil();
+        super(date);
         
-        if (!isValidDueDate(date)) {
+        if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
 
         if (date != "") {
             //try {
-                if (date.equalsIgnoreCase("today")) { // allow user to key in "today" instead of today's date
+                if (date.contains("today")) { // allow user to key in "today" instead of today's date
                     this.value.setTime(Calendar.getInstance().getTime());
-                } else if (date.equalsIgnoreCase("tomorrow")) { // allow user to key in "tomorrow" instead of tomorrow's/ date
+                } else if (date.contains("tomorrow")) { // allow user to key in "tomorrow" instead of tomorrow's/ date
                     this.value.setTime(Calendar.getInstance().getTime());
                     value.add(Calendar.DAY_OF_MONTH, 1);
                 }
@@ -64,37 +59,4 @@ public class DueDate {
             this.value.setTime(taskDate);
         }
     }
-
-    /**
-     * Returns true if a given string is a valid task reminder.
-     */
-    public static boolean isValidDueDate(String test) {
-        if (DATE_PARSER.validate(test) || test == "")
-            return true;
-        else
-            return false;
-    }
-
-    @Override
-    public String toString() {
-        if (this.value == null) {
-            return "";
-        } else {
-            return DATE_FORMAT.format(value.getTime());
-        }
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DueDate // instanceof handles nulls
-                        && this.value.equals(((DueDate) other).value)); // state
-                                                                        // check
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
 }
