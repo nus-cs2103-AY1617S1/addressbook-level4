@@ -37,6 +37,7 @@ public class RedoCommand extends Command {
             return new CommandResult("Nothing to redo.");
         }
         
+        // redo is now OCP friendly :-)
         UndoableCommand cmdToRedo = history.redoStep();
         return cmdToRedo.execute();
         

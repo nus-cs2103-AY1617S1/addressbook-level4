@@ -32,6 +32,7 @@ public class UndoCommand extends Command {
             return new CommandResult("Nothing to undo.");
         }
         
+        // Undo is now OCP friendly :-)
         UndoableCommand cmdToUndo = history.undoStep();
         return cmdToUndo.undo();
         

@@ -69,7 +69,7 @@ public class DeleteCommand extends UndoableCommand {
         }
         
        
-        history.updateCommandHistory(this);
+        updateHistory();
 
         String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay));

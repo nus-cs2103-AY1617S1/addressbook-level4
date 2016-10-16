@@ -8,5 +8,10 @@ public abstract class UndoableCommand extends Command {
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult undo();   
+    
+    public void updateHistory(){
+        history.updateCommandHistory(this);
+        history.resetRedo();
+    }
 
 }

@@ -97,7 +97,7 @@ public class AddCommand extends UndoableCommand {
         
         // TODO: i don't like updating the history here, to refactor further
         // not sure if EVERY command should access history, or i pass history to parser then parser prepareUndoCmd together with the history
-        history.updateCommandHistory(this);
+        updateHistory();
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

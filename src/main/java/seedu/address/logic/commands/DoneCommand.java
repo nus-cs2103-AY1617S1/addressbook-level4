@@ -74,7 +74,7 @@ public class DoneCommand extends UndoableCommand {
             adjustmentForRemovedTask++;
         }
         
-        history.updateCommandHistory(this);
+        updateHistory();
         
         String toDisplay = displayArchivedTasks.toString().replace("[", "").replace("]", "");
         return new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay));

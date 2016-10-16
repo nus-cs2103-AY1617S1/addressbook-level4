@@ -128,7 +128,7 @@ public class EditCommand extends UndoableCommand {
         if (recurrenceRate != null) {
             model.editRecurrence(taskToEdit, recurrenceRate);
         }
-        history.updateCommandHistory(this);
+        updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         
 	}
