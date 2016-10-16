@@ -122,50 +122,68 @@ public class JimiParser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
+    private Command prepareAdd(String args) {
         final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate entire args string format
         if (!detailsAndTagsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-
+        
         final Matcher taskDetailsMatcher =
                 ADD_TASK_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
-        final Matcher eventDetailsMatcher = 
+        final Matcher eventDetailsMatcher =
                 ADD_EVENT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
         
         if (taskDetailsMatcher.matches()) { // if user trying to add task 
-            try {
-                List<Date> dates = parseStringToDate(taskDetailsMatcher.group("dateTime"));
-                return new AddCommand(
-                        taskDetailsMatcher.group("taskDetails"),
-                        dates,
-                        getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
-                );
-            } catch (DateNotParsableException e) {
-                return new IncorrectCommand(e.getMessage());
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            } 
+            return generateAddCommandForTask(detailsAndTagsMatcher, taskDetailsMatcher);
         } else if (eventDetailsMatcher.matches()) { // if user trying to add event
-            try {
-                List<Date> startDates = parseStringToDate(eventDetailsMatcher.group("startDateTime"));
-                List<Date> endDates = parseStringToDate(eventDetailsMatcher.group("endDateTime"));
-                return new AddCommand(
-                        eventDetailsMatcher.group("taskDetails"),
-                        startDates,
-                        endDates,
-                        getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
-                );
-            } catch (DateNotParsableException e) {
-                return new IncorrectCommand(e.getMessage());
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
+            return generateAddCommandForEvent(detailsAndTagsMatcher, eventDetailsMatcher);
         }
         
         /* default return IncorrectCommand */
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    }
+    
+    /**
+     * Creates an AddCommand in the context of adding an event.
+     * 
+     * @return an AddCommand if raw args is valid, else IncorrectCommand
+     */
+    private Command generateAddCommandForEvent(final Matcher detailsAndTagsMatcher, final Matcher eventDetailsMatcher) {
+        try {
+            List<Date> startDates = parseStringToDate(eventDetailsMatcher.group("startDateTime"));
+            List<Date> endDates = parseStringToDate(eventDetailsMatcher.group("endDateTime"));
+            return new AddCommand(
+                    eventDetailsMatcher.group("taskDetails"),
+                    startDates,
+                    endDates,
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
+            );
+        } catch (DateNotParsableException e) {
+            return new IncorrectCommand(e.getMessage());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+
+    /**
+     * Creates an AddCommand in the context of adding an task.
+     * 
+     * @return an AddCommand if raw args is valid, else IncorrectCommand
+     */
+    private Command generateAddCommandForTask(final Matcher detailsAndTagsMatcher, final Matcher taskDetailsMatcher) {
+        try {
+            List<Date> dates = parseStringToDate(taskDetailsMatcher.group("dateTime"));
+            return new AddCommand(
+                    taskDetailsMatcher.group("taskDetails"),
+                    dates,
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
+            );
+        } catch (DateNotParsableException e) {
+            return new IncorrectCommand(e.getMessage());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
     
     private static List<Date> parseStringToDate(final String str) throws DateNotParsableException {
@@ -187,9 +205,8 @@ public class JimiParser {
      * @param args Full user command input args
      * @return  the prepared edit command
      */
-    private Command prepareEdit(String args){
+    private Command prepareEdit(String args) {
         final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(args.trim());
-        
         // Validate arg string format
         if (!detailsAndTagsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -197,21 +214,29 @@ public class JimiParser {
         
         final Matcher detailsMatcher =
                 EDIT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
-        
         if (detailsMatcher.matches()) { // if user input matches format
-            try {
-                return new EditCommand(
-                        detailsMatcher.group("name"),
-                        getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
-                        Integer.parseInt(detailsMatcher.group("targetIndex").trim())
-                );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
+            return generateEditCommandForTask(detailsAndTagsMatcher, detailsMatcher);
         }
         
         /* default return IncorrectCommand */
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    }
+    
+    /**
+     * Creates an EditCommand in the context of editing an task.
+     * 
+     * @return an EditCommand if raw args is valid, else IncorrectCommand
+     */
+    private Command generateEditCommandForTask(final Matcher detailsAndTagsMatcher, final Matcher detailsMatcher) {
+        try {
+            return new EditCommand(
+                    detailsMatcher.group("name"),
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
+                    Integer.parseInt(detailsMatcher.group("targetIndex").trim())
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
     
     /**
