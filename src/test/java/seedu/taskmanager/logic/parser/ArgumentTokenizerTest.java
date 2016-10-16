@@ -1,7 +1,7 @@
 package seedu.taskmanager.logic.parser;
 
 import org.junit.Test;
-import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
+import seedu.taskmanager.logic.parser.ArgumentTokenizer.Prefix;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
