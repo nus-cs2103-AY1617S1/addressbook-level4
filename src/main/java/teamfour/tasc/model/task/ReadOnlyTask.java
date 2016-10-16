@@ -1,13 +1,15 @@
 package teamfour.tasc.model.task;
 
+import java.util.Date;
+
 import teamfour.tasc.model.tag.UniqueTagList;
+import teamfour.tasc.model.task.status.EventStatus;
 
 /**
  * A read-only immutable interface for a Task in the task list.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
-
     Name getName();
     Complete getComplete();
     
@@ -32,6 +34,36 @@ public interface ReadOnlyTask {
                    && other.getDeadline().equals(this.getDeadline())
                    && other.getPeriod().equals(this.getPeriod())
                    && other.getRecurrence().equals(this.getRecurrence())));
+    }
+    
+    /** 
+     * Given the current time, determine whether the task is overdue.
+     * (Only make sense if task has a deadline).
+     */
+    default boolean isOverdue(Date currentTime) {
+        if (!getDeadline().hasDeadline()) {
+            return false;
+        }
+
+        return getDeadline().getDeadline().after(currentTime);
+    }
+    
+    /**
+     * Get whether the event has started or not.
+     */
+    default EventStatus getEventStatus(Date currentTime) {
+        if (!getPeriod().hasPeriod()) {
+            return EventStatus.NOT_AN_EVENT;
+        }
+        
+        if (currentTime.before(getPeriod().getStartTime())) {
+            return EventStatus.NOT_STARTED;
+        }
+        else if (currentTime.after(getPeriod().getEndTime())) {
+            return EventStatus.ENDED;
+        }
+        
+        return EventStatus.IN_PROGRESS;
     }
     
     /**
