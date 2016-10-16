@@ -17,23 +17,21 @@ public class Task implements ReadOnlyTask {
     
     private Deadline deadline;
     private Period period;
-    private Recurrence deadlineRecurrence;
-    private Recurrence periodRecurrence;
+    private Recurrence recurrence;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Complete complete, Deadline deadline, Period period, Recurrence deadlineRecurrence,
-            Recurrence periodRecurrence, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
+    public Task(Name name, Complete complete, Deadline deadline, Period period, Recurrence recurrence,
+            UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, complete, deadline, period, recurrence, tags);
         this.name = name;
         this.complete = complete;
         this.deadline = deadline;
         this.period = period;
-        this.deadlineRecurrence = deadlineRecurrence;
-        this.periodRecurrence = periodRecurrence;
+        this.recurrence = recurrence;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -42,7 +40,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getComplete(), source.getDeadline(), source.getPeriod(),
-                source.getDeadlineRecurrence(), source.getPeriodRecurrence(), source.getTags());
+                source.getRecurrence(), source.getTags());
     }
     
     /**
@@ -61,8 +59,7 @@ public class Task implements ReadOnlyTask {
                 new Complete(true),
                 taskToConvert.getDeadline(),
                 taskToConvert.getPeriod(),
-                taskToConvert.getDeadlineRecurrence(),
-                taskToConvert.getPeriodRecurrence(),
+                taskToConvert.getRecurrence(),
                 taskToConvert.getTags());
     }
 
@@ -93,7 +90,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
+        return Objects.hash(name, complete, deadline, period, recurrence, tags);
     }
 
     @Override
@@ -117,13 +114,7 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Recurrence getDeadlineRecurrence() {
-        return deadlineRecurrence;
+    public Recurrence getRecurrence() {
+        return recurrence;
     }
-
-    @Override
-    public Recurrence getPeriodRecurrence() {
-        return periodRecurrence;
-    }
-
 }

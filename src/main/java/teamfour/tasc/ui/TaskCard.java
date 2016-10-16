@@ -24,11 +24,9 @@ public class TaskCard extends UiPart{
     @FXML
     private Label deadline;
     @FXML
-    private Label deadlineRecurrence;
+    private Label recurrence;
     @FXML
     private Label period;
-    @FXML
-    private Label periodRecurrence;
     @FXML
     private Label tags;
     @FXML
@@ -53,9 +51,8 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().getName());
         id.setText(displayedIndex + ". ");
         deadline.setText("Deadline: " + task.getDeadline().toString());
-        deadlineRecurrence.setText("Deadline Repeat: " + task.getDeadlineRecurrence().toString());
+        recurrence.setText("Repeat: " + task.getRecurrence().toString());
         period.setText("Period : " + task.getPeriod().toString());
-        periodRecurrence.setText("Period Repeat: " + task.getPeriodRecurrence().toString());
         tags.setText(task.tagsString().equals("") ? "" : "Tags: " + task.tagsString());
         completeStatus.setText(task.getComplete().toString());
         if (task.getDeadline().hasDeadline()) {

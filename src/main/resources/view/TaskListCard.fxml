@@ -31,9 +31,8 @@
                             </children>
                         </HBox>
                         <Label fx:id="deadline" styleClass="cell_small_label" text="\$deadline" />
-                        <Label fx:id="deadlineRecurrence" styleClass="cell_small_label" text="\$deadlineRecurrence" />
                         <Label fx:id="period" styleClass="cell_small_label" text="\$period" />
-                        <Label fx:id="periodRecurrence" styleClass="cell_small_label" text="\$periodRecurrence" />
+                        <Label fx:id="recurrence" styleClass="cell_small_label" text="\$recurrence" />
                         <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                         <Label fx:id="completeStatus" styleClass="complete_status"></Label>
                     </children>
