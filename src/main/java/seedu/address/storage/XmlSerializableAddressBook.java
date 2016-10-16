@@ -25,11 +25,14 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     @XmlElement
     private List<XmlAdaptedPerson> deadlines;
     @XmlElement
+    private List<XmlAdaptedPerson> todos;
+    @XmlElement
     private List<Tag> tags;
 
     {
         persons = new ArrayList<>();
         deadlines = new ArrayList<>();
+        todos = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -44,6 +47,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     public XmlSerializableAddressBook(ReadOnlyTaskBook src) {
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         deadlines.addAll(src.getDeadlineList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        todos.addAll(src.getTodoList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -85,6 +89,19 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     }
 
     @Override
+    public UniqueTaskList getUniqueTodoList() {
+        UniqueTaskList lists = new UniqueTaskList();
+        for (XmlAdaptedPerson p : todos) {
+            try {
+                lists.add(p.toModelType());
+            } catch (IllegalValueException e) {
+                //TODO: better error handling
+            }
+        }
+        return lists;
+    }
+
+    @Override
     public List<ReadOnlyTask> getPersonList() {
         return persons.stream().map(p -> {
             try {
@@ -100,6 +117,19 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     @Override
     public List<ReadOnlyTask> getDeadlineList() {
         return deadlines.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                //TODO: better error handling
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    public List<ReadOnlyTask> getTodoList() {
+        return todos.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {

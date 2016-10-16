@@ -59,7 +59,7 @@ public class AddCommand extends Command {
         taskCategory = 1;
     }   
 
-    public AddCommand(String name, String date, String end, Set<String> tags)
+    public AddCommand(String name, String date, String end, Set<String> tags) //deadline
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -76,7 +76,7 @@ public class AddCommand extends Command {
         taskCategory = 2;
     }
     
-    public AddCommand(String name, Set<String> tags)
+    public AddCommand(String name, Set<String> tags) //todos
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -101,9 +101,9 @@ public class AddCommand extends Command {
             if (taskCategory ==1) 
             	return new CommandResult(String.format(EVENT_SUCCESS, toAdd));
             else if (taskCategory ==2)
-            	return new CommandResult(String.format(TODO_SUCCESS, toAdd));
-            else
             	return new CommandResult(String.format(DEADLINE_SUCCESS, toAdd));
+            else
+            	return new CommandResult(String.format(TODO_SUCCESS, toAdd));
 
         } catch (UniqueTaskList.DuplicatePersonException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
