@@ -50,35 +50,4 @@ public class StorageManagerTest {
         assertEquals(original, retrieved);
     }
 
-    @Test
-    public void getTodoListFilePath() {
-        assertNotNull(storageManager.getTodoListFilePath());
-    }
-
-    @Test
-    public void testSaveTodoListNull() {
-        thrown.expect(AssertionError.class);
-        storageManager.saveTodoList(null);
-    }
-
-    @Test
-    public void testReadEmptyTodoList() {
-        assertFalse(storageManager.readTodoList().isPresent());
-    }
-
-    @Test
-    public void testReadWrongPathTodoList() {
-        assertFalse(storageManager.readTodoList("test").isPresent());
-    }
-
-    @Test
-    public void testSaveTodoList() {
-        final String TASK_TITLE = "test";
-
-        TodoList todoList = new TodoList(storageManager);
-        todoList.add(TASK_TITLE);
-        storageManager.saveTodoList(todoList);
-        List<ImmutableTask> listOfTasks = storageManager.readTodoList("test").get().getTasks();
-        assertEquals(listOfTasks.get(0).getTitle(), TASK_TITLE);
-    }
 }

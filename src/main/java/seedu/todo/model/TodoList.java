@@ -1,5 +1,7 @@
 package seedu.todo.model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -13,14 +15,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
+import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
+import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.ValidationTask;
-import seedu.todo.storage.Storage;
+import seedu.todo.storage.MoveableStorage;
 
 /**
  * Represents the data layer of the application. Implements TodoModel interface so that it can provide
@@ -28,20 +33,31 @@ import seedu.todo.storage.Storage;
  * serialized and persisted directly
  */
 public class TodoList implements ImmutableTodoList, TodoModel {
-    private static final String INDEX_OUT_OF_BOUND_ERROR = "Task not found in task list";
+    private static final String INDEX_OUT_OF_BOUND_FORMAT = "There is no task no. %d";
+    private static final String INCORRECT_FILE_FORMAT_ERROR = "The file doesn't seem to be in the correct format.";
+    private static final String FILE_NOT_FOUND_FORMAT = "%s does not seem to exist.";
     
     private ObservableList<Task> tasks = FXCollections.observableArrayList(Task::getObservableProperties);
     private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
     private SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
 
-    private Storage storage;
+    private MoveableStorage<ImmutableTodoList> storage;
 
     private static final Logger logger = LogsCenter.getLogger(TodoList.class);
+    private static final EventsCenter events = EventsCenter.getInstance();
 
-    public TodoList(Storage storage) {
+    public TodoList(MoveableStorage<ImmutableTodoList> storage) {
         this.storage = storage;
-
-        Optional<ImmutableTodoList> todoListOptional = storage.readTodoList();
+        Optional<ImmutableTodoList> todoListOptional; 
+        
+        try {
+            todoListOptional = storage.read();
+        } catch (DataConversionException e) {
+            raiseStorageEvent(TodoList.INCORRECT_FILE_FORMAT_ERROR, e);
+            todoListOptional = Optional.empty();
+        } catch (FileNotFoundException e) {
+            todoListOptional = Optional.empty();
+        }
 
         if (todoListOptional.isPresent()) {
             initTodoList(todoListOptional.get());
@@ -52,9 +68,21 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         // Set the default comparators
         view(null, null);
     }
+    
+    private void raiseStorageEvent(String message, Exception e) {
+        // TODO: Have this raise an event 
+    }
 
     private void initTodoList(ImmutableTodoList initialData) {
         tasks.setAll(initialData.getTasks().stream().map(Task::new).collect(Collectors.toList()));
+    }
+    
+    private void saveTodoList() {
+        try {
+            storage.save(this);
+        } catch (IOException e) {
+            events.post(new DataSavingExceptionEvent(e));
+        }
     }
     
     private int getTaskIndex(int index) throws ValidationException {
@@ -68,9 +96,8 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         }
         
         if (taskIndex == -1) {
-            ErrorBag bag = new ErrorBag();
-            bag.put("index", TodoList.INDEX_OUT_OF_BOUND_ERROR);
-            bag.validate("There was a problem with your command");
+            String message = String.format(TodoList.INDEX_OUT_OF_BOUND_FORMAT, index);
+            throw new ValidationException(message, new ErrorBag());
         }
         
         return taskIndex;
@@ -80,8 +107,12 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     public ImmutableTask add(String title) {
         Task task = new Task(title);
         tasks.add(task);
-        
-        storage.saveTodoList(this);
+
+        try {
+            storage.save(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return task;
     }
 
@@ -92,7 +123,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         Task task = validationTask.convertToTask();
         tasks.add(task);
 
-        storage.saveTodoList(this);
+        saveTodoList();
         return task;
     }
 
@@ -100,7 +131,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     public ImmutableTask delete(int index) throws ValidationException {
         Task task;
         task = tasks.remove(getTaskIndex(index));
-        storage.saveTodoList(this);
+        saveTodoList();
         return task;
     }
 
@@ -115,7 +146,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
 
         // changes are validated and accepted
         update.accept(task);
-        storage.saveTodoList(this);
+        saveTodoList();
         return task;
     }
 
@@ -131,14 +162,29 @@ public class TodoList implements ImmutableTodoList, TodoModel {
 
     @Override
     public void save(String location) {
-        storage.saveTodoList(this, location);
+        try {
+            storage.save(this, location);
+        } catch (IOException e) {
+            
+        }
     }
 
     @Override
     public void load(String location) throws ValidationException {
-        Optional<ImmutableTodoList> todoList = storage.readTodoList(location);
+        Optional<ImmutableTodoList> todoList = null;
+        try {
+            todoList = storage.read(location);
+        } catch (DataConversionException e) {
+            throw new ValidationException(TodoList.INCORRECT_FILE_FORMAT_ERROR);
+        } catch (FileNotFoundException e) {
+            String message = String.format(TodoList.FILE_NOT_FOUND_FORMAT, location);
+            throw new ValidationException(message);
+        }
+        
         if (todoList.isPresent()) {
             initTodoList(todoList.get());
+        } else {
+            throw new ValidationException("Something went wrong while loading the data");
         }
     }
 

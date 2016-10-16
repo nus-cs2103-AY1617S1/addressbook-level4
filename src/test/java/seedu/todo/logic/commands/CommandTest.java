@@ -1,5 +1,6 @@
 package seedu.todo.logic.commands;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -7,13 +8,19 @@ import java.util.Optional;
 import org.junit.Before;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.parser.ParseResult;
+import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.TodoList;
 import seedu.todo.model.task.ImmutableTask;
-import seedu.todo.storage.MockStorage;
+import seedu.todo.storage.MoveableStorage;
 
 /**
  * Base test case for testing commands. All command tests should extend this class. 
@@ -42,8 +49,12 @@ public abstract class CommandTest {
         }
     }
 
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
+
     protected TodoList model;
-    protected MockStorage storage;
+    @Mock protected MoveableStorage<ImmutableTodoList> storage;
+    @Mock protected ImmutableTodoList storageData;
     protected BaseCommand command;
     protected StubParseResult params;
     protected CommandResult result;
@@ -52,7 +63,9 @@ public abstract class CommandTest {
 
     @Before
     public void setUpCommand() throws Exception {
-        storage = new MockStorage();
+        when(storage.read()).thenReturn(Optional.of(storageData));
+        when(storageData.getTasks()).thenReturn(Collections.emptyList());
+        
         model = new TodoList(storage);
         params = new StubParseResult();
         command = commandUnderTest();

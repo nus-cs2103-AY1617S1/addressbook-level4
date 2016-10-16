@@ -21,6 +21,7 @@ import seedu.todo.logic.parser.TodoParser;
 import seedu.todo.model.*;
 import seedu.todo.storage.Storage;
 import seedu.todo.storage.StorageManager;
+import seedu.todo.storage.TodoListStorage;
 import seedu.todo.ui.Ui;
 import seedu.todo.ui.UiManager;
 
@@ -62,7 +63,7 @@ public class MainApp extends Application {
 
         parser = new TodoParser();
 
-        model = new TodoList(storage);
+        model = new TodoList(new TodoListStorage(config.getTodoListFilePath()));
         
         dispatcher = new TodoDispatcher();
         logic = new TodoLogic(parser, model, dispatcher);

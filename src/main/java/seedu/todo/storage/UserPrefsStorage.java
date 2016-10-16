@@ -19,7 +19,7 @@ public class UserPrefsStorage implements FixedStorage<UserPrefs> {
     }
 
     @Override
-    public Optional<UserPrefs> read() throws DataConversionException, IOException {
+    public Optional<UserPrefs> read() throws DataConversionException {
         return JsonUtil.readJsonFile(filePath, UserPrefs.class);
     }
 

@@ -1,62 +1,83 @@
 package seedu.todo.model;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.Callable;
+import java.util.Optional;
 
+import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import seedu.todo.commons.core.UnmodifiableObservableList;
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
-import seedu.todo.storage.MockStorage;
+import seedu.todo.storage.MoveableStorage;
 import seedu.todo.testutil.TimeUtil;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.*;
 
 public class TodoTest {
-    private MockStorage storage = new MockStorage();
-    private TodoList todo = new TodoList(storage);
-    private UnmodifiableObservableList<ImmutableTask> observableList = todo.getObserveableList();
-    
     @Rule
     public final ExpectedException exception = ExpectedException.none();
 
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
+
+    @Mock private MoveableStorage<ImmutableTodoList> storage;
+    @Mock private ImmutableTodoList storageData; 
+    private TodoList todo;
+    private UnmodifiableObservableList<ImmutableTask> observableList;
+    
+    @Before
+    public void setUp() throws Exception {
+        when(storage.read()).thenReturn(Optional.of(storageData));
+        todo = new TodoList(storage);
+        observableList = todo.getObserveableList();
+    }
+    
+    @Test
+    public void testEmptyStorage() throws Exception {
+        when(storage.read()).thenReturn(Optional.empty());
+        todo = new TodoList(storage);
+        
+        assertThat(todo.getTasks(), empty());
+    }
+    
     @Test
     public void testRestoreFromStorage() {
         // Create a mock todo list, add it to mock storage and try to get
         // TodoList to retrieve it
         Task task1 = new Task("Task 1");
         Task task2 = new Task("Task 2");
+        
+        when(storageData.getTasks()).thenReturn(ImmutableList.of(task1, task2));
+        todo = new TodoList(storage);
 
-        MockTodoList testList = new MockTodoList(new ImmutableTask[] { task1, task2 });
-        MockStorage nonEmptyStorage = new MockStorage(testList);
-        TodoList todolist = new TodoList(nonEmptyStorage);
-
-        assertEquals(2, todolist.getTasks().size());
-        assertTrue(todolist.getTasks().contains(task1));
-        assertTrue(todolist.getTasks().contains(task2));
+        assertEquals(2, todo.getTasks().size());
+        assertTrue(todo.getTasks().contains(task1));
+        assertTrue(todo.getTasks().contains(task2));
     }
 
     @Test
-    public void testAdd() {
+    public void testAdd() throws Exception {
         assertNotNull(todo.add("Test Task 1"));
         assertEquals(1, todo.getTasks().size());
         assertFalse(getTask(0).isPinned());
         assertFalse(getTask(0).isCompleted());
-        storage.assertTodoListWasSaved();
+        verify(storage).save(todo);
 
         assertNotNull(todo.add("Test Task 2"));
         assertEquals(2, todo.getTasks().size());
         assertEquals("Test Task 1", getTask(0).getTitle());
         assertEquals("Test Task 2", getTask(1).getTitle());
-        storage.assertTodoListWasSaved();
+        verify(storage, times(2)).save(todo);
     }
 
     @Test
@@ -71,9 +92,10 @@ public class TodoTest {
             t.setTitle(TITLE);
             t.setDescription(DESCRIPTION);
         }));
+        
         assertEquals(TITLE, getTask(0).getTitle());
         assertEquals(DESCRIPTION, getTask(0).getDescription().get());
-        storage.assertTodoListWasSaved();
+        verify(storage, times(2)).save(todo);
     }
 
     @Test
@@ -83,11 +105,11 @@ public class TodoTest {
         // Check that updating boolean fields work
         assertNotNull(todo.update(1, t -> t.setPinned(true)));
         assertTrue(getTask(0).isPinned());
-        storage.assertTodoListWasSaved();
+        verify(storage, times(2)).save(todo);
 
         assertNotNull(todo.update(1, t -> t.setCompleted(true)));
         assertTrue(getTask(0).isCompleted());
-        storage.assertTodoListWasSaved();
+        verify(storage, times(3)).save(todo);
     }
 
     @Test
@@ -163,17 +185,17 @@ public class TodoTest {
         todo.delete(1);
         assertFalse(todo.getTasks().contains(topTask));
         assertEquals(3, todo.getTasks().size());
-        storage.assertTodoListWasSaved();
+        verify(storage, times(5)).save(todo);
 
         // Continue deleting the top task until the list is empty
         todo.delete(1);
-        storage.assertTodoListWasSaved();
+        verify(storage, times(6)).save(todo);
 
         todo.delete(1);
-        storage.assertTodoListWasSaved();
+        verify(storage, times(7)).save(todo);
 
         todo.delete(1);
-        storage.assertTodoListWasSaved();
+        verify(storage, times(8)).save(todo);
 
         assertTrue(todo.getTasks().isEmpty());
     }
@@ -253,18 +275,5 @@ public class TodoTest {
 
     private ImmutableTask getTask(int index) {
         return todo.getTasks().get(index);
-    }
-
-    private class MockTodoList implements ImmutableTodoList {
-        private ImmutableTask[] tasks;
-
-        public MockTodoList(ImmutableTask[] tasks) {
-            this.tasks = tasks;
-        }
-
-        @Override
-        public List<ImmutableTask> getTasks() {
-            return Arrays.asList(tasks);
-        }
     }
 }
