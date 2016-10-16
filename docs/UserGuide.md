@@ -321,9 +321,13 @@ currently named `life.xml` and you want to rename it to `family.xml`, do:
 For convienence, you may want to move the entire folder, that all your task lists
 are stored, into another location. For example, you may want to move it into Dropbox
 so that you can access your task list on another computer. Presuming your Dropbox
-folder is at `/dropbox/`, you may do so by typing:
+folder is at `dropbox`, you may do so by typing:
 
-`relocate /dropbox/tasklist/`
+`relocate dropbox/tasklist`
+
+> **Tip:**<br>
+> enter `relocate` without designated path and the app will relocate the
+> file to the original path.
 
 ### Viewing help : `help`
 
@@ -382,5 +386,5 @@ Undo | `undo [last STEPS]`
 Clear | `clear`
 Switch List | `switchlist FILENAME`
 Rename List | `renamelist FILENAME`
-Relocate | `relocate PATH`
+Relocate | `relocate [PATH]`
 Help | `help`
