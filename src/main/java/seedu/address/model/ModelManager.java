@@ -24,6 +24,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskBook addressBook;
     private final FilteredList<Task> filteredPersons;
+    private FilteredList<Task> filteredDeadlines;
+    private FilteredList<Task> filteredTodos;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -38,6 +40,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new TaskBook(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
+        filteredTodos = new FilteredList<>(addressBook.getTodo());
     }
 
     public ModelManager() {
@@ -47,6 +51,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         addressBook = new TaskBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
+        filteredTodos = new FilteredList<>(addressBook.getTodo());
     }
 
     @Override
@@ -92,18 +98,44 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
+        return new UnmodifiableObservableList<>(filteredDeadlines);
+    }
+
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList() {
+        return new UnmodifiableObservableList<>(filteredTodos);
+    }
+
     @Override
     public void updateFilteredListToShowAll() {
         filteredPersons.setPredicate(null);
+        filteredDeadlines.setPredicate(null);
+        filteredTodos.setPredicate(null);;
     }
 
     @Override
     public void updateFilteredPersonList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    @Override
+    public void updateFilteredDeadlineList(Set<String> keywords){
+        updateFilteredDeadlineList(new PredicateExpression(new NameQualifier(keywords)));
+    }
 
+    @Override
+    public void updateFilteredTodoList(Set<String> keywords){
+        updateFilteredTodoList(new PredicateExpression(new NameQualifier(keywords)));
+    }
     private void updateFilteredPersonList(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
+    }
+
+    private void updateFilteredDeadlineList(Expression expression) {
+        filteredDeadlines.setPredicate(expression::satisfies);
+    }
+    private void updateFilteredTodoList(Expression expression) {
+        filteredTodos.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
