@@ -36,26 +36,24 @@ public class EditCommand extends Command{
     Date endDate;
     RecurrenceRate recurrenceRate;
     Priority priority;
-    
+    boolean removeRepeat, removeStart, removeEnd;
+
 	public EditCommand(int targetIndex,String taskNameString, String startDateString, String endDateString, 
-            String recurrenceRateString, String timePeriodString, String priorityString)  throws IllegalValueException {
+            String recurrenceRateString, String timePeriodString, String priorityString, String resetFieldString)  throws IllegalValueException {
         	
 		this.targetIndex = targetIndex;
 		taskName = null;
 		startDate = null;
         endDate = null;
         priority = null;
+        removeRepeat = false;
+        removeStart = false;
+        removeEnd = false;
         
         if ( taskNameString!=null && !taskNameString.trim().equals("")) {
     		taskName = new Name(taskNameString);
-        } else {
-            System.out.println("TaskName is " + taskNameString);
-        }
-       /* 
-        if(taskName == null){
-            System.out.println("TaskName = null");
-        }
-        */
+        } 
+        
         if (startDateString != null) {
             DateParser dp = new DateParser(startDateString);
             startDate = dp.parseDate();
@@ -83,6 +81,14 @@ public class EditCommand extends Command{
         	}
         } 
 
+        if(resetFieldString != null){
+        	switch (resetFieldString.trim()) {
+            	case ("repeat"):  removeRepeat = true; break; 
+            	case ("start"): removeStart = true; break;
+            	case ("end"): removeEnd = true; break;
+        	}
+        } 
+
         this.toEdit = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
 	}
 
@@ -91,7 +97,7 @@ public class EditCommand extends Command{
 		assert model != null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
 
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() < targetIndex || targetIndex == 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
@@ -107,9 +113,13 @@ public class EditCommand extends Command{
         
         if (startDate != null) {
             model.editStartDate(taskToEdit, startDate);
+        } else if (removeStart){
+            model.editStartDate(taskToEdit, startDate);
         }
 
         if (endDate != null) {
+            model.editEndDate(taskToEdit, endDate);
+        } else if (removeEnd){
             model.editEndDate(taskToEdit, endDate);
         }
 
@@ -118,6 +128,8 @@ public class EditCommand extends Command{
         }
         
         if (recurrenceRate != null) {
+            model.editRecurrence(taskToEdit, recurrenceRate);
+        } else if (removeRepeat){
             model.editRecurrence(taskToEdit, recurrenceRate);
         }
         
