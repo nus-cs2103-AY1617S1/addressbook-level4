@@ -23,4 +23,8 @@ public class DateTimeParser {
         this.parser = new com.joestelmach.natty.Parser();
     }
     
+    public String getDateTime() {
+        return this.datetime;
+    }
+    
 }
