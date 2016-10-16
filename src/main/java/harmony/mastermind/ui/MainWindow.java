@@ -179,11 +179,11 @@ public class MainWindow extends UiPart {
     @FXML
     //@@author A0138862W
     private void initialize() {
-        indexColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.03));
-        taskNameColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.40));
+        indexColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.045));
+        taskNameColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.355));
         startDateColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
         endDateColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
-        tagsColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.17));
+        tagsColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
 
         taskNameColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getName()));
         startDateColumn.setCellValueFactory(task -> {

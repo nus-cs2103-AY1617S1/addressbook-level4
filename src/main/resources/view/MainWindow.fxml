@@ -71,7 +71,7 @@
                                           <TableView fx:id="taskTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
                                                 <TableColumn fx:id="indexColumn" prefWidth="43.0" resizable="false" text="#" />
-                                              <TableColumn fx:id="taskNameColumn" prefWidth="368.0" text="Task Name" />
+                                              	<TableColumn fx:id="taskNameColumn" prefWidth="368.0" text="Task Name" />
                                                 <TableColumn fx:id="startDateColumn" prefWidth="171.0" text="Start Date" />
                                                 <TableColumn fx:id="endDateColumn" prefWidth="140.0" text="End Date" />
                                                 <TableColumn fx:id="tagsColumn" prefWidth="150.0" text="Tags" />
