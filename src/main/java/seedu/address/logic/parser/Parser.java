@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -16,10 +18,13 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.bind.JAXBException;
+
 import com.joestelmach.natty.DateGroup;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.XmlUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -31,7 +36,14 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.TaskManager;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskType;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.address.storage.XmlSerializableTaskManager;
 
 public class Parser {
 
@@ -411,7 +423,45 @@ public class Parser {
 	}
 
 	public static void main(String[] args) {
-		Parser p = new Parser();
-		p.parseCommand("add deadline 'eat' by 2012-12-25");
+//		Parser p = new Parser();
+//		p.parseCommand("add deadline 'eat' by 2012-12-25");
+		
+TaskManager mgr = new TaskManager();
+    	
+    	Task[] tasks = null;
+		try {
+			tasks = new Task[]{new Task(new Name("Attach documents"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+			        new Task(new Name("Buy stationeries"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+			        new Task(new Name("Cook"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+			        new Task(new Name("Deal with boss"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+			        new Task(new Name("Email client"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+			        new Task(new Name("File documents"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+			        new Task(new Name("Grade attachments"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+			        new Task(new Name("Handle list of files"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+			        new Task(new Name("Idle around"), new TaskType("deadline"), new Status("not done"), Optional.empty(), Optional.of(LocalDateTime.now()), new UniqueTagList()),
+			};
+		} catch (IllegalArgumentException | IllegalValueException e) {
+			System.out.println("task creation error");
+		}
+    	
+    	for (int i=0; i<tasks.length; i++) {
+    		try {
+				mgr.addTask(tasks[i]);
+			} catch (DuplicateTaskException e) {
+				System.out.println("duplicate task");
+			}
+    	}
+    	
+    	XmlSerializableTaskManager dataToWrite = new XmlSerializableTaskManager(mgr);
+    	File file = new File("C:\\Users\\Kabir\\Desktop\\xml.xml");
+    	
+    	try {
+			XmlUtil.saveDataToFile(file, dataToWrite);
+		} catch (FileNotFoundException e) {
+			System.out.println("file not found");
+		} catch (JAXBException e) {
+			System.out.println("jaxb exception");
+			System.out.println(e.getStackTrace());
+		}
 	}
 }
