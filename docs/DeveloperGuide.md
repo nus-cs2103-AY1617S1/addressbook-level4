@@ -275,12 +275,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :------------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a task |
-`* * *` | user | edit a selected task |
-`* * *` | user | delete a selected task |
+`* * *` | user | add a task | 
+`* * *` | user | edit a task | update the details of a task
+`* * *` | user | delete a task | delete a task with wrong details
 `* * *` | user | add tags to a specific task |
 `* * *` | user | remove tags from a specific task |
-`* * *` | user | list tasks that are due chronologically | see what tasks I have yet to complete
+`* * *` | user | list tasks chronologically | see what tasks I have yet to complete
 `* * *` | user | list all tags used |
 `* *` | user | user with multiple tasks | search a task by name |
 `* *` | user | list tasks that are due by priority | see what tasks I have yet to complete
