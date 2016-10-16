@@ -56,8 +56,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
         taskList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(taskList.getTasks());
-        RepeatingTaskManager.getInstance().setInitialisedTime();
         RepeatingTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
+        RepeatingTaskManager.getInstance().setInitialisedTime();
     }
 
     @Override
