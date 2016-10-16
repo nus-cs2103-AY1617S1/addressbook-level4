@@ -9,7 +9,7 @@
 
 ## Introduction
 
-Welcome user! This user guide will provide you with all essential information required for you to make full use of our task manager, TasKitty.
+Welcome user! This user guide will provide you with all the essential information required for you to make full use of our task manager, TasKitty.
 
 TasKitty is a task manager that can help you manage events, deadlines that you have to meet, or simply tasks that you want to get done whenever you have free time.
 
@@ -43,7 +43,7 @@ To get started, proceed to the Quick Start section below.
 
 ## Features
 
-> **Command Format**<br>
+> **Command Format**<br><br>
 > Tasks are split into 3 categories: `todo`, `deadline`, `event`.<br>
 > `todo`: Tasks that have no specific date/time to be completed by.<br>
 > `deadline`: Tasks that have a specific date/time they must be completed by.<br>
@@ -55,6 +55,7 @@ To get started, proceed to the Quick Start section below.
 > * `DATE_TIME` parameter can accept different formats. 2 Jan 2015 3pm, 15:00 1/2/2015 are acceptable formats to represent 2 Jan 2015, 15:00.
 > * `DATE_TIME` parameter can also accept relative date formats such as tomorrow and next friday.
 > * The order of parameters is fixed.
+
 
 #### Viewing help : `help`
 Format: `help`
@@ -73,14 +74,14 @@ Examples:
 * `view`
   > <img src="images/UIview.png" width="600">
 
-* `view 1 Jan 2015`
+* `view 16 Oct 2016`
   > <img src="images/UIviewDate.png" width="600">
   
 #### Create a new task: `add`
-Add a new task to the tasks list or a new event to the event calendar.<br>
-Todo format: `add NAME`<br>
-Deadline format: `add NAME END_DATE_TIME`<br>
-Event format: `add NAME START_DATE_TIME to END_DATE_TIME`
+Add a new task to the todo or deadlines list, or a new event to the event calendar.<br>
+* Todo format: `add NAME`<br>
+* Deadline format: `add NAME END_DATE_TIME`<br>
+* Event format: `add NAME START_DATE_TIME to END_DATE_TIME`
 
 > Depending on the input format, the task will be saved into 1 of 3 categories: todo, deadline or event.
 
@@ -115,28 +116,33 @@ Examples:
   > <img src="images/UIfind.png" width="600">
 
 #### Edit task details: `edit`
-Edit a task or event already inside the task manager/ event calendar using the index of the task.<br>
-Format: `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
+Edit a todo, deadline or event already inside the task manager using the index of the task.<br>
+* Edit todo format: `edit t INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
+* Edit deadline format: `edit d INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
+* Edit event format: `edit e INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 
-> Format depends on the type of task being edited. When only 1 TIME is provided, it is treated as END_TIME for both deadline and event.
+> Edit a task at the specified INDEX under the todos `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.<br>
+> Format depends on the type of task being edited. When only 1 TIME is provided, it is treated as END_TIME for both deadline and event.<br>
+> Note that you are required to enter the `view` command before the `edit` command, in order to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.<br>
 
 Examples:
 
 * `view`<br>
   `edit d 1 assignment 2 15 Oct 2016`<br>
-  Edit the 1st task under the todo tasks section. Changes the NAME to `assignment 2` and DATE to `15 Oct 2016`.<br>
+  Edit the 1st task under the todo tasks section. Change the NAME to `assignment 2` and DATE to `15 Oct 2016`.<br>
   > <img src="images/UIedit.png" width="600">
 
 * `edit e 2 22:00 00:00`<br>
-  Edit the 2nd task under the events section. Changes the START_TIME to `22:00` and END_TIME to `00:00`.<br>
+  Edit the 2nd task under the events section. Change the START_TIME to `22:00` and END_TIME to `00:00`.<br>
 
 #### Delete task: `delete`
-Delete a task inside the task or deadline list or an event inside the calendar.<br>
-Delete task format: `delete t INDEX`
-Delete deadline format: `delete d INDEX`
-Delete event format: `delete e INDEX`
+Delete a todo, deadline or event already inside the task manager using the index of the task.<br>
+* Delete todo format: `delete t INDEX`
+* Delete deadline format: `delete d INDEX`
+* Delete event format: `delete e INDEX`
 
-> Delete a task at the specified INDEX under the tasks `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.
+> Delete a task at the specified INDEX under the tasks `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.<br>
+> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.
 
 Examples:
 
@@ -162,12 +168,13 @@ Examples:
 
 #### Mark task as done: `done`
 Mark a task in the task list as done.<br>
-Todo done format: `done t INDEX`
-Deadline done format: `done d INDEX`
-Event done format: `done e INDEX`
+* Todo done format: `done t INDEX`
+* Deadline done format: `done d INDEX`
+* Event done format: `done e INDEX`
 
-> Marks a todo `t`, deadline `d` or event `e` at the specified INDEX as completed. The INDEX refers to the index number shown in the most recent listing.<br>
-> Note that tasks that are done are moved to the bottom of the list in their respective sections.
+> Mark a todo `t`, deadline `d` or event `e` at the specified INDEX under the corresponding section as completed. The INDEX refers to the index number shown in the most recent listing.<br>
+> Note that tasks that are done are moved to the bottom of the list in their respective sections.<br>
+> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.<br>
 
 Examples:
 
@@ -215,7 +222,7 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous TasKitty folder.
        
 ## Command Summary
 
