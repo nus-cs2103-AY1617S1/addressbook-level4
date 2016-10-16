@@ -32,7 +32,7 @@ public abstract class AddressBookGuiTest {
     TestApp testApp;
 
     protected TypicalTestActivities td = new TypicalTestActivities();
-
+    
     /*
      *   Handles to GUI elements present at the start up are created in advance
      *   for easy access from child classes.
@@ -77,7 +77,9 @@ public abstract class AddressBookGuiTest {
      */
     protected ActivityManager getInitialData() {
         ActivityManager ab = TestUtil.generateEmptyAddressBook();
+
         TypicalTestActivities.loadAddressBookWithSampleData(ab);
+
         return ab;
     }
 

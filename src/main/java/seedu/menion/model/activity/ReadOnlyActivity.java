@@ -103,14 +103,13 @@ public interface ReadOnlyActivity {
     default String getTaskAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getActivityName())
-                .append(" By: ")
+                .append(" by: ")
                 .append(getActivityStartDate())
                 .append(" at: ")
                 .append(getActivityStartTime())
                 .append(" Note: ")
-                .append(getNote())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getNote());
+
         return builder.toString();
     }
     
@@ -130,25 +129,11 @@ public interface ReadOnlyActivity {
                 .append(" at: ")
                 .append(getActivityEndTime())
                 .append(" Note: ")
-                .append(getNote())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getNote());
         return builder.toString();
     }
     
     
-    /**
-     * Returns a string representation of this Activity's tags
-     */
-    default String tagsString() {
-        final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
-        if (buffer.length() == 0) {
-            return "";
-        } else {
-            return buffer.substring(0, buffer.length() - separator.length());
-        }
-    }
+  
 
 }

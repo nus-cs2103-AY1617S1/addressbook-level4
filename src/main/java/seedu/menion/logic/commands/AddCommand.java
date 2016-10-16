@@ -13,9 +13,9 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = "Adding a Floating Task: "+ COMMAND_WORD + " buy lunch n:hawker food\n"
-            + "Adding a Task: "+ COMMAND_WORD + " complete cs2103t by: 10-08-2016 1900 n:must complete urgent\n"
-    		+ "Adding a Event: "+ COMMAND_WORD + " project meeting from: 10-10-2016 1400 to: 10-10-2016 1800 n:celebrate\n";
+    public static final String MESSAGE_USAGE = "Adding a Floating Task: "+ COMMAND_WORD + " buy lunch n: hawker food\n"
+            + "Adding a Task: "+ COMMAND_WORD + " complete cs2103t by: 10-08-2016 1900 n: must complete urgent\n"
+    		+ "Adding a Event: "+ COMMAND_WORD + " project meeting from: 10-10-2016 1400 to: 10-10-2016 1800 n: celebrate\n";
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This activity already exists in the Menion";

@@ -1,6 +1,7 @@
 package guitests;
 
 import org.junit.Test;
+
 import seedu.address.testutil.TestActivity;
 import seedu.address.testutil.TestUtil;
 
@@ -14,6 +15,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
 
         //delete the first in the list
         TestActivity[] currentList = td.getTypicalActivity();
+
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
         

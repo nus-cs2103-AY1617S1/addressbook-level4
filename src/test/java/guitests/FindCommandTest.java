@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.address.testutil.TestActivity;
+
 import seedu.menion.commons.core.Messages;
 
 import static org.junit.Assert.assertTrue;

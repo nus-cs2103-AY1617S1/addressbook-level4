@@ -89,6 +89,7 @@ public class XmlUtilTest {
         MenionBuilder builder = new MenionBuilder(new ActivityManager());
         dataToWrite = new XmlSerializableActivityManager(builder.withActivity(TestUtil.generateSamplePersonData().get(0)).build());
 
+
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableActivityManager.class);
         assertEquals((new ActivityManager(dataToWrite)).toString(),(new ActivityManager(dataFromFile)).toString());

@@ -44,13 +44,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyActivityManager latestSavedAddressBook;
+    private ReadOnlyActivityManager latestSavedMenion;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(ActivityManagerChangedEvent abce) {
-        latestSavedAddressBook = new ActivityManager(abce.data);
+        latestSavedMenion = new ActivityManager(abce.data);
     }
 
     @Subscribe
@@ -71,7 +71,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new ActivityManager(model.getActivityManager()); // last saved assumed to be up to date before.
+        latestSavedMenion = new ActivityManager(model.getActivityManager()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -90,7 +90,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'Menion' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyActivityManager, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -105,7 +105,7 @@ public class LogicManagerTest {
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyActivityManager expectedAddressBook,
+                                       ReadOnlyActivityManager expectedTaskManager,
                                        List<? extends ReadOnlyActivity> expectedShownList) throws Exception {
 
         //Execute the command
@@ -116,28 +116,28 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getActivityManager());
-        assertEquals(expectedAddressBook, latestSavedAddressBook);
+        assertEquals(expectedTaskManager, model.getActivityManager());
+        assertEquals(expectedTaskManager, latestSavedMenion);
     }
 
-
+    //Pass
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
-
+    //Pass
     @Test
     public void execute_help() throws Exception {
         assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
     }
-
+    //Pass
     @Test
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
-
+    
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -161,9 +161,9 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
-    /*
+/*
     @Test
-    public void execute_add_invalidActivityData() throws Exception {
+    public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", ActivityName.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
@@ -172,67 +172,62 @@ public class LogicManagerTest {
                 "add Valid Name p/12345 e/notAnEmail a/valid, address", ActivityTime.MESSAGE_REMINDER_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
     }
-    */
+*//*
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Activity toBeAdded = helper.adamTask();
+        Activity toBeAdded = helper.exampletask();
         ActivityManager expectedAB = new ActivityManager();
         expectedAB.addTask(toBeAdded);
-
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
+    }*/
+    
 
-    }
     /*
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Activity toBeAdded = helper.adamTask();
+        Activity toBeAdded = helper.exampletask();
         ActivityManager expectedAB = new ActivityManager();
         expectedAB.addTask(toBeAdded);
-
         // setup starting state
-        model.addTask(toBeAdded); // activity already in internal address book
-
+        model.addTask(toBeAdded); // person already in internal address book
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
-
     }
     */
 
+/*
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        ActivityManager expectedAB = helper.generateAddressBook(2);
+        ActivityManager expectedAB = helper.generateMenion(2);
         List<? extends ReadOnlyActivity> expectedList = expectedAB.getTaskList();
-
         // prepare address book state
         helper.addToModel(model, 2);
-
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
     }
-
+*/
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single activity in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single activity in the last shown list based on visible index.
+     * targeting a single person in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
@@ -244,21 +239,21 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single activity in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single activity in the last shown list based on visible index.
+     * targeting a single person in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Activity> personList = helper.generatePersonList(2);
+        List<Activity> taskList = helper.generateTaskList(2);
 
-        // set AB state to 2 Activities
+        // set AB state to 2 persons
         model.resetData(new ActivityManager());
-        for (Activity p : personList) {
+        for (Activity p : taskList) {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getActivityManager(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getActivityManager(), taskList);
     }
 
     @Test
@@ -267,19 +262,17 @@ public class LogicManagerTest {
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
 
+    /*
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
-
     @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
+    public void execute_select_jumpsToCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Activity> threePersons = helper.generatePersonList(3);
-
-        ActivityManager expectedAB = helper.generateAddressBook(threePersons);
+        List<Activity> threePersons = helper.generateTaskList(3);
+        ActivityManager expectedAB = helper.generateTaskManager(threePersons);
         helper.addToModel(model, threePersons);
-
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_ACTIVITY_SUCCESS, 2),
                 expectedAB,
@@ -287,223 +280,216 @@ public class LogicManagerTest {
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
-
+*/
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
-
+/*
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete");
     }
-
+*/
+    /*
     @Test
     public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Activity> threePersons = helper.generatePersonList(3);
-
-        ActivityManager expectedAB = helper.generateAddressBook(threePersons);
-        expectedAB.removeTask(threePersons.get(1));
-        helper.addToModel(model, threePersons);
-
+        List<Activity> threeTasks = helper.generateTaskList(3);
+        ActivityManager expectedAB = helper.generateTaskManager(threeTasks);
+        expectedAB.removeTask(threeTasks.get(1));
+        helper.addToModel(model, threeTasks);
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, threePersons.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
-
-
+*/
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
 
+    /*
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Activity pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Activity pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Activity p1 = helper.generatePersonWithName("KE Y");
-        Activity p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
-
-        List<Activity> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        ActivityManager expectedAB = helper.generateAddressBook(fourPersons);
-        List<Activity> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        Activity pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Activity pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        Activity p1 = helper.generateTaskWithName("KE Y");
+        Activity p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        List<Activity> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
+        ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
+        List<Activity> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
-
         assertCommandBehavior("find KEY",
                 Command.getMessageForActivityListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
-
+	*/
+    /*
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Activity p1 = helper.generatePersonWithName("bla bla KEY bla");
-        Activity p2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Activity p3 = helper.generatePersonWithName("key key");
-        Activity p4 = helper.generatePersonWithName("KEy sduauo");
-
+        Activity p1 = helper.generateTaskWithName("bla bla KEY bla");
+        Activity p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        Activity p3 = helper.generateTaskWithName("key key");
+        Activity p4 = helper.generateTaskWithName("KEy sduauo");
         List<Activity> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        ActivityManager expectedAB = helper.generateAddressBook(fourPersons);
+        ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Activity> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
-
         assertCommandBehavior("find KEY",
                 Command.getMessageForActivityListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
-
+    */
+/*
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Activity pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Activity pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
-        Activity pTarget3 = helper.generatePersonWithName("key key");
-        Activity p1 = helper.generatePersonWithName("sduauo");
-
-        List<Activity> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
-        ActivityManager expectedAB = helper.generateAddressBook(fourPersons);
-        List<Activity> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
+        Activity pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Activity pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Activity pTarget3 = helper.generateTaskWithName("key key");
+        Activity p1 = helper.generateTaskWithName("sduauo");
+        List<Activity> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
+        ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
+        List<Activity> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
-
         assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForActivityListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
-
+*/
 
     /**
      * A utility class to generate test data.
      */
     class TestDataHelper{
 
-        Activity adamTask() throws Exception {
-            String type = Activity.TASK_TYPE;
-            ActivityName name = new ActivityName("adamTask Brown");
-            Note note = new Note("Testing!");
-            ActivityDate date = new ActivityDate("10-10-16");
-            ActivityTime time = new ActivityTime("1000");
-            return new Activity(type, name, note, date, time);
+        Activity exampletask() throws Exception {
+        	String activityType = "task";
+            ActivityName name = new ActivityName("complete cs2103t");
+            Note note = new Note("test note");
+            ActivityDate startDate = new ActivityDate("18-09-2016");
+            ActivityTime startTime = new ActivityTime("1900");
+            
+            return new Activity(activityType, name, note, startDate, startTime);
         }
 
         /**
-         * Generates a valid activity using the given seed.
-         * Running this function with the same parameter values guarantees the returned activity will have the same state.
-         * Each unique seed will generate a unique activity object.
+         * Generates a valid person using the given seed.
+         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Each unique seed will generate a unique Person object.
          *
-         * @param seed used to generate the activity data field values
+         * @param seed used to generate the person data field values
          */
         Activity generateTask(int seed) throws Exception {
             return new Activity(
-                    Activity.TASK_TYPE,
-                    new ActivityName("adamTask Brown"),
-                    new Note("Testing!"),
-                    new ActivityDate("10-10-16"),
-                    new ActivityTime("1000")              
+            		"task",
+                    new ActivityName("task " + seed),
+                    new Note("" + Math.abs(seed)),
+                    new ActivityDate("18-08-1994"),
+                    new ActivityTime("1900")
             );
         }
 
-        /** Generates the correct add command based on the activity given */
+        /** Generates the correct add command based on the person given */
         String generateAddCommand(Activity p) {
             StringBuffer cmd = new StringBuffer();
-            cmd.append("add ");
 
+            cmd.append("add ");
             cmd.append(p.getActivityName().toString());
-            cmd.append(" by: ");
-            cmd.append(p.getActivityStartDate().value);
-            cmd.append(" ");
-            cmd.append(p.getActivityStartTime().value);
-            cmd.append(" n:");
-            cmd.append(p.getNote().value);
+            cmd.append(" by: ").append(p.getActivityStartDate().toString());
+            cmd.append(" ").append(p.getActivityStartTime().toString());
+            cmd.append(" n:").append(p.getNote().toString());
+
             return cmd.toString();
         }
 
         /**
-         * Generates an AddressBook with auto-generated Activities.
+         * Generates an AddressBook with auto-generated persons.
          */
-        ActivityManager generateAddressBook(int numGenerated) throws Exception{
-            ActivityManager addressBook = new ActivityManager();
-            addToAddressBook(addressBook, numGenerated);
-            return addressBook;
+        ActivityManager generateMenion(int numGenerated) throws Exception{
+            ActivityManager menion = new ActivityManager();
+            addToTaskManager(menion, numGenerated);
+            return menion;
         }
 
         /**
-         * Generates an AddressBook based on the list of Activities given.
+         * Generates an AddressBook based on the list of Persons given.
          */
-        ActivityManager generateAddressBook(List<Activity> Activities) throws Exception{
-            ActivityManager addressBook = new ActivityManager();
-            addToAddressBook(addressBook, Activities);
-            return addressBook;
+        ActivityManager generateTaskManager(List<Activity> tasks) throws Exception{
+            ActivityManager taskManager = new ActivityManager();
+            addToTaskManager(taskManager, tasks);
+            return taskManager;
         }
 
         /**
-         * Adds auto-generated activity objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Activities will be added
+         * Adds auto-generated Person objects to the given AddressBook
+         * @param taskManager The AddressBook to which the Persons will be added
          */
-        void addToAddressBook(ActivityManager addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generatePersonList(numGenerated));
+        void addToTaskManager(ActivityManager taskManager, int numGenerated) throws Exception{
+            addToTaskManager(taskManager, generateTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Activities to the given AddressBook
+         * Adds the given list of Task to the given TaskManager
          */
-        void addToAddressBook(ActivityManager addressBook, List<Activity> activitiesToAdd) throws Exception{
-            for(Activity p: activitiesToAdd){
-                addressBook.addTask(p);
+        void addToTaskManager(ActivityManager taskManager, List<Activity> taskToAdd) throws Exception{
+            for(Activity p: taskToAdd){
+                taskManager.addTask(p);
             }
         }
 
         /**
-         * Adds auto-generated activity objects to the given model
-         * @param model The model to which the Activities will be added
+         * Adds auto-generated Task objects to the given model
+         * @param model The model to which the Tasks will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception{
-            addToModel(model, generatePersonList(numGenerated));
+            addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Activities to the given model
+         * Adds the given list of Task to the given model
          */
-        void addToModel(Model model, List<Activity> activitiesToAdd) throws Exception{
-            for(Activity p: activitiesToAdd){
+        void addToModel(Model model, List<Activity> taskToAdd) throws Exception{
+            for(Activity p: taskToAdd){
                 model.addTask(p);
             }
         }
 
         /**
-         * Generates a list of Activities based on the flags.
+         * Generates a list of Task based on the flags.
          */
-        List<Activity> generatePersonList(int numGenerated) throws Exception{
-            List<Activity> Activities = new ArrayList<>();
+        List<Activity> generateTaskList(int numGenerated) throws Exception{
+            List<Activity> taskList = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
-                Activities.add(generateTask(i));
+                taskList.add(generateTask(i));
             }
-            return Activities;
+            return taskList;
         }
 
-        List<Activity> generatePersonList(Activity... Activities) {
-            return Arrays.asList(Activities);
+        List<Activity> generateTaskList(Activity... task) {
+            return Arrays.asList(task);
         }
 
         /**
-         * Generates a activity object with given name. Other fields will have some dummy values.
+         * Generates a Task object with given name. Other fields will have some dummy values.
          */
-        Activity generatePersonWithName(String name) throws Exception {
+        Activity generateTaskWithName(String taskName) throws Exception {
             return new Activity(
-                    Activity.TASK_TYPE,
-                    new ActivityName(name),
-                    new Note("Dummy"),
-                    new ActivityDate("10-10-2016"),
-                    new ActivityTime("1000")
-            );
+            		"task",
+                    new ActivityName(taskName),
+                    new Note("test note"),
+                    new ActivityDate("18-06-2016"),
+                    new ActivityTime("1900"));
         }
     }
 }

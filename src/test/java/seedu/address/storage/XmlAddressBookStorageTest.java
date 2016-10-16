@@ -63,6 +63,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
+        
         TypicalTestActivities td = new TypicalTestActivities();
         ActivityManager original = td.getTypicalAddressBook();
         XmlActivityManagerStorage xmlAddressBookStorage = new XmlActivityManagerStorage(filePath);
@@ -73,8 +74,10 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new ActivityManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
+
         original.addTask(new Activity(TypicalTestActivities.floatingTask));
         original.removeTask(new Activity(TypicalTestActivities.event));
+
         xmlAddressBookStorage.saveActivityManager(original, filePath);
         readBack = xmlAddressBookStorage.readActivityManager(filePath).get();
         assertEquals(original, new ActivityManager(readBack));

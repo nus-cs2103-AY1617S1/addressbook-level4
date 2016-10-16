@@ -66,11 +66,11 @@ public class TestUtil {
         try {
             return new Activity[]{
                     // Floating Task
-                    new Activity(Activity.FLOATING_TASK_TYPE, new ActivityName("Pay JS for spotify!"), new Note(" It costs $15")),
+                   // new Activity(Activity.FLOATING_TASK_TYPE, new ActivityName("Pay JS for spotify!"), new Note(" It costs $15")),
                     // Task
                     new Activity(Activity.TASK_TYPE, new ActivityName("Do CS2103T testing"), new Note("it is so hard!"), new ActivityDate("10-08-2016"), new ActivityTime("1900")),
                     // Event
-                    new Activity(Activity.EVENT_TYPE, new ActivityName("CS2103T tutorial"), new Note("Don't Sleep"), new ActivityDate("10-08-2016"), new ActivityTime("1500"), new ActivityDate("10-08-2016"), new ActivityTime("1800"))               
+                   // new Activity(Activity.EVENT_TYPE, new ActivityName("CS2103T tutorial"), new Note("Don't Sleep"), new ActivityDate("10-08-2016"), new ActivityTime("1500"), new ActivityDate("10-08-2016"), new ActivityTime("1800"))               
             };
         } catch (IllegalValueException e) {
             assert false;

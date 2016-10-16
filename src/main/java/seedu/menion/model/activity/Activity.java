@@ -205,4 +205,16 @@ public class Activity implements ReadOnlyActivity {
         return this;
     }
 
+    @Override
+    public String toString() {
+        switch(this.activityType){
+        case FLOATING_TASK_TYPE:
+            return getFloatingTaskAsText();
+        case TASK_TYPE:
+            return getTaskAsText();
+        case EVENT_TYPE:
+            return getEventAsText();
+        }
+        return null;
+    }
 }
