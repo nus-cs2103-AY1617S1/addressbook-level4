@@ -264,27 +264,27 @@ public class LogicManagerTest {
 //        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
 //        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
 //    }
-
-    @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
-    }
-
-    @Test
-    public void execute_select_jumpsToCorrectTask() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threeTasks = helper.generateTaskList(3);
-
-        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
-        helper.addToModel(model, threeTasks);
-
-        assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
-                expectedAB,
-                expectedAB.getTaskList());
-        assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
-    }
+//
+//    @Test
+//    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
+//        assertIndexNotFoundBehaviorForCommand("select");
+//    }
+//
+//    @Test
+//    public void execute_select_jumpsToCorrectTask() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        List<Task> threeTasks = helper.generateTaskList(3);
+//
+//        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
+//        helper.addToModel(model, threeTasks);
+//
+//        assertCommandBehavior("select 2",
+//                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+//                expectedAB,
+//                expectedAB.getTaskList());
+//        assertEquals(1, targetedJumpIndex);
+//        assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
+//    }
 
 
     @Test
@@ -295,7 +295,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("del");
+        assertIndexNotFoundBehaviorForCommand("del 500");
     }
 
     @Test
@@ -307,7 +307,7 @@ public class LogicManagerTest {
         expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
-        assertCommandBehavior("delete 2",
+        assertCommandBehavior("del 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());

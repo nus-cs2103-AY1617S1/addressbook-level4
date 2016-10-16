@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -16,11 +18,14 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.bind.JAXBException;
+
 import com.joestelmach.natty.DateGroup;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.IncorrectCommandException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.XmlUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -33,7 +38,14 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.TaskManager;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskType;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.address.storage.XmlSerializableTaskManager;
 
 public class Parser {
 
@@ -437,7 +449,8 @@ public class Parser {
 	}
 
 	public static void main(String[] args) {
-		Parser p = new Parser();
-		p.parseCommand("add deadline 'eat' by 2012-12-25");
+//		Parser p = new Parser();
+//		p.parseCommand("add deadline 'eat' by 2012-12-25");
 	}
+	
 }
