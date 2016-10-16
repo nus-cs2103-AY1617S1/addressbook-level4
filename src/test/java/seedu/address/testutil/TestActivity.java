@@ -17,7 +17,8 @@ public class TestActivity implements ReadOnlyActivity {
     private ActivityTime endTime;
     private Note note;
     private String activityType;
-
+    private boolean completed;
+    
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
     private ArrayList<String> activityDetails;
@@ -212,5 +213,15 @@ public class TestActivity implements ReadOnlyActivity {
     @Override
     public Activity get() {
         return null;
+    }
+
+    @Override
+    public boolean isCompleted() {
+        return this.completed;
+    }
+
+    @Override
+    public void setCompleted() {
+        this.completed = true;
     }
 }
