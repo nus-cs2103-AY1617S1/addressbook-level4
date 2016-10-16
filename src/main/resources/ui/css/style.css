@@ -167,6 +167,11 @@ VBox.header {
   -fx-strikethrough: true;
 }
 
+.tasklist-eventitem-label.completed {
+  -fx-fill: #9BBAAD;
+  -fx-strikethrough: true;
+}
+
 /* HELP VIEW */
 
 .help-pane {

@@ -43,5 +43,14 @@ public class Event implements CalendarItem {
     public void setCalendarDT(LocalDateTime datetime) {
         setStartDate(datetime);
     }
+    
+    @Override
+    public boolean isOver() {
+        if (endDate == null) {
+            return false;
+        } else {
+            return endDate.isBefore(LocalDateTime.now());
+        }
+    }
 
 }

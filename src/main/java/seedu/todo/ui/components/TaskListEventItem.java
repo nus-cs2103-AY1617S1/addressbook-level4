@@ -46,6 +46,11 @@ public class TaskListEventItem extends MultiComponent {
         
         // Set image
         rowIconImageView.setImage(new Image(ICON_PATH));
+        
+        // If over, set style
+        if (event.isOver()) {
+            eventText.getStyleClass().add("completed");
+        }
     }
 
 }
