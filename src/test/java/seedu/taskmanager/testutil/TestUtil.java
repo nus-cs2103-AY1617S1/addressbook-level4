@@ -80,7 +80,10 @@ public class TestUtil {
                     new Item(new ItemType("task"), new Name("This is a task"), new Date(""), new Time(""), new Date(""), new Time(""), new UniqueTagList()),
                     new Item(new ItemType("event"), new Name("2103 exam"), new Date("2018-05-05"), new Time("21:59"), new Date("2022-01-01"), new Time("19:21"), new UniqueTagList()),
                     new Item(new ItemType("deadline"), new Name("Submit report"), new Date(""), new Time(""), new Date("2023-03-03"), new Time("14:21"), new UniqueTagList()),
-                    new Item(new ItemType("task"), new Name("Buy a dozen cartons of milk"), new Date(""), new Time(""), new Date("2016-11-21"), new Time("13:10"), new UniqueTagList())
+                    new Item(new ItemType("task"), new Name("Buy a dozen cartons of milk"), new Date(""), new Time(""), new Date("2016-11-21"), new Time("13:10"), new UniqueTagList()),
+                    new Item(new ItemType("event"), new Name("Java Workshop"), new Date("2017-01-02"), new Time("08:00"), new Date("2017-01-02"), new Time("12:00"), new UniqueTagList()),
+                    new Item(new ItemType("deadline"), new Name("Submit essay assignment"), new Date(""), new Time(""), new Date("2016-11-28"), new Time("21:29"), new UniqueTagList()),
+                    new Item(new ItemType("task"), new Name("Call for the electrician"), new Date(""), new Time(""), new Date(""), new Time(""), new UniqueTagList()),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -304,7 +307,7 @@ public class TestUtil {
     /**
      * Returns a copy of the list with items at the specified multiple indexes removed.
      * @param list original list to copy from
-     * @param targetIndexes the array of indexes of the items to be removed
+     * @param targetIndexes the integer array of indexes of the items to be removed
      */
     public static TestItem[] removeItemsFromList(final TestItem[] list, int[] targetIndexes) {
         TestItem[] itemsToRemove = new TestItem[targetIndexes.length];

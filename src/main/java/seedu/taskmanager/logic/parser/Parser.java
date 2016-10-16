@@ -344,7 +344,7 @@ public class Parser {
                 Optional<Integer> index = parseIndex(indexInList);
                 if(!index.isPresent()) {
                     return new IncorrectCommand(
-                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, "test"));
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
                 }
                 else {
                     indexesToDelete.add(index.get());
