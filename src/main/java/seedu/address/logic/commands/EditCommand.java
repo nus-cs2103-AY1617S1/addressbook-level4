@@ -80,12 +80,17 @@ public class EditCommand extends Command{
             	case ("medium"): case ("m"): case ("med"): priority = Priority.MEDIUM; break;
         	}
         } 
-
+        /*
+         * Check which field is to be reset
+         */
         if(resetFieldString != null){
-        	switch (resetFieldString.trim()) {
-            	case ("repeat"):  removeRepeat = true; break; 
-            	case ("start"): removeStart = true; break;
-            	case ("end"): removeEnd = true; break;
+        	String[] resetField = resetFieldString.trim().split(" ");
+        	for(int i = 0; i < resetField.length; i++){
+        		switch (resetField[i].trim()) {
+            		case ("repeat"):  removeRepeat = true; break; 
+            		case ("start"): removeStart = true; break;
+            		case ("end"): removeEnd = true; break;
+        		}
         	}
         } 
 
