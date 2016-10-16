@@ -93,7 +93,6 @@ public class TodoListPanel extends UiPart {
     private class TodoListViewCell extends ListCell<ImmutableTask> {
 
         public TodoListViewCell() {
-            setTaskCardStyle();
         }
 
         @Override
@@ -104,16 +103,18 @@ public class TodoListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                TaskCard taskCard = TaskCard.load(task, getIndex() + 1);
+                setGraphic(taskCard.getLayout());
+                setTaskCardStyleProperties(taskCard);
             }
         }
 
         /**
-         * Sets the styling of a cell on the to-do list,
-         * that cannot be done in any other places.
+         * Sets the style properties of a cell on the to-do list, that cannot be done in any other places.
          */
-        private void setTaskCardStyle() {
+        private void setTaskCardStyleProperties(TaskCard taskCard) {
             this.setPadding(Insets.EMPTY);
+            this.selectedProperty().addListener((observable, oldValue, newValue) -> taskCard.markAsSelected(newValue));
         }
     }
 

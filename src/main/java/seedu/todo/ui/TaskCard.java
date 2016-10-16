@@ -131,7 +131,7 @@ public class TaskCard extends UiPart{
         } else if (isOverdue) {
             FxViewUtil.addClassStyle(taskCard, STYLE_OVERDUE);
         }
-        
+
         //styleClasses .add(STYLE_COLLAPSED); TODO: Disabled until implemented
     }
     
@@ -166,5 +166,17 @@ public class TaskCard extends UiPart{
             setStyle();
         });
         timeline.play();
+    }
+
+    /**
+     * Displays in the Ui whether this card is selected
+     * @param isSelected true when the card is selected
+     */
+    public void markAsSelected(boolean isSelected) {
+        if (isSelected) {
+            FxViewUtil.addClassStyle(taskCard, STYLE_SELECTED);
+        } else {
+            FxViewUtil.removeClassStyle(taskCard, STYLE_SELECTED);
+        }
     }
 }
