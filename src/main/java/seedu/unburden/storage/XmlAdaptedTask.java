@@ -17,8 +17,11 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
+    @XmlElement(required = true)
     private String date;
+    @XmlElement(required = true)
     private String startTime;
+    @XmlElement(required = true)
     private String endTime;
 
     @XmlElement

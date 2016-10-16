@@ -41,6 +41,14 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
+        
+        id.setText(displayedIndex + ". ");
+        name.setText(person.getName().fullName);
+        date.setText("Date: " + person.getDate().fullDate);
+        startTime.setText("Start Time: " + person.getStartTime().fullTime);
+        endTime.setText("End Time: " + person.getEndTime().fullTime);
+        tags.setText("      " + person.tagsString());
+        /*
     	if(person.getDate().fullDate != "NIL" && person.getStartTime().fullTime != "NIL"){
         name.setText(
         person.getName().fullName + "\n" 
@@ -67,6 +75,7 @@ public class TaskCard extends UiPart{
     		id.setText(displayedIndex + ". ");
             tags.setText("      " + person.tagsString());
     	}
+    	*/
     }
 
     public HBox getLayout() {
