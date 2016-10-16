@@ -68,7 +68,7 @@ public class TestUtil {
                     // Floating Task
                    // new Activity(Activity.FLOATING_TASK_TYPE, new ActivityName("Pay JS for spotify!"), new Note(" It costs $15")),
                     // Task
-                    new Activity(Activity.TASK_TYPE, new ActivityName("Do CS2103T testing"), new Note("it is so hard!"), new ActivityDate("10-08-2016"), new ActivityTime("1900")),
+                    new Activity(Activity.TASK_TYPE, new ActivityName("Do CS2103T testing"), new Note("it is so hard!"), new ActivityDate("10-08-2016"), new ActivityTime("1900"), new Completed(Completed.UNCOMPLETED_ACTIVITY)),
                     // Event
                    // new Activity(Activity.EVENT_TYPE, new ActivityName("CS2103T tutorial"), new Note("Don't Sleep"), new ActivityDate("10-08-2016"), new ActivityTime("1500"), new ActivityDate("10-08-2016"), new ActivityTime("1800"))               
             };

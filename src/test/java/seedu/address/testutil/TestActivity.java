@@ -17,7 +17,7 @@ public class TestActivity implements ReadOnlyActivity {
     private ActivityTime endTime;
     private Note note;
     private String activityType;
-    private boolean completed;
+    private Completed status;
     
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
@@ -28,10 +28,11 @@ public class TestActivity implements ReadOnlyActivity {
      * Every field must be present and not null.
      * @return 
      */
-    public TestActivity(String type, ActivityName name, Note note) {
+    public TestActivity(String type, ActivityName name, Note note, Completed status) {
         this.activityType = type;
         this.name = name;
         this.note = note;
+        this.status = status;
         setActivityDetails();
     }
     
@@ -39,12 +40,13 @@ public class TestActivity implements ReadOnlyActivity {
      * For Task
      * Every field must be present and not null.
      */
-    public TestActivity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime) {
+    public TestActivity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, Completed status) {
         this.activityType = type;
         this.name = name;
         this.note = note;
         this.startDate = startDate;
         this.startTime = startTime;
+        this.status = status;
         setActivityDetails();
     }
     
@@ -52,7 +54,7 @@ public class TestActivity implements ReadOnlyActivity {
      * For Event
      * Every field must be present and not null.
      */
-    public TestActivity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, ActivityDate endDate, ActivityTime endTime) {
+    public TestActivity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, ActivityDate endDate, ActivityTime endTime, Completed status) {
         this.activityType = type;
         this.name = name;
         this.note = note;
@@ -60,6 +62,7 @@ public class TestActivity implements ReadOnlyActivity {
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
+        this.status = status;
         setActivityDetails();
     }
     
@@ -74,12 +77,14 @@ public class TestActivity implements ReadOnlyActivity {
             activityType = source.getActivityType();
             name = source.getActivityName();
             note = source.getNote();
+            status = source.getActivityStatus();
         } else if (source.getActivityType().equals(Activity.TASK_TYPE)) {
             activityType = source.getActivityType();;
             name = source.getActivityName();
             note = source.getNote();
             startDate = source.getActivityStartDate();
             startTime = source.getActivityStartTime();
+            status = source.getActivityStatus();
         } else if (source.getActivityType().equals(Activity.EVENT_TYPE)) {
             activityType = source.getActivityType();;
             name = source.getActivityName();
@@ -88,11 +93,21 @@ public class TestActivity implements ReadOnlyActivity {
             startTime = source.getActivityStartTime();
             endDate = source.getActivityEndDate();
             endTime = source.getActivityEndTime();
+            status = source.getActivityStatus();
         }
         this.activityDetails = source.getActivityDetails();
 
     }
 
+    @Override
+    public void setCompleted() {
+        this.status = new Completed(true);
+    }
+
+    @Override
+    public Completed getActivityStatus() {
+        return this.status;
+    }
     @Override
     public ActivityName getActivityName() {
         return this.name;
@@ -135,6 +150,7 @@ public class TestActivity implements ReadOnlyActivity {
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
             activityDetails.add(note.toString());
+            activityDetails.add(status.toString());
         } else if (activityType == Activity.TASK_TYPE) {
             activityDetails = new ArrayList<String>(Activity.TASK_LENGTH);
             activityDetails.add(activityType);
@@ -142,6 +158,7 @@ public class TestActivity implements ReadOnlyActivity {
             activityDetails.add(note.toString());
             activityDetails.add(startDate.toString());
             activityDetails.add(startTime.toString());
+            activityDetails.add(status.toString());
         } else if (activityType == Activity.EVENT_TYPE) {
             activityDetails = new ArrayList<String>(Activity.EVENT_LENGTH);
             activityDetails.add(activityType);
@@ -151,6 +168,7 @@ public class TestActivity implements ReadOnlyActivity {
             activityDetails.add(startTime.toString());
             activityDetails.add(endDate.toString());
             activityDetails.add(endTime.toString());
+            activityDetails.add(status.toString());
         }
     }
 
@@ -213,15 +231,5 @@ public class TestActivity implements ReadOnlyActivity {
     @Override
     public Activity get() {
         return null;
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return this.completed;
-    }
-
-    @Override
-    public void setCompleted() {
-        this.completed = true;
     }
 }

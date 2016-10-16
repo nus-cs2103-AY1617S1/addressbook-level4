@@ -31,6 +31,7 @@ public class AddCommand extends Command {
     private ActivityTime endTime;
     private Note note;
     private String activityType;
+    private Completed status = new Completed(false);
 
     /**
      * Convenience constructor using raw values.
@@ -43,14 +44,14 @@ public class AddCommand extends Command {
             activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
             name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
             note = new Note(activityDetails.get(Activity.INDEX_ACTIVITY_NOTE));
-            this.toAdd = new Activity(activityType, name, note);
+            this.toAdd = new Activity(activityType, name, note, status);
         } else if (activityDetails.size() == Activity.TASK_LENGTH) {
             activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
             name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
             note = new Note(activityDetails.get(Activity.INDEX_ACTIVITY_NOTE));
             startDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_STARTDATE));
             startTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_STARTTIME));
-            this.toAdd = new Activity(activityType, name, note, startDate, startTime);
+            this.toAdd = new Activity(activityType, name, note, startDate, startTime, status);
         } else {
             activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
             name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
@@ -59,7 +60,7 @@ public class AddCommand extends Command {
             startTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_STARTTIME));
             endDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_ENDDATE));
             endTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_ENDTIME));
-            this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime);
+            this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status);
         }
       //  this.eventStub = new EventStub(activityDetails);
     }

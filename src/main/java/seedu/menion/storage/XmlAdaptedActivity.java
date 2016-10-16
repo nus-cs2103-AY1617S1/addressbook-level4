@@ -28,7 +28,9 @@ public class XmlAdaptedActivity {
     private String endDate;
     @XmlElement(required = false)
     private String endTime;
-
+    @XmlElement(required = true)
+    private String status;
+    
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -49,12 +51,14 @@ public class XmlAdaptedActivity {
             activityType = source.getActivityType().toString();
             name = source.getActivityName().fullName;
             note = source.getNote().toString();
+            status = source.getActivityStatus().toString();
         } else if (source.getActivityType() == Activity.TASK_TYPE) {
             activityType = source.getActivityType().toString();
             name = source.getActivityName().fullName;
             note = source.getNote().toString();
             startDate = source.getActivityStartDate().toString();
             startTime = source.getActivityStartTime().toString();
+            status = source.getActivityStatus().toString();
         } else if (source.getActivityType() == Activity.EVENT_TYPE) {
             activityType = source.getActivityType().toString();
             name = source.getActivityName().fullName;
@@ -63,6 +67,7 @@ public class XmlAdaptedActivity {
             startTime = source.getActivityStartTime().toString();
             endDate = source.getActivityEndDate().toString();
             endTime = source.getActivityEndTime().toString();
+            status = source.getActivityStatus().toString();
         }
     }
 
@@ -80,19 +85,22 @@ public class XmlAdaptedActivity {
             final ActivityTime startTime = new ActivityTime(this.startTime);
             final ActivityDate endDate = new ActivityDate(this.endDate);
             final ActivityTime endTime = new ActivityTime(this.endTime);
-            return new Activity(type, name, note, startDate, startTime, endDate, endTime);
+            final Completed status = new Completed(this.status);
+            return new Activity(type, name, note, startDate, startTime, endDate, endTime, status);
         } else if (this.activityType.equals(Activity.TASK_TYPE)) {
             final String type = this.activityType;
             final ActivityName name = new ActivityName(this.name);
             final Note note = new Note(this.note);
             final ActivityDate startDate = new ActivityDate(this.startDate);
             final ActivityTime startTime = new ActivityTime(this.startTime);
-            return new Activity(type, name, note, startDate, startTime);
+            final Completed status = new Completed(this.status);
+            return new Activity(type, name, note, startDate, startTime, status);
         } else {
             final String type = this.activityType;
             final ActivityName name = new ActivityName(this.name);
             final Note note = new Note(this.note);
-            return new Activity(type, name, note);
+            final Completed status = new Completed(this.status);
+            return new Activity(type, name, note, status);
         }
     }
 }

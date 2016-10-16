@@ -20,22 +20,22 @@ public class Activitybuilder {
         this.activity = new TestActivity(newActivity);
     }
 
-    public Activitybuilder withFloatingTask(String type, ActivityName name, Note note) throws IllegalValueException {
+    public Activitybuilder withFloatingTask(String type, ActivityName name, Note note, Completed status) throws IllegalValueException {
         
-        this.activity = new TestActivity(type, name, note);
+        this.activity = new TestActivity(type, name, note, status);
         return this;
     }
     
-    public Activitybuilder withTask(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime) throws IllegalValueException {
+    public Activitybuilder withTask(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, Completed status) throws IllegalValueException {
        
-        this.activity = new TestActivity(type, name, note, startDate, startTime);
+        this.activity = new TestActivity(type, name, note, startDate, startTime, status);
         return this;
     }
 
     public Activitybuilder withEvent(String type, ActivityName name, Note note, ActivityDate startDate, 
-            ActivityTime startTime, ActivityDate endDate, ActivityTime endTime) throws IllegalValueException {
+            ActivityTime startTime, ActivityDate endDate, ActivityTime endTime, Completed status) throws IllegalValueException {
         
-        this.activity = new TestActivity(type, name, note, startDate, startTime, endDate, endTime);
+        this.activity = new TestActivity(type, name, note, startDate, startTime, endDate, endTime, status);
         return this;
     }
 
