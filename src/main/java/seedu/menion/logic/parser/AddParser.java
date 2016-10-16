@@ -3,9 +3,12 @@ package seedu.menion.logic.parser;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.joestelmach.natty.*;
 
 public class AddParser {
 
@@ -70,27 +73,29 @@ public class AddParser {
 		
 
 	}
-
-	/**
-	 * Checks if the dates input by the user is a valid date.
-	 */
-	public static Boolean DateValidator(String dateToCheck){
+	
+	public static int dateHandler(String dateToHandle){
+		Parser parser = new Parser();
 		
-		if (dateToCheck == null){
-			return false;
-		}
+		List<DateGroup> dateInfo = parser.parse(dateToHandle);
+		DateGroup dateGroup = dateInfo.get(0);
+		Date date = dateGroup.getDates().get(0);
+		Calendar cal = dateToCalendar(date);
+//		System.out.println(date.toString());
+//		System.out.println(cal.get(Calendar.DAY_OF_MONTH));
+//		System.out.println(cal.get(Calendar.MONTH));
+//		System.out.println(cal.get(Calendar.YEAR));
 		
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-		sdf.setLenient(false);
-		
-		try {
-			Date date = sdf.parse(dateToCheck);
-			
-		} catch (ParseException e){
-			return false;
-		}
-		return true;
+		return cal.get(Calendar.MONTH);
 	}
+	
+	private static Calendar dateToCalendar(Date dateToConvert){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(dateToConvert);
+		return cal;
+		
+	}
+
 	
 	/**
 	 * Input the arguments into the parsedArguments ArrayList.

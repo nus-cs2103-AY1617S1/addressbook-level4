@@ -99,18 +99,19 @@ public class AddParserTest {
 	public void checkFloatingTaskArguments_returnsCorrectArguments(){
 		
 		String arguments = "complete cs2103t n:important";		
-		
+	
 		assertEquals("complete cs2103t ", AddParser.parseCommand(arguments).get(1));
 		assertEquals("important", AddParser.parseCommand(arguments).get(2));
 		
 	}
-	
+
 	@Test
-	public void checkDateFormatter_returnsTrue(){
+	public void checkParserReturnValues(){
 		
-		String arguments = "18-06-1994";
+		assertEquals(7, AddParser.dateHandler("7th august 2016"));
 		
-		assertTrue(AddParser.DateValidator(arguments));
+		
+				
 	}
 	
 }
