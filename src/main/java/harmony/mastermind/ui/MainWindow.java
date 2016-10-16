@@ -71,22 +71,40 @@ public class MainWindow extends UiPart {
     private TextArea consoleOutput;
 
     @FXML
-    private TableView<ReadOnlyTask> taskTable;
+    private TableView<ReadOnlyTask> taskTableHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> indexColumn;
+    private TableColumn<ReadOnlyTask, String> indexHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> taskNameColumn;
+    private TableColumn<ReadOnlyTask, String> taskNameHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> startDateColumn;
+    private TableColumn<ReadOnlyTask, String> startDateHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> endDateColumn;
+    private TableColumn<ReadOnlyTask, String> endDateHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> tagsColumn;
+    private TableColumn<ReadOnlyTask, String> tagsHome;
+    
+    @FXML
+    private TableView<ReadOnlyTask> taskTableArchive;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> indexArchive;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> taskNameArchive;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> startDateArchive;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> endDateArchive;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> tagsArchive;
 
     public MainWindow() {
         super();
@@ -126,7 +144,8 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-        taskTable.setItems(logic.getFilteredTaskList());
+        taskTableHome.setItems(logic.getFilteredTaskList());
+        taskTableArchive.setItems(logic.getFilteredArchiveList());
 
         registerAsAnEventHandler(this);
     }
@@ -179,14 +198,22 @@ public class MainWindow extends UiPart {
     @FXML
     //@@author A0138862W
     private void initialize() {
-        indexColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.045));
-        taskNameColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.355));
-        startDateColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
-        endDateColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
-        tagsColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
+        indexHome.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(0.045));
+        taskNameHome.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(0.355));
+        startDateHome.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(0.20));
+        endDateHome.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(0.20));
+        tagsHome.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(0.20));
 
-        taskNameColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getName()));
-        startDateColumn.setCellValueFactory(task -> {
+        initHomeTab();
+        initArchiveTab();
+
+    }
+
+    @FXML
+    //@@author A0138862W
+    private void initHomeTab() {
+        taskNameHome.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getName()));
+        startDateHome.setCellValueFactory(task -> {
             if (task.getValue().isEvent()) {
                 return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getStartDate())
                                                  + "\n"
@@ -195,7 +222,7 @@ public class MainWindow extends UiPart {
                 return new ReadOnlyStringWrapper("");
             }
         });
-        endDateColumn.setCellValueFactory(task -> {
+        endDateHome.setCellValueFactory(task -> {
             if (!task.getValue().isFloating()) {
                 return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getEndDate())
                                                  + "\n"
@@ -204,9 +231,9 @@ public class MainWindow extends UiPart {
                 return new ReadOnlyStringWrapper("");
             }
         });
-        tagsColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getTags().toString()));
+        tagsHome.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getTags().toString()));
 
-        indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, String>() {
+        indexHome.setCellFactory(column -> new TableCell<ReadOnlyTask, String>() {
             @Override
             public void updateIndex(int index) {
                 super.updateIndex(index);
@@ -218,8 +245,46 @@ public class MainWindow extends UiPart {
                 }
             }
         });
-
     }
+    
+    @FXML
+    //@@author A0124797R
+    private void initArchiveTab() {
+        taskNameArchive.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getName()));
+        startDateArchive.setCellValueFactory(task -> {
+            if (task.getValue().isEvent()) {
+                return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getStartDate())
+                                                 + "\n"
+                                                 + task.getValue().getStartDate().toString());
+            } else {
+                return new ReadOnlyStringWrapper("");
+            }
+        });
+        endDateArchive.setCellValueFactory(task -> {
+            if (!task.getValue().isFloating()) {
+                return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getEndDate())
+                                                 + "\n"
+                                                 + task.getValue().getEndDate().toString());
+            } else {
+                return new ReadOnlyStringWrapper("");
+            }
+        });
+        tagsArchive.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getTags().toString()));
+
+        indexArchive.setCellFactory(column -> new TableCell<ReadOnlyTask, String>() {
+            @Override
+            public void updateIndex(int index) {
+                super.updateIndex(index);
+
+                if (isEmpty() || index < 0) {
+                    setText(null);
+                } else {
+                    setText(Integer.toString(index + 1));
+                }
+            }
+        });
+    }
+
 
     @FXML
     //@@author A0124797R
@@ -241,10 +306,10 @@ public class MainWindow extends UiPart {
             System.out.println();
             
             if (!mostRecentResult.feedbackToUser.equals(ListCommand.MESSAGE_SUCCESS_ARCHIVED)) {
-                taskTable.setItems(logic.getFilteredTaskList());
+                taskTableHome.setItems(logic.getFilteredTaskList());
                 
             }else {
-                taskTable.setItems(logic.getFilteredArchiveList());
+                taskTableHome.setItems(logic.getFilteredArchiveList());
             }
             
 
