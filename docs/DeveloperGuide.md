@@ -250,7 +250,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
+`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the app
 `* * *` | user | add a new task | so I can register my things to do
 `* * *` | user | add a floating task | have a task without a deadline
 `* * *` | user | add a recurring task | add repeating tasks only once
@@ -258,19 +258,13 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | edit a task | update entries as needed
 `* * *` | user | find a task by name | locate details of the task without having to go through the entire list
 `* * *` | user | find a task by deadline | locate tasks that are due soon without having to go through the entire list
-`* * *` | user | undo a task entered | increase my workflow
-`* * *` | user | re-do a task entered | increase my workflow
+`* * *` | user | undo a task entered | recover from my mistakes easily
+`* * *` | user | re-do a task entered | recover from my mistakes easily
 `* * *` | user | sort list by alphabetical order and date | find my tasks easily
 `* * *` | user | mark tasks as done | archive my completed tasks
 `* * *` | user | specify the location of file storage | choose where to save the to do list
 `* *` | user | see my tasks in user interface | have an easier time using the app
-`* *` | user | set categories | organise my tasks
-`* *` | user | block out timings | reserve time slots for tasks
-`* *` | user | create subtasks | breakdown my tasks into smaller problems
 `*` | user | specify my own natural language | customise the app
-`*` | user | set reminders for tasks | reduce chances of forgetting to do a task
-`*` | user | import a list of to do tasks | add in tasks without registering them individually
-
 
 
 ## Appendix B : Use Cases
@@ -343,7 +337,7 @@ Adding a task. A task can be concrete (have defined date/time) or floating (with
 
 * 1b2. Use case resume at 2.
 
-1c. User enteres task without date/time.
+1c. User enters task without date/time.
 
 * 1c1. System accepts the command as floating task.
 
@@ -531,13 +525,13 @@ Mark a task as done by index. A marked task should be automatically archived and
 
 ### UC10: Clear a category
 
-System performs bulk delete on the cateogry specified (Deadlines, events, tasks).
+System performs bulk delete on the category specified (Deadlines, events, tasks).
 
 ##### Main Success Scenario
 
 1. User requests to clear a category.
 
-2. System proceed to perform bulk action descibed in UC6 for the specified category.
+2. System proceed to perform bulk action described in UC6 for the specified category.
 
 3. Use case ends.
 
@@ -572,7 +566,7 @@ N.I.L.
 
 ### UC12: Relocate storage location
 
-Change the current storage to other directory specifed by the user.
+Change the current storage to other directory specified by the user.
 
 ##### Main Success Scenario
 
@@ -696,13 +690,13 @@ N.I.L
 >4.  Able to support recurring tasks
 >5.  Able to sort tasks by priority level
 >6.  Able to integrate from e-mail
->7.  Able to backup auotmatically
+>7.  Able to backup automatically
 
 > Cons:
 >1.  Unable to block out timings
 >2.  Unable to export out To-do list
 >3.  Minimal CLI
->4.  Have to do alot of clicking
+>4.  Have to do a lot of clicking
 
 ##### Any.Do
 
