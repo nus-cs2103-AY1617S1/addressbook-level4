@@ -479,11 +479,11 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a task object with given name. Other fields will have some dummy values.
+         * Generates a task object with given description. Other fields will have some dummy values.
          */
-        Task generateTaskWithDescription(String name) throws Exception {
+        Task generateTaskWithDescription(String description) throws Exception {
             return new Task(
-                    new Description(name),
+                    new Description(description),
                     new DateTime("02/01/2013 12:01"),
                     new UniqueTagList(new Tag("tag"))
             );

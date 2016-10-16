@@ -13,19 +13,19 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("22/01/2014 12:01")
+            alice =  new TaskBuilder().withDescription("Alice Pauline").withDateTime("22/01/2014 12:01")
                     .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("21/03/2015 11:00")
+            benson = new TaskBuilder().withDescription("Benson Meier").withDateTime("21/03/2015 11:00")
                     .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withAddress("01/05/2015").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withAddress("01/06/2015").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withAddress("30/11/2016").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withAddress("30/01/2017").build();
-            george = new PersonBuilder().withName("George Best").withAddress("30/05/2017").build();
+            carl = new TaskBuilder().withDescription("Carl Kurz").withDateTime("01/05/2015").build();
+            daniel = new TaskBuilder().withDescription("Daniel Meier").withDateTime("01/06/2015").build();
+            elle = new TaskBuilder().withDescription("Elle Meyer").withDateTime("30/11/2016").build();
+            fiona = new TaskBuilder().withDescription("Fiona Kunz").withDateTime("30/01/2017").build();
+            george = new TaskBuilder().withDescription("George Best").withDateTime("30/05/2017").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withAddress("20/11/2016").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withAddress("20/12/2016").build();
+            hoon = new TaskBuilder().withDescription("Hoon Meier").withDateTime("20/11/2016").build();
+            ida = new TaskBuilder().withDescription("Ida Mueller").withDateTime("20/12/2016").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

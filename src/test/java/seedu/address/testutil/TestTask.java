@@ -4,11 +4,11 @@ import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
 
-    private Description name;
+    private Description description;
     private DateTime dateTime;
     private UniqueTagList tags;
 
@@ -16,8 +16,8 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
 
-    public void setName(Description name) {
-        this.name = name;
+    public void setDescription(Description description) {
+        this.description = description;
     }
 
     public void setDateTime(DateTime dateTime) {
@@ -26,7 +26,7 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public Description getDescription() {
-        return name;
+        return description;
     }
 
 

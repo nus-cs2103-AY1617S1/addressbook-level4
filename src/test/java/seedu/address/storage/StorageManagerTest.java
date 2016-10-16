@@ -59,23 +59,23 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void emeraldoReadSave() throws Exception {
         Emeraldo original = new TypicalTestTasks().getTypicalEmeraldo();
         storageManager.saveEmeraldo(original);
         ReadOnlyEmeraldo retrieved = storageManager.readEmeraldo().get();
         assertEquals(original, new Emeraldo(retrieved));
-        //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
+        //More extensive testing of AddressBook saving/reading is done in XmlEmeraldoStorageTest
     }
 
     @Test
-    public void getAddressBookFilePath(){
+    public void getEmeraldoFilePath(){
         assertNotNull(storageManager.getEmeraldoFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
+    public void handleEmeraldoChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        Storage storage = new StorageManager(new XmlEmeraldoStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleEmeraldoChangedEvent(new EmeraldoChangedEvent(new Emeraldo()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
@@ -85,14 +85,14 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlEmeraldoStorage{
+    class XmlEmeraldoStorageExceptionThrowingStub extends XmlEmeraldoStorage{
 
-        public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
+        public XmlEmeraldoStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveEmeraldo(ReadOnlyEmeraldo addressBook, String filePath) throws IOException {
+        public void saveEmeraldo(ReadOnlyEmeraldo emeraldo, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

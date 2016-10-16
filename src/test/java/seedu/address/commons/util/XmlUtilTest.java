@@ -87,7 +87,7 @@ public class XmlUtilTest {
         //TODO: use equality instead of string comparisons
 
         EmeraldoBuilder builder = new EmeraldoBuilder(new Emeraldo());
-        dataToWrite = new XmlSerializableEmeraldo(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
+        dataToWrite = new XmlSerializableEmeraldo(builder.withDescription(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableEmeraldo.class);

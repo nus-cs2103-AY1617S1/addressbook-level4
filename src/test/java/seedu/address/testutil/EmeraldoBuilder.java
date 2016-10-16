@@ -7,29 +7,29 @@ import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building Emeraldo objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code Emeraldo ab = new EmeraldoBuilder().withDescription("John", "Doe").withTag("Friend").build();}
  */
 public class EmeraldoBuilder {
 
-    private Emeraldo addressBook;
+    private Emeraldo emeraldo;
 
-    public EmeraldoBuilder(Emeraldo addressBook){
-        this.addressBook = addressBook;
+    public EmeraldoBuilder(Emeraldo emeraldo){
+        this.emeraldo = emeraldo;
     }
 
-    public EmeraldoBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(person);
+    public EmeraldoBuilder withDescription(Task task) throws UniqueTaskList.DuplicateTaskException {
+        emeraldo.addTask(task);
         return this;
     }
 
     public EmeraldoBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+        emeraldo.addTag(new Tag(tagName));
         return this;
     }
 
     public Emeraldo build(){
-        return addressBook;
+        return emeraldo;
     }
 }
