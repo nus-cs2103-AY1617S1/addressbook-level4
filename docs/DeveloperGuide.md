@@ -290,19 +290,19 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User adds a task
-2. TaskManager adds the task
+2. TaskManager adds the task<br>
 Use case ends.
 
 **Extensions**
 
 1a. The format of the input is wrong
 
-> TaskManager shows an error and prompts the user again reiterating the correct command format
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format
 > Use Case resumes at step 1.
 
 1b. The task limit has been reached
 
-> TaskManager shows an error and prompts the user to delete a task.
+> 1b1. TaskManager displays an error and prompts the user to delete a task
 > Use Case ends.
 
 <br>
@@ -313,7 +313,7 @@ Use case ends.
 1. User requests to list tasks
 2. TaskManager shows a list of tasks
 3. User requests to delete a specific task in the list
-4. TaskManager deletes the task 
+4. TaskManager deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -324,7 +324,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. TaskManager shows an error.
+> 3a1. TaskManager displays an error
 > Use Case ends.
 
 <br>
@@ -334,14 +334,109 @@ Use case ends.
 
 1. User undos a command.
 2. TaskManager returns to state before command is executed.
-3. TaskManager displays that command that has been undone.
+3. TaskManager displays that command that has been undone.<br>
 Use case ends.
 
 **Extensions**
 
 1a. There is no command to be undone
 
-> 1a1. TaskManager shows an error.
+> 1a1. TaskManager displays an error
+> Use Case ends.
+
+<br>
+#### Use case: Adding an Alias
+
+**MSS**
+
+1. User adds an Alias
+2. TaskManager adds Alias<br>
+Use case ends.
+
+**Extensions**
+
+1a. The format of the input is wrong
+
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format
+> Use Case resumes at step 1.
+
+1b. The user attempts to create an alias of a pre-existing alias
+
+> 1b1. TaskManager displays an error
+> Use Case continues at step 1.
+
+<br>
+#### Use case: Updating a task
+
+**MSS**
+
+1. User lists all tasks
+2. TaskManager displays all tasks
+3. User updates a task
+4. TaskManager updates the specified task<br>
+Use case ends.
+
+**Extensions**
+
+1a. The format of the input is wrong
+
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format
+> Use Case resumes at step 1.
+
+1a. The list of tasks is empty
+
+> Use Case ends.
+
+3a. The given index is invalid
+
+> 3a1. TaskManager displays an error
+> Use Case resumes at step 3.
+
+<br>
+#### Use case: Favouriting a task
+
+**MSS**
+
+1. User lists all tasks
+2. TaskManager displays all tasks
+3. User favourites a task
+4. TaskManager favourites the specified task<br>
+Use case ends.
+
+**Extensions**
+
+1a. The format of the input is wrong
+
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format
+> Use Case resumes at step 1.
+
+1a. The list of tasks is empty
+
+> Use Case ends.
+
+3a. The given index is invalid
+
+> 3a1. TaskManager displays an error
+> Use Case resumes at step 3.
+
+<br>
+#### Use case: Clearing list of tasks
+
+**MSS**
+
+1. User clears all tasks
+2. TaskManager clears all tasks <br>
+Use case ends.
+
+**Extensions**
+
+1a. The format of the input is wrong
+
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format
+> Use Case resumes at step 1.
+
+1a. There are no tasks
+
 > Use Case ends.
 
 <br>
