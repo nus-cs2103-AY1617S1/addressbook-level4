@@ -9,7 +9,10 @@ import java.util.logging.Logger;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.FileUtil;
+import seedu.todo.commons.util.XmlUtil;
 import seedu.todo.model.ImmutableTodoList;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * A class to access TodoList data stored as an xml file on the hard disk.
@@ -37,16 +40,18 @@ public class TodoListStorage implements MoveableStorage<ImmutableTodoList> {
     @Override
     public Optional<ImmutableTodoList> read(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
-        File todoListFile = new File(filePath);
+        File file = new File(filePath);
 
-        if (!todoListFile.exists()) {
-            logger.info("TodoList file " + todoListFile + " not found");
+        if (!file.exists()) {
+            logger.info("TodoList file " + file + " not found");
             return Optional.empty();
         }
 
-        ImmutableTodoList TodoListOptional = XmlFileStorage.loadTodoListFromFile(new File(filePath));
-
-        return Optional.of(TodoListOptional);
+        try {
+            return Optional.of(XmlUtil.getDataFromFile(file, XmlSerializableTodoList.class));
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
     }
     
     @Override
@@ -62,6 +67,11 @@ public class TodoListStorage implements MoveableStorage<ImmutableTodoList> {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveTodoListToFile(file, new XmlSerializableTodoList(todoList));
+
+        try {
+            XmlUtil.saveDataToFile(file, new XmlSerializableTodoList(todoList));
+        } catch (JAXBException e) {
+            assert false : "Unexpected exception " + e.getMessage();
+        }
     }
 }
