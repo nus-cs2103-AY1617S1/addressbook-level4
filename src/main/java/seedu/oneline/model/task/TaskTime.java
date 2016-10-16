@@ -1,14 +1,18 @@
 package seedu.oneline.model.task;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
-import seedu.oneline.model.tag.Tag;
+
+import java.util.Date;
+import java.util.List;
+
+import com.joestelmach.natty.*;
 
 public class TaskTime {
 
     public static final String MESSAGE_TASK_TIME_CONSTRAINTS =
             "Task time should ...";
 
-    public final String value;
+    public final Date value;
 
     /**
      * Validates given email.
@@ -18,17 +22,29 @@ public class TaskTime {
     public TaskTime(String time) throws IllegalValueException {
         assert time != null;
         time = time.trim();
-        if (!isValidTaskTime(time)) {
+
+        Parser parser = new Parser(); // use the natty parser
+        List<DateGroup> dates = parser.parse(time);
+
+        if (!isValidTaskTime(dates)) {
             throw new IllegalValueException(MESSAGE_TASK_TIME_CONSTRAINTS);
         }
-        this.value = time;
+        
+        Date date = dates.get(0).getDates().get(0);
+        this.value = date;
     }
 
     /**
-     * Returns if a given string is a valid task time.
+     * Returns if the time supplied is valid by checking the result of parser.parse
+     * 
+     * @param test the list of dategroups under test
+     * @return true if list contains a valid date
+     * 
+     * Pre-condition: test is the result of applying natty's Parser.parse(time) 
+     * where time is the time in question
      */
-    public static boolean isValidTaskTime(String test) {
-        return true; // TODO
+    public static boolean isValidTaskTime(List<DateGroup> test) {
+        return !(test.isEmpty() || test.get(0).getDates().isEmpty());
     }
 
     /**
