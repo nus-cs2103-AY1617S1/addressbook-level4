@@ -8,7 +8,10 @@ import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.model.item.Item;
+import seedu.taskmanager.model.item.ItemDate;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.item.ItemType;
+import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
@@ -35,12 +38,12 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited %1$s";
     
-    public final int targetIndex;
-    public final String newName;
-    public final String newStartDate;
-    public final String newStartTime;
-    public final String newEndDate;
-    public final String newEndTime;
+    int targetIndex;
+    Name newName;
+    ItemDate newStartDate;
+    ItemTime newStartTime;
+    ItemDate newEndDate;
+    ItemTime newEndTime;
 
     /*
      * Edits deadline, task, or event by index.
@@ -54,12 +57,23 @@ public class EditCommand extends Command {
         assert (name != null || startDate != null || startTime!= null || endDate != null || endTime != null);
         
         this.targetIndex = targetIndex;
-        this.newName = name;
-        this.newStartDate = startDate;
-        this.newStartTime = startTime;
-        this.newEndDate = endDate;
-        this.newEndTime = endTime;
-        logger.info("EditCommand object successfully created!");
+        if (name != null) {
+            this.newName = new Name(name);
+        }
+        if (startDate != null) {
+            this.newStartDate = new ItemDate(startDate);
+        }
+        if (startTime != null) {
+            this.newStartTime = new ItemTime(startTime);
+        }
+        if (endDate != null) {
+            this.newEndDate = new ItemDate(endDate);
+        }
+        if (endTime != null) {
+            this.newEndTime = new ItemTime(endTime);
+        }
+        
+        logger.fine("EditCommand object successfully created!");
     }
 
     @Override
@@ -80,24 +94,20 @@ public class EditCommand extends Command {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         
-        try {
-            if (newName != null) {
-                itemToReplace.setName(newName);
-            }
-            if (newStartDate != null) {
-                itemToReplace.setStartDate(newStartDate);
-            }
-            if (newStartTime != null) {
-                itemToReplace.setStartTime(newStartTime);
-            }
-            if (newEndDate != null) {
-                itemToReplace.setEndDate(newEndDate);
-            }
-            if (newEndTime != null) {
-                itemToReplace.setEndTime(newEndTime);
-            }
-        } catch (IllegalValueException ive) {
-            return new CommandResult(ive.getMessage());
+        if (newName != null) {
+            itemToReplace.setName(newName);
+        }
+        if (newStartDate != null) {
+            itemToReplace.setStartDate(newStartDate);
+        }
+        if (newStartTime != null) {
+            itemToReplace.setStartTime(newStartTime);
+        }
+        if (newEndDate != null) {
+            itemToReplace.setEndDate(newEndDate);
+        }
+        if (newEndTime != null) {
+            itemToReplace.setEndTime(newEndTime);
         }
         
         try {

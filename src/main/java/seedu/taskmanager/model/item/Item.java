@@ -87,8 +87,8 @@ public class Item implements ReadOnlyItem {
         return name;
     }
 
-    public void setName(String name) throws IllegalValueException {
-        this.name = new Name(name);
+    public void setName(Name name) {
+        this.name = name;
     }
     
     @Override
@@ -96,8 +96,8 @@ public class Item implements ReadOnlyItem {
         return startDate;
     }
     
-    public void setStartDate(String startDate) throws IllegalValueException {
-        this.startDate = new ItemDate(startDate);
+    public void setStartDate(ItemDate startDate) {
+        this.startDate = startDate;
     }
 
     @Override
@@ -105,8 +105,8 @@ public class Item implements ReadOnlyItem {
         return startTime;
     }    
     
-    public void setStartTime(String startTime) throws IllegalValueException {
-        this.startTime = new ItemTime(startTime);
+    public void setStartTime(ItemTime startTime) {
+        this.startTime = startTime;
     }
     
     @Override
@@ -114,13 +114,17 @@ public class Item implements ReadOnlyItem {
         return endDate;
     }
 
-    public void setEndDate(String endDate) throws IllegalValueException {
-        this.endDate = new ItemDate(endDate);
+    public void setEndDate(ItemDate endDate) {
+        this.endDate = endDate;
     }
     
     @Override
     public ItemTime getEndTime() {
         return endTime;
+    }
+    
+    public void setEndTime(ItemTime endTime) {
+        this.endTime = endTime;
     }
     
     @Override
@@ -136,10 +140,6 @@ public class Item implements ReadOnlyItem {
     @Override
     public void setUndone() {
         done = false;
-    }
-
-    public void setEndTime(String endTime) throws IllegalValueException {
-        this.endTime = new ItemTime(endTime);
     }
     
     @Override

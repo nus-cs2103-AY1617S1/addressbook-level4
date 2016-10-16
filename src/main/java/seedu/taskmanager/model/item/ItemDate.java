@@ -10,9 +10,10 @@ import seedu.taskmanager.commons.exceptions.IllegalValueException;
  * Can be either startDate or endDate
  */
 public class ItemDate {
-
-    public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Item dates should be of the form YYYY-MM-DD or MM-DD (with year inferred)";
+    
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String ALTERNATE_DATE_FORMAT = "MM-dd";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Date input must be in YYYY-MM-DD or MM-DD";
     public static final String DATE_VALIDATION_REGEX = "\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])";
     public static final String EMPTY_DATE = "";
 

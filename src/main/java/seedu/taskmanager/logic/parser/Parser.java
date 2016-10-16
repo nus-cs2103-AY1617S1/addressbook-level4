@@ -20,6 +20,7 @@ import seedu.taskmanager.logic.commands.DoneCommand;
 import seedu.taskmanager.logic.commands.NotDoneCommand;
 import seedu.taskmanager.logic.commands.UndoCommand;
 import seedu.taskmanager.model.item.ItemDate;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.item.ItemType;
 
 import java.text.SimpleDateFormat;
@@ -58,6 +59,9 @@ public class Parser {
     private static final Pattern END_DATE_ARG_FORMAT = Pattern.compile("(ed/(?<endDate>[^/]+))");
     private static final Pattern END_TIME_ARG_FORMAT = Pattern.compile("(et/(?<endTime>[^/]+))");
     private static final Pattern END_DATETIME_ARG_FORMAT = Pattern.compile("edt/(?<endDateTime>[^/]+)");
+    
+    private static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
+    private static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
     
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(T|t)((A|a)(S|s)(K|k))?\\s*"
@@ -233,7 +237,7 @@ public class Parser {
         if (processedEndDateTime.before(processedStartDateTime)) {
 	        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
 	    }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(ItemDate.DATE_FORMAT);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String startDate = dateFormat.format(processedStartDateTime);
         String startTime = timeFormat.format(processedStartDateTime);
@@ -259,7 +263,7 @@ public class Parser {
             System.out.println(endDateTimes.get(i));
         }
         Date processedEndDateTime = endDateTimes.get(0);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(ItemDate.DATE_FORMAT);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String endDate = dateFormat.format(processedEndDateTime);
         String endTime = timeFormat.format(processedEndDateTime);
@@ -272,7 +276,7 @@ public class Parser {
 
 	private Command addEvent(final Matcher eventMatcher) throws IllegalValueException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat df = new SimpleDateFormat(ItemDate.DATE_FORMAT);
 		String endTime = eventMatcher.group("endTime");
 		String startTime = eventMatcher.group("startTime");
 		try {	
@@ -322,8 +326,8 @@ public class Parser {
 
 	private Command addDeadline(final Matcher deadlineMatcher) throws IllegalValueException {
 		try {
-		    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		    SimpleDateFormat df2 = new SimpleDateFormat("MM-dd");
+		    SimpleDateFormat df = new SimpleDateFormat(ItemDate.DATE_FORMAT);
+		    SimpleDateFormat df2 = new SimpleDateFormat(ItemDate.ALTERNATE_DATE_FORMAT);
 		    df.setLenient(false);
 		    String[] parts = deadlineMatcher.group("endDate").split("-");
 		    // If yyyy-MM-dd
@@ -361,22 +365,70 @@ public class Parser {
                 String startTime = parseArgument(START_TIME_ARG_FORMAT, "startTime", editCommandArgs);
                 String endDate = parseArgument(END_DATE_ARG_FORMAT, "endDate", editCommandArgs);
                 String endTime = parseArgument(END_TIME_ARG_FORMAT, "endTime", editCommandArgs);
+                String startDateTime = parseArgument(START_DATETIME_ARG_FORMAT, "startDateTime", editCommandArgs);
+                String endDateTime = parseArgument(END_DATETIME_ARG_FORMAT, "endDateTime", editCommandArgs);
                 
-                if (name != null || startDate != null || startTime!= null || endDate != null || endTime != null) {
-                    try {
-                        return new EditCommand(index.get(), name, startDate, startTime, endDate, endTime);
-                    } catch (IllegalValueException ive) {
-                        return new IncorrectCommand(ive.getMessage());
+                try {
+                    if (startDateTime != null) {
+                        String[] startDateTimeArr = parseDateTime(startDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
+                        startDate = startDateTimeArr[PARSEDATETIME_ARRAY_DATE_INDEX];
+                        startTime = startDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
                     }
-                }
+                    
+                    if (endDateTime != null) {
+                        String[] endDateTimeArr = parseDateTime(endDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
+                        endDate = endDateTimeArr[PARSEDATETIME_ARRAY_DATE_INDEX];
+                        endTime = endDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
+                    }
+
+                    if (name != null || startDate != null || startTime!= null || endDate != null || endTime != null) {                    
+                        return new EditCommand(index.get(), name, startDate, startTime, endDate, endTime);
+                    }
+                } catch (IllegalValueException ive) {
+                    return new IncorrectCommand(ive.getMessage());
+                }   
             }
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
     /**
+     * Parses date and time from argument acquired through NLP input 
+     * @param argument
+     * @param dateFormat the format the argument should be returned in
+     * @return parsed argument as string or null if argument not parsed 
+     */
+    private String[] parseDateTime(String argument, String dateFormat, String timeFormat) throws IllegalValueException {
+        assert dateFormat != null && !dateFormat.isEmpty();
+        assert timeFormat != null && !timeFormat.isEmpty();
+
+        
+        if (argument != null) {
+            List<Date> dateTimes = new PrettyTimeParser().parse(argument);
+            if (dateTimes.isEmpty()) {
+                throw new IllegalValueException(MESSAGE_DATETIME_PARSE_FAILURE);
+            }
+            Date prettyParsedDateTime = dateTimes.get(0);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+            SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat);
+            String parsedDate = simpleDateFormat.format(prettyParsedDateTime);
+            String parsedTime = simpleTimeFormat.format(prettyParsedDateTime);
+            
+            String[] parsedDateTime = new String[2];
+            parsedDateTime[PARSEDATETIME_ARRAY_DATE_INDEX] = parsedDate;
+            parsedDateTime[PARSEDATETIME_ARRAY_TIME_INDEX] = parsedTime;
+            
+            return parsedDateTime;
+        } else {
+            return null;
+        }
+    }
+    
+    /**
      * Extracts argument from a string containing command arguments
-     * @param commandArgs
+     * @param argumentPattern the pattern used to extract the argument from commandArgs
+     * @param argumentGroupName the matcher group name of the argument used in argumentPattern
+     * @param commandArgs string containing command arguments
      * @return parsed argument as string or null if argument not parsed 
      */
     private String parseArgument(Pattern argumentPattern, String argumentGroupName, String commandArgs) {
@@ -396,11 +448,13 @@ public class Parser {
      * @return cleaned argument string
      */
     private String removeTrailingCommandChars(String argument, String commandArgs) {
+        //maximum size of trailing command characters is 3, including the space before them
         if (argument.length() < commandArgs.trim().length()-3) {
+            //size of trailing name command characters is 2, including the space before it
             if (argument.substring(argument.length()-2, argument.length()).matches(" n")) {
                 argument = argument.substring(0, argument.length()-2);
-            }
-            if (argument.substring(argument.length()-3, argument.length()).matches(" (sd|st|ed|et)")) {
+            } else if (argument.substring(argument.length()-3, argument.length()).matches(" (sd|st|ed|et)")) {
+            //size of trailing command characters is 3, including the space before them
                 argument = argument.substring(0, argument.length()-3);
             }
         }
