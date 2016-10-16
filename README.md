@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CS2103AUG2016-W14-C4.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W14-C4)
+[![Build Status](https://travis-ci.org/CS2103AUG2016-W14-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W14-C4)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W14-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W14-C4/main?branch=master)
 
 # TasKitty
