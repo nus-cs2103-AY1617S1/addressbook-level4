@@ -66,7 +66,7 @@ public class TaskTime {
     
     @Override
     public String toString() {
-        return value.toString();
+        return value == null ? "" : value.toString();
     }
 
     @Override
