@@ -9,6 +9,12 @@ import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to redo a database commit.
+ * 
+ * @author louietyj
+ *
+ */
 public class RedoController implements Controller {
     
     private static final String MESSAGE_SUCCESS = "Successfully redid %s %s!\nTo undo, type \"undo\".";
