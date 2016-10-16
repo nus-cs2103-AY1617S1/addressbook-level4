@@ -12,6 +12,7 @@ import seedu.taskitty.model.task.UniqueTaskList;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final Stack<ReadOnlyTaskManager> historyCommands;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -37,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        historyCommands = new Stack<ReadOnlyTaskManager>();
     }
 
     public ModelManager() {
@@ -46,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        historyCommands = new Stack<ReadOnlyTaskManager>();
     }
 
     @Override
@@ -75,6 +79,14 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+    }
+    
+    public synchronized void undo() {
+        taskManager.resetData(historyCommands.pop());
+    }
+    
+    public synchronized void saveState() {
+        historyCommands.push(new TaskManager(taskManager));
     }
     
     @Override

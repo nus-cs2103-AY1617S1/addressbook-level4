@@ -14,6 +14,7 @@ public class UndoCommand extends Command {
     
     @Override
     public CommandResult execute() {
+        model.undo();
         return new CommandResult(MESSAGE_UNDO_TASK_SUCCESS);
     }
 
