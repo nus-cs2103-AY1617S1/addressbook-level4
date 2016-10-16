@@ -375,10 +375,10 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task myTask() throws Exception {
-            TaskName name = new TaskName("Adam Brown");
-            TaskTime startTime = new TaskTime("111111");
-            TaskTime endTime = new TaskTime("adam@gmail.com");
-            TaskTime deadline = new TaskTime("111, alpha street");
+            TaskName name = new TaskName("Do seagull stuff");
+            TaskTime startTime = new TaskTime("today");
+            TaskTime endTime = new TaskTime("tomorrow");
+            TaskTime deadline = new TaskTime("2050");
             TaskRecurrence recurrence = new TaskRecurrence("X");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
