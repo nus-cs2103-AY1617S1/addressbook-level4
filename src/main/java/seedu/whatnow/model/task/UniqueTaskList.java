@@ -98,7 +98,8 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!taskFoundAndMarked) {
             throw new TaskNotFoundException();
         }
-        internalList.get(internalList.indexOf(target)).toggleComplete();
+        internalList.get(internalList.indexOf(target)).setStatus("completed");
+        System.out.println(internalList.get(internalList.indexOf(target)).getStatus());
         internalList.set(internalList.indexOf(target), internalList.get(internalList.indexOf(target)));
         return taskFoundAndMarked;
     }

@@ -20,9 +20,9 @@ public class XmlAdaptedTask {
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
-
-    @XmlElement(required = true)
-    private boolean completed;
+    
+    @XmlElement
+    private String status;
     
     /**
      * No-arg constructor for JAXB use.
@@ -38,7 +38,7 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         tagged = new ArrayList<>();
-        completed = source.getStatus();
+        status = source.getStatus();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
@@ -56,6 +56,6 @@ public class XmlAdaptedTask {
         }
         final Name name = new Name(this.name);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, tags, this.completed);
+        return new Task(name, tags, this.status);
     }
 }

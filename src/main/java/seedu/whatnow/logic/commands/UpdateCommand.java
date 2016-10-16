@@ -61,7 +61,7 @@ public class UpdateCommand extends Command {
         toUpdate = new Task(
                 new Name(newName),
                 new UniqueTagList(tagSet),
-                false);   
+                null);   
     }
     
     private Set<String> processTag() {
@@ -97,7 +97,6 @@ public class UpdateCommand extends Command {
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
         updateTheCorrectField(taskToUpdate);
-        System.out.println(toUpdate.getStatus() + "STATUSSSS");
         try {
             model.updateTask(taskToUpdate, toUpdate);
         } catch (TaskNotFoundException pnfe) {

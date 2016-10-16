@@ -454,7 +454,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags, false);
+            return new Task(name, tags, null);
         }
         
         Task todo(String description, String tag01, String tag02) throws Exception {
@@ -462,7 +462,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag(tag01);
             Tag tag2 = new Tag(tag02);
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags, false);
+            return new Task(name, tags, null);
         }
 
         /**
@@ -476,7 +476,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
-                    false
+                    null
             );
         }
 
@@ -592,7 +592,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new UniqueTagList(new Tag("tag")),
-                    false
+                    null
             );
         }
     }

@@ -15,16 +15,16 @@ public class Task implements ReadOnlyTask {
     
     private UniqueTagList tags;
     
-    private boolean isCompleted;
+    private String status;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags, boolean isCompleted) {
+    public Task(Name name, UniqueTagList tags, String status) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        this.isCompleted = isCompleted;
+        this.status = status;
     }
 
     /**
@@ -45,8 +45,8 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
-    public boolean getStatus() {
-        return isCompleted;
+    public String getStatus() {
+        return status;
     }
 
     /**
@@ -60,17 +60,8 @@ public class Task implements ReadOnlyTask {
         this.name = name;
     }
     
-    public void setStatus(boolean isCompleted) {
-        this.isCompleted = isCompleted;
-    }
-    
-    public void toggleComplete() {
-        if (isCompleted) {
-            isCompleted = false; 
-        }
-        else {
-            isCompleted = true;
-        }
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -83,7 +74,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, tags);
+        return Objects.hash(name, status, tags);
     }
 
     @Override

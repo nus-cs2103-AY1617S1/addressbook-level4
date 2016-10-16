@@ -26,17 +26,18 @@ public interface ReadOnlyTask {
     }
     
     /**
-     * Return true if the task was previously marked as completed, false if otherwise.
+     * Return the status of the task.
      * @return
      */
-    boolean getStatus();
+    String getStatus();
 
     /**
-     * Formats the task as text, showing all contact details.
+     * Formats the task as text, showing all details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(getStatus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -35,6 +35,7 @@ public class Parser {
     private static final int INDEX = 1;
     private static final int ARG_TYPE = 2;
     private static final int ARG = 3;
+    private static final int LIST_ARG = 0;
     
 
     public Parser() {}
@@ -71,7 +72,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -125,6 +126,28 @@ public class Parser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
+   
+    /**
+     * Parses arguments in the context of the list command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareList(String args) {
+        String[] argComponents= args.trim().split(" ");
+        String listArg = argComponents[LIST_ARG];
+        System.out.println(listArg);
+        if (!isListCommandValid(listArg)) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        }
+        return new ListCommand(listArg);
+    }
+    
+    private boolean isListCommandValid(String listArg) {
+        return listArg.equals("done") || listArg.equals("") || listArg.equals("all");
+    }
+    
 
     /**
      * Parses arguments in the context of the delete task command.

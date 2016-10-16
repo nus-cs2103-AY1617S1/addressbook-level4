@@ -39,7 +39,7 @@ public class AddCommand extends Command {
         this.toAdd = new Task(
                 new Name(name),
                 new UniqueTagList(tagSet),
-                false
+                "incomplete"
         );
     }
 

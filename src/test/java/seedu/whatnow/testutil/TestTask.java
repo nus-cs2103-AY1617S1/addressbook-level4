@@ -10,7 +10,7 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private UniqueTagList tags;
-    private boolean isCompleted;
+    private String status;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -31,8 +31,8 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
-    public boolean getStatus() {
-        return isCompleted;
+    public String getStatus() {
+        return status;
     }
 
     @Override
