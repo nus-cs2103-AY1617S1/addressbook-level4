@@ -88,7 +88,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         
         if (taskIndex == -1) {
             String message = String.format(TodoList.INDEX_OUT_OF_BOUND_FORMAT, index);
-            throw new ValidationException(message, new ErrorBag());
+            throw new ValidationException(message);
         }
         
         return taskIndex;
