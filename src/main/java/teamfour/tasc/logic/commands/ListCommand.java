@@ -13,10 +13,10 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tasks with filters. "
-            + "Parameters: [TYPE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag TAG...] [sort SORTING_ORDER]\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all tasks/events with filters. "
+            + "Parameters: [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag \"TAG\"...] [sort SORTING_ORDER]\n"
             + "Example: " + COMMAND_WORD
-            + " tasks by 18 Sep, tag Important, sort earliest first";
+            + " completed tasks, tag \"Important\", sort earliest first";
 
     private final String type;
     private final Date deadline;
@@ -32,7 +32,7 @@ public class ListCommand extends Command {
     public ListCommand() throws IllegalValueException {
         this.type = "uncompleted";
         this.deadline = null;
-        this.startTime = new Date();
+        this.startTime = null;
         this.endTime = null;
         this.tags = new HashSet<>();
         this.sortingOrder = "earliest first";
@@ -41,6 +41,7 @@ public class ListCommand extends Command {
     /**
      * List Command
      * Convenience constructor using raw values.
+     * Set any parameter as null if it is not required.
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public ListCommand(String type, String deadline, String startTime, String endTime, 

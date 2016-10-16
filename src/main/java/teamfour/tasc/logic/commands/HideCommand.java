@@ -14,10 +14,10 @@ public class HideCommand extends Command {
 
     public static final String COMMAND_WORD = "hide";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Hiding tasks with filters from current results. "
-            + "Parameters: [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag TAG...]\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Hides listing results with specified type, date or tags. "
+            + "Parameters: [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag \"TAG\"...]\n"
             + "Example: " + COMMAND_WORD
-            + " tasks on 18 Sep";
+            + " completed events";
 
     private final String type;
     private final Date deadline;
@@ -29,6 +29,7 @@ public class HideCommand extends Command {
     /**
      * Show Command
      * Convenience constructor using raw values.
+     * Set any parameter as null if it is not required.
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public HideCommand(String type, String date, String deadline, String startTime, 

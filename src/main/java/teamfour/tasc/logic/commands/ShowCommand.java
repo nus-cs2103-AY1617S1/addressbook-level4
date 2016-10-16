@@ -14,10 +14,10 @@ public class ShowCommand extends Command {
 
     public static final String COMMAND_WORD = "show";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Showing only tasks with filters from current results. "
-            + "Parameters: [TYPE] [on DATE] [by DEADLINE] [from START_TIME [to END_TIME]] [tag TAG...]\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows only listing results with specified type, date or tags. "
+            + "Parameters: [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag \"TAG\"...]\n"
             + "Example: " + COMMAND_WORD
-            + " tasks on 18 Sep, tag urgent";
+            + " events on 24 Sep, tag \"Important\"";
 
     private final String type;
     private final Date deadline;
@@ -29,6 +29,7 @@ public class ShowCommand extends Command {
     /**
      * Show Command
      * Convenience constructor using raw values.
+     * Set any parameter as null if it is not required.
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public ShowCommand(String type, String date, String deadline, String startTime, 
