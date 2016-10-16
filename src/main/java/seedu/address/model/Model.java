@@ -26,6 +26,15 @@ public interface Model {
     /** Edits the given task */
     void editTask(ReadOnlyTask target, String targetProperty, String newInfo) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Saves the current task manager*/
+    void saveToHistory();
+    
+    /** Loads the previous task manager from the stored stack of task managers*/
+    void loadFromHistory();
+    
+    /** Loads the previous task manager from the stored stack of undone task managers*/
+    void loadFromUndoHistory();
+
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

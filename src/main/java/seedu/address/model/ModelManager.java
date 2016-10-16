@@ -11,6 +11,9 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -21,9 +24,10 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskManager addressBook;
+    private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
-
+    private Deque<TaskManager> taskManagerHistory = new ArrayDeque<TaskManager>(); 
+    private Deque<TaskManager> undoHistory = new ArrayDeque<TaskManager>();
     /**
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
@@ -35,8 +39,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new TaskManager(src);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        taskManager = new TaskManager(src);
+        filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
     public ModelManager() {
@@ -44,35 +48,58 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
-        addressBook = new TaskManager(initialData);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        taskManager = new TaskManager(initialData);
+        filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
-        addressBook.resetData(newData);
+        taskManager.resetData(newData);
         indicateTaskManagerChanged();
     }
 
     @Override
     public ReadOnlyTaskManager getTaskManager() {
-        return addressBook;
+        return taskManager;
     }
-
+    
+    @Override
+    public void saveToHistory() {
+        taskManagerHistory.push(new TaskManager(taskManager));
+    }
+    
+    @Override
+    public void loadFromHistory() throws EmptyStackException{
+        TaskManager oldManager = taskManagerHistory.pop();
+        undoHistory.push(new TaskManager(taskManager));
+        taskManager.setTasks(oldManager.getTasks());
+        taskManager.setTags(oldManager.getTagList());
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void loadFromUndoHistory() throws EmptyStackException{
+        TaskManager oldManager = undoHistory.pop();
+        taskManagerHistory.push(new TaskManager(taskManager));
+        taskManager.setTasks(oldManager.getTasks());
+        taskManager.setTags(oldManager.getTagList());
+        indicateTaskManagerChanged();
+    }
+    
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
-        raise(new TaskManagerChangedEvent(addressBook));
+        raise(new TaskManagerChangedEvent(taskManager));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removeTask(target);
+        taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(task);
+        taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
@@ -84,16 +111,16 @@ public class ModelManager extends ComponentManager implements Model {
         assert newInfo != null;
         
         if(property.toLowerCase().equals("name"))
-            addressBook.editTaskName(task, newInfo);
+            taskManager.editTaskName(task, newInfo);
         
         else if(property.toLowerCase().equals("date"))
-            addressBook.editTaskDate(task, newInfo);
+            taskManager.editTaskDate(task, newInfo);
             
         else if(property.toLowerCase().equals("starttime"))
-            addressBook.editTaskStartTime(task, newInfo);
+            taskManager.editTaskStartTime(task, newInfo);
 
         else if(property.toLowerCase().equals("endtime"))
-            addressBook.editTaskEndTime(task, newInfo);
+            taskManager.editTaskEndTime(task, newInfo);
             
             updateFilteredListToShowAll();
             indicateTaskManagerChanged();

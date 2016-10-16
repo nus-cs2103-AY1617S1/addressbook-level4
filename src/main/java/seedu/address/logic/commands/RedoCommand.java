@@ -1,0 +1,26 @@
+package seedu.address.logic.commands;
+
+import java.util.EmptyStackException;
+
+public class RedoCommand extends Command {
+
+    public static final String COMMAND_WORD = "undo";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes the most recent command in ForgetMeNot. "
+            + "Example: " + COMMAND_WORD;
+
+    public static final String MESSAGE_SUCCESS = "Command redone! Your recent undo was undone.";
+    public static final String MESSAGE_REDO_INVALID = "There is nothing to redo.";
+    
+    @Override
+    public CommandResult execute() {
+        assert model != null;
+        try {
+            model.loadFromUndoHistory();
+            return new CommandResult(MESSAGE_SUCCESS);
+        } catch (EmptyStackException e) {
+            return new CommandResult(MESSAGE_REDO_INVALID);
+        }
+    }   
+
+}
