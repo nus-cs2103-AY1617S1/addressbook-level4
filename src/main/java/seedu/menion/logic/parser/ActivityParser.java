@@ -71,7 +71,10 @@ public class ActivityParser {
             
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand(previousCommand);
-        			
+        	
+        case CompleteCommand.COMMAND_WORD:
+            return prepareComplete(arguments);
+            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -82,7 +85,16 @@ public class ActivityParser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
+    
+    private Command prepareComplete(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+        previousCommand = new CompleteCommand(index.get());
+        return previousCommand;
+    }
     /**
      * Parses arguments in the context of the add task command.
      *
