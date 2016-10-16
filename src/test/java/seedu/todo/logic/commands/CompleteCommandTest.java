@@ -4,11 +4,15 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.hamcrest.Matchers.*;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
+
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.logic.commands.CompleteCommand;
 
 public class CompleteCommandTest extends CommandTest {
+    private static final String VERB_COMPLETE = "marked complete";
+    private static final String VERB_INCOMPLETE = "marked incomplete";
 
     @Override
     protected BaseCommand commandUnderTest() {
@@ -28,8 +32,10 @@ public class CompleteCommandTest extends CommandTest {
         setParameter("3");
         execute(true);
         ImmutableTask markedComplete = getTaskAt(3);
+        assertThat(result.getFeedback(), containsString(VERB_COMPLETE));
         assertEquals(markedComplete, toMarkComplete);
         assertTrue(toMarkComplete.isCompleted());
+        
     }
 
     @Test
@@ -38,6 +44,7 @@ public class CompleteCommandTest extends CommandTest {
         setParameter("1");
         execute(true);
         ImmutableTask markedIncomplete = getTaskAt(1);
+        assertThat(result.getFeedback(), containsString(VERB_INCOMPLETE));
         assertEquals(markedIncomplete, toMarkIncomplete);
         assertFalse(toMarkIncomplete.isCompleted());
     }

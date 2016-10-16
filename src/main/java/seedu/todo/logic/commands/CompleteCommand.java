@@ -10,7 +10,9 @@ import seedu.todo.model.task.ImmutableTask;
 import java.util.List;
 
 public class CompleteCommand extends BaseCommand {
-    private static final String VERB = "completed";
+    private static final String VERB_COMPLETE = "marked complete";
+    private static final String VERB_INCOMPLETE = "marked incomplete";
+    
 
     private Argument<Integer> index = new IntArgument("index").required();
 
@@ -33,7 +35,8 @@ public class CompleteCommand extends BaseCommand {
     @Override
     public CommandResult execute() throws ValidationException {
         ImmutableTask task = this.model.update(index.getValue(), t -> t.setCompleted(!t.isCompleted()));
-        return taskSuccessfulResult(task.getTitle(), CompleteCommand.VERB);
+        String feedback = task.isCompleted() ? CompleteCommand.VERB_COMPLETE : CompleteCommand.VERB_INCOMPLETE;
+        return taskSuccessfulResult(task.getTitle(), feedback);
     }
 
 }
