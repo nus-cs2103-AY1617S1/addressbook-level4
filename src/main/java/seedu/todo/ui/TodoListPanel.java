@@ -3,6 +3,7 @@ package seedu.todo.ui;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -89,9 +90,10 @@ public class TodoListPanel extends UiPart {
         });
     }
 
-    class TodoListViewCell extends ListCell<ImmutableTask> {
+    private class TodoListViewCell extends ListCell<ImmutableTask> {
 
         public TodoListViewCell() {
+            setTaskCardStyle();
         }
 
         @Override
@@ -104,6 +106,14 @@ public class TodoListPanel extends UiPart {
             } else {
                 setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
+        }
+
+        /**
+         * Sets the styling of a cell on the to-do list,
+         * that cannot be done in any other places.
+         */
+        private void setTaskCardStyle() {
+            this.setPadding(Insets.EMPTY);
         }
     }
 
