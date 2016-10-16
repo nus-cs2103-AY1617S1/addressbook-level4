@@ -48,7 +48,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
     void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException;
 
     /**
-     * Saves the current version of the Schema to the hard disk.
+     * Saves the current version of the Mastermind to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
