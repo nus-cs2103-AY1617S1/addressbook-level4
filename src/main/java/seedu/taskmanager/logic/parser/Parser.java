@@ -63,7 +63,7 @@ public class Parser {
     public static final Prefix endDatePrefix = new Prefix("ed/");
     public static final Prefix endTimePrefix = new Prefix("et/");
     public static final Prefix endDateTimePrefix = new Prefix("edt/");
-    public static final Prefix tagsPrefix = new Prefix("t/");
+    public static final Prefix tagsPrefix = new Prefix("#");
     public static final String removeTagPrefixString = "-";
     
     //unused
