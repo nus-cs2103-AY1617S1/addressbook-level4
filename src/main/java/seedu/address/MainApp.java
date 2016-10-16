@@ -58,7 +58,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        history = new History();
+        history = History.getInstance();
         
         logic = new LogicManager(model, storage, history);
 

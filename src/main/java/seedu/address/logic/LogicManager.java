@@ -8,6 +8,7 @@ import seedu.address.history.History;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
 import seedu.address.model.item.ReadOnlyTask;
@@ -37,8 +38,8 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = parser.parseCommand(commandText);
-        command.setData(model, history);
+        Command command = parser.parseCommand(commandText);    
+        command.setData(model, history); 
         return command.execute();
     }
 

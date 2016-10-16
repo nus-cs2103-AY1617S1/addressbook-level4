@@ -63,7 +63,7 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        history = new History();
+        history = History.getInstance();
         String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile), history);

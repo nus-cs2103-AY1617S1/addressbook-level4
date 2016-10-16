@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.history.ReversibleEffect;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
@@ -34,10 +33,14 @@ public class RedoCommand extends Command {
         assert history != null;
         
         // if we are at the latest state where there is no later 'undo commands' to redo, return nothing to redo
-        if (history.isLatest()){
+        if (history.isLatestCommand()){
             return new CommandResult("Nothing to redo.");
         }
         
+        UndoableCommand cmdToRedo = history.redoStep();
+        return cmdToRedo.execute();
+        
+        /*
         ReversibleEffect reversibleEffect = history.redoStep();
         String commandName = reversibleEffect.getCommandName();
         List<Task> tasksAffected = reversibleEffect.getTasksAffected();
@@ -84,7 +87,7 @@ public class RedoCommand extends Command {
             default:
                 return new CommandResult("Nothing to redo.");
         }
-        
+        */
         
     }
     

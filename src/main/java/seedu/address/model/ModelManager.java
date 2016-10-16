@@ -141,7 +141,6 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void editName(ReadOnlyTask floatingTask, Name name) {
-
         taskManager.editFloatingTaskName(floatingTask, name);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();

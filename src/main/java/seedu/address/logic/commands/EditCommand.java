@@ -3,11 +3,11 @@ package seedu.address.logic.commands;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.history.ReversibleEffect;
 import seedu.address.logic.parser.DateParser;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
@@ -15,7 +15,7 @@ import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.RecurrenceRate;
 
-public class EditCommand extends Command{
+public class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -26,10 +26,15 @@ public class EditCommand extends Command{
     public static final String MESSAGE_DUPLICATE_FLOATING_TASK = "This task already exists in the task manager";
 
     public static final String MESSAGE_SUCCESS = "Item edited: %1$s";
+    
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid edit item: %1$s reverted back to %2$s";
 
     public final int targetIndex;
     
     private Task toEdit;
+    
+    // saved state of task before edit for undo purposes
+    private Task beforeEdit;
     
     Name taskName;
 	Date startDate ;
@@ -82,8 +87,10 @@ public class EditCommand extends Command{
             	case ("medium"): case ("m"): case ("med"): priority = Priority.MEDIUM; break;
         	}
         } 
-
-        this.toEdit = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
+        
+        // what is the point of this?
+        // DO NOT PUT NULL FOR PRIORITY.
+        //this.toEdit = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
 	}
 
 	@Override
@@ -97,9 +104,10 @@ public class EditCommand extends Command{
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        toEdit = (Task) taskToEdit;
         
         // Copy this task for history usage
-        Task affectedTaskToEdit = new Task(taskToEdit);  
+        beforeEdit = new Task(taskToEdit);
         
         if (taskName != null) {        
             model.editName(taskToEdit, taskName);
@@ -120,23 +128,58 @@ public class EditCommand extends Command{
         if (recurrenceRate != null) {
             model.editRecurrence(taskToEdit, recurrenceRate);
         }
-        
-        // update the history
-        List<Task> affectedTasks = new ArrayList<Task>();
-        
-        // add the original, unmodified task
-        affectedTasks.add(affectedTaskToEdit);
-        
-        // add the updated task
-        Task updatedTask = new Task(taskToEdit);
-        affectedTasks.add(updatedTask);
-        System.out.println("What edit inserted into history" + affectedTasks);
-        history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
-        history.resetRedo();
-
-        
+        history.updateCommandHistory(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         
 	}
+
+    @Override
+    public CommandResult undo() {
+        // edit all the fields back to the state before the edit took place
+        
+        // save this for printing purposes
+        Task toUndoForPrint = new Task(toEdit);
+        
+        Task toUndo = toEdit;
+        
+        System.out.println(toUndo);
+        
+        Name oldTaskName = beforeEdit.getName();
+        Optional<Date> oldStartDate = beforeEdit.getStartDate();
+        Optional<Date> oldEndDate = beforeEdit.getEndDate();
+        Priority oldPriority = beforeEdit.getPriorityValue();
+        Optional<RecurrenceRate> oldReccurence = beforeEdit.getRecurrenceRate();
+                
+        model.editName(toUndo, oldTaskName);
+        
+        model.editPriority(toUndo, oldPriority);
+ 
+        
+        // edit back the start date
+        if (oldStartDate.isPresent()) {
+            model.editStartDate(toUndo, oldStartDate.get());
+        }
+        else {
+            model.editStartDate(toUndo, null);
+        }
+        
+        // edit back the end date
+        if (oldEndDate.isPresent()) {
+            model.editEndDate(toUndo, oldEndDate.get());
+        }
+        else {
+            model.editEndDate(toUndo, null);
+        }
+        
+        // edit back the recurrence rate
+        if (oldReccurence.isPresent()) {
+            model.editRecurrence(toUndo, oldReccurence.get());
+        }
+        else {
+            model.editRecurrence(toUndo, null);
+        }
+        
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toUndoForPrint, toUndo));
+    }
 
 }

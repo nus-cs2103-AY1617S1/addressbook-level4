@@ -1,12 +1,11 @@
 package seedu.address.logic.commands;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.history.ReversibleEffect;
 import seedu.address.model.item.Task;
+import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.RecurrenceRate;
@@ -16,7 +15,7 @@ import com.joestelmach.natty.*;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends UndoableCommand {
 
     private static final int BASE_INDEX = 0;
 
@@ -32,6 +31,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_FLOATING_TASK = "This task already exists in the task manager";
 
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
+    
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid add item: %1$s";
 
     private Task toAdd;
 
@@ -94,11 +95,22 @@ public class AddCommand extends Command {
         assert model != null;
         model.addTask(toAdd);
         
-        List<Task> affectedTasks = new ArrayList<Task>();
-        affectedTasks.add(toAdd);
-        history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
-        history.resetRedo();
+        // TODO: i don't like updating the history here, to refactor further
+        // not sure if EVERY command should access history, or i pass history to parser then parser prepareUndoCmd together with the history
+        history.updateCommandHistory(this);
+        
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    @Override
+    public CommandResult undo() {
+        assert model != null;
+        try {
+            model.deleteTask(toAdd);
+        } catch (TaskNotFoundException e) {
+            return new CommandResult("Failed to undo last add command: add " + toAdd);
+        }
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
     }
 
 }

@@ -58,6 +58,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      */
     public Task(Name taskName, Date startDate, Date endDate, RecurrenceRate recurrenceRate, Priority priorityValue) {
         assert !CollectionUtil.isAnyNull(taskName);
+        assert taskName != null;
+        assert priorityValue != null;
         this.taskName = taskName;
         this.startDate = startDate;
         this.endDate = endDate;
