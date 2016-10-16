@@ -100,7 +100,8 @@ public class UpdateTaskCommand extends TaskCommand {
     }
     
     /**
-     * Given the task that is to be updated, retrieve the new values that have been assigned by constructors
+     * Given the task that is to be updated, create a new updatedTask to replace it
+     * by retrieving the values to be updated
      */
     public void prepareUpdatedTask(Task taskToUpdate) throws IllegalValueException {
     	if (newTask != null) {
@@ -124,6 +125,9 @@ public class UpdateTaskCommand extends TaskCommand {
     	}
     }
     
+    /**
+     * Create a new task with a different description to replace taskToUpdate
+     */
     public Task prepareUpdatedDescriptionForTask(Task taskToUpdate) throws IllegalValueException {
     	// Return a new Task based on the type of the task to be updated
 		if (taskToUpdate instanceof FloatingTask) {
@@ -142,6 +146,9 @@ public class UpdateTaskCommand extends TaskCommand {
 		}
     }
     
+    /**
+     * Create a new task with a different deadline to replace taskToUpdate
+     */
     public Task prepareUpdatedDeadlineForTask(Task taskToUpdate) throws IllegalValueException {
     	// Check if it is indeed a DeadlineTask
 		if (taskToUpdate instanceof DeadlineTask) {
@@ -153,6 +160,9 @@ public class UpdateTaskCommand extends TaskCommand {
 		}
     }
     
+    /**
+     * Create a new task with a different start and end date to replace taskToUpdate
+     */
     public Task prepareUpdatedStartEndDateForTask(Task taskToUpdate) throws IllegalValueException {
     	// Check if it is indeed a EventTask
 		if (taskToUpdate instanceof EventTask) {
