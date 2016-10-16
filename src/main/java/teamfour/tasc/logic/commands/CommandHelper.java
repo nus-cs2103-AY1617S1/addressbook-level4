@@ -1,6 +1,7 @@
 package teamfour.tasc.logic.commands;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +15,61 @@ import teamfour.tasc.logic.parser.KeywordParser;
 import teamfour.tasc.model.task.Recurrence;
 
 public class CommandHelper {
+    private static final Logger logger = LogsCenter.getLogger(CommandHelper.class);
 
     public static String MESSAGE_REPEAT_PARAMETERS_INVALID = "Invalid repeat parameters";
+    
+    /**
+     * Converts a String to Date if possible, otherwise returns null.
+     * @param dateString the String containing the Date
+     * @return the Date from String, or null if not possible
+     */
+    public static Date convertStringToDateIfPossible(String dateString) {
+        if (dateString != null) {
+            try {
+                return CommandHelper.convertStringToDate(dateString);
+            } catch (IllegalValueException e) {
+                logger.warning("Invalid date string in method " + 
+                            "convertStringToDateIfPossible: " + dateString);
+                return null;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Precondition: date argument is not null.
+     * Returns the Date set to the start of the date.
+     * @param date the Date object
+     * @return a Date object set to start of the date
+     */
+    public static Date getStartOfTheDate(Date date) {
+        assert date != null;
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTime();
+    }
+    
+    /**
+     * Precondition: date argument is not null.
+     * Returns the Date set to the end of the date.
+     * @param date the Date object
+     * @return a Date object set to end of the date
+     */
+    public static Date getEndOfTheDate(Date date) {
+        assert date != null;
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+        c.set(Calendar.MILLISECOND, 999);
+        return c.getTime();
+    }
 
     /**
      * Parses date(s) from an input String containing the dates
@@ -43,7 +97,6 @@ public class CommandHelper {
      * @return Date parsed from dateInString
      * @throws Exception
      */
-
     public static Date convertStringToDate(String dateInString) throws IllegalValueException{
         //special case if date is "today", but no valid time given
         if(dateInString.toLowerCase().contains("today")){
