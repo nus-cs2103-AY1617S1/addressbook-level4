@@ -12,7 +12,7 @@ public class ListdeadlineCommandTest extends TaskManagerGuiTest {
 	@Test
 	public void ListDeadlineCommand() {
 		commandBox.runCommand("listdeadline");
-		assertListSize(2);
+		assertListSize(3);
 		
 	}
 	

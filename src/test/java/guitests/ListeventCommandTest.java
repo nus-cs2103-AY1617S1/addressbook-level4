@@ -12,7 +12,7 @@ public class ListeventCommandTest extends TaskManagerGuiTest {
 	@Test
 	public void ListEventCommand() {
 		commandBox.runCommand("listevent");
-		assertListSize(3);	
+		assertListSize(4);	
 	}
 	
 	@Test

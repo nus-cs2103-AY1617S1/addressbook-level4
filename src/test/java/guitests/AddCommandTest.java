@@ -30,17 +30,17 @@ public class AddCommandTest extends TaskManagerGuiTest {
     public void add() {
         //add one person
         TestItem[] currentList = td.getTypicalItems();
-        TestItem itemToAdd = td.deadline3;
+        TestItem itemToAdd = td.deadline4;
         assertAddSuccess(itemToAdd, currentList);
         currentList = TestUtil.addItemsToList(currentList, itemToAdd);
 
         //add another person
-        itemToAdd = td.task3;
+        itemToAdd = td.task4;
         assertAddSuccess(itemToAdd, currentList);
         currentList = TestUtil.addItemsToList(currentList, itemToAdd);
 
         //add duplicate person
-        commandBox.runCommand(td.deadline3.getAddCommand(false, false, false, false, false));
+        commandBox.runCommand(td.deadline4.getAddCommand(false, false, false, false, false));
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_ITEM);
         assertTrue(itemListPanel.isListMatching(currentList));
 
