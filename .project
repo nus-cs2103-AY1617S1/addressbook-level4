@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Schema</name>
-	<comment>Project Schema created by Buildship.</comment>
+	<name>Mastermind</name>
+	<comment>this is a to do task manager.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
