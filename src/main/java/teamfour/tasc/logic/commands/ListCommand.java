@@ -74,6 +74,8 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        assert model != null;
+        
         model.resetTaskListFilter();
         if (type != null)
             model.addTaskListFilterByType(type, false);

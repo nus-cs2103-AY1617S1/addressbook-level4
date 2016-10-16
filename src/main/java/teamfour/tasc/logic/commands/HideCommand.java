@@ -78,6 +78,8 @@ public class HideCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        assert model != null;
+        
         if (type != null)
             model.addTaskListFilterByType(type, true);
         if (deadline != null)
