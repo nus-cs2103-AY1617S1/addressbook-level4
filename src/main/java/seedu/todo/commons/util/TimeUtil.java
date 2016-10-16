@@ -25,11 +25,12 @@ public class TimeUtil {
     private static final String WORD_AGO = "ago";
     private static final String WORD_FROM = "from";
     private static final String WORD_TO = "to";
-    private static final String WORD_COMMA = ",";
     private static final String WORD_TOMORROW = "tomorrow";
     private static final String WORD_YESTERDAY = "yesterday";
     private static final String WORD_TODAY = "today";
     private static final String WORD_TONIGHT = "tonight";
+    private static final String WORD_COMMA = ",";
+    private static final String WORD_SPACE = " ";
 
     private static final String DUE_NOW = "due now";
     private static final String DUE_LESS_THAN_A_MINUTE = "in less than a minute";
@@ -79,14 +80,14 @@ public class TimeUtil {
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         long secondsToDeadline = durationCurrentToEnd.getSeconds();
 
-        StringJoiner stringJoiner = new StringJoiner(" ");
+        StringJoiner stringJoiner = new StringJoiner(WORD_SPACE);
 
         if (secondsToDeadline <= 59) {
             return DUE_LESS_THAN_A_MINUTE;
         } else if (minutesToDeadline <= 59) {
             stringJoiner.add(WORD_IN).add(getMinutesText(currentTime, endTime));
         } else {
-            stringJoiner.add(WORD_BY).add(getDateText(endTime) + WORD_COMMA)
+            stringJoiner.add(WORD_BY).add(getDateText(currentTime, endTime) + WORD_COMMA)
                     .add(getTimeText(endTime));
         }
         return stringJoiner.toString();
@@ -104,14 +105,14 @@ public class TimeUtil {
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         long secondsToDeadline = durationCurrentToEnd.getSeconds();
 
-        StringJoiner stringJoiner = new StringJoiner(" ");
+        StringJoiner stringJoiner = new StringJoiner(WORD_SPACE);
 
         if (secondsToDeadline >= -59) {
             return DUE_NOW;
         } else if (minutesToDeadline >= -59) {
             stringJoiner.add(getMinutesText(currentTime, endTime)).add(WORD_AGO);
         } else {
-            stringJoiner.add(WORD_SINCE).add(getDateText(endTime) + WORD_COMMA)
+            stringJoiner.add(WORD_SINCE).add(getDateText(currentTime, endTime) + WORD_COMMA)
                     .add(getTimeText(endTime));
         }
         return stringJoiner.toString();
@@ -140,8 +141,7 @@ public class TimeUtil {
      * @param dateTime to format the date with
      * @return a formatted date text described above
      */
-    private String getDateText(LocalDateTime dateTime) {
-        LocalDateTime currentTime = LocalDateTime.now(clock);
+    private String getDateText(LocalDateTime currentTime, LocalDateTime dateTime) {
         if (isYesterday(currentTime, dateTime)) {
             return WORD_YESTERDAY;
         } else if (isTonight(currentTime, dateTime)) {
