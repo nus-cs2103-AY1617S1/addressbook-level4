@@ -1,6 +1,6 @@
 package seedu.tasklist.model.task;
 
-
+import java.time.LocalDate;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 
 /**
@@ -12,7 +12,8 @@ public class DueDate {
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "DueDate should be numeric only";
     public static final String DATE_VALIDATION_REGEX = "^(?:\\d+|)$";
 
-    public final String dueDate;
+    //public final String dueDate;
+    public LocalDate dueDate;
 
     /**
      * Validates given due date.
@@ -20,11 +21,22 @@ public class DueDate {
      * @throws IllegalValueException if given due date string is invalid.
      */
     public DueDate(String dueDate) throws IllegalValueException {
-        assert dueDate != null;
+    	String month;
+        String day;
+        String year;
+        
+    	assert dueDate != null;
         if (!isValidDate(dueDate)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
-        this.dueDate = dueDate;
+       // this.dueDate = dueDate;
+        
+        month = "" + dueDate.charAt(0) + dueDate.charAt(1);
+        day = "" + dueDate.charAt(2) + dueDate.charAt(3);
+        year = "" + dueDate.charAt(4) + dueDate.charAt(5) + dueDate.charAt(6) + dueDate.charAt(7);
+        
+        this.dueDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+        
     }
 
     /**
@@ -36,7 +48,7 @@ public class DueDate {
 
     @Override
     public String toString() {
-        return dueDate;
+        return dueDate.toString();
     }
 
     @Override

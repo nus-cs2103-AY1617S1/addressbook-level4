@@ -33,7 +33,7 @@ public class StartDate {
         day = "" + startDate.charAt(2) + startDate.charAt(3);
         year = "" + startDate.charAt(4) + startDate.charAt(5) + startDate.charAt(6) + startDate.charAt(7);
         
-        this.setStartDate(LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)));
+        this.startDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
     }
 
     /**
@@ -45,27 +45,27 @@ public class StartDate {
 
     @Override
     public String toString() {
-        return getStartDate().toString();
+        return startDate.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof StartDate // instanceof handles nulls
-                && this.getStartDate().equals(((StartDate) other).getStartDate())); // state check
+                && this.startDate.equals(((StartDate) other).startDate)); // state check
     }
 
     @Override
     public int hashCode() {
-        return getStartDate().hashCode();
+        return startDate.hashCode();
     }
 
-	public LocalDate getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
+//	public LocalDate getStartDate() {
+//		return startDate;
+//	}
+//
+//	public void setStartDate(LocalDate startDate) {
+//		this.startDate = startDate;
+//	}
 
 }

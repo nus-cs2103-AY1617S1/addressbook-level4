@@ -44,7 +44,7 @@ public class TaskCard extends UiPart{
         name.setText(task.getTitle().fullTitle);
         id.setText(displayedIndex + ". ");
         startDate.setText(task.getStartDate().startDate.toString());
-        dueDate.setText(task.getDueDate().dueDate);
+        dueDate.setText(task.getDueDate().dueDate.toString());
         description.setText(task.getDescription().description);
         tags.setText(task.tagsString());
         setBackgroundColor();
