@@ -376,9 +376,9 @@ public class LogicManagerTest {
 
         Task myTask() throws Exception {
             TaskName name = new TaskName("Do seagull stuff");
-            TaskTime startTime = new TaskTime("Sun Oct 16 21:35:45 SGT 2016");
-            TaskTime endTime = new TaskTime("Mon Oct 17 21:35:45 SGT 2016");
-            TaskTime deadline = new TaskTime("Sun Oct 23 21:35:45 SGT 2016");
+            TaskTime startTime = new TaskTime("Sun Oct 16 21:35:45");
+            TaskTime endTime = new TaskTime("Mon Oct 17 21:35:45");
+            TaskTime deadline = new TaskTime("Sun Oct 23 21:35:45");
             TaskRecurrence recurrence = new TaskRecurrence("X");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
