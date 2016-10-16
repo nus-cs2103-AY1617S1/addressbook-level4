@@ -20,8 +20,6 @@ public class PersonCard extends UiPart{
     private Label deadline;
     @FXML
     private Label priority;
-//    @FXML
-//    private Label email;
     @FXML
     private Label tags;
 

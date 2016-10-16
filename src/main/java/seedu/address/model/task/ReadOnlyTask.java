@@ -11,9 +11,6 @@ public interface ReadOnlyTask {
     Name getName();
     Priority getPriority();
     Deadline getDeadline();
-    void setDeadline(Deadline deadline);
-    void setPriority(Priority priority);
-    void setName(Name name);
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -41,7 +38,8 @@ public interface ReadOnlyTask {
                 .append(" Deadline: ")
                 .append(getDeadline())
                 .append(" Priority: ")
-                .append(getPriority());
+                .append(getPriority())
+        		.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

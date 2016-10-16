@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.TaskManager;
 import seedu.address.model.task.*;
 
 /**
@@ -13,38 +13,38 @@ public class TypicalTestPersons {
 
     public TypicalTestPersons() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withDeadline("123, Jurong West Ave 6, #08-111")
-                    .withPriority("alice@gmail.com")
+            alice =  new TaskBuilder().withName("Alice Pauline").withDeadline("12-36-08")
+                    .withPriority("1")
                     .withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier").withDeadline("311, Clementi Ave 2, #02-25")
-                    .withPriority("johnd@gmail.com")
+            benson = new TaskBuilder().withName("Benson Meier").withDeadline("311202")
+                    .withPriority("2")
                     .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").withPriority("heinz@yahoo.com").withDeadline("wall street").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").withPriority("cornelia@google.com").withDeadline("10th street").build();
-            elle = new TaskBuilder().withName("Elle Meyer").withPriority("werner@gmail.com").withDeadline("michegan ave").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").withPriority("lydia@gmail.com").withDeadline("little tokyo").build();
-            george = new TaskBuilder().withName("George Best").withPriority("anna@google.com").withDeadline("4th street").build();
+            carl = new TaskBuilder().withName("Carl Kurz").withPriority("3").withDeadline("121212").build();
+            daniel = new TaskBuilder().withName("Daniel Meier").withPriority("4").withDeadline("101010").build();
+            elle = new TaskBuilder().withName("Elle Meyer").withPriority("5").withDeadline("111111").build();
+            fiona = new TaskBuilder().withName("Fiona Kunz").withPriority("2").withDeadline("000000").build();
+            george = new TaskBuilder().withName("George Best").withPriority("1").withDeadline("456789").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withPriority("stefan@mail.com").withDeadline("little india").build();
-            ida = new TaskBuilder().withName("Ida Mueller").withPriority("hans@google.com").withDeadline("chicago ave").build();
+            hoon = new TaskBuilder().withName("Hoon Meier").withPriority("1").withDeadline("202020").build();
+            ida = new TaskBuilder().withName("Ida Mueller").withPriority("1").withDeadline("999999").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
         }
     }
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static void loadAddressBookWithSampleData(TaskManager ab) {
 
         try {
-            ab.addPerson(new Task(alice));
-            ab.addPerson(new Task(benson));
-            ab.addPerson(new Task(carl));
-            ab.addPerson(new Task(daniel));
-            ab.addPerson(new Task(elle));
-            ab.addPerson(new Task(fiona));
-            ab.addPerson(new Task(george));
-        } catch (UniquePersonList.DuplicatePersonException e) {
+            ab.addTask(new Task(alice));
+            ab.addTask(new Task(benson));
+            ab.addTask(new Task(carl));
+            ab.addTask(new Task(daniel));
+            ab.addTask(new Task(elle));
+            ab.addTask(new Task(fiona));
+            ab.addTask(new Task(george));
+        } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
@@ -53,8 +53,8 @@ public class TypicalTestPersons {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
+    public TaskManager getTypicalAddressBook(){
+        TaskManager ab = new TaskManager();
         loadAddressBookWithSampleData(ab);
         return ab;
     }

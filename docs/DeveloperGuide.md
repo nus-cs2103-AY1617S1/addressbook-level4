@@ -53,7 +53,7 @@
   
 **Problem: Eclipse reports some required libraries missing**
 * Reason: Required libraries may not have been downloaded during the project import. 
-* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
+* Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
  
 
 ## Design
@@ -61,6 +61,8 @@
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
+Figure 1: Architecture Diagram
+
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -87,11 +89,13 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
+Figure 2: Logic Class Diagram
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
 <img src="images/SDforDeletePerson.png" width="800">
+Figure 3: Sequence Diagram For Delete Person
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -99,7 +103,7 @@ command `delete 3`.
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images/SDforDeletePersonEventHandling.png" width="800">
-
+Figure 4: Sequence Diagram For Event Handling Of Delete Person
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
@@ -109,6 +113,7 @@ The sections below give more details of each component.
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
+Figure 5: UI Class Diagram
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -132,18 +137,20 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+* `Logic` uses the `Parser` class to parse the user command.
+* This results in a `Command` object which is executed by the `LogicManager`.
+* The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+* The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
+Figure 6: Sequence Diagram Within Logic For Delete Person
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
+Figure 7: Model Class Diagram
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -157,6 +164,7 @@ The `Model`,
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
+Figure 8: Storage Class Diagram
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
@@ -167,6 +175,7 @@ The `Storage` component,
 ### Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
+
 
 ## Implementation
 
@@ -193,7 +202,6 @@ and logging destinations.
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
-
 
 ## Testing
 
@@ -237,7 +245,8 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  * Solution: Enable assertions in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
-  
+
+
 ## Dev Ops
 
 ### Build Automation
@@ -267,10 +276,10 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
@@ -299,6 +308,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | see the number of tasks completed at the end of the day | have a sense of accomplishment. If 0 tasks though there is at least one task to be completed for that day, encourage the user to work harder
 
 {More to be added}
+
 
 ## Appendix B : Use Cases
 
@@ -378,6 +388,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case resumes at step 2.
 
+
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -392,11 +403,13 @@ Priority | As a ... | I want to ... | So that I can...
 10. Should store data in an editable format.
 11. Should run on royalty free libraries and API's.
 
+
 ## Appendix D : Glossary
 
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
+
 
 ## Appendix E : Product Survey
 
@@ -446,4 +459,3 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Is cost prohibitive.
 2. Not available on certain platforms.
-

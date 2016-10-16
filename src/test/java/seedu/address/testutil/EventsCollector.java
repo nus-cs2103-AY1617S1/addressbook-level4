@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import com.google.common.eventbus.Subscribe;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
 
