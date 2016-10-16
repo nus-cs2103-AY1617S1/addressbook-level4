@@ -55,15 +55,21 @@ public class TaskCard extends UiPart{
         period.setText("Period : " + task.getPeriod().toString());
         tags.setText(task.tagsString().equals("") ? "" : "Tags: " + task.tagsString());
         completeStatus.setText(task.getComplete().toString());
-        if (task.getDeadline().hasDeadline()) {
-            if (task.getDeadline().getDeadline().getTime() < Instant.now().toEpochMilli() &&
-                    completeStatus.getText().equals(Complete.TO_STRING_NOT_COMPLETED)) {
-                completeStatus.setText("Overdue");
-                completeStatus.setStyle("-fx-text-fill: #ff0000;");
-            }
-        }
         if (task.getComplete().isCompleted()) {
             completeStatus.setStyle("-fx-text-fill: #008600;");
+        } else {
+            if (task.getDeadline().hasDeadline()) {
+                if (task.getDeadline().getDeadline().getTime() < Instant.now().toEpochMilli()) {
+                    completeStatus.setText("Overdue");
+                    completeStatus.setStyle("-fx-text-fill: #ff0000;");
+                }
+            }
+            if (task.getPeriod().hasPeriod()) {
+                if (task.getPeriod().getEndTime().getTime() < Instant.now().toEpochMilli()) {
+                    completeStatus.setText("Overdue");
+                    completeStatus.setStyle("-fx-text-fill: #ff0000;");
+                }
+            }
         }
     }
 
