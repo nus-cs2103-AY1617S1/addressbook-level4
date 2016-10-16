@@ -50,6 +50,14 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+    private static final Pattern NAME_ARG_FORMAT = Pattern.compile("(n/(?<name>[^/]+))");
+    private static final Pattern START_DATE_ARG_FORMAT = Pattern.compile("(sd/(?<startDate>[^/]+))");    
+    private static final Pattern START_TIME_ARG_FORMAT = Pattern.compile("(st/(?<startTime>[^/]+))");
+    private static final Pattern START_DATETIME_ARG_FORMAT = Pattern.compile("sdt/(?<startDateTime>[^/]+)");
+    private static final Pattern END_DATE_ARG_FORMAT = Pattern.compile("(ed/(?<endDate>[^/]+))");
+    private static final Pattern END_TIME_ARG_FORMAT = Pattern.compile("(et/(?<endTime>[^/]+))");
+    private static final Pattern END_DATETIME_ARG_FORMAT = Pattern.compile("edt/(?<endDateTime>[^/]+)");
+    
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(T|t)((A|a)(S|s)(K|k))?\\s*"
                     + "(n/)?(?<name>[^/]+)"
@@ -58,40 +66,34 @@ public class Parser {
     private static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?\\s*"
                     + "(n/)?(?<name>[^/]+)"
-                    + "ed/(?<endDate>[^/]+)"
-                    + "(et/(?<endTime>[^/]+))?"
+                    + END_DATE_ARG_FORMAT
+                    + END_TIME_ARG_FORMAT + "?"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?\\s*"
                     + "(n/)?(?<name>[^/]+)"
-            		+ "sd/(?<startDate>[^/]+)"
-                    + "(st/(?<startTime>[^/]+))?"
-                    + "ed/(?<endDate>[^/]+)"
-                    + "(et/(?<endTime>[^/]+))?"
+            		+ START_DATE_ARG_FORMAT
+                    + START_TIME_ARG_FORMAT + "?"
+                    + END_DATE_ARG_FORMAT
+                    + END_TIME_ARG_FORMAT + "?"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern DEADLINE_NLP_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?\\s*"
                     + "(n/)?(?<name>[^/]+)"
-                    + "edt/(?<endDateTime>[^/]+)"
+                    + END_DATETIME_ARG_FORMAT
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern EVENT_NLP_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?\\s*"
                     + "(n/)?(?<name>[^/]+)"
-            		+ "sdt/(?<startDateTime>[^/]+)"
-                    + "edt/(?<endDateTime>[^/]+)"
+            		+ START_DATETIME_ARG_FORMAT
+                    + END_DATETIME_ARG_FORMAT
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_COMMAND_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[\\d]+)" 
                                                                             + "(?<editCommandArguments>.+)");
-                   
-    private static final Pattern NAME_ARG_FORMAT = Pattern.compile("(n/(?<name>[^/]+))");
-    private static final Pattern START_DATE_ARG_FORMAT = Pattern.compile("(sd/(?<startDate>[^/]+))");    
-    private static final Pattern START_TIME_ARG_FORMAT = Pattern.compile("(st/(?<startTime>[^/]+))");
-    private static final Pattern END_DATE_ARG_FORMAT = Pattern.compile("(ed/(?<endDate>[^/]+))");
-    private static final Pattern END_TIME_ARG_FORMAT = Pattern.compile("(et/(?<endTime>[^/]+))");
 
     public Parser() {}
 
