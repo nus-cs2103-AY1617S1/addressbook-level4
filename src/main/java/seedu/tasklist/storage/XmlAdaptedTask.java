@@ -41,7 +41,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         title = source.getTitle().fullTitle;
-        startDate = source.getStartDate().startDate;
+        startDate = source.getStartDate().startDate.toString();
         description = source.getDescription().description;
         dueDate = source.getDueDate().dueDate;
         isCompleted = source.isCompleted();

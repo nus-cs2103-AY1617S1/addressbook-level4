@@ -43,7 +43,7 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getTitle().fullTitle);
         id.setText(displayedIndex + ". ");
-        startDate.setText(task.getStartDate().startDate);
+        startDate.setText(task.getStartDate().startDate.toString());
         dueDate.setText(task.getDueDate().dueDate);
         description.setText(task.getDescription().description);
         tags.setText(task.tagsString());
