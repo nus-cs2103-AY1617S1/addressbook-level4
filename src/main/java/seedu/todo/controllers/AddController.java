@@ -59,9 +59,7 @@ public class AddController implements Controller {
         }
         
         // Task or event?
-        boolean isTask = true;
-        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[0].equals("event"))
-            isTask = false;
+        boolean isTask = parseIsTask(parsedResult);
         
         // Name - Disambiguate if null.
         String name = null;
@@ -116,6 +114,13 @@ public class AddController implements Controller {
         view.events = db.getAllEvents();
         UiManager.renderView(view);
         UiManager.updateConsoleMessage(MESSAGE_ADD_SUCCESS);
+    }
+
+    private boolean parseIsTask(Map<String, String[]> parsedResult) {
+        boolean isTask = true;
+        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[0].equals("event"))
+            isTask = false;
+        return isTask;
     }
     
     private LocalDateTime parseNatural(String natural) {
