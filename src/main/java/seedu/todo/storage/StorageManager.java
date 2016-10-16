@@ -27,19 +27,19 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     public StorageManager(String todoListFilePath, String userPrefsFilePath) {
-        this(new XmlTodoListStorage(todoListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+        this(new XmlTodoListStorage(todoListFilePath), new UserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
-        return userPrefsStorage.readUserPrefs();
+        return userPrefsStorage.read();
     }
 
     @Override
     public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
-        userPrefsStorage.saveUserPrefs(userPrefs);
+        userPrefsStorage.save(userPrefs);
     }
 
     // ================ TodoList methods ==============================
