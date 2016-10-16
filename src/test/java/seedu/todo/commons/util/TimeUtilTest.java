@@ -25,7 +25,7 @@ public class TimeUtilTest {
          * Construct a ModifiedTimeUtil object overriding the current time with Clock object.
          * Is only used for dependency injection in testing time sensitive components.
          */
-        private ModifiedTimeUtil (Clock clock) {
+        private ModifiedTimeUtil(Clock clock) {
             this.clock = clock;
         }
         
@@ -33,7 +33,7 @@ public class TimeUtilTest {
          * Construct a ModifiedTimeUtil object overriding the current time with LocalDateTime object.
          * Is only used for dependency injection in testing time sensitive components.
          */
-        public ModifiedTimeUtil (LocalDateTime pseudoCurrentTime) {
+        public ModifiedTimeUtil(LocalDateTime pseudoCurrentTime) {
             this(Clock.fixed(pseudoCurrentTime.toInstant(
                     ZoneId.systemDefault().getRules().getOffset(pseudoCurrentTime)), ZoneId.systemDefault()));
         }
@@ -42,7 +42,7 @@ public class TimeUtilTest {
     /**
      * Aids to test taskDeadlineText with a current time and due time, against an expected output.
      */
-    private void testTaskDeadlineTextHelper (String expectedOutput, LocalDateTime currentTime, LocalDateTime dueTime) {
+    private void testTaskDeadlineTextHelper(String expectedOutput, LocalDateTime currentTime, LocalDateTime dueTime) {
         TimeUtil timeUtil = new ModifiedTimeUtil(currentTime);
         String generatedOutput = timeUtil.getTaskDeadlineText(dueTime);
         assertEquals(expectedOutput, generatedOutput);
@@ -60,9 +60,7 @@ public class TimeUtilTest {
         
     @Test
     public void getTaskDeadlineString_nullEndTime() {
-        TimeUtil timeUtil = new TimeUtil();
-        String outcome = timeUtil.getTaskDeadlineText(null);
-        assertEquals("", outcome);
+        testTaskDeadlineTextHelper("", LocalDateTime.now(), null);
     }
     
     @Test
@@ -213,16 +211,14 @@ public class TimeUtilTest {
     
     @Test
     public void getEventTimeText_nullStartTime() {
-        TimeUtil timeUtil = new TimeUtil();
-        String outcome = timeUtil.getEventTimeText(null, LocalDateTime.now());
-        assertEquals("", outcome);
+        testEventTimeTextHelper("", LocalDateTime.now(), null, LocalDateTime.now().plusMinutes(1));
     }
     
     @Test
     public void getEventTimeText_nullEndTime() {
-        TimeUtil timeUtil = new TimeUtil();
-        String outcome = timeUtil.getEventTimeText(LocalDateTime.now(), null);
-        assertEquals("", outcome);
+        testEventTimeTextHelper("", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), null);
+    }
+
     @Test
     public void getEventTimeText_sameDay() {
         LocalDateTime currentTime = LocalDateTime.of(2016, 10, 20, 12, 00);
