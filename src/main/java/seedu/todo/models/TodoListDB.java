@@ -51,6 +51,16 @@ public class TodoListDB {
         return new ArrayList<Event>(events);
     }
     
+    public int countFutureEvents() {
+        LocalDateTime now = LocalDateTime.now();
+        int count = 0;
+        for (Event event : events) {
+            if (event.getStartDate().compareTo(now) >= 0)
+                count++;
+        }
+        return count;
+    }
+    
     public Task createTask() {
         Task task = new Task();
         tasks.add(task);
