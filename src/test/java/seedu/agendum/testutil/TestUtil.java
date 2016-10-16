@@ -17,8 +17,6 @@ import seedu.agendum.commons.exceptions.IllegalValueException;
 import seedu.agendum.commons.util.FileUtil;
 import seedu.agendum.commons.util.XmlUtil;
 import seedu.agendum.model.ToDoList;
-import seedu.agendum.model.tag.Tag;
-import seedu.agendum.model.tag.UniqueTagList;
 import seedu.agendum.model.task.*;
 import seedu.agendum.storage.XmlSerializableToDoList;
 
@@ -65,35 +63,20 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new UniqueTagList())
+                    new Task(new Name("Ali Muster")),
+                    new Task(new Name("Boris Mueller")),
+                    new Task(new Name("Carl Kurz")),
+                    new Task(new Name("Daniel Meier")),
+                    new Task(new Name("Elle Meyer")),
+                    new Task(new Name("Fiona Kunz")),
+                    new Task(new Name("George Best")),
+                    new Task(new Name("Hoon Meier")),
+                    new Task(new Name("Ida Mueller"))
             };
         } catch (IllegalValueException e) {
             assert false;
             //not possible
             return null;
-        }
-    }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
         }
     }
 
@@ -135,7 +118,7 @@ public class TestUtil {
     }
 
     public static ToDoList generateEmptyToDoList() {
-        return new ToDoList(new UniqueTaskList(), new UniqueTagList());
+        return new ToDoList(new UniqueTaskList());
     }
 
     public static XmlSerializableToDoList generateSampleStorageToDoList() {
@@ -328,27 +311,6 @@ public class TestUtil {
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
-    }
-
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
     }
 
 }

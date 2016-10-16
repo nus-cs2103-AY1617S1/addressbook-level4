@@ -1,11 +1,8 @@
 package seedu.agendum.logic.commands;
 
 import seedu.agendum.commons.exceptions.IllegalValueException;
-import seedu.agendum.model.tag.Tag;
-import seedu.agendum.model.tag.UniqueTagList;
 import seedu.agendum.model.task.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -32,13 +29,8 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name, Set<String> tags)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
         this.toAdd = new Task(
-                new Name(name),
-                new UniqueTagList(tagSet)
+                new Name(name)
         );
     }
 

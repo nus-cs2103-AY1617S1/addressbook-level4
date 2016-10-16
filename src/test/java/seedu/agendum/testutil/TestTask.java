@@ -3,7 +3,6 @@ package seedu.agendum.testutil;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import seedu.agendum.model.tag.UniqueTagList;
 import seedu.agendum.model.task.*;
 
 /**

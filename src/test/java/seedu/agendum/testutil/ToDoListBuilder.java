@@ -1,7 +1,5 @@
 package seedu.agendum.testutil;
 
-import seedu.agendum.commons.exceptions.IllegalValueException;
-import seedu.agendum.model.tag.Tag;
 import seedu.agendum.model.task.Task;
 import seedu.agendum.model.task.UniqueTaskList;
 import seedu.agendum.model.ToDoList;
@@ -21,11 +19,6 @@ public class ToDoListBuilder {
 
     public ToDoListBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         toDoList.addTask(task);
-        return this;
-    }
-
-    public ToDoListBuilder withTag(String tagName) throws IllegalValueException {
-        toDoList.addTag(new Tag(tagName));
         return this;
     }
 

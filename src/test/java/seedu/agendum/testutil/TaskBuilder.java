@@ -1,7 +1,6 @@
 package seedu.agendum.testutil;
 
 import seedu.agendum.commons.exceptions.IllegalValueException;
-import seedu.agendum.model.tag.Tag;
 import seedu.agendum.model.task.*;
 
 /**
@@ -24,13 +23,6 @@ public class TaskBuilder {
 
     public TaskBuilder withName(String name) throws IllegalValueException {
         this.task.setName(new Name(name));
-        return this;
-    }
-
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
-            this.task.getTags().add(new Tag(tag));
-        }
         return this;
     }
     
