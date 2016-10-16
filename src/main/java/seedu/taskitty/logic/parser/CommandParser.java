@@ -88,10 +88,13 @@ public class CommandParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+        
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
             
         case DoneCommand.COMMAND_WORD:
         	return prepareDone(arguments);
-
+        
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }

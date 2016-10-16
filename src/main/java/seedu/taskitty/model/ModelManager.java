@@ -12,6 +12,8 @@ import seedu.taskitty.model.task.UniqueTaskList;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
+import java.util.Stack;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +25,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final Stack<ReadOnlyTaskManager> historyCommands;
+    private final Stack<Predicate> historyPredicates;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -37,6 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        historyCommands = new Stack<ReadOnlyTaskManager>();
+        historyPredicates = new Stack<Predicate>();
     }
 
     public ModelManager() {
@@ -46,6 +52,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        historyCommands = new Stack<ReadOnlyTaskManager>();
+        historyPredicates = new Stack<Predicate>();
     }
 
     @Override
@@ -75,6 +83,21 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+    }
+    
+    public synchronized void undo() {
+        resetData(historyCommands.pop());
+        updateFilteredTaskList(historyPredicates.pop());
+    }
+    
+    public synchronized void saveState() {
+        historyCommands.push(new TaskManager(taskManager));
+        historyPredicates.push(filteredTasks.getPredicate());
+    }
+    
+    public synchronized void removeUnchangedState() {
+        historyCommands.pop();
+        historyPredicates.pop();
     }
     
     @Override
@@ -111,6 +134,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    private void updateFilteredTaskList(Predicate previousPredicate) {
+        filteredTasks.setPredicate(previousPredicate);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

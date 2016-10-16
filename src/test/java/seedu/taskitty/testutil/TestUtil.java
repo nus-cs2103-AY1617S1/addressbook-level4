@@ -306,8 +306,9 @@ public class TestUtil {
      * @return
      */
     public static TestTask[] replacePersonFromList(TestTask[] persons, TestTask person, int index) {
-        persons[index] = person;
-        return persons;
+        TestTask[] editedList = Arrays.copyOf(persons, persons.length);
+        editedList[index] = person;
+        return editedList;
     }
 
     /**

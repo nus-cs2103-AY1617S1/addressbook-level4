@@ -23,4 +23,7 @@ public class HelpCommand extends Command {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
+
+    @Override
+    public void saveStateIfNeeded() {}
 }

@@ -28,7 +28,16 @@ public interface Model {
     
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-
+    
+    /** Undoes the previous command if there is any */
+    void undo();
+    
+    /** Saves the current state of the TaskManager andfilteredTasks to allow for undoing */
+    void saveState();
+    
+    /** Removes the current state saved when an invalid command is given */
+    void removeUnchangedState();
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

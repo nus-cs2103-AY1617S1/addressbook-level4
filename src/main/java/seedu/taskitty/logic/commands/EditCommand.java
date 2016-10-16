@@ -64,6 +64,7 @@ public class EditCommand extends Command{
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
+            model.removeUnchangedState();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
@@ -72,12 +73,19 @@ public class EditCommand extends Command{
         try {
             model.editTask(taskToEdit, toEdit, targetIndex - 1);
         } catch (UniqueTaskList.DuplicateTaskException e) {
+            model.removeUnchangedState();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
+            model.removeUnchangedState();
             assert false : "The target task cannot be missing";
         }
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
+    }
+
+    @Override
+    public void saveStateIfNeeded() {
+        model.saveState();
     }
 }
 
