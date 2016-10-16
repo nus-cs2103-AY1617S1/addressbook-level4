@@ -272,6 +272,28 @@ public class TodoTest {
             t.setEndTime(LocalDateTime.now().minusHours(2));
         });
     }
+    
+    @Test
+    public void testSave() throws Exception {
+        todo.save("new location");
+        verify(storage).save(todo, "new location");
+    }
+    
+    @Test
+    public void testLoad() throws Exception {
+        when(storageData.getTasks())
+            .thenReturn(ImmutableList.of(new Task("Hello world")));
+        when(storage.read("new location")).thenReturn(Optional.of(storageData));
+        
+        todo.load("new location");
+        assertEquals("Hello world", getTask(0).getTitle());
+    }
+    
+    @Test
+    public void testGetSaveLocation() throws Exception {
+        when(storage.getLocation()).thenReturn("test location");
+        assertEquals("test location", todo.getStorageLocation());
+    }
 
     private ImmutableTask getTask(int index) {
         return todo.getTasks().get(index);
