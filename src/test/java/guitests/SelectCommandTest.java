@@ -2,6 +2,8 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.taskmanager.logic.commands.ClearCommand;
+import seedu.taskmanager.logic.commands.SelectCommand;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 
 import static org.junit.Assert.assertEquals;
@@ -17,11 +19,14 @@ public class SelectCommandTest extends TaskManagerGuiTest {
         assertSelectionInvalid(11); //invalid index
         assertNoPersonSelected();
 
-        assertSelectionSuccess(1); //first person in the list
+        assertSelectionSuccess(SelectCommand.COMMAND_WORD, 1); //first person in the list
+        assertSelectionSuccess(SelectCommand.SHORT_COMMAND_WORD, 1); //first person in the list
         int personCount = td.getTypicalItems().length;
-        assertSelectionSuccess(personCount); //last person in the list
+        assertSelectionSuccess(SelectCommand.COMMAND_WORD, personCount); //last person in the list
+        assertSelectionSuccess(SelectCommand.SHORT_COMMAND_WORD, personCount); //last person in the list
         int middleIndex = personCount / 2;
-        assertSelectionSuccess(middleIndex); //a person in the middle of the list
+        assertSelectionSuccess(SelectCommand.COMMAND_WORD, middleIndex); //a person in the middle of the list
+        assertSelectionSuccess(SelectCommand.SHORT_COMMAND_WORD, middleIndex); //a person in the middle of the list
 
         assertSelectionInvalid(personCount + 1); //invalid index
         assertPersonSelected(middleIndex); //assert previous selection remains
@@ -31,18 +36,18 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void selectPerson_emptyList(){
-        commandBox.runCommand("clear");
+        commandBox.runCommand(ClearCommand.COMMAND_WORD);
         assertListSize(0);
         assertSelectionInvalid(1); //invalid index
     }
 
     private void assertSelectionInvalid(int index) {
-        commandBox.runCommand("select " + index);
+        commandBox.runCommand(SelectCommand.COMMAND_WORD + " " + index);
         assertResultMessage(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
 
-    private void assertSelectionSuccess(int index) {
-        commandBox.runCommand("select " + index);
+    private void assertSelectionSuccess(String commandWord, int index) {
+        commandBox.runCommand(commandWord + " " + index);
         assertResultMessage("Selected " + index);
         assertPersonSelected(index);
     }
