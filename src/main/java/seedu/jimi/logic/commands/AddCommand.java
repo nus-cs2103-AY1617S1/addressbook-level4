@@ -10,7 +10,11 @@ import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.event.Event;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
-import seedu.jimi.model.task.*;
+import seedu.jimi.model.task.DeadlineTask;
+import seedu.jimi.model.task.FloatingTask;
+import seedu.jimi.model.task.Name;
+import seedu.jimi.model.task.ReadOnlyTask;
+import seedu.jimi.model.task.UniqueTaskList;
 
 /**
  * Adds a task to the Jimi.
