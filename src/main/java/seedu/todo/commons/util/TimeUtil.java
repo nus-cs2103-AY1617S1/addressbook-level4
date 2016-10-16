@@ -38,8 +38,6 @@ public class TimeUtil {
     private static final String UNIT_MINUTES = "minutes";
     private static final String VALUE_ONE_MINUTE = "1 minute";
 
-    private static final String FORMAT_DATE_TIME_WITH_YEAR = "d MMMM yyyy, h:mm a";
-    private static final String FORMAT_DATE_TIME_NO_YEAR = "d MMMM, h:mm a";
     private static final String FORMAT_DATE_WITH_YEAR = "d MMMM yyyy";
     private static final String FORMAT_DATE_NO_YEAR = "d MMMM";
     private static final String FORMAT_TIME = "h:mm a";
