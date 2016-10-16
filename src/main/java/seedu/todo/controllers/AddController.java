@@ -84,6 +84,10 @@ public class AddController implements Controller {
         createCalendarItem(db, isTask, name, dateFrom, dateTo);
         
         // Re-render
+        renderIndex(db);
+    }
+
+    private void renderIndex(TodoListDB db) {
         IndexView view = UiManager.loadView(IndexView.class);
         view.tasks = db.getAllTasks();
         view.events = db.getAllEvents();
