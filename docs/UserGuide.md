@@ -19,6 +19,7 @@
 	- [Deleting a task/event: `delete`](#deleting-a-taskevent-delete)
 	- [Clearing all data: `clear`](#clearing-all-data-clear)
 	- [Switching to a different task list: `switchlist`](#switching-to-a-different-task-list-switchlist)
+	- [Renaming the task list file: `renamelist`](#renaming-the-task-list-file-renamelist)
 	- [Relocating the data storage location: `relocate`](#relocating-the-data-storage-location-relocate)
 	- [Viewing help : `help`](#viewing-help-help)
 - [Other Features](#other-features)
@@ -308,12 +309,21 @@ Simply use the switch list command:
 > If the file does not exist, TaSc will assume that you want to create a new
 > task list, and will create an empty file for you automatically.
 
-### Relocating the data storage location: `relocate`
+### Renaming the task list file: `renamelist`
 
 You may use this to rename your task list. For example, if your list is
 currently named `life.xml` and you want to rename it to `family.xml`, do:
 
-`relocate family`
+`renamelist family`
+
+### Relocating the data storage location: `relocate`
+
+For convienence, you may want to move the entire folder, that all your task lists
+are stored, into another location. For example, you may want to move it into Dropbox
+so that you can access your task list on another computer. Presuming your Dropbox
+folder is at `/dropbox/`, you may do so by typing:
+
+`relocate /dropbox/tasklist/`
 
 ### Viewing help : `help`
 
@@ -356,6 +366,8 @@ when running the program.
 
 ## Commands Cheat Sheet
 
+> Parameters in [ ] are optional.
+
 Command | Format  
 -------- | :--------
 Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
@@ -369,5 +381,6 @@ Delete | `delete INDEX`
 Undo | `undo [last STEPS]`
 Clear | `clear`
 Switch List | `switchlist FILENAME`
+Rename List | `renamelist FILENAME`
 Relocate | `relocate PATH`
 Help | `help`
