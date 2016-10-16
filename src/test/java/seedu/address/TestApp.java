@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 import jym.manager.MainApp;
 import jym.manager.commons.core.Config;
 import jym.manager.commons.core.GuiSettings;
-import jym.manager.model.ReadOnlyAddressBook;
+import jym.manager.model.ReadOnlyTaskManager;
 import jym.manager.model.UserPrefs;
 import jym.manager.storage.XmlSerializableAddressBook;
 
@@ -23,13 +23,13 @@ public class TestApp extends MainApp {
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyTaskManager> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyTaskManager> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;

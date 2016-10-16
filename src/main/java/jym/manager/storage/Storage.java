@@ -7,7 +7,7 @@ import java.util.Optional;
 import jym.manager.commons.events.model.AddressBookChangedEvent;
 import jym.manager.commons.events.storage.DataSavingExceptionEvent;
 import jym.manager.commons.exceptions.DataConversionException;
-import jym.manager.model.ReadOnlyAddressBook;
+import jym.manager.model.ReadOnlyTaskManager;
 import jym.manager.model.UserPrefs;
 
 /**
@@ -25,10 +25,10 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     String getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskManager> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyTaskManager addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

@@ -14,7 +14,7 @@ import junit.framework.AssertionFailedError;
 import jym.manager.commons.exceptions.IllegalValueException;
 import jym.manager.commons.util.FileUtil;
 import jym.manager.commons.util.XmlUtil;
-import jym.manager.model.AddressBook;
+import jym.manager.model.TaskManager;
 import jym.manager.model.tag.Tag;
 import jym.manager.model.tag.UniqueTagList;
 import jym.manager.model.task.*;
@@ -137,8 +137,8 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
+    public static TaskManager generateEmptyAddressBook() {
+        return new TaskManager(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
