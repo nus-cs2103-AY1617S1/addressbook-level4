@@ -21,7 +21,7 @@ public class RelocateCommand extends Command {
 
     
     public static final String MESSAGE_SUCCESS = 
-            "File Relocated: %1$s \nWill take effect after restarting the app.";
+            "File Relocated: %1$s.";
     public static final String MESSAGE_UNDO_SUCCESS = 
             "File Relocation cancelled. Data will be stored in %1$s.";
     public static final String MESSAGE_FILE_OPERATION_FAILURE = 
@@ -53,7 +53,7 @@ public class RelocateCommand extends Command {
             MainApp.setDataStorageFilePath(destination);
             undoable = true;
             return new CommandResult(String.format(MESSAGE_SUCCESS, 
-                    destination + "/tasklist.xml"));
+                    destination));
         } catch (IOException | JAXBException e) {
             return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
         }
@@ -70,7 +70,7 @@ public class RelocateCommand extends Command {
         try {
             MainApp.setDataStorageFilePath(originalDestination);
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, 
-                    originalDestination + "/tasklist.xml"));
+                    originalDestination));
         } catch (IOException | JAXBException e) {
             return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
         }

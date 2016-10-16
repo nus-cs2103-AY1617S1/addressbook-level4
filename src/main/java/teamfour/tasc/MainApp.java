@@ -47,7 +47,7 @@ public class MainApp extends Application {
     protected Model model;
     protected UserPrefs userPrefs;
     protected static Config config;
-    protected Storage storage;
+    protected static Storage storage;
     private static String newTaskListFilePath;
 
     public MainApp() {}
@@ -58,8 +58,8 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        newTaskListFilePath = config.getTaskListFilePath().split("/tasklist.xml")[0];
-        storage = new StorageManager(config.getTaskListFilePath(), config.getUserPrefsFilePath());
+        newTaskListFilePath = config.getTaskListFilePathAndName().split("/tasklist.xml")[0];
+        storage = new StorageManager(config.getTaskListFilePathAndName(), config.getUserPrefsFilePath());
         userPrefs = initPrefs(config);
 
         initLogging(config);
@@ -75,6 +75,8 @@ public class MainApp extends Application {
     
     public static void setDataStorageFilePath(String newPath) throws IOException, JAXBException {
         newTaskListFilePath = newPath;
+        config.changeTaskListFilePath(newTaskListFilePath);
+        storage.changeTaskListStorage(config.getTaskListFilePathAndName());
     }
     
     public static String getDataStorageFilePath() {
@@ -186,11 +188,8 @@ public class MainApp extends Application {
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
-            config.changeTaskListFilePath(newTaskListFilePath);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
-        } catch (JAXBException e) {
-            logger.severe("Failed to transfer data to new destination " + StringUtil.getDetails(e));
         }
         Platform.exit();
         System.exit(0);
