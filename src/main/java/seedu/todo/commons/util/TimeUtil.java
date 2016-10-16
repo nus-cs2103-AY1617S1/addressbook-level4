@@ -83,11 +83,8 @@ public class TimeUtil {
 
         if (secondsToDeadline <= 59) {
             return DUE_LESS_THAN_A_MINUTE;
-        } else if (minutesToDeadline == 1) {
-            stringJoiner.add(WORD_IN).add(VALUE_ONE_MINUTE);
-        } else if (minutesToDeadline > 1 && minutesToDeadline <= 59) {
-            stringJoiner.add(WORD_IN).add(String.valueOf(minutesToDeadline))
-                    .add(UNIT_MINUTES);
+        } else if (minutesToDeadline <= 59) {
+            stringJoiner.add(WORD_IN).add(getMinutesText(currentTime, endTime));
         } else {
             stringJoiner.add(WORD_BY).add(getDateText(endTime) + WORD_COMMA)
                     .add(getTimeText(endTime));
@@ -111,11 +108,8 @@ public class TimeUtil {
 
         if (secondsToDeadline >= -59) {
             return DUE_NOW;
-        } else if (minutesToDeadline == -1) {
-            stringJoiner.add(VALUE_ONE_MINUTE).add(WORD_AGO);
-        } else if (minutesToDeadline < -1 && minutesToDeadline >= -59) {
-            stringJoiner.add(String.valueOf(-minutesToDeadline)).add(UNIT_MINUTES)
-                    .add(WORD_AGO);
+        } else if (minutesToDeadline >= -59) {
+            stringJoiner.add(getMinutesText(currentTime, endTime)).add(WORD_AGO);
         } else {
             stringJoiner.add(WORD_SINCE).add(getDateText(endTime) + WORD_COMMA)
                     .add(getTimeText(endTime));
@@ -172,7 +166,24 @@ public class TimeUtil {
         return dateTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME));
     }
 
+    /**
+     * Counts the number of minutes between the two dateTimes and prints out either:
+     *      "1 minute" or "X minutes", for X != 1, X >= 0.
+     * @param dateTime1 the first time instance
+     * @param dateTime2 the other time instance
+     * @return a formatted string to tell number of minutes left (as above)
+     */
+    private String getMinutesText(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+        Duration duration = Duration.between(dateTime1, dateTime2);
+        long minutesToDeadline = Math.abs(duration.toMinutes());
 
+        if (minutesToDeadline == 1){
+            return VALUE_ONE_MINUTE;
+        } else {
+            return minutesToDeadline + WORD_SPACE + UNIT_MINUTES;
+        }
+    }
+    
     private boolean isTomorrow(LocalDateTime dateTimeToday, LocalDateTime dateTimeTomorrow) {
         LocalDate dayBefore = dateTimeToday.toLocalDate();
         LocalDate dayAfter = dateTimeTomorrow.toLocalDate();
