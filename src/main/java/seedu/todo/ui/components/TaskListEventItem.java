@@ -41,7 +41,7 @@ public class TaskListEventItem extends MultiComponent {
     @Override
     public void componentDidMount() {
         eventText.setText(event.getName());
-        eventTime.setText(DateUtil.formatTime(event.getCalendarDT()));
+        eventTime.setText(DateUtil.formatDateFromTo(event.getStartDate(), event.getEndDate()));
         rowIndex.setText(displayIndex.toString());
         
         // Set image

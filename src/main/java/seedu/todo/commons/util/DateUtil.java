@@ -39,8 +39,9 @@ public class DateUtil {
      * @return           "Floored" LocalDateTime.
      */
     public static LocalDateTime floorDate(LocalDateTime dateTime) {
-        if (dateTime == null)
+        if (dateTime == null) {
             return null;
+        }
         
         return dateTime.toLocalDate().atTime(0, 0);
     }
@@ -54,6 +55,10 @@ public class DateUtil {
      * @return           Formatted relative day.
      */
     public static String formatDay(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+        
         LocalDate date = dateTime.toLocalDate();
         long daysDifference = LocalDate.now().until(date, ChronoUnit.DAYS);
 
@@ -85,6 +90,10 @@ public class DateUtil {
      * @return           Formatted shorten day.
      */
     public static String formatShortDate(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+        
         LocalDate date = dateTime.toLocalDate();
         long daysDifference = LocalDate.now().until(date, ChronoUnit.DAYS);
         String dateFormat;
@@ -106,7 +115,42 @@ public class DateUtil {
      * @return           24-hour time formatted string.
      */
     public static String formatTime(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+        
         return dateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+    }
+    
+    /**
+     * Formats a LocalDateTime into short date + time format.
+     * @param dateTime   LocalDateTime to format.
+     * @return           Short date + time formatted string.
+     */
+    public static String formatDateTime(LocalDateTime dateTime) {
+        return String.format("%s %s", formatShortDate(dateTime), formatTime(dateTime));
+    }
+    
+    /**
+     * Formats a start date and end date to a date range, which will display only as much info as necessary.
+     * @param dateFrom   LocalDateTime from.
+     * @param dateTo     LocalDateTime to.
+     * @return           Formatted string.
+     */
+    public static String formatDateFromTo(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        if (dateFrom == null && dateTo == null) {
+            return "";
+        } else if (dateTo == null) {
+            // No endDate
+            return formatTime(dateFrom);
+        } else if (dateFrom.isAfter(dateTo)) {
+            // Unhandled error, just ignore endDate and assume it has no endDate
+            return formatTime(dateFrom);
+        } else if (dateFrom.toLocalDate().equals(dateTo.toLocalDate())) {
+            return String.format("%s - %s", formatTime(dateFrom), formatTime(dateTo));
+        } else {
+            return String.format("%s - %s", formatDateTime(dateFrom), formatDateTime(dateTo));
+        }
     }
 
 }
