@@ -44,7 +44,7 @@ public class CommandParser {
             											+")?"
             											+"(?:, repeat every (?<recurrenceRate>.*?))?"
             											+"(?:"
-            											+"(?:-remove (?<resetField>.*?))"
+            											+"(?:-reset (?<resetField>.*?))"
             											+")?"
             											+"(?:-(?<priority>.*?))?)");
     
