@@ -25,7 +25,7 @@ public class DateTimeParser {
     }
     
     private void parseTime(Date dateTime) throws IllegalValueException {
-        SimpleDateFormat sdf = new SimpleDateFormat(TaskTime.TIME_VALIDATION_REGEX);
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
         time = sdf.format(dateTime).toString();
         String currentTime = sdf.format(new Date()).toString();
         if (currentTime.equals(time)) {
@@ -34,7 +34,7 @@ public class DateTimeParser {
     }
     
     private void parseDate(Date dateTime) {
-        SimpleDateFormat sdf = new SimpleDateFormat(TaskDate.DATE_VALIDATION_REGEX);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yy");
         date = sdf.format(dateTime).toString();
     }
     

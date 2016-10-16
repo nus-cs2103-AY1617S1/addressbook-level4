@@ -33,9 +33,9 @@ public class ListCommand extends Command {
         } else if (listing.equals("done")) {
             model.updateFilteredListToShowAllDone();
         } else if (TaskDate.isValidDate(listing)) {
-            String[] keywords = listing.split("\\s+");
-            Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-            model.updateFilteredTaskList(keywordSet);
+//            String[] keywords = listing.split("\\s+");
+//            Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+            model.updateFilteredTaskListToShowDate(listing);
         } else {
             model.updateFilteredTaskListToShowUndone();
         }

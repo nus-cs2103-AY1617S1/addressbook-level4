@@ -16,7 +16,7 @@ public class TaskTime {
     public static final String MESSAGE_TIME_CONSTRAINTS =
             "Only accepts time in 24hr format [hhmm] or 12hr format [hh.mm am/pm]\n"
             + "Example: 2359 or 11.59pm\n";
-    public static final String TIME_VALIDATION_REGEX = "h:mm a";
+    public static final String TIME_VALIDATION_REGEX = ".+";
     public String value;
 
     /**
