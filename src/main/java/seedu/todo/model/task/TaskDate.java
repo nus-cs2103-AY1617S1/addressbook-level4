@@ -17,7 +17,6 @@ public class TaskDate {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Tasks' dates and time need to follow predefined format.";
     
-    
     private LocalDate date;
     private LocalTime time;
     
@@ -27,40 +26,25 @@ public class TaskDate {
      * @throws IllegalValueException if given date and time string is invalid.
      */
     public TaskDate(String dateTimeString) throws IllegalValueException {
-        if (DateTimeUtil.isNotEmptyDateTimeString(dateTimeString)) {
+        
+        if (DateTimeUtil.isEmptyDateTimeString(dateTimeString)) {
         	this.date = null;
         	this.time = null;
-        } else {
         	
-            if (!isValidDate(DateTimeUtil.getDateString(dateTimeString))) {
-                throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
-            }
-            this.date = DateTimeUtil.parseDateString(DateTimeUtil.getDateString(dateTimeString));
+        } else {
             
-            if(!DateTimeUtil.getTimeString(dateTimeString).isEmpty()) {
-            	if (!isValidTime(DateTimeUtil.getTimeString(dateTimeString))) {
-            		throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
-            	}
-            	this.time = DateTimeUtil.parseTimeString(DateTimeUtil.getTimeString(dateTimeString));
+            LocalDateTime ldt = DateTimeUtil.parseDateTimeString(dateTimeString);
+            
+            if (ldt == null) {
+                throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
             } else {
-            	this.time = null;
+                this.date = ldt.toLocalDate();
+                this.time = ldt.toLocalTime();
             }
+          
         }
     }
 
-    /**
-     * Returns true if a given string is able to parse to a valid LocalDate
-     */
-    public static boolean isValidDate(String dateString) {
-    	return DateTimeUtil.isValidDateString(dateString);
-    }
-    
-    /**
-     * Returns true if a given string is able to parse to a valid LocalTime
-     */
-    public static boolean isValidTime(String timeString) {
-    	return DateTimeUtil.isValidTimeString(timeString);
-    }
     
     public LocalDate getDate() {
         return this.date;
