@@ -35,11 +35,11 @@ public class TaskCard extends UiPart{
     
     public TaskCard() {}
 
-    public static TaskCard load(ReadOnlyTask task, TaskDateComponent dateComponent, int displayedIndex){
+    public static TaskCard load(TaskDateComponent taskComponent, int displayedIndex){
         TaskCard card = new TaskCard();
-        card.task = task;
+        card.task = taskComponent.getTaskReference();
         card.displayedIndex = displayedIndex;
-        card.dateComponent = dateComponent;
+        card.dateComponent = taskComponent;
         return UiPartLoader.loadUiPart(card);
     }
 

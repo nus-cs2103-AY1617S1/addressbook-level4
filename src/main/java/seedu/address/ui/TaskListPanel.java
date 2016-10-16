@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -27,7 +28,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private ListView<TaskDateComponent> taskListView;
 
     public TaskListPanel() {
         super();
@@ -62,7 +63,11 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
+        ObservableList<TaskDateComponent> componentList = FXCollections.observableArrayList();
+        for(ReadOnlyTask t : taskList){
+            componentList.addAll(t.getTaskDateComponent());
+        }
+        taskListView.setItems(componentList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
@@ -76,7 +81,7 @@ public class TaskListPanel extends UiPart {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
+                raise(new TaskPanelSelectionChangedEvent(newValue.getTaskReference()));
             }
         });
     }
@@ -88,22 +93,20 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-    class TaskListViewCell extends ListCell<ReadOnlyTask> {
+    class TaskListViewCell extends ListCell<TaskDateComponent> {
 
         public TaskListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
-            super.updateItem(task, empty);
+        protected void updateItem(TaskDateComponent taskComponent, boolean empty) {
+            super.updateItem(taskComponent, empty);
 
-            if (empty || task == null) {
+            if (empty || taskComponent == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                for (TaskDateComponent dateComponent : task.getTaskDateComponent()) {
-                    setGraphic(TaskCard.load(task, dateComponent, getIndex() + 1).getLayout());
-                }
+                setGraphic(TaskCard.load(taskComponent, getIndex() + 1).getLayout());
             }
         }
     }

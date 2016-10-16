@@ -108,9 +108,8 @@ public class RepeatingTaskManager {
         Date convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
-        
         Task mutableTask = (Task) task;
+        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(mutableTask, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
         mutableTask.appendRecurringTaskDate(newRepeatingTaskToAdd);
     }
 
@@ -122,9 +121,8 @@ public class RepeatingTaskManager {
         Date convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
-        
         Task mutableTask = (Task) task;
+        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(mutableTask, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
         mutableTask.appendRecurringTaskDate(newRepeatingTaskToAdd);
     }
 
@@ -137,9 +135,8 @@ public class RepeatingTaskManager {
         Date convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
-        
         Task mutableTask = (Task) task;
+        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(mutableTask, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
         mutableTask.appendRecurringTaskDate(newRepeatingTaskToAdd);
     }
 
@@ -152,9 +149,8 @@ public class RepeatingTaskManager {
         Date convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
-        
         Task mutableTask = (Task) task;
+        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(mutableTask, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
         mutableTask.appendRecurringTaskDate(newRepeatingTaskToAdd);
     }
     

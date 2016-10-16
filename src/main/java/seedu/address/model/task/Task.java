@@ -42,7 +42,7 @@ public class Task implements ReadOnlyTask {
         this.taskType = TaskType.FLOATING;
         this.recurringType = RecurringType.NONE;
         this.recurringDates = new ArrayList<TaskDateComponent>();
-        this.recurringDates.add(new TaskDateComponent(new TaskDate(), new TaskDate()));
+        this.recurringDates.add(new TaskDateComponent(this,new TaskDate(), new TaskDate()));
     }
 
     /**
@@ -55,7 +55,8 @@ public class Task implements ReadOnlyTask {
         this.endDate = endDate;
         this.taskType = TaskType.NON_FLOATING;
         this.recurringType = recurringType;
-        this.recurringDates.add(new TaskDateComponent(startDate,endDate));
+        this.recurringDates.get(0).setStartDate(new TaskDate(startDate));
+        this.recurringDates.get(0).setEndDate(new TaskDate(endDate));
     }
     
     public Task(){}

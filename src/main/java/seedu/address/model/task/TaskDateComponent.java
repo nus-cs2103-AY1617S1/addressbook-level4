@@ -3,15 +3,20 @@ package seedu.address.model.task;
 import seedu.address.commons.util.CollectionUtil;
 
 public class TaskDateComponent {
+    private Task taskReference;
     private TaskDate startDate, endDate;
     
-    public TaskDateComponent() {
+    public TaskDateComponent(Task taskReference) {
+        assert taskReference != null : "Reference must not be null";
+        this.taskReference = taskReference; 
         this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         this.endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
     }
     
-    public TaskDateComponent(TaskDate startDate, TaskDate endDate) {
+    public TaskDateComponent(Task taskReference,TaskDate startDate, TaskDate endDate) {
         assert !CollectionUtil.isAnyNull(startDate, endDate);
+        assert taskReference != null : "Reference must not be null";
+        this.taskReference = taskReference;
         this.startDate = new TaskDate(startDate);
         this.endDate = new TaskDate(endDate);
     }
@@ -45,6 +50,10 @@ public class TaskDateComponent {
             return false;
         }
         return true;
+    }
+    
+    public ReadOnlyTask getTaskReference() {
+        return taskReference;
     }
     
 }
