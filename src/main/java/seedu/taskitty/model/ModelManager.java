@@ -13,6 +13,7 @@ import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.Stack;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -25,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
     private final Stack<ReadOnlyTaskManager> historyCommands;
+    private final Stack<Predicate> historyPredicates;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -40,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
         historyCommands = new Stack<ReadOnlyTaskManager>();
+        historyPredicates = new Stack<Predicate>();
     }
 
     public ModelManager() {
@@ -50,6 +53,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
         historyCommands = new Stack<ReadOnlyTaskManager>();
+        historyPredicates = new Stack<Predicate>();
     }
 
     @Override
@@ -83,14 +87,17 @@ public class ModelManager extends ComponentManager implements Model {
     
     public synchronized void undo() {
         taskManager.resetData(historyCommands.pop());
+        filteredTasks.setPredicate(historyPredicates.pop());
     }
     
     public synchronized void saveState() {
         historyCommands.push(new TaskManager(taskManager));
+        historyPredicates.push(filteredTasks.getPredicate());
     }
     
     public synchronized void removePreviousCommand() {
         historyCommands.pop();
+        historyPredicates.pop();
     }
     
     @Override
