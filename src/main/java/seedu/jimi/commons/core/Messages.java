@@ -11,5 +11,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_DATE = 
             "Date and time are invalid!\n" 
             + "> Tip: try avoiding keywords like `on`, `to` and `due` in your dates and times.\n" 
-            + "> Jimi might misinterpret your input!";
+            + "> You might confuse Jimi!";
 }
