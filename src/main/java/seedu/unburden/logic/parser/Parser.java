@@ -247,14 +247,12 @@ public class Parser {
         if(matcherDate.matches()){
         	final String keyword = matcherDate.group("dates");
         	final Set<String> dateKeyword = new HashSet<>(Arrays.asList(keyword));
-        	final String mode = "date";
-        	return new FindCommand(dateKeyword, mode);
+        	return new FindCommand(dateKeyword, "date");
         }
         else{ //keywords delimited by whitespace
         	final String[] keywords = matcherName.group("keywords").split("\\s+");
         	final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        	final String mode = "name";
-        	return new FindCommand(keywordSet, mode);
+        	return new FindCommand(keywordSet, "name");
         }
     }
 
