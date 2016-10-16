@@ -50,8 +50,7 @@ public interface ReadOnlyTask {
             builder.append(" Uncompleted Incompleted");
         }
         
-        if (getDeadlineRecurrence().hasRecurrence() ||
-                getPeriodRecurrence().hasRecurrence()) {
+        if (getRecurrence().hasRecurrence()) {
             builder.append(" Recurring");
         }
         
