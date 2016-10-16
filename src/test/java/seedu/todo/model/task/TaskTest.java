@@ -143,13 +143,19 @@ public class TaskTest {
     }
 
     @Test
-    public void testLastUpdated() {
+    public void testLastUpdated() throws Exception {
         assertNotNull(task.getLastUpdated());
 
         LocalDateTime anotherTime = LocalDateTime.now().minusDays(1);
 
         task.setLastUpdated(anotherTime);
         assertEquals(anotherTime, task.getLastUpdated());
+    }
+
+    @Test(expected = IllegalValueException.class)
+    public void testLastUpdatedFutureTime() throws Exception {
+        LocalDateTime anotherTime = LocalDateTime.now().plusDays(1);
+        task.setLastUpdated(anotherTime);
     }
 
     @Test
