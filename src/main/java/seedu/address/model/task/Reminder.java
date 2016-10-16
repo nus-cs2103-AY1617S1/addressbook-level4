@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.DateValidation;
 
 /**
@@ -32,30 +33,24 @@ public class Reminder extends DateTime {
         }
 
         if (date != "") {
-            //try {
-                if (date.contains("today")) { // allow user to key in "today" instead of today's date
-                    this.value.setTime(Calendar.getInstance().getTime());
-                } else if (date.contains("tomorrow")) { // allow user to key in "tomorrow" instead of tomorrow's/ date
-                    this.value.setTime(Calendar.getInstance().getTime());
-                    value.add(Calendar.DAY_OF_MONTH, 1);
-                }
-                /*if (!DateValidation.aftertoday(date)) {// check if the time is
-                                                      // future
-                                                      // time
-                    System.out.println("IM HERE");
-                    throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
-                }
-            } catch (ParseException pe) {
-                System.out.println("IM ACTUALLY HERE");
-                throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
-            }*/
+            if (date.contains("today")) { // allow user to key in "today"
+                                          // instead of today's date
+                this.value.setTime(Calendar.getInstance().getTime());
+            } else if (date.contains("tomorrow")) { // allow user to key in
+                                                    // "tomorrow" instead of
+                                                    // tomorrow's/ date
+                this.value.setTime(Calendar.getInstance().getTime());
+                value.add(Calendar.DAY_OF_MONTH, 1);
+            }
 
             Date taskDate = DATE_PARSER.parseDate(date);
-            
+
             if (taskDate == null) {
                 assert false : "Date should not be null";
+            } else if (DateUtil.hasPassed(taskDate)) {
+                throw new IllegalValueException(MESSAGE_REMINDER_INVALID);
             }
-            
+
             this.value.setTime(taskDate);
         }
     }

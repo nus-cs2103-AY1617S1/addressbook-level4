@@ -3,6 +3,7 @@ package seedu.address.commons.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -56,5 +57,15 @@ public class DateUtil {
         }
         
         return null;
+    }
+    
+    public static boolean hasPassed(Date date) {
+        Date today = Calendar.getInstance().getTime();
+        
+        if (date.before(today)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
