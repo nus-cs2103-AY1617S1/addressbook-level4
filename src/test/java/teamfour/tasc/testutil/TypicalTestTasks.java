@@ -35,11 +35,11 @@ public class TypicalTestTasks {
             submitProgressReport = new TaskBuilder().withCompleteStatus(false).withDeadline(date1)
             		.withName("Submit progress report").withTags("finance", "urgent").build();
             developerMeeting = new TaskBuilder().withName("Attend developer meeting").withDeadline(date5)
-            		.withDeadlineRecurrence(Recurrence.Pattern.DAILY, 3).build();
+            		.withRecurrence(Recurrence.Pattern.DAILY, 3).build();
             researchWhales = new TaskBuilder().withName("Research on whales")
             		.withPeriod(date3, date4).withCompleteStatus(true).build();
             learnVim = new TaskBuilder().withName("Learn Vim").withPeriod(date3, date5)
-            		.withPeriodRecurrence(Recurrence.Pattern.WEEKLY, 2).build();
+            		.withRecurrence(Recurrence.Pattern.WEEKLY, 2).build();
             buyBirthdayGift = new TaskBuilder().withName("Buy birthday gift").withDeadline(date2).build();
             signUpForYoga = new TaskBuilder().withName("Sign up for yoga").withCompleteStatus(false)
             		.withPeriod(date6, date5).build();
