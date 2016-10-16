@@ -37,6 +37,16 @@ public class TodoListDB {
         return count;
     }
     
+    public int countOverdueTasks() {
+        LocalDateTime now = LocalDateTime.now();
+        int count = 0;
+        for (Task task : tasks) {
+            if (!task.isCompleted() && task.getDueDate().compareTo(now) < 0)
+                count++;
+        }
+        return count;
+    }
+    
     public List<Event> getAllEvents() {
         return new ArrayList<Event>(events);
     }
