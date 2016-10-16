@@ -59,22 +59,66 @@ public class AddController implements Controller {
         }
         
         // Task or event?
-        boolean isTask = true;
-        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[0].equals("event"))
-            isTask = false;
+        boolean isTask = parseIsTask(parsedResult);
         
-        // Name - Disambiguate if null.
-        String name = null;
-        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null)
-            name = parsedResult.get("default")[1];
-        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[1] != null)
-            name = parsedResult.get("eventType")[1];
-        if (name == null) {
+        // Name
+        String name = parseName(parsedResult);
+        
+        // Time
+        String[] naturalDates = parseDates(parsedResult);
+        String naturalFrom = naturalDates[0];
+        String naturalTo = naturalDates[1];
+        
+        // Validate isTask, name and times.
+        if (!validateParams(isTask, name, naturalFrom, naturalTo)) {
             renderDisambiguation(parsedResult);
             return;
         }
         
-        // Time - Disambiguate if "to" without "from" OR "task" and two timings.
+        // Parse natural date using Natty.
+        LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
+        LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+        
+        // Create and persist task / event.
+        TodoListDB db = TodoListDB.getInstance();
+        createCalendarItem(db, isTask, name, dateFrom, dateTo);
+        
+        // Re-render
+        renderIndex(db);
+    }
+
+    private void renderIndex(TodoListDB db) {
+        IndexView view = UiManager.loadView(IndexView.class);
+        view.tasks = db.getAllTasks();
+        view.events = db.getAllEvents();
+        UiManager.renderView(view);
+        UiManager.updateConsoleMessage(MESSAGE_ADD_SUCCESS);
+    }
+
+    private void createCalendarItem(TodoListDB db, 
+            boolean isTask, String name, LocalDateTime dateFrom, LocalDateTime dateTo) {
+        if (isTask) {
+            Task newTask = db.createTask();
+            newTask.setName(name);
+            newTask.setDueDate(dateFrom);
+        } else {
+            Event newEvent = db.createEvent();
+            newEvent.setName(name);
+            newEvent.setStartDate(dateFrom);
+            newEvent.setEndDate(dateTo);
+        }
+        db.save();
+    }
+
+    
+    private boolean validateParams(boolean isTask, String name, String naturalFrom, String naturalTo) {
+        // Disambiguate if name is null.
+        // Disambiguate if "to" without "from" OR "task" and two timings.
+        return (name == null ||
+                (naturalFrom == null && naturalTo != null) || (isTask && naturalTo != null));
+    }
+    
+    private String[] parseDates(Map<String, String[]> parsedResult) {
         String naturalFrom = null;
         String naturalTo = null;
         setTime: {
@@ -87,35 +131,23 @@ public class AddController implements Controller {
             if (parsedResult.get("timeTo") != null && parsedResult.get("timeTo")[1] != null)
                 naturalTo = parsedResult.get("timeTo")[1];
         }
-        if ((naturalFrom == null && naturalTo != null) || (isTask && naturalTo != null)) {
-            renderDisambiguation(parsedResult);
-            return;
-        }
-        
-        // Parse natural date using Natty.
-        LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
-        LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
-        
-        // Create and persist task / event.
-        TodoListDB db = TodoListDB.getInstance();
-        if (isTask) {
-            Task newTask = db.createTask();
-            newTask.setName(name);
-            newTask.setDueDate(dateFrom);
-        } else {
-            Event newEvent = db.createEvent();
-            newEvent.setName(name);
-            newEvent.setStartDate(dateFrom);
-            newEvent.setEndDate(dateTo);
-        }
-        db.save();
-        
-        // Re-render
-        IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getAllTasks();
-        view.events = db.getAllEvents();
-        UiManager.renderView(view);
-        UiManager.updateConsoleMessage(MESSAGE_ADD_SUCCESS);
+        return new String[] { naturalFrom, naturalTo };
+    }
+
+    private String parseName(Map<String, String[]> parsedResult) {
+        String name = null;
+        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null)
+            name = parsedResult.get("default")[1];
+        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[1] != null)
+            name = parsedResult.get("eventType")[1];
+        return name;
+    }
+
+    private boolean parseIsTask(Map<String, String[]> parsedResult) {
+        boolean isTask = true;
+        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[0].equals("event"))
+            isTask = false;
+        return isTask;
     }
     
     private LocalDateTime parseNatural(String natural) {
