@@ -1,11 +1,14 @@
 package seedu.jimi.logic.parser;
 
 import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.jimi.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +16,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
+
+import seedu.jimi.commons.exceptions.DateNotParsableException;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.logic.commands.AddCommand;
@@ -126,15 +133,33 @@ public class JimiParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
+        List<Date> dates;
+        try {
+            dates = parseStringToDate(detailsMatcher.group("dateTime"));
+        } catch (DateNotParsableException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+        
         try {
             return new AddCommand(
                     detailsMatcher.group("taskDetails"),
-                    detailsMatcher.group("dateTime"),
+                    dates,
                     getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    private static List<Date> parseStringToDate(final String str) throws DateNotParsableException {
+        if(str == null)
+            return new ArrayList<Date>();
+        final Parser dateParser = new Parser();
+        final List<DateGroup> groups = dateParser.parse(str);
+        if(!groups.isEmpty())
+            return groups.get(0).getDates();
+        else
+            throw new DateNotParsableException(MESSAGE_INVALID_DATE);
     }
 
     /**

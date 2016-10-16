@@ -1,6 +1,8 @@
 package seedu.jimi.logic.commands;
 
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
@@ -48,7 +50,22 @@ public class AddCommand extends Command {
                     new DeadlineTask(new Name(name), new DateTime(dateTime), new UniqueTagList(tagSet));
         }
     }
-    
+
+    public AddCommand(String name, List<Date> dates, Set<String> tags) throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        if (dates.size() == 0) {
+            this.toAdd = 
+                    new FloatingTask(new Name(name), new UniqueTagList(tagSet));
+        } else {
+            this.toAdd = 
+                    new DeadlineTask(new Name(name), new DateTime(dates.get(0)), new UniqueTagList(tagSet));
+        }
+
+    }
+
     @Override
     public CommandResult execute() {
         assert model != null;

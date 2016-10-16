@@ -1,8 +1,10 @@
 package seedu.jimi.model.task;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
@@ -29,6 +31,10 @@ public class DateTime implements Comparable<DateTime> {
         }
     }
     
+    public DateTime(Date date) {
+        dtInstance = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+
     public String getDate() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         return dtInstance.format(dateFormatter).toString();
