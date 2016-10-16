@@ -5,18 +5,23 @@ import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
+import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 
 /**
  * Represents the in-memory model of the task list data.
@@ -144,6 +149,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));
     }
+    
+    @Override
+    public void updateFilteredListToShowDate(String date) {
+    	updateFilteredListToShowAll();
+	    updateFilteredTaskList(new PredicateExpression(new DateQualifier(date)));
+
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -247,6 +259,25 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask person) {
             return person.getPriority().priorityLevel.equals(this.priority);
+        }
+    }
+    
+    private class DateQualifier implements Qualifier {
+        private Calendar requestedTime;
+	    
+        public DateQualifier(String time) {
+        	List<DateGroup> dates = new Parser().parse(time);
+        	
+        	if(!dates.isEmpty() && !dates.get(0).getDates().isEmpty()){
+        		requestedTime.setTime(dates.get(0).getDates().get(0));
+    		}
+        }
+    	
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return person.getStartTime().toString().equals(this.requestedTime.toString())
+                    || (person.getStartTime().toCardString().equals("-")
+                            && person.getEndTime().toString().equals(this.requestedTime.toString()));
         }
     }
 }

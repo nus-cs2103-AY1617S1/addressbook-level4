@@ -38,7 +38,7 @@ public class ShowCommand extends Command {
     	} else if (keyword.equals("p/high") || keyword.equals("p/med") || keyword.equals("p/low")) {
             model.updateFilteredListToShowPriority(keyword);
     	} else if (!requestedTime.isEmpty() && !requestedTime.equals(new Date(0).toString())) {
-    	    model.updateFilteredListToShowDate();
+    	    model.updateFilteredListToShowDate(requestedTime);
     	} else {
             return new CommandResult(String.format(MESSAGE_SHOW_FAILURE));
     	}
