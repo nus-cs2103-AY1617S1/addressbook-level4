@@ -54,6 +54,10 @@ public interface Model {
     
     /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
     CommandResult redo() throws EmptyStackException;
+    
+    /** empty redoHistory **/
+    // required when a new command is entered, model should throw away all remaining commands in the redo history
+    void clearRedoHistory();
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

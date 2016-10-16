@@ -23,7 +23,7 @@ import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
  * Edits a task in task manager
  *
  */
-public class EditCommand extends Command implements Undoable{
+public class EditCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_KEYWORD_EDIT = "edit";
     public static final String COMMAND_KEYWORD_UPDATE = "update";
@@ -55,8 +55,9 @@ public class EditCommand extends Command implements Undoable{
 
     public static final String MESSAGE_EDIT_TASK_PROMPT = "Edit the following task: %1$s";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task successfully edited: %1$s";
-    
+
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Edit Command] Task reverted: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS = "[Redo Edit Command] Edit the following task: %1$s";
 
     // private MainWindow window;
     private ReadOnlyTask originalTask;
@@ -79,15 +80,71 @@ public class EditCommand extends Command implements Undoable{
     @Override
     public CommandResult execute() {
 
-        // grabbing the origin task (before edit)
+        try {
+            // grabbing the origin task (before edit)
+            executeEdit();
+            
+            model.pushToUndoHistory(this);
+            
+            // this is a new command entered by user (not undo/redo)
+            // need to clear the redoHistory Stack 
+            model.clearRedoHistory();
+            
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_PROMPT, originalTask));
+
+        } catch (TaskNotFoundException | DuplicateTaskException | IndexOutOfBoundsException ie ) {
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
+    }
+
+    @Override
+    //@@author A0138862W
+    public CommandResult undo() {
+
+        try {
+            // remove the task that's previously edited
+            model.deleteTask(editedTask);
+
+            // add back the original task
+            model.addTask((Task) originalTask);
+            
+            model.pushToRedoHistory(this);
+
+            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, originalTask));
+        } catch (UniqueTaskList.TaskNotFoundException pne) {
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(AddCommand.MESSAGE_DUPLICATE_TASK);
+        }
+    }
+
+    
+    @Override
+    //@@author A0138862W
+    public CommandResult redo() {
+        
+        try {
+            executeEdit();
+            
+            model.pushToUndoHistory(this);
+
+            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, originalTask));
+        } catch (TaskNotFoundException | DuplicateTaskException | IndexOutOfBoundsException ie) {
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+    }
+    
+
+    private void executeEdit() throws TaskNotFoundException, DuplicateTaskException, IndexOutOfBoundsException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new IndexOutOfBoundsException();
         }
         originalTask = lastShownList.get(targetIndex
-                                       - 1);
+                                         - 1);
 
         // if user provides explicit field and value, we change them
         // otherwise, all user omitted field are preserve from the original
@@ -110,38 +167,8 @@ public class EditCommand extends Command implements Undoable{
         // initialize the new task with edited values
         this.editedTask = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags);
 
-        try {
-            model.deleteTask(originalTask);
-            model.addTask(editedTask);
-            
-            model.pushToUndoHistory(this);
-            //
-            return new CommandResult(String.format(MESSAGE_EDIT_TASK_PROMPT, originalTask));
-
-        } catch (TaskNotFoundException | DuplicateTaskException ie) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-
+        model.deleteTask(originalTask);
+        model.addTask(editedTask);
     }
 
-    @Override
-    //@@author A0138862W
-    public CommandResult undo() {
-        
-        try {
-            // remove the task that's previously edited
-            model.deleteTask(editedTask);
-            
-            // add back the original task
-            model.addTask((Task)originalTask);
-
-            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, originalTask));
-        } catch (UniqueTaskList.TaskNotFoundException pne) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(AddCommand.MESSAGE_DUPLICATE_TASK);
-        }
-    }
-   
-    
 }

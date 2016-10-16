@@ -19,6 +19,7 @@ import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
+import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 
 /**
  * Adds a task to the task manager.
@@ -114,8 +115,14 @@ public class AddCommand extends Command implements Undoable, Redoable {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addTask(toAdd);
+            executeAdd();
+            
+            // push this command into undoHistory
             model.pushToUndoHistory(this);
+            
+            // this is a new command entered by user (not undo/redo)
+            // need to clear the redoHistory Stack 
+            model.clearRedoHistory();
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -131,6 +138,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
         try {
             // remove the task that's previously added.
             model.deleteTask(toAdd);
+            
             model.pushToRedoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
@@ -145,13 +153,19 @@ public class AddCommand extends Command implements Undoable, Redoable {
     public CommandResult redo() {
         assert model != null;
         try {
-            model.addTask(toAdd);
+            executeAdd();
+            
             model.pushToUndoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }        
+    }
+    
+    /** extract method since it's reusable for execute() and redo()**/
+    private void executeAdd() throws DuplicateTaskException {
+        model.addTask(toAdd);
     }
 
 }

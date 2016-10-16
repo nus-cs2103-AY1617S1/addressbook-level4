@@ -116,6 +116,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
         return commandResult;
     }
+    
+    @Override
+    /** This method should only be called when the user entered a new command other than redo/undo **/
+    //@@author A0138862W
+    public void clearRedoHistory(){
+        redoHistory.clear();
+    }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
