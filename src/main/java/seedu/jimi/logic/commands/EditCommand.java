@@ -76,7 +76,7 @@ public class EditCommand extends Command {
                 newName == null ? taskToEdit.getName() : newName,
                 newTagList == null ? taskToEdit.getTags() : newTagList);
         
-        model.editFloatingTask(taskIndex - 1, new FloatingTask(taskToReplace));
+        model.editReadOnlyTask(taskIndex - 1, new FloatingTask(taskToReplace));
         
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToReplace));
     }

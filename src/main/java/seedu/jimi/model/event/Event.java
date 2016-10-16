@@ -50,6 +50,11 @@ public class Event implements ReadOnlyTask {
     }
 
     @Override
+    public void setTags(UniqueTagList replacement) {
+        tags.setTags(replacement);
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls

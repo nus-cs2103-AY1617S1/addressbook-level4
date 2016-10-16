@@ -50,9 +50,6 @@ public class FloatingTask implements ReadOnlyTask {
         this.name = name;
     }
     
-    /**
-     * Replaces this floating task's tags with the tags in the argument tag list.
-     */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }

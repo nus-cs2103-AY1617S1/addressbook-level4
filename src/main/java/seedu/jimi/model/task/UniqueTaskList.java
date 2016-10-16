@@ -12,10 +12,10 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see FloatingTask#equals(Object)
+ * @see ReadOnlyTask#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<FloatingTask> {
+public class UniqueTaskList implements Iterable<ReadOnlyTask> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -32,7 +32,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
      */
     public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
+    private final ObservableList<ReadOnlyTask> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
@@ -57,7 +57,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
-        internalList.add((FloatingTask) toAdd);
+        internalList.add((ReadOnlyTask) toAdd);
     }
 
     /**
@@ -75,20 +75,20 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
     }
     
     /**
-     * Replaces the floating task at the specified index with {@code toEdit}
+     * Replaces the task at the specified index with {@code toEdit}
      */
-    public void edit(int targetIndex, FloatingTask toEdit) {
+    public void edit(int targetIndex, ReadOnlyTask toEdit) {
         assert toEdit != null;
         internalList.set(targetIndex, toEdit);
     }
 
-    public ObservableList<FloatingTask> getInternalList() {
+    public ObservableList<ReadOnlyTask> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<FloatingTask> iterator() {
-        Iterator<FloatingTask> i = internalList.iterator();
+    public Iterator<ReadOnlyTask> iterator() {
+        Iterator<ReadOnlyTask> i = internalList.iterator();
         return i;
     }
 
