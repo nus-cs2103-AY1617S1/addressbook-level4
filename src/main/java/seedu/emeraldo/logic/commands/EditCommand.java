@@ -1,6 +1,10 @@
 package seedu.emeraldo.logic.commands;
 
+import seedu.emeraldo.commons.core.Messages;
+import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.model.task.ReadOnlyTask;
+import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class EditCommand extends Command{
     
@@ -24,8 +28,24 @@ public class EditCommand extends Command{
     
     @Override
     public CommandResult execute() {
-        // TODO Auto-generated method stub
-        return null;
+
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
+        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+
+        try {
+            model.editTask(taskToEdit);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
+
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
+
     }
 
 }
