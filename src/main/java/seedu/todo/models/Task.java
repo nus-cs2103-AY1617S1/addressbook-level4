@@ -35,6 +35,15 @@ public class Task implements CalendarItem {
     public void setCalendarDT(LocalDateTime date) {
         setDueDate(date);
     }
+    
+    @Override
+    public boolean isOver() {
+        if (dueDate == null) {
+            return false;
+        } else {
+            return dueDate.isBefore(LocalDateTime.now());
+        }
+    }
 
     public boolean isCompleted() {
         return isCompleted;

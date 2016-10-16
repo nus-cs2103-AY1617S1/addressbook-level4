@@ -2,7 +2,7 @@ package seedu.todo.models;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,8 +16,8 @@ public class TodoListDB {
     private static TodoListDB instance = null;
     private static Storage storage = new JsonStorage();
     
-    private Set<Task> tasks = new HashSet<Task>();
-    private Set<Event> events = new HashSet<Event>();
+    private Set<Task> tasks = new LinkedHashSet<Task>();
+    private Set<Event> events = new LinkedHashSet<Event>();
     
     protected TodoListDB() {
         // Prevent instantiation.
