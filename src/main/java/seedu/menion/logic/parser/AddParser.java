@@ -1,5 +1,6 @@
 package seedu.menion.logic.parser;
 
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,21 +75,33 @@ public class AddParser {
 
 	}
 	
-	public static int dateHandler(String dateToHandle){
+	public static String dateHandler(String dateToHandle){
 		Parser parser = new Parser();
 		
 		List<DateGroup> dateInfo = parser.parse(dateToHandle);
 		DateGroup dateGroup = dateInfo.get(0);
 		Date date = dateGroup.getDates().get(0);
 		Calendar cal = dateToCalendar(date);
-//		System.out.println(date.toString());
-//		System.out.println(cal.get(Calendar.DAY_OF_MONTH));
-//		System.out.println(cal.get(Calendar.MONTH));
-//		System.out.println(cal.get(Calendar.YEAR));
-		
-		return cal.get(Calendar.MONTH);
+
+		return dateToString(cal);
+
 	}
 	
+	private static String dateToString(Calendar cal){
+		String date;
+		
+		String monthString = new DateFormatSymbols().getMonths()[cal.get(Calendar.MONTH)];
+		
+		date = cal.get(Calendar.DAY_OF_MONTH) + " " + monthString + " " + cal.get(Calendar.YEAR);
+		
+		return date;
+	}
+	
+	/**
+	 * Converts a Date object into Calendar object.
+	 * @param dateToConvert
+	 * @return
+	 */
 	private static Calendar dateToCalendar(Date dateToConvert){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(dateToConvert);

@@ -109,9 +109,7 @@ public class AddParserTest {
 	public void checkParserReturnValues(){
 		
 		assertEquals(7, AddParser.dateHandler("7th august 2016"));
-		
-		
-				
+			
 	}
 	
 }
