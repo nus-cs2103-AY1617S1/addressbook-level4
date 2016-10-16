@@ -77,9 +77,9 @@ public class AddParserTest {
 		
 		assertEquals("meet prof damith ", AddParser.parseCommand(arguments).get(1));
 		assertEquals("he is fierce", AddParser.parseCommand(arguments).get(2));
-		assertEquals("10-08-2016", AddParser.parseCommand(arguments).get(3));
+		assertEquals("8 October 2016", AddParser.parseCommand(arguments).get(3));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
-		assertEquals("11-08-2016", AddParser.parseCommand(arguments).get(5));
+		assertEquals("8 November 2016", AddParser.parseCommand(arguments).get(5));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(6));
 	}
 	
@@ -90,7 +90,7 @@ public class AddParserTest {
 		
 		assertEquals("complete cs2103t ", AddParser.parseCommand(arguments).get(1));
 		assertEquals("important", AddParser.parseCommand(arguments).get(2));
-		assertEquals("10-08-2016", AddParser.parseCommand(arguments).get(3));
+		assertEquals("8 October 2016", AddParser.parseCommand(arguments).get(3));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
 		
 	}
