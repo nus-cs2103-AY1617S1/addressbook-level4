@@ -212,7 +212,7 @@ public class Parser {
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<String> parseDataType(String command) {
-        final Matcher matcher = task_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = task_DATATYPE_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
