@@ -1,5 +1,9 @@
 package teamfour.tasc.logic.commands;
 
+import java.io.IOException;
+
+import teamfour.tasc.MainApp;
+
 /**
  * Switches to a new tasklist.
  */
@@ -31,12 +35,13 @@ public class SwitchlistCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-//        try {
+        try {
+            MainApp.switchListTo(this.filename);
             return new CommandResult(String.format(MESSAGE_SUCCESS, 
                     filename));
-//        } catch (IOException | JAXBException e) {
-//            return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
-//        }
+        } catch (IOException e) {
+            return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
+        }
     }
 
     @Override

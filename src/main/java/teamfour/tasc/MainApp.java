@@ -82,6 +82,11 @@ public class MainApp extends Application {
     public static String getDataStorageFilePath() {
         return newTaskListFilePath;
     }
+    
+    public static void switchListTo(String tasklistFileName) throws IOException {
+        config.switchToNewTaskList(tasklistFileName);
+        storage.changeTaskListStorage(config.getTaskListFilePathAndName());
+    }
 
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();

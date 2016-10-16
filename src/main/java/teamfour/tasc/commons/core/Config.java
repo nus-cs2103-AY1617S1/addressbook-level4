@@ -11,6 +11,8 @@ import java.util.logging.Level;
 
 import javax.xml.bind.JAXBException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import teamfour.tasc.commons.util.JsonUtil;
 import teamfour.tasc.commons.util.XmlUtil;
 import teamfour.tasc.storage.XmlSerializableTaskList;
@@ -69,9 +71,10 @@ public class Config {
     }
     
     public void changeTaskListFilePath(String newTaskListFilePath) throws IOException, JAXBException {
-        for(String file: this.getTaskListNames()) {
+        for(String file : this.getTaskListNames()) {
             moveFile(newTaskListFilePath, file + ".xml");
         }
+        this.taskListFilePath = newTaskListFilePath;
     }
     
     public void moveFile(String newTaskListFilePath, String fileName) throws IOException, JAXBException {
@@ -83,7 +86,24 @@ public class Config {
         File newFile = new File(newTaskListFilePath + "/" + fileName);
         newFile.createNewFile();
         XmlUtil.saveDataToFile(newFile, data);
-        this.taskListFilePath = newTaskListFilePath;
+        String newConfig = JsonUtil.toJsonString(this);
+        PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
+        newConfigFileWriter.write(newConfig);
+        newConfigFileWriter.close();
+    }
+    
+    private void checkNameInTasklists(String tasklistFileName) {
+        for (String file : this.getTaskListNames()) {
+            if (file.equals(tasklistFileName)) {
+                return;
+            }
+        }
+        this.taskListFileNames += ", " + tasklistFileName;
+    }
+    
+    public void switchToNewTaskList(String tasklistFileName) throws IOException {
+        checkNameInTasklists(tasklistFileName);
+        this.taskListFileName = tasklistFileName + ".xml";
         String newConfig = JsonUtil.toJsonString(this);
         PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
         newConfigFileWriter.write(newConfig);
