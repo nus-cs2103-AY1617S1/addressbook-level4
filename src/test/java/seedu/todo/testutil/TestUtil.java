@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Detail("9482424"), new TaskDate("hans@google.com"), new TaskDate("4th street")),
-                    new Task(new Name("Boris Mueller"), new Detail("87249245"), new TaskDate("ruth@google.com"), new TaskDate("81th street")),
-                    new Task(new Name("Carl Kurz"), new Detail("95352563"), new TaskDate("heinz@yahoo.com"), new TaskDate("wall street")),
-                    new Task(new Name("Daniel Meier"), new Detail("87652533"), new TaskDate("cornelia@google.com"), new TaskDate("10th street")),
-                    new Task(new Name("Elle Meyer"), new Detail("9482224"), new TaskDate("werner@gmail.com"), new TaskDate("michegan ave")),
-                    new Task(new Name("Fiona Kunz"), new Detail("9482427"), new TaskDate("lydia@gmail.com"), new TaskDate("little tokyo")),
-                    new Task(new Name("George Best"), new Detail("9482442"), new TaskDate("anna@google.com"), new TaskDate("4th street")),
-                    new Task(new Name("Hoon Meier"), new Detail("8482424"), new TaskDate("stefan@mail.com"), new TaskDate("little india")),
-                    new Task(new Name("Ida Mueller"), new Detail("8482131"), new TaskDate("hans@google.com"), new TaskDate("chicago ave"))
+                    new Task(new Name("Ali Muster"), new Detail("9482424"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                    new Task(new Name("Boris Mueller"), new Detail("87249245"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                    new Task(new Name("Carl Kurz"), new Detail("95352563"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                    new Task(new Name("Daniel Meier"), new Detail("87652533"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                    new Task(new Name("Elle Meyer"), new Detail("9482224"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                    new Task(new Name("Fiona Kunz"), new Detail("9482427"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                    new Task(new Name("George Best"), new Detail("9482442"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                    new Task(new Name("Hoon Meier"), new Detail("8482424"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                    new Task(new Name("Ida Mueller"), new Detail("8482131"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234"))
             };
         } catch (IllegalValueException e) {
             assert false;

@@ -22,26 +22,6 @@ public class TypicalTestTasks {
             sleep = new TaskBuilder().withName("sleep").withByDate("12/12/1234")
                     .withOnDate("12/12/1232").withDetail("urgent")
                     .withTags("urgent").build();
-            goMeeting = new TaskBuilder().withName("attend meeting").withByDate("12/12/1234")
-                    .withOnDate("12/12/1232").withDetail("discuss todolist")
-                    .withTags("not so urgent").build();
-            meetElle = new TaskBuilder().withName("meet Elle Meyer").withDetail("9482224").withByDate("12/12/1234")
-                    .withOnDate("12/12/1232")
-                    .withTags("friends").build();
-            meetFiona = new TaskBuilder().withName("meet Fiona Kunz").withDetail("9482427").withByDate("12/12/1234")
-                    .withOnDate("12/12/1232")
-                    .withTags("friends").build();
-            meetGeorge = new TaskBuilder().withName("meet George Best").withDetail("9482442").withByDate("12/12/1234")
-                    .withOnDate("12/12/1232")
-                    .withTags("friends").build();
-
-            //Manually added
-            meetHoon = new TaskBuilder().withName("meet Hoon Meier").withDetail("8482424").withByDate("12/12/1234")
-                    .withOnDate("12/12/1232").withDetail("85355255")
-                    .withTags("friends").build();
-            meetIda = new TaskBuilder().withName("meet Ida Mueller").withDetail("8482131").withByDate("12/12/1234")
-                    .withOnDate("12/12/1232").withDetail("85355255")
-                    .withTags("friends").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
