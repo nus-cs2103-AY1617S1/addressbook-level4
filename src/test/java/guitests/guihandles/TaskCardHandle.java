@@ -3,7 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import jym.manager.model.task.ReadOnlyTask;
+import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * Provides a handle to a Task card in the Task list panel.

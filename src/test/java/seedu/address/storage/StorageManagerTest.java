@@ -5,21 +5,16 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TypicalTestTasks;
 import seedu.address.testutil.EventsCollector;
 
 import java.io.IOException;
 
-import jym.manager.commons.events.model.AddressBookChangedEvent;
-import jym.manager.commons.events.storage.DataSavingExceptionEvent;
-import jym.manager.model.AddressBook;
-import jym.manager.model.ReadOnlyAddressBook;
-import jym.manager.model.UserPrefs;
-import jym.manager.storage.JsonUserPrefsStorage;
-import jym.manager.storage.Storage;
-import jym.manager.storage.StorageManager;
-import jym.manager.storage.XmlAddressBookStorage;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

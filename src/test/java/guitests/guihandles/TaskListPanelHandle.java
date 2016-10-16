@@ -7,14 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.testutil.TestUtil;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import jym.manager.model.task.ReadOnlyTask;
-import jym.manager.model.task.Task;
 import static org.junit.Assert.assertTrue;
 
 /**
