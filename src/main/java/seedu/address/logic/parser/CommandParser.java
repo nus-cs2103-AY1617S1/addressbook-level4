@@ -43,6 +43,9 @@ public class CommandParser {
             											+"(?:, end (?<endDateFormatThree>.*?))?"
             											+")?"
             											+"(?:, repeat every (?<recurrenceRate>.*?))?"
+            											+"(?:"
+            											+"(?:-reset (?<resetField>.*?))"
+            											+")?"
             											+"(?:-(?<priority>.*?))?)");
     
     private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
@@ -537,6 +540,10 @@ public class CommandParser {
     	 String[] parts = args.split(" ");
     	 String indexNum = parts[0];
 
+    	 if(parts.length == 1){
+             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    	 }
+    	 
     	 index = Integer.parseInt(indexNum);
     	 
     	 args = args.substring(2);
@@ -551,7 +558,8 @@ public class CommandParser {
          String recurrenceRate = null;
          String timePeriod = null;
          String priority = null;  
-
+         String resetField = null;
+         
          if (!matcher.matches()) {
              return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
          }
@@ -598,8 +606,21 @@ public class CommandParser {
                  priority = matcher.group("priority");
              }
              
-             System.out.println(index + " " + taskName + " " + startDate + " " + endDate + " " + recurrenceRate + " " + timePeriod + " " + priority );
-             return new EditCommand(index, taskName, startDate, endDate, recurrenceRate, timePeriod, priority);
+             if (matcher.group("resetField") != null) {
+            	 resetField = matcher.group("resetField");
+             }
+             
+             System.out.println("Index = " + index);
+             System.out.println("Taskname = " + taskName);
+             System.out.println("StartDate = " + startDate);
+             System.out.println("EndDate = " + endDate);
+             System.out.println("Rate = " + recurrenceRate);
+             System.out.println("TimePeiod = " + timePeriod);
+             System.out.println("Reset = " + resetField);
+             System.out.println("Priority = " + priority);
+             
+             return new EditCommand(index, taskName, startDate, endDate, recurrenceRate, timePeriod, priority, resetField);
+         
          } catch (IllegalValueException ive) {
              return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
          }	
