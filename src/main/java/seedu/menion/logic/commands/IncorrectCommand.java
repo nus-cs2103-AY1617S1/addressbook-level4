@@ -18,5 +18,11 @@ public class IncorrectCommand extends Command {
         return new CommandResult(feedbackToUser);
     }
 
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 

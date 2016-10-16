@@ -19,4 +19,11 @@ public class ClearCommand extends Command {
         model.resetData(ActivityManager.getEmptyActivityManager());
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		
+	}
 }

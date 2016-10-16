@@ -2,6 +2,7 @@ package seedu.menion.logic.commands;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.*;
+import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
 
 import java.util.ArrayList;
 
@@ -72,7 +73,15 @@ public class AddCommand extends Command {
         } catch (UniqueActivityList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-
     }
 
+	@Override
+	public void undo() {
+		assert model != null;
+		 try {
+	            model.deleteTask(toAdd);
+	        } catch (TaskNotFoundException pnfe) {
+	            assert false : "The target activity cannot be missing";
+	        }
+	}
 }
