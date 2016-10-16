@@ -19,23 +19,28 @@ public class TimeUtil {
     /* Constants */
     private static final Logger logger = LogsCenter.getLogger(TimeUtil.class);
 
-    private static final String DEADLINE_PREFIX_IN = "in";
-    private static final String DEADLINE_PREFIX_BY = "by";
-    private static final String DEADLINE_PREFIX_SINCE = "since";
-    private static final String DEADLINE_SUFFIX_AGO = "ago";
+    private static final String WORD_IN = "in";
+    private static final String WORD_BY = "by";
+    private static final String WORD_SINCE = "since";
+    private static final String WORD_AGO = "ago";
+    private static final String WORD_FROM = "from";
+    private static final String WORD_TO = "to";
+    private static final String WORD_COMMA = ",";
+    private static final String WORD_TOMORROW = "tomorrow";
+    private static final String WORD_YESTERDAY = "yesterday";
+    private static final String WORD_TODAY = "today";
+    private static final String WORD_TONIGHT = "tonight";
 
     private static final String DUE_NOW = "due now";
     private static final String DUE_LESS_THAN_A_MINUTE = "in less than a minute";
-    private static final String DUE_TOMORROW = "tomorrow,";
-    private static final String DUE_YESTERDAY = "yesterday,";
-    private static final String DUE_TODAY = "today,";
-    private static final String DUE_TONIGHT = "tonight,";
 
     private static final String UNIT_MINUTES = "minutes";
     private static final String VALUE_ONE_MINUTE = "1 minute";
 
     private static final String FORMAT_DATE_TIME_WITH_YEAR = "d MMMM yyyy, h:mm a";
     private static final String FORMAT_DATE_TIME_NO_YEAR = "d MMMM, h:mm a";
+    private static final String FORMAT_DATE_WITH_YEAR = "d MMMM yyyy";
+    private static final String FORMAT_DATE_NO_YEAR = "d MMMM";
     private static final String FORMAT_TIME = "h:mm a";
     
     private static final Pattern DATE_REGEX = Pattern.compile("\\b([0123]?\\d)([/-])([01]?\\d)(?=\\2\\d{2,4}|\\s|$)");
@@ -56,13 +61,20 @@ public class TimeUtil {
 
         LocalDateTime currentTime = LocalDateTime.now(clock);
         if (endTime.isAfter(currentTime)) {
-            return getDeadlineInFutureText(currentTime, endTime);
+            return getDeadlineNotOverdueText(currentTime, endTime);
         } else {
-            return getDeadlineInPastText(currentTime, endTime);
+            return getDeadlineOverdueText(currentTime, endTime);
         }
     }
 
-    private String getDeadlineInFutureText(LocalDateTime currentTime, LocalDateTime endTime) {
+    /**
+     * Helper method of {@link #getTaskDeadlineText(LocalDateTime)} to get deadline text
+     * when it is still not overdue (currentTime < endTime).
+     * @param currentTime the time now
+     * @param endTime the due date and time
+     * @return a formatted deadline string
+     */
+    private String getDeadlineNotOverdueText(LocalDateTime currentTime, LocalDateTime endTime) {
         Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         long secondsToDeadline = durationCurrentToEnd.getSeconds();
@@ -72,29 +84,25 @@ public class TimeUtil {
         if (secondsToDeadline <= 59) {
             return DUE_LESS_THAN_A_MINUTE;
         } else if (minutesToDeadline == 1) {
-            stringJoiner.add(DEADLINE_PREFIX_IN).add(VALUE_ONE_MINUTE);
+            stringJoiner.add(WORD_IN).add(VALUE_ONE_MINUTE);
         } else if (minutesToDeadline > 1 && minutesToDeadline <= 59) {
-            stringJoiner.add(DEADLINE_PREFIX_IN).add(String.valueOf(minutesToDeadline))
+            stringJoiner.add(WORD_IN).add(String.valueOf(minutesToDeadline))
                     .add(UNIT_MINUTES);
-        } else if (isToday(currentTime, endTime)) {
-            stringJoiner.add(DEADLINE_PREFIX_BY)
-                    .add(((endTime.toLocalTime().isBefore(LocalTime.of(18, 00))) ? DUE_TODAY : DUE_TONIGHT))
-                    .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME)));
-        } else if (isTomorrow(currentTime, endTime)) {
-            stringJoiner.add(DEADLINE_PREFIX_BY).add(DUE_TOMORROW)
-                    .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME)));
-        } else if (isSameYear(currentTime, endTime)) {
-            stringJoiner.add(DEADLINE_PREFIX_BY)
-                    .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_TIME_NO_YEAR)));
         } else {
-            stringJoiner.add(DEADLINE_PREFIX_BY)
-                    .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_TIME_WITH_YEAR)));
+            stringJoiner.add(WORD_BY).add(getDateText(endTime) + WORD_COMMA)
+                    .add(getTimeText(endTime));
         }
-
         return stringJoiner.toString();
     }
 
-    private String getDeadlineInPastText(LocalDateTime currentTime, LocalDateTime endTime) {
+    /**
+     * Helper method of {@link #getTaskDeadlineText(LocalDateTime)} to get deadline text
+     * when it is overdue (currentTime > endTime).
+     * @param currentTime the time now
+     * @param endTime the due date and time
+     * @return a formatted deadline string
+     */
+    private String getDeadlineOverdueText(LocalDateTime currentTime, LocalDateTime endTime) {
         Duration durationCurrentToEnd = Duration.between(currentTime, endTime);
         long minutesToDeadline = durationCurrentToEnd.toMinutes();
         long secondsToDeadline = durationCurrentToEnd.getSeconds();
@@ -104,59 +112,62 @@ public class TimeUtil {
         if (secondsToDeadline >= -59) {
             return DUE_NOW;
         } else if (minutesToDeadline == -1) {
-            stringJoiner.add(VALUE_ONE_MINUTE).add(DEADLINE_SUFFIX_AGO);
+            stringJoiner.add(VALUE_ONE_MINUTE).add(WORD_AGO);
         } else if (minutesToDeadline < -1 && minutesToDeadline >= -59) {
             stringJoiner.add(String.valueOf(-minutesToDeadline)).add(UNIT_MINUTES)
-                    .add(DEADLINE_SUFFIX_AGO);
-        } else if (isToday(currentTime, endTime)) {
-            stringJoiner.add(DEADLINE_PREFIX_SINCE)
-                    .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME)));
-        } else if (isYesterday(currentTime, endTime)) {
-            stringJoiner.add(DEADLINE_PREFIX_SINCE).add(DUE_YESTERDAY)
-                    .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME)));
-        } else if (isSameYear(currentTime, endTime)) {
-            stringJoiner.add(DEADLINE_PREFIX_SINCE)
-                    .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_TIME_NO_YEAR)));
+                    .add(WORD_AGO);
         } else {
-            stringJoiner.add(DEADLINE_PREFIX_SINCE)
-                    .add(endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_TIME_WITH_YEAR)));
+            stringJoiner.add(WORD_SINCE).add(getDateText(endTime) + WORD_COMMA)
+                    .add(getTimeText(endTime));
         }
         return stringJoiner.toString();
     }
     
     public String getEventTimeText(LocalDateTime startTime, LocalDateTime endTime) {
-        assert(startTime != null);
-        assert(endTime != null);
-        assert(startTime.isBefore(endTime));
+        if (startTime == null || endTime == null) {
+            logger.log(Level.WARNING, "Either startTime or endTime is missing in getEventTimeText(...)");
+            return "";
+        } else if (startTime.isAfter(endTime)) {
+            logger.log(Level.WARNING, "Start time is after end time in getEventTimeText(...)");
+            return "";
+        }
+
         return "from " + startTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_TIME_NO_YEAR)) + " to "
                 + endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_TIME_WITH_YEAR));
     }
-    
+
+
     /**
      * Gives a formatted text of the dateTime based on the current system time, and then returns one of the following:
      *      "Yesterday", "Today", "Tonight", "Tomorrow",
-     *      full date without year if same year,
-     *      full date with year if different year.
+     *      full date without year if this year,
+     *      full date with year if other year.
      *
      * @param dateTime to format the date with
-     * @return a formatted date string described above
+     * @return a formatted date text described above
      */
     private String getDateText(LocalDateTime dateTime) {
         LocalDateTime currentTime = LocalDateTime.now(clock);
         if (isYesterday(currentTime, dateTime)) {
-            return DUE_YESTERDAY;
+            return WORD_YESTERDAY;
         } else if (isTonight(currentTime, dateTime)) {
-            return DUE_TONIGHT;
+            return WORD_TONIGHT;
         } else if (isToday(currentTime, dateTime)) {
-            return DUE_TODAY;
+            return WORD_TODAY;
         } else if (isTomorrow(currentTime, dateTime)) {
-            return DUE_TOMORROW;
+            return WORD_TOMORROW;
         } else if (isSameYear(currentTime, dateTime)) {
-            return dateTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_NO_YEAR);
+            return dateTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_NO_YEAR));
         } else {
             return dateTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_WITH_YEAR));
         }
     }
+
+    private String getTimeText(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME));
+    }
+
+
     private boolean isTomorrow(LocalDateTime dateTimeToday, LocalDateTime dateTimeTomorrow) {
         LocalDate dayBefore = dateTimeToday.toLocalDate();
         LocalDate dayAfter = dateTimeTomorrow.toLocalDate();
@@ -167,6 +178,11 @@ public class TimeUtil {
         LocalDate date1 = dateTime1.toLocalDate();
         LocalDate date2 = dateTime2.toLocalDate();
         return date1.equals(date2);
+    }
+
+    private boolean isTonight(LocalDateTime dateTimeToday, LocalDateTime dateTimeTonight) {
+        return isToday(dateTimeToday, dateTimeTonight)
+                && dateTimeTonight.toLocalTime().isAfter(LocalTime.of(17, 59, 59));
     }
     
     private boolean isYesterday(LocalDateTime dateTimeToday, LocalDateTime dateTimeYesterday) {
