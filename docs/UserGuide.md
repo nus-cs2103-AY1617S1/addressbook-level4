@@ -171,15 +171,15 @@ Examples:
 * `add "Lecture" from 7 Oct 2pm to 4pm, repeat weekly, tag "Important"`
 * `add "3 Days Conference" from 18 Oct 9am to 21 Oct 5pm`
 
-### List all tasks/events with specified conditions: `list`
-Lists all tasks/events.
+### List all tasks/events with filters: `list`
+Lists all tasks/events filtered with specified conditions.
 
 Format: `list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...] [sort SORTING_ORDER]`
 
 If all parameters are omitted (i.e. you just type `list`),
 the command will show a list of uncompleted tasks and upcoming events.
 
-* Types include `uncompleted`, `completed`, `floating`, `recurring`, `events`, `tasks`, and/or `free time`.
+* Types include `all`, `uncompleted`, `completed`, `floating`, `recurring`, `events`, `tasks`, and/or `free time`.
 * Sorting order includes `earliest first`, `latest first` for date and time, and `a-z`, `z-a` for task descriptions.
 * Defaults to `earliest first` for dates in the future, and `latest first` for dates in the past
 
@@ -189,10 +189,9 @@ the command will show a list of uncompleted tasks and upcoming events.
 
 Examples:
 * `list`<br>
-  Shows a list of uncompleted tasks
-  and upcoming events.
-* `list events by 18 Sep`
-* `list completed tasks, tag "Important", sort earliest first`
+  Shows a list of uncompleted tasks and events.
+* `list all`
+* `list uncompleted events, tag "Important", sort earliest first`
 * `list free time from 20 Sep 10am to 8pm`
 
 ### Show only listing results with specified type, date or tags: `show`
@@ -207,17 +206,9 @@ Matching results stay on the current task list at their respective positions, wh
 > This command operates on the current task list. If you wish to filter from all tasks, use `list` instead.  
 
 Examples:
-* `list`<br>
-  `show tag "CS2103" "Important"`
-
-* `list`<br>
-  `show events on 24 Sep, tag "Important"`
-
-* `list`<br>
-  `show completed tasks, tag "CS2103", from 18 Sep 8am`
-
-* `list`<br>
-  `show tag "Meeting" by 11pm`
+* `list tasks from 18 Sep`<br>
+  `show tag "Important"`<br>
+  `show uncompleted`
 
 ### Hide listing results with specified type, date or tags: `hide`
 Hides tasks/events with specified type, date or tags from the current task list results.
@@ -230,9 +221,9 @@ Matching tasks/events will be hidden from the task list results.
 > This command operates on the current task list. If you wish to filter from all tasks, use `list` instead.  
 
 Examples:
-* `list`<br>
-  `hide completed events from 24 Sep, tag "CS2010"`
-  `hide tag "Ungraded"`
+* `list tasks from 18 Sep`<br>
+  `hide tag "Not important"`<br>
+  `hide completed`
 
 ### Finding tasks/events which match keywords: `find`
 Lists all tasks/events whose name, type, date or tags partially match the entered keywords.
