@@ -153,6 +153,7 @@ Don't have deadlines and periods for the tasks at all? Those are known as
 
 > **Tip:**<br>
 > Other possible types include:
+> `all`, `uncompleted`, `completed`, `overdue`, `floating`, `recurring`, `events`, `tasks`, and/or `free time`
 
 Finally, if you need to sort your tasks, do the following:
 
