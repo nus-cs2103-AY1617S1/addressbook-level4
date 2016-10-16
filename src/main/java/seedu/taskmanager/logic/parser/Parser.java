@@ -22,6 +22,7 @@ import seedu.taskmanager.logic.commands.UndoCommand;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.item.ItemType;
+import seedu.taskmanager.logic.parser.ArgumentTokenizer.*;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -52,6 +53,15 @@ public class Parser {
     
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+    public static final Prefix namePrefix = new Prefix("n/");
+    public static final Prefix startDatePrefix = new Prefix("sd/");
+    public static final Prefix startTimePrefix = new Prefix("st/");
+    public static final Prefix startDateTimePrefix = new Prefix("sdt/");
+    public static final Prefix endDatePrefix = new Prefix("ed/");
+    public static final Prefix endTimePrefix = new Prefix("et/");
+    public static final Prefix endDateTimePrefix = new Prefix("edt/");
+    
+    //unused
     private static final Pattern NAME_ARG_FORMAT = Pattern.compile("(n/(?<name>[^/]+))");
     private static final Pattern START_DATE_ARG_FORMAT = Pattern.compile("(sd/(?<startDate>[^/]+))");    
     private static final Pattern START_TIME_ARG_FORMAT = Pattern.compile("(st/(?<startTime>[^/]+))");
@@ -359,14 +369,45 @@ public class Parser {
             Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
             if (index.isPresent()) {
                 String editCommandArgs = matcher.group("editCommandArguments");
-                
-                String name = parseArgument(NAME_ARG_FORMAT, "name", editCommandArgs);
-                String startDate = parseArgument(START_DATE_ARG_FORMAT, "startDate", editCommandArgs);
-                String startTime = parseArgument(START_TIME_ARG_FORMAT, "startTime", editCommandArgs);
-                String endDate = parseArgument(END_DATE_ARG_FORMAT, "endDate", editCommandArgs);
-                String endTime = parseArgument(END_TIME_ARG_FORMAT, "endTime", editCommandArgs);
-                String startDateTime = parseArgument(START_DATETIME_ARG_FORMAT, "startDateTime", editCommandArgs);
-                String endDateTime = parseArgument(END_DATETIME_ARG_FORMAT, "endDateTime", editCommandArgs);
+                ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, startDatePrefix, startTimePrefix, 
+                                                                        startDateTimePrefix, endDatePrefix, endTimePrefix,
+                                                                        endDateTimePrefix);
+                argsTokenizer.tokenize(editCommandArgs);
+                String name = null;
+                String startDate = null;
+                String startTime = null;
+                String endDate = null;
+                String endTime = null;
+                String startDateTime = null;
+                String endDateTime = null;
+                try {
+                    name = argsTokenizer.getValue(namePrefix).get();
+                } catch (NoSuchElementException nsee) {
+                }
+                try {
+                    startDate = argsTokenizer.getValue(startDatePrefix).get();
+                } catch (NoSuchElementException nsee) {
+                }
+                try {
+                    startTime = argsTokenizer.getValue(startTimePrefix).get();
+                } catch (NoSuchElementException nsee) {
+                }
+                try {
+                    endDate = argsTokenizer.getValue(endDatePrefix).get();
+                } catch (NoSuchElementException nsee) {
+                }
+                try {
+                    endTime = argsTokenizer.getValue(endTimePrefix).get();
+                } catch (NoSuchElementException nsee) {
+                }
+                try {
+                    startDateTime = argsTokenizer.getValue(startDateTimePrefix).get();
+                } catch (NoSuchElementException nsee) {
+                }
+                try {
+                    endDateTime = argsTokenizer.getValue(endDateTimePrefix).get();
+                } catch (NoSuchElementException nsee) {
+                }
                 
                 try {
                     if (startDateTime != null) {
@@ -424,6 +465,7 @@ public class Parser {
         }
     }
     
+    //unused
     /**
      * Extracts argument from a string containing command arguments
      * @param argumentPattern the pattern used to extract the argument from commandArgs
