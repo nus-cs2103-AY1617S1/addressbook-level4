@@ -6,7 +6,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-
+<br>
 ## Introduction
 
 Welcome user! This user guide will provide you with all the essential information required for you to make full use of our task manager, TasKitty.
@@ -17,7 +17,7 @@ If you are a keyboard lover and dislike clicking, then TasKitty is the right tas
 
 To get started, proceed to the Quick Start section below.
 
-
+<br>
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
@@ -40,7 +40,7 @@ To get started, proceed to the Quick Start section below.
    * **`exit`** : exits the program.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-
+<br>
 ## Features
 
 > **Command Format**<br><br>
@@ -56,7 +56,7 @@ To get started, proceed to the Quick Start section below.
 > * `DATE_TIME` parameter can also accept relative date formats such as tomorrow and next friday.
 > * The order of parameters is fixed.
 
-
+<br>
 #### Viewing help : `help`
 Format: `help`
 
@@ -118,6 +118,7 @@ Format: `find KEYWORDS`
 Examples: 
 * `find assignment`<br>
   > <img src="images/UIfind.png" width="600">
+  >
 
 <br>
 #### Edit task details: `edit`
@@ -128,7 +129,7 @@ Edit a todo, deadline or event already inside the task manager using the index o
 
 > Edit a task at the specified INDEX under the todos `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.<br><br>
 > Format depends on the type of task being edited. When only 1 TIME is provided, it is treated as END_TIME for both deadline and event.<br><br>
-> Note that you are required to enter the `view` command before the `edit` command, in order to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.<br><br>
+> Note that you are required to enter the `view` command before the `edit` command, in order to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [find](#find-tasks) command to narrow down the displayed list of tasks and events.
 
 Examples:
 
@@ -148,7 +149,7 @@ Delete a todo, deadline or event already inside the task manager using the index
 * Delete event format: `delete e INDEX`
 
 > Delete a task at the specified INDEX under the tasks `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.<br><br>
-> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.<br><br>
+> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the [find](#find-tasks) command to narrow down the displayed list of tasks and events.
 
 Examples:
 
@@ -181,7 +182,7 @@ Mark a task in the task list as done.<br>
 
 > Mark a todo `t`, deadline `d` or event `e` at the specified INDEX under the corresponding section as completed. The INDEX refers to the index number shown in the most recent listing.<br><br>
 > Note that tasks that are done are moved to the bottom of the list in their respective sections.<br><br>
-> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.<br><br>
+> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the [find](#find-tasks) command to narrow down the displayed list of tasks and events.
 
 Examples:
 
