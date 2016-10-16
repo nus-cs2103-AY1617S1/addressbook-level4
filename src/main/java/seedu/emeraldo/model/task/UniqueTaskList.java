@@ -75,9 +75,9 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
-    public void edit(Task toEditObj, int index, String toEditField) throws IllegalValueException {
+    public void edit(Task toEditObj, int index, Description toEditField) throws IllegalValueException {
         assert toEditField != null;
-        toEditObj.setDescription(new Description(toEditField));
+        toEditObj.setDescription(toEditField);
         internalList.set(index, toEditObj);
     }
 

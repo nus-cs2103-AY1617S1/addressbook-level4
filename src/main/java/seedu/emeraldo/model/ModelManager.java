@@ -7,6 +7,7 @@ import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.StringUtil;
+import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList;
@@ -82,7 +83,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void editTask(Task target, int index, String field) throws TaskNotFoundException {
+    public synchronized void editTask(Task target, int index, Description field) throws TaskNotFoundException {
         try {
             emeraldo.editTask(target, index, field);
         } catch (IllegalValueException e) {

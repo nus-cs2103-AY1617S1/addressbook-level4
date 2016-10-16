@@ -3,6 +3,7 @@ package seedu.emeraldo.logic.commands;
 import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
+import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
@@ -20,11 +21,11 @@ public class EditCommand extends Command{
     
     public final int targetIndex;
     
-    public final String field;
+    public final Description description;
     
     public EditCommand(String targetIndex, String field) throws IllegalValueException {
         this.targetIndex = Integer.parseInt(targetIndex);
-        this.field = field;
+        this.description = new Description(field);
     }
     
     @Override
@@ -40,7 +41,7 @@ public class EditCommand extends Command{
         Task taskToEdit = (Task) lastShownList.get(targetIndex - 1);
 
         try {
-            model.editTask(taskToEdit, targetIndex - 1, field);
+            model.editTask(taskToEdit, targetIndex - 1, description);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
