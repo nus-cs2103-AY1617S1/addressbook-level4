@@ -108,7 +108,7 @@ public class AddParserTest {
 	@Test
 	public void checkParserReturnValues(){
 		
-		assertEquals(7, AddParser.dateHandler("7th august 2016"));
+		assertEquals("7 August 2016", AddParser.dateHandler("7th august 2016"));
 			
 	}
 	
