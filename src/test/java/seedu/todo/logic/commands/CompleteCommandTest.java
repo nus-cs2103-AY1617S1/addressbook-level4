@@ -5,8 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
+
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.logic.commands.CompleteCommand;
 
 public class CompleteCommandTest extends CommandTest {
 
@@ -28,8 +29,12 @@ public class CompleteCommandTest extends CommandTest {
         setParameter("3");
         execute(true);
         ImmutableTask markedComplete = getTaskAt(3);
+        assertEquals(result.getFeedback(), 
+                     command.taskSuccessfulResult(toMarkComplete.getTitle(), 
+                     "marked complete").getFeedback());
         assertEquals(markedComplete, toMarkComplete);
         assertTrue(toMarkComplete.isCompleted());
+        
     }
 
     @Test
@@ -38,6 +43,9 @@ public class CompleteCommandTest extends CommandTest {
         setParameter("1");
         execute(true);
         ImmutableTask markedIncomplete = getTaskAt(1);
+        assertEquals(result.getFeedback(), 
+                command.taskSuccessfulResult(toMarkIncomplete.getTitle(), 
+                "marked incomplete").getFeedback());
         assertEquals(markedIncomplete, toMarkIncomplete);
         assertFalse(toMarkIncomplete.isCompleted());
     }
