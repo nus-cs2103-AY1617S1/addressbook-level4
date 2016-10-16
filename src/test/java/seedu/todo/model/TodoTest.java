@@ -1,5 +1,6 @@
 package seedu.todo.model;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -37,14 +38,14 @@ public class TodoTest {
     
     @Before
     public void setUp() throws Exception {
-        when(storage.read()).thenReturn(Optional.of(storageData));
+        when(storage.read()).thenReturn(storageData);
         todo = new TodoList(storage);
         observableList = todo.getObserveableList();
     }
     
     @Test
     public void testEmptyStorage() throws Exception {
-        when(storage.read()).thenReturn(Optional.empty());
+        when(storage.read()).thenThrow(new FileNotFoundException());
         todo = new TodoList(storage);
         
         assertThat(todo.getTasks(), empty());
@@ -283,7 +284,7 @@ public class TodoTest {
     public void testLoad() throws Exception {
         when(storageData.getTasks())
             .thenReturn(ImmutableList.of(new Task("Hello world")));
-        when(storage.read("new location")).thenReturn(Optional.of(storageData));
+        when(storage.read("new location")).thenReturn(storageData);
         
         todo.load("new location");
         assertEquals("Hello world", getTask(0).getTitle());

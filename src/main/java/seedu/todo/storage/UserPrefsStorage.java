@@ -1,7 +1,6 @@
 package seedu.todo.storage;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.JsonUtil;
@@ -19,8 +18,9 @@ public class UserPrefsStorage implements FixedStorage<UserPrefs> {
     }
 
     @Override
-    public Optional<UserPrefs> read() throws DataConversionException {
-        return JsonUtil.readJsonFile(filePath, UserPrefs.class);
+    public UserPrefs read() throws DataConversionException {
+        return JsonUtil.readJsonFile(filePath, UserPrefs.class)
+            .orElse(new UserPrefs());
     }
 
     @Override

@@ -12,17 +12,7 @@ import seedu.todo.model.UserPrefs;
  */
 public interface Storage {
 
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    UserPrefs readUserPrefs() throws DataConversionException, IOException;
 
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
-
-    String getTodoListFilePath();
-
-    Optional<ImmutableTodoList> readTodoList();
-    
-    Optional<ImmutableTodoList> readTodoList(String filePath);
-
-    void saveTodoList(ImmutableTodoList todoList);
-
-    void saveTodoList(ImmutableTodoList todoList, String newLocation);
 }

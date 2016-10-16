@@ -49,17 +49,10 @@ public class TodoList implements ImmutableTodoList, TodoModel {
 
     public TodoList(MoveableStorage<ImmutableTodoList> storage) {
         this.storage = storage;
-        Optional<ImmutableTodoList> todoListOptional; 
         
         try {
-            todoListOptional = storage.read();
+            initTodoList(storage.read());
         } catch (FileNotFoundException | DataConversionException e) {
-            todoListOptional = Optional.empty();
-        }
-
-        if (todoListOptional.isPresent()) {
-            initTodoList(todoListOptional.get());
-        } else {
             logger.info("Data file not found. Will be starting with an empty TodoList");
         }
 
@@ -170,21 +163,13 @@ public class TodoList implements ImmutableTodoList, TodoModel {
 
     @Override
     public void load(String location) throws ValidationException {
-        Optional<ImmutableTodoList> todoList;
-        
         try {
-            todoList = storage.read(location);
+            initTodoList(storage.read(location));
         } catch (DataConversionException e) {
             throw new ValidationException(TodoList.INCORRECT_FILE_FORMAT_FORMAT);
         } catch (FileNotFoundException e) {
             String message = String.format(TodoList.FILE_NOT_FOUND_FORMAT, location);
             throw new ValidationException(message);
-        }
-        
-        if (todoList.isPresent()) {
-            initTodoList(todoList.get());
-        } else {
-            throw new ValidationException("Something went wrong while loading the data");
         }
     }
 

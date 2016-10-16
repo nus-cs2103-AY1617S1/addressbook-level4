@@ -5,6 +5,7 @@ import static seedu.todo.testutil.TestUtil.isShallowEqual;
 import static org.mockito.Mockito.*;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -44,7 +45,7 @@ public class TodoListStorageTest {
         return filename != null ? TEST_DATA_FOLDER + filename : null;
     }
 
-    private java.util.Optional<ImmutableTodoList> readTodoList(String filePath) throws Exception {
+    private ImmutableTodoList readTodoList(String filePath) throws Exception {
         return new TodoListStorage(filePath).read(getFilePath(filePath));
     }
     
@@ -63,14 +64,14 @@ public class TodoListStorageTest {
 
     @Test
     public void testMissingFile() throws Exception {
-        assertFalse(readTodoList("NonExistentFile.xml").isPresent());
+        thrown.expect(FileNotFoundException.class);
+        readTodoList("NonExistentFile.xml");
     }
 
     @Test
     public void testReadNonXmlFormatFile() throws Exception {
         thrown.expect(DataConversionException.class);
         readTodoList("NotXmlFormatTodoList.xml");
-        fail();
     }
     
     @Test
@@ -86,14 +87,14 @@ public class TodoListStorageTest {
     @Test
     public void testEmptySave() throws Exception {
         storage.save(original);
-        ImmutableTodoList readBack = storage.read(filePath).get();
+        ImmutableTodoList readBack = storage.read(filePath);
         assertTrue(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
 
     @Test
     public void testDifferentTodoList() throws Exception {
         storage.save(original);
-        ImmutableTodoList readBack = storage.read(filePath).get();
+        ImmutableTodoList readBack = storage.read(filePath);
         when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
         assertFalse(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
@@ -103,7 +104,7 @@ public class TodoListStorageTest {
         when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
         // Save in new file and read back
         storage.save(original);
-        ImmutableTodoList readBack = storage.read(filePath).get();
+        ImmutableTodoList readBack = storage.read(filePath);
         assertTrue(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
 
@@ -116,7 +117,7 @@ public class TodoListStorageTest {
         when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
         storage.save(original);
 
-        ImmutableTodoList readBack = storage.read(filePath).get();
+        ImmutableTodoList readBack = storage.read(filePath);
         assertTrue(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
 
@@ -125,7 +126,7 @@ public class TodoListStorageTest {
         // Save in new file
         storage.save(original);
 
-        ImmutableTodoList readBack = storage.read().get();
+        ImmutableTodoList readBack = storage.read();
         assertTrue(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
 

@@ -4,7 +4,6 @@ import seedu.todo.commons.exceptions.DataConversionException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * Represents a storage mechanism to save an object to a fixed location
@@ -17,7 +16,7 @@ public interface FixedStorage<T> {
      * @throws DataConversionException if the data read was not of the expected type 
      * @throws FileNotFoundException if there was no file  
      */
-    public Optional<T> read() throws DataConversionException, FileNotFoundException;
+    public T read() throws DataConversionException, FileNotFoundException;
 
     /**
      * Persists an object 

@@ -63,7 +63,7 @@ public abstract class CommandTest {
 
     @Before
     public void setUpCommand() throws Exception {
-        when(storage.read()).thenReturn(Optional.of(storageData));
+        when(storage.read()).thenReturn(storageData);
         when(storageData.getTasks()).thenReturn(Collections.emptyList());
         
         model = new TodoList(storage);

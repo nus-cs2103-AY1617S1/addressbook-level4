@@ -33,7 +33,7 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ UserPrefs methods ==============================
 
     @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+    public UserPrefs readUserPrefs() throws DataConversionException, IOException {
         return userPrefsStorage.read();
     }
 
@@ -43,45 +43,4 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     // ================ TodoList methods ==============================
-
-    @Override
-    public String getTodoListFilePath() {
-        return todoListStorage.getLocation();
-    }
-    
-    @Override
-    public Optional<ImmutableTodoList> readTodoList() {
-        return readTodoList(todoListStorage.getLocation());
-    }
-
-    @Override
-    public Optional<ImmutableTodoList> readTodoList(String filePath) {
-        logger.fine("Attempting to read data from file: " + filePath);
-
-        Optional<ImmutableTodoList> todoListOptional = Optional.empty();
-
-        try {
-            todoListOptional = todoListStorage.read();
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty TodoList");
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty TodoList");
-        }
-
-        return todoListOptional;
-    }
-
-    @Override
-    public void saveTodoList(ImmutableTodoList todoList) {
-        saveTodoList(todoList, todoListStorage.getLocation());
-    }
-
-    @Override
-    public void saveTodoList(ImmutableTodoList todoList, String newLocation) {
-        try {
-            todoListStorage.save(todoList, newLocation);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
-    }
 }
