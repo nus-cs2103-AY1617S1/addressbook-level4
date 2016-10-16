@@ -26,6 +26,11 @@ public class EphemeralDB {
         // Prevent instantiation.
     }
 
+    /**
+     * Gets the singleton instance of the EphemeralDB.
+     * 
+     * @return EphemeralDB
+     */
     public static EphemeralDB getInstance() {
         if (instance == null) {
             instance = new EphemeralDB();
