@@ -354,21 +354,9 @@ Represent the storage for `TaskList` and `UserPrefs`.
 
 The `JsonUserPrefsStorage` class is provided for accessing `UserPrefs` stored in the hard disk as a json file.
 
-**`XmlAdaptedTag` and `XmlAdaptedTask` Class:**
+**`XmlAdaptedTag` , `XmlAdaptedTask`, `XmlFileStorage`, `XmlSerializableTaskList`, `XmlTaskListStorage` Class:**
 
-JAXB-friendly adapted version of the `Tag` and `Task`.
-
-**`XmlFileStorage` Class:**
-
-The `XmlFileStorage` class Stores tasklist data in an XML file.
-
-**`XmlSerializableTaskList` Class:**
-
-The `XmlSerializableTaskList` is an immutable taskList that is serializable to XML format.
-
-**`XmlTaskListStorage` Class:**
-
-The `XmlTaskListStorage` is a class to access TaskList data stored as an xml file on the hard disk.
+JAXB-friendly adapted version of the `Tag` and `Task` and Task Lists.
 
 ### Common classes
 
