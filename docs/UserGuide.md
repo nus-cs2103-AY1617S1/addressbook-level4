@@ -62,7 +62,9 @@ Format: `help`
 
 > A pop-up windonw displaying the command summary will be shown. Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
 > <img src="images/UIhelp.png" width="600">
-> 
+>
+
+<br>
 #### View all tasks: `view`
 View all tasks for the specified date and deadlines up to the specified date.<br>
 Format: `view [DATE]`
@@ -76,7 +78,8 @@ Examples:
 
 * `view 16 Oct 2016`
   > <img src="images/UIviewDate.png" width="600">
-  
+
+<br>  
 #### Create a new task: `add`
 Add a new task to the todo or deadlines list, or a new event to the event calendar.<br>
 * Todo format: `add NAME`<br>
@@ -104,26 +107,28 @@ Examples:
   > Note that this event is set in the future, so please enter `view 8 Oct 2016` to view the timetable for the added event.<br>
   > <img src="images/UIeventFuture.png" width="600">
 
+<br>
 #### Find tasks: `find`
 Find tasks based on keywords.<br>
 Format: `find KEYWORDS`
 
-> Tasks that partly or completely match the keywords entered will be displayed.<br>
+> Tasks that partly or completely match the keywords entered will be displayed.<br><br>
 > If keyword entered is a date, this command will return the same results as the view command.
 
 Examples: 
 * `find assignment`<br>
   > <img src="images/UIfind.png" width="600">
 
+<br>
 #### Edit task details: `edit`
 Edit a todo, deadline or event already inside the task manager using the index of the task.<br>
 * Edit todo format: `edit t INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 * Edit deadline format: `edit d INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 * Edit event format: `edit e INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 
-> Edit a task at the specified INDEX under the todos `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.<br>
-> Format depends on the type of task being edited. When only 1 TIME is provided, it is treated as END_TIME for both deadline and event.<br>
-> Note that you are required to enter the `view` command before the `edit` command, in order to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.<br>
+> Edit a task at the specified INDEX under the todos `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.<br><br>
+> Format depends on the type of task being edited. When only 1 TIME is provided, it is treated as END_TIME for both deadline and event.<br><br>
+> Note that you are required to enter the `view` command before the `edit` command, in order to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.<br><br>
 
 Examples:
 
@@ -135,14 +140,15 @@ Examples:
 * `edit e 2 22:00 00:00`<br>
   Edit the 2nd task under the events section. Change the START_TIME to `22:00` and END_TIME to `00:00`.<br>
 
+<br>
 #### Delete task: `delete`
 Delete a todo, deadline or event already inside the task manager using the index of the task.<br>
 * Delete todo format: `delete t INDEX`
 * Delete deadline format: `delete d INDEX`
 * Delete event format: `delete e INDEX`
 
-> Delete a task at the specified INDEX under the tasks `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.<br>
-> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.
+> Delete a task at the specified INDEX under the tasks `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.<br><br>
+> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.<br><br>
 
 Examples:
 
@@ -166,15 +172,16 @@ Examples:
   After:<br>
   > <img src="images/UIdeleteAfterDate.png" width="600"><br>
 
+<br>
 #### Mark task as done: `done`
 Mark a task in the task list as done.<br>
 * Todo done format: `done t INDEX`
 * Deadline done format: `done d INDEX`
 * Event done format: `done e INDEX`
 
-> Mark a todo `t`, deadline `d` or event `e` at the specified INDEX under the corresponding section as completed. The INDEX refers to the index number shown in the most recent listing.<br>
-> Note that tasks that are done are moved to the bottom of the list in their respective sections.<br>
-> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.<br>
+> Mark a todo `t`, deadline `d` or event `e` at the specified INDEX under the corresponding section as completed. The INDEX refers to the index number shown in the most recent listing.<br><br>
+> Note that tasks that are done are moved to the bottom of the list in their respective sections.<br><br>
+> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the `find` command to narrow down the displayed list of tasks and events.<br><br>
 
 Examples:
 
@@ -187,7 +194,8 @@ Examples:
   
   After:<br>
   > <img src="images/UIdoneAfter.png" width="600"><br>
-  
+ 
+<br>
 #### Undo previous action: `undo`
 Undo the last completed action.<br>
 Format: `undo`
@@ -205,25 +213,30 @@ Examples:
   After:<br>
   > <img src="images/UIundoAfter.png" width="600"><br>
 
+<br>
 #### Clearing all entries : `clear`
 Clear all tasks from the task manager.<br>
 Format: `clear`  
 > <img src="images/UIclear.png" width="600">
 
+<br>
 #### Exiting the program : `exit`
 Exit the program.<br>
 Format: `exit`  
 
+<br>
 #### Saving the data 
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
+<br>
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous TasKitty folder.
-       
+       the file that contains the data of your previous TasKitty folder.      
+
+<br>
 ## Command Summary
 
 Command | Format  
@@ -233,9 +246,15 @@ Add deadline | `add NAME DATE END_TIME`
 Add event | `add NAME DATE START_TIME END_TIME`
 View | `view [DATE]`
 Find | `find KEYWORDS`
-Edit | `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-Delete | `delete INDEX`
-Done | `done INDEX`
+Edit todo | `edit t INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
+Edit deadline | `edit d INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
+Edit event | `edit e INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
+Delete todo | `delete t INDEX`
+Delete deadline | `delete d INDEX`
+Delete event | `delete e INDEX`
+Done todo | `done t INDEX`
+Done deadline | `done d INDEX`
+Done event | `done e INDEX`
 Undo | `undo`
 Help | `help`
 Clear | `clear`
