@@ -4,17 +4,13 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.todo.model.TodoList;
 import seedu.todo.model.UserPrefs;
-import seedu.todo.model.task.ImmutableTask;
 
 public class StorageManagerTest {
 
@@ -28,7 +24,7 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
+        storageManager = new StorageManager(getTempFilePath("prefs"));
     }
 
     private String getTempFilePath(String fileName) {

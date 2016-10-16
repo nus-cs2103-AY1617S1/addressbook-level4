@@ -55,7 +55,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getTodoListFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
