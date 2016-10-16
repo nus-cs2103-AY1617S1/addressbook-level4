@@ -4,18 +4,18 @@ package seedu.emeraldo.model;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.ReadOnlyTask;
-import seedu.emeraldo.model.task.UniquePersonList;
+import seedu.emeraldo.model.task.UniqueTaskList;
 
 import java.util.List;
 
 /**
- * Unmodifiable view of a task manager
+ * Unmodifiable view of Emeraldo
  */
 public interface ReadOnlyEmeraldo {
 
     UniqueTagList getUniqueTagList();
 
-    UniquePersonList getUniqueTaskList();
+    UniqueTaskList getUniqueTaskList();
 
     /**
      * Returns an unmodifiable view of tasks list

@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Emeraldo data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
@@ -48,7 +48,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ Emeraldo methods ==============================
 
     @Override
     public String getEmeraldoFilePath() {
@@ -67,8 +67,8 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveEmeraldo(ReadOnlyEmeraldo addressBook) throws IOException {
-        saveEmeraldo(addressBook, emeraldoStorage.getEmeraldoFilePath());
+    public void saveEmeraldo(ReadOnlyEmeraldo emeraldo) throws IOException {
+        saveEmeraldo(emeraldo, emeraldoStorage.getEmeraldoFilePath());
     }
 
     @Override

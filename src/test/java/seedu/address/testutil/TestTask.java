@@ -6,13 +6,13 @@ import seedu.emeraldo.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
     private Description name;
     private DateTime dateTime;
     private UniqueTagList tags;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
@@ -47,7 +47,7 @@ public class TestPerson implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add \"" + this.getDescription().fullName + "\" ");
+        sb.append("add \"" + this.getDescription().fullDescription + "\" ");
         sb.append("by " + this.getDateTime().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
         return sb.toString();

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.emeraldo.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -39,7 +39,7 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        description.setText(task.getDescription().fullName);
+        description.setText(task.getDescription().fullDescription);
         id.setText(displayedIndex + ". ");
         dateTime.setText(task.getDateTime().value);
         tags.setText(task.tagsString());

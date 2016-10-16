@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.emeraldo.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;

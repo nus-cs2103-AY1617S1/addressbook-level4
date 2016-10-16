@@ -3,8 +3,8 @@ package seedu.emeraldo.model;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
-import seedu.emeraldo.model.task.UniquePersonList;
-import seedu.emeraldo.model.task.UniquePersonList.TaskNotFoundException;
+import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.emeraldo.model.task.UniqueTaskList;
 
 import java.util.Set;
 
@@ -15,24 +15,24 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyEmeraldo newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyEmeraldo getAddressBook();
+    /** Returns Emeraldo */
+    ReadOnlyEmeraldo getEmeraldo();
 
-    /** Deletes the given person. */
-    void deleteTask(ReadOnlyTask target) throws UniquePersonList.TaskNotFoundException;
-
-    /** Adds the given person */
-    void addPerson(Task person) throws UniquePersonList.DuplicateTaskException;
+    /** Deletes the given task. */
+    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
     void editTask(ReadOnlyTask target) throws TaskNotFoundException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
+    /** Adds the given task */
+    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+
+    /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
     

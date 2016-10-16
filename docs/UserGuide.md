@@ -40,24 +40,29 @@ Format: `help`
 <br>
 #### Adding a task: `add`
 Adds a task to the Emeraldo <br>
-Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_TIME] [from START_TIME] [to END_TIME] [#TAGS]...`
+Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
+
+<br>
+
+Type of task to be added | Examples
+-------------------------|----------
+For a task with no date or time specified, only the task description is required to be specified.|`add "Do tutorial"`
+For a task with a deadline, the date and time must be specified.|`add "Do tutorial" by 23 May, 2pm`
+For a task with date but no time specified, it would be taken be as an all day event.|`add "Do tutorial" on 23 May`
+For a scheduled task within the same day, the date, start and end time must be specified.|`add "Do tutorial" on 23 May from 2pm to 4pm`
+For a scheduled task longer than a day, the date, start and end time must be specified.|`add "Do tutorial" from 23 May, 2pm to 25 May, 4pm`
+For any tasks with tags, specify the tags as the last parameter.|`add "CS2103T Lecture" on 7 Oct 2016 from 2pm to 4pm #Important`
+
+<br>
+
+>Tasks can have any number of tags (including 0)
+
+<br>
 
 <img src="../assets/add_1.png" width="1000"><br>
 First, type a command.
 <img src="../assets/add_2.png" width="1000"><br>
 Command will be added.
-
-<br>
-> For a floating task, only the task description is required to be specified.<br>
-> For a task with a deadline, the date and time must be specified.<br>
-> For a scheduled task, the date, start and end time must be specified.<br>
-> For any tasks with tags, specify the tags as the last parameter.<br>
->
-> Tasks can have any number of tags (including 0)
-
-Examples: 
-* `add "Do CS2103T Pre-tutorial" on 8 Oct 2016 by 7pm`
-* `add "CS2103T Lecture" on 7 Oct 2016 from 2pm to 4pm #Important`
 
 <br>
 #### Listing all tasks : `list`

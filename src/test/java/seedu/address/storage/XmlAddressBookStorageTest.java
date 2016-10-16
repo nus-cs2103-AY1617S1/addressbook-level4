@@ -73,14 +73,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new Emeraldo(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Task(TypicalTestTasks.hoon));
-        original.removePerson(new Task(TypicalTestTasks.alice));
+        original.addTask(new Task(TypicalTestTasks.hoon));
+        original.removeTask(new Task(TypicalTestTasks.alice));
         xmlAddressBookStorage.saveEmeraldo(original, filePath);
         readBack = xmlAddressBookStorage.readEmeraldo(filePath).get();
         assertEquals(original, new Emeraldo(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(new Task(TypicalTestTasks.ida));
+        original.addTask(new Task(TypicalTestTasks.ida));
         xmlAddressBookStorage.saveEmeraldo(original); //file path not specified
         readBack = xmlAddressBookStorage.readEmeraldo().get(); //file path not specified
         assertEquals(original, new Emeraldo(readBack));
