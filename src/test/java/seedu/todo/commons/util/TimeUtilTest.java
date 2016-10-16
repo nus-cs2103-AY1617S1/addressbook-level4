@@ -133,10 +133,10 @@ public class TimeUtilTest {
     
     @Test
     public void getTaskDeadlineText_todayAfterDeadline() {
-        testTaskDeadlineTextHelper("since 12:00 PM", 
+        testTaskDeadlineTextHelper("since today, 12:00 PM",
                 LocalDateTime.of(2016, Month.MARCH, 20, 18, 45), LocalDateTime.of(2016, Month.MARCH, 20, 12, 0));
-        testTaskDeadlineTextHelper("since 4:50 PM", 
-                LocalDateTime.of(2016, Month.MARCH, 20, 23, 58), LocalDateTime.of(2016, Month.MARCH, 20, 16, 50));
+        testTaskDeadlineTextHelper("since tonight, 6:50 PM",
+                LocalDateTime.of(2016, Month.MARCH, 20, 23, 58), LocalDateTime.of(2016, Month.MARCH, 20, 18, 50));
         testTaskDeadlineTextHelper("30 minutes ago", 
                 LocalDateTime.of(2016, Month.MARCH, 20, 0, 30), LocalDateTime.of(2016, Month.MARCH, 20, 0, 0));
     }
@@ -201,16 +201,18 @@ public class TimeUtilTest {
                 LocalDateTime.of(2020, Month.AUGUST, 31, 12, 35), LocalDateTime.of(2016, Month.FEBRUARY, 13, 13, 0));
     }
     
-    @Test (expected = AssertionError.class)
+    @Test
     public void getEventTimeText_nullStartTime() {
         TimeUtil timeUtil = new TimeUtil();
-        timeUtil.getEventTimeText(null, LocalDateTime.now());
+        String outcome = timeUtil.getEventTimeText(null, LocalDateTime.now());
+        assertEquals("", outcome);
     }
     
-    @Test (expected = AssertionError.class)
+    @Test
     public void getEventTimeText_nullEndTime() {
         TimeUtil timeUtil = new TimeUtil();
-        timeUtil.getEventTimeText(LocalDateTime.now(), null);
+        String outcome = timeUtil.getEventTimeText(LocalDateTime.now(), null);
+        assertEquals("", outcome);
     }
     
     @Test (expected = AssertionError.class)
