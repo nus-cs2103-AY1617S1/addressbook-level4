@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import com.fasterxml.jackson.core.sym.Name;
+
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.*;
 import seedu.menion.model.tag.Tag;
@@ -7,43 +9,38 @@ import seedu.menion.model.tag.Tag;
 /**
  *
  */
-public class PersonBuilder {
+public class Activitybuilder {
 
-    private TestPerson person;
-
-    public PersonBuilder() {
-        this.person = new TestPerson();
+    private TestActivity activity;
+    
+    public Activitybuilder() {
+        
+    }
+    public Activitybuilder(ReadOnlyActivity newActivity ) {
+        this.activity = new TestActivity(newActivity);
     }
 
-    public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new ActivityName(name));
+    public Activitybuilder withFloatingTask(String type, ActivityName name, Note note) throws IllegalValueException {
+        
+        this.activity = new TestActivity(type, name, note);
+        return this;
+    }
+    
+    public Activitybuilder withTask(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime) throws IllegalValueException {
+       
+        this.activity = new TestActivity(type, name, note, startDate, startTime);
         return this;
     }
 
-    public PersonBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
-            person.getTags().add(new Tag(tag));
-        }
+    public Activitybuilder withEvent(String type, ActivityName name, Note note, ActivityDate startDate, 
+            ActivityTime startTime, ActivityDate endDate, ActivityTime endTime) throws IllegalValueException {
+        
+        this.activity = new TestActivity(type, name, note, startDate, startTime, endDate, endTime);
         return this;
     }
 
-    public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Note(address));
-        return this;
-    }
-
-    public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new ActivityDate(phone));
-        return this;
-    }
-
-    public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new ActivityTime(email));
-        return this;
-    }
-
-    public TestPerson build() {
-        return this.person;
+    public TestActivity build() {
+        return this.activity;
     }
 
 }

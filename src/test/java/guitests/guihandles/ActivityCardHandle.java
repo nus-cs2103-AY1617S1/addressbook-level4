@@ -6,17 +6,18 @@ import javafx.stage.Stage;
 import seedu.menion.model.activity.ReadOnlyActivity;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a activity card in the activity list panel.
  */
-public class PersonCardHandle extends GuiHandle {
+public class ActivityCardHandle extends GuiHandle {
+    
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String NOTE_FIELD_ID = "#note";
+    private static final String STARTDATE_FIELD_ID = "#startDate";
+    private static final String STARTTIME_FIELD_ID = "#startTime";
 
     private Node node;
 
-    public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public ActivityCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -25,39 +26,39 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(fieldId, node);
     }
 
-    public String getFullName() {
+    public String getActivityName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getNote() {
+        return getTextFromLabel(NOTE_FIELD_ID);
     }
 
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+    public String getStartDate() {
+        return getTextFromLabel(STARTDATE_FIELD_ID);
     }
 
-    public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+    public String getStartTime() {
+        return getTextFromLabel(STARTTIME_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyActivity person){
-        return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getDeadline().value)
-                && getEmail().equals(person.getReminder().value) && getAddress().equals(person.getPriority().value);
+    public boolean isSameActivity(ReadOnlyActivity activity){
+        return getActivityName().equals(activity.getActivityName().fullName) && getNote().equals(activity.getNote().value)
+                && getStartDate().equals(activity.getActivityStartDate().value) && getStartTime().equals(activity.getActivityStartTime().value);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+        if(obj instanceof ActivityCardHandle) {
+            ActivityCardHandle handle = (ActivityCardHandle) obj;
+            return getActivityName().equals(handle.getActivityName())
+                    && getNote().equals(handle.getNote()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getActivityName() + " " + getNote();
     }
 }

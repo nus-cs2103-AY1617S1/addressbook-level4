@@ -141,9 +141,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generatePerson(1));
-        model.addTask(helper.generatePerson(2));
-        model.addTask(helper.generatePerson(3));
+        model.addTask(helper.generateTask(1));
+        model.addTask(helper.generateTask(2));
+        model.addTask(helper.generateTask(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ActivityManager(), Collections.emptyList());
     }
@@ -161,9 +161,9 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
-
+    /*
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
+    public void execute_add_invalidActivityData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", ActivityName.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
@@ -174,12 +174,12 @@ public class LogicManagerTest {
                 "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
-
+    */
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Activity toBeAdded = helper.adam();
+        Activity toBeAdded = helper.adamTask();
         ActivityManager expectedAB = new ActivityManager();
         expectedAB.addTask(toBeAdded);
 
@@ -190,17 +190,17 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-
+    /*
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Activity toBeAdded = helper.adam();
+        Activity toBeAdded = helper.adamTask();
         ActivityManager expectedAB = new ActivityManager();
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // activity already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -210,7 +210,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-
+    */
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -231,8 +231,8 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single activity in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single activity in the last shown list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
@@ -244,15 +244,15 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single activity in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single activity in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Activity> personList = helper.generatePersonList(2);
 
-        // set AB state to 2 persons
+        // set AB state to 2 Activities
         model.resetData(new ActivityManager());
         for (Activity p : personList) {
             model.addTask(p);
@@ -385,55 +385,49 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Activity adam() throws Exception {
-            ActivityName name = new ActivityName("Adam Brown");
-            ActivityDate privatePhone = new ActivityDate("111111");
-            ActivityTime email = new ActivityTime("adam@gmail.com");
-            Note privateAddress = new Note("111, alpha street");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Activity(name, privatePhone, email, privateAddress, tags);
+        Activity adamTask() throws Exception {
+            String type = Activity.TASK_TYPE;
+            ActivityName name = new ActivityName("adamTask Brown");
+            Note note = new Note("Testing!");
+            ActivityDate date = new ActivityDate("10-10-16");
+            ActivityTime time = new ActivityTime("1000");
+            return new Activity(type, name, note, date, time);
         }
 
         /**
-         * Generates a valid person using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will have the same state.
-         * Each unique seed will generate a unique Person object.
+         * Generates a valid activity using the given seed.
+         * Running this function with the same parameter values guarantees the returned activity will have the same state.
+         * Each unique seed will generate a unique activity object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed used to generate the activity data field values
          */
-        Activity generatePerson(int seed) throws Exception {
+        Activity generateTask(int seed) throws Exception {
             return new Activity(
-                    new ActivityName("Person " + seed),
-                    new ActivityDate("" + Math.abs(seed)),
-                    new ActivityTime(seed + "@email"),
-                    new Note("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    Activity.TASK_TYPE,
+                    new ActivityName("adamTask Brown"),
+                    new Note("Testing!"),
+                    new ActivityDate("10-10-16"),
+                    new ActivityTime("1000")              
             );
         }
 
-        /** Generates the correct add command based on the person given */
+        /** Generates the correct add command based on the activity given */
         String generateAddCommand(Activity p) {
             StringBuffer cmd = new StringBuffer();
-
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getDeadline());
-            cmd.append(" e/").append(p.getReminder());
-            cmd.append(" a/").append(p.getPriority());
-
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
-
+            cmd.append(p.getActivityName().toString());
+            cmd.append(" by: ");
+            cmd.append(p.getActivityStartDate().value);
+            cmd.append(" ");
+            cmd.append(p.getActivityStartTime().value);
+            cmd.append(" n:");
+            cmd.append(p.getNote().value);
             return cmd.toString();
         }
 
         /**
-         * Generates an AddressBook with auto-generated persons.
+         * Generates an AddressBook with auto-generated Activities.
          */
         ActivityManager generateAddressBook(int numGenerated) throws Exception{
             ActivityManager addressBook = new ActivityManager();
@@ -442,73 +436,73 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an AddressBook based on the list of Persons given.
+         * Generates an AddressBook based on the list of Activities given.
          */
-        ActivityManager generateAddressBook(List<Activity> persons) throws Exception{
+        ActivityManager generateAddressBook(List<Activity> Activities) throws Exception{
             ActivityManager addressBook = new ActivityManager();
-            addToAddressBook(addressBook, persons);
+            addToAddressBook(addressBook, Activities);
             return addressBook;
         }
 
         /**
-         * Adds auto-generated Person objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Persons will be added
+         * Adds auto-generated activity objects to the given AddressBook
+         * @param addressBook The AddressBook to which the Activities will be added
          */
         void addToAddressBook(ActivityManager addressBook, int numGenerated) throws Exception{
             addToAddressBook(addressBook, generatePersonList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given AddressBook
+         * Adds the given list of Activities to the given AddressBook
          */
-        void addToAddressBook(ActivityManager addressBook, List<Activity> personsToAdd) throws Exception{
-            for(Activity p: personsToAdd){
+        void addToAddressBook(ActivityManager addressBook, List<Activity> activitiesToAdd) throws Exception{
+            for(Activity p: activitiesToAdd){
                 addressBook.addTask(p);
             }
         }
 
         /**
-         * Adds auto-generated Person objects to the given model
-         * @param model The model to which the Persons will be added
+         * Adds auto-generated activity objects to the given model
+         * @param model The model to which the Activities will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception{
             addToModel(model, generatePersonList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given model
+         * Adds the given list of Activities to the given model
          */
-        void addToModel(Model model, List<Activity> personsToAdd) throws Exception{
-            for(Activity p: personsToAdd){
+        void addToModel(Model model, List<Activity> activitiesToAdd) throws Exception{
+            for(Activity p: activitiesToAdd){
                 model.addTask(p);
             }
         }
 
         /**
-         * Generates a list of Persons based on the flags.
+         * Generates a list of Activities based on the flags.
          */
         List<Activity> generatePersonList(int numGenerated) throws Exception{
-            List<Activity> persons = new ArrayList<>();
+            List<Activity> Activities = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
-                persons.add(generatePerson(i));
+                Activities.add(generateTask(i));
             }
-            return persons;
+            return Activities;
         }
 
-        List<Activity> generatePersonList(Activity... persons) {
-            return Arrays.asList(persons);
+        List<Activity> generatePersonList(Activity... Activities) {
+            return Arrays.asList(Activities);
         }
 
         /**
-         * Generates a Person object with given name. Other fields will have some dummy values.
+         * Generates a activity object with given name. Other fields will have some dummy values.
          */
         Activity generatePersonWithName(String name) throws Exception {
             return new Activity(
+                    Activity.TASK_TYPE,
                     new ActivityName(name),
-                    new ActivityDate("1"),
-                    new ActivityTime("1@email"),
-                    new Note("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
+                    new Note("Dummy"),
+                    new ActivityDate("10-10-2016"),
+                    new ActivityTime("1000")
             );
         }
     }

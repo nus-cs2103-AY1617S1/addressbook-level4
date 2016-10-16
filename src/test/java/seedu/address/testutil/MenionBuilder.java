@@ -7,29 +7,24 @@ import seedu.menion.model.activity.UniqueActivityList;
 import seedu.menion.model.tag.Tag;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building taskManager objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code taskManager ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
-public class AddressBookBuilder {
+public class MenionBuilder {
 
-    private ActivityManager addressBook;
+    private ActivityManager taskManager;
 
-    public AddressBookBuilder(ActivityManager addressBook){
-        this.addressBook = addressBook;
+    public MenionBuilder(ActivityManager taskManager){
+        this.taskManager = taskManager;
     }
 
-    public AddressBookBuilder withPerson(Activity person) throws UniqueActivityList.DuplicateTaskException {
-        addressBook.addTask(person);
+    public MenionBuilder withActivity(Activity testActivity) throws UniqueActivityList.DuplicateTaskException {
+        taskManager.addTask(testActivity);
         return this;
     }
-
-    public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
-        return this;
-    }
-
+    
     public ActivityManager build(){
-        return addressBook;
+        return taskManager;
     }
 }

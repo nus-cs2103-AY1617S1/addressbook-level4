@@ -1,40 +1,14 @@
-package seedu.menion.model.activity;
-
-import seedu.menion.commons.exceptions.IllegalValueException;
-import seedu.menion.commons.util.CollectionUtil;
-import seedu.menion.model.tag.UniqueTagList;
+package seedu.address.testutil;
 
 import java.util.ArrayList;
-import java.util.Objects;
+
+import seedu.menion.model.activity.*;
+import seedu.menion.model.tag.UniqueTagList;
 
 /**
- * Represents a Person in the address book. Guarantees: details are present and
- * not null, field values are validated.
+ * A mutable Activity object. For testing only.
  */
-public class Activity implements ReadOnlyActivity {
-
-    // Types of Activity
-    public static final String FLOATING_TASK_TYPE = "floatingTask";
-    public static final String TASK_TYPE = "task";
-    public static final String EVENT_TYPE = "event";
-
-    public static final Integer FLOATING_TASK_LENGTH = 3; // ActivityType,
-                                                          // ActivityName, Note
-    public static final Integer TASK_LENGTH = 5; // ActivityType, Note,
-                                                 // ActivityName StartDate,
-                                                 // StartTime
-    public static final Integer EVENT_LENGTH = 7; // ActivityType, Note,
-                                                  // ActivityName, StartDate,
-                                                  // StartTime, EndDate, EndTime
-
-    // Indexes of the parameters to retrieve from the constructor.
-    public static final Integer INDEX_ACTIVITY_TYPE = 0;
-    public static final Integer INDEX_ACTIVITY_NAME = 1;
-    public static final Integer INDEX_ACTIVITY_NOTE = 2;
-    public static final Integer INDEX_ACTIVITY_STARTDATE = 3;
-    public static final Integer INDEX_ACTIVITY_STARTTIME = 4;
-    public static final Integer INDEX_ACTIVITY_ENDDATE = 5;
-    public static final Integer INDEX_ACTIVITY_ENDTIME = 6;
+public class TestActivity implements ReadOnlyActivity {
 
     private ActivityName name;
     private ActivityDate startDate;
@@ -47,13 +21,13 @@ public class Activity implements ReadOnlyActivity {
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
     private ArrayList<String> activityDetails;
-    private UniqueTagList tags;
 
     /**
      * For floatingTask
      * Every field must be present and not null.
+     * @return 
      */
-    public Activity(String type, ActivityName name, Note note) {
+    public TestActivity(String type, ActivityName name, Note note) {
         this.activityType = type;
         this.name = name;
         this.note = note;
@@ -64,7 +38,7 @@ public class Activity implements ReadOnlyActivity {
      * For Task
      * Every field must be present and not null.
      */
-    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime) {
+    public TestActivity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime) {
         this.activityType = type;
         this.name = name;
         this.note = note;
@@ -77,7 +51,7 @@ public class Activity implements ReadOnlyActivity {
      * For Event
      * Every field must be present and not null.
      */
-    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, ActivityDate endDate, ActivityTime endTime) {
+    public TestActivity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, ActivityDate endDate, ActivityTime endTime) {
         this.activityType = type;
         this.name = name;
         this.note = note;
@@ -93,19 +67,19 @@ public class Activity implements ReadOnlyActivity {
      * Copy constructor.
      * 
      */
-    public Activity(ReadOnlyActivity source) {
+    public TestActivity (ReadOnlyActivity source) {
         
-        if (source.getActivityType().equals(FLOATING_TASK_TYPE)) {
+        if (source.getActivityType().equals(Activity.TASK_TYPE)) {
             activityType = source.getActivityType();
             name = source.getActivityName();
             note = source.getNote();
-        } else if (source.getActivityType().equals(TASK_TYPE)) {
+        } else if (source.getActivityType().equals(Activity.TASK_TYPE)) {
             activityType = source.getActivityType();;
             name = source.getActivityName();
             note = source.getNote();
             startDate = source.getActivityStartDate();
             startTime = source.getActivityStartTime();
-        } else if (source.getActivityType().equals(EVENT_TYPE)) {
+        } else if (source.getActivityType().equals(Activity.EVENT_TYPE)) {
             activityType = source.getActivityType();;
             name = source.getActivityName();
             note = source.getNote();
@@ -155,20 +129,20 @@ public class Activity implements ReadOnlyActivity {
 
     @Override
     public void setActivityDetails() {
-        if (activityType == FLOATING_TASK_TYPE) {
-            activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
+        if (activityType == Activity.FLOATING_TASK_TYPE) {
+            activityDetails = new ArrayList<String>(Activity.FLOATING_TASK_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
             activityDetails.add(note.toString());
-        } else if (activityType == TASK_TYPE) {
-            activityDetails = new ArrayList<String>(TASK_LENGTH);
+        } else if (activityType == Activity.TASK_TYPE) {
+            activityDetails = new ArrayList<String>(Activity.TASK_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
             activityDetails.add(note.toString());
             activityDetails.add(startDate.toString());
             activityDetails.add(startTime.toString());
-        } else if (activityType == EVENT_TYPE) {
-            activityDetails = new ArrayList<String>(EVENT_LENGTH);
+        } else if (activityType == Activity.EVENT_TYPE) {
+            activityDetails = new ArrayList<String>(Activity.EVENT_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
             activityDetails.add(note.toString());
@@ -200,9 +174,43 @@ public class Activity implements ReadOnlyActivity {
         
     }
 
-    @Override
-    public Activity get() {
-        return this;
+    public String getAddCommand() {
+        StringBuilder build = new StringBuilder();
+        
+        if (activityType == Activity.FLOATING_TASK_TYPE) {
+            build.append("add ");
+            build.append(this.name.toString());
+            build.append(" n:");
+            build.append(this.getNote().toString());
+        } else if (activityType == Activity.TASK_TYPE) {
+            build.append("add ");
+            build.append(this.name.toString());
+            build.append(" by: ");
+            build.append(this.getActivityStartDate().value);
+            build.append(" ");
+            build.append(this.getActivityStartTime().value);
+            build.append(" n:");
+            build.append(this.getNote().toString());
+        } else if (activityType == Activity.EVENT_TYPE) {
+            build.append("add ");
+            build.append(this.name.toString());
+            build.append(" by: ");
+            build.append(this.getActivityStartDate().value);
+            build.append(" ");
+            build.append(this.getActivityStartTime().value);
+            build.append(" to: ");
+            build.append(this.getActivityEndDate().value);
+            build.append(" ");
+            build.append(this.getActivityEndTime().value);
+            build.append(" n:");
+            build.append(this.getNote().toString());
+        }
+        
+        return build.toString();
     }
 
+    @Override
+    public Activity get() {
+        return null;
+    }
 }

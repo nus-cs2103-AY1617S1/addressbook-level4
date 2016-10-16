@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalTestActivities;
 import seedu.menion.commons.exceptions.DataConversionException;
 import seedu.menion.commons.util.FileUtil;
 import seedu.menion.model.ReadOnlyActivityManager;
@@ -63,7 +63,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
+        TypicalTestActivities td = new TypicalTestActivities();
         ActivityManager original = td.getTypicalAddressBook();
         XmlActivityManagerStorage xmlAddressBookStorage = new XmlActivityManagerStorage(filePath);
 
@@ -73,8 +73,8 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new ActivityManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Activity(TypicalTestPersons.hoon));
-        original.removeTask(new Activity(TypicalTestPersons.alice));
+        original.addTask(new Activity(TypicalTestActivities.floatingTask));
+        original.removeTask(new Activity(TypicalTestActivities.event));
         xmlAddressBookStorage.saveActivityManager(original, filePath);
         readBack = xmlAddressBookStorage.readActivityManager(filePath).get();
         assertEquals(original, new ActivityManager(readBack));
