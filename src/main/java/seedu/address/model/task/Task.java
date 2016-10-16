@@ -161,5 +161,15 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+    
+    @Override
+    public void completeTaskWhenAllComponentArchived() {
+        for (TaskDateComponent c : recurringDates) {
+            if (c.getIsArchived() == false) {
+                return;
+            }
+        }
+        taskType = TaskType.COMPLETED;
+    }
 
 }

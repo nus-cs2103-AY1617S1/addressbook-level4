@@ -26,6 +26,8 @@ public class XmlAdaptedTask {
     private long endDate;
     @XmlElement
     private String recurringType;
+    @XmlElement
+    private boolean isArchived;
     
     /**
      * No-arg constructor for JAXB use.

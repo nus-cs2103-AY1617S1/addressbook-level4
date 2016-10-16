@@ -147,6 +147,7 @@ public class UniqueTaskList implements Iterable<Task> {
         	if(t.equals(target)){
         		t.archive();
         		taskFoundAndArchived = true;
+        		t.getTaskReference().completeTaskWhenAllComponentArchived();
         	}
         }
         return taskFoundAndArchived;

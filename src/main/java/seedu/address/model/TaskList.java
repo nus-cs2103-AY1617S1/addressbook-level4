@@ -184,7 +184,7 @@ public class TaskList implements ReadOnlyTaskList {
 	@Override
 	public ReadOnlyTaskList purify() throws TaskNotFoundException  {
 		TaskList newList = new TaskList(this); 
-		for(Task t: tasks){
+		for(Task t : tasks){
 			if(t.getTaskType()==TaskType.COMPLETED) {
 				Task copyToRemove = new Task(t);
 				newList.removeTask(copyToRemove);					
