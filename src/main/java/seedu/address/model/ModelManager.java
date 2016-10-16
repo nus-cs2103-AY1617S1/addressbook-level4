@@ -181,7 +181,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(TaskDateComponent task) {
 
-            return task.getTaskReference().getTaskType().equals(typeKeyWords);
+            return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.getIsArchived();
         }
 
         @Override
@@ -369,10 +369,12 @@ public class ModelManager extends ComponentManager implements Model {
     	private PeriodQualifier periodQualifier;
     	private DeadlineQualifier deadlineQualifier;
     	private TypeQualifier typeQualifier = null;
+    	private ArchiveQualifier archiveQualifier;
     	
     	FindQualifier(Set<String> keywordSet, Set<String> tagSet, Date startTime, Date endTime, Date deadline) {
-    		if(keywordSet.contains("-C"))
-    			this.typeQualifier = new TypeQualifier(TaskType.COMPLETED);
+    		if(keywordSet.contains("-C")) {
+    			this.archiveQualifier = new ArchiveQualifier(true);
+    		}
     		if(keywordSet.contains("-F"))
     			this.typeQualifier = new TypeQualifier(TaskType.FLOATING);
     		this.nameQualifier = new NameQualifier(keywordSet);
@@ -385,6 +387,9 @@ public class ModelManager extends ComponentManager implements Model {
     	public boolean run(TaskDateComponent task) {
     		if(this.typeQualifier!=null)
     			return typeQualifier.run(task);
+    		if(this.archiveQualifier != null) {
+    		    return archiveQualifier.run(task);
+    		}
     		return nameQualifier.run(task)
     				&& tagQualifier.run(task)
     				&& periodQualifier.run(task)
@@ -396,7 +401,8 @@ public class ModelManager extends ComponentManager implements Model {
     		return nameQualifier.toString() + " "
     				+ tagQualifier.toString() + " "
     				+ periodQualifier.toString() + " "
-    				+ deadlineQualifier.toString() + " ";
+    				+ deadlineQualifier.toString() + " "
+    				+ archiveQualifier.toString() + " ";
     	}
     }
 }
