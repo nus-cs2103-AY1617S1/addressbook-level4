@@ -425,43 +425,6 @@ public class Parser {
 	public static void main(String[] args) {
 //		Parser p = new Parser();
 //		p.parseCommand("add deadline 'eat' by 2012-12-25");
-		
-TaskManager mgr = new TaskManager();
-    	
-    	Task[] tasks = null;
-		try {
-			tasks = new Task[]{new Task(new Name("Attach documents"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-			        new Task(new Name("Buy stationeries"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-			        new Task(new Name("Cook"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-			        new Task(new Name("Deal with boss"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-			        new Task(new Name("Email client"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-			        new Task(new Name("File documents"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-			        new Task(new Name("Grade attachments"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-			        new Task(new Name("Handle list of files"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-			        new Task(new Name("Idle around"), new TaskType("deadline"), new Status("not done"), Optional.empty(), Optional.of(LocalDateTime.now()), new UniqueTagList()),
-			};
-		} catch (IllegalArgumentException | IllegalValueException e) {
-			System.out.println("task creation error");
-		}
-    	
-    	for (int i=0; i<tasks.length; i++) {
-    		try {
-				mgr.addTask(tasks[i]);
-			} catch (DuplicateTaskException e) {
-				System.out.println("duplicate task");
-			}
-    	}
-    	
-    	XmlSerializableTaskManager dataToWrite = new XmlSerializableTaskManager(mgr);
-    	File file = new File("C:\\Users\\Kabir\\Desktop\\xml.xml");
-    	
-    	try {
-			XmlUtil.saveDataToFile(file, dataToWrite);
-		} catch (FileNotFoundException e) {
-			System.out.println("file not found");
-		} catch (JAXBException e) {
-			System.out.println("jaxb exception");
-			System.out.println(e.getStackTrace());
-		}
 	}
+	
 }
