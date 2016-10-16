@@ -5,6 +5,12 @@ import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to list CalendarItems.
+ * 
+ * @author louietyj
+ *
+ */
 public class ListController implements Controller {
     
     private static String NAME = "List";
