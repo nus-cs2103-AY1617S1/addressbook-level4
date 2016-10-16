@@ -35,12 +35,17 @@ public class DateTimeParser {
      * @author darren
      */
     public List<LocalDateTime> parseInput() {
-        // natty-side parsing
         assert this.datetime != null;
+
+        // natty-side parsing
         List<Date> dateTokens = this.parser.parse(this.datetime) // produces List<DateGroup>
                                             .get(0) // produces DateGroup
                                             .getDates(); // produces List<Date>
         
+        if(dateTokens.isEmpty()) {
+            throw new IllegalStateException("No dates found in token!");
+        }
+
         List<LocalDateTime> datetimes = new ArrayList<LocalDateTime>();
         
         // convert Date to LocalDateTime
