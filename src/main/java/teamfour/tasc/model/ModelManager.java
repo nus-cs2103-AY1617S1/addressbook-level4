@@ -112,31 +112,38 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void addTaskListFilterByType(String type, boolean negated) {
+        assert type != null;
         taskListFilter.and(new PredicateExpression(new TypeQualifier(type), negated));
     }
     
     @Override
     public void addTaskListFilterByDeadline(Date deadline, boolean negated) {
+        assert deadline != null;
         taskListFilter.and(new PredicateExpression(new DeadlineQualifier(deadline), negated));
     }
     
     @Override
     public void addTaskListFilterByStartTime(Date startTime, boolean negated) {
+        assert startTime != null;
         taskListFilter.and(new PredicateExpression(new StartTimeQualifier(startTime), negated));
     }
     
     @Override
     public void addTaskListFilterByEndTime(Date endTime, boolean negated) {
+        assert endTime != null;
         taskListFilter.and(new PredicateExpression(new EndTimeQualifier(endTime), negated));
     }
     
     @Override
     public void addTaskListFilterByStartToEndTime(Date startTime, Date endTime, boolean negated) {
+        assert startTime != null;
+        assert endTime != null;
         taskListFilter.and(new PredicateExpression(new StartToEndTimeQualifier(startTime, endTime), negated));
     }
     
     @Override
     public void addTaskListFilterByTags(Set<String> tags, boolean negated) {
+        assert tags != null;
         taskListFilter.and(new PredicateExpression(new TagQualifier(tags), negated));
     }
     
