@@ -1,5 +1,7 @@
 package seedu.taskitty.logic.commands;
 
+import java.util.EmptyStackException;
+
 public class UndoCommand extends Command {
     
     public static final String COMMAND_WORD = "undo";
@@ -10,12 +12,18 @@ public class UndoCommand extends Command {
 
     private static final String MESSAGE_UNDO_TASK_SUCCESS = "Undoed previous action";
     
+    private static final String MESSAGE_NO_PREVIOUS_COMMANDS = "There is no more previous command in this session.";
+    
     public UndoCommand() {}
     
     @Override
     public CommandResult execute() {
-        model.undo();
-        return new CommandResult(MESSAGE_UNDO_TASK_SUCCESS);
+        try {
+            model.undo();
+            return new CommandResult(MESSAGE_UNDO_TASK_SUCCESS);
+        } catch (EmptyStackException e) {
+            return new CommandResult(MESSAGE_NO_PREVIOUS_COMMANDS);
+        }       
     }
 
     @Override
