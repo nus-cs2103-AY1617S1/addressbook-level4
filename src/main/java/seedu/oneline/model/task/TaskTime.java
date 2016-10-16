@@ -61,7 +61,7 @@ public class TaskTime {
     
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class TaskTime {
      * Serialize field for storage
      */
     public String serialize() {
-        return value;
+        return value.toString();
     }
     
     /**
