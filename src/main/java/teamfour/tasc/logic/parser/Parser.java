@@ -49,6 +49,8 @@ public class Parser {
     private static final Pattern RELATIVE_PATH_FORMAT =
             Pattern.compile("^(?!-)[a-z0-9-]+(?<!-)(/(?!-)[a-z0-9-]+(?<!-))*$");
 
+    private static final Pattern FILE_NAME_ONLY_FORMAT = Pattern.compile("^[\\w,\\s-]+$");
+    
     public Parser() {}
 
     /**
@@ -108,6 +110,9 @@ public class Parser {
 
         case RelocateCommand.COMMAND_WORD:
             return prepareRelocate(arguments);
+            
+        case SwitchlistCommand.COMMAND_WORD:
+            return prepareSwitchlist(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -148,6 +153,22 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    /**
+     * Parses arguments in the context of the switch list command.
+     *
+     * @param args the file name of list that user wish to switch to. 
+     * @return the prepared command
+     */
+    public Command prepareSwitchlist(String args) {
+        final Matcher matcher = FILE_NAME_ONLY_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SwitchlistCommand.MESSAGE_USAGE));
+        }
+
+        return new SwitchlistCommand(args.trim());
     }
 
     /**

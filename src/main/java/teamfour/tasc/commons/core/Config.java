@@ -25,7 +25,8 @@ public class Config {
     private String appTitle = "TaSc";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskListFilePath = "data/tasklist.xml";
+    private String taskListFilePath = "data";
+    private String taskListFileName = "tasklist.xml";
     private String taskListName = "MyTaskList";
 
     public Config() {
@@ -56,23 +57,25 @@ public class Config {
     }
 
     public String getTaskListFilePath() {
-        return taskListFilePath;
+        return taskListFilePath + "/" + taskListFileName;
     }
 
     public void setTaskListFilePath(String newTaskListFilePath) {
-        this.taskListFilePath = newTaskListFilePath;
+        String[] pathName = newTaskListFilePath.split("/");
+        this.taskListFilePath = pathName[0];
+        this.taskListFileName = pathName[1];
     }
     
     public void changeTaskListFilePath(String newTaskListFilePath) throws IOException, JAXBException {
-        File oldFile = new File(taskListFilePath);
+        File oldFile = new File(taskListFilePath + "/" + taskListFileName);
         XmlSerializableTaskList data = XmlUtil.getDataFromFile(oldFile, XmlSerializableTaskList.class);
         oldFile.delete();
         File newFilePath = new File(newTaskListFilePath);
         newFilePath.mkdirs();
-        File newFile = new File(newTaskListFilePath + "/tasklist.xml");
+        File newFile = new File(newTaskListFilePath + "/" + taskListFileName);
         newFile.createNewFile();
         XmlUtil.saveDataToFile(newFile, data);
-        this.taskListFilePath = newTaskListFilePath + "/tasklist.xml";
+        this.taskListFilePath = newTaskListFilePath;
         String newConfig = JsonUtil.toJsonString(this);
         PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
         newConfigFileWriter.write(newConfig);
@@ -103,12 +106,13 @@ public class Config {
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(taskListFilePath, o.taskListFilePath)
+                && Objects.equals(taskListFileName, o.taskListFileName)
                 && Objects.equals(taskListName, o.taskListName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskListFilePath, taskListName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskListFilePath, taskListFileName, taskListName);
     }
 
     @Override
@@ -117,7 +121,7 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + taskListFilePath);
+        sb.append("\nLocal data file location : " + taskListFilePath + "/" + taskListFileName);
         sb.append("\nTaskList name : " + taskListName);
         return sb.toString();
     }
