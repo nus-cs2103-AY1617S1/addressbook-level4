@@ -28,6 +28,7 @@ public class Config {
     private String taskListFilePath = "data";
     private String taskListFileName = "tasklist.xml";
     private String taskListName = "MyTaskList";
+    private String taskListFileNames = "tasklist";
 
     public Config() {
     }
@@ -88,6 +89,10 @@ public class Config {
 
     public void setTaskListName(String taskListName) {
         this.taskListName = taskListName;
+    }
+    
+    public String[] getTaskListNames() {
+        return this.taskListFileNames.split(", ");
     }
 
 

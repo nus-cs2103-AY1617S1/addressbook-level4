@@ -60,7 +60,6 @@ public class MainApp extends Application {
         config = initConfig(getApplicationParameter("config"));
         newTaskListFilePath = config.getTaskListFilePath().split("/tasklist.xml")[0];
         storage = new StorageManager(config.getTaskListFilePath(), config.getUserPrefsFilePath());
-
         userPrefs = initPrefs(config);
 
         initLogging(config);

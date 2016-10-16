@@ -167,7 +167,6 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SwitchlistCommand.MESSAGE_USAGE));
         }
-
         return new SwitchlistCommand(args.trim());
     }
 

@@ -30,6 +30,11 @@ public class StorageManager extends ComponentManager implements Storage {
         this.taskListStorage = new XmlTaskListStorage(taskListFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
+    
+    public void changeTaskListStorage(String newTaskListFilePath) {
+        this.taskListStorage = new XmlTaskListStorage(newTaskListFilePath);
+    }
+    
 
     // ================ UserPrefs methods ==============================
 
