@@ -98,7 +98,7 @@ This guide contains all necessary information for both new and experienced contr
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 A quick overview of each component is given below:
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It has two main responsibilities:
+`Main` has only one class called [`MainApp`](../src/main/java/teamfour/tasc/MainApp.java). It has two main responsibilities:
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
@@ -146,7 +146,7 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/teamfour/tasc/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts, e.g. `CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -154,7 +154,7 @@ and can be loaded using the `UiPartLoader`.
 
 The **`UI`** component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/teamfour/tasc/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The **`UI`** component
@@ -180,7 +180,7 @@ The `HelpWindow` is a window separate from the `MainWindow`. It shows our produc
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/teamfour/tasc/logic/Logic.java)
 
 1. **`Logic`** uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -222,7 +222,7 @@ The `Command` class takes input arguments from the `Parser`class, and produces a
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/teamfour/tasc/model/Model.java)
 
 The **`Model`**
 * Stores a `UserPref` object that contains the user's preferences.
@@ -318,7 +318,7 @@ The `UniqueTaskList` class provides a task list with no duplicate tasks.
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/teamfour/tasc/storage/Storage.java)
 
 The **`Storage`** component
 * Saves `UserPref` objects in json format and read it back.
@@ -372,7 +372,7 @@ The `XmlTaskListStorage` is a class to access TaskList data stored as an xml fil
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `teamfour.tasc.commons` package.
 
 ## Implementation
 
@@ -424,13 +424,13 @@ We have two types of tests:
 
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `teamfour.tasc.commons.UrlUtilTest`
    2. _Integration tests_ checking the integration of multiple code units
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `teamfour.tasc.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These tests check multiple code units as well as
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `teamfour.tasc.logic.LogicManagerTest`
 
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
