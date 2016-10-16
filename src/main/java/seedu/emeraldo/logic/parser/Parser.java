@@ -31,7 +31,7 @@ public class Parser {
                     + "(?: by )?(?<dateTime>([^#]+)?)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
     
-    private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\S+)(?<field>.+)");
+    private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)\\s+\"(?<field>.+)\"");
 
     public Parser() {}
 
