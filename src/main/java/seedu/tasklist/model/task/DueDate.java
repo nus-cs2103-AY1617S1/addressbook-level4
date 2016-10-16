@@ -12,7 +12,6 @@ public class DueDate {
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "DueDate should be numeric only";
     public static final String DATE_VALIDATION_REGEX = "^(?:\\d+|)$";
 
-    //public final String dueDate;
     public LocalDate dueDate;
 
     /**
@@ -29,7 +28,6 @@ public class DueDate {
         if (!isValidDate(dueDate)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
-       // this.dueDate = dueDate;
         
         month = "" + dueDate.charAt(0) + dueDate.charAt(1);
         day = "" + dueDate.charAt(2) + dueDate.charAt(3);

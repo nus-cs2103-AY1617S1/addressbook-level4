@@ -1,7 +1,6 @@
 package seedu.tasklist.model.task;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import java.time.LocalDateTime;
 import java.time.LocalDate;
 /**
  * Represents a Task's start date in the task list.
@@ -59,13 +58,5 @@ public class StartDate {
     public int hashCode() {
         return startDate.hashCode();
     }
-
-//	public LocalDate getStartDate() {
-//		return startDate;
-//	}
-//
-//	public void setStartDate(LocalDate startDate) {
-//		this.startDate = startDate;
-//	}
 
 }
