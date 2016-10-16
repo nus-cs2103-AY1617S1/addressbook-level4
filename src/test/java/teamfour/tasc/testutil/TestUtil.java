@@ -78,7 +78,6 @@ public class TestUtil {
                 new Deadline(),
                 new Period(),
                 new Recurrence(),
-                new Recurrence(),
                 new UniqueTagList());
     }
 

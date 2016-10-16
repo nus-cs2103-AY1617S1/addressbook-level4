@@ -829,7 +829,7 @@ public class LogicManagerTest {
         Task newTask = new Task(threeTasks.get(taskIndexToUpdate).getName(),
                 new Complete(false),
                 new Deadline(),
-                new Period(), new Recurrence(),
+                new Period(),
                 new Recurrence(),
                 newTagList);
         expectedTaskList.updateTask(threeTasks.get(taskIndexToUpdate), newTask);
@@ -866,7 +866,6 @@ public class LogicManagerTest {
         TaskList expectedTaskList = helper.generateAddressBook(threeTasks);
         Task newTask = new Task(new Name("New Val"), new Complete(false), new Deadline(deadline),
                 new Period(startTime, endTime), new Recurrence(Recurrence.Pattern.DAILY, 3),
-                new Recurrence(Recurrence.Pattern.MONTHLY, 5),
                 newTagList);
         expectedTaskList.updateTask(threeTasks.get(taskIndexToUpdate), newTask);
 
@@ -1011,13 +1010,12 @@ public class LogicManagerTest {
             Complete complete = new Complete(false);
             Deadline deadline = new Deadline();
             Period period = new Period();
-            Recurrence deadlineRecurrence = new Recurrence();
-            Recurrence periodRecurrence = new Recurrence();
+            Recurrence recurrence = new Recurrence();
 
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
+            return new Task(name, complete, deadline, period, recurrence, tags);
         }
 
         // This is a copy of Adam Brown with slightly different values
@@ -1033,13 +1031,12 @@ public class LogicManagerTest {
             Date d2 = c.getTime();
             Deadline deadline = new Deadline(d1);
             Period period = new Period(d1, d2);
-            Recurrence deadlineRecurrence = new Recurrence();
-            Recurrence periodRecurrence = new Recurrence();
+            Recurrence recurrence = new Recurrence();
 
             Tag tag1 = new Tag("tag2");
             Tag tag2 = new Tag("tag3");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
+            return new Task(name, complete, deadline, period, recurrence, tags);
         }
 
         /**
@@ -1056,7 +1053,6 @@ public class LogicManagerTest {
                     new Complete(false),
                     new Deadline(),
                     new Period(),
-                    new Recurrence(),
                     new Recurrence(),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -1156,7 +1152,6 @@ public class LogicManagerTest {
                     new Complete(false),
                     new Deadline(),
                     new Period(),
-                    new Recurrence(),
                     new Recurrence(),
                     new UniqueTagList(new Tag("tag"))
             );

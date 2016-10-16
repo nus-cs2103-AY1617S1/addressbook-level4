@@ -53,9 +53,8 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().getName());
         id.setText(displayedIndex + ". ");
         deadline.setText("Deadline: " + task.getDeadline().toString());
-        deadlineRecurrence.setText("Deadline Repeat: " + task.getDeadlineRecurrence().toString());
+        deadlineRecurrence.setText("Repeat: " + task.getRecurrence().toString());
         period.setText("Period : " + task.getPeriod().toString());
-        periodRecurrence.setText("Period Repeat: " + task.getPeriodRecurrence().toString());
         tags.setText(task.tagsString().equals("") ? "" : "Tags: " + task.tagsString());
         completeStatus.setText(task.getComplete().toString());
         if (task.getDeadline().hasDeadline()) {

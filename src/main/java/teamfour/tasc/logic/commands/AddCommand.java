@@ -44,7 +44,7 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String by, String startTime, String endTime, String recurrence, Set<String> tags) throws IllegalValueException {
+    public AddCommand(String name, String by, String startTime, String endTime, String repeat, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -63,13 +63,11 @@ public class AddCommand extends Command {
             }
             period = new Period(dates.get(0), dates.get(1));
         }
-        Recurrence deadRecurrence = new Recurrence();
-        Recurrence periodRecurrence = new Recurrence();
-        if((recurrence != null) && (by != null)){
-            deadRecurrence = CommandHelper.getRecurrence(recurrence);
-        }
-        else if((recurrence != null) && ((startTime != null) && (endTime != null))){
-            periodRecurrence = CommandHelper.getRecurrence(recurrence);
+        Recurrence taskRecurrence = new Recurrence();
+        if(repeat != null) {
+            if ((startTime != null && endTime != null) || deadline != null) {
+                taskRecurrence = CommandHelper.getRecurrence(repeat);
+            }
         }
 
         this.toAdd = new Task(
@@ -77,8 +75,7 @@ public class AddCommand extends Command {
                 new Complete(false),
                 deadline,
                 period,
-                deadRecurrence,
-                periodRecurrence,
+                taskRecurrence,
                 new UniqueTagList(tagSet)
         );
     }
