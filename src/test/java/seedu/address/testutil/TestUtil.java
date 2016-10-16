@@ -37,6 +37,8 @@ public class TestUtil {
 	 * Setting up interleaved Floating, Deadline and Event tasks.
 	 * Dates for Deadline tasks are set to 1 January 2016.
 	 * Date range for Event tasks are set from 1 January 2016 to 2 January 2016.
+	 * 
+	 * NOTE: Do not change the descriptions and dates because other tests depend on it.
 	 */
 	public static InMemoryTaskList setupMixedTasks(int n) throws IllegalValueException {
 		InMemoryTaskList newTaskList = new TaskManager();

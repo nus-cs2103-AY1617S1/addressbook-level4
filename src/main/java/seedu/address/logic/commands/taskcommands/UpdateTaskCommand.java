@@ -33,7 +33,6 @@ public class UpdateTaskCommand extends TaskCommand {
             + "Example: " + COMMAND_WORD + " 1 date Oct 31 to Nov 1";
 
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated task: %1$s";
-    public static final String MESSAGE_INVALID_UPDATE = "Invalid update to the task";
     public static final String MESSAGE_CANNOT_UPDATE_TASK = "Selected task's description cannot be updated";
     public static final String MESSAGE_DEADLINE_TASK_REQUIRED = "Deadline task required for update of deadline";
     public static final String MESSAGE_EVENT_TASK_REQUIRED = "Event task required for update of start date and end date";
@@ -113,11 +112,11 @@ public class UpdateTaskCommand extends TaskCommand {
     		updatedTask = prepareUpdatedDescriptionForTask(taskToUpdate);
     		
     	} else if (newDeadline != null) {
-    		// User wants to change the deadline of a DeadlineTask (to check)
+    		// User wants to change the deadline of a DeadlineTask
     		updatedTask = prepareUpdatedDeadlineForTask(taskToUpdate);
 
     	} else if ((newStartDate != null && newEndDate != null)) {
-    		// User wants to change the start date and end date of an EventTask (to check)
+    		// User wants to change the start date and end date of an EventTask
     		updatedTask = prepareUpdatedStartEndDateForTask(taskToUpdate);
     		
     	} else {
@@ -147,7 +146,7 @@ public class UpdateTaskCommand extends TaskCommand {
     	// Check if it is indeed a DeadlineTask
 		if (taskToUpdate instanceof DeadlineTask) {
 			DeadlineTask task = (DeadlineTask) taskToUpdate;
-			return new DeadlineTask(task.getDescription().getContent(), task.getDeadline());
+			return new DeadlineTask(task.getDescription().getContent(), newDeadline);
 			
 		} else {
 			throw new IllegalValueException(MESSAGE_DEADLINE_TASK_REQUIRED);
@@ -203,12 +202,12 @@ public class UpdateTaskCommand extends TaskCommand {
         } catch (DuplicateItemException die) {
         	assert false : "Deletion of the original task (before addition of an updated task) has failed";
         } catch (IllegalValueException ive) {
-        	return new CommandResult(MESSAGE_INVALID_UPDATE);
+        	return new CommandResult(ive.getMessage());
         } catch (ItemNotFoundException tnfe) {
             assert false : "The target item cannot be missing";
         } 
 
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
+        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, updatedTask));
     }
 
 }
