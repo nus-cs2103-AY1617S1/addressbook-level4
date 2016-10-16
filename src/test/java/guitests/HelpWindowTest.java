@@ -1,6 +1,8 @@
 package guitests;
 
 import guitests.guihandles.HelpWindowHandle;
+import seedu.taskmanager.logic.commands.HelpCommand;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -16,7 +18,7 @@ public class HelpWindowTest extends TaskManagerGuiTest {
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
 
-        assertHelpWindowOpen(commandBox.runHelpCommand());
+        assertHelpWindowOpen(commandBox.runHelpShortCommand());
 
     }
 

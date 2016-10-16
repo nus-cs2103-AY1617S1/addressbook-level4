@@ -2,6 +2,7 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.stage.Stage;
+import seedu.taskmanager.logic.commands.HelpCommand;
 
 /**
  * A handle to the Command Box in the GUI.
@@ -33,6 +34,12 @@ public class CommandBoxHandle extends GuiHandle{
 
     public HelpWindowHandle runHelpCommand() {
         enterCommand("help");
+        pressEnter();
+        return new HelpWindowHandle(guiRobot, primaryStage);
+    }
+    
+    public HelpWindowHandle runHelpShortCommand() {
+        enterCommand(HelpCommand.SHORT_COMMAND_WORD);
         pressEnter();
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
