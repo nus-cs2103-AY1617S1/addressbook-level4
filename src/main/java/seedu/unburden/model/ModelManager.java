@@ -151,11 +151,31 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
+            return checkName(task) &&
+                    checkTags(task);
+        }
+
+		/**
+		 * @param task
+		 * @return
+		 */
+		private boolean checkTags(ReadOnlyTask task) {
+			return nameKeyWords.stream()
+			.filter(keyword -> StringUtil.containsIgnoreCase(task.getTags().toString(), keyword))
+			.findAny()
+			.isPresent();
+		}
+
+		/**
+		 * @param task
+		 * @return
+		 */
+		private boolean checkName(ReadOnlyTask task) {
+			return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()
                     .isPresent();
-        }
+		}
 
         @Override
         public String toString() {
