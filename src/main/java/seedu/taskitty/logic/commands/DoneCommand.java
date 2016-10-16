@@ -32,6 +32,7 @@ public class DoneCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
+            model.removePreviousCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
@@ -40,6 +41,7 @@ public class DoneCommand extends Command {
         try {
             model.doneTask(taskToBeMarkedDone);
         } catch (TaskNotFoundException pnfe) {
+            model.removePreviousCommand();
             assert false : "The target task cannot be missing";
         }
 

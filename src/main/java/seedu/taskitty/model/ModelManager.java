@@ -89,6 +89,10 @@ public class ModelManager extends ComponentManager implements Model {
         historyCommands.push(new TaskManager(taskManager));
     }
     
+    public synchronized void removePreviousCommand() {
+        historyCommands.pop();
+    }
+    
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	taskManager.doneTask(target);

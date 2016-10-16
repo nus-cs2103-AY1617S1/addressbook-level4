@@ -33,6 +33,8 @@ public interface Model {
     
     void saveState();
     
+    void removePreviousCommand();
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
