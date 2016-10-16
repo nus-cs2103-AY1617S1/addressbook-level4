@@ -1,4 +1,4 @@
-# Developer Guide 
+# Developer Guide
 
 ## Table of Contents
 
@@ -77,18 +77,18 @@ This guide contains all necessary information for both new and experienced contr
   > * Depending on your connection speed and server load, it can take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-  
+
 #### Troubleshooting
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
-* Solution: Refresh the project in Eclipse:<br> 
+* Reason: Eclipse fails to recognize new files that appeared due to the Git pull.
+* Solution: Refresh the project in Eclipse:<br>
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
-  
+
 **Problem: Eclipse reports some required libraries missing**
-* Reason: Required libraries may not have been downloaded during the project import. 
+* Reason: Required libraries may not have been downloaded during the project import.
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
- 
+
 ## Design
 
 ### Architecture
@@ -98,7 +98,7 @@ This guide contains all necessary information for both new and experienced contr
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 A quick overview of each component is given below:
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It has two main responsibilities:
+`Main` has only one class called [`MainApp`](../src/main/java/teamfour/tasc/MainApp.java). It has two main responsibilities:
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
@@ -126,7 +126,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact when the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SDforDeleteTask.png" width="800">
 
 >Note how the **`Model`** simply raises a `TaskListChangedEvent` when the TaSc data are changed,
  instead of asking the **`Storage`** to save the updates to the hard disk.
@@ -134,7 +134,7 @@ command `delete 3`.
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the **`Storage`** and **`UI`** without **`Model`** having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
@@ -146,7 +146,7 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/teamfour/tasc/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts, e.g. `CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -154,7 +154,7 @@ and can be loaded using the `UiPartLoader`.
 
 The **`UI`** component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/teamfour/tasc/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The **`UI`** component
@@ -180,7 +180,7 @@ The `HelpWindow` is a window separate from the `MainWindow`. It shows our produc
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/teamfour/tasc/logic/Logic.java)
 
 1. **`Logic`** uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -196,7 +196,7 @@ Given below is the Sequence Diagram for interactions within the **`Logic`** comp
 
 The `Logic` interface allows you to request for any logic-related operation, such as parsing and executing commands, without having to know anything about the implementation of the `LogicManager` class.
 
-Notable APIs
+**Notable APIs**
 
 Return type | Method and Description
 ----------- | ----------------------
@@ -222,7 +222,7 @@ The `Command` class takes input arguments from the `Parser`class, and produces a
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/teamfour/tasc/model/Model.java)
 
 The **`Model`**
 * Stores a `UserPref` object that contains the user's preferences.
@@ -237,7 +237,7 @@ The **`Model`**
 The **`Model`** interface allows you to request for any model-related operations, such as retrieving and modifying tasks
 in the task list, without having to know anything about the implementation of the `ModelManager` class.
 
-Notable APIs
+**Notable APIs**
 
 Return type | Method and Description
 ----------- | ----------------------
@@ -291,6 +291,8 @@ deadline for the task (usually, you would use `Deadline(Date date)` if the task 
 The classes mentioned represents the details of the task. Do note that some
 classes have multiple constructors (for details that are not filled in, use the default constructor)
 
+**Notable APIs**
+
 Methods | Description
 ------- | -----------
 Name(String name) | Name of the task
@@ -316,7 +318,7 @@ The `UniqueTaskList` class provides a task list with no duplicate tasks.
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/teamfour/tasc/storage/Storage.java)
 
 The **`Storage`** component
 * Saves `UserPref` objects in json format and read it back.
@@ -327,7 +329,7 @@ The **`Storage`** component
 
 The **`Storage`** interface allows you to request for any storage-related operations, such as reading and saving the user's preferences and tasklist.
 
-Notable APIs
+**Notable APIs**
 
 Return type | Method and Description
 ----------- | ----------------------
@@ -370,7 +372,7 @@ The `XmlTaskListStorage` is a class to access TaskList data stored as an xml fil
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `teamfour.tasc.commons` package.
 
 ## Implementation
 
@@ -422,13 +424,13 @@ We have two types of tests:
 
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `teamfour.tasc.commons.UrlUtilTest`
    2. _Integration tests_ checking the integration of multiple code units
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `teamfour.tasc.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These tests check multiple code units as well as
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `teamfour.tasc.logic.LogicManagerTest`
 
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
