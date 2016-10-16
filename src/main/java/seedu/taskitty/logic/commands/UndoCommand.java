@@ -27,6 +27,6 @@ public class UndoCommand extends Command {
     }
 
     @Override
-    public void saveState() {}
+    public void saveStateIfNeeded() {}
 
 }

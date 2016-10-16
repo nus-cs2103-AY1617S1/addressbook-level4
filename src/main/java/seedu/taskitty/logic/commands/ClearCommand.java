@@ -22,7 +22,7 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public void saveState() {
+    public void saveStateIfNeeded() {
         model.saveState();
     }
 }

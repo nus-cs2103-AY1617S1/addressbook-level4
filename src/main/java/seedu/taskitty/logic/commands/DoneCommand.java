@@ -50,7 +50,7 @@ public class DoneCommand extends Command {
 
 
     @Override
-    public void saveState() {
+    public void saveStateIfNeeded() {
         model.saveState();
     }
 

@@ -21,6 +21,6 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void saveState() {}
+    public void saveStateIfNeeded() {}
 
 }

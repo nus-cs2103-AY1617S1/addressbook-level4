@@ -42,7 +42,7 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public void saveState() {
+    public void saveStateIfNeeded() {
         model.saveState();
     }
 

@@ -28,7 +28,7 @@ public abstract class Command {
      */
     public abstract CommandResult execute();
     
-    public abstract void saveState();
+    public abstract void saveStateIfNeeded();
     
     /**
      * Provides any needed dependencies to the command.

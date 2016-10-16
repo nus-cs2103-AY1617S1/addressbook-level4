@@ -25,5 +25,5 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void saveState() {}
+    public void saveStateIfNeeded() {}
 }

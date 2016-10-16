@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void saveState() {
+    public void saveStateIfNeeded() {
         model.saveState();
     }
 }
