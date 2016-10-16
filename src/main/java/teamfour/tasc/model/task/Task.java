@@ -34,7 +34,9 @@ public class Task implements ReadOnlyTask {
         this.recurrence = recurrence;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         
-        assert getIsRecurrenceValid();
+        if (!Task.isRecurrenceValid(deadline, period, recurrence)) {
+            this.recurrence = new Recurrence();
+        }
     }
 
     /**
@@ -49,8 +51,12 @@ public class Task implements ReadOnlyTask {
      * Floating task should never have recurrence value.
      * @return
      */
-    private boolean getIsRecurrenceValid() {
-        if (isFloatingTask() && recurrence.hasRecurrence()) {
+    public static boolean isRecurrenceValid(Deadline deadline, Period period, Recurrence recurrence) {
+        assert !CollectionUtil.isAnyNull(deadline, period, recurrence);
+        
+        boolean floatingTask = !deadline.hasDeadline() && !period.hasPeriod();
+
+        if (floatingTask && recurrence.hasRecurrence()) {
             return false;
         }
         
