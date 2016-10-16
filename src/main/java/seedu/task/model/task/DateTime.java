@@ -3,6 +3,7 @@ package seedu.task.model.task;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
@@ -16,21 +17,25 @@ public class DateTime {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date entered should be in a relatively standard form (e.g. in X hours, tomorrow, 20 Jan 2016, 5pm)";
 
-    public final Instant value;
+    public final Optional<Instant> value;
 
     /**
      * Validates given Date and Time entered by the user.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException if given date/time string is invalid.
      */
     public DateTime(String dateTime) throws IllegalValueException {
         assert dateTime != null;
+        if (dateTime.equals("")) {
+            this.value = Optional.empty();
+            return;
+        }
         List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
         if (!isValidDateTime(possibleDates)) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
         
-        this.value = possibleDates.get(0).toInstant();
+        this.value = Optional.of(possibleDates.get(0).toInstant());
     }
 
     /**
@@ -44,7 +49,7 @@ public class DateTime {
 
     @Override
     public String toString() {
-        return value.toString();
+        return (value.isPresent()) ? value.get().toString() : "";
     }
 
     @Override
