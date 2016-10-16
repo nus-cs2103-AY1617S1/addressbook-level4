@@ -1,6 +1,7 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.taskmanager.logic.commands.ListDeadlineCommand.SHORT_COMMAND_WORD;
 
 import org.junit.Test;
 
@@ -13,7 +14,8 @@ public class ListdeadlineCommandTest extends TaskManagerGuiTest {
 	public void ListDeadlineCommand() {
 		commandBox.runCommand("listdeadline");
 		assertListSize(3);
-		
+		commandBox.runCommand(SHORT_COMMAND_WORD);
+        assertListSize(3);
 	}
 	
 	@Test
