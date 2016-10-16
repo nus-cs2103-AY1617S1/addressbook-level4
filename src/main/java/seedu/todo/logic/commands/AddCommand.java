@@ -1,11 +1,6 @@
 package seedu.todo.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.*;
 
 /**
