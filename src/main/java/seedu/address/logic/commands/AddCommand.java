@@ -53,10 +53,28 @@ public class AddCommand extends Command {
                 new Date(date),
                 new Start(start),
                 new End(end),
+                1,
                 new UniqueTagList(tagSet)
         );
         taskCategory = 1;
     }   
+
+    public AddCommand(String name, String date, String end, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Name(name),
+                new Date(date),
+                new Start(""),
+                new End(end),
+                2,
+                new UniqueTagList(tagSet)
+        );
+        taskCategory = 2;
+    }
     
     public AddCommand(String name, Set<String> tags)
             throws IllegalValueException {
@@ -69,23 +87,7 @@ public class AddCommand extends Command {
                 new Date(""),
                 new Start(""),
                 new End(""),
-                new UniqueTagList(tagSet)
-        );
-        taskCategory = 2;
-    }
-
-    
-    public AddCommand(String name, String date, String end, Set<String> tags)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd = new Task(
-                new Name(name),
-                new Date(date),
-                new Start(""),
-                new End(end),
+                3,
                 new UniqueTagList(tagSet)
         );
         taskCategory = 3;
