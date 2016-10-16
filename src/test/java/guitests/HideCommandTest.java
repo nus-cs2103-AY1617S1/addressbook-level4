@@ -10,8 +10,18 @@ import static teamfour.tasc.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 public class HideCommandTest extends AddressBookGuiTest {
 
+    /*
+     * All exceptions for invalid arguments are handled 
+     * so that the program does not crash for the user.
+     * 
+     * - The test methods test one argument type at a time.
+     * - Then tests combined arguments and continuous executions of hide command.
+     */
+    
+    //---------------- Tests individual arguments ----------------------
+    
     @Test
-    public void hide_invalidCommand_fail() {
+    public void hide_invalidCommand_showUsageMessage() {
         commandBox.runCommand("hide");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE));
     }
@@ -117,11 +127,35 @@ public class HideCommandTest extends AddressBookGuiTest {
                 td.learnVim, td.buyBirthdayGift, td.signUpForYoga);
     }
     
+
+    //---------------- Tests combined arguments ----------------------
+    
     @Test
-    public void hide_allParameters() {
+    public void hide_combinedArgs() {
         assertListResult("hide uncomplete tasks, from 1 jan 1998"
                 + " to 1 jan 2020, tag urgent");
     }
+    
+    @Test
+    public void hide_continuously_narrowsList() {
+        assertListResult("hide tag thistagdoesnotexist", 
+                td.submitPrototype, td.submitProgressReport, 
+                td.developerMeeting, td.researchWhales,
+                td.learnVim, td.buyBirthdayGift, td.signUpForYoga);
+        
+        assertListResult("hide tag urgent", td.developerMeeting,
+                td.researchWhales, td.learnVim, 
+                td.buyBirthdayGift, td.signUpForYoga);
+        
+        assertListResult("hide tasks", td.researchWhales,
+                td.learnVim, td.signUpForYoga);
+        
+        assertListResult("hide uncompleted", td.researchWhales);
+        
+        assertListResult("hide completed");
+    }
+    
+    //---------------- Utility methods ----------------------
 
     private void assertListResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
