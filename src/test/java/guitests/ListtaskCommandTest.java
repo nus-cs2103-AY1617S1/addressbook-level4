@@ -12,7 +12,7 @@ public class ListtaskCommandTest extends TaskManagerGuiTest {
 	@Test
 	public void ListTaskCommand() {
 		commandBox.runCommand("listtask");
-		assertListSize(2); 
+		assertListSize(3); 
 	}
 	
 	@Test

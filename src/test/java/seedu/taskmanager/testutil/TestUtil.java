@@ -80,7 +80,10 @@ public class TestUtil {
                     new Item(new ItemType("task"), new Name("This is a task"), new ItemDate(""), new ItemTime(""), new ItemDate(""), new ItemTime(""), new UniqueTagList()),
                     new Item(new ItemType("event"), new Name("2103 exam"), new ItemDate("2018-05-05"), new ItemTime("21:59"), new ItemDate("2022-01-01"), new ItemTime("19:21"), new UniqueTagList()),
                     new Item(new ItemType("deadline"), new Name("Submit report"), new ItemDate(""), new ItemTime(""), new ItemDate("2023-03-03"), new ItemTime("14:21"), new UniqueTagList()),
-                    new Item(new ItemType("task"), new Name("Buy a dozen cartons of milk"), new ItemDate(""), new ItemTime(""), new ItemDate("2016-11-21"), new ItemTime("13:10"), new UniqueTagList())
+                    new Item(new ItemType("task"), new Name("Buy a dozen cartons of milk"), new ItemDate(""), new ItemTime(""), new ItemDate("2016-11-21"), new ItemTime("13:10"), new UniqueTagList()),
+                    new Item(new ItemType("event"), new Name("Java Workshop"), new ItemDate("2017-01-02"), new Time("08:00"), new Date("2017-01-02"), new Time("12:00"), new UniqueTagList()),
+                    new Item(new ItemType("deadline"), new Name("Submit essay assignment"), new ItemDate(""), new ItemTime(""), new ItemDate("2016-11-28"), new ItemTime("21:29"), new UniqueTagList()),
+                    new Item(new ItemType("task"), new Name("Call for the electrician"), new ItemDate(""), new ItemTime(""), new ItemDate(""), new ItemTime(""), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -304,7 +307,7 @@ public class TestUtil {
     /**
      * Returns a copy of the list with items at the specified multiple indexes removed.
      * @param list original list to copy from
-     * @param targetIndexes the array of indexes of the items to be removed
+     * @param targetIndexes the integer array of indexes of the items to be removed
      */
     public static TestItem[] removeItemsFromList(final TestItem[] list, int[] targetIndexes) {
         TestItem[] itemsToRemove = new TestItem[targetIndexes.length];
