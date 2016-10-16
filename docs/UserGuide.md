@@ -145,16 +145,16 @@ find <keyword>...
 _Examples:_
 
 ```java
-> find Dinner
 // returns Dinner on 10/10/16 at 1900hrs (Date)
+> find Dinner
 ```  
 ```java
+// returns CS2010 PS10 on 11 Oct by 1000hrs (Assignment)
 > find "cs2010 ps10"
-// returns CS2010 PS10 on 11 Oct by 1000hrs (Assignment)`
 ```  
 
 ### Finding all tasks containing any tag: `findtag`
-Remeber you can [tag a task](#adding-a-task-add-do) when you are adding a task?
+Remember you can [tag a task](#adding-a-task-add-do) when you are adding a task?
 
 If you have tag a task before, now you can make use of `findtag` command to quickly display all tasks that contain the tags you spcified.
 
@@ -162,22 +162,22 @@ _Format:_
 
 `findtag <tag_name>...`
 
->* The search is case-insensitive
->* The order of the tag keywords does not matter
->* Tasks matching at least one tag keyword will be returned
+>* The search is case-insensitive.
+>* The order of the tag keywords does not matter.
+>* Tasks matching at least one tag keyword will be returned.
 
 _Examples:_
 ```java
-> find date
 // returns Dinner on 10 Oct at 1900hrs (Date,meals)
+> find date
 ```
 ```java
-> find "exam,assignment"
 // returns CS2010 PS10 on 11 Oct by 1000hrs (Assignment)
+> find "exam,assignment"
 ```
 
 ### Editing a task : `edit`
-Perhaps now you have a change of schedule, or you are unsatisfied with the task name you just created. _Mastermind_ allow you to quickly modify the task you created before using `edit` command.
+Perhaps now you have a change of schedule, or you are unsatisfied with the task name you just created. _Mastermind_ allows you to quickly modify the task you created before using `edit` command.
 
 _Format:_
 ```java
@@ -195,7 +195,7 @@ _Examples:_
 ```
 ```java
 // Selects the 1st task and edit the `startDate` to tomorrow 8pm.
-edit 1 startDate/"tomorow 8pm"
+edit 1 startDate/"tomorrow 8pm"
 ```
 
 
@@ -398,7 +398,7 @@ _Example:_
 **Q**: Is my data secure?  
 **A**: Your data is stored locally on your hard drive as a .xml file. Your data is as secure as your computer
 
-**Q**: Where is the <kbd>save</kbd> button or command?
+**Q**: Where is the <kbd>save</kbd> button or command? <br>
 **A**: Mastermind's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 
