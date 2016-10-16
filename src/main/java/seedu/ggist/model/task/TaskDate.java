@@ -51,7 +51,7 @@ public class TaskDate {
      * Returns if a given string is a valid taskDate.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(DATE_VALIDATION_REGEX) && new PrettyTimeParser().parse(test).size() != 0;
+        return test.matches(DATE_VALIDATION_REGEX);
     }
 
     @Override

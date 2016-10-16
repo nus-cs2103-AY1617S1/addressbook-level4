@@ -81,8 +81,8 @@ Examples:
 * `add write diary, tomorrow 1300`
 * `add prepare presentation slides by monday 2pm, high`
 
-> * `[DATE]` and `[TIME]` has to separated by a space.
-> * The comma after `[TASK]` can be replaced with a `by`.
+> * `[DATE]` and `[TIME]` has to separated by a space or an 'at'.<br>
+> * The comma after `[TASK]` can be replaced with a `by` or 'on'.
 
 
 
@@ -103,7 +103,7 @@ Format: `add TASK, START DATE TIME, END DATE TIME, [PRIORITY], [FREQUENCY]`
 
 Examples: 
 * `add dad's birthday celebration, next thurs 1900, next thurs 2100, high`
-* `add going overseas from fri 1pm to next fri 10pm`
+* `add going overseas from fri at 1pm to next fri at 10pm`
 
 > * `[DATE]` and `[TIME]` has to separated by a space. <br>
 > * The comma after `[TASK]` can be replaced with a `from`. <br>

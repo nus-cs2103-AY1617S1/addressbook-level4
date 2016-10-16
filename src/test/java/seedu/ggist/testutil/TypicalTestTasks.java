@@ -14,16 +14,16 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            milk =  new TaskBuilder().withName("go buy milk").withTaskDate(Messages.MESSAGE_NO_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
-            assignment = new TaskBuilder().withName("complete assignment").withTaskDate("12 Oct").withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+            milk =  new TaskBuilder().withName("go buy milk").withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
+            assignment = new TaskBuilder().withName("complete assignment").withStartDate("12 Oct").withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
                     .withEndTime("2359").build();
-            movie = new TaskBuilder().withName("watch movie").withTaskDate("13 Oct").withStartTime("2000").withEndTime("2200").build();
-            jog = new TaskBuilder().withName("go for a jog").withTaskDate(Messages.MESSAGE_NO_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
-            holiday = new TaskBuilder().withName("plan holiday").withTaskDate(Messages.MESSAGE_NO_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
-            dinner = new TaskBuilder().withName("dinner appointment").withTaskDate("14 Oct").withStartTime("2100").withEndTime("2200").build();
+            movie = new TaskBuilder().withName("watch movie").withStartDate("13 Oct").withStartTime("2000").withEndDate("13 Oct").withEndTime("2200").build();
+            jog = new TaskBuilder().withName("go for a jog").withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
+            holiday = new TaskBuilder().withName("plan holiday").withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
+            dinner = new TaskBuilder().withName("dinner appointment").withStartDate("14 Oct").withStartTime("2100").withEndDate("14 Oct").withEndTime("2200").build();
             
             //Manually added
-            dance = new TaskBuilder().withName("dance practice").withTaskDate("15 Oct").withStartTime("1830").withEndTime("2130").build();
+            dance = new TaskBuilder().withName("dance practice").withStartDate("15 Oct").withStartTime("1830").withEndDate("15 Oct").withEndTime("2130").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
