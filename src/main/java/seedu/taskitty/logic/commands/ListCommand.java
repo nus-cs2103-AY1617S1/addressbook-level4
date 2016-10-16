@@ -20,6 +20,6 @@ public class ListCommand extends Command {
 
     @Override
     public void saveState() {
-        
+        model.saveState();
     }
 }

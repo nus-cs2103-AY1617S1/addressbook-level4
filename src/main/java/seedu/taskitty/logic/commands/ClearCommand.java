@@ -23,6 +23,6 @@ public class ClearCommand extends Command {
 
     @Override
     public void saveState() {
-        
+        model.saveState();
     }
 }

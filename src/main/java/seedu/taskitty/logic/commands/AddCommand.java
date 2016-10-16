@@ -78,7 +78,7 @@ public class AddCommand extends Command {
 
     @Override
     public void saveState() {
-        
+        model.saveState();
     }
 
 }

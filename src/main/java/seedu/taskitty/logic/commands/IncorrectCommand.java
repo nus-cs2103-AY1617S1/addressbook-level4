@@ -19,9 +19,7 @@ public class IncorrectCommand extends Command {
     }
 
     @Override
-    public void saveState() {
-        
-    }
+    public void saveState() {}
 
 }
 

@@ -29,7 +29,7 @@ public class FindCommand extends Command {
 
     @Override
     public void saveState() {
-        
+        model.saveState();
     }
 
 }

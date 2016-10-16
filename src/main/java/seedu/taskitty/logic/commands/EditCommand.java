@@ -82,7 +82,7 @@ public class EditCommand extends Command{
 
     @Override
     public void saveState() {
-        
+        model.saveState();
     }
 }
 

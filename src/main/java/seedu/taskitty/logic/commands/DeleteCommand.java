@@ -62,7 +62,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public void saveState() {
-        
+        model.saveState();
     }
 
 }

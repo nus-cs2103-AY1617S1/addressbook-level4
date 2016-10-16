@@ -49,7 +49,7 @@ public class DoneCommand extends Command {
 
     @Override
     public void saveState() {
-        
+        model.saveState();
     }
 
 }
