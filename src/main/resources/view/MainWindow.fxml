@@ -41,7 +41,7 @@
        </AnchorPane>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5, 0.5" VBox.vgrow="ALWAYS">
          <items>
-            <VBox fx:id="tasktList" prefHeight="200.0" prefWidth="400.0">
+            <VBox fx:id="todoList" prefHeight="200.0" prefWidth="400.0">
                <children>
                   <AnchorPane fx:id="todoListPanelPlaceholder" minWidth="400.0" prefHeight="200.0" prefWidth="400.0" />
                </children>
