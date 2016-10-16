@@ -69,7 +69,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)){
+            if (!tasksInList.get(startPosition + i).getTodo().todo.equals(tasks[i].getTodo().todo)){
                 return false;
             }
         }
@@ -100,11 +100,11 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
 
-    public TaskCardHandle navigateTotask(String name) {
+    public TaskCardHandle navigateTotask(String todo) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getTodo().todo.equals(todo)).findAny();
         if (!task.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
+            throw new IllegalStateException("Task not found: " + todo);
         }
 
         return navigateTotask(task.get());
@@ -132,7 +132,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public int gettaskIndex(ReadOnlyTask targettask) {
         List<ReadOnlyTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
-            if(tasksInList.get(i).getName().equals(targettask.getName())){
+            if(tasksInList.get(i).getTodo().equals(targettask.getTodo())){
                 return i;
             }
         }
@@ -166,7 +166,7 @@ public class TaskListPanelHandle extends GuiHandle {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
-    public int getNumberOfPeople() {
+    public int getNumberOfTasks() {
         return getListView().getItems().size();
     }
 }

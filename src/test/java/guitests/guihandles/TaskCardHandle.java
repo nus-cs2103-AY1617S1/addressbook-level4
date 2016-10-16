@@ -9,10 +9,10 @@ import seedu.todoList.model.task.ReadOnlyTask;
  * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#name";
-    private static final String Todo_FIELD_ID = "#Todo";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String TODO_FIELD_ID = "#Todo";
+    private static final String PRIORITY_FIELD_ID = "#Priority";
+    private static final String STARTTIME_FIELD_ID = "#StartTime";
+    private static final String ENDTIME_FIELD_ID = "#EndTime";
 
     private Node node;
 
@@ -25,39 +25,39 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(fieldId, node);
     }
 
-    public String getFullName() {
-        return getTextFromLabel(NAME_FIELD_ID);
-    }
-
     public String getTodo() {
-        return getTextFromLabel(Todo_FIELD_ID);
+        return getTextFromLabel(TODO_FIELD_ID);
     }
 
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+    public String getPriority() {
+        return getTextFromLabel(PRIORITY_FIELD_ID);
     }
 
-    public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+    public String getStartTime() {
+        return getTextFromLabel(STARTTIME_FIELD_ID);
+    }
+
+    public String getEndTime() {
+        return getTextFromLabel(ENDTIME_FIELD_ID);
     }
 
     public boolean isSametask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName) && getPhone().equals(task.getPhone().value)
-                && getEmail().equals(task.getEmail().value) && getTodo().equals(task.getTodo().value);
+        return getTodo().equals(task.getTodo().todo) && getPriority().equals(task.getPriority().priority)
+                && getStartTime().equals(task.getStartTime().startTime) && getEndTime().equals(task.getEndTime().endTime);
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getTodo().equals(handle.getTodo()); //TODO: compare the rest
+            return getTodo().equals(handle.getTodo())
+                    && getPriority().equals(handle.getPriority()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getTodo();
+        return getTodo() + " " + getPriority();
     }
 }

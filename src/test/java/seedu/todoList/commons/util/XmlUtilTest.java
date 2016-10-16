@@ -4,11 +4,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-<<<<<<< HEAD
 import seedu.todoList.model.TaskList;
-=======
-import seedu.todoList.model.TodoList;
->>>>>>> master
+
 import seedu.todoList.storage.XmlSerializableTaskList;
 import seedu.todoList.testutil.TodoListBuilder;
 import seedu.todoList.testutil.TestUtil;
@@ -60,7 +57,7 @@ public class XmlUtilTest {
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableTaskList dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTaskList.class);
         assertEquals(9, dataFromFile.gettaskList().size());
-        assertEquals(0, dataFromFile.getTagList().size());
+        //assertEquals(0, dataFromFile.getTagList().size());
     }
 
     @Test
@@ -91,9 +88,9 @@ public class XmlUtilTest {
         assertEquals((new TaskList(dataToWrite)).toString(),(new TaskList(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        TodoListBuilder builder = new TodoListBuilder(new TaskList());
 
-        dataToWrite = new XmlSerializableTaskList(builder.withTask(TestUtil.generateSampletaskData().get(0)).withTag("Friends").build());
+        TodoListBuilder builder = new TodoListBuilder(new TodoList());
+        dataToWrite = new XmlSerializableTodoList(builder.withTask(TestUtil.generateSampletaskData().get(0)).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskList.class);

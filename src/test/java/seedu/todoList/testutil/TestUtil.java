@@ -66,15 +66,14 @@ public class TestUtil {
     private static Task[] getSampletaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@google.com"), new Todo("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Todo("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Todo("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Todo("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"), new Todo("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"), new Todo("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Phone("9482442"), new Email("anna@google.com"), new Todo("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@mail.com"), new Todo("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@google.com"), new Todo("chicago ave"), new UniqueTagList())
+                    new Task(new Todo("Assignment 11"), new Priority("1"), new StartTime("1400"), new EndTime("1500")),
+                    new Task(new Todo("Assignment 12"), new Priority("2"), new StartTime("1200"), new EndTime("1230")),
+                    new Task(new Todo("Assignment 13"), new Priority("3"), new StartTime("1300"), new EndTime("1330")),
+                    new Task(new Todo("Assignment 14"), new Priority("1"), new StartTime("1400"), new EndTime("1430")),
+                    new Task(new Todo("Assignment 15"), new Priority("2"), new StartTime("1500"), new EndTime("1530")),
+                    new Task(new Todo("Assignment 16"), new Priority("3"), new StartTime("1600"), new EndTime("1630")),
+                    new Task(new Todo("Assignment 17"), new Priority("4"), new StartTime("17000"), new EndTime("1730")),
+
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -135,8 +134,10 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static TaskList generateEmptyTodoList() {
-        return new TaskList(new UniqueTaskList(), new UniqueTagList());
+
+    public static TodoList generateEmptyTodoList() {
+        return new TodoList(new UniqueTaskList());
+
     }
 
     public static XmlSerializableTaskList generateSampleStorageTodoList() {

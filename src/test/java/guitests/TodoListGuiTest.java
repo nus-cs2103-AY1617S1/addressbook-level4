@@ -106,8 +106,8 @@ public abstract class TodoListGuiTest {
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+        int numberOfTask = taskListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTask);
     }
 
     /**

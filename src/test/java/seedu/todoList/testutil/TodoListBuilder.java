@@ -24,10 +24,6 @@ public class TodoListBuilder {
         return this;
     }
 
-    public TodoListBuilder withTag(String tagName) throws IllegalValueException {
-        TodoList.addTag(new Tag(tagName));
-        return this;
-    }
 
     public TaskList build(){
         return TodoList;
