@@ -10,6 +10,10 @@ import seedu.menion.model.tag.UniqueTagList;
  */
 public interface ReadOnlyActivity {
     
+    
+    // Returns activity
+    Activity get();
+    
     // Floating Task parameters
     ActivityName getActivityName();   
     Note getNote();
