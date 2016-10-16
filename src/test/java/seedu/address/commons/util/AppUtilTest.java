@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import jym.manager.commons.util.AppUtil;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
