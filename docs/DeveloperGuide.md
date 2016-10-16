@@ -79,7 +79,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `AddressBookChangedEvent` when the GTD data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -135,7 +135,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the GTD data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -148,7 +148,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the GTD data in xml format and read it back.
 
 ### Common classes
 
@@ -241,7 +241,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Tarydepends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -257,7 +257,7 @@ Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a new task with a description |
-`* * *` | user | add a dealdine to a task I am creating or to a entered task |
+`* * *` | user | add a deadline to a task I am creating or to a entered task |
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | find a task by name | see whether it has been completed or if it is upcoming
 `* * *` | user | I can edit a task | so that I can easily update my task list when changes arise.
@@ -267,16 +267,16 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `GTD` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Delete person
 
 **MSS**
 
 1. User requests to list persons
-2. AddressBook shows a list of persons
+2. GTD shows a list of persons
 3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+4. GTD deletes the person <br>
 Use case ends.
 
 **Extensions**
@@ -287,7 +287,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. GTD shows an error message <br>
   Use case resumes at step 2
 
 {More to be added}
@@ -295,7 +295,7 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 tasks.
+2. Should be able to hold up to 10,000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
@@ -320,7 +320,7 @@ Drawbacks:
 a) Need to refer to calendar to set due dates. 
 
 Asana: Collaborative GTD, a team can set up project tasks and subgroups that divide people into smaller groups based on tasks (Marketing, Engineering, etc).
-a) Can setup individual tasks on personal dashboard, so it also works well for         individual use.
+a) Can setup individual tasks on personal dashboard, so it also works well for individual use.
 b) Can hold conversations with team members.
 c) Can set up team tasks.
 d) Can divide members into smaller groups for better organisation.
