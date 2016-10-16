@@ -3,6 +3,12 @@ package seedu.todo.controllers;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 
+/**
+ * Controller to exit gracefully from the app.
+ * 
+ * @author louietyj
+ *
+ */
 public class ExitController implements Controller {
 
     private static String NAME = "Exit";
