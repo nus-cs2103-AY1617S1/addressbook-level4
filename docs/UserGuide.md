@@ -187,7 +187,15 @@ View all events
 
 ##When you want to delete a deadline, task or event
 
+Delete one deadline, task or event
+
 1. Type `del[ete] INDEX`.
+
+2. Press `Enter`.
+
+Delete 2 deadlines, tasks or events
+
+1. Type `del[ete] INDEX1 INDEX2`.
 
 2. Press `Enter`.
 
@@ -219,7 +227,7 @@ Add Task | `a[dd] t[ask] [n/]NAME`
 Add Deadline | `a[dd] d[eadline] [n/]NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT`
 Add Event | `a[dd] e[vent] [n/]NAME sd/DATE st/TIME ed/DATE et/TIME` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT edt/END_DATE_TIME_TEXT`
 Clear | `cl[ear]`
-Delete | `del[ete] INDEX [MORE_INDEXES]`
+Delete | `del[ete] INDEX [SECOND_INDEX]`
 Find | `f[ind] KEYWORD [MORE_KEYWORDS]`
 List Tasks | `l[ist]t[ask]`
 List Deadlines | `l[ist]d[eadline]`
