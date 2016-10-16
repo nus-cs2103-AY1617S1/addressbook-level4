@@ -54,7 +54,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getWhatNowFilePath() {
         return whatNowStorage.getWhatNowFilePath();
     }
-
+    
     @Override
     public Optional<ReadOnlyWhatNow> readWhatNow() throws DataConversionException, IOException {
         return readWhatNow(whatNowStorage.getWhatNowFilePath());
@@ -88,5 +88,8 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+    
+    
+    // ================ CompletedTask Storage methods ==============================
 
 }

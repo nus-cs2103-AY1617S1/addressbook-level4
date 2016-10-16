@@ -60,7 +60,8 @@ public class UpdateCommand extends Command {
         }
         toUpdate = new Task(
                 new Name(newName),
-                new UniqueTagList(tagSet));   
+                new UniqueTagList(tagSet),
+                null);   
     }
     
     private Set<String> processTag() {
@@ -79,6 +80,7 @@ public class UpdateCommand extends Command {
         if (arg_type.toUpperCase().compareToIgnoreCase("description") == 0) {
             toUpdate.setTags(taskToUpdate.getTags());
         }
+        toUpdate.setStatus(taskToUpdate.getStatus());
     }
     
     
