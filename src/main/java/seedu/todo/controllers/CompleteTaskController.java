@@ -13,6 +13,12 @@ public class CompleteTaskController implements Controller {
     private static String DESCRIPTION = "Marks a task as completed, by listed index";
     private static String COMMAND_SYNTAX = "complete <index>";
     
+    private static final String MESSAGE_SUCCESS = "Task marked as complete!";
+    private static final String MESSAGE_INVALID_ITEM = "Could not mark task as complete: Invalid index provided!";
+    private static final String MESSAGE_CANNOT_COMPLETE_EVENT = "An event cannot be marked as complete!";
+    private static final String MESSAGE_ALREADY_COMPLETED = "Could not mark task as complete: Task is already complete!";
+    private static final String MESSAGE_COULD_NOT_SAVE = "Could not mark task as complete: An error occured while saving the database file.";
+    
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX);
 
@@ -39,31 +45,45 @@ public class CompleteTaskController implements Controller {
         TodoListDB db = TodoListDB.getInstance();
         
         if (calendarItem == null) {
-            // TODO: Show error message in console.
+            renderAndOutput(db, MESSAGE_INVALID_ITEM);
             return;
         }
         
         if (!(calendarItem instanceof Task)) {
-            // TODO: Show error message in console.
+            renderAndOutput(db, MESSAGE_CANNOT_COMPLETE_EVENT);
             return;
         }
         
         Task task = (Task) calendarItem;
         
         if (task.isCompleted()) {
-            // TODO: Show error message in console.
+            renderAndOutput(db, MESSAGE_ALREADY_COMPLETED);
             return;
         }
         
         // Set task as completed
         task.setCompleted();
-        db.save();
+        boolean hadSaved = db.save();
         
+        if (!hadSaved) {
+            task.setIncomplete();
+            renderAndOutput(db, MESSAGE_COULD_NOT_SAVE);
+            return;
+        }
+        
+        // Show success
+        renderAndOutput(db, MESSAGE_SUCCESS);
+    }
+    
+    private void renderAndOutput(TodoListDB db, String message) {
         // Re-render
         IndexView view = UiManager.loadView(IndexView.class);
         view.tasks = db.getAllTasks();
         view.events = db.getAllEvents();
         view.render();
+
+        // Update console message
+        UiManager.updateConsoleMessage(message);
     }
 
 }

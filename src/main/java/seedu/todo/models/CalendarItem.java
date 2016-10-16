@@ -9,5 +9,6 @@ public interface CalendarItem {
 
     public LocalDateTime getCalendarDT();
     public void setCalendarDT(LocalDateTime datetime);
+    public boolean isOver();
 
 }

@@ -85,7 +85,7 @@ public class AddController implements Controller {
             if (parsedResult.get("timeFrom") != null && parsedResult.get("timeFrom")[1] != null)
                 naturalFrom = parsedResult.get("timeFrom")[1];
             if (parsedResult.get("timeTo") != null && parsedResult.get("timeTo")[1] != null)
-                naturalFrom = parsedResult.get("timeTo")[1];
+                naturalTo = parsedResult.get("timeTo")[1];
         }
         if ((naturalFrom == null && naturalTo != null) || (isTask && naturalTo != null)) {
             renderDisambiguation(parsedResult);
