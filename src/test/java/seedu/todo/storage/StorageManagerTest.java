@@ -77,7 +77,7 @@ public class StorageManagerTest {
 
         TodoList todoList = new TodoList(storageManager);
         todoList.add(TASK_TITLE);
-        storageManager.saveTodoList(todoList, storageManager.getTodoListFilePath());
+        storageManager.saveTodoList(todoList);
         List<ImmutableTask> listOfTasks = storageManager.readTodoList("test").get().getTasks();
         assertEquals(listOfTasks.get(0).getTitle(), TASK_TITLE);
     }

@@ -32,7 +32,7 @@ public class MockStorage implements Storage {
     public String getTodoListFilePath() {
         return null;
     }
-
+    
     @Override
     public Optional<ImmutableTodoList> readTodoList() {
         return Optional.ofNullable(list);
@@ -49,10 +49,10 @@ public class MockStorage implements Storage {
     }
 
     @Override
-    public void saveTodoList(ImmutableTodoList todoList, String filePath) {
+    public void saveTodoList(ImmutableTodoList todoList, String newLocation) {
         todoListWasSaved = true;
     }
-    
+
     public void assertTodoListWasSaved() {
         assert todoListWasSaved;
         todoListWasSaved = false;

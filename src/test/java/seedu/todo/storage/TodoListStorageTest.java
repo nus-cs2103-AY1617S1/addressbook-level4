@@ -1,51 +1,58 @@
 package seedu.todo.storage;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static seedu.todo.testutil.TestUtil.isShallowEqual;
+import static org.mockito.Mockito.*;
+
 
 import java.io.IOException;
+import java.util.Collections;
 
+import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.model.ImmutableTodoList;
-import seedu.todo.model.TodoList;
-import seedu.todo.testutil.TestTodoList;
+import seedu.todo.model.task.Task;
 
-public class XmlTodoListStorageTest {
+public class TodoListStorageTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTodoListStorageTest/");
+    @Rule 
+    public MockitoRule mockito = MockitoJUnit.rule();
+
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/TodoListStorageTest/");
     private static final String TEST_DATA_FILE = "TestTodoList.xml";
 
+    @Mock private ImmutableTodoList original;
     private String filePath;
-    private TodoList original;
-    private XmlTodoListStorage xmlTodoListStorage;
-
-    @Before
-    public void setUp() {
-
-        filePath = testFolder.getRoot().getPath() + TEST_DATA_FILE;
-        original = new TodoList(new MockStorage(new TestTodoList()));
-        xmlTodoListStorage = new XmlTodoListStorage(filePath);
-    }
+    private TodoListStorage todoListStorage;
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null ? TEST_DATA_FOLDER + prefsFileInTestDataFolder : null;
     }
 
     private java.util.Optional<ImmutableTodoList> readTodoList(String filePath) throws Exception {
-        return new XmlTodoListStorage(filePath).readTodoList(addToTestDataPathIfNotNull(filePath));
+        return new TodoListStorage(filePath).read(addToTestDataPathIfNotNull(filePath));
+    }
+    
+    @Before
+    public void setUp() {
+        filePath = testFolder.getRoot().getPath() + TEST_DATA_FILE;
+        todoListStorage = new TodoListStorage(filePath);
+        when(original.getTasks()).thenReturn(Collections.emptyList());
     }
 
     @Test
@@ -66,71 +73,61 @@ public class XmlTodoListStorageTest {
     }
 
     @Test
-    public void testEmptySaveTodoList() throws Exception {
-        xmlTodoListStorage.saveTodoList(original, filePath);
-        ImmutableTodoList readBack = xmlTodoListStorage.readTodoList(filePath).get();
+    public void testEmptySave() throws Exception {
+        todoListStorage.save(original);
+        ImmutableTodoList readBack = todoListStorage.read(filePath).get();
         assertTrue(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
 
     @Test
     public void testDifferentTodoList() throws Exception {
-        xmlTodoListStorage.saveTodoList(original, filePath);
-        ImmutableTodoList readBack = xmlTodoListStorage.readTodoList(filePath).get();
-
-        original.add("test");
+        todoListStorage.save(original);
+        ImmutableTodoList readBack = todoListStorage.read(filePath).get();
+        when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
         assertFalse(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
 
     @Test
-    public void testReadAndSaveTodoList() throws Exception {
-        original.add("test");
-
+    public void testReadAndSave() throws Exception {
+        when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
         // Save in new file and read back
-        xmlTodoListStorage.saveTodoList(original, filePath);
-        ImmutableTodoList readBack = xmlTodoListStorage.readTodoList(filePath).get();
+        todoListStorage.save(original);
+        ImmutableTodoList readBack = todoListStorage.read(filePath).get();
         assertTrue(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
 
     @Test
-    public void testUpdateAndSaveTodoList() throws Exception {
-        original.add("test");
-
+    public void testUpdateAndSave() throws Exception {
         // Save in new file
-        xmlTodoListStorage.saveTodoList(original, filePath);
-
+        todoListStorage.save(original);
+        
         // Modify data, overwrite exiting file, and read back
-        original.add("test1");
-        xmlTodoListStorage.saveTodoList(original, filePath);
+        when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
+        todoListStorage.save(original);
 
-        ImmutableTodoList readBack = xmlTodoListStorage.readTodoList(filePath).get();
+        ImmutableTodoList readBack = todoListStorage.read(filePath).get();
         assertTrue(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
 
     @Test
-    public void testReadAndSaveTodoListWithoutPath() throws Exception {
-        original.add("test");
-
+    public void testReadAndSaveWithoutPath() throws Exception {
         // Save in new file
-        xmlTodoListStorage.saveTodoList(original);
+        todoListStorage.save(original);
 
-        ImmutableTodoList readBack = xmlTodoListStorage.readTodoList().get();
+        ImmutableTodoList readBack = todoListStorage.read().get();
         assertTrue(isShallowEqual(original.getTasks(), readBack.getTasks()));
-    }
-
-    private void saveTodoList(ImmutableTodoList addressBook, String filePath) throws IOException {
-        new XmlTodoListStorage(filePath).saveTodoList(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
     public void testSaveNullTodoList() throws IOException {
         thrown.expect(AssertionError.class);
-        saveTodoList(null, "SomeFile.xml");
+        todoListStorage.save(null);
     }
 
     @Test
-    public void testSaveTodoListNullFilePath() throws IOException {
+    public void testSaveNullFilePath() throws IOException {
         thrown.expect(AssertionError.class);
-        saveTodoList(original, null);
+        todoListStorage.save(original, null);
     }
 
 }

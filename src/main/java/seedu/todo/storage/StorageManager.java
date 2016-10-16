@@ -27,7 +27,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     public StorageManager(String todoListFilePath, String userPrefsFilePath) {
-        this(new XmlTodoListStorage(todoListFilePath), new UserPrefsStorage(userPrefsFilePath));
+        this(new TodoListStorage(todoListFilePath), new UserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -46,49 +46,42 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public String getTodoListFilePath() {
-        return todoListStorage.getTodoListFilePath();
+        return todoListStorage.getLocation();
     }
-
+    
     @Override
     public Optional<ImmutableTodoList> readTodoList() {
-        return readTodoList(todoListStorage.getTodoListFilePath());
+        return readTodoList(todoListStorage.getLocation());
     }
 
     @Override
     public Optional<ImmutableTodoList> readTodoList(String filePath) {
         logger.fine("Attempting to read data from file: " + filePath);
-        
+
         Optional<ImmutableTodoList> todoListOptional = Optional.empty();
-        
+
         try {
-            todoListOptional = todoListStorage.readTodoList();
+            todoListOptional = todoListStorage.read();
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TodoList");
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty TodoList");
         }
-        
+
         return todoListOptional;
     }
 
     @Override
     public void saveTodoList(ImmutableTodoList todoList) {
-        try {
-            todoListStorage.saveTodoList(todoList);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
+        saveTodoList(todoList, todoListStorage.getLocation());
     }
 
     @Override
-    public void saveTodoList(ImmutableTodoList todoList, String filePath) {
-        logger.fine("Attempting to write to data file: " + filePath);
-        
+    public void saveTodoList(ImmutableTodoList todoList, String newLocation) {
         try {
-            todoListStorage.saveTodoList(todoList, filePath);
+            todoListStorage.save(todoList, newLocation);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-
 }

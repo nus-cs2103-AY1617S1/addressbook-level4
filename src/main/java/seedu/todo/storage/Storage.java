@@ -10,25 +10,19 @@ import seedu.todo.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends TodoListStorage {
+public interface Storage {
 
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
-    @Override
     String getTodoListFilePath();
 
-    @Override
     Optional<ImmutableTodoList> readTodoList();
-
-    @Override
+    
     Optional<ImmutableTodoList> readTodoList(String filePath);
 
-    @Override
     void saveTodoList(ImmutableTodoList todoList);
 
-    @Override
-    void saveTodoList(ImmutableTodoList todoList, String filePath);
-
+    void saveTodoList(ImmutableTodoList todoList, String newLocation);
 }
