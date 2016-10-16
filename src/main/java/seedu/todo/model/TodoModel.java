@@ -71,8 +71,9 @@ public interface TodoModel {
 
     /**
      * Changes the save path of the TodoList storage 
+     * @throws ValidationException if the path is not valid
      */
-    public void save(String location);
+    public void save(String location) throws ValidationException;
 
     /**
      * Loads a TodoList from the path. 

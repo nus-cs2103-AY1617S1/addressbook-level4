@@ -34,8 +34,9 @@ import seedu.todo.storage.MoveableStorage;
  */
 public class TodoList implements ImmutableTodoList, TodoModel {
     private static final String INDEX_OUT_OF_BOUND_FORMAT = "There is no task no. %d";
-    private static final String INCORRECT_FILE_FORMAT_ERROR = "The file doesn't seem to be in the correct format.";
+    private static final String INCORRECT_FILE_FORMAT_FORMAT = "%s doesn't seem to be in the correct format.";
     private static final String FILE_NOT_FOUND_FORMAT = "%s does not seem to exist.";
+    private static final String FILE_SAVE_ERROR_FORMAT = "Couldn't save file: %s";
     
     private ObservableList<Task> tasks = FXCollections.observableArrayList(Task::getObservableProperties);
     private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
@@ -52,10 +53,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         
         try {
             todoListOptional = storage.read();
-        } catch (DataConversionException e) {
-            raiseStorageEvent(TodoList.INCORRECT_FILE_FORMAT_ERROR, e);
-            todoListOptional = Optional.empty();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | DataConversionException e) {
             todoListOptional = Optional.empty();
         }
 
@@ -161,21 +159,23 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     }
 
     @Override
-    public void save(String location) {
+    public void save(String location) throws ValidationException {
         try {
             storage.save(this, location);
         } catch (IOException e) {
-            
+            String message = String.format(TodoList.FILE_SAVE_ERROR_FORMAT, e.getMessage());
+            throw new ValidationException(message);
         }
     }
 
     @Override
     public void load(String location) throws ValidationException {
-        Optional<ImmutableTodoList> todoList = null;
+        Optional<ImmutableTodoList> todoList;
+        
         try {
             todoList = storage.read(location);
         } catch (DataConversionException e) {
-            throw new ValidationException(TodoList.INCORRECT_FILE_FORMAT_ERROR);
+            throw new ValidationException(TodoList.INCORRECT_FILE_FORMAT_FORMAT);
         } catch (FileNotFoundException e) {
             String message = String.format(TodoList.FILE_NOT_FOUND_FORMAT, location);
             throw new ValidationException(message);
