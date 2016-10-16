@@ -28,7 +28,7 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " d/(?<description>[^/]+)"
+                    + "( d/(?<description>[^/]+)){0,1}"
                     + "( date/(?<date>[^/]+) time/(?<time>[^/]+)){0,2}"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
@@ -38,6 +38,13 @@ public class Parser {
                     + "( d/(?<description>[^/]+)){0,1}"
                     + "( date/(?<date>[^/]+) time/(?<time>[^/]+)){0,2}"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+//    private static final Pattern USA_DATE_FORMAT = 
+//            Pattern.compile("(?<MM>(0?[1-9]|1[012]))"
+//                            	+ "\\."
+//                            	+ "(?<DD>(0?[1-9]|[12][0-9]|3[01]))"
+//                            	+ "\\."
+//                            	+ "(?<YY>\\d{2})");
     
     public Parser() {}
 
@@ -97,22 +104,41 @@ public class Parser {
      */
     private Command prepareAdd(String args){
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        
+        
+        
+    	com.joestelmach.natty.Parser natty = new com.joestelmach.natty.Parser();
+    	List<java.util.Date> dateList;
+    	
+    	// NPE could be thrown here -> floating task no date no time
+    	if (matcher.group("date") != null && matcher.group("time") != null){
+    		dateList = natty.parse(matcher.group("date") + " " + matcher.group("time")).get(0).getDates();
+    	}
+    	else {
+    		// return empty list
+    		dateList = new ArrayList <java.util.Date> ();
+    	}
+    	
         try {
             return new AddCommand(
                     matcher.group("name"),
                     matcher.group("description"),
-                    matcher.group("date"),
-                    matcher.group("time"),
+                    dateList,
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    // pass into Date constructor to valiDate; same for Time
+    // returns 0 Date: 
+	
 
     /**
      * Extracts the new person's tags from the add command's tag arguments string.
