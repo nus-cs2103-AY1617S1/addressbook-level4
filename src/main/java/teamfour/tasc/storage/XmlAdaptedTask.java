@@ -37,13 +37,9 @@ public class XmlAdaptedTask {
     @XmlElement
     private String endTime = "00/00/0000 00:00:00";
     @XmlElement
-    private String deadlinePattern = "NONE";
+    private String recurrencePattern = "NONE";
     @XmlElement
-    private int deadlineFrequency = 0;
-    @XmlElement
-    private String periodPattern = "NONE";
-    @XmlElement
-    private int periodFrequency = 0;
+    private int recurrenceFrequency = 0;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -81,14 +77,10 @@ public class XmlAdaptedTask {
         	endTime = sdf.format(new Date(period.getEndTime().getTime()));
         }
         
-        Recurrence deadlineRecurrence = source.getDeadlineRecurrence(); 
-        deadlinePattern = deadlineRecurrence.getPattern().name();
-        deadlineFrequency = deadlineRecurrence.getFrequency();
-        
-        Recurrence periodRecurrence = source.getPeriodRecurrence();
-        periodPattern = periodRecurrence.getPattern().name();
-        periodFrequency = periodRecurrence.getFrequency();
-        
+        Recurrence recurrence = source.getRecurrence(); 
+        recurrencePattern = recurrence.getPattern().name();
+        recurrenceFrequency = recurrence.getFrequency();
+                
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -114,13 +106,10 @@ public class XmlAdaptedTask {
         final Period period = (this.startTime.equals("00/00/0000 00:00:00") || 
                 this.endTime.equals("00/00/0000 00:00:00")) ? new Period() : 
         		    new Period(sdf.parse(this.startTime), sdf.parse(this.endTime));
-        final Recurrence deadlineRecurrence = this.deadlinePattern.equals("NONE") ? 
-                new Recurrence() : new Recurrence(Recurrence.Pattern.valueOf(this.deadlinePattern), 
-                        this.deadlineFrequency);
-        final Recurrence periodRecurrence = this.periodPattern.equals("NONE") ? 
-                new Recurrence() : new Recurrence(Recurrence.Pattern.valueOf(this.periodPattern), 
-                        this.periodFrequency);
+        final Recurrence recurrence = this.recurrencePattern.equals("NONE") ? 
+                new Recurrence() : new Recurrence(Recurrence.Pattern.valueOf(this.recurrencePattern), 
+                        this.recurrenceFrequency);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, complete, deadline, period, deadlineRecurrence, periodRecurrence, tags);
+        return new Task(name, complete, deadline, period, recurrence, tags);
     }
 }

@@ -45,25 +45,21 @@ public class UpdateCommand extends Command {
     public static final String KEYWORD_DEADLINE = "by";
     public static final String KEYWORD_PERIOD_START_TIME = "from";
     public static final String KEYWORD_PERIOD_END_TIME = "to";
-    public static final String KEYWORD_DEADLINE_RECURRENCE = "repeatdeadline";
-    public static final String KEYWORD_PERIOD_RECURRENCE = "repeattime";
+    public static final String KEYWORD_RECURRENCE = "repeat";
     public static final String KEYWORD_TAG = "tag";
 
     public static final String KEYWORD_REMOVE_DEADLINE = PREFIX_REMOVE + KEYWORD_DEADLINE;
     public static final String KEYWORD_REMOVE_START_TIME = PREFIX_REMOVE
             + KEYWORD_PERIOD_START_TIME;
     public static final String KEYWORD_REMOVE_END_TIME = PREFIX_REMOVE + KEYWORD_PERIOD_END_TIME;
-    public static final String KEYWORD_REMOVE_DEADLINE_RECURRENCE = PREFIX_REMOVE
-            + KEYWORD_DEADLINE_RECURRENCE;
-    public static final String KEYWORD_REMOVE_PERIOD_RECURRENCE = PREFIX_REMOVE
-            + KEYWORD_PERIOD_RECURRENCE;
+    public static final String KEYWORD_REMOVE_RECURRENCE = PREFIX_REMOVE
+            + KEYWORD_RECURRENCE;
     public static final String KEYWORD_REMOVE_TAG = PREFIX_REMOVE + KEYWORD_TAG;
 
     public static final String[] VALID_KEYWORDS = { COMMAND_WORD, KEYWORD_NAME, KEYWORD_DEADLINE,
-            KEYWORD_PERIOD_START_TIME, KEYWORD_PERIOD_END_TIME, KEYWORD_DEADLINE_RECURRENCE,
-            KEYWORD_PERIOD_RECURRENCE, KEYWORD_TAG, KEYWORD_REMOVE_DEADLINE,
-            KEYWORD_REMOVE_START_TIME, KEYWORD_REMOVE_END_TIME, KEYWORD_REMOVE_DEADLINE_RECURRENCE,
-            KEYWORD_REMOVE_PERIOD_RECURRENCE, KEYWORD_REMOVE_TAG };
+            KEYWORD_PERIOD_START_TIME, KEYWORD_PERIOD_END_TIME, KEYWORD_RECURRENCE, KEYWORD_TAG,
+            KEYWORD_REMOVE_DEADLINE, KEYWORD_REMOVE_START_TIME, KEYWORD_REMOVE_END_TIME,
+            KEYWORD_REMOVE_RECURRENCE, KEYWORD_REMOVE_TAG };
 
     public final int targetIndex;
 
@@ -71,14 +67,12 @@ public class UpdateCommand extends Command {
     public final String updatedBy;
     public final String updatedStartTime;
     public final String updatedEndTime;
-    public final String updatedDeadlineRecurrence;
-    public final String updatedPeriodRecurrence;
+    public final String updatedRecurrence;
     public final Set<String> tagsToAdd;
 
     public final boolean removeDeadline;
     public final boolean removePeriod;
-    public final boolean removeDeadlineRecurrence;
-    public final boolean removePeriodRecurrence;
+    public final boolean removeRecurrence;
     public final Set<String> tagsToRemove;
 
     private ReadOnlyTask oldReadOnlyTask;
@@ -93,9 +87,8 @@ public class UpdateCommand extends Command {
      * @param targetIndex of the task to update
      */
     public UpdateCommand(int targetIndex, String newName, String newBy, String newStartTime,
-            String newEndTime, String newDeadlineRecurrence, String newPeriodRecurrence,
-            Set<String> newTags, boolean removeDeadline, boolean removePeriod,
-            boolean removeDeadlineRecurrence, boolean removePeriodRecurrence,
+            String newEndTime, String newRecurrence, Set<String> newTags, 
+            boolean removeDeadline, boolean removePeriod, boolean removeRecurrence,
             Set<String> deleteTags) {
         this.targetIndex = targetIndex;
 
@@ -103,14 +96,12 @@ public class UpdateCommand extends Command {
         this.updatedBy = newBy;
         this.updatedStartTime = newStartTime;
         this.updatedEndTime = newEndTime;
-        this.updatedDeadlineRecurrence = newDeadlineRecurrence;
-        this.updatedPeriodRecurrence = newPeriodRecurrence;
+        this.updatedRecurrence = newRecurrence;
         this.tagsToAdd = newTags;
 
         this.removeDeadline = removeDeadline;
         this.removePeriod = removePeriod;
-        this.removeDeadlineRecurrence = removeDeadlineRecurrence;
-        this.removePeriodRecurrence = removePeriodRecurrence;
+        this.removeRecurrence = removeRecurrence;
         this.tagsToRemove = deleteTags;
     }
 
@@ -169,8 +160,7 @@ public class UpdateCommand extends Command {
         Complete newComplete = oldTask.getComplete();
         Deadline newDeadline = oldTask.getDeadline();
         Period newPeriod = oldTask.getPeriod();
-        Recurrence newDeadlineRecurrence = oldTask.getDeadlineRecurrence();
-        Recurrence newPeriodRecurrence = oldTask.getPeriodRecurrence();
+        Recurrence newRecurrence = oldTask.getRecurrence();
         UniqueTagList newTags = oldTask.getTags();
 
         // adding new details
@@ -199,11 +189,8 @@ public class UpdateCommand extends Command {
             newPeriod = new Period(newPeriod.getStartTime(),
                     CommandHelper.convertStringToDate(this.updatedEndTime));
         }
-        if (this.updatedDeadlineRecurrence != null) {
-            newDeadlineRecurrence = CommandHelper.getRecurrence(this.updatedDeadlineRecurrence);
-        }
-        if (this.updatedPeriodRecurrence != null) {
-            newPeriodRecurrence = CommandHelper.getRecurrence(this.updatedPeriodRecurrence);
+        if (this.updatedRecurrence != null) {
+            newRecurrence = CommandHelper.getRecurrence(this.updatedRecurrence);
         }
         if (this.tagsToAdd != null) {
             for (String updatedTag : this.tagsToAdd) {
@@ -223,11 +210,8 @@ public class UpdateCommand extends Command {
         if (this.removePeriod) {
             newPeriod = new Period();
         }
-        if (this.removeDeadlineRecurrence) {
-            newDeadlineRecurrence = new Recurrence();
-        }
-        if (this.removePeriodRecurrence) {
-            newPeriodRecurrence = new Recurrence();
+        if (this.removeRecurrence) {
+            newRecurrence = new Recurrence();
         }
         if (this.tagsToRemove != null) {
             for (String tagToRemove : this.tagsToRemove) {
@@ -240,7 +224,6 @@ public class UpdateCommand extends Command {
             }
         }
 
-        return new Task(newName, newComplete, newDeadline, newPeriod, newDeadlineRecurrence,
-                newPeriodRecurrence, newTags);
+        return new Task(newName, newComplete, newDeadline, newPeriod, newRecurrence, newTags);
     }
 }
