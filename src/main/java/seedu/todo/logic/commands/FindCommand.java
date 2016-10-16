@@ -6,13 +6,13 @@ package seedu.todo.logic.commands;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
 import seedu.todo.model.task.ImmutableTask;
 import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 public class FindCommand extends BaseCommand {
     private static final String VERB = " result(s) found";
@@ -28,12 +28,13 @@ public class FindCommand extends BaseCommand {
 
     @Override
     public String getCommandName() {
-        return null;
+        return "find";
 }
 
     @Override
     public List<CommandSummary> getCommandSummary() {
-        return null;
+        return ImmutableList.of(new CommandSummary("Find a task", getCommandName(), 
+                getArgumentSummary()));
     }
     @Override
     public CommandResult execute() throws ValidationException {
