@@ -151,35 +151,29 @@ public class Parser {
     }
 
     /**
-     * Parses a raw String of task type into correct task type.
-     * Example: UNCOMPLETEDDD many tasks i have -> uncompleted task
-     * @param typeString Raw task type string
-     * @return correct task type string
+     * Takes in a string and return null if it is empty,
+     * or returns the string itself otherwise.
+     * 
+     * @param string the string to check
+     * @return null if string is null or empty, the string itself otherwise
      */
-    private String parseTaskTypeString(String typeString) {
-        String[] typeWords = {"uncompleted", "completed", "task", "event",
-                            "floating", "normal", "timeslot", "free time"};
-        typeString = typeString.toLowerCase();
-        StringBuffer strBuf = new StringBuffer();
-        for (String word : typeWords) {
-            if (typeString.contains(word)) {
-                typeString = typeString.replaceFirst(word, "");
-                strBuf.append(word);
-                strBuf.append(" ");
-            }
-        }
-        return strBuf.toString();
+    private String setToNullIfIsEmptyString(String string) {
+        if (string == null || string.equals(""))
+            return null;
+        return string;
     }
-
+    
     /**
-     * Parses arguments in the context of the list task command.
+     * Parses the command string in the context of the list task command.
      *
-     * @param args full command args string
+     * @param command the full command string
      * @return the prepared command
      */
-    private Command prepareList(String args){
-        // No parameter, use defaults
-        if (args.trim().equals("list")) {
+    private Command prepareList(String command){
+        assert command.isEmpty() == false;
+        
+        // No arguments, use default 'list' command
+        if (command.trim().equals("list")) {
             try {
                 return new ListCommand();
             } catch (IllegalValueException ive) {
@@ -188,26 +182,14 @@ public class Parser {
         }
 
         final KeywordParser parser = new KeywordParser("list", "by", "from", "to", "tag", "sort");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
-        String type = parsed.get("list");
-        String deadline = parsed.get("by");
-        String startTime = parsed.get("from");
-        String endTime = parsed.get("to");
-        String tags = parsed.get("tag");
-        String sortingOrder = parsed.get("sort");
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
+        String type = setToNullIfIsEmptyString(parsed.get("list"));
+        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
+        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
+        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
+        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
+        String sortingOrder = setToNullIfIsEmptyString(parsed.get("sort"));
 
-        type = parseTaskTypeString(type);
-
-        if (type != null && type.equals(""))
-            type = null;
-        if (deadline != null && deadline.equals(""))
-            deadline = null;
-        if (startTime != null && startTime.equals(""))
-            startTime = null;
-        if (endTime != null && endTime.equals(""))
-            endTime = null;
-        if (sortingOrder != null && sortingOrder.equals(""))
-            sortingOrder = null;
         if(tags == null){
             tags = "";
         }
@@ -226,37 +208,27 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the show command.
+     * Parses the command string in the context of the show command.
      *
-     * @param args full command args string
+     * @param command the full command string
      * @return the prepared command
      */
-    private Command prepareShow(String args){
-        if (args.trim().equals("show")) {
+    private Command prepareShow(String command){
+        assert command.isEmpty() == false;
+        
+        if (command.trim().equals("show")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
 
         final KeywordParser parser = new KeywordParser("show", "on", "by", "from", "to", "tag");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
-        String type = parsed.get("show");
-        String date = parsed.get("on");
-        String deadline = parsed.get("by");
-        String startTime = parsed.get("from");
-        String endTime = parsed.get("to");
-        String tags = parsed.get("tag");
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
+        String type = setToNullIfIsEmptyString(parsed.get("show"));
+        String date = setToNullIfIsEmptyString(parsed.get("on"));
+        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
+        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
+        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
+        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
 
-        type = parseTaskTypeString(type);
-
-        if (type != null && type.equals(""))
-            type = null;
-        if (date != null && date.equals(""))
-            date = null;
-        if (deadline != null && deadline.equals(""))
-            deadline = null;
-        if (startTime != null && startTime.equals(""))
-            startTime = null;
-        if (endTime != null && endTime.equals(""))
-            endTime = null;
         if(tags == null){
             tags = "";
         }
@@ -275,37 +247,27 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the hide command.
+     * Parses the command string in the context of the hide command.
      *
-     * @param args full command args string
+     * @param command the full command string
      * @return the prepared command
      */
-    private Command prepareHide(String args){
-        if (args.trim().equals("hide")) {
+    private Command prepareHide(String command){
+        assert command.isEmpty() == false;
+        
+        if (command.trim().equals("hide")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE));
         }
 
         final KeywordParser parser = new KeywordParser("hide", "on", "by", "from", "to", "tag");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
-        String type = parsed.get("hide");
-        String date = parsed.get("on");
-        String deadline = parsed.get("by");
-        String startTime = parsed.get("from");
-        String endTime = parsed.get("to");
-        String tags = parsed.get("tag");
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
+        String type = setToNullIfIsEmptyString(parsed.get("hide"));
+        String date = setToNullIfIsEmptyString(parsed.get("on"));
+        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
+        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
+        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
+        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
 
-        type = parseTaskTypeString(type);
-
-        if (type != null && type.equals(""))
-            type = null;
-        if (date != null && date.equals(""))
-            date = null;
-        if (deadline != null && deadline.equals(""))
-            deadline = null;
-        if (startTime != null && startTime.equals(""))
-            startTime = null;
-        if (endTime != null && endTime.equals(""))
-            endTime = null;
         if(tags == null){
             tags = "";
         }
