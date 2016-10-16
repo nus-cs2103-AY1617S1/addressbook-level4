@@ -161,7 +161,7 @@ public class ModelManager extends ComponentManager implements Model {
 		 */
 		private boolean checkTags(ReadOnlyTask task) {
 			return nameKeyWords.stream()
-			.filter(keyword -> StringUtil.containsIgnoreCase(task.getTags().toString(), keyword))
+			.filter(keyword -> StringUtil.tagsContainsIgnoreCase(task.getTags(), keyword))
 			.findAny()
 			.isPresent();
 		}
