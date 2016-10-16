@@ -256,11 +256,11 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            String[] typeWords = type.split(" ");
-            String taskType = task.getAsType();
+            String[] typeWords = type.toLowerCase().split(" ");
+            String taskType = (" " + task.getAsTypeKeywords()).toLowerCase();
             
             for (String typeWord : typeWords) {
-                if (!StringUtil.containsIgnoreCase(taskType, typeWord))
+                if (!taskType.contains(" " + typeWord))
                     return false;
             }
             return true;

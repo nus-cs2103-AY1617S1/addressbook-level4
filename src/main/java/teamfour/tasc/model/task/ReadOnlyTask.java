@@ -1,5 +1,7 @@
 package teamfour.tasc.model.task;
 
+import java.util.Date;
+
 import teamfour.tasc.model.tag.UniqueTagList;
 
 /**
@@ -37,28 +39,45 @@ public interface ReadOnlyTask {
     }
     
     /**
-     * Formats the task as type from its attributes.
+     * Formats the task as keywords indicating its type from its attributes.
      */
-    default String getAsType() {
-        String typeResult = "";
+    default String getAsTypeKeywords() {
+        Date now = new Date();
+        final StringBuilder builder = new StringBuilder();
+        builder.append("All");
         
         if (getComplete().isCompleted()) {
-            typeResult = typeResult.concat("Completed ");
+            builder.append(" Completed");
         } else {
-            typeResult = typeResult.concat("Uncompleted ");
+            builder.append(" Uncompleted Incompleted");
+        }
+        
+        if (getDeadlineRecurrence().hasRecurrence() ||
+                getPeriodRecurrence().hasRecurrence()) {
+            builder.append(" Recurring");
         }
         
         if (getDeadline().hasDeadline() && getPeriod().hasPeriod()) {
-            typeResult = typeResult.concat("Task with Allocated Timeslot ");
+            if (getDeadline().getDeadline().before(now))
+                builder.append(" Overdue");
+            builder.append(" Tasks Allocated Timeslot");
+            
         } else if (getDeadline().hasDeadline()) {
-            typeResult = typeResult.concat("Normal Task ");
+            if (getDeadline().getDeadline().before(now))
+                builder.append(" Overdue");
+            builder.append(" Normal Tasks");
+            
         } else if (getPeriod().hasPeriod()) {
-            typeResult = typeResult.concat("Event ");
+            if (getPeriod().getEndTime().before(now))
+                builder.append(" Overdue");
+            builder.append(" Events");
+            
         } else {
-            typeResult = typeResult.concat("Floating Task ");
+            builder.append(" Floating Tasks");
         }
+        System.out.println(builder.toString());
         
-        return typeResult;
+        return builder.toString();
     }
 
     /**
