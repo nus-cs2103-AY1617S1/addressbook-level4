@@ -49,23 +49,23 @@ public class UpdateCommand extends Command{
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
 
         String description;
-        String time;
         String priority;
-        String date;
+        String timeStart;
+        String timeEnd;
         UniqueTagList tags;
 
 			switch(property){
 				case "description":
 					description = info;
-					time = taskToUpdate.getTime().toString();
-					date = taskToUpdate.getDate().toString();
+					timeStart = taskToUpdate.getTimeStart().toString();
+					timeEnd = taskToUpdate.getTimeEnd().toString();
 					priority = taskToUpdate.getPriority().toString();
 					tags =taskToUpdate.getTags();
 					break;
-				case "time":
-					time = info;
+				case "start":
+					timeStart = info;
 					description = taskToUpdate.getDescription().toString();
-					date = taskToUpdate.getDate().toString();
+					timeEnd = taskToUpdate.getTimeEnd().toString();
 					priority = taskToUpdate.getPriority().toString();
 					tags =taskToUpdate.getTags();
 					new DeleteCommand(targetIndex).execute();
@@ -73,15 +73,15 @@ public class UpdateCommand extends Command{
 				case "priority":
 					priority = info;
 					description = taskToUpdate.getDescription().toString();
-					date = taskToUpdate.getDate().toString();
-					time = taskToUpdate.getTime().toString();
+					timeEnd = taskToUpdate.getTimeEnd().toString();
+					timeStart = taskToUpdate.getTimeStart().toString();
 					tags =taskToUpdate.getTags();
 					break;
-				case "date":
-					date = info;
+				case "end":
+					timeEnd = info;
 					description = taskToUpdate.getDescription().toString();
 					priority = taskToUpdate.getPriority().toString();
-					time = taskToUpdate.getTime().toString();
+					timeStart = taskToUpdate.getTimeStart().toString();
 					tags =taskToUpdate.getTags();
 					break;
 				default: return new CommandResult(MESSAGE_EDIT_FAIL);
@@ -92,7 +92,7 @@ public class UpdateCommand extends Command{
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description, priority, time, date, tags, targetIndex-1);
+			add = new AddCommand(description, priority, timeStart, timeEnd, tags, targetIndex-1);
 			add.model = model;
 			add.insert();
 		} catch (IllegalValueException e) {

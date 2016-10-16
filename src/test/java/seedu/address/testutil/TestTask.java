@@ -10,8 +10,8 @@ public class TestTask implements ReadOnlyTask {
 
     private Description description;
     private Priority priority;
-    private Date date;
-    private Time time;
+    private Time timeStart;
+    private Time timeEnd;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -26,12 +26,12 @@ public class TestTask implements ReadOnlyTask {
         this.priority = priority;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimeStart(Time time) {
+        this.timeStart = time;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setTimeEnd(Time time) {
+        this.timeEnd = time;
     }
 
     @Override
@@ -40,13 +40,13 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Time getTime() {
-        return time;
+    public Time getTimeStart() {
+        return timeStart;
     }
 
     @Override
-    public Date getDate() {
-        return date;
+    public Time getTimeEnd() {
+        return timeEnd;
     }
 
     @Override
@@ -68,8 +68,8 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getDescription().fullDescription + " ");
         sb.append("pr/" + this.getPriority().toString() + " ");
-        sb.append("time/" + this.getTime().toString() + " ");
-        sb.append("a/" + this.getDate().toString() + " ");
+        sb.append("start/" + this.getTimeStart().toString() + " ");
+        sb.append("end/" + this.getTimeEnd().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

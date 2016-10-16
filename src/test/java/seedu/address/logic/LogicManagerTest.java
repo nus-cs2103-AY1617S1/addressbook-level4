@@ -20,10 +20,10 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 import seedu.address.storage.StorageManager;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -161,22 +161,19 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] pr/high time/11:11 d/11.11.2016", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+                "add []\\[;] pr/high start/11:11 end/11:11", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/not_high time/11:11 d/11.11.2016", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+                "add Valid Name pr/not_high start/11:11 end/11:11", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low time/111:11 d/11.11.2016", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low start/111:11 end/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low time/11:111 d/11.11.2016", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low start/11:111 end/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low time/111:111 d/11.11.2016", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low start/111:111 end/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low time/sum d/11.11.2016", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low start/sum end/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/ time/mon d/11.11.2016 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name pr/ time/11:11 d/1.1.206", Date.MESSAGE_DATE_CONSTRAINTS);
-
+                "add Valid Name pr/ start/mon end/11:11 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
@@ -393,62 +390,64 @@ public class LogicManagerTest {
      * A utility class to generate test data.
      */
     class TestDataHelper{
+        
+        // The following Tasks are to individually debug the respective task property fields
 
         Task adam() throws Exception {
             Description description = new Description("Adam Brown");
-            Time time = new Time("15:30");
-            Date date = new Date("12.10.2016");
+            Time timeStart = new Time(LocalDateTime.now().getDayOfWeek().toString() + " 15:30");
+            Time timeEnd = new Time(LocalDateTime.now().getDayOfWeek().toString() + " 16:30");
             Priority priority = new Priority("high");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(description, priority, time, date, tags);
+            return new Task(description, priority, timeStart, timeEnd, tags);
         }
         
         Task bravo() throws Exception {
             Description description = new Description("Bravo Christ");
-            Time time = new Time("");
-            Date date = new Date("");
+            Time timeStart = new Time("");
+            Time timeEnd = new Time("");
             Priority priority = new Priority("");
             UniqueTagList tags = new UniqueTagList();
-            return new Task(description, priority, time, date, tags);
+            return new Task(description, priority, timeStart, timeEnd, tags);
         }
         
         Task charlie() throws Exception {
             Description description = new Description("Charlie Denver");
-            Time time = new Time("15:30");
-            Date date = new Date("");
+            Time timeStart = new Time(LocalDateTime.now().getDayOfWeek().toString() + " 15:30");
+            Time timeEnd = new Time("");
             Priority priority = new Priority("");
             UniqueTagList tags = new UniqueTagList();
-            return new Task(description, priority, time, date, tags);
+            return new Task(description, priority, timeStart, timeEnd, tags);
         }
         
         Task desmond() throws Exception {
             Description description = new Description("Desmond Exteli");
-            Time time = new Time("");
-            Date date = new Date("12.10.2013");
+            Time timeStart = new Time("");
+            Time timeEnd = new Time(LocalDateTime.now().getDayOfWeek().toString() + " 19:00");
             Priority priority = new Priority("");
             UniqueTagList tags = new UniqueTagList();
-            return new Task(description, priority, time, date, tags);
+            return new Task(description, priority, timeStart, timeEnd, tags);
         }
         
         Task elize() throws Exception {
             Description description = new Description("Elize Faraday");
-            Time time = new Time("");
-            Date date = new Date("");
+            Time timeStart = new Time("");
+            Time timeEnd = new Time("");
             Priority priority = new Priority("low");
             UniqueTagList tags = new UniqueTagList();
-            return new Task(description, priority, time, date, tags);
+            return new Task(description, priority, timeStart, timeEnd, tags);
         }
         
         Task fiona() throws Exception {
             Description description = new Description("Fiona Gandalf");
-            Time time = new Time("");
-            Date date = new Date("");
+            Time timeStart = new Time("");
+            Time timeEnd = new Time("");
             Priority priority = new Priority("");
             Tag tag1 = new Tag("tag1");
             UniqueTagList tags = new UniqueTagList(tag1);
-            return new Task(description, priority, time, date, tags);
+            return new Task(description, priority, timeStart, timeEnd, tags);
         }
 
         /**
@@ -463,7 +462,7 @@ public class LogicManagerTest {
                     new Description("Person " + seed),
                     new Priority(""),
                     new Time("" + Math.abs(seed) + ":" + Math.abs(seed) + Math.abs(seed)),
-                    new Date("11.11.200" + seed),
+                    new Time("" + Math.abs(seed + 1) + ":" + Math.abs(seed + 1) + Math.abs(seed + 1)),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -476,8 +475,8 @@ public class LogicManagerTest {
 
             cmd.append(p.getDescription().toString());
             cmd.append(" pr/").append(p.getPriority());
-            cmd.append(" time/").append(p.getTime());
-            cmd.append(" d/").append(p.getDate());
+            cmd.append(" start/").append(p.getTimeStart());
+            cmd.append(" end/").append(p.getTimeEnd());
 
 
             UniqueTagList tags = p.getTags();
@@ -561,9 +560,9 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Description(name),
-                    new Priority(""),
+                    new Priority("high"),
                     new Time("1:11"),
-                    new Date("11.11.2016"),
+                    new Time("2:22"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

@@ -43,9 +43,9 @@ public class PersonCard extends UiPart {
     public void initialize() {
         name.setText(person.getDescription().fullDescription);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getTime().toString());
-        address.setText(person.getPriority().toString());
-        email.setText(person.getDate().value);
+        phone.setText(person.getPriority().toString());
+        address.setText(person.getTimeStart().toString());
+        email.setText(person.getTimeEnd().toString());
         tags.setText(person.tagsString());
     }
 

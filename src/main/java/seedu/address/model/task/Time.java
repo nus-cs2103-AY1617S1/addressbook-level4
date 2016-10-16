@@ -5,6 +5,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.TemporalAdjusters;
 import java.util.regex.Pattern;
 import java.util.Objects;
@@ -21,15 +23,13 @@ public class Time {
             "Time should either be in 24H format or given as a Day of the Week\n"
           + "Eg. 9:11, 09:11, thursday, Thursday, THURSDAY, thu, Thur, THURS";
     public static final String TIME_VALIDATION_REGEX = "^\\s*$" // Empty String
-    							+ "|^(([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])?( (to|-) )?([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" // Proper 24h representation
-    							// 3+ char day representation    
-    							+ "|^(?i)(mon|tue(s)?|wed(nes)?|thu(r(s)?)?|fri|sat(ur)?|sun)(day)?$"; 
+            + "|^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" // 24H Time
+            // Day Of Week and Optional 24H Time
+            + "|^(?i)(mon|tue(s)?|wed(nes)?|thu(r(s)?)?|fri|sat(ur)?|sun)(day)?" 
+            + "( ([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])?$"; 
     
 
-    private LocalDateTime startValue;
-    private LocalDateTime endValue;
-    private boolean dayAdded = false;
-    private boolean startTimeAdded = false;
+    private LocalDateTime value;
     
     //public String value;
 
@@ -45,29 +45,34 @@ public class Time {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         
-        final Pattern TIME24H_FORMAT = Pattern.compile("^((?<StartHour>[0-9]|0[0-9]|1[0-9]|2[0-3]):(?<StartMinute>[0-5][0-9]))?( (to|-) )?(?<EndHour>[0-9]|0[0-9]|1[0-9]|2[0-3]):(?<EndMinute>[0-5][0-9])$");
-        final Pattern DAY_FORMAT = Pattern.compile("^(?i)(?<Day>(mon|tue|wed|thu|fri|sat|sun))");
+        final Pattern DAYTIME24H_FORMAT = Pattern.compile("(?i)((?<Day>(mon|tue(s)?|wed(nes)?|thu(r(s)?)?|fri|sat(ur)?|sun)(day)?)) (?<Hour>([0-9]|0[0-9]|1[0-9]|2[0-3])):(?<Minute>[0-5][0-9])");
+        final Pattern TIME24H_FORMAT = Pattern.compile("(?<Hour>[0-9]|0[0-9]|1[0-9]|2[0-3]):(?<Minute>[0-5][0-9])");
+        final Pattern DAY_FORMAT = Pattern.compile("(?i)(?<Day>(mon|tue|wed|thu|fri|sat|sun))");
         
         
+        final Matcher matcher_DAYTIME24H = DAYTIME24H_FORMAT.matcher(time);
         final Matcher matcher_TIME24H = TIME24H_FORMAT.matcher(time);
         final Matcher matcher_DAY = DAY_FORMAT.matcher(time);
+         
         
        
-        if (matcher_DAY.matches()) {
-            dayAdded = true;
-            DayOfWeek dayEnum = convertToDayEnum(matcher_DAY.group("Day"));
-            this.endValue = LocalDateTime.now().with(TemporalAdjusters.nextOrSame(dayEnum));
+        if (matcher_DAYTIME24H.matches()) {
+            DayOfWeek dayEnum = convertToDayEnum(matcher_DAYTIME24H.group("Day"));
+            Integer hour = Integer.parseInt(matcher_DAYTIME24H.group("Hour"));
+            Integer minute = Integer.parseInt(matcher_DAYTIME24H.group("Minute"));
+            this.value = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minute)).with(TemporalAdjusters.next(dayEnum));
         }
+        
+        else if (matcher_DAY.matches()) {
+            DayOfWeek dayEnum = convertToDayEnum(matcher_DAY.group("Day"));
+            this.value = LocalDateTime.now().with(TemporalAdjusters.next(dayEnum));    
+        }
+                
         else if (matcher_TIME24H.matches()) {
-           if (matcher_TIME24H.group("StartHour") != null && matcher_TIME24H.group("StartMinute") != null) {
-               Integer startHour = Integer.parseInt(matcher_TIME24H.group("StartHour"));
-               Integer startMinute = Integer.parseInt(matcher_TIME24H.group("StartMinute"));
-               this.startValue = LocalDateTime.of(LocalDate.now(), LocalTime.of(startHour, startMinute));
-               this.startTimeAdded = true;
-           }
-    	   Integer endHour = Integer.parseInt(matcher_TIME24H.group("EndHour"));
-    	   Integer endMinute = Integer.parseInt(matcher_TIME24H.group("EndMinute"));
-    	   this.endValue = LocalDateTime.of(LocalDate.now(), LocalTime.of(endHour, endMinute));
+           
+    	   Integer hour = Integer.parseInt(matcher_TIME24H.group("Hour"));
+    	   Integer minute = Integer.parseInt(matcher_TIME24H.group("Minute"));
+    	   this.value = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minute));
        }
        
        
@@ -82,10 +87,7 @@ public class Time {
 
     @Override
     public String toString() {
-        return (endValue != null) ? 
-        		(dayAdded) ? endValue.getDayOfWeek().toString()
-        		: (startTimeAdded) ?  startValue.toLocalTime().toString() + " - " + endValue.toLocalTime().toString()
-        		: endValue.toLocalTime().toString() 
+        return (value != null) ? value.getDayOfWeek().toString() + " " + value.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))  
         		: "";
     }
 
@@ -93,22 +95,18 @@ public class Time {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Time // instanceof handles nulls
-                && (this.startValue != null) ? this.startValue.equals(((Time) other).startValue) // state check
-                   : ((Time) other).startValue == null
-                && (this.endValue != null) ? this.endValue.equals(((Time) other).endValue) // state check
-                        : ((Time) other).endValue == null
-                && this.dayAdded == ((Time) other).dayAdded
-                && this.startTimeAdded == ((Time) other).startTimeAdded); 
+                && (this.value != null) ? this.value.equals(((Time) other).value) // state check
+                        : ((Time) other).value == null);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startValue, endValue, dayAdded, startTimeAdded);
+        return Objects.hash(value);
     }
     
     private DayOfWeek convertToDayEnum(String day) {
     	assert day != null; 
-    	switch (day.toLowerCase()) {
+    	switch (day.substring(0, Math.min(day.length(), 3)).toLowerCase()) {
 		case "sun":
 			return DayOfWeek.SUNDAY;
 		case "mon":
