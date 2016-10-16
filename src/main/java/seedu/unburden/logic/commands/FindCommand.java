@@ -16,16 +16,22 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final Set<String> keywords;
+    private final String modeOfSearch;
 
-    public FindCommand(Set<String> keywords) {
+    public FindCommand(Set<String> keywords, String modeOfSearch) {
         this.keywords = keywords;
+        this.modeOfSearch = modeOfSearch;
     }
 
 	@Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
-        //model.updateFilteredTaskListForDate(keywords);
+		System.out.println(modeOfSearch);
+		if(this.modeOfSearch.equals("date")){
+				model.updateFilteredTaskListForDate(keywords);
+		}
+		else{
+			model.updateFilteredTaskList(keywords);
+		}
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
-
 }

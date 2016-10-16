@@ -244,16 +244,17 @@ public class Parser {
                     FindCommand.MESSAGE_USAGE));
         }
 
-        // keywords delimited by whitespace
-        if(matcherName.matches()){
-        	final String[] keywords = matcherName.group("keywords").split("\\s+");
-        	final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        	return new FindCommand(keywordSet);
-        }
-        else{
+        if(matcherDate.matches()){
         	final String keyword = matcherDate.group("dates");
         	final Set<String> dateKeyword = new HashSet<>(Arrays.asList(keyword));
-        	return new FindCommand(dateKeyword);
+        	final String mode = "date";
+        	return new FindCommand(dateKeyword, mode);
+        }
+        else{ //keywords delimited by whitespace
+        	final String[] keywords = matcherName.group("keywords").split("\\s+");
+        	final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        	final String mode = "name";
+        	return new FindCommand(keywordSet, mode);
         }
     }
 

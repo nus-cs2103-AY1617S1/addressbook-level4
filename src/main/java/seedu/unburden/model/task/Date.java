@@ -8,7 +8,7 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
  */
 public class Date {
 
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Task dates should be in the format dd/mm/yyyy";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Task dates should be in the format dd-mm-yyyy";
     public static final String DATE_VALIDATION_REGEX = "\\[0-9]{2}[/][0-9]{2}[/][0-9]{4}";
     
    
