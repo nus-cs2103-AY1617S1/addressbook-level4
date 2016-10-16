@@ -19,11 +19,13 @@ import java.util.regex.Pattern;
 import com.joestelmach.natty.DateGroup;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.IncorrectCommandException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -95,7 +97,10 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
-
+			
+		case DoneCommand.COMMAND_WORD:
+			return prepareDone(arguments);
+		
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
 
@@ -121,6 +126,36 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
+
+	private Command prepareDone(String arguments) {
+		int[] indices;
+		try {
+			indices = prepareIndexList(arguments);
+		} catch (IncorrectCommandException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+		}
+
+		return new DoneCommand(indices);
+	}
+
+
+	private int[] prepareIndexList(String arguments) throws IncorrectCommandException{
+		ArrayList<Optional<Integer>> indexOptionals = parseIndices(arguments);
+
+		int[] indices = new int[indexOptionals.size()];
+		int i = 0;
+		for (Optional<Integer> index : indexOptionals) {
+			if (!index.isPresent()) {
+				throw new IncorrectCommandException("Incorrect Command");
+			}
+			indices[i] = index.get();
+			i++;
+		}
+
+		System.out.println("indices: " + Arrays.toString(indices));
+		return indices;
+	}
+
 
 	private Command prepareAdd(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
@@ -349,21 +384,12 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareDelete(String arguments) {
-		ArrayList<Optional<Integer>> indexOptionals = parseIndices(arguments);
-
-		int[] indices = new int[indexOptionals.size()];
-		int i = 0;
-		for (Optional<Integer> index : indexOptionals) {
-			if (!index.isPresent()) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-			}
-			indices[i] = index.get();
-			i++;
+		int[] indices;
+		try {
+			indices = prepareIndexList(arguments);
+		} catch (IncorrectCommandException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 		}
-
-		System.out.println("indices: " + Arrays.toString(indices));
-
-		// TODO return new TMDeleteCommand(indices);
 		return new DeleteCommand(indices);
 	}
 

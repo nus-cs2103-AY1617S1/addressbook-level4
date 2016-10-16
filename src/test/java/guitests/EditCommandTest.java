@@ -59,7 +59,7 @@ public class EditCommandTest extends TaskManagerGuiTest{
         //assertMatching(postEdit, EditedCard);
 
         //confirm the list now contains all previous tasks plus the new task
-        TestTask[] expectedList = TestUtil.replaceTaskFromList(currentList, postEdit, targetIndexOneIndexed);
+        TestTask[] expectedList = TestUtil.replaceTaskFromList(currentList, postEdit, targetIndexOneIndexed-1);
         System.out.println("expectedList[0]: " + expectedList[0]);
         assertTrue(taskListPanel.isListMatching(expectedList));
         

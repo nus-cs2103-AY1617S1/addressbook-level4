@@ -57,9 +57,8 @@ public class EditCommand extends Command {
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
 
         try {
-        	// TODO: use getStatus from TMReadOnlyTask instead
-        	Status oldStatus = taskToEdit.getStatus();
-        	Task postEdit = new Task(toEdit, new TaskType("someday"), oldStatus, Optional.empty(), Optional.empty(), new UniqueTagList());
+        	Task postEdit = new Task(taskToEdit);
+        	postEdit.setName(toEdit);
         	if(lastShownList.contains(postEdit)) {
         		return new CommandResult(MESSAGE_DUPLICATE_TASK);
         	}
