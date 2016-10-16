@@ -33,7 +33,7 @@ public class TodoListStorage implements MoveableStorage<ImmutableTodoList> {
     }
 
     @Override
-    public Optional<ImmutableTodoList> read() throws DataConversionException, IOException {
+    public Optional<ImmutableTodoList> read() throws DataConversionException, FileNotFoundException {
         return read(filePath);
     }
 
@@ -56,8 +56,15 @@ public class TodoListStorage implements MoveableStorage<ImmutableTodoList> {
     
     @Override
     public void save(ImmutableTodoList todoList, String newLocation) throws IOException {
+        String oldLocation = filePath;
         filePath = newLocation;
-        save(todoList);
+        
+        try {
+            save(todoList);
+        } catch (IOException e) {
+            filePath = oldLocation;
+            throw e;
+        }
     }
 
     @Override
