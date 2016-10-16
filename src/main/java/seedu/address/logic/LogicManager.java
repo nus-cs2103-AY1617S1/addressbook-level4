@@ -42,7 +42,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public ObservableList<TaskDateComponent> getFilteredTaskList() {
-        return model.getFilteredTaskDateComponentList();
+        return model.getFilteredTaskComponentList();
     }   
     
 }

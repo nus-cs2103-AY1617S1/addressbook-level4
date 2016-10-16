@@ -82,8 +82,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskList.removeTask(target);
+    public synchronized void deleteTask(TaskDateComponent target) throws TaskNotFoundException {
+        taskList.removeTask(target.getTaskReference());
         indicateTaskListChanged();
     }
     
@@ -117,7 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ObservableList<TaskDateComponent> getFilteredTaskDateComponentList() {
+    public UnmodifiableObservableList<TaskDateComponent> getFilteredTaskComponentList() {
         return new UnmodifiableObservableList<>(filteredTaskComponents);
     }
 
