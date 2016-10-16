@@ -9,8 +9,8 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 public class Date {
     
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Event date should be written in this format '1-1-2016'";
-    public static final String DATE_VALIDATION_REGEX = "\\D-\\D-\\D";
+            "Event date should be written in this format 'DD-MM-YYYY'";
+    public static final String DATE_VALIDATION_REGEX = "^(\\d{2}-\\d{2}-\\d{4})$";
     
     public final String value;
     
