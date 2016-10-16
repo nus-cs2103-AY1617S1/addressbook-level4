@@ -1,4 +1,4 @@
-# Developer Guide 
+# Developer Guide
 
 ## Table of Contents
 
@@ -77,18 +77,18 @@ This guide contains all necessary information for both new and experienced contr
   > * Depending on your connection speed and server load, it can take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-  
+
 #### Troubleshooting
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
-* Solution: Refresh the project in Eclipse:<br> 
+* Reason: Eclipse fails to recognize new files that appeared due to the Git pull.
+* Solution: Refresh the project in Eclipse:<br>
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
-  
+
 **Problem: Eclipse reports some required libraries missing**
-* Reason: Required libraries may not have been downloaded during the project import. 
+* Reason: Required libraries may not have been downloaded during the project import.
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
- 
+
 ## Design
 
 ### Architecture
@@ -290,6 +290,8 @@ deadline for the task (usually, you would use `Deadline(Date date)` if the task 
 
 The classes mentioned represents the details of the task. Do note that some
 classes have multiple constructors (for details that are not filled in, use the default constructor)
+
+Notable APIs
 
 Methods | Description
 ------- | -----------
