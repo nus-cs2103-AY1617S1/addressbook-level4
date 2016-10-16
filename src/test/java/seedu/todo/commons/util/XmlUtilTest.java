@@ -14,10 +14,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.todo.model.AddressBook;
+import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.TodoList;
-import seedu.todo.storage.Storage;
-import seedu.todo.storage.StorageManager;
-import seedu.todo.storage.XmlSerializableTodoList;
+import seedu.todo.storage.*;
 import seedu.todo.testutil.TestUtil;
 
 public class XmlUtilTest {
@@ -78,11 +77,11 @@ public class XmlUtilTest {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.saveDataToFile(MISSING_FILE, new AddressBook());
     }
-
+  
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
-        Storage storage = new StorageManager(TEMP_FILE.getAbsolutePath(), EMPTY_FILE.getAbsolutePath());
+        MoveableStorage<ImmutableTodoList> storage = new TodoListStorage(TEMP_FILE.getAbsolutePath());
         XmlSerializableTodoList dataToWrite = new XmlSerializableTodoList(new TodoList(storage));
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);

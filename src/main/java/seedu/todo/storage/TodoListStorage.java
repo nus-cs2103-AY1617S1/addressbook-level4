@@ -1,46 +1,74 @@
 package seedu.todo.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Optional;
 
 import seedu.todo.commons.exceptions.DataConversionException;
+import seedu.todo.commons.util.FileUtil;
+import seedu.todo.commons.util.XmlUtil;
 import seedu.todo.model.ImmutableTodoList;
 
+import javax.xml.bind.JAXBException;
+
 /**
- * Represents a storage for {@link seedu.todo.model.TodoList}.
+ * A class to access TodoList data stored as an xml file on the hard disk.
  */
-public interface TodoListStorage {
+public class TodoListStorage implements MoveableStorage<ImmutableTodoList> {
 
-    /**
-     * Returns the file path of the data file.
-     */
-    String getTodoListFilePath();
+    private String filePath;
 
-    /**
-     * Returns TodoList data as a {@link ImmutableTodoList}.
-     * Returns {@code Optional.empty()} if storage file is not found.
-     * 
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
-     */
-    Optional<ImmutableTodoList> readTodoList() throws DataConversionException, IOException;
+    public TodoListStorage(String filePath) {
+        this.filePath = filePath;
+    }
 
-    /**
-     * @see #getTodoListFilePath()
-     */
-    Optional<ImmutableTodoList> readTodoList(String filePath) throws DataConversionException, IOException;
+    @Override
+    public String getLocation() {
+        return filePath;
+    }
 
-    /**
-     * Saves the given {@link ImmutableTodoList} to the storage.
-     * 
-     * @param todoList cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
-    void saveTodoList(ImmutableTodoList todoList) throws IOException;
+    @Override
+    public ImmutableTodoList read() throws DataConversionException, FileNotFoundException {
+        return read(filePath);
+    }
 
-    /**
-     * @see #saveTodoList(ImmutableTodoList)
-     */
-    void saveTodoList(ImmutableTodoList todoList, String filePath) throws IOException;
+    @Override
+    public ImmutableTodoList read(String filePath) throws DataConversionException, FileNotFoundException {
+        assert filePath != null;
+        File file = new File(filePath);
 
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableTodoList.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+    
+    @Override
+    public void save(ImmutableTodoList todoList, String newLocation) throws IOException {
+        String oldLocation = filePath;
+        filePath = newLocation;
+        
+        try {
+            save(todoList);
+        } catch (IOException e) {
+            filePath = oldLocation;
+            throw e;
+        }
+    }
+
+    @Override
+    public void save(ImmutableTodoList todoList) throws IOException {
+        assert todoList != null;
+        assert filePath != null;
+
+        File file = new File(filePath);
+        FileUtil.createIfMissing(file);
+
+        try {
+            XmlUtil.saveDataToFile(file, new XmlSerializableTodoList(todoList));
+        } catch (JAXBException e) {
+            assert false : "Unexpected exception " + e.getMessage();
+        }
+    }
 }

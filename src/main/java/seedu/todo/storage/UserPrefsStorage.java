@@ -1,29 +1,31 @@
 package seedu.todo.storage;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import seedu.todo.commons.exceptions.DataConversionException;
+import seedu.todo.commons.util.JsonUtil;
 import seedu.todo.model.UserPrefs;
 
 /**
- * Represents a storage for {@link seedu.todo.model.UserPrefs}.
+ * A class to access UserPrefs stored in the hard disk as a json file
  */
-public interface UserPrefsStorage {
+public class UserPrefsStorage implements FixedStorage<UserPrefs> {
 
-    /**
-     * Returns UserPrefs data from storage.
-     *   Returns {@code Optional.empty()} if storage file is not found.
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
-     */
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    private String filePath;
 
-    /**
-     * Saves the given {@link seedu.todo.model.UserPrefs} to the storage.
-     * @param userPrefs cannot be null.
-     * @throws IOException if there was any problem writing to the file.
-     */
-    void saveUserPrefs(UserPrefs userPrefs) throws IOException;
+    public UserPrefsStorage(String filePath){
+        this.filePath = filePath;
+    }
+
+    @Override
+    public UserPrefs read() throws DataConversionException {
+        return JsonUtil.readJsonFile(filePath, UserPrefs.class)
+            .orElse(new UserPrefs());
+    }
+
+    @Override
+    public void save(UserPrefs userPrefs) throws IOException {
+        JsonUtil.saveJsonFile(userPrefs, filePath);
+    }
 
 }

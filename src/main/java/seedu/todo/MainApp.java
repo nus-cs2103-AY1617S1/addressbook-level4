@@ -21,6 +21,7 @@ import seedu.todo.logic.parser.TodoParser;
 import seedu.todo.model.*;
 import seedu.todo.storage.Storage;
 import seedu.todo.storage.StorageManager;
+import seedu.todo.storage.TodoListStorage;
 import seedu.todo.ui.Ui;
 import seedu.todo.ui.UiManager;
 
@@ -54,7 +55,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getTodoListFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -62,7 +63,7 @@ public class MainApp extends Application {
 
         parser = new TodoParser();
 
-        model = new TodoList(storage);
+        model = new TodoList(new TodoListStorage(config.getTodoListFilePath()));
         
         dispatcher = new TodoDispatcher();
         logic = new TodoLogic(parser, model, dispatcher);
@@ -120,8 +121,7 @@ public class MainApp extends Application {
 
         UserPrefs initializedPrefs;
         try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
+            initializedPrefs = storage.readUserPrefs();
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
                     "Using default user prefs");
