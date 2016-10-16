@@ -59,6 +59,19 @@
             </VBox>
             <TabPane tabClosingPolicy="UNAVAILABLE" tabMaxHeight="15.0" tabMaxWidth="70.0">
                <tabs>
+                  <Tab text="Someday">
+                     <content>
+                        <SplitPane>
+                           <items>
+                              <VBox fx:id="somedayTaskList">
+                                 <children>
+                                    <AnchorPane fx:id="somedayTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </items>
+                        </SplitPane>
+                     </content>
+                  </Tab>
                   <Tab text="Today">
                      <content>
                         <SplitPane>
@@ -105,19 +118,6 @@
                               <VBox fx:id="in30DaysTaskList">
                                  <children>
                                     <AnchorPane fx:id="in30DaysTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
-                                 </children>
-                              </VBox>
-                           </items>
-                        </SplitPane>
-                     </content>
-                  </Tab>
-                  <Tab text="Someday">
-                     <content>
-                        <SplitPane>
-                           <items>
-                              <VBox fx:id="somedayTaskList">
-                                 <children>
-                                    <AnchorPane fx:id="somedayTaskListTabPanelPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
                            </items>
