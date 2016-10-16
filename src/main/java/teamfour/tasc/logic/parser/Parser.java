@@ -151,14 +151,16 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the list task command.
+     * Parses the command string in the context of the list task command.
      *
-     * @param args full command args string
+     * @param command the full command string
      * @return the prepared command
      */
-    private Command prepareList(String args){
+    private Command prepareList(String command){
+        assert command.isEmpty() == false;
+        
         // No parameter, use defaults
-        if (args.trim().equals("list")) {
+        if (command.trim().equals("list")) {
             try {
                 return new ListCommand();
             } catch (IllegalValueException ive) {
@@ -167,7 +169,7 @@ public class Parser {
         }
 
         final KeywordParser parser = new KeywordParser("list", "by", "from", "to", "tag", "sort");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
         String type = parsed.get("list");
         String deadline = parsed.get("by");
         String startTime = parsed.get("from");
@@ -203,18 +205,20 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the show command.
+     * Parses the command string in the context of the show command.
      *
-     * @param args full command args string
+     * @param command the full command string
      * @return the prepared command
      */
-    private Command prepareShow(String args){
-        if (args.trim().equals("show")) {
+    private Command prepareShow(String command){
+        assert command.isEmpty() == false;
+        
+        if (command.trim().equals("show")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
 
         final KeywordParser parser = new KeywordParser("show", "on", "by", "from", "to", "tag");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
         String type = parsed.get("show");
         String date = parsed.get("on");
         String deadline = parsed.get("by");
@@ -250,18 +254,20 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the hide command.
+     * Parses the command string in the context of the hide command.
      *
-     * @param args full command args string
+     * @param command the full command string
      * @return the prepared command
      */
-    private Command prepareHide(String args){
-        if (args.trim().equals("hide")) {
+    private Command prepareHide(String command){
+        assert command.isEmpty() == false;
+        
+        if (command.trim().equals("hide")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE));
         }
 
         final KeywordParser parser = new KeywordParser("hide", "on", "by", "from", "to", "tag");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
         String type = parsed.get("hide");
         String date = parsed.get("on");
         String deadline = parsed.get("by");
