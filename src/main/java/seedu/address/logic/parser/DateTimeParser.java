@@ -30,6 +30,28 @@ public class DateTimeParser {
     }
     
     /**
+     * produces a list of java.time.LocalDateTime from natty's parsing
+     * @return
+     * @author darren
+     */
+    public List<LocalDateTime> parseInput() {
+        // natty-side parsing
+        assert this.datetime != null;
+        List<Date> dateTokens = this.parser.parse(this.datetime) // produces List<DateGroup>
+                                            .get(0) // produces DateGroup
+                                            .getDates(); // produces List<Date>
+        
+        List<LocalDateTime> datetimes = new ArrayList<LocalDateTime>();
+        
+        // convert Date to LocalDateTime
+        for(Date date : dateTokens) {
+            datetimes.add(Date2LocalDateTime(date));
+        }
+
+        return datetimes;
+    }
+    
+    /**
      * helper method for parseInput()
      * converts a java.util.Date object to java.time.LocalDateTime object
      * 
