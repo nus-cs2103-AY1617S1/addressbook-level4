@@ -1,6 +1,7 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.taskmanager.logic.commands.ListTaskCommand.SHORT_COMMAND_WORD;
 
 import org.junit.Test;
 
@@ -13,6 +14,8 @@ public class ListtaskCommandTest extends TaskManagerGuiTest {
 	public void ListTaskCommand() {
 		commandBox.runCommand("listtask");
 		assertListSize(3); 
+		commandBox.runCommand(SHORT_COMMAND_WORD);
+        assertListSize(3); 
 	}
 	
 	@Test
