@@ -69,7 +69,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         currentList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndex-1);
 
         //edit from the middle of the list which is a deadline
-        targetIndex = 5;
+        targetIndex = 8;
         itemToEdit = currentList[targetIndex-1];
         assertEditSuccess(targetIndex, null, null, null, validEndDate, null, currentList);
         assertEditSuccess(targetIndex, thirdTestName, null, null, null, null, currentList);
@@ -86,13 +86,13 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         
         //invalid parameters for item type 
-        commandBox.runCommand("edit " + currentList.length/2 + " et/" + validEndTime);
+        commandBox.runCommand("edit " + (currentList.length/2 + 1) + " et/" + validEndTime);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         
         commandBox.runCommand("edit " + currentList.length/2 + " st/" + validStartTime);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         
-        commandBox.runCommand("edit " + currentList.length/2 + " ed/" + validEndDate);
+        commandBox.runCommand("edit " + (currentList.length/2 + 1) + " ed/" + validEndDate);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         
         commandBox.runCommand("edit " + currentList.length/2 + " sd/" + validStartDate);
