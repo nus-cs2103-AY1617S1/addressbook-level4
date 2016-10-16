@@ -2,21 +2,23 @@ package guitests;
 
 import guitests.guihandles.*;
 import javafx.stage.Stage;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
+
 import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.AddressBook;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
+import jym.manager.commons.core.EventsCenter;
+import jym.manager.model.AddressBook;
+import jym.manager.model.task.ReadOnlyTask;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

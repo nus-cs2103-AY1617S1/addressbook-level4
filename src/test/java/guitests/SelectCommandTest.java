@@ -1,7 +1,8 @@
 package guitests;
 
+import jym.manager.model.task.ReadOnlyTask;
+
 import org.junit.Test;
-import seedu.address.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 

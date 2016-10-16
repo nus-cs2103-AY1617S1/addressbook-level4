@@ -1,14 +1,9 @@
 package seedu.address.testutil;
 
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Description;
-import seedu.address.model.task.Location;
-import seedu.address.model.task.Priority;
-import seedu.address.model.task.ReadOnlyTask;
-
 import java.time.LocalDateTime;
 
-import seedu.address.model.task.*;
+import jym.manager.model.tag.UniqueTagList;
+import jym.manager.model.task.*;
 
 /**
  * A mutable person object. For testing only.
