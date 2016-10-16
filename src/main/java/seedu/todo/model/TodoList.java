@@ -189,6 +189,11 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     }
 
     @Override
+    public String getStorageLocation() {
+        return storage.getLocation();
+    }
+
+    @Override
     public UnmodifiableObservableList<ImmutableTask> getObserveableList() {
         return new UnmodifiableObservableList<>(sortedTasks);
     }

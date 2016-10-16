@@ -81,6 +81,8 @@ public interface TodoModel {
      */
     public void load(String location) throws ValidationException;
     
+    public String getStorageLocation();
+    
     /**
      * Get an observable list of tasks. Used mainly by the JavaFX UI. 
      */
