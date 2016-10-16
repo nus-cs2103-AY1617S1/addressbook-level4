@@ -12,7 +12,7 @@ public class Config {
 
     // Config values customizable through config file
     private String appTitle = "Task Manager App";
-    private Level logLevel = Level.INFO;
+    private Level logLevel = Level.FINE;
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/todo.xml";
     private String taskManagerName = "MyTaskManager";
