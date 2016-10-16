@@ -20,6 +20,13 @@ public class UndoController implements Controller {
         return input.startsWith("undo") ? 1 : 0;
     }
     
+    /**
+     * Get the token definitions for use with <code>tokenizer</code>.<br>
+     * This method exists primarily because Java does not support HashMap
+     * literals...
+     * 
+     * @return tokenDefinitions
+     */
     private static Map<String, String[]> getTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
         tokenDefinitions.put("default", new String[] {"undo"});
