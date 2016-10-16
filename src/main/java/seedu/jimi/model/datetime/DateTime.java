@@ -7,13 +7,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 
 public class DateTime implements Comparable<DateTime> {
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = 
-            "Date and time are invalid!\n" 
-            + "> Tip: try avoiding keywords like `on`, `to` and `due` in your dates and times.\n" 
-            + "> Jimi might misinterpret your input!";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String TIME_FORMAT = "HH:mm";
     public static final String DATETIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
@@ -29,7 +26,7 @@ public class DateTime implements Comparable<DateTime> {
         try {
             dtInstance = LocalDateTime.parse(dateStr, dtFormatter);
         } catch (DateTimeParseException e) {
-            throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_DATE);
         }
     }
     
