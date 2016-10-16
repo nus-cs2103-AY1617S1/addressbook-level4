@@ -36,6 +36,13 @@ public interface ReadOnlyTask {
                    && other.getRecurrence().equals(this.getRecurrence())));
     }
     
+    /**
+     * Is it a floating task?
+     */
+    default boolean isFloatingTask() {
+        return !getDeadline().hasDeadline() && !getPeriod().hasPeriod();
+    }
+    
     /** 
      * Given the current time, determine whether the task is overdue.
      * (Only make sense if task has a deadline).
