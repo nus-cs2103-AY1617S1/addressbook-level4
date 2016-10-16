@@ -6,9 +6,6 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import guitests.guihandles.TaskCardHandle;
-import seedu.taskitty.commons.core.Messages;
-import seedu.taskitty.logic.commands.AddCommand;
 import seedu.taskitty.logic.commands.UndoCommand;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestUtil;
