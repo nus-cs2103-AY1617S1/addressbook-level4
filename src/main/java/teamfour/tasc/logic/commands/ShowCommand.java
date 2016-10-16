@@ -4,14 +4,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 
 /**
  * Shows only tasks filtered from current listing results to the user.
  */
 public class ShowCommand extends Command {
-
     public static final String COMMAND_WORD = "show";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows only listing results with specified type, date or tags. "
@@ -34,40 +35,16 @@ public class ShowCommand extends Command {
      */
     public ShowCommand(String type, String date, String deadline, String startTime, 
                         String endTime, Set<String> tags) throws IllegalValueException {
-        if (deadline != null) {
-            this.deadline = CommandHelper.convertStringToDate(deadline);
-        } else {
-            this.deadline = null;
-        }
-        
-        if (date != null) {
+        this.deadline = CommandHelper.convertStringToDateIfPossible(deadline);
+        Date convertedDate = CommandHelper.convertStringToDateIfPossible(date);
+        if (convertedDate != null) {
             hasDate = true;
-            Date convertedDate = CommandHelper.convertStringToDate(date);
-            Calendar c = Calendar.getInstance();
-            c.setTime(convertedDate);
-            c.set(Calendar.HOUR_OF_DAY, 0);
-            c.set(Calendar.MINUTE, 0);
-            c.set(Calendar.SECOND, 0);
-            c.set(Calendar.MILLISECOND, 0);
-            this.startTime = c.getTime();
-            c.set(Calendar.HOUR_OF_DAY, 23);
-            c.set(Calendar.MINUTE, 59);
-            c.set(Calendar.SECOND, 59);
-            c.set(Calendar.MILLISECOND, 999);
-            this.endTime = c.getTime();
+            this.startTime = CommandHelper.getStartOfTheDate(convertedDate);
+            this.endTime = CommandHelper.getEndOfTheDate(convertedDate);
         } else {
             hasDate = false;
-            if (startTime != null) {
-                this.startTime = CommandHelper.convertStringToDate(startTime);
-            } else {
-                this.startTime = null;
-            }
-            
-            if (endTime != null) {
-                this.endTime = CommandHelper.convertStringToDate(endTime);
-            } else {
-                this.endTime = null;
-            }
+            this.startTime = CommandHelper.convertStringToDateIfPossible(startTime);
+            this.endTime = CommandHelper.convertStringToDateIfPossible(endTime);
         }
         
         this.tags = new HashSet<>();
@@ -76,11 +53,14 @@ public class ShowCommand extends Command {
         }
         this.type = type;
     }
-
-    @Override
-    public CommandResult execute() {
+    
+    /**
+     * Precondition: model is not null.
+     * Adds the filters in this command to the model. 
+     * Does not update the list yet.
+     */
+    private void addCommandFiltersToModel() {
         assert model != null;
-        
         if (type != null)
             model.addTaskListFilterByType(type, false);
         if (deadline != null)
@@ -95,8 +75,13 @@ public class ShowCommand extends Command {
         }
         if (!tags.isEmpty())
             model.addTaskListFilterByTags(tags, false);
+    }
+
+    @Override
+    public CommandResult execute() {
+        assert model != null;
+        addCommandFiltersToModel();
         model.updateFilteredTaskListByFilter();
-        
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
