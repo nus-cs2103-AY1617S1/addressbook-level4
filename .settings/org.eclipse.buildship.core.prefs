@@ -1,6 +1,3 @@
-=\=\=\=\=\=\=
-<<<<<<<=.merge_file_a03816
->>>>>>>=.merge_file_a08680
 build.commands=org.eclipse.jdt.core.javabuilder
 connection.arguments=
 connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)

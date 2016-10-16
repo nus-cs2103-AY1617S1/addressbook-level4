@@ -6,7 +6,6 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,19 +30,17 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, List<java.util.Date> dateList, Set<String> tags)
+    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
-        
         this.toAdd = new Task(
                 new Name(name),
                 new Description(phone),
-                new Date(dateList),
-                new Time(dateList),
+                new Date(email),
+                new Time(address),
                 new UniqueTagList(tagSet)
         );
     }

@@ -20,11 +20,7 @@ public class Description {
      * @throws IllegalValueException if given description string is invalid.
      */
     public Description(String description) throws IllegalValueException {
-    	if (description == null){
-    		this.value = ""; 
-    		return;
-    	}
-    	
+        assert description != null;
         description = description.trim();
         if (!isValidPhone(description)) {
             throw new IllegalValueException(MESSAGE_DESCRIPTION_CONSTRAINTS);
