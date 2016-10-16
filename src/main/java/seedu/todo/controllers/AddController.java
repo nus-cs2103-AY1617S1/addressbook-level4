@@ -62,11 +62,7 @@ public class AddController implements Controller {
         boolean isTask = parseIsTask(parsedResult);
         
         // Name - Disambiguate if null.
-        String name = null;
-        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null)
-            name = parsedResult.get("default")[1];
-        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[1] != null)
-            name = parsedResult.get("eventType")[1];
+        String name = parseName(parsedResult);
         if (name == null) {
             renderDisambiguation(parsedResult);
             return;
@@ -114,6 +110,15 @@ public class AddController implements Controller {
         view.events = db.getAllEvents();
         UiManager.renderView(view);
         UiManager.updateConsoleMessage(MESSAGE_ADD_SUCCESS);
+    }
+
+    private String parseName(Map<String, String[]> parsedResult) {
+        String name = null;
+        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null)
+            name = parsedResult.get("default")[1];
+        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[1] != null)
+            name = parsedResult.get("eventType")[1];
+        return name;
     }
 
     private boolean parseIsTask(Map<String, String[]> parsedResult) {
