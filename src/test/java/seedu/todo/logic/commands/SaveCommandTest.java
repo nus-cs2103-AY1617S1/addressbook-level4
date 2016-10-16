@@ -1,9 +1,6 @@
 package seedu.todo.logic.commands;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import seedu.todo.commons.exceptions.ValidationException;
 
 import java.io.IOException;
