@@ -162,10 +162,10 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-        
+        final Matcher matcher_dataType = task_DATATYPE_ARGS_FORMAT.matcher(args.trim());
         Optional<String> dataType = parseDataType(args);
         Optional<Integer> index = parseIndex(args);
-        if(!dataType.isPresent() || !index.isPresent()){
+        if(!matcher_dataType.matches() && !dataType.isPresent() || !index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
@@ -232,16 +232,21 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
+        final Matcher matcher_keywords = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_dataType = task_DATATYPE_ARGS_FORMAT.matcher(args.trim());
+        Optional<String> dataType_Present = parseDataType(args);
+        if (!matcher_keywords.matches() || !matcher_dataType.matches() && !dataType_Present.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
 
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final String[] keywords = matcher_keywords.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        
+        String dataType = matcher_dataType.group("dataType");
+        
+        return new FindCommand(keywordSet, dataType);
     }
 
 }
