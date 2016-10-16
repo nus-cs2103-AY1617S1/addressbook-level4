@@ -29,7 +29,8 @@
 	- [Multiple Storage Files](#multiple-storage-files)
 - [FAQ](#faq)
 - [Commands Cheat Sheet](#commands-cheat-sheet)
-  
+<br><br>
+
 ## Introduction
 
 Organize your tasks with just a *single* line of command.
@@ -42,49 +43,53 @@ Many of us lead busy lives, with never ending streams of tasks often weighing on
 This is the motivation behind TaSc, our Task Scheduler with keyboard usability at its core. TaSc is quick, simple, and contains all the functionalities you need to plan and record your tasks.
 
 Just type in your command, and hit <kbd>Enter</kbd>. Let us handle the rest - you have more important things to do.
-
+<br><br>
 
 ## Quick Start
 
 ### Installing
-1. Ensure you have Java version `1.8.0_60` or later installed on your computer.<br>
+1. Ensure that you have Java version `1.8.0_60` or later installed on your computer.<br>
 > **Note:**<br>
 > Having any Java 8 version is not enough. <br>
 > This app will not work with earlier versions of Java 8.
 
-2. Download the latest `TaSc.jar` from the [releases](../../../releases) tab (you can find this tab in our GitHub project website).
+2. Download the latest `TaSc.jar` from the [releases](../../../releases) tab (on our GitHub project website) as shown in figure 1 below.
 
    <img src="images/github-download-release.png" width="600"><br>
    *Figure 1: Download TaSc.jar from GitHub*
 
-3. Copy the file to the folder you want to use as the home folder for your TaSc application.
+3. Copy `TaSc.jar` to the folder you would like to use as the home folder for your TaSc application.
+<br><br>
 
 ### Launching
 
-Double-click the file to start the application. The program interface should appear in a few seconds.
+Double-click on `TaSc.jar` to start the application. The application window (figure 2) should appear within a few seconds.
 
-<img src="images/Ui.png" width="600">
+<img src="images/Ui.png" width="600"><br>
+*Figure 2: TaSc application window*
+<br><br>
 
 ### Using the Interface
 
-Type the command in the command box and press <kbd>Enter</kbd> to execute it. (For example, typing **`help`** and pressing <kbd>Enter</kbd> will open the help window showing this document.)
+Type your command in the command box and press <kbd>Enter</kbd> to execute it.<br> 
 
 You can try some of these example commands:
    * **`list`** : lists all uncompleted tasks and upcoming events
    * **`add`**` "Do Research" by 21 Sep 5pm` :
      adds a new task named "Do Research" with the deadline on 21 September, 5pm
-   * **`complete`**` 3` : marks the 3rd task shown in the current list as complete
+   * **`complete`**` 1` : marks the 1st task shown in the current task list as complete
    * **`exit`** : exits the application
 
 > **Tip:**<br>
 > You may refer to the [Commands](#commands) section for details of each command.
 
+<br>
 
 ## Features
 
 ### Adding a new task/event: `add`
 
-You can easily add a new task by giving a name for it when using the `add`
+You can easily add a new task by giving it a name using the `add`
 command:
 
 `add "A new task"`
@@ -92,7 +97,7 @@ command:
 > **Tip:**<br>
 > Commands are not case-sensitive.
 
-If your task is due by a certain date, you may provide a deadline using the `by`
+If your task is due on a certain date, you may provide a deadline by adding the `by`
 keyword:
 
 `add "CS2101 homework" by 21 Oct 5pm`
