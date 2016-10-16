@@ -1,6 +1,9 @@
 package seedu.menion.logic.parser;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +23,10 @@ public class AddParser {
 	private static final String REGULAR_TASK = "task";
 	private static final String EVENTS = "event";
 	private static final String FLOATING_TASK = "floatingTask";
+	private static final String DATE_FORMAT = "dd-MM-yyyy";
 
+	
+	
 	private static Matcher matcher;
 	private static ArrayList<String> parsedArguments;
 
@@ -61,9 +67,31 @@ public class AddParser {
 			parsedArguments.add(FLOATING_TASK);
 			inputFloatingTaskArguments();
 		}
+		
 
 	}
 
+	/**
+	 * Checks if the dates input by the user is a valid date.
+	 */
+	public static Boolean DateValidator(String dateToCheck){
+		
+		if (dateToCheck == null){
+			return false;
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+		sdf.setLenient(false);
+		
+		try {
+			Date date = sdf.parse(dateToCheck);
+			
+		} catch (ParseException e){
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * Input the arguments into the parsedArguments ArrayList.
 	 * list(1) = Floating Task Name

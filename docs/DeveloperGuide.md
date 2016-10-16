@@ -1,20 +1,273 @@
 # Introduction
-(to be done by brehmer)
+
+Menion is a simple activity manager for students to track their activities so they can better manage their schedule. It is a command line interface that minimizes mouse usage and focuses on keyboard commands.
+
+This guide will bring you through the design and implementation of Menion. It's purpose is to help you understand how Menion works and how you can further contribute to its development. The content of this guide is structured from a top-down manner to best help you understand how our application works before going into the minute details. Let's begin!
 
 
 # Table of Contents
 * [Setting Up](#setting-up)
-* [Product Architecture](#product-architecture)
+* [Design](#design)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
-## Setting Up
+<br>
 
-## Product Architecture
+## Setting up
 
+#### Prerequisites
+
+1. JDK `1.8.0_60`  or later<br>
+
+    > * Having any Java 8 version is not enough. 
+    > * This app will not work with earlier versions of Java 8.
+2. Eclipse IDE
+3. e(fx)clipse plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+4. Buildship Gradle Integration plugin from the Eclipse Marketplace
+
+
+#### Importing the project into Eclipse
+
+1. Fork this repo, and clone the fork to your computer
+
+2. Open Eclipse
+
+	> * Ensure you have installed the e(fx)clipse and buildship plugins as given in the 		prerequisites above
+3. Click `File` > `Import`
+4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
+5. Click `Browse`, then locate the project's directory
+6. Click `Finish`
+
+  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+      (This is because Gradle downloads library files from servers during the project set up process)
+  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+
+## Design
+
+### Architecture
+
+<img src="images/Architecture.png" width="600"><br> Diagram 1: Layout for architecture<br>
+The Architecture Diagram given above explains the high-level design of the App.
+Given below is a quick overview of each component.
+
+[*Main*]() has only one class called [`MainApp`](../src/main/java/seedu/menion/MainApp.java). It is responsible for,
+
+* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
+* At shut down: Shuts down the components and invoke cleanup method where necessary.
+
+
+[*Commons*](#common-classes) represents a collection of classes used by multiple other components.
+Two of those classes play important roles at the architecture level.
+
+* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+  is used by components to communicate with other components using events (i.e. a form of Event Driven design)
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+<br><br>
+
+<img src="images/LogicClassDiagram.png" width="800"><br>Diagram 2: Sequence diagam<br>
+
+The rest of the App consists four components.
+
+* [*`UI`*](#ui-component) : The UI of tha App.
+* [*`Logic`*](#logic-component) : The command executor.
+* [*`Model`*](#model-component) : Holds the data of the App in-memory.
+* [*`Storage`*](#storage-component) : Reads data from, and writes data to, the hard disk.
+
+Each of the four components
+
+* Defines its API in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+interface and exposes its functionality using the `LogicManager.java` class.
+<br><br>
+
+
+<img src="images\SDforDeletePerson.png" width="800"><br>Diagram 3: Model diagram
+
+The Sequence Diagram above shows how the components interact for the scenario where the user issues the
+command `delete 3`.
+
+> Notice how the `Model` simply raises a `ActivityManagerChangedEvent` when the Activity Manager data are changed,
+ instead of asking the `Storage` to save the updates to the hard disk.
+
+
+<br><br><img src="images\SDforDeletePersonEventHandling.png" width="800"><br>Diagram 4: Event diagram
+
+The diagram above shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+> * Notice how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+
+The sections below give more details of each component.
+<br>
+### UI component
+
+<img src="images/UiClassDiagram.png" width="800"><br>Diagram 5: UI component<br>
+
+API : [`Ui.java`](../src/main/java/seedu/menion/ui/Ui.java)
+
+The UI consists of a `MainWindow` that is made up of parts. 
+For example, `CommandBox`, `ResultDisplay`, `AcitivtyListPanel`, `StatusBarFooter`, `BrowserPanel` etc... All these, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
+
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.<br>
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/menion/ui/MainWindow.java) is specified in [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+
+The `UI` component,
+
+* executes user commands using the `Logic` component.
+* binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* responds to events raised from various parts of the App and updates the UI accordingly.
+
+<br>
+### Storage component
+
+<img src="images/StorageClassDiagram.png" width="800"><br>Diagram 6: Storage component<br>
+
+API : [`Storage.java`](../src/main/java/seedu/menion/storage/Storage.java)
+
+The `Storage` component,
+
+* saves `UserPref` objects in json format and read it back.
+* saves the Activity Manager data in xml format and read it back.
+<br>
+
+### Logic component
+
+<img src="images/LogicClassDiagram.png" width="800"><br>Diagram 7: Logic component <br>
+
+API : [`Logic.java`](../src/main/java/seedu/menion/logic/Logic.java)
+
+ [`Logic`](../src/main/java/seedu/menion/logic/Logic.java) uses the `ActivityParser` class to parse the user's command.For example, `ActivityParser` uses `AddParser` to parse argument for `AddCommand`. This results in a `Command` object which is executed by the `LogicManager`.<br>
+The command execution can affect the `Model` (e.g. adding an Activity) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+<br><br>
+
+<img src="images/DeletePersonSdForLogic.png" width="800"><br>Diagram 8: Logic interation<br>
+Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`API call.<br><br>
+### Model component
+
+<img src="images/ModelClassDiagram.png" width="800"><br>Diagram 9: Model component<br>
+
+*API* : [`Model.java`](../src/main/java/seedu/menion/model/Model.java)
+The model class is not coupled to the other three components.
+
+The `Model` component,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Activity Manager data.
+* exposes a `UnmodifiableObservableList<ReadOnlyActivity>` that can be 'observed' For example, the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+<br><br>
+
+### Storage component
+
+<img src="images/StorageClassDiagram.png" width="800"><br>Diagram 10: Storage component<br>
+
+API : [`Storage.java`](../src/main/java/seedu/menion/storage/Storage.java)
+
+The `Storage` component,
+
+* saves `UserPref` objects in json format and read it back
+* saves the Activity Manager data in xml format and read it back
+
+### Common classes
+
+Classes used by multiple components are in the `seedu.menion.commons` package.
+
+## Implementation
+
+### Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file
+  (See [Configuration](#configuration))
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging
+  For example, print the actual list instead of just its size
+
+### Configuration
+
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+(default: `config.json`):
+
+## Testing
+
+Tests can be found in the `./src/test/java` folder. There are two available options for tesing.
+
+1. Eclipse
+	* To run all tests, right-click on the `src/test/java` folder and choose
+  `Run as` > `JUnit Test`
+	* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
+  to run as a JUnit test.
+
+2. Gradle
+	* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+
+
+
+Testing is split into two components:
+
+1. *GUI Tests* - These are System Tests that test the entire App by simulating user actions on the GUI. 
+   These are in the `guitests` package.
+  
+2. *Non-GUI Tests* - These are tests not involving the GUI. They include,
+   * Unit tests targeting the lowest level methods/classes. 
+      e.g. `seedu.menion.commons.UrlUtilTest`
+      <br>
+   * Integration tests that are checking the integration of multiple code units (those code units are assumed to be working).
+      e.g. `seedu.menion.storage.StorageManagerTest`
+      <br>
+   * Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.
+      e.g. `seedu.menion.logic.LogicManagerTest`
+      <br>
+  
+>*Headless GUI Testing* :
+Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,our GUI tests can be run in the headless mode.In the headless mode, GUI tests do not show up on the screen.That means the developer can do other things on the Computer while the tests are running.<br>
+ See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+ 
+#### Troubleshooting tests
+ *Problem: Tests fail because NullPointException when AssertionError is expected*
+ 
+ * Reason: Assertions are not enabled for JUnit tests. 
+   This can happen if you are not using a recent Eclipse version (i.e. Neon or later)
+ * Solution: Enable assertions in JUnit tests as described 
+   [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). 
+   
+Delete run configurations created when you ran tests earlier.
+   
+## Dev Ops
+
+### Build Automation
+
+See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+
+### Continuous Integration
+
+We use [Travis CI](https://travis-ci.org/) to perform Continuous Integration on our projects. See [UsingTravis.md](UsingTravis.md) for more details.
+
+### Making a Release
+
+Here are the steps to create a new release:
+ 
+ 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
+ 2. Tag the repo with the version number. e.g. `v0.1`
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) and upload the JAR file your created.
+   
+### Managing Dependencies
+
+A project often depends on third-party libraries. For example, Activity Manager depends on the [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these dependencies can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.<br>
+Remember to include those libraries in the repo (this bloats the repo size). Developers are required to download those libraries manually (this creates extra work for developers).<br>
 
 ## Appendix A : User Stories
 
@@ -256,5 +509,4 @@ _3.1 Pros_
 
 _3.2 Cons_
 > 3.2.1 No one shot approach of typing details of activity into a command line.
-
 
