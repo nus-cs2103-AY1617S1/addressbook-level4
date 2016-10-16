@@ -3,15 +3,12 @@ package seedu.todo.model;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Callable;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 import seedu.todo.commons.core.UnmodifiableObservableList;
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
@@ -57,6 +54,25 @@ public class TodoTest {
         assertEquals("Test Task 1", getTask(0).getTitle());
         assertEquals("Test Task 2", getTask(1).getTitle());
         storage.assertTodoListWasSaved();
+    }
+
+    @Test
+    public void testLastUpdated() throws Exception {
+        LocalDateTime initialTime = LocalDateTime.now().minusSeconds(1);
+
+        todo.add("Test Task 1");
+        LocalDateTime beforeUpdate = getTask(0).getLastUpdated();
+        assertTrue(beforeUpdate.isAfter(initialTime));
+
+        // Delay for a bit
+        Thread.sleep(1);
+        assertTrue(beforeUpdate.isEqual(getTask(0).getLastUpdated()));
+
+        Thread.sleep(1);
+        todo.update(1, t -> t.setPinned(true));
+        LocalDateTime afterUpdate = getTask(0).getLastUpdated();
+
+        assertTrue(afterUpdate.isAfter(beforeUpdate));
     }
 
     @Test

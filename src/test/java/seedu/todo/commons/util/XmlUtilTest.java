@@ -58,7 +58,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTodoList.class);
-        assertEquals(3, dataFromFile.getTasks().size());
+        assertEquals(6, dataFromFile.getTasks().size());
     }
 
     @Test
@@ -87,7 +87,6 @@ public class XmlUtilTest {
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);
 
-        // TODO: improve shallow equal method comparison
         assertTrue(isShallowEqual(dataFromFile.getTasks(), dataToWrite.getTasks()));
 
         TodoList todoList = new TodoList(storage);

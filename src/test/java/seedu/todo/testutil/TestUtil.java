@@ -172,15 +172,23 @@ public class TestUtil {
             return false;
         }
 
-        List<String> setOfTitles = new ArrayList<>();
-        for (ImmutableTask taskA : a) {
-            setOfTitles.add(taskA.getTitle());
-        }
-        for (ImmutableTask taskB : b) {
-            if (!setOfTitles.remove(taskB.getTitle())) {
+        for (int i = 0; i < a.size(); i++) {
+            ImmutableTask taskA = a.get(i);
+            ImmutableTask taskB = a.get(i);
+
+            boolean isSame = taskA.getTitle() == taskA.getTitle() &&
+                    taskA.isCompleted() == taskB.isCompleted() &&
+                    taskA.isPinned() == taskB.isPinned() &&
+                    taskA.getLastUpdated() == taskB.getLastUpdated() &&
+                    taskA.getDescription().equals(taskB.getDescription()) &&
+                    taskA.getLocation().equals(taskB.getLocation()) &&
+                    taskA.getStartTime().equals(taskB.getStartTime()) &&
+                    taskA.getEndTime().equals(taskB.getEndTime());
+            if (!isSame) {
                 return false;
             }
         }
+
         return true;
     }
 
