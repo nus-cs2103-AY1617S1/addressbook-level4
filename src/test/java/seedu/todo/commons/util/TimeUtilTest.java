@@ -268,10 +268,10 @@ public class TimeUtilTest {
                 LocalDateTime.of(2016, 12, 31, 16, 50), LocalDateTime.of(2017, 1, 4, 14, 30));
     }
     
-    @Test (expected = AssertionError.class)
+    @Test
     public void isOverdue_nullEndTime() {
         TimeUtil timeUtil = new TimeUtil();
-        timeUtil.isOverdue(null);
+        assertFalse(timeUtil.isOverdue(null));
     }
     
     @Test

@@ -227,7 +227,10 @@ public class TimeUtil {
     }
     
     public boolean isOverdue(LocalDateTime endTime) {
-        assert (endTime != null);
+        if (endTime == null) {
+            logger.log(Level.WARNING, "endTime in isOverdue(...) is null.");
+            return false;
+        }
         return endTime.isBefore(LocalDateTime.now(clock));
     }
     
