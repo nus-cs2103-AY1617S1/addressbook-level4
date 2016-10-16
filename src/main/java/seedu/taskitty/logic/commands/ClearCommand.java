@@ -19,4 +19,10 @@ public class ClearCommand extends Command {
         model.resetData(TaskManager.getEmptyTaskManager());
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+
+    @Override
+    public void saveState() {
+        
+    }
 }

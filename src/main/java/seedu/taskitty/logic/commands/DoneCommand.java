@@ -46,4 +46,10 @@ public class DoneCommand extends Command {
         return new CommandResult(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, taskToBeMarkedDone));
     }
 
+
+    @Override
+    public void saveState() {
+        
+    }
+
 }

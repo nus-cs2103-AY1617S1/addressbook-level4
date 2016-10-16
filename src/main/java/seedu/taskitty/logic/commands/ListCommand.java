@@ -17,4 +17,9 @@ public class ListCommand extends Command {
         model.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public void saveState() {
+        
+    }
 }

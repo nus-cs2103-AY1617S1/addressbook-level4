@@ -27,7 +27,9 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult execute();
-
+    
+    public abstract void saveState();
+    
     /**
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain

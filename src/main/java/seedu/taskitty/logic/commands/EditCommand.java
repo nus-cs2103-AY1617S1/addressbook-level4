@@ -79,5 +79,10 @@ public class EditCommand extends Command{
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
     }
+
+    @Override
+    public void saveState() {
+        
+    }
 }
 

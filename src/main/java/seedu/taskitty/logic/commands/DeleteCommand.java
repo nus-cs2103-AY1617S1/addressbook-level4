@@ -60,4 +60,9 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, CATEGORIES[categoryIndex], taskToDelete));
     }
 
+    @Override
+    public void saveState() {
+        
+    }
+
 }

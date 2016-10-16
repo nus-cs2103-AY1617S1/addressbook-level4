@@ -17,4 +17,9 @@ public class UndoCommand extends Command {
         return new CommandResult(MESSAGE_UNDO_TASK_SUCCESS);
     }
 
+    @Override
+    public void saveState() {
+        
+    }
+
 }
