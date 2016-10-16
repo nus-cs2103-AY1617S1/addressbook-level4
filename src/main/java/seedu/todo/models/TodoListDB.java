@@ -113,12 +113,18 @@ public class TodoListDB {
         Iterator<Task> iterator = tasks.iterator();
         while (iterator.hasNext()) {
             Task currTask = iterator.next();
+            LocalDateTime currTaskDueDate = DateUtil.floorDate(currTask.getDueDate());
+            
+            if (currTaskDueDate == null) {
+                currTaskDueDate = LocalDateTime.MIN;
+            }
+            
             if (listAllStatus) {
-                if (DateUtil.floorDate(currTask.getDueDate()).equals(givenDate)) {
+                if (currTaskDueDate.equals(givenDate)) {
                     taskByDate.add(currTask);
                 }
             } else {
-                if (DateUtil.floorDate(currTask.getDueDate()).equals(givenDate) && currTask.isCompleted() == isCompleted) {
+                if (currTaskDueDate.equals(givenDate) && currTask.isCompleted() == isCompleted) {
                     taskByDate.add(currTask);
                 }
             }
@@ -138,14 +144,17 @@ public class TodoListDB {
         }
         while (iterator.hasNext()) {
             Task currTask = iterator.next();
+            LocalDateTime currTaskDueDate = DateUtil.floorDate(currTask.getDueDate());
+            if (currTaskDueDate == null) {
+                currTaskDueDate = LocalDateTime.MIN;
+            }
+            
             if (listAllStatus) {
-                if (DateUtil.floorDate(currTask.getDueDate()).compareTo(fromDate) >= 0 && 
-                        DateUtil.floorDate(currTask.getDueDate()).compareTo(toDate) <= 0) {
+                if (currTaskDueDate.compareTo(fromDate) >= 0 && currTaskDueDate.compareTo(toDate) <= 0) {
                     taskByRange.add(currTask);
                 }
             } else {
-                if (DateUtil.floorDate(currTask.getDueDate()).compareTo(fromDate) >= 0 && 
-                        DateUtil.floorDate(currTask.getDueDate()).compareTo(toDate) <= 0 &&
+                if (currTaskDueDate.compareTo(fromDate) >= 0 && currTaskDueDate.compareTo(toDate) <= 0 && 
                         currTask.isCompleted() == isCompleted) {
                     taskByRange.add(currTask);
                 }
