@@ -69,18 +69,9 @@ public class AddController implements Controller {
         }
         
         // Time - Disambiguate if "to" without "from" OR "task" and two timings.
-        String naturalFrom = null;
-        String naturalTo = null;
-        setTime: {
-            if (parsedResult.get("time") != null && parsedResult.get("time")[1] != null) {
-                naturalFrom = parsedResult.get("time")[1];
-                break setTime;
-            }
-            if (parsedResult.get("timeFrom") != null && parsedResult.get("timeFrom")[1] != null)
-                naturalFrom = parsedResult.get("timeFrom")[1];
-            if (parsedResult.get("timeTo") != null && parsedResult.get("timeTo")[1] != null)
-                naturalTo = parsedResult.get("timeTo")[1];
-        }
+        String[] naturalDates = parseDates(parsedResult);
+        String naturalFrom = naturalDates[0];
+        String naturalTo = naturalDates[1];
         if ((naturalFrom == null && naturalTo != null) || (isTask && naturalTo != null)) {
             renderDisambiguation(parsedResult);
             return;
@@ -110,6 +101,22 @@ public class AddController implements Controller {
         view.events = db.getAllEvents();
         UiManager.renderView(view);
         UiManager.updateConsoleMessage(MESSAGE_ADD_SUCCESS);
+    }
+    
+    private String[] parseDates(Map<String, String[]> parsedResult) {
+        String naturalFrom = null;
+        String naturalTo = null;
+        setTime: {
+            if (parsedResult.get("time") != null && parsedResult.get("time")[1] != null) {
+                naturalFrom = parsedResult.get("time")[1];
+                break setTime;
+            }
+            if (parsedResult.get("timeFrom") != null && parsedResult.get("timeFrom")[1] != null)
+                naturalFrom = parsedResult.get("timeFrom")[1];
+            if (parsedResult.get("timeTo") != null && parsedResult.get("timeTo")[1] != null)
+                naturalTo = parsedResult.get("timeTo")[1];
+        }
+        return new String[] { naturalFrom, naturalTo };
     }
 
     private String parseName(Map<String, String[]> parsedResult) {
