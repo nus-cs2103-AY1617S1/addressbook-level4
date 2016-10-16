@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends ToDoListGuiTest {
-
+/*
     @Test
     public void clear() {
 /*
@@ -23,8 +23,8 @@ public class ClearCommandTest extends ToDoListGuiTest {
         assertClearCommandSuccess();
     }
 
-    private void assertClearCommandSuccess() {*/
+    private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-    }
+    }*/
 }
