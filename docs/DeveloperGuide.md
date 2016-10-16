@@ -303,7 +303,7 @@ Display help when requested, or when user enter an invalid command.
 
 ##### Extensions
 
-1a. User entered an invalid command
+1a. User entered an invalid command.
 
 * 1a1. Use case resume at 2.
 
@@ -317,15 +317,13 @@ Adding a task. A task can be concrete (have defined date/time) or floating (with
 
 1. User requests to add a task.
 
-2. System accepts the command & parameters and create task.
+2. System accepts the command & parameters, creates the task and displays successful message to User.
 
-3. System displays successful message to User.
-
-4. Use case ends.
+3. Use case ends.
 
 ##### Extensions
 
-1a. User entered an invalid command
+1a. User entered an invalid command.
 
 * 1a1. System display unsuccessful message.
 
@@ -359,6 +357,12 @@ Display lists of tasks added into the System.
 
 ##### Extensions
 
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
 2a. System cannot find any task.
 
 * 2a1. System display message, "No task found.".
@@ -389,6 +393,12 @@ should return all tasks matches "grocery" in name OR having tag with "milk" or "
 
 ##### Extensions
 
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
 2a. System cannot find any task.
 
 * 2a1. System display message, "No matching task found.".
@@ -410,6 +420,12 @@ Edit the details of a single task. The command only update fields specified by t
 4. Use case ends.
 
 ##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 2a. Invalid index.
 
@@ -436,6 +452,12 @@ Remove a task entry by index.
 4. Use case ends.
 
 ##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 2a. Invalid index.
 
@@ -465,6 +487,12 @@ Undo last action performed.
 
 ##### Extensions
 
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
 2a. System cannot find any previous action in Undo stack.
 
 * 2a1. System display unsuccessful message.
@@ -488,6 +516,12 @@ Redo an action performed in UC7.
 4. Use case ends.
 
 ##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 2a. System cannot find any previous action in Redo stack.
 
@@ -513,6 +547,12 @@ Mark a task as done by index. A marked task should be automatically archived and
 
 ##### Extensions
 
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
 2a. Invalid Index.
 
 * 2a1. System cannot find the task associated with the index.
@@ -537,6 +577,12 @@ System performs bulk delete on the category specified (Deadlines, events, tasks)
 
 ##### Extensions
 
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
 2a. Invalid category
 
 * 2a1. System cannot find the specified category.
@@ -560,7 +606,12 @@ System performs bulk delete on every category (Deadlines, events, tasks).
 3. Use case ends.
 
 ##### Extensions
-N.I.L.
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 ---
 
@@ -576,13 +627,19 @@ Change the current storage to other directory specified by the user.
 
 3. System copy current storage to the new location.
 
-4. System update all future command to reference the new location.
+4. System deletes old file at old storage location.
 
 5. System displays successful message.
 
 6. Use case ends.
 
 ##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 2a. Invalid storage location.
 
@@ -613,23 +670,36 @@ Quit the application.
 4. Use case ends.
 
 ##### Extensions
-N.I.L
 
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
+---
 
 ## Appendix C : Non Functional Requirements
 
 1. Should backup tasks list.
-2. Should be able to store 1000 tasks.
-3. Should only receive keyboard inputs.
+2. Should work as a stand alone.
+3. Should be able to store 1000 tasks.
 4. Should be maintainable and scalable.
-5. Should be user friendly for new users.
-6. Should be able to be accessed offline.
-7. Should come with automated unit testing.
-8. Should be able to startup and quit within 1 second.
-9. Should display up to date tasks when command is given.
-10. Should be able to run on all [mainstream OS](#mainstream-os).
-11. Should be able to display tasks within 1 second when command is given.
-12. Should have a simple GUI that displays [relevant information](#relevant-information).
+5. Should not use relational databases.
+6. Should be user friendly for new users.
+7. Should be able to be accessed offline.
+8. Should come with automated unit testing.
+9. Should follow the Object-oriented paradigm.
+10. Should work without requiring an installer.
+11. Should be able to startup and quit within 1 second.
+12. Should display up to date tasks when command is given.
+13. Should store data locally and should be in a .xml file.
+14. Should work well without any third party framework/library.
+15. Should have a Command Line Interface as the primary mode of input.
+16. Should be able to display tasks within 1 second when command is given.
+17. Should be able to run on all [mainstream OS](#mainstream-os) for desktop.
+18. Should have a simple GUI that displays [relevant information](#relevant-information).
+
 
 ## Appendix D : Glossary
 
