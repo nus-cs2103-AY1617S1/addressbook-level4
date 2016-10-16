@@ -66,7 +66,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Add Command] Task deleted: %1$s";
-    public static final String MESSAGE_REDO_SUCCESS = "[Undo Add Command] Task added: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS = "[Redo Add Command] Task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Mastermind";
 
     private final Task toAdd;

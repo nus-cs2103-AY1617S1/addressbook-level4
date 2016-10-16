@@ -83,23 +83,23 @@ public class EditCommand extends Command implements Undoable, Redoable {
         try {
             // grabbing the origin task (before edit)
             executeEdit();
-            
+
             model.pushToUndoHistory(this);
-            
+
             // this is a new command entered by user (not undo/redo)
-            // need to clear the redoHistory Stack 
+            // need to clear the redoHistory Stack
             model.clearRedoHistory();
-            
+
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_PROMPT, originalTask));
 
-        } catch (TaskNotFoundException | DuplicateTaskException | IndexOutOfBoundsException ie ) {
+        } catch (TaskNotFoundException | DuplicateTaskException | IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
     }
 
     @Override
-    //@@author A0138862W
+    // @@author A0138862W
     public CommandResult undo() {
 
         try {
@@ -108,7 +108,7 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
             // add back the original task
             model.addTask((Task) originalTask);
-            
+
             model.pushToRedoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, originalTask));
@@ -119,14 +119,13 @@ public class EditCommand extends Command implements Undoable, Redoable {
         }
     }
 
-    
     @Override
-    //@@author A0138862W
+    // @@author A0138862W
     public CommandResult redo() {
-        
+
         try {
             executeEdit();
-            
+
             model.pushToUndoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, originalTask));
@@ -134,7 +133,6 @@ public class EditCommand extends Command implements Undoable, Redoable {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
     }
-    
 
     private void executeEdit() throws TaskNotFoundException, DuplicateTaskException, IndexOutOfBoundsException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
@@ -143,8 +141,11 @@ public class EditCommand extends Command implements Undoable, Redoable {
             indicateAttemptToExecuteIncorrectCommand();
             throw new IndexOutOfBoundsException();
         }
-        originalTask = lastShownList.get(targetIndex
-                                         - 1);
+
+        if (originalTask == null) {
+            originalTask = lastShownList.get(targetIndex
+                                             - 1);
+        }
 
         // if user provides explicit field and value, we change them
         // otherwise, all user omitted field are preserve from the original
@@ -165,7 +166,9 @@ public class EditCommand extends Command implements Undoable, Redoable {
         }).orElse(originalTask.getTags().toSet()));
 
         // initialize the new task with edited values
-        this.editedTask = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags);
+        if (editedTask == null) {
+            editedTask = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags);
+        }
 
         model.deleteTask(originalTask);
         model.addTask(editedTask);
