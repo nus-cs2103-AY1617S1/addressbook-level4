@@ -98,12 +98,8 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     public ImmutableTask add(String title) {
         Task task = new Task(title);
         tasks.add(task);
-
-        try {
-            storage.save(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        
+        saveTodoList();
         return task;
     }
 

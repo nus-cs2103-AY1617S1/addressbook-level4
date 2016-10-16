@@ -28,27 +28,6 @@ import seedu.todo.storage.MoveableStorage;
  * of assertions to inspect the model. 
  */
 public abstract class CommandTest {
-    private class StubParseResult implements ParseResult {
-        public String command; 
-        public String positional;
-        public Map<String, String> named = new HashMap<>();
-
-        @Override
-        public String getCommand() {
-            return command;
-        }
-
-        @Override
-        public Optional<String> getPositionalArgument() {
-            return Optional.ofNullable(positional);
-        }
-
-        @Override
-        public Map<String, String> getNamedArguments() {
-            return named;
-        }
-    }
-
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
@@ -172,5 +151,26 @@ public abstract class CommandTest {
         result = command.execute();
         
         assertEquals(expectSuccess, result.isSuccessful());
+    }
+
+    private class StubParseResult implements ParseResult {
+        public String command;
+        public String positional;
+        public Map<String, String> named = new HashMap<>();
+
+        @Override
+        public String getCommand() {
+            return command;
+        }
+
+        @Override
+        public Optional<String> getPositionalArgument() {
+            return Optional.ofNullable(positional);
+        }
+
+        @Override
+        public Map<String, String> getNamedArguments() {
+            return named;
+        }
     }
 }

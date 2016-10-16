@@ -1,7 +1,5 @@
 package seedu.todo.commons.core;
 
-import seedu.todo.storage.FixedStorage;
-
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -20,8 +18,7 @@ public class Config {
     private String todoListName = "My Todo List";
 
 
-    public Config() {   
-    }
+    public Config() {}
 
     public String getAppTitle() {
         return appTitle;

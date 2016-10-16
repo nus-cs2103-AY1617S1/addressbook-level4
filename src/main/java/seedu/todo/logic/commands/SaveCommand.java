@@ -12,7 +12,7 @@ import java.util.List;
  * Saves the save file to a different location 
  */
 public class SaveCommand extends BaseCommand {
-    Argument<String> location = new StringArgument("location");
+    private Argument<String> location = new StringArgument("location");
     
     @Override
     protected Parameter[] getArguments() {

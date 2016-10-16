@@ -9,7 +9,7 @@ import seedu.todo.logic.arguments.StringArgument;
 import java.util.List;
 
 public class LoadCommand extends BaseCommand {
-    Argument<String> location = new StringArgument("location").required();
+    private Argument<String> location = new StringArgument("location").required();
     
     @Override
     protected Parameter[] getArguments() {

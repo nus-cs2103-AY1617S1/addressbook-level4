@@ -2,7 +2,6 @@ package seedu.todo.model;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import com.google.common.collect.ImmutableList;
 import org.junit.Before;
