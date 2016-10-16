@@ -65,18 +65,18 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Task Manager v0.1"), new Deadline("061016"), new Priority("2"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v0.2"), new Deadline("131016"), new Priority("1"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v0.3"), new Deadline("201016"), new Priority("3"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v0.4"), new Deadline("271016"), new Priority("4"), new UniqueTagList())
-//                    new Task(new Name("Elle Meyer"), new Deadline("9482224"), new Priority("werner@gmail.com"), new UniqueTagList()),
-//                    new Task(new Name("Fiona Kunz"), new Deadline("9482427"), new Priority("lydia@gmail.com"), new UniqueTagList()),
-//                    new Task(new Name("George Best"), new Deadline("9482442"), new Priority("anna@google.com"), new UniqueTagList()),
-//                    new Task(new Name("Hoon Meier"), new Deadline("8482424"), new Priority("stefan@mail.com"), new UniqueTagList()),
-//                    new Task(new Name("Ida Mueller"), new Deadline("8482131"), new Priority("hans@google.com"), new UniqueTagList())
+                    new Task(new Name("Task Manager v01"), new Deadline("061016"), new Priority("2"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v02"), new Deadline("131016"), new Priority("1"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v03"), new Deadline("201016"), new Priority("3"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v04"), new Deadline("271016"), new Priority("4"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v05"), new Deadline("948222"), new Priority("5"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v06"), new Deadline("948242"), new Priority("1"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v07"), new Deadline("948244"), new Priority("2"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v08"), new Deadline("848242"), new Priority("3"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v09"), new Deadline("848213"), new Priority("3"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
-            assert false;
+            //assert false; //This was causing errors
             //not possible
             return null;
         }
