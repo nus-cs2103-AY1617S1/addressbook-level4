@@ -252,16 +252,17 @@ Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a new task | so I can register my things to do
-`* * *` | user | delete a task | remove entries that I no longer need
-`* * *` | user | find a task by name | locate details of the task without having to go through the entire list
-`* * *` | user | find a task by deadline | locate tasks that are due soon without having to go through the entire list
-`* * *` | user | edit a task | update entries as needed
 `* * *` | user | add a floating task | have a task without a deadline
 `* * *` | user | add a recurring task | add repeating tasks only once
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | edit a task | update entries as needed
+`* * *` | user | find a task by name | locate details of the task without having to go through the entire list
+`* * *` | user | find a task by deadline | locate tasks that are due soon without having to go through the entire list
 `* * *` | user | undo a task entered | increase my workflow
+`* * *` | user | re-do a task entered | increase my workflow
 `* * *` | user | sort list by alphabetical order and date | find my tasks easily
+`* * *` | user | mark tasks as done | archive my completed tasks
 `* * *` | user | specify the location of file storage | choose where to save the to do list
-`* *` | user | mark tasks as done | archive my completed tasks
 `* *` | user | see my tasks in user interface | have an easier time using the app
 `* *` | user | set categories | organise my tasks
 `* *` | user | block out timings | reserve time slots for tasks
