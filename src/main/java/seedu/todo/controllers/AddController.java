@@ -34,7 +34,7 @@ public class AddController implements Controller {
     @Override
     public float inputConfidence(String input) {
         // TODO
-        return (input.startsWith("add")) ? 1 : 0;
+        return (input.toLowerCase().startsWith("add")) ? 1 : 0;
     }
     
     private static Map<String, String[]> getTokenDefinitions() {

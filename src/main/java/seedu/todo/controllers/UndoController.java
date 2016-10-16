@@ -17,7 +17,7 @@ public class UndoController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return input.startsWith("undo") ? 1 : 0;
+        return input.toLowerCase().startsWith("undo") ? 1 : 0;
     }
     
     private static Map<String, String[]> getTokenDefinitions() {
