@@ -22,7 +22,7 @@
    - `list`
        - lists all floating tasks, events and tasks due today
 
-   - `add` `name/"CS2103T tutorial work" endDate/"tomorrow 11am"`
+   - `add` `'CS2103T tutorial work' ed/'tomorrow 11am'`
        - adds a task named `CS2103T tutorial work` with deadline due tomorrow at 11am
    - `delete 3`
        - deletes the 3rd task shown in the current list
@@ -68,34 +68,34 @@ _Mastermind_ helps you to organize your task into three main categories:
 #### Adds an event  
 _Format:_
 ```java
-(add | do) name/"<taskName>" [startDate/"<start_date>"] [endDate/"<end_date>"] [tags/<comma_separated_tags>];
+(add|do) '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
 ```
 
 _Example:_
 ```java
-> add "exhibition" startDate/"saturday 7pm" endDate/"sunday 9pm" tags/artsciencemuseum,drawings
+> add 'attend workshop' sd/'today 7pm' ed/'next monday 1pm' t/'programming,java'
 ```
 #### Adds a task with deadline
 _Format:_
 
 ```java
-(add | do) name/"<taskName>" [endDate/"<end_date>"] [tags/<comma_spearated_tags>]
+(add|do) '<name>' [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
 ```  
 
 _Example:_
 
 ```java
-> do name/"submit cs2103t user guide" endDate/"by next satudary 12am"
+> add 'submit homework' ed/'next sunday 11pm' t/'math,physics'
 ```  
 #### Adds a floating task
 _Format:_
 ```java
-(add | do) name/"<taskName>" [tags/<comma_spearated_tags>]
+(add|do) '<name>' [t/'<comma_seperated_tags>...']
 ```  
 
 _Example:_
 ```java
-> add name/"walk my dog" tags/chores,baddog
+> do 'chores' t/'cleaning'
 ```  
 
 > Mastermind uses [natural language processing](http://www.ocpsoft.org/prettytime/nlp/) for `startDate` & `endDate`, therefore it does not enforce any specific date format. Below are the possible list of date construct that Mastermind accepts:
@@ -407,7 +407,7 @@ _Example:_
 Command | Format  
 -------- | :--------
 Help | `help`
-Add, Do | <code>(add &#124; do) name/&quot;&lt;taskName&gt;&quot; [startDate/&quot;&lt;start_date&gt;&quot;] [endDate/&quot;&lt;end_date&gt;&quot;] [tags/&lt;comma_separated_tags&gt;];</code>
+Add, Do | <code>(add &#124; do) '&lt;taskName&gt;' [sd/'&lt;start_date&gt;'] [ed/'&lt;end_date&gt;'] [t/'&lt;comma_separated_tags&gt;'];</code>
 List | `list [<category_name>]`
 Find | `find <keyword>...`
 Find Tag | `findtag <keyword>...`
