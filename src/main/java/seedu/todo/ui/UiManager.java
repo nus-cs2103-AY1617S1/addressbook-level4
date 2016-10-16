@@ -13,7 +13,7 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.events.ui.JumpToListRequestEvent;
 import seedu.todo.commons.events.ui.SelectionChangedEvent;
-import seedu.todo.commons.events.ui.ShowHelpRequestEvent;
+import seedu.todo.commons.events.ui.ShowHelpEvent;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
@@ -105,7 +105,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleShowHelpEvent(ShowHelpRequestEvent event) {
+    private void handleShowHelpEvent(ShowHelpEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
     }

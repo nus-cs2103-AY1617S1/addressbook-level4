@@ -1,13 +1,19 @@
 package seedu.todo.logic.commands;
 
+import com.google.common.collect.ImmutableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.*;
 import seedu.todo.model.task.ImmutableTask;
+
+import java.util.List;
 
 public class EditCommand extends BaseCommand {
     private static final String VERB = "edited";
     
     private Argument<Integer> index = new IntArgument("index").required();
+    
+    private Argument<String> title = new StringArgument("title")
+            .flag("t");
     
     private Argument<String> description = new StringArgument("description")
             .flag("m");
@@ -23,12 +29,28 @@ public class EditCommand extends BaseCommand {
 
     @Override
     protected Parameter[] getArguments() {
-        return new Parameter[] { index, date, description, pin, location };
+        return new Parameter[] { index, title, date, description, pin, location };
+    }
+
+    @Override
+    public String getCommandName() {
+        return "edit";
+    }
+
+    @Override
+    public List<CommandSummary> getCommandSummary() {
+        return ImmutableList.of(new CommandSummary("Edit task", getCommandName(), 
+            getArgumentSummary()));
+
     }
 
     @Override
     public CommandResult execute() throws ValidationException {
         ImmutableTask editedTask = this.model.update(index.getValue(), task -> {
+            if (title.hasBoundValue()) {
+                task.setTitle(title.getValue());
+            }
+            
             if (description.hasBoundValue()) {
                 task.setDescription(description.getValue());
             }

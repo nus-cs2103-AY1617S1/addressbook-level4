@@ -5,5 +5,5 @@ import seedu.todo.logic.commands.BaseCommand;
 import seedu.todo.logic.parser.ParseResult;
 
 public interface Dispatcher {
-    public BaseCommand dispatch(ParseResult parser) throws IllegalValueException;
+    public BaseCommand dispatch(String command) throws IllegalValueException;
 }

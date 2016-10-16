@@ -1,6 +1,7 @@
 package seedu.todo.logic.commands;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class ExitCommandTest extends CommandTest {
     public void testExecute() throws IllegalValueException, ValidationException {
         EventsCollector eventCollector = new EventsCollector();
         execute(true);
-        assertTrue(eventCollector.get(0) instanceof ExitAppRequestEvent);
+        assertThat(eventCollector.get(0), instanceOf(ExitAppRequestEvent.class));
     }
 
 }
