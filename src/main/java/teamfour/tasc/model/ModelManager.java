@@ -442,7 +442,7 @@ public class ModelManager extends ComponentManager implements Model {
             else if (b.getPeriod().hasPeriod())
                 timeB = (int)(b.getPeriod().getStartTime().getTime() / 1000);
             
-            return timeB - timeA;
+            return timeA - timeB;
         }
     }
     
@@ -461,7 +461,7 @@ public class ModelManager extends ComponentManager implements Model {
             else if (b.getPeriod().hasPeriod())
                 timeB = (int)(b.getPeriod().getStartTime().getTime() / 1000);
             
-            return timeA - timeB;
+            return timeB - timeA;
         }
     }
     
