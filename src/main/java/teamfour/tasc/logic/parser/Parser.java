@@ -151,6 +151,19 @@ public class Parser {
     }
 
     /**
+     * Takes in a string and return null if it is empty,
+     * or returns the string itself otherwise.
+     * 
+     * @param string the string to check
+     * @return null if string is null or empty, the string itself otherwise
+     */
+    private String setToNullIfIsEmptyString(String string) {
+        if (string == null || string.equals(""))
+            return null;
+        return string;
+    }
+    
+    /**
      * Parses the command string in the context of the list task command.
      *
      * @param command the full command string
@@ -159,7 +172,7 @@ public class Parser {
     private Command prepareList(String command){
         assert command.isEmpty() == false;
         
-        // No parameter, use defaults
+        // No arguments, use default 'list' command
         if (command.trim().equals("list")) {
             try {
                 return new ListCommand();
@@ -170,23 +183,13 @@ public class Parser {
 
         final KeywordParser parser = new KeywordParser("list", "by", "from", "to", "tag", "sort");
         HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
-        String type = parsed.get("list");
-        String deadline = parsed.get("by");
-        String startTime = parsed.get("from");
-        String endTime = parsed.get("to");
-        String tags = parsed.get("tag");
-        String sortingOrder = parsed.get("sort");
+        String type = setToNullIfIsEmptyString(parsed.get("list"));
+        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
+        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
+        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
+        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
+        String sortingOrder = setToNullIfIsEmptyString(parsed.get("sort"));
 
-        if (type != null && type.equals(""))
-            type = null;
-        if (deadline != null && deadline.equals(""))
-            deadline = null;
-        if (startTime != null && startTime.equals(""))
-            startTime = null;
-        if (endTime != null && endTime.equals(""))
-            endTime = null;
-        if (sortingOrder != null && sortingOrder.equals(""))
-            sortingOrder = null;
         if(tags == null){
             tags = "";
         }
@@ -219,23 +222,13 @@ public class Parser {
 
         final KeywordParser parser = new KeywordParser("show", "on", "by", "from", "to", "tag");
         HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
-        String type = parsed.get("show");
-        String date = parsed.get("on");
-        String deadline = parsed.get("by");
-        String startTime = parsed.get("from");
-        String endTime = parsed.get("to");
-        String tags = parsed.get("tag");
+        String type = setToNullIfIsEmptyString(parsed.get("show"));
+        String date = setToNullIfIsEmptyString(parsed.get("on"));
+        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
+        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
+        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
+        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
 
-        if (type != null && type.equals(""))
-            type = null;
-        if (date != null && date.equals(""))
-            date = null;
-        if (deadline != null && deadline.equals(""))
-            deadline = null;
-        if (startTime != null && startTime.equals(""))
-            startTime = null;
-        if (endTime != null && endTime.equals(""))
-            endTime = null;
         if(tags == null){
             tags = "";
         }
@@ -268,23 +261,13 @@ public class Parser {
 
         final KeywordParser parser = new KeywordParser("hide", "on", "by", "from", "to", "tag");
         HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
-        String type = parsed.get("hide");
-        String date = parsed.get("on");
-        String deadline = parsed.get("by");
-        String startTime = parsed.get("from");
-        String endTime = parsed.get("to");
-        String tags = parsed.get("tag");
+        String type = setToNullIfIsEmptyString(parsed.get("hide"));
+        String date = setToNullIfIsEmptyString(parsed.get("on"));
+        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
+        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
+        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
+        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
 
-        if (type != null && type.equals(""))
-            type = null;
-        if (date != null && date.equals(""))
-            date = null;
-        if (deadline != null && deadline.equals(""))
-            deadline = null;
-        if (startTime != null && startTime.equals(""))
-            startTime = null;
-        if (endTime != null && endTime.equals(""))
-            endTime = null;
         if(tags == null){
             tags = "";
         }
