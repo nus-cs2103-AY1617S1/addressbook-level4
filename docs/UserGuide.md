@@ -53,7 +53,7 @@ Just type in your command, and hit <kbd>Enter</kbd>. Let us handle the rest - yo
 > Having any Java 8 version is not enough. <br>
 > This app will not work with earlier versions of Java 8.
 
-2. Download the latest `TaSc.jar` from the [releases](../../../releases) tab (on our GitHub project website) as shown in figure 1 below.
+2. Download the latest `TaSc.jar` from the [releases](../../../releases) tab (on our GitHub project website) as shown in *figure 1* below.
 
    <img src="images/github-download-release.png" width="600"><br>
    *Figure 1: Download TaSc.jar from GitHub*
@@ -63,7 +63,7 @@ Just type in your command, and hit <kbd>Enter</kbd>. Let us handle the rest - yo
 
 ### Launching
 
-Double-click on `TaSc.jar` to start the application. The application window (figure 2) should appear within a few seconds.
+Double-click on `TaSc.jar` to start the application. The application window *(figure 2)* should appear within a few seconds.
 
 <img src="images/Ui.png" width="600"><br>
 *Figure 2: TaSc application window*
