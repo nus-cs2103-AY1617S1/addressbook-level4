@@ -30,7 +30,6 @@ public class TaskCard extends UiPart{
     private int displayedIndex;
 
     public TaskCard(){
-
     }
 
     public static TaskCard load(ReadOnlyTask task, int displayedIndex){
@@ -47,6 +46,15 @@ public class TaskCard extends UiPart{
         dbd.setText(task.getDueByDate().getFriendlyString());
         dbt.setText(task.getDueByTime().getFriendlyString());
         priority.setText(task.getPriority().value);
+        /*
+        switch(task.getPriority().value) {
+        	case "low": 
+        		priority.setTextFill(Color.LAWNGREEN);
+        	case "medium":
+        		priority.setTextFill(Color.GOLD);
+        	case "high":
+        		priority.setTextFill(Color.RED);
+        }*/
         tags.setText(task.tagsString());
         tags.setTextFill(Color.GOLD);        
     }
