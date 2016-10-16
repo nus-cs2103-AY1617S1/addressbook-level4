@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.joestelmach.natty.*;
 
-public class TaskTime {
+public class TaskTime implements Comparable<TaskTime> {
 
     public static final String MESSAGE_TASK_TIME_CONSTRAINTS =
             "Task time should ...";
@@ -64,6 +64,10 @@ public class TaskTime {
         return null;
     }
     
+    public Date getDate(){
+        return value;
+    }
+    
     @Override
     public String toString() {
         return value == null ? "" : value.toString();
@@ -93,6 +97,14 @@ public class TaskTime {
      */
     public static TaskTime deserialize(String args) throws IllegalValueException {
         return new TaskTime(args);
+    }
+
+    /**
+     * compare task time by the date it represents
+     */
+    @Override
+    public int compareTo(TaskTime o) {
+        return this.value.compareTo(o.value);
     }
     
 }
