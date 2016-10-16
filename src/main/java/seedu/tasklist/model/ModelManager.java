@@ -5,7 +5,6 @@ import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
-import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
@@ -263,21 +262,37 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     private class DateQualifier implements Qualifier {
-        private Calendar requestedTime;
+        private final Calendar requestedTime;
 	    
         public DateQualifier(String time) {
+        	requestedTime = Calendar.getInstance();
         	List<DateGroup> dates = new Parser().parse(time);
-        	
-        	if(!dates.isEmpty() && !dates.get(0).getDates().isEmpty()){
-        		requestedTime.setTime(dates.get(0).getDates().get(0));
-    		}
+        	requestedTime.setTime(dates.get(0).getDates().get(0));
         }
     	
         @Override
         public boolean run(ReadOnlyTask person) {
-            return person.getStartTime().toString().equals(this.requestedTime.toString())
-                    || (person.getStartTime().toCardString().equals("-")
-                            && person.getEndTime().toString().equals(this.requestedTime.toString()));
+        	if (!person.getStartTime().toCardString().equals("-")) {
+        	    person.getStartTime().starttime.set(Calendar.HOUR_OF_DAY, 0);
+        	    person.getStartTime().starttime.set(Calendar.MINUTE, 0);
+        	    person.getStartTime().starttime.set(Calendar.SECOND, 0);
+        	    person.getStartTime().starttime.set(Calendar.MILLISECOND, 0);
+        	}
+        	
+        	if (!person.getEndTime().toCardString().equals("-")) {
+                person.getEndTime().endtime.set(Calendar.HOUR_OF_DAY, 0);
+                person.getEndTime().endtime.set(Calendar.MINUTE, 0);
+                person.getEndTime().endtime.set(Calendar.SECOND, 0);
+                person.getEndTime().endtime.set(Calendar.MILLISECOND, 0);
+            }
+        	
+        	this.requestedTime.set(Calendar.HOUR_OF_DAY, 0);
+        	this.requestedTime.set(Calendar.MINUTE, 0);
+        	this.requestedTime.set(Calendar.SECOND, 0);
+        	this.requestedTime.set(Calendar.MILLISECOND, 0);
+        	
+            return person.getStartTime().starttime.equals(this.requestedTime)
+                    || (person.getStartTime().toCardString().equals("-") && person.getEndTime().endtime.equals(this.requestedTime));
         }
     }
 }

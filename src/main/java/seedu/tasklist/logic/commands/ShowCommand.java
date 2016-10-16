@@ -31,17 +31,23 @@ public class ShowCommand extends Command {
         
     	if (keyword.equals("all")) {
     	    model.updateFilteredListToShowAll();
-    	} else if (keyword.equals("incomplete")) {
+    	}
+    	else if (keyword.equals("incomplete")) {
             model.updateFilteredListToShowIncomplete();
-    	} else if (keyword.equals("complete")) {
+    	}
+    	else if (keyword.equals("complete")) {
             model.updateFilteredListToShowComplete();
-    	} else if (keyword.equals("p/high") || keyword.equals("p/med") || keyword.equals("p/low")) {
+    	}
+    	else if (keyword.equals("p/high") || keyword.equals("p/med") || keyword.equals("p/low")) {
             model.updateFilteredListToShowPriority(keyword);
-    	} else if (!requestedTime.isEmpty() && !requestedTime.equals(new Date(0).toString())) {
+    	}
+    	else if (!requestedTime.isEmpty() && !requestedTime.equals(new Date(0).toString())) {
     	    model.updateFilteredListToShowDate(requestedTime);
-    	} else {
+    	}
+    	else {
             return new CommandResult(String.format(MESSAGE_SHOW_FAILURE));
     	}
+    	
         return new CommandResult(String.format(getMessageForTaskListShownSummary(model.getFilteredTaskList().size())));
     }
 }
