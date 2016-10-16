@@ -60,10 +60,11 @@ public class Deadline {
     private String mutateToDash(String deadline) throws IllegalValueException {
     	
     	Date date = null;
-    	try{
-	    	DateFormat input = new SimpleDateFormat("ddMMyy");
-	    	DateFormat output = new SimpleDateFormat("dd-MM-yy");
-	    	SimpleDateFormat saved = new SimpleDateFormat("dd-MM-yy");
+    	DateFormat input = new SimpleDateFormat("ddMMyy");
+    	DateFormat output = new SimpleDateFormat("dd-MM-yy");
+    	SimpleDateFormat saved = new SimpleDateFormat("dd-MM-yy");
+    	
+    	if(deadline.length() == 8){
 	    	try{
 		    	date = saved.parse(deadline);
 		    	if(deadline.equals(saved.format(date))){
@@ -71,14 +72,22 @@ public class Deadline {
 		    	}
 	    	}
 	    	catch (ParseException e1){
-	    		
+	    		throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
 	    	}
-	    	String result = output.format(input.parse(deadline));
-	    	return result;
     	}
-    	catch (ParseException e){
+    	else if(deadline.length() == 6){
+	    	try{
+		    	String result = output.format(input.parse(deadline));
+		    	return result;
+	    	}
+	    	catch (ParseException e){
+	    		throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+	    	}
+    	}
+    	else{
     		throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
     	}
+    	return deadline;
     }
 
 }
