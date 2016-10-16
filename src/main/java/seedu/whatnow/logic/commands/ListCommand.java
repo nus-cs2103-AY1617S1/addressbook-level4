@@ -24,21 +24,19 @@ public class ListCommand extends Command {
         this.type = type;
     }
     
-    private void mapInputToCorrectArgument() {
+    private void mapInputToCorrectArgumentForExecution() {
         if (type.equals("done")) {
             type = "completed";
-        }
-        else if (type.equals("all")) {
+        } else if (type.equals("all")) {
             type = "all";
-        }
-        else {
+        } else {
             type = "incomplete";
         }
     }
     
     @Override
     public CommandResult execute() {
-        mapInputToCorrectArgument();
+        mapInputToCorrectArgumentForExecution();
         if (type.equals("all")) {
             model.updateFilteredListToShowAll();
             return new CommandResult(MESSAGE_SUCCESS);
