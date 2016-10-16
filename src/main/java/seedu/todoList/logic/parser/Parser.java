@@ -29,18 +29,18 @@ public class Parser {
 
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " d/^[0-9]{2}/[0-9]{2}/[0-9]{4}$/"
+                    + " d/^d{2}/[0-9]{2}/[0-9]{4}$/"
                     + " p/(?<priority>[^/]+)");
     
     private static final Pattern event_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " d/^[0-9]{2}/[0-9]{2}/[0-9]{4}$/"
+                    + " d/^(\\d{2}-\\d{2}-\\d{4})$/"
                     + " s/(?<startTime>[^/]+)"
                     + " e/(?<endTime>[^/]+)");
     
     private static final Pattern deadline_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " d/^[0-9]{2}/[0-9]{2}/[0-9]{4}$/"
+                    + " d/^(\\d{2}-\\d{2}-\\d{4})$/"
                     + " e/(?<endTime>[^/]+)");
 
     public Parser() {}
