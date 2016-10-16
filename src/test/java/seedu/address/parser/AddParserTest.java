@@ -85,12 +85,12 @@ public class AddParserTest {
 	
 	@Test
 	public void checkTaskArguments_returnsCorrectArguments(){
-		
-		String arguments = "complete cs2103t by : 10-08-2016 1900 n:important";
+	
+		String arguments = "complete cs2103t by : 08-18-2016 1900 n : important";
 		
 		assertEquals("complete cs2103t", AddParser.parseCommand(arguments).get(1));
 		assertEquals("important", AddParser.parseCommand(arguments).get(2));
-		assertEquals("8 October 2016", AddParser.parseCommand(arguments).get(3));
+		assertEquals("18 August 2016", AddParser.parseCommand(arguments).get(3));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
 		
 	}
