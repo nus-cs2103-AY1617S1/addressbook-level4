@@ -10,6 +10,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
     public static final String MESSAGE_SUCCESS = "Undo-ed previous changes";
+    public static final String MESSAGE_FAILURE = "Previous changes cannot be undo";
     private final Command previousCommand;
 
     public UndoCommand(Command previousCommand) {
@@ -20,13 +21,20 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        previousCommand.undo();
-        return new CommandResult(MESSAGE_SUCCESS);
+        boolean ableToUndo = previousCommand.undo();
+        if (ableToUndo) {
+        	return new CommandResult(MESSAGE_SUCCESS);
+        }
+        else {
+        	return new CommandResult(MESSAGE_FAILURE);
+        }
     }
 
-
+    /*
+     * undo command does not support undo
+     */
 	@Override
-	public void undo() {
-		// TODO Auto-generated method stub	
+	public boolean undo() {
+		return false;
 	}
 }

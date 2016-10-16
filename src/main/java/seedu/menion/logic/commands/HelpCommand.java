@@ -24,9 +24,12 @@ public class HelpCommand extends Command {
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
 
+    /*
+     * help command does not support undo
+     */
 	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
+	public boolean undo() {
 		
+		return false;
 	}
 }

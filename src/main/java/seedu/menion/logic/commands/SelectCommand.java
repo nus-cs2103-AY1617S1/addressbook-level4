@@ -41,10 +41,13 @@ public class SelectCommand extends Command {
 
     }
 
+    /*
+     * select command does not support undo
+     */
 	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
+	public boolean undo() {
 		
+		return false;
 	}
 
 }

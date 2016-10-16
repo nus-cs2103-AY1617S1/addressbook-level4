@@ -19,11 +19,14 @@ public class ExitCommand extends Command {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
-
+    
+    /*
+     * exit command does not support undo
+     */
 	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
+	public boolean undo() {
 		
+		return false;
 	}
 
 }

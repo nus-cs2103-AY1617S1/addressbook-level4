@@ -18,9 +18,12 @@ public class ListCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    /* 
+     * list command does not support undo
+     */
 	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
+	public boolean undo() {
 		
+		return false;
 	}
 }

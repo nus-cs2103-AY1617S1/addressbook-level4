@@ -53,14 +53,19 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete));
     }
 
-
+    
+    /*
+     * undo add back the deleted activity previously
+     */
 	@Override
-	public void undo() {
+	public boolean undo() {
 		assert model != null;
         try {
 			model.addTask(toBeDeleted);
+			return true;
 		} catch (DuplicateTaskException e) {
 			// there will not be a duplicate task in this case
+			return false;
 		}
 	}
 

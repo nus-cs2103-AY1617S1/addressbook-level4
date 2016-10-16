@@ -75,13 +75,19 @@ public class AddCommand extends Command {
         }
     }
 
+    /*
+     * undo delete the added activity previously
+     */
 	@Override
-	public void undo() {
+	public boolean undo() {
 		assert model != null;
 		 try {
 	            model.deleteTask(toAdd);
-	        } catch (TaskNotFoundException pnfe) {
-	            assert false : "The target activity cannot be missing";
-	        }
+	            return true;
+	     } 
+		 catch (TaskNotFoundException pnfe) {
+	            // there will not be a task not found exception here
+	        	return false;
+	     }
 	}
 }

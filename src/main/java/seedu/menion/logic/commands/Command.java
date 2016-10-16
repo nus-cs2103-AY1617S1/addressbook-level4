@@ -44,5 +44,5 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
 
-	public abstract void undo();
+	public abstract boolean undo();
 }

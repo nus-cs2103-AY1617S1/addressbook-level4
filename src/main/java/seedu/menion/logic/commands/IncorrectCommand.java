@@ -18,10 +18,13 @@ public class IncorrectCommand extends Command {
         return new CommandResult(feedbackToUser);
     }
 
+    /*
+     * incorrect command does not support undo
+     */
 	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
+	public boolean undo() {
 		
+		return false;
 	}
 
 }
