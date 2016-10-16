@@ -39,16 +39,16 @@ public class ConfigController implements Controller {
 
     @Override
     public void process(String input) {
-        input = input.replaceFirst("config", "").trim();
+        String params = input.replaceFirst("config", "").trim();
         
-        if (input.length() <= 0) {
+        if (params.length() <= 0) {
             
             // Update console message
             UiManager.updateConsoleMessage(MESSAGE_SHOWING);
         
         } else {
             
-            String[] args = input.split(SPACE);
+            String[] args = params.split(SPACE);
             
             // Check args length
             if (args.length != ARGS_LENGTH) {
@@ -99,7 +99,7 @@ public class ConfigController implements Controller {
     
     private Config updateConfigByName(Config config, String configName, String configValue) {
         switch (configName) {
-        case "appTitle":
+        case "appTitle" :
             // Updates MainWindow title
             UiManager.getInstance().getMainWindow().setTitle(configValue);
             
@@ -108,7 +108,7 @@ public class ConfigController implements Controller {
             
             break;
             
-        case "databaseFilePath":
+        case "databaseFilePath" :
             // Move the DB file to the new location
             boolean hasMoved = TodoListDB.getInstance().move(configValue);
             if (!hasMoved) {
@@ -119,6 +119,9 @@ public class ConfigController implements Controller {
             // Update config
             config.setDatabaseFilePath(configValue);
             
+            break;
+            
+        default :
             break;
         }
         
