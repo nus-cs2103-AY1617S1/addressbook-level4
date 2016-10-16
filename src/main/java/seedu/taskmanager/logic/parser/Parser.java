@@ -1,5 +1,6 @@
 package seedu.taskmanager.logic.parser;
 
+import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.commons.util.StringUtil;
 import seedu.taskmanager.logic.commands.AddCommand;
@@ -27,6 +28,7 @@ import seedu.taskmanager.logic.parser.ArgumentTokenizer.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
@@ -40,6 +42,7 @@ import java.text.ParseException;
  * Parses user input.
  */
 public class Parser {
+    private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
 
     /**
      * Used for initial separation of command word and args.
@@ -60,6 +63,8 @@ public class Parser {
     public static final Prefix endDatePrefix = new Prefix("ed/");
     public static final Prefix endTimePrefix = new Prefix("et/");
     public static final Prefix endDateTimePrefix = new Prefix("edt/");
+    public static final Prefix tagsPrefix = new Prefix("t/");
+    public static final String removeTagPrefixString = "-";
     
     //unused
     private static final Pattern NAME_ARG_FORMAT = Pattern.compile("(n/(?<name>[^/]+))");
@@ -365,14 +370,17 @@ public class Parser {
     private Command prepareEdit(String args) {
         assert args != null;
         final Matcher matcher = EDIT_COMMAND_ARGS_FORMAT.matcher(args.trim());
+        
         if (matcher.matches()) {
             Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
             if (index.isPresent()) {
                 String editCommandArgs = matcher.group("editCommandArguments");
                 ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, startDatePrefix, startTimePrefix, 
                                                                         startDateTimePrefix, endDatePrefix, endTimePrefix,
-                                                                        endDateTimePrefix);
+                                                                        endDateTimePrefix, tagsPrefix);
+                logger.fine("In prepareEdit, before tokenize");
                 argsTokenizer.tokenize(editCommandArgs);
+                
                 String name = null;
                 String startDate = null;
                 String startTime = null;
@@ -380,6 +388,9 @@ public class Parser {
                 String endTime = null;
                 String startDateTime = null;
                 String endDateTime = null;
+                List<String> tagsToAdd = null;
+                List<String> tagsToRemove = null;
+                
                 try {
                     name = argsTokenizer.getValue(namePrefix).get();
                 } catch (NoSuchElementException nsee) {
@@ -408,6 +419,32 @@ public class Parser {
                     endDateTime = argsTokenizer.getValue(endDateTimePrefix).get();
                 } catch (NoSuchElementException nsee) {
                 }
+                try {
+                    List<String> tags = argsTokenizer.getAllValues(tagsPrefix).orElse(null);
+                    
+                    logger.fine("Before remove tags check");
+                    if (tags != null) {
+                        for (String tag : tags) {
+                            assert tag.length() > 0;
+                            if (isATagToBeRemoved(tag)) {
+                                if (tagsToRemove == null) {
+                                    tagsToRemove = new ArrayList<String>();
+                                }
+                                
+                                assert tagsToRemove instanceof ArrayList<?>;
+                                tagsToRemove.add(processTagToBeRemoved(tag));
+                            } else {
+                                if (tagsToAdd == null) {
+                                    tagsToAdd = new ArrayList<String>();
+                                }
+                                
+                                assert tagsToAdd instanceof ArrayList<?>;
+                                tagsToAdd.add(tag);
+                            }
+                        }
+                    }
+                } catch (NoSuchElementException nsee) {
+                }
                 
                 try {
                     if (startDateTime != null) {
@@ -422,8 +459,9 @@ public class Parser {
                         endTime = endDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
                     }
 
-                    if (name != null || startDate != null || startTime!= null || endDate != null || endTime != null) {                    
-                        return new EditCommand(index.get(), name, startDate, startTime, endDate, endTime);
+                    if (name != null || startDate != null || startTime!= null || endDate != null 
+                        || endTime != null || tagsToAdd != null || tagsToRemove != null) {
+                        return new EditCommand(index.get(), name, startDate, startTime, endDate, endTime, tagsToAdd, tagsToRemove);
                     }
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
@@ -431,6 +469,24 @@ public class Parser {
             }
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    }
+
+    /**
+     * @param tag
+     * @return tag without tag removal prefix
+     */
+    private String processTagToBeRemoved(String tag) {
+        assert isATagToBeRemoved(tag);
+        logger.fine("In processTagToBeRemoved, before return");
+        return tag.substring(removeTagPrefixString.length(), tag.length());
+    }
+
+    /**
+     * @param tag
+     * @return true if tag is to be removed from the item's tag list.
+     */
+    private boolean isATagToBeRemoved(String tag) {
+        return tag.substring(0, removeTagPrefixString.length()).equals(removeTagPrefixString);
     }
 
     /**
@@ -505,7 +561,7 @@ public class Parser {
     
 
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
+     * Extracts the new item's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -516,6 +572,11 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+    
+    private Set<String> toSet(Optional<List<String>> tagsOptional) {
+        List<String> tags = tagsOptional.orElse(Collections.emptyList());
+        return new HashSet<>(tags);
     }
 
     /**

@@ -38,7 +38,8 @@ public interface ReadOnlyItem {
                 && other.getEndTime().equals(this.getEndTime())
                 && other.getStartDate().equals(this.getStartDate())
                 && other.getStartTime().equals(this.getStartTime())
-                && other.getDone() == this.getDone();
+                && other.getDone() == this.getDone()
+                && other.getTags().equals(this.getTags());
     }
 
     /**
