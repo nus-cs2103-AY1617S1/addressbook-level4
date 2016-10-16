@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -12,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskDateComponent;
 import seedu.address.commons.core.LogsCenter;
 
@@ -50,24 +48,20 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
+                                       ObservableList<TaskDateComponent> taskList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    private void configure(ObservableList<TaskDateComponent> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        ObservableList<TaskDateComponent> componentList = FXCollections.observableArrayList();
-        for(ReadOnlyTask t : taskList){
-            componentList.addAll(t.getTaskDateComponent());
-        }
-        taskListView.setItems(componentList);
+    private void setConnections(ObservableList<TaskDateComponent> taskList) {
+        taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }

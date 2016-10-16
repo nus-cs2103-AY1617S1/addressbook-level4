@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -9,6 +10,8 @@ import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.Date;
 import java.util.Set;
+
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -40,5 +43,7 @@ public interface Model {
 	void changeDirectory(String filePath);
 
 	void archiveTask(ReadOnlyTask target) throws TaskNotFoundException;
+
+    ObservableList<TaskDateComponent> getFilteredTaskDateComponentList();
 
 }

@@ -45,7 +45,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-
+    private final ObservableList<TaskDateComponent> internalComponentList = FXCollections.observableArrayList();
     /**
      * Constructs empty TaskList.
      */
@@ -95,6 +95,7 @@ public class UniqueTaskList implements Iterable<Task> {
         	throw new TimeslotOverlapException();
         }
         internalList.add(toAdd);
+        internalComponentList.addAll(toAdd.getTaskDateComponent());
     }
 
     /**
@@ -105,16 +106,19 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
+        internalComponentList.removeAll(toRemove.getTaskDateComponent());
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
     }
     
-    
-
     public ObservableList<Task> getInternalList() {
         return internalList;
+    }
+
+    public ObservableList<TaskDateComponent> getInternalComponentList() {
+        return internalComponentList;
     }
 
     @Override

@@ -17,14 +17,14 @@ import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.task.UniqueTaskList;
 
-public class RepeatingTaskManager {
-    private static RepeatingTaskManager instance;
+public class RecurringTaskManager {
+    private static RecurringTaskManager instance;
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     
     private LocalDate initialisedTime;
     private UniqueTaskList repeatingTasks;
     private boolean hasUpdates;
-    private RepeatingTaskManager() {
+    private RecurringTaskManager() {
         hasUpdates = false;
     }
     
@@ -49,7 +49,7 @@ public class RepeatingTaskManager {
         updateRepeatingTasks();
     }
     
-    private void updateRepeatingTasks() {
+    public void updateRepeatingTasks() {
         logger.info("=============================[ RecurringTaskManager Updating ]===========================");
         for(ReadOnlyTask task : repeatingTasks){
             isUpdateRecurringTask(task);
@@ -160,6 +160,8 @@ public class RepeatingTaskManager {
         Task mutableTask = (Task) task;
         TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(mutableTask, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
         mutableTask.appendRecurringTaskDate(newRepeatingTaskToAdd);
+        
+        repeatingTasks.getInternalComponentList().add(newRepeatingTaskToAdd);
     }
 
     private void appendMonthlyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
@@ -179,6 +181,8 @@ public class RepeatingTaskManager {
         Task mutableTask = (Task) task;
         TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(mutableTask, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
         mutableTask.appendRecurringTaskDate(newRepeatingTaskToAdd);
+        
+        repeatingTasks.getInternalComponentList().add(newRepeatingTaskToAdd);
     }
 
     private void appendWeeklyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
@@ -199,6 +203,8 @@ public class RepeatingTaskManager {
         Task mutableTask = (Task) task;
         TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(mutableTask, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
         mutableTask.appendRecurringTaskDate(newRepeatingTaskToAdd);
+        
+        repeatingTasks.getInternalComponentList().add(newRepeatingTaskToAdd);
     }
 
     private void appendDailyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
@@ -219,17 +225,13 @@ public class RepeatingTaskManager {
         Task mutableTask = (Task) task;
         TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent(mutableTask, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
         mutableTask.appendRecurringTaskDate(newRepeatingTaskToAdd);
-    }
-    
-    boolean hasUpdates() {
-        boolean hasUpdateCopy = hasUpdates;
-        hasUpdates = false;
-        return hasUpdateCopy;
+        
+        repeatingTasks.getInternalComponentList().add(newRepeatingTaskToAdd);
     }
 
-    public static RepeatingTaskManager getInstance() {
+    public static RecurringTaskManager getInstance() {
         if (instance == null) {
-            instance = new RepeatingTaskManager();
+            instance = new RecurringTaskManager();
         }
         return instance;
     }

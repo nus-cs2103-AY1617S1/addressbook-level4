@@ -5,6 +5,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
@@ -98,5 +99,11 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public List<TaskDateComponent> getTaskComponent() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

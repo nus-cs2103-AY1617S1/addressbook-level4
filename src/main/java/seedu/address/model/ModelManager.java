@@ -1,12 +1,14 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.RepeatingTaskManager;
+import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.ReadOnlyTask;
@@ -33,6 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<TaskDateComponent> filteredTaskComponents;
     
     /**
      * Initializes a ModelManager with the given TaskList
@@ -47,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
+        filteredTaskComponents = new FilteredList<>(taskList.getTaskComponent());
     }
 
     public ModelManager() {
@@ -56,8 +60,9 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
         taskList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(taskList.getTasks());
-        RepeatingTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
-        RepeatingTaskManager.getInstance().setInitialisedTime();
+        filteredTaskComponents = new FilteredList<>(taskList.getTaskComponent());
+        RecurringTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
+        RecurringTaskManager.getInstance().setInitialisedTime();
     }
 
     @Override
@@ -92,6 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskList.addTask(task);
+        RecurringTaskManager.getInstance().updateRepeatingTasks();
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
@@ -111,8 +117,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<TaskDateComponent> getFilteredTaskDateComponentList() {
+        return new UnmodifiableObservableList<>(filteredTaskComponents);
+    }
+
+    @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(new PredicateExpression(new TypeQualifier(TaskType.COMPLETED))::unsatisfies);
+        filteredTaskComponents.setPredicate(new PredicateExpression(new TypeQualifier(TaskType.COMPLETED))::unsatisfies);
     }
 
     @Override
@@ -121,13 +132,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+        filteredTaskComponents.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyTask task);
+        boolean satisfies(TaskDateComponent t);
         String toString();
     }
 
@@ -140,12 +151,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask task) {
+        public boolean satisfies(TaskDateComponent task) {
             return qualifier.run(task);
         }
         
         
-        public boolean unsatisfies(ReadOnlyTask task) {
+        public boolean unsatisfies(TaskDateComponent task) {
             return !qualifier.run(task);
         }
 
@@ -156,7 +167,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask task);
+        boolean run(TaskDateComponent task);
         String toString();
     }
     
@@ -168,9 +179,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask task) {
+        public boolean run(TaskDateComponent task) {
 
-            return task.getTaskType().equals(typeKeyWords);
+            return task.getTaskReference().getTaskType().equals(typeKeyWords);
         }
 
         @Override
@@ -187,12 +198,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask task) {
+        public boolean run(TaskDateComponent task) {
         	if(nameKeyWords.isEmpty())
         		return true;
         		
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTaskReference().getName().fullName, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -210,8 +221,8 @@ public class ModelManager extends ComponentManager implements Model {
     		this.tagSet = tagSet;
     	}
     	
-    	private String tagToString(ReadOnlyTask task) {
-    		Set<Tag> tagSet = task.getTags().toSet();
+    	private String tagToString(TaskDateComponent task) {
+    		Set<Tag> tagSet = task.getTaskReference().getTags().toSet();
     		Set<String> tagStringSet = new HashSet<String>();
     		for(Tag t : tagSet) {
     			tagStringSet.add(t.tagName);
@@ -220,7 +231,7 @@ public class ModelManager extends ComponentManager implements Model {
     	}
 
 		@Override
-		public boolean run(ReadOnlyTask task) {
+		public boolean run(TaskDateComponent task) {
 			if(tagSet.isEmpty()) {
 				return true;
 			}
@@ -248,8 +259,8 @@ public class ModelManager extends ComponentManager implements Model {
 			this.endTime = endTime;
 		}
 		
-		private Date[] extractTaskPeriod(ReadOnlyTask task) {
-			TaskType type = task.getTaskType();
+		private Date[] extractTaskPeriod(TaskDateComponent task) {
+			TaskType type = task.getTaskReference().getTaskType();
 			if(type.equals(TaskType.FLOATING)) {
 				return null;
 			}
@@ -265,7 +276,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 
 		@Override
-		public boolean run(ReadOnlyTask task) {
+		public boolean run(TaskDateComponent task) {
 			
 			if(this.startTime == null || this.endTime == null)
 				return true;
@@ -301,12 +312,12 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@SuppressWarnings("deprecation")
 		@Override
-		public boolean run(ReadOnlyTask task) {
+		public boolean run(TaskDateComponent task) {
 			
 			if(this.deadline == null)
 				return true;
 			
-			if(task.getTaskType().equals(TaskType.FLOATING))
+			if(task.getTaskReference().getTaskType().equals(TaskType.FLOATING))
 				return false;
 			
 			if(task.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
@@ -351,7 +362,7 @@ public class ModelManager extends ComponentManager implements Model {
     	}
     	
     	@Override
-    	public boolean run(ReadOnlyTask task) {
+    	public boolean run(TaskDateComponent task) {
     		if(this.typeQualifier!=null)
     			return typeQualifier.run(task);
     		return nameQualifier.run(task)

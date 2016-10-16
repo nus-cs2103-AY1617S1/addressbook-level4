@@ -1,12 +1,15 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -55,8 +58,19 @@ public class TaskList implements ReadOnlyTaskList {
         return tasks.getInternalList();
     }
 
+    @Override
+    public ObservableList<TaskDateComponent> getTaskComponent() {
+        return tasks.getInternalComponentList();
+    }
+
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
+        List<TaskDateComponent> toBeSet = new ArrayList<TaskDateComponent>();
+        
+        for(Task t : tasks) {
+            toBeSet.addAll(t.getTaskDateComponent());
+        }
+        this.tasks.getInternalComponentList().setAll(toBeSet);
     }
 
     public void setTags(Collection<Tag> tags) {

@@ -477,6 +477,7 @@ public class Parser {
     }
     
     public static RecurringType extractRecurringInfo(String recurringInfo) {
+        recurringInfo = recurringInfo.toUpperCase().trim();
         RecurringDateParser recurringParser = RecurringDateParser.getInstance();
         return recurringParser.getRecurringType(recurringInfo);
     }
