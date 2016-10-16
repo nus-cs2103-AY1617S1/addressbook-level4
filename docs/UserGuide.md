@@ -2,39 +2,33 @@
 
 ## Table of Contents
 
-* [Introduction](#introduction)
-* [Quick Start](#quick-start)
-   * [Installing](#installing)
-   * [Launching](#launching)
-   * [Using the Interface](#using-the-interface)
-* [Features](#features)
-   * [Tasks](#tasks)
-   * [Commands Format](#commands-format)
-      * [How to read the format of the commands in the User Guide](#how-to-read-the-format-of-the-commands-in-the-user-guide)
-   * [Parameters Format](#parameters-format)
-   * [Tags](#tags)
-   * [Calendar](#calendar)
-* [Commands](#commands)
-   * [Creating a new task/event: `add`](#creating-a-new-taskevent-add)
-   * [List all tasks/events with specified conditions: `list`](#list-all-tasksevents-with-specified-conditions-list)
-   * [Show only listing results with specified type, date or tags: `show`](#show-only-listing-results-with-specified-type-date-or-tags-show)
-   * [Hide listing results with specified type, date or tags: `hide`](#hide-listing-results-with-specified-type-date-or-tags-hide)
-   * [Finding tasks/events which match keywords: `find`](#finding-tasksevents-which-match-keywords-find)
-   * [Changing the details of a task/event: `update`](#changing-the-details-of-a-taskevent-update)
-   * [Marking a task as complete: `complete`](#marking-a-task-as-complete-complete)
-   * [Deleting a task/event: `delete`](#deleting-a-taskevent-delete)
-   * [Undo the last action: `undo`](#undo-the-last-action-undo)
-   * [Clearing all data: `clear`](#clearing-all-data-clear)
-   * [Switch to a different task list: `switchlist`](#switch-to-a-different-task-list-switchlist)
-   * [Relocate the data storage location: `relocate`](#relocate-the-data-storage-location-relocate)
-   * [Viewing help : `help`](#viewing-help--help)
-* [Other Features](#other-features)
-   * [Autocomplete and suggestions](#autocomplete-and-suggestions)
-   * [Saving the Data](#saving-the-data)
-   * [Multiple Storage Files](#multiple-storage-files)
-* [FAQ](#faq)
-* [Commands Cheat Sheet](#commands-cheat-sheet)
-
+- [Introduction](#introduction)
+- [Quick Start](#quick-start)
+	- [Installing](#installing)
+	- [Launching](#launching)
+	- [Using the Interface](#using-the-interface)
+- [Features](#features)
+	- [Adding a new task/event: `add`](#adding-a-new-taskevent-add)
+	- [Listing all tasks/events with specified conditions: `list`](#listing-all-tasksevents-with-specified-conditions-list)
+	- [Narrowing listing results with specified type, date or tags: `show`](#narrowing-listing-results-with-specified-type-date-or-tags-show)
+	- [Hiding listing results with specified type, date or tags: `hide`](#hiding-listing-results-with-specified-type-date-or-tags-hide)
+	- [Finding tasks/events which match keywords: `find`](#finding-tasksevents-which-match-keywords-find)
+	- [Changing the details of a task/event: `update`](#changing-the-details-of-a-taskevent-update)
+	- [Marking a task as complete: `complete`](#marking-a-task-as-complete-complete)
+	- [Undoing the last action: `undo`](#undoing-the-last-action-undo)
+	- [Deleting a task/event: `delete`](#deleting-a-taskevent-delete)
+	- [Clearing all data: `clear`](#clearing-all-data-clear)
+	- [Switching to a different task list: `switchlist`](#switching-to-a-different-task-list-switchlist)
+	- [Relocating the data storage location: `relocate`](#relocating-the-data-storage-location-relocate)
+	- [Viewing help : `help`](#viewing-help-help)
+- [Other Features](#other-features)
+	- [Calendar](#calendar)
+	- [Autocomplete and suggestions](#autocomplete-and-suggestions)
+	- [Saving the Data](#saving-the-data)
+	- [Multiple Storage Files](#multiple-storage-files)
+- [FAQ](#faq)
+- [Commands Cheat Sheet](#commands-cheat-sheet)
+  
 ## Introduction
 
 Organize your tasks with just a *single* line of command.
@@ -59,7 +53,8 @@ Just type in your command, and hit <kbd>Enter</kbd>. Let us handle the rest - yo
 
 2. Download the latest `TaSc.jar` from the [releases](../../../releases) tab (you can find this tab in our GitHub project website).
 
-   <img src="images/github-download-release.png" width="600">
+   <img src="images/github-download-release.png" width="600"><br>
+   *Figure 1: Download TaSc.jar from GitHub*
 
 3. Copy the file to the folder you want to use as the home folder for your TaSc application.
 
@@ -86,259 +81,245 @@ You can try some of these example commands:
 
 ## Features
 
-### Tasks
+### Adding a new task/event: `add`
 
-The main purpose of TaSc is to help you manage your tasks easily.
+You can easily add a new task by giving a name for it when using the `add`
+command:
 
-Tasks in TaSc can contain the following details:
-* **Name:** name of the task (this is the only compulsory field)
-* **Deadline:** due date of the task
-* **Period:** time slot whereby the task should be executed
-* **Recurrence:** future re-occurrences of the same task (on daily, weekly or monthly basis)
-
-> **Note:**<br>
-> Tasks which are exact duplicates will be combined into one.
+`add "A new task"`
 
 > **Tip:**<br>
-> You may manage your tasks in TaSc in any kind of way to suit your needs. For example:
-> * A *floating task* is just a task with a name. No deadlines or timings are needed for this kind of tasks (useful if no details for the task are available yet).
-> * A *normal task* is a task that has a deadline.
-> * An *event* is a "task" that has a starting time and ending time.
-> * A *task with an allocated timeslot* is a task that has a deadline, and has been allocated a starting time and ending time in order to work on that task.
+> Commands are not case-sensitive.
 
-### Commands Format
-Commands are the main way you would be interacting with TaSc. See the
-[Commands](#commands) section for the commands available in the program.
+If your task is due by a certain date, you may provide a deadline using the `by`
+keyword:
 
-Some commands uses keywords, which allows you to supply additional
-parameters to the program. For example, the `add` command, which adds
-a new task, has the `by` keyword to allow you to provide a deadline
-parameter to the new task (e.g. `by 24 Sep`).
-
-Commands may have multiple keywords. They can be entered in any order
-(but the command must always be at the front).
+`add "CS2101 homework" by 21 Oct 5pm`
 
 > **Tip:**<br>
-> Command and keywords are not case-sensitive.
+> Accepted date formats: 18 Sep, 18 September, 18 Sep 2016, Sep 18 2016,
+  Today, Monday<br>
+> Accepted time formats: 5pm, 5:01pm, 5:01:59pm, 17:00
 
-#### How to read the format of the commands in the User Guide
-The user guide provides you with the format of the commands for quick
-references. For example, this is the format of the `add` command:
+Events can also be added easily by providing the period that it will happen
+with the `from` and `to` keywords:
 
-`add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
-* Words in `UPPER_CASE` are the parameters (usually a keyword is at the front).
-* Items enclosed within `[ ]` are optional.
-* Items with `...` accepts multiple parameters. For example, `[tag "TAG"...]` means you can input multiple tags
-* Commas `,` and full stops `.` are optional and will not affect the command.
+`add "CS2101 Meeting" from 24 Oct 3pm to 5pm`
 
-### Parameters Format
-* Accepted date formats: 18 Sep, 18 September, 18 Sep 2016, Sep 18 2016
-* Accepted time formats: 5pm, 5:01pm, 5:01:59pm, 17:00
-* Accepted recurrence patterns: daily, weekly, monthly
+Some events happen repeatly (for example, lectures are conducted every week).
+You can specify a recurring task/event by using the `repeat` keywords:
 
-Parameters relating to days of the week are taken relative to the time you input the command. For example, if you enter "Fri", it will be interpreted as the next Friday from *today*.
+`add "GET1006 Lecture" from Monday 8am to 10am repeat weekly 18`
 
-### Tags
-Tags allow you to organize your tasks by different categories (for example, you may use tags to prioritize certain tasks over others).
+> **Note:** <br>
+> `weekly 18` means that the lecture will happen for 18 weeks.
 
-### Calendar
-TaSc provides a calendar view for you to visualise your tasks.
+<br>
 
-//TODO image of the calendar UI
+> **Tip:**<br>
+> Accepted recurrence patterns: daily, weekly, monthly
 
-## Commands
+Finally, tags can be added to tasks for you to categorize them. For example,
+you may choose to use tags as a way to prioritize tasks.
 
-### Creating a new task/event: `add`
-Adds a new task/event to the task list.
+`add "CS2101 Submission" by 5 Nov tag "Very Important"`
 
-Format: `add "NAME" [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
+<img src="images/Ui-Add.png" width="600"><br>
+*Figure 2: The `add` command allows you to add a new task easily*
 
-The repeat frequency will represent how many times the recurrence will occur.<br>
+### Listing all tasks/events with specified conditions: `list`
 
-> **Note:**<br>
-> * `add` command only accepts one task at a time.
-> * See the [Command Formats](#command-formats) section to understand the
-> format for this guide.
-> * See the [Parameters Format](#parameters-format) section regarding
-> the accepted date format, recurrence pattern and recurrence frequency.
+You may have a lot of tasks in your task list after using TaSc for a
+certain amount of time. The `list` command allows you to filter your tasks.
 
-<img src="images/Ui-Add.png" width="600">
+First of all, if you just want to see a list of uncompleted tasks and upcoming
+events, just type:
 
-Examples:
-* `add "Hello World!"`
-* `add "Meeting" from 21 Sep 3pm to 5pm`
-* `add "Check sufficient toilet rolls" by 21 Sep 5pm, tag "Important"`
-* `add "Lecture" from 7 Oct 2pm to 4pm, repeat weekly, tag "Important"`
-* `add "3 Days Conference" from 18 Oct 9am to 21 Oct 5pm`
+`list`
 
-### List all tasks/events with filters: `list`
-Lists all tasks/events filtered with specified conditions.
+You may want to view tasks that happen on certain periods:
 
-Format: `list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...] [sort SORTING_ORDER]`
+`list from 18 Sep 1pm to 6pm`
 
-If all parameters are omitted (i.e. you just type `list`),
-the command will show a list of uncompleted tasks and upcoming events.
+You may also want to view tasks that needs to be done by a certain time
+which may need your attention:
 
-* Types include `all`, `uncompleted`, `completed`, `floating`, `recurring`, `events`, `tasks`, and/or `free time`.
-* Sorting order includes `earliest first`, `latest first` for date and time, and `a-z`, `z-a` for task descriptions.
-* Defaults to `earliest first` for dates in the future, and `latest first` for dates in the past
+`list by 20 Sep tag "Submissions"`
+
+Don't have deadlines and periods for the tasks at all? Those are known as
+*floating* tasks, and you can list them by:
+
+`list floating`
+
+> **Tip:**<br>
+> Other possible types include:
+
+Finally, if you need to sort your tasks, do the following:
+
+`list sort earliest first`
+
+> **Tip:**<br>
+> Sorting order includes `earliest first`, `latest first` for date and time,
+  and `a-z`, `z-a` for task descriptions.<br>
+> Defaults to `earliest first` for dates in the future, and `latest first` for
+  dates in the past
 
 <img src="images/Ui-List.png" width="600">
 
-<img src="images/Ui-List2.png" width="600">
+<img src="images/Ui-List2.png" width="600"><br>
 
-Examples:
-* `list`<br>
-  Shows a list of uncompleted tasks and events.
-* `list all`
-* `list uncompleted events, tag "Important", sort earliest first`
-* `list free time from 20 Sep 10am to 8pm`
+*Figure 3: The `list` command allows you to filter your tasks easily.*
 
-### Show only listing results with specified type, date or tags: `show`
-Shows only tasks/events with specified type, date or tags from
-the current task list results.
+### Narrowing listing results with specified type, date or tags: `show`
 
-Format: `show [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...]`
+Already typed your list command, only to find out that you have more filters
+to add? Don't retype your `list` command, simply use the `show` command
+to further narrow your results.
 
-Matching results stay on the current task list at their respective positions, while other tasks/events are hidden.
+For example, you may want to list out the uncompleted tasks, so you typed this:
 
-> **Note:**<br>
-> This command operates on the current task list. If you wish to filter from all tasks, use `list` instead.  
+`list uncompleted tasks`
 
-Examples:
-* `list tasks from 18 Sep`<br>
-  `show tag "Important"`<br>
-  `show uncompleted`
+However, you realise that only want to see those for CS2103. Instead of retyping
+the whole `list` command (`list uncompleted tasks tag "CS2103"`),
+do this instead:
 
-### Hide listing results with specified type, date or tags: `hide`
-Hides tasks/events with specified type, date or tags from the current task list results.
+`show tag "CS2103"`
 
-Format: `hide [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag "TAG"...]`
+> **Tip:**<br>
+> Because this is an extension of the `list` command, any parameters that is
+> accepted by the `list` command is also accepted by the `show` command.
 
-Matching tasks/events will be hidden from the task list results.
+### Hiding listing results with specified type, date or tags: `hide`
 
-> **Note:**<br>
-> This command operates on the current task list. If you wish to filter from all tasks, use `list` instead.  
+Same as `show`, but instead `hide` those that you specified.
 
-Examples:
-* `list tasks from 18 Sep`<br>
-  `hide tag "Not important"`<br>
-  `hide completed`
+So to list every uncompleted tasks **except** for CS2103, do this:
+
+`list uncompleted tasks`<br>
+`hide tag "CS2103"`
 
 ### Finding tasks/events which match keywords: `find`
-Lists all tasks/events whose name, type, date or tags partially match the entered keywords.
 
-Format: `find KEYWORD...`
+If you cannot remember the exact name of the task, you may use the `find`
+command to partially match names, dates, types or tags.
 
-> * KEYWORDs enclosed in quotation marks `" "` use exact match.
-> * KEYWORDs not enclosed in `" "` are not case-sensitive.
-> * The task list results are shown in an order which prioritizes the closest match, followed by completion status and date.
+To show tasks with names such as "Up**grad**e myself", and tags such as
+"**Grad**ed":
 
-Examples:
-* `find grad`<br>
-  Shows tasks with names such as "Up**grad**e myself", and tags such as
-  "**Grad**ed".
-* `find "V0.0 Deliverables" sep`<br>
-  Shows the task named "**V0.0 Deliverables**" in **Sep**tember.
+`find grad`
 
-### Changing the details of a task/event: `update`
-Updates details of a task or event.
+To show the task named "**V0.0 Deliverables**" in **Sep**tember:
 
-Format: `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
-
-The recurrence of a task can be set with the `repeat` keyword.
-
-The repeat frequency represents how many times the recurrence will occur.
+`find "V0.0 Deliverables" sep`
 
 > **Note:**<br>
-> * The index refers to the index number shown in the most recent listing (e.g. when you use `list`).<br>
-> * The index **must be a positive integer** 1, 2, 3, ...<br>
-> * To remove any details for the task, prefix the argument keyword with `remove`.<br>
->     * For example: `update 1 removeby` will remove the deadline.
+> Words enclosed in quotation marks `" "` use exact match.
+  Words not enclosed in `" "` are not case-sensitive.
 
-Examples:
-* `list`<br>
-  `update 1 name "Submit Proposal" by 23 Sep 3pm.`<br>
-  Update the details of the first task in the list.<br>
-* `update 2 from 23 Sep 3pm to 5pm`
-* `update 1 by 20 Sep 5pm, tag "Not that important"`
-* `update 3 removetag "Important"`
+<br>
+
+> **Tip:**<br>
+> The task list results are shown in an order which prioritizes the closest match, followed by completion status and date.
+
+### Changing the details of a task/event: `update`
+
+You have a list of tasks, but you realise that the 1st task in the list has
+the wrong deadline (it should have been 20 Sep). You can do an update by using:
+
+`update 1 by 20 Sep`
+
+> **Note:**<br>
+> The number used is relative to the position of the task in the list.
+
+Any other details of the tasks that you have added can be updated easily (see
+the `add` command section to see the details that tasks can have). For example,
+we can change the name of the 3rd task:
+
+`update 3 name "New Task Name"`
+
+Or change the tags of the 4th task:
+
+`update 4 removetag "Important" tag "Low Priority"`
+
+Or if the deadline is no longer valid, remove it by adding `remove` in front
+of the keyword `by`:
+
+`update 5 removeby`
+
+> **Tip:**<br>
+> This works for any other keywords you may have used in your `add` command,
+> like `removefrom`, `removeto`, `removerepeat`, etc.
 
 ### Marking a task as complete: `complete`
-Marks a task as completed.
-
-Format: `complete INDEX`
 
 When you are done with the task, you can mark it as complete.
 
-Marking a task as completed will also hide it from the current listing results.
+`complete 3`
 
-> **Note:**<br>
-> * The index refers to the index number shown in the most recent listing (e.g. when you use `list`).<br>
-> * The index **must be a positive integer** 1, 2, 3, ...<br>
+<img src="images/Ui-Complete.png" width="600"><br>
+*Figure 5: Marking a task as complete*
 
-<img src="images/Ui-Complete.png" width="600">
+###  Undoing the last action: `undo`
 
-Example:
-* `list`<br>
-  `complete 1`<br>
-  Mark the first task in the list as complete.
+If you make any mistakes, you may undo any previous action that
+modified the task list (for example, deleting task)
+
+`undo`
+
+You can undo the last X amount of actions. For example, to undo the
+last 5 actions taken:
+
+`undo last 5`
 
 ### Deleting a task/event: `delete`
-Deletes a task/event.
 
-Format: `delete INDEX`
-
-You may use this instead of `complete` if you want to clean up
+Sometimes, instead of marking it as `complete`, you may want to clean up
 your task list to save disk space.
 
-> **Note:**<br>
-> * The index refers to the index number shown in the most recent listing (e.g. when you use `list`).<br>
-> * The index **must be a positive integer** 1, 2, 3, ...<br>
+`delete 3`
 
-Examples:
-* `list`<br>
-  `delete 1`<br>
-  Delete the first task in the list.
-
-###  Undo the last action: `undo`
-Undoes any previous action that modifies the task list (e.g. deleting task)
-
-Format: `undo [last STEPS]`
-
-You can undo multiple steps by specifying the number of steps to undo.
-
-Example:
-* `undo`<br>
-  Undo the most recent action.
-* `undo last 5`<br>
-  Undo the last 5 actions.
+> **Caution:**<br>
+> Tasks deleted will not be undo-able **after** you close the program. If you
+> want the details of the task, it is advisable that you use `complete` instead.
 
 ### Clearing all data: `clear`
-Removes all tasks from the data storage file.<br>
 
-Format: `clear`
+Same as `delete`, but does it for the entire list.
 
-> **Note:**<br>
-> Since this is a potentially destructive action, a confirmation would be shown
-> before the tasks are removed.
+`clear`
 
-### Switch to a different task list: `switchlist`
-Switches to a different task list.<br>
+> **Caution:**<br>
+> Tasks deleted will not be undo-able **after** you close the program. If you
+> want the details of the task, it is advisable that you use `complete` instead.
 
-Format: `switchlist FILENAME`
+### Switching to a different task list: `switchlist`
 
-If the file does not exist, TaSc will assume that you want to create a new
-task list, and will create an empty file for you automatically.
+It is advisable that you keep different tasks to different lists (for example,
+one list `work.xml` for your tasks in your daily job, another list `life.xml`
+for your tasks outside your job).
 
-### Relocate the data storage location: `relocate`
-Designates a new data storage location.<br>
+Simply use the switch list command:
 
-Format: `relocate PATH`
+`switchlist life`
+
+> **Tip:**<br>
+> If the file does not exist, TaSc will assume that you want to create a new
+> task list, and will create an empty file for you automatically.
+
+### Relocating the data storage location: `relocate`
+
+You may use this to rename your task list. For example, if your list is
+currently named `life.xml` and you want to rename it to `family.xml`, do:
+
+`relocate family`
 
 ### Viewing help : `help`
-Format: `help`<br>
-Opens a new window displaying this document.
+
+Finally, if you forgot any of our commands and want to see the user guide again,
+you may display this document by using the `help` command:
+
+`help`
 
 > **Tip:**<br>
 > If an invalid command (e.g `abcd`) or parameter is entered,
@@ -346,6 +327,11 @@ Opens a new window displaying this document.
 > program.
 
 ## Other Features
+### Calendar
+TaSc provides a calendar view for you to visualise your tasks.
+
+//TODO image of the calendar UI
+
 ### Autocomplete and suggestions
 Shows suggested command keywords, dates, sorting order, and tags as you type.
 
