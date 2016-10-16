@@ -356,6 +356,8 @@ when running the program.
 
 ## Commands Cheat Sheet
 
+> Parameters in [ ] are optional.
+
 Command | Format  
 -------- | :--------
 Add | `add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag "TAG"...]`
