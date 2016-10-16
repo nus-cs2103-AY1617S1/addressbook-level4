@@ -5,6 +5,12 @@ import java.util.Arrays;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.HelpView;
 
+/**
+ * Controller to show commands help.
+ * 
+ * @author louietyj
+ *
+ */
 public class HelpController implements Controller {
 
     private static String NAME = "Help";
