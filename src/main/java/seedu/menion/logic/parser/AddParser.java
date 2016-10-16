@@ -2,7 +2,6 @@ package seedu.menion.logic.parser;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -133,7 +132,7 @@ public class AddParser {
 
 		parsedArguments.add(1, matcher.group(1));
 		parsedArguments.add(2, matcher.group(4));
-		parsedArguments.add(3, matcher.group(2));
+		parsedArguments.add(3, dateHandler(matcher.group(2)));
 		parsedArguments.add(4, matcher.group(3));		
 		
 	}
@@ -151,9 +150,9 @@ public class AddParser {
 
 		parsedArguments.add(1, matcher.group(1));
 		parsedArguments.add(2, matcher.group(6));
-		parsedArguments.add(3, matcher.group(2));
+		parsedArguments.add(3, dateHandler(matcher.group(2)));
 		parsedArguments.add(4, matcher.group(3));
-		parsedArguments.add(5, matcher.group(4));
+		parsedArguments.add(5, dateHandler(matcher.group(4)));
 		parsedArguments.add(6, matcher.group(5));
 
 	}
