@@ -5,12 +5,14 @@ import seedu.address.commons.util.CollectionUtil;
 public class TaskDateComponent {
     private Task taskReference;
     private TaskDate startDate, endDate;
+    private boolean isArchived;
     
     public TaskDateComponent(Task taskReference) {
         assert taskReference != null : "Reference must not be null";
         this.taskReference = taskReference; 
         this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         this.endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+        isArchived = false;
     }
     
     public TaskDateComponent(Task taskReference,TaskDate startDate, TaskDate endDate) {
@@ -54,6 +56,14 @@ public class TaskDateComponent {
     
     public ReadOnlyTask getTaskReference() {
         return taskReference;
+    }
+    
+    public void archive() {
+        isArchived = true;
+    }
+    
+    public boolean getIsArchived() {
+        return isArchived;
     }
     
 }

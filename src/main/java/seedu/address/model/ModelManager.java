@@ -88,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void archiveTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void archiveTask(TaskDateComponent target) throws TaskNotFoundException {
         taskList.archiveTask(target);
         indicateTaskListChanged();
         updateFilteredListToShowAll();
@@ -123,7 +123,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTaskComponents.setPredicate(new PredicateExpression(new TypeQualifier(TaskType.COMPLETED))::unsatisfies);
+        filteredTaskComponents.setPredicate(new PredicateExpression(new ArchiveQualifier(true))::unsatisfies);
     }
 
     @Override
@@ -190,6 +190,26 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    private class ArchiveQualifier implements Qualifier {
+        private boolean isArchived;
+
+        ArchiveQualifier(boolean isItArchive) {
+            this.isArchived= isItArchive;
+        }
+
+        @Override
+        public boolean run(TaskDateComponent task) {
+
+            return task.getIsArchived() == isArchived;
+        }
+
+        @Override
+        public String toString() {
+            return "type=" + isArchived;
+        }
+    }
+    
+    
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 

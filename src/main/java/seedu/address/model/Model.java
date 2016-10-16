@@ -43,6 +43,6 @@ public interface Model {
     /** Updates the file path for current storage manager of the model.*/
 	void changeDirectory(String filePath);
 
-	void archiveTask(ReadOnlyTask target) throws TaskNotFoundException;
+	void archiveTask(TaskDateComponent target) throws TaskNotFoundException;
 
 }

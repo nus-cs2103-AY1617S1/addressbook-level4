@@ -139,13 +139,13 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.hashCode();
     }
 
-	public boolean archive(ReadOnlyTask target) {
+	public boolean archive(TaskDateComponent target) {
 		assert target != null;
         boolean taskFoundAndArchived = false;
-        System.out.println(internalList.contains(target));
-        for(Task t : internalList){
+        System.out.println(internalComponentList.contains(target));
+        for(TaskDateComponent t : internalComponentList){
         	if(t.equals(target)){
-        		t.setType(TaskType.COMPLETED);
+        		t.archive();
         		taskFoundAndArchived = true;
         	}
         }

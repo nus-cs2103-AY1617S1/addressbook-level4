@@ -193,7 +193,7 @@ public class TaskList implements ReadOnlyTaskList {
 		return new TaskList(newList);
 	}
 
-	public boolean archiveTask(ReadOnlyTask target) throws TaskNotFoundException {
+	public boolean archiveTask(TaskDateComponent target) throws TaskNotFoundException {
 		// TODO Auto-generated method stub
 		if (tasks.archive(target)) {
             return true;
