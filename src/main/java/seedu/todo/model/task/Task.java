@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.tag.Tag;
 
 /**
@@ -31,6 +32,7 @@ public class Task implements MutableTask {
     private ObjectProperty<LocalDateTime> endTime = new SimpleObjectProperty<>();
 
     private ObjectProperty<Set<Tag>> tags = new SimpleObjectProperty<>(new HashSet<Tag>());
+    private ObjectProperty<LocalDateTime> lastUpdated = new SimpleObjectProperty<>();
     private UUID uuid;
 
     /**
@@ -38,6 +40,7 @@ public class Task implements MutableTask {
      */
     public Task(String title) {
         this.setTitle(title);
+        this.setLastUpdated();
         this.uuid = UUID.randomUUID();
     }
 
@@ -52,6 +55,7 @@ public class Task implements MutableTask {
         this.setEndTime(task.getEndTime().orElse(null));
         this.setCompleted(task.isCompleted());
         this.setPinned(task.isPinned());
+        this.setLastUpdated();
         this.uuid = task.getUUID();
     }
 
@@ -96,6 +100,9 @@ public class Task implements MutableTask {
     }
 
     @Override
+    public LocalDateTime getLastUpdated() { return lastUpdated.get(); };
+
+    @Override
     public void setTitle(String title) {
         this.title.set(title);
     }
@@ -135,8 +142,12 @@ public class Task implements MutableTask {
         this.tags.set(tags);
     }
 
+    @Override
+    public void setLastUpdated() { this.lastUpdated.set(LocalDateTime.now()); }
+
     public Observable[] getObservableProperties() {
-        return new Observable[] { title, description, location, startTime, endTime, tags, completed, pinned,
+        return new Observable[] {
+                title, description, location, startTime, endTime, tags, completed, pinned, lastUpdated
         };
     }
 

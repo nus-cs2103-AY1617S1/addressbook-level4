@@ -70,6 +70,9 @@ public class TaskTest {
         }
 
         @Override
+        public LocalDateTime getLastUpdated() { return null; }
+
+        @Override
         public UUID getUUID() {
             return uuid;
         }
@@ -172,7 +175,7 @@ public class TaskTest {
 
     @Test
     public void testGetObservableProperties() {
-        assertEquals(8, task.getObservableProperties().length);
+        assertEquals(9, task.getObservableProperties().length);
     }
 
     @Test

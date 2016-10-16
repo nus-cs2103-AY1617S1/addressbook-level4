@@ -115,6 +115,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
 
         // changes are validated and accepted
         update.accept(task);
+        task.setLastUpdated();
         storage.saveTodoList(this);
         return task;
     }

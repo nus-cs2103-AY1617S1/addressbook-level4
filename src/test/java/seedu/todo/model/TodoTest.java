@@ -60,6 +60,25 @@ public class TodoTest {
     }
 
     @Test
+    public void testLastUpdated() throws Exception {
+        LocalDateTime initialTime = LocalDateTime.now().minusSeconds(1);
+
+        todo.add("Test Task 1");
+        LocalDateTime beforeUpdate = getTask(0).getLastUpdated();
+        assertTrue(beforeUpdate.isAfter(initialTime));
+
+        // Delay for a bit
+        Thread.sleep(1);
+        assertTrue(beforeUpdate.isEqual(getTask(0).getLastUpdated()));
+
+        Thread.sleep(1);
+        todo.update(1, t -> t.setPinned(true));
+        LocalDateTime afterUpdate = getTask(0).getLastUpdated();
+
+        assertTrue(afterUpdate.isAfter(beforeUpdate));
+    }
+
+    @Test
     public void testUpdate() throws Exception {
         final String DESCRIPTION = "Really long description blah blah blah";
         final String TITLE = "New title";
