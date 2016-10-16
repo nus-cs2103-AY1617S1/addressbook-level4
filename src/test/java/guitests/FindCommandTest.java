@@ -46,7 +46,7 @@ public class FindCommandTest extends TaskListGuiTest {
 //    	//Cover multiple
 //    	assertFindResult("find from 17 oct 10am to 17 oct 10pm", td.tutorialSlot, td.concert);
 //    	//Cover one
-//    	assertFindResult("find from 17 oct 10am to 17 oct 3pm", td.tutorialSlot);
+//    	//assertFindResult("find from 17 oct 10am to 17 oct 3pm", td.tutorialSlot);
 //    	//Cover none
 //    	assertFindResult("find from 17 oct 5pm to 17 oct 6pm");
 //    }
@@ -54,7 +54,7 @@ public class FindCommandTest extends TaskListGuiTest {
     @Test
     public void find_byType(){
     	//Floating tasks
-    	assertFindResult("find -F",td.trash, td.book, td.homework, td.lecture, td.meeting, td.jogging, td.george);
+    	assertFindResult("find -F",td.trash, td.book, td.homework, td.lecture, td.meeting, td.george);
     	//Completed tasks
     	commandBox.runCommand("done 1");
     	assertFindResult("find -C", td.trash);    	

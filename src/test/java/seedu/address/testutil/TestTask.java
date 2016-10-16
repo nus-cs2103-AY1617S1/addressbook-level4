@@ -84,10 +84,13 @@ public class TestTask extends Task implements ReadOnlyTask {
     	this.type = TaskType.NON_FLOATING;
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("from "+ this.getStartDate().getInputDate() + " ");
-        sb.append("to "+ this.getEndDate().getInputDate() + " ");
+        if(this.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT){
+        	sb.append("by "+ this.getEndDate().getInputDate() + " ");
+        }else{
+        	sb.append("from "+ this.getStartDate().getInputDate() + " ");
+        	sb.append("to "+ this.getEndDate().getInputDate() + " ");
+        }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        System.out.println(sb.toString());
         return sb.toString();
     }
     
@@ -98,7 +101,6 @@ public class TestTask extends Task implements ReadOnlyTask {
         sb.append("from "+ this.getStartDate().getInputDate() + " ");
         sb.append("to "+ this.getEndDate().getInputDate() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        System.out.println(sb.toString());
         return sb.toString();
     }
 }

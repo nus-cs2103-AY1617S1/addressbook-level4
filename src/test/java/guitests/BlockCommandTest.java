@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class BlockCommandTest extends TaskListGuiTest {
 
     @Test
-    public void add() {
+    public void block() {
         //block one slot
         TestTask[] currentList = td.getTypicalTasks();
         TestTask slotToBlock = td.block1;

@@ -11,7 +11,7 @@ import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 public class TypicalTestTasks {
 	
 	/** Floating test tasks. */
-    public static TestTask trash, book, homework, lecture, meeting, jogging, george, hoon, ida;
+    public static TestTask trash, book, homework, lecture, meeting, george, hoon, ida;
     
     /** Non-floating test tasks. */
     public static TestTask labDeadline, tutorialSlot, essayDeadline, concert, movie, project, paper;
@@ -27,7 +27,6 @@ public class TypicalTestTasks {
             homework = new TaskBuilder().withName("do homework").build();
             lecture = new TaskBuilder().withName("read weblecture").build();
             meeting = new TaskBuilder().withName("group meeting").build();
-            jogging = new TaskBuilder().withName("jogging").build();
             george = new TaskBuilder().withName("visit George Best").build();
             //Non-floating tasks
             labDeadline = new TaskBuilder().withName("cs lab").withEndDate("18 oct 5pm").build();
@@ -60,7 +59,6 @@ public class TypicalTestTasks {
             ab.addTask(new Task(homework));
             ab.addTask(new Task(lecture));
             ab.addTask(new Task(meeting));
-            ab.addTask(new Task(jogging));
             ab.addTask(new Task(george));
             ab.addTask(new Task(labDeadline));
             ab.addTask(new Task(tutorialSlot));
@@ -72,7 +70,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{trash, book, homework, lecture, meeting, jogging, george, labDeadline, tutorialSlot, essayDeadline,concert};
+        return new TestTask[]{trash, book, homework, lecture, meeting, george, labDeadline, tutorialSlot, essayDeadline,concert};
     }
 
     public TaskList getTypicalTaskList() throws TimeslotOverlapException{
