@@ -26,6 +26,25 @@ public class ListCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("clear");
         assertListResult("list"); //no results
     }
+    
+    @Test
+    public void list_type_all() {
+        assertListResult("list all", td.submitPrototype, 
+                td.submitProgressReport, td.developerMeeting,
+                td.researchWhales, td.learnVim, 
+                td.buyBirthdayGift, td.signUpForYoga);
+    }
+    
+    @Test
+    public void list_type_overdue() {
+        assertListResult("list overdue");
+    }
+    
+    @Test
+    public void list_type_recurring() {
+        assertListResult("list recurring", td.developerMeeting,
+                td.learnVim);
+    }
 
     @Test
     public void list_type_uncompleted() {
