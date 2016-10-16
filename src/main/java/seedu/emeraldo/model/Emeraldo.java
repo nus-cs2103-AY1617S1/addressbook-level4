@@ -113,8 +113,8 @@ public class Emeraldo implements ReadOnlyEmeraldo {
         }
     }
     
-    public void editTask(Task task, String field) throws IllegalValueException {
-        tasks.edit(task, field);
+    public void editTask(Task task, int index, String field) throws IllegalValueException {
+        tasks.edit(task, index, field);
     }
     
 //// tag-level operations
