@@ -19,6 +19,7 @@ public class DeleteCommand extends Command {
             + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1"
+            + "      "
     		+ "Example: " + COMMAND_WORD + " 1, 2, 3";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted task: %1$s";
@@ -55,7 +56,7 @@ public class DeleteCommand extends Command {
             try {
                 model.deletePerson(personToDelete);
             } catch (PersonNotFoundException pnfe) {
-                assert false : "The target person cannot be missing";
+                assert false : "The target task cannot be missing";
             }
         }
 

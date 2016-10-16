@@ -16,15 +16,18 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a to-do task to Simply. "
-            + "Parameters: Task details "
+            + "Parameters: Task details #tag #...."
+            + "                                                "
+            + " Example: " + COMMAND_WORD
+            + " go swimming #IMPT\n" + COMMAND_WORD + ": Adds a deadline task to Simply. "
+            + "Parameters: Task details; date; end time #tag #...."
+            + "                   "
             + "Example: " + COMMAND_WORD
-            + " go swimming.\n" + COMMAND_WORD + ": Adds a deadline task to Simply. "
-            + "Parameters: Task details, date, end time "
+            + " report; 120516; 1200 #LIFE\n" + COMMAND_WORD + ": Adds a event task to Simply. "
+            + "Parameters: [Task details; date; start time; end time] #tag #..."
+            + "      "
             + "Example: " + COMMAND_WORD
-            + " report, 120516, 1200.\n" + COMMAND_WORD + ": Adds a event task to Simply. "
-            + "Parameters: [Task details, date, start time, end time] "
-            + "Example: " + COMMAND_WORD
-            + " [siloso beach party, 120716, 1600, 2200]";
+            + " [siloso beach party; 120716; 1600; 2200] #YOLO #party";
 
     public static final String EVENT_SUCCESS = "New event added: %1$s";
     public static final String DEADLINE_SUCCESS = "New deadline added: %1$s";
