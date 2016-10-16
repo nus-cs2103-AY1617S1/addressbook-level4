@@ -47,8 +47,9 @@ public class Parser {
     private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[0-9]+)"); // single number of index delete\s+([0-9]+)
     private static final Pattern ITEM_INDEXES_ARGS_FORMAT = Pattern.compile("(?<targetIndexes>([0-9]+)\\s*([0-9]+\\s*)+)"); // variable number of indexes
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    public static final String MESSAGE_DATETIME_PARSE_FAILURE = "Invalid datetime.";
+    
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern NAME_ARG_FORMAT = Pattern.compile("(n/(?<name>[^/]+))");
     private static final Pattern START_DATE_ARG_FORMAT = Pattern.compile("(sd/(?<startDate>[^/]+))");    
@@ -225,7 +226,7 @@ public class Parser {
         List<Date> endDateTimes = new PrettyTimeParser().parse(endDateTime);
         // Just Take First Value for Start and End
         if (startDateTimes.isEmpty() || endDateTimes.isEmpty()) {
-        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.NLP_MESSAGE_USAGE));
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DATETIME_PARSE_FAILURE));
         }
         Date processedStartDateTime = startDateTimes.get(0);
         Date processedEndDateTime = endDateTimes.get(0);
@@ -252,7 +253,7 @@ public class Parser {
         List<Date> endDateTimes = new PrettyTimeParser().parse(endDateTime);
         // Just Take First Value for Start and End
         if (endDateTimes.isEmpty()) {
-        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.NLP_MESSAGE_USAGE));
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DATETIME_PARSE_FAILURE));
         }
         for (int i=0; i<endDateTimes.size(); ++i) {
             System.out.println(endDateTimes.get(i));

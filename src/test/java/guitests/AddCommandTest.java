@@ -17,6 +17,7 @@ import seedu.taskmanager.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.taskmanager.logic.parser.Parser.MESSAGE_DATETIME_PARSE_FAILURE;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -152,7 +153,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         List<Date> endDateTimes = endDateTimes = new PrettyTimeParser().parse(endDateTime);
         // Just Take First Value for Start and End
         if (endDateTimes.isEmpty() || (startDateTimes.isEmpty() && itemType.equals(ItemType.EVENT_WORD))) {
-        	assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.NLP_MESSAGE_USAGE));
+        	assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DATETIME_PARSE_FAILURE));
         }
         Date processedStartDateTime;
         Date processedEndDateTime = endDateTimes.get(0);
