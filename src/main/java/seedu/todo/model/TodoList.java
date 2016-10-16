@@ -130,6 +130,19 @@ public class TodoList implements ImmutableTodoList, TodoModel {
     }
 
     @Override
+    public void save(String location) {
+        storage.saveTodoList(this, location);
+    }
+
+    @Override
+    public void load(String location) throws ValidationException {
+        Optional<ImmutableTodoList> todoList = storage.readTodoList(location);
+        if (todoList.isPresent()) {
+            initTodoList(todoList.get());
+        }
+    }
+
+    @Override
     public UnmodifiableObservableList<ImmutableTask> getObserveableList() {
         return new UnmodifiableObservableList<>(sortedTasks);
     }
