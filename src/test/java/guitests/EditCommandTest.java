@@ -18,6 +18,8 @@ import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPL
 import static seedu.taskmanager.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_EDIT_ITEM_SUCCESS;
 import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_USAGE;
+import static seedu.taskmanager.logic.commands.EditCommand.COMMAND_WORD;
+import static seedu.taskmanager.logic.commands.EditCommand.SHORT_COMMAND_WORD;
 import static seedu.taskmanager.model.item.ItemTime.MESSAGE_TIME_CONSTRAINTS;
 import static seedu.taskmanager.model.item.ItemDate.MESSAGE_DATE_CONSTRAINTS;
 
@@ -40,8 +42,8 @@ public class EditCommandTest extends TaskManagerGuiTest {
         TestItem[] currentList = td.getTypicalItems();
         int targetIndex = 1;
         TestItem itemToEdit = currentList[targetIndex-1];
-        assertEditSuccess(targetIndex, firstTestName, null, null, null, null, currentList);
-        assertEditSuccess(targetIndex, null, validStartDate, null, null, null, currentList);
+        assertEditSuccess(COMMAND_WORD, targetIndex, firstTestName, null, null, null, null, currentList);
+        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, validStartDate, null, null, null, currentList);
         
         itemToEdit.setName(new Name(firstTestName));
         itemToEdit.setStartDate(new ItemDate(validStartDate));
@@ -51,11 +53,11 @@ public class EditCommandTest extends TaskManagerGuiTest {
         targetIndex = currentList.length;
         String secondTestName = "Survive the semester";
         itemToEdit = currentList[targetIndex-1];
-        assertEditSuccess(targetIndex, null, null, null, validEndDate, null, currentList);
-        assertEditSuccess(targetIndex, null, null, validStartTime, null, null, currentList);
-        assertEditSuccess(targetIndex, secondTestName, null, null, null, null, currentList);
-        assertEditSuccess(targetIndex, null, validStartDate, null, null, null, currentList);
-        assertEditSuccess(targetIndex, null, null, null, null, validEndTime, currentList);        
+        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, validEndDate, null, currentList);
+        assertEditSuccess(COMMAND_WORD, targetIndex, secondTestName, null, null, null, null, currentList);
+        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, validEndTime, currentList);
+        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, null, validStartTime, null, null, currentList);
+        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, validStartDate, null, null, null, currentList);
         
         itemToEdit.setName(new Name(secondTestName));
         currentList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndex-1);
@@ -64,16 +66,16 @@ public class EditCommandTest extends TaskManagerGuiTest {
         targetIndex = currentList.length/2;
         String thirdTestName = "Survive university";
         itemToEdit = currentList[targetIndex-1];
-        assertEditSuccess(targetIndex, thirdTestName, null, null, null, null, currentList);
+        assertEditSuccess(COMMAND_WORD, targetIndex, thirdTestName, null, null, null, null, currentList);
         itemToEdit.setName(new Name(thirdTestName));
         currentList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndex-1);
 
         //edit from the middle of the list which is a deadline
         targetIndex = 5;
         itemToEdit = currentList[targetIndex-1];
-        assertEditSuccess(targetIndex, null, null, null, validEndDate, null, currentList);
-        assertEditSuccess(targetIndex, thirdTestName, null, null, null, null, currentList);
-        assertEditSuccess(targetIndex, null, null, null, null, validEndTime, currentList);        
+        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, validEndDate, null, currentList);
+        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, thirdTestName, null, null, null, null, currentList);
+        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, validEndTime, currentList);        
         
         //invalid commands
         commandBox.runCommand("edit notAnIndex");
@@ -122,7 +124,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
      * @param targetIndexOneIndexed e.g. to edit the first item in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of items (before editing).
      */
-    private void assertEditSuccess(int targetIndexOneIndexed, String name, 
+    private void assertEditSuccess(String commandWord, int targetIndexOneIndexed, String name, 
                                    String startDate, String startTime, String endDate, 
                                    String endTime, final TestItem[] currentList) throws IllegalValueException {
         TestItem itemToEdit = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
@@ -145,7 +147,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         TestItem[] expectedList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndexOneIndexed-1);
         
         final StringBuilder commandBuilder = new StringBuilder();
-        commandBuilder.append("edit " + targetIndexOneIndexed);
+        commandBuilder.append(commandWord + " " + targetIndexOneIndexed);
         if (name != null) {
             commandBuilder.append(" n/")
                           .append(name);
