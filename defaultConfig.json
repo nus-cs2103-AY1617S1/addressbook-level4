@@ -1,7 +1,7 @@
 {
-  "appTitle" : "Address App",
+  "appTitle" : "Do-Do Bird",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "preferences.json",
   "toDoListFilePath" : "data/dodobird.xml",
-  "toDoListName" : "Do-Do Bird"
+  "toDoListName" : "dodobird"
 }
