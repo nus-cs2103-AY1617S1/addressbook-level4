@@ -54,11 +54,11 @@ public class XmlTaskSchedulerStorage implements TaskSchedulerStorage {
      * Similar to {@link #saveTaskScheduler(ReadOnlyTaskScheduler)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveTaskScheduler(ReadOnlyTaskScheduler taskScheduler, String filePath) throws IOException {
+    public void saveTaskScheduler(ReadOnlyTaskScheduler taskScheduler, String filePath, boolean userSet) throws IOException {
         assert taskScheduler != null;
         assert filePath != null;
         
-        filePath = checkPath(filePath);
+        filePath = checkPath(filePath, userSet);
         
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
@@ -70,7 +70,7 @@ public class XmlTaskSchedulerStorage implements TaskSchedulerStorage {
      * 
      */
     
-    private String checkPath(String filePath2) {
+    private String checkPath(String filePath2, boolean userSet) {
         Config initializedConfig;
         String configFilePathUsed;
 
@@ -86,7 +86,7 @@ public class XmlTaskSchedulerStorage implements TaskSchedulerStorage {
                     "Using default config properties");
             initializedConfig = new Config();
         }
-        if(initializedConfig.getTaskSchedulerFilePath() == filePath2) {
+        if (initializedConfig.getTaskSchedulerFilePath() == filePath2) {
             return filePath2;
         }
         else {
