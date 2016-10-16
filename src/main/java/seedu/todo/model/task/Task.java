@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.tag.Tag;
 
@@ -145,7 +146,12 @@ public class Task implements MutableTask {
     @Override
     public void setLastUpdated() { this.lastUpdated.set(LocalDateTime.now()); }
 
-    public void setLastUpdated(LocalDateTime lastUpdated) { this.lastUpdated.set(lastUpdated); }
+    public void setLastUpdated(LocalDateTime lastUpdated) throws IllegalValueException {
+        if (lastUpdated.isAfter(LocalDateTime.now())) {
+            throw new IllegalValueException("Task updated time cannot be in the future.");
+        }
+        this.lastUpdated.set(lastUpdated);
+    }
 
     public Observable[] getObservableProperties() {
         return new Observable[] {
