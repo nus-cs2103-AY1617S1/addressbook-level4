@@ -3,15 +3,12 @@ package seedu.todo.model;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Callable;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 import seedu.todo.commons.core.UnmodifiableObservableList;
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
