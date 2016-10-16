@@ -22,6 +22,7 @@ public abstract class Command {
     }
 
     /**
+     * Precondition: Model data is initialized and set to this command.
      * Executes the command and returns the result message.
      *
      * @return feedback message of the operation result for display

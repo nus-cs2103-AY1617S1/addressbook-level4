@@ -21,6 +21,21 @@ public class HideCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("clear");
         assertListResult("hide tasks"); //no results
     }
+    
+    @Test
+    public void list_type_overdue() {
+        assertListResult("hide overdue", td.submitPrototype, 
+                td.submitProgressReport, td.developerMeeting,
+                td.researchWhales, td.learnVim, 
+                td.buyBirthdayGift, td.signUpForYoga);
+    }
+    
+    @Test
+    public void list_type_recurring() {
+        assertListResult("hide recurring", td.submitPrototype,
+                td.submitProgressReport, td.researchWhales,
+                td.buyBirthdayGift, td.signUpForYoga);
+    }
 
     @Test
     public void hide_type_completed() {

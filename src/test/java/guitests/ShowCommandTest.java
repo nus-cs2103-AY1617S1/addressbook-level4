@@ -21,6 +21,17 @@ public class ShowCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("clear");
         assertListResult("show tasks"); //no results
     }
+    
+    @Test
+    public void list_type_overdue() {
+        assertListResult("show overdue");
+    }
+    
+    @Test
+    public void list_type_recurring() {
+        assertListResult("show recurring", td.developerMeeting,
+                td.learnVim);
+    }
 
     @Test
     public void show_type_uncompleted() {

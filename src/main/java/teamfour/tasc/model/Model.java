@@ -37,22 +37,40 @@ public interface Model {
     /** Removes all filters of the filtered task list */
     void resetTaskListFilter();
 
-    /** Adds the filter of the filtered task list by the given type */
+    /** 
+     * Precondition: arguments are not null.
+     * Adds the filter of the filtered task list by the given type 
+     */
     void addTaskListFilterByType(String type, boolean negated);
 
-    /** Adds the filter of the filtered task list by the given deadline */
+    /** 
+     * Precondition: arguments are not null.
+     * Adds the filter of the filtered task list by the given deadline 
+     */
     void addTaskListFilterByDeadline(Date deadline, boolean negated);
     
-    /** Adds the filter of the filtered task list by the given start time */
+    /** 
+     * Precondition: arguments are not null.
+     * Adds the filter of the filtered task list by the given start time 
+     */
     void addTaskListFilterByStartTime(Date startTime, boolean negated);
 
-    /** Adds the filter of the filtered task list by the given end time */
+    /** 
+     * Precondition: arguments are not null.
+     * Adds the filter of the filtered task list by the given end time 
+     */
     void addTaskListFilterByEndTime(Date endTime, boolean negated);
     
-    /** Adds the filter of the filtered task list by between start time and end time */
+    /** 
+     * Precondition: arguments are not null.
+     * Adds the filter of the filtered task list by between start time and end time 
+     */
     void addTaskListFilterByStartToEndTime(Date startTime, Date endTime, boolean negated);
     
-    /** Adds the filter of the filtered task list by the given tag names */
+    /** 
+     * Precondition: arguments are not null.
+     * Adds the filter of the filtered task list by the given tag names 
+     */
     void addTaskListFilterByTags(Set<String> tags, boolean negated);
 
     /** Updates the filtered task list by the added filters */
