@@ -163,6 +163,11 @@ public class TimeUtil {
         }
     }
 
+    /**
+     * Returns a formatted string of the time component of dateTime
+     * @param dateTime to format the time with
+     * @return a formatted time text (HH:MM A/PM)
+     */
     private String getTimeText(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern(FORMAT_TIME));
     }
