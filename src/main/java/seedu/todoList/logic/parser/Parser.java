@@ -22,7 +22,8 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern task_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
+    private static final Pattern task_DATATYPE_ARGS_FORMAT = Pattern.compile("(?<dataType>.+)");
+    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
@@ -70,13 +71,13 @@ public class Parser {
             return prepareDelete(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return new ClearCommand(arguments);
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommand(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -100,6 +101,9 @@ public class Parser {
         final Matcher matcher_event = event_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher_deadline = deadline_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
+        /*
+         *  Check if input matches task, event or deadline
+         */
         if (matcher_task.matches()) {
             try {
                 return new AddCommand(
@@ -109,8 +113,7 @@ public class Parser {
                 );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
-            }
-            
+            }           
         }else if(matcher_event.matches()){
             try {
                 return new AddCommand(
@@ -159,14 +162,15 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
+        
+        Optional<String> dataType = parseDataType(args);
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        if(!dataType.isPresent() || !index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
-        return new DeleteCommand(index.get());
+        return new DeleteCommand(dataType.get(), index.get());
     }
 
     /**
@@ -200,6 +204,24 @@ public class Parser {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
+
+    }
+    
+    /**
+     * Returns the specified dataType in the {@code command}
+     *   Returns an {@code Optional.empty()} otherwise.
+     */
+    private Optional<String> parseDataType(String command) {
+        final Matcher matcher = task_INDEX_ARGS_FORMAT.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+
+        String dataType = matcher.group("dataType");
+        if(!StringUtil.isUnsignedString(dataType)){
+            return Optional.empty();
+        }
+        return Optional.of(dataType);
 
     }
 
