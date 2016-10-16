@@ -87,7 +87,6 @@ public class XmlUtilTest {
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);
 
-        // TODO: improve shallow equal method comparison
         assertTrue(isShallowEqual(dataFromFile.getTasks(), dataToWrite.getTasks()));
 
         TodoList todoList = new TodoList(storage);
