@@ -78,13 +78,8 @@ public class TodoListDB {
         }
     }
     
-    public boolean move(String newPath) {
-        try {
-            storage.move(newPath);
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
+    public void move(String newPath) throws IOException {
+        storage.move(newPath);
     }
     
     public int undoSize() {

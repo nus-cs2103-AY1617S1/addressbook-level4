@@ -42,10 +42,22 @@ public class JsonStorage implements Storage {
     
     @Override
     public void move(String newPath) throws IOException {
+        boolean hasMoved = false;
+        
         try {
-            getStorageFile().renameTo(new File(newPath));
+            FileUtil.createParentDirsOfFile(new File(newPath));
+        } catch (IOException e) {
+            throw e;
+        }
+        
+        try {
+            hasMoved = getStorageFile().renameTo(new File(newPath));
         } catch (SecurityException e) {
             throw new IOException(e.getMessage(), e.getCause());
+        }
+        
+        if (!hasMoved) {
+            throw new IOException(String.format("Could not move file to \"%s\".", newPath));
         }
     }
 

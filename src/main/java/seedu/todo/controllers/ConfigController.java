@@ -5,6 +5,7 @@ import java.util.List;
 
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
+import seedu.todo.commons.exceptions.CannotConfigureException;
 import seedu.todo.commons.util.ConfigUtil;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
@@ -19,7 +20,6 @@ public class ConfigController implements Controller {
     private static final String MESSAGE_SHOWING = "Showing all settings.";
     private static final String MESSAGE_SUCCESS = "Successfully updated %s.";
     private static final String MESSAGE_FAILURE = "Could not update settings: %s";
-    private static final String MESSAGE_FAILURE_DBFILEPATH = "Could not update the storage location!";
     private static final String MESSAGE_INVALID_INPUT = "Invalid config setting provided!";
     private static final String SPACE = " ";
     private static final int ARGS_LENGTH = 2;
@@ -48,7 +48,7 @@ public class ConfigController implements Controller {
         
         } else {
             
-            String[] args = params.split(SPACE);
+            String[] args = params.split(SPACE, ARGS_LENGTH);
             
             // Check args length
             if (args.length != ARGS_LENGTH) {
@@ -72,14 +72,22 @@ public class ConfigController implements Controller {
                 return;
             }
             
-            // Set value
-            config = updateConfigByName(config, configName, configValue);
+            assert validConfigDefinitions.contains(configName);
             
-            // Save config
+            // Update config value
+            try {
+                config = updateConfigByName(config, configName, configValue);
+            } catch (CannotConfigureException e) {
+                failWithMessage(e.getMessage());
+                return;
+            }
+            
+            // Save config to file
             try {
                 ConfigUtil.saveConfig(config, MainApp.getConfigFilePath());
             } catch (IOException e) {
                 failWithMessage(String.format(MESSAGE_FAILURE, e.getMessage()));
+                return;
             }
             
             // Update console
@@ -97,7 +105,7 @@ public class ConfigController implements Controller {
         UiManager.updateConsoleMessage(message);
     }
     
-    private Config updateConfigByName(Config config, String configName, String configValue) {
+    private Config updateConfigByName(Config config, String configName, String configValue) throws CannotConfigureException {
         switch (configName) {
         case "appTitle" :
             // Updates MainWindow title
@@ -110,10 +118,10 @@ public class ConfigController implements Controller {
             
         case "databaseFilePath" :
             // Move the DB file to the new location
-            boolean hasMoved = TodoListDB.getInstance().move(configValue);
-            if (!hasMoved) {
-                failWithMessage(MESSAGE_FAILURE_DBFILEPATH);
-                break;
+            try {
+                TodoListDB.getInstance().move(configValue);
+            } catch (IOException e) {
+                throw new CannotConfigureException(e.getMessage());
             }
             
             // Update config
