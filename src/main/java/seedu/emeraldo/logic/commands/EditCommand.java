@@ -4,6 +4,7 @@ import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.task.ReadOnlyTask;
+import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class EditCommand extends Command{
@@ -36,10 +37,10 @@ public class EditCommand extends Command{
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        Task taskToEdit = (Task) lastShownList.get(targetIndex - 1);
 
         try {
-            model.editTask(taskToEdit);
+            model.editTask(taskToEdit, field);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

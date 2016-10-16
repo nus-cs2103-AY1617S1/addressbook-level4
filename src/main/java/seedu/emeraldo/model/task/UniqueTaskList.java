@@ -3,6 +3,7 @@ package seedu.emeraldo.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.exceptions.DuplicateDataException;
+import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.CollectionUtil;
 
 import java.util.*;
@@ -73,6 +74,11 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+    
+    public void edit(Task toEditObj, String toEditField) throws IllegalValueException {
+        assert toEditField != null;
+        toEditObj.setDescription(new Description(toEditField));
+    }
 
     public ObservableList<Task> getInternalList() {
         return internalList;
@@ -95,4 +101,5 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
 }
