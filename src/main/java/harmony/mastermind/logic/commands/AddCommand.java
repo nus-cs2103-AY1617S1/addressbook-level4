@@ -108,7 +108,7 @@ public class AddCommand extends Command implements Undoable {
         assert model != null;
         try {
             model.addTask(toAdd);
-            model.getCommandHistory().push(this);
+            model.pushToUndoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -118,6 +118,7 @@ public class AddCommand extends Command implements Undoable {
     }
 
     @Override
+    /** action to perform when ModelManager requested to undo this command**/
     // @@author A0138862W
     public CommandResult undo() {
         try {

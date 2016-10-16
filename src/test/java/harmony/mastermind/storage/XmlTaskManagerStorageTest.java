@@ -12,7 +12,7 @@ import harmony.mastermind.model.ReadOnlyTaskManager;
 import harmony.mastermind.model.TaskManager;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.storage.XmlTaskManagerStorage;
-import harmony.mastermind.testutil.TypicalTestTask;
+import harmony.mastermind.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class XmlTaskManagerStorageTest {
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskManagerStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -53,17 +53,18 @@ public class XmlTaskManagerStorageTest {
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readTaskManager("NotXmlFormatAddressBook.xml");
+        readTaskManager("NotXmlFormatTaskManager.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
          */
     }
 
+    //@@author A0124797R
     @Test
     public void readAndSaveTaskManager_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempTaskManager.xml";
-        TypicalTestTask td = new TypicalTestTask();
+        TypicalTestTasks td = new TypicalTestTasks();
         TaskManager original = td.getTypicalTaskManager();
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(filePath);
 
@@ -73,10 +74,16 @@ public class XmlTaskManagerStorageTest {
         assertEquals(original, new TaskManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTask.task1));
-        original.removeTask(new Task(TypicalTestTask.task2));
+        original.addTask(new Task(TypicalTestTasks.task5));
+        original.removeTask(new Task(TypicalTestTasks.task3));
         xmlTaskManagerStorage.saveTaskManager(original, filePath);
         readBack = xmlTaskManagerStorage.readTaskManager(filePath).get();
+        assertEquals(original, new TaskManager(readBack));
+        
+        //Save and read without specifying file path
+        original.addTask(new Task(TypicalTestTasks.task6));
+        xmlTaskManagerStorage.saveTaskManager(original); //file path not specified
+        readBack = xmlTaskManagerStorage.readTaskManager().get(); //file path not specified
         assertEquals(original, new TaskManager(readBack));
 
     }
@@ -87,8 +94,8 @@ public class XmlTaskManagerStorageTest {
         saveTaskManager(null, "SomeFile.xml");
     }
 
-    private void saveTaskManager(ReadOnlyTaskManager addressBook, String filePath) throws IOException {
-        new XmlTaskManagerStorage(filePath).saveTaskManager(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
+        new XmlTaskManagerStorage(filePath).saveTaskManager(taskManager, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

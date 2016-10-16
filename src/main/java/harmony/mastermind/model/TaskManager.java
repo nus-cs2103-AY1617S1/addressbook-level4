@@ -181,7 +181,8 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags,"
+                + archivedTasks.getInternalList().size();
     }
 
     @Override
@@ -216,13 +217,14 @@ public class TaskManager implements ReadOnlyTaskManager {
         return this.tags;
     }
 
-
+    //@@author A0124797R
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
                 && this.tasks.equals(((TaskManager) other).tasks)
-                && this.tags.equals(((TaskManager) other).tags));
+                && this.tags.equals(((TaskManager) other).tags)
+                && this.archivedTasks.equals(((TaskManager) other).archivedTasks));
     }
 
     @Override

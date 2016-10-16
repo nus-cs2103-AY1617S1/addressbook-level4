@@ -46,7 +46,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing Schema ]===========================");
+        logger.info("=============================[ Initializing Mastermind ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));

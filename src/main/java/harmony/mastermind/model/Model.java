@@ -1,10 +1,12 @@
 package harmony.mastermind.model;
 
+import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
 
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
-import harmony.mastermind.logic.commands.Command;
+import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.Undoable;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
@@ -40,8 +42,11 @@ public interface Model {
     /** Relocates save location to given directory */
     void relocateSaveLocation(String directory);
     
-    /** Returns the stack of command history */
-    Stack<Command> getCommandHistory();
+    /** push the command to undo history */
+    void pushToUndoHistory(Undoable command);
+    
+    /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
+    CommandResult undo() throws EmptyStackException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
