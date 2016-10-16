@@ -13,7 +13,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task with no time and date. "
-            + "Parameters: NAME [t/TAG]...\n"
+            + "Parameters: NAME\n"
             + "Example: " + COMMAND_WORD
             + " Watch Star Wars t/movies";
 
@@ -27,7 +27,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, Set<String> tags)
+    public AddCommand(String name)
             throws IllegalValueException {
         this.toAdd = new Task(
                 new Name(name)
