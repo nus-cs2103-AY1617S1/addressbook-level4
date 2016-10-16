@@ -129,7 +129,7 @@ Edit a todo, deadline or event already inside the task manager using the index o
 
 > Edit a task at the specified INDEX under the todos `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.<br><br>
 > Format depends on the type of task being edited. When only 1 TIME is provided, it is treated as END_TIME for both deadline and event.<br><br>
-> Note that you are required to enter the `view` command before the `edit` command, in order to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [find](#find-tasks) command to narrow down the displayed list of tasks and events.
+> Note that you are required to enter the `view` command before the `edit` command, in order to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [find](#find-tasks-find) command to narrow down the displayed list of tasks and events.
 
 Examples:
 
@@ -149,7 +149,7 @@ Delete a todo, deadline or event already inside the task manager using the index
 * Delete event format: `delete e INDEX`
 
 > Delete a task at the specified INDEX under the tasks `t`, deadlines `d` or events `e` section. The INDEX refers to the index number shown in the most recent listing.<br><br>
-> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the [find](#find-tasks) command to narrow down the displayed list of tasks and events.
+> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the [find](#find-tasks-find) command to narrow down the displayed list of tasks and events.
 
 Examples:
 
@@ -182,7 +182,7 @@ Mark a task in the task list as done.<br>
 
 > Mark a todo `t`, deadline `d` or event `e` at the specified INDEX under the corresponding section as completed. The INDEX refers to the index number shown in the most recent listing.<br><br>
 > Note that tasks that are done are moved to the bottom of the list in their respective sections.<br><br>
-> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the [find](#find-tasks) command to narrow down the displayed list of tasks and events.
+> Note that you are required to enter the `view` command before the `delete` command, in order to view the list of tasks and events and delete the specified task accordingly. Alternatively, you can use the [find](#find-tasks-find) command to narrow down the displayed list of tasks and events.
 
 Examples:
 
