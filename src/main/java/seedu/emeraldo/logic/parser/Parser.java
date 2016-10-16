@@ -31,7 +31,7 @@ public class Parser {
                     + "(?: by )?(?<dateTime>([^#]+)?)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
     
-    private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)\\s+\"(?<field>.+)\"");
+    private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)\\s+\"(?<description>.+)\"");
 
     public Parser() {}
 
@@ -158,7 +158,7 @@ public class Parser {
         try {
             return new EditCommand(
                     matcher.group("targetIndex"),
-                    matcher.group("field"));
+                    matcher.group("description"));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }        
