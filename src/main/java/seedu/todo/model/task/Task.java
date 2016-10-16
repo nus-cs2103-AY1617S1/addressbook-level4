@@ -145,6 +145,8 @@ public class Task implements MutableTask {
     @Override
     public void setLastUpdated() { this.lastUpdated.set(LocalDateTime.now()); }
 
+    public void setLastUpdated(LocalDateTime lastUpdated) { this.lastUpdated.set(lastUpdated); }
+
     public Observable[] getObservableProperties() {
         return new Observable[] {
                 title, description, location, startTime, endTime, tags, completed, pinned, lastUpdated
