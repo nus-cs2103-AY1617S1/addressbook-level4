@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
 import seedu.ggist.logic.commands.*;
-import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 /**
  * Parses user input.
@@ -32,16 +31,19 @@ public class Parser {
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>[^,]+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
+            Pattern.compile("(?<taskName>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|by|on)\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
         
-    //regex for tasks with start and end time
-    private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<startDateTime>.+)\\s*,\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
+    //regex for tasks with start and end time spanning different days
+    private static final Pattern EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<taskName>.+)\\s*(,|from)\\s*(?<startDateTime>.+)\\s*(,|to)\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
    
+  //regex for tasks with start and end time within same day
+    private static final Pattern EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<taskName>.+)\\s*(,|on)\\s*(?<day>.+)\\s*(,|from)\\s*(?<startTime>.+)\\s*(,|to|-)\\s*(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
     public Parser() {}
 
     /**
@@ -107,13 +109,24 @@ public class Parser {
     private Command prepareAdd(String args) {
         final String taskType = matchTaskType(args.trim());
         Matcher matcher;
+        Matcher matcherTwo;
         if (taskType.equals("taskTypeNotFound")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }    
         try {
             if(taskType.equals("eventTask")) {
-                matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-                if (matcher.matches()) {
+                matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
+                matcherTwo = EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
+                if (matcherTwo.matches()) {
+                    return new AddCommand(
+                        matcherTwo.group("taskName"),
+                        new DateTimeParser(matcherTwo.group("day")).getDate(),
+                        new DateTimeParser(matcherTwo.group("startTime")).getTime(),
+                        new DateTimeParser(matcherTwo.group("day")).getDate(),
+                        new DateTimeParser(matcherTwo.group("endTime")).getTime(),
+                        getTagsFromArgs(matcherTwo.group("tagArguments"))
+                 );
+                } else if (matcher.matches()) {
                     return new AddCommand(
                         matcher.group("taskName"),
                         new DateTimeParser(matcher.group("startDateTime")).getDate(),
@@ -123,6 +136,7 @@ public class Parser {
                         getTagsFromArgs(matcher.group("tagArguments"))
                      );
                 }
+                
             } else if (taskType.equals("deadlineTask")) {
                 matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
@@ -156,7 +170,8 @@ public class Parser {
      */
     private String matchTaskType(String args) {
         Matcher matcher;
-        if ((matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
+        if ((matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args)).matches() || 
+           (matcher = EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT.matcher(args)).matches() ) {
             return new String("eventTask");
         } else if ((matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
             return new String("deadlineTask");

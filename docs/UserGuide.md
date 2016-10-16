@@ -44,7 +44,6 @@ Are you ready to embrace a new way of living and have your life better organized
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
-> * Parameters must be separated by a `,`.
 
 #### Viewing help : `help`
 Format: `help`
@@ -53,14 +52,12 @@ Format: `help`
  
 #### Adding a task: `add`
 Adds a task to GGist<br>
-General format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
+General format: `add TASK,[DATE] [TIME], [PRIORITY], [FREQUENCY]`
 
-> **`Date` Format**
-> `10 Oct` , `tuesday`, `tomorrow` , `next fri` works!
- 
-> **`TIME` Format**
-> * 24-Hour [HHMM] 
-> * Eg. `2359`
+> * `[DATE]` and `[TIME]` has to separated by a space.
+
+>**`Date` Format**
+> * `10 Oct` , `tuesday`, `tomorrow` , `next fri` works!
 
 >**`PRIORITY` Format**
 > * `low` , `med` , `high`
@@ -78,19 +75,42 @@ Examples:
 
 
 ##### With deadline
-Format: `add TASK, DATE, TIME, [PRIORITY], [FREQUENCY]`
+Format: `add TASK, DATE TIME, [PRIORITY], [FREQUENCY]`
 
 Examples: 
-* `add write diary, tomorrow, 1300`
-* `add prepare presentation slides, mon, 1400, high`
+* `add write diary, tomorrow 1300`
+* `add prepare presentation slides by monday 2pm, high`
+
+> * `[DATE]` and `[TIME]` has to separated by a space.
+> * The comma after `[TASK]` can be replaced with a `by`.
 
 
-##### With start and end time
-> For this kind of task, the `TIME` is in the format `START-END`.
+
+##### With start and end time within the same day
+Format: `add TASK, DATE, START TIME, END TIME, [PRIORITY], [FREQUENCY]`
 
 Examples: 
-* `add dad's birthday celebration, next thurs, 1900-2100, high`
-* `add company's D&D, sun, 1900-2200`
+* `add tennis, 21 nov, 1pm, 3pm, high`
+* `add lunch with parents on friday from 12pm to 1pm`
+
+> * The comma after `[TASK]` can be replaced with a `on`. <br>
+> * The comma after `[DATE]` can be replaced with a `from`. <br>
+> * The comma after `[START TIME]` can be replaced with a `to`. <br>
+
+
+##### With start and end time on different days
+Format: `add TASK, START DATE TIME, END DATE TIME, [PRIORITY], [FREQUENCY]`
+
+Examples: 
+* `add dad's birthday celebration, next thurs 1900, next thurs 2100, high`
+* `add going overseas from fri 1pm to next fri 10pm`
+
+> * `[DATE]` and `[TIME]` has to separated by a space. <br>
+> * The comma after `[TASK]` can be replaced with a `from`. <br>
+> * The comma after `[START DATE TIME]` can be replaced with a `to`.
+
+
+
 
 ##### Recurring
 To make tasks repeating, simply  add the FREQUENCY parameter at the back.
@@ -105,10 +125,10 @@ Examples:
 Shows a list of all tasks in a particular day.<br>
 Format: `list [PARAMETERS]`
 
-> **Available Listing**
-> *`list` shows all incomplete tasks
-> *`list all` shows all tasks
-> *`list done` shows all completed tasks
+>**Available Listing**
+> * `list` shows all incomplete tasks
+> * `list all` shows all tasks
+> * `list done` shows all completed tasks
 
 #### Searching tasks by keywords: `search`
 Searches and lists all tasks that contain the specified keyword, inclusive of `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY`.<br>
