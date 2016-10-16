@@ -25,12 +25,9 @@ public class FindCommand extends Command {
 
 	@Override
     public CommandResult execute() {
-		System.out.println(modeOfSearch);
-		if(this.modeOfSearch.equals("date")){
-				model.updateFilteredTaskListForDate(keywords);
-		}
-		else{
-			model.updateFilteredTaskList(keywords);
+		switch(modeOfSearch){
+			case "date": model.updateFilteredTaskListForDate(keywords); break;
+			case "name": model.updateFilteredTaskList(keywords);
 		}
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
