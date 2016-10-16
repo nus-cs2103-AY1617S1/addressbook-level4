@@ -282,21 +282,17 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | remove tags from a specific task |
 `* * *` | user | list tasks chronologically | see what tasks I have yet to complete
 `* * *` | user | list all tags used |
-`* *` | user | user with multiple tasks | search a task by name |
-`* *` | user | list tasks that are due by priority | see what tasks I have yet to complete
-`*` | user with multiple tasks | sort tasks by tags | differentiate the tasks I have
-`*` | user | clear all tasks |
-`*` | user | list tasks that are due by tags | see what tasks I have yet to complete
-`*` | user | set time alerts to tasks |
-`*` | user | archive tasks | look up on completed tasks for future reference
+`* * *` | user | search a task by name | find the details of a task quickly
+`* * *` | user | clear all tasks |
+`* *` | user | list tasks by priority | decide on the order of what to do next
+`* *` | user | list tasks by tags | classify the tasks
+`* *` | user | archive tasks | look up on completed tasks for future reference
+`* *` | user | search a tag | look up a set of tasks with the same category
 `*` | user | have notifications on tasks | get alerted on due tasks
-`*` | user | search a tag |
 `*` | user | see tasks on a calendar GUI |
 
 
 ## Appendix B : Use Cases
-
-(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `User`, unless specified otherwise)
 
 #### Use case: Add task
 
