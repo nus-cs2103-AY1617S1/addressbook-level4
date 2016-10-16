@@ -152,7 +152,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EXAMPLES);
         assertCommandBehavior("add wrong args wrong args", expectedMessage);
         assertCommandBehavior("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
         assertCommandBehavior("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
@@ -182,7 +182,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.task();
 
-        logic.execute(helper.generateAddCommand(toBeAdded));
+        System.out.println(helper.generateAddCommand(toBeAdded));
+        System.out.println(logic.execute(helper.generateAddCommand(toBeAdded)).feedbackToUser);
         
         assertCommandBehavior("undo", "Undo successfully.\n"
                 + "=====Undo Details=====\n"
@@ -601,12 +602,12 @@ public class LogicManagerTest {
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("add ");
+            cmd.append("add");
 
-            cmd.append(" name/\"").append(p.getName().toString()+"\"");
-            cmd.append(" startDate/\"").append(p.getStartDate()+"\"");
-            cmd.append(" endDate/\"").append(p.getEndDate()+"\"");
-            cmd.append(" tags/");
+            cmd.append(" '").append(p.getName().toString()+"'");
+            cmd.append(" sd/'").append(p.getStartDate()+"'");
+            cmd.append(" ed/'").append(p.getEndDate()+"'");
+            cmd.append(" t/'");
 
             UniqueTagList tags = p.getTags();
             for (Tag t: tags) {
@@ -615,6 +616,7 @@ public class LogicManagerTest {
             }
             
             cmd.deleteCharAt(cmd.length()-1);
+            cmd.append("'");
 
             return cmd.toString();
         }
