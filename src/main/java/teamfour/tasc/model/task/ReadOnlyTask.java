@@ -45,7 +45,7 @@ public interface ReadOnlyTask {
             return false;
         }
 
-        return getDeadline().getDeadline().after(currentTime);
+        return currentTime.after(getDeadline().getDeadline());
     }
     
     /**
