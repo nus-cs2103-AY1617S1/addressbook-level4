@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.TaskType;
@@ -25,6 +26,8 @@ public class TaskCard extends UiPart{
     private Label startDate;
     @FXML
     private Label endDate;
+    @FXML
+    private Label recurringType;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -46,6 +49,15 @@ public class TaskCard extends UiPart{
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
         initializeDate();
+        initializeRecurringType();
+    }
+
+    private void initializeRecurringType() {
+        String recurringTypeToShow = "";
+        if (!task.getRecurringType().equals(RecurringType.NONE)) {
+            recurringTypeToShow = task.getRecurringType().name();
+        }
+        recurringType.setText(recurringTypeToShow);
     }
 
     
