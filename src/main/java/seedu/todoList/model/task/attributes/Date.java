@@ -9,10 +9,10 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 public class Date {
     
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Event date should be written in this format '1-1-2016'";
-    public static final String DATE_VALIDATION_REGEX = "\\D-\\D-\\D";
+            "Event date should be written in this format 'DD-MM-YYYY'";
+    public static final String DATE_VALIDATION_REGEX = "^(\\d{2}-\\d{2}-\\d{4})$";
     
-    public final String value;
+    public final String date;
     
     /**
      * Validates given date.
@@ -25,7 +25,7 @@ public class Date {
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        this.value = date;
+        this.date = date;
     }
     
     /**
@@ -37,18 +37,18 @@ public class Date {
     
     @Override
     public String toString() {
-        return value;
+        return date;
     }
     
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Date // instanceof handles nulls
-                && this.value.equals(((Date) other).value)); // state check
+                && this.date.equals(((Date) other).date)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return date.hashCode();
     }
 }

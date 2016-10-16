@@ -33,4 +33,13 @@ public class StringUtil {
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
+    
+    /**
+     * Returns true if s represents an unsigned string e.g. A, AB, ABC, ... <br>
+     *   Will return false for null, empty string, numbers, " ABC " (untrimmed) "A B" (contains whitespace).
+     * @param s Should be trimmed.
+     */
+    public static boolean isUnsignedString(String s){
+        return s != null && s.matches("^[a-zA-Z]+$");
+    }
 }
