@@ -19,6 +19,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.time.DateUtils;
+
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
@@ -271,28 +273,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
     	
         @Override
-        public boolean run(ReadOnlyTask person) {
-        	if (!person.getStartTime().toCardString().equals("-")) {
-        	    person.getStartTime().starttime.set(Calendar.HOUR_OF_DAY, 0);
-        	    person.getStartTime().starttime.set(Calendar.MINUTE, 0);
-        	    person.getStartTime().starttime.set(Calendar.SECOND, 0);
-        	    person.getStartTime().starttime.set(Calendar.MILLISECOND, 0);
-        	}
-        	
-        	if (!person.getEndTime().toCardString().equals("-")) {
-                person.getEndTime().endtime.set(Calendar.HOUR_OF_DAY, 0);
-                person.getEndTime().endtime.set(Calendar.MINUTE, 0);
-                person.getEndTime().endtime.set(Calendar.SECOND, 0);
-                person.getEndTime().endtime.set(Calendar.MILLISECOND, 0);
-            }
-        	
-        	this.requestedTime.set(Calendar.HOUR_OF_DAY, 0);
-        	this.requestedTime.set(Calendar.MINUTE, 0);
-        	this.requestedTime.set(Calendar.SECOND, 0);
-        	this.requestedTime.set(Calendar.MILLISECOND, 0);
-        	
-            return person.getStartTime().starttime.equals(this.requestedTime)
-                    || (person.getStartTime().toCardString().equals("-") && person.getEndTime().endtime.equals(this.requestedTime));
+        public boolean run(ReadOnlyTask person) {        	
+        	return DateUtils.isSameDay(person.getStartTime().starttime, requestedTime) ||
+                    (person.getStartTime().toCardString().equals("-") && DateUtils.isSameDay(person.getEndTime().endtime, requestedTime));
         }
     }
 }
