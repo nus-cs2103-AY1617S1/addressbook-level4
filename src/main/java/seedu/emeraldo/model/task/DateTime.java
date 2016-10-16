@@ -10,7 +10,8 @@ import seedu.emeraldo.commons.exceptions.IllegalValueException;
 public class DateTime {
     
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task date and time must follow this format DD/MM/YYYY HH:MM in 24 hours format";
-    public static final String DATETIME_VALIDATION_REGEX = "((0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|[1][0-2])/(([0-9][0-9])?[0-9][0-9])){1}"
+    //public static final String DATETIME_VALIDATION_REGEX = "(.+)?";
+    public static final String DATETIME_VALIDATION_REGEX = "((0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|[1][0-2])/(([0-9][0-9])?[0-9][0-9]))"
                                                             + "( ([01][0-9]|[2][0-3]):([0-5][0-9]))?";
 
     public final String value;

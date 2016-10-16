@@ -13,19 +13,19 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, 08-111")
+            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("22/01/2014 12:01")
                     .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, 02-25")
+            benson = new PersonBuilder().withName("Benson Meier").withAddress("21/03/2015 11:00")
                     .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withAddress("wall street").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withAddress("10th street").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withAddress("michegan ave").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withAddress("little tokyo").build();
-            george = new PersonBuilder().withName("George Best").withAddress("4th street").build();
+            carl = new PersonBuilder().withName("Carl Kurz").withAddress("01/05/2015").build();
+            daniel = new PersonBuilder().withName("Daniel Meier").withAddress("01/06/2015").build();
+            elle = new PersonBuilder().withName("Elle Meyer").withAddress("30/11/2016").build();
+            fiona = new PersonBuilder().withName("Fiona Kunz").withAddress("30/01/2017").build();
+            george = new PersonBuilder().withName("George Best").withAddress("30/05/2017").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withAddress("little india").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withAddress("chicago ave").build();
+            hoon = new PersonBuilder().withName("Hoon Meier").withAddress("20/11/2016").build();
+            ida = new PersonBuilder().withName("Ida Mueller").withAddress("20/12/2016").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

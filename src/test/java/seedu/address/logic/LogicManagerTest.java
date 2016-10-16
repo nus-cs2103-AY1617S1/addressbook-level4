@@ -371,7 +371,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Description name = new Description("Adam Brown");
-            DateTime privateDateTime = new DateTime("111, alpha street");
+            DateTime privateDateTime = new DateTime("22/01/2014 12:01");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -388,7 +388,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Description("Task " + seed),
-                    new DateTime("Date and Time " + seed),
+                    new DateTime("22/01/2014 12:0" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -484,7 +484,7 @@ public class LogicManagerTest {
         Task generateTaskWithDescription(String name) throws Exception {
             return new Task(
                     new Description(name),
-                    new DateTime("House of 1"),
+                    new DateTime("02/01/2013 12:01"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

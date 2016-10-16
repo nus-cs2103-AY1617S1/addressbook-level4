@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Description("Ali Muster"), new DateTime("4th street"), new UniqueTagList()),
-                    new Task(new Description("Boris Mueller"), new DateTime("81th street"), new UniqueTagList()),
-                    new Task(new Description("Carl Kurz"), new DateTime("wall street"), new UniqueTagList()),
-                    new Task(new Description("Daniel Meier"), new DateTime("10th street"), new UniqueTagList()),
-                    new Task(new Description("Elle Meyer"), new DateTime("michegan ave"), new UniqueTagList()),
-                    new Task(new Description("Fiona Kunz"), new DateTime("little tokyo"), new UniqueTagList()),
-                    new Task(new Description("George Best"), new DateTime("4th street"), new UniqueTagList()),
-                    new Task(new Description("Hoon Meier"), new DateTime("little india"), new UniqueTagList()),
-                    new Task(new Description("Ida Mueller"), new DateTime("chicago ave"), new UniqueTagList())
+                    new Task(new Description("Ali Muster"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Boris Mueller"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Carl Kurz"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Daniel Meier"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Elle Meyer"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Fiona Kunz"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("George Best"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Hoon Meier"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Ida Mueller"), new DateTime("22/01/2014 12:01"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
