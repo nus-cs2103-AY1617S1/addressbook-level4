@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 
 public class UndoCommand extends Command {
 
@@ -18,7 +18,7 @@ public class UndoCommand extends Command {
         try {
             model.loadFromHistory();
             return new CommandResult(MESSAGE_SUCCESS);
-        } catch (EmptyStackException e) {
+        } catch (NoSuchElementException e) {
             return new CommandResult(MESSAGE_UNDO_INVALID);
         }
     }   

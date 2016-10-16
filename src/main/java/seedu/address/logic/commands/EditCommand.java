@@ -42,6 +42,7 @@ public class EditCommand extends Command {
         
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
        try{ 
+           model.saveToHistory();
            model.editTask(taskToEdit, targetProperty, newInfo);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";

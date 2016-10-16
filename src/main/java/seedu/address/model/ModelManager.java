@@ -13,7 +13,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -28,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private Deque<TaskManager> taskManagerHistory = new ArrayDeque<TaskManager>(); 
     private Deque<TaskManager> undoHistory = new ArrayDeque<TaskManager>();
+    
     /**
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
@@ -57,7 +58,12 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.resetData(newData);
         indicateTaskManagerChanged();
     }
-
+    
+    public void clearHistory() {
+        taskManagerHistory.clear();
+        undoHistory.clear();
+    }
+    
     @Override
     public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
@@ -66,10 +72,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void saveToHistory() {
         taskManagerHistory.push(new TaskManager(taskManager));
+        undoHistory.clear();
     }
     
     @Override
-    public void loadFromHistory() throws EmptyStackException{
+    public void loadFromHistory() throws NoSuchElementException {
         TaskManager oldManager = taskManagerHistory.pop();
         undoHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
@@ -78,7 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void loadFromUndoHistory() throws EmptyStackException{
+    public void loadFromUndoHistory() throws NoSuchElementException {
         TaskManager oldManager = undoHistory.pop();
         taskManagerHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());

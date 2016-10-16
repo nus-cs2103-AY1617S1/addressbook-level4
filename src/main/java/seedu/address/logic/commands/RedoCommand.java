@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
-import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 
 public class RedoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes the most recent command in ForgetMeNot. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the most recent command in ForgetMeNot. "
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Command redone! Your recent undo was undone.";
@@ -18,7 +18,7 @@ public class RedoCommand extends Command {
         try {
             model.loadFromUndoHistory();
             return new CommandResult(MESSAGE_SUCCESS);
-        } catch (EmptyStackException e) {
+        } catch (NoSuchElementException e) {
             return new CommandResult(MESSAGE_REDO_INVALID);
         }
     }   
