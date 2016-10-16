@@ -19,6 +19,15 @@ public class HideCommand extends Command {
             + "Parameters: [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag \"TAG\"...]\n"
             + "Example: " + COMMAND_WORD
             + " completed events";
+    
+    public static final String KEYWORD_DATE = "on";
+    public static final String KEYWORD_DEADLINE = "by";
+    public static final String KEYWORD_PERIOD_START_TIME = "from";
+    public static final String KEYWORD_PERIOD_END_TIME = "to";
+    public static final String KEYWORD_TAG = "tag";
+    
+    public static final String[] VALID_KEYWORDS = { COMMAND_WORD, KEYWORD_DATE,
+            KEYWORD_DEADLINE, KEYWORD_PERIOD_START_TIME, KEYWORD_PERIOD_END_TIME, KEYWORD_TAG};
 
     private final String type;
     private final Date deadline;
