@@ -87,7 +87,13 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
-
+    
+    public String getEditCommand(int index) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("edit " + index + " " + this.getName().fullName);        
+        return sb.toString();
+    }
+    
 	@Override
 	public boolean getIsDone() {
 		return isDone;
