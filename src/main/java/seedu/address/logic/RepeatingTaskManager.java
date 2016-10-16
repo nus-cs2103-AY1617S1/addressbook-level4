@@ -41,7 +41,7 @@ public class RepeatingTaskManager {
      * Only updates if a day has elapsed
      */
     public void update() {
-        assert repeatingTasks == null : "Repeating Task list reference cannot be null";
+        assert repeatingTasks != null : "Repeating Task list reference cannot be null";
         long daysElapsed = ChronoUnit.DAYS.between(initialisedTime, LocalDate.now());
         if (daysElapsed <= 0) {
             return;
