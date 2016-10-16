@@ -449,7 +449,7 @@ public class Parser {
      */
     private String removeTrailingCommandChars(String argument, String commandArgs) {
         //maximum size of trailing command characters is 3, including the space before them
-        if (argument.length() < commandArgs.trim().length()-3) {
+        if (argument.length() >= 3 && argument.length() < commandArgs.trim().length()-3) {
             //size of trailing name command characters is 2, including the space before it
             if (argument.substring(argument.length()-2, argument.length()).matches(" n")) {
                 argument = argument.substring(0, argument.length()-2);
