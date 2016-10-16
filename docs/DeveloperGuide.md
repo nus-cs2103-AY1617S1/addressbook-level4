@@ -196,7 +196,7 @@ Given below is the Sequence Diagram for interactions within the **`Logic`** comp
 
 The `Logic` interface allows you to request for any logic-related operation, such as parsing and executing commands, without having to know anything about the implementation of the `LogicManager` class.
 
-Notable APIs
+**Notable APIs**
 
 Return type | Method and Description
 ----------- | ----------------------
@@ -237,7 +237,7 @@ The **`Model`**
 The **`Model`** interface allows you to request for any model-related operations, such as retrieving and modifying tasks
 in the task list, without having to know anything about the implementation of the `ModelManager` class.
 
-Notable APIs
+**Notable APIs**
 
 Return type | Method and Description
 ----------- | ----------------------
@@ -291,7 +291,7 @@ deadline for the task (usually, you would use `Deadline(Date date)` if the task 
 The classes mentioned represents the details of the task. Do note that some
 classes have multiple constructors (for details that are not filled in, use the default constructor)
 
-Notable APIs
+**Notable APIs**
 
 Methods | Description
 ------- | -----------
@@ -329,7 +329,7 @@ The **`Storage`** component
 
 The **`Storage`** interface allows you to request for any storage-related operations, such as reading and saving the user's preferences and tasklist.
 
-Notable APIs
+**Notable APIs**
 
 Return type | Method and Description
 ----------- | ----------------------
