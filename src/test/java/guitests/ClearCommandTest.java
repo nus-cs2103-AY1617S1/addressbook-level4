@@ -14,8 +14,8 @@ public class ClearCommandTest extends EmeraldoGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.hoon));
+        commandBox.runCommand(td.homework.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.homework));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 

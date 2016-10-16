@@ -8,7 +8,7 @@ public class CommandBoxTest extends EmeraldoGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(td.party.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

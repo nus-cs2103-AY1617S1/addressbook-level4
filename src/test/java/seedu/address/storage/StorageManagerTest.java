@@ -64,7 +64,7 @@ public class StorageManagerTest {
         storageManager.saveEmeraldo(original);
         ReadOnlyEmeraldo retrieved = storageManager.readEmeraldo().get();
         assertEquals(original, new Emeraldo(retrieved));
-        //More extensive testing of AddressBook saving/reading is done in XmlEmeraldoStorageTest
+        //More extensive testing of Emeraldo saving/reading is done in XmlEmeraldoStorageTest
     }
 
     @Test

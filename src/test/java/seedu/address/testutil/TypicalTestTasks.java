@@ -9,23 +9,23 @@ import seedu.emeraldo.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask application, party, book, food, haircut, fines, tutorial, homework, groceries;
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withDescription("Alice Pauline").withDateTime("22/01/2014 12:01")
-                    .withTags("friends").build();
-            benson = new TaskBuilder().withDescription("Benson Meier").withDateTime("21/03/2015 11:00")
-                    .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withDescription("Carl Kurz").withDateTime("01/05/2015").build();
-            daniel = new TaskBuilder().withDescription("Daniel Meier").withDateTime("01/06/2015").build();
-            elle = new TaskBuilder().withDescription("Elle Meyer").withDateTime("30/11/2016").build();
-            fiona = new TaskBuilder().withDescription("Fiona Kunz").withDateTime("30/01/2017").build();
-            george = new TaskBuilder().withDescription("George Best").withDateTime("30/05/2017").build();
+            application =  new TaskBuilder().withDescription("Complete application form for SEP").withDateTime("22/01/2014 12:01")
+                    .withTags("urgent").build();
+            party = new TaskBuilder().withDescription("Fred birthday party").withDateTime("21/03/2015 11:00")
+                    .withTags("buyGift", "friends").build();
+            book = new TaskBuilder().withDescription("Return book to library").withDateTime("01/05/2015").build();
+            food = new TaskBuilder().withDescription("Bring food for party").withDateTime("01/06/2015").build();
+            haircut = new TaskBuilder().withDescription("Go for a haircut").withDateTime("30/11/2016").build();
+            fines = new TaskBuilder().withDescription("Pay for parking fines").withDateTime("30/01/2017").build();
+            tutorial = new TaskBuilder().withDescription("Complete tutorial for EE2020").withDateTime("30/05/2017").build();
 
             //Manually added
-            hoon = new TaskBuilder().withDescription("Hoon Meier").withDateTime("20/11/2016").build();
-            ida = new TaskBuilder().withDescription("Ida Mueller").withDateTime("20/12/2016").build();
+            homework = new TaskBuilder().withDescription("Do Homework").withDateTime("20/11/2016").build();
+            groceries = new TaskBuilder().withDescription("Buy groceries for mum").withDateTime("20/12/2016").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -35,20 +35,20 @@ public class TypicalTestTasks {
     public static void loadEmeraldoWithSampleData(Emeraldo ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
+            ab.addTask(new Task(application));
+            ab.addTask(new Task(party));
+            ab.addTask(new Task(book));
+            ab.addTask(new Task(food));
+            ab.addTask(new Task(haircut));
+            ab.addTask(new Task(fines));
+            ab.addTask(new Task(tutorial));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[]{application, party, book, food, haircut, fines, tutorial};
     }
 
     public Emeraldo getTypicalEmeraldo(){

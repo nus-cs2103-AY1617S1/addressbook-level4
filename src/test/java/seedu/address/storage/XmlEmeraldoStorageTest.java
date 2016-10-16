@@ -73,14 +73,14 @@ public class XmlEmeraldoStorageTest {
         assertEquals(original, new Emeraldo(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.hoon));
-        original.removeTask(new Task(TypicalTestTasks.alice));
+        original.addTask(new Task(TypicalTestTasks.homework));
+        original.removeTask(new Task(TypicalTestTasks.application));
         xmlEmeraldoStorage.saveEmeraldo(original, filePath);
         readBack = xmlEmeraldoStorage.readEmeraldo(filePath).get();
         assertEquals(original, new Emeraldo(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTasks.ida));
+        original.addTask(new Task(TypicalTestTasks.groceries));
         xmlEmeraldoStorage.saveEmeraldo(original); //file path not specified
         readBack = xmlEmeraldoStorage.readEmeraldo().get(); //file path not specified
         assertEquals(original, new Emeraldo(readBack));

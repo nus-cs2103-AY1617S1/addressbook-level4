@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Description("Ali Muster"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Boris Mueller"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Carl Kurz"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Daniel Meier"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Elle Meyer"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Fiona Kunz"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("George Best"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Hoon Meier"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Ida Mueller"), new DateTime("22/01/2014 12:01"), new UniqueTagList())
+                    new Task(new Description("Complete application form for SEP"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Fred birthday party"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Return book to library"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Bring food for party"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Go for a haircut"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Pay for parking fines"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Complete tutorial for EE2020"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Do homework"), new DateTime("22/01/2014 12:01"), new UniqueTagList()),
+                    new Task(new Description("Buy groceries for mum"), new DateTime("22/01/2014 12:01"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
