@@ -84,25 +84,19 @@ public interface ReadOnlyTask {
             builder.append(" Recurring");
         }
         
+        if (isOverdue(new Date())) {
+            builder.append(" Overdue");
+        }
+        
         if (getDeadline().hasDeadline() && getPeriod().hasPeriod()) {
-            if (getDeadline().getDeadline().before(now))
-                builder.append(" Overdue");
             builder.append(" Tasks Allocated Timeslot");
-            
         } else if (getDeadline().hasDeadline()) {
-            if (getDeadline().getDeadline().before(now))
-                builder.append(" Overdue");
             builder.append(" Normal Tasks");
-            
         } else if (getPeriod().hasPeriod()) {
-            if (getPeriod().getEndTime().before(now))
-                builder.append(" Overdue");
             builder.append(" Events");
-            
         } else {
             builder.append(" Floating Tasks");
         }
-        System.out.println(builder.toString());
         
         return builder.toString();
     }
