@@ -70,7 +70,7 @@ public class AddController implements Controller {
         String naturalTo = naturalDates[1];
         
         // Validate isTask, name and times.
-        if (!validateParams(isTask, name, naturalFrom, naturalTo)) {
+        if (validateParams(isTask, name, naturalFrom, naturalTo)) {
             renderDisambiguation(parsedResult);
             return;
         }
