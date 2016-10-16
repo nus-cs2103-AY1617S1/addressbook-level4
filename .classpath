@@ -17,5 +17,9 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+	<classpathentry kind="lib" path="C:/Users/Desmond/.gradle/caches/modules-2/files-2.1/com.joestelmach/natty/0.12/dd404d4e27fe087c07d29acb8f7050371ad5eb4e/natty-0.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desmond/.gradle/caches/modules-2/files-2.1/org.antlr/antlr-runtime/3.5.2/cd9cd41361c155f3af0f653009dcecb08d8b4afd/antlr-runtime-3.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desmond/.gradle/caches/modules-2/files-2.1/org.mnode.ical4j/ical4j/1.0.2/3690b6d480ed15b64be7a687dd4f2869075c555/ical4j-1.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Desmond/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.10/5b338f206827d88acd890739f400a9b7664e5984/slf4j-api-1.7.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -3,6 +3,8 @@ package seedu.todo.logic.parser;
 import static seedu.todo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.todo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,12 +13,16 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.*;
 
+import com.joestelmach.natty.*;
+
 /**
  * Parses user input.
  */
-public class Parser {
+public class ToDoListParser {
 
-    public Parser() {
+    Parser nattyParser = new Parser();
+    
+    public ToDoListParser() {
     }
 
     /**
@@ -92,6 +98,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
+        
         Pattern[] dataPatterns = { ParserFormats.TASK_DATA_ARGS_FORMAT_FT, ParserFormats.TASK_DATA_ARGS_FORMAT_BY,
                 ParserFormats.TASK_DATA_ARGS_FORMAT_ON, ParserFormats.TASK_DATA_ARGS_FORMAT_FLOAT };
 

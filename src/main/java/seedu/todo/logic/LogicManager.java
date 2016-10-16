@@ -6,7 +6,7 @@ import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.logic.commands.Command;
 import seedu.todo.logic.commands.CommandResult;
-import seedu.todo.logic.parser.Parser;
+import seedu.todo.logic.parser.ToDoListParser;
 import seedu.todo.model.Model;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.storage.Storage;
@@ -22,14 +22,15 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final Config config;
     private final Storage storage;
-    private final Parser parser;
+    private final ToDoListParser parser;
+
 
     public LogicManager(Model model, Config config, Storage storage) {
         this.model = model;
         this.config = config;
-        this.storage = storage;
-        
-        this.parser = new Parser();
+        this.storage = storage;        
+        this.parser = new ToDoListParser();
+
     }
 
     @Override
