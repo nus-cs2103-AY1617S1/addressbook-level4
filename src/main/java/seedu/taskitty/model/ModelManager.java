@@ -87,7 +87,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     public synchronized void undo() {
         taskManager.resetData(historyCommands.pop());
-        updateFilteredTaskList(historyPredicates.pop());;
+        updateFilteredTaskList(historyPredicates.pop());
     }
     
     public synchronized void saveState() {

@@ -15,9 +15,9 @@ public class UndoCommand extends Command {
             + ": Undos the previous action\n"
             + "Example: " + COMMAND_WORD;
 
-    private static final String MESSAGE_UNDO_TASK_SUCCESS = "Undoed previous action";
+    public static final String MESSAGE_UNDO_SUCCESS = "Previous action undone!";
     
-    private static final String MESSAGE_NO_PREVIOUS_COMMANDS = "There is no more previous command in this session.";
+    public static final String MESSAGE_NO_PREVIOUS_COMMANDS = "There is no more previous command in this session.";
     
     public UndoCommand() {}
     
@@ -25,7 +25,7 @@ public class UndoCommand extends Command {
     public CommandResult execute() {
         try {
             model.undo();
-            return new CommandResult(MESSAGE_UNDO_TASK_SUCCESS);
+            return new CommandResult(MESSAGE_UNDO_SUCCESS);
         } catch (EmptyStackException e) {
             return new CommandResult(MESSAGE_NO_PREVIOUS_COMMANDS);
         }       
