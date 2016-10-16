@@ -1,6 +1,7 @@
 package seedu.todo.models;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -25,6 +26,15 @@ public class TodoListDB {
     
     public List<Task> getAllTasks() {
         return new ArrayList<Task>(tasks);
+    }
+    
+    public int countIncompleteTasks() {
+        int count = 0;
+        for (Task task : tasks) {
+            if (!task.isCompleted())
+                count++;
+        }
+        return count;
     }
     
     public List<Event> getAllEvents() {
