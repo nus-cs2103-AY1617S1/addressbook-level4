@@ -83,8 +83,6 @@ public class UpdateCommand extends Command {
         toUpdate.setStatus(taskToUpdate.getStatus());
     }
     
-    
-    
     @Override
     public CommandResult execute() {
 
@@ -97,12 +95,12 @@ public class UpdateCommand extends Command {
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
         updateTheCorrectField(taskToUpdate);
+        
         try {
             model.updateTask(taskToUpdate, toUpdate);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-
         return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate));
     }
 }

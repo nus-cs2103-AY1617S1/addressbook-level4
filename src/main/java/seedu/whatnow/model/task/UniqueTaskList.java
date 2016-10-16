@@ -104,7 +104,6 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndMarked;
     }
     
-
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

@@ -9,6 +9,7 @@ import seedu.whatnow.model.task.ReadOnlyTask;
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
+    private static final String INCOMPLETE = "";
 
     @FXML
     private HBox cardPane;
@@ -41,7 +42,7 @@ public class TaskCard extends UiPart{
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
         if (task.getStatus().equals("incomplete")) {
-            status.setText("");
+            status.setText(INCOMPLETE);
         } else {
             status.setText(task.getStatus());
         }
