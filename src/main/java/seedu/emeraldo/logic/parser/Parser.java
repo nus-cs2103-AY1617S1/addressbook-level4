@@ -31,7 +31,10 @@ public class Parser {
                     + "(?: by )?(?<dateTime>([^#]+)?)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
     
-    private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)\\s+\"(?<description>.+)\"");
+    private static final Pattern TASK_EDIT_ARGS_FORMAT = 
+            Pattern.compile("(?<targetIndex>\\d+)" //index must be digits
+            + "\\s+"                               //any number of whitespace
+            + "\"(?<description>[^\"]+)\"");       //quote marks are reserved for start and end of description field
 
     public Parser() {}
 
