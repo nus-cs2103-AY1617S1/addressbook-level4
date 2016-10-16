@@ -12,6 +12,9 @@ public class EditCommand extends BaseCommand {
     
     private Argument<Integer> index = new IntArgument("index").required();
     
+    private Argument<String> title = new StringArgument("title")
+            .flag("t");
+    
     private Argument<String> description = new StringArgument("description")
             .flag("m");
     
@@ -26,7 +29,7 @@ public class EditCommand extends BaseCommand {
 
     @Override
     protected Parameter[] getArguments() {
-        return new Parameter[] { index, date, description, pin, location };
+        return new Parameter[] { index, title, date, description, pin, location };
     }
 
     @Override
@@ -44,6 +47,10 @@ public class EditCommand extends BaseCommand {
     @Override
     public CommandResult execute() throws ValidationException {
         ImmutableTask editedTask = this.model.update(index.getValue(), task -> {
+            if (title.hasBoundValue()) {
+                task.setTitle(title.getValue());
+            }
+            
             if (description.hasBoundValue()) {
                 task.setDescription(description.getValue());
             }

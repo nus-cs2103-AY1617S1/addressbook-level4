@@ -45,6 +45,19 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
+    public void testEditTitle() throws Exception {
+        setParameter("1");
+        setParameter("t", "New Title");
+        execute(true);
+        
+        ImmutableTask task = getTaskAt(1);
+        assertEquals("New Title", task.getTitle());
+        assertTrue(task.isPinned());
+        assertEquals("NUS", task.getLocation().get());
+        assertFalse(task.getDescription().isPresent());
+    }
+    
+    @Test
     public void testEditPinned() throws Exception {
         setParameter("1");
         setParameter("p", null);
@@ -133,13 +146,14 @@ public class EditCommandTest extends CommandTest {
 
     @Test
     public void testEditMoreThanOneParameter() throws Exception {
+        setParameter("t", "New Title");
         setParameter("1");
         setParameter("m", "New description");
         setParameter("l", "Singapura");
         execute(true);
 
         ImmutableTask toEditTwoThings = getTaskAt(1);
-        assertEquals("Task 1", toEditTwoThings.getTitle());
+        assertEquals("New Title", toEditTwoThings.getTitle());
         assertTrue(toEditTwoThings.isPinned());
         assertEquals("New description", toEditTwoThings.getDescription().get());
         assertEquals("Singapura", toEditTwoThings.getLocation().get());
