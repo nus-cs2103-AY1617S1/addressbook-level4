@@ -47,6 +47,16 @@ public class TimeUtilTest {
         String generatedOutput = timeUtil.getTaskDeadlineText(dueTime);
         assertEquals(expectedOutput, generatedOutput);
     }
+
+    /**
+     * Aids to test eventTimeText with a current time, startTime and endTime, against an expected output.
+     */
+    private void testEventTimeTextHelper(String expectedOutput, LocalDateTime currentTime,
+                                         LocalDateTime startTime, LocalDateTime endTime) {
+        TimeUtil timeUtil = new ModifiedTimeUtil(currentTime);
+        String generatedOutput = timeUtil.getEventTimeText(startTime, endTime);
+        assertEquals(expectedOutput, generatedOutput);
+    }
         
     @Test
     public void getTaskDeadlineString_nullEndTime() {
@@ -213,6 +223,49 @@ public class TimeUtilTest {
         TimeUtil timeUtil = new TimeUtil();
         String outcome = timeUtil.getEventTimeText(LocalDateTime.now(), null);
         assertEquals("", outcome);
+    @Test
+    public void getEventTimeText_sameDay() {
+        LocalDateTime currentTime = LocalDateTime.of(2016, 10, 20, 12, 00);
+        testEventTimeTextHelper("yesterday, from 4:50 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 19, 16, 50), LocalDateTime.of(2016, 10, 19, 20, 30));
+        testEventTimeTextHelper("today, from 4:50 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 20, 16, 50), LocalDateTime.of(2016, 10, 20, 20, 30));
+        testEventTimeTextHelper("tonight, from 6:00 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 20, 18, 00), LocalDateTime.of(2016, 10, 20, 20, 30));
+        testEventTimeTextHelper("tomorrow, from 4:50 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 21, 16, 50), LocalDateTime.of(2016, 10, 21, 20, 30));
+        testEventTimeTextHelper("21 November, from 4:50 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 11, 21, 16, 50), LocalDateTime.of(2016, 11, 21, 20, 30));
+        testEventTimeTextHelper("21 November 2017, from 4:50 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2017, 11, 21, 16, 50), LocalDateTime.of(2017, 11, 21, 20, 30));
+    }
+
+    @Test
+    public void getEventTimeText_differentDay() {
+        LocalDateTime currentTime = LocalDateTime.of(2016, 10, 20, 12, 00);
+        testEventTimeTextHelper("from yesterday, 4:50 PM to today, 2:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 19, 16, 50), LocalDateTime.of(2016, 10, 20, 14, 30));
+        testEventTimeTextHelper("from yesterday, 4:50 PM to tonight, 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 19, 16, 50), LocalDateTime.of(2016, 10, 20, 20, 30));
+        testEventTimeTextHelper("from today, 4:50 PM to tomorrow, 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 20, 16, 50), LocalDateTime.of(2016, 10, 21, 20, 30));
+        testEventTimeTextHelper("from tonight, 6:50 PM to tomorrow, 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 20, 18, 50), LocalDateTime.of(2016, 10, 21, 20, 30));
+        testEventTimeTextHelper("from tomorrow, 6:50 PM to 22 October, 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 21, 18, 50), LocalDateTime.of(2016, 10, 22, 20, 30));
+        testEventTimeTextHelper("from 18 October, 6:50 PM to 22 October, 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 18, 18, 50), LocalDateTime.of(2016, 10, 22, 20, 30));
+    }
+
+    @Test
+    public void getEventTimeText_differentYear() {
+        LocalDateTime currentTime = LocalDateTime.of(2016, 12, 31, 12, 00);
+        testEventTimeTextHelper("from 19 October, 4:50 PM to 3 January 2017, 2:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 19, 16, 50), LocalDateTime.of(2017, 1, 3, 14, 30));
+        testEventTimeTextHelper("from 19 October, 4:50 PM to tomorrow, 2:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 19, 16, 50), LocalDateTime.of(2017, 1, 1, 14, 30));
+        testEventTimeTextHelper("from today, 4:50 PM to 4 January 2017, 2:30 PM", currentTime,
+                LocalDateTime.of(2016, 12, 31, 16, 50), LocalDateTime.of(2017, 1, 4, 14, 30));
     }
     
     @Test (expected = AssertionError.class)

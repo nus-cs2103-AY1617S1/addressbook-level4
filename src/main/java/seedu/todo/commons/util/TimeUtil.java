@@ -138,8 +138,8 @@ public class TimeUtil {
                     .add(WORD_FROM).add(getTimeText(startTime))
                     .add(WORD_TO).add(getTimeText(endTime));
         } else {
-            joiner.add(WORD_FROM).add(getDateText(currentTime, startTime)).add(getTimeText(startTime))
-                    .add(WORD_TO).add(getDateText(currentTime, endTime)).add(getTimeText(endTime));
+            joiner.add(WORD_FROM).add(getDateText(currentTime, startTime) + WORD_COMMA).add(getTimeText(startTime))
+                    .add(WORD_TO).add(getDateText(currentTime, endTime) + WORD_COMMA).add(getTimeText(endTime));
         }
         return joiner.toString();
     }
