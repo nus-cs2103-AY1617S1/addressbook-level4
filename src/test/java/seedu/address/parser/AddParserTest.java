@@ -14,7 +14,7 @@ public class AddParserTest {
 	@Test
 	public void checkIsTask_returnsTrue() {
 
-		String arguments = "complete 2103t by: 10-08-2016 1900 n:important";
+		String arguments = "complete cs2103t by : 10-08-2016 1900 n : important";
 
 		assertTrue(AddParser.isTask(arguments));
 
@@ -48,7 +48,7 @@ public class AddParserTest {
 	@Test
 	public void checkTypeOfActivity_returnsTask(){
 		
-		String arguments = "complete cs2103t by: 10-08-2016 1900 n:important";
+		String arguments = "complete cs2103t by : 10-08-2016 1900 n : important";
 
 		
 		assertEquals("task", AddParser.parseCommand(arguments).get(0));
@@ -86,7 +86,7 @@ public class AddParserTest {
 	@Test
 	public void checkTaskArguments_returnsCorrectArguments(){
 		
-		String arguments = "complete cs2103t by: 10-08-2016 1900 n:important";
+		String arguments = "complete cs2103t by : 10-08-2016 1900 n:important";
 		
 		assertEquals("complete cs2103t ", AddParser.parseCommand(arguments).get(1));
 		assertEquals("important", AddParser.parseCommand(arguments).get(2));
