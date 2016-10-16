@@ -2,14 +2,16 @@ package seedu.address;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
-import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.TestUtil;
 
 import java.util.function.Supplier;
+
+import jym.manager.MainApp;
+import jym.manager.commons.core.Config;
+import jym.manager.commons.core.GuiSettings;
+import jym.manager.model.ReadOnlyAddressBook;
+import jym.manager.model.UserPrefs;
+import jym.manager.storage.XmlSerializableAddressBook;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for

@@ -1,33 +1,36 @@
 package seedu.address.logic;
 
 import com.google.common.eventbus.Subscribe;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.task.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import jym.manager.commons.core.EventsCenter;
+import jym.manager.commons.events.model.AddressBookChangedEvent;
+import jym.manager.commons.events.ui.JumpToListRequestEvent;
+import jym.manager.commons.events.ui.ShowHelpRequestEvent;
+import jym.manager.logic.Logic;
+import jym.manager.logic.LogicManager;
+import jym.manager.logic.commands.*;
+import jym.manager.model.AddressBook;
+import jym.manager.model.Model;
+import jym.manager.model.ModelManager;
+import jym.manager.model.ReadOnlyAddressBook;
+import jym.manager.model.tag.Tag;
+import jym.manager.model.tag.UniqueTagList;
+import jym.manager.model.task.*;
+import jym.manager.storage.StorageManager;
+import static jym.manager.commons.core.Messages.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.*;
 
 public class LogicManagerTest {
 
