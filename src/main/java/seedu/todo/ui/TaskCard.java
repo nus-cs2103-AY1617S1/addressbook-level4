@@ -74,6 +74,7 @@ public class TaskCard extends UiPart{
         displayTags();
         displayTimings();
         setStyle();
+        setTimingAutoUpdate();
     }
 
     public VBox getLayout() {
@@ -154,5 +155,16 @@ public class TaskCard extends UiPart{
         }
         
         dateLabel.setText(displayTimingOutput);
+    }
+
+    /**
+     * Allows timing, and deadline highlight style to be updated automatically.
+     */
+    private void setTimingAutoUpdate() {
+        Timeline timeline = FxViewUtil.setRecurringUiTask(30, event -> {
+            displayTimings();
+            setStyle();
+        });
+        timeline.play();
     }
 }
