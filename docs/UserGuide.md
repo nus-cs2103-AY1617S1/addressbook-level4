@@ -21,9 +21,8 @@
 * [Command Summary](#command-summary)
 
 ## Introduction
-<span style="color:blue">
 Ever felt overwhelmed from the multitude of tasks you have to complete and have no idea where to start? Are you looking for an easy to work with application to help you track all your activities? Well look no further! Your very own Menion is here to assist you!
-</span>
+</>
 
 Menion is your personal assistant that tracks all your activities and displays them in a simple to read display. It saves you the hassle of remembering what needs to be done and is able to help you prioritise your tasks.
 
@@ -216,6 +215,7 @@ Modify Storage Path | `modify storage path STORAGE_LOCATION`
 
 ## GLOSSARY
 
-Command | Format  
--------- | :-------- 
-Storage Path | hello 
+* Storage Path
+
+ - This is the directory where your data will be saved.
+
