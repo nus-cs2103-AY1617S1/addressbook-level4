@@ -80,7 +80,7 @@ public class ToDoListParser {
             
         case StoreCommand.COMMAND_WORD:
             return prepareStore(arguments);
-            
+
         case ResetCommand.COMMAND_WORD:
             return new ResetCommand();
 
