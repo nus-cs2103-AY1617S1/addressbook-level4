@@ -2,6 +2,7 @@ package seedu.todo.storage;
 
 import seedu.todo.commons.exceptions.DataConversionException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public interface MoveableStorage<T> extends FixedStorage<T> {
     
     public String getLocation(); 
     
-    public Optional<T> read(String location) throws DataConversionException, IOException;
+    public Optional<T> read(String location) throws DataConversionException, FileNotFoundException;
     
     public void save(T object, String newLocation) throws IOException;
 }

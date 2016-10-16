@@ -2,6 +2,7 @@ package seedu.todo.storage;
 
 import seedu.todo.commons.exceptions.DataConversionException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -14,9 +15,9 @@ public interface FixedStorage<T> {
      * Reads the object from storage 
      * @return the object read from storage 
      * @throws DataConversionException if the data read was not of the expected type 
-     * @throws IOException if there was a problem reading the data 
+     * @throws FileNotFoundException if there was no file  
      */
-    public Optional<T> read() throws DataConversionException, IOException;
+    public Optional<T> read() throws DataConversionException, FileNotFoundException;
 
     /**
      * Persists an object 
