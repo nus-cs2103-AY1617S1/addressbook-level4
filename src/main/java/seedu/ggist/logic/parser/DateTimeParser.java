@@ -3,12 +3,12 @@ package seedu.ggist.logic.parser;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
+import seedu.ggist.model.task.TaskDate;
 import seedu.ggist.model.task.TaskTime;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class DateTimeParser {
 
@@ -25,7 +25,7 @@ public class DateTimeParser {
     }
     
     private void parseTime(Date dateTime) throws IllegalValueException {
-        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat(TaskTime.TIME_VALIDATION_REGEX);
         time = sdf.format(dateTime).toString();
         String currentTime = sdf.format(new Date()).toString();
         if (currentTime.equals(time)) {
@@ -34,7 +34,7 @@ public class DateTimeParser {
     }
     
     private void parseDate(Date dateTime) {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yy");
+        SimpleDateFormat sdf = new SimpleDateFormat(TaskDate.DATE_VALIDATION_REGEX);
         date = sdf.format(dateTime).toString();
     }
     
