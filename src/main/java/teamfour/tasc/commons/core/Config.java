@@ -1,6 +1,7 @@
 package teamfour.tasc.commons.core;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -68,12 +69,18 @@ public class Config {
     }
     
     public void changeTaskListFilePath(String newTaskListFilePath) throws IOException, JAXBException {
-        File oldFile = new File(taskListFilePath + "/" + taskListFileName);
+        for(String file: this.getTaskListNames()) {
+            moveFile(newTaskListFilePath, file + ".xml");
+        }
+    }
+    
+    public void moveFile(String newTaskListFilePath, String fileName) throws IOException, JAXBException {
+        File oldFile = new File(taskListFilePath + "/" + fileName);
         XmlSerializableTaskList data = XmlUtil.getDataFromFile(oldFile, XmlSerializableTaskList.class);
         oldFile.delete();
         File newFilePath = new File(newTaskListFilePath);
         newFilePath.mkdirs();
-        File newFile = new File(newTaskListFilePath + "/" + taskListFileName);
+        File newFile = new File(newTaskListFilePath + "/" + fileName);
         newFile.createNewFile();
         XmlUtil.saveDataToFile(newFile, data);
         this.taskListFilePath = newTaskListFilePath;
