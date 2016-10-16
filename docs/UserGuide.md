@@ -141,18 +141,18 @@ Returns a list of all tasks. <br>
 
 #### Marking a task as completed: `done`
 Marks a task from WhatNow as completed.<br>
-Format: `done todo INDEX`<br>
-Results: `Todo Task INDEX has been successfully marked as done: <Task marked>` message will be shown in the feedback box.<br>
+Format: `done todo/schedule INDEX`<br>
+Results: `Todo/Scheduled Task INDEX has been successfully marked as done: <Task marked>` message will be shown in the feedback box.<br>
 
-> * Marks the task at the specified `INDEX from Todo task, Scheduled or Completed tasks as specified. <br>
+> * Marks the task at the specified `INDEX` from Todo task, Scheduled or Completed tasks as specified. <br>
 > * The index refers to the index number shown in the current listing.<br>
 > * The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
 * `done todo 1`<br>
-  Marks the 1st Todo task from the displayed list in WhatNow as completed<br>
+  Marks the 1st Todo task from the displayed list in WhatNow as completed.<br>
 * `done schedule 2`<br>
-  Marks the 2nd Schedule task from the displayed list in WhatNow as completed<br>
+  Marks the 2nd Schedule task from the displayed list in WhatNow as completed.<br>
   
   
 
