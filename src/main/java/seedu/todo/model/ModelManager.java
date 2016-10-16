@@ -144,6 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
+        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true))); //false change
         filteredTasks.setPredicate(null);
     }
     
