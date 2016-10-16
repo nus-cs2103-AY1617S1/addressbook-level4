@@ -14,6 +14,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskType;
 import seedu.address.model.task.UniqueTaskList;
 
 public class RepeatingTaskManager {
@@ -51,46 +52,88 @@ public class RepeatingTaskManager {
     private void updateRepeatingTasks() {
         logger.info("=============================[ RecurringTaskManager Updating ]===========================");
         for(ReadOnlyTask task : repeatingTasks){
-            List<TaskDateComponent> dateComponents = task.getTaskDateComponent();
-            TaskDateComponent lastAddedComponent =  dateComponents.get(dateComponents.size()-1);
-            
-            if(isUpdateRecurringTask(task, lastAddedComponent)) {
-            }
+            isUpdateRecurringTask(task);
         }
     }
 
-    private boolean isUpdateRecurringTask(ReadOnlyTask task, TaskDateComponent lastAddedComponent) {
+    private boolean isUpdateRecurringTask(ReadOnlyTask task) {
+        List<TaskDateComponent> dateComponents = task.getTaskDateComponent();
+        TaskDateComponent lastAddedComponent =  dateComponents.get(dateComponents.size()-1);
         LocalDate currentDate = LocalDate.now();
         LocalDate lastAddedStartDate = lastAddedComponent.getStartDate().getDate().
-                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();        
+                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate lastAddedEndDate = lastAddedComponent.getEndDate().getDate().
                 toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         switch (task.getRecurringType()) {
             case DAILY:
                 long elapsedDay = ChronoUnit.DAYS.between(lastAddedEndDate, currentDate);
                 if (elapsedDay >= 1) {
-                    appendDailyRecurringTask(task, lastAddedStartDate, lastAddedEndDate);
+                    for(int step = 0; step < elapsedDay; step++) {
+                        lastAddedComponent = dateComponents.get(dateComponents.size()-1);
+                        if (lastAddedComponent.getStartDate().getDateInLong() != (TaskDate.DATE_NOT_PRESENT)){
+                            lastAddedStartDate = lastAddedComponent.getStartDate().getDate().
+                                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        } else {
+                            lastAddedStartDate = null;
+                        }
+                        lastAddedEndDate = lastAddedComponent.getEndDate().getDate().
+                                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        appendDailyRecurringTask(task, lastAddedStartDate, lastAddedEndDate);
+                    }
                     return true;
                 }
                 break;
             case WEEKLY:
                 long elapsedWeek = ChronoUnit.WEEKS.between(lastAddedEndDate, currentDate);
                 if (elapsedWeek >= 1) {
-                    appendWeeklyRecurringTask(task, lastAddedStartDate, lastAddedEndDate);
+                    for(int step = 0; step < elapsedWeek; step++) {
+                        lastAddedComponent = dateComponents.get(dateComponents.size()-1);
+                        if (lastAddedComponent.getStartDate().getDateInLong() != (TaskDate.DATE_NOT_PRESENT)){
+                            lastAddedStartDate = lastAddedComponent.getStartDate().getDate().
+                                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        } else {
+                            lastAddedStartDate = null;
+                        }
+                        lastAddedEndDate = lastAddedComponent.getEndDate().getDate().
+                                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        appendWeeklyRecurringTask(task, lastAddedStartDate, lastAddedEndDate);
+                    }
                     return true;
                 }
                 break;
             case MONTHLY:
                 long elapsedMonth = ChronoUnit.MONTHS.between(lastAddedEndDate, currentDate);
                 if (elapsedMonth >= 1){
-                    appendMonthlyRecurringTask(task, lastAddedStartDate, lastAddedEndDate);
+                    for(int step = 0; step < elapsedMonth; step++) {
+                        lastAddedComponent = dateComponents.get(dateComponents.size()-1);
+                        if (lastAddedComponent.getStartDate().getDateInLong() != (TaskDate.DATE_NOT_PRESENT)){
+                            lastAddedStartDate = lastAddedComponent.getStartDate().getDate().
+                                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        } else {
+                            lastAddedStartDate = null;
+                        }
+                        lastAddedEndDate = lastAddedComponent.getEndDate().getDate().
+                                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        appendMonthlyRecurringTask(task, lastAddedStartDate, lastAddedEndDate);
+                    }
                     return true;
                 }
                 break;
             case YEARLY:
                 long elapsedYear = ChronoUnit.YEARS.between(lastAddedEndDate, currentDate);
                 if (elapsedYear >= 1) {
-                    appendYearlyRecurringTask(task, lastAddedStartDate, lastAddedEndDate);
+                    for(int step = 0; step < elapsedYear; step++) {
+                        lastAddedComponent = dateComponents.get(dateComponents.size()-1);
+                        if (lastAddedComponent.getStartDate().getDateInLong() != (TaskDate.DATE_NOT_PRESENT)){
+                            lastAddedStartDate = lastAddedComponent.getStartDate().getDate().
+                                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        } else {
+                            lastAddedStartDate = null;
+                        }
+                        lastAddedEndDate = lastAddedComponent.getEndDate().getDate().
+                                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        appendYearlyRecurringTask(task, lastAddedStartDate, lastAddedEndDate);
+                    }
                     return true;
                 }
                 break;
@@ -102,10 +145,16 @@ public class RepeatingTaskManager {
 
     private void appendYearlyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
             LocalDate lastAddedEndDate) {
-        LocalDate newLocalStartDate = lastAddedStartDate.plusYears(1);
-        LocalDate newLocalEndDate = lastAddedEndDate.plusYears(1);
+        LocalDate newLocalStartDate;
+        Date convertedStartDate;
         
-        Date convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        if(lastAddedStartDate != null) {
+            newLocalStartDate = lastAddedStartDate.plusYears(1);
+            convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        }else {
+            convertedStartDate = (new TaskDate()).getDate();
+        }
+        LocalDate newLocalEndDate = lastAddedEndDate.plusYears(1);
         Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         
         Task mutableTask = (Task) task;
@@ -115,10 +164,16 @@ public class RepeatingTaskManager {
 
     private void appendMonthlyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
             LocalDate lastAddedEndDate) {
-        LocalDate newLocalStartDate = lastAddedStartDate.plusMonths(1);
-        LocalDate newLocalEndDate = lastAddedEndDate.plusMonths(1);
+        LocalDate newLocalStartDate;
+        Date convertedStartDate;
         
-        Date convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        if(lastAddedStartDate != null) {
+            newLocalStartDate = lastAddedStartDate.plusMonths(1);
+            convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        }else {
+            convertedStartDate = (new TaskDate()).getDate();
+        }
+        LocalDate newLocalEndDate = lastAddedEndDate.plusMonths(1);
         Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         
         Task mutableTask = (Task) task;
@@ -129,10 +184,16 @@ public class RepeatingTaskManager {
     private void appendWeeklyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
             LocalDate lastAddedEndDate) {
         // Append a new date to the current task
-        LocalDate newLocalStartDate = lastAddedStartDate.plusWeeks(1);
-        LocalDate newLocalEndDate = lastAddedEndDate.plusWeeks(1);
+        LocalDate newLocalStartDate;
+        Date convertedStartDate;
         
-        Date convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        if(lastAddedStartDate != null) {
+            newLocalStartDate = lastAddedStartDate.plusWeeks(1);
+            convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        }else {
+            convertedStartDate = (new TaskDate()).getDate();
+        }
+        LocalDate newLocalEndDate = lastAddedEndDate.plusWeeks(1);
         Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         
         Task mutableTask = (Task) task;
@@ -143,10 +204,16 @@ public class RepeatingTaskManager {
     private void appendDailyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
             LocalDate lastAddedEndDate) {
         // Append a new date to the current task
-        LocalDate newLocalStartDate = lastAddedStartDate.plusDays(1);
-        LocalDate newLocalEndDate = lastAddedEndDate.plusDays(1);
+        LocalDate newLocalStartDate;
+        Date convertedStartDate;
         
-        Date convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        if(lastAddedStartDate != null) {
+            newLocalStartDate = lastAddedStartDate.plusDays(1);
+            convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        }else {
+            convertedStartDate = (new TaskDate()).getDate();
+        }
+        LocalDate newLocalEndDate = lastAddedEndDate.plusDays(1);
         Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         
         Task mutableTask = (Task) task;
