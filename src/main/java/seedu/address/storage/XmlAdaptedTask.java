@@ -39,7 +39,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getDescription().toString();
-        phone = source.getDeadline().value;
+        phone = source.getDate().toString();
         email = "placeholder";
         address = source.getLocation().value;
         tagged = new ArrayList<>();
