@@ -181,7 +181,7 @@ public class TodoListDB {
         while (iterator.hasNext()) {
             Event currEvent = iterator.next();
             if (DateUtil.floorDate(currEvent.getStartDate()).compareTo(fromDate) >= 0 && 
-                    DateUtil.floorDate(currEvent.getEndDate()).compareTo(toDate) <= 0) {
+                    DateUtil.floorDate(currEvent.getStartDate()).compareTo(toDate) <= 0) {
                 eventByRange.add(currEvent);
             }
         }
