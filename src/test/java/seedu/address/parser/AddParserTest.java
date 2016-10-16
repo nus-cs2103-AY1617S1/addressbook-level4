@@ -112,4 +112,10 @@ public class AddParserTest {
 			
 	}
 	
+	@Test
+	public void checkDateHandleReturnValues(){
+		
+		assertEquals("1 December 2016", AddParser.dateHandler("December 1st 16"));
+	}
+	
 }
