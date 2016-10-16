@@ -64,6 +64,31 @@ public class Tokenizer {
         }
         
         // --- Split by tokens
+        Map<String, Integer> tokenIndices = splitByTokens(tokens, getTokenType, tokenizedSplitString);
+        
+        // Get arraylist of indices
+        // Get dictionary of tokenType -> index
+        // Return dictionary of tokenType -> {token, tokenField}
+        return constructParsedResult(tokenizedSplitString, tokenIndices);
+    }
+
+    private static Map<String, String[]> constructParsedResult(List<TokenizedString> tokenizedSplitString,
+            Map<String, Integer> tokenIndices) {
+        Map<String, String[]> parsedResult = new HashMap<String, String[]>();
+        for (Map.Entry<String, Integer> tokenIndex : tokenIndices.entrySet()) {
+            String tokenType = tokenIndex.getKey();
+            String token = tokenizedSplitString.get(tokenIndex.getValue()).string;
+            String tokenField = null;
+            // Should just EAFP instead of LBYL, but oh well.
+            if (tokenIndex.getValue() + 1 < tokenizedSplitString.size() && !tokenizedSplitString.get(tokenIndex.getValue() + 1).isToken)
+                tokenField = tokenizedSplitString.get(tokenIndex.getValue() + 1).string;
+            parsedResult.put(tokenType, new String[] { token, tokenField });
+        }
+        return parsedResult;
+    }
+
+    private static Map<String, Integer> splitByTokens(List<String> tokens, HashMap<String, String> getTokenType,
+            List<TokenizedString> tokenizedSplitString) {
         Map<String, Integer> tokenIndices = new HashMap<String, Integer>();
         for (int i = 0; i < tokenizedSplitString.size(); i++) { // Java doesn't eager-evaluate the terminating condition
             TokenizedString currString = tokenizedSplitString.get(i);
@@ -101,23 +126,7 @@ public class Tokenizer {
                 break;
             }   
         }
-        
-        // Get arraylist of indices
-        // Get dictionary of tokenType -> index
-        
-        Map<String, String[]> parsedResult = new HashMap<String, String[]>();
-        for (Map.Entry<String, Integer> tokenIndex : tokenIndices.entrySet()) {
-            String tokenType = tokenIndex.getKey();
-            String token = tokenizedSplitString.get(tokenIndex.getValue()).string;
-            String tokenField = null;
-            // Should just EAFP instead of LBYL, but oh well.
-            if (tokenIndex.getValue() + 1 < tokenizedSplitString.size() && !tokenizedSplitString.get(tokenIndex.getValue() + 1).isToken)
-                tokenField = tokenizedSplitString.get(tokenIndex.getValue() + 1).string;
-            parsedResult.put(tokenType, new String[] { token, tokenField });
-        }
-        
-        // Return dictionary of tokenType -> {token, tokenField}
-        return parsedResult;
+        return tokenIndices;
     }
 
 }
