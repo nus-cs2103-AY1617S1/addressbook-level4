@@ -49,7 +49,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
 
     public TodoList(MoveableStorage<ImmutableTodoList> storage) {
         this.storage = storage;
-        
+
         try {
             initTodoList(storage.read());
         } catch (FileNotFoundException | DataConversionException e) {
@@ -59,9 +59,9 @@ public class TodoList implements ImmutableTodoList, TodoModel {
         // Set the default comparators
         view(null, null);
     }
-    
+
     private void raiseStorageEvent(String message, Exception e) {
-        // TODO: Have this raise an event 
+        // TODO: Have this raise an event
     }
 
     private void initTodoList(ImmutableTodoList initialData) {
@@ -75,7 +75,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
             events.post(new DataSavingExceptionEvent(e));
         }
     }
-    
+
     private int getTaskIndex(int index) throws ValidationException {
         int taskIndex; 
         
@@ -133,6 +133,7 @@ public class TodoList implements ImmutableTodoList, TodoModel {
 
         // changes are validated and accepted
         update.accept(task);
+        task.setLastUpdated();
         saveTodoList();
         return task;
     }

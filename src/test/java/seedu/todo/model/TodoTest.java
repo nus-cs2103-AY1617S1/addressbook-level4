@@ -33,32 +33,32 @@ public class TodoTest {
     public MockitoRule rule = MockitoJUnit.rule();
 
     @Mock private MoveableStorage<ImmutableTodoList> storage;
-    @Mock private ImmutableTodoList storageData; 
+    @Mock private ImmutableTodoList storageData;
     private TodoList todo;
     private UnmodifiableObservableList<ImmutableTask> observableList;
-    
+
     @Before
     public void setUp() throws Exception {
         when(storage.read()).thenReturn(storageData);
         todo = new TodoList(storage);
         observableList = todo.getObserveableList();
     }
-    
+
     @Test
     public void testEmptyStorage() throws Exception {
         when(storage.read()).thenThrow(new FileNotFoundException());
         todo = new TodoList(storage);
-        
+
         assertThat(todo.getTasks(), empty());
     }
-    
+
     @Test
     public void testRestoreFromStorage() {
         // Create a mock todo list, add it to mock storage and try to get
         // TodoList to retrieve it
         Task task1 = new Task("Task 1");
         Task task2 = new Task("Task 2");
-        
+
         when(storageData.getTasks()).thenReturn(ImmutableList.of(task1, task2));
         todo = new TodoList(storage);
 
@@ -83,6 +83,25 @@ public class TodoTest {
     }
 
     @Test
+    public void testLastUpdated() throws Exception {
+        LocalDateTime initialTime = LocalDateTime.now().minusSeconds(1);
+
+        todo.add("Test Task 1");
+        LocalDateTime beforeUpdate = getTask(0).getLastUpdated();
+        assertTrue(beforeUpdate.isAfter(initialTime));
+
+        // Delay for a bit
+        Thread.sleep(1);
+        assertTrue(beforeUpdate.isEqual(getTask(0).getLastUpdated()));
+
+        Thread.sleep(1);
+        todo.update(1, t -> t.setPinned(true));
+        LocalDateTime afterUpdate = getTask(0).getLastUpdated();
+
+        assertTrue(afterUpdate.isAfter(beforeUpdate));
+    }
+
+    @Test
     public void testUpdate() throws Exception {
         final String DESCRIPTION = "Really long description blah blah blah";
         final String TITLE = "New title";
@@ -94,7 +113,7 @@ public class TodoTest {
             t.setTitle(TITLE);
             t.setDescription(DESCRIPTION);
         }));
-        
+
         assertEquals(TITLE, getTask(0).getTitle());
         assertEquals(DESCRIPTION, getTask(0).getDescription().get());
         verify(storage, times(2)).save(todo);
@@ -274,23 +293,23 @@ public class TodoTest {
             t.setEndTime(LocalDateTime.now().minusHours(2));
         });
     }
-    
+
     @Test
     public void testSave() throws Exception {
         todo.save("new location");
         verify(storage).save(todo, "new location");
     }
-    
+
     @Test
     public void testLoad() throws Exception {
         when(storageData.getTasks())
             .thenReturn(ImmutableList.of(new Task("Hello world")));
         when(storage.read("new location")).thenReturn(storageData);
-        
+
         todo.load("new location");
         assertEquals("Hello world", getTask(0).getTitle());
     }
-    
+
     @Test
     public void testGetSaveLocation() throws Exception {
         when(storage.getLocation()).thenReturn("test location");
