@@ -53,6 +53,7 @@ public class AddCommand extends Command {
                 end,
                 new UniqueTagList(tagSet)
         );
+
     }
 
     public AddCommand(String description, String priority, String timeStart, String timeEnd, UniqueTagList tags, int index)
@@ -70,8 +71,9 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+
         if(end.isStartBeforeEnd(start))
-        	return  new CommandResult(MESSAGE_ILLEGAL_START_END_TIME);
+        	return new CommandResult(MESSAGE_ILLEGAL_START_END_TIME);
 
         try {
             model.addTask(toAdd);

@@ -26,12 +26,12 @@ public class Time {
     public static final String TIME_VALIDATION_REGEX = "^\\s*$" // Empty String
             + "|^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" // 24H Time
             // Day Of Week and Optional 24H Time
-            + "|^(?i)(mon|tue(s)?|wed(nes)?|thu(r(s)?)?|fri|sat(ur)?|sun)(day)?" 
-            + "( ([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])?$"; 
-    
+            + "|^(?i)(mon|tue(s)?|wed(nes)?|thu(r(s)?)?|fri|sat(ur)?|sun)(day)?"
+            + "( ([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])?$";
+
 
     private LocalDateTime value;
-    
+
     //public String value;
 
     /**
@@ -80,7 +80,10 @@ public class Time {
     }
 
     public boolean isStartBeforeEnd(Time other) {
-		if(this.value.isBefore(other.value))
+    	if(this.value==null ||other.value == null)
+    		return false;
+
+    	if(this.value.isBefore(other.value))
     		return true;
 
 		return false;
@@ -95,7 +98,7 @@ public class Time {
 
     @Override
     public String toString() {
-        return (value != null) ? value.getDayOfWeek().toString() + " " + value.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))  
+        return (value != null) ? value.getDayOfWeek().toString() + " " + value.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))
         		: "";
     }
 
@@ -111,9 +114,9 @@ public class Time {
     public int hashCode() {
         return Objects.hash(value);
     }
-    
+
     private DayOfWeek convertToDayEnum(String day) {
-    	assert day != null; 
+    	assert day != null;
     	switch (day.substring(0, Math.min(day.length(), 3)).toLowerCase()) {
 		case "sun":
 			return DayOfWeek.SUNDAY;
@@ -131,7 +134,7 @@ public class Time {
 			return DayOfWeek.SATURDAY;
 		}
 		return null;
-    
+
     }
 
 }
