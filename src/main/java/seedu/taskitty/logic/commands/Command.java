@@ -28,6 +28,11 @@ public abstract class Command {
      */
     public abstract CommandResult execute();
     
+    /**
+     * Saves the current state of TaskManager and filteredList to 
+     * allow for undoing of previous commands if command has mutated
+     * the TaskManager or filteredList.
+     */
     public abstract void saveStateIfNeeded();
     
     /**

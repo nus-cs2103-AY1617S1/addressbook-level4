@@ -46,7 +46,7 @@ public class DeleteCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            model.removePreviousCommand();
+            model.removeUnchangedState();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
@@ -55,7 +55,7 @@ public class DeleteCommand extends Command {
         try {
             model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException pnfe) {
-            model.removePreviousCommand();
+            model.removeUnchangedState();
             assert false : "The target task cannot be missing";
         }
 

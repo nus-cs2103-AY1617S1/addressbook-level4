@@ -2,6 +2,11 @@ package seedu.taskitty.logic.commands;
 
 import java.util.EmptyStackException;
 
+/**
+ * Undoes previous command given
+ * @author tan
+ *
+ */
 public class UndoCommand extends Command {
     
     public static final String COMMAND_WORD = "undo";

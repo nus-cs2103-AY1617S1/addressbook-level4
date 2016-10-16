@@ -87,7 +87,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     public synchronized void undo() {
         taskManager.resetData(historyCommands.pop());
-        filteredTasks.setPredicate(historyPredicates.pop());
+        updateFilteredTaskList(historyPredicates.pop());;
     }
     
     public synchronized void saveState() {
@@ -95,7 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
         historyPredicates.push(filteredTasks.getPredicate());
     }
     
-    public synchronized void removePreviousCommand() {
+    public synchronized void removeUnchangedState() {
         historyCommands.pop();
         historyPredicates.pop();
     }
@@ -134,6 +134,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    private void updateFilteredTaskList(Predicate previousPredicate) {
+        filteredTasks.setPredicate(previousPredicate);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
