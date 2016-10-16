@@ -50,6 +50,17 @@ public class Parser {
     
     public Parser() {}
 
+    public static LocalDateTime parseDate(String date){
+    	if(date == null) return null;
+    	
+		 LocalDateTime ldt = null;
+	     if(date != null){
+	     	date.replaceAll("\\n", "");
+	     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
+	     	ldt = LocalDateTime.parse(date, formatter);
+	     }
+	     return ldt;
+    }
     /**
      * Parses user input into command for execution.
      *

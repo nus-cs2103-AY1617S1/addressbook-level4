@@ -9,37 +9,40 @@ import seedu.address.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask doLaundry, doHomework, washCar, writeProgram, goShopping, eatWithFriends, unpackThings, buyFan, goToWork;
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withDescription("Alice Pauline").withTags("friends").build();
+            doLaundry =  new TaskBuilder().withDescription("Do laundry")
+            		.withLocation("Bishan")
+            		.withDeadline("05-06-2017 12:30").withTags("friends").build();
        //     .withAddress("123, Jurong West Ave 6, #08-111")
          //           .withTags("friends").build();
-            benson = new TaskBuilder().withDescription("Benson Meier")
-         //   .withAddress("311, Clementi Ave 2, #02-25")
+            doHomework = new TaskBuilder().withDescription("Do Homework")
+            		.withLocation("311, Clementi Ave 2, #02-25")
          //           .withEmail("johnd@gmail.com").withPhone("98765432")
                     .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withDescription("Carl Kurz").build();
-            daniel = new TaskBuilder().withDescription("Daniel Meier")
-            	//	.withAddress("10th street")
+            washCar = new TaskBuilder().withDescription("Wash Car").build();
+            writeProgram = new TaskBuilder().withDescription("Write Program")
+            		.withLocation("10th street")
+            		.withDeadline("12-12-2017 14:20")
             		.build();
-            elle = new TaskBuilder().withDescription("Elle Meyer")
-            		//withAddress("michegan ave")
+            goShopping = new TaskBuilder().withDescription("Go Shopping")
+            		.withLocation("michegan ave")
             		.build();
-            fiona = new TaskBuilder().withDescription("Fiona Kunz")
-            	//	.withAddress("little tokyo")
+            eatWithFriends = new TaskBuilder().withDescription("Eat Japanese food")
+            		.withLocation("little tokyo")
             		.build();
-            george = new TaskBuilder().withDescription("George Best")
-            		//.withAddress("4th street")
+            unpackThings = new TaskBuilder().withDescription("Unpack Apartment")
+            		.withLocation("4th street")
             		.build();
 
             //Manually added
-            hoon = new TaskBuilder().withDescription("Hoon Meier")
-            		//.withAddress("little india")
+            buyFan = new TaskBuilder().withDescription("Buy fan")
+            		.withLocation("little india")
             		.build();
-            ida = new TaskBuilder().withDescription("Ida Mueller")
-            		//.withAddress("chicago ave")
+            goToWork = new TaskBuilder().withDescription("Go to work")
+            		.withLocation("chicago ave")
             		.build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
@@ -50,20 +53,20 @@ public class TypicalTestTasks {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
+            ab.addTask(new Task(doLaundry));
+            ab.addTask(new Task(doHomework));
+            ab.addTask(new Task(washCar));
+            ab.addTask(new Task(writeProgram));
+            ab.addTask(new Task(goShopping));
+            ab.addTask(new Task(eatWithFriends));
+            ab.addTask(new Task(unpackThings));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[]{doLaundry, doHomework, washCar, writeProgram, goShopping, eatWithFriends, unpackThings};
     }
 
     public AddressBook getTypicalAddressBook(){

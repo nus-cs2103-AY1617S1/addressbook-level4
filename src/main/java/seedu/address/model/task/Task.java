@@ -15,7 +15,7 @@ import java.util.Objects;
  * Represents a task in the JYM program.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task extends TaskManagerItem implements ReadOnlyTask {
 
 	private Description descr;
 	private Location loc;
@@ -50,7 +50,7 @@ public class Task implements ReadOnlyTask {
      */
 
     public Task(Description description, Location location, LocalDateTime due, Priority p, UniqueTagList tags) {
-    	assert !CollectionUtil.isAnyNull(description, location, due);
+    //	assert !CollectionUtil.isAnyNull(description, location, due);
     	this.descr = description;
     	this.loc = location;
     	this.dueDate = due;

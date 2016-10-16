@@ -17,7 +17,7 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String deadline;
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
@@ -39,7 +39,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getDescription().toString();
-        phone = source.getDate().toString();
+        deadline = source.getDate().toString();
         email = "placeholder";
         address = source.getLocation().value;
         tagged = new ArrayList<>();
