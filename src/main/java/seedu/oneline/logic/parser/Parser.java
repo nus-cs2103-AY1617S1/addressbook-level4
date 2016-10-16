@@ -93,6 +93,15 @@ public class Parser {
      *
      * @param args full command args string
      * @return the fields specified in the args
+     * 
+     * Example:
+     * Command entered: add name .from X which is some date .to Y which is some other date .due someday
+     * Returns the following K,V pairs:
+     *      TaskField.NAME: "name"
+     *      TaskField.START_TIME: "X which is some date"
+     *      TaskField.END_TIME: "Y which is some other date"
+     *      TaskField.DEADLINE: "someday"
+     * 
      */
     public static Map<TaskField, String> getTaskFieldsFromArgs(String args) throws IllegalCmdArgsException {
         // Clear extra whitespace characters
