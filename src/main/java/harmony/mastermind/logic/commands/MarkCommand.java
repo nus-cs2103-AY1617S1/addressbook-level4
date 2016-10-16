@@ -1,6 +1,7 @@
 package harmony.mastermind.logic.commands;
 
 import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.commons.exceptions.TaskAlreadyMarkedException;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
@@ -8,7 +9,7 @@ import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 import javafx.collections.ObservableList;
 
 //@@author A0124797R
-public class MarkCommand extends Command implements Undoable {
+public class MarkCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_WORD = "mark";
 
@@ -28,6 +29,7 @@ public class MarkCommand extends Command implements Undoable {
     public static final String MESSAGE_MARKED_TASK = "%1$s is already marked";
 
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Mark Command] %1$s has been unmarked";
+    public static final String MESSAGE_REDO_SUCCESS = "[Redo Mark Command] %1$s has been archived";
 
     public final int targetIndex;
 
@@ -39,37 +41,30 @@ public class MarkCommand extends Command implements Undoable {
 
     @Override
     public CommandResult execute() {
-        ObservableList<Task> lastShownList = model.getListToMark();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
+        try {
+            executeMark();
+            
+            model.pushToUndoHistory(this);
+            
+            model.clearRedoHistory();
+            
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark));
+        } catch (TaskAlreadyMarkedException ex) {
+            return new CommandResult(String.format(MESSAGE_MARKED_TASK, taskToMark));
+        } catch (IndexOutOfBoundsException ex) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        taskToMark = lastShownList.get(targetIndex
-                                       - 1);
-
-        if (taskToMark.isMarked()) {
-            return new CommandResult(String.format(MESSAGE_MARKED_TASK, taskToMark));
-        }
-
-        try {
-            model.markTask(taskToMark);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
-
-        model.pushToUndoHistory(this);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark));
     }
 
     @Override
-    // @@author A0138862W
+    //@@author A0138862W
     public CommandResult undo() {
         try {
             // remove the task that's previously added.
             model.unmarkTask(taskToMark);
+            
+            model.pushToRedoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, taskToMark));
         } catch (DuplicateTaskException e) {
@@ -79,4 +74,43 @@ public class MarkCommand extends Command implements Undoable {
         }
     }
 
+    @Override
+    //@@author A0138862W
+    public CommandResult redo() {
+        try {
+            executeMark();
+            
+            model.pushToUndoHistory(this);
+            
+            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, taskToMark));
+        } catch (TaskAlreadyMarkedException ex) {
+            return new CommandResult(String.format(MESSAGE_MARKED_TASK, taskToMark));
+        } catch (IndexOutOfBoundsException ex) {
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+    }
+
+    private void executeMark() throws TaskAlreadyMarkedException, IndexOutOfBoundsException {
+        ObservableList<Task> lastShownList = model.getListToMark();
+
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (taskToMark == null) {
+            taskToMark = lastShownList.get(targetIndex
+                                           - 1);
+        }
+
+        if (taskToMark.isMarked()) {
+            throw new TaskAlreadyMarkedException();
+        }
+
+        try {
+            model.markTask(taskToMark);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
+    }
 }
