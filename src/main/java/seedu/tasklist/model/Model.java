@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
-import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
@@ -52,8 +51,7 @@ public interface Model {
     /** Updates the filter of the filtered task list to only certain priority */
     public void updateFilteredListToShowPriority(String priority);
     
-    /** Updates the filter of the filtered task list to only certain date 
-     * @throws IllegalValueException */
+    /** Updates the filter of the filtered task list to only certain date */
     public void updateFilteredListToShowDate(String date);
 
 }
