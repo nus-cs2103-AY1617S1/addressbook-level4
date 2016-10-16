@@ -35,7 +35,7 @@ public interface Model {
     /** Loads the previous task manager from the stored stack of undone task managers*/
     void loadFromUndoHistory();    
     
-    /** Clears the history of undo and redo from the task manager*/
+    /** Clears the contents of the undo and redo collections from the task manager*/
     void clearHistory();
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Undoes a task-modifying action
+ */
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";

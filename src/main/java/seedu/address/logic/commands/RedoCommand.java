@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Redoes an undo action.
+ */
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
