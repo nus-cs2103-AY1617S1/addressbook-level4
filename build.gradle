@@ -52,7 +52,8 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
-
+		compile "com.joestelmach:natty:0.12"
+		
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
         testCompile "org.testfx:testfx-junit:$testFxVersion"
@@ -157,6 +158,10 @@ task headless << {
     guiTests.setHeadless()
     nonGuiTests.setHeadless()
     allTests.setHeadless()
+}
+
+task showMeCache << {
+  configurations.compile.each { println it }
 }
 
 // Makes sure that headless properties are set before running tests
