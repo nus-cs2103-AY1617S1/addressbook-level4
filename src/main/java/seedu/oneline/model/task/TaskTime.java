@@ -23,15 +23,20 @@ public class TaskTime {
         assert time != null;
         time = time.trim();
 
-        Parser parser = new Parser(); // use the natty parser
-        List<DateGroup> dates = parser.parse(time);
-
-        if (!isValidTaskTime(dates)) {
-            throw new IllegalValueException(MESSAGE_TASK_TIME_CONSTRAINTS);
+        if (time.isEmpty()){
+            // represent an empty tasktime with a null value field
+            value = null;
+        } else {        
+            Parser parser = new Parser(); // use the natty parser
+            List<DateGroup> dates = parser.parse(time);
+    
+            if (!isValidTaskTime(dates)) {
+                throw new IllegalValueException(MESSAGE_TASK_TIME_CONSTRAINTS);
+            }
+            
+            Date date = dates.get(0).getDates().get(0);
+            this.value = date;
         }
-        
-        Date date = dates.get(0).getDates().get(0);
-        this.value = date;
     }
 
     /**
