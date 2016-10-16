@@ -1,5 +1,6 @@
 package seedu.todo.ui;
 
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -13,8 +14,8 @@ import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -104,17 +105,12 @@ public class TaskCard extends UiPart{
      * Displays the tags in lexicographical order, ignoring case.
      */
     private void displayTags(){
-        LinkedList<Tag> tagList = new LinkedList<>(task.getTags());
+        List<Tag> tagList = new ArrayList<>(task.getTags());
         
         if (!tagList.isEmpty()) {
             FxViewUtil.setCollapsed(tagsBox, true);
         } else {
-            tagList.sort(new Comparator<Tag>(){
-                @Override
-                public int compare(Tag o1, Tag o2) {
-                    return o1.toString().compareToIgnoreCase(o2.toString());
-                }
-            });
+            tagList.sort((o1, o2) -> o1.toString().compareToIgnoreCase(o2.toString()));
             for (Tag tag : tagList) {
                 Label tagLabel = FxViewUtil.constructRoundedText(tag.tagName);
                 tagsBox.getChildren().add(tagLabel);
@@ -142,7 +138,7 @@ public class TaskCard extends UiPart{
      * Displays formatted task or event timings in the time field.
      */
     private void displayTimings() {
-        String displayTimingOutput = "";
+        String displayTimingOutput;
         Optional<LocalDateTime> startTime = task.getStartTime();
         Optional<LocalDateTime> endTime = task.getEndTime();
         boolean isEventWithTime = task.isEvent() && startTime.isPresent() && endTime.isPresent();
