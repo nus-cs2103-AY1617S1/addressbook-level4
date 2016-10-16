@@ -36,7 +36,7 @@
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" translateY="-30.0" />
+                        <Label fx:id="details" styleClass="cell_small_label" text="\$details" translateY="-30.0" />
                     </children>
                 </VBox>
             <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="1">
@@ -48,9 +48,9 @@
                   <Insets bottom="2.0" left="-20.0" right="2.0" top="2.0" />
                </padding>
                <children>
-                        <Label fx:id="address" contentDisplay="RIGHT" styleClass="cell_small_label" text="\$address" translateY="-30.0" />
+                        <Label fx:id="onDate" contentDisplay="RIGHT" styleClass="cell_small_label" text="\$onDate" translateY="-30.0" />
                   <HBox alignment="CENTER_LEFT" spacing="5" />
-                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" translateY="-30.0" />
+                        <Label fx:id="byDate" styleClass="cell_small_label" text="\$byDate" translateY="-30.0" />
                </children>
             </VBox>
             </children>
