@@ -43,7 +43,8 @@ public class Activity implements ReadOnlyActivity {
     private ActivityTime endTime;
     private Note note;
     private String activityType;
-
+    private boolean completed;
+ 
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
     private ArrayList<String> activityDetails;
@@ -57,6 +58,7 @@ public class Activity implements ReadOnlyActivity {
         this.activityType = type;
         this.name = name;
         this.note = note;
+        this.completed = false;
         setActivityDetails();
     }
     
@@ -70,6 +72,7 @@ public class Activity implements ReadOnlyActivity {
         this.note = note;
         this.startDate = startDate;
         this.startTime = startTime;
+        this.completed = false;
         setActivityDetails();
     }
     
@@ -85,6 +88,7 @@ public class Activity implements ReadOnlyActivity {
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
+        this.completed = false;
         setActivityDetails();
     }
     
@@ -114,10 +118,16 @@ public class Activity implements ReadOnlyActivity {
             endDate = source.getActivityEndDate();
             endTime = source.getActivityEndTime();
         }
+        this.completed = source.isCompleted();
         this.activityDetails = source.getActivityDetails();
 
     }
 
+    @Override
+    public boolean isCompleted() {
+        return this.completed;
+    }
+    
     @Override
     public ActivityName getActivityName() {
         return this.name;
@@ -153,32 +163,6 @@ public class Activity implements ReadOnlyActivity {
         return this.activityType;
     }
 
-    @Override
-    public void setActivityDetails() {
-        if (activityType == FLOATING_TASK_TYPE) {
-            activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
-            activityDetails.add(activityType);
-            activityDetails.add(name.toString());
-            activityDetails.add(note.toString());
-        } else if (activityType == TASK_TYPE) {
-            activityDetails = new ArrayList<String>(TASK_LENGTH);
-            activityDetails.add(activityType);
-            activityDetails.add(name.toString());
-            activityDetails.add(note.toString());
-            activityDetails.add(startDate.toString());
-            activityDetails.add(startTime.toString());
-        } else if (activityType == EVENT_TYPE) {
-            activityDetails = new ArrayList<String>(EVENT_LENGTH);
-            activityDetails.add(activityType);
-            activityDetails.add(name.toString());
-            activityDetails.add(note.toString());
-            activityDetails.add(startDate.toString());
-            activityDetails.add(startTime.toString());
-            activityDetails.add(endDate.toString());
-            activityDetails.add(endTime.toString());
-        }
-    }
-
     /**
      * returns the arrayList consisting of an activity's details.
      */
@@ -206,6 +190,33 @@ public class Activity implements ReadOnlyActivity {
     }
 
     @Override
+    public void setActivityDetails() {
+        if (activityType == FLOATING_TASK_TYPE) {
+            activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+        } else if (activityType == TASK_TYPE) {
+            activityDetails = new ArrayList<String>(TASK_LENGTH);
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+            activityDetails.add(startDate.toString());
+            activityDetails.add(startTime.toString());
+        } else if (activityType == EVENT_TYPE) {
+            activityDetails = new ArrayList<String>(EVENT_LENGTH);
+            activityDetails.add(activityType);
+            activityDetails.add(name.toString());
+            activityDetails.add(note.toString());
+            activityDetails.add(startDate.toString());
+            activityDetails.add(startTime.toString());
+            activityDetails.add(endDate.toString());
+            activityDetails.add(endTime.toString());
+        }
+    }
+
+    
+    @Override
     public String toString() {
         switch(this.activityType){
         case FLOATING_TASK_TYPE:
@@ -216,5 +227,10 @@ public class Activity implements ReadOnlyActivity {
             return getEventAsText();
         }
         return null;
+    }
+
+    @Override
+    public void setCompleted() {    
+        this.completed = true;
     }
 }

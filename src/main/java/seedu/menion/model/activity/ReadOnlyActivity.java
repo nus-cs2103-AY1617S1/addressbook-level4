@@ -29,8 +29,13 @@ public interface ReadOnlyActivity {
     // Finding Activity Type; Can be a Floating Task, Task, or Event
     String getActivityType();
     
+    // Gets the state of completion of an activity.
+    boolean isCompleted();
+    
     // An arrayList having parameters of an activity.
     ArrayList<String> getActivityDetails();
+    
+    void setCompleted();
     void setActivityDetails();
     
     /**
