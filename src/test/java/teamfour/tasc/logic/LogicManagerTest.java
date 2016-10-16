@@ -871,7 +871,7 @@ public class LogicManagerTest {
 
         String inputString = "update 2 name New Val by " + deadlineString + " from "
                 + startTimeString + " to " + endTimeString
-                + " repeatdeadline daily 3 repeattime monthly 5 tag Hey";
+                + " repeat daily 3 tag Hey";
 
         assertCommandBehavior(inputString,
                 String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, newTask),
