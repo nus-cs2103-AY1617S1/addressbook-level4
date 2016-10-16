@@ -23,9 +23,9 @@ public class EditCommand extends Command{
     
     public final Description description;
     
-    public EditCommand(String targetIndex, String field) throws IllegalValueException {
+    public EditCommand(String targetIndex, String description) throws IllegalValueException {
         this.targetIndex = Integer.parseInt(targetIndex);
-        this.description = new Description(field);
+        this.description = new Description(description);
     }
     
     @Override

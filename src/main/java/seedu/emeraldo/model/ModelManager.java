@@ -83,9 +83,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void editTask(Task target, int index, Description field) throws TaskNotFoundException {
+    public synchronized void editTask(Task target, int index, Description description) throws TaskNotFoundException {
         try {
-            emeraldo.editTask(target, index, field);
+            emeraldo.editTask(target, index, description);
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
