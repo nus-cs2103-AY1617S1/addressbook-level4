@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import jym.manager.commons.core.ComponentManager;
 import jym.manager.commons.core.LogsCenter;
-import jym.manager.commons.events.model.AddressBookChangedEvent;
+import jym.manager.commons.events.model.TaskManagerChangedEvent;
 import jym.manager.commons.events.storage.DataSavingExceptionEvent;
 import jym.manager.commons.exceptions.DataConversionException;
 import jym.manager.model.ReadOnlyTaskManager;
@@ -80,7 +80,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleAddressBookChangedEvent(TaskManagerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAddressBook(event.data);

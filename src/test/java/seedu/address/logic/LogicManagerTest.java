@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import jym.manager.commons.core.EventsCenter;
-import jym.manager.commons.events.model.AddressBookChangedEvent;
+import jym.manager.commons.events.model.TaskManagerChangedEvent;
 import jym.manager.commons.events.ui.JumpToListRequestEvent;
 import jym.manager.commons.events.ui.ShowHelpRequestEvent;
 import jym.manager.logic.Logic;
@@ -49,7 +49,7 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
+    private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
         latestSavedAddressBook = new TaskManager(abce.data);
     }
 

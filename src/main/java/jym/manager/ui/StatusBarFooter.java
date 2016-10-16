@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import jym.manager.commons.core.LogsCenter;
-import jym.manager.commons.events.model.AddressBookChangedEvent;
+import jym.manager.commons.events.model.TaskManagerChangedEvent;
 import jym.manager.commons.util.FxViewUtil;
 
 /**
@@ -93,7 +93,7 @@ public class StatusBarFooter extends UiPart {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+    public void handleAddressBookChangedEvent(TaskManagerChangedEvent abce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);

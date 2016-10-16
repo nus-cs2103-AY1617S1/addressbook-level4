@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import jym.manager.commons.core.ComponentManager;
 import jym.manager.commons.core.LogsCenter;
 import jym.manager.commons.core.UnmodifiableObservableList;
-import jym.manager.commons.events.model.AddressBookChangedEvent;
+import jym.manager.commons.events.model.TaskManagerChangedEvent;
 import jym.manager.commons.util.StringUtil;
 import jym.manager.model.task.ReadOnlyTask;
 import jym.manager.model.task.Task;
@@ -62,7 +62,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(taskManager));
+        raise(new TaskManagerChangedEvent(taskManager));
     }
 
     @Override

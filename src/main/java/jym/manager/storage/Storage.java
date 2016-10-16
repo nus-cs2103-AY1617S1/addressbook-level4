@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
-import jym.manager.commons.events.model.AddressBookChangedEvent;
+import jym.manager.commons.events.model.TaskManagerChangedEvent;
 import jym.manager.commons.events.storage.DataSavingExceptionEvent;
 import jym.manager.commons.exceptions.DataConversionException;
 import jym.manager.model.ReadOnlyTaskManager;
@@ -35,5 +35,5 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleAddressBookChangedEvent(TaskManagerChangedEvent abce);
 }

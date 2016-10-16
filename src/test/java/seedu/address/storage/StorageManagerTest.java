@@ -11,7 +11,7 @@ import seedu.address.testutil.EventsCollector;
 
 import java.io.IOException;
 
-import jym.manager.commons.events.model.AddressBookChangedEvent;
+import jym.manager.commons.events.model.TaskManagerChangedEvent;
 import jym.manager.commons.events.storage.DataSavingExceptionEvent;
 import jym.manager.model.TaskManager;
 import jym.manager.model.ReadOnlyTaskManager;
@@ -77,7 +77,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new TaskManager()));
+        storage.handleAddressBookChangedEvent(new TaskManagerChangedEvent(new TaskManager()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 

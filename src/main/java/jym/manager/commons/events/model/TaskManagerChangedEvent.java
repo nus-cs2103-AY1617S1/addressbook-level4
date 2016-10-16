@@ -4,11 +4,11 @@ import jym.manager.commons.events.BaseEvent;
 import jym.manager.model.ReadOnlyTaskManager;
 
 /** Indicates the AddressBook in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+public class TaskManagerChangedEvent extends BaseEvent {
 
     public final ReadOnlyTaskManager data;
 
-    public AddressBookChangedEvent(ReadOnlyTaskManager data){
+    public TaskManagerChangedEvent(ReadOnlyTaskManager data){
         this.data = data;
     }
 
