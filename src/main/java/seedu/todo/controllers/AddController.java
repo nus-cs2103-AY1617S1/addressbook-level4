@@ -61,18 +61,16 @@ public class AddController implements Controller {
         // Task or event?
         boolean isTask = parseIsTask(parsedResult);
         
-        // Name - Disambiguate if null.
+        // Name
         String name = parseName(parsedResult);
-        if (name == null) {
-            renderDisambiguation(parsedResult);
-            return;
-        }
         
-        // Time - Disambiguate if "to" without "from" OR "task" and two timings.
+        // Time
         String[] naturalDates = parseDates(parsedResult);
         String naturalFrom = naturalDates[0];
         String naturalTo = naturalDates[1];
-        if ((naturalFrom == null && naturalTo != null) || (isTask && naturalTo != null)) {
+        
+        // Validate isTask, name and times.
+        if (!validateParams(isTask, name, naturalFrom, naturalTo)) {
             renderDisambiguation(parsedResult);
             return;
         }
@@ -101,6 +99,14 @@ public class AddController implements Controller {
         view.events = db.getAllEvents();
         UiManager.renderView(view);
         UiManager.updateConsoleMessage(MESSAGE_ADD_SUCCESS);
+    }
+
+    
+    private boolean validateParams(boolean isTask, String name, String naturalFrom, String naturalTo) {
+        // Disambiguate if name is null.
+        // Disambiguate if "to" without "from" OR "task" and two timings.
+        return (name == null ||
+                (naturalFrom == null && naturalTo != null) || (isTask && naturalTo != null));
     }
     
     private String[] parseDates(Map<String, String[]> parsedResult) {
