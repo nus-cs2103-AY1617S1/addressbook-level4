@@ -68,7 +68,12 @@ public class Tokenizer {
         
         // Get arraylist of indices
         // Get dictionary of tokenType -> index
-        
+        // Return dictionary of tokenType -> {token, tokenField}
+        return constructParsedResult(tokenizedSplitString, tokenIndices);
+    }
+
+    private static Map<String, String[]> constructParsedResult(List<TokenizedString> tokenizedSplitString,
+            Map<String, Integer> tokenIndices) {
         Map<String, String[]> parsedResult = new HashMap<String, String[]>();
         for (Map.Entry<String, Integer> tokenIndex : tokenIndices.entrySet()) {
             String tokenType = tokenIndex.getKey();
@@ -79,8 +84,6 @@ public class Tokenizer {
                 tokenField = tokenizedSplitString.get(tokenIndex.getValue() + 1).string;
             parsedResult.put(tokenType, new String[] { token, tokenField });
         }
-        
-        // Return dictionary of tokenType -> {token, tokenField}
         return parsedResult;
     }
 
