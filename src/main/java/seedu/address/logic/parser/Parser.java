@@ -204,24 +204,43 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {       
-        final Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ", "").split(",")); //might need to change split regex to ; instead of ,
+        Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ", "").split(",")); //might need to change split regex to ; instead of ,
+              
+        if(args.contains("-")){          
+            String[] temp = args.replaceAll(" ", "").split("-");
+            int start;
+            int end;
+            try{ 
+                start = Integer.parseInt(temp[0]);
+                end = Integer.parseInt(temp[temp.length-1]);
+            }catch(NumberFormatException nfe){
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
+            String newArgs = Integer.toString(start);
+            for(int i = start+1; i<= end; i++){
+                newArgs = newArgs.concat(",");        
+                newArgs = newArgs.concat(Integer.toString(i));
+            }
+            System.out.println(newArgs);
+            indexes = Arrays.asList(newArgs.trim().replaceAll(" ", "").split(",")); //might need to change split regex to ; instead of ,
+        }
+
         Iterator<String> itr = indexes.iterator();
         ArrayList<Integer> pass = new ArrayList<Integer>();
-        
         Optional<Integer> index = parseIndex(itr.next());
-        
         //System.out.println(index.isPresent() + args);
         
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
+        }     
         
-            pass.add(index.get());
-
+        pass.add(index.get());
+        
         while(itr.hasNext()){
             index = parseIndex(itr.next());
-           // System.out.println(index.isPresent() + args + indexes.size());
+            // System.out.println(index.isPresent() + args + indexes.size());
             if(!index.isPresent()){
                 return new IncorrectCommand(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));             
