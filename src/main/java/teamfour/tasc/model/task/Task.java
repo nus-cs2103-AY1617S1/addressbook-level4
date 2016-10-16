@@ -33,6 +33,8 @@ public class Task implements ReadOnlyTask {
         this.period = period;
         this.recurrence = recurrence;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        
+        assert getIsRecurrenceValid();
     }
 
     /**
@@ -43,6 +45,18 @@ public class Task implements ReadOnlyTask {
                 source.getRecurrence(), source.getTags());
     }
     
+    /**
+     * Floating task should never have recurrence value.
+     * @return
+     */
+    private boolean getIsRecurrenceValid() {
+        if (isFloatingTask() && recurrence.hasRecurrence()) {
+            return false;
+        }
+        
+        return true;
+    }
+        
     /**
      * Convert an uncompleted task to completed.
      * 
