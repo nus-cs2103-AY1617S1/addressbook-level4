@@ -151,27 +151,6 @@ public class Parser {
     }
 
     /**
-     * Parses a raw String of task type into correct task type.
-     * Example: UNCOMPLETEDDD many tasks i have -> uncompleted task
-     * @param typeString Raw task type string
-     * @return correct task type string
-     */
-    private String parseTaskTypeString(String typeString) {
-        String[] typeWords = {"uncompleted", "completed", "task", "event",
-                            "floating", "normal", "timeslot", "free time"};
-        typeString = typeString.toLowerCase();
-        StringBuffer strBuf = new StringBuffer();
-        for (String word : typeWords) {
-            if (typeString.contains(word)) {
-                typeString = typeString.replaceFirst(word, "");
-                strBuf.append(word);
-                strBuf.append(" ");
-            }
-        }
-        return strBuf.toString();
-    }
-
-    /**
      * Parses arguments in the context of the list task command.
      *
      * @param args full command args string
@@ -195,8 +174,6 @@ public class Parser {
         String endTime = parsed.get("to");
         String tags = parsed.get("tag");
         String sortingOrder = parsed.get("sort");
-
-        type = parseTaskTypeString(type);
 
         if (type != null && type.equals(""))
             type = null;
@@ -245,8 +222,6 @@ public class Parser {
         String endTime = parsed.get("to");
         String tags = parsed.get("tag");
 
-        type = parseTaskTypeString(type);
-
         if (type != null && type.equals(""))
             type = null;
         if (date != null && date.equals(""))
@@ -293,8 +268,6 @@ public class Parser {
         String startTime = parsed.get("from");
         String endTime = parsed.get("to");
         String tags = parsed.get("tag");
-
-        type = parseTaskTypeString(type);
 
         if (type != null && type.equals(""))
             type = null;
