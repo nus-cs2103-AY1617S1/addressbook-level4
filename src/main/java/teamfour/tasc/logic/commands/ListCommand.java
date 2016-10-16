@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import teamfour.tasc.commons.exceptions.IllegalValueException;
+import teamfour.tasc.model.Model;
 
 /**
  * Lists all tasks in the task list to the user.
@@ -43,7 +44,7 @@ public class ListCommand extends Command {
         this.startTime = null;
         this.endTime = null;
         this.tags = new HashSet<>();
-        this.sortOrder = "earliest first";
+        this.sortOrder = Model.SORT_ORDER_BY_EARLIEST_FIRST;
     }
     
     /**
