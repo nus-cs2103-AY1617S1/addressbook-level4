@@ -3,9 +3,7 @@ package teamfour.tasc.logic.commands;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
-import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 
 /**
@@ -33,7 +31,7 @@ public class ListCommand extends Command {
     private final Date startTime;
     private final Date endTime;
     private final Set<String> tags;
-    private final String sortingOrder;
+    private final String sortOrder;
 
     /**
      * List Command with default values
@@ -45,7 +43,7 @@ public class ListCommand extends Command {
         this.startTime = null;
         this.endTime = null;
         this.tags = new HashSet<>();
-        this.sortingOrder = "earliest first";
+        this.sortOrder = "earliest first";
     }
     
     /**
@@ -65,7 +63,7 @@ public class ListCommand extends Command {
             this.tags.add(tagName);
         }
         this.type = type;
-        this.sortingOrder = sortingOrder;
+        this.sortOrder = sortingOrder;
     }
     
     /**
@@ -91,10 +89,12 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+        
         addCommandFiltersToModel();
         model.updateFilteredTaskListByFilter();
         
-        // TODO: Sorting order
+        if (sortOrder != null)
+            model.sortFilteredTaskListByOrder(sortOrder);
         
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }

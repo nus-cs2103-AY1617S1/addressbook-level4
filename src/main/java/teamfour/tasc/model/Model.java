@@ -13,7 +13,12 @@ import java.util.Set;
  * The API of the Model component.
  */
 public interface Model {
-    /** Clears existing backing model and replaces with the provided new data. */
+    public static final String SORT_ORDER_BY_EARLIEST_FIRST = "earliest first";
+    public static final String SORT_ORDER_BY_LATEST_FIRST = "latest first";
+    public static final String SORT_ORDER_BY_A_TO_Z = "a-z";
+    public static final String SORT_ORDER_BY_Z_TO_A = "z-a";
+    
+    /** Clears existing backing model and replaces with the provided new data */
     void resetData(ReadOnlyTaskList newData);
 
     /** Returns the TaskList */
@@ -72,10 +77,16 @@ public interface Model {
      * Adds the filter of the filtered task list by the given tag names 
      */
     void addTaskListFilterByTags(Set<String> tags, boolean negated);
+    
+    /** 
+     * Precondition: arguments are not null.
+     * Sort the filtered task list by the given order
+     */
+    void sortFilteredTaskListByOrder(String sortOrder);
 
     /** Updates the filtered task list by the added filters */
     void updateFilteredTaskListByFilter();
 
-    /** Updates the old task with new task details. */
+    /** Updates the old task with new task details */
     void updateTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException;
 }
