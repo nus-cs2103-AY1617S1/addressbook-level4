@@ -115,7 +115,13 @@ public class TimeUtil {
         }
         return stringJoiner.toString();
     }
-    
+
+    /**
+     * Gets the event date and time text for the UI
+     * @param startTime of the event
+     * @param endTime of the event
+     * @return a formatted event duration string
+     */
     public String getEventTimeText(LocalDateTime startTime, LocalDateTime endTime) {
         if (startTime == null || endTime == null) {
             logger.log(Level.WARNING, "Either startTime or endTime is missing in getEventTimeText(...)");
@@ -125,8 +131,17 @@ public class TimeUtil {
             return "";
         }
 
-        return "from " + startTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_TIME_NO_YEAR)) + " to "
-                + endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_TIME_WITH_YEAR));
+        LocalDateTime currentTime = LocalDateTime.now(clock);
+        StringJoiner joiner = new StringJoiner(WORD_SPACE);
+        if (isSameDay(startTime, endTime)) {
+            joiner.add(getDateText(currentTime, startTime) + WORD_COMMA)
+                    .add(WORD_FROM).add(getTimeText(startTime))
+                    .add(WORD_TO).add(getTimeText(endTime));
+        } else {
+            joiner.add(WORD_FROM).add(getDateText(currentTime, startTime)).add(getTimeText(startTime))
+                    .add(WORD_TO).add(getDateText(currentTime, endTime)).add(getTimeText(endTime));
+        }
+        return joiner.toString();
     }
 
 
@@ -181,7 +196,7 @@ public class TimeUtil {
             return minutesToDeadline + WORD_SPACE + UNIT_MINUTES;
         }
     }
-    
+
     private boolean isTomorrow(LocalDateTime dateTimeToday, LocalDateTime dateTimeTomorrow) {
         LocalDate dayBefore = dateTimeToday.toLocalDate();
         LocalDate dayAfter = dateTimeTomorrow.toLocalDate();
@@ -201,6 +216,10 @@ public class TimeUtil {
     
     private boolean isYesterday(LocalDateTime dateTimeToday, LocalDateTime dateTimeYesterday) {
         return isTomorrow(dateTimeYesterday, dateTimeToday);
+    }
+
+    private boolean isSameDay(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+        return dateTime1.toLocalDate().equals(dateTime2.toLocalDate());
     }
     
     private boolean isSameYear(LocalDateTime dateTime1, LocalDateTime dateTime2) {
