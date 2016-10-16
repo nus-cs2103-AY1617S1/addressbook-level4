@@ -79,7 +79,7 @@ public class Time {
 
     }
 
-    public boolean isStartBeforeEnd(Time other) {
+    public boolean isEndBeforeStart(Time other) {
     	if(this.value==null ||other.value == null)
     		return false;
 

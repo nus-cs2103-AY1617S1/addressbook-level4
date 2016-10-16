@@ -48,8 +48,8 @@ public class AddTagCommand extends Command{
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
 
         String description = taskToUpdate.getDescription().toString();;
-        String timeStart = taskToUpdate.getTimeStart().toString();
-        String timeEnd = taskToUpdate.getTimeEnd().toString();
+        Time timeStart = taskToUpdate.getTimeStart();
+        Time timeEnd = taskToUpdate.getTimeEnd();
         String priority = taskToUpdate.getPriority().toString();
         UniqueTagList tags =taskToUpdate.getTags();
 

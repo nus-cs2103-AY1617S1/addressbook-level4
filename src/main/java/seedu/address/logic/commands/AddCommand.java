@@ -56,13 +56,17 @@ public class AddCommand extends Command {
 
     }
 
-    public AddCommand(String description, String priority, String timeStart, String timeEnd, UniqueTagList tags, int index)
+    public AddCommand(String description, String priority, Time start, Time end, UniqueTagList tags, int index)
             throws IllegalValueException {
-        this.toAdd = new Task(
+
+    	this.start = start;
+        this.end = end;
+
+    	this.toAdd = new Task(
                 new Description(description),
                 new Priority(priority),
-                new Time(timeStart),
-                new Time(timeEnd),
+                this.start,
+                this.end,
                 tags
         );
         this.index = index;
@@ -72,7 +76,7 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
 
-        if(end.isStartBeforeEnd(start))
+        if(end.isEndBeforeStart(start))
         	return new CommandResult(MESSAGE_ILLEGAL_START_END_TIME);
 
         try {
@@ -85,6 +89,10 @@ public class AddCommand extends Command {
 
     public CommandResult insert() {
         assert model != null;
+
+        if(end.isEndBeforeStart(start))
+        	return new CommandResult(MESSAGE_ILLEGAL_START_END_TIME);
+
         try {
 			model.insertTask(index, toAdd);
 		} catch (DuplicateTaskException e) {
