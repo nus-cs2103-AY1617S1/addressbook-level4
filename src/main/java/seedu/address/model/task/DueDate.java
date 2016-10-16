@@ -18,6 +18,7 @@ public class DueDate {
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task's DueDate should only contain valid date";
     public static final String MESSAGE_DUEDATE_INVALID = "reminder time has passed";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
+    public static DateUtil DATE_PARSER;
     public final Calendar value;
 
     /**
@@ -28,29 +29,33 @@ public class DueDate {
      */
     public DueDate(String date) throws IllegalValueException {
         assert date != null;
-        this.value = null;
+        this.value = Calendar.getInstance();
+        DATE_PARSER = new DateUtil();
         
         if (!isValidDueDate(date)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
 
         if (date != "") {
-            try {
+            //try {
                 if (date.equalsIgnoreCase("today")) { // allow user to key in "today" instead of today's date
                     this.value.setTime(Calendar.getInstance().getTime());
                 } else if (date.equalsIgnoreCase("tomorrow")) { // allow user to key in "tomorrow" instead of tomorrow's/ date
                     this.value.setTime(Calendar.getInstance().getTime());
                     value.add(Calendar.DAY_OF_MONTH, 1);
                 }
-                if (!DateValidation.aftertoday(date)) // check if the time is
+                /*if (!DateValidation.aftertoday(date)) {// check if the time is
                                                       // future
                                                       // time
+                    System.out.println("IM HERE");
                     throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
+                }
             } catch (ParseException pe) {
+                System.out.println("IM ACTUALLY HERE");
                 throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
-            }
+            }*/
 
-            Date taskDate = DateUtil.parseDate(date);
+            Date taskDate = DATE_PARSER.parseDate(date);
             
             if (taskDate == null) {
                 assert false : "Date should not be null";
@@ -64,7 +69,7 @@ public class DueDate {
      * Returns true if a given string is a valid task reminder.
      */
     public static boolean isValidDueDate(String test) {
-        if (DateUtil.validate(test) || test == "")
+        if (DATE_PARSER.validate(test) || test == "")
             return true;
         else
             return false;
@@ -72,7 +77,11 @@ public class DueDate {
 
     @Override
     public String toString() {
-        return DATE_FORMAT.format(value.getTime());
+        if (this.value == null) {
+            return "";
+        } else {
+            return DATE_FORMAT.format(value.getTime());
+        }
     }
 
     @Override

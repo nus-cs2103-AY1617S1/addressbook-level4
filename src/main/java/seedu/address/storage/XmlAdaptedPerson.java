@@ -39,7 +39,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
         name = source.getName().fullName;
-        phone = source.getDueDate().value;
+        phone = source.getDueDate().toString();
         email = source.getPriority().value;
         address = source.getReminder().value;
         tagged = new ArrayList<>();
