@@ -1,6 +1,12 @@
 package seedu.address.logic.parser;
 
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.joestelmach.natty.*;
 
 /**
@@ -15,14 +21,26 @@ public class DateTimeParser {
     // careful of name collision with our own Parser object
     private com.joestelmach.natty.Parser parser;
     
-    DateTimeParser(String temporality) {
-        assert temporality != null;
-        assert temporality.isEmpty() != true;
+    DateTimeParser(String input) {
+        assert input != null;
+        assert input.isEmpty() != true;
 
-        this.datetime = temporality;
+        this.datetime = input;
         this.parser = new com.joestelmach.natty.Parser();
     }
     
+    /**
+     * helper method for parseInput()
+     * converts a java.util.Date object to java.time.LocalDateTime object
+     * 
+     * @param date
+     * @return
+     * @author darren
+     */
+    private LocalDateTime Date2LocalDateTime(Date date) {
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+
     public String getDateTime() {
         return this.datetime;
     }
