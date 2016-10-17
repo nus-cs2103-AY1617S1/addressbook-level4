@@ -47,6 +47,8 @@ public class Parser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     private static final Pattern TASK_ARCHIVE_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)");
+    
+    private static final String TAB_ARCHIVES = "Archives";
 
     public Parser() {
     }
@@ -288,8 +290,8 @@ public class Parser {
      */
     //@@author A0124797R
     private Command prepareUnmark(String args, String currentTab) {
-        if (!currentTab.equals("Archives")) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_TAB, UnmarkCommand.COMMAND_WORD, UnmarkCommand.MESSAGE_USAGE));
+        if (!currentTab.equals(TAB_ARCHIVES)) {
+            return new IncorrectCommand(UnmarkCommand.MESSAGE_UNMARK_FAILURE);
         }
 
         Optional<Integer> index = parseIndex(args);

@@ -23,6 +23,7 @@ public class UnmarkCommand extends Command implements Undoable{
     public static final String MESSAGE_SUCCESS = "%1$s has been unmarked";
     public static final String MESSAGE_UNMARKED_TASK = "%1$s has not been completed";
     public static final String MESSAGE_DUPLICATE_UNMARK_TASK = "%1$s already exist in not completed list";
+    public static final String MESSAGE_UNMARK_FAILURE = "Tasks in current tab has not been marked";
 
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Unmark Command] %1$s has been archived";
 
