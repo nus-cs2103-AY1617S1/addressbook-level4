@@ -31,8 +31,6 @@ public class Parser {
                     + " (?<property>\\w+)"
                     + " (?<newInfo>.*)");
     
-    
-    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
@@ -48,17 +46,6 @@ public class Parser {
 //                    + " (?<isStartTimePrivate>p?)s/(?<start>[^/]+)"
 //                    + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
 //                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-//    
-//    private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-//            Pattern.compile("(?<name>[^/]+)"
-//                    + " (?<isDatePrivate>p?)d/(?<date>[^@]+)"
-//                    + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
-//            		);
-//    
-//    private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-//            Pattern.compile("(?<name>[^/]+)");
-
-
 
     public Parser() {}
 
@@ -156,9 +143,7 @@ public class Parser {
      */
     private Command prepareAdd(String args){
     	final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-//        final Matcher event_matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-//        final Matcher deadline_matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-//        final Matcher floating_matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

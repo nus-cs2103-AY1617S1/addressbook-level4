@@ -34,7 +34,7 @@ public class StartTime {
     	String start = DatePreParse.preparse(input);
     	
     	if(!start.isEmpty() && !start.equals(new Date(0).toString())){
-    		List<DateGroup> dates = new Parser().parse(start);
+    		List<DateGroup> dates = new Parser().parse(start); // Using the Natty Parser()
     		if(dates.isEmpty()){
     			throw new IllegalValueException(MESSAGE_START_TIME_CONSTRAINTS);
     		}
