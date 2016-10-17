@@ -11,9 +11,7 @@ import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-/**
- * Represents the data layer of the application.
- */
+
 public interface Model {
     /**
      * Adds a new task or event with title only to the todo list.

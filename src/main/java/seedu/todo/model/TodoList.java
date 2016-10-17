@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -24,9 +25,9 @@ import seedu.todo.model.task.ValidationTask;
 import seedu.todo.storage.MoveableStorage;
 
 /**
- * Represents the data layer of the application. Implements Model interface so that it can provide
- * data to other parts of the logic layer, and the ImmutableTodoList interface so that it can be
- * serialized and persisted directly
+ * Represents the todolist inside memory. While Model works as the external 
+ * interface for handling data and application state, this interface is internal 
+ * to Model and represents only CRUD operations to the todolist. 
  */
 public class TodoList implements ImmutableTodoList, TodoListModel {
     private static final String INCORRECT_FILE_FORMAT_FORMAT = "%s doesn't seem to be in the correct format.";
@@ -34,8 +35,6 @@ public class TodoList implements ImmutableTodoList, TodoListModel {
     private static final String FILE_SAVE_ERROR_FORMAT = "Couldn't save file: %s";
     
     private ObservableList<Task> tasks = FXCollections.observableArrayList(Task::getObservableProperties);
-    private FilteredList<Task> filteredTasks = new FilteredList<>(tasks);
-    private SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
 
     private MoveableStorage<ImmutableTodoList> storage;
 
@@ -132,8 +131,8 @@ public class TodoList implements ImmutableTodoList, TodoListModel {
     }
 
     @Override
-    public ObservableList<? extends ImmutableTask> getObservableList() {
-        return tasks;
+    public ObservableList<ImmutableTask> getObservableList() {
+        return new UnmodifiableObservableList<>(tasks);
     }
 
     @Override

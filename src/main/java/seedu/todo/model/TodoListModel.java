@@ -9,9 +9,6 @@ import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 
-/**
- * Represents the data layer of the application.
- */ 
 public interface TodoListModel {
     /**
      * Adds a new task or event with title only to the todo list.
@@ -75,6 +72,6 @@ public interface TodoListModel {
     /**
      * Get an observable list of tasks. Used mainly by the JavaFX UI. 
      */
-    ObservableList<? extends ImmutableTask> getObservableList();
+    ObservableList<ImmutableTask> getObservableList();
 }
 

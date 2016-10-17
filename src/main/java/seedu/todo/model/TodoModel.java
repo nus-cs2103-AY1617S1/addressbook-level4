@@ -16,14 +16,22 @@ import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+/**
+ * Represents the data layer of the application. The TodoModel handles any 
+ * interaction with the application state that are not persisted, such as the
+ * view (sort and filtering), undo and redo. Since this layer handles 
+ * sorting and filtering, task ID must be passed through {@link #getTaskIndex}
+ * to transform them into the index {@link TodoList} methods can use. 
+ */
 public class TodoModel implements Model {
     private static final String INDEX_OUT_OF_BOUND_FORMAT = "There is no task no. %d";
 
     private TodoListModel todolist;
     private MoveableStorage<ImmutableTodoList> storage;
-    private ObservableList<? extends ImmutableTask> tasks;
-    private FilteredList<? extends ImmutableTask> filteredTasks;
-    private SortedList<? extends ImmutableTask> sortedTasks;
+    
+    private ObservableList<ImmutableTask> tasks;
+    private FilteredList<ImmutableTask> filteredTasks;
+    private SortedList<ImmutableTask> sortedTasks;
     
     public TodoModel(Config config) {
         this(new TodoListStorage(config.getTodoListFilePath()));
@@ -34,7 +42,6 @@ public class TodoModel implements Model {
     }
     
     public TodoModel(TodoListModel todolist, MoveableStorage<ImmutableTodoList> storage) {
-
         this.storage = storage;
         this.todolist = todolist;
 
