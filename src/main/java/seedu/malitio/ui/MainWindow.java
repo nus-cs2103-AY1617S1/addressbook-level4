@@ -29,7 +29,6 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private FloatingTaskListPanel taskListPanel;
     private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
@@ -43,9 +42,6 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String malitioName;
-
-    @FXML
-    private AnchorPane browserPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -112,7 +108,6 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = FloatingTaskListPanel.load(primaryStage, getTaskListPanelPlaceholder(), logic.getFilteredFloatingTaskList());
         deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPanelPlaceholder(), logic.getFilteredDeadlineList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -199,11 +194,4 @@ public class MainWindow extends UiPart {
         return this.deadlineListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyFloatingTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
 }
