@@ -34,60 +34,73 @@ public class EditCommand extends Command{
             +"Example: " + COMMAND_WORD + " 1 " + END_WORD + " 2300\n"
     		+"Example: " + COMMAND_WORD + " 1 " + TAG_WORD + " sentosa";
     
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s%2$s";
     
     public final Integer targetIndex;
     public final String editArgs;
+    public final char category;
 
-    public EditCommand(Integer index, String args) {
+    public EditCommand(Integer index, String args, char category) {
         // TODO Auto-generated constructor stub
         this.targetIndex = index;
         this.editArgs = args;
+        this.category = category;
     }
 
     @Override
     public CommandResult execute() {
-        //ArrayList<Integer> pass = new ArrayList<Integer>(targetIndexes);
-        //Collections.sort(targetIndexes);
-        //Collections.reverse(targetIndexes);
-        //System.out.println(targetIndexes);
-        //System.out.println(pass);
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
-        
-        //ArrayList<ReadOnlyTask> pass = new ArrayList<ReadOnlyTask>();
-        
-        /*for(int i =0; i < targetIndexes.size(); i++){
-            if (lastShownList.size() < targetIndexes.get(i)) {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownDeadlineList = model.getFilteredDeadlineList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownTodoList = model.getFilteredTodoList();
+        if(category == 'E'){
+            if (lastShownList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
 
-            ReadOnlyTask personToEdit = lastShownList.get(targetIndexes.get(i) - 1);
-            
-            //pass.add(personToDelete);
-            
-            try {
-                model.editPerson(personToDelete);
-            } catch (PersonNotFoundException pnfe) {
-                assert false : "The target person cannot be missing";
-            }
-        }*/
-        
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        
-        ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
-        
-        try {
-            model.editPerson(personToEdit, editArgs);
-            assert false: "The target task cannot be missing";
-        } catch (PersonNotFoundException | IllegalValueException pnfe) {
-        }
+            ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
 
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, targetIndex));
+            try {
+                model.editPerson(personToEdit, editArgs, category);
+                assert false: "The target task cannot be missing";
+            } catch (PersonNotFoundException | IllegalValueException pnfe) {
+            }
+
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
+        }
+        else if(category == 'D'){
+            if (lastShownDeadlineList.size() < targetIndex) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+
+            ReadOnlyTask deadlineToEdit = lastShownDeadlineList.get(targetIndex - 1);
+
+            try {
+                model.editPerson(deadlineToEdit, editArgs, category);
+                assert false: "The target Deadline cannot be missing";
+            } catch (PersonNotFoundException | IllegalValueException pnfe) {
+            }
+
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
+        }
+        else{
+            if (lastShownTodoList.size() < targetIndex) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+
+            ReadOnlyTask todoToEdit = lastShownTodoList.get(targetIndex - 1);
+
+            try {
+                model.editPerson(todoToEdit, editArgs, category);
+                assert false: "The target Todo cannot be missing";
+            } catch (PersonNotFoundException | IllegalValueException pnfe) {
+            }
+
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
+        }
     }
 
 }
