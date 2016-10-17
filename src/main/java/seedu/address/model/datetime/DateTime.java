@@ -18,6 +18,10 @@ public class DateTime {
     private Period interval; // in days
     private LocalDateTime endDate;
     
+    /**
+     * constructor for DateTime without recurrence
+     * @param ldt
+     */
     DateTime(LocalDateTime ldt) {
         assert ldt != null;
 
@@ -25,6 +29,13 @@ public class DateTime {
         this.isRecurring = false;
     }
     
+    /**
+     * constructor for DateTime with recurrence
+     * @param ldt
+     * @param isRecurring
+     * @param interval
+     * @param endDate
+     */
     DateTime(LocalDateTime ldt, boolean isRecurring, Period interval, LocalDateTime endDate) {
         assert ldt != null;
         assert endDate != null;
@@ -32,15 +43,14 @@ public class DateTime {
         this.ldt = ldt;
 
         if(isRecurring == false) {
-	        this.isRecurring = false;
-	        this.interval = Period.ZERO;
+            throw new IllegalArgumentException("Wrong constructor for non-recurring event!");
         } else {
 	        this.isRecurring = isRecurring;
 	        this.interval = interval;
 	        this.endDate = endDate;
         }
     }
-    
+
     public boolean isRecurring() {
         return this.isRecurring;
     }
