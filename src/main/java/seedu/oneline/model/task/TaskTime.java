@@ -1,10 +1,9 @@
+//@@author A0138848M
 package seedu.oneline.model.task;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
-
 import java.util.Date;
 import java.util.List;
-
 import com.joestelmach.natty.*;
 
 public class TaskTime implements Comparable<TaskTime> {
@@ -15,9 +14,10 @@ public class TaskTime implements Comparable<TaskTime> {
     private final Date value;
 
     /**
-     * Validates given email.
+     * Sets this.value to null if empty time string is given. 
+     * Otherwise sets this.value to the date represented by time string.
      *
-     * @throws IllegalValueException if given email address string is invalid.
+     * @throws IllegalValueException if given time string is invalid.
      */
     public TaskTime(String time) throws IllegalValueException {
         assert time != null;
@@ -27,16 +27,27 @@ public class TaskTime implements Comparable<TaskTime> {
             // represent an empty tasktime with a null value field
             value = null;
         } else {        
-            Parser parser = new Parser(); // use the natty parser
-            List<DateGroup> dates = parser.parse(time);
-    
-            if (!isValidTaskTime(dates)) {
-                throw new IllegalValueException(MESSAGE_TASK_TIME_CONSTRAINTS);
-            }
-            
-            Date date = dates.get(0).getDates().get(0);
-            this.value = date;
+            this.value = getDate(time);
         }
+    }
+    
+    /**
+     * Returns the date represented by input time string
+     * 
+     * @param time the user given time string
+     * @return the date represented by the time string
+     * @throws IllegalValueException if given time string is invalid
+     */
+    private Date getDate(String time) throws IllegalValueException{
+        Parser parser = new Parser(); // use the natty parser
+        List<DateGroup> dates = parser.parse(time);
+
+        if (!isValidTaskTime(dates)) {
+            throw new IllegalValueException(MESSAGE_TASK_TIME_CONSTRAINTS);
+        }
+        
+        Date date = dates.get(0).getDates().get(0);
+        return date;
     }
 
     /**
@@ -77,7 +88,7 @@ public class TaskTime implements Comparable<TaskTime> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskTime // instanceof handles nulls
-                && this.value.compareTo(((TaskTime) other).value) == 0); // state check TODO
+                && this.value.compareTo(((TaskTime) other).value) == 0);
     }
 
     @Override
