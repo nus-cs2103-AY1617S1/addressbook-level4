@@ -20,6 +20,9 @@ public class TaskQuery extends Task {
     private String tagQuery = "";
     private String statusString = "";
     private final static String NEWLINE = "\n";
+    public final static String BOTH_STATUS_SEARCHED_ERROR = "Both '-do (Done)' and '-ud (Undone)' flags "
+            + "have been detected.\n"
+            + "Please search for either '-do (Done)' or '-ud (Undone)' status";
 
     public TaskQuery() {
     }
@@ -96,7 +99,7 @@ public class TaskQuery extends Task {
     }
 
     public ArrayList<String> getTagKeywordsAsList() {
-        return new ArrayList<String>(Arrays.asList(tagQuery.split(",")));
+        return new ArrayList<String>(Arrays.asList(tagQuery.split(" ")));
     }
 
     @Override
