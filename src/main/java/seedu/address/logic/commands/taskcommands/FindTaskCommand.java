@@ -2,6 +2,8 @@ package seedu.address.logic.commands.taskcommands;
 
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.logic.commands.CommandResult;
 
 /**
@@ -25,6 +27,7 @@ public class FindTaskCommand extends TaskCommand {
         @Override
         public CommandResult execute() {
             model.filterTasks(keywords);
+            EventsCenter.getInstance().post(new HideHelpRequestEvent());
             return new CommandResult(getMessageForTaskListShownSummary(model.getCurrentFilteredTasks().size()));
         }
 

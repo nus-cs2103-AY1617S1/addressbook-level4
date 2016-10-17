@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import seedu.address.commons.collections.UniqueItemCollection;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
@@ -85,6 +87,7 @@ public class AddTaskCommand extends TaskCommand {
         try {
             model.addTask(toAdd);
             model.clearTasksFilter();
+            EventsCenter.getInstance().post(new HideHelpRequestEvent());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueItemCollection.DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

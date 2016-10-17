@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
@@ -12,6 +13,13 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AliasChangedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.taskcommands.AddAliasCommand;
+import seedu.address.logic.commands.taskcommands.AddTaskCommand;
+import seedu.address.logic.commands.taskcommands.DeleteAliasCommand;
+import seedu.address.logic.commands.taskcommands.FavoriteTaskCommand;
+import seedu.address.logic.commands.taskcommands.FindTaskCommand;
+import seedu.address.logic.commands.taskcommands.ListTaskCommand;
+import seedu.address.logic.commands.taskcommands.UnfavoriteTaskCommand;
 import seedu.address.model.Alias;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.Task;
@@ -67,6 +75,19 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		indicateTaskManagerChanged();
 		
 	}
+	
+    @Override
+    public ObservableList<String> getHelpList() {
+        ObservableList<String> helpItems = FXCollections.observableArrayList ();
+        helpItems.add(AddTaskCommand.MESSAGE_USAGE);
+        helpItems.add(AddAliasCommand.MESSAGE_USAGE);
+        helpItems.add(DeleteAliasCommand.MESSAGE_USAGE);
+        helpItems.add(FavoriteTaskCommand.MESSAGE_USAGE);
+        helpItems.add(FindTaskCommand.MESSAGE_USAGE);
+        helpItems.add(ListTaskCommand.MESSAGE_USAGE);
+        helpItems.add(UnfavoriteTaskCommand.MESSAGE_USAGE);
+        return helpItems;
+    }
 	
     /** Keeps the internal ObservableList sorted.
      * Raises an event to indicate the model has changed.
@@ -167,8 +188,4 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
-
-
-	
 }

@@ -20,5 +20,7 @@ public interface Logic {
     ObservableList<Task> getFilteredTaskList();
     
     ObservableList<Alias> getAlias();
+    
+    ObservableList<String> getHelpList();
 
 }

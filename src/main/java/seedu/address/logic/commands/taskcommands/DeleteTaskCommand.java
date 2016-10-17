@@ -2,7 +2,9 @@ package seedu.address.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 
@@ -41,6 +43,7 @@ public class DeleteTaskCommand extends TaskCommand {
 
 	        try {
 	            model.deleteTask(taskToDelete);
+	            EventsCenter.getInstance().post(new HideHelpRequestEvent());
 	            if(lastShownList.size() == 0) {
 	                model.clearTasksFilter();
 	            }

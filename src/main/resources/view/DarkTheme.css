@@ -86,6 +86,13 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.stack-pane {
+	-fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-background-color: derive(#1d1d1d, 20%);
+	
+}
+
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;

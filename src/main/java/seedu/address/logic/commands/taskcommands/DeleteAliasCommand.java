@@ -2,6 +2,8 @@ package seedu.address.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Alias;
@@ -44,6 +46,7 @@ public class DeleteAliasCommand extends TaskCommand {
 	    }
 	    try {
 	        model.deleteAlias(aliasToDelete);   
+	        EventsCenter.getInstance().post(new HideHelpRequestEvent());
 	        return new CommandResult(String.format(MESSAGE_DELETE_ALIAS_SUCCESS, aliasToDelete));
 	    } catch (ItemNotFoundException tnfe) {
         	return new CommandResult(MESSAGE_ALIAS_NOT_FOUND);

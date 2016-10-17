@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.taskcommands;
 
 import seedu.address.commons.collections.UniqueItemCollection;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Alias;
@@ -43,6 +45,7 @@ public class AddAliasCommand extends TaskCommand {
         assert model != null;
         try {
             model.addAlias(toAdd);
+            EventsCenter.getInstance().post(new HideHelpRequestEvent());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueItemCollection.DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ALIAS);

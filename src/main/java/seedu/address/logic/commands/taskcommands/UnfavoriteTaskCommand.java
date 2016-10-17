@@ -1,7 +1,9 @@
 package seedu.address.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 
@@ -38,7 +40,7 @@ public class UnfavoriteTaskCommand extends TaskCommand {
 
         Task taskToUnfavorite = lastShownList.get(targetIndex - 1);
         model.unfavoriteTask(taskToUnfavorite);
-
+        EventsCenter.getInstance().post(new HideHelpRequestEvent());
         return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, taskToUnfavorite));
     }
 

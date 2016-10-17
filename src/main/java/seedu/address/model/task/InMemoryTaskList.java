@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -61,6 +62,8 @@ public interface InMemoryTaskList {
 	 * Gets the list of alias
 	 */
 	UnmodifiableObservableList<Alias> getAlias();
+
+    ObservableList<String> getHelpList();
 
 	
 	

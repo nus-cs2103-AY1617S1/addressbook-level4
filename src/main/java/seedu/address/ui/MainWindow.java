@@ -35,6 +35,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private TaskConfig config;
     private UserPrefs userPrefs;
+    private HelpPanel helpListPanel;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -57,6 +58,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane helpListPanelPlaceholder;
 
     public MainWindow() {
         super();
@@ -108,6 +112,7 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTasksFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        helpListPanel = HelpPanel.load(primaryStage,getHelpListPlaceholder(), logic.getHelpList() );
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -124,6 +129,9 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    public AnchorPane getHelpListPlaceholder() {
+        return helpListPanelPlaceholder;
     }
 
     public void hide() {
@@ -149,6 +157,16 @@ public class MainWindow extends UiPart {
     private void setWindowMinSize() {
         primaryStage.setMinHeight(MIN_HEIGHT);
         primaryStage.setMinWidth(MIN_WIDTH);
+    }
+    
+    void hideHelp() {
+        helpListPanelPlaceholder.getParent().toBack();
+        helpListPanelPlaceholder.getParent().setOpacity(0);
+    }
+    
+    void showHelp() {
+        helpListPanelPlaceholder.getParent().toFront();
+        helpListPanelPlaceholder.getParent().setOpacity(100);
     }
 
     /**
