@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -16,11 +15,9 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.commons.events.model.TaskListChangedEvent;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.core.ComponentManager;
 
-import java.util.ArrayDeque;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

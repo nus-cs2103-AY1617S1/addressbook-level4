@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.ArrayList;
@@ -169,7 +170,10 @@ public class Task implements ReadOnlyTask {
     @Override
     public void completeTaskWhenAllComponentArchived() {
         for (TaskDateComponent c : recurringDates) {
-            if (c.getIsArchived() == false) {
+            if (c.getIsArchived() == false || c.getTaskReference().getRecurringType() != RecurringType.NONE) {
+                if (c.getTaskReference().getRecurringType() != RecurringType.NONE) {
+                    RecurringTaskManager.getInstance().archiveRecurringTask(c.getTaskReference());
+                }
                 return;
             }
         }

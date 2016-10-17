@@ -81,4 +81,8 @@ public class TaskDate {
 				(other instanceof TaskDate // instanceof handles nulls
 		                && this.getDateInLong() == ((TaskDate) other).getDateInLong());
     }
+
+    public boolean isValid() {
+        return date != DATE_NOT_PRESENT;
+    }
 }
