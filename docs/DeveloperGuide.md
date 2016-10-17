@@ -170,6 +170,7 @@ Classes used by multiple components are in the `seedu.taskmanager.commons` packa
 
 ### Logging
 
+
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
