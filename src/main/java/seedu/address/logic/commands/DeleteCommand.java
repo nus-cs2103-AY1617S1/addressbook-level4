@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
             + "      "
     		+ "Example: " + COMMAND_WORD + " 1, 2, 3";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
 
     public final ArrayList<String> targetIndexes;
 
@@ -93,7 +93,7 @@ public class DeleteCommand extends Command {
             
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, pass));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, pass));
     }
 
 }
