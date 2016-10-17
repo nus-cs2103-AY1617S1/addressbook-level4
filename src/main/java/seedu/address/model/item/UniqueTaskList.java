@@ -56,7 +56,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
         
         // TODO: Disable sort until this is fixed, also update tests when sort is updated
-        //Collections.sort(internalList);
+        Collections.sort(internalList);
     }
 
     /**
