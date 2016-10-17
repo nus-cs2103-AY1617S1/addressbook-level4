@@ -68,6 +68,10 @@ Example:
 Undo the most recent task entered in the command line<br>
 Format: `undo`
 
+#### Redo a Task: `redo`
+Redo the most recent undo entered in the command line<br>
+Format: `redo`
+
 #### Deleting a Task: `delete`
 Deletes a particular task in the task manager<br>
 Format: `delete <task index>`

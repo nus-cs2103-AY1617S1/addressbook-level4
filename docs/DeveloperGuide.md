@@ -266,7 +266,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | view all my tasks | I have an idea about the pending tasks.
 `* * *` | user | mark a task as done | it will be removed from my list of things to do.
 `* * *` | user | add floating tasks without date or time | I can do that task whenever I want.
-`* *` | user | undo a command | go back to the previous command if I have made a mistake.
+`* *` | user | undo a command | go back to the previous state of my task manager incase of a mistake.
+`* *` | user | redo an undo | go back to the previous state of my task manager if I did an undo by mistake.
 `* *` | user | rearrange my task based on certain commands | make my schedule more flexible.
 `* *` | user | set the priority of the task when I'm adding a new task | know the urgency of the task.
 `*` | user | have a done list | see what has been done for the day to know how productive I've been.
@@ -440,7 +441,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. User undo a task
+1. User undoes a task
 2. ForgetMeNot undo the most recent command executed
       Use case ends
       
@@ -450,9 +451,27 @@ Priority | As a ... | I want to ... | So that I can...
 	
 > 1a1. ForgetMeNot shows error message
 
-	1b. User input an invalid input
+	1b. User inputs an invalid input
 	
 > 1b1.ForgetMeNot shows help message
+
+#### Use Case: Redo a task
+
+**MSS**
+
+1. User redoes a task
+2. ForgetMeNot redoes the most recent undo command executed
+	Use case ends
+
+**Extension**
+	
+	1a. No command to be redone
+	
+> 1a1. ForgetMeNot shows error message
+	
+	1b. User inputs an invalid input
+	
+> 1b1. ForgetMeNot shows help message
 
 #### User Case: Set priority while creating a task
 
