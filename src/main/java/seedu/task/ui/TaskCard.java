@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import seedu.task.model.task.ReadOnlyTask;
 
@@ -17,17 +18,12 @@ public class TaskCard extends UiPart{
     private Label name;
     @FXML
     private Label id;
-//    @FXML
-//    private Label phone;
-//    @FXML
-//    private Label address;
-//    @FXML
-//    private Label email;
     @FXML
-    private Label tags;
+    private AnchorPane tagsListPlaceholder;
 
     private ReadOnlyTask task;
     private int displayedIndex;
+    private TagListPanel tagListPanel;
 
     public TaskCard(){
 
@@ -44,10 +40,7 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
-//        phone.setText(person.getPhone().value);
-//        address.setText(person.getAddress().value);
-//        email.setText(person.getEmail().value);
-        tags.setText(task.tagsString());
+        tagListPanel = TagListPanel.load(getPrimaryStage(), tagsListPlaceholder, task.getTags().getInternalList());
     }
 
     public HBox getLayout() {
