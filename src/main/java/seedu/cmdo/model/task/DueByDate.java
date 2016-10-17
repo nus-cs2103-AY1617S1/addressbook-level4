@@ -77,12 +77,11 @@ public class DueByDate {
      * 
      * @@author A0139661Y
      */
-	public String getFriendlyString() {
+	public String getFriendlyString() {		
 		// If floating date, return do not print anything
-		if (isRange) {
-			if (end.equals(LocalDate.MIN)) {
+		if (!isRange) {
+			if (end.equals(LocalDate.MIN))
 				return "";
-			}
 			return new StringBuilder(end.format(DateTimeFormatter.ofPattern("MM/dd/uuuu"))).toString();
 		}
 		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("MM/dd/uuuu")) 

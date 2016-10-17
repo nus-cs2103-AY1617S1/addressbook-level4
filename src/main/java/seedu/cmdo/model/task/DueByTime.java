@@ -84,10 +84,10 @@ public class DueByTime {
      */
     public String getFriendlyString() {
 		// If floating date, return do not print anything
-    	if (isRange) {
-    		if (end.equals(LocalTime.MAX)) {
-    			return "";
-    		}
+		if (start.equals(LocalTime.MAX) && end.equals(LocalTime.MAX)) {
+			return "";
+		}
+    	if (!isRange) {
     		return new StringBuilder(end.format(DateTimeFormatter.ofPattern("kkmm"))).toString();
     	}
 		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("kkmm")) 

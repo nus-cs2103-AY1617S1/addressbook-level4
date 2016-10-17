@@ -65,6 +65,8 @@ public class XmlAdaptedTask {
      * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
+     * 
+     * @@author A0139661Y
      */
     public Task toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
@@ -72,12 +74,29 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         
+        // Settle the range first.
+        final DueByDate dbd;
+        final DueByTime dbt;
+        
+        String[] tokenizedDateRange = tokenizeTo(dueByDate);
+        if (tokenizedDateRange.length == 2) {
+        	dbd = new DueByDate(LocalDate.parse(tokenizedDateRange[0]), LocalDate.parse(tokenizedDateRange[1]));
+        } else dbd = new DueByDate(LocalDate.parse(this.dueByDate));
+        
+        String[] tokenizedTimeRange = tokenizeTo(dueByTime);
+        if (tokenizedTimeRange.length == 2) {
+        	dbt = new DueByTime(LocalTime.parse(tokenizedTimeRange[0]), LocalTime.parse(tokenizedTimeRange[1]));
+        } else dbt = new DueByTime(LocalTime.parse(this.dueByTime));
+        
+        // Settle the other parameters.
         final Detail detail = new Detail(this.detail);
         final Done done = new Done(Boolean.parseBoolean(this.done));
-        final DueByDate dbd = new DueByDate(LocalDate.parse(this.dueByDate));
-        final DueByTime dbt = new DueByTime(LocalTime.parse(this.dueByTime));
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(detail, done, dbd, dbt, priority, tags);
+    }
+    
+    private String[] tokenizeTo(String input) {
+    	return input.split("/to/");
     }
 }
