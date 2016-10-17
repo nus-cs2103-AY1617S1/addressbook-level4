@@ -110,8 +110,9 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
 
-    public void markTask(int index){
-        tasks.mark(index);
+
+    public void markTask(ReadOnlyTask key){
+        tasks.mark(key);
 	}
     
     /**

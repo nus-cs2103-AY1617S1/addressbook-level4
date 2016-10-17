@@ -8,8 +8,6 @@ public class LogicManagerTest {
      */
 
 
-    
-
     //Unmorphed parts
     //TODO: move to indiviual test classes
 //    @Ignore

@@ -36,7 +36,8 @@ public class MarkCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        model.markTask(targetIndex-1); // list starts at zero
+        ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
+        model.markTask(taskToMark); // list starts at zero
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
 
     }

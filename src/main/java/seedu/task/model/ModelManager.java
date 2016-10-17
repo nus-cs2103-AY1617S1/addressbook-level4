@@ -101,19 +101,22 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+
+    public void markTask(ReadOnlyTask target){
+        taskBook.markTask(target);
+        updateFilteredTaskListToShowWithStatus(false);
+        indicateTaskBookChanged();
+    }
+    
+        
     public void editTask(Task task, int index) throws UniqueTaskList.DuplicateTaskException {
         taskBook.editTask(task, index);
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();   
     }
 
-    
-    @Override
-    public void markTask(int index){
-        taskBook.markTask(index);
-        indicateTaskBookChanged();
-    }
-
+        
+   
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
