@@ -7,10 +7,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.ocpsoft.prettytime.*;
+
 public class DateUtil {
     private static List<SimpleDateFormat> DATE_FORMATS;
+    private final PrettyTime DATE_PARSER;
     
     public DateUtil() {
+        DATE_PARSER = new PrettyTime();
+        
         DATE_FORMATS = new ArrayList<>();
         
         DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy h:mm a"));
@@ -67,5 +72,8 @@ public class DateUtil {
         } else {
             return false;
         }
+    }
+    
+    public void test() {
     }
 }
