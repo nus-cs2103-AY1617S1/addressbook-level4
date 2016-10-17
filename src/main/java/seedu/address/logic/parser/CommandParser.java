@@ -409,7 +409,7 @@ public class CommandParser {
    	 
    	 	index = Integer.parseInt(indexNum);
    	 	String[] split = args.substring(2).split("-reset");
-   	 	//String argsTrimmed = " " + args.substring(2);
+
    	 	String argsTrimmed = " " + split[0];
 
    	 	String taskName = null;
@@ -570,11 +570,7 @@ public class CommandParser {
                 assert recurrenceMatcher.group("timePeriod") != null;
                 timePeriod = recurrenceMatcher.group("timePeriod").trim();
             }
-           /* 
-            if (matcher.group("resetField") != null) {
-           	 	resetField = matcher.group("resetField");
-            }
-            */
+
             if (matcher.group("priority") != null) {
                 priority = matcher.group("priority").trim();
             }
