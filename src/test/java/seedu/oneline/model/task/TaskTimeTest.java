@@ -96,7 +96,8 @@ public class TaskTimeTest {
                 "5 Oct 16", 
                 "Oct 5 16",
                 "10/5/16",
-                "10/05/16"};
+                "10/05/16",
+                "oCt 5 16"};
         try {
             for (String t : validFormats){
                 TaskTime tTime = new TaskTime(t);
@@ -207,7 +208,8 @@ public class TaskTimeTest {
     public void constructor_day_supportsDocumentedFormats() {
         String[] validFormats = new String[]{
                 "Monday",
-                "this mon"};
+                "this mon",
+                "MoNday"};
         try {
             for (String t : validFormats){
                 Calendar tCal = new TaskTime(t).getCalendar();
@@ -224,7 +226,7 @@ public class TaskTimeTest {
      * nearest upcoming day being stored in tasktime
      */
     @Test
-    public void constructor_DPast() {
+    public void constructor_day_resultsInNextUpcomingDay() {
         Calendar[] testDays = new Calendar[]{
                 yesterday, now, tomorrow
         };
@@ -254,6 +256,7 @@ public class TaskTimeTest {
         sevenDaysAfterd1.add(Calendar.DAY_OF_MONTH, 7);
         return nightOfd1.before(d2) && d2.before(sevenDaysAfterd1);
     }
+    
     
     
 }
