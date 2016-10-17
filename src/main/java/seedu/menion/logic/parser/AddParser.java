@@ -90,9 +90,21 @@ public class AddParser {
 	private static String dateToString(Calendar cal){
 		String date;
 		
-		String monthString = new DateFormatSymbols().getMonths()[cal.get(Calendar.MONTH)];
+		Integer month = cal.get(Calendar.MONTH) + 1;
+		String monthString = month.toString();
 		
-		date = cal.get(Calendar.DAY_OF_MONTH) + " " + monthString + " " + cal.get(Calendar.YEAR);
+		if (monthString.length() < 2) { 
+			monthString = "0" + monthString;
+		}
+		
+		Integer day = cal.get(Calendar.DAY_OF_MONTH);
+		String dayString = day.toString();
+		
+		if (dayString.length() < 2){
+			dayString = "0" + dayString;
+		}
+		
+		date = dayString + "-" + monthString + "-" + cal.get(Calendar.YEAR);
 		
 		return date;
 	}

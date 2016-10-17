@@ -77,9 +77,9 @@ public class AddParserTest {
 		
 		assertEquals("meet prof damith", AddParser.parseCommand(arguments).get(1));
 		assertEquals("he is fierce", AddParser.parseCommand(arguments).get(2));
-		assertEquals("8 October 2016", AddParser.parseCommand(arguments).get(3));
+		assertEquals("08-10-2016", AddParser.parseCommand(arguments).get(3));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
-		assertEquals("8 November 2016", AddParser.parseCommand(arguments).get(5));
+		assertEquals("08-11-2016", AddParser.parseCommand(arguments).get(5));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(6));
 	}
 	
@@ -90,7 +90,7 @@ public class AddParserTest {
 		
 		assertEquals("complete cs2103t", AddParser.parseCommand(arguments).get(1));
 		assertEquals("important", AddParser.parseCommand(arguments).get(2));
-		assertEquals("18 August 2016", AddParser.parseCommand(arguments).get(3));
+		assertEquals("18-08-2016", AddParser.parseCommand(arguments).get(3));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
 		
 	}
@@ -108,14 +108,14 @@ public class AddParserTest {
 	@Test
 	public void checkParserReturnValues(){
 		
-		assertEquals("7 August 2016", AddParser.dateHandler("7th august 2016"));
+		assertEquals("31-08-2016", AddParser.dateHandler("08/31/2016"));
 			
 	}
 	
 	@Test
 	public void checkDateHandleReturnValues(){
 		
-		assertEquals("1 December 2016", AddParser.dateHandler("December 1st 16"));
+		assertEquals("01-12-2016", AddParser.dateHandler("December 1st 16"));
 	}
 	
 }

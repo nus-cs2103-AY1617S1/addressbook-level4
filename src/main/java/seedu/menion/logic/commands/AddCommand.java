@@ -14,7 +14,8 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = "Adding a Floating Task: "+ COMMAND_WORD + " buy lunch n: hawker food\n"
+    public static final String MESSAGE_USAGE = "Make sure the date is a valid date. If not the date will be set to today. \n" + 
+    		"Adding a Floating Task: "+ COMMAND_WORD + " buy lunch n: hawker food\n"
             + "Adding a Task: "+ COMMAND_WORD + " complete cs2103t by: 10-08-2016 1900 n: must complete urgent\n"
     		+ "Adding a Event: "+ COMMAND_WORD + " project meeting from: 10-10-2016 1400 to: 10-10-2016 1800 n: celebrate\n";
 
