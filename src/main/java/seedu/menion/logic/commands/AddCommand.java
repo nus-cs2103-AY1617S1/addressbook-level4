@@ -69,7 +69,18 @@ public class AddCommand extends Command {
     public CommandResult execute() {
     	assert model != null;
         try {
-            model.addTask(toAdd);
+            if (toAdd.getActivityType().equals("task")){
+                System.out.println("task added");
+                model.addTask(toAdd);
+            }
+            else if (toAdd.getActivityType().equals("event")){
+                System.out.println("event added");
+                model.addEvent(toAdd);
+            }
+            else {
+                System.out.println("floating task added");
+                model.addFloatingTask(toAdd);
+            }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueActivityList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

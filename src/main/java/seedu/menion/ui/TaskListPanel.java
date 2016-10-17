@@ -54,26 +54,32 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyActivity> taskList) {
+                                       ObservableList<ReadOnlyActivity> floatingTaskList,
+                                       ObservableList<ReadOnlyActivity> taskList,
+                                       ObservableList<ReadOnlyActivity> eventList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList);
+        taskListPanel.configure(floatingTaskList, taskList, eventList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyActivity> taskList) {
-        setConnections(taskList);
+    private void configure(ObservableList<ReadOnlyActivity> floatingTaskList, 
+    						ObservableList<ReadOnlyActivity> taskList,
+    						ObservableList<ReadOnlyActivity> eventList) {
+        setConnections(floatingTaskList, taskList, eventList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyActivity> taskList) {
-    	floatingTaskListView.setItems(taskList);
+    private void setConnections(ObservableList<ReadOnlyActivity> floatingTaskList, 
+								ObservableList<ReadOnlyActivity> taskList,
+								ObservableList<ReadOnlyActivity> eventList) {
+    	floatingTaskListView.setItems(floatingTaskList);
     	floatingTaskListView.setCellFactory(listView -> new TaskListViewCell());
     	
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         
-        eventListView.setItems(taskList);
+        eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new TaskListViewCell());
         
         setEventHandlerForSelectionChangeEvent();
@@ -106,14 +112,14 @@ public class TaskListPanel extends UiPart {
         }
 
         @Override
-        protected void updateItem(ReadOnlyActivity task, boolean empty) {
-            super.updateItem(task, empty);
+        protected void updateItem(ReadOnlyActivity activity, boolean empty) {
+            super.updateItem(activity, empty);
 
-            if (empty || task == null) {
+            if (empty || activity == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(ActivityCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(ActivityCard.load(activity, getIndex() + 1).getLayout());
             }
         }
     }
