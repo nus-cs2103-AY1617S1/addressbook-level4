@@ -41,7 +41,7 @@ public abstract class TaskListGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected FloatingTaskListPanelHandle floatingTaskListPanel;
+    protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -61,7 +61,7 @@ public abstract class TaskListGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            floatingTaskListPanel = mainGui.getFloatingTaskListPanel();
+            taskListPanel = mainGui.getFloatingTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -116,7 +116,7 @@ public abstract class TaskListGuiTest {
      * Asserts the size of the floatingTask list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = floatingTaskListPanel.getNumberOfPeople();
+        int numberOfPeople = taskListPanel.getNumberOfPeople();
         assertEquals(size, numberOfPeople);
     }
 

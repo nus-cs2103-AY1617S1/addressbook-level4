@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.FloatingTaskCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -326,10 +326,19 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(FloatingTaskCardHandle card, TaskDateComponent task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, TaskDateComponent task) {
         return card.isSameTask(task);
     }
 
+    public static TaskDateComponent[] convertTasksToDateComponents(final TestTask[] tasks) {
+        List<TaskDateComponent> componentList = new ArrayList<TaskDateComponent>();
+        for(TestTask t : tasks) {
+            componentList.addAll(t.getTaskDateComponent());
+        }
+        TaskDateComponent[] taskComponents = new TaskDateComponent[componentList.size()];
+        return componentList.toArray(taskComponents);
+    }
+    
     public static Tag[] getTagList(String tags) {
 
         if (tags.equals("")) {

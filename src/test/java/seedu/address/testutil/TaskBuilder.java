@@ -29,11 +29,13 @@ public class TaskBuilder {
     
     public TaskBuilder withStartDate(String date) throws IllegalValueException {
         this.task.setStartDate(date);
+        this.task.setType(TaskType.NON_FLOATING);
         return this;
     }
     
     public TaskBuilder withEndDate(String date) throws IllegalValueException {
         this.task.setEndDate(date);
+        this.task.setType(TaskType.NON_FLOATING);
         return this;
     }
     

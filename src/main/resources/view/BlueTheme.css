@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#133051, 20%);
 }
 
 .label {
@@ -39,9 +39,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: #133051;
+    -fx-control-inner-background: #133051;
+    -fx-background-color: #133051;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -58,7 +58,7 @@
     -fx-border-color:
         transparent
         transparent
-        derive(-fx-base, 80%)
+        derive(#133051, 80%)
         transparent;
     -fx-border-insets: 0 10 1 0;
 }
@@ -76,9 +76,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: #133051;
+    -fx-control-inner-background: #133051;
+    -fx-background-color: #133051;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -95,7 +95,7 @@
     -fx-border-color:
         transparent
         transparent
-        derive(-fx-base, 80%)
+        derive(#133051, 80%)
         transparent;
     -fx-border-insets: 0 10 1 0;
 }
@@ -114,14 +114,14 @@
 
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+    -fx-border-color: transparent #133051 transparent #133051;
+    -fx-background-color: transparent, derive(#133051, 10%);
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#133051, 20%);
 }
 
 .list-cell {
@@ -138,7 +138,7 @@
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 10;
     -fx-padding: 0 0 0 0;
-    -fx-background-color : derive(#1d1d1d, 20%);
+    -fx-background-color : derive(#133051, 20%);
 }
 #navBarView .list-cell .label {
     -fx-font-size: 20px;
@@ -180,18 +180,18 @@
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#133051, 20%);
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-background-color: derive(#133051, 20%);
+     -fx-border-color: derive(#133051, 10%);
      -fx-border-top-width: 1px;
      -fx-text-alignment: center;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#133051, 20%);
     -fx-text-fill: black;
 }
 
@@ -209,8 +209,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#133051, 30%);
+    -fx-border-color: derive(#133051, 25%);
     -fx-border-width: 1px;
 }
 
@@ -219,27 +219,27 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#133051, 30%);
+    -fx-border-color: derive(#133051, 30%);
     -fx-border-width: 1px;
 }
 
 .grid-pane .anchor-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#133051, 30%);
 }
 
 #navBarGrid .grid-pane {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#133051, 20%);
+    -fx-border-color: derive(#133051, 20%);
     -fx-border-width: 1px;
 }
 
 #navBarGrid .grid-pane .anchor-pane {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#133051, 20%);
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#133051, 50%);
 }
 
 .context-menu .label {
@@ -247,7 +247,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#133051, 20%);
 }
 
 .menu-bar .label {
@@ -258,7 +258,7 @@
 }
 
 .menu .left-container {
-    -fx-background-color: black;
+    -fx-background-color: #133051;
 }
 
 /*
@@ -271,7 +271,7 @@
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #133051;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -279,12 +279,12 @@
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: #133051;
 }
 
 .button:pressed, .button:default:hover:pressed {
   -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+  -fx-text-fill: #133051;
 }
 
 .button:focused {
@@ -297,7 +297,7 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #133051;
     -fx-text-fill: white;
 }
 
@@ -311,11 +311,11 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #133051;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #133051;
 }
 
 .dialog-pane > *.label.content {
@@ -325,7 +325,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#133051, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -336,7 +336,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#133051, 50%);
     -fx-background-insets: 3;
 }
 
@@ -365,7 +365,7 @@
 
 #cardPaneNav {
     -fx-background-color: transparent;
-    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-color: derive(#133051, 10%);
     -fx-border-width: 0.5 0.5 0.5 0.5;
 }
 
@@ -375,5 +375,5 @@
 }
 
 #filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+    -fx-effect: innershadow(gaussian, #133051, 10, 0, 0, 0);
 }

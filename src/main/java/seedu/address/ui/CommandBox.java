@@ -13,7 +13,10 @@ import seedu.address.logic.commands.*;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
 
+import java.util.HashSet;
 import java.util.logging.Logger;
+
+import org.controlsfx.control.textfield.TextFields;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -27,7 +30,7 @@ public class CommandBox extends UiPart {
     private Logic logic;
 
     @FXML
-    private TextField commandTextField;
+    private AutoCompleteTextField commandTextField;
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
@@ -45,6 +48,8 @@ public class CommandBox extends UiPart {
     }
 
     private void addToPlaceholder() {
+    	
+    	//TextFields.bindAutoCompletion(commandTextField, setDictionary());
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
@@ -120,5 +125,25 @@ public class CommandBox extends UiPart {
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
     }
+    
+    private HashSet<String> setDictionary(){
+    	HashSet<String> dictionary = new HashSet<String>();  	
+		//syntax words
+		dictionary.add("from");
+		dictionary.add("to");
+		dictionary.add("by");
+		dictionary.add("t/");
+		dictionary.add("am");
+		dictionary.add("pm");
+		//command word
+		String[] commandWords = {"add", "block","cd","delete","done","help","u","r","find","list","select","exit"};
+		for(String s: commandWords) dictionary.add(s);
+		//date
+		String[] dateWords = {"jan","feb","mar","apr","may","jun","jul",
+							  "aug","sep","oct","nov","dec","today","tomorrow",
+							  "mon","tue","wed","thur","fri","sat","sun"};
+		for(String s: dateWords) dictionary.add(s);
+		return dictionary;
+	}
 
 }
