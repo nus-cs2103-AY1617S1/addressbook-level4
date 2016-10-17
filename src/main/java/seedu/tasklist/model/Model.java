@@ -4,9 +4,16 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
+import seedu.tasklist.model.tag.UniqueTagList;
+import seedu.tasklist.model.task.EndTime;
+import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.ReadOnlyTask;
+import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.Task;
+import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.model.task.UniqueTaskList;
+import seedu.tasklist.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * The API of the Model component.
@@ -50,5 +57,17 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to only certain priority */
     public void updateFilteredListToShowPriority(String priority);
+
+    void markTaskAsIncomplete(ReadOnlyTask task) throws TaskNotFoundException;
+
+    void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority,
+            UniqueTagList tags) throws DuplicateTaskException;
+
+    void addTaskUndo(Task task) throws DuplicateTaskException;
+
+    void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
+            Priority priority, UniqueTagList tags) throws DuplicateTaskException;
+
+    void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException;
 
 }

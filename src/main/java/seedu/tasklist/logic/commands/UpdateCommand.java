@@ -3,11 +3,13 @@ package seedu.tasklist.logic.commands;
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
+import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.TaskDetails;
+import seedu.tasklist.model.task.UniqueTaskList;
 
 public class UpdateCommand extends Command {
 
@@ -19,62 +21,43 @@ public class UpdateCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 at 13/09/2016 5pm";
 
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Task successfully updated: %1$s";
-    
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to-do list.";
+
     private int targetIndex;
     private TaskDetails taskDetails;
     private StartTime startTime;
-    // private StartDate startDate;
     private EndTime endTime;
-    // private EndDate endDate;
     private Priority priority;
+    private UniqueTagList tags;
 
-    public UpdateCommand(int targetIndex, String taskDetails, String startTime,
-            // String startDate,
-            String endTime,
-            // String endDate,
-            String priority) throws IllegalValueException {
-        this.targetIndex = targetIndex-1;
+    public UpdateCommand(int targetIndex, String taskDetails, String startTime, String endTime, String priority, UniqueTagList tags)
+            throws IllegalValueException {
+        this.targetIndex = targetIndex - 1;
         if (taskDetails != null)
             this.taskDetails = new TaskDetails(taskDetails);
         if (startTime != null)
             this.startTime = new StartTime(startTime);
-        // if (startDate != null)
-        // this.startDate = new StartDate(startDate);
         if (endTime != null)
             this.endTime = new EndTime(endTime);
-        // if (endDate != null)
-        // this.endDate = new EndDate(endDate);
         if (priority != null)
             this.priority = new Priority(priority);
+        this.tags = new UniqueTagList(tags);
     }
 
     @Override
     public CommandResult execute() {
+        assert model != null;
         UnmodifiableObservableList<Task> lastShownList = model.getModifiableTaskList();
         if (targetIndex >= lastShownList.size()) {
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } else {
             Task taskToUpdate = lastShownList.get(targetIndex);
-/*
-            if (!(startTime==null && endTime==null)) {
-                taskToUpdate.setStartTime(null);
-                taskToUpdate.setEndTime(null);
+            try {
+                model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, tags);
+                return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
+            } catch (UniqueTaskList.DuplicateTaskException e) {
+                return new CommandResult(MESSAGE_DUPLICATE_TASK);
             }
-            */
-            if (taskDetails != null)
-                taskToUpdate.setTaskDetails(taskDetails);
-            if (startTime != null)
-                taskToUpdate.setStartTime(startTime);
-            // if (startDate != null)
-            // taskToUpdate.setStartDate(startDate);
-            if (endTime != null)
-                taskToUpdate.setEndTime(endTime);
-            // if (endDate != null)
-            // taskToUpdate.setEndDate(endTime);
-            if (priority != null)
-                taskToUpdate.setPriority(priority);
-            model.updateFilteredList();
-            return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
         }
     }
 }
