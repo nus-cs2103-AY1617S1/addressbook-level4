@@ -7,9 +7,12 @@ import seedu.address.model.tag.UniqueTagList;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIME;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.joestelmach.natty.generated.DateParser.relative_date_prefix_return;
 
 
 
@@ -54,6 +57,10 @@ public class AddCommand extends Command {
         	throw new IllegalValueException(MESSAGE_INVALID_START_AND_END_TIME);
         }
         
+        if(!taskTimeisAfterCurrentTime(start, end)) {
+        	throw new IllegalValueException(MESSAGE_INVALID_TIME);
+        }
+        
         this.toAdd = new Task(
                 new Name(name),
                 new Date(date),
@@ -65,7 +72,7 @@ public class AddCommand extends Command {
         System.out.println("end");
     }
 
-    @Override
+	@Override
     public CommandResult execute() {
         assert model != null;
         try {
@@ -83,6 +90,7 @@ public class AddCommand extends Command {
      * @param startTime
      * @param endTime
      * @return true only if startTime < endTime
+     * @throws IllegalValueException
      */
     private boolean checkOrderOfDates(String startTime, String endTime) throws IllegalValueException {
     	StartTime start = new StartTime(startTime);
@@ -91,5 +99,30 @@ public class AddCommand extends Command {
     	return end.toString().equalsIgnoreCase(DEFAULT_DATE) || (start.startTime.compareTo(end.endTime) <= 0);
 
 	}
+    
+    /**
+     * 
+     * @param start
+     * @param end
+     * @return true if both start and end are after the current time
+     * @throws IllegalValueException 
+     */
+    private boolean taskTimeisAfterCurrentTime(String startTime, String endTime) throws IllegalValueException { 
+    	StartTime start = new StartTime(startTime);
+    	EndTime end = new EndTime(endTime);
+    	
+    	StartTime now = new StartTime("today");
+    	
+    	boolean startIsDefalut = start.toString().equalsIgnoreCase(DEFAULT_DATE);
+    	boolean endIsDefalut = end.toString().equalsIgnoreCase(DEFAULT_DATE);
+    	
+    	if(startIsDefalut && endIsDefalut)
+    		return true;
+    	else if(!startIsDefalut)
+    		return (start.startTime.compareTo(now.startTime) >= 0);
+    	else
+    		return (end.endTime.compareTo(now.startTime) >= 0);
+	}
+
 
 }
