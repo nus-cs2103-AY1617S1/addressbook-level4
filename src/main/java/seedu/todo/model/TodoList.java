@@ -29,7 +29,7 @@ import seedu.todo.storage.MoveableStorage;
  * interface for handling data and application state, this interface is internal 
  * to Model and represents only CRUD operations to the todolist. 
  */
-public class TodoList implements ImmutableTodoList, TodoListModel {
+public class TodoList implements TodoListModel {
     private static final String INCORRECT_FILE_FORMAT_FORMAT = "%s doesn't seem to be in the correct format.";
     private static final String FILE_NOT_FOUND_FORMAT = "%s does not seem to exist.";
     private static final String FILE_SAVE_ERROR_FORMAT = "Couldn't save file: %s";
@@ -43,9 +43,9 @@ public class TodoList implements ImmutableTodoList, TodoListModel {
 
     public TodoList(MoveableStorage<ImmutableTodoList> storage) {
         this.storage = storage;
-
+        
         try {
-            initTodoList(storage.read());
+            setTasks(storage.read().getTasks());
         } catch (FileNotFoundException | DataConversionException e) {
             logger.info("Data file not found. Will be starting with an empty TodoList");
         }
@@ -53,10 +53,6 @@ public class TodoList implements ImmutableTodoList, TodoListModel {
 
     private void raiseStorageEvent(String message, Exception e) {
         // TODO: Have this raise an event
-    }
-
-    private void initTodoList(ImmutableTodoList initialData) {
-        tasks.setAll(initialData.getTasks().stream().map(Task::new).collect(Collectors.toList()));
     }
     
     private void saveTodoList() {
@@ -121,13 +117,19 @@ public class TodoList implements ImmutableTodoList, TodoListModel {
     @Override
     public void load(String location) throws ValidationException {
         try {
-            initTodoList(storage.read(location));
+            setTasks(storage.read(location).getTasks());
         } catch (DataConversionException e) {
             throw new ValidationException(TodoList.INCORRECT_FILE_FORMAT_FORMAT);
         } catch (FileNotFoundException e) {
             String message = String.format(TodoList.FILE_NOT_FOUND_FORMAT, location);
             throw new ValidationException(message);
         }
+    }
+
+    @Override
+    public void setTasks(List<ImmutableTask> todoList) {
+        this.tasks.clear();
+        this.tasks.addAll(todoList.stream().map(Task::new).collect(Collectors.toList()));
     }
 
     @Override

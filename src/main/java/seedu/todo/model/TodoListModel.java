@@ -1,5 +1,6 @@
 package seedu.todo.model;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import javafx.collections.ObservableList;
@@ -9,7 +10,7 @@ import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 
-public interface TodoListModel {
+public interface TodoListModel extends ImmutableTodoList {
     /**
      * Adds a new task or event with title only to the todo list.
      *
@@ -68,6 +69,11 @@ public interface TodoListModel {
      * @throws ValidationException if the path or file is invalid
      */
     void load(String location) throws ValidationException;
+
+    /**
+     * Replaces the tasks in list with the one in the 
+     */
+    void setTasks(List<ImmutableTask> todoList);
 
     /**
      * Get an observable list of tasks. Used mainly by the JavaFX UI. 

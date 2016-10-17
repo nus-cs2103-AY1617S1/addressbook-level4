@@ -137,13 +137,45 @@ public class TodoModelTest {
 
     @Test
     public void testLoad() throws Exception {
+        model.add("Some task");
+        
         when(storageData.getTasks())
             .thenReturn(ImmutableList.of(new Task("Hello world")));
         when(storage.read("new location")).thenReturn(storageData);
 
         model.load("new location");
+        // Check that the task list has been replaced 
+        assertEquals(1, todolist.getTasks().size());
         assertEquals("Hello world", getTask(0).getTitle());
     }
+    
+    @Test
+    public void testUndo() throws Exception {
+        model.add("Test task 1");
+        model.add("Test task 2");
+        
+        // Undo add 
+        model.undo();
+        assertEquals(1, todolist.getTasks().size());
+        assertEquals("Test task 1", getTask(0).getTitle());
+        
+        // Undo edit 
+        model.update(1, t -> t.setTitle("New title"));
+        model.undo();
+        assertEquals("Test task 1", getTask(0).getTitle());
+        
+        // Undo delete
+        model.delete(1);
+        model.undo();
+        assertEquals(1, todolist.getTasks().size());
+    }
+    
+    @Test(expected = ValidationException.class)
+    public void testEmptyUndoStack() throws Exception {
+        model.undo();
+    }
+    
+    
 
     @Test
     public void testGetSaveLocation() throws Exception {

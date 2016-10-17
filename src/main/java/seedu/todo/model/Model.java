@@ -68,6 +68,18 @@ public interface Model {
     void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort);
 
     /**
+     * Undoes the last operation that modifies the todolist
+     * @throws ValidationException if there are no more changes to undo
+     */
+    void undo() throws ValidationException;
+
+    /**
+     * Redoes the last operation that was undone
+     * @throws ValidationException if there are no more changes to redo
+     */
+    void redo() throws ValidationException;
+    
+    /**
      * Changes the save path of the TodoList storage 
      * @throws ValidationException if the path is not valid
      */
