@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiPartLoader;
 
 public class TagList extends Component {
@@ -20,8 +21,7 @@ public class TagList extends Component {
     private static final String OVERDUE_ICON_PATH = "/images/icon-siren.png";
     private static final String EVENTS_LABEL = "Events";
     private static final String EVENTS_ICON_PATH = "/images/icon-calendar.png";
-    private static final String COMPLETED_LABEL = "Completed Tasks";
-    private static final String COMPLETED_ICON_PATH = "/images/icon-tick.png";
+
     private static final String TAG_LABEL = "Tags";
     
     // Props
@@ -60,10 +60,14 @@ public class TagList extends Component {
     }
     
     private void loadLinks() {
+        TodoListDB db = TodoListDB.getInstance();
+        
         TagListLink.reset(tagListLinksPlaceholder);
 
-        String[] linkLabels = { TASKS_LABEL, OVERDUE_LABEL, EVENTS_LABEL, COMPLETED_LABEL };
-        String[] linkIconPaths = { TASKS_ICON_PATH, OVERDUE_ICON_PATH, EVENTS_ICON_PATH, COMPLETED_ICON_PATH };
+        String[] linkLabels = { formatLink(TASKS_LABEL, db.countIncompleteTasks()), 
+                                formatLink(OVERDUE_LABEL, db.countOverdueTasks()), 
+                                formatLink(EVENTS_LABEL , db.countFutureEvents()) };
+        String[] linkIconPaths = { TASKS_ICON_PATH, OVERDUE_ICON_PATH, EVENTS_ICON_PATH };
 
         for (int i = 0; i < linkLabels.length; i++) {
             TagListLink link = TagListLink.load(primaryStage, tagListLinksPlaceholder);
@@ -81,6 +85,10 @@ public class TagList extends Component {
             item.tag = tag;
             item.render();
         }
+    }
+    
+    private String formatLink(String label, int total) {
+        return String.format("%s (%d)", label, total);
     }
 
 }
