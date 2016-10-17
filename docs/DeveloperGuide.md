@@ -23,8 +23,8 @@
     * [Continuous Integration](#continuous-integration)
     * [Making a Release](#making-a-release)
     * [Managing Dependencies](#managing-dependencies)
-* [Appendix A : User Stories](#appendix-a--user-stories)
-* [Appendix B : Use Cases](#appendix-b--use-cases)
+* [Appendix A: User Stories](#appendix-a--user-stories)
+* [Appendix B: Use Cases](#appendix-b--use-cases)
     * [Use case: Create new event](#use-case-create-new-event)
     * [Use case: List uncompleted tasks](#use-case-list-uncompleted-tasks)
     * [Use case: Update information of a task](#use-case-update-information-of-a-task)
@@ -34,9 +34,9 @@
     * [Use case: Find tasks using keywords](#use-case-find-tasks-using-keywords)
     * [Use case: Delete all data](#use-case-delete-all-data)
     * [Use case: Change data storage file location](#use-case-change-data-storage-file-location)
-* [Appendix C : Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D : Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e--product-survey)
+* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix E: Product Survey](#appendix-e--product-survey)
     * [Google Calendar](#google-calendar)
     * [Todoist](#todoist)
     * [Microsoft Outlook](#microsoft-outlook)
@@ -47,21 +47,24 @@
 TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events with options like deadline, recurrence, and tags. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
 
 This guide contains all necessary information for both new and experienced contributors to continue the development of TaSc. Each section provides an overview on a topic, which will then be explained in greater detail in the subsections. Each subsection is mostly self contained for ease of reference. Throughout your development of TaSc you may freely revisit the topics as and when you need to.
+<br><br>
 
 ## Setting up
 
 #### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later<br>
+a. **JDK `1.8.0_60`**  or later<br>
 
+    > **Note:**<br>
     > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
+    > This app will not work with earlier versions of Java 8.
 
-2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+b. **Eclipse** IDE
+c. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+d. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
+<br>
 
 #### Importing the project into Eclipse
 
@@ -78,6 +81,8 @@ This guide contains all necessary information for both new and experienced contr
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
+<br>
+
 #### Troubleshooting
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
@@ -86,16 +91,19 @@ This guide contains all necessary information for both new and experienced contr
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
 
 **Problem: Eclipse reports some required libraries missing**
-* Reason: Required libraries may not have been downloaded during the project import.
+* Reason: Required libraries may have not been downloaded during the project import.
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
+
+<br>
 
 ## Design
 
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
+*Figure 1: Architecture Diagram*
 
-The **_Architecture Diagram_** given above explains the high-level design of the App.
+The **_Architecture Diagram_** *(figure 1)* explains the high-level design of the App.
 A quick overview of each component is given below:
 
 `Main` has only one class called [`MainApp`](../src/main/java/teamfour/tasc/MainApp.java). It has two main responsibilities:
@@ -107,6 +115,7 @@ Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
+<br><br>
 
 The rest of the App consists four components.
 * [**`UI`**](#ui-component) : Allows users to interact with the program
@@ -117,68 +126,83 @@ The rest of the App consists four components.
 Each of the four components
 * Defines its _API_ in an `interface` with the same name.
 * Exposes its functionality using a `{Component Name}Manager` class.
+<br><br>
 
-For example, the **`Logic`** component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the **`Logic`** component (see the class diagram in *figure 2* below) defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
+*Figure 2: Class Diagram of Logic component*
+<br><br>
 
 The _Sequence Diagram_ below shows how the components interact when the user issues the
 command `delete 3`.
 
 <img src="images\SDforDeleteTask.png" width="800">
+*Figure 3: Sequence Diagram of user interaction*
 
->Note how the **`Model`** simply raises a `TaskListChangedEvent` when the TaSc data are changed,
+>Notice how the **`Model`** simply raises a `TaskListChangedEvent` when the TaSc data are changed,
  instead of asking the **`Storage`** to save the updates to the hard disk.
 
+<br><br>
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
+*Figure 4: Sequence Diagram of EventsCenter*
 
 > Note how the event is propagated through the `EventsCenter` to the **`Storage`** and **`UI`** without **`Model`** having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
-The sections below give more details of each component.
+The next sections give more details of each component.
+
+<br>
 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
+*Figure 5: Class Diagram of UI component*
 
 **API** : [`Ui.java`](../src/main/java/teamfour/tasc/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts, e.g. `CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and can be loaded using the `UiPartLoader`.
+*Figure 5* above shows the overview of the UI component. It consists of a `MainWindow` that is made up of parts, which includes `CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+which can be loaded using the `UiPartLoader`.
 
 The **`UI`** component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
+ which are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/teamfour/tasc/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
+<br>
+
 The **`UI`** component
-* Executes user commands using the **`Logic`** component.
-* Binds itself to some data in the **`Model`** so that the UI can auto-update when data in the **`Model`** change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+* executes user commands using the **`Logic`** component.
+* binds itself to some data in the **`Model`** so that the UI can auto-update when data in the **`Model`** change.
+* responds to events raised from various parts of the App and updates the UI accordingly.
 
 <img src="images/UiComponentParts.png" width="600"><br>
-Figure 1. UI component parts
+*Figure 6. UI component in the application's interface*
 
-Figure 1 shows where each `UiPart` is attached to the `MainWindow`. The `TaskListPanel` class shows the list of tasks. Each task is contained in a `TaskCard` object.
+*Figure 6* above shows where each `UiPart` is attached to the `MainWindow`. The `TaskListPanel` class shows the list of tasks, and each task is contained in a `TaskCard` object.
+<br><br>
 
 **`TaskCard` Class:**
 
  Each `TaskCard` is assigned a unique index in increasing order, which is used in other commands to specify a task, e.g. `delete 3` deletes the third item in the list.
+<br><br>
 
 **`HelpWindow` Class:**
 
-The `HelpWindow` is a window separate from the `MainWindow`. It shows our product's User Guide from *https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md*. Accessing this User Guide requires an active Internet connection.
+The `HelpWindow` is a window separate from the `MainWindow`. It shows our product's User Guide using a Web Browser which supports modern HTML and CSS.
 
+<br>
 
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
+*Figure 7: Class Diagram of Logic component*
 
 **API** : [`Logic.java`](../src/main/java/teamfour/tasc/logic/Logic.java)
 
@@ -186,11 +210,14 @@ The `HelpWindow` is a window separate from the `MainWindow`. It shows our produc
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the **`Model`** (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+<br><br>
 
-Given below is the Sequence Diagram for interactions within the **`Logic`** component for the `execute("delete 1")`
+Given below *(figure 8)* is the Sequence Diagram for interactions within the **`Logic`** component for the `execute("delete 1")`
  API call.<br>
 
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
+*Figure 8: Sequence Diagram for interactions in Logic*
+<br><br>
 
 **`Logic` Interface:**
 
@@ -202,25 +229,31 @@ Return type | Method and Description
 ----------- | ----------------------
 CommandResult() | `execute(String commandText)`: Identifies and executes the command found in the input string `commandText`.
 ObservableList() | `getFilteredTaskList()`: Retrieves the filtered task list from the **`Model`** component.
+<br>
 
 **`Logic Manager` Class:**
 
 The `Logic Manager` class implements the **`Logic`** interface, and provides all the services and functionality
 specifed in the **`Logic`** interface. It executes the command in the input string passed from the **`UI`** component. First, it passes the command string to the `Parser` class to get a `Command` object. Then, it executes the `Command` to produce a `CommandResult`. This `CommandResult` is then passed back to the **`UI`** component.
 
-Other components should reference this class indirectly by using the `Logic` interface. You should not directly use this class outside the **`Logic`** component
+Other components should reference this class indirectly by using the `Logic` interface. You should not directly use this class outside the **`Logic`** component.
+<br><br>
 
 **`Parser` Class:**
 
 The `Parser` class parses the given input string and returns the corresponding `Command`. It uses predefined keywords to identify which `Command` to return, and to extract the arguments relevant to the `Command`. `Parser` then calls the constructor for the identified `Command`, and passes in the extracted arguments.
+<br><br>
 
 **`Command` Class:**
 
 The `Command` class takes input arguments from the `Parser`class, and produces a `CommandResult` based on the input. There are multiple `Command` subclasses, which takes different input parameters and produces different `CommandResult`s. The **`Logic`** class executes `Command`s to change the data in **`Model`** according to the command type and input arguments.
 
+<br>
+
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
+*Figure 9: Class Diagram of Model component*
 
 **API** : [`Model.java`](../src/main/java/teamfour/tasc/model/Model.java)
 
@@ -231,8 +264,9 @@ The **`Model`**
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
     * However, other components are heavily dependent on this component.
+<br><br>
 
-****`Model`** Interface:**
+**`Model` Interface:**
 
 The **`Model`** interface allows you to request for any model-related operations, such as retrieving and modifying tasks
 in the task list, without having to know anything about the implementation of the `ModelManager` class.
@@ -247,6 +281,7 @@ void | `addTask(Task task)`: Adds a task to the list.
 void | `updateTask(ReadOnlyTask oldTask, Task newTask)`: Updates the details of the old task with the new task given.
 void | `deleteTask(ReadOnlyTask target)`: Deletes the `target` task.
 void | `resetTaskListFilter()`: Resets all filters that was used to view only a certain subset of the task list.
+<br>
 
 **`ModelManager` Class:**
 
@@ -255,27 +290,20 @@ specifed in the **`Model`** interface.
 
 Other components should reference this class indirectly by using the **`Model`** interface. You should not
 directly use this class outside the model component.
+<br><br>
 
-**`ReadOnlyTaskList` Interface:**
+**`ReadOnlyTaskList`, `ReadOnlyTask` Interfaces:**
 
-The `ReadOnlyTaskList` interface provides a read-only version of the task list. You can retrieve the tasks
+These interfaces allow you to retrieve tasks, but not modify them. You can retrieve the tasks
 and tags used in the entire task list.
+<br><br>
 
 **`TaskList` Class:**
 
 The `TaskList` class is responsible for maintaining the task list required by the program. You should not call
 any method of this class directly. Instead, you should request for retrieval and modification via the
 `ModelManager`. The `ModelManager` will return a `ReadOnlyTaskList` when requesting for tasks in the task list.
-
-**`UserPrefs` Class:**
-
-The `UserPrefs` class stores the program settings.
-
-> The program settings and user configuration settings are different.
-
-**`ReadOnlyTask` Inteface:**
-
-The `ReadOnlyTask` interface allows you to retrieve tasks, but not modify them.
+<br><br>
 
 **`Task` Class:**
 
@@ -285,6 +313,15 @@ For each individual detail, the class will always store a reference to an object
 if the detail for such task is blank (e.g. there is no deadline for a task), the reference to the
 details is **never `null`**. Instead, a `Deadline()` will be created to represent that there is no
 deadline for the task (usually, you would use `Deadline(Date date)` if the task has a deadline).
+<br><br>
+
+**`UserPrefs` Class:**
+
+The `UserPrefs` class stores the program settings.
+
+> **Note:** The program settings and user configuration settings are different.
+
+<br>
 
 **`Name`, `Complete`, `Deadline`, `Period`, `Recurrence`, `Tag` Classes:**
 
@@ -297,26 +334,28 @@ Methods | Description
 ------- | -----------
 Name(String name) | Name of the task
 Complete(boolean complete) | Completion status of the task
-Deadline() | There is no deadline for this task
-Deadline(Date date) | The deadline for the task is `date`
-Period() | There is no period for this task
-Period(Date startTime, Date endTime) | The time slot for the task is `startTime` to `endTime`
-Recurrence() | There is no recurrence for this task
-Recurrence(Pattern type, int frequency) | The task repeats for `frequency` times, in a daily, weekly or monthly fashion
+Deadline(Date date) | The deadline for the task is `date`<br>*(Omit `date` for no deadline)*
+Period(Date startTime, Date endTime) | The time slot for the task is `startTime` to `endTime`<br>*(Omit `startTime` and `endTime` for no period)*
+Recurrence(Pattern type, int frequency) | The task repeats for `frequency` times, in a daily, weekly or monthly fashion<br>*(Omit `type` and `frequency` for no deadline)*
 Tag(String name) | One of the tags for this task
+<br>
 
 **`UniqueTagList` Class:**
 
 The `UniqueTagList` class stores the unique tag list for a task. It is guaranteed that there will
 be no duplicate tags in the list.
+<br><br>
 
 **`UniqueTaskList` Class:**
 
 The `UniqueTaskList` class provides a task list with no duplicate tasks.
 
+<br>
+
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
+*Figure 10: Class Diagram of Storage component*
 
 **API** : [`Storage.java`](../src/main/java/teamfour/tasc/storage/Storage.java)
 
@@ -324,8 +363,9 @@ The **`Storage`** component
 * Saves `UserPref` objects in json format and read it back.
 * Saves the task list data in xml format and read it back.
 * Depends on the **`Model`** component, but the **`Logic`** and **`UI`** components depend on it.
+<br><br>
 
-****`Storage`** Interface:**
+**`Storage` Interface:**
 
 The **`Storage`** interface allows you to request for any storage-related operations, such as reading and saving the user's preferences and tasklist.
 
@@ -337,6 +377,7 @@ Optional<`UserPrefs`> | `readUserPrefs()`: Reads User's Preferences.
 void | `saveUserPrefs(UserPrefs userPrefs)`: Saves User's Preferences.
 Optional<`ReadOnlyTaskList`> | `readTaskList()`: Reads the tasklist.
 void | `saveTaskList(ReadOnlyTaskList taskList)`: Saves the tasklist.
+<br>
 
 **`StorageManager` Class:**
 
@@ -345,22 +386,29 @@ specified in the **`Storage`** interface.
 
 Other components should reference this class indirectly by using the **`Storage`** interface. You should not
 directly use this class outside the **`Storage`** component.
+<br><br>
 
-**`TaskListStorage` , `UserPrefsStorage` Interface:**
+**`TaskListStorage` , `UserPrefsStorage` Interfaces:**
 
 Represent the storage for `TaskList` and `UserPrefs`.
+<br><br>
 
 **`JsonUserPrefsStorage` Class:**
 
 The `JsonUserPrefsStorage` class is provided for accessing `UserPrefs` stored in the hard disk as a json file.
+<br><br>
 
 **`XmlAdaptedTag` , `XmlAdaptedTask`, `XmlFileStorage`, `XmlSerializableTaskList`, `XmlTaskListStorage` Class:**
 
 JAXB-friendly adapted version of the `Tag` and `Task` and Task Lists.
 
+<br>
+
 ### Common classes
 
 Classes used by multiple components are in the `teamfour.tasc.commons` package.
+
+<br>
 
 ## Implementation
 
@@ -382,25 +430,30 @@ and logging destinations.
 * `INFO` : Information showing noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
+<br><br>
 
 ### Configuration
 
 You can control certain properties of the application (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
+<br>
 
 ## Testing
 
 You can find the tests in the `./src/test/java` folder.
 
 **In Eclipse**:
-> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
-  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
+<br><br>
+
+> **Note:**<br>
+> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
+> as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 **Using Gradle**:
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
@@ -419,6 +472,7 @@ We have two types of tests:
    3. Hybrids of unit and integration tests. These tests check multiple code units as well as
       how the are connected together.<br>
       e.g. `teamfour.tasc.logic.LogicManagerTest`
+<br><br>
 
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -426,6 +480,8 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  In headless mode, GUI tests do not show up on the screen.
  That means you can do other things on the computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+
+<br>
 
 ## Dev Ops
 
@@ -456,7 +512,9 @@ is better than these alternatives:<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-## Appendix A : User Stories
+<br>
+
+## Appendix A: User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -490,8 +548,9 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | User | See all free time within a time range | Easily schedule other tasks/events into a free time
 `*` | User | See keyword and tag suggestions as I type | Save time by typing the correct command which yields the results I want
 
+<br>
 
-## Appendix B : Use Cases
+## Appendix B: Use Cases
 
 (For all use cases below, the **System** is the `TaSc` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -521,6 +580,8 @@ Use case ends
 >     * 2b2ii. User requests to retype timing<br>
 >           * Use case resumes at step 2a3
 
+<br>
+
 #### Use case: List uncompleted tasks
 
 **MSS:**
@@ -534,6 +595,8 @@ Use case ends
 1a. The list is empty
 > 1a1. Program shows a notice message<br>
   Use case ends
+
+<br>
 
 #### Use case: Update information of a task
 
@@ -549,6 +612,8 @@ Use case ends
 > 1a1. Program shows an error message<br>
   Use case ends
 
+<br>
+
 #### Use case: Delete a task
 
 **MSS:**
@@ -562,6 +627,8 @@ Use case ends
 1a. The given index is invalid
 > 1a1. Program shows an error message<br>
   Use case ends
+
+<br>
 
 #### Use case: Mark a task as completed
 
@@ -581,6 +648,8 @@ Use case ends
 > 1b1. Program returns error message<br>
   Use case ends.
 
+<br>
+
 #### Use case: Show all tasks with given conditions
 
 **MSS:**
@@ -594,6 +663,8 @@ Use case ends
 1a. The list is empty
 > 1a1. Program shows a notice message<br>
   Use case ends
+
+<br>
 
 #### Use case: Find tasks using keywords
 
@@ -609,6 +680,8 @@ Use case ends
 > 1a1. Program shows a notice message<br>
   Use case ends
 
+<br>
+
 #### Use case: Delete all data
 
 **MSS:**
@@ -622,6 +695,8 @@ Use case ends
 
 2a. User declines the confirmation
 > Use case ends
+
+<br>
 
 #### Use case: Change data storage file location
 
@@ -644,7 +719,9 @@ Use case ends
 > 2a2. Program deletes the data file from the previous location<br>
   Use case ends
 
-## Appendix C : Non Functional Requirements
+<br>
+
+## Appendix C: Non Functional Requirements
 
 1. The application should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. The application should come with automated unit tests and open source code.
@@ -663,7 +740,9 @@ Use case ends
 14. The application should provide help when the user enters an invalid command.
 15. The data storage file should be in a human-readable and editable format.
 
-## Appendix D : Glossary
+<br>
+
+## Appendix D: Glossary
 
 **Command:** A keyword that the program understands, to allow user to tell the program to execute a certain action.
 
@@ -683,7 +762,9 @@ Use case ends
 
 **Tag:** Classification of a task (can also be used for prioritizing tasks)
 
-## Appendix E : Product Survey
+<br>
+
+## Appendix E: Product Survey
 
 This section indicates the strengths and weaknesses of our competitors’ products with regards to their capability in catering to Jim’s requirements.
 
@@ -717,6 +798,7 @@ Weaknesses:
 Summary:
 
 The calendar view is a useful feature to help users visualize their schedules. On the other hand, the lack of ability to add floating tasks may cause inconvenience to users.
+<br><br>
 
 #### Todoist
 
@@ -742,6 +824,7 @@ Weaknesses:
 Summary:
 
 Does not store completed tasks, and still requires mouse for most actions
+<br><br>
 
 #### Microsoft Outlook
 
@@ -775,6 +858,7 @@ Summary:
 
 While it provides recurring features, and seperates tasks and events, tasks are not shown on the calendar view, which
 makes it hard to visualise the due dates of the tasks. The use of mouse is required for some features.
+<br><br>
 
 #### iCalendar
 
@@ -804,4 +888,4 @@ Weaknesses:
 
 Summary:
 
-It is designed very user-friendly, and since it is supported by other powerful modules of Apple, it has relatively complete features and functionalities. However, it could be better if further details of tasks and events are supported.
+Its design is very user-friendly. Since it is supported by other powerful modules by Apple, it has relatively complete features and functionalities. However, it would be better if further details of tasks and events are supported.
