@@ -14,3 +14,17 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+.split-pane > .split-pane-divider {  
+    -fx-padding: 0 0 0 0;  
+} 
+
+.list-view .list-cell:even {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+}
+
+.list-view .list-cell:odd {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+}
