@@ -29,7 +29,7 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
+        storageManager = new StorageManager(getTempFilePath("tb"), getTempFilePath("prefs"));
     }
 
 
@@ -88,7 +88,7 @@ public class StorageManagerTest {
 
         @Override
         public void saveTaskBook(ReadOnlyTaskBook taskBook, String filePath) throws IOException {
-            throw new IOException("dummy exception");
+            throw new IOException("dummy exception; this is expected on save");
         }
     }
 

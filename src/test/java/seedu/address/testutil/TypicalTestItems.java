@@ -18,7 +18,7 @@ public class TypicalTestItems {
             bags    = new ItemBuilder().withDescription("Pack bag with the thing that I always need to bring").build();
             cs2103  = new ItemBuilder().withDescription("Finish my CS2103 homework").build();
             dover   = new ItemBuilder().withDescription("Dover Road").build();
-            eating  = new ItemBuilder().withDescription("eat a child").build();
+            eating  = new ItemBuilder().withDescription("eat 1 child").build();
             frolick = new ItemBuilder().withDescription("frolick in the grass").build();
             grass   = new ItemBuilder().withDescription("You are allergic to grass").build();
             //Manually added

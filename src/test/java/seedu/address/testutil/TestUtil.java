@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 public class TestUtil {
 
     public static String LS = System.lineSeparator();
-
+    
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
             executable.run();
@@ -66,9 +66,9 @@ public class TestUtil {
         try {
             return new Item[]{
                     new Item(new Description("go to the doctor")),
-                    new Item(new Description("Read \"To Kill A Mockingbird\"")),
-                    new Item(new Description("Eat vegetables, drink wine")),
-                    new Item(new Description("59106810293?"))
+                    new Item(new Description("Read a book")),
+                    new Item(new Description("Eat vegetables and drink wine")),
+                    new Item(new Description("59106810293"))
             };
         } catch (IllegalValueException e) {
             assert false;
