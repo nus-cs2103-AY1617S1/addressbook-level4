@@ -167,7 +167,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
 
-    public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+/*    public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
         if (deadlines.remove(key)) {
             return true;
         } else {
@@ -181,7 +181,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         } else {
             throw new UniqueTaskList.PersonNotFoundException();
         }
-    }
+    }*/
     
     public boolean changePerson(ReadOnlyTask target, String args, char category) throws PersonNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
