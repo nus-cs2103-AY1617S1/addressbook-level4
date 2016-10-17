@@ -21,7 +21,6 @@ public class DateTime {
                     + "(:(?<minute>([0-5][0-9])))?");                       //Minute regex
     
     public final String value;
-//    public final LocalDateTime valueDateTime;
     public final LocalDate valueDate;
     public final LocalTime valueTime;
 
@@ -42,12 +41,12 @@ public class DateTime {
         final String year = matcher.group("year");
         final String hour = matcher.group("hour");
         final String minute = matcher.group("minute");
-        this.value = dateTime;
+        
         
         if(dateTime.equals("")){            //Constructing an empty DateTime object 
-//            this.valueDateTime = null;
             this.valueDate = null;
             this.valueTime = null;
+            this.value = "";
             
         }else if(!dateTime.contains(":")){           //Constructing a DateTime object with Date only
             int yearParsed = Integer.parseInt(year);
@@ -55,9 +54,10 @@ public class DateTime {
             int dayParsed = Integer.parseInt(day);
             this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
             
-//            this.valueDateTime = null;
             this.valueTime = null;
             
+//            this.value = day + " " + returnMonthInWords(monthParsed) + " " + year;
+          this.value = dateTime;  
         } else {                                    //Constructing a DateTime object with Date and time
             int yearParsed = Integer.parseInt(year);
             int monthParsed = Integer.parseInt(month);
@@ -67,15 +67,14 @@ public class DateTime {
             int hourParsed = Integer.parseInt(hour);
             int minuteParsed = Integer.parseInt(minute);
             this.valueTime = LocalTime.of(hourParsed, minuteParsed);
-        
-//            this.valueDateTime = LocalDateTime.of(this.valueDate, this.valueTime);
+/*            
+            this.value = day + " " + returnMonthInWords(monthParsed) +  " " 
+                    + year + " " + hour + ":" + minute;
+*/        this.value = dateTime;
         }
+        
     }
-/*
-    private static boolean isValidDateTime(String test) {
-        return test.matches(DATETIME_VALIDATION_REGEX);
-    }
-*/
+   
     @Override
     public String toString() {
         return value;
@@ -92,5 +91,51 @@ public class DateTime {
     public int hashCode() {
         return value.hashCode();
     }
-
+    
+    private String returnMonthInWords(int monthParsed){
+        String monthInWords;
+        
+        switch(monthParsed){
+            case 1:
+                monthInWords = "Jan";
+                break;
+            case 2:
+                monthInWords = "Feb";
+                break;
+            case 3:
+                monthInWords = "Mar";
+                break;
+            case 4:
+                monthInWords = "Apr";
+                break;
+            case 5:
+                monthInWords = "May";
+                break;
+            case 6:
+                monthInWords = "Jun";
+                break;
+            case 7:
+                monthInWords = "Jul";
+                break;
+            case 8:
+                monthInWords = "Aug";
+                break;
+            case 9:
+                monthInWords = "Sep";
+                break;
+            case 10:
+                monthInWords = "Oct";
+                break;
+            case 11:
+                monthInWords = "Nov";
+                break;
+            case 12:
+                monthInWords = "Dec";
+                break;             
+            default: monthInWords = "Invalid month";
+        }
+        
+        return monthInWords;
+    }
+    
 }
