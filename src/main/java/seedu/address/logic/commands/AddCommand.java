@@ -35,7 +35,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Simply";
 
     private final Task toAdd;
-    private int taskCategory = 0;
 
     /**
      * Convenience constructor using raw values.
@@ -56,7 +55,6 @@ public class AddCommand extends Command {
                 1,
                 new UniqueTagList(tagSet)
         );
-        taskCategory = 1;
     }   
 
     public AddCommand(String name, String date, String end, Set<String> tags) //deadline
@@ -73,7 +71,6 @@ public class AddCommand extends Command {
                 2,
                 new UniqueTagList(tagSet)
         );
-        taskCategory = 2;
     }
     
     public AddCommand(String name, Set<String> tags) //todos
@@ -90,7 +87,6 @@ public class AddCommand extends Command {
                 3,
                 new UniqueTagList(tagSet)
         );
-        taskCategory = 3;
     }
 
     @Override
@@ -98,9 +94,9 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            if (taskCategory ==1) 
+            if (toAdd.getTaskCategory() == 1) 
             	return new CommandResult(String.format(EVENT_SUCCESS, toAdd));
-            else if (taskCategory ==2)
+            else if (toAdd.getTaskCategory() == 2)
             	return new CommandResult(String.format(DEADLINE_SUCCESS, toAdd));
             else
             	return new CommandResult(String.format(TODO_SUCCESS, toAdd));
