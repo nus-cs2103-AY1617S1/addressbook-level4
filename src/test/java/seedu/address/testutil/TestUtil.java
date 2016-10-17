@@ -18,7 +18,7 @@ import jym.manager.model.TaskManager;
 import jym.manager.model.tag.Tag;
 import jym.manager.model.tag.UniqueTagList;
 import jym.manager.model.task.*;
-import jym.manager.storage.XmlSerializableAddressBook;
+import jym.manager.storage.XmlSerializableTaskManager;
 
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
@@ -141,8 +141,8 @@ public class TestUtil {
         return new TaskManager(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskManager generateSampleStorageAddressBook() {
+        return new XmlSerializableTaskManager(generateEmptyAddressBook());
     }
 
     /**

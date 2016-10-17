@@ -11,7 +11,7 @@ import jym.manager.commons.core.Config;
 import jym.manager.commons.core.GuiSettings;
 import jym.manager.model.ReadOnlyTaskManager;
 import jym.manager.model.UserPrefs;
-import jym.manager.storage.XmlSerializableAddressBook;
+import jym.manager.storage.XmlSerializableTaskManager;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -37,7 +37,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableTaskManager(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
