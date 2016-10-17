@@ -93,6 +93,10 @@ public class Task implements ReadOnlyTask {
 	public void markAsComplete() {
 		isComplete = true;
 	}
+	
+    public void markAsIncomplete() {
+        isComplete = false;
+    }
 
 	public EndTime getEndTime(){
 		return endTime;
@@ -145,5 +149,4 @@ public class Task implements ReadOnlyTask {
 	public String toString() {
 		return getAsText();
 	}
-
 }

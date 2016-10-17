@@ -23,7 +23,7 @@ public class UpdateCommandTest extends TaskListGuiTest {
 
         //updating a non-existing task
         commandBox.runCommand("update 20 Buy eggs");
-        assertResultMessage(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 
         //updating all information for a task
         commandBox.runCommand("update 1 Attend yoga session from 2pm to 4pm p/high");

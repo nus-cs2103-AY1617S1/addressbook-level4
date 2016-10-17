@@ -6,13 +6,20 @@ import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
+import seedu.tasklist.logic.commands.UndoCommand;
+import seedu.tasklist.model.tag.UniqueTagList;
+import seedu.tasklist.model.task.EndTime;
+import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.ReadOnlyTask;
+import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.Task;
+import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -20,14 +27,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Represents the in-memory model of the task list data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the task list data. All changes to any
+ * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
-	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-	private final TaskList taskList;
-	private final FilteredList<Task> filteredTasks;
+    public static LinkedList<UndoInfo> undoStack = new LinkedList<UndoInfo>();
+    public static LinkedList<UndoInfo> redoStack = new LinkedList<UndoInfo>();
+
+    private final TaskList taskList;
+    private final FilteredList<Task> filteredTasks;
 
 	/**
 	 * Initializes a ModelManager with the given TaskList
@@ -42,7 +52,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 		taskList = new TaskList(src);
 		filteredTasks = new FilteredList<>(taskList.getTasks());
-
 	}
 
 	public ModelManager() {
@@ -56,7 +65,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void resetData(ReadOnlyTaskList newData) {
-
 		taskList.resetData(newData);
 		indicateTaskListChanged();
 	}
@@ -70,6 +78,13 @@ public class ModelManager extends ComponentManager implements Model {
 	private void indicateTaskListChanged() {
 		raise(new TaskListChangedEvent(taskList));
 	}
+	
+    @Override
+    public void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException {
+        taskList.removeTask(target);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+    }
 
 	@Override
 	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
@@ -87,6 +102,7 @@ public class ModelManager extends ComponentManager implements Model {
 		taskList.removeTask(target);
 		updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
+		addToUndoStack(UndoCommand.DEL_CMD_ID, (Task) target);
 	}
 
 	@Override
@@ -104,7 +120,32 @@ public class ModelManager extends ComponentManager implements Model {
 		taskList.addTask(task);
 		updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
+		addToUndoStack(UndoCommand.ADD_CMD_ID, task);
 	}
+
+    @Override
+    public void addTaskUndo(Task task) throws UniqueTaskList.DuplicateTaskException {
+        taskList.addTask(task);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+    }
+    
+    @Override
+    public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime,
+            EndTime endTime, Priority priority, UniqueTagList tags) throws UniqueTaskList.DuplicateTaskException {
+        Task originalTask = new Task(taskToUpdate);
+        taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+        addToUndoStack(UndoCommand.UPD_CMD_ID, taskToUpdate, originalTask);
+    }
+
+    @Override
+    public void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) throws UniqueTaskList.DuplicateTaskException {
+        taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+    }
 
 	@Override
 	public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
@@ -121,8 +162,26 @@ public class ModelManager extends ComponentManager implements Model {
 		taskList.markTaskAsComplete(task);
 		updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
+		addToUndoStack(UndoCommand.DONE_CMD_ID, (Task) task);
 	}
 
+
+    @Override
+    public synchronized void markTaskAsIncomplete(ReadOnlyTask task) throws TaskNotFoundException {
+        taskList.markTaskAsIncomplete(task);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+    }
+    
+
+    private void addToUndoStack(int undoID, Task... tasks) {
+        if (undoStack.size() == 3) {
+            undoStack.remove(undoStack.size() - 1);
+        }
+        UndoInfo undoInfo = new UndoInfo(undoID, tasks);
+        undoStack.push(undoInfo);
+    }
+    
 	//=========== Filtered Person List Accessors ===============================================================
 
 	@Override
@@ -283,10 +342,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyTask person) {
-			//            return nameKeyWords.stream()
-			//                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
-			//                    .findAny()
-			//                    .isPresent();
 			Matcher matcher = NAME_QUERY.matcher(person.getTaskDetails().taskDetails);
 			return matcher.matches() && !person.isComplete();
 		}

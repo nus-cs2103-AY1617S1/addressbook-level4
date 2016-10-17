@@ -9,6 +9,9 @@ import java.util.regex.Pattern;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.*;
+import seedu.tasklist.model.tag.Tag;
+import seedu.tasklist.model.tag.UniqueTagList;
+import seedu.tasklist.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * Parses user input.
@@ -80,6 +83,9 @@ public class Parser {
         
         case ShowCommand.COMMAND_WORD:
         	return prepareShow(arguments);
+        	
+        case UndoCommand.COMMAND_WORD:
+            return prepareUndo();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -90,6 +96,10 @@ public class Parser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    private Command prepareUndo() {
+        return new UndoCommand();
     }
 
     private Command prepareUpdate(String args) {
@@ -103,14 +113,35 @@ public class Parser {
             String startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             String endTime = (matcher.group("end") == null) ? null : matcher.group("end");
             String priority = (matcher.group("priority") == null) ? null : matcher.group("priority");
+            UniqueTagList utags = null;
+            try {
+                utags = new UniqueTagList(new Tag("Hi"));
+            } catch (DuplicateTagException e) {
+                e.printStackTrace();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
             
             try {
-                return new UpdateCommand(targetIndex, taskDetails, startTime, endTime, priority);
+                return new UpdateCommand(targetIndex, taskDetails, startTime, endTime, priority, utags);
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
         }
 
+    }
+
+    private Tag[] getTags(String[] tagList) {
+        Tag[] tags = new Tag[tagList.length];
+        for(int i=0; i<tagList.length; i++){
+            try {
+                tags[i] = new Tag(tagList[i]);
+            } 
+            catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+        }
+        return tags;
     }
 
     private Command prepareDone(String args) {
