@@ -166,7 +166,11 @@ public class CommandParser {
         String endDate = null;
         String rate = null;
         String timePeriod = null;
-        String priority = null;  
+        String priority = null;
+        
+        boolean isTwoKeywordsOrMore = false;
+        String startOfRegex = null;
+        String regexCopy = null;
         
         Pattern pattern = Pattern.compile(REGEX_ADDITIONAL_KEYWORD);
         Matcher matcher = pattern.matcher(argsTrimmed);
@@ -184,8 +188,10 @@ public class CommandParser {
                         + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
                 matcher = pattern.matcher(argsTrimmed);
             } else if (numberOfKeywords == 1) {
-                pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_CLOSE_BRACE +
-                        REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
+                startOfRegex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
+                regexCopy = startOfRegex;
+                regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
+                pattern = Pattern.compile(regexCopy);
                 matcher = pattern.matcher(argsTrimmed);
                 validateMatcherMatches(matcher);
             
@@ -198,109 +204,75 @@ public class CommandParser {
                         endDate != null && !DateTime.isValidDate(endDate)) {
                     startDate = null;
                     endDate = null;
-                    pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_KEYWORD_GREEDY_SELECT + 
-                            REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
-                    matcher = pattern.matcher(argsTrimmed);
-                } 
-            } else if (numberOfKeywords == 2) {
-                pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_CLOSE_BRACE +
-                        REGEX_FIRST_DATE + REGEX_SECOND_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
-                matcher = pattern.matcher(argsTrimmed);
-                validateMatcherMatches(matcher);
-            
-                startDate = validateStartDateFormatsOneToThree(matcher); 
-                if (startDate == null) {
-                    endDate = validateEndDateFormatsOneToThree(matcher); 
-                }
-                
-                boolean isValidEndDate = true;
-                
-                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    isValidEndDate = false;
-                    startDate = null;
-                    endDate = null;
-                    pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_KEYWORD_GREEDY_SELECT +
-                            REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
-                    matcher = pattern.matcher(argsTrimmed);
-
-                    validateMatcherMatches(matcher);
-                    
-                    startDate = validateStartDateFormatsOneToThree(matcher); 
-                    if (startDate == null) {
-                        endDate = validateEndDateFormatsOneToThree(matcher); 
-                    }
-                }
-                
-                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    startDate = null;
-                    endDate = null;
-                    pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_KEYWORD_GREEDY_SELECT + 
-                            REGEX_KEYWORD_GREEDY_SELECT + REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
-                    matcher = pattern.matcher(argsTrimmed);
-                }
-                
-                if (isValidEndDate) {
-                    endDate = validateEndDateFormatsFourToSix(matcher); 
-                }
-            } else if (numberOfKeywords > 2) {
-                int numberOfAdditionalKeywords = numberOfKeywords - 2;
-                String startOfRegex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
-                for (int i = 0; i < numberOfAdditionalKeywords; i++) {
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                }
-                String regexCopy = startOfRegex;
-                regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_SECOND_DATE + 
-                        REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-               
-                pattern = Pattern.compile(regexCopy);
-                matcher = pattern.matcher(argsTrimmed);
-
-                validateMatcherMatches(matcher);
-            
-                startDate = validateStartDateFormatsOneToThree(matcher); 
-                if (startDate == null) {
-                    endDate = validateEndDateFormatsOneToThree(matcher); 
-                }
-                
-                boolean isValidEndDate = true;
-
-                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    isValidEndDate = false;
-                    startDate = null;
-                    endDate = null;
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                    regexCopy = startOfRegex;
-                    regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-                    pattern = Pattern.compile(regexCopy);
-                    matcher = pattern.matcher(argsTrimmed);
-
-                    validateMatcherMatches(matcher);
-                    
-                    startDate = validateStartDateFormatsOneToThree(matcher); 
-                    if (startDate == null) {
-                        endDate = validateEndDateFormatsOneToThree(matcher); 
-                    }
-                }
-                
-                // second keyword is part of the name
-                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    startDate = null;
-                    endDate = null;
                     startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
                     regexCopy = startOfRegex;
                     regexCopy += REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
                     pattern = Pattern.compile(regexCopy);
                     matcher = pattern.matcher(argsTrimmed);
+                } 
+            } else if (numberOfKeywords == 2) {
+                isTwoKeywordsOrMore = true;
+                startOfRegex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
+                
+            } else if (numberOfKeywords > 2) {
+                isTwoKeywordsOrMore = true;
+                int numberOfAdditionalKeywords = numberOfKeywords - 2;
+                startOfRegex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
+                for (int i = 0; i < numberOfAdditionalKeywords; i++) {
+                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
+                }
+            } 
+            
+            if (isTwoKeywordsOrMore) {
+                assert regexCopy != null && startOfRegex != null;
+                
+                regexCopy = startOfRegex;
+                regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_SECOND_DATE + 
+                REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
+                
+                pattern = Pattern.compile(regexCopy);
+                matcher = pattern.matcher(argsTrimmed);
+                validateMatcherMatches(matcher);
+            
+                startDate = validateStartDateFormatsOneToThree(matcher); 
+                if (startDate == null) {
+                    endDate = validateEndDateFormatsOneToThree(matcher); 
+                }
+                
+                boolean isValidEndDate = true;
+                
+                for (int i = 0; i < 2; i++) {
+                    if ((startDate != null && !DateTime.isValidDate(startDate)) || 
+                    endDate != null && !DateTime.isValidDate(endDate)) {
+                        if (i == 0) {
+                            startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
+                            regexCopy = startOfRegex;
+                            regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
+                            pattern = Pattern.compile(regexCopy);
+                            matcher = pattern.matcher(argsTrimmed);
+                            validateMatcherMatches(matcher);
+
+                            startDate = validateStartDateFormatsOneToThree(matcher); 
+                            if (startDate == null) {
+                                endDate = validateEndDateFormatsOneToThree(matcher); 
+                            }
+                        } else if (i == 1) {
+                            startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
+                            regexCopy = startOfRegex;
+                            regexCopy += REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
+                            pattern = Pattern.compile(regexCopy);
+                            matcher = pattern.matcher(argsTrimmed);
+                        }
+                        isValidEndDate = false;
+                        startDate = null;
+                        endDate = null;
+                    }
                 }
                 
                 if (isValidEndDate) {
                     endDate = validateEndDateFormatsFourToSix(matcher); 
                 }
-            } 
+            }
             
             validateMatcherMatches(matcher);
             
