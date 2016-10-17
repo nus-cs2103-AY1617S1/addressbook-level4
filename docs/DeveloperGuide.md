@@ -266,7 +266,7 @@ The **`Model`**
     * However, other components are heavily dependent on this component.
 <br><br>
 
-****`Model`** Interface:**
+**`Model` Interface:**
 
 The **`Model`** interface allows you to request for any model-related operations, such as retrieving and modifying tasks
 in the task list, without having to know anything about the implementation of the `ModelManager` class.
