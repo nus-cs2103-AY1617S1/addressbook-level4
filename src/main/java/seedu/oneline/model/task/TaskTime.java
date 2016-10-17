@@ -77,7 +77,12 @@ public class TaskTime implements Comparable<TaskTime> {
      */
     private boolean dateHasPassed(Date d){
         Calendar dCal = DateUtils.toCalendar(d);
-
+        
+        if (dCal.get(Calendar.DATE) == timeOfCreation.get(Calendar.DATE) 
+                && dCal.get(Calendar.MONTH) == timeOfCreation.get(Calendar.MONTH)){
+            return false;
+        }
+        
         return dCal.before(timeOfCreation);
     }
 
