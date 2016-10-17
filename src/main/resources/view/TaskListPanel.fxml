@@ -12,9 +12,9 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <SplitPane dividerPositions="0.7405405405405405" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.7488" VBox.vgrow="ALWAYS">
         <items>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: FFFFF;">
               <items>
                     <ListView fx:id="taskListView" />
                     <ListView fx:id="eventListView" />

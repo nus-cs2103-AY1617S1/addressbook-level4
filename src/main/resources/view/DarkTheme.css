@@ -81,9 +81,7 @@
 }
 
 .split-pane {
-    -fx-border-radius: 1;
-    -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: gray;
 }
 
 .list-cell {
@@ -122,7 +120,7 @@
 }
 
 .result-display {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white;
 }
 
 .result-display .label {
@@ -162,13 +160,13 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: white;
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 0.9;
 }
 
@@ -285,4 +283,21 @@
 
 #filterField, #taskListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+
+}
+
+#taskList {
+     -fx-background-color: white;
+}
+
+#taskListView {
+	-fx-background-color: white;
+}
+
+#floatingTaskListView {
+	-fx-background-color: white;
+}
+
+#eventListView {
+	-fx-background-color: white;
 }
