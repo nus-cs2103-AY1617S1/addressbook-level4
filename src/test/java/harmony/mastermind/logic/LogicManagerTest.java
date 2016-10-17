@@ -279,6 +279,14 @@ public class LogicManagerTest {
                 + "==================",       
                 expectedTM,
                 expectedList);
+        
+        assertCommandBehavior("redo",
+                "Redo successfully.\n"
+                + "=====Redo Details=====\n"
+                + "[Redo Mark Command] task Tags: [tag1],[tag2] has been archived\n"
+                + "==================",       
+                model.getTaskManager(),
+                model.getListToMark());
     }
     
     @Test
@@ -300,6 +308,14 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Unmark Command] task Tags: [tag1],[tag2] has been archived\n"
+                + "==================",       
+                model.getTaskManager(),
+                model.getListToMark());
+        
+        assertCommandBehavior("redo",
+                "Redo successfully.\n"
+                + "=====Redo Details=====\n"
+                + "task Tags: [tag1],[tag2] has been unmarked\n"
                 + "==================",       
                 model.getTaskManager(),
                 model.getListToMark());

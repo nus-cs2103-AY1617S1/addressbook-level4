@@ -43,27 +43,29 @@ public class MarkCommand extends Command implements Undoable, Redoable {
     public CommandResult execute() {
         try {
             executeMark();
-            
+
             model.pushToUndoHistory(this);
-            
+
             model.clearRedoHistory();
-            
+
             return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark));
         } catch (TaskAlreadyMarkedException ex) {
             return new CommandResult(String.format(MESSAGE_MARKED_TASK, taskToMark));
         } catch (IndexOutOfBoundsException ex) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        } catch (TaskNotFoundException pnfe) {
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
 
     }
 
     @Override
-    //@@author A0138862W
+    // @@author A0138862W
     public CommandResult undo() {
         try {
             // remove the task that's previously added.
             model.unmarkTask(taskToMark);
-            
+
             model.pushToRedoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, taskToMark));
@@ -75,22 +77,24 @@ public class MarkCommand extends Command implements Undoable, Redoable {
     }
 
     @Override
-    //@@author A0138862W
+    // @@author A0138862W
     public CommandResult redo() {
         try {
             executeMark();
-            
+
             model.pushToUndoHistory(this);
-            
+
             return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, taskToMark));
         } catch (TaskAlreadyMarkedException ex) {
             return new CommandResult(String.format(MESSAGE_MARKED_TASK, taskToMark));
         } catch (IndexOutOfBoundsException ex) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        } catch (TaskNotFoundException pnfe) {
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
     }
 
-    private void executeMark() throws TaskAlreadyMarkedException, IndexOutOfBoundsException {
+    private void executeMark() throws TaskAlreadyMarkedException, IndexOutOfBoundsException, TaskNotFoundException {
         ObservableList<Task> lastShownList = model.getListToMark();
 
         if (lastShownList.size() < targetIndex) {
@@ -107,10 +111,6 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             throw new TaskAlreadyMarkedException();
         }
 
-        try {
-            model.markTask(taskToMark);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
+        model.markTask(taskToMark);
     }
 }

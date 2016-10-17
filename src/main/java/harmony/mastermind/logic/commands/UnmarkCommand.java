@@ -66,6 +66,8 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
         try {
             // remove the task that's previously added.
             model.markTask((Task) taskToUnmark);
+            
+            model.pushToRedoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, taskToUnmark));
         } catch (UniqueTaskList.TaskNotFoundException e) {
