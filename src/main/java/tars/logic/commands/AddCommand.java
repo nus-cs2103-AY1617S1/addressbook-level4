@@ -1,6 +1,8 @@
 package tars.logic.commands;
 
+import tars.commons.core.EventsCenter;
 import tars.commons.core.Messages;
+import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.task.*;
@@ -19,7 +21,7 @@ import java.util.Set;
  */
 public class AddCommand extends UndoableCommand {
 
-	public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to tars. "
             + "Parameters: NAME [-dt DATETIME] [-p PRIORITY] [-t TAG]...\n"
@@ -31,7 +33,7 @@ public class AddCommand extends UndoableCommand {
     public static final String MESSAGE_REDO = "Added %1$s";
 
     private final Task toAdd;
-    
+
     /**
      * Convenience constructor using raw values.
      *
@@ -45,14 +47,14 @@ public class AddCommand extends UndoableCommand {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
+
         this.toAdd = new Task(
                 new Name(name),
                 new DateTime(dateTime[0], dateTime[1]),
                 new Priority(priority),
                 new Status(),
                 new UniqueTagList(tagSet)
-        );
+                );
 
     }
 
@@ -62,13 +64,14 @@ public class AddCommand extends UndoableCommand {
         try {
             model.addTask(toAdd);
             model.getUndoableCmdHist().push(this);
+            EventsCenter.getInstance().post(new TaskAddedEvent(model.getFilteredTaskList().size()+1));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
             return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
         }
 
     }
-    
+
     @Override
     public CommandResult undo() {
         assert model != null;
@@ -81,7 +84,7 @@ public class AddCommand extends UndoableCommand {
                     Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
         }
     }
-    
+
     @Override
     public CommandResult redo() {
         assert model != null;
