@@ -79,7 +79,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -98,7 +98,7 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ItemListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
@@ -120,7 +120,7 @@ The `UI` component,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding an item) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
@@ -135,8 +135,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* stores the Taskmanager data.
+* exposes a `UnmodifiableObservableList<ReadOnlyItem>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -148,11 +148,11 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Taskmanager data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.taskmanager.commons` package.
 
 ## Implementation
 
@@ -241,7 +241,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Taskmanager depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -324,11 +324,11 @@ Use case ends.
 
 ##### Date:
 
-> Date is given in format “[date]/[month]/[year]”
+> Date is given in format ï¿½[date]/[month]/[year]ï¿½
 
 ##### Time:
 
-> Time is given in format “[hour]:[minute]”
+> Time is given in format ï¿½[hour]:[minute]ï¿½
 
 ##### Keyword:
 
