@@ -37,10 +37,10 @@ public class DeadlineCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().value);
+        name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
-        date.setText(task.getDate().value);
-        endTime.setText(task.getEndTime().value);
+        date.setText(task.getDate().date);
+        endTime.setText(task.getEndTime().endTime);
     }
 
     public HBox getLayout() {

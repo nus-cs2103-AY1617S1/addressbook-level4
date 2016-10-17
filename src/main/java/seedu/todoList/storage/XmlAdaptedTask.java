@@ -29,7 +29,7 @@ public abstract class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedtask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getName().value;
+        name = source.getName().name;
     }
 
     /**

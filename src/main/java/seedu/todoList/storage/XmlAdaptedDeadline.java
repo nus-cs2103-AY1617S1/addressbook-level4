@@ -32,8 +32,8 @@ public class XmlAdaptedDeadline extends XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedtask
      */
     public XmlAdaptedDeadline(Deadline source) {
-    	date = source.getDate().value;
-        endTime = source.getEndTime().value;
+    	date = source.getDate().date;
+        endTime = source.getEndTime().endTime;
     }
     
     public XmlAdaptedDeadline(ReadOnlyTask source) {
