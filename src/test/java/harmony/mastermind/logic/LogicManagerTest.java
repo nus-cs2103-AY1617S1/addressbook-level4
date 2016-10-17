@@ -184,12 +184,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.task();
 
-<<<<<<< HEAD
         logic.execute(helper.generateAddCommand(toBeAdded), TAB_HOME);
-=======
-        System.out.println(helper.generateAddCommand(toBeAdded));
-        System.out.println(logic.execute(helper.generateAddCommand(toBeAdded)).feedbackToUser);
->>>>>>> master
         
         assertCommandBehavior("undo", "Undo successfully.\n"
                 + "=====Undo Details=====\n"
