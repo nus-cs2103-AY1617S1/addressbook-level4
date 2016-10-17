@@ -147,7 +147,9 @@ public class Task implements MutableTask {
     public void setLastUpdated() { this.lastUpdated.set(LocalDateTime.now()); }
 
     public void setLastUpdated(LocalDateTime lastUpdated) throws IllegalValueException {
-        if (lastUpdated.isAfter(LocalDateTime.now())) {
+        if (lastUpdated == null) {
+            lastUpdated = LocalDateTime.now();
+        } else if (lastUpdated.isAfter(LocalDateTime.now())) {
             throw new IllegalValueException("Task updated time cannot be in the future.");
         }
         this.lastUpdated.set(lastUpdated);
