@@ -31,6 +31,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private FloatingTaskListPanel taskListPanel;
     private DeadlineListPanel deadlineListPanel;
+    private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -54,6 +55,9 @@ public class MainWindow extends UiPart {
     
     @FXML
     private AnchorPane deadlineListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane eventListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -110,6 +114,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         taskListPanel = FloatingTaskListPanel.load(primaryStage, getTaskListPanelPlaceholder(), logic.getFilteredFloatingTaskList());
         deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPanelPlaceholder(), logic.getFilteredDeadlineList());
+        eventListPanel = EventListPanel.load(primaryStage, getEventListPanelPlaceholder(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getMalitioFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -133,6 +138,10 @@ public class MainWindow extends UiPart {
     
     public AnchorPane getDeadlineListPanelPlaceholder() {
         return deadlineListPanelPlaceholder;
+    }
+    
+    private AnchorPane getEventListPanelPlaceholder() {
+        return eventListPanelPlaceholder;
     }
 
     public void hide() {
@@ -190,7 +199,7 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
     
-    public DeadlineListPanel getTaskListPanel2() {
+    public DeadlineListPanel getDeadlineListPanel() {
         return this.deadlineListPanel;
     }
 
