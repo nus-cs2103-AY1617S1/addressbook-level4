@@ -217,7 +217,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     //@@author A0124797R
-    public ObservableList<Task> getListToMark(String currentTab) {
+    public ObservableList<Task> getListToMark() {
         return getCurrentObservableList();
     }
 

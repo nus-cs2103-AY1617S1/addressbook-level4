@@ -84,7 +84,7 @@ public interface Model {
 
     //@@author A0124797R
     /** Returns filtered task list as an {@code ObervableList<Task>} */
-    ObservableList<Task> getListToMark(String currentTab);
+    ObservableList<Task> getListToMark();
 
     //@@author A0124797R
     /** update current tab */
