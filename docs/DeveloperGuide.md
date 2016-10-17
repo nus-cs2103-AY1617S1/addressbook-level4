@@ -62,7 +62,7 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -156,7 +156,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.taskmanager.commons` package.
 
 ## Implementation
 
@@ -174,7 +174,7 @@ and logging destinations.
 **Logging Levels**
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
+* `WARNING` : Application can continue running, but minor errors may occur
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
@@ -208,13 +208,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `seedu.taskmanager.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+      e.g. `seedu.taskmanager.storage.StorageManagerTest`
+   3. Hybrids of unit and integration tests. These tests are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.taskmanager.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -245,7 +245,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, DearJim depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -351,7 +351,7 @@ Use case ends.
 4. Should favor DOS style commands over Unix-style commands.
 5. Should have <1 second startup and processing times.
 6. Should be easy to learn and use
-7. Should be available without Internet connectiviy
+7. Should be available without Internet connection
 8. Should be scalable and maintainable
 
 
@@ -379,7 +379,7 @@ Product | Pros | Cons |
 -------- | :-------- | :--------- 
 Wunderlist | <ol> <li> Beautiful background </li> <li> Cloud sync </li> <li> Able to create folders to group similar tasks </li> <li> Able to add tags to tasks to filter them </li> </ol>  | <ol> <li> No start date or repeat options for tasks </li> <li> No options for subtasks </li> </ol> 
 Todo.txt | <ol> <li> Works on many platforms, can be accessed on devices that support Dropbox </li> <li> Easily editable format, can be edited in plain text and then displayed with neat styles </li> <li> Can edit with any text editor </li> <li> Easy syncing - can sync through Dropbox </li> <li> Command line support - can edit using command line by a supplied bash script </li> </ol> | <ol> <li> No support for recurring tasks </li> <li> No options for subtasks </li> <li> Only supports Dropbox, not flexible </li> </ol> 
-Google Calendar | <ol> <li> Can be synced to mobile devices </li> <li> Alerts via notifications on phones </li> <li> Switches between day, week, month view easily </li> <li> Minimalistic interface </li>  </ol>  | <ol> <li> Requires an Internet connection to be used </li> <li> Cannot be brought up with a keyboard shortcut </li> </ol> 
-Remember the milk | <ol> <li> Email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Sync across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li>  </ol> | <ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol>
+Google Calendar | <ol> <li> Can be synced to mobile devices </li> <li> Alerts via notifications on phones </li> <li> Switches between views easily </li> <li> Minimalistic interface </li>  </ol>  | <ol> <li> Requires an Internet connection to be used </li> <li> Cannot be brought up with a keyboard shortcut </li> </ol> 
+Remember the milk | <ol> <li> Supports email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Synchronises across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li>  </ol> | <ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol>
 
-<strong>Summary:</strong> We noticed that these products have very good features, but we realised that none of these products have the specific combination of products that Jim wants. Therefore, we are mixing in the good features that these products have to make a targeted product for Jim.
+<strong>Summary:</strong> We noticed that these products have very good features, but we realised that none of these products have the specific combination of products that Jim wants. Therefore, we are merging certain good features across these products to make a targeted product for Jim.
