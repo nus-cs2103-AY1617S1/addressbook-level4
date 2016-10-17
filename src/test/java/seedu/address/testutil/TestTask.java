@@ -12,7 +12,7 @@ public class TestTask implements ReadOnlyTask {
 
     private Description description;
     private Location address;
-    private LocalDateTime deadline;
+    private Deadline deadline;
 //    private Phone phone;
     private UniqueTagList tags;
 
@@ -29,7 +29,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public void setDate(LocalDateTime date) {
-        this.deadline = date;
+        this.deadline = new Deadline(date);
     }
 //
 //    public void setPhone(Phone phone) {
@@ -47,7 +47,7 @@ public class TestTask implements ReadOnlyTask {
 //    }
 //
     @Override
-    public LocalDateTime getDate() {
+    public Deadline getDate() {
         return this.deadline;
     }
 

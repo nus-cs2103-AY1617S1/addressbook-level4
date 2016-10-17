@@ -19,7 +19,7 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 
 	private Description descr;
 	private Location loc;
-	private LocalDateTime dueDate;
+	private Deadline dueDate;
 	private Priority pri;
 
     private UniqueTagList tags;
@@ -28,15 +28,15 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 	public Task(Description description, Object ... objects) throws IllegalValueException{
 		assert !CollectionUtil.isAnyNull(description, objects);
 		this.descr = description;
-		this.loc = null;
-		this.dueDate = null;
+		this.loc = new Location();
+		this.dueDate = new Deadline();
 		this.pri = new Priority(0);
 		for(int i = 0; i < objects.length; i++){
     		Object o = objects[i];
     		if(o instanceof String){
     			this.loc = new Location((String)o);
     		} else if(o instanceof LocalDateTime){
-    			this.dueDate = (LocalDateTime)o;
+    			this.dueDate = new Deadline((LocalDateTime)o);
     		} else if(o instanceof Integer){
     			this.pri = new Priority((Integer)o);
     		} else if(o instanceof UniqueTagList){
@@ -49,16 +49,17 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
      * Every field must be present and not null.
      */
 
-    public Task(Description description, Location location, LocalDateTime due, Priority p, UniqueTagList tags) {
+    public Task(Description description, Location location, Deadline due, Priority p, UniqueTagList tags) {
     //	assert !CollectionUtil.isAnyNull(description, location, due);
     	this.descr = description;
-    	this.loc = location;
-    	this.dueDate = due;
+    	this.loc = (location == null)? new Location():location;
+    	this.dueDate = (due == null) ? new Deadline():due;
     	this.pri = p;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     /**
      * Copy constructor.
+     * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) {
         this(source.getDescription(), source.getLocation(), source.getDate(), source.getPriority(), source.getTags());
@@ -69,7 +70,9 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
         assert !CollectionUtil.isAnyNull(description, tags);
         this.descr = description;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        this.loc = null;
+        this.loc = new Location();
+        this.dueDate = new Deadline();
+        this.pri = new Priority();
     }
 
     @Override
@@ -83,7 +86,7 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     }
 
 	@Override
-	public LocalDateTime getDate() {
+	public Deadline getDate() {
 		return this.dueDate;
 	}
 

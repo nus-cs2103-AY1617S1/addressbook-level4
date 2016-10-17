@@ -21,7 +21,7 @@ public class TypicalTestTasks {
             doHomework = new TaskBuilder().withDescription("Do Homework")
             		.withLocation("311, Clementi Ave 2, #02-25")
          //           .withEmail("johnd@gmail.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
+                    .build();
             washCar = new TaskBuilder().withDescription("Wash Car").build();
             writeProgram = new TaskBuilder().withDescription("Write Program")
             		.withLocation("10th street")

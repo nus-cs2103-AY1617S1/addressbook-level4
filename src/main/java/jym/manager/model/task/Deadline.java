@@ -1,6 +1,10 @@
 package jym.manager.model.task;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 import jym.manager.commons.exceptions.IllegalValueException;
 
 /**
@@ -10,11 +14,25 @@ import jym.manager.commons.exceptions.IllegalValueException;
 public class Deadline {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS =
-            "Person deadlines should be 2 alphanumeric/period strings separated by '@'";
+            "Task deadlines should be 2 alphanumeric/period strings separated by '@'";
     public static final String DEADLINE_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";  // need to work on the deadline format
 
-    public final String value;
+    private final String value;
+    private LocalDateTime date;
 
+    
+    public Deadline(){
+    	this.date = null;
+    	this.value = "no deadline";
+    }
+    
+    public Deadline(LocalDateTime dueDate){
+    	assert dueDate != null;
+    	this.date = dueDate;
+    	value = dueDate.toString();
+    	
+    }
+    
     /**
      * Validates given email.
      *
@@ -33,12 +51,27 @@ public class Deadline {
      * Returns if a given string is a valid person email.
      */
     public static boolean isValidDeadline(String test) {
-        return test.matches(DEADLINE_VALIDATION_REGEX);
+    	if(test == null) return false;
+    	
+		 LocalDateTime ldt = null;
+	     if(test != null){
+	     	test.replaceAll("\\n", "");
+	     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
+	     	ldt = LocalDateTime.parse(test, formatter);
+	     }
+	     return (ldt != null);
     }
 
     @Override
     public String toString() {
-        return value;
+    	if(this.date == null)
+    		return value;
+    	else
+    		return this.date.toString();
+    }
+    
+    public LocalDateTime getDate(){
+    	return this.date;
     }
 
     @Override

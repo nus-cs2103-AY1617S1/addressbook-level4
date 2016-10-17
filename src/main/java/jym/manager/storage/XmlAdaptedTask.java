@@ -42,7 +42,7 @@ public class XmlAdaptedTask {
         name = source.getDescription().toString();
         deadline = source.getDate().toString();
         email = "placeholder";
-        address = source.getLocation().value;
+        address = source.getLocation().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));

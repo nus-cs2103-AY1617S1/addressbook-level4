@@ -12,18 +12,18 @@ public class Event extends TaskManagerItem implements ReadOnlyTask {
 	
 	private Description descr;
 	private Location loc;
-	private LocalDateTime eventDate;
+	private Deadline eventDate;
 	private double duration; //implementation gimmick - unnecessary to create another LDT because it should be fairly close to the eventDate. Therefore keep an int instead to make it more convenient.
 	private Priority pri;
 	
-	public Event(Description d, Location l, LocalDateTime ldt, double dur, Priority p) {
+	public Event(Description d, Location l, Deadline ldt, double dur, Priority p) {
 		this.descr = d;
 		this.loc = l;
 		this.eventDate = ldt;
 		this.duration = dur;
 		pri = p;
 	}
-	public Event(Description d, LocalDateTime ldt, double dur){
+	public Event(Description d, Deadline ldt, double dur){
 		this.descr = d;
 		this.loc = null;
 		this.eventDate = ldt;
@@ -41,11 +41,11 @@ public class Event extends TaskManagerItem implements ReadOnlyTask {
 	}
 
 	@Override
-	public LocalDateTime getDate() {
+	public Deadline getDate() {
 		return this.eventDate;
 	}
 	public LocalTime getStartTime(){
-		return this.eventDate.toLocalTime();
+		return this.eventDate.getDate().toLocalTime();
 	}
 	public LocalTime getEndTime(){
 		//this is bad form, fix when you can (when you're not strapped for time for a deadline two days away)
@@ -53,7 +53,7 @@ public class Event extends TaskManagerItem implements ReadOnlyTask {
 		long numMins = (long) ((duration - (long)duration) * 60);
 		long numSecs =  (long) (((duration - (long)duration) * 60) - (long)((duration - (long)duration) * 60));
 		
-		return this.eventDate.plusHours(numHours).plusMinutes(numMins).plusSeconds(numSecs).toLocalTime();
+		return this.eventDate.getDate().plusHours(numHours).plusMinutes(numMins).plusSeconds(numSecs).toLocalTime();
 	}
 	public String toString(){
 		return getAsText();

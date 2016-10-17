@@ -18,8 +18,12 @@ public class Priority {
      *
      * @throws IllegalValueException if given phone string is invalid.
      */
-    public Priority(int priority) throws IllegalValueException {
+    public Priority(int priority) {
         this.value = priority;
+    }
+    //0 priority indicates there is no basically no priority value for the task
+    public Priority(){
+    	this.value = 0;
     }
 
     /**

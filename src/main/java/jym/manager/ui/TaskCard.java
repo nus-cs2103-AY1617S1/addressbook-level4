@@ -42,13 +42,18 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
+    	try{
+    	System.out.println(task);
         name.setText(task.getDescription().toString());
         id.setText(displayedIndex + ". ");
-        if(task.getLocation() != null) address.setText(task.getLocation().value);
+        if(task.getLocation() != null) address.setText(task.getLocation().toString());
         if(task.getDate() != null) deadline.setText("Due: " + task.getDate().toString());
         else {
         	deadline.setText("No deadline assigned");
         }
+    	}catch(NullPointerException npe){
+    		npe.printStackTrace();
+    	}
  //       tags.setText(task.tagsString());
     }
 
