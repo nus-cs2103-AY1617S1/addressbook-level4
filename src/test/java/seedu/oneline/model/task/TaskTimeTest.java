@@ -333,6 +333,9 @@ public class TaskTimeTest {
      * @param d1
      * @param d2
      * @return true if d1.day == d2.day and d1.year == d2.year
+     * 
+     * Conditions: checks only if day and year are the same according to the
+     * local system time zone
      */
     private boolean isSameDay(Calendar d1, Calendar d2) {
         return d1.get(Calendar.YEAR) == d2.get(Calendar.YEAR) &&
