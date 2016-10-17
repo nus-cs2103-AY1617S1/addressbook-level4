@@ -29,6 +29,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private InformationHeader infoHeader;
     private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
@@ -51,6 +52,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private MenuItem helpMenuItem;
+    
+    @FXML
+    private AnchorPane infoHeaderPlaceholder;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -108,6 +112,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
+        infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder);
         browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
