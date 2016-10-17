@@ -61,11 +61,13 @@ public class AddCommand extends Command {
         Priority priority;
 
         if (startDateString != null) {
-            startDate = DateTime.verifyDate(startDateString, DateTime.INVALID_START_DATE, true);
+            assert DateTime.isValidDate(startDateString);
+            startDate = DateTime.convertStringToStartDate(startDateString);
         }
 
         if (endDateString != null) {
-            endDate = DateTime.verifyDate(endDateString, DateTime.INVALID_END_DATE, false);
+            assert DateTime.isValidDate(endDateString);
+            endDate = DateTime.convertStringToEndDate(endDateString, startDate);
         }
 
         if (rateString != null && timePeriodString != null) {
@@ -79,7 +81,7 @@ public class AddCommand extends Command {
         if (recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
                 recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
                 startDate == null && endDate == null) {
-            startDate = DateTime.assignStartDate(recurrenceRate.timePeriod.toString());
+            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
         }
         
         if (recurrenceRate != null && startDate == null && endDate == null) {
