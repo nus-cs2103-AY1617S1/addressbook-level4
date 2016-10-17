@@ -15,10 +15,10 @@ public class XmlFileStorage {
     /**
      * Saves the given TodoList  data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableTaskList TodoList)
+    public static void saveDataToFile(File file, XmlSerializableTaskList TaskList)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, TodoList);
+            XmlUtil.saveDataToFile(file, TaskList);
         } catch (JAXBException e) {
             assert false : "Unexpected exception " + e.getMessage();
         }

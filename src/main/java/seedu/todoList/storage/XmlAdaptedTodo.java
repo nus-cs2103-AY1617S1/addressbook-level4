@@ -16,6 +16,8 @@ import java.util.List;
 public class XmlAdaptedTodo extends XmlAdaptedTask {
     
 	@XmlElement(required = true)
+	private String name;
+	@XmlElement(required = true)
 	private String date;
 	@XmlElement(required = true)
 	private String priority;
@@ -32,7 +34,7 @@ public class XmlAdaptedTodo extends XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedtask
      */
     public XmlAdaptedTodo(Todo source) {
-    	super.name = source.getName().name;
+    	this.name = source.getName().name;
     	this.date = source.getDate().date;
     	this.priority = source.getPriority().toString();
     }
@@ -42,7 +44,7 @@ public class XmlAdaptedTodo extends XmlAdaptedTask {
     }
 
     public Task toModelType() throws IllegalValueException {
-        final Name name = new Name(super.name);
+        final Name name = new Name(this.name);
         final Date date = new Date(this.date);
         final Priority priority = new Priority(this.priority);
         return new Todo(name, date, priority);

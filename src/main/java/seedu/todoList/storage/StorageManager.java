@@ -116,7 +116,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void saveEventList(ReadOnlyTaskList eventList) throws IOException {
-        saveEventList(eventList, todoListStorage.getTaskListFilePath());
+        saveEventList(eventList, eventListStorage.getTaskListFilePath());
     }
 
     @Override
