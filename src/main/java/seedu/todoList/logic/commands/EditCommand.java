@@ -22,6 +22,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_task_SUCCESS = "Edited task: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
+    public static final String MESSAGE_EDIT_DUPLICATE_TASK = "This task already exists in the Task-list";
     
     public final int targetIndex;
     private final Task toEdit;
@@ -77,9 +78,9 @@ public class EditCommand extends Command {
         assert model != null;
         try {
             model.editTask(targetIndex, toEdit);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
+            return new CommandResult(String.format(MESSAGE_EDIT_task_SUCCESS, toEdit));
         } catch (UniqueTaskList.DuplicatetaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(MESSAGE_EDIT_DUPLICATE_TASK);
         } catch (IllegalValueException ive) {
         	return new CommandResult(INVALID_VALUE);
         }
