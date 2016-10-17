@@ -8,7 +8,7 @@ import javafx.stage.Stage;
  */
 public class CommandBoxHandle extends GuiHandle{
 
-    private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
+    private static final String COMMAND_INPUT_FIELD_ID = "#commandField";
 
     public CommandBoxHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
         super(guiRobot, primaryStage, stageTitle);
@@ -31,9 +31,4 @@ public class CommandBoxHandle extends GuiHandle{
         guiRobot.sleep(200); //Give time for the command to take effect
     }
 
-    public HelpWindowHandle runHelpCommand() {
-        enterCommand("help");
-        pressEnter();
-        return new HelpWindowHandle(guiRobot, primaryStage);
-    }
 }

@@ -7,9 +7,11 @@ import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
 
 /**
- * A utility class to help with building taskManager objects.
+
+ * A utility class to help with building Taskmanager objects.
  * Example usage: <br>
- *     {@code taskManager ab = new taskManagerBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code TaskManager tm = new TaskManagerBuilder().withTask("cs2103").withTag("homework").build();}
+
  */
 public class TaskManagerBuilder {
 
@@ -19,8 +21,9 @@ public class TaskManagerBuilder {
         this.taskManager = taskManager;
     }
 
-    public TaskManagerBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
-        taskManager.addTask(person);
+
+    public TaskManagerBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        taskManager.addTask(task);
         return this;
     }
 

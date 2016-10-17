@@ -54,7 +54,7 @@ public class XmlAdaptedArchiveTask {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
-    public ReadOnlyTask toModelType() throws IllegalValueException {
+    public Task toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
@@ -65,6 +65,6 @@ public class XmlAdaptedArchiveTask {
         final Date endDate = this.endDate;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return (ReadOnlyTask) new Task(name, startDate, endDate, tags);
+        return new Task(name, startDate, endDate, tags).mark();
     }
 }

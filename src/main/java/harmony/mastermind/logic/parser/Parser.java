@@ -44,6 +44,7 @@ public class Parser {
                                                                                                                         // tags
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_ARCHIVE_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)");
 
     public Parser() {
     }
@@ -71,9 +72,6 @@ public class Parser {
             case AddCommand.COMMAND_KEYWORD_DO: // alias (fall through)
                 return prepareAdd(arguments);
 
-            case SelectCommand.COMMAND_WORD:
-                return prepareSelect(arguments);
-
             case DeleteCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
 
@@ -87,7 +85,7 @@ public class Parser {
                 return prepareFindTag(arguments);
 
             case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+                return prepareList(arguments);
 
             case PreviousCommand.COMMAND_WORD:
                 return new PreviousCommand();
@@ -104,6 +102,8 @@ public class Parser {
                 
             case RelocateCommand.COMMAND_WORD:
                 return new RelocateCommand(arguments);
+            case UnmarkCommand.COMMAND_WORD:
+                return prepareUnmark(arguments);
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -125,11 +125,12 @@ public class Parser {
      */
     // @@author A0138862W
     private Command prepareAdd(String args) {
-        final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
+        final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args);
 
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            System.out.println("WTF");
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EXAMPLES));
         }
 
         try {
@@ -248,33 +249,54 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
+    //@@author A0124797R
     private Command prepareMark(String args) {
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
-        Command result = new MarkCommand(index.get());
-
-        return result;
+        return new MarkCommand(index.get());
     }
-
+    
     /**
-     * Parses arguments in the context of the select task command.
+     * Parses arguments in the context of the list task command.
      *
      * @param args
      *            full command args string
      * @return the prepared command
      */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+    //@@author A0124797R
+    private Command prepareList(String args) {
+        Optional<String> type = parseType(args);
+        if (!type.isPresent()) {
+            return new ListCommand();
+        }else {
+            if (type.get().equals(ListCommand.LISTING_ARCHIVES)) {
+                return new ListCommand(type);
+            }else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+            }
         }
-
-        return new SelectCommand(index.get());
     }
 
+    /**
+     * Parses arguments in the context of the unmark task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    //@@author A0124797R
+    private Command prepareUnmark(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
+        }
+        return new UnmarkCommand(index.get());
+    }
+    
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned
      * integer is given as the index. Returns an {@code Optional.empty()}
@@ -291,6 +313,21 @@ public class Parser {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
+
+    }
+    
+    /**
+     * checks if have the type to list archive
+     */
+    private Optional<String> parseType(String command) {
+        final Matcher matcher = TASK_ARCHIVE_ARGS_FORMAT.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+
+        String type = matcher.group("type");
+
+        return Optional.of(type);
 
     }
 

@@ -20,16 +20,6 @@ public class MainMenuHandle extends GuiHandle {
         return this;
     }
 
-    public HelpWindowHandle openHelpWindowUsingMenu() {
-        clickOn("Help", "F1");
-        return new HelpWindowHandle(guiRobot, primaryStage);
-    }
-
-    public HelpWindowHandle openHelpWindowUsingAccelerator() {
-        useF1Accelerator();
-        return new HelpWindowHandle(guiRobot, primaryStage);
-    }
-
     private void useF1Accelerator() {
         guiRobot.push(KeyCode.F1);
         guiRobot.sleep(500);

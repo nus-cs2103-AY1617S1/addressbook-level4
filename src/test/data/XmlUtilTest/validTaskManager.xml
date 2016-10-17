@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <name>do laundry</name>
+    </tasks>
+    <tasks>
+        <name>finish assignment</name>
+    </tasks>
+    <tasks>
+        <name>cs2105 assignment</name>
+    </tasks>
+    <tasks>
+        <name>complete lecture quiz</name>
+    </tasks>
+    <tasks>
+        <name>sweep floor</name>
+    </tasks>
+    <tasks>
+        <name>get groceries</name>
+    </tasks>
+    <tasks>
+        <name>submit user guide</name>
+    </tasks>
+    <tasks>
+        <name>submit developer guide</name>
+    </tasks>
+</taskmanager>

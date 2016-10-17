@@ -1,8 +1,10 @@
 package harmony.mastermind.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.util.Collections;
+import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -13,15 +15,19 @@ import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
-import harmony.mastermind.commons.events.storage.FileDoesNotExistEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.Command;
+import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.Undoable;
+import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.tag.Tag;
+import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
+import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -33,7 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
-    private final Stack<Command> commandHistory;
+    private final Stack<Undoable> undoHistory;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -48,7 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        commandHistory = new Stack<>();
+        undoHistory = new Stack<>();
     }
 
     public ModelManager() {
@@ -58,7 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        commandHistory = new Stack<>();
+        undoHistory = new Stack<>();
     }
 
     @Override
@@ -78,8 +84,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public Stack<Command> getCommandHistory() {
-        return commandHistory;
+    //@@author A0138862W
+    public void pushToUndoHistory(Undoable command) {
+        undoHistory.push(command);
+    }
+    
+    @Override
+    /** undo last action performed**/
+    //@@author A0138862W
+    public CommandResult undo() throws EmptyStackException{
+        CommandResult commandResult = undoHistory.pop().undo();
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+        return commandResult;
     }
 
     @Override
@@ -97,17 +114,32 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@author A0124797R
     @Override
-    public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void markTask(Task target) throws TaskNotFoundException {
         taskManager.markTask(target);
         indicateTaskManagerChanged();
     }
     
-    //@@author: A0139194X
+    //@author A0124797R
+    @Override
+    public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException,
+    UniqueTaskList.DuplicateTaskException {
+        taskManager.unmarkTask((Task)target);
+        indicateTaskManagerChanged();
+    }
+    
+	//@@author: A0139194X
     @Override
     public synchronized void relocateSaveLocation(String newFilePath) throws FolderDoesNotExistException {
         taskManager.checkSaveLocation(newFilePath);
         raise(new RelocateFilePathEvent(newFilePath));
         indicateTaskManagerChanged();
+    }
+    
+    //=========== Filtered Archived List Accessors ===============================================================
+    //@@author A0124797R
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList() {
+        return new UnmodifiableObservableList<>(taskManager.getArchives());
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -115,6 +147,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    //@@author A0124797R
+    @Override
+    public ObservableList<Task> getListToMark() {
+        return filteredTasks;
     }
 
     @Override
@@ -135,6 +173,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    private void searchTask(String keyword, Memory memory) { 
+        taskManager.searchTask(keyword, memory);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -208,6 +250,11 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "tags=" + String.join(", ", tagKeyWords.toString());
         }
+    }
+
+    @Override
+    public void searchTask(String input) {
+        // implementing next milestone        
     }
 
 }

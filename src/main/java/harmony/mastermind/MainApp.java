@@ -46,7 +46,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing Schema ]===========================");
+        logger.info("=============================[ Initializing Mastermind ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -160,13 +160,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Schema " + MainApp.VERSION);
+        logger.info("Starting Mastermind " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Schema ] =============================");
+        logger.info("============================ [ Stopping Mastermind ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

@@ -23,9 +23,10 @@ public class ClearCommandTest extends TaskManagerGuiTest {
         assertClearCommandSuccess();
     }
 
+    //@@author A0124797R
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage("Mastermind has been cleared!");
     }
 }

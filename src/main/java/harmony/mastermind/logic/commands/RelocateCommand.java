@@ -17,7 +17,7 @@ import harmony.mastermind.model.task.*;
  * @author A0139194X
  * Relocates save location
  */
-public class RelocateCommand extends Command {
+public class RelocateCommand extends Command{
 
     public static final String COMMAND_WORD = "relocate";
 
@@ -55,4 +55,5 @@ public class RelocateCommand extends Command {
     public CommandResult handleAccessDeniedEvent (AccessDeniedEvent event) {
         return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
     }
+    
 }

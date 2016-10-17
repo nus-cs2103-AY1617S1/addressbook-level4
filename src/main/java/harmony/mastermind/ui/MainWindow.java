@@ -14,6 +14,7 @@ import harmony.mastermind.commons.events.ui.ExitAppRequestEvent;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.PreviousCommand;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.task.ReadOnlyTask;
@@ -56,7 +57,9 @@ public class MainWindow extends UiPart {
 
     private final Logger logger = LogsCenter.getLogger(MainWindow.class);
 
-    String previousCommandTest;
+    String currCommandText;
+    
+    String prevCommandText;
 
     private CommandResult mostRecentResult;
 
@@ -213,32 +216,64 @@ public class MainWindow extends UiPart {
     }
 
     @FXML
-    //@@author A0138862W
+    //@@author A0124797R
     private void handleCommandInputChanged() {
         // Take a copy of the command text
-        previousCommandTest = commandField.getText();
+        currCommandText = commandField.getText();
 
-        /*
-         * We assume the command is correct. If it is incorrect, the command box
-         * will be changed accordingly in the event handling code {@link
-         * #handleIncorrectCommandAttempted}
-         */
-        mostRecentResult = logic.execute(previousCommandTest);
-        consoleOutput.setText(mostRecentResult.feedbackToUser);
-        commandField.setText("");
+        setStyleToIndicateCorrectCommand();
+        
+        if (!currCommandText.equals(PreviousCommand.COMMAND_WORD)) {
+            /*
+             * We assume the command is correct. If it is incorrect, the command box
+             * will be changed accordingly in the event handling code {@link
+             * #handleIncorrectCommandAttempted}
+             */
+            mostRecentResult = logic.execute(currCommandText);
+            consoleOutput.setText(mostRecentResult.feedbackToUser);
 
-        taskTable.setItems(logic.getFilteredTaskList());
+            System.out.println();
+            
+            if (!mostRecentResult.feedbackToUser.equals(ListCommand.MESSAGE_SUCCESS_ARCHIVED)) {
+                taskTable.setItems(logic.getFilteredTaskList());
+                
+            }else {
+                taskTable.setItems(logic.getFilteredArchiveList());
+            }
+            
+
+            prevCommandText = currCommandText;
+        }else {
+            restorePrevCommandText();
+            
+            return;
+        }
 
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 
     @Subscribe
+    //@@author A0124797R
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandTest));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
         restoreCommandText();
     }
+    
+    /**
+     * Sets the command box style to indicate a correct command.
+     */
+    //@@author A0124797R
+    private void setStyleToIndicateCorrectCommand() {
+        commandField.setText("");
+    }
 
+    //@@author A0124797R
     private void restoreCommandText() {
-        commandField.setText(previousCommandTest);
+        commandField.setText(currCommandText);
+    }
+    
+    //@@author A0124797R
+    private void restorePrevCommandText() {
+        commandField.setText(prevCommandText);
     }
 }

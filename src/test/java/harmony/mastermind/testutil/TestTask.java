@@ -39,9 +39,15 @@ public class TestTask implements ReadOnlyTask {
     //@@author A0124797R
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\"add " + this.getName() + "\" ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("tags/\"" + s.tagName + "\" "));
+        sb.append("add");
+        sb.append(" '" + this.getName() + "' ");
+        sb.append("t/'");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append(s.tagName + ","));
+
+        sb.deleteCharAt(sb.length()-1);
+        sb.append("'");
         return sb.toString();
+        
     }
 
     //@@author A0124797R
@@ -76,10 +82,37 @@ public class TestTask implements ReadOnlyTask {
     public boolean isEvent() {
         return false;
     }
+
+    @Override
+    public boolean isMarked() {
+        // TODO Auto-generated method stub
+        return false;
+    }
     
     @Override
     public UniqueTagList getTags() {
         return tags;
+    }
+    
+    //@@author A0124797R
+    @Override 
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Task // instanceof handles nulls
+                && this.getName().equals(((Task) other).getName())); // state check
+        
+    }
+    
+    //@@author A0124797R
+    @Override
+    public boolean isSameTask(ReadOnlyTask task) {
+        return this.getName().equals(task.getName());
+    }
+    
+    //@@author A0124797R
+    @Override
+    public String toString() {
+        return getAsText();
     }
     
 }
