@@ -44,7 +44,7 @@ public class DoneCommand extends Command {
             model.doneTask(taskToBeMarkedDone);
         } catch (DuplicateMarkAsDoneException dmade) {
         	model.removeUnchangedState();
-        	return new CommandResult(String.format(MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR, taskToBeMarkedDone));
+        	return new CommandResult(String.format(MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR, taskToBeMarkedDone.getName()));
         } catch (TaskNotFoundException pnfe) {
             model.removeUnchangedState();
             assert false : "The target task cannot be missing";
