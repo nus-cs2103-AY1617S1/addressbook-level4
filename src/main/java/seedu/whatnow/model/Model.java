@@ -1,11 +1,14 @@
 package seedu.whatnow.model;
 
+import java.io.IOException;
 import java.util.Set;
 
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
+import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * The API of the Model component.
@@ -22,6 +25,9 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+
+    /** Changes the file data storage location */
+    void changeTask(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

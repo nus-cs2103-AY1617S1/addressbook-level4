@@ -5,12 +5,14 @@ import seedu.whatnow.commons.core.ComponentManager;
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
+import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -65,7 +67,13 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateWhatNowChanged() {
         raise(new WhatNowChangedEvent(whatNow));
     }
-
+    
+    @Override
+    public synchronized void changeTask(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException {
+        whatNow.changeTask(target);
+        indicateWhatNowChanged();
+    }
+    
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         whatNow.removeTask(target);

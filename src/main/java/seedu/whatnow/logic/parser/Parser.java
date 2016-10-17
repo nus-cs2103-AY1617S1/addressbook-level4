@@ -64,7 +64,10 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
-
+            
+        case ChangeCommand.COMMAND_WORD:
+            return prepareChange(arguments);
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -126,13 +129,32 @@ public class Parser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
+<<<<<<< HEAD
+    
+    /**
+     * Parses arguments in the context of the change data file location command.
+=======
    
     /**
      * Parses arguments in the context of the list command.
+>>>>>>> 8bc3a7ac4fe132323e728c8ac0560d00ad792005
      *
      * @param args full command args string
      * @return the prepared command
      */
+<<<<<<< HEAD
+    private Command prepareChange(String args) {
+        String[] argComponents= args.trim().split(" ");
+        if(argComponents[0].equals("location") && argComponents[1].equals("to")){
+            return new ChangeCommand(argComponents[2]);
+        }
+        else{
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
+        }
+    }
+    
+=======
     private Command prepareList(String args) {
         String[] argComponents= args.trim().split(" ");
         String listArg = argComponents[LIST_ARG];
@@ -149,6 +171,7 @@ public class Parser {
     }
     
 
+>>>>>>> 8bc3a7ac4fe132323e728c8ac0560d00ad792005
     /**
      * Parses arguments in the context of the delete task command.
      *
