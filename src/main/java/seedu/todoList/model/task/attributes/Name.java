@@ -8,10 +8,10 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "task names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "task names can accept any characters";
+    public static final String NAME_VALIDATION_REGEX = ".+";
 
-    public final String value;
+    public final String name;
 
     /**
      * Validates given name.
@@ -24,7 +24,7 @@ public class Name {
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.value = name;
+        this.name = name;
     }
 
     /**
@@ -37,19 +37,19 @@ public class Name {
 
     @Override
     public String toString() {
-        return value;
+        return name;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && this.value.equals(((Name) other).value)); // state check
+                && this.name.equals(((Name) other).name)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return name.hashCode();
     }
 
 }

@@ -1,6 +1,7 @@
 package seedu.todoList.model.task;
 
 import seedu.todoList.commons.util.CollectionUtil;
+import seedu.todoList.model.task.attributes.Date;
 import seedu.todoList.model.task.attributes.Name;
 import seedu.todoList.model.task.attributes.Priority;
 
@@ -9,15 +10,18 @@ import seedu.todoList.model.task.attributes.Priority;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Todo extends Task implements ReadOnlyTask {
-
+    
+    private Date date;
     private Priority priority;
 
     /**
      * Every field must be present and not null.
+     * @param date 
      */
-    public Todo(Name name, Priority priority) {
-        assert !CollectionUtil.isAnyNull(name, priority);
+    public Todo(Name name, Date date, Priority priority) {
+        assert !CollectionUtil.isAnyNull(name, date, priority);
         super.name = name;
+        this.date = date;
         this.priority = priority;
     }
 
@@ -25,7 +29,11 @@ public class Todo extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Todo(Todo source) {
-        this(source.getName(), source.getPriority());
+        this(source.getName(), source.getDate() , source.getPriority());
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     public Priority getPriority() {
@@ -41,6 +49,7 @@ public class Todo extends Task implements ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other instanceof Todo // instanceof handles nulls
                 && super.name.equals(((Todo) other).getName()))
+                && this.date.equals(((Todo) other).getDate())
                 && this.priority.equals(((Todo) other).getPriority());
     }
 
@@ -48,6 +57,8 @@ public class Todo extends Task implements ReadOnlyTask {
     public String toString() {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Priority: ")
                 .append(getPriority());
         return builder.toString();

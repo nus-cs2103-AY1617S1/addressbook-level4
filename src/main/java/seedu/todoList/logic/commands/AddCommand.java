@@ -14,7 +14,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the TodoList.\n"
             + "Parameters: TASK_NAME d/DATE s/START_TIME e/END_TIME\n"
             + "Example: " + COMMAND_WORD
-            + " Assignment 3 p/1\n"
+            + " Assignment 3 d/25-12-2016 p/1\n"
             + "Example: " + COMMAND_WORD
             + " Time's birthday party d/25-12-2016 s/1400 e/1600\n"
             + "Example: " + COMMAND_WORD
@@ -31,11 +31,12 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String priority)
+    public AddCommand(String name, String date, int priority)
             throws IllegalValueException {
         this.toAdd = new Todo(
                 new Name(name),
-                new Priority(priority)
+                new Date(date),
+                new Priority(Integer.toString(priority))
         );
     }
     

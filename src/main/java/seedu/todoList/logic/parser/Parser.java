@@ -28,19 +28,19 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " d/^[0-9]{2}/[0-9]{2}/[0-9]{4}$/"
+            Pattern.compile("(?<name>.+)"
+                    + " d/(?<date>[^/]+)"
                     + " p/(?<priority>[^/]+)");
     
     private static final Pattern event_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " d/^[0-9]{2}/[0-9]{2}/[0-9]{4}$/"
+            Pattern.compile("(?<name>.+)"
+                    + " d/(?<date>[^/]+)"
                     + " s/(?<startTime>[^/]+)"
                     + " e/(?<endTime>[^/]+)");
     
     private static final Pattern deadline_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " d/^[0-9]{2}/[0-9]{2}/[0-9]{4}$/"
+            Pattern.compile("(?<name>.+)"
+                    + " d/(?<date>[^/]+)"
                     + " e/(?<endTime>[^/]+)");
 
     public Parser() {}
@@ -70,6 +70,9 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
+        
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand(arguments);
 
@@ -109,7 +112,7 @@ public class Parser {
                 return new AddCommand(
                         matcher_task.group("name"),
                         matcher_task.group("date"),
-                        matcher_task.group("priority")
+                        Integer.parseInt(matcher_task.group("priority"))
                 );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -249,4 +252,8 @@ public class Parser {
         return new FindCommand(keywordSet, dataType);
     }
 
+    private Command prepareEdit(String args) {
+        final Matcher matcher_dataType = task_DATATYPE_ARGS_FORMAT.matcher(args.trim());
+        return null;
+    }
 }

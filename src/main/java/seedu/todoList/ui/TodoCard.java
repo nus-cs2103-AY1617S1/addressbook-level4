@@ -35,7 +35,7 @@ public class TodoCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().value);
+        name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
         priority.setText(task.getPriority().toString());
     }
