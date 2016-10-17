@@ -42,7 +42,9 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        taskDate.setText(task.getTaskDate().fullDate);
+        if(task.getTaskDate() != null){
+        	taskDate.setText(task.getTaskDate().fullDate);
+        }
         tags.setText(task.tagsString());
         if (task.getStatus().equals("incomplete")) {
             status.setText(INCOMPLETE);
