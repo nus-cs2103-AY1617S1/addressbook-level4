@@ -258,7 +258,7 @@ public class LogicManagerTest {
                 + "[Redo Delete Command] Deleted Task: task Tags: [tag1],[tag2]\n"
                 + "==================",
                 model.getTaskManager(),
-                model.getListToMark(TAB_HOME));
+                model.getListToMark());
     }
     
     @Test
@@ -288,7 +288,7 @@ public class LogicManagerTest {
                 + "[Redo Mark Command] task Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
                 model.getTaskManager(),
-                model.getListToMark(TAB_HOME));
+                model.getListToMark());
     }
     
     @Test
@@ -312,7 +312,7 @@ public class LogicManagerTest {
                 + "[Undo Mark Command] task Tags: [tag1],[tag2] has been unmarked\n"
                 + "==================",       
                 model.getTaskManager(),
-                model.getListToMark(TAB_HOME));
+                model.getListToMark());
         
         assertCommandBehavior("redo",
                 "Redo successfully.\n"
@@ -320,7 +320,7 @@ public class LogicManagerTest {
                 + "[Redo Mark Command] task Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
                 model.getTaskManager(),
-                model.getListToMark(TAB_HOME));
+                model.getListToMark());
     }
     
     @Test
