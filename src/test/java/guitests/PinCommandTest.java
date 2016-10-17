@@ -34,6 +34,18 @@ public class PinCommandTest extends TaskManagerGuiTest{
     commandBox.runCommand("pin "+targetIndex);
     ReadOnlyTask otherTask = taskListPanel.getTask(targetIndex - 1);
     assertTrue(otherTask.getImportance());
-	}	
-
+	
+	
+	//pin the last task
+	targetIndex = currentList.length;
+	commandBox.runCommand("pin "+targetIndex);
+	newTask=taskListPanel.getTask(targetIndex - 1);
+	assertTrue(newTask.getImportance());
+	
+	//pin at an empty list
+	commandBox.runCommand("clear");
+    commandBox.runCommand("pin " + currentList.length + 1);
+    assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+	
+	}
 }
