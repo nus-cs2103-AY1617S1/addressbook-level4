@@ -54,6 +54,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane eventListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;

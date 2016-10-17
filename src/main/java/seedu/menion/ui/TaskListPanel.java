@@ -27,6 +27,12 @@ public class TaskListPanel extends UiPart {
 
     @FXML
     private ListView<ReadOnlyActivity> taskListView;
+    
+    @FXML
+    private ListView<ReadOnlyActivity> eventListView;
+    
+    @FXML
+    private ListView<ReadOnlyActivity> floatingTaskListView;
 
     public TaskListPanel() {
         super();
@@ -61,8 +67,15 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setConnections(ObservableList<ReadOnlyActivity> taskList) {
+    	floatingTaskListView.setItems(taskList);
+    	floatingTaskListView.setCellFactory(listView -> new TaskListViewCell());
+    	
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
+        
+        eventListView.setItems(taskList);
+        eventListView.setCellFactory(listView -> new TaskListViewCell());
+        
         setEventHandlerForSelectionChangeEvent();
     }
 
