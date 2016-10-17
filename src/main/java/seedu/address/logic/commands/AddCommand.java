@@ -108,21 +108,23 @@ public class AddCommand extends Command {
      * @throws IllegalValueException 
      */
     private boolean taskTimeisAfterCurrentTime(String startTime, String endTime) throws IllegalValueException { 
-    	StartTime start = new StartTime(startTime);
-    	EndTime end = new EndTime(endTime);
     	
     	StartTime now = new StartTime("today");
+    	
+    	StartTime start = new StartTime(startTime);
+    	EndTime end = new EndTime(endTime);
     	
     	boolean startIsDefalut = start.toString().equalsIgnoreCase(DEFAULT_DATE);
     	boolean endIsDefalut = end.toString().equalsIgnoreCase(DEFAULT_DATE);
     	
-    	if(startIsDefalut && endIsDefalut)
+    	if(startIsDefalut && endIsDefalut) {
     		return true;
-    	else if(!startIsDefalut)
+    	}
+    	else if(!startIsDefalut) {
     		return (start.startTime.compareTo(now.startTime) >= 0);
-    	else
+    	}
+    	else {
     		return (end.endTime.compareTo(now.startTime) >= 0);
+    	}
 	}
-
-
 }
