@@ -26,6 +26,9 @@ public interface Model {
     /** Updates the given task */
     void updateTask(ReadOnlyTask orginalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException; 
     
+    /** Pins the given task as important*/
+    void pinTask(ReadOnlyTask originalTask,Task toPin)throws UniqueTaskList.TaskNotFoundException;
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

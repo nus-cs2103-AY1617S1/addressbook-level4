@@ -83,6 +83,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     
+    @Override
+    public synchronized void pinTask(ReadOnlyTask originalTask,Task toPin) throws UniqueTaskList.TaskNotFoundException {
+        taskManager.pinTask(originalTask,toPin);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

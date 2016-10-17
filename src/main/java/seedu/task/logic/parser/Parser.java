@@ -25,6 +25,8 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+    private static final Pattern MARKED_FORMAT=Pattern.compile(" completed");
+    
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]*)"
 //                  + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
@@ -62,6 +64,9 @@ public class Parser {
 
         case UpdateCommand.COMMAND_WORD:
             return prepareUpdate(arguments);
+        
+        case PinCommand.COMMAND_WORD:
+        	 return preparePin(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -230,5 +235,19 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
+    /** Parses arguments in the context of the mark task command.
+     * 
+     * @param args
+     * @return
+     */
+    private Command preparePin(String args) {
+    	Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+        }
+
+        return new PinCommand(index.get());
+    }
+    
 
 }

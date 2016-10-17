@@ -81,6 +81,20 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
+     * Pins a task as important.
+     * 
+     * @throws TaskNotFoundException if the task cannot be found in the list.
+     */
+    public void pin(ReadOnlyTask originalTask,Task toPin) throws TaskNotFoundException {
+        assert toPin != null;
+        assert originalTask !=null;
+ 
+        int index = internalList.indexOf(originalTask);
+        assert index >= 0;
+        internalList.set(index,toPin);
+    }
+    
+    /**
      * Removes the equivalent task from the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
@@ -93,6 +107,8 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+    
+    
 
     public ObservableList<Task> getInternalList() {
         return internalList;
