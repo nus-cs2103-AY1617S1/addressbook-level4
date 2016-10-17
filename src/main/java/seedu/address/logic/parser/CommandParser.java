@@ -228,7 +228,7 @@ public class CommandParser {
                     endDate = matcher.group("endDateFormatThree").trim();
                 } 
             
-                if (startDate != null && !DateTime.isStringValidDate(startDate)) {
+                if (startDate != null && !DateTime.isValidDate(startDate)) {
                     // reparse
                     startDate = null;
                     pattern = Pattern.compile(REGEX_CASE_IGNORE_OPENING + REGEX_NAME_NO_CLOSE_BRACE + REGEX_ADDITIONAL_KEYWORD + 
@@ -238,7 +238,7 @@ public class CommandParser {
                     if (!matcher.matches()) {
                         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                     }
-                } else if (endDate != null && !DateTime.isStringValidDate(endDate)) {
+                } else if (endDate != null && !DateTime.isValidDate(endDate)) {
                     endDate = null;
                     pattern = Pattern.compile(REGEX_CASE_IGNORE_OPENING + REGEX_NAME_NO_CLOSE_BRACE + REGEX_ADDITIONAL_KEYWORD + 
                             REGEX_GREEDY_SELECT + REGEX_CLOSE_BRACE + REGEX_RECURRENCE_AND_PRIORITY + REGEX_CLOSE_BRACE);
@@ -298,8 +298,8 @@ public class CommandParser {
                 
                 boolean isValidEndDate = true;
                 // first keyword is part of the name
-                if ((startDate != null && !DateTime.isStringValidDate(startDate)) || 
-                        endDate != null && !DateTime.isStringValidDate(endDate)) {
+                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
+                        endDate != null && !DateTime.isValidDate(endDate)) {
                     isValidEndDate = false;
                     startDate = null;
                     endDate = null;
@@ -329,8 +329,8 @@ public class CommandParser {
                 }
                 
                 // second keyword is part of the name
-                if ((startDate != null && !DateTime.isStringValidDate(startDate)) || 
-                        endDate != null && !DateTime.isStringValidDate(endDate)) {
+                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
+                        endDate != null && !DateTime.isValidDate(endDate)) {
                     // reparse
                     startDate = null;
                     endDate = null;
@@ -410,8 +410,8 @@ public class CommandParser {
                 
                 boolean isValidEndDate = true;
                 // first keyword is part of the name
-                if ((startDate != null && !DateTime.isStringValidDate(startDate)) || 
-                        endDate != null && !DateTime.isStringValidDate(endDate)) {
+                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
+                        endDate != null && !DateTime.isValidDate(endDate)) {
                     isValidEndDate = false;
                     startDate = null;
                     endDate = null;
@@ -445,8 +445,8 @@ public class CommandParser {
                 }
                 
                 // second keyword is part of the name
-                if ((startDate != null && !DateTime.isStringValidDate(startDate)) || 
-                        endDate != null && !DateTime.isStringValidDate(endDate)) {
+                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
+                        endDate != null && !DateTime.isValidDate(endDate)) {
                     // reparse
                     startDate = null;
                     endDate = null;
