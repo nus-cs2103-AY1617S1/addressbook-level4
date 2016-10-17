@@ -9,7 +9,7 @@ import seedu.address.model.item.ReadOnlyItem;
  * Provides a handle to a person card in the person list panel.
  */
 public class ItemCardHandle extends GuiHandle {
-    private static final String DESC_FIELD_ID = "#desc";
+    private static final String DESC_FIELD_ID = "#description";
 
     private Node node;
 

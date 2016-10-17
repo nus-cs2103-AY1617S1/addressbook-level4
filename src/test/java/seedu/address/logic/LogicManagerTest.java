@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.TaskBook;
+import seedu.address.model.item.Description;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.model.tag.Tag;
@@ -322,7 +323,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void execute_find_onlyMatchesFullWordsInDescriptions() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Item pTarget1 = helper.generateItemWithName("bla bla KEY bla");
         Item pTarget2 = helper.generateItemWithName("bla KEY bla bceofeia");
@@ -385,14 +386,9 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Item adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@gmail.com");
-            Task privateTask = new Task("111, alpha street");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Item(name, privatePhone, email, privateTask, tags);
+            Description description = new Description("Eat a lollipop");
+            //UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Item(description);
         }
 
         /**
@@ -404,11 +400,8 @@ public class LogicManagerTest {
          */
         Item generateItem(int seed) throws Exception {
             return new Item(
-                    new Name("Item " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Address("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new Description ("Item " + seed)
+                    //new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
@@ -418,15 +411,14 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append("\"" + p.getDescription().toString() + "\"");
 
+            /**
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
             }
+            **/
 
             return cmd.toString();
         }
@@ -501,13 +493,10 @@ public class LogicManagerTest {
         /**
          * Generates a Item object with given name. Other fields will have some dummy values.
          */
-        Item generateItemWithName(String name) throws Exception {
+        Item generateItemWithName(String desc) throws Exception {
             return new Item(
-                    new Name(name),
-                    new Phone("1"),
-                    new Email("1@email"),
-                    new Task("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
+                    new Description(desc)
+                    // new UniqueTagList(new Tag("tag"))
             );
         }
     }
