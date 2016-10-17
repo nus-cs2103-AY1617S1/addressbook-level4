@@ -31,6 +31,7 @@
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
+                        <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
                     </children>
                 </VBox>
             </children>

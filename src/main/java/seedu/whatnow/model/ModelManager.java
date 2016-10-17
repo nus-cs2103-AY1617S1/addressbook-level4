@@ -13,6 +13,8 @@ import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -90,17 +92,31 @@ public class ModelManager extends ComponentManager implements Model {
         whatNow.updateTask(old, toUpdate);
         indicateWhatNowChanged();
     }
+    
+    @Override
+    public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
+        whatNow.markTask(target);
+        indicateWhatNowChanged();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        String[] status = {"incomplete"};
+        Set<String> keyword = new HashSet<>(Arrays.asList(status));
+        updateFilteredListToShowAllByStatus(keyword);
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    }
+    
+    @Override
+    public void updateFilteredListToShowAllByStatus(Set<String> keyword) {
+        updateFilteredTaskList(new PredicateExpression(new TaskStatusQualifier(keyword)));
     }
 
     @Override
@@ -161,6 +177,27 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class TaskStatusQualifier implements Qualifier {
+        private Set<String> status;
+        
+        TaskStatusQualifier(Set<String> status) {
+            this.status = status;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return status.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus(), keyword))
+                    .findAny()
+                    .isPresent();
+        }
+        
+        @Override
+        public String toString() {
+            return "Status=" + String.join(", ", status);
         }
     }
 

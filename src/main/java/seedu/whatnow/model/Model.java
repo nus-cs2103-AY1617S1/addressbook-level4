@@ -38,6 +38,12 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
+    /** Updates the filter of the filtered task list to show only task of a specific status specified by the keyword */
+    void updateFilteredListToShowAllByStatus(Set<String> keyword);
+    
     /** Update the given task */
     void updateTask(ReadOnlyTask old, Task toUpdate) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Mark the given task as completed */
+    void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 }
