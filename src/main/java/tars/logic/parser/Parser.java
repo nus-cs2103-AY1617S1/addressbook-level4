@@ -34,6 +34,7 @@ import tars.logic.commands.ListCommand;
 import tars.logic.commands.MarkCommand;
 import tars.logic.commands.RedoCommand;
 import tars.logic.commands.SelectCommand;
+import tars.logic.commands.TagCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.task.TaskQuery;
 
@@ -51,10 +52,9 @@ public class Parser {
 
     private static final Pattern FILEPATH_ARGS_FORMAT = Pattern.compile("(?<filepath>\\S+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
-                                                                                                           // or
-                                                                                                           // more
-                                                                                                 // whitespace
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more whitespace
+    
+    private static final Pattern TAG_EDIT_COMMAND_FORMAT = Pattern.compile("\\d+ \\w+$");
 
     public Parser() {
     }
@@ -62,8 +62,7 @@ public class Parser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput
-     *            full user input string
+     * @param userInput full user input string
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
@@ -112,6 +111,9 @@ public class Parser {
 
         case CdCommand.COMMAND_WORD:
             return prepareCd(arguments);
+            
+        case TagCommand.COMMAND_WORD:
+            return prepareTag(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -128,8 +130,7 @@ public class Parser {
      * Parses arguments in the context of the add task command.
      *
      * @@author A0139924W
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
@@ -174,8 +175,7 @@ public class Parser {
      * Parses arguments in the context of the edit task command.
      * 
      * @@author A0121533W
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
@@ -218,8 +218,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the delete task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
@@ -236,8 +235,7 @@ public class Parser {
      * Parses arguments in the context of the mark task command.
      *
      * @@author A0121533W
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareMark(String args) {
@@ -263,8 +261,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the select task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
@@ -298,8 +295,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the find task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareFind(String args) {
@@ -372,8 +368,7 @@ public class Parser {
      * Parses arguments in the context of the list task command.
      *
      * @@author @A0140022H
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareList(String args) {
@@ -393,8 +388,7 @@ public class Parser {
      * command.
      * 
      * @@author A0124333U
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareCd(String args) {
@@ -409,7 +403,28 @@ public class Parser {
 
         return new CdCommand(args.trim());
     }
+    
+    /**
+     * Parses arguments in the context of the tag command.
+     * 
+     * @@author A0139924W
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareTag(String args) {
+        if (args.trim().equals(Flag.LIST)) {
+            return new TagCommand(new Flag(Flag.LIST, false));
+        } else if (args.trim().indexOf(Flag.EDIT) == 0) {
+            args = args.replace(Flag.EDIT, "").trim();
 
+            final Matcher matcher = TAG_EDIT_COMMAND_FORMAT.matcher(args);
+            if (matcher.matches()) {
+                return new TagCommand(new Flag(Flag.EDIT, false), args.split(" "));
+            }
+        }
+        return new IncorrectCommand(String.format(TagCommand.MESSAGE_USAGE));
+    }
+    
     /**
      * Checks if new file type is a valid file type
      * 
