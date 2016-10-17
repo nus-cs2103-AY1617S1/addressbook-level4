@@ -64,7 +64,7 @@ Format: `NAME `
 
 Examples:
 * `Buy coffee powder`
-* `Buy baby powder -l`
+* `Buy baby powder`
 
 **_Specifying task priority_**
 
@@ -272,15 +272,14 @@ Format: none, just type a command and let DearJim provide you hints on the comma
 >DearJim provides you hints on command formats as you type the command!
 
 Examples:
+* Typing `add` in the command input generates the `add` command format in the result display
 ><img src="images/dearjim_hint_add.png">
 <center>Figure 4: Hints for add command</center>
 
-* Typing `add` in the command input generates the `add` command format in the result display
-
+* Typing `delete` in the command input generates the `delete` command format in the result display
 ><img src="images/dearjim_hint_delete.png">
 <center>Figure 5: Hints for delete command</center>
 
-* Typing `delete` in the command input generates the `delete` command format in the result display
 
 ### Saving the data 
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
