@@ -91,6 +91,9 @@ public class Parser {
 
         case ShowCommand.COMMAND_WORD:
             return new ShowCommand();
+            
+        case ShowDoneCommand.COMMAND_WORD:
+            return new ShowDoneCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -12,6 +12,7 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -133,6 +134,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredTaskListToShowDone(Predicate<Task> predicate) {
+    	filteredTasks.setPredicate(predicate);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
