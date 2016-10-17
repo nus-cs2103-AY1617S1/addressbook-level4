@@ -14,8 +14,8 @@ import java.io.FileNotFoundException;
 
 import jym.manager.commons.util.FileUtil;
 import jym.manager.commons.util.XmlUtil;
-import jym.manager.model.AddressBook;
-import jym.manager.storage.XmlSerializableAddressBook;
+import jym.manager.model.TaskManager;
+import jym.manager.storage.XmlSerializableTaskManager;
 import static org.junit.Assert.assertEquals;
 
 public class XmlUtilTest {
@@ -32,7 +32,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        XmlUtil.getDataFromFile(null, AddressBook.class);
+        XmlUtil.getDataFromFile(null, TaskManager.class);
     }
 
     @Test
@@ -44,18 +44,18 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.getDataFromFile(MISSING_FILE, AddressBook.class);
+        XmlUtil.getDataFromFile(MISSING_FILE, TaskManager.class);
     }
 
     @Test
     public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
-        XmlUtil.getDataFromFile(EMPTY_FILE, AddressBook.class);
+        XmlUtil.getDataFromFile(EMPTY_FILE, TaskManager.class);
     }
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTaskManager.class);
         assertEquals(9, dataFromFile.getTaskList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
@@ -63,7 +63,7 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        XmlUtil.saveDataToFile(null, new AddressBook());
+        XmlUtil.saveDataToFile(null, new TaskManager());
     }
 
     @Test
@@ -75,23 +75,23 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.saveDataToFile(MISSING_FILE, new AddressBook());
+        XmlUtil.saveDataToFile(MISSING_FILE, new TaskManager());
     }
 
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AddressBook());
+        XmlSerializableTaskManager dataToWrite = new XmlSerializableTaskManager(new TaskManager());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(),(new AddressBook(dataFromFile)).toString());
+        XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
+        assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
-        dataToWrite = new XmlSerializableAddressBook(builder.withTask(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
+        AddressBookBuilder builder = new AddressBookBuilder(new TaskManager());
+        dataToWrite = new XmlSerializableTaskManager(builder.withTask(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(),(new AddressBook(dataFromFile)).toString());
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
+        assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
     }
 }

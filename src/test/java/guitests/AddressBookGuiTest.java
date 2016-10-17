@@ -17,7 +17,7 @@ import seedu.address.testutil.TypicalTestTasks;
 import java.util.concurrent.TimeoutException;
 
 import jym.manager.commons.core.EventsCenter;
-import jym.manager.model.AddressBook;
+import jym.manager.model.TaskManager;
 import jym.manager.model.task.ReadOnlyTask;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -77,8 +77,8 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
+    protected TaskManager getInitialData() {
+        TaskManager ab = TestUtil.generateEmptyAddressBook();
         TypicalTestTasks.loadAddressBookWithSampleData(ab);
         return ab;
     }

@@ -47,11 +47,11 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing TaskManager ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -72,20 +72,20 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyTaskManager> taskManagerOptional;
+        ReadOnlyTaskManager initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if(!addressBookOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty AddressBook");
+            taskManagerOptional = storage.readTaskManager();
+            if(!taskManagerOptional.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty TaskManager");
             }
-            initialData = addressBookOptional.orElse(new AddressBook());
+            initialData = taskManagerOptional.orElse(new TaskManager());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty TaskManager");
+            initialData = new TaskManager();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskManager");
+            initialData = new TaskManager();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -141,7 +141,7 @@ public class MainApp extends Application {
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskManager");
             initializedPrefs = new UserPrefs();
         }
 
@@ -161,13 +161,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting TaskManager " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Task Manager ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

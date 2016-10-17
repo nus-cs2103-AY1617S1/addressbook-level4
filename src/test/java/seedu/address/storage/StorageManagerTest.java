@@ -11,15 +11,15 @@ import seedu.address.testutil.EventsCollector;
 
 import java.io.IOException;
 
-import jym.manager.commons.events.model.AddressBookChangedEvent;
+import jym.manager.commons.events.model.TaskManagerChangedEvent;
 import jym.manager.commons.events.storage.DataSavingExceptionEvent;
-import jym.manager.model.AddressBook;
-import jym.manager.model.ReadOnlyAddressBook;
+import jym.manager.model.TaskManager;
+import jym.manager.model.ReadOnlyTaskManager;
 import jym.manager.model.UserPrefs;
 import jym.manager.storage.JsonUserPrefsStorage;
 import jym.manager.storage.Storage;
 import jym.manager.storage.StorageManager;
-import jym.manager.storage.XmlAddressBookStorage;
+import jym.manager.storage.XmlTaskManagerStorage;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -60,16 +60,16 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        AddressBook original = new TypicalTestTasks().getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        TaskManager original = new TypicalTestTasks().getTypicalAddressBook();
+        storageManager.saveTaskManager(original);
+        ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
+        assertEquals(original, new TaskManager(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }
 
     @Test
     public void getAddressBookFilePath(){
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getTaskManagerFilePath());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
+        storage.handleTaskManagerChangedEvent(new TaskManagerChangedEvent(new TaskManager()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
@@ -85,14 +85,14 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage{
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlTaskManagerStorage{
 
         public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+        public void saveTaskManager(ReadOnlyTaskManager addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

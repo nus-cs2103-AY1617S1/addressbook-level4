@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jym.manager.commons.exceptions.IllegalValueException;
-import jym.manager.model.ReadOnlyAddressBook;
+import jym.manager.model.ReadOnlyTaskManager;
 import jym.manager.model.tag.Tag;
 import jym.manager.model.tag.UniqueTagList;
 import jym.manager.model.task.ReadOnlyTask;
 import jym.manager.model.task.UniqueTaskList;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable TaskManager that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
+@XmlRootElement(name = "taskmanager")
+public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
@@ -34,12 +34,12 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableTaskManager() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+    public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
