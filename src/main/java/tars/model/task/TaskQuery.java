@@ -102,9 +102,23 @@ public class TaskQuery extends Task {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Filter Search Keywords: ").append("[Task Name: ").append(getName()).append("] [DateTime: ")
-                .append(getDateTime()).append("] [Priority: ").append(priorityString()).append("] [Status: ")
-                .append(statusString).append("] [Tags: ").append(tagQuery).append("]");
+        builder.append("Filter Search Keywords: ");
+
+        if (getName().toString() != "") {
+            builder.append("[Task Name: ").append(getName()).append("] ");
+        }
+        if (getDateTime().getEndDate() != null) {
+            builder.append("[DateTime: ").append(getDateTime()).append("] ");
+        }
+        if (priorityString() != "") {
+            builder.append("[Priority: ").append(priorityString()).append("] ");
+        }
+        if (statusString != "") {
+            builder.append("[Status: ").append(statusString).append("] ");
+        }
+        if (tagQuery != "") {
+            builder.append("[Tags: ").append(tagQuery).append("]");
+        }
 
         return builder.toString();
     }
