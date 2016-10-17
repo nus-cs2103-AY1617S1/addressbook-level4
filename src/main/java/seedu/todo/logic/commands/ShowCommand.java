@@ -24,7 +24,7 @@ public class ShowCommand extends BaseCommand {
     @Override
     public String getCommandName() {
         // TODO Auto-generated method stub
-        return "expand/collapse";
+        return "show";
     }
 
     @Override
