@@ -26,6 +26,9 @@ public class ActivityParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+    private static String previousCommandString;
+    private static Command previousCommand;
+    
     public ActivityParser() {}
 
     /**
@@ -42,26 +45,36 @@ public class ActivityParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+        	previousCommandString = commandWord;
             return prepareAdd(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+        	previousCommandString = commandWord;
             return prepareDelete(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        	previousCommandString = commandWord;
+            return prepareClear();
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
+            
+        case UndoCommand.COMMAND_WORD:
+        	return new UndoCommand(previousCommand);
+        	
+        case CompleteCommand.COMMAND_WORD:
+            return prepareComplete(arguments);
+            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -72,7 +85,16 @@ public class ActivityParser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
+    
+    private Command prepareComplete(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+        previousCommand = new CompleteCommand(index.get());
+        return previousCommand;
+    }
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -87,7 +109,8 @@ public class ActivityParser {
         }
         
         try {
-            return new AddCommand(details);
+        	previousCommand = new AddCommand(details);
+            return previousCommand;
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -107,9 +130,22 @@ public class ActivityParser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
-        return new DeleteCommand(index.get());
+        previousCommand = new DeleteCommand(index.get());
+        return previousCommand;
     }
+    
+    /**
+     * Parses arguments in the context of the clear activity command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareClear() {
+    	previousCommand = new ClearCommand();
+    	
+        return previousCommand;
+    }
+    
 
     /**
      * Parses arguments in the context of the select activity command.

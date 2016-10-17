@@ -29,7 +29,9 @@ public class ActivityCard extends UiPart{
     private Label endDate;
     @FXML
     private Label endTime;
-
+    @FXML
+    private Label status;
+    
     private ReadOnlyActivity activity;
     
     private int displayedIndex;
@@ -52,12 +54,14 @@ public class ActivityCard extends UiPart{
             activityType.setText(activity.getActivityType().toString());
             name.setText(activity.getActivityName().fullName);
             note.setText(activity.getNote().toString());
+            status.setText(activity.getActivityStatus().toString());
         } else if (activity.getActivityType().equals(Activity.TASK_TYPE)) {
             activityType.setText(activity.getActivityType().toString());
             name.setText(activity.getActivityName().fullName);
             note.setText(activity.getNote().toString());
             startDate.setText(activity.getActivityStartDate().toString());
             startTime.setText(activity.getActivityStartTime().toString());
+            status.setText(activity.getActivityStatus().toString());
         } else if (activity.getActivityType().equals(Activity.EVENT_TYPE)) {
             activityType.setText(activity.getActivityType().toString());
             name.setText(activity.getActivityName().fullName);
@@ -66,6 +70,7 @@ public class ActivityCard extends UiPart{
             startTime.setText(activity.getActivityStartTime().toString()); 
             endDate.setText(activity.getActivityEndDate().toString());
             endTime.setText(activity.getActivityEndTime().toString());
+            status.setText(activity.getActivityStatus().toString());
         }
         id.setText(displayedIndex + ". ");    
     }

@@ -28,7 +28,9 @@ public class XmlAdaptedFloatingTask {
     private String endDate;
     @XmlElement(required = false)
     private String endTime;
-
+    @XmlElement(required = true)
+    private String status;
+    
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -45,11 +47,10 @@ public class XmlAdaptedFloatingTask {
      */
     public XmlAdaptedFloatingTask(ReadOnlyActivity source) {
         
-        
             activityType = source.getActivityType().toString();
             name = source.getActivityName().fullName;
             note = source.getNote().toString();
-      
+            status = source.getActivityStatus().toString();    
     }
 
     /**
@@ -62,7 +63,8 @@ public class XmlAdaptedFloatingTask {
             final String type = this.activityType;
             final ActivityName name = new ActivityName(this.name);
             final Note note = new Note(this.note);
-            return new Activity(type, name, note);
+            final Completed status = new Completed(this.status);
+            return new Activity(type, name, note, status);
         
     }
 }

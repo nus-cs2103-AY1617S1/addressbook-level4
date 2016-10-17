@@ -28,7 +28,9 @@ public class XmlAdaptedEvent {
     private String endDate;
     @XmlElement(required = true)
     private String endTime;
-
+    @XmlElement(required = true)
+    private String status;
+    
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -52,6 +54,7 @@ public class XmlAdaptedEvent {
             startTime = source.getActivityStartTime().toString();
             endDate = source.getActivityEndDate().toString();
             endTime = source.getActivityEndTime().toString();
+            status = source.getActivityStatus().toString();
         
     }
 
@@ -69,7 +72,8 @@ public class XmlAdaptedEvent {
             final ActivityTime startTime = new ActivityTime(this.startTime);
             final ActivityDate endDate = new ActivityDate(this.endDate);
             final ActivityTime endTime = new ActivityTime(this.endTime);
-            return new Activity(type, name, note, startDate, startTime, endDate, endTime);
+            final Completed status = new Completed(this.status);
+            return new Activity(type, name, note, startDate, startTime, endDate, endTime, status);
         
         
     }

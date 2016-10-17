@@ -27,4 +27,13 @@ public class FindCommand extends Command {
         return new CommandResult(getMessageForActivityListShownSummary(model.getFilteredTaskList().size()));
     }
 
+    /*
+     * find command does not support undo
+     */
+	@Override
+	public boolean undo() {
+		
+		return false;
+	}
+
 }

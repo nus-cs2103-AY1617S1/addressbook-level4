@@ -10,6 +10,10 @@ import seedu.menion.model.tag.UniqueTagList;
  */
 public interface ReadOnlyActivity {
     
+    
+    // Returns activity
+    Activity get();
+    
     // Floating Task parameters
     ActivityName getActivityName();   
     Note getNote();
@@ -25,8 +29,13 @@ public interface ReadOnlyActivity {
     // Finding Activity Type; Can be a Floating Task, Task, or Event
     String getActivityType();
     
+    // Gets the state of completion of an activity.
+    Completed getActivityStatus();
+    
     // An arrayList having parameters of an activity.
     ArrayList<String> getActivityDetails();
+    
+    void setCompleted();
     void setActivityDetails();
     
     /**
@@ -86,7 +95,9 @@ public interface ReadOnlyActivity {
         final StringBuilder builder = new StringBuilder();
         builder.append(getActivityName())
                 .append(" Note: ")
-                .append(getNote());
+                .append(getNote())
+                .append(" Completion status: ")
+                .append(getActivityStatus().toString());
         return builder.toString();
     }
     
@@ -102,7 +113,9 @@ public interface ReadOnlyActivity {
                 .append(" at: ")
                 .append(getActivityStartTime())
                 .append(" Note: ")
-                .append(getNote());
+                .append(getNote())
+                .append(" Completion status: ")
+                .append(getActivityStatus().toString());
 
         return builder.toString();
     }
@@ -123,11 +136,9 @@ public interface ReadOnlyActivity {
                 .append(" at: ")
                 .append(getActivityEndTime())
                 .append(" Note: ")
-                .append(getNote());
+                .append(getNote())        
+                .append(" Completion status: ")
+                .append(getActivityStatus().toString());
         return builder.toString();
     }
-    
-    
-  
-
 }

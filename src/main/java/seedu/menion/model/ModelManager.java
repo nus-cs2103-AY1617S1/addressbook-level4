@@ -215,4 +215,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    @Override
+    public void completeTask(Activity task) {
+        task.setCompleted();
+    }
+
 }

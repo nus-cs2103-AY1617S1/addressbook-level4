@@ -36,6 +36,7 @@
                        	<Label fx:id="endDate" styleClass="cell_small_label" text="\$deadline" />
                         <Label fx:id="endTime" styleClass="cell_small_label" text="\$reminder" />
                         <Label fx:id="note" styleClass="cell_small_label" text="\$priority" />
+				 		<Label fx:id="status" styleClass="cell_small_label" text="\$status" />
                     </children>
                 </VBox>
             </children>
