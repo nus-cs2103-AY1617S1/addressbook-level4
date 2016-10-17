@@ -2,6 +2,7 @@ package tars.model.tag;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import tars.commons.core.Messages;
 import tars.commons.exceptions.DuplicateDataException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.CollectionUtil;
@@ -23,7 +24,7 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public static class DuplicateTagException extends DuplicateDataException {
         protected DuplicateTagException() {
-            super("Operation would result in duplicate tags");
+            super(Messages.MESSAGE_DUPLICATE_TAG);
         }
     }
     
@@ -32,7 +33,7 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public static class TagNotFoundException extends Exception {
         protected TagNotFoundException() {
-            super("Tag cannot be found");
+            super(Messages.MESSAGE_TAG_CANNOT_BE_FOUND);
         }
     }
 

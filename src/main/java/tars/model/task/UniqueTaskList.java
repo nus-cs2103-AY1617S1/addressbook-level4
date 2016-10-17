@@ -8,6 +8,7 @@ import tars.commons.util.CollectionUtil;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
+import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 
 import java.util.*;
@@ -79,8 +80,8 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws TagNotFoundException if there is no matching tags.
      */
     public void renameTag(ReadOnlyTag oldTag, Tag newTag)
-            throws IllegalValueException, TagNotFoundException {
-        
+            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
+
         for (int i = 0; i < internalList.size(); i++) {
             Task toEdit = new Task(internalList.get(i));
             UniqueTagList tags = toEdit.getTags();
