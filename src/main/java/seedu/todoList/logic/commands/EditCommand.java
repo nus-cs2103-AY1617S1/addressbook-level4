@@ -1,19 +1,8 @@
 package seedu.todoList.logic.commands;
 
-import seedu.todoList.commons.core.Messages;
-import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.model.task.Deadline;
-import seedu.todoList.model.task.Event;
-import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.Todo;
-import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.todoList.model.task.attributes.Date;
-import seedu.todoList.model.task.attributes.EndTime;
-import seedu.todoList.model.task.attributes.Name;
-import seedu.todoList.model.task.attributes.Priority;
-import seedu.todoList.model.task.attributes.StartTime;
-import seedu.todoList.logic.commands.DeleteCommand;
+import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.attributes.*;
 
 /**
  * Edit a task identified using it's last displayed index from the TodoList.
@@ -33,18 +22,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_task_SUCCESS = "Edited task: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
-
-    public final String dataType;
-    public final int targetIndex;
-
     
-    public DeleteCommand(String dataType, int targetIndex) {
-    	this.dataType = dataType;
-        this.targetIndex = targetIndex;
-    }
-    
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
+    private final Task toEdit;
     
     /**
      * Edit Todo
@@ -87,36 +66,17 @@ public class EditCommand extends Command {
                 new EndTime(endTime)
         );
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public CommandResult execute() {
-    	
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
-    	switch (dataType) {
-    		case "todo":
-    			lastShownList = model.getFilteredTodoList();
-    			break;
-    		case "event":
-    			lastShownList = model.getFilteredEventList();
-    			break;
-    		case "deadline":
-    			lastShownList = model.getFilteredDeadlineList();
-    	}
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
-        }
-
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-
+        assert model != null;
         try {
-            model.editTask(taskToEdit, dataType);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            model.editTask(toEdit);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
+        } catch (UniqueTaskList.DuplicatetaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        } catch (IllegalValueException ive) {
+        	return new CommandResult(INVALID_VALUE);
         }
-
-        return new CommandResult(String.format(MESSAGE_EDIT_task_SUCCESS, taskToEdit));
     }
-
 }
