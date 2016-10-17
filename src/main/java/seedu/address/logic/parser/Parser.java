@@ -227,10 +227,9 @@ public class Parser {
 
 		// Null values will always be overwritten if the matcher matches.
 		String taskName = null;
-		String date = null;
-		String startTime = null;
-		String endTime = null;
-
+		LocalDateTime startDateTime = null;
+		LocalDateTime endDateTime = null;
+		
 		boolean isAnyMatch = false;
 
 		for (Matcher matcher : matchers) {
@@ -238,27 +237,34 @@ public class Parser {
 				isAnyMatch = true;
 
 				taskName = matcher.group("taskName").trim();
-				date = matcher.group("date").trim();
-				startTime = matcher.group("startTime").trim();
-				endTime = matcher.group("endTime").trim();
+				String date = matcher.group("date").trim();
+				String startTime = matcher.group("startTime").trim();
+				String endTime = matcher.group("endTime").trim();
+				
+				try {
+					startDateTime = DateUtil.parseDate(date + " " + startTime);
+					endDateTime = DateUtil.parseDate(date + " " + endTime);
+				} catch (ParseException e) {
+					// TODO better command
+					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+				}				
 
 				break;
 			}
 		}
-
+		
+		System.out.println("task name: " + taskName);
+		System.out.println("start date: " + startDateTime.toString());
+		System.out.println("end date: " + endDateTime.toString());
+		
 		if (!isAnyMatch) {
 			System.out.println("no match");
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
-		System.out.println("task name: " + taskName);
-		System.out.println("date: " + date);
-		System.out.println("start time: " + startTime);
-		System.out.println("end time: " + endTime);
-
 		// TODO format date properly
 		try {
-			return new AddCommand(taskName, date + startTime, date + endTime);
+			return new AddCommand(taskName, startDateTime, endDateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
@@ -285,8 +291,7 @@ public class Parser {
 					dateTime = DateUtil.parseDate(dateTimeString);
 				} catch (ParseException e) {
 					// TODO better command
-					return new IncorrectCommand(
-							String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 				}
 
 				break;
@@ -453,7 +458,7 @@ public class Parser {
 
 	public static void main(String[] args) {
 		Parser p = new Parser();
-		p.parseCommand("add deadline 'eat' by 2012-12-25 00:00");
+		p.parseCommand("add event 'eat' from 00:00 to 01:00 on 2012-12-25");
 	}
 	
 }
