@@ -31,6 +31,7 @@ public class EndTime {
      */
     public EndTime(String input) throws IllegalValueException {
     	endtime = Calendar.getInstance();
+    //	String endTime = input.trim();
     	String endTime = TimePreparser.preparse(input);
     	if(!endTime.isEmpty() && !endTime.equals(new Date(0).toString())){
     		List<DateGroup> dates = new Parser().parse(endTime);
@@ -71,6 +72,12 @@ public class EndTime {
     		return finalEndString;
     	}
     }
+    
+    public boolean isMissing(){
+        if(endtime.getTime().equals(new Date(0)))
+        return true;
+        else return false;
+        } 
 
     @Override
     public boolean equals(Object other) {

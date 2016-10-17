@@ -1,4 +1,5 @@
 package seedu.tasklist.model;
+import seedu.tasklist.model.task.*;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.tasklist.commons.core.ComponentManager;
@@ -38,67 +39,89 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
 
-    /**
-     * Initializes a ModelManager with the given TaskList TaskList and its
-     * variables should not be null
-     */
-    public ModelManager(TaskList src, UserPrefs userPrefs) {
-        super();
-        assert src != null;
-        assert userPrefs != null;
+	/**
+	 * Initializes a ModelManager with the given TaskList
+	 * TaskList and its variables should not be null
+	 */
+	public ModelManager(TaskList src, UserPrefs userPrefs) {
+		super();
+		assert src != null;
+		assert userPrefs != null;
 
-        logger.fine("Initializing with tasklist: " + src + " and user prefs " + userPrefs);
+		logger.fine("Initializing with tasklist: " + src + " and user prefs " + userPrefs);
 
-        taskList = new TaskList(src);
-        filteredTasks = new FilteredList<>(taskList.getTasks());
-    }
+		taskList = new TaskList(src);
+		filteredTasks = new FilteredList<>(taskList.getTasks());
+	}
 
-    public ModelManager() {
-        this(new TaskList(), new UserPrefs());
-    }
+	public ModelManager() {
+		this(new TaskList(), new UserPrefs());
+	}
 
-    public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
-        taskList = new TaskList(initialData);
-        filteredTasks = new FilteredList<>(taskList.getTasks());
-    }
+	public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
+		taskList = new TaskList(initialData);
+		filteredTasks = new FilteredList<>(taskList.getTasks());
+	}
 
-    @Override
-    public void resetData(ReadOnlyTaskList newData) {
-        taskList.resetData(newData);
-        indicateTaskListChanged();
-    }
+	@Override
+	public void resetData(ReadOnlyTaskList newData) {
+		taskList.resetData(newData);
+		indicateTaskListChanged();
+	}
 
-    @Override
-    public ReadOnlyTaskList getTaskList() {
-        return taskList;
-    }
+	@Override
+	public ReadOnlyTaskList getTaskList() {
+		return taskList;
+	}
 
-    /** Raises an event to indicate the model has changed */
-    private void indicateTaskListChanged() {
-        raise(new TaskListChangedEvent(taskList));
-    }
-
-    @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskList.removeTask(target);
-        updateFilteredListToShowIncomplete();
-        indicateTaskListChanged();
-        addToUndoStack(UndoCommand.DEL_CMD_ID, (Task) target);
-    }
+	/** Raises an event to indicate the model has changed */
+	private void indicateTaskListChanged() {
+		raise(new TaskListChangedEvent(taskList));
+	}
+	
     @Override
     public void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
     }
-    
-    @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskList.addTask(task);
-        updateFilteredListToShowIncomplete();
-        indicateTaskListChanged();
-        addToUndoStack(UndoCommand.ADD_CMD_ID, task);
-    }
+
+	@Override
+	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+		if(target instanceof Task){
+			Task myTask = (Task) target;
+			if(!myTask.isComplete())
+				myTask.IncompleteCounter--;
+			if(myTask.isOverDue()&&!myTask.isComplete()){
+				myTask.overdueCounter--;
+			}
+			if(myTask.isFloating()&&!myTask.isComplete()){
+				myTask.floatCounter--;
+			}	
+		}
+		taskList.removeTask(target);
+		updateFilteredListToShowIncomplete();
+		indicateTaskListChanged();
+		addToUndoStack(UndoCommand.DEL_CMD_ID, (Task) target);
+	}
+
+	@Override
+	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+		if(task instanceof Task){
+			Task myTask = (Task) task;
+			myTask.IncompleteCounter++;
+			if(myTask.isOverDue()){
+				myTask.overdueCounter++;
+			}
+			if(myTask.isFloating()){
+				myTask.floatCounter++;
+			}	
+		}
+		taskList.addTask(task);
+		updateFilteredListToShowIncomplete();
+		indicateTaskListChanged();
+		addToUndoStack(UndoCommand.ADD_CMD_ID, task);
+	}
 
     @Override
     public void addTaskUndo(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -123,14 +146,25 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
     }
-    
-    @Override
-    public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
-        taskList.markTaskAsComplete(task);
-        updateFilteredListToShowIncomplete();
-        indicateTaskListChanged();
-        addToUndoStack(UndoCommand.DONE_CMD_ID, (Task) task);
-    }
+
+	@Override
+	public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
+		if(task instanceof Task){
+			Task myTask = (Task) task;
+			myTask.IncompleteCounter--;
+			if(myTask.isOverDue()){
+				myTask.overdueCounter--;
+			}
+			if(myTask.isFloating()){
+				myTask.floatCounter--;
+			}
+		}
+		taskList.markTaskAsComplete(task);
+		updateFilteredListToShowIncomplete();
+		indicateTaskListChanged();
+		addToUndoStack(UndoCommand.DONE_CMD_ID, (Task) task);
+	}
+
 
     @Override
     public synchronized void markTaskAsIncomplete(ReadOnlyTask task) throws TaskNotFoundException {
@@ -138,6 +172,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
     }
+    
 
     private void addToUndoStack(int undoID, Task... tasks) {
         if (undoStack.size() == 3) {
@@ -146,169 +181,187 @@ public class ModelManager extends ComponentManager implements Model {
         UndoInfo undoInfo = new UndoInfo(undoID, tasks);
         undoStack.push(undoInfo);
     }
+    
+	//=========== Filtered Person List Accessors ===============================================================
 
-    // =========== Filtered Person List Accessors
-    // ===============================================================
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+		return new UnmodifiableObservableList<>(filteredTasks);
+	}
 
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
+	public UnmodifiableObservableList<Task> getModifiableTaskList() {
+		return new UnmodifiableObservableList<>(filteredTasks);
+	}
 
-    public UnmodifiableObservableList<Task> getModifiableTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
+	@Override
+	public void updateFilteredListToShowAll() {
+		filteredTasks.setPredicate(null);
+	}
 
-    @Override
-    public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
-    }
+	@Override
+	public void updateFilteredListToShowIncomplete() {
+		updateFilteredListToShowAll();
+		updateFilteredTaskList(new PredicateExpression(new DefaultDisplayQualifier()));
+	}
 
-    @Override
-    public void updateFilteredListToShowIncomplete() {
-        updateFilteredListToShowAll();
-        updateFilteredTaskList(new PredicateExpression(new DefaultDisplayQualifier()));
-    }
+	public void updateFilteredList(){
+		updateFilteredListToShowIncomplete();
+		indicateTaskListChanged();
+	}
 
-    public void updateFilteredList() {
-        updateFilteredListToShowIncomplete();
-        indicateTaskListChanged();
-    }
+	@Override
+	public void updateFilteredTaskList(Set<String> keywords){
+		updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+	}
 
-    @Override
-    public void updateFilteredTaskList(Set<String> keywords) {
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-    }
+	private void updateFilteredTaskList(Expression expression) {
+		filteredTasks.setPredicate(expression::satisfies);
+	}
 
-    private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
-    }
+	public Set<String> getKeywordsFromList(List<ReadOnlyTask> tasks){
+		Set<String> keywords = new HashSet<String>();
+		for(ReadOnlyTask task: tasks){
+			keywords.addAll(Arrays.asList(task.getTaskDetails().toString().split(" ")));
+		}
+		return keywords;
+	}
 
-    public Set<String> getKeywordsFromList(List<ReadOnlyTask> tasks) {
-        Set<String> keywords = new HashSet<String>();
-        for (ReadOnlyTask task : tasks) {
-            keywords.addAll(Arrays.asList(task.getTaskDetails().toString().split(" ")));
-        }
-        return keywords;
-    }
+	@Override
+	public void updateFilteredListToShowComplete() {
+		updateFilteredListToShowAll();
+		updateFilteredTaskList(new PredicateExpression(new CompletedQualifier()));
+	}
 
-    @Override
-    public void updateFilteredListToShowComplete() {
-        updateFilteredListToShowAll();
-        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier()));
-    }
+	@Override
+	public void updateFilteredListToShowPriority(String priority) {
+		updateFilteredListToShowAll();
+		updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));
+	}
 
-    @Override
-    public void updateFilteredListToShowPriority(String priority) {
-        updateFilteredListToShowAll();
-        updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));
-    }
+	@Override
+	public void updateFilteredListToShowFloating(){
+		updateFilteredListToShowAll();
+		updateFilteredTaskList(new PredicateExpression(new FloatingQualifier()));
+	}
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+	@Override
+	public void updateFilteredListToShowOverDue(){
+		updateFilteredListToShowAll();
+		updateFilteredTaskList(new PredicateExpression(new OverDueQualifier()));
+	}
 
-    interface Expression {
-        boolean satisfies(ReadOnlyTask person);
+	//========== Inner classes/interfaces used for filtering ==================================================
 
-        String toString();
-    }
+	interface Expression {
+		boolean satisfies(ReadOnlyTask person);
+		String toString();
+	}
 
-    private class PredicateExpression implements Expression {
+	private class PredicateExpression implements Expression {
 
-        private final Qualifier qualifier;
+		private final Qualifier qualifier;
 
-        PredicateExpression(Qualifier qualifier) {
-            this.qualifier = qualifier;
-        }
+		PredicateExpression(Qualifier qualifier) {
+			this.qualifier = qualifier;
+		}
 
-        @Override
-        public boolean satisfies(ReadOnlyTask person) {
-            return qualifier.run(person);
-        }
+		@Override
+		public boolean satisfies(ReadOnlyTask person) {
+			return qualifier.run(person);
+		}
 
-        @Override
-        public String toString() {
-            return qualifier.toString();
-        }
-    }
+		@Override
+		public String toString() {
+			return qualifier.toString();
+		}
+	}
 
-    interface Qualifier {
-        boolean run(ReadOnlyTask person);
+	interface Qualifier {
+		boolean run(ReadOnlyTask person);
+		String toString();
+	}
 
-        String toString();
-    }
+	private class DefaultDisplayQualifier implements Qualifier {
 
-    private class DefaultDisplayQualifier implements Qualifier {
+		DefaultDisplayQualifier(){
 
-        DefaultDisplayQualifier() {
+		}
 
-        }
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			return !person.isComplete();
+		}
+	}
 
-        @Override
-        public boolean run(ReadOnlyTask person) {
-            return !person.isComplete();
-        }
-    }
+	private class CompletedQualifier implements Qualifier {
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			return person.isComplete();
+		}
+	}
 
-    private class CompletedQualifier implements Qualifier {
-        @Override
-        public boolean run(ReadOnlyTask person) {
-            return person.isComplete();
-        }
-    }
+	private class FloatingQualifier implements Qualifier {
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			return person.isFloating();
+		}
+	}
 
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-        private Pattern NAME_QUERY;
+	private class OverDueQualifier implements Qualifier {
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			return person.isOverDue();
+		}
+	}
 
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-            this.NAME_QUERY = Pattern.compile(getRegexFromString(), Pattern.CASE_INSENSITIVE);
-        }
+	private class NameQualifier implements Qualifier {
+		private Set<String> nameKeyWords;
+		private Pattern NAME_QUERY;
 
-        private String getRegexFromString() {
-            String result = "";
-            for (String keyword : nameKeyWords) {
-                for (char c : keyword.toCharArray()) {
-                    switch (c) {
-                    case '*':
-                        result += ".*";
-                        break;
-                    default:
-                        result += c;
-                    }
-                }
-            }
-            return result;
-        }
 
-        @Override
-        public boolean run(ReadOnlyTask person) {
-            // return nameKeyWords.stream()
-            // .filter(keyword ->
-            // StringUtil.containsIgnoreCase(person.getName().fullName,
-            // keyword))
-            // .findAny()
-            // .isPresent();
-            Matcher matcher = NAME_QUERY.matcher(person.getTaskDetails().taskDetails);
-            return matcher.matches() && !person.isComplete();
-        }
+		NameQualifier(Set<String> nameKeyWords) {
+			this.nameKeyWords = nameKeyWords;
+			this.NAME_QUERY = Pattern.compile(getRegexFromString(), Pattern.CASE_INSENSITIVE);
+		}
 
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
-    }
+		private String getRegexFromString(){
+			String result = "";
+			for(String keyword: nameKeyWords){
+				for(char c: keyword.toCharArray()){
+					switch(c){
+					case '*':
+						result += ".*";
+						break;
+					default:
+						result += c;
+					}
+				}
+			}
+			return result;
+		}
 
-    private class PriorityQualifier implements Qualifier {
-        private String priority;
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			Matcher matcher = NAME_QUERY.matcher(person.getTaskDetails().taskDetails);
+			return matcher.matches() && !person.isComplete();
+		}
 
-        public PriorityQualifier(String priority) {
-            this.priority = priority.replaceFirst("p/", "");
-        }
+		@Override
+		public String toString() {
+			return "name=" + String.join(", ", nameKeyWords);
+		}
+	}
 
-        @Override
-        public boolean run(ReadOnlyTask person) {
-            return person.getPriority().priorityLevel.equals(this.priority);
-        }
-    }
+	private class PriorityQualifier implements Qualifier {
+		private String priority;
+
+		public PriorityQualifier(String priority) {
+			this.priority = priority.replaceFirst("p/", "");
+		}
+
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			return person.getPriority().priorityLevel.equals(this.priority);
+		}
+	}
 }

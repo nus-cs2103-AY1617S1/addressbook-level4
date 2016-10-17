@@ -7,13 +7,16 @@ import seedu.tasklist.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
-
-    TaskDetails getTaskDetails();
+	TaskDetails getTaskDetails();
     StartTime getStartTime();
     EndTime getEndTime();
     Priority getPriority();
     int getUniqueID();
+    boolean isFloating();
+    boolean isOverDue();
     boolean isComplete();
+
+	
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -41,7 +44,7 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTaskDetails()+ "\n")
                 .append("Start time: ")
-                .append(getStartTime().toCardString() + "\t ")
+                .append(getStartTime().toCardString() + "\t")
                 .append("End time:")
                 .append(getEndTime().toCardString()+ "\n")
                 .append("Priority: ")
