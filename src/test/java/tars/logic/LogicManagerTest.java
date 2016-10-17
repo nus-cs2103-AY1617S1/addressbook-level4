@@ -33,15 +33,18 @@ import tars.logic.commands.HelpCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.RedoCommand;
 import tars.logic.commands.SelectCommand;
+import tars.logic.commands.TagCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.Tars;
 import tars.model.Model;
 import tars.model.ModelManager;
 import tars.model.ReadOnlyTars;
 import tars.model.task.*;
+import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.storage.StorageManager;
+import tars.ui.Formatter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -369,6 +372,101 @@ public class LogicManagerTest {
         assertCommandBehavior("add Valid Task Name -dt 05/09/2016 1400 to 06/09/2016 2200 -p m -t invalid_-[.tag",
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
+    }
+    
+    @Test
+    public void execute_tag_unsuccessful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+        
+        model.addTask(toBeAdded);
+        
+        assertCommandBehavior("tag abcde",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), expectedAB,
+                expectedAB.getTaskList());
+        assertCommandBehavior("tag -e",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), expectedAB,
+                expectedAB.getTaskList());
+        assertCommandBehavior("tag -e 1 INVALID_TAG_NAME", Tag.MESSAGE_TAG_CONSTRAINTS, expectedAB,
+                expectedAB.getTaskList());
+        
+    }
+    
+    @Test
+    public void execute_tag_listing_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+
+        model.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior("tag -ls", new Formatter().formatTags(model.getUniqueTagList()),
+                expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_tag_rename_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+
+        model.addTask(toBeAdded);
+
+        ReadOnlyTag tagToBeRenamed = expectedAB.getUniqueTagList().getInternalList().get(0);
+        Tag newTag = new Tag("tag3");
+
+        expectedAB.getUniqueTagList().update(tagToBeRenamed, newTag);
+        expectedAB.getUniqueTaskList().renameTag(tagToBeRenamed, newTag);
+
+        // execute command and verify result
+        assertCommandBehavior("tag -e 1 tag3",
+                String.format(String.format(TagCommand.MESSAGE_RENAME_TAG_SUCCESS, "tag1", "tag3")),
+                expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_tag_rename_unsuccessful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+
+        model.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior("tag -e 1 tag2", Messages.MESSAGE_DUPLICATE_TAG, expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_tag_rename_invalid_index() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+
+        model.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior("tag -e -1",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), expectedAB,
+                expectedAB.getTaskList());
+        
+        assertCommandBehavior("tag -e 0 VALIDTAGNAME", String.format(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX),
+                expectedAB, expectedAB.getTaskList());
+        
+        assertCommandBehavior("tag -e 20 VALIDTAGNAME", String.format(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX),
+                expectedAB, expectedAB.getTaskList());
     }
 
     @Test
