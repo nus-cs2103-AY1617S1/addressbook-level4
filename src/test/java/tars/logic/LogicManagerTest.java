@@ -760,7 +760,7 @@ public class LogicManagerTest {
     @Test
     public void execute_find_filterSearch_bothDoneAndUndoneSearched() throws Exception {
       
-        assertCommandBehavior("find -do -ud", TaskQuery.BOTH_STATUS_SEARCHED_ERROR);
+        assertCommandBehavior("find -do -ud", TaskQuery.MESSAGE_BOTH_STATUS_SEARCHED_ERROR);
     }
     
     @Test

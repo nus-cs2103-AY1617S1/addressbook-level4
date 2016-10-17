@@ -340,7 +340,7 @@ public class Parser {
                 DateTimeUtil.getDateTimeFromArgs(argumentMap.get(flags[1]).replace(Flag.DATETIME, "").trim()));
         taskQuery.createPriorityQuery(argumentMap.get(flags[2]).replace(Flag.PRIORITY, "").trim());
         if (!argumentMap.get(flags[3]).isEmpty() && !argumentMap.get(flags[4]).isEmpty()) {
-            throw new IllegalValueException(TaskQuery.BOTH_STATUS_SEARCHED_ERROR);
+            throw new IllegalValueException(TaskQuery.MESSAGE_BOTH_STATUS_SEARCHED_ERROR);
         } else {
             if (!argumentMap.get(flags[3]).isEmpty()) {
                 taskQuery.createStatusQuery(statusDone);
