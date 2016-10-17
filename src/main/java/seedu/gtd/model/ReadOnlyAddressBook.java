@@ -3,24 +3,24 @@ package seedu.gtd.model;
 
 import java.util.List;
 
-import seedu.gtd.model.person.ReadOnlyPerson;
-import seedu.gtd.model.person.UniquePersonList;
 import seedu.gtd.model.tag.Tag;
 import seedu.gtd.model.tag.UniqueTagList;
+import seedu.gtd.model.task.ReadOnlyTask;
+import seedu.gtd.model.task.UniqueTaskList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an task list
  */
 public interface ReadOnlyAddressBook {
 
     UniqueTagList getUniqueTagList();
 
-    UniquePersonList getUniquePersonList();
+    UniqueTaskList getUniqueTaskList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of tasks list
      */
-    List<ReadOnlyPerson> getPersonList();
+    List<ReadOnlyTask> getTaskList();
 
     /**
      * Returns an unmodifiable view of tags list

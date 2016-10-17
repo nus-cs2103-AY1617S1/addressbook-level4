@@ -2,7 +2,7 @@ package seedu.gtd.logic;
 
 import javafx.collections.ObservableList;
 import seedu.gtd.logic.commands.CommandResult;
-import seedu.gtd.model.person.ReadOnlyPerson;
+import seedu.gtd.model.task.ReadOnlyTask;
 
 /**
  * API of the Logic component
@@ -16,6 +16,6 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyPerson> getFilteredPersonList();
+    ObservableList<ReadOnlyTask> getFilteredTaskList();
 
 }
