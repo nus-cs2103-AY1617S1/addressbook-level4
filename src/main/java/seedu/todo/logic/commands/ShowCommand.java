@@ -13,7 +13,6 @@ import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.model.task.ImmutableTask;
 
 public class ShowCommand extends BaseCommand {
-    
     private Argument<Integer> index = new IntArgument("index").required(); 
 
     @Override
@@ -35,7 +34,7 @@ public class ShowCommand extends BaseCommand {
     public CommandResult execute() throws ValidationException {
         ImmutableTask task = this.model.getObserveableList().get(index.getValue());
         EventsCenter.getInstance().post(new ExpandCollapseTaskEvent(task)); 
-        return new CommandResult("Command executed.");
+        return new CommandResult("Command executed");
     }
 
 }
