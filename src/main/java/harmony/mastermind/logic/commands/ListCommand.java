@@ -2,6 +2,7 @@ package harmony.mastermind.logic.commands;
 
 import java.util.ArrayList;
 import harmony.mastermind.memory.GenericMemory;
+import harmony.mastermind.model.ModelManager;
 import java.util.Optional;
 
 /**
@@ -11,13 +12,15 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String LISTING_ARCHIVES = "archive";
-    public static final String LISTING_TASKS = "task";
     public static final String MESSAGE_USAGE = "list archive";
-    public static final String MESSAGE_SUCCESS_ARCHIVED = "Listed all archived tasks";
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    public static final String MESSAGE_SUCCESS_TASKS = "Listed all floating tasks";
+    public static final String MESSAGE_SUCCESS_EVENTS = "Listed all events";
+    public static final String MESSAGE_SUCCESS_DEADLINES = "Listed all deadlines";
+    public static final String MESSAGE_SUCCESS_ARCHIVES = "Listed all archived tasks";
     public static final String COMMAND_SUMMARY = "Listing all tasks:"
-            + "\n" + COMMAND_WORD;   
+            + "\n" + COMMAND_WORD;
+    
     private static final String BRACKET_CLOSE = "] ";
     private static final String BRACKET_OPEN = ".   [";
     private static final String BLANK = " ";
@@ -31,25 +34,30 @@ public class ListCommand extends Command {
     public static ArrayList<GenericMemory> listView = null;
     public static String listName = null;
     
-    private boolean archives;
+    private String tab;
     
     public ListCommand() {
-        archives = false;
+        tab = ModelManager.TAB_HOME.toLowerCase();
     }
     
     public ListCommand(Optional<String> args) {
-        archives = true;
+        tab = args.get();
     }
 
     @Override
     public CommandResult execute() {
-        if (!archives) {
-            model.updateFilteredListToShowAll();
-            
-            return new CommandResult(MESSAGE_SUCCESS);
+        model.updateFilteredListToShowAll(tab);
         
-        }else{
-            return new CommandResult(MESSAGE_SUCCESS_ARCHIVED);
+        if (tab.equals(ModelManager.TAB_TASKS.toLowerCase())) {
+            return new CommandResult(MESSAGE_SUCCESS_TASKS);
+        } else if (tab.equals(ModelManager.TAB_EVENTS.toLowerCase())) {
+            return new CommandResult(MESSAGE_SUCCESS_EVENTS);
+        } else if (tab.equals(ModelManager.TAB_DEADLINES.toLowerCase())) {
+            return new CommandResult(MESSAGE_SUCCESS_DEADLINES);
+        } else if (tab.equals(ModelManager.TAB_ARCHIVES.toLowerCase())) {
+            return new CommandResult(MESSAGE_SUCCESS_ARCHIVES);
+        } else {
+            return new CommandResult(MESSAGE_SUCCESS);
         }
     }
 

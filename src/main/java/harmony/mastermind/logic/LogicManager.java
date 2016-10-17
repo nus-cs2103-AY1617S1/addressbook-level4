@@ -31,6 +31,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText, String currentTab) {
         logger.info("----------------[" + currentTab + "Tab][USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText, currentTab);
+        model.updateCurrentTab(currentTab);
         command.setData(model);
         return command.execute();
     }

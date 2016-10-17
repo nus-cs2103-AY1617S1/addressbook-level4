@@ -274,7 +274,10 @@ public class Parser {
         if (!type.isPresent()) {
             return new ListCommand();
         }else {
-            if (type.get().equals(ListCommand.LISTING_ARCHIVES)) {
+            if (type.get().equals(ModelManager.TAB_TASKS.toLowerCase()) ||
+                    type.get().equals(ModelManager.TAB_EVENTS.toLowerCase()) || 
+                    type.get().equals(ModelManager.TAB_DEADLINES.toLowerCase()) ||
+                    type.get().equals(ModelManager.TAB_ARCHIVES.toLowerCase())) {
                 return new ListCommand(type);
             }else {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
@@ -330,7 +333,7 @@ public class Parser {
             return Optional.empty();
         }
 
-        String type = matcher.group("type");
+        String type = matcher.group("type").toLowerCase();
 
         return Optional.of(type);
 

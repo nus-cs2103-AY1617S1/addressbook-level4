@@ -50,9 +50,11 @@ public class MainWindow extends UiPart {
     private static final double WIDTH_MULTIPLIER_ENDDATE = 0.2;
     private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
     
+    private static final short INDEX_HOME = 0;
+    
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 460;
-
+    
     private Logic logic;
 
     private Config config;
@@ -421,6 +423,7 @@ public class MainWindow extends UiPart {
     private void handleCommandInputChanged() {
         // Take a copy of the command text
         currCommandText = commandField.getText();
+        String currentTab = getCurrentTab();
 
         setStyleToIndicateCorrectCommand();
         
@@ -430,18 +433,10 @@ public class MainWindow extends UiPart {
              * will be changed accordingly in the event handling code {@link
              * #handleIncorrectCommandAttempted}
              */
-            mostRecentResult = logic.execute(currCommandText, getCurrentTab());
+            mostRecentResult = logic.execute(currCommandText, currentTab);
             consoleOutput.setText(mostRecentResult.feedbackToUser);
-
-            System.out.println();
             
-            if (!mostRecentResult.feedbackToUser.equals(ListCommand.MESSAGE_SUCCESS_ARCHIVED)) {
-                taskTableHome.setItems(logic.getFilteredTaskList());
-                
-            }else {
-                taskTableHome.setItems(logic.getFilteredArchiveList());
-            }
-            
+            updateTab(mostRecentResult);
 
             prevCommandText = currCommandText;
         }else {
@@ -458,6 +453,23 @@ public class MainWindow extends UiPart {
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
         restoreCommandText();
+    }
+
+    //@@author A0124797R
+    private void updateTab(CommandResult result) {
+        String tab = result.toString();
+        switch (tab) {
+            case ListCommand.MESSAGE_SUCCESS:           tabPane.getSelectionModel().select(INDEX_HOME);
+                                                        break;
+            case ListCommand.MESSAGE_SUCCESS_TASKS:     tabPane.getSelectionModel().select(1);
+                                                        break;
+            case ListCommand.MESSAGE_SUCCESS_EVENTS:    tabPane.getSelectionModel().select(2);
+                                                        break;
+            case ListCommand.MESSAGE_SUCCESS_DEADLINES: tabPane.getSelectionModel().select(3);
+                                                        break;
+            case ListCommand.MESSAGE_SUCCESS_ARCHIVES:  tabPane.getSelectionModel().select(4);
+                                                        break;
+        }
     }
     
     /**

@@ -23,7 +23,6 @@ import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
-import harmony.mastermind.ui.MainWindow;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -39,6 +38,14 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredDeadlines;
     private final FilteredList<Task> filteredArchives;
     private final Stack<Undoable> undoHistory;
+
+    public static final String TAB_HOME = "Home";
+    public static final String TAB_TASKS = "Tasks";
+    public static final String TAB_EVENTS = "Events";
+    public static final String TAB_DEADLINES = "Deadlines";
+    public static final String TAB_ARCHIVES= "Archives";
+
+    private String currentTab;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -58,6 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines = new FilteredList<>(taskManager.getDeadlines());
         filteredArchives = new FilteredList<>(taskManager.getArchives());
         undoHistory = new Stack<>();
+        currentTab = TAB_HOME;
     }
 
     public ModelManager() {
@@ -91,6 +99,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    //@@author A0124797R
+    public void updateCurrentTab(String tab) {
+        this.currentTab = tab;
+    }
+    
+    @Override
     //@@author A0138862W
     public void pushToUndoHistory(Undoable command) {
         undoHistory.push(command);
@@ -101,7 +115,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0138862W
     public CommandResult undo() throws EmptyStackException{
         CommandResult commandResult = undoHistory.pop().undo();
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAll(currentTab);
         indicateTaskManagerChanged();
         return commandResult;
     }
@@ -115,19 +129,19 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAll(currentTab);
         indicateTaskManagerChanged();
     }
     
-    //@author A0124797R
     @Override
+    //@author A0124797R
     public synchronized void markTask(Task target) throws TaskNotFoundException {
         taskManager.markTask(target);
         indicateTaskManagerChanged();
     }
     
-    //@author A0124797R
     @Override
+    //@author A0124797R
     public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException,
     UniqueTaskList.DuplicateTaskException {
         taskManager.unmarkTask((Task)target);
@@ -141,8 +155,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //=========== Filtered List Accessors ===============================================================
-    //@@author A0124797R
     @Override
+    //@@author A0124797R
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
         return new UnmodifiableObservableList<>(taskManager.getFloatingTasks());
     }
@@ -179,8 +193,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+    public void updateFilteredListToShowAll(String tab) {
+        switch (tab) {
+            case TAB_HOME:      filteredTasks.setPredicate(null);
+                                break;
+            case TAB_TASKS:     filteredFloatingTasks.setPredicate(null);
+                                break;
+            case TAB_EVENTS:    filteredEvents.setPredicate(null);
+                                break;
+            case TAB_DEADLINES: filteredDeadlines.setPredicate(null);
+                                break;
+            case TAB_ARCHIVES:  filteredArchives.setPredicate(null);
+                                break;
+        }
     }
 
     @Override

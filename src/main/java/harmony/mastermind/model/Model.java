@@ -72,9 +72,13 @@ public interface Model {
     //@@author A0124797R
     /** Returns filtered task list as an {@code ObervableList<Task>} */
     ObservableList<Task> getListToMark(String currentTab);
+    
+    //@@author A0124797R
+    /** update current tab */
+    void updateCurrentTab(String tab);
 
-    /** Updates the filter of the filtered task list to show all tasks */
-    void updateFilteredListToShowAll();
+    /** Updates the filter of the filtered task list for current tab to show all tasks */
+    void updateFilteredListToShowAll(String tab);
     
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
