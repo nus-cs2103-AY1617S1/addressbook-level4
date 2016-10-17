@@ -39,9 +39,9 @@ Opens the user guide with a new window.<br>
 Format: `help`<br>
 
 Example:
+* `help`
 > <img src="images/dearjim_help.png"><br>
 
-* `help`
 
  
 ### Adding a task: `add`
