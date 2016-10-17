@@ -1,15 +1,11 @@
 package seedu.jimi.logic.commands;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.exceptions.DataConversionException;
 import seedu.jimi.commons.util.ConfigUtil;
-import seedu.jimi.commons.util.FileUtil;
 import seedu.jimi.model.ReadOnlyTaskBook;
 import seedu.jimi.model.TaskBook;
-import seedu.jimi.storage.Storage;
 import seedu.jimi.storage.StorageManager;
 
 /**
@@ -46,24 +42,16 @@ public class SaveAsCommand extends Command {
         String defaultConfigFilePathUsed = Config.DEFAULT_CONFIG_FILE;
         try {
             Config config = ConfigUtil.readConfig(defaultConfigFilePathUsed).orElse(new Config());
-            ConfigUtil.saveConfig(config, defaultConfigFilePathUsed);
-            File oldConfigJsonFile = new File(defaultConfigFilePathUsed);
-            
             
             String oldTaskBookFilePath = config.getTaskBookFilePath();
             config.setTaskBookFilePath(taskBookFilePath);
             
-            String newConfigFileDetails= config.toString();
-            oldConfigJsonFile.delete();
-            File newConfigJsonFile = new File(defaultConfigFilePathUsed);
-            FileUtil.serializeObjectToJsonFile(newConfigJsonFile, config);
+            ConfigUtil.saveConfig(config, defaultConfigFilePathUsed);
             
             StorageManager oldStorage = new StorageManager(oldTaskBookFilePath, config.getUserPrefsFilePath());
             StorageManager newStorage = new StorageManager(taskBookFilePath, config.getUserPrefsFilePath());
             
             ReadOnlyTaskBook oldTaskBook = oldStorage.readTaskBook(oldTaskBookFilePath).orElse(new TaskBook());
-            File oldTaskBookFile = new File(oldTaskBookFilePath);
-            oldTaskBookFile.deleteOnExit();
             newStorage.saveTaskBook(oldTaskBook);
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, newStorage.getAddressBookFilePath()));
