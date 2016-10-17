@@ -11,6 +11,7 @@ import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.core.Version;
 import teamfour.tasc.commons.events.storage.FileRelocateEvent;
+import teamfour.tasc.commons.events.storage.RequestOriginalFilePathEvent;
 import teamfour.tasc.commons.events.ui.ExitAppRequestEvent;
 import teamfour.tasc.commons.exceptions.DataConversionException;
 import teamfour.tasc.commons.util.ConfigUtil;
@@ -47,8 +48,8 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Model model;
     protected UserPrefs userPrefs;
-    protected static Config config;
-    protected static Storage storage;
+    protected Config config;
+    protected Storage storage;
     private static String newTaskListFilePath;
 
     public MainApp() {}
@@ -74,7 +75,7 @@ public class MainApp extends Application {
         initEventsCenter();
     }
     
-    public static void setDataStorageFilePath(String newPath) throws IOException, JAXBException, DataConversionException {
+    public void setDataStorageFilePath(String newPath) throws IOException, JAXBException, DataConversionException {
         newTaskListFilePath = newPath;
         config.changeTaskListFilePath(newTaskListFilePath);
         storage.changeTaskListStorage(config.getTaskListFilePathAndName());
@@ -84,7 +85,7 @@ public class MainApp extends Application {
         return newTaskListFilePath;
     }
     
-    public static ReadOnlyTaskList switchListTo(String tasklistFileName) throws IOException, DataConversionException {
+    public ReadOnlyTaskList switchListTo(String tasklistFileName) throws IOException, DataConversionException {
         config.switchToNewTaskList(tasklistFileName);
         return storage.changeTaskListStorage(config.getTaskListFilePathAndName());
     }
@@ -208,8 +209,15 @@ public class MainApp extends Application {
     }
     
     @Subscribe
-    public void handleFileRelocateEvent(FileRelocateEvent event) {
-        this.stop();
+    public void handleFileRelocateEvent(FileRelocateEvent event) throws IOException, JAXBException, DataConversionException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setDataStorageFilePath(event.getDestination());
+    }
+    
+    @Subscribe
+    public String handleRequestOriginalFilePathEvent(RequestOriginalFilePathEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        return this.newTaskListFilePath;
     }
 
     public static void main(String[] args) {

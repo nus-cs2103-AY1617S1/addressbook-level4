@@ -1,11 +1,8 @@
 package teamfour.tasc.logic.commands;
 
-import java.io.IOException;
-
-import javax.xml.bind.JAXBException;
-
 import teamfour.tasc.MainApp;
-import teamfour.tasc.commons.exceptions.DataConversionException;
+import teamfour.tasc.commons.core.EventsCenter;
+import teamfour.tasc.commons.events.storage.FileRelocateEvent;
 
 /**
  * Moves the data storage file to a new directory.
@@ -50,14 +47,9 @@ public class RelocateCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-            MainApp.setDataStorageFilePath(destination);
-            undoable = true;
-            return new CommandResult(String.format(MESSAGE_SUCCESS, 
-                    destination));
-        } catch (IOException | JAXBException | DataConversionException e) {
-            return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
-        }
+        EventsCenter.getInstance().post(new FileRelocateEvent(destination));
+        undoable = true;
+        return new CommandResult(String.format(MESSAGE_SUCCESS, destination));
     }
 
     @Override
@@ -68,13 +60,8 @@ public class RelocateCommand extends Command {
     @Override
     public CommandResult executeUndo() {
         assert model != null;
-        try {
-            MainApp.setDataStorageFilePath(originalDestination);
-            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, 
-                    originalDestination));
-        } catch (IOException | JAXBException | DataConversionException e) {
-            return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
-        }
+        EventsCenter.getInstance().post(new FileRelocateEvent(originalDestination));
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, originalDestination));
     }
 
 }

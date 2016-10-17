@@ -1,8 +1,6 @@
 package teamfour.tasc.logic.commands;
 
-import teamfour.tasc.model.task.*;
 import teamfour.tasc.commons.core.EventsCenter;
-import teamfour.tasc.commons.core.Messages;
 import teamfour.tasc.commons.core.UnmodifiableObservableList;
 import teamfour.tasc.commons.events.ui.JumpToListRequestEvent;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
