@@ -8,6 +8,12 @@ import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to destroy a CalendarItem.
+ * 
+ * @author louietyj
+ *
+ */
 public class DestroyController implements Controller {
     
     private static String NAME = "Destroy";

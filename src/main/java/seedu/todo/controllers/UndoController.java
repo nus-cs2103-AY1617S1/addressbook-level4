@@ -9,6 +9,12 @@ import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to undo a database commit.
+ * 
+ * @author louietyj
+ *
+ */
 public class UndoController implements Controller {
     
     private static final String MESSAGE_SUCCESS = "Successfully undid %s %s!\nTo redo, type \"redo\".";
@@ -20,6 +26,13 @@ public class UndoController implements Controller {
         return input.startsWith("undo") ? 1 : 0;
     }
     
+    /**
+     * Get the token definitions for use with <code>tokenizer</code>.<br>
+     * This method exists primarily because Java does not support HashMap
+     * literals...
+     * 
+     * @return tokenDefinitions
+     */
     private static Map<String, String[]> getTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
         tokenDefinitions.put("default", new String[] {"undo"});

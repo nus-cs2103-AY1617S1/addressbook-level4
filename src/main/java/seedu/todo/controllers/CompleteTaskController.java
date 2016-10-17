@@ -7,6 +7,12 @@ import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to mark a task as completed.
+ * 
+ * @author louietyj
+ *
+ */
 public class CompleteTaskController implements Controller {
     
     private static String NAME = "Complete Task";

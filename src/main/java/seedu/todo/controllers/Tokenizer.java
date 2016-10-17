@@ -11,10 +11,21 @@ import org.apache.commons.lang.StringUtils;
 
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
 
+/**
+ * Class to store the static method <code>tokenizer</code>.
+ * 
+ * @author louietyj
+ *
+ */
 public class Tokenizer {
 
     private final static String QUOTE = "\"";
 
+    /**
+     * A private class to tag a string as a token or a quote.
+     * @author louietyj
+     *
+     */
     private static class TokenizedString {
         public String string;
         public boolean isToken;
@@ -32,6 +43,18 @@ public class Tokenizer {
         }
     }
 
+    /**
+     * Tokenizer method to parse a user-input string into a mapping of tokenType -> tokenField.
+     * <ul>
+     *   <li>Quoted chunks are kept as a whole and never matched to a token.</li>
+     *   <li>If there are multiple token matches, only the first one will be registered.</li>
+     *   <li>If there are multiple tokenType matches, only one match will be returned.</li>
+     * </ul>
+     * @param tokenDefinitions  Mapping of tokenType -> list of token strings to match
+     * @param inputCommand      User input to tokenize
+     * @return                  Mapping of tokenType -> { matchedToken, tokenField }
+     * @throws UnmatchedQuotesException If there is an odd number of quotes
+     */
     public static Map<String, String[]> tokenize(Map<String, String[]> tokenDefinitions, String inputCommand)
             throws UnmatchedQuotesException {
         
@@ -72,6 +95,12 @@ public class Tokenizer {
         return constructParsedResult(tokenizedSplitString, tokenIndices);
     }
 
+    /**
+     * Constructs the parsedResult from user input that has been delimited and tokenized.
+     * @param tokenizedSplitString
+     * @param tokenIndices
+     * @return parsedResult
+     */
     private static Map<String, String[]> constructParsedResult(List<TokenizedString> tokenizedSplitString,
             Map<String, Integer> tokenIndices) {
         Map<String, String[]> parsedResult = new HashMap<String, String[]>();
@@ -87,6 +116,20 @@ public class Tokenizer {
         return parsedResult;
     }
 
+    /**
+     * Re-implementation from scratch of
+     * <code>tokens.split("token1|token2|token3|...")</code> with the constraint
+     * that quoted strings are kept intact and unmatched.
+     * 
+     * @param tokens
+     *            List of tokens to match
+     * @param getTokenType
+     *            Mapping of token -> tokenType
+     * @param tokenizedSplitString
+     *            User input with quoted strings tagged. This method will modify
+     *            tokenizedSplitString in-place.
+     * @return Indexes of matched tokens
+     */
     private static Map<String, Integer> splitByTokens(List<String> tokens, HashMap<String, String> getTokenType,
             List<TokenizedString> tokenizedSplitString) {
         Map<String, Integer> tokenIndices = new HashMap<String, Integer>();

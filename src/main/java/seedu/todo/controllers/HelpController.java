@@ -5,6 +5,12 @@ import java.util.Arrays;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.HelpView;
 
+/**
+ * Controller to show commands help.
+ * 
+ * @author louietyj
+ *
+ */
 public class HelpController implements Controller {
 
     private static String NAME = "Help";
@@ -39,6 +45,10 @@ public class HelpController implements Controller {
                                          AddController.getCommandDefinition(),
                                          ListController.getCommandDefinition(),
                                          UpdateController.getCommandDefinition(),
+                                         CompleteTaskController.getCommandDefinition(),
+                                         UncompleteTaskController.getCommandDefinition(),
+                                         DestroyController.getCommandDefinition(),
+                                         ConfigController.getCommandDefinition(),
                                          DestroyController.getCommandDefinition(),
                                          ExitController.getCommandDefinition() };
     }
