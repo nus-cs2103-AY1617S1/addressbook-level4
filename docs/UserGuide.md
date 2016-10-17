@@ -81,7 +81,7 @@ You can try some of these example commands:
    * **`exit`** : exits the application
 
 > **Tip:**<br>
-> You may refer to the [Commands](#commands) section for details of each command.
+> You may refer to the [Features](#features) section for details of each command.
 
 <br>
 
