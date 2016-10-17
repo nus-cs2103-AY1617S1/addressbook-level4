@@ -8,8 +8,8 @@ import seedu.gtd.commons.exceptions.IllegalValueException;
  */
 public class Priority {
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "Task priority numbers should only contain numbers";
-    public static final String PHONE_VALIDATION_REGEX = "\\d+";
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority numbers should only contain numbers";
+    public static final String PRIORITY_VALIDATION_REGEX = "\\d+";
 
     public final String value;
 
@@ -22,7 +22,7 @@ public class Priority {
         assert priority != null;
         priority = priority.trim();
         if (!isValidPriority(priority)) {
-            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
         this.value = priority;
     }
@@ -31,7 +31,7 @@ public class Priority {
      * Returns true if a given string is a valid task priority number.
      */
     public static boolean isValidPriority(String test) {
-        return test.matches(PHONE_VALIDATION_REGEX);
+        return test.matches(PRIORITY_VALIDATION_REGEX);
     }
 
     @Override
