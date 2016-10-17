@@ -84,8 +84,6 @@ public class ToDoListParser {
         case ResetCommand.COMMAND_WORD:
             return new ResetCommand();
 
-        case ResetCommand.COMMAND_WORD:
-            return new ResetCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
