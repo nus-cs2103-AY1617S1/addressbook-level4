@@ -1,6 +1,7 @@
 package seedu.todo.controllers;
 
 import seedu.todo.commons.EphemeralDB;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.CalendarItem;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
@@ -62,13 +63,7 @@ public class DestroyController implements Controller {
         }
         
         // Re-render
-        IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getAllTasks();
-        view.events = db.getAllEvents();
-        UiManager.renderView(view);
-        
-        // Show console message
-        UiManager.updateConsoleMessage(MESSAGE_DELETE_SUCCESS);
+        Renderer.renderIndex(db, MESSAGE_DELETE_SUCCESS);
     }
 
 }
