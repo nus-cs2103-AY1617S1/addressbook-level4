@@ -26,7 +26,7 @@ public class JsonStorage implements Storage {
     private Deque<LinkedList<Patch>> historyPatch = new ArrayDeque<LinkedList<Patch>>();
     private Deque<LinkedList<Patch>> futurePatch = new ArrayDeque<LinkedList<Patch>>();
     private String currJson;
-    private final int HISTORY_SIZE = 1000;
+    private final static int HISTORY_SIZE = 1000;
     private final DiffMatchPatch dmp = new DiffMatchPatch();
 
     private File getStorageFile() {
