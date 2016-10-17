@@ -6,6 +6,7 @@ import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -112,6 +113,15 @@ public class WhatNow implements ReadOnlyWhatNow {
         }
     }
     
+
+    public boolean changeTask(ReadOnlyTask key) throws TaskNotFoundException {
+        if (tasks.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        } 
+    }
+    
     public boolean updateTask(ReadOnlyTask old, Task toUpdate) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.update(old, toUpdate)) {
             return true;
@@ -168,4 +178,5 @@ public class WhatNow implements ReadOnlyWhatNow {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
 }
