@@ -17,7 +17,6 @@ public class TaskTime implements Comparable<TaskTime> {
             "Task time should have a valid date or time format";
     
     private final Calendar timeOfCreation;
-    private final Calendar valueCalendar;
     private final Date value;
 
     /**
@@ -37,11 +36,9 @@ public class TaskTime implements Comparable<TaskTime> {
             // represent an empty tasktime with a null value field
             timeOfCreation = Calendar.getInstance();
             value = null;
-            valueCalendar = null;
         } else {        
             timeOfCreation = Calendar.getInstance();
             value = getDate(time);
-            valueCalendar = DateUtils.toCalendar(value);
         }
     }
     
@@ -112,7 +109,7 @@ public class TaskTime implements Comparable<TaskTime> {
     }
     
     public Calendar getCalendar(){
-        return valueCalendar;
+        return DateUtils.toCalendar(value);
     }
     
     @Override
