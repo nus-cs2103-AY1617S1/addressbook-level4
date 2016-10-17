@@ -205,7 +205,9 @@ public class CommandParser {
                 int indexOfDate = arguments.indexOf(localDateString);
                 StringBuilder convertDateStringBuilder = new StringBuilder(arguments);
                 convertDateStringBuilder.replace(indexOfDate, indexOfDate + localDateString.length(), nattyDateString);
-                return convertDateStringBuilder.toString();
+                String stringFromConvertedDate = convertDateStringBuilder.substring(indexOfDate);
+                String stringUpToConvertedDate = convertDateStringBuilder.substring(0, indexOfDate);
+                return convertToNattyDateFormat(stringUpToConvertedDate) + stringFromConvertedDate;
             } else if (matchWithoutYear.matches()) {
                 String localDateString = matchWithoutYear.group("arguments");
                 SimpleDateFormat localDateFormatWithYear = new SimpleDateFormat("dd/MM");
@@ -215,7 +217,9 @@ public class CommandParser {
                 int indexOfDate = arguments.indexOf(localDateString);
                 StringBuilder convertDateStringBuilder = new StringBuilder(arguments);
                 convertDateStringBuilder.replace(indexOfDate, indexOfDate + localDateString.length(), nattyDateString);
-                return convertDateStringBuilder.toString();
+                String stringFromConvertedDate = convertDateStringBuilder.substring(indexOfDate);
+                String stringUpToConvertedDate = convertDateStringBuilder.substring(0, indexOfDate);
+                return convertToNattyDateFormat(stringUpToConvertedDate) + stringFromConvertedDate;
             } else {
                 return arguments;
             }
