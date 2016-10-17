@@ -16,6 +16,12 @@ import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to update a CalendarItem.
+ * 
+ * @author louietyj
+ *
+ */
 public class UpdateController implements Controller {
     
     private static String NAME = "Update";

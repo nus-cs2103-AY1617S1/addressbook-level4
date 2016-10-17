@@ -34,6 +34,10 @@ public class JsonStorage implements Storage {
         return new File(filePath);
     }
     
+    /**
+     * Internal function to prune the history patches stored to ensure it does
+     * not exit HISTORY_SIZE.
+     */
     private void pruneHistory() {
         // Don't need to worry about future because it cannot exceed limit.
         while (historyPatch.size() > HISTORY_SIZE)

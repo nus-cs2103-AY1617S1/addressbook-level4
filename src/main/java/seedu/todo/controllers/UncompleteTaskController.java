@@ -7,6 +7,12 @@ import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to mark a task as uncompleted.
+ * 
+ * @author louietyj
+ *
+ */
 public class UncompleteTaskController implements Controller {
     
     private static String NAME = "Uncomplete Task";

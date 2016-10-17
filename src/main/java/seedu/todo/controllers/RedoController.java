@@ -9,6 +9,12 @@ import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to redo a database commit.
+ * 
+ * @author louietyj
+ *
+ */
 public class RedoController implements Controller {
     
     private static final String MESSAGE_SUCCESS = "Successfully redid %s %s!\nTo undo, type \"undo\".";
@@ -20,6 +26,13 @@ public class RedoController implements Controller {
         return input.startsWith("redo") ? 1 : 0;
     }
     
+    /**
+     * Get the token definitions for use with <code>tokenizer</code>.<br>
+     * This method exists primarily because Java does not support HashMap
+     * literals...
+     * 
+     * @return tokenDefinitions
+     */
     private static Map<String, String[]> getTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
         tokenDefinitions.put("default", new String[] {"redo"});
