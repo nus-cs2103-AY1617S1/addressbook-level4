@@ -112,7 +112,7 @@ public class TimeUtil {
                 + endTime.format(DateTimeFormatter.ofPattern(FORMAT_DATE_WITH_YEAR + ", " + FORMAT_TIME));
     }
     
-    private boolean isTomorrow(LocalDateTime dateTimeToday, LocalDateTime dateTimeTomorrow) {
+    public boolean isTomorrow(LocalDateTime dateTimeToday, LocalDateTime dateTimeTomorrow) {
         LocalDate dayBefore = dateTimeToday.toLocalDate();
         LocalDate dayAfter = dateTimeTomorrow.toLocalDate();
         return dayBefore.plusDays(1).equals(dayAfter);
