@@ -1,6 +1,7 @@
 package harmony.mastermind.logic.commands;
 
 import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
@@ -55,8 +56,10 @@ public class MarkCommand extends Command implements Undoable {
 
         try {
             model.markTask(taskToMark);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
+        } catch (DuplicateTaskException dte) {
+            assert false : "There are duplicate tasks";
         }
 
         model.pushToUndoHistory(this);
@@ -74,7 +77,7 @@ public class MarkCommand extends Command implements Undoable {
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, taskToMark));
         } catch (DuplicateTaskException e) {
             return new CommandResult(String.format(UnmarkCommand.MESSAGE_DUPLICATE_UNMARK_TASK, taskToMark));
-        } catch (harmony.mastermind.model.task.ArchiveTaskList.TaskNotFoundException e) {
+        } catch (ArchiveTaskList.TaskNotFoundException e) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
     }

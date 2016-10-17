@@ -2,12 +2,11 @@ package harmony.mastermind.logic.commands;
 
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
-import harmony.mastermind.model.task.ArchiveTaskList.TaskNotFoundException;
-import javafx.collections.ObservableList;
 
 //@@author A0124797R
 public class UnmarkCommand extends Command implements Undoable{
@@ -52,7 +51,7 @@ public class UnmarkCommand extends Command implements Undoable{
 
         try {
             model.unmarkTask((Task)taskToUnmark);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (ArchiveTaskList.TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         } catch (DuplicateTaskException e) {
             return new CommandResult(String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
@@ -73,6 +72,8 @@ public class UnmarkCommand extends Command implements Undoable{
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, taskToUnmark));
         } catch (UniqueTaskList.TaskNotFoundException e) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
         }
     }
     

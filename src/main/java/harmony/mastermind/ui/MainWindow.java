@@ -23,6 +23,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,6 +32,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -75,6 +78,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private TextArea consoleOutput;
+    
+    @FXML
+    private static TabPane tabPane;
 
     @FXML
     private TableView<ReadOnlyTask> taskTableHome;
@@ -203,7 +209,7 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
+        
         taskTableHome.setItems(logic.getFilteredTaskList());
         taskTableTask.setItems(logic.getFilteredFloatingTaskList());
         taskTableEvent.setItems(logic.getFilteredEventList());
@@ -236,6 +242,10 @@ public class MainWindow extends UiPart {
     private void setWindowMinSize() {
         primaryStage.setMinHeight(MIN_HEIGHT);
         primaryStage.setMinWidth(MIN_WIDTH);
+    }
+    
+    public static String getCurrentTab() {
+        return tabPane.getSelectionModel().getSelectedItem().getText();
     }
 
     /**

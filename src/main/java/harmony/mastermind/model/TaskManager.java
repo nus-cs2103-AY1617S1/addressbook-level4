@@ -147,12 +147,12 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
-        tasks.add(p);
-        syncTaskInCategory(p);
+    public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList(t);
+        tasks.add(t);
+        syncAddTask(t);
     }
 
     /**
@@ -180,7 +180,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
-            syncTaskInCategory(key);
+            syncRemoveTask(key);
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -191,11 +191,13 @@ public class TaskManager implements ReadOnlyTaskManager {
      * marks task as completed by
      * removing the task from tasks and adds into archivedtasks
      * throws TaskNotFoundException
+     * throws DuplicateTaskException 
      */
     //@@author A0124797R
     public boolean markTask(Task key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             archives.add(key.mark());
+            syncRemoveTask(key);
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -208,10 +210,10 @@ public class TaskManager implements ReadOnlyTaskManager {
      * throws TaskNotFoundException, DuplicateTaskException 
      */
     //@@author A0124797R
-    public boolean unmarkTask(Task key) throws ArchiveTaskList.TaskNotFoundException,
-    UniqueTaskList.DuplicateTaskException {
+    public boolean unmarkTask(Task key) throws DuplicateTaskException, ArchiveTaskList.TaskNotFoundException {
         if (archives.remove(key)) {
             tasks.add(key.unmark());
+            syncAddTask(key.unmark());
             return true;
         } else {
             throw new ArchiveTaskList.TaskNotFoundException();
@@ -219,10 +221,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     /**
-     * Synchronize tasks in their categories
+     * Synchronize adding of tasks
      */
     //@@author A0124797R
-    private void syncTaskInCategory(Task task) throws DuplicateTaskException {
+    private void syncAddTask(Task task) throws DuplicateTaskException{   
         if (task.isFloating()) {
             floatingTasks.add(task);
         } else if (task.isDeadline()) {
@@ -233,10 +235,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     /**
-     * Synchronize tasks in their categories
+     * Synchronize removing of tasks
      */
     //@@author A0124797R
-    private void syncTaskInCategory(ReadOnlyTask task) throws TaskNotFoundException{
+    private void syncRemoveTask(ReadOnlyTask task) throws TaskNotFoundException{
         if (task.isFloating()) {
             floatingTasks.remove(task);
         } else if (task.isDeadline()) {

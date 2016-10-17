@@ -14,7 +14,6 @@ import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.util.StringUtil;
-import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.Undoable;
 import harmony.mastermind.memory.Memory;
@@ -23,8 +22,8 @@ import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
-import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
+import harmony.mastermind.ui.MainWindow;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -35,6 +34,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredFloatingTasks;
+    private final FilteredList<Task> filteredEvents;
+    private final FilteredList<Task> filteredDeadlines;
+    private final FilteredList<Task> filteredArchives;
     private final Stack<Undoable> undoHistory;
 
     /**
@@ -50,6 +53,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredFloatingTasks = new FilteredList<>(taskManager.getFloatingTasks());
+        filteredEvents = new FilteredList<>(taskManager.getEvents());
+        filteredDeadlines = new FilteredList<>(taskManager.getDeadlines());
+        filteredArchives = new FilteredList<>(taskManager.getArchives());
         undoHistory = new Stack<>();
     }
 
@@ -60,6 +67,10 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredFloatingTasks = new FilteredList<>(taskManager.getFloatingTasks());
+        filteredEvents = new FilteredList<>(taskManager.getEvents());
+        filteredDeadlines = new FilteredList<>(taskManager.getDeadlines());
+        filteredArchives = new FilteredList<>(taskManager.getArchives());
         undoHistory = new Stack<>();
     }
 
@@ -164,7 +175,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0124797R
     @Override
     public ObservableList<Task> getListToMark() {
-        return filteredTasks;
+        return getCurrentList();
     }
 
     @Override
@@ -185,6 +196,27 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    private ObservableList<Task> getCurrentList() {
+        String tab = MainWindow.getCurrentTab();
+        ObservableList<Task> list = filteredTasks;
+        switch (tab) {
+            case "Home":        list = filteredTasks;
+                                break;
+            case "Tasks":       list = filteredFloatingTasks;
+                                break;
+            case "Events":      list = filteredEvents;
+                                break;
+            case "Deadlines":   list = filteredDeadlines;
+                                break;
+            case "Archives":    list = filteredArchives;
+                                break;
+        }
+        
+        return list;
+            
+            
     }
     
     private void searchTask(String keyword, Memory memory) { 

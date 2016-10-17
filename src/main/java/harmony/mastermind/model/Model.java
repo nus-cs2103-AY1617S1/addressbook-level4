@@ -12,6 +12,8 @@ import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
+import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
+import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 import javafx.collections.ObservableList;
 
 /**
@@ -32,7 +34,7 @@ public interface Model {
 
     /** Marks the given task as done */
     //@@author A0124797R
-    void markTask(Task target) throws UniqueTaskList.TaskNotFoundException;
+    void markTask(Task target) throws UniqueTaskList.TaskNotFoundException, DuplicateTaskException;
     
     /** Updates the completed task as not done */
     //@@author A0124797R
