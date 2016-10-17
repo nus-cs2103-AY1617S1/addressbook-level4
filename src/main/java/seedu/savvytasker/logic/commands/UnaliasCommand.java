@@ -3,7 +3,6 @@ package seedu.savvytasker.logic.commands;
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.logic.commands.models.AliasCommandModel;
 import seedu.savvytasker.model.person.*;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 
 /**
  * Command to remove aliases
@@ -37,7 +36,8 @@ public class UnaliasCommand extends Command {
         try {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (DuplicateTaskException e) {
+        } catch (Exception e) {
+            //TODO: Exception for unrecognized alias
             return new CommandResult(MESSAGE_UNREGOGNIZED_ALIAS);
         }
 

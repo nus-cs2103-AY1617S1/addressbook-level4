@@ -2,7 +2,6 @@ package seedu.savvytasker.testutil;
 
 import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.person.Task;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 
 /**
  * A utility class to help with building SavvyTasker objects.
@@ -17,7 +16,7 @@ public class SavvyTaskerBuilder {
         this.savvyTasker = savvyTasker;
     }
 
-    public SavvyTaskerBuilder withTask(Task task) throws DuplicateTaskException {
+    public SavvyTaskerBuilder withTask(Task task) {
         savvyTasker.addTask(task);
         return this;
     }

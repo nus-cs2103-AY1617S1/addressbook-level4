@@ -2,7 +2,6 @@ package seedu.savvytasker.model.person;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.savvytasker.commons.exceptions.DuplicateDataException;
 import seedu.savvytasker.commons.util.CollectionUtil;
 
 import java.util.*;
@@ -16,21 +15,6 @@ import java.util.*;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class TaskList implements Iterable<Task> {
-
-    /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
-     */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        
-        /**
-         * Generated serial ID
-         */
-        private static final long serialVersionUID = 8933810750762846403L;
-
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate tasks");
-        }
-    }
 
     /**
      * Signals that an operation targeting a specified task in the list would fail because
@@ -60,15 +44,9 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Adds a task to the list.
-     *
-     * @throws DuplicateTaskException if the person to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(Task toAdd) {
         assert toAdd != null;
-        //if (contains(toAdd)) {
-        //    throw new DuplicateTaskException();
-        //}
-        // no constraints on duplicate tasks
         internalList.add(toAdd);
     }
 

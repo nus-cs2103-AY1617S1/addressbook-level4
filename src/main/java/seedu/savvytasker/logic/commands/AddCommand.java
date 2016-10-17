@@ -2,7 +2,6 @@ package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.logic.commands.models.AddCommandModel;
 import seedu.savvytasker.model.person.*;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 
 /**
  * Adds a person to the address book.
@@ -26,24 +25,20 @@ public class AddCommand extends Command {
      * Creates an add command.
      */
     public AddCommand(AddCommandModel commandModel) {
-        this.toAdd = new Task(commandModel.getTaskName(),
+        // all tasks starts off as active, archive them using 'mark'
+        final boolean isArchived = false;
+        this.toAdd = new Task(commandModel.getId(), commandModel.getTaskName(),
                 commandModel.getStartDateTime(), commandModel.getEndDateTime(),
                 commandModel.getLocation(), commandModel.getPriority(),
                 commandModel.getRecurringType(), commandModel.getNumberOfRecurrence(),
-                commandModel.getCategory(), commandModel.getDescription()
-        );
+                commandModel.getCategory(), commandModel.getDescription(), isArchived);
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-            model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
-
+        model.addTask(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
     
     @Override

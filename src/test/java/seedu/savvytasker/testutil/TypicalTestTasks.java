@@ -3,7 +3,6 @@ package seedu.savvytasker.testutil;
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.person.*;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 
 /**
  *
@@ -32,16 +31,13 @@ public class TypicalTestTasks {
 
     public static void loadSavvyTaskerWithSampleData(SavvyTasker st) {
 
-        try {
-            st.addTask(new Task(hello));
-            st.addTask(new Task(hello2));
-            st.addTask(new Task(meeting));
-            st.addTask(new Task(assignment));
-            st.addTask(new Task(tutorial));
-            st.addTask(new Task(dinner));
-        } catch (DuplicateTaskException e) {
-            assert false : "not possible";
-        }
+        st.addTask(new Task(hello));
+        st.addTask(new Task(hello2));
+        st.addTask(new Task(meeting));
+        st.addTask(new Task(assignment));
+        st.addTask(new Task(tutorial));
+        st.addTask(new Task(dinner));
+        
     }
 
     public TestTask[] getTypicalTasks() {

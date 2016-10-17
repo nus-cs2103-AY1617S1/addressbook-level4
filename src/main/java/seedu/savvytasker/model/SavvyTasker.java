@@ -4,7 +4,6 @@ import javafx.collections.ObservableList;
 import seedu.savvytasker.model.person.ReadOnlyTask;
 import seedu.savvytasker.model.person.Task;
 import seedu.savvytasker.model.person.TaskList;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
 
 import java.util.*;
@@ -64,9 +63,8 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
 
     /**
      * Adds a task to savvy tasker.
-     * @throws TaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task t) throws DuplicateTaskException {
+    public void addTask(Task t) {
         tasks.add(t);
     }
     
