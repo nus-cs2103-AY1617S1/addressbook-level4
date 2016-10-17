@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import teamfour.tasc.MainApp;
 import teamfour.tasc.commons.events.model.TaskListChangedEvent;
+import teamfour.tasc.commons.events.storage.RequestTaskListSwitchEvent;
 import teamfour.tasc.commons.exceptions.DataConversionException;
 import teamfour.tasc.commons.core.EventsCenter;
 
@@ -39,14 +40,8 @@ public class SwitchlistCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-//        try {
-//            EventsCenter.getInstance().post(new TaskListChangedEvent(MainApp.switchListTo(this.filename)));
-//            return new CommandResult(String.format(MESSAGE_SUCCESS, 
-//                    filename));
-//        } catch (IOException | DataConversionException e) {
-//            return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
-//        }
-        return null;
+        EventsCenter.getInstance().post(new RequestTaskListSwitchEvent(this.filename));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, filename));
     }
 
     @Override

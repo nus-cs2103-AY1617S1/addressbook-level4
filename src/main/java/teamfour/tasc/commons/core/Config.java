@@ -75,6 +75,10 @@ public class Config {
             moveFile(newTaskListFilePath, file + ".xml");
         }
         this.taskListFilePath = newTaskListFilePath;
+        String newConfig = JsonUtil.toJsonString(this);
+        PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
+        newConfigFileWriter.write(newConfig);
+        newConfigFileWriter.close();
     }
     
     public void moveFile(String newTaskListFilePath, String fileName) throws IOException, JAXBException {
@@ -86,10 +90,6 @@ public class Config {
         File newFile = new File(newTaskListFilePath + "/" + fileName);
         newFile.createNewFile();
         XmlUtil.saveDataToFile(newFile, data);
-        String newConfig = JsonUtil.toJsonString(this);
-        PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
-        newConfigFileWriter.write(newConfig);
-        newConfigFileWriter.close();
     }
     
     private void checkNameInTasklists(String tasklistFileName) {

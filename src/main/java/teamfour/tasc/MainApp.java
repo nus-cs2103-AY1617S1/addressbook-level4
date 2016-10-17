@@ -5,13 +5,12 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import teamfour.tasc.model.*;
 import teamfour.tasc.commons.core.Config;
 import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.core.Version;
 import teamfour.tasc.commons.events.storage.FileRelocateEvent;
-import teamfour.tasc.commons.events.storage.RequestOriginalFilePathEvent;
+import teamfour.tasc.commons.events.storage.RequestTaskListSwitchEvent;
 import teamfour.tasc.commons.events.ui.ExitAppRequestEvent;
 import teamfour.tasc.commons.exceptions.DataConversionException;
 import teamfour.tasc.commons.util.ConfigUtil;
@@ -215,9 +214,9 @@ public class MainApp extends Application {
     }
     
     @Subscribe
-    public String handleRequestOriginalFilePathEvent(RequestOriginalFilePathEvent event) {
+    public void handleRequestTaskListSwitchEvent(RequestTaskListSwitchEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        return this.newTaskListFilePath;
+        
     }
 
     public static void main(String[] args) {
