@@ -114,7 +114,22 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
+    
+//    private Command prepareShow(String args){
+//    	if(args.equals("done")) {
+//    		return new ShowDoneCommand();
+//    	}
+//    	
+//    	else if(args.equals("all")) {
+//    		return new ShowAllCommand();
+//    	}
+//    	else if (args.equals(null)) {
+//    		return new ShowCommand();
+//    	}
+//    	else
+//    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+//    }
+    
     private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
         //final String index = matcher.group("index");

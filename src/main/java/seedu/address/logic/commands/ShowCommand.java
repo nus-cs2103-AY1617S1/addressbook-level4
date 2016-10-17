@@ -13,6 +13,9 @@ public class ShowCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Shown all undone tasks";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+    		+ ": Shows the list identified by keywords";
+    
     public ShowCommand() {}
 
     public static Predicate<Task> isNotDone() {
