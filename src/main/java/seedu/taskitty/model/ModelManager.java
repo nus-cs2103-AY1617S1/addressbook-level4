@@ -9,6 +9,7 @@ import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
+import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -101,7 +102,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
     	taskManager.doneTask(target);
     	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();

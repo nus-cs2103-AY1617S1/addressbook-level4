@@ -128,11 +128,6 @@ public class Task implements ReadOnlyTask {
     public void markAsDone() {
     	if (!isDone) {
     		this.isDone = true;
-    		try {
-    			this.name = new Name(this.name + " DONE");
-    		} catch (IllegalValueException e) {
-    			e.printStackTrace();
-    		}
     	}
     }
 

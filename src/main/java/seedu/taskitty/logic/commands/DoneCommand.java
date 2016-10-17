@@ -3,6 +3,7 @@ package seedu.taskitty.logic.commands;
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.model.task.ReadOnlyTask;
+import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -18,6 +19,7 @@ public class DoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS = "Task done: %1$s";
+    public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR = "The task \"%1$s\" has already been marked as done.";
 
     public final int targetIndex;
 
@@ -40,6 +42,8 @@ public class DoneCommand extends Command {
 
         try {
             model.doneTask(taskToBeMarkedDone);
+        } catch (DuplicateMarkAsDoneException dmade) {
+        	return new CommandResult(String.format(MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR, taskToBeMarkedDone));
         } catch (TaskNotFoundException pnfe) {
             model.removeUnchangedState();
             assert false : "The target task cannot be missing";
