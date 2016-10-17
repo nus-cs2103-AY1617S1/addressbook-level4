@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 public class TaskTimeTest {
     Calendar now;
     Calendar yesterday;
+    Calendar tomorrow;
     int thisDay;
     int thisMonth;
     int thisYear;
@@ -25,6 +26,8 @@ public class TaskTimeTest {
         now = Calendar.getInstance();
         yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);
+        tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DATE, -1);
         thisDay = now.get(Calendar.DAY_OF_MONTH);
         thisMonth = now.get(Calendar.MONTH);
         thisYear = now.get(Calendar.YEAR);
@@ -142,7 +145,7 @@ public class TaskTimeTest {
 
     /**
      * Tests whether inputting a day and month that has passed will result
-     * in a next year's value in TaskTime constructor
+     * in next year's value in TaskTime object
      */
     @Test
     public void constructor_DMhasPassed() {
@@ -159,21 +162,37 @@ public class TaskTimeTest {
         }
     }
     
-
     /**
      * Tests whether inputting today's day and month causes 
-     * the year to remain the same as today's year
+     * the year stored in TaskTime to remain the same as today's year
      */
     @Test
     public void constructor_DMToday() {
-        // construct a string that represents MM/DD 
-        // where MM/DD is the month and date of yesterday
         String todayString = Integer.toString(thisMonth) 
                 + " " + Integer.toString(thisDay);
         try {
             TaskTime tTime = new TaskTime(todayString);
             Calendar tCal = DateUtils.toCalendar(tTime.getDate());
             assertTrue(tCal.get(Calendar.YEAR) == thisYear);
+        } catch (Exception e) {
+            assert false;
+        }
+    }
+
+    /**
+     * Tests whether inputting tomorrow's day and month causes 
+     * the year stored in TaskTime to remain the same as tomorrow's year
+     */
+    @Test
+    public void constructor_DMFuture() {
+        // construct a string that represents MM/DD 
+        // where MM/DD is the month and date of tomorrow
+        String tomorrowString = Integer.toString(tomorrow.get(Calendar.DAY_OF_MONTH)) 
+                + " " + Integer.toString(tomorrow.get(Calendar.MONTH));
+        try {
+            TaskTime tTime = new TaskTime(tomorrowString);
+            Calendar tCal = DateUtils.toCalendar(tTime.getDate());
+            assertTrue(tCal.get(Calendar.YEAR) == tomorrow.get(Calendar.YEAR));
         } catch (Exception e) {
             assert false;
         }
