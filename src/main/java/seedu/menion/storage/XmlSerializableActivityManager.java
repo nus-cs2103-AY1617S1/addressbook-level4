@@ -24,18 +24,18 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
     private List<XmlAdaptedTask> tasks;
     @XmlElement
     private List<Tag> tags;
-    /*
+    
     @XmlElement
-    private List<XmlAdaptedTask> floatingTasks;
+    private List<XmlAdaptedFloatingTask> floatingTasks;
     @XmlElement
-    private List<XmlAdaptedTask> events;
-    */
+    private List<XmlAdaptedEvent> events;
+    
 
     {
         tasks = new ArrayList<>();
         tags = new ArrayList<>();
-        //floatingTasks = new ArrayList<>();
-        //events = new ArrayList<>();
+        floatingTasks = new ArrayList<>();
+        events = new ArrayList<>();
     }
 
     /**
@@ -49,8 +49,8 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
     public XmlSerializableActivityManager(ReadOnlyActivityManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
-        //floatingTasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        //events.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        floatingTasks.addAll(src.getFloatingTaskList().stream().map(XmlAdaptedFloatingTask::new).collect(Collectors.toList()));
+        events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
     }
 
     @Override
@@ -88,7 +88,7 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
     
-   /* @Override
+    @Override
     public UniqueActivityList getUniqueFloatingTaskList() {
         UniqueActivityList lists = new UniqueActivityList();
         for (XmlAdaptedFloatingTask t : floatingTasks) {
@@ -116,7 +116,7 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
     @Override
     public UniqueActivityList getUniqueEventList() {
         UniqueActivityList lists = new UniqueActivityList();
-        for (XmlAdaptedEvent t : tasks) {
+        for (XmlAdaptedEvent t : events) {
             try {
                 lists.add(t.toModelType());
             } catch (IllegalValueException e) {
@@ -136,7 +136,7 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));
-    }*/
+    }
 
     @Override
     public List<Tag> getTagList() {

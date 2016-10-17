@@ -18,14 +18,14 @@ public class ActivityManager implements ReadOnlyActivityManager {
 
     private final UniqueActivityList tasks;
     private final UniqueTagList tags;
-    //private final UniqueActivityList floatingTasks;
-    //private final UniqueActivityList events;
+    private final UniqueActivityList floatingTasks;
+    private final UniqueActivityList events;
 
     {
         tasks = new UniqueActivityList();
         tags = new UniqueTagList();
-        //floatingTasks = new UniqueActivityList();
-        //events = new UniqueActivityList();
+        floatingTasks = new UniqueActivityList();
+        events = new UniqueActivityList();
     }
 
     public ActivityManager() {}
@@ -34,20 +34,20 @@ public class ActivityManager implements ReadOnlyActivityManager {
      * Tasks and Tags are copied into this activity manager
      */
     public ActivityManager(ReadOnlyActivityManager toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
-                 //toBeCopied.getUniqueFloatingTaskList(),
-                 //toBeCopied.getUniqueEventList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList(),
+                 toBeCopied.getUniqueFloatingTaskList(),
+                 toBeCopied.getUniqueEventList());
     }
 
     /**
      * Tasks and Tags are copied into this task manager
      */
-    public ActivityManager(UniqueActivityList tasks, UniqueTagList tags) { 
-                            //UniqueActivityList floatingTasks,
-                            //UniqueActivityList events) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
-                    //, floatingTasks.getInternalList()
-                    //, events.getInternalList());
+    public ActivityManager(UniqueActivityList tasks, UniqueTagList tags, 
+                            UniqueActivityList floatingTasks,
+                            UniqueActivityList events) {
+        resetData(tasks.getInternalList(), tags.getInternalList(),
+                     floatingTasks.getInternalList(),
+                     events.getInternalList());
     }
 
     public static ReadOnlyActivityManager getEmptyActivityManager() {
@@ -64,7 +64,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         this.tasks.getInternalList().setAll(tasks);
     }
     
-    /*
+    
     public ObservableList<Activity> getFloatingTasks() {
         return floatingTasks.getInternalList();
     }
@@ -80,25 +80,25 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void setEvents(List<Activity> events) {
         this.events.getInternalList().setAll(events);
     }
-    */
+    
     
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyActivity> newTasks, Collection<Tag> newTags) {
-                            //Collection<? extends ReadOnlyActivity> newFloatingTasks,
-                            //Collection<? extends ReadOnlyActivity> newEvents) {
+    public void resetData(Collection<? extends ReadOnlyActivity> newTasks, Collection<Tag> newTags,
+                            Collection<? extends ReadOnlyActivity> newFloatingTasks,
+                            Collection<? extends ReadOnlyActivity> newEvents) {
         setTasks(newTasks.stream().map(Activity::new).collect(Collectors.toList()));
         setTags(newTags);
-        //setTasks(newFloatingTasks.stream().map(Activity::new).collect(Collectors.toList()));
-        //setTasks(newEvents.stream().map(Activity::new).collect(Collectors.toList()));
+        setFloatingTasks(newFloatingTasks.stream().map(Activity::new).collect(Collectors.toList()));
+        setEvents(newEvents.stream().map(Activity::new).collect(Collectors.toList()));
     }
 
     public void resetData(ReadOnlyActivityManager newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
-                    //newData.getFloatingTaskList(),
-                    //newData.getEventList());
+        resetData(newData.getTaskList(), newData.getTagList(),
+                    newData.getFloatingTaskList(),
+                    newData.getEventList());
     }
 
 //// task-level operations
@@ -122,12 +122,12 @@ public class ActivityManager implements ReadOnlyActivityManager {
      *
      * @throws UniqueActivityList.DuplicateTaskException if an equivalent tasks already exists.
      */
-    /*
+    
     public void addFloatingTask(Activity t) throws UniqueActivityList.DuplicateTaskException {
         //syncTagsWithMasterList(t);
         floatingTasks.add(t);
     }
-    */
+    
     
     /**
      * Adds an event to the activity manager.
@@ -136,12 +136,12 @@ public class ActivityManager implements ReadOnlyActivityManager {
      *
      * @throws UniqueActivityList.DuplicateTaskException if an equivalent tasks already exists.
      */
-    /*
+    
     public void addEvent(Activity t) throws UniqueActivityList.DuplicateTaskException {
         //syncTagsWithMasterList(t);
         events.add(t);
     }
-    */
+    
 
     /**
      * Ensures that every tag in this task:
@@ -174,7 +174,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         }
     }
     
-    /*
+    
     public boolean removeFloatingTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
         if (floatingTasks.remove(key)) {
             return true;
@@ -191,7 +191,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
             throw new UniqueActivityList.TaskNotFoundException();
         }
     }
-    */
+    
 
 //// tag-level operations
 
@@ -204,9 +204,9 @@ public class ActivityManager implements ReadOnlyActivityManager {
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, "
-                + "" + tags.getInternalList().size() +  " tags";
-                //+ floatingTasks.getInternalList().size() + " floating tasks, "
-                //+ events.getInternalList().size() + " events, ";
+                + "" + tags.getInternalList().size() +  " tags"
+                + floatingTasks.getInternalList().size() + " floating tasks, "
+                + events.getInternalList().size() + " events, ";
         // TODO: refine later
     }
 
@@ -215,7 +215,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
     
-    /*
+    
     @Override
     public List<ReadOnlyActivity> getFloatingTaskList() {
         return Collections.unmodifiableList(floatingTasks.getInternalList());
@@ -225,7 +225,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public List<ReadOnlyActivity> getEventList() {
         return Collections.unmodifiableList(events.getInternalList());
     }
-    */
+    
     
     @Override
     public List<Tag> getTagList() {
@@ -242,7 +242,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         return this.tags;
     }
     
-    /*
+    
     @Override
     public UniqueActivityList getUniqueFloatingTaskList() {
         return this.floatingTasks;
@@ -252,7 +252,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public UniqueActivityList getUniqueEventList() {
         return this.events;
     }
-    */
+    
 
     @Override
     public boolean equals(Object other) {
