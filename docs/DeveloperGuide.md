@@ -259,16 +259,16 @@ Priorities: High - `* * *` Medium - `* *`  Low - `*`
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add tasks to the todo list | remember what I have to do/what I have to attend
+`* * *` | user | add tasks to the todo list | remember what I have to do / what I have to attend to
 `* * *` | user | view upcoming tasks | check what I need to do / have to do soon
 `* * *` | user | search for details on a task or event | view what needs to be done
 `* * *` | user | delete task that has been completed | I do not have to keep track of it	
 `* * *` | user | mark the task as completed upon completion | keep an archive of tasks that I have completed
 `* * *` | user | view tasks that I have completed | recall what I have completed
 `* * *` | user | call up the todo list with a simple keystroke | start the application anytime during my workflow
+`* * *` | user | undo my actions | reverse any mistakes that I have made
+`* * *` | user | redo my undo | correct any accidental undo
 `* *` | user | edit tasks | keep them up to date
-`* *` | user | undo my actions | reverse any mistakes that I have made
-`* *` | user | redo my undo | correct any accidental undo
 `*` | user | enter synonyms for the commands | use natural language to accomplish what I want
 `*` | user | tag tasks | classify them and search for them according to these tags
 
@@ -284,6 +284,12 @@ Priority | As a ... | I want to ... | So that I can...
 2. TaskManager adds task <br>
 Use case ends.
 
+**Extensions**
+
+1a. User enters an invalid command
+
+> 1a1. TaskManager shows an error message, informing the user what parameters he has filled wrongly and the correct format of adding a task <br>
+  Use case resumes at step 1
 
 #### Use case: List
 
