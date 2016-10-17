@@ -122,7 +122,6 @@ public class TaskTimeTest {
                 "5 Oct",
                 "10/5"};
         try {
-            
             for (String t : validFormats){
                 Calendar fifthOct = Calendar.getInstance();
                 fifthOct.set(thisYear, Calendar.OCTOBER, 5);
@@ -148,7 +147,7 @@ public class TaskTimeTest {
      * in next year's value in TaskTime object
      */
     @Test
-    public void constructor_DMhasPassed() {
+    public void constructor_DMPast() {
         // construct a string that represents MM/DD 
         // where MM/DD is the month and date of yesterday
         String yesterdayString = Integer.toString(yesterday.get(Calendar.DAY_OF_MONTH)) 
