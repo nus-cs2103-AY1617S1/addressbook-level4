@@ -29,6 +29,7 @@ public class ShowCommandTest extends CommandTest {
     @Test
     public void test() throws ValidationException {
         EventsCollector eventCollector = new EventsCollector();
+        setParameter("2");
         execute(true);
         assertThat(eventCollector.get(0), instanceOf(ExpandCollapseTaskEvent.class));
     }

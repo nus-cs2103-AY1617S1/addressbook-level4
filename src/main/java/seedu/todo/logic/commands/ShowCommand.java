@@ -13,12 +13,12 @@ import seedu.todo.logic.arguments.Parameter;
 
 public class ShowCommand extends BaseCommand {
     
-    private Argument<Integer> view = new IntArgument("view").required(); 
+    private Argument<Integer> index = new IntArgument("index").required(); 
 
     @Override
     protected Parameter[] getArguments() {
         // TODO Auto-generated method stub
-        return null;
+        return new Parameter[] { index };
     }
 
     @Override
@@ -30,13 +30,13 @@ public class ShowCommand extends BaseCommand {
     @Override
     public List<CommandSummary> getCommandSummary() {
         // TODO Auto-generated method stub
-        return ImmutableList.of(new CommandSummary("Expands or collapses the details of a task", getCommandName(), getArgumentSummary()));
+        return ImmutableList.of(new CommandSummary("Shows details of a task", getCommandName(), getArgumentSummary()));
     }
 
     @Override
     public CommandResult execute() throws ValidationException {
-        EventsCenter.getInstance().post(new ExpandCollapseTaskEvent(view.getValue())); 
-        return new CommandResult(null);
+        EventsCenter.getInstance().post(new ExpandCollapseTaskEvent(index.getValue())); 
+        return new CommandResult("Command executed.");
     }
 
 }
