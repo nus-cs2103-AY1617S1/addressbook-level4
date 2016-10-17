@@ -95,7 +95,7 @@ public class TaskCard extends UiPart{
         if (task.tagsString().contains("Completed")) {
             // if task completed
             cardPane.setStyle(COMPLETED_INDICATION);
-        } else if (task.getEndDate().getDate().before(new Date())) {
+        } else if (task.getEndDate().getDate() != null && task.getEndDate().getDate().before(new Date())) {
             // if task overdue
             cardPane.setStyle(OVERDUE_INDICATION);
         }
