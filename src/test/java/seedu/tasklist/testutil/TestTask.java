@@ -1,5 +1,7 @@
 package seedu.tasklist.testutil;
 
+import java.sql.Date;
+
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
 
@@ -93,4 +95,21 @@ public class TestTask implements ReadOnlyTask {
     public Priority getPriority() {
         return priority;
     }
+
+	@Override
+	public boolean isFloating() {
+		return endTime.isMissing()&&startTime.isMissing();
+	}
+
+	@Override
+	public boolean isOverDue() {
+		if(!isFloating()){
+			if(!endTime.endtime.getTime().equals(new Date(0))){
+				return endTime.endtime.getTimeInMillis() < System.currentTimeMillis();
+			}
+			else return false;
+		}
+		else 
+			return false;
+	}
 }

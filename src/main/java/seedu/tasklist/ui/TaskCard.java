@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import seedu.tasklist.model.task.ReadOnlyTask;
+import seedu.tasklist.model.task.Task;
 
 public class TaskCard extends UiPart{
 
@@ -54,7 +55,7 @@ public class TaskCard extends UiPart{
         name.setText(task.getTaskDetails().taskDetails);
         id.setText(displayedIndex + ". ");
         startTime.setText("Starts:   " + task.getStartTime().toCardString());
-        priority.setText("Priority: " + String.valueOf(task.getPriority()));
+        priority.setText("Priority: " + task.getPriority());
         endTime.setText("Ends:     " + task.getEndTime().toCardString());
         statusButton.setVisible(true);
         setStatusButtonColour();

@@ -60,6 +60,12 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to only certain date */
     public void updateFilteredListToShowDate(String date);
+    
+    /** Updates the filter of the filtered task list to only floating tasks */
+    public void updateFilteredListToShowFloating();
+    
+    /** Updates the filter of the filtered task list to only overdue tasks */
+    public void updateFilteredListToShowOverDue();
 
     void markTaskAsIncomplete(ReadOnlyTask task) throws TaskNotFoundException;
 
