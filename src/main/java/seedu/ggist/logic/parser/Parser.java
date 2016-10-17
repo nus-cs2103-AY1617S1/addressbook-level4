@@ -27,7 +27,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern LIST_ARGS_FORMAT =
-            Pattern.compile("(?<listing>\\S*)");
+            Pattern.compile("(?<listing>.*)");
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
@@ -50,6 +50,7 @@ public class Parser {
      *
      * @param userInput full user input string
      * @return the command based on the user input
+     * @throws IllegalValueException 
      */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -320,11 +321,16 @@ public class Parser {
                     ListCommand.MESSAGE_USAGE));
         }
         final String listing = matcher.group("listing");
+        
         try {
-            String dateListing = new DateTimeParser(listing).getDate();
-            return new ListCommand(dateListing);
+            if (args.equals("") || ListCommand.isValidListArgs(listing)) {
+                return new ListCommand(listing);
+            } else {
+                String dateListing = new DateTimeParser(listing).getDate();
+                return new ListCommand(dateListing);
+            }
         } catch (IllegalValueException e) {
-            return new ListCommand(listing);
+            return new IncorrectCommand(ListCommand.MESSAGE_USAGE);
         }
     }
 
