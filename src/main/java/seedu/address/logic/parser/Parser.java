@@ -127,11 +127,11 @@ public class Parser {
         String endTime = (matcher.group("end") == null) ? "" : matcher.group("end");
         
         try {
-        		System.out.println(matcher.group("name"));
+        		System.out.println(matcher.group("name").replace('\\', '\0'));
         		System.out.println(startTime);
         		System.out.println(endTime);
 	            return new AddCommand(
-	                    matcher.group("name"),
+	                    matcher.group("name").replace('\\', '\0'),
 	                    "",
 	                    startTime,
 	                    endTime,
@@ -142,7 +142,7 @@ public class Parser {
         }
     }
 
-    /**
+	/**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */

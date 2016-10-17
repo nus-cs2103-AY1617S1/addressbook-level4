@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 
@@ -25,6 +26,12 @@ public class UniqueTaskList implements Iterable<Task> {
             super("Operation would result in duplicate tasks");
         }
     }
+    
+//    public static class StartTimeAfterEndTime extends IllegalValueException{
+//    	protected  StartTimeAfterEndTime() {
+//			super("Start time cannot be after End time");
+//		}
+//    }
 
     /**
      * Signals that an operation targeting a specified task in the list would fail because
