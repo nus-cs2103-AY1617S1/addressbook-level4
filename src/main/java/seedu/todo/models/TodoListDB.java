@@ -48,8 +48,9 @@ public class TodoListDB {
     public int countIncompleteTasks() {
         int count = 0;
         for (Task task : tasks) {
-            if (!task.isCompleted())
+            if (!task.isCompleted()) {
                 count++;
+            }
         }
         return count;
     }
@@ -58,8 +59,9 @@ public class TodoListDB {
         LocalDateTime now = LocalDateTime.now();
         int count = 0;
         for (Task task : tasks) {
-            if (!task.isCompleted() && task.getDueDate() != null && task.getDueDate().compareTo(now) < 0)
+            if (!task.isCompleted() && task.getDueDate() != null && task.getDueDate().compareTo(now) < 0) {
                 count++;
+            }
         }
         return count;
     }
@@ -77,8 +79,9 @@ public class TodoListDB {
         LocalDateTime now = LocalDateTime.now();
         int count = 0;
         for (Event event : events) {
-            if (event.getStartDate().compareTo(now) >= 0)
+            if (event.getStartDate().compareTo(now) >= 0) {
                 count++;
+            }
         }
         return count;
     }
