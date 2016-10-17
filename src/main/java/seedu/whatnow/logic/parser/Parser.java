@@ -34,36 +34,16 @@ public class Parser {
 
 
 	private static final Pattern TASK_MODIFIED_WITH_DATE_ARGS_FORMAT =				//This arguments is for e.g. add task on today, add task on 18/10/2016
-			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?\\s" +
-					"(?<dateArguments>[^/]+)");	
+			Pattern.compile("(?<name>[^/]+)\\s" + "(.*?\\bon|by\\b.*?\\s)??" +
+					"(?<dateArguments>([0-3]??[0-9][//][0-1]??[0-9][//][0-9]{4})??)" + "(?<tagArguments>(?: t/[^/]+)*)");	
 
-	private static final Pattern TASK_MODIFIED_WITH_DATE_TAG_ARGS_FORMAT =			//This arguments is for e.g. add task on today medium, add task on 18/10/2016 medium
-			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?\\s" +
-					"(?<dateArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
-
-	private static final Pattern TASK_MODIFIED_WITH_DATE_ALPHA_ARGS_FORMAT =		//This arguments is for e.g. add task on 18 October medium 
-			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?\\s" +
-					"(?<dateArguments>[^/]+)" +  "(?<dateArguments2>[^/]+)" 
-					+ "(?<tagArguments>(?: t/[^/]+)*)");
-
-	private static final Pattern TASK_MODIFIED_WITH_DATE_ALPHALONG_ARGS_FORMAT =		//This arguments is for e.g. add task on 18 October 2016
-			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?\\s" +
-					"(?<dateArguments>[^/]+)" +  "(?<dateArguments2>[^/]+)"
-					+ "(?<dateArguments3>[^/]+)");
-	private static final Pattern TASK_MODIFIED_WITH_DATE_ALPHALONG_TAG_ARGS_FORMAT =	//This arguments is for e.g. add task on 18 October 2016 medium
-			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?\\s" +
-					"(?<dateArguments>[^/]+)" +  "(?<dateArguments2>[^/]+)" 
-					+ "(?<dateArguments3>[^/]+)"
-					+	"(?<tagArguments>(?: t/[^/]+)*)");
 	
-	private static final Pattern TEMP1 =
-			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?\\s" +
-					"(?<dateArguments>(?: [^/(t/)]]+)*)" + "(\\s?<tagArguments>(?: t/[^/]+)*)");
-	private static final Pattern TEMP2 = 
-			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?" +
-					" (?<date>[^;]+");
+//	private static final Pattern TEMP2 = 
+//			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?" +
+//					" (?<date>[^;]+");
 	private static final Pattern TEMP3 = 
-			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?\\s");
+			Pattern.compile("(?<name>[^/]+)\\s" +"(.*?\\bon|by\\b.*?\\s)??" +
+					"(?<dateArguments>([0-3]??[0-9][//][0-1]??[0-9][//][0-9]{4})??)" + "(?<tagArguments>(?: t/[^/]+)*)");
 				
 	private static final int TASK_TYPE = 0;
 	private static final int INDEX = 1;
@@ -92,12 +72,13 @@ public class Parser {
 		switch (commandWord) {
 		case AddCommand.COMMAND_WORD:
 		{
-			if(TEMP1.matcher(arguments).find()) {
-				return prepareAddDeadline(arguments);
-			}
-			else {
-				return prepareAdd(arguments);
-			}
+//			if(TEMP1.matcher(arguments).find()) {
+//				return prepareAddDeadline(arguments);
+//			}
+//			else {
+//				return prepareAdd(arguments);
+//			}
+			return prepareAdd(arguments);
 		}
 		case SelectCommand.COMMAND_WORD:
 			return prepareSelect(arguments);
@@ -136,50 +117,74 @@ public class Parser {
 	 */
 	private Command prepareAdd(String args){
 		System.out.println("Entered prepareAdd");
-		final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+//		if(TEMP3.matcher(args).find()) {
+//			System.out.println("matches");
+//		}
+		final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
 		// Validate arg string format
-		if (!TEMP1.matcher(args).find()) {		
+		if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
+			System.out.println("Not Match");
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
-		try {
-			return new AddCommand(
-					matcher.group("name"),
-					getTagsFromArgs(matcher.group("tagArguments"))
-					);
-		} catch (IllegalValueException ive) {
-			return new IncorrectCommand(ive.getMessage());
-		}
-	}
-	private Command prepareAddDeadline(String args) throws ParseException {
-		System.out.println("Entered prepareAddDeadLine");
-		System.out.println("args after trim is: "+ args.trim());
 		
-		final Matcher tempMatcher = TEMP2.matcher("eat on 18/10/2016");
-		final Matcher tempMatcher2 = TEMP3.matcher("sleep on");
-		if(!tempMatcher.matches()) {
-			System.out.println("Does not match for temp2");
-		}
-		if(!tempMatcher2.matches()) {
-			System.out.println("Does not matches for temp3");
+		System.out.println("MATCH");
+		
+		String[] arguments = args.split("\"");
+		
+		for (int i = 0; i < arguments.length; i++) {
+			System.out.print(arguments[i] + " " + i + " ");
 		}
 		
-		final Matcher matcher = TEMP1.matcher(args.trim());
-		if (!matcher.matches()) {
-			System.out.println("Entered mismatch");
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		// E.g. add "Buy Milk"
+		if (arguments.length == 2) {
+			try {
+				return new AddCommand(arguments[1], Collections.emptySet());
+			} catch (IllegalValueException ive) {
+				return new IncorrectCommand(ive.getMessage());
+			}
 		}
-		try {
-			System.out.println(matcher.group(1));
+		
+		String[] additionalArgs = null;
+		
+		if (arguments.length > 2) {
+			additionalArgs = arguments[arguments.length - 1].split(" ");
+		}
+		
+		System.out.println();
+		
+		for (int i = 0; i < additionalArgs.length; i++) {
+			System.out.print(additionalArgs[i] + " " + i + " ");
+		}
+		
+		if (additionalArgs[1].equals("on") || additionalArgs[1].equals("by")) {
+//			String year = null;
+//			if (additionalArgs.length > 3) {
+//				if (!additionalArgs[3].contains("t")) {
+//					year = " " + additionalArgs[3];
+//				}
+//			}
+//			
+//			String date = additionalArgs[0] + " " + additionalArgs[1] + year;
 			
+			try {
+				return new AddCommand(arguments[1], additionalArgs[2], Collections.emptySet());
+			} catch (IllegalValueException ive) {
+				return new IncorrectCommand(ive.getMessage());
+			} catch (ParseException ive) {
+				return new IncorrectCommand(ive.getMessage());
+			}
+		}
+		
+		try {
 			return new AddCommand(
 					matcher.group("name"),
-					matcher.group("dateArguments"),
 					getTagsFromArgs(matcher.group("tagArguments"))
 					);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
 	}
+	
 	/**
 	 * Extracts the new task's tags from the add command's tag arguments string.
 	 * Merges duplicate tag strings.

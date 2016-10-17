@@ -17,7 +17,10 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
-
+    
+    @XmlElement(required = true)
+    private String taskDate;
+    
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 

@@ -41,6 +41,7 @@ public class TaskDate {
 	public TaskDate(String taskDate) throws IllegalValueException, java.text.ParseException {
 		assert taskDate != null;
 		taskDate = taskDate.trim();
+		
 		if(!isValidDate(taskDate)) {
 			throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
 		}
@@ -158,11 +159,22 @@ public class TaskDate {
 	public boolean isValidNumDate(String test, String format) throws java.text.ParseException {
 		Date tempDate = null;
 		try {
+			/*
+			System.out.println("The tesString is: " + test);
+			System.out.println("The format is : " + format);
 			DateFormat dateFormat = new SimpleDateFormat(format);
 			tempDate = dateFormat.parse(test);
-			if(!test.equals(dateFormat.format(format))) {
+			if(!tempDate.equals(dateFormat.format(format))) {
 				tempDate = null;
-			}
+			}*/
+			System.out.println();
+			System.out.println("Entered isValidNumDate");
+			System.out.println("test is : "+ test);
+			System.out.println("format is : "+ format);
+			DateFormat df = new SimpleDateFormat(format);
+			df.setLenient(false);
+			
+			tempDate = df.parse(test);
 		} catch(ParseException ex) {
 			ex.printStackTrace();
 			return false;
