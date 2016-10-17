@@ -24,6 +24,14 @@ public class DateUtil {
 			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy HH:mm am
 			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$") // dd MMM yy HH:mm am
 	};
+	
+	private static final Pattern[] NO_MINUTES_DATE_FORMATS = new Pattern[] {
+			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy HH am
+			Pattern.compile("^(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd HHpm
+			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy HH pm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy HH am
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$") // dd MMM yy HH am
+	};
 
 	/**
 	 * @return LocalDateTime if valid date format, null if unable to parse
@@ -35,6 +43,9 @@ public class DateUtil {
 
 		if (dateTime == null) {
 			dateTime = parseAmPmFormat(dateString);
+		}
+		if (dateTime == null) {
+			dateTime = parseNoMinutesAmPmFormat(dateString);
 		}
 
 		return dateTime;
@@ -75,10 +86,31 @@ public class DateUtil {
 				int year = parseYear(matcher.group("year"));
 				int month = parseMonth(matcher.group("month"));
 				int day = parseDay(matcher.group("day"));
-				int hour = parseHour(matcher.group("hour"), matcher.group("meridien"));
+				int hour = parseHour(matcher.group("hour"), matcher.group("meridiem"));
 				int minute = parseMinute(matcher.group("minute"));
 
 				return LocalDateTime.of(year, month, day, hour, minute);
+			}
+		}
+
+		// if matcher did not match
+		return null;
+	}
+	
+	private static LocalDateTime parseNoMinutesAmPmFormat(String dateString) throws ParseException {
+		ArrayList<Matcher> matchers = new ArrayList<>();
+		for (int i=0; i<NO_MINUTES_DATE_FORMATS.length; i++) {
+			matchers.add(NO_MINUTES_DATE_FORMATS[i].matcher(dateString));
+		}
+
+		for (Matcher matcher : matchers) {
+			if (matcher.matches()) {
+				int year = parseYear(matcher.group("year"));
+				int month = parseMonth(matcher.group("month"));
+				int day = parseDay(matcher.group("day"));
+				int hour = parseHour(matcher.group("hour"), matcher.group("meridiem"));
+
+				return LocalDateTime.of(year, month, day, hour, 0);
 			}
 		}
 

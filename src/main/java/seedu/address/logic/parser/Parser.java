@@ -51,7 +51,6 @@ public class Parser {
 			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
 	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile(
 			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'\\s+on\\s+(?<date>\\S+)");
-	
 	// Start and end on different days
 	private static final Pattern EVENT_ARGS_FORMAT_7 = Pattern.compile(
 			"(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)");
@@ -316,7 +315,7 @@ public class Parser {
 		}
 
 		System.out.println("task name: " + taskName);
-		System.out.println("date: " + dateTime);
+		System.out.println("date: " + dateTime.toString());
 
 		// TODO format date properly
 		try {
@@ -447,7 +446,7 @@ public class Parser {
 
 	public static void main(String[] args) {
 		Parser p = new Parser();
-		p.parseCommand("add event 'eat' from 2012-12-25 00:00 to 2012-12-26 01:00");
+		p.parseCommand("add deadline 'eat' by 25-12-12 5pm");
 	}
 	
 }
