@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import tars.commons.util.FxViewUtil;
 
 /**
- * A ui for the status bar that is displayed at the header of the application.
+ * A ui for the results display that is displayed above the command box of the application.
  */
 public class ResultDisplay extends UiPart {
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
