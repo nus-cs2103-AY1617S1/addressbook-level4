@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 
 public class SelectCommandTest extends ToDoListGuiTest {
 
-	/*
+    /*
     @Test
     public void selectPerson_nonEmptyList() {
 

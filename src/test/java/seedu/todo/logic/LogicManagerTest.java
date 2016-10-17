@@ -7,8 +7,6 @@ import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
 import seedu.todo.commons.events.ui.JumpToListRequestEvent;
 import seedu.todo.commons.events.ui.ShowHelpRequestEvent;
-import seedu.todo.logic.Logic;
-import seedu.todo.logic.LogicManager;
 import seedu.todo.logic.commands.*;
 import seedu.todo.model.Model;
 import seedu.todo.model.ModelManager;
@@ -237,7 +235,8 @@ public class LogicManagerTest {
      * targeting a task in the shown list, using visible index.
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
-    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
+    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) 
+            throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
         assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
         assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
@@ -462,7 +461,7 @@ public class LogicManagerTest {
          * Adds the given list of Tasks to the given ToDoList
          */
         void addToToDoList(ToDoList toDoList, List<Task> tasksToAdd) throws Exception{
-            for(Task p: tasksToAdd){
+            for (Task p: tasksToAdd){
                 toDoList.addTask(p);
             }
         }
@@ -479,7 +478,7 @@ public class LogicManagerTest {
          * Adds the given list of Tasks to the given model
          */
         void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
-            for(Task p: tasksToAdd){
+            for (Task p: tasksToAdd){
                 model.addTask(p);
             }
         }
@@ -489,7 +488,7 @@ public class LogicManagerTest {
          */
         List<Task> generateTaskList(int numGenerated) throws Exception{
             List<Task> tasks = new ArrayList<>();
-            for(int i = 1; i <= numGenerated; i++){
+            for (int i = 1; i <= numGenerated; i++){
                 tasks.add(generateTask(i));
             }
             return tasks;

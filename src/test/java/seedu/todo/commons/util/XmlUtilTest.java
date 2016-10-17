@@ -4,8 +4,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.todo.commons.util.FileUtil;
-import seedu.todo.commons.util.XmlUtil;
 import seedu.todo.model.ToDoList;
 import seedu.todo.storage.XmlSerializableToDoList;
 import seedu.todo.testutil.TestUtil;

@@ -52,7 +52,7 @@ public class TaskListPanelHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point= TestUtil.getScreenMidPoint(getListView());
+        Point2D point = TestUtil.getScreenMidPoint(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
@@ -85,7 +85,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public boolean isListMatching(int startPosition, ReadOnlyTask... persons) throws IllegalArgumentException {
         if (persons.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " persons" + "but got "+ persons.length);
+                    "Expected " + (getListView().getItems().size() - 1) + " persons" + "but got " + persons.length);
         }
         assertTrue(this.containsInOrder(startPosition, persons));
         for (int i = 0; i < persons.length; i++) {
@@ -102,7 +102,8 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> person = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyTask> person = getListView().getItems()
+                .stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
@@ -132,7 +133,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public int getTaskIndex(ReadOnlyTask targetTask) {
         List<ReadOnlyTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
-            if(tasksInList.get(i).getName().equals(targetTask.getName())){
+            if (tasksInList.get(i).getName().equals(targetTask.getName())){
                 return i;
             }
         }

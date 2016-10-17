@@ -74,7 +74,7 @@ public class MainApp extends Application {
         ReadOnlyToDoList initialData;
         try {
             addressBookOptional = storage.readToDoList();
-            if(!addressBookOptional.isPresent()){
+            if (!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty ToDoList");
             }
             initialData = addressBookOptional.orElse(new ToDoList());
@@ -99,7 +99,7 @@ public class MainApp extends Application {
         
         configFilePathUsed = Config.USER_CONFIG_FILE;
 
-        if(configFilePath != null) {
+        if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
         }

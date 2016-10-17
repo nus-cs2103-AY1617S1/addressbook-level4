@@ -66,15 +66,24 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Detail("9482424"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
-                    new Task(new Name("Boris Mueller"), new Detail("87249245"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
-                    new Task(new Name("Carl Kurz"), new Detail("95352563"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
-                    new Task(new Name("Daniel Meier"), new Detail("87652533"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
-                    new Task(new Name("Elle Meyer"), new Detail("9482224"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
-                    new Task(new Name("Fiona Kunz"), new Detail("9482427"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
-                    new Task(new Name("George Best"), new Detail("9482442"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
-                    new Task(new Name("Hoon Meier"), new Detail("8482424"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
-                    new Task(new Name("Ida Mueller"), new Detail("8482131"), new TaskDate("12/12/1234"), new TaskDate("12/12/1234"))
+                new Task(new Name("Ali Muster"), new Detail("9482424"), 
+                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                new Task(new Name("Boris Mueller"), new Detail("87249245"), 
+                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                new Task(new Name("Carl Kurz"), new Detail("95352563"), 
+                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                new Task(new Name("Daniel Meier"), new Detail("87652533"), 
+                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                new Task(new Name("Elle Meyer"), new Detail("9482224"), 
+                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                new Task(new Name("Fiona Kunz"), new Detail("9482427"), 
+                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                new Task(new Name("George Best"), new Detail("9482442"), 
+                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                new Task(new Name("Hoon Meier"), new Detail("8482424"), 
+                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                new Task(new Name("Ida Mueller"), new Detail("8482131"), 
+                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234"))
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -87,10 +96,7 @@ public class TestUtil {
 
     private static Tag[] getSampleTagData() {
         try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
+            return new Tag[]{ new Tag("relatives"), new Tag("friends")};
         } catch (IllegalValueException e) {
             assert false;
             return null;
@@ -234,7 +240,7 @@ public class TestUtil {
     public static Point2D getScreenMidPoint(Node node) {
         double x = getScreenPos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
         double y = getScreenPos(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x,y);
+        return new Point2D(x, y);
     }
 
     /**
@@ -245,7 +251,7 @@ public class TestUtil {
     public static Point2D getSceneMidPoint(Node node) {
         double x = getScenePos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
         double y = getScenePos(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x,y);
+        return new Point2D(x, y);
     }
 
     /**
@@ -292,7 +298,7 @@ public class TestUtil {
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
     public static TestTask[] removePersonFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat - 1]);
     }
 
     /**
@@ -321,7 +327,7 @@ public class TestUtil {
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
-        for(T obj : objs) {
+        for (T obj : objs) {
             list.add(obj);
         }
         return list;

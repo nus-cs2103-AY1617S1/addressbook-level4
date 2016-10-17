@@ -8,9 +8,6 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.exceptions.DataConversionException;
-import seedu.todo.commons.util.ConfigUtil;
-import seedu.todo.commons.util.FileUtil;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;

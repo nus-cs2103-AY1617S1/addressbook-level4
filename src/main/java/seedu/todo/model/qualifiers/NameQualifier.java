@@ -15,7 +15,9 @@ public class NameQualifier implements Qualifier{
     @Override
     public boolean run(ReadOnlyTask task) {
         return nameKeyWords.stream()
-                .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName + " " + task.getDetail().value, keyword))
+                .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName 
+                        + " " 
+                        + task.getDetail().value, keyword))
                 .findAny()
                 .isPresent();
     }

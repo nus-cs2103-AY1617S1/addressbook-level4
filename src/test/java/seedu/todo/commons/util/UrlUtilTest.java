@@ -2,8 +2,6 @@ package seedu.todo.commons.util;
 
 import org.junit.Test;
 
-import seedu.todo.commons.util.UrlUtil;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 

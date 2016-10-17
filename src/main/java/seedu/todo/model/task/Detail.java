@@ -8,40 +8,33 @@ import seedu.todo.commons.exceptions.IllegalValueException;
  */
 public class Detail {
 
-	public static final String MESSAGE_DETAILS_CONSTRAINTS = "Task details has no constraint.";
+    public static final String MESSAGE_DETAILS_CONSTRAINTS = "Task details has no constraint.";
 
-	public String value;
+    public String value;
 
-	/**
-	 * Validates given email.
-	 *
-	 * @throws IllegalValueException
-	 *             if given email address string is invalid.
-	 */
-	public Detail(String detail) {
-		if (detail == null) {
-			detail = "";
-		}
-		detail = detail.trim();
-		this.value = detail;
-	}
+    public Detail(String detail) {
+        if (detail == null) {
+            detail = "";
+        }
+        detail = detail.trim();
+        this.value = detail;
+    }
 
-	@Override
-	public String toString() {
-		return value;
-	}
+    @Override
+    public String toString() {
+        return value;
+    }
 
-	@Override
-	public boolean equals(Object other) {
-		return other == this // short circuit if same object
-				|| (other instanceof Detail // instanceof handles nulls
-						&& this.value.equals(((Detail) other).value)); // state
-																		// check
-	}
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Detail // instanceof handles nulls
+                        && this.value.equals(((Detail) other).value)); // state check
+    }
 
-	@Override
-	public int hashCode() {
-		return value.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 
 }

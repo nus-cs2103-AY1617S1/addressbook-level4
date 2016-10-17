@@ -9,7 +9,6 @@ import org.junit.rules.TemporaryFolder;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.model.UserPrefs;
-import seedu.todo.storage.JsonUserPrefsStorage;
 
 import java.io.File;
 import java.io.IOException;

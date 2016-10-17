@@ -7,8 +7,8 @@ import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class MarkCommand extends Command {
-	
-	public static final String COMMAND_WORD = "mark";
+
+    public static final String COMMAND_WORD = "mark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task identified by the index number used in the last task listing.\n"
@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
     @Override
     public CommandResult execute() {
         
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getUnmodifiableFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getUnmodifiableFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -42,7 +42,7 @@ public class MarkCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
         }
-    	
+
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }
 }

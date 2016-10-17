@@ -82,7 +82,8 @@ public class UpdateCommand extends Command{
                 newOnDate = this.onDateTime.trim().equals("-") ?  new TaskDate(null) : new TaskDate(this.onDateTime);
             }
             
-            Task newTask = new Task(newName, newDetail, taskToUpdate.isDone(), newOnDate, newByDate, taskToUpdate.getTags());
+            Task newTask = new Task(newName, newDetail, taskToUpdate.isDone(), 
+                    newOnDate, newByDate, taskToUpdate.getTags());
             model.updateTask(taskToUpdate, newTask);
             model.updateFilteredListToShowAll();
             

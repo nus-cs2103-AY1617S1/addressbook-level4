@@ -42,13 +42,14 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName().fullName) && getDetail().equals(person.getDetail().value); //TODO: compare the rest
+        //TODO: compare the rest
+        return getFullName().equals(person.getName().fullName) && getDetail().equals(person.getDetail().value); 
                 
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof TaskCardHandle) {
+        if (obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName()); //TODO: compare the rest
         }

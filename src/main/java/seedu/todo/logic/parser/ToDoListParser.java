@@ -99,7 +99,7 @@ public class ToDoListParser {
     private Command prepareAdd(String args) {
         
         Pattern[] dataPatterns = { ParserFormats.ADD_TASK_ARGS_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_FORMAT_BY,
-                ParserFormats.ADD_TASK_ARGS_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT };
+            ParserFormats.ADD_TASK_ARGS_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT };
 
         Matcher matcher;
         try {
@@ -254,7 +254,7 @@ public class ToDoListParser {
 
         args = args.trim();
         if (args.length() < 1) {
-        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
         String indexString = args.substring(0, 1);
 
@@ -286,10 +286,12 @@ public class ToDoListParser {
      */
     private Command prepareSearch(String args) {
         Pattern[] dataPatterns = { ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON,
-                ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
-                ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, ParserFormats.KEYWORDS_ARGS_FORMAT };
+            ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
+            ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, ParserFormats.KEYWORDS_ARGS_FORMAT };
+        
         args = args.trim();
-        Matcher matcher;
+        
+        Matcher matcher;        
         for (Pattern p : dataPatterns) {
             matcher = p.matcher(args);
             if (matcher.matches()) {
@@ -330,8 +332,8 @@ public class ToDoListParser {
      * @return the prepared command
      */
     private Command prepareStore(String args) {
-       args = args.trim();
-       return new StoreCommand(args);
+        args = args.trim();
+        return new StoreCommand(args);
     }
 
 }

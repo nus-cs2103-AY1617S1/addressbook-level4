@@ -44,6 +44,8 @@ public class ParserFormats {
             .compile("from (?<fromDateTime>.+) till (?<tillDateTime>.+)");
     
     public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
-            .compile("(?<name>[^/]*?)? ?((^| )((on|from) (?<onDateTime>[^(by|;)]+)?|by (?<byDateTime>[^;]+)))*?(?: ?;(?<detail>.+))?$");
+            .compile("(?<name>[^/]*?)? ?((^| )((on|from) "
+                    + "(?<onDateTime>[^(by|;)]+)?|by (?<byDateTime>[^;]+)))*?"
+                    + "(?: ?;(?<detail>.+))?$");
     
 }

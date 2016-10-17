@@ -8,7 +8,7 @@ import seedu.todo.model.task.*;
  */
 public class TestTask implements ReadOnlyTask {
 
-	private Name name;
+    private Name name;
     private Detail detail;
     private TaskDate fromDate;
     private TaskDate tillDate;

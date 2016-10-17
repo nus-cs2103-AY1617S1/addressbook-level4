@@ -11,10 +11,6 @@ import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.model.ReadOnlyToDoList;
 import seedu.todo.model.ToDoList;
 import seedu.todo.model.UserPrefs;
-import seedu.todo.storage.JsonUserPrefsStorage;
-import seedu.todo.storage.Storage;
-import seedu.todo.storage.StorageManager;
-import seedu.todo.storage.XmlToDoListStorage;
 import seedu.todo.testutil.EventsCollector;
 import seedu.todo.testutil.TypicalTestTasks;
 
@@ -75,7 +71,8 @@ public class StorageManagerTest {
     @Test
     public void handleToDoListChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlToDoListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        Storage storage = new StorageManager(new XmlToDoListStorageExceptionThrowingStub("dummy"), 
+                new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleToDoListChangedEvent(new ToDoListChangedEvent(new ToDoList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);

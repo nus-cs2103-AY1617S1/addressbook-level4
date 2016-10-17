@@ -28,9 +28,9 @@ public class TaskDate {
     public TaskDate(String dateTimeString) throws IllegalValueException {
         
         if (DateTimeUtil.isEmptyDateTimeString(dateTimeString)) {
-        	this.date = null;
-        	this.time = null;
-        	
+            this.date = null;
+            this.time = null;
+        
         } else {
             
             LocalDateTime ldt = DateTimeUtil.parseDateTimeString(dateTimeString);
@@ -57,20 +57,20 @@ public class TaskDate {
     @Override
     public String toString() {
         
-    	String dateString, timeString;
-    	if (date == null) {
-    		dateString = "";
-    	} else {
-    		dateString = DateTimeUtil.prettyPrintDate(date);
-    	}
-    	
-    	if (time == null) {
-    		timeString = "";
-    	} else {
-    		timeString = DateTimeUtil.prettyPrintTime(time);
-    	}
-    	
-    	return dateString + " " + timeString;
+        String dateString, timeString;
+        if (date == null) {
+            dateString = "";
+        } else {
+            dateString = DateTimeUtil.prettyPrintDate(date);
+        }
+        
+        if (time == null) {
+            timeString = "";
+        } else {
+            timeString = DateTimeUtil.prettyPrintTime(time);
+        }
+
+        return dateString + " " + timeString;
     }
 
     @Override

@@ -44,7 +44,10 @@ public class BrowserPanel extends UiPart{
         logger.info("Initializing browser");
         BrowserPanel browserPanel = new BrowserPanel();
         browserPanel.browser = new WebView();
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
+        
+        // To prevent triggering events for typing inside the loaded Web page.
+        placeholder.setOnKeyPressed(Event::consume); 
+        
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(browserPanel.browser);
         return browserPanel;

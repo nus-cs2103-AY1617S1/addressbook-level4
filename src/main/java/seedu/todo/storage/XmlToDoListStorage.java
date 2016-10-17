@@ -37,7 +37,8 @@ public class XmlToDoListStorage implements ToDoListStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyToDoList> readToDoList(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyToDoList> readToDoList(String filePath) 
+            throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File addressBookFile = new File(filePath);

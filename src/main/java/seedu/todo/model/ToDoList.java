@@ -140,14 +140,14 @@ public class ToDoList implements ReadOnlyToDoList {
      * TODO : Does not handle tags as of yet
      */
     public boolean undo() {
-       if (this.tasksHistory.size() > 1) {
-           UniqueTaskList topList = this.tasksHistory.pop();
-           UniqueTaskList oldList = this.tasksHistory.pop();
-           topList.getInternalList().setAll(oldList.getInternalList());
-           this.tasksHistory.push(topList);
-           return true;
-       }
-       return false;
+        if (this.tasksHistory.size() > 1) {
+            UniqueTaskList topList = this.tasksHistory.pop();
+            UniqueTaskList oldList = this.tasksHistory.pop();
+            topList.getInternalList().setAll(oldList.getInternalList());
+            this.tasksHistory.push(topList);
+            return true;
+        }
+        return false;
     }
 
 //// tag-level operations

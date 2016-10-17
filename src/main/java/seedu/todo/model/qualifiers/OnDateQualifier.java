@@ -16,7 +16,8 @@ public class OnDateQualifier implements Qualifier{
     @Override
     public boolean run(ReadOnlyTask task) {
         if (task.getOnDate().getDate() != null) {
-            LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(), task.getOnDate().getTime());
+            LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(), 
+                    task.getOnDate().getTime());
             return onDateTime.equals(datetime);
         } else {
             return false;

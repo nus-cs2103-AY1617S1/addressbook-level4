@@ -95,7 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized Task getTask(ReadOnlyTask target) throws TaskNotFoundException {
         int index = toDoList.getTasks().indexOf(target);
         
-        if(index < 0) {
+        if (index < 0) {
             throw new TaskNotFoundException();
         } else {
             return toDoList.getTasks().get(index);
@@ -106,7 +106,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void updateTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
         int index = toDoList.getTasks().indexOf(oldTask);
         
-        if(index < 0) {
+        if (index < 0) {
             throw new TaskNotFoundException();
         } else {
             toDoList.getTasks().get(index).setName(newTask.getName());
@@ -122,7 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void updateTaskTags(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
         int index = toDoList.getTasks().indexOf(oldTask);
         
-        if(index < 0) {
+        if (index < 0) {
             throw new TaskNotFoundException();
         } else {
             toDoList.getTasks().get(index).setTags(newTask.getTags());

@@ -21,7 +21,7 @@ public class ResetCommand extends Command {
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Reset the user config to default"
-            + "Example: " + COMMAND_WORD ;
+            + "Example: " + COMMAND_WORD;
     
     public static final String MESSAGE_SAVE_ERROR = "Unable to save config to new location.";
     
