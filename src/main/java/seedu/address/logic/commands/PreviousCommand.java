@@ -31,9 +31,9 @@ public class PreviousCommand {
 		try {
 		updatedTask = new Task(
                 new TaskName(task.getName().toString()),
-                new DueDate(task.getDueDate().toString()),
+                new DueDate(task.getDueDate().getCalendarValue()),
                 new Priority(task.getPriority().toString()),
-                new Reminder(task.getReminder().toString()),
+                new Reminder(task.getReminder().getCalendarValue()),
                 new UniqueTagList(task.getTags())
         );
 		} catch (IllegalValueException ive) {
@@ -48,9 +48,9 @@ public class PreviousCommand {
         try {            
             oldTask = new Task(
                 new TaskName(originalTask.getName().toString()),
-                new DueDate(originalTask.getDueDate().toString()),
+                new DueDate(originalTask.getDueDate().getCalendarValue()),
                 new Priority(originalTask.getPriority().toString()),
-                new Reminder(originalTask.getReminder().toString()),
+                new Reminder(originalTask.getReminder().getCalendarValue()),
                 new UniqueTagList(originalTask.getTags())
         );
         } catch (IllegalValueException ive) {
