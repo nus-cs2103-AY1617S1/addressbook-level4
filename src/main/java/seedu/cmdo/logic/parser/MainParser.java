@@ -431,6 +431,8 @@ public class MainParser {
 	    			cleanArgs = cleanArgs.substring(0, parsedWord.getStart() - 1) + cleanArgs.substring(parsedWord.getEnd() -1);
 	    		}
     		}
+    		// Sort dates and times according to whichever is earlier
+    		Collections.sort(datesAndTimes);
     		return cleanArgs;	// Return a cleaned up string
     	} catch (IndexOutOfBoundsException e) {
     		return dirtyArgs;
