@@ -12,6 +12,10 @@ public class StorageChangedEvent extends BaseEvent {
     public StorageChangedEvent(String storagePath) {
         this.storagePath = storagePath;
     }
+    
+    public String getStoragePath() {
+    	return storagePath;
+    }
 
     @Override
     public String toString(){
