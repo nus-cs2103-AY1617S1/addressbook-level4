@@ -58,4 +58,12 @@ public class Reminder extends DateTime {
             this.value.setTime(taskDate);
         }
     }
+    
+    public String forDisplay() {
+        if (this.value == null) {
+            return "";
+        } else {
+            return "Reminder:\t".concat(this.toString());
+        }
+    }
 }
