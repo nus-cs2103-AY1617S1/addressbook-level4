@@ -27,7 +27,7 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
          <VBox.margin>
             <Insets />
