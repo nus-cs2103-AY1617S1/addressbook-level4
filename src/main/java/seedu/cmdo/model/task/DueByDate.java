@@ -18,7 +18,6 @@ public class DueByDate {
     public final LocalDate start;
     public final LocalDate end;
     public final Boolean isRange;
-    public final Duration duration;
 
     /**
      * Takes in a single date.
@@ -31,7 +30,6 @@ public class DueByDate {
         assert dueByDate != null;
         this.start = dueByDate;
         this.end = dueByDate;
-        this.duration = Duration.ZERO;
         this.isRange = false;
     }
     
@@ -46,14 +44,13 @@ public class DueByDate {
         assert dueByDateStart != null && dueByDateEnd != null;
         this.start = dueByDateStart;
         this.end = dueByDateEnd;
-        this.duration = Duration.between(dueByDateStart, dueByDateEnd);
         this.isRange = true;
     }
 
     @Override
     public String toString() {
         if (isRange)
-        	return new StringBuilder(start.toString() + "-" + end.toString()).toString();
+        	return new StringBuilder(start.toString() + "/to/" + end.toString()).toString();
         else 
         	return end.toString();
     }

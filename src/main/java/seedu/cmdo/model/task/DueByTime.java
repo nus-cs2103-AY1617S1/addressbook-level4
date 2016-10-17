@@ -20,7 +20,6 @@ public class DueByTime {
     public final LocalTime start;
     public final LocalTime end;
     public final Boolean isRange;
-    public final Duration duration;
     
     /**
      * Validates given dueByTime.
@@ -39,7 +38,6 @@ public class DueByTime {
         	this.end = dueByTime;
         	this.start = end;
         }
-    	this.duration = Duration.ZERO;
     	this.isRange = false;
     }
     
@@ -54,14 +52,13 @@ public class DueByTime {
         assert dueByTimeStart != null && dueByTimeEnd != null;
         this.start = dueByTimeStart.truncatedTo(ChronoUnit.MINUTES);
         this.end = dueByTimeEnd.truncatedTo(ChronoUnit.MINUTES);
-        this.duration = Duration.between(start, end);
         this.isRange = true;
     }
 
     @Override
     public String toString() {
         if (isRange)
-        	return new StringBuilder(start.toString() + "-" + end.toString()).toString();
+        	return new StringBuilder(start.toString() + "/to/" + end.toString()).toString();
         else 
         	return end.toString();
     }
