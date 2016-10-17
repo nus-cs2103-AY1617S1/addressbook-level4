@@ -2,8 +2,13 @@
 package seedu.oneline.model.task;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
+
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang.time.DateUtils;
+
 import com.joestelmach.natty.*;
 
 public class TaskTime implements Comparable<TaskTime> {
@@ -11,6 +16,7 @@ public class TaskTime implements Comparable<TaskTime> {
     public static final String MESSAGE_TASK_TIME_CONSTRAINTS =
             "Task time should have a valid date or time format";
 
+    private final Calendar timeOfCreation;
     private final Date value;
 
     /**
@@ -28,9 +34,11 @@ public class TaskTime implements Comparable<TaskTime> {
 
         if (time.isEmpty()){
             // represent an empty tasktime with a null value field
+            timeOfCreation = Calendar.getInstance();
             value = null;
         } else {        
-            this.value = getDate(time);
+            timeOfCreation = Calendar.getInstance();
+            value = getDate(time);
         }
     }
     
@@ -50,11 +58,31 @@ public class TaskTime implements Comparable<TaskTime> {
         }
         
         Date date = dates.get(0).getDates().get(0);
+        
+        // do correction for the date if the date has already passed
+        if (dateHasPassed(date)){
+            Calendar cal = DateUtils.toCalendar(date);
+            cal.add(Calendar.YEAR, 1);
+            date = cal.getTime();
+        }
+        
         return date;
+    }
+    
+    /**
+     * Returns true if the date supplied has passed (relative to now)
+     * 
+     * @param d the date in question
+     * @return true if date has passed
+     */
+    private boolean dateHasPassed(Date d){
+        Calendar dCal = DateUtils.toCalendar(d);
+
+        return dCal.before(timeOfCreation);
     }
 
     /**
-     * Returns if the time supplied is valid by checking the result of parser.parse
+     * Returns true if the time supplied is valid by checking the result of parser.parse
      * 
      * @param test the list of dategroups under test
      * @return true if list contains a valid date
