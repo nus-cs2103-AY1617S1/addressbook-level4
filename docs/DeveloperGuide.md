@@ -444,14 +444,16 @@ You can control certain properties of the application (e.g App name, logging lev
 You can find the tests in the `./src/test/java` folder.
 
 **In Eclipse**:
-> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
-  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 <br><br>
+
+> **Note:**<br>
+> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
+> as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 **Using Gradle**:
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
