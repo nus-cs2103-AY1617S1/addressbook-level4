@@ -104,6 +104,7 @@ Format: `edit -t INDEX /name NEW_TASK_NAME /desc NEW_TASK_DESCRIPTION /by NEW_DE
 > Edits the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing of tasks.
 > Edits any number of fields of the task. This includes name and/or description and/or deadline.
 > `NEW_DEADLINE_DATE_TIME` can be entered in natural language.
+> Edited tasks are automatically marked as uncompleted.
 
 Examples: 
 * `edit -t 1 /desc CS2103 Project /by 30-12-16`<br>
