@@ -30,7 +30,8 @@ public class Parser {
             Pattern.compile("\\[(?<name>[^;]+)"
                     + "; (?<date>[^;]+)"
                     + "; (?<start>[^;]+)"
-                    + "(; (?<end>[^#]+)\\])?"
+                    + "(; (?<end>[^#]+))?"
+                    + "\\]"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
 
     private static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
