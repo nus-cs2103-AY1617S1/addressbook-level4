@@ -28,7 +28,7 @@ public class DueByDate {
      */
     public DueByDate(LocalDate dueByDate) throws IllegalValueException {
         assert dueByDate != null;
-        this.start = dueByDate;
+        this.start = LocalDate.MIN;
         this.end = dueByDate;
         this.isRange = false;
     }
@@ -79,9 +79,9 @@ public class DueByDate {
      */
 	public String getFriendlyString() {		
 		// If floating date, return do not print anything
+		if (start.equals(LocalDate.MIN) && end.equals(LocalDate.MIN))
+			return "";
 		if (!isRange) {
-			if (end.equals(LocalDate.MIN))
-				return "";
 			return new StringBuilder(end.format(DateTimeFormatter.ofPattern("MM/dd/uuuu"))).toString();
 		}
 		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("MM/dd/uuuu")) 

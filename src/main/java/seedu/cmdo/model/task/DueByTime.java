@@ -33,11 +33,10 @@ public class DueByTime {
         // Enable storage of floating time
         if (!dueByTime.equals(LocalTime.MAX)) {
         	this.end = dueByTime.truncatedTo(ChronoUnit.MINUTES);
-        	this.start = end;
         } else {
         	this.end = dueByTime;
-        	this.start = end;
         }
+    	this.start = LocalTime.MAX;
     	this.isRange = false;
     }
     
