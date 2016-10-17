@@ -1,6 +1,7 @@
 package seedu.todo.controllers;
 
 import seedu.todo.commons.util.StringUtil;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
@@ -34,20 +35,15 @@ public class ListController implements Controller {
     @Override
     public void process(String input) {
         TodoListDB db = TodoListDB.getInstance();
-        
-        // Render
-        IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getAllTasks();
-        view.events = db.getAllEvents();
-        UiManager.renderView(view);
 
-        // Update console message
+        // Render
         int numTasks = db.getAllTasks().size();
         int numEvents = db.getAllEvents().size();
         String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS,
                 numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"),
                 numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
-        UiManager.updateConsoleMessage(consoleMessage);
+        
+        Renderer.renderIndex(db, consoleMessage);
     }
 
 }
