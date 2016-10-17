@@ -11,6 +11,7 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 import seedu.todo.commons.EphemeralDB;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.CalendarItem;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
@@ -81,11 +82,6 @@ public class UpdateController implements Controller {
         }
         
         // Re-render
-        IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getAllTasks();
-        view.events = db.getAllEvents();
-        UiManager.renderView(view);
-        
-        UiManager.updateConsoleMessage(MESSAGE_UPDATE_SUCCESS);
+        Renderer.renderIndex(db, MESSAGE_UPDATE_SUCCESS);
     }
 }
