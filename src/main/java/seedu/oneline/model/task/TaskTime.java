@@ -47,6 +47,7 @@ public class TaskTime implements Comparable<TaskTime> {
      * @throws IllegalValueException if given time string is invalid
      * 
      */
+    @SuppressWarnings("deprecation")
     private Date getDate(String time) throws IllegalValueException{
         Parser parser = new Parser(); // use the natty parser
         List<DateGroup> dates = parser.parse(time);
@@ -59,11 +60,9 @@ public class TaskTime implements Comparable<TaskTime> {
         
         // if time was not explicitly declared, set the time to 2359
         if (dates.get(0).isTimeInferred()){
-            Calendar c = DateUtils.toCalendar(date);
-            c.set(Calendar.HOUR, 23);
-            c.set(Calendar.MINUTE, 59);
-            c.set(Calendar.SECOND, 59);
-            date = c.getTime();
+            date.setHours(23);
+            date.setMinutes(59);
+            date.setSeconds(59);
         }
         
         return date;
