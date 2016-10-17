@@ -27,6 +27,7 @@ public class DateTime {
 
         this.ldt = ldt;
         this.isRecurring = false;
+        this.interval = Period.ZERO;
     }
     
     /**
