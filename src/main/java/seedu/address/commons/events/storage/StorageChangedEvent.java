@@ -1,0 +1,21 @@
+package seedu.address.commons.events.storage;
+
+import seedu.address.commons.events.BaseEvent;
+
+/**
+ * Indicates that the storage location has changed
+ */
+public class StorageChangedEvent extends BaseEvent {
+
+	String storagePath;
+	
+    public StorageChangedEvent(String storagePath) {
+        this.storagePath = storagePath;
+    }
+
+    @Override
+    public String toString(){
+        return storagePath;
+    }
+
+}
