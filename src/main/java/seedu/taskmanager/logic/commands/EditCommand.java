@@ -87,7 +87,10 @@ public class EditCommand extends Command {
         if (tagsToAdd != null) {
             this.tagsToAdd = new UniqueTagList();
             for (String tag : tagsToAdd) {
-                this.tagsToAdd.add(new Tag(tag));
+                try {
+                    this.tagsToAdd.add(new Tag(tag));
+                } catch (DuplicateTagException dte) {
+                }
             }
         }
         
@@ -143,6 +146,11 @@ public class EditCommand extends Command {
         
         if (tagsToRemove != null) {
             UniqueTagList tagListToEdit = itemToEdit.getTags();
+
+            if (this.tagsToAdd != null) {
+                tagListToEdit = itemToReplace.getTags();
+            }
+            
             UniqueTagList updatedTagList = new UniqueTagList();
             
             for (Tag tag : tagsToRemove) {

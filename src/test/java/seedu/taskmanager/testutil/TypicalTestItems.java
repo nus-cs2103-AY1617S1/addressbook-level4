@@ -15,8 +15,7 @@ public class TypicalTestItems {
     public TypicalTestItems() {
         try {
             event1 =  new ItemBuilder().withItemType("event").withStartDate("2016-06-06").withStartTime("05:00").withEndTime("12:01")
-                    .withEndDate("2016-08-08").withName("Game of Life")
-                    .withTags("friends").build();
+                    .withEndDate("2016-08-08").withName("Game of Life").withTags("play", "forever").build();
             deadline1 = new ItemBuilder().withItemType("deadline").withStartDate("").withStartTime("").withEndTime("01:01")
                     .withEndDate("2016-12-06").withName("This is a deadline")
                     .withTags("work", "important").build();
@@ -27,7 +26,7 @@ public class TypicalTestItems {
             event3 = new ItemBuilder().withItemType("event").withName("2103 exam").withStartDate("2016-01-01").withStartTime("13:59").withEndDate("2017-01-03").withEndTime("15:00").build();
             deadline3 = new ItemBuilder().withItemType("deadline").withName("Submit report").withStartDate("").withStartTime("").withEndDate("2016-09-30").withEndTime("21:14").build();
             task3 = new ItemBuilder().withItemType("task").withName("Buy one dozen cartons of milk").withStartDate("").withStartTime("").withEndDate("").withEndTime("").build();
-            event4 = new ItemBuilder().withItemType("event").withName("Java Workshop").withStartDate("2017-01-02").withStartTime("08:00").withEndDate("2017-01-02").withEndTime("12:00").build();
+            event4 = new ItemBuilder().withItemType("event").withName("Java Workshop").withStartDate("2017-01-02").withStartTime("08:00").withEndDate("2017-01-02").withEndTime("12:00").withTags("important").build();
 
             //Manually added
             deadline4 = new ItemBuilder().withItemType("deadline").withName("Submit essay assignment").withStartDate("").withStartTime("").withEndDate("2016-11-28").withEndTime("21:29").build();

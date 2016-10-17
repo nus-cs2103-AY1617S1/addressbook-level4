@@ -50,6 +50,10 @@ public class TestItem implements ReadOnlyItem {
         this.name = name;
     }
 
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
+    }
+    
     @Override
     public ItemType getItemType() {
         return itemType;
@@ -84,7 +88,7 @@ public class TestItem implements ReadOnlyItem {
     public UniqueTagList getTags() {
         return tags;
     }
-
+    
     @Override
     public String toString() {
         return getAsText();
