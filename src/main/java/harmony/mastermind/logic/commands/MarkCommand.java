@@ -33,22 +33,23 @@ public class MarkCommand extends Command implements Undoable {
     public final int targetIndex;
 
     public Task taskToMark;
+    public String currentTab;
 
-    public MarkCommand(int targetIndex) {
+    public MarkCommand(int targetIndex, String currentTab) {
         this.targetIndex = targetIndex;
+        this.currentTab = currentTab;
     }
 
     @Override
     public CommandResult execute() {
-        ObservableList<Task> lastShownList = model.getListToMark();
+        ObservableList<Task> lastShownList = model.getListToMark(currentTab);
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        taskToMark = lastShownList.get(targetIndex
-                                       - 1);
+        taskToMark = lastShownList.get(targetIndex - 1);
 
         if (taskToMark.isMarked()) {
             return new CommandResult(String.format(MESSAGE_MARKED_TASK, taskToMark));
@@ -58,8 +59,6 @@ public class MarkCommand extends Command implements Undoable {
             model.markTask(taskToMark);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
-        } catch (DuplicateTaskException dte) {
-            assert false : "There are duplicate tasks";
         }
 
         model.pushToUndoHistory(this);

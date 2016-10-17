@@ -174,8 +174,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0124797R
     @Override
-    public ObservableList<Task> getListToMark() {
-        return getCurrentList();
+    public ObservableList<Task> getListToMark(String currentTab) {
+        return getCurrentList(currentTab);
     }
 
     @Override
@@ -198,10 +198,10 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
-    private ObservableList<Task> getCurrentList() {
-        String tab = MainWindow.getCurrentTab();
+    private ObservableList<Task> getCurrentList(String currentTab) {
         ObservableList<Task> list = filteredTasks;
-        switch (tab) {
+        
+        switch (currentTab) {
             case "Home":        list = filteredTasks;
                                 break;
             case "Tasks":       list = filteredFloatingTasks;

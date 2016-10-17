@@ -80,7 +80,7 @@ public class MainWindow extends UiPart {
     private TextArea consoleOutput;
     
     @FXML
-    private static TabPane tabPane;
+    private TabPane tabPane;
 
     @FXML
     private TableView<ReadOnlyTask> taskTableHome;
@@ -244,7 +244,7 @@ public class MainWindow extends UiPart {
         primaryStage.setMinWidth(MIN_WIDTH);
     }
     
-    public static String getCurrentTab() {
+    public String getCurrentTab() {
         return tabPane.getSelectionModel().getSelectedItem().getText();
     }
 
@@ -430,7 +430,7 @@ public class MainWindow extends UiPart {
              * will be changed accordingly in the event handling code {@link
              * #handleIncorrectCommandAttempted}
              */
-            mostRecentResult = logic.execute(currCommandText);
+            mostRecentResult = logic.execute(currCommandText, getCurrentTab());
             consoleOutput.setText(mostRecentResult.feedbackToUser);
 
             System.out.println();

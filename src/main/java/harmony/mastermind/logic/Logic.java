@@ -13,7 +13,7 @@ public interface Logic {
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      */
-    CommandResult execute(String commandText);
+    CommandResult execute(String commandText, String currentTab);
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();

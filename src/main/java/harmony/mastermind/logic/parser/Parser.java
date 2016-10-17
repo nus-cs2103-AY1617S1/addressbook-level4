@@ -2,6 +2,8 @@ package harmony.mastermind.logic.parser;
 
 import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static harmony.mastermind.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_TAB;
+
 
 import java.text.ParseException;
 import java.util.*;
@@ -56,7 +58,7 @@ public class Parser {
      *            full user input string
      * @return the command based on the user input
      */
-    public Command parseCommand(String userInput) {
+    public Command parseCommand(String userInput, String currentTab) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {
@@ -91,7 +93,7 @@ public class Parser {
                 return new PreviousCommand();
 
             case MarkCommand.COMMAND_WORD:
-                return prepareMark(arguments);
+                return prepareMark(arguments, currentTab);
 
             case EditCommand.COMMAND_KEYWORD_EDIT:
             case EditCommand.COMMAND_KEYWORD_UPDATE:
@@ -101,7 +103,7 @@ public class Parser {
                 return new UndoCommand();
                 
             case UnmarkCommand.COMMAND_WORD:
-                return prepareUnmark(arguments);
+                return prepareUnmark(arguments, currentTab);
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -247,13 +249,13 @@ public class Parser {
      * @return the prepared command
      */
     //@@author A0124797R
-    private Command prepareMark(String args) {
+    private Command prepareMark(String args, String currentTab) {
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
-        return new MarkCommand(index.get());
+        return new MarkCommand(index.get(), currentTab);
     }
     
     /**
@@ -285,7 +287,10 @@ public class Parser {
      * @return the prepared command
      */
     //@@author A0124797R
-    private Command prepareUnmark(String args) {
+    private Command prepareUnmark(String args, String currentTab) {
+        if (!currentTab.equals("Archives")) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_TAB, UnmarkCommand.COMMAND_WORD, UnmarkCommand.MESSAGE_USAGE));
+        }
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {

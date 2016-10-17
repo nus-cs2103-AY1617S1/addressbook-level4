@@ -72,8 +72,6 @@ public class UnmarkCommand extends Command implements Undoable{
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, taskToUnmark));
         } catch (UniqueTaskList.TaskNotFoundException e) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
         }
     }
     

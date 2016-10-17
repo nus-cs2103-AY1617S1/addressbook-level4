@@ -34,7 +34,7 @@ public interface Model {
 
     /** Marks the given task as done */
     //@@author A0124797R
-    void markTask(Task target) throws UniqueTaskList.TaskNotFoundException, DuplicateTaskException;
+    void markTask(Task target) throws UniqueTaskList.TaskNotFoundException;
     
     /** Updates the completed task as not done */
     //@@author A0124797R
@@ -71,7 +71,7 @@ public interface Model {
 
     //@@author A0124797R
     /** Returns filtered task list as an {@code ObervableList<Task>} */
-    ObservableList<Task> getListToMark();
+    ObservableList<Task> getListToMark(String currentTab);
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
