@@ -50,6 +50,10 @@ public class DateTime {
 	        this.endDate = endDate;
         }
     }
+    
+    public LocalDateTime getDateTime() {
+        return this.ldt;
+    }
 
     public boolean isRecurring() {
         return this.isRecurring;
