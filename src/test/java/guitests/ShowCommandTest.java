@@ -18,6 +18,27 @@ public class ShowCommandTest extends TaskListGuiTest {
         commandBox.runCommand("delete 1");
         assertShowResult("show all", TypicalTestTasks.task2, TypicalTestTasks.task3, TypicalTestTasks.task4, TypicalTestTasks.task5, TypicalTestTasks.task6, TypicalTestTasks.task7, TypicalTestTasks.task10);
     }
+    
+    @Test
+    public void show_completedList() {
+        commandBox.runCommand("done 1");
+        assertShowResult("show complete", TypicalTestTasks.task2);
+    }
+    
+    @Test
+    public void show_uncompletedList() {
+        assertShowResult("show incomplete", TypicalTestTasks.task3, TypicalTestTasks.task4, TypicalTestTasks.task5, TypicalTestTasks.task6, TypicalTestTasks.task7);        
+    }
+    
+    @Test
+    public void show_datedList() {
+    	assertShowResult("show 14 nov", TypicalTestTasks.task3, TypicalTestTasks.task5, TypicalTestTasks.task7);        
+    }
+    
+    @Test
+    public void show_priorityList() {
+        assertShowResult("show p/high", TypicalTestTasks.task3);
+    }
 
     @Test
     public void show_emptyList(){
