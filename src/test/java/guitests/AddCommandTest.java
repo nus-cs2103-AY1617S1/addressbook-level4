@@ -1,8 +1,11 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.DeadlineTaskCardHandle;
+import guitests.guihandles.EventTaskCardHandle;
+import guitests.guihandles.SomedayTaskCardHandle;
 import org.junit.Test;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.task.TaskType;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
@@ -42,8 +45,16 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
-        assertMatching(taskToAdd, addedCard);
+        if (taskToAdd.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
+        	SomedayTaskCardHandle addedCard = taskListPanel.navigateToSomedayTask(taskToAdd.getName().fullName);
+        	assertSomedayTaskMatching(taskToAdd, addedCard);
+        } else if (taskToAdd.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
+        	DeadlineTaskCardHandle addedCard = taskListPanel.navigateToDeadlineTask(taskToAdd.getName().fullName);
+        	assertDeadlineTaskMatching(taskToAdd, addedCard);
+        } else if (taskToAdd.getTaskType().value.equals(TaskType.Type.EVENT)) {
+        	EventTaskCardHandle addedCard = taskListPanel.navigateToEventTask(taskToAdd.getName().fullName);
+        	assertEventTaskMatching(taskToAdd, addedCard);
+        } 
 
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);

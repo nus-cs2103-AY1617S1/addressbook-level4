@@ -19,16 +19,16 @@ import java.util.Set;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Provides a handle for the panel containing the task list.
+ * Provides a handle for the tab panel containing the today task list.
  */
-public class TaskListPanelHandle extends GuiHandle {
+public class TodayTaskListTabPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String TASK_LIST_VIEW_ID = "#taskListView";
 
-    public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public TodayTaskListTabPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
@@ -168,7 +168,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Navigates the listview to display and select the deadline task.
+     * Navigates the listview to display and select the event task.
      */
     public EventTaskCardHandle navigateToEventTask(ReadOnlyTask task) {
         int index = getTaskIndex(task);
