@@ -73,21 +73,6 @@ public class MainApp extends Application {
 
         initEventsCenter();
     }
-    
-    public void setDataStorageFilePath(String newPath) throws IOException, JAXBException, DataConversionException {
-        newTaskListFilePath = newPath;
-        config.changeTaskListFilePath(newTaskListFilePath);
-        storage.changeTaskListStorage(config.getTaskListFilePathAndName());
-    }
-    
-    public static String getDataStorageFilePath() {
-        return newTaskListFilePath;
-    }
-    
-    public ReadOnlyTaskList switchListTo(String tasklistFileName) throws IOException, DataConversionException {
-        config.switchToNewTaskList(tasklistFileName);
-        return storage.changeTaskListStorage(config.getTaskListFilePathAndName());
-    }
 
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
@@ -207,16 +192,34 @@ public class MainApp extends Application {
         this.stop();
     }
     
+    public void setDataStorageFilePath(String newPath) throws IOException, JAXBException, DataConversionException {
+        newTaskListFilePath = newPath;
+        config.changeTaskListFilePath(newTaskListFilePath);
+        storage.changeTaskListStorage(config.getTaskListFilePathAndName());
+    }
+    
+    public static String getDataStorageFilePath() {
+        return newTaskListFilePath;
+    }
+    
     @Subscribe
-    public void handleFileRelocateEvent(FileRelocateEvent event) throws IOException, JAXBException, DataConversionException {
+    public void handleFileRelocateEvent(FileRelocateEvent event) 
+            throws IOException, JAXBException, DataConversionException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setDataStorageFilePath(event.getDestination());
     }
     
+    public void switchList() {
+//        TODO: implement switchList()
+//        use config.getTaskListName() to 
+    }
+    
     @Subscribe
-    public void handleRequestTaskListSwitchEvent(RequestTaskListSwitchEvent event) {
+    public void handleRequestTaskListSwitchEvent(RequestTaskListSwitchEvent event) throws IOException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        
+        config.switchToNewTaskList(event.getFilename());
+        // After this line, config is updated.
+        switchList();
     }
 
     public static void main(String[] args) {

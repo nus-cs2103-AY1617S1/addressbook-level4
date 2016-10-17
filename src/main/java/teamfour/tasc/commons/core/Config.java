@@ -1,17 +1,12 @@
 package teamfour.tasc.commons.core;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
 
 import javax.xml.bind.JAXBException;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import teamfour.tasc.commons.util.JsonUtil;
 import teamfour.tasc.commons.util.XmlUtil;
@@ -110,6 +105,9 @@ public class Config {
         newConfigFileWriter.close();
     }
 
+    /**
+     * return the current tasklist's file name.
+     * */
     public String getTaskListName() {
         return taskListName;
     }

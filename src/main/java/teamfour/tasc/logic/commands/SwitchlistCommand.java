@@ -1,12 +1,6 @@
 package teamfour.tasc.logic.commands;
 
-import java.io.IOException;
-
-
-import teamfour.tasc.MainApp;
-import teamfour.tasc.commons.events.model.TaskListChangedEvent;
 import teamfour.tasc.commons.events.storage.RequestTaskListSwitchEvent;
-import teamfour.tasc.commons.exceptions.DataConversionException;
 import teamfour.tasc.commons.core.EventsCenter;
 
 /**

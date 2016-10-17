@@ -36,6 +36,6 @@ public interface Storage extends TaskListStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleTaskListChangedEvent(TaskListChangedEvent tlce);
-    
-    public ReadOnlyTaskList changeTaskListStorage(String newTaskListFilePath) throws FileNotFoundException, DataConversionException;
+
+    void changeTaskListStorage(String newTaskListFilePath) throws FileNotFoundException, DataConversionException;
 }
