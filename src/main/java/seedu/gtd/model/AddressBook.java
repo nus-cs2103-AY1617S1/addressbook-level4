@@ -1,6 +1,7 @@
 package seedu.gtd.model;
 
 import javafx.collections.ObservableList;
+import seedu.gtd.model.person.Person;
 import seedu.gtd.model.tag.Tag;
 import seedu.gtd.model.tag.UniqueTagList;
 import seedu.gtd.model.task.ReadOnlyTask;
@@ -160,4 +161,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
+	public void addPerson(Person person) {
+		
+	}
 }

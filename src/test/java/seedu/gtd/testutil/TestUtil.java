@@ -21,6 +21,7 @@ import seedu.gtd.model.AddressBook;
 import seedu.gtd.model.person.*;
 import seedu.gtd.model.tag.Tag;
 import seedu.gtd.model.tag.UniqueTagList;
+import seedu.gtd.model.task.UniqueTaskList;
 import seedu.gtd.storage.XmlSerializableAddressBook;
 
 import java.io.File;
@@ -136,7 +137,7 @@ public class TestUtil {
     }
 
     public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
