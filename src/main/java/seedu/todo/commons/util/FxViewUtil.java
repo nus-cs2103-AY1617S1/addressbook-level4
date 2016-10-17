@@ -48,10 +48,21 @@ public class FxViewUtil {
      * Constructs a label view with a dark grey rounded background.
      */
     public static Label constructRoundedText(String text) {
+        Label label = constructLabel(text, "roundLabel");
+        label.setPadding(new Insets(0, 8, 0, 8));
+        return label;
+    }
+
+    /**
+     * Generates a {@link Label} object with the class style applied onto the object.
+     * @param text to be wrapped in the {@link Label} object
+     * @param classStyle css style to be applied to the label
+     * @return a {@link Label} object
+     */
+    public static Label constructLabel(String text, String classStyle) {
         Label label = new Label();
         label.setText(text);
-        label.getStyleClass().add("roundLabel");
-        label.setPadding(new Insets(0, 8, 0, 8));
+        addClassStyle(label, classStyle);
         return label;
     }
 
