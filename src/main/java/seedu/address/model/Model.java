@@ -28,15 +28,18 @@ public interface Model {
     /** Edits the given task
      * @return The edited task
      */
-    Task editTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException;
+    Task editTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException;
 
     /** Undo edit 
      * @return The original task before edit
      */
-    Task undoEditTask(ReadOnlyTask oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException;
-
+    Task undoEditTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException;
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
+    UnmodifiableObservableList<Task> getFilteredTaskListForEditing();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();

@@ -74,6 +74,27 @@ public class UniqueTaskList implements Iterable<Task> {
         return personFoundAndDeleted;
     }
     
+    /**
+     * Edits the equivalent Task from the list.
+     *
+     * @throws TaskNotFoundException if no such person could be found in the list.
+     */
+    public void edit(Task task, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
+        assert task != null;
+        assert newTask != null;
+        
+        if (contains(newTask)) {
+            throw new DuplicateTaskException();
+        }
+        
+        int index = internalList.indexOf(task);
+        if(index == -1) {
+            throw new TaskNotFoundException();
+        }
+
+        internalList.set(index, newTask);
+    }
+    
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

@@ -92,6 +92,7 @@ public class UndoCommand extends Command {
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task to be edited cannot be missing";
         } catch (UniqueTaskList.DuplicateTaskException e) {
+            //I think should assert here instead since duplicate task wont happen if it runs correctly
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
         return null;

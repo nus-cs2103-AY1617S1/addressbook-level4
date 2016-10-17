@@ -58,24 +58,23 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<Task> lastShownList = model.getFilteredTaskListForEditing();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        Task taskToEdit = lastShownList.get(targetIndex - 1);
         
         try {
-            ReadOnlyTask oldTask = new Task(taskToEdit);
-            
+            Task oldTask = new Task(taskToEdit);
             Task editedTask = new Task(model.editTask(taskToEdit, newParams));
             
             PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD,oldTask,editedTask);
             PreviousCommandsStack.push(editCommand);
             
-            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, oldTask, editedTask));
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task to be edited cannot be missing";
             return new CommandResult("");

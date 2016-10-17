@@ -8,10 +8,7 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 public class TaskManager {
     private static final String NULL_ENTRY = "";
     
-    public TaskManager() {
-    }
-
-    public static Task mapUnaffectedParams(ReadOnlyTask oldTask, Task newParams, String type) {
+    public static Task editUnaffectedParams(Task oldTask, Task newParams, String type) {
         Task newTask = null;
         try {
             newTask = new Task(
@@ -28,7 +25,7 @@ public class TaskManager {
         return newTask;
     }
 
-    private static TaskName updateTaskName(ReadOnlyTask oldTask, Task newParams, String type) throws IllegalValueException {
+    private static TaskName updateTaskName(Task oldTask, Task newParams, String type) throws IllegalValueException {
         TaskName newTaskName;
 
         if (newParams.getName().toString().equals(NULL_ENTRY)&& type == "edit") {
@@ -40,19 +37,19 @@ public class TaskManager {
         return newTaskName;
     }
 
-    private static DueDate updateDueDate(ReadOnlyTask oldTask, Task newParams, String type) throws IllegalValueException {
+    private static DueDate updateDueDate(Task oldTask, Task newParams, String type) throws IllegalValueException {
         DueDate newDueDate;
 
         if (newParams.getDueDate().toString().equals(NULL_ENTRY)&& type == "edit") {
-            newDueDate = new DueDate(oldTask.getDueDate().toString());
+            newDueDate = new DueDate(oldTask.getDueDate().getCalendarValue());
         } else {
-            newDueDate = new DueDate(newParams.getDueDate().toString());
+            newDueDate = new DueDate(newParams.getDueDate().getCalendarValue());
         }
 
         return newDueDate;
     }
 
-    private static Priority updatePriority(ReadOnlyTask oldTask, Task newParams, String type) throws IllegalValueException {
+    private static Priority updatePriority(Task oldTask, Task newParams, String type) throws IllegalValueException {
         Priority newPriority;
 
         if (newParams.getPriority().toString().equals(NULL_ENTRY)&& type == "edit") {
@@ -64,19 +61,19 @@ public class TaskManager {
         return newPriority;
     }
 
-    private static Reminder updateReminder(ReadOnlyTask oldTask, Task newParams, String type) throws IllegalValueException {
+    private static Reminder updateReminder(Task oldTask, Task newParams, String type) throws IllegalValueException {
         Reminder newReminder;
 
         if (newParams.getReminder().toString().equals(NULL_ENTRY)&& type == "edit") {
-            newReminder = new Reminder(oldTask.getReminder().toString());
+            newReminder = new Reminder(oldTask.getReminder().getCalendarValue());
         } else {
-            newReminder = new Reminder(newParams.getReminder().toString());
+            newReminder = new Reminder(newParams.getReminder().getCalendarValue());
         }
 
         return newReminder;
     }
 
-    private static UniqueTagList updateTags(ReadOnlyTask oldTask, Task newParams) {
+    private static UniqueTagList updateTags(Task oldTask, Task newParams) {
         UniqueTagList newTags = new UniqueTagList(oldTask.getTags());
 
         for (Tag toAdd : newParams.getTags()) {

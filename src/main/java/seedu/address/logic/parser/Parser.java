@@ -33,8 +33,11 @@ public class Parser {
                     + "(?<isReminderPrivate>p?)(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
-    private static final Pattern PERSON_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<targetIndex>[0-9]+)" + "(?<task>(?: n/[^/]+)?)"
+    private static final Pattern PERSON_EDIT_ARGS_FORMAT =
+            Pattern.compile("(?<targetIndex>[0-9]+)" + "(?<parameters>.+)");
+    
+    private static final Pattern PERSON_EDIT_PARAMETERS_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<task>(?: n/[^/]+)?)"
                     + "(?<isDuedatePrivate>p?)(?<duedate>(?: d/[^/]+)?)"
                     + "(?<isPriorityPrivate>p?)(?<priority>(?: p/[^/]+)?)"
                     + "(?<isReminderPrivate>p?)(?<reminder>(?: r/[^/]+)?)"
@@ -169,14 +172,14 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEdit(String args){
-        final Matcher matcher = PERSON_EDIT_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcherEdit = PERSON_EDIT_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        if(!matcher.matches()){
+        if(!matcherEdit.matches()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        String indexString = matcher.group("targetIndex");
+        String indexString = matcherEdit.group("targetIndex");
         Optional<Integer> index = parseIndex(indexString);
         
         if(!index.isPresent()){
@@ -184,13 +187,21 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
+        String params = " ".concat(matcherEdit.group("parameters").trim());
+        final Matcher matcherParams = PERSON_EDIT_PARAMETERS_ARGS_FORMAT.matcher(params);
+        
+        if(!matcherParams.matches()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
         try {
             return new EditCommand(index.get(), 
-                    getElement(matcher.group("task"), " n/"),
-                    getElement(matcher.group("duedate")," d/"),
-                    getElement(matcher.group("priority")," p/"),
-                    getElement(matcher.group("reminder")," r/"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    getElement(matcherParams.group("task"), " n/"),
+                    getElement(matcherParams.group("duedate")," d/"),
+                    getElement(matcherParams.group("priority")," p/"),
+                    getElement(matcherParams.group("reminder")," r/"),
+                    getTagsFromArgs(matcherParams.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

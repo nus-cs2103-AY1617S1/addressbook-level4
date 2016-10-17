@@ -41,20 +41,36 @@ public class Task implements ReadOnlyTask {
     public TaskName getName() {
         return name;
     }
+    
+    public void setName(TaskName name) {
+        this.name = name;
+    }
 
     @Override
     public DueDate getDueDate() {
         return duedate;
     }
-
+    
+    public void setDueDate(DueDate duedate) {
+        this.duedate = duedate;
+    }
+    
     @Override
     public Priority getPriority() {
         return priority;
+    }
+    
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     @Override
     public Reminder getReminder() {
         return reminder;
+    }
+    
+    public void setReminder(Reminder reminder) {
+        this.reminder = reminder;
     }
 
     @Override
