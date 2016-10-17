@@ -2,10 +2,17 @@ package seedu.task.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
+
+import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
  * Helper functions for handling strings.
@@ -15,6 +22,28 @@ public class StringUtil {
 	 * DateTimeFormatter for LocalTimeDate fields. 
 	 */
 	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);
+	private static final int DATE_INDEX = 0;
+	
+	/**
+	 * Parse a String argument into date format. 
+	 * @param parser
+	 * @param dateArg
+	 * @return date in LocalDateTime format
+	 * @throws IllegalValueException
+	 */
+	public static LocalDateTime parseStringToTime(String dateArg) throws IllegalValueException {
+		PrettyTimeParser parser = new PrettyTimeParser();
+		
+		//invalid start date
+		if(dateArg == null) throw new IllegalValueException(dateArg);
+		
+		List<Date> parsedResult = parser.parse(dateArg);
+		
+		//cannot parse
+		if(parsedResult.isEmpty()) throw new IllegalValueException(dateArg);
+		
+		return LocalDateTime.ofInstant(parsedResult.get(DATE_INDEX).toInstant(), ZoneId.systemDefault()); 
+	}
 	
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");

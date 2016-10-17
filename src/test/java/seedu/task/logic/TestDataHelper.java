@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.Model;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.Deadline;
@@ -359,6 +360,18 @@ class TestDataHelper{
     }
     
     /**
+     * Generates a task object with given deadline. Other fields will have some dummy values.
+     */
+	Task generateTaskWithDeadline(String deadline) throws IllegalValueException {
+		return new Task(
+				new Name("randomName"),
+				new Description("random description"),
+				new Deadline(deadline),
+				false
+				); 
+	}
+    
+    /**
      * Generates a Event object with given name. Other fields will have some dummy values.
      */
     Event generateEventWithNameAndDuration(String name, String duration) throws Exception {
@@ -368,4 +381,8 @@ class TestDataHelper{
                 new EventDuration(duration)
         );
     }
+
+    
+
+
 }

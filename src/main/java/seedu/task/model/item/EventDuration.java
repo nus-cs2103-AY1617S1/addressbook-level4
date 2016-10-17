@@ -2,17 +2,11 @@ package seedu.task.model.item;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
-import java.time.Duration;
+
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 /**
  * Represents an event's duration in the task book. Guarantees: immutable; is
@@ -45,54 +39,36 @@ public class EventDuration {
 		parseDuration(durationArg);
 	}
 
+	
 	private void parseDuration(String durationArg) throws IllegalValueException {
 		final Matcher matcher = DURATION_VALIDATION_REGEX.matcher(durationArg);
-		final PrettyTimeParser parser = new PrettyTimeParser();
+		if(!matcher.matches()) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
 		
-		if(matcher.matches()) {
-			//store the start date and end date 
-			Optional<String> startTimeArg = Optional.ofNullable(matcher.group("startTime"));
-			Optional<String> endTimeArg = Optional.ofNullable(matcher.group("endTime"));
+		//store the start date and end date 
+		Optional<String> startTimeArg = Optional.ofNullable(matcher.group("startTime"));
+		Optional<String> endTimeArg = Optional.ofNullable(matcher.group("endTime"));
 			
-			parseStartAndEndTime(startTimeArg, endTimeArg, parser);
-		} else {
+		try{
+			parseStartAndEndTime(startTimeArg, endTimeArg);
+		} catch (IllegalValueException e) {
 			throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
 		}
+
 	}
 	
-	private void parseStartAndEndTime(Optional<String> startTimeArg, Optional<String> endTimeArg, PrettyTimeParser parser) throws IllegalValueException {
-		if(!startTimeArg.isPresent()) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
-
-		setStartTime(parseTime(parser, startTimeArg.get()));
+	private void parseStartAndEndTime(Optional<String> startTimeArg, Optional<String> endTimeArg) throws IllegalValueException {
+		if(!startTimeArg.isPresent()) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS); /* start time must not be empty */
+		
+		setStartTime(StringUtil.parseStringToTime(startTimeArg.get()));
 		assert getStartTime() != null;
 		
 		if(endTimeArg.isPresent()) {
-			setEndTime(parseTime(parser, endTimeArg.get()));
+			setEndTime(StringUtil.parseStringToTime(endTimeArg.get()));
 		} else {
-			setEndTime(getStartTime().plusHours(DEFAULT_DURATION));
+			setEndTime(getStartTime().plusHours(DEFAULT_DURATION)); /* if no end time, set default duration of event to 1 hr */
 		}
 		assert getEndTime() != null;
 	}
-
-	/**
-	 * Parse a String argument into date format. 
-	 * @param parser
-	 * @param dateArg
-	 * @return date in LocalDateTime format
-	 * @throws IllegalValueException
-	 */
-	private LocalDateTime parseTime(PrettyTimeParser parser, String dateArg) throws IllegalValueException {
-		//invalid start date
-		if(dateArg == null) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
-		
-		List<Date> parsedResult = parser.parse(dateArg);
-		
-		//cannot parse
-		if(parsedResult.isEmpty()) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
-		
-		return LocalDateTime.ofInstant(parsedResult.get(DATE_INDEX).toInstant(), ZoneId.systemDefault()); 
-	}
-	
 
 	public LocalDateTime getStartTime() {
 		return startTime;
@@ -134,17 +110,8 @@ public class EventDuration {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		
 		EventDuration other = (EventDuration) obj;
-		if (endTime == null) {
-			if (other.endTime != null)
-				return false;
-		} else if (!endTime.equals(other.endTime))
-			return false;
-		if (startTime == null) {
-			if (other.startTime != null)
-				return false;
-		} else if (!startTime.equals(other.startTime))
-			return false;
-		return true;
+		return this.toString().equals(other.toString());
 	}
 }
