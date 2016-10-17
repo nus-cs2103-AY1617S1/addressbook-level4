@@ -1,8 +1,9 @@
 package guitests;
 
-import guitests.guihandles.FloatingTaskCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 import seedu.address.logic.commands.AddFloatingCommand;
+import seedu.address.logic.commands.AddNonFloatingCommand;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
@@ -15,19 +16,39 @@ public class AddCommandTest extends TaskListGuiTest {
     public void add() {
         //add one floatingTask
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask floatingTaskToAdd = td.hoon;
-        assertAddSuccess(floatingTaskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, floatingTaskToAdd);
+        TestTask taskToAdd = td.hoon;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another floatingTask
-        floatingTaskToAdd = td.ida;
-        assertAddSuccess(floatingTaskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, floatingTaskToAdd);
+        taskToAdd = td.ida;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate floatingTask
         commandBox.runCommand(td.hoon.getAddFloatingCommand());
         assertResultMessage(AddFloatingCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(floatingTaskListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.isListMatching(currentList));
+        
+        //add one non-floating task
+        taskToAdd = td.project;
+        assertAddNonFloatingSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        
+        //add deadline task
+        taskToAdd = td.paper;
+        assertAddNonFloatingSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        
+        //add task with overlapping slot
+        commandBox.runCommand(td.movie.getAddNonFloatingCommand());
+        assertResultMessage(AddNonFloatingCommand.MESSAGE_TIMESLOT_OCCUPIED);
+        assertTrue(taskListPanel.isListMatching(currentList));
+        
+        //add task with illegal time slot
+        commandBox.runCommand("add illegal timeslot from 2 oct 2pm to 2 oct 1pm");
+        assertResultMessage(AddNonFloatingCommand.MESSAGE_ILLEGAL_TIME_SLOT);
+        assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -38,16 +59,28 @@ public class AddCommandTest extends TaskListGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestTask floatingTaskToAdd, TestTask... currentList) {
-        commandBox.runCommand(floatingTaskToAdd.getAddFloatingCommand());
+    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+        commandBox.runCommand(taskToAdd.getAddFloatingCommand());
 
         //confirm the new card contains the right data
-        FloatingTaskCardHandle addedCard = floatingTaskListPanel.navigateToTask(floatingTaskToAdd.getName().fullName);
-        assertMatching(floatingTaskToAdd, addedCard);
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous floatingTasks plus the new floatingTask
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, floatingTaskToAdd);
-        assertTrue(floatingTaskListPanel.isListMatching(expectedList));
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        assertTrue(taskListPanel.isListMatching(expectedList));
+    }
+    
+    private void assertAddNonFloatingSuccess(TestTask taskToAdd, TestTask... currentList) {
+        commandBox.runCommand(taskToAdd.getAddNonFloatingCommand());
+
+        //confirm the new card contains the right data
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        assertMatching(taskToAdd, addedCard);
+
+        //confirm the list now contains all previous floatingTasks plus the new floatingTask
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        assertTrue(taskListPanel.isListMatching(expectedList));
     }
 
 }

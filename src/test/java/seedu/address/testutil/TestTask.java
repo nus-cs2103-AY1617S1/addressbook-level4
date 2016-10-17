@@ -6,7 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
 public class TestTask extends Task implements ReadOnlyTask {
 
@@ -33,11 +33,13 @@ public class TestTask extends Task implements ReadOnlyTask {
     public void setStartDate(String date){
     	com.joestelmach.natty.Parser p = new Parser();
     	this.startDate = new TaskDate(p.parse(date).get(0).getDates().get(0).getTime());
+    	this.type = TaskType.NON_FLOATING;
     }
     
     public void setEndDate(String date){
     	com.joestelmach.natty.Parser p = new Parser();
     	this.endDate = new TaskDate(p.parse(date).get(0).getDates().get(0).getTime());
+    	this.type = TaskType.NON_FLOATING;
     }
 
     @Override
@@ -82,8 +84,22 @@ public class TestTask extends Task implements ReadOnlyTask {
     	this.type = TaskType.NON_FLOATING;
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("from "+ this.getStartDate().getFormattedDate() + " ");
-        sb.append("to "+ this.getEndDate().getFormattedDate() + " ");
+        if(this.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT){
+        	sb.append("by "+ this.getEndDate().getInputDate() + " ");
+        }else{
+        	sb.append("from "+ this.getStartDate().getInputDate() + " ");
+        	sb.append("to "+ this.getEndDate().getInputDate() + " ");
+        }
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        return sb.toString();
+    }
+    
+    public String getBlockCommand() {
+    	this.type = TaskType.NON_FLOATING;
+        StringBuilder sb = new StringBuilder();
+        sb.append("block ");
+        sb.append("from "+ this.getStartDate().getInputDate() + " ");
+        sb.append("to "+ this.getEndDate().getInputDate() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

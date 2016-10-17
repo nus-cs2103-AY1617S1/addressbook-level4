@@ -25,6 +25,9 @@ public class MainWindow extends UiPart {
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
+    
+    private final String BLUE_THEME = getClass().getResource("/view/BlueTheme.css").toExternalForm();
+    private final String DARK_THEME = getClass().getResource("/view/DarkTheme.css").toExternalForm();
 
     private Logic logic;
 
@@ -102,6 +105,7 @@ public class MainWindow extends UiPart {
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
+        scene.getStylesheets().add(DARK_THEME);
         primaryStage.setScene(scene);
 
         setAccelerators();
@@ -182,6 +186,18 @@ public class MainWindow extends UiPart {
     public void show() {
         primaryStage.show();
     }
+    
+    @FXML
+    public void handleCustomize(){
+    	if(scene.getStylesheets().contains(DARK_THEME)){
+    		scene.getStylesheets().add(BLUE_THEME);
+    		scene.getStylesheets().remove(DARK_THEME);
+    	}else{
+    		scene.getStylesheets().add(DARK_THEME);
+    		scene.getStylesheets().remove(BLUE_THEME);
+    	}
+    }
+    
 
     /**
      * Closes the application.

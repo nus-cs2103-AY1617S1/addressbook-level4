@@ -20,14 +20,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the task list.
  */
-public class FloatingTaskListPanelHandle extends GuiHandle {
+public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String PERSON_LIST_VIEW_ID = "#taskListView";
 
-    public FloatingTaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
@@ -100,7 +100,7 @@ public class FloatingTaskListPanelHandle extends GuiHandle {
     }
 
 
-    public FloatingTaskCardHandle navigateToTask(String name) {
+    public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(700); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!task.isPresent()) {
@@ -113,7 +113,7 @@ public class FloatingTaskListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the task.
      */
-    public FloatingTaskCardHandle navigateToTask(ReadOnlyTask task) {
+    public TaskCardHandle navigateToTask(ReadOnlyTask task) {
         int index = getTaskIndex(task);
 
         guiRobot.interact(() -> {
@@ -146,17 +146,17 @@ public class FloatingTaskListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public FloatingTaskCardHandle getFloatingTaskCardHandle(int index) {
+    public TaskCardHandle getFloatingTaskCardHandle(int index) {
         return getFloatingTaskCardHandle(new Task(getListView().getItems().get(index)));
     }
 
-    public FloatingTaskCardHandle getFloatingTaskCardHandle(ReadOnlyTask task) {
+    public TaskCardHandle getFloatingTaskCardHandle(ReadOnlyTask task) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> taskCardNode = nodes.stream()
-                .filter(n -> new FloatingTaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
+                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
                 .findFirst();
         if (taskCardNode.isPresent()) {
-            return new FloatingTaskCardHandle(guiRobot, primaryStage, taskCardNode.get());
+            return new TaskCardHandle(guiRobot, primaryStage, taskCardNode.get());
         } else {
             return null;
         }

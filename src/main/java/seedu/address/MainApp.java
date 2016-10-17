@@ -190,7 +190,7 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-    	StatusLogger.getLogger().setLevel(Level.OFF);
+    	//StatusLogger.getLogger().setLevel(Level.OFF);
         launch(args);
     }
 }
