@@ -11,6 +11,8 @@ import seedu.address.model.item.TimePeriod;
 
 public class TaskCard extends UiPart{
 
+    private static final int INTEGER_CONSTANT_ONE = 1;
+
     private static final String FXML = "TaskListCard.fxml";
 
     @FXML
@@ -76,19 +78,19 @@ public class TaskCard extends UiPart{
             endTimeText = timeFormatter.format(task.getEndDate().get());
         }
         
-        
         startDate.setText(startDateText);
         startTime.setText(startTimeText);
         endDate.setText(endDateText);
         endTime.setText(endTimeText);
         
+        //TODO: assert true?
         if (task.getRecurrenceRate().isPresent()){
-            Integer recurrenceRateInteger = task.getRecurrenceRate().get().recurrenceRate;
+            Integer recurrenceRateInteger = task.getRecurrenceRate().get().rate;
             TimePeriod timePeriod = task.getRecurrenceRate().get().timePeriod;
-            if (recurrenceRateInteger != null && timePeriod != null) {
+            if (recurrenceRateInteger != INTEGER_CONSTANT_ONE && timePeriod != null) {
                 recurrenceRateText = "every " + recurrenceRateInteger.toString() + " " + timePeriod.toString().toLowerCase() 
                         + (recurrenceRateInteger.intValue() > 1 ? "s" : "");
-            } else if (recurrenceRateInteger == null && timePeriod != null) {
+            } else if (recurrenceRateInteger == INTEGER_CONSTANT_ONE && timePeriod != null) {
                 recurrenceRateText = "every " + timePeriod.toString().toLowerCase();
             }
         }

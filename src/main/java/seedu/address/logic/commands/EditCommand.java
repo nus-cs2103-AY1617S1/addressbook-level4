@@ -41,26 +41,24 @@ public class EditCommand extends UndoableCommand {
     Date endDate;
     RecurrenceRate recurrenceRate;
     Priority priority;
-    
+    boolean removeRepeat, removeStart, removeEnd;
+
 	public EditCommand(int targetIndex,String taskNameString, String startDateString, String endDateString, 
-            String recurrenceRateString, String timePeriodString, String priorityString)  throws IllegalValueException {
+            String recurrenceRateString, String timePeriodString, String priorityString, String resetFieldString)  throws IllegalValueException {
         	
 		this.targetIndex = targetIndex;
 		taskName = null;
 		startDate = null;
         endDate = null;
         priority = null;
+        removeRepeat = false;
+        removeStart = false;
+        removeEnd = false;
         
         if ( taskNameString!=null && !taskNameString.trim().equals("")) {
     		taskName = new Name(taskNameString);
-        } else {
-            System.out.println("TaskName is " + taskNameString);
-        }
-       /* 
-        if(taskName == null){
-            System.out.println("TaskName = null");
-        }
-        */
+        } 
+        
         if (startDateString != null) {
             DateParser dp = new DateParser(startDateString);
             startDate = dp.parseDate();
@@ -87,10 +85,20 @@ public class EditCommand extends UndoableCommand {
             	case ("medium"): case ("m"): case ("med"): priority = Priority.MEDIUM; break;
         	}
         } 
-        
-        // what is the point of this?
-        // DO NOT PUT NULL FOR PRIORITY.
-        //this.toEdit = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
+        /*
+         * Check which field is to be reset
+         */
+        if(resetFieldString != null){
+        	String[] resetField = resetFieldString.trim().split(" ");
+        	for(int i = 0; i < resetField.length; i++){
+        		switch (resetField[i].trim()) {
+            		case ("repeat"):  removeRepeat = true; break; 
+            		case ("start"): removeStart = true; break;
+            		case ("end"): removeEnd = true; break;
+        		}
+        	}
+        } 
+
 	}
 
 	@Override
@@ -98,7 +106,7 @@ public class EditCommand extends UndoableCommand {
 		assert model != null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
 
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() < targetIndex || targetIndex == 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
@@ -115,9 +123,13 @@ public class EditCommand extends UndoableCommand {
         
         if (startDate != null) {
             model.editStartDate(taskToEdit, startDate);
+        } else if (removeStart){
+            model.editStartDate(taskToEdit, startDate);
         }
 
         if (endDate != null) {
+            model.editEndDate(taskToEdit, endDate);
+        } else if (removeEnd){
             model.editEndDate(taskToEdit, endDate);
         }
 
@@ -126,6 +138,8 @@ public class EditCommand extends UndoableCommand {
         }
         
         if (recurrenceRate != null) {
+            model.editRecurrence(taskToEdit, recurrenceRate);
+        } else if (removeRepeat){
             model.editRecurrence(taskToEdit, recurrenceRate);
         }
         updateHistory();
