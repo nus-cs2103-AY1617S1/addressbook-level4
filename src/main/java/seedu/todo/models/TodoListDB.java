@@ -1,6 +1,7 @@
 package seedu.todo.models;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -44,6 +45,25 @@ public class TodoListDB {
         return new ArrayList<Task>(tasks);
     }
     
+    public int countIncompleteTasks() {
+        int count = 0;
+        for (Task task : tasks) {
+            if (!task.isCompleted())
+                count++;
+        }
+        return count;
+    }
+    
+    public int countOverdueTasks() {
+        LocalDateTime now = LocalDateTime.now();
+        int count = 0;
+        for (Task task : tasks) {
+            if (!task.isCompleted() && task.getDueDate().compareTo(now) < 0)
+                count++;
+        }
+        return count;
+    }
+    
     /**
      * Get a list of Events in the DB.
      * 
@@ -51,6 +71,16 @@ public class TodoListDB {
      */
     public List<Event> getAllEvents() {
         return new ArrayList<Event>(events);
+    }
+    
+    public int countFutureEvents() {
+        LocalDateTime now = LocalDateTime.now();
+        int count = 0;
+        for (Event event : events) {
+            if (event.getStartDate().compareTo(now) >= 0)
+                count++;
+        }
+        return count;
     }
     
     /**
