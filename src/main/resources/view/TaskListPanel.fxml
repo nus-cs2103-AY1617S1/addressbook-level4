@@ -11,6 +11,6 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-        <ListView fx:id="taskListView" minWidth="-Infinity" prefWidth="300.0" VBox.vgrow="ALWAYS" />
+        <ListView fx:id="taskListView" minWidth="300.0" prefWidth="300.0" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>
