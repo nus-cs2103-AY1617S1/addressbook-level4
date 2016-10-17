@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
+import seedu.address.storage.StorageManager;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -45,6 +47,9 @@ public class Parser {
     
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[\\p{Alnum} ]+)");
+    
+    private static final Pattern SETPATH_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<name>[\\p{Alnum}|/]+)");   //    data/  <---
     
     
     public Parser() {}
@@ -97,9 +102,32 @@ public class Parser {
             
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();   
+
+        case SetPathCommand.COMMAND_WORD:
+            return setSavePath(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+    
+    /**
+     * Parses arguments in the context of the set save path command.
+     * 
+     * @param args full command args string
+     * @return the custom saved path
+     */
+
+    private Command setSavePath(String args) {
+        args = args.trim();
+        Matcher matcher = SETPATH_DATA_ARGS_FORMAT.matcher(args);
+        // Validate arg string format
+        if (matcher.matches()) {
+            String path = "data/" + matcher.group("name").trim().replaceAll("/$","") +".xml";
+            return new SetPathCommand(path); 
+        }
+        else {   
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetPathCommand.MESSAGE_USAGE));
         }
     }
 
