@@ -11,6 +11,7 @@ import seedu.taskitty.model.task.TaskTime;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -169,6 +170,7 @@ public class CommandParser {
      * @param dataArguments command args string with only name, date, time arguments
      */
     private String[] extractTaskDetailsNatty(String dataArguments) {
+        dataArguments = convertToNattyDateFormat(dataArguments);
         Parser dateTimeParser = new Parser();
         List<DateGroup> dateGroups = dateTimeParser.parse(dataArguments);
         
@@ -193,12 +195,33 @@ public class CommandParser {
     private String convertToNattyDateFormat(String arguments) {
         Matcher matchWithoutYear = LOCAL_DATE_FORMAT_WITHOUT_YEAR.matcher(arguments);
         Matcher matchWithYear = LOCAL_DATE_FORMAT_WITH_YEAR.matcher(arguments);
-        if (matchWithYear.matches()) {
-            
-        } else if (matchWithoutYear.matches()) {
-            
+        try {
+            if (matchWithYear.matches()) {
+                String localDateString = matchWithYear.group("arguments");
+                SimpleDateFormat localDateFormatWithYear = new SimpleDateFormat("dd/MM/yy");
+                SimpleDateFormat nattyDateFormatWithYear = new SimpleDateFormat("MM/dd/yy");          
+                Date localDate = localDateFormatWithYear.parse(localDateString);
+                String nattyDateString = nattyDateFormatWithYear.format(localDate);
+                int indexOfDate = arguments.indexOf(localDateString);
+                StringBuilder convertDateStringBuilder = new StringBuilder(arguments);
+                convertDateStringBuilder.replace(indexOfDate, indexOfDate + localDateString.length(), nattyDateString);
+                return convertDateStringBuilder.toString();
+            } else if (matchWithoutYear.matches()) {
+                String localDateString = matchWithoutYear.group("arguments");
+                SimpleDateFormat localDateFormatWithYear = new SimpleDateFormat("dd/MM");
+                SimpleDateFormat nattyDateFormatWithYear = new SimpleDateFormat("MM/dd");          
+                Date localDate = localDateFormatWithYear.parse(localDateString);
+                String nattyDateString = nattyDateFormatWithYear.format(localDate);
+                int indexOfDate = arguments.indexOf(localDateString);
+                StringBuilder convertDateStringBuilder = new StringBuilder(arguments);
+                convertDateStringBuilder.replace(indexOfDate, indexOfDate + localDateString.length(), nattyDateString);
+                return convertDateStringBuilder.toString();
+            } else {
+                return arguments;
+            }
+        } catch (ParseException e) {
+            return arguments;
         }
-        return null;
     }
     /**
      * Takes in a date from Natty and converts it into a string representing date
