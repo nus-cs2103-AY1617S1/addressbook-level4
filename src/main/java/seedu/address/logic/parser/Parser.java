@@ -46,7 +46,7 @@ public class Parser {
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-    		Pattern.compile("\\d+ "
+    		Pattern.compile("[E|D|T]\\d+ "
     				+ "(des|date|start|end|tag) "
     				+ ".+");
     
@@ -263,8 +263,8 @@ public class Parser {
         
         args = args.trim();
         
-        Optional<Integer> index = parseIndex(args.substring(0, args.indexOf(' ')));
-        
+        char category = args.charAt(0);
+        Optional<Integer> index = parseIndex(Character.toString(args.charAt(1)));
         args = args.substring(args.indexOf(' ') + 1);
         
         if(!index.isPresent()) {
@@ -276,7 +276,7 @@ public class Parser {
         
         Integer pass = index.get();
         
-        return new EditCommand(pass, args);
+        return new EditCommand(pass, args, category);
     }
 
     /**
