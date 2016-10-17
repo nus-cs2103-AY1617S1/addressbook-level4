@@ -294,6 +294,7 @@ public class ToDoListParser {
         Matcher matcher;        
         for (Pattern p : dataPatterns) {
             matcher = p.matcher(args);
+            
             if (matcher.matches()) {
                 if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON)) {
                     return new SearchCommand(matcher.group("onDateTime"), 0);
