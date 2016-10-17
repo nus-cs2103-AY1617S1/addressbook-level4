@@ -126,7 +126,7 @@ Format: `list [PARAMETERS]`
 > * `list` shows all incomplete tasks
 > * `list all` shows all tasks
 > * `list done` shows all completed tasks
-> * `list [DATE]` shows all tasks starting or ending in a particular day
+> * `list [DATE]` shows remaining tasks starting or ending on a particular date
 
 #### Searching tasks by keywords: `search`
 Searches and lists all tasks that contain the specified keyword, inclusive of `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY`.<br>
