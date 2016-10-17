@@ -21,14 +21,14 @@ public class StringUtil {
     }
     
     public static boolean tagsContainsIgnoreCase(UniqueTagList source, String query) {
-    	boolean truefalse = true;
+    	boolean truefalse = false;
     	ObservableList<Tag> list = source.getInternalList();
     	String[] split;
     	List<String> strings = null;
     	for(Tag tag: list){
     		split = tag.tagName.toLowerCase().split("\\s+");
     		strings = Arrays.asList(split);
-    		truefalse = truefalse && strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
+    		truefalse = truefalse || strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
     	}
         return truefalse;
     }
