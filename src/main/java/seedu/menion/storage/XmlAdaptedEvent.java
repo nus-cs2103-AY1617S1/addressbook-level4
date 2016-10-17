@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Activity.
  */
-public class XmlAdaptedTask {
+public class XmlAdaptedEvent {
 
     @XmlElement(required = true)
     private String activityType;
@@ -20,9 +20,9 @@ public class XmlAdaptedTask {
     private String name;
     @XmlElement(required = true)
     private String note;
-    @XmlElement(required = false)
+    @XmlElement(required = true)
     private String startDate;
-    @XmlElement(required = false)
+    @XmlElement(required = true)
     private String startTime;
     @XmlElement(required = true)
     private String endDate;
@@ -35,7 +35,7 @@ public class XmlAdaptedTask {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
+    public XmlAdaptedEvent() {}
 
 
     /**
@@ -43,15 +43,16 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(ReadOnlyActivity source) {
-        
-        
+    public XmlAdaptedEvent(ReadOnlyActivity source) {
+     
             activityType = source.getActivityType().toString();
             name = source.getActivityName().fullName;
             note = source.getNote().toString();
             startDate = source.getActivityStartDate().toString();
             startTime = source.getActivityStartTime().toString();
-      
+            endDate = source.getActivityEndDate().toString();
+            endTime = source.getActivityEndTime().toString();
+        
     }
 
     /**
@@ -60,13 +61,15 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted Activity
      */
     public Activity toModelType() throws IllegalValueException {
-       
+        
             final String type = this.activityType;
             final ActivityName name = new ActivityName(this.name);
             final Note note = new Note(this.note);
             final ActivityDate startDate = new ActivityDate(this.startDate);
             final ActivityTime startTime = new ActivityTime(this.startTime);
-            return new Activity(type, name, note, startDate, startTime);
+            final ActivityDate endDate = new ActivityDate(this.endDate);
+            final ActivityTime endTime = new ActivityTime(this.endTime);
+            return new Activity(type, name, note, startDate, startTime, endDate, endTime);
         
         
     }
