@@ -109,7 +109,6 @@ Examples:
 > * The comma after `[TASK]` can be replaced with a `from`. <br>
 > * The comma after `[START DATE TIME]` can be replaced with a `-`.
 
-
 ##### Recurring
 To make tasks repeating, simply  add the FREQUENCY parameter at the back.
 
@@ -144,7 +143,7 @@ Examples:
 * `search milk`<br>
   Lists the all the tasks with names containing the word `milk` if any can be found.
   
-#### Deleting a person : `delete`
+#### Deleting a task : `delete`
 Deletes the specified task from the list. Irreversible.<br>
 Format: `delete INDEX...`
 
@@ -172,10 +171,10 @@ Reverts the most recent action.<br>
 Format: `undo`
 
 #### Editing a task : `edit`
-Edits task on the displayed list.<br>
+Edits task on the display list.<br>
 Format: `edit INDEX PARAMETER NEW_INFORMATION`
 
-> More than 1 parameters can be edited at the same input, simplu separate them with a `,`.
+> More than 1 parameter can be edited at the same input, simply separate them with a comma.
 
 Examples: 
 * `edit 1 date oct 11, time 1800-2000`
@@ -189,7 +188,7 @@ Example:
 * `edit 3 time clear`
 
 #### Marking a task as complete : `done`
-Marks task on displayed list as complete. Does not remove completely from GGist.<br>
+Marks task on display list as complete. Does not remove completely from GGist.<br>
 Format: `done INDEX`
 
 Example:<br>
@@ -197,13 +196,13 @@ Example:<br>
 * `search oct 1`<br>
   `done 2`
  
-To mark more than one task as complete, simply type in the other indexes separated with a comma. <br>
+To mark more than one task as complete, simply type in the other indexes separated by a comma. <br>
 Format: `done INDEX, ...`
 
 Example:<br>
 * `done 1, 2, 3`
 
-> To view all completed tasks, simply type  `list done`!
+> To view all completed tasks, simply type  `list done`.
 
 
 #### Exiting the program : `exit`
@@ -211,7 +210,7 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data 
-All GGist data are saved in the hard disk automatically after any command that changes the data.<br>
+All GGist data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
        
 ## Command Cheatsheet
@@ -219,11 +218,11 @@ There is no need to save manually.
 Command | Format  
 --------| -------- 
 Add     | `add TASK, DATE, TIME, PRIORITY, FREQUENCY`
-Delete  | `delete INDEX`
-Done    | `done INDEX`
-Search  | `search KEYWORD`
-Edit    | `edit INDEX FIELD NEW_INFORMATION`
 List    | `list DATE`
+Search  | `search KEYWORD`
+Delete  | `delete INDEX`
 Undo    | `undo`
+Edit    | `edit INDEX FIELD NEW_INFORMATION`
+Done    | `done INDEX`
 Help    | `help`
 Exit    | `exit`
