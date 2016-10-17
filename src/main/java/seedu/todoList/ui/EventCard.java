@@ -39,11 +39,11 @@ public class EventCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().value);
+        name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
-        date.setText(task.getDate().value);
-        startTime.setText(task.getStartTime().value);
-        endTime.setText(task.getEndTime().value);
+        date.setText(task.getDate().date);
+        startTime.setText(task.getStartTime().startTime);
+        endTime.setText(task.getEndTime().endTime);
     }
 
     public HBox getLayout() {

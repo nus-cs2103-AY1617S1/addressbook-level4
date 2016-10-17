@@ -34,9 +34,9 @@ public class XmlAdaptedEvent extends XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedtask
      */
     public XmlAdaptedEvent(Event source) {
-    	date = source.getDate().value;
-        startTime = source.getStartTime().value;
-        endTime = source.getEndTime().value;
+    	date = source.getDate().date;
+        startTime = source.getStartTime().startTime;
+        endTime = source.getEndTime().endTime;
     }
     
     public XmlAdaptedEvent(ReadOnlyTask source) {

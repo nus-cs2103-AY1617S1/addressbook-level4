@@ -39,10 +39,10 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     		tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTodo::new).collect(Collectors.toList()));
     	}
     	else if(typeCheck[0] instanceof Event) {
-    		tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTodo::new).collect(Collectors.toList()));
+    		tasks.addAll(src.getTaskList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
     	}
     	else if(typeCheck[0] instanceof Deadline) {
-    		tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTodo::new).collect(Collectors.toList()));
+    		tasks.addAll(src.getTaskList().stream().map(XmlAdaptedDeadline::new).collect(Collectors.toList()));
     	}
     }
 
