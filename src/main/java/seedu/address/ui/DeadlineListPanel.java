@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.ui.PersonListPanel.PersonListViewCell;
 
 public class DeadlineListPanel extends UiPart {
 
@@ -73,7 +72,7 @@ public class DeadlineListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         deadlineListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in deadline list panel changed to : '" + newValue + "'");
                 raise(new PersonPanelSelectionChangedEvent(newValue));
             }
         });
@@ -92,14 +91,14 @@ public class DeadlineListPanel extends UiPart {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ReadOnlyTask deadline, boolean empty) {
+            super.updateItem(deadline, empty);
 
-            if (empty || person == null) {
+            if (empty || deadline == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(DeadlineCard.load(deadline, getIndex() + 1).getLayout());
             }
         }
     }

@@ -31,7 +31,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     
     
-    //private DeadlineListPanel deadlineListPanel;
+    private DeadlineListPanel deadlineListPanel;
     //private TodoListPanel todoListPanel; 
      
     
@@ -127,7 +127,7 @@ public class MainWindow extends UiPart {
         //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         
-        //deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredPersonList());
+        deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredDeadlineList());
         //todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredPersonList());
     }
 
@@ -210,9 +210,9 @@ public class MainWindow extends UiPart {
         return this.personListPanel;
     }
     
-    //public DeadlineListPanel getDeadlineListPanel() {
-    //    return this.deadlineListPanel;
-    //}
+    public DeadlineListPanel getDeadlineListPanel() {
+        return this.deadlineListPanel;
+    }
     
    // public TodoListPanel getTodoListPanel() {
     //    return this.todoListPanel;
