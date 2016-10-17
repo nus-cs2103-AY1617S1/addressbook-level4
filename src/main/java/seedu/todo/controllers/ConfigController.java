@@ -21,8 +21,10 @@ public class ConfigController implements Controller {
     private static final String MESSAGE_SUCCESS = "Successfully updated %s.";
     private static final String MESSAGE_FAILURE = "Could not update settings: %s";
     private static final String MESSAGE_INVALID_INPUT = "Invalid config setting provided!";
+    private static final String MESSAGE_WRONG_EXTENSION = "Could not change storage path: File must end with %s";
     private static final String SPACE = " ";
     private static final int ARGS_LENGTH = 2;
+    private static final String DB_FILE_EXTENSION = ".json";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX);
@@ -117,6 +119,11 @@ public class ConfigController implements Controller {
             break;
             
         case "databaseFilePath" :
+            // Make sure the new path has a .json extension
+            if (!configValue.endsWith(DB_FILE_EXTENSION)) {
+                throw new CannotConfigureException(String.format(MESSAGE_WRONG_EXTENSION, DB_FILE_EXTENSION));
+            }
+            
             // Move the DB file to the new location
             try {
                 TodoListDB.getInstance().move(configValue);
