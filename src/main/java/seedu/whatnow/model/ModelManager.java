@@ -153,6 +153,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList() {
+        return new UnmodifiableObservableList<>(filteredSchedules);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> keyword) {
+        updateFilteredScheduleList(keyword);
+        return new UnmodifiableObservableList<>(filteredSchedules);
+    }
+    
+    @Override
     public void updateFilteredScheduleListToShowAll() {
         filteredTasks.setPredicate(null);
     }

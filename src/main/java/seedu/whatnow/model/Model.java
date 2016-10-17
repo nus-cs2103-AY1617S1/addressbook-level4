@@ -19,6 +19,8 @@ public interface Model {
 
     /** Returns the WhatNow */
     ReadOnlyWhatNow getWhatNow();
+    
+  //=========== Methods for Task List ===============================================================
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
@@ -53,8 +55,16 @@ public interface Model {
     /** Mark the given task as completed */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
+    
+  //=========== Methods for Schedule List ===============================================================
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList();
+    
+    /** Returns the filtered task list with filter keyword as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> key);
     
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredScheduleListToShowAll();
