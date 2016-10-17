@@ -19,6 +19,7 @@ import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.storage.StorageManager;
+import javafx.scene.control.Tab;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
@@ -48,6 +49,7 @@ public class LogicManagerTest {
     private ReadOnlyTaskManager latestSavedAddressBook;
     private boolean helpShown;
     private int targetedJumpIndex;
+    private static String TAB_HOME = "Home";
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
@@ -67,7 +69,7 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
@@ -91,8 +93,8 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
+     * Both the 'task manager' and the 'last shown list' are expected to be empty.
+     * @see #assertCommandBehavior(String, String, ReadOnlyTaskManager, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
         assertCommandBehavior(inputCommand, expectedMessage, new TaskManager(), Collections.emptyList());
@@ -110,12 +112,12 @@ public class LogicManagerTest {
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
-        CommandResult result = logic.execute(inputCommand);
+        CommandResult result = logic.execute(inputCommand, TAB_HOME);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
-
+        
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getTaskManager());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
@@ -181,8 +183,8 @@ public class LogicManagerTest {
     public void execute_undoAndRedo_add() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.task();
-
-        logic.execute(helper.generateAddCommand(toBeAdded));
+        
+        logic.execute(helper.generateAddCommand(toBeAdded), TAB_HOME);
         
         assertCommandBehavior("undo", "Undo successfully.\n"
                 + "=====Undo Details=====\n"
@@ -210,7 +212,7 @@ public class LogicManagerTest {
         
         helper.addToModel(model, onePerson);
 
-        logic.execute(helper.generateEditCommand());
+        logic.execute(helper.generateEditCommand(), TAB_HOME);
         
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
@@ -240,7 +242,7 @@ public class LogicManagerTest {
         
         helper.addToModel(model, onePerson);
 
-        logic.execute("delete 1");
+        logic.execute("delete 1", TAB_HOME);
         
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
@@ -256,7 +258,7 @@ public class LogicManagerTest {
                 + "[Redo Delete Command] Deleted Task: task Tags: [tag1],[tag2]\n"
                 + "==================",
                 model.getTaskManager(),
-                model.getListToMark());
+                model.getListToMark(TAB_HOME));
     }
     
     @Test
@@ -270,7 +272,7 @@ public class LogicManagerTest {
         
         helper.addToModel(model, onePerson);
 
-        logic.execute("mark 1");
+        logic.execute("mark 1", TAB_HOME);
         
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
@@ -286,7 +288,7 @@ public class LogicManagerTest {
                 + "[Redo Mark Command] task Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
                 model.getTaskManager(),
-                model.getListToMark());
+                model.getListToMark(TAB_HOME));
     }
     
     @Test
@@ -300,25 +302,25 @@ public class LogicManagerTest {
         
         helper.addToModel(model, onePerson);
         
-        logic.execute("mark 1");
+        logic.execute("mark 1", TAB_HOME);
         
-        logic.execute("unmark 1");
+        logic.execute("unmark 1", TAB_HOME);
         
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
-                + "[Undo Unmark Command] task Tags: [tag1],[tag2] has been archived\n"
+                + "[Undo Mark Command] task Tags: [tag1],[tag2] has been unmarked\n"
                 + "==================",       
                 model.getTaskManager(),
-                model.getListToMark());
+                model.getListToMark(TAB_HOME));
         
         assertCommandBehavior("redo",
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
-                + "task Tags: [tag1],[tag2] has been unmarked\n"
+                + "[Redo Mark Command] task Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
                 model.getTaskManager(),
-                model.getListToMark());
+                model.getListToMark(TAB_HOME));
     }
     
     @Test
@@ -327,7 +329,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.task();
 
-        logic.execute(helper.generateAddCommand(toBeAdded));
+        logic.execute(helper.generateAddCommand(toBeAdded), TAB_HOME);
         
         model.deleteTask(toBeAdded);
         
@@ -347,7 +349,7 @@ public class LogicManagerTest {
         List<Task> onePerson = helper.generateTaskList(toBeEdited);
         helper.addToModel(model, onePerson);
 
-        logic.execute(helper.generateEditCommand());
+        logic.execute(helper.generateEditCommand(), TAB_HOME);
         
         model.deleteTask(toBeEdited);
         
@@ -372,7 +374,7 @@ public class LogicManagerTest {
         
         model.addTask(task1);
 
-        logic.execute(helper.generateEditCommand());
+        logic.execute(helper.generateEditCommand(), TAB_HOME);
 
         model.getTaskManager().getUniqueTaskList().getInternalList().add(task1);
         model.getTaskManager().getUniqueTaskList().getInternalList().add(task2);
@@ -396,7 +398,7 @@ public class LogicManagerTest {
         
         model.addTask(task1);
 
-        logic.execute("delete 1");
+        logic.execute("delete 1", TAB_HOME);
 
         model.getTaskManager().getUniqueTaskList().getInternalList().add(task1);
         model.getTaskManager().getUniqueTaskList().getInternalList().add(task2);

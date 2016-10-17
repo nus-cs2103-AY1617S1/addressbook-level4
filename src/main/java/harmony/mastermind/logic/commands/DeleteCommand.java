@@ -42,7 +42,6 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
 
     @Override
     public CommandResult execute() {
-
         try {
             executeDelete();
 
@@ -51,11 +50,6 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
             model.clearRedoHistory();
 
         } catch (TaskNotFoundException | IndexOutOfBoundsException tnfe) {
-            // by A0138862W: 
-            // uncommented this line because it makes the DeleteCommandTest fail at line 33
-            // should return invalid message for UI to display otherwise it'll display null
-            //assert false : "The target task cannot be missing";
-            
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
@@ -94,7 +88,7 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
     }
 
     private void executeDelete() throws TaskNotFoundException, IndexOutOfBoundsException {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getCurrentList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -102,8 +96,7 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
         }
 
         if (toDelete == null) {
-            toDelete = lastShownList.get(targetIndex
-                                         - 1);
+            toDelete = lastShownList.get(targetIndex - 1);
         }
 
         model.deleteTask(toDelete);

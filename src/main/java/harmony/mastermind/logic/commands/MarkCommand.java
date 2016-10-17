@@ -1,9 +1,9 @@
 package harmony.mastermind.logic.commands;
 
 import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.commons.exceptions.TaskAlreadyMarkedException;
 import harmony.mastermind.model.task.Task;
-import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 import javafx.collections.ObservableList;
@@ -34,18 +34,18 @@ public class MarkCommand extends Command implements Undoable, Redoable {
     public final int targetIndex;
 
     public Task taskToMark;
+    public String currentTab;
 
-    public MarkCommand(int targetIndex) {
+    public MarkCommand(int targetIndex, String currentTab) {
         this.targetIndex = targetIndex;
+        this.currentTab = currentTab;
     }
 
     @Override
     public CommandResult execute() {
         try {
             executeMark();
-
             model.pushToUndoHistory(this);
-
             model.clearRedoHistory();
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark));
@@ -71,7 +71,7 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, taskToMark));
         } catch (DuplicateTaskException e) {
             return new CommandResult(String.format(UnmarkCommand.MESSAGE_DUPLICATE_UNMARK_TASK, taskToMark));
-        } catch (harmony.mastermind.model.task.ArchiveTaskList.TaskNotFoundException e) {
+        } catch (ArchiveTaskList.TaskNotFoundException e) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
     }
@@ -94,18 +94,16 @@ public class MarkCommand extends Command implements Undoable, Redoable {
         }
     }
 
+    //@@author A0124797R
     private void executeMark() throws TaskAlreadyMarkedException, IndexOutOfBoundsException, TaskNotFoundException {
-        ObservableList<Task> lastShownList = model.getListToMark();
+        ObservableList<Task> lastShownList = model.getListToMark(currentTab);
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             throw new IndexOutOfBoundsException();
         }
-
-        if (taskToMark == null) {
-            taskToMark = lastShownList.get(targetIndex
-                                           - 1);
-        }
+        
+        taskToMark = lastShownList.get(targetIndex - 1);
 
         if (taskToMark.isMarked()) {
             throw new TaskAlreadyMarkedException();
