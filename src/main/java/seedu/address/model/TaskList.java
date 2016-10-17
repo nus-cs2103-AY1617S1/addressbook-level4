@@ -59,7 +59,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     @Override
-    public ObservableList<TaskDateComponent> getTaskComponent() {
+    public ObservableList<TaskDateComponent> getTaskComponentList() {
         return tasks.getInternalComponentList();
     }
 

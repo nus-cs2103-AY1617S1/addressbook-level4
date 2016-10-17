@@ -12,6 +12,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.TaskList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
@@ -107,7 +108,7 @@ public abstract class TaskListGuiTest {
     /**
      * Asserts the floatingTask shown in the card is same as the given floatingTask
      */
-    public void assertMatching(ReadOnlyTask floatingTask, FloatingTaskCardHandle card) {
+    public void assertMatching(TaskDateComponent floatingTask, FloatingTaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, floatingTask));
     }
 

@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.joestelmach.natty.Parser;
 
 import seedu.address.model.tag.UniqueTagList;
@@ -16,12 +19,15 @@ public class TestTask extends Task implements ReadOnlyTask {
     private TaskDate startDate;
     private TaskDate endDate;
     private RecurringType recurringType;
+    private List<TaskDateComponent> recurringDates;
 
     public TestTask() {
         tags = new UniqueTagList();
         startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         recurringType = RecurringType.NONE;
+        recurringDates = new ArrayList<TaskDateComponent>();
+        recurringDates.add(new TaskDateComponent(this, startDate, endDate));
     }
 
     public void setName(Name name) {
@@ -55,6 +61,11 @@ public class TestTask extends Task implements ReadOnlyTask {
     @Override
     public RecurringType getRecurringType() {
         return recurringType;
+    }
+    
+    @Override
+    public List<TaskDateComponent> getTaskDateComponent() {
+        return recurringDates;
     }
 
     @Override

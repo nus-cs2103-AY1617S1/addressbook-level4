@@ -23,6 +23,13 @@ public class TaskDateComponent {
         this.endDate = new TaskDate(endDate);
     }
     
+    public TaskDateComponent(TaskDateComponent taskDateComponent) {
+        this.taskReference = taskDateComponent.taskReference;
+        this.startDate = taskDateComponent.startDate;
+        this.endDate = taskDateComponent.endDate;
+        this.isArchived = taskDateComponent.isArchived;
+    }
+
     public void setStartDate(TaskDate startDate) {
         this.startDate = startDate;
     }
@@ -64,6 +71,23 @@ public class TaskDateComponent {
     
     public boolean getIsArchived() {
         return isArchived;
+    }
+    
+    private boolean isSameStateAs(TaskDateComponent other) {
+        return other == this // short circuit if same object
+            || (other != null // this is first to avoid NPE below
+            && other.getTaskReference().getName().equals(this.getTaskReference().getName()) // state checks here onwards
+            && other.getTaskReference().getTaskType().equals(this.getTaskReference().getTaskType())
+            && other.getStartDate().equals(this.getStartDate())
+            && other.getEndDate().equals(this.getEndDate())
+            );
+    }
+    
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TaskDateComponent // instanceof handles nulls
+                && this.isSameStateAs((TaskDateComponent) other));        
     }
     
 }

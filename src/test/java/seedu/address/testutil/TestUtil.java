@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(FloatingTaskCardHandle card, ReadOnlyTask task) {
+    public static boolean compareCardAndTask(FloatingTaskCardHandle card, TaskDateComponent task) {
         return card.isSameTask(task);
     }
 

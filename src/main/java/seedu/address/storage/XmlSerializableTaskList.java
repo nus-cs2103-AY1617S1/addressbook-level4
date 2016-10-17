@@ -101,7 +101,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
 	}
 
     @Override
-    public List<TaskDateComponent> getTaskComponent() {
+    public List<TaskDateComponent> getTaskComponentList() {
         // TODO Auto-generated method stub
         return null;
     }

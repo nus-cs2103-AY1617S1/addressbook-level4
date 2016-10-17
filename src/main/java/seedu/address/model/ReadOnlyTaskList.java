@@ -26,7 +26,7 @@ public interface ReadOnlyTaskList {
      * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getTaskList();
-    List<TaskDateComponent> getTaskComponent();
+    List<TaskDateComponent> getTaskComponentList();
 
     
     /**

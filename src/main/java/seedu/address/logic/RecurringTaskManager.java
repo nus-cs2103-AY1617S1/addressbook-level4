@@ -50,6 +50,7 @@ public class RecurringTaskManager {
     }
     
     public void updateRepeatingTasks() {
+        assert repeatingTasks != null : "Repeating Task list reference cannot be null";
         logger.info("=============================[ RecurringTaskManager Updating ]===========================");
         for(ReadOnlyTask task : repeatingTasks){
             isUpdateRecurringTask(task);

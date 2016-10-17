@@ -50,7 +50,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
-        filteredTaskComponents = new FilteredList<>(taskList.getTaskComponent());
+        filteredTaskComponents = new FilteredList<>(taskList.getTaskComponentList());
+        RecurringTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
+        RecurringTaskManager.getInstance().setInitialisedTime();
     }
 
     public ModelManager() {
@@ -60,7 +62,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
         taskList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(taskList.getTasks());
-        filteredTaskComponents = new FilteredList<>(taskList.getTaskComponent());
+        filteredTaskComponents = new FilteredList<>(taskList.getTaskComponentList());
         RecurringTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
         RecurringTaskManager.getInstance().setInitialisedTime();
     }

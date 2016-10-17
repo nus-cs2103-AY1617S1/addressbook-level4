@@ -3,11 +3,15 @@ package guitests;
 import guitests.guihandles.FloatingTaskCardHandle;
 import org.junit.Test;
 import seedu.address.logic.commands.AddFloatingCommand;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddCommandTest extends TaskListGuiTest {
 
@@ -24,10 +28,15 @@ public class AddCommandTest extends TaskListGuiTest {
         assertAddSuccess(floatingTaskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, floatingTaskToAdd);
 
+        List<TaskDateComponent> componentList = new ArrayList<TaskDateComponent>();
+        for(TestTask t : currentList) {
+            componentList.addAll(t.getTaskDateComponent());
+        }
         //add duplicate floatingTask
         commandBox.runCommand(td.hoon.getAddFloatingCommand());
         assertResultMessage(AddFloatingCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(floatingTaskListPanel.isListMatching(currentList));
+        TaskDateComponent[] taskComponents = new TaskDateComponent[componentList.size()];
+        assertTrue(floatingTaskListPanel.isListMatching(componentList.toArray(taskComponents)));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -43,11 +52,16 @@ public class AddCommandTest extends TaskListGuiTest {
 
         //confirm the new card contains the right data
         FloatingTaskCardHandle addedCard = floatingTaskListPanel.navigateToTask(floatingTaskToAdd.getName().fullName);
-        assertMatching(floatingTaskToAdd, addedCard);
+        assertMatching(floatingTaskToAdd.getTaskDateComponent().get(0), addedCard);
 
         //confirm the list now contains all previous floatingTasks plus the new floatingTask
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, floatingTaskToAdd);
-        assertTrue(floatingTaskListPanel.isListMatching(expectedList));
+        List<TaskDateComponent> expectedComponentList = new ArrayList<TaskDateComponent>();
+        for(TestTask t : expectedList) {
+            expectedComponentList.addAll(t.getTaskDateComponent());
+        }
+        TaskDateComponent[] taskComponents = new TaskDateComponent[expectedComponentList.size()];
+        assertTrue(floatingTaskListPanel.isListMatching(expectedComponentList.toArray(taskComponents)));
     }
 
 }
