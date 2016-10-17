@@ -37,7 +37,7 @@ public class Parser {
     
     private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
     		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
-            + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
+            + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
             + "(?<tagArguments>(?: t/[^;]+)*)"
             );
 
