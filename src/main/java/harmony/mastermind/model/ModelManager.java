@@ -90,6 +90,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
+        clearUndoHistory();
+        clearRedoHistory();
         indicateTaskManagerChanged();
     }
 
@@ -147,6 +149,12 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0138862W
     public void clearRedoHistory(){
         redoHistory.clear();
+    }
+    
+    //@@author A0139194X
+    /** This method should only be called when the user entered a new command other than redo/undo **/
+    public void clearUndoHistory() {
+        undoHistory.clear();
     }
 
     @Override
