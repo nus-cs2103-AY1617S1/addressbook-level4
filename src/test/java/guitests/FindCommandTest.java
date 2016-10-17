@@ -63,7 +63,7 @@ public class FindCommandTest extends TarsGuiTest {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
 
-        String keywordString = "[Task Name: Task B] [DateTime: ] [Priority: ] [Status: ] [Tags: ]";
+        String keywordString = "[Task Name: Task B] ";
 
         assertResultMessage(
                 expectedHits.length + " tasks listed!\n" + "Filter Search Keywords: " + keywordString);

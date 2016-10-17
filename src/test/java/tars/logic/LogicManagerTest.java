@@ -712,7 +712,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
         
         String searchKeywords = "\nFilter Search Keywords: [Task Name: adam] "
-                + "[DateTime: ] [Priority: medium] " + "[Status: Undone] [Tags: tag1]";
+                + "[Priority: medium] " + "[Status: Undone] [Tags: tag1]";
 
         assertCommandBehavior("find -n adam -p medium -ud -t tag1",
                 Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedAB,
@@ -731,8 +731,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(pTarget1);
         helper.addToModel(model, threeTasks);
         
-        String searchKeywords = "\nFilter Search Keywords: [Task Name: ] "
-                + "[DateTime: 01/09/2016 1400] [Priority: ] " + "[Status: ] [Tags: ]";
+        String searchKeywords = "\nFilter Search Keywords: [DateTime: 01/09/2016 1400] ";
 
         assertCommandBehavior("find -dt 01/09/2016 1400",
                 Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedAB,
@@ -751,8 +750,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList();
         helper.addToModel(model, threeTasks);
         
-        String searchKeywords = "\nFilter Search Keywords: [Task Name: ] "
-                + "[DateTime: 01/09/2010 1400] [Priority: ] " + "[Status: ] [Tags: ]";
+        String searchKeywords = "\nFilter Search Keywords: [DateTime: 01/09/2010 1400] ";
 
         assertCommandBehavior("find -dt 01/09/2010 1400",
                 Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedAB,
