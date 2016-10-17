@@ -94,7 +94,6 @@ public class EditCommand extends Command{
         	}
         } 
 
-        this.toEdit = new Task(taskName, startDate, endDate, recurrenceRate, priority);      
 	}
 
 	@Override
@@ -108,6 +107,7 @@ public class EditCommand extends Command{
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        toEdit = (Task) taskToEdit;
         
         // Copy this task for history usage
         Task affectedTaskToEdit = new Task(taskToEdit);  
