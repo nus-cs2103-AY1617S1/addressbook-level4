@@ -35,7 +35,7 @@ public interface Model {
     void addTask(Task task) throws IllegalValueException, UniqueTaskList.DuplicatetaskException;
 
     /** Edit the given task */
-    void editTask(int index, Task task) throws IllegalValueException, UniqueTaskList.DuplicatetaskException;
+    void editTask(Task task) throws IllegalValueException, UniqueTaskList.DuplicatetaskException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList();

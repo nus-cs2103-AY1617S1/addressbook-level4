@@ -7,6 +7,7 @@ import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.commons.events.model.*;
 import seedu.todoList.commons.util.StringUtil;
 import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.UniqueTaskList.DuplicatetaskException;
 import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todoList.commons.exceptions.*;
 
@@ -136,6 +137,28 @@ public class ModelManager extends ComponentManager implements Model {
     	else {
     		throw new IllegalValueException("Invalid data type for add");
     	}
+    }
+    
+    @Override
+    public synchronized void editTask(Task task) throws IllegalValueException, UniqueTaskList.DuplicatetaskException {
+        if(task instanceof Todo) {
+            todoList.editTask(task);
+            updateFilteredTodoListToShowAll();
+            indicateTodoListChanged();
+        }
+        else if(task instanceof Event) {
+            eventList.editTask(task);
+            updateFilteredEventListToShowAll();
+            indicateEventListChanged();
+        }
+        else if(task instanceof Deadline) {
+            deadlineList.editTask(task);
+            updateFilteredDeadlineListToShowAll();
+            indicateDeadlineListChanged();
+        }
+        else {
+            throw new IllegalValueException("Invalid data type for add");
+        }
     }
 
     //=========== Filtered TodoList Accessors ===============================================================
