@@ -8,6 +8,7 @@ import tars.logic.commands.Command;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
+import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
@@ -45,7 +46,8 @@ public interface Model {
     void addTask(Task task) throws DuplicateTaskException;
     
     /** Rename all tag with the new tag name */
-    void renameTag(ReadOnlyTag oldTag, String newTagName) throws IllegalValueException, TagNotFoundException;
+    void renameTag(ReadOnlyTag oldTag, String newTagName)
+            throws IllegalValueException, TagNotFoundException, DuplicateTagException;
 
     /** Marks tasks as done or undone. */
     void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException;

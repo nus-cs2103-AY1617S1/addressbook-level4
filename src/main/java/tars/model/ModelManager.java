@@ -118,12 +118,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     /** @@author A0139924W */
     public synchronized void renameTag(ReadOnlyTag oldTag, String newTagName)
-            throws IllegalValueException, TagNotFoundException {
+            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
         Tag newTag = new Tag(newTagName);
-        
+
         tars.getUniqueTaskList().renameTag(oldTag, newTag);
         tars.getUniqueTagList().update(oldTag, newTag);
-        
+
         indicateTarsChanged();
     }
     
