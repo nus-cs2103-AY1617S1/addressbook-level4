@@ -153,4 +153,21 @@ public class Recurrence {
         
         return Date.from(finalDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
+    
+    /**
+     * Get the same recurrence, except that we have one less frequency.
+     * @return
+     * @throws IllegalValueException 
+     */
+    public Recurrence getRecurrenceWithOneFrequencyLess() throws IllegalValueException {
+        if (pattern == Pattern.NONE) {
+            return null;
+        }
+        
+        if (frequency == 1) {
+            return new Recurrence();
+        }
+        
+        return new Recurrence(pattern, frequency - 1);
+    }
 }
