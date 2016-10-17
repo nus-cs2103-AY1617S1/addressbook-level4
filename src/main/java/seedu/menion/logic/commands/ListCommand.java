@@ -17,4 +17,13 @@ public class ListCommand extends Command {
         model.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    /* 
+     * list command does not support undo
+     */
+	@Override
+	public boolean undo() {
+		
+		return false;
+	}
 }

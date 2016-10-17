@@ -15,7 +15,13 @@ public interface Logic {
      */
     CommandResult execute(String commandText);
 
-    /** Returns the filtered list of activities */
-    ObservableList<ReadOnlyActivity> getFilteredActivityList();
+    /** Returns the filtered list of tasks */
+    ObservableList<ReadOnlyActivity> getFilteredTaskList();
+    
+    /** Returns the filtered list of floating tasks */
+    ObservableList<ReadOnlyActivity> getFilteredFloatingTaskList();
+    
+    /** Returns the filtered list of events */
+    ObservableList<ReadOnlyActivity> getFilteredEventList();
 
 }

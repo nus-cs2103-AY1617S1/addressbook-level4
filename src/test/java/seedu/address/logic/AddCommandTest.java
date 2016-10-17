@@ -2,6 +2,8 @@ package seedu.address.logic;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.*;
+import seedu.menion.model.activity.ActivityDate;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -10,6 +12,15 @@ import org.junit.Test;
 
 public class AddCommandTest {
 
+	
+	@Test
+	public void testIsValidDateFromActivityDate() throws IllegalValueException{
+		
+		assertTrue(ActivityDate.isValidDate("31-08-2016"));
+		
+		
+	}
+	
     @Test
     public void testIsEventObjectCreatedSuccessfully() throws IllegalValueException {
         ArrayList<String> details = new ArrayList<String>();

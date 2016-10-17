@@ -16,6 +16,10 @@ public interface ReadOnlyActivityManager {
     UniqueTagList getUniqueTagList();
 
     UniqueActivityList getUniqueTaskList();
+    
+    UniqueActivityList getUniqueFloatingTaskList();
+    
+    UniqueActivityList getUniqueEventList();
 
     /**
      * Returns an unmodifiable view of tasks list
@@ -26,5 +30,16 @@ public interface ReadOnlyActivityManager {
      * Returns an unmodifiable view of tags list
      */
     List<Tag> getTagList();
+    
+    
+    /**
+     * Returns an unmodifiable view of floating tasks list
+     */
+    List<ReadOnlyActivity> getFloatingTaskList();
+    
+    /**
+     * Returns an unmodifiable view of events list
+     */
+    List<ReadOnlyActivity> getEventList();
 
 }

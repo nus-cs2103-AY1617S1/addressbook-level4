@@ -1,5 +1,11 @@
 package seedu.menion.model.activity;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.text.DateFormatSymbols;
+
 import seedu.menion.commons.exceptions.IllegalValueException;
 
 /**
@@ -8,8 +14,10 @@ import seedu.menion.commons.exceptions.IllegalValueException;
  */
 public class ActivityDate {
 
-    public static final String MESSAGE_ACTIVITYDATE_CONSTRAINTS = "Activity date should be in dd-mm-yy or dd-mm-yyyy format";
-    public static final String ACTIVITYDATE_VALIDATION_REGEX = "(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9])";
+
+    public static final String MESSAGE_ACTIVITYDATE_CONSTRAINTS = "Activity date should be in mm-dd-yy or mm-dd-yyyy format";
+
+    public static final String ACTIVITYDATE_VALIDATION_REGEX = "(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9])";
 
     public final String value;
 
@@ -39,6 +47,24 @@ public class ActivityDate {
         return result;
     }
 
+    private static String formatNiceDate(String dateToFormat){
+    	Pattern p = Pattern.compile("(.+)-(.+)-(.+)");
+    	Matcher m = p.matcher(dateToFormat);
+    	
+    	String day = m.group(0);
+    	String month = m.group(1);
+    	String year = m.group(2);
+    	
+    	Integer monthInt = Integer.parseInt(month);
+    	month = new DateFormatSymbols().getMonths()[monthInt - 1];
+    	
+    	dateToFormat = day + " " + month + " " + year;
+    	
+    	return dateToFormat;
+    	
+    }
+    
+    
     @Override
     public String toString() {
         return value;
