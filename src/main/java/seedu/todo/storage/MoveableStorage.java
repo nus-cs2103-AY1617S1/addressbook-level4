@@ -11,9 +11,9 @@ import java.io.IOException;
  */
 public interface MoveableStorage<T> extends FixedStorage<T> {
     
-    public String getLocation(); 
+    String getLocation(); 
     
-    public T read(String location) throws DataConversionException, FileNotFoundException;
+    T read(String location) throws DataConversionException, FileNotFoundException;
     
-    public void save(T object, String newLocation) throws IOException;
+    void save(T object, String newLocation) throws IOException;
 }

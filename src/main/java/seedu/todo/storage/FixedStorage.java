@@ -16,12 +16,12 @@ public interface FixedStorage<T> {
      * @throws DataConversionException if the data read was not of the expected type 
      * @throws FileNotFoundException if there was no file  
      */
-    public T read() throws DataConversionException, FileNotFoundException;
+    T read() throws DataConversionException, FileNotFoundException;
 
     /**
      * Persists an object 
      * @param object the object that needs to be persisted 
      * @throws IOException if there was any problem saving the object to storage
      */
-    public void save(T object) throws IOException;
+    void save(T object) throws IOException;
 }

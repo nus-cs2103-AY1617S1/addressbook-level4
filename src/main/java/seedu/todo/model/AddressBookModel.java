@@ -8,9 +8,9 @@ import seedu.todo.model.person.ReadOnlyPerson;
 import seedu.todo.model.person.UniquePersonList;
 
 /**
- * The API of the Model component.
+ * The API of the AddressBookModel component.
  */
-public interface Model {
+public interface AddressBookModel {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
