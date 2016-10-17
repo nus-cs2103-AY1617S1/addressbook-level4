@@ -25,7 +25,7 @@ public class CommandErrorView extends UiPart {
 
     private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
     private static final String FXML = "CommandErrorView.fxml";
-    private static final String TEXT_STYLE = "commandError";
+    private static final String STYLE_TEXT_4 = "text4";
 
     private AnchorPane placeholder;
     private VBox errorViewBox;
@@ -138,21 +138,9 @@ public class CommandErrorView extends UiPart {
      * @param rightText text for the second column
      */
     private void addRowToGrid(GridPane targetGrid, int rowIndex, String leftText, String rightText) {
-        Label leftLabel = generateLabel(leftText);
-        Label rightLabel = generateLabel(rightText);
+        Label leftLabel = FxViewUtil.constructLabel(leftText, STYLE_TEXT_4);
+        Label rightLabel = FxViewUtil.constructLabel(rightText, STYLE_TEXT_4);
         targetGrid.addRow(rowIndex, leftLabel, rightLabel);
-    }
-
-    /**
-     * Generates a {@link Label} object that is used to feed into the error grids later on.
-     * @param text to be wrapped in the {@link Label} object
-     * @return a {@link Label} object
-     */
-    private Label generateLabel(String text) {
-        Label label = new Label(text);
-        FxViewUtil.addClassStyle(label, TEXT_STYLE);
-        label.autosize();
-        return label;
     }
 
     /**

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -8,16 +9,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" minWidth="-Infinity" styleClass="spacing" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.CommandErrorView">
+<VBox maxHeight="-Infinity" minWidth="-Infinity" styleClass="spacing" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.CommandErrorView">
    <children>
       <VBox fx:id="nonFieldErrorBox" prefWidth="100.0">
          <children>
-            <Label text="Non-Field Problems" textFill="WHITE">
+            <Label styleClass="text2" text="Non-Field Problems" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="17.0" />
                </font>
             </Label>
-            <GridPane fx:id="nonFieldErrorGrid" alignment="CENTER_LEFT" styleClass="commandErrorGrid">
+            <GridPane fx:id="nonFieldErrorGrid" alignment="CENTER_LEFT">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
@@ -25,17 +26,21 @@
                <rowConstraints>
                   <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
+               <styleClass>
+                  <String fx:value="gridPanel" />
+                  <String fx:value="text4" />
+               </styleClass>
             </GridPane>
          </children>
       </VBox>
       <VBox fx:id="fieldErrorBox" prefWidth="100.0">
          <children>
-            <Label text="Field Problems" textFill="WHITE">
+            <Label styleClass="text2" text="Field Problems" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="17.0" />
                </font>
             </Label>
-            <GridPane fx:id="fieldErrorGrid" alignment="CENTER_LEFT" styleClass="commandErrorGrid">
+            <GridPane fx:id="fieldErrorGrid" alignment="CENTER_LEFT">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
@@ -46,6 +51,10 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+               <styleClass>
+                  <String fx:value="gridPanel" />
+                  <String fx:value="text4" />
+               </styleClass>
             </GridPane>
          </children>
       </VBox>
