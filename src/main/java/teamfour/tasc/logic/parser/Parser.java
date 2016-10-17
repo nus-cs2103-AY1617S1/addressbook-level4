@@ -83,13 +83,13 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return prepareList(commandWord + arguments);
+            return prepareList(arguments);
 
         case ShowCommand.COMMAND_WORD:
-            return prepareShow(commandWord + arguments);
+            return prepareShow(arguments);
 
         case HideCommand.COMMAND_WORD:
-            return prepareHide(commandWord + arguments);
+            return prepareHide(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -152,10 +152,7 @@ public class Parser {
 
     /**
      * Takes in a string and return null if it is empty,
-     * or returns the string itself otherwise.
-     *
-     * @param string the string to check
-     * @return null if string is null or empty, the string itself otherwise
+     * or otherwise returns the string itself.
      */
     private String setToNullIfIsEmptyString(String string) {
         if (string == null || string.equals(""))
@@ -164,16 +161,28 @@ public class Parser {
     }
 
     /**
+     * Precondition: argument is not null.
+     * Takes in a string and remove all occurrences of full stops and commas.
+     */
+    private String removeFullStopsAndCommas(String string) {
+        assert string != null;
+        string = string.replace(",", "");
+        string = string.replace(".", "");
+        return string;
+    }
+    
+    /**
+     * Precondition: argument string is not null.
      * Parses the command string in the context of the list task command.
      *
-     * @param command the full command string
+     * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareList(String command){
-        assert command.isEmpty() == false;
+    private Command prepareList(String args){
+        assert args != null;
 
         // No arguments, use default 'list' command
-        if (command.trim().equals("list")) {
+        if (args.trim().equals("")) {
             try {
                 return new ListCommand();
             } catch (IllegalValueException ive) {
@@ -181,18 +190,25 @@ public class Parser {
             }
         }
 
-        final KeywordParser parser = new KeywordParser("list", "by", "from", "to", "tag", "sort");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
-        String type = setToNullIfIsEmptyString(parsed.get("list"));
-        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
-        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
-        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
-        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
-        String sortingOrder = setToNullIfIsEmptyString(parsed.get("sort"));
+        final KeywordParser parser = new KeywordParser(ListCommand.VALID_KEYWORDS);
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(ListCommand.COMMAND_WORD + args);
+        String type = setToNullIfIsEmptyString(parsed.get(ListCommand.COMMAND_WORD));
+        String deadline = setToNullIfIsEmptyString(parsed.get(ListCommand.KEYWORD_DEADLINE));
+        String startTime = setToNullIfIsEmptyString(parsed.get(ListCommand.KEYWORD_PERIOD_START_TIME));
+        String endTime = setToNullIfIsEmptyString(parsed.get(ListCommand.KEYWORD_PERIOD_END_TIME));
+        String tags = setToNullIfIsEmptyString(parsed.get(ListCommand.KEYWORD_TAG));
+        String sortingOrder = setToNullIfIsEmptyString(parsed.get(ListCommand.KEYWORD_SORT));
 
         if(tags == null){
             tags = "";
+        } else {
+            tags = removeFullStopsAndCommas(tags);
         }
+        
+        if (sortingOrder != null) {
+            sortingOrder = removeFullStopsAndCommas(sortingOrder);
+        }
+
         try {
             return new ListCommand(
                     type,
@@ -208,30 +224,34 @@ public class Parser {
     }
 
     /**
+     * Precondition: argument string is not null.
      * Parses the command string in the context of the show command.
      *
-     * @param command the full command string
+     * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareShow(String command){
-        assert command.isEmpty() == false;
-
-        if (command.trim().equals("show")) {
+    private Command prepareShow(String args){
+        assert args != null;
+        
+        if (args.trim().equals("")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
 
-        final KeywordParser parser = new KeywordParser("show", "on", "by", "from", "to", "tag");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
-        String type = setToNullIfIsEmptyString(parsed.get("show"));
-        String date = setToNullIfIsEmptyString(parsed.get("on"));
-        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
-        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
-        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
-        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
+        final KeywordParser parser = new KeywordParser(ShowCommand.VALID_KEYWORDS);
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(ShowCommand.COMMAND_WORD + args);
+        String type = setToNullIfIsEmptyString(parsed.get(ShowCommand.COMMAND_WORD));
+        String date = setToNullIfIsEmptyString(parsed.get(ShowCommand.KEYWORD_DATE));
+        String deadline = setToNullIfIsEmptyString(parsed.get(ShowCommand.KEYWORD_DEADLINE));
+        String startTime = setToNullIfIsEmptyString(parsed.get(ShowCommand.KEYWORD_PERIOD_START_TIME));
+        String endTime = setToNullIfIsEmptyString(parsed.get(ShowCommand.KEYWORD_PERIOD_END_TIME));
+        String tags = setToNullIfIsEmptyString(parsed.get(ShowCommand.KEYWORD_TAG));
 
         if(tags == null){
             tags = "";
+        } else {
+            tags = removeFullStopsAndCommas(tags);
         }
+        
         try {
             return new ShowCommand(
                     type,
@@ -247,30 +267,34 @@ public class Parser {
     }
 
     /**
+     * Precondition: argument string is not null.
      * Parses the command string in the context of the hide command.
      *
-     * @param command the full command string
+     * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareHide(String command){
-        assert command.isEmpty() == false;
-
-        if (command.trim().equals("hide")) {
+    private Command prepareHide(String args){
+        assert args != null;
+        
+        if (args.trim().equals("")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE));
         }
 
-        final KeywordParser parser = new KeywordParser("hide", "on", "by", "from", "to", "tag");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
-        String type = setToNullIfIsEmptyString(parsed.get("hide"));
-        String date = setToNullIfIsEmptyString(parsed.get("on"));
-        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
-        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
-        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
-        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
+        final KeywordParser parser = new KeywordParser(HideCommand.VALID_KEYWORDS);
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(HideCommand.COMMAND_WORD + args);
+        String type = setToNullIfIsEmptyString(parsed.get(HideCommand.COMMAND_WORD));
+        String date = setToNullIfIsEmptyString(parsed.get(HideCommand.KEYWORD_DATE));
+        String deadline = setToNullIfIsEmptyString(parsed.get(HideCommand.KEYWORD_DEADLINE));
+        String startTime = setToNullIfIsEmptyString(parsed.get(HideCommand.KEYWORD_PERIOD_START_TIME));
+        String endTime = setToNullIfIsEmptyString(parsed.get(HideCommand.KEYWORD_PERIOD_END_TIME));
+        String tags = setToNullIfIsEmptyString(parsed.get(HideCommand.KEYWORD_TAG));
 
         if(tags == null){
             tags = "";
+        } else {
+            tags = removeFullStopsAndCommas(tags);
         }
+        
         try {
             return new HideCommand(
                     type,

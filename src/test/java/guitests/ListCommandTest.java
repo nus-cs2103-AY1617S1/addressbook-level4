@@ -8,17 +8,27 @@ import static org.junit.Assert.assertTrue;
 
 public class ListCommandTest extends AddressBookGuiTest {
 
+    /*
+     * All exceptions for invalid arguments are handled 
+     * so that the program does not crash for the user.
+     * 
+     * - The test methods test one argument type at a time.
+     * - Then tests combined arguments with as little tests as possible.
+     */
+    
+    //---------------- Tests individual arguments ----------------------
+    
     @Test
     public void list_noParameter_nonEmptyList() {
         assertListResult("list", td.submitPrototype, 
-                td.submitProgressReport, td.developerMeeting,
-                td.learnVim, td.buyBirthdayGift, td.signUpForYoga);
+                td.submitProgressReport, td.signUpForYoga,
+                td.buyBirthdayGift, td.learnVim, td.developerMeeting);
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
         assertListResult("list", 
-                td.submitProgressReport, td.developerMeeting,
-                td.learnVim, td.buyBirthdayGift, td.signUpForYoga);
+                td.submitProgressReport, td.signUpForYoga,
+                td.buyBirthdayGift, td.learnVim, td.developerMeeting);
     }
 
     @Test
@@ -114,12 +124,71 @@ public class ListCommandTest extends AddressBookGuiTest {
     }
     
     @Test
-    public void list_allParameters() {
+    public void list_sort_a_to_z() {
+        assertListResult("list all sort a-z", td.developerMeeting, 
+                td.buyBirthdayGift, td.learnVim,
+                td.researchWhales, td.signUpForYoga, 
+                td.submitProgressReport, td.submitPrototype);
+    }
+    
+    @Test
+    public void list_sort_z_to_a() {
+        assertListResult("list all sort z-a", td.submitPrototype, 
+                td.submitProgressReport, td.signUpForYoga,
+                td.researchWhales, td.learnVim, 
+                td.buyBirthdayGift, td.developerMeeting);
+    }
+    
+    @Test
+    public void list_sort_earliestFirst() {
+        assertListResult("list all sort earliest first", 
+                td.submitPrototype, td.submitProgressReport, 
+                td.signUpForYoga, td.buyBirthdayGift,
+                td.researchWhales, td.learnVim, 
+                td.developerMeeting);
+    }
+    
+    @Test
+    public void list_sort_latestFirst() {
+        assertListResult("list all sort latest first",  
+                td.developerMeeting, td.researchWhales,
+                td.learnVim, td.buyBirthdayGift, 
+                td.signUpForYoga, td.submitProgressReport,
+                td.submitPrototype);
+    }
+    
+    @Test
+    public void list_sort_default_noSort() {
+        assertListResult("list all sort writeanythinghere", 
+                td.submitPrototype, 
+                td.submitProgressReport, td.developerMeeting,
+                td.researchWhales, td.learnVim, 
+                td.buyBirthdayGift, td.signUpForYoga);
+    }
+    
+    //---------------- Tests combined arguments ----------------------
+    
+    @Test
+    public void list_combinedArgs_uncompletedTasks_withPeriod_withTag_sortZToA() {
         assertListResult("list uncomplete tasks from 1 jan 1998"
-                + " to 1 jan 2020, tag urgent", td.submitPrototype,
-                td.submitProgressReport);
+                + " to 1 jan 2020, tag urgent, sort z-a", 
+                td.submitPrototype, td.submitProgressReport);
+    }
+    
+    @Test
+    public void list_combinedArgs_completedEvents_withEndTime_sortEarliestFirst() {
+        assertListResult("list completed events to 18 sep 2020, sort earliest first", 
+                td.researchWhales);
+    }
+    
+    @Test
+    public void list_combinedArgs_recurringTasks_withDeadline_sortLatestFirst() {
+        assertListResult("list recurring by 19 sep 2020, sort latest first", 
+                td.developerMeeting);
     }
 
+    //---------------- Utility methods ----------------------
+    
     private void assertListResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);

@@ -248,6 +248,22 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_list_withSorting_showsUncompleted() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        TaskList expectedAB = helper.generateAddressBook(2);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        // prepare address book state
+        helper.addToModel(model, 2);
+
+        assertCommandBehavior("list sort earliest first",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
 
     @Test
     public void execute_list_showsCompletedTasks() throws Exception {
@@ -264,6 +280,46 @@ public class LogicManagerTest {
         helper.addToModel(model, list);
 
         assertCommandBehavior("list completed",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsOverdue() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.adam();
+        Task task2 = helper.john();
+        task2 = Task.convertToComplete(task2);
+        List<Task> list = helper.generatePersonList(task1, task2);
+        TaskList expectedAB = helper.generateAddressBook(list);
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
+
+        // prepare address book state
+        helper.addToModel(model, list);
+
+        assertCommandBehavior("list overdue",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsRecurring() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.adam();
+        Task task2 = helper.john();
+        task2 = Task.convertToComplete(task2);
+        List<Task> list = helper.generatePersonList(task1, task2);
+        TaskList expectedAB = helper.generateAddressBook(list);
+        List<? extends ReadOnlyTask> expectedList = helper.generatePersonList();
+
+        // prepare address book state
+        helper.addToModel(model, list);
+
+        assertCommandBehavior("list recurring",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);

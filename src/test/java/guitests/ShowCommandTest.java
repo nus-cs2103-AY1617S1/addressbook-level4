@@ -10,8 +10,18 @@ import static teamfour.tasc.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 public class ShowCommandTest extends AddressBookGuiTest {
 
+    /*
+     * All exceptions for invalid arguments are handled 
+     * so that the program does not crash for the user.
+     * 
+     * - The test methods test one argument type at a time.
+     * - Then tests combined arguments and continuous executions of show command.
+     */
+    
+    //---------------- Tests individual arguments ----------------------
+    
     @Test
-    public void show_invalidCommand_fail() {
+    public void show_invalidCommand_showUsageMessage() {
         commandBox.runCommand("show");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
     }
@@ -105,13 +115,37 @@ public class ShowCommandTest extends AddressBookGuiTest {
         assertListResult("show tag thistagdoesnotexist");
     }
     
+
+    //---------------- Tests combined arguments ----------------------
+    
     @Test
-    public void show_allParameters() {
+    public void show_combinedArgs() {
         assertListResult("show uncomplete tasks from 1 jan 1998"
                 + " to 1 jan 2020, tag urgent", td.submitPrototype,
                 td.submitProgressReport);
     }
+    
+    @Test
+    public void show_continuously_narrowsList() {
+        assertListResult("show to 30 dec 2017", td.submitPrototype,
+                td.submitProgressReport, td.developerMeeting,
+                td.researchWhales, td.learnVim,
+                td.buyBirthdayGift, td.signUpForYoga);
+        
+        assertListResult("show uncompleted", td.submitPrototype, 
+                td.submitProgressReport, td.developerMeeting,
+                td.learnVim, td.buyBirthdayGift, td.signUpForYoga);
+        
+        assertListResult("show events", td.learnVim, 
+                td.signUpForYoga);
 
+        assertListResult("show recurring", td.learnVim);
+        
+        assertListResult("show completed");
+    }
+
+    //---------------- Utility methods ----------------------
+    
     private void assertListResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);

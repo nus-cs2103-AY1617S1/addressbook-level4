@@ -3,10 +3,9 @@ package teamfour.tasc.logic.commands;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
-import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
+import teamfour.tasc.model.Model;
 
 /**
  * Lists all tasks in the task list to the user.
@@ -18,13 +17,22 @@ public class ListCommand extends Command {
             + "Parameters: [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag \"TAG\"...] [sort SORTING_ORDER]\n"
             + "Example: " + COMMAND_WORD
             + " completed tasks, tag \"Important\", sort earliest first";
+    
+    public static final String KEYWORD_DEADLINE = "by";
+    public static final String KEYWORD_PERIOD_START_TIME = "from";
+    public static final String KEYWORD_PERIOD_END_TIME = "to";
+    public static final String KEYWORD_TAG = "tag";
+    public static final String KEYWORD_SORT = "sort";
+    
+    public static final String[] VALID_KEYWORDS = { COMMAND_WORD, KEYWORD_DEADLINE,
+            KEYWORD_PERIOD_START_TIME, KEYWORD_PERIOD_END_TIME, KEYWORD_TAG, KEYWORD_SORT};
 
     private final String type;
     private final Date deadline;
     private final Date startTime;
     private final Date endTime;
     private final Set<String> tags;
-    private final String sortingOrder;
+    private final String sortOrder;
 
     /**
      * List Command with default values
@@ -36,7 +44,7 @@ public class ListCommand extends Command {
         this.startTime = null;
         this.endTime = null;
         this.tags = new HashSet<>();
-        this.sortingOrder = "earliest first";
+        this.sortOrder = Model.SORT_ORDER_BY_EARLIEST_FIRST;
     }
     
     /**
@@ -56,7 +64,7 @@ public class ListCommand extends Command {
             this.tags.add(tagName);
         }
         this.type = type;
-        this.sortingOrder = sortingOrder;
+        this.sortOrder = sortingOrder;
     }
     
     /**
@@ -82,10 +90,12 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+        
         addCommandFiltersToModel();
         model.updateFilteredTaskListByFilter();
         
-        // TODO: Sorting order
+        if (sortOrder != null)
+            model.sortFilteredTaskListByOrder(sortOrder);
         
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }

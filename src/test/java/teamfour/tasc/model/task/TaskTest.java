@@ -47,17 +47,17 @@ public class TaskTest {
     }
 
     @Test
-    public void isOverdue_deadlineLaterThanCurrentTime_returnsTrue() throws IllegalValueException {
+    public void isOverdue_deadlineEarlierThanCurrentTime_returnsTrue() throws IllegalValueException {
         Date currentTime = new Date(1);
-        TestTask lateTask = new TaskBuilder().withDeadline(new Date(2)).build();
+        TestTask lateTask = new TaskBuilder().withDeadline(new Date(0)).build();
 
         assertTrue(lateTask.isOverdue(currentTime));
     }
 
     @Test
-    public void isOverdue_deadlineEarlierThanCurrentTime_returnsTrue() throws IllegalValueException {
+    public void isOverdue_deadlineLaterThanCurrentTime_returnsFalse() throws IllegalValueException {
         Date currentTime = new Date(1);
-        TestTask notLateTask = new TaskBuilder().withDeadline(new Date(0)).build();
+        TestTask notLateTask = new TaskBuilder().withDeadline(new Date(2)).build();
 
         assertFalse(notLateTask.isOverdue(currentTime));
     }
