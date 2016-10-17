@@ -422,7 +422,9 @@ public class Parser {
                 return new TagCommand(new Flag(Flag.EDIT, false), args.split(" "));
             }
         }
-        return new IncorrectCommand(String.format(TagCommand.MESSAGE_USAGE));
+
+        return new IncorrectCommand(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
     
     /**
