@@ -82,7 +82,7 @@ public class TaskTime implements Comparable<TaskTime> {
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return value == null ? 0 : value.hashCode();
     }
     
     /**
