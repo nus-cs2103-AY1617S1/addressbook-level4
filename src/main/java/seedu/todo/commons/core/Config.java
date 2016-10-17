@@ -18,8 +18,7 @@ public class Config {
     private String todoListName = "My Todo List";
 
 
-    public Config() {
-    }
+    public Config() {}
 
     public String getAppTitle() {
         return appTitle;
@@ -87,12 +86,12 @@ public class Config {
 
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("App title : " + appTitle);
-        sb.append("\nCurrent log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + todoListFilePath);
-        sb.append("\nTodo List name : " + todoListName);
+        StringBuilder sb = new StringBuilder()
+            .append("App title : ").append(appTitle)
+            .append("\nCurrent log level : ").append(logLevel)
+            .append("\nPreference file Location : ").append(userPrefsFilePath)
+            .append("\nLocal data file location : ").append(todoListFilePath)
+            .append("\nTodo List name : ").append(todoListName);
         return sb.toString();
     }
 

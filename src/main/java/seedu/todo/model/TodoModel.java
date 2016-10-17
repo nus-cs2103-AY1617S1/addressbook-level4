@@ -68,6 +68,20 @@ public interface TodoModel {
      * the filter and insertion order for sort. 
      */
     public void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort);
+
+    /**
+     * Changes the save path of the TodoList storage 
+     * @throws ValidationException if the path is not valid
+     */
+    public void save(String location) throws ValidationException;
+
+    /**
+     * Loads a TodoList from the path. 
+     * @throws ValidationException if the path or file is invalid
+     */
+    public void load(String location) throws ValidationException;
+    
+    public String getStorageLocation();
     
     /**
      * Get an observable list of tasks. Used mainly by the JavaFX UI. 
