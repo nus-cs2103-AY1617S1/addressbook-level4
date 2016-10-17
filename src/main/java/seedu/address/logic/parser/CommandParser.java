@@ -66,15 +66,9 @@ public class CommandParser {
     private static final String REGEX_RECURRENCE_AND_PRIORITY = "(?: repeat every (?<recurrenceRate>.*?))?"
             +"(?: -(?<priority>.*?))?";
     
-    private static final String REGEX_RECURRENCE_RESET_AND_PRIORITY = "(?: repeat every (?<recurrenceRate>.*?))?"
-			//+"(?: -reset (?<resetField>\\S+))?"
-    		+"(?: -reset (?<resetField>.*?))?"
-			+"(?: -(?<priority>.*?))?";
-
     private static final String REGEX_OPEN_BRACE_CASE_IGNORE_NAME = REGEX_OPEN_BRACE + REGEX_CASE_IGNORE + REGEX_OPEN_BRACE + REGEX_NAME;
     private static final String REGEX_KEYWORD_GREEDY_SELECT = REGEX_ADDITIONAL_KEYWORD + REGEX_GREEDY_SELECT;
     private static final String REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE = REGEX_RECURRENCE_AND_PRIORITY + REGEX_CLOSE_BRACE;
-    private static final String REGEX_RECURRENCE_RESET_PRIORITY_CLOSE_BRACE = REGEX_RECURRENCE_RESET_AND_PRIORITY + REGEX_CLOSE_BRACE;
 
     public CommandParser() {}
 
@@ -414,10 +408,11 @@ public class CommandParser {
    	 	}
    	 
    	 	index = Integer.parseInt(indexNum);
-   	 
-   	 	String argsTrimmed = " " + args.substring(2);
-        
-        String taskName = null;
+   	 	String[] split = args.substring(2).split("-reset");
+   	 	//String argsTrimmed = " " + args.substring(2);
+   	 	String argsTrimmed = " " + split[0];
+
+   	 	String taskName = null;
         String startDate = null;
         String endDate = null;
         String rate = null;
@@ -438,11 +433,11 @@ public class CommandParser {
         try {
             if (numberOfKeywords == 0) {
                 pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_CLOSE_BRACE 
-                        + REGEX_RECURRENCE_RESET_PRIORITY_CLOSE_BRACE);
+                        + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
                 matcher = pattern.matcher(argsTrimmed);
             } else if (numberOfKeywords == 1) {
                 pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_CLOSE_BRACE +
-                        REGEX_FIRST_DATE + REGEX_RECURRENCE_RESET_PRIORITY_CLOSE_BRACE);
+                        REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
                 matcher = pattern.matcher(argsTrimmed);
                 validateMatcherMatches(matcher);
             
@@ -456,12 +451,12 @@ public class CommandParser {
                     startDate = null;
                     endDate = null;
                     pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_KEYWORD_GREEDY_SELECT + 
-                            REGEX_CLOSE_BRACE + REGEX_RECURRENCE_RESET_PRIORITY_CLOSE_BRACE);
+                            REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
                     matcher = pattern.matcher(argsTrimmed);
                 } 
             } else if (numberOfKeywords == 2) {
                 pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_CLOSE_BRACE +
-                        REGEX_FIRST_DATE + REGEX_SECOND_DATE + REGEX_RECURRENCE_RESET_PRIORITY_CLOSE_BRACE);
+                        REGEX_FIRST_DATE + REGEX_SECOND_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
                 matcher = pattern.matcher(argsTrimmed);
                 validateMatcherMatches(matcher);
             
@@ -478,7 +473,7 @@ public class CommandParser {
                     startDate = null;
                     endDate = null;
                     pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_KEYWORD_GREEDY_SELECT +
-                            REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_RESET_PRIORITY_CLOSE_BRACE);
+                            REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
                     matcher = pattern.matcher(argsTrimmed);
 
                     validateMatcherMatches(matcher);
@@ -494,7 +489,7 @@ public class CommandParser {
                     startDate = null;
                     endDate = null;
                     pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_KEYWORD_GREEDY_SELECT + 
-                            REGEX_KEYWORD_GREEDY_SELECT + REGEX_CLOSE_BRACE + REGEX_RECURRENCE_RESET_PRIORITY_CLOSE_BRACE);
+                            REGEX_KEYWORD_GREEDY_SELECT + REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
                     matcher = pattern.matcher(argsTrimmed);
                 }
                 
@@ -509,7 +504,7 @@ public class CommandParser {
                 }
                 String regexCopy = startOfRegex;
                 regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_SECOND_DATE + 
-                		REGEX_RECURRENCE_RESET_PRIORITY_CLOSE_BRACE;
+                		REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
                
                 pattern = Pattern.compile(regexCopy);
                 matcher = pattern.matcher(argsTrimmed);
@@ -530,7 +525,7 @@ public class CommandParser {
                     endDate = null;
                     startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
                     regexCopy = startOfRegex;
-                    regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_RESET_PRIORITY_CLOSE_BRACE;
+                    regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
                     pattern = Pattern.compile(regexCopy);
                     matcher = pattern.matcher(argsTrimmed);
 
@@ -549,7 +544,7 @@ public class CommandParser {
                     endDate = null;
                     startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
                     regexCopy = startOfRegex;
-                    regexCopy += REGEX_CLOSE_BRACE + REGEX_RECURRENCE_RESET_PRIORITY_CLOSE_BRACE;
+                    regexCopy += REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
                     pattern = Pattern.compile(regexCopy);
                     matcher = pattern.matcher(argsTrimmed);
                 }
@@ -575,13 +570,17 @@ public class CommandParser {
                 assert recurrenceMatcher.group("timePeriod") != null;
                 timePeriod = recurrenceMatcher.group("timePeriod").trim();
             }
-            
+           /* 
             if (matcher.group("resetField") != null) {
            	 	resetField = matcher.group("resetField");
             }
-            
+            */
             if (matcher.group("priority") != null) {
                 priority = matcher.group("priority").trim();
+            }
+            
+            if(split.length == 2){
+            	resetField = split[1];
             }
             
             System.out.println("Taskname = " + taskName);
