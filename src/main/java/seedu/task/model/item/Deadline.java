@@ -1,6 +1,9 @@
 package seedu.task.model.item;
 
+import java.time.LocalDateTime;
+
 import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.commons.util.StringUtil;
 
 
 /**
@@ -10,48 +13,66 @@ import seedu.task.commons.exceptions.IllegalValueException;
  */
 public class Deadline {
 
-    public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Task deadline should be in a date format of DD-MM-YY";
-    public static final String DEADLINE_VALIDATION_REGEX = "(([0-9]{2})[-]([0-9]{2})[-]([0-9]{2}))?"; 
+    public static final String MESSAGE_DEADLINE_CONSTRAINTS = 
+    		"Task deadline can be in the following format: \n"
+    		+ "DAY HH:MM[:SS], eg: Monday 12:00[:30]\n"
+    		+ "M D Y, eg: Oct 12 2016\n"
+    		+ "M/D/Y, eg: 01/30/16\n"
+    		+ "RELATIVE_DAY TIME, tomorrow 4pm\n";
+    
 
-    public final String value;
+    private LocalDateTime deadLine; 
 
     /**
      * Validates given deadline.
      *
      * @throws IllegalValueException if given deadline string is invalid.
      */
-    public Deadline(String deadline) throws IllegalValueException {
-        assert deadline != null;
-        deadline = deadline.trim();
+    public Deadline(String deadlineArg) throws IllegalValueException {
+        assert deadlineArg != null;
+        deadlineArg = deadlineArg.trim();
    
-        if (!isValidDeadline(deadline)) {
-            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
+        try {
+        	this.deadLine = StringUtil.parseStringToTime(deadlineArg);
+        } catch (IllegalValueException e) {
+        	throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }
-        this.value = deadline;
     }
 
-    /**
-     * Returns true if a given string is a valid task deadline.
-     */
-    public static boolean isValidDeadline(String test) {
-        return test.matches(DEADLINE_VALIDATION_REGEX);
-    }
 
     @Override
     public String toString() {
-        return value;
+        return this.deadLine.format(StringUtil.DATE_FORMATTER);
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Deadline // instanceof handles nulls
-                && this.value.equals(((Deadline) other).value)); // state check
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.toString() == null) ? 0 : this.toString().hashCode());
+		return result;
+	}
 
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		
+		Deadline other = (Deadline) obj;
+		if (deadLine == null) {
+			if (other.deadLine != null)
+				return false;
+		} else if (!this.toString()
+				.equals(other.toString())) /*Standardized String to compare for equality */
+			return false;
+		return true;
+	}
+
+    
 
 }
