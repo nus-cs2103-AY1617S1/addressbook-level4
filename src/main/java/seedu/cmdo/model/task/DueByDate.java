@@ -1,5 +1,6 @@
 package seedu.cmdo.model.task;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -14,21 +15,51 @@ public class DueByDate {
     public static final String MESSAGE_DUEBYDATE_CONSTRAINTS = "Due by? You should enter a day, or a date.";
 //    public static final String DUEBYDATE_VALIDATION_REGEX = ".*";
 
-    public final LocalDate value;
+    public final LocalDate start;
+    public final LocalDate end;
+    public final Boolean isRange;
+    public final Duration duration;
 
     /**
-     * Validates given Due date.
+     * Takes in a single date.
      *
      * @throws IllegalValueException if given due date string is invalid.
+     * 
+     * @@author A0139661Y
      */
-    public DueByDate(LocalDate dueByDate) {
+    public DueByDate(LocalDate dueByDate) throws IllegalValueException {
         assert dueByDate != null;
-        this.value = dueByDate;
+        this.start = dueByDate;
+        this.end = dueByDate;
+        this.duration = Duration.ZERO;
+        this.isRange = false;
+    }
+    
+    /**
+     * Takes in a start date and end date.
+     *
+     * @throws IllegalValueException if given due date string is invalid.
+     * 
+     * @@author A0139661Y
+     */
+    public DueByDate(LocalDate dueByDateStart, LocalDate dueByDateEnd) {
+        assert dueByDateStart != null && dueByDateEnd != null;
+        this.start = dueByDateStart;
+        this.end = dueByDateEnd;
+        this.duration = Duration.between(dueByDateStart, dueByDateEnd);
+        this.isRange = true;
     }
 
     @Override
     public String toString() {
-        return value.toString();
+        if (isRange)
+        	return new StringBuilder(start.toString() + "-" + end.toString()).toString();
+        else 
+        	return end.toString();
+    }
+    
+    public boolean isRange() {
+        return isRange;
     }
     
     /*
@@ -40,22 +71,27 @@ public class DueByDate {
     }
     */
 
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-    
+//    @Override
+//    public int hashCode() {
+//    }
+//    
     /*
      * Produces a friendly string of values in the format MM/DD/YYYY
      * 
-     * @author A0139661Y
+     * @@author A0139661Y
      */
 	public String getFriendlyString() {
 		// If floating date, return do not print anything
-		if (value.equals(LocalDate.MIN)) {
-			return "";
+		if (isRange) {
+			if (end.equals(LocalDate.MIN)) {
+				return "";
+			}
+			return new StringBuilder(end.format(DateTimeFormatter.ofPattern("MM/dd/uuuu"))).toString();
 		}
-		return new StringBuilder(value.format(DateTimeFormatter.ofPattern("MM/dd/uuuu"))).toString();
+		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("MM/dd/uuuu")) 
+								+ " - " 
+								+ end.format(DateTimeFormatter.ofPattern("MM/dd/uuuu")))
+								.toString();
 	}
 
 }
