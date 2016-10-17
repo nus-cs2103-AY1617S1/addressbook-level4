@@ -6,6 +6,7 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
+import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.ui.Formatter;
 
@@ -56,6 +57,8 @@ public class TagCommand extends Command {
                 return new CommandResult(String.format(String.format(MESSAGE_RENAME_TAG_SUCCESS,
                         toBeRename.getAsText(), newTagName)));
                 
+            } catch (DuplicateTagException e) {
+                return new CommandResult(e.getMessage());
             } catch (IllegalValueException e) {
                 return new CommandResult(Tag.MESSAGE_TAG_CONSTRAINTS);
             } catch (TagNotFoundException e) {
