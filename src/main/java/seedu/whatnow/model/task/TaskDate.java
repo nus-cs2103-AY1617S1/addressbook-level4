@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class TaskDate {
@@ -21,16 +22,22 @@ public class TaskDate {
 	public static final String DATE_ALPHA_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.]+([0-9]{4}";	//To be updated
 	public static final String DATE_ALPHA_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.]";
 
-	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})/([0-9]{4})"; //"\\d{2}/\\d{2}/\\d{4}"; //To be updated
+	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+)/([0-9]{2}+)/([0-9]{4})"; //"\\d{2}/\\d{2}/\\d{4}"; //To be updated
 	public static final String DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})";//"\\d{2}/\\d{2}";
+	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_REGEX = "([0-9]{1}+)/([0-9]{2}+)/([0-9]{4})";
+	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_MONTH_REGEX = "([0-9]{2}+)/([1-9]{1}+)/([0-9]{4})";
+	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_AND_MONTH_REGEX = "([0-9]{1}+)/([0-9]{1}+)/([0-9]{4})";
 	
 	public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
 	public static final String DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT = "dd/MM";
+	public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT = "d/MM/yyyy";
+	public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT = "dd/M/yyyy";
+	public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT = "d/M/yyyy";
 	
 	public static final String DATE_AlPHA_WHITESPACE_WITH_YEAR_FORMAT = "dd MMMM yyyy ";
 	public static final String DATE_ALPHA_WHITESPACE_WITHOUT_YEAR_FORMAT = "dd MMMM";	
-
 	
+	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_MODIFIED_REGEX =	"^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$";
 	private String fullDate;	//Is the full date that will be used and stored
 
 	/*
@@ -68,12 +75,21 @@ public class TaskDate {
 	 * @return the validity of the user date input by passing it to methods of different regex
 	 * @throws java.text.ParseException
 	 */
-	public boolean isValidDate(String test) throws java.text.ParseException {
+	public boolean isValidDate(String test) throws java.text.ParseException {	
 		if(test.equals("today") || test.equals("tomorrow")) {
 			return true;
 		}
-		if(test.matches(DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX)) {
+		else if(test.matches(DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX)) {
 			return isValidNumDate(test, DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+		}
+		else if(test.matches(DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_REGEX)) {
+			return isValidNumDate(test, DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT);
+		}
+		else if(test.matches(DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_MONTH_REGEX)) {
+			return isValidNumDate(test, DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT);
+		}
+		else if(test.matches(DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_AND_MONTH_REGEX)) {
+			return isValidNumDate(test, DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT);
 		}
 		else if(test.matches(DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX)){
 			return isValidNumDate(test, DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT);
@@ -159,18 +175,6 @@ public class TaskDate {
 	public boolean isValidNumDate(String test, String format) throws java.text.ParseException {
 		Date tempDate = null;
 		try {
-			/*
-			System.out.println("The tesString is: " + test);
-			System.out.println("The format is : " + format);
-			DateFormat dateFormat = new SimpleDateFormat(format);
-			tempDate = dateFormat.parse(test);
-			if(!tempDate.equals(dateFormat.format(format))) {
-				tempDate = null;
-			}*/
-			System.out.println();
-			System.out.println("Entered isValidNumDate");
-			System.out.println("test is : "+ test);
-			System.out.println("format is : "+ format);
 			DateFormat df = new SimpleDateFormat(format);
 			df.setLenient(false);
 			
@@ -193,6 +197,22 @@ public class TaskDate {
 			String year = String.valueOf(yearInt);
 			test.concat(year);
 			fullDate = test;
+			return true;
+		}
+		else if(format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT)) {
+			fullDate = "0"+test;
+			return true;
+		}
+		else if(format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT)) {
+			String toReplaceFullDate = test;
+			String[] split = toReplaceFullDate.split("/");
+			fullDate = split[0] + "/0" + split[1] +"/" +split[2];
+			return true;
+		}
+		else if(format.equals(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT)) {
+			String toReplaceFullDate = test;
+			String[] split = toReplaceFullDate.split("/");
+			fullDate = "0"+ split[0] + "/0" + split[1] + "/" + split[2];
 			return true;
 		}
 		else {
