@@ -41,6 +41,6 @@ public interface Model {
     /** Edits the given person 
      * @throws IllegalValueException 
      * @throws PersonNotFoundException */
-    void editPerson(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException;
+    void editPerson(ReadOnlyTask target, String args, char category) throws PersonNotFoundException, IllegalValueException;
 
 }
