@@ -39,5 +39,7 @@ public class TaskFilter {
 		return p -> p.getTaskType().value.equals(TaskType.Type.SOMEDAY);
 	}
 	
-	
+	public static Predicate<ReadOnlyTask> isDone() {
+		return p -> p.getStatus().equals(Status.DoneStatus.DONE);
+	}
 }
