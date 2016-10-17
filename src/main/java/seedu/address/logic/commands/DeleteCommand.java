@@ -24,40 +24,73 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted task: %1$s";
 
-    public final ArrayList<Integer> targetIndexes;
+    public final ArrayList<String> targetIndexes;
 
-    public DeleteCommand(ArrayList<Integer> targetIndexes) {
+    public DeleteCommand(ArrayList<String> targetIndexes) {
         this.targetIndexes = targetIndexes;
     }
 
 
     @Override
     public CommandResult execute() {
-        ArrayList<Integer> pass = new ArrayList<Integer>(targetIndexes);
+        
+        ArrayList<String> pass = new ArrayList<String>(targetIndexes);
         Collections.sort(targetIndexes);
         Collections.reverse(targetIndexes);
         //System.out.println(targetIndexes);
         //System.out.println(pass);
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
         
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownDeadlineList = model.getFilteredDeadlineList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownTodoList = model.getFilteredTodoList();
         //ArrayList<ReadOnlyTask> pass = new ArrayList<ReadOnlyTask>();
         
         for(int i =0; i < targetIndexes.size(); i++){
-            if (lastShownList.size() < targetIndexes.get(i)) {
-                indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-            }
+            if(Character.toUpperCase(targetIndexes.get(i).charAt(0))=='E'){
+                if (lastShownList.size() < Character.getNumericValue(targetIndexes.get(i).charAt(1))) {
+                    indicateAttemptToExecuteIncorrectCommand();
+                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                }
 
-            ReadOnlyTask personToDelete = lastShownList.get(targetIndexes.get(i) - 1);
-            
-            //pass.add(personToDelete);
-            
-            try {
-                model.deletePerson(personToDelete);
-            } catch (PersonNotFoundException pnfe) {
-                assert false : "The target task cannot be missing";
+                ReadOnlyTask personToDelete = lastShownList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+
+                
+                try {
+                    model.deletePerson(personToDelete);
+                } catch (PersonNotFoundException pnfe) {
+                    assert false : "The target task cannot be missing";
+                }
             }
+           else if(Character.toUpperCase(targetIndexes.get(i).charAt(0))=='D'){
+               if (lastShownDeadlineList.size() < Character.getNumericValue(targetIndexes.get(i).charAt(1))) {
+                   indicateAttemptToExecuteIncorrectCommand();
+                   return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+               }
+
+               ReadOnlyTask personToDelete = lastShownDeadlineList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+
+               try {
+                   model.deletePerson(personToDelete);
+               } catch (PersonNotFoundException pnfe) {
+                   assert false : "The target Deadline cannot be missing";
+               }
+           }
+            
+           else if(Character.toUpperCase(targetIndexes.get(i).charAt(0))=='T'){
+               if (lastShownTodoList.size() < Character.getNumericValue(targetIndexes.get(i).charAt(1))) {
+                   indicateAttemptToExecuteIncorrectCommand();
+                   return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+               }
+
+               ReadOnlyTask personToDelete = lastShownTodoList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+
+               try {
+                   model.deletePerson(personToDelete);
+               } catch (PersonNotFoundException pnfe) {
+                   assert false : "The target Deadline cannot be missing";
+               }
+           }
+            
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, pass));
