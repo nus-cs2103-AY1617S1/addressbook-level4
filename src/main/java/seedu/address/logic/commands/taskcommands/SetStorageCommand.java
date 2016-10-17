@@ -22,7 +22,7 @@ public class SetStorageCommand extends TaskCommand {
 			+ "Example: " + COMMAND_WORD + " C:/Users/Bob/Desktop/";
 
 	public static final String MESSAGE_SET_STORAGE_SUCCESS = "Storage location succesfully set to %1$s.";
-	public static final String MESSAGE_SET_STORAGE_FAILURE = "Cannot set storage location to %1$s!";
+	public static final String MESSAGE_SET_STORAGE_FAILURE = "Cannot set storage location to \"%1$s\"!";
 
 	String storageLocation;
 
@@ -45,8 +45,8 @@ public class SetStorageCommand extends TaskCommand {
 	/*
 	 * Checks if a provided folder path from the user is a valid directory
 	 */
-	public boolean isDirectory(String folderpath) {
-		if (folderpath == null) {
+	private boolean isDirectory(String folderpath) {
+		if (folderpath == null || folderpath.isEmpty()) {
 			return false;
 		}
 		
