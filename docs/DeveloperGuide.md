@@ -1,6 +1,6 @@
-# Developer Guide 
+﻿# Developer Guide 
 
-* [Introduction]
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -24,18 +24,18 @@ This guide describes the design and implementation of WhatNow. It will help you 
 
 #### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later<br>
+1. **[JDK](#jdk) `1.8.0_60`**  or later<br>
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8
-2. **Eclipse** IDE
+2. **[Eclipse](#eclipse)** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+4. **Buildship [Gradle](#gradle) Integration** plugin from the Eclipse Marketplace
 
 
 #### Importing the project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
+0. [Fork](#fork) this [repo](#repository), and clone the fork to your computer
 1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -51,8 +51,10 @@ This guide describes the design and implementation of WhatNow. It will help you 
 
 ### Architecture
 
+<p align="center">
 <img src="images/Architecture.png" width="600"><br>
->Figure 1: The Architecture Diagram <br>
+Figure 1: The Architecture Diagram <br>
+</p>
 
 The Architecture Diagram given above in Figure 1 explains the high-level design of WhatNow. Given below is a quick overview of each component.
 
@@ -76,19 +78,25 @@ Each of the four components
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component shown in Figure 2 below,  defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.<br>
+<p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
->Figure 2: The Logic component.<br>
+Figure 2: The Logic component.<br>
+</p>
 
 The _Sequence Diagram_ shown in Figure 3 below shows how the components interact for the scenario where the user issues the `delete 1` command.
 
-<img src="images\SDforDeletePerson.png" width="800"><br>
->Figure 3: How the components interact when the user issues the `delete 1` command. <br>
+<p align="center">
+<img src="images\SDforDeleteTask.png" width="800"><br>
+Figure 3: How the components interact when the user issues the `delete 1` command. <br>
+</p>
 
 >Note how the `Model` simply raises a `WhatNowChangedEvent` when the What Now data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram in Figure 4 below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800"> <br>
->Figure 4: How the `EventsCenter` reacts when the user issues the `delete 1` command.<br>
+<p align="center">
+<img src="images\SDforDeleteTaskEventHandling.png" width="800"> <br>
+Figure 4: How the `EventsCenter` reacts when the user issues the `delete 1` command.<br>
+</p>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
@@ -96,8 +104,10 @@ The sections below gives more details of each component.
 
 ### UI component
 
+<p align="center">
 <img src="images/UiClassDiagram.png" width="800"><br>
->Figure 5: The UI component. <br> 
+Figure 5: The UI component. <br> 
+</p>
 
 **API** : [`Ui.java`](../src/main/java/seedu/whatnow/ui/Ui.java)
 
@@ -113,8 +123,10 @@ The `UI` component,
 
 ### Logic component
 
+<p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
->Figure 6: The Logic component.<br>
+Figure 6: The Logic component.<br>
+</p>
 
 **API** : [`Logic.java`](../src/main/java/seedu/whatnow/logic/Logic.java)
 
@@ -124,13 +136,17 @@ The `UI` component,
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
->Figure 7:  How the `Logic` component executes the user’s request of `delete 1`. <br>
+<p align="center">
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
+Figure 7:  How the `Logic` component executes the user’s request of `delete 1`. <br>
+</p>
 
 ### Model component
 
+<p align="center">
 <img src="images/ModelClassDiagram.png" width="800"><br>
->Figure 8: The Model component. <br>
+Figure 8: The Model component. <br>
+</p>
 
 **API** : [`Model.java`](../src/main/java/seedu/whatnow/model/Model.java)
 
@@ -142,8 +158,10 @@ The `Model`,
 
 ### Storage component
 
+<p align="center">
 <img src="images/StorageClassDiagram.png" width="800"><br>
->Figure 9: The Storage component. <br>
+Figure 9: The Storage component. <br>
+</p>
 
 **API** : [`Storage.java`](../src/main/java/seedu/whatnow/storage/Storage.java)
 
@@ -196,7 +214,7 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `guitests` package.
+1. **[GUI](#gui) Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `guitests` package.
   
 2. **Non-GUI Tests** - These are tests that do not involve the GUI. They include,
    1. _Unit tests_ that targets the lowest level methods/classes. <br>
@@ -229,7 +247,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file you created.
    
 ### Managing Dependencies
@@ -436,7 +454,7 @@ Use case ends<br>
 1. Should work on any [mainstream OS](#mainstream-os) that has Java 8 or higher installed.
 2. Should be able to contain up to 20000 tasks.
 3. Should come with automated unit tests and open source code.
-4. Should favour natural language commands than unix commands.
+4. Should favour natural language commands than [unix](#unix) commands.
 5. Should have a response time of less than 1 second per command.
 6. Should have an organised display of information.
 7. Should backup data quarterly. 
@@ -490,29 +508,28 @@ Use case ends<br>
 
 **Google Calendar**<br>
 Strengths:
-* Free
 * Auto-sync between all devices.
 * Reminders can be configured.<br>
 
 Weaknesses:
-* Need to be online to edit. 
+* Need to be online to use your account. 
 * Need to have a google account.
-* Need to use a mouse to navigate most of the time.
+* Need to use a mouse to navigate.
 
 **Todoist**<br>
 Strengths:
-* Interface is clean and simple. Easy to understand. Good for personal use.
+* Interface is clean, simple and easy to understand.
 * Quick access to check on everyday's task.
 * Quick add of task is particularly helpful for lazy users.
 * Freedom of adding more category of task besides the default. (E.g. Personal, Shopping, Work)
 * Allows user to have an immediate view of the task lying ahead on current day or week.
-* Additional feature of showing productivity of user is useful to motivate user to be on the ball.
+* Additional feature of showing productivity of user is helpful in motivating user to be on the ball.
 * Priority can be set for every task to help decision making in performing task.
 * Typos are predicted e.g. "Ev Thursday" is registered as "Every Thursday".<br>
 
 Weaknesses:
-* Free version may be limited as we are unable to add to labels to all tasks.
-* Reminders are not available in the free version.
+* Unable to add to labels to all tasks in the free version.
+* Unable to set reminders in the free version.
 * Unable to add notes/details onto the specific task in free version.
 
 **Wunderlist**<br>
@@ -521,21 +538,19 @@ Strengths:
 * Ability to share events with others. (Family, Friends)
 * Reminders in place for upcoming tasks. [Alarms, email notification, notification light colour]
 * Smart Due Dates: Automatically detects words like 'tomorrow' or 'next week' and adds an event for that day.
-* Set priority for tasks.
+* Able to set priority for tasks.
 * Star To-dos: Moves starred tasks to the top of the list automatically.
 * Quick add notification.
 * Different personalizable folders. (Family, Private, School, Work, etc)
 * Connects to Facebook and Google account.
-* Duplication of the list.
+* Able to duplicate the list of tasks.
 * Completed to-do list hidden unless selected.<br>
 
 Weaknesses:
 * Slow in updating changes
 
-
 **Remember The Milk**<br>
 Strengths:
-* There is a free version.
 * Available in web, desktop and mobile applications.
 * Able to edit offline.
 * Auto-sync between all devices.

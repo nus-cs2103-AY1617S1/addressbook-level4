@@ -40,7 +40,8 @@ public class AddCommand extends Command {
 		}
 		this.toAdd = new Task(
 				new Name(name),
-				new UniqueTagList(tagSet)
+				new UniqueTagList(tagSet),
+				"incomplete"
 				);
 	}
 
@@ -54,7 +55,8 @@ public class AddCommand extends Command {
 		this.toAdd = new Task(
 				new Name(name),
 				new TaskDate(date),
-				new UniqueTagList(tagSet)
+				new UniqueTagList(tagSet),
+				"incomplete"
 				);
 	}
 
@@ -69,5 +71,4 @@ public class AddCommand extends Command {
 		}
 
 	}
-
 }

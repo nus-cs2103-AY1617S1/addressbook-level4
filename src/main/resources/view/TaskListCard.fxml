@@ -24,7 +24,6 @@
 					<padding>
 						<Insets bottom="5" left="15" right="5" top="5" />
 					</padding>
-
 					<children>
 						<HBox spacing="5" alignment="CENTER_LEFT">
 							<children>
@@ -36,6 +35,7 @@
 							</children>
 						</HBox>
 						<Label fx:id="taskDate" styleClass="cell_small_label" text="\$taskDate" />
+						<Label fx:id="status" styleClass="cell_small_label" text="\$status" />
 					</children>
 				</VBox>
 			</children>

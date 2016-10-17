@@ -29,7 +29,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private ScheduleListPanel scheduleListPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -44,7 +44,7 @@ public class MainWindow extends UiPart {
     private String whatNowName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane scheduleListPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -108,7 +108,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        scheduleListPanel = ScheduleListPanel.load(primaryStage, getScheduleListPlaceholder(), logic.getFilteredScheduleList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getWhatNowFilePath());
@@ -129,6 +129,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    private AnchorPane getScheduleListPlaceholder() {
+        return scheduleListPlaceholder;
     }
 
     public void hide() {
@@ -185,12 +189,8 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
+    
+    public ScheduleListPanel getScheduleListPanel() {
+        return this.scheduleListPanel;
     }
 }

@@ -60,7 +60,8 @@ public class UpdateCommand extends Command {
         }
         toUpdate = new Task(
                 new Name(newName),
-                new UniqueTagList(tagSet));   
+                new UniqueTagList(tagSet),
+                null);   
     }
     
     private Set<String> processTag() {
@@ -79,9 +80,8 @@ public class UpdateCommand extends Command {
         if (arg_type.toUpperCase().compareToIgnoreCase("description") == 0) {
             toUpdate.setTags(taskToUpdate.getTags());
         }
+        toUpdate.setStatus(taskToUpdate.getStatus());
     }
-    
-    
     
     @Override
     public CommandResult execute() {
@@ -95,12 +95,12 @@ public class UpdateCommand extends Command {
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
         updateTheCorrectField(taskToUpdate);
+        
         try {
             model.updateTask(taskToUpdate, toUpdate);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-
         return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate));
     }
 }

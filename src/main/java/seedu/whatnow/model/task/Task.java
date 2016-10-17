@@ -15,32 +15,36 @@ public class Task implements ReadOnlyTask {
     
     private TaskDate taskDate;
     private UniqueTagList tags;
+    
+    private String status;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
+    public Task(Name name, UniqueTagList tags, String status) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.status = status;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getTags(), source.getStatus());
     }
     
     /**
      * 	Every field must be present and not null
      * 
      */
-    public Task(Name name, TaskDate taskDate, UniqueTagList tags) {
+    public Task(Name name, TaskDate taskDate, UniqueTagList tags,  String status) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.taskDate = taskDate;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.status = status;
     }
 
     @Override
@@ -52,10 +56,18 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+
     @Override
     public TaskDate getTaskDate() {
     	return taskDate;
     }
+
+    
+    @Override
+    public String getStatus() {
+        return status;
+    }
+
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
@@ -67,9 +79,16 @@ public class Task implements ReadOnlyTask {
         this.name = name;
     }
     
+
     public void setTaskDate(TaskDate taskDate) {
     	this.taskDate = taskDate;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -80,7 +99,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, tags);
+        return Objects.hash(name, status, tags);
     }
 
     @Override

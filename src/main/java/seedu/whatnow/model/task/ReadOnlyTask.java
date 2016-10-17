@@ -24,13 +24,20 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()));
     }
+    
+    /**
+     * Return the status of the task.
+     * @return
+     */
+    String getStatus();
 
     /**
-     * Formats the task as text, showing all contact details.
+     * Formats the task as text, showing all details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(getStatus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

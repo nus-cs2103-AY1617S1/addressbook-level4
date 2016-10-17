@@ -104,7 +104,7 @@ Shows a list of all tasks that match task type, date, time and priority requeste
 Format: `list [todo/schedule/completed/all tasks] [on/at/with] [DATE/TIME/PRIORITY]`<br>
 Result: `Listing all <todo/schedule/completed/all > tasks on/at/with <DATE/TIME/PRIORITY>` message will be shown in the feedback box.<br> 
 
-> * If no task type(todo/schedule/completed) is stated, then all tasks will be displayed.<br>
+> * If no task type(todo/schedule/completed) is stated, then all ongoing tasks will be displayed.<br>
 > * The format for date must be *day month year* where year is optional. If no year is specified, it is assumed to be the current year.<br>
 Eg: 10th Oct, 4 November, 11th August 2017. Not 12/12/12. <br>
 > * The format for time should be the *12 hour format*.<br>
@@ -114,7 +114,7 @@ Eg: 10am, 6pm, 7.30pm. Not 7:30pm, 2359.
 
 Examples: 
 * `list`<br>
-Returns a list of all tasks. <br>
+Returns a list of all ongoing tasks. <br>
 <img src="images/UI_Prototype/WhatNowUI-List-Colour.png" width="600"><br>
 Figure 5: How the GUI will look like when all tasks are listed.<br>
 * `list completed`<br>
@@ -127,12 +127,34 @@ Returns a list of all Todo tasks that have a medium priority. <br>
 Returns a list of all tasks scheduled at 6pm. <br>
 * `list schedule on 3 Nov`<br>
 Returns a list of all Scheduled tasks scheduled for 3 November of the current year. <br>
+* `list done`<br>
+Returns a list of all tasks previously marked done. <br>
+* `list all`<br>
+Returns a list of all tasks. <br>
+
+
 
 >If you want to view any of the Todo tasks, Scheduled tasks or Completed tasks only, then you only<br> need to type in “todo”, “schedule” or “completed” as the keyword after the command list. <br>
 > <img src="images/UI_Prototype/WhatNowUI-ListCompleted-Colour.png" width="600"><br>
 > Figure 6: How the GUI will look like when all Completed tasks are listed.<br>
 
 
+#### Marking a task as completed: `done`
+Marks a task from WhatNow as completed.<br>
+Format: `done todo/schedule INDEX`<br>
+Results: `Todo/Scheduled Task INDEX has been successfully marked as done: <Task marked>` message will be shown in the feedback box.<br>
+
+> * Marks the task at the specified `INDEX` from Todo task, Scheduled or Completed tasks as specified. <br>
+> * The index refers to the index number shown in the current listing.<br>
+> * The index **must be a positive integer** 1, 2, 3, ...
+
+Examples:
+* `done todo 1`<br>
+  Marks the 1st Todo task from the displayed list in WhatNow as completed.<br>
+* `done schedule 2`<br>
+  Marks the 2nd Schedule task from the displayed list in WhatNow as completed.<br>
+  
+  
 
 #### Deleting a task : `delete`
 Deletes a task from WhatNow. This action is reversible.<br>
@@ -273,6 +295,7 @@ Command | Format
 Add | `add "DESCRIPTION" [on/by] [today/tomorrow/DAY/DATE] [from/at] [START_TIME] [to/till] [END_TIME] [every] [DAY/day/week/month/year] [low/medium/high]`
 Change | `change location to PATH`
 Clear | `clear`
+Done | `done todo/schedule INDEX`
 Delete | `delete todo/schedule/completed INDEX`
 Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`

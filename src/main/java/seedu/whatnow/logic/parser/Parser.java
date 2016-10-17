@@ -49,6 +49,7 @@ public class Parser {
 	private static final int INDEX = 1;
 	private static final int ARG_TYPE = 2;
 	private static final int ARG = 3;
+	private static final int LIST_ARG = 0;
 
 
 	public Parser() {}
@@ -71,15 +72,8 @@ public class Parser {
 
 		switch (commandWord) {
 		case AddCommand.COMMAND_WORD:
-		{
-//			if(TEMP1.matcher(arguments).find()) {
-//				return prepareAddDeadline(arguments);
-//			}
-//			else {
-//				return prepareAdd(arguments);
-//			}
 			return prepareAdd(arguments);
-		}
+		
 		case SelectCommand.COMMAND_WORD:
 			return prepareSelect(arguments);
 
@@ -93,7 +87,7 @@ public class Parser {
 			return prepareFind(arguments);
 
 		case ListCommand.COMMAND_WORD:
-			return new ListCommand();
+			  return prepareList(arguments);
 
 		case ExitCommand.COMMAND_WORD:
 			return new ExitCommand();
@@ -123,11 +117,8 @@ public class Parser {
 		final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
 		// Validate arg string format
 		if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
-			System.out.println("Not Match");
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
-		
-		System.out.println("MATCH");
 		
 		String[] arguments = args.split("\"");
 		
@@ -157,15 +148,6 @@ public class Parser {
 		}
 		
 		if (additionalArgs[1].equals("on") || additionalArgs[1].equals("by")) {
-//			String year = null;
-//			if (additionalArgs.length > 3) {
-//				if (!additionalArgs[3].contains("t")) {
-//					year = " " + additionalArgs[3];
-//				}
-//			}
-//			
-//			String date = additionalArgs[0] + " " + additionalArgs[1] + year;
-			
 			try {
 				return new AddCommand(arguments[1], additionalArgs[2], Collections.emptySet());
 			} catch (IllegalValueException ive) {
@@ -199,6 +181,40 @@ public class Parser {
 		return new HashSet<>(tagStrings);
 	}
 
+	  /**
+     * Parses arguments in the context of the change data file location command.
+    /**
+     * Parses arguments in the context of the list command.
+     * *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareChange(String args) {
+        String[] argComponents= args.trim().split(" ");
+        if(argComponents[0].equals("location") && argComponents[1].equals("to")){
+            return new ChangeCommand(argComponents[2]);
+        }
+        else{
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
+        }
+    }
+    
+    private Command prepareList(String args) {
+        String[] argComponents= args.trim().split(" ");
+        String listArg = argComponents[LIST_ARG];
+        System.out.println(listArg);
+        if (!isListCommandValid(listArg)) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        }
+        return new ListCommand(listArg);
+    }
+    
+    private boolean isListCommandValid(String listArg) {
+        return listArg.equals("done") || listArg.equals("") || listArg.equals("all");
+    }
+    
 	/**
 	 * Parses arguments in the context of the delete task command.
 	 *
@@ -216,40 +232,56 @@ public class Parser {
 		return new DeleteCommand(index.get());
 	}
 
-	/**
-	 * Parses arguments in the context of the update task command.
-	 *
-	 * @param args full command args string
-	 * @return the prepared command
-	 */
-	private Command prepareUpdate(String args) {
-		String[] ArgComponents= args.trim().split(" ");
-		String type = ArgComponents[TASK_TYPE];
-		String argType = ArgComponents[ARG_TYPE];
-		String arg = "";
-		Optional<Integer> index = parseIndex(ArgComponents[INDEX]);
-		for (int i = ARG; i < ArgComponents.length; i++) {
-			arg += ArgComponents[i] + " ";
-		}
-		if(!index.isPresent()){
-			return new IncorrectCommand(
-					String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
-		}
-
-		if (!isValidUpdateCommandFormat(type, index.get(), argType)) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
-		}
-
-		try {
-			return new UpdateCommand(
-					type,
-					index.get(),
-					argType,
-					arg);
-		} catch (IllegalValueException ive) {
-			return new IncorrectCommand(ive.getMessage());
-		}
-	}
+    /**
+     * Parses arguments in the context of the update task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUpdate(String args) {
+        String[] argComponents= args.trim().split(" ");
+        String type = argComponents[TASK_TYPE];
+        String argType = argComponents[ARG_TYPE];
+        String arg = "";
+        Optional<Integer> index = parseIndex(argComponents[INDEX]);
+        for (int i = ARG; i < argComponents.length; i++) {
+            arg += argComponents[i] + " ";
+        }
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+        
+        if (!isValidUpdateCommandFormat(type, index.get(), argType)) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new UpdateCommand(
+                type,
+                index.get(),
+                argType,
+                arg);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    /**
+     * Parses arguments in the context of the markDone task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMarkDone(String args) {
+        String[] argComponents = args.trim().split(" ");
+        Optional<Integer> index = parseIndex(argComponents[INDEX]);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_USAGE));
+        }
+        return new MarkDoneCommand(argComponents[TASK_TYPE], index.get());
+    }
 
 	/**
 	 * Checks that the command format is valid
@@ -321,5 +353,4 @@ public class Parser {
 		final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
 		return new FindCommand(keywordSet);
 	}
-
 }

@@ -111,19 +111,6 @@ public class LogicManagerTest {
         
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
-
-        System.out.println("INPUT COMMAND: " + inputCommand);
-        System.out.println("RESULT: " + result.feedbackToUser);
-        System.out.println(expectedWhatNow.getTaskList());
-        System.out.println(model.getWhatNow().getTaskList());
-        
-        if (expectedWhatNow.equals(model.getWhatNow())) {
-            System.out.println("EQUALS");
-        }
-        
-        if (expectedWhatNow.getTaskList().equals(model.getWhatNow().getTaskList())) {
-            System.out.println("SAME");
-        }
         
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
@@ -290,7 +277,6 @@ public class LogicManagerTest {
         ReadOnlyTask taskToUpdate = taskList.get(0);
         Task toUpdate = helper.todo("Buy chocolate milk", "inProgress", "lowPriority");
         expectedAB.updateTask(taskToUpdate, toUpdate);
-        //model.updateTask(taskToUpdate, toUpdate);
         
         assertCommandBehavior(helper.generateUpdateCommand("Buy chocolate milk"),
                 String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate),
@@ -300,7 +286,6 @@ public class LogicManagerTest {
         taskToUpdate = toUpdate;
         toUpdate = helper.todo("Buy chocolate milk", "highPriority", "Completed");
         expectedAB.updateTask(taskToUpdate, toUpdate);
-        //model.updateTask(taskToUpdate, toUpdate);
         
         assertCommandBehavior(helper.generateUpdateCommand("highPriority", "Completed"),
                 String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate),
@@ -469,7 +454,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags);
+            return new Task(name, tags, null);
         }
         
         Task todo(String description, String tag01, String tag02) throws Exception {
@@ -477,7 +462,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag(tag01);
             Tag tag2 = new Tag(tag02);
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags);
+            return new Task(name, tags, null);
         }
 
         /**
@@ -490,7 +475,8 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                    null
             );
         }
 
@@ -605,7 +591,8 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new UniqueTagList(new Tag("tag"))
+                    new UniqueTagList(new Tag("tag")),
+                    null
             );
         }
     }
