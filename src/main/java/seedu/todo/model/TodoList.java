@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -28,11 +27,11 @@ import seedu.todo.model.task.ValidationTask;
 import seedu.todo.storage.MoveableStorage;
 
 /**
- * Represents the data layer of the application. Implements TodoModel interface so that it can provide
+ * Represents the data layer of the application. Implements Model interface so that it can provide
  * data to other parts of the logic layer, and the ImmutableTodoList interface so that it can be
  * serialized and persisted directly
  */
-public class TodoList implements ImmutableTodoList, TodoModel {
+public class TodoList implements ImmutableTodoList, Model {
     private static final String INDEX_OUT_OF_BOUND_FORMAT = "There is no task no. %d";
     private static final String INCORRECT_FILE_FORMAT_FORMAT = "%s doesn't seem to be in the correct format.";
     private static final String FILE_NOT_FOUND_FORMAT = "%s does not seem to exist.";

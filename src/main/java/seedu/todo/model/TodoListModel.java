@@ -1,15 +1,15 @@
 package seedu.todo.model;
 
-    import java.util.Comparator;
-    import java.util.function.Consumer;
-    import java.util.function.Predicate;
+import java.util.Comparator;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
-    import seedu.todo.commons.core.UnmodifiableObservableList;
-    import seedu.todo.commons.exceptions.IllegalValueException;
-    import seedu.todo.commons.exceptions.ValidationException;
-    import seedu.todo.model.task.ImmutableTask;
-    import seedu.todo.model.task.MutableTask;
-    import seedu.todo.model.task.Task;
+import seedu.todo.commons.core.UnmodifiableObservableList;
+import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.model.task.MutableTask;
+import seedu.todo.model.task.Task;
 
 /**
  * Represents the data layer of the application.
