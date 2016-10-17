@@ -3,8 +3,8 @@ package seedu.oneline.model.task;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
 
@@ -232,7 +232,8 @@ public class TaskTimeTest {
         };
         try {
             for (Calendar d : testDays) {
-                String t = d.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE");
+                String t = dateFormat.format(d.getTime());
                 TaskTime tTime = new TaskTime(t);
                 Calendar tCal = tTime.getCalendar();
                 assertTrue(withinSevenDays(d, tCal));
