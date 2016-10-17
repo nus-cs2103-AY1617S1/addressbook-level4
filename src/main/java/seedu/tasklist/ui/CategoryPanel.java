@@ -11,8 +11,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.tasklist.commons.core.LogsCenter;
+import seedu.tasklist.model.Model;
+import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.task.ReadOnlyTask;
+import seedu.tasklist.model.task.Task;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +27,7 @@ public class CategoryPanel extends UiPart {
     private static final String FXML = "CategoryPanel.fxml";
     private AnchorPane gridpane;
     private AnchorPane placeHolderPane;
+    private List<Task> tasks;
 
     @FXML
     private Label overdueNo;
@@ -60,10 +65,14 @@ public class CategoryPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static CategoryPanel load(Stage primaryStage, AnchorPane personListPlaceholder) {
+    public static CategoryPanel load(Stage primaryStage, AnchorPane personListPlaceholder, ReadOnlyTaskList readOnlyTaskList) {
         CategoryPanel categoryPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new CategoryPanel());
         categoryPanel.configure();
+        categoryPanel.overdueNo.setText(Integer.toString(Task.overdueCounter));
+        categoryPanel.floatingNo.setText(Integer.toString(Task.floatCounter));
+        categoryPanel.totalNo.setText(Integer.toString(readOnlyTaskList.getTaskList().size()));
+        
         return categoryPanel;
     }
 

@@ -2,6 +2,7 @@ package seedu.tasklist.logic;
 
 import javafx.collections.ObservableList;
 import seedu.tasklist.logic.commands.CommandResult;
+import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
 /**
@@ -17,5 +18,7 @@ public interface Logic {
 
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
+
+	ReadOnlyTaskList getTaskList();
 
 }
