@@ -3,18 +3,32 @@ package seedu.oneline.model.task;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class TaskTimeTest {
+    Calendar now;
+    Calendar yesterday;
+    int thisDay;
+    int thisMonth;
+    int thisYear;
+    
+    @Before
+    public void setUp(){
+        now = Calendar.getInstance();
+        yesterday = Calendar.getInstance();
+        yesterday.add(Calendar.DATE, -1);
+        thisDay = now.get(Calendar.DAY_OF_MONTH);
+        thisMonth = now.get(Calendar.MONTH);
+        thisYear = now.get(Calendar.YEAR);
+    }
     
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -91,7 +105,13 @@ public class TaskTimeTest {
         }
     }
     
-
+    /**
+     * Equivalence partitions for fields with only date and month input
+     *  - day and month has passed in current year
+     *  - day and month has not passed in current year
+     *  - day and month is the current day
+     */
+    
     @Test
     public void constructor_DM() {
         String[] validFormats = new String[]{
@@ -99,12 +119,8 @@ public class TaskTimeTest {
                 "5 Oct",
                 "10/5"};
         try {
+            
             for (String t : validFormats){
-                Calendar now = Calendar.getInstance();
-                int thisDay = now.get(Calendar.DAY_OF_MONTH);
-                int thisMonth = now.get(Calendar.MONTH);
-                int thisYear = now.get(Calendar.YEAR);
-                
                 Calendar fifthOct = Calendar.getInstance();
                 fifthOct.set(thisYear, Calendar.OCTOBER, 5);
                 
@@ -119,6 +135,25 @@ public class TaskTimeTest {
                         tCal.get(Calendar.YEAR) == thisYear + 1 : 
                             tCal.get(Calendar.YEAR) == thisYear);
             }
+        } catch (Exception e) {
+            assert false;
+        }
+    }
+
+    /**
+     * Tests whether inputting a day and month that has passed will result
+     * in a next year's value in TaskTime constructor
+     */
+    @Test
+    public void constructor_DMhasPassed() {
+        // construct a string that represents MM/DD 
+        // where MM/DD is the month and date of yesterday
+        String yesterdayString = Integer.toString(yesterday.get(Calendar.DAY_OF_MONTH)) 
+                + " " + Integer.toString(yesterday.get(Calendar.MONTH));
+        try {
+            TaskTime tTime = new TaskTime(yesterdayString);
+            Calendar tCal = DateUtils.toCalendar(tTime.getDate());
+            assertTrue(tCal.get(Calendar.YEAR) == yesterday.get(Calendar.YEAR) + 1);
         } catch (Exception e) {
             assert false;
         }
