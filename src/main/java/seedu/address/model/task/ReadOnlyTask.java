@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     DueDate getDueDate();
     Priority getPriority();
     Reminder getReminder();
+    boolean getCompletionStatus();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
