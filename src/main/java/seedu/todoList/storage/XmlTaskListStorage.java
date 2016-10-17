@@ -58,7 +58,15 @@ public class XmlTaskListStorage implements TaskListStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskList(taskList));
+        if(filePath.equals("data/TodoList.xml")) {
+        	XmlFileStorage.saveDataToFile(file, new XmlSerializableTodoList(taskList));
+        }
+        else if(filePath.equals("data/EventList.xml")) {
+        	XmlFileStorage.saveDataToFile(file, new XmlSerializableEventList(taskList));
+        }
+        else if(filePath.equals("data/DeadlineList.xml")) {
+        	XmlFileStorage.saveDataToFile(file, new XmlSerializableDeadlineList(taskList));
+        }
     }
 
     @Override
