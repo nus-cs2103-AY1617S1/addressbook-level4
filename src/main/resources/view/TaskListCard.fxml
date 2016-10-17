@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -8,48 +7,56 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" minHeight="50.0" prefHeight="50.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="cardPane" minHeight="40.0" prefHeight="50.0" prefWidth="630.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane minHeight="50.0" prefHeight="50.0" HBox.hgrow="ALWAYS">
+        <GridPane minHeight="50.0" prefHeight="50.0" translateY="5.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="526.0" minWidth="10.0" prefWidth="412.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="218.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" minHeight="50.0" prefHeight="50.0" GridPane.columnIndex="0">
-                    <stylesheets>
-                        <URL value="@DarkTheme.css" />
-                        <URL value="@Extensions.css" />
-                    </stylesheets>
-                    <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
-                    </padding>
-
-                    <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5" translateY="-30.0">
-                            <children>
-                                <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-                                </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
-                            </children>
-                        </HBox>
-                        <Label fx:id="details" styleClass="cell_small_label" text="\$details" translateY="-30.0" />
-                    </children>
-                </VBox>
-            <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="1">
-               <stylesheets>
-                  <URL value="@DarkTheme.css" />
-                  <URL value="@Extensions.css" />
-               </stylesheets>
+            <GridPane prefHeight="32.0" prefWidth="580.0" translateY="2.0" GridPane.hgrow="NEVER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="31.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="555.0" minWidth="10.0" prefWidth="372.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="49.0" minHeight="0.0" prefHeight="19.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="86.0" minHeight="20.0" prefHeight="86.0" vgrow="NEVER" />
+              </rowConstraints>
+               <children>
+                        <Label fx:id="details" prefHeight="16.0" prefWidth="587.0" styleClass="cell_small_label" text="\$details" translateY="-35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           <Label fx:id="id" styleClass="cell_big_label" text="id">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                          <HBox GridPane.columnIndex="1">
+                              <Label fx:id="name" styleClass="cell_big_label" text="\$first">
+                        <font>
+                           <Font name="Cambria" size="16.0" />
+                        </font>
+                     </Label>
+                             <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" translateX="10.0" translateY="4.0">
+                        <graphic>
+                           <Ellipse fill="DODGERBLUE" radiusX="5.0" radiusY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
+                        </graphic>
+                     </Label>
+                          </HBox>
+               </children>
+            </GridPane>
+            <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" translateY="-5.0" GridPane.columnIndex="1">
                <padding>
                   <Insets bottom="2.0" left="-20.0" right="2.0" top="2.0" />
                </padding>
                <children>
                         <Label fx:id="onDate" contentDisplay="RIGHT" styleClass="cell_small_label" text="\$onDate" translateY="-30.0" />
-                  <HBox alignment="CENTER_LEFT" spacing="5" />
                         <Label fx:id="byDate" styleClass="cell_small_label" text="\$byDate" translateY="-30.0" />
                </children>
             </VBox>
