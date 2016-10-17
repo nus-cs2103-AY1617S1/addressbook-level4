@@ -12,9 +12,9 @@ import seedu.todo.models.TodoListDB;
  */
 public class ListController implements Controller {
     
-    private static String NAME = "List";
-    private static String DESCRIPTION = "Lists all tasks and events.";
-    private static String COMMAND_SYNTAX = "list";
+    private static final String NAME = "List";
+    private static final String DESCRIPTION = "Lists all tasks and events.";
+    private static final String COMMAND_SYNTAX = "list";
     
     private static final String MESSAGE_LISTING_SUCCESS = "Listing a total of %d %s and %d %s.";
     

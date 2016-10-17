@@ -13,9 +13,9 @@ import seedu.todo.ui.views.HelpView;
  */
 public class HelpController implements Controller {
 
-    private static String NAME = "Help";
-    private static String DESCRIPTION = "Shows documentation for all valid commands.";
-    private static String COMMAND_SYNTAX = "help";
+    private static final String NAME = "Help";
+    private static final String DESCRIPTION = "Shows documentation for all valid commands.";
+    private static final String COMMAND_SYNTAX = "help";
     
     private static final String MESSAGE_HELP_SUCCESS = "Showing all commands.";
     

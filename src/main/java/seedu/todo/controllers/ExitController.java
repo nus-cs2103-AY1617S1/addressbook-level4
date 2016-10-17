@@ -11,9 +11,9 @@ import seedu.todo.commons.events.ui.ExitAppRequestEvent;
  */
 public class ExitController implements Controller {
 
-    private static String NAME = "Exit";
-    private static String DESCRIPTION = "Exit from GetShitDone!";
-    private static String COMMAND_SYNTAX = "exit";
+    private static final String NAME = "Exit";
+    private static final String DESCRIPTION = "Exit from GetShitDone!";
+    private static final String COMMAND_SYNTAX = "exit";
 
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 

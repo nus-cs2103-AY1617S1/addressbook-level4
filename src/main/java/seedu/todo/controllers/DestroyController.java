@@ -16,12 +16,12 @@ import seedu.todo.ui.UiManager;
  */
 public class DestroyController implements Controller {
     
-    private static String NAME = "Destroy";
-    private static String DESCRIPTION = "Destroys a task/event by listed index";
-    private static String COMMAND_SYNTAX = "destroy <index>";
+    private static final String NAME = "Destroy";
+    private static final String DESCRIPTION = "Destroys a task/event by listed index";
+    private static final String COMMAND_SYNTAX = "destroy <index>";
     
-    private static String MESSAGE_DELETE_SUCCESS = "Item deleted successfully!\n" + "To undo, type \"undo\".";
-    private static String MESSAGE_INVALID_CALENDARITEM = "Could not delete task/event: invalid index provided!";
+    private static final String MESSAGE_DELETE_SUCCESS = "Item deleted successfully!\n" + "To undo, type \"undo\".";
+    private static final String MESSAGE_INVALID_CALENDARITEM = "Could not delete task/event: invalid index provided!";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 

@@ -14,9 +14,9 @@ import seedu.todo.models.TodoListDB;
  */
 public class CompleteTaskController implements Controller {
     
-    private static String NAME = "Complete Task";
-    private static String DESCRIPTION = "Marks a task as completed, by listed index";
-    private static String COMMAND_SYNTAX = "complete <index>";
+    private static final String NAME = "Complete Task";
+    private static final String DESCRIPTION = "Marks a task as completed, by listed index";
+    private static final String COMMAND_SYNTAX = "complete <index>";
     
     private static final String MESSAGE_SUCCESS = "Task marked as complete!";
     private static final String MESSAGE_INVALID_ITEM = "Could not mark task as complete: Invalid index provided!";

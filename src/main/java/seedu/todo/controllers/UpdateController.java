@@ -23,9 +23,9 @@ import seedu.todo.models.TodoListDB;
  */
 public class UpdateController implements Controller {
     
-    private static String NAME = "Update";
-    private static String DESCRIPTION = "Updates a task by listed index.";
-    private static String COMMAND_SYNTAX = "update <index> <task> by <deadline>";
+    private static final String NAME = "Update";
+    private static final String DESCRIPTION = "Updates a task by listed index.";
+    private static final String COMMAND_SYNTAX = "update <index> <task> by <deadline>";
     
     private static final String MESSAGE_UPDATE_SUCCESS = "Item successfully updated!";
     

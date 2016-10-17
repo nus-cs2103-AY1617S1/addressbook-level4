@@ -14,9 +14,9 @@ import seedu.todo.models.TodoListDB;
  */
 public class UncompleteTaskController implements Controller {
     
-    private static String NAME = "Uncomplete Task";
-    private static String DESCRIPTION = "Marks a task as incomplete, by listed index";
-    private static String COMMAND_SYNTAX = "uncomplete <index>";
+    private static final String NAME = "Uncomplete Task";
+    private static final String DESCRIPTION = "Marks a task as incomplete, by listed index";
+    private static final String COMMAND_SYNTAX = "uncomplete <index>";
 
     private static final String MESSAGE_SUCCESS = "Task marked as incomplete!";
     private static final String MESSAGE_INVALID_ITEM = "Could not mark task as incomplete: Invalid index provided!";

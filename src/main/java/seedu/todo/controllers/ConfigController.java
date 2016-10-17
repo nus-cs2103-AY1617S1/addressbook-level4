@@ -13,9 +13,9 @@ import seedu.todo.ui.UiManager;
 
 public class ConfigController implements Controller {
 
-    private static String NAME = "Configure";
-    private static String DESCRIPTION = "Shows current configuration settings or updates them.";
-    private static String COMMAND_SYNTAX = "config [<setting> <value>]";
+    private static final String NAME = "Configure";
+    private static final String DESCRIPTION = "Shows current configuration settings or updates them.";
+    private static final String COMMAND_SYNTAX = "config [<setting> <value>]";
 
     private static final String MESSAGE_SHOWING = "Showing all settings.";
     private static final String MESSAGE_SUCCESS = "Successfully updated %s.";
