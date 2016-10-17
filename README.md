@@ -6,8 +6,6 @@
 <img src="docs/images/Ui.png" width="600"><br>
 
 * This is a desktop task manager application, with most user interactions happening using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language. 
-* It is **written in OOP fashion**. It provides a **reasonably well-written** code example that is **significantly bigger** (around 6 KLoC)than what students usually write in beginner-level SE modules. 
 * Advanced Features:
     * A more sophisticated GUI that includes a list panel and an in-built Browser.
     * More test cases, including automated GUI testing.
@@ -17,7 +15,6 @@
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
 * [Developer Guide](docs/DeveloperGuide.md) 
-* [Learning Outcomes](docs/LearningOutcomes.md) 
 * [About Us](docs/AboutUs.md)
 * [Contact Us](docs/ContactUs.md)
 
