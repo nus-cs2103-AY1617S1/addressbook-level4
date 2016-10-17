@@ -31,24 +31,32 @@ public class Parser {
                     + " (?<property>\\w+)"
                     + " (?<newInfo>.*)");
     
+    
+    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    
+    private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
+            "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
+                    + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
+                    + "(?<tagArguments>(?: t/[^;]+)*)"
+                    );
 
-    private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isDatePrivate>p?)d/(?<date>[^@]+)"
-                    + " (?<isStartTimePrivate>p?)s/(?<start>[^/]+)"
-                    + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
-    private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isDatePrivate>p?)d/(?<date>[^@]+)"
-                    + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
-            		);
-    
-    private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<name>[^/]+)");
+//    private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+//            Pattern.compile("(?<name>[^/]+)"
+//                    + " (?<isDatePrivate>p?)d/(?<date>[^@]+)"
+//                    + " (?<isStartTimePrivate>p?)s/(?<start>[^/]+)"
+//                    + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
+//                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+//    
+//    private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
+//            Pattern.compile("(?<name>[^/]+)"
+//                    + " (?<isDatePrivate>p?)d/(?<date>[^@]+)"
+//                    + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
+//            		);
+//    
+//    private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
+//            Pattern.compile("(?<name>[^/]+)");
 
 
 
@@ -71,11 +79,10 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-        	System.out.println(arguments);
             return prepareAdd(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return prepareEdit(arguments);
+//        case EditCommand.COMMAND_WORD:
+//            return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -103,44 +110,43 @@ public class Parser {
         }
     }
 
-    private Command prepareEdit(String args) {
-        final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
-        //final String index = matcher.group("index");
-        //final String property = matcher.group("property");
-        //final String newInfo = matcher.group("newInfo"); 
-        //I dont understand why i cant do this. It an error for parser when i try it
-        
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-        
-        if (matcher.group("property").toLowerCase().equals("date")) {
-            System.out.println("is it valid date?");
-            System.out.println(matcher.group("newInfo"));
-            if(!Date.isValidDate(matcher.group("newInfo"))) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
-            }
-        }
-        if (matcher.group("property").toLowerCase().equals("starttime")) {
-            System.out.println("is it a valid start time?");
-            System.out.println(matcher.group("newInfo"));
-            if(!StartTime.isValidStartTime(matcher.group("newInfo"))) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartTime.MESSAGE_TIME_CONSTRAINTS));
-            }
-        }
-        if (matcher.group("property").toLowerCase().equals("endtime")) {
-            if(!EndTime.isValidEndTime(matcher.group("newInfo"))) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartTime.MESSAGE_TIME_CONSTRAINTS));
-            }
-        }
-        
-        return new EditCommand(
-                matcher.group("index"),
-                matcher.group("property"),
-                matcher.group("newInfo")
-        );
-    }
+//    private Command prepareEdit(String args) {
+//        final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
+//        //final String index = matcher.group("index");
+//        //final String property = matcher.group("property");
+//        //final String newInfo = matcher.group("newInfo"); 
+//        
+//        // Validate arg string format
+//        if (!matcher.matches()) {
+//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+//        }
+//        
+//        if (matcher.group("property").toLowerCase().equals("date")) {
+//            System.out.println("is it valid date?");
+//            System.out.println(matcher.group("newInfo"));
+//            if(!Date.isValidDate(matcher.group("newInfo"))) {
+//                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+//            }
+//        }
+//        if (matcher.group("property").toLowerCase().equals("starttime")) {
+//            System.out.println("is it a valid start time?");
+//            System.out.println(matcher.group("newInfo"));
+//            if(!StartTime.isValidStartTime(matcher.group("newInfo"))) {
+//                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartTime.MESSAGE_TIME_CONSTRAINTS));
+//            }
+//        }
+//        if (matcher.group("property").toLowerCase().equals("endtime")) {
+//            if(!EndTime.isValidEndTime(matcher.group("newInfo"))) {
+//                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartTime.MESSAGE_TIME_CONSTRAINTS));
+//            }
+//        }
+//        
+//        return new EditCommand(
+//                matcher.group("index"),
+//                matcher.group("property"),
+//                matcher.group("newInfo")
+//        );
+//    }
 
     /**
      * Parses arguments in the context of the add task command.
@@ -149,40 +155,29 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher event_matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher deadline_matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher floating_matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+    	final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+//        final Matcher event_matcher = EVENT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+//        final Matcher deadline_matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+//        final Matcher floating_matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        if (!event_matcher.matches() && !deadline_matcher.matches() && !floating_matcher.matches()) {
+        if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        
+    	String startTime = (matcher.group("start") == null) ? "" : matcher.group("start");
+        String endTime = (matcher.group("end") == null) ? "" : matcher.group("end");
+        
         try {
-        	if(event_matcher.matches()) {
-        		System.out.println("Event");
+        		System.out.println(matcher.group("name"));
+        		System.out.println(startTime);
+        		System.out.println(endTime);
 	            return new AddCommand(
-	                    event_matcher.group("name"),
-	                    event_matcher.group("date"),
-	                    event_matcher.group("start"), // start and end are swapped to match ui
-	                    event_matcher.group("end"),
-	                    getTagsFromArgs(event_matcher.group("tagArguments"))
-	            );
-        	}else if(deadline_matcher.matches()) {
-        		System.out.println("Deadline");
-        		return new AddCommand(
-	                    deadline_matcher.group("name"),
-	                    deadline_matcher.group("date"),
+	                    matcher.group("name"),
 	                    "",
-	                    deadline_matcher.group("end"),
-	                    new HashSet<>()
-	            );
-        	}else {
-        		System.out.println("Floating");
-        		System.out.println(floating_matcher.group("name"));
-        		return new AddCommand(
-	                    floating_matcher.group("name"),
-	                    "", "", "", new HashSet<>()
-	            );
-        	}
+	                    startTime,
+	                    endTime,
+	                    getTagsFromArgs(matcher.group("tagArguments"))
+	            );       
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

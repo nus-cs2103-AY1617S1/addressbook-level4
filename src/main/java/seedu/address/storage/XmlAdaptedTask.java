@@ -40,8 +40,8 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         date = source.getDate().value;
-        start = source.getStartTime().value;
-        address = source.getEndTime().value;
+        start = source.getStartTime().toString();
+        address = source.getEndTime().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));

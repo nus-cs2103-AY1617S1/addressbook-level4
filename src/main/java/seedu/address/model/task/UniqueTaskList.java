@@ -78,24 +78,24 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(internalList.indexOf(toEdit), taskFound);
     }
     
-    public void editStartTime(ReadOnlyTask toEdit, String newTiming) throws TaskNotFoundException {
-        assert toEdit != null;
-        if(!internalList.contains(toEdit))
-            throw new TaskNotFoundException();
-        Task taskFound = internalList.get(internalList.indexOf(toEdit));
-        taskFound.getStartTime().setStartTime(newTiming);
-        internalList.set(internalList.indexOf(toEdit), taskFound);
-    }
-    
-    public void editEndTime(ReadOnlyTask toEdit, String newTiming) throws TaskNotFoundException {
-        assert toEdit != null;
-        if(!internalList.contains(toEdit))
-            throw new TaskNotFoundException();
-        Task taskFound = internalList.get(internalList.indexOf(toEdit));
-        taskFound.getEndTime().setEndTime(newTiming);
-        internalList.set(internalList.indexOf(toEdit), taskFound);
-    }
-    
+//    public void editStartTime(ReadOnlyTask toEdit, String newTiming) throws TaskNotFoundException {
+//        assert toEdit != null;
+//        if(!internalList.contains(toEdit))
+//            throw new TaskNotFoundException();
+//        Task taskFound = internalList.get(internalList.indexOf(toEdit));
+//        taskFound.getStartTime().setStartTime(newTiming);
+//        internalList.set(internalList.indexOf(toEdit), taskFound);
+//    }
+//    
+//    public void editEndTime(ReadOnlyTask toEdit, String newTiming) throws TaskNotFoundException {
+//        assert toEdit != null;
+//        if(!internalList.contains(toEdit))
+//            throw new TaskNotFoundException();
+//        Task taskFound = internalList.get(internalList.indexOf(toEdit));
+//        taskFound.getEndTime().setEndTime(newTiming);
+//        internalList.set(internalList.indexOf(toEdit), taskFound);
+//    }
+//    
     
     /**
      * Removes the equivalent task from the list.

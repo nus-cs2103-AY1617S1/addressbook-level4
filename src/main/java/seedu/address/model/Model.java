@@ -24,7 +24,7 @@ public interface Model {
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
     /** Edits the given task */
-    void editTask(ReadOnlyTask target, String targetProperty, String newInfo) throws UniqueTaskList.TaskNotFoundException;
+//    void editTask(ReadOnlyTask target, String targetProperty, String newInfo) throws UniqueTaskList.TaskNotFoundException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

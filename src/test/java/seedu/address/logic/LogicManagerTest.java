@@ -167,7 +167,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name d/not_numbers s/5:00pm e/5:00am", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/01/01/10 s/notAnStartTime e/5:00pm", StartTime.MESSAGE_START_CONSTRAINTS);
+                "add Valid Name d/01/01/10 s/notAnStartTime e/5:00pm", StartTime.MESSAGE_START_TIME_CONSTRAINTS);
 //        assertCommandBehavior(
 //                "add Valid Name d/01/01/10 s/5:00pm a/5:00am e/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
