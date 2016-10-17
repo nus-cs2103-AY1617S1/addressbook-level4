@@ -2,7 +2,11 @@ package teamfour.tasc.logic.commands;
 
 import java.io.IOException;
 
+
 import teamfour.tasc.MainApp;
+import teamfour.tasc.commons.events.model.TaskListChangedEvent;
+import teamfour.tasc.commons.exceptions.DataConversionException;
+import teamfour.tasc.commons.core.EventsCenter;
 
 /**
  * Switches to a new tasklist.
@@ -36,10 +40,10 @@ public class SwitchlistCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            MainApp.switchListTo(this.filename);
+            EventsCenter.getInstance().post(new TaskListChangedEvent(MainApp.switchListTo(this.filename)));
             return new CommandResult(String.format(MESSAGE_SUCCESS, 
                     filename));
-        } catch (IOException e) {
+        } catch (IOException | DataConversionException e) {
             return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
         }
     }

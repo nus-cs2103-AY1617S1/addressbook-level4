@@ -10,6 +10,7 @@ import teamfour.tasc.commons.core.Config;
 import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.core.Version;
+import teamfour.tasc.commons.events.storage.FileRelocateEvent;
 import teamfour.tasc.commons.events.ui.ExitAppRequestEvent;
 import teamfour.tasc.commons.exceptions.DataConversionException;
 import teamfour.tasc.commons.util.ConfigUtil;
@@ -73,7 +74,7 @@ public class MainApp extends Application {
         initEventsCenter();
     }
     
-    public static void setDataStorageFilePath(String newPath) throws IOException, JAXBException {
+    public static void setDataStorageFilePath(String newPath) throws IOException, JAXBException, DataConversionException {
         newTaskListFilePath = newPath;
         config.changeTaskListFilePath(newTaskListFilePath);
         storage.changeTaskListStorage(config.getTaskListFilePathAndName());
@@ -83,9 +84,9 @@ public class MainApp extends Application {
         return newTaskListFilePath;
     }
     
-    public static void switchListTo(String tasklistFileName) throws IOException {
+    public static ReadOnlyTaskList switchListTo(String tasklistFileName) throws IOException, DataConversionException {
         config.switchToNewTaskList(tasklistFileName);
-        storage.changeTaskListStorage(config.getTaskListFilePathAndName());
+        return storage.changeTaskListStorage(config.getTaskListFilePathAndName());
     }
 
     private String getApplicationParameter(String parameterName){
@@ -93,7 +94,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    private static Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyTaskList> taskListOptional;
         ReadOnlyTaskList initialData;
         try {
@@ -203,6 +204,11 @@ public class MainApp extends Application {
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        this.stop();
+    }
+    
+    @Subscribe
+    public void handleFileRelocateEvent(FileRelocateEvent event) {
         this.stop();
     }
 

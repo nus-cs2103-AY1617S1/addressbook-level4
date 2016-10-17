@@ -37,5 +37,5 @@ public interface Storage extends TaskListStorage, UserPrefsStorage {
      */
     void handleTaskListChangedEvent(TaskListChangedEvent tlce);
     
-    public void changeTaskListStorage(String newTaskListFilePath);
+    public ReadOnlyTaskList changeTaskListStorage(String newTaskListFilePath) throws FileNotFoundException, DataConversionException;
 }

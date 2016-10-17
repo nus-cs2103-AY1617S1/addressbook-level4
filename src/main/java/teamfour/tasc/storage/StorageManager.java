@@ -48,8 +48,9 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ TaskList methods ==============================
 
     @Override
-    public void changeTaskListStorage(String newTaskListFilePath) {
+    public ReadOnlyTaskList changeTaskListStorage(String newTaskListFilePath) throws FileNotFoundException, DataConversionException {
         this.taskListStorage = new XmlTaskListStorage(newTaskListFilePath);
+        return readTaskList().get();
     }
     
     @Override

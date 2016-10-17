@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.xml.bind.JAXBException;
 
 import teamfour.tasc.MainApp;
+import teamfour.tasc.commons.exceptions.DataConversionException;
 
 /**
  * Moves the data storage file to a new directory.
@@ -54,7 +55,7 @@ public class RelocateCommand extends Command {
             undoable = true;
             return new CommandResult(String.format(MESSAGE_SUCCESS, 
                     destination));
-        } catch (IOException | JAXBException e) {
+        } catch (IOException | JAXBException | DataConversionException e) {
             return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
         }
     }
@@ -71,7 +72,7 @@ public class RelocateCommand extends Command {
             MainApp.setDataStorageFilePath(originalDestination);
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, 
                     originalDestination));
-        } catch (IOException | JAXBException e) {
+        } catch (IOException | JAXBException | DataConversionException e) {
             return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
         }
     }
