@@ -154,7 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList() {
-        return new UnmodifiableObservableList<>(filteredSchedules);
+    	return new UnmodifiableObservableList<>(filteredSchedules);
     }
     
     @Override
