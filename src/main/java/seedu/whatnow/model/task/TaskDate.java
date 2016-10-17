@@ -31,7 +31,7 @@ public class TaskDate {
 	public static final String DATE_ALPHA_WHITESPACE_WITHOUT_YEAR_FORMAT = "dd MMMM";	
 
 	
-	public String fullDate;	//Is the full date that will be used and stored
+	private String fullDate;	//Is the full date that will be used and stored
 
 	/*
 	 * Validates given date

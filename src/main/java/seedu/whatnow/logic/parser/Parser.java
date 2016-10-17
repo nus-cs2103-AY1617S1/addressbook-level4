@@ -97,6 +97,12 @@ public class Parser {
 
 		case UpdateCommand.COMMAND_WORD:
 			return prepareUpdate(arguments);
+		
+		case ChangeCommand.COMMAND_WORD:
+			return prepareChange(arguments);
+		
+		case MarkDoneCommand.COMMAND_WORD:
+			return prepareMarkDone(arguments);
 
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

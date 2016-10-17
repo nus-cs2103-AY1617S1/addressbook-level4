@@ -42,8 +42,15 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
+        System.out.println("Task: " + task);
         if(task.getTaskDate() != null){
-        	taskDate.setText(task.getTaskDate().fullDate);
+        	System.out.println();
+        	System.out.println("Entered here: " + task.getTaskDate().getDate());
+        	taskDate.setText(task.getTaskDate().getDate());
+        }
+        else if(task.getTaskDate() == null) {
+        	taskDate.setText("");
+        	System.out.println("task.getTaskDate is null");
         }
         tags.setText(task.tagsString());
         if (task.getStatus().equals("incomplete")) {

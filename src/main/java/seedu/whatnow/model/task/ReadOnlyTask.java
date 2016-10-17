@@ -15,6 +15,8 @@ public interface ReadOnlyTask {
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
+    
+    TaskDate getTaskDate();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -56,7 +58,4 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
-	TaskDate getTaskDate();
-
 }
