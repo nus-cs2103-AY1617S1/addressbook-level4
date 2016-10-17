@@ -129,7 +129,25 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    //=========== Filtered Archived List Accessors ===============================================================
+    //=========== Filtered List Accessors ===============================================================
+    //@@author A0124797R
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getFloatingTasks());
+    }
+
+    //@@author A0124797R
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
+        return new UnmodifiableObservableList<>(taskManager.getEvents());
+    }
+
+    //@@author A0124797R
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
+        return new UnmodifiableObservableList<>(taskManager.getDeadlines());
+    }
+    
     //@@author A0124797R
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList() {

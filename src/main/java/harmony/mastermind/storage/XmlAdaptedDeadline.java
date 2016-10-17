@@ -15,27 +15,30 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedTask {
+//@@author A0124797R
+public class XmlAdaptedDeadline {
 
     @XmlElement(required = true)
     private String name;
+    @XmlElement(required = true)
+    private Date endDate;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
+    public XmlAdaptedDeadline() {}
 
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedTask
+     * @param source future changes to this will not affect the created XmlAdaptedDeadline
      */
-    //@@author A0138862W
-    public XmlAdaptedTask(ReadOnlyTask source) {
+    public XmlAdaptedDeadline(ReadOnlyTask source) {
         name = source.getName();
+        endDate = source.getEndDate();
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -44,9 +47,9 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted deadline object into the model's Task object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted task
+     * @throws IllegalValueException if there were any data constraints violated in the adapted deadline
      */
     public Task toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
@@ -55,8 +58,9 @@ public class XmlAdaptedTask {
         }
         
         final String name = this.name;
+        final Date endDate = this.endDate;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, tags);
+        return new Task(name, endDate, tags);
     }
 }

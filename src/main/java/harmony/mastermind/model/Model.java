@@ -52,6 +52,18 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
     //@@author A0124797R
+    /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
+    
+    //@@author A0124797R
+    /** Returns the filtered event list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList();
+    
+    //@@author A0124797R
+    /** Returns the filtered deadline list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList();
+    
+    //@@author A0124797R
     /** Returns the filtered archive list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList();
 

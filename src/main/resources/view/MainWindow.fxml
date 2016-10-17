@@ -64,56 +64,91 @@
                      <center>
                         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                           <tabs>
-                            <Tab text="Home">
+                              <Tab text="Home">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
                                           <TableView fx:id="taskTableHome" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
-                                                <TableColumn fx:id="indexHome" prefWidth="43.0" resizable="false" text="#" />
-                                              	<TableColumn fx:id="taskNameHome" prefWidth="368.0" text="Task Name" />
-                                                <TableColumn fx:id="startDateHome" prefWidth="171.0" text="Start Date" />
-                                                <TableColumn fx:id="endDateHome" prefWidth="140.0" text="End Date" />
-                                                <TableColumn fx:id="tagsHome" prefWidth="150.0" text="Tags" />
+                                                <TableColumn fx:id="indexHome" resizable="false" text="#" />
+                                              	<TableColumn fx:id="taskNameHome" text="Task Name" />
+                                                <TableColumn fx:id="startDateHome" text="Start Date" />
+                                                <TableColumn fx:id="endDateHome" text="End Date" />
+                                                <TableColumn fx:id="tagsHome" text="Tags" />
                                             </columns>
                                           </TableView>
                                        </children>
                                     </AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Tasks">
+                              <Tab text="Tasks">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView fx:id="taskTableTask" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                                <TableColumn fx:id="indexTask" resizable="false" text="#" />
+                                              	<TableColumn fx:id="taskNameTask" text="Task Name" />
+                                                <TableColumn fx:id="startDateTask" text="Start Date" />
+                                                <TableColumn fx:id="endDateTask" text="End Date" />
+                                                <TableColumn fx:id="tagsTask" text="Tags" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
                                     </AnchorPane>
                               </content>
                             </Tab>
                               <Tab text="Events">
-                                <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                </content>
-                              </Tab>
-                              <Tab text="Deadlines">
-                                <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                </content>
-                              </Tab>
-                              <Tab text="Archive">
-                                <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="taskTableArchive" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <TableView fx:id="taskTableEvent" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
-                                                <TableColumn fx:id="indexArchive" prefWidth="43.0" resizable="false" text="#" />
-                                              	<TableColumn fx:id="taskNameArchive" prefWidth="368.0" text="Task Name" />
-                                                <TableColumn fx:id="startDateArchive" prefWidth="171.0" text="Start Date" />
-                                                <TableColumn fx:id="endDateArchive" prefWidth="140.0" text="End Date" />
-                                                <TableColumn fx:id="tagsArchive" prefWidth="150.0" text="Tags" />
+                                                <TableColumn fx:id="indexEvent" resizable="false" text="#" />
+                                              	<TableColumn fx:id="taskNameEvent" text="Task Name" />
+                                                <TableColumn fx:id="startDateEvent" text="Start Date" />
+                                                <TableColumn fx:id="endDateEvent" text="End Date" />
+                                                <TableColumn fx:id="tagsEvent" text="Tags" />
                                             </columns>
                                           </TableView>
                                        </children>
-                                  </AnchorPane>
-                                </content>
-                              </Tab>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="Deadlines">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView fx:id="taskTableDeadline" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                                <TableColumn fx:id="indexDeadline" resizable="false" text="#" />
+                                              	<TableColumn fx:id="taskNameDeadline" text="Task Name" />
+                                                <TableColumn fx:id="startDateDeadline" text="Start Date" />
+                                                <TableColumn fx:id="endDateDeadline" text="End Date" />
+                                                <TableColumn fx:id="tagsDeadline" text="Tags" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="Archives">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TableView fx:id="taskTableArchive" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                                <TableColumn fx:id="indexArchive" resizable="false" text="#" />
+                                              	<TableColumn fx:id="taskNameArchive" text="Task Name" />
+                                                <TableColumn fx:id="startDateArchive" text="Start Date" />
+                                                <TableColumn fx:id="endDateArchive" text="End Date" />
+                                                <TableColumn fx:id="tagsArchive" text="Tags" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
                           </tabs>
                         </TabPane>
                      </center>

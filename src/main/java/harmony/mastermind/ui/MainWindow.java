@@ -205,10 +205,10 @@ public class MainWindow extends UiPart {
         primaryStage.setScene(scene);
 
         taskTableHome.setItems(logic.getFilteredTaskList());
-//        taskTableTask.setItems(logic.getFilteredFloatingTaskList());
-//        taskTableEvent.setItems(logic.getFilteredEventList());
-//        taskTableDeadline.setItems(logic.getFilteredDeadlineList());
-//        taskTableArchive.setItems(logic.getFilteredArchiveList());
+        taskTableTask.setItems(logic.getFilteredFloatingTaskList());
+        taskTableEvent.setItems(logic.getFilteredEventList());
+        taskTableDeadline.setItems(logic.getFilteredDeadlineList());
+        taskTableArchive.setItems(logic.getFilteredArchiveList());
 
         registerAsAnEventHandler(this);
     }
@@ -262,9 +262,9 @@ public class MainWindow extends UiPart {
     //@@author A0124797R
     private void initialize() {
         initHomeTab();
-//        initTaskTab();
-//        initEventTab();
-//        initDeadlineTab();
+        initTaskTab();
+        initEventTab();
+        initDeadlineTab();
         initArchiveTab();
 
     }
@@ -292,7 +292,7 @@ public class MainWindow extends UiPart {
         initName(taskNameTask);
         initStartDate(startDateTask);
         initEndDate(endDateTask);
-        initTags(endDateTask);        
+        initTags(tagsTask);        
     }
     /**
      * Initialise the task in the Event tab 
@@ -304,7 +304,7 @@ public class MainWindow extends UiPart {
         initName(taskNameEvent);
         initStartDate(startDateEvent);
         initEndDate(endDateEvent);
-        initTags(endDateEvent);
+        initTags(tagsEvent);
     }
     /**
      * Initialise the task in the Deadline tab 
@@ -316,7 +316,7 @@ public class MainWindow extends UiPart {
         initName(taskNameDeadline);
         initStartDate(startDateDeadline);
         initEndDate(endDateDeadline);
-        initTags(endDateDeadline);        
+        initTags(tagsDeadline);        
     }
     /**
      * Initialise the task in the archive tab 
@@ -328,7 +328,7 @@ public class MainWindow extends UiPart {
         initName(taskNameArchive);
         initStartDate(startDateArchive);
         initEndDate(endDateArchive);
-        initTags(endDateArchive);      
+        initTags(tagsArchive);      
     }
     
 
