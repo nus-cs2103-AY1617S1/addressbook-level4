@@ -7,19 +7,16 @@ import java.util.List;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 public abstract class DateTime {
+    
+    private static final String DATE_FORMAT_TWO = "RELATIVE_DATE";
+    private static final String DATE_FORMAT_ONE = "EXPLICIT_DATE";
+    private static final int BASE_INDEX = 0;
     private static final int INTEGER_CONSTANT_ONE = 1;
 
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
-
-    private static final int INTEGER_CONSTANT_ZERO = 0;
-
-    private static final int BASE_INDEX = 0;
     
-    public static final String INVALID_START_DATE = "Invalid start date!\n";
-    public static final String INVALID_END_DATE = "Invalid end date!\n";
+    public static final String TIME = "EXPLICIT_TIME";
     public static final String MESSAGE_VALUE_CONSTRAINTS = "DATE_TIME format: "
             + "DATE must be in one of the formats: "
             + "\"13th Sep 2015\", \"02-08-2015\" (mm/dd/yyyy) \n"
@@ -27,38 +24,92 @@ public abstract class DateTime {
             + "\"7:30am\", \"19:30\"";
 
     /**
-     * Verifies whether the given String can be converted into a valid Date object
+     * Converts given String into a valid Date object
      * 
      * @return Date object converted from given String
-     * @throws IllegalValueException
-     *             if given String cannot be converted into a valid Date object
      */
-    public static Date verifyDate(String dateString, String errorMessage, boolean isStartDate)
-            throws IllegalValueException {
+    public static Date convertStringToStartDate(String dateString) {
         Date date;
         List<DateGroup> dates = new Parser().parse(dateString);
-        try {
-            date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
-            String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
-            
-            if (!syntaxTree.contains("EXPLICIT_TIME") && isStartDate) {
-                date = setTimeToStartOfDay(date);
-            }
-            if (!syntaxTree.contains("EXPLICIT_TIME") && !isStartDate) {
-                date = setTimeToEndOfDay(date);
-            }
-            //TODO: Should I not catch exception instead?
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw new IllegalValueException(errorMessage + MESSAGE_VALUE_CONSTRAINTS);
-        }
         
+        assert dates.get(BASE_INDEX) != null && dates.get(BASE_INDEX).getDates().get(BASE_INDEX) != null;
+        
+        date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
+        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
+            
+        if (!syntaxTree.contains(TIME)) {
+            date = setTimeToStartOfDay(date);
+        }
         return date;
     }
     
     /**
-     * Assigns start date given that the input string is a weekday
+     * Converts given String into a valid Date object
+     * 
+     * @return Date object converted from given String
      */
-    public static Date assignStartDate(String dateString) {
+    public static Date convertStringToEndDate(String endDateString, Date startDate) {
+        Date endDate;
+        List<DateGroup> dates = new Parser().parse(endDateString);
+        
+        assert dates.get(BASE_INDEX) != null && dates.get(BASE_INDEX).getDates().get(BASE_INDEX) != null;
+        
+        endDate = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
+        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
+
+        if (!syntaxTree.contains(TIME)) {
+            endDate = setTimeToEndOfDay(endDate);
+        }
+        
+        if (startDate != null && !syntaxTree.contains(DATE_FORMAT_ONE) && !syntaxTree.contains(DATE_FORMAT_TWO)) {
+            endDate = setDateToStartDate(endDate, startDate);
+        }
+        
+        return endDate;
+    }
+    
+    private static Date setDateToStartDate(Date endDate, Date startDate) {
+        Calendar calendarStartDate = Calendar.getInstance();
+        calendarStartDate.setTime(startDate);
+        int date = calendarStartDate.get(Calendar.DATE);
+        int month = calendarStartDate.get(Calendar.MONTH);
+        int year = calendarStartDate.get(Calendar.YEAR);
+        
+        Calendar calendarEndDate = Calendar.getInstance();
+        calendarEndDate.setTime(endDate);
+        calendarEndDate.set(Calendar.DATE, date);
+        calendarEndDate.set(Calendar.MONTH, month);
+        calendarEndDate.set(Calendar.YEAR, year);
+        
+        Date updatedDate = calendarEndDate.getTime();
+        return updatedDate;
+    }
+
+    //TODO: ??
+    /**
+     * Verifies if given String conforms to what was specified in User Guide e.g 
+     * "5pm tomorrow", "02/10/2016", "13 Sep"
+     */
+    public static boolean isValidDate(String dateString) {
+        List<DateGroup> dates = new Parser().parse(dateString.trim());
+        try {
+            dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
+            int parsePosition = dates.get(BASE_INDEX).getPosition();
+            String matchingValue = dates.get(BASE_INDEX).getText();
+            
+            if (parsePosition > INTEGER_CONSTANT_ONE || !matchingValue.equals(dateString)) {
+                return false;
+            }
+        } catch (IndexOutOfBoundsException ioobe) {
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Assigns start date to a specified weekday
+     */
+    public static Date assignStartDateToSpecifiedWeekday(String dateString) {
         assert dateString.toLowerCase().equals("monday") || dateString.toLowerCase().equals("tuesday") ||
         dateString.toLowerCase().equals("wednesday") || dateString.toLowerCase().equals("thursday") || 
         dateString.toLowerCase().equals("friday") || dateString.toLowerCase().equals("saturday") || 
@@ -73,27 +124,7 @@ public abstract class DateTime {
         return date;
     }
     
-    //TODO: ??
-    /**
-     * Verifies if given String conforms to what was specified in User Guide e.g 
-     * "5pm tomorrow", "02/10/2016", "13 Sep"
-     */
-    public static boolean isStringValidDate(String dateString) {
-        List<DateGroup> dates = new Parser().parse(dateString);
-        try {
-            dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
-            int parsePosition = dates.get(BASE_INDEX).getPosition();
-            System.out.println(parsePosition);
-            
-            if (parsePosition > INTEGER_CONSTANT_ONE) {
-                return false;
-            }
-        } catch (IndexOutOfBoundsException ioobe) {
-            return false;
-        }
-        
-        return true;
-    }
+
 
     /**
      * Sets time of Date object to start of the day i.e "00:00:00"
@@ -230,7 +261,7 @@ public abstract class DateTime {
     }
     
     private static void updateDateByRate(Calendar calendar, int rate) {
-        if (rate - INTEGER_CONSTANT_ONE > INTEGER_CONSTANT_ZERO) {
+        if (rate > INTEGER_CONSTANT_ONE) {
             calendar.add(Calendar.DATE, (rate - INTEGER_CONSTANT_ONE) * NUMBER_OF_DAYS_IN_A_WEEK);
         }
     }
