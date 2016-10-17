@@ -2,6 +2,8 @@ package seedu.task.logic.parser;
 
 import java.util.*;
 
+import seedu.task.commons.core.Messages;
+
 /**
  * Tokenizes arguments string of the form:
  * {@code preamble <prefix>value <prefix>value ...}<br>
@@ -118,7 +120,7 @@ public class ArgumentTokenizer {
 		if (prefix.isOptional && !valuesForPrexix.isPresent()) {
 			return null;
 		} else if(!prefix.isOptional && !valuesForPrexix.isPresent()){
-			throw new NoValueForRequiredTagException("No value for required prefix: "+prefix.getPrefix());
+			throw new NoValueForRequiredTagException(String.format(Messages.MESSAGE_NO_VALUE_FOR_REQUIRED_PREFIX, prefix.getPrefix()));
 		}
 		else {
 			return valuesForPrexix.get().trim();
