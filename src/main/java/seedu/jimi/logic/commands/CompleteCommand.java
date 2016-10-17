@@ -24,6 +24,10 @@ public class CompleteCommand extends Command{
 
     public final int targetIndex;
     
+    public CompleteCommand(){
+        this.targetIndex = 0;
+    }
+    
     public CompleteCommand(int targetIndex){
         this.targetIndex = targetIndex;
     }
@@ -42,6 +46,16 @@ public class CompleteCommand extends Command{
         model.completeTask(taskToComplete, true);
         
         return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));
+    }
+
+    @Override
+    public boolean isValidCommandWord(String commandWord) {
+        for (int i = 1; i <= COMMAND_WORD.length(); i++) {
+            if (commandWord.equals(COMMAND_WORD.substring(0, i))) {
+                return true;
+            }
+        }
+        return false;
     }
     
 }
