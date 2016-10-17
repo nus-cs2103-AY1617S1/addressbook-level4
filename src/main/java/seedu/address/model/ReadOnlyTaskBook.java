@@ -14,13 +14,17 @@ import java.util.List;
 public interface ReadOnlyTaskBook {
 
     UniqueTagList getUniqueTagList();
-
     UniqueTaskList getUniquePersonList();
-
+    UniqueTaskList getUniqueDeadlineList();
+    UniqueTaskList getUniqueTodoList();
     /**
      * Returns an unmodifiable view of persons list
      */
     List<ReadOnlyTask> getPersonList();
+    
+    List<ReadOnlyTask> getDeadlineList();
+
+    List<ReadOnlyTask> getTodoList();
 
     /**
      * Returns an unmodifiable view of tags list

@@ -27,12 +27,16 @@ public interface Model {
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
-
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList();
+    
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
+    void updateFilteredDeadlineList(Set<String> keywords);
+    void updateFilteredTodoList(Set<String> keywords);
 
     /** Edits the given person 
      * @throws IllegalValueException 

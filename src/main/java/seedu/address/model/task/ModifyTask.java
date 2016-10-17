@@ -6,5 +6,6 @@ public interface ModifyTask {
     void setDate(Date date );
     void setStart(Start start);
     void setEnd(End end);
+    void setTaskCategory(int taskCat);
 
 }

@@ -15,40 +15,44 @@ public class Task implements ReadOnlyTask, ModifyTask {
     private Date date;
     private Start start;
     private End end;
+    private int taskCategory;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Date date, Start start, End end, UniqueTagList tags) {
+    public Task(Name name, Date date, Start start, End end, int taskCategory, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, date, start, end, tags);
         this.name = name;
         this.date = date;
         this.start = start;
         this.end = end;
+        this.taskCategory = taskCategory;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
     /**
      * Copy constructor for todo.
      */    
-    public Task(Name name, UniqueTagList tags) {
+    public Task(Name name, int taskCategory, UniqueTagList tags) {
         this.name = name;
         this.date = null;
         this.start = null;
         this.end = null;
+        this.taskCategory = taskCategory;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
     /**
      * Copy constructor for deadline.
      */    
-    public Task(Name name, Date date, End end, UniqueTagList tags) {
+    public Task(Name name, Date date, End end, int taskCategory, UniqueTagList tags) {
         this.name = name;
         this.date = date;
         this.start = null;
         this.end = end;
+        this.taskCategory = taskCategory;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -57,7 +61,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getStart(), source.getEnd(), source.getTags());
+        this(source.getName(), source.getDate(), source.getStart(), source.getEnd(), source.getTaskCategory(), source.getTags());
     }
 
     @Override
@@ -78,6 +82,11 @@ public class Task implements ReadOnlyTask, ModifyTask {
     @Override
     public End getEnd() {
         return end;
+    }
+    
+    @Override
+    public int getTaskCategory(){
+    	return taskCategory;
     }
 
     @Override
@@ -109,6 +118,10 @@ public class Task implements ReadOnlyTask, ModifyTask {
         this.end = end;
     }
 
+    @Override
+    public void setTaskCategory(int taskCat) {
+    	this.taskCategory = taskCat;
+    }
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */

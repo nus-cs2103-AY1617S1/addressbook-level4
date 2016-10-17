@@ -12,7 +12,7 @@ public interface ReadOnlyTask {
     Date getDate();
     Start getStart();
     End getEnd();
-
+    int getTaskCategory();
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -28,7 +28,8 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getDate().equals(this.getDate())
                 && other.getStart().equals(this.getStart())
-                && other.getEnd().equals(this.getEnd()));
+                && other.getEnd().equals(this.getEnd())
+                && (other.getTaskCategory() == this.getTaskCategory()));
     }
 
     /**

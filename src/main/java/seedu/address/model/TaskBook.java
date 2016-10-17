@@ -27,10 +27,14 @@ import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 public class TaskBook implements ReadOnlyTaskBook {
 
     private final UniqueTaskList persons;
+    private UniqueTaskList deadlines;
+    private UniqueTaskList todo;
     private final UniqueTagList tags;
 
     {
         persons = new UniqueTaskList();
+        deadlines = new UniqueTaskList();
+        todo = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
@@ -40,14 +44,14 @@ public class TaskBook implements ReadOnlyTaskBook {
      * Persons and Tags are copied into this addressbook
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueDeadlineList(), toBeCopied.getUniqueTodoList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public TaskBook(UniqueTaskList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public TaskBook(UniqueTaskList persons, UniqueTaskList deadlines, UniqueTaskList todo, UniqueTagList tags) {
+        resetData(persons.getInternalList(), deadlines.getInternalList(), todo.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyTaskBook getEmptyAddressBook() {
@@ -60,21 +64,40 @@ public class TaskBook implements ReadOnlyTaskBook {
         return persons.getInternalList();
     }
 
+    public ObservableList<Task> getDeadlines() {
+        return deadlines.getInternalList();
+    }
+
+    public ObservableList<Task> getTodo() {
+        return todo.getInternalList();
+    }
+    
     public void setPersons(List<Task> persons) {
         this.persons.getInternalList().setAll(persons);
+    }
+
+    public void setDeadlines(List<Task> deadlines) {
+        this.deadlines.getInternalList().setAll(deadlines);
+    }
+
+    public void setTodo(List<Task> todo) {
+        this.todo.getInternalList().setAll(todo);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<? extends ReadOnlyTask> newDeadlines,
+    					  Collection<? extends ReadOnlyTask> newTodo, Collection<Tag> newTags) {
         setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+        setPersons(newDeadlines.stream().map(Task::new).collect(Collectors.toList()));
+        setPersons(newTodo.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskBook newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getPersonList(), newData.getDeadlineList(), newData.getTodoList(), newData.getTagList());
     }
 
 //// person-level operations
@@ -88,7 +111,12 @@ public class TaskBook implements ReadOnlyTaskBook {
      */
     public void addPerson(Task p) throws UniqueTaskList.DuplicatePersonException {
         syncTagsWithMasterList(p);
-        persons.add(p);
+        if (p.getTaskCategory() == 1)
+        	persons.add(p);
+        else if (p.getTaskCategory() == 2)
+        	deadlines.add(p);
+        else
+        	todo.add(p);
     }
 
     /**
@@ -121,15 +149,22 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.PersonNotFoundException();
         }
     }
-    
-    /*public boolean editPerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
-        if (persons.edit(key)) {
+
+    public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+        if (deadlines.remove(key)) {
             return true;
         } else {
             throw new UniqueTaskList.PersonNotFoundException();
         }
-        
-    }*/
+    }
+    
+    public boolean removeTodo(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+        if (todo.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.PersonNotFoundException();
+        }
+    }
     
     public boolean changePerson(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
@@ -138,12 +173,28 @@ public class TaskBook implements ReadOnlyTaskBook {
             return true;
         } else {
             throw new UniqueTaskList.PersonNotFoundException();
-        }
-            
-            
-        
+        }        
     }
 
+    public boolean changeDeadline(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException {
+        // TODO Auto-generated method stub
+        //System.out.println("dummy");
+        if (deadlines.edit(target, args)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.PersonNotFoundException();
+        }        
+    }
+    
+    public boolean changeTodo(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException {
+        // TODO Auto-generated method stub
+        //System.out.println("dummy");
+        if (todo.edit(target, args)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.PersonNotFoundException();
+        }        
+    }
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
@@ -158,9 +209,27 @@ public class TaskBook implements ReadOnlyTaskBook {
         // TODO: refine later
     }
 
+    public String toStringDeadlines() {
+        return deadlines.getInternalList().size() + " deadlines, " + tags.getInternalList().size() +  " tags";
+        // TODO: refine later
+    }
+
+    public String toStringTodo() {
+        return todo.getInternalList().size() + " todo, " + tags.getInternalList().size() +  " tags";
+        // TODO: refine later
+    }
+
     @Override
     public List<ReadOnlyTask> getPersonList() {
         return Collections.unmodifiableList(persons.getInternalList());
+    }
+
+    public List<ReadOnlyTask> getDeadlineList() {
+        return Collections.unmodifiableList(deadlines.getInternalList());
+    }
+
+    public List<ReadOnlyTask> getTodoList() {
+        return Collections.unmodifiableList(todo.getInternalList());
     }
 
     @Override
@@ -171,6 +240,14 @@ public class TaskBook implements ReadOnlyTaskBook {
     @Override
     public UniqueTaskList getUniquePersonList() {
         return this.persons;
+    }
+
+    public UniqueTaskList getUniqueDeadlineList() {
+        return this.deadlines;
+    }
+
+    public UniqueTaskList getUniqueTodoList() {
+        return this.todo;
     }
 
     @Override

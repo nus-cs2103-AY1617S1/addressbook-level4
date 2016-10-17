@@ -6,10 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
 
-public class PersonCard extends UiPart{
-
-    private static final String FXML = "PersonListCard.fxml";
-
+public class TodoCard extends UiPart {
+    
+    private static final String FXML = "TodoListCard.fxml";
+    
     @FXML
     private HBox cardPane;
     @FXML
@@ -24,29 +24,29 @@ public class PersonCard extends UiPart{
     private Label email;
     @FXML
     private Label tags;
-
-    private ReadOnlyTask person;
+    
+    private ReadOnlyTask todo;
     private int displayedIndex;
-
-    public PersonCard(){
-
+    
+    public TodoCard() {
+        
     }
-
-    public static PersonCard load(ReadOnlyTask person, int displayedIndex){
-        PersonCard card = new PersonCard();
-        card.person = person;
+    
+    public static TodoCard load(ReadOnlyTask todo, int displayedIndex) {
+        TodoCard card = new TodoCard();
+        card.todo = todo;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
-
+    
     @FXML
     public void initialize() {
-        name.setText(person.getName().taskDetails);
+        name.setText(todo.getName().taskDetails);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getDate().value);
-        address.setText(person.getStart().value);
-        email.setText(person.getEnd().value);
-        tags.setText(person.tagsString());
+        phone.setText(todo.getDate().value);
+        address.setText(todo.getStart().value);
+        email.setText(todo.getEnd().value);
+        tags.setText(todo.tagsString());
     }
 
     public HBox getLayout() {

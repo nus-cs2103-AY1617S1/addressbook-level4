@@ -33,8 +33,8 @@ public class MainWindow extends UiPart {
 =======
     
     
-    //private DeadlineListPanel deadlineListPanel;
-    //private TodoListPanel todoListPanel; 
+    private DeadlineListPanel deadlineListPanel;
+    private TodoListPanel todoListPanel; 
      
     
 >>>>>>> c4a7d1cc83574791cb03126171176ffe43645d8d
@@ -135,8 +135,8 @@ public class MainWindow extends UiPart {
         //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         
-        //deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredPersonList());
-        //todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredPersonList());
+        deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredDeadlineList());
+        todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredTodoList());
     }
 
     private AnchorPane getDeadlineListPlaceHolder() {
@@ -218,13 +218,13 @@ public class MainWindow extends UiPart {
         return this.personListPanel;
     }
     
-    //public DeadlineListPanel getDeadlineListPanel() {
-    //    return this.deadlineListPanel;
-    //}
+    public DeadlineListPanel getDeadlineListPanel() {
+        return this.deadlineListPanel;
+    }
     
-   // public TodoListPanel getTodoListPanel() {
-    //    return this.todoListPanel;
-    //}
+    public TodoListPanel getTodoListPanel() {
+        return this.todoListPanel;
+    }
 
     public void loadPersonPage(ReadOnlyTask person) {
         browserPanel.loadPersonPage(person);
