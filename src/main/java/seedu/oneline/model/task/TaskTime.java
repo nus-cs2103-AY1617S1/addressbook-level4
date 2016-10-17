@@ -15,7 +15,7 @@ public class TaskTime implements Comparable<TaskTime> {
 
     public static final String MESSAGE_TASK_TIME_CONSTRAINTS =
             "Task time should have a valid date or time format";
-
+    
     private final Calendar timeOfCreation;
     private final Calendar valueCalendar;
     private final Date value;
@@ -61,13 +61,6 @@ public class TaskTime implements Comparable<TaskTime> {
         }
         
         Date date = dates.get(0).getDates().get(0);
-        
-        // do correction for the date if the date has already passed
-        if (dateHasPassed(date)){
-            Calendar cal = DateUtils.toCalendar(date);
-            cal.add(Calendar.YEAR, 1);
-            date = cal.getTime();
-        }
         
         return date;
     }

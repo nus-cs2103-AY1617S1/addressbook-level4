@@ -3,7 +3,6 @@ package seedu.oneline.model.task;
 
 import static org.junit.Assert.*;
 
-import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -124,22 +123,17 @@ public class TaskTimeTest {
         String[] validFormats = new String[]{
                 "5 October",
                 "5 Oct",
-                "10/5"};
+                "10/5",
+                "5 ocT"};
         try {
             for (String t : validFormats){
-                Calendar fifthOct = Calendar.getInstance();
-                fifthOct.set(thisYear, Calendar.OCTOBER, 5);
-                
-                
                 TaskTime tTime = new TaskTime(t);
                 Calendar tCal = DateUtils.toCalendar(tTime.getDate());
                 assertTrue(tCal.get(Calendar.DAY_OF_MONTH) == 5);
                 assertTrue(tCal.get(Calendar.MONTH) == Calendar.OCTOBER);
                 
                 // checks if date refers to previous year if day has passed
-                assertTrue(now.compareTo(fifthOct) > 0 ? 
-                        tCal.get(Calendar.YEAR) == thisYear + 1 : 
-                            tCal.get(Calendar.YEAR) == thisYear);
+                assertTrue(tCal.get(Calendar.YEAR) == thisYear);
             }
         } catch (Exception e) {
             assert false;
@@ -148,7 +142,7 @@ public class TaskTimeTest {
 
     /**
      * Tests whether inputting a date and month that has passed will result
-     * in next year's value in TaskTime object
+     * in current year's value in task time object
      */
     @Test
     public void constructor_dateMonthPast_setsCorrectYear() {
@@ -159,7 +153,7 @@ public class TaskTimeTest {
         try {
             TaskTime tTime = new TaskTime(yesterdayString);
             Calendar tCal = DateUtils.toCalendar(tTime.getDate());
-            assertTrue(tCal.get(Calendar.YEAR) == yesterday.get(Calendar.YEAR) + 1);
+            assertTrue(tCal.get(Calendar.YEAR) == now.get(Calendar.YEAR));
         } catch (Exception e) {
             assert false;
         }
@@ -256,8 +250,10 @@ public class TaskTimeTest {
         Calendar nightOfd1 = (Calendar) d1.clone();
         nightOfd1.set(Calendar.HOUR, 23);
         nightOfd1.set(Calendar.MINUTE, 59);
-        Calendar sevenDaysAfterd1 = (Calendar) d1.clone();
-        sevenDaysAfterd1.add(Calendar.DAY_OF_MONTH, 8);
+        Calendar sevenDaysAfterd1 = (Calendar) nightOfd1.clone();
+        sevenDaysAfterd1.add(Calendar.DAY_OF_MONTH, 7);
         return nightOfd1.before(d2) && d2.before(sevenDaysAfterd1);
     }
+    
+    
 }
