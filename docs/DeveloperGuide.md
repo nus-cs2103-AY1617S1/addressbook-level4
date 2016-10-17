@@ -343,3 +343,8 @@ Wunderlist : SWOT
 > Wunderlist is a web and mobile application that allows user to keep track of their tasks. It has a very nice UI where user can change the background image of the application. Wunderlist also allows users to categorise their tasks into different groups which helps with organisation. Furthermore the application will hide all completed tasks by default from the users so the users will only see those that remain to be done.
 
 > Wunderlist is a great application but one issue is that it does not allot tasks to belong to more than one categories. Another problem is that wunderlist as the name suggest, only allows users to view their tasks in a linear list format.
+
+Todoist : SWOT
+> Todoist is a cross platform task management application, with access to over 10 different platforms and the ability to collaborate on tasks. There are also multiple categories to choose from to tag tasks for, and with a daily streak, it encourages people to keep up the habit of clearing existing tasks that have been taken down. With Karma Mode, it allows also for users to rack up enough tasks during the week and have 'off days' where they do not have to continuously do tasks to keep their streak up.
+
+> One flaw with Todoist is that the projects, while doing a great job of categorising tasks, do not possess subproject hierarchy and thus would make complex projects hard to split downwards in an orderly fashion.
