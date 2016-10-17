@@ -134,8 +134,7 @@ public class TaskCard extends UiPart{
         } else if (isOverdue) {
             FxViewUtil.addClassStyle(taskCard, STYLE_OVERDUE);
         }
-        
-        //styleClasses .add(STYLE_COLLAPSED); TODO: Disabled until implemented
+        FxViewUtil.addClassStyle(taskCard, STYLE_COLLAPSED);
     }
     
     /**
@@ -158,5 +157,12 @@ public class TaskCard extends UiPart{
         }
         
         dateLabel.setText(displayTimingOutput);
+    }
+
+    /**
+     * Toggles the task card's collapsed or expanded state.
+     */
+    public void toggleCardCollapsing() {
+        FxViewUtil.toggleClassStyle(taskCard, STYLE_COLLAPSED);
     }
 }
