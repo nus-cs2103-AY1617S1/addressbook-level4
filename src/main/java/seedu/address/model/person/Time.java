@@ -41,29 +41,33 @@ public class Time {
      * @throws IllegalValueException if given time string is invalid.
      */
     public Time(List<java.util.Date> dateList) throws IllegalValueException {
-        String value = "";
+    	String [] timeStrings = new String [2];
     	for (int i = 0; i < dateList.size(); i++){
         	java.util.Date date = dateList.get(i);
-        	String dateString = date.getDay() + "." + date.getMonth() + "." + date.getYear();
-        	    	
-        	value += dateString + " ";
+        	timeStrings[i] = date.getDate() + "." + (date.getMonth() + 1) + "." + (date.getYear() + 1900);
         	
-        	if (!isValidTime(dateString)) {
+        	if (!isValidTime(timeStrings[i])) {
                 throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
             }
         }
-    	
-    	this.value = value;
         
         if (dateList.size() == 1){
+        	this.value = timeStrings[0];
         	startTime = dateList.get(0);
         	endTime = null;
         }
         else if (dateList.size() == 2){
+        	if (timeStrings[0].equals(timeStrings[1])){
+        		this.value = timeStrings[0];
+        	}
+        	else {
+        		this.value = timeStrings[0] + " to " + timeStrings[1];
+        	}
         	startTime = dateList.get(0);
         	endTime = dateList.get(1);
         }
         else {
+        	this.value = "";
         	startTime = null;
         	endTime = null;
         }

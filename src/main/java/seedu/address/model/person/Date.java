@@ -12,12 +12,12 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Date should be in DD.MM.YY format";
+            "Date should be in DD-MM-YYYY format";
     public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])"
                                                         + "\\."
                                                         + "(0?[1-9]|1[012])"
                                                         + "\\."
-                                                        + "\\d{2}";
+                                                        + "\\d{4}";
 
     public final String value;
     public final java.util.Date startDate;
@@ -48,29 +48,33 @@ public class Date {
      * @throws IllegalValueException if given date(s) are invalid.
      */
     public Date(List<java.util.Date> dateList) throws IllegalValueException {
-        String value = "";
+    	String [] dateStrings = new String [2];
     	for (int i = 0; i < dateList.size(); i++){
         	java.util.Date date = dateList.get(i);
-        	String dateString = date.getDay() + "." + date.getMonth() + "." + date.getYear();
-        	    	
-        	value += dateString + " ";
+        	dateStrings[i] = date.getDate() + "." + (date.getMonth() + 1) + "." + (date.getYear() + 1900);
         	
-        	if (!isValidDate(dateString)) {
+        	if (!isValidDate(dateStrings[i])) {
                 throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
             }
         }
-    	
-    	this.value = value;
         
         if (dateList.size() == 1){
+        	this.value = dateStrings[0];
         	startDate = dateList.get(0);
         	endDate = null;
         }
         else if (dateList.size() == 2){
+        	if (dateStrings[0].equals(dateStrings[1])){
+        		this.value = dateStrings[0];
+        	}
+        	else {
+        		this.value = dateStrings[0] + " to " + dateStrings[1];
+        	}
         	startDate = dateList.get(0);
         	endDate = dateList.get(1);
         }
         else {
+        	this.value = "";
         	startDate = null;
         	endDate = null;
         }
