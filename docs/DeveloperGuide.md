@@ -241,7 +241,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Tarydepends on the
+A project often depends on third-party libraries. For example, Tary depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -254,19 +254,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task with a description |
-`* * *` | user | add a deadline to a task I am creating or to a entered task |
-`* * *` | user | add a priority rank to a task I am creating or to a entered task |
-`* * *` | user | add a location to a task I am creating or to a entered task |
-`* * *` | user | add tags to a task I am creating or to a entered task |
-`* * *` | user | select a task | to view it more detail (user specified choice of google widget: calendar for date, maps for location)
-`* * *` | user | delete a task | remove entries that I no longer need
-`* * *` | user | find a task by name | see whether it has been completed or if it is upcoming
-`* * *` | user | find a task by tag | see whether it has been completed or if it is upcoming
-`* * *` | user | I can edit a task | so that I can easily update my task list when changes arise.
-`* * *` | user | view all tasks entered |
-`* * *` | user | clear all tasks | if I deem them unnecessary
+`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the application
+`* * *` | user | add a new task with a description | view more information about a task when I need to
+`* * *` | user | add a task with a deadline | be reminded of tasks that I have to complete soon and prioritise them
+`* * ` | user | add a task with a priority rank | view a prioritised list of tasks and know which task to start with
+`* * *` | user | add a task with a location | immediately know the location and context without having to refer to other sources
+`* * *` | user | add a task with tag(s) | search or filter tasks by these tags
+`* * *` | user | select a task to access widgets like Google Calendar and Google Maps | immediately connect with these frequently used applications, without having to take more steps such as opening a browser and visiting the link, and typing in the search bar
+`* * *` | user | delete a task | remove clutter from the task list
+`* * *` | user | find a task by title | find tasks easily
+`* * *` | user | find a task by tags | categorise and find tasks easily
+`* * *` | user | edit information about a task | update the task (such as adding a deadline or location) when more information is available or when changes arise
+`* * *` | user | view all tasks entered | have a quick summary of what tasks I have
+`* * *` | user | clear all tasks | reset the task list
 
 
 ## Appendix B : Use Cases
