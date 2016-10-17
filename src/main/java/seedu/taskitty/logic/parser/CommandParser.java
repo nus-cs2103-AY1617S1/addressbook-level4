@@ -4,7 +4,6 @@ import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.logic.commands.*;
 import seedu.taskitty.model.tag.Tag;
-import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
@@ -13,8 +12,6 @@ import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,9 +31,12 @@ public class CommandParser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     
-    private static final Pattern LOCAL_DATE_FORMAT_WITH_YEAR = Pattern.compile(".*(?<arguments>\\d[\\d?][ /:-]\\d[\\d?][ /:-]\\d\\d(\\d\\d)?).*");
+    /**
+     * Used for checking for number date formats in arguments
+     */
+    private static final Pattern LOCAL_NUMBER_DATE_FORMAT_WITH_YEAR = Pattern.compile(".*(?<arguments>\\d[\\d?][ /:-]\\d[\\d?][/:-]\\d\\d(\\d\\d)?).*");
     
-    private static final Pattern LOCAL_DATE_FORMAT_WITHOUT_YEAR =  Pattern.compile(".* (?<arguments>\\d(\\d)?[ /:-]\\d(\\d)?).*");
+    private static final Pattern LOCAL_NUMBER_DATE_FORMAT_WITHOUT_YEAR =  Pattern.compile(".* (?<arguments>\\d(\\d)?[/:-]\\d(\\d)?).*");
     
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -192,10 +192,15 @@ public class CommandParser {
         
     }
     
+    /**
+     * Converts any number formats of date from the local format to one which can be parsed by natty
+     * @param arguments
+     * @return arguments with converted dates if any
+     */
     private String convertToNattyDateFormat(String arguments) {
-        Matcher matchWithoutYear = LOCAL_DATE_FORMAT_WITHOUT_YEAR.matcher(arguments);
-        Matcher matchWithYear = LOCAL_DATE_FORMAT_WITH_YEAR.matcher(arguments);
-        String localDateString;
+        Matcher matchWithoutYear = LOCAL_NUMBER_DATE_FORMAT_WITHOUT_YEAR.matcher(arguments);
+        Matcher matchWithYear = LOCAL_NUMBER_DATE_FORMAT_WITH_YEAR.matcher(arguments);
+        String localDateString = null;
         SimpleDateFormat localDateFormat;
         SimpleDateFormat nattyDateFormat;
         if (matchWithYear.matches()) {
@@ -211,7 +216,16 @@ public class CommandParser {
         }
         return convertToNattyFormat(arguments, localDateString, localDateFormat, nattyDateFormat);
     }
-
+    
+    /**
+     * Helper method to convert the local date format inside arguments into a format
+     * which can be parsed by natty
+     * @param arguments the full argument string
+     * @param localDateString the localDateString extracted from arguments
+     * @param localDateFormat the localDateFormat obtained according to the format of localDateString
+     * @param nattyDateFormat the nattyDateFormat obtained according to the format of localDateString
+     * @return arguments with its date converted or unchanged if localDateString cannot be parsed
+     */
     private String convertToNattyFormat(String arguments, String localDateString, 
             SimpleDateFormat localDateFormat, SimpleDateFormat nattyDateFormat){ 
         try {
@@ -227,6 +241,7 @@ public class CommandParser {
             return arguments;
         }
     }
+    
     /**
      * Takes in a date from Natty and converts it into a string representing date
      * Format of date returned is according to TaskDate
