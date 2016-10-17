@@ -163,8 +163,8 @@ What about tasks with no deadlines and periods? They are known as
 `list floating`
 
 > **Tip:**<br>
-> Other possible types of task include
-> `all`, `uncompleted`, `completed`, `overdue`, `floating`, `recurring`, `events`, `tasks`, and/or `free time`.
+> You can even combine these types:
+> `all`, `uncompleted`, `completed`, `period`, `deadline`, `overdue`, `floating`, `recurring`, `events`, `tasks`, and `free time`.
 
 <br>
 Finally, if you need to sort your tasks, enter the following:
