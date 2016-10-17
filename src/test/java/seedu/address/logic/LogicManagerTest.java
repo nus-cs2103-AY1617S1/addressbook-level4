@@ -158,28 +158,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add d/description", expectedMessage);
     }
-
-    @Test
-    public void execute_add_noDescription() throws Exception {
-        String expectedMessage = String.format(MESSAGE_NO_VALUE_FOR_REQUIRED_PREFIX, " d/");
-        assertCommandBehavior(
-                "add title i/interval", expectedMessage);
-    }
-    
-    @Test
-    public void execute_add_noInterval() throws Exception {
-        String expectedMessage = String.format(MESSAGE_NO_VALUE_FOR_REQUIRED_PREFIX, " i/");
-        assertCommandBehavior(
-                "add title d/description", expectedMessage);
-    }
-    
-    @Test
-    public void execute_add_noTimeInterval() throws Exception {
-        String expectedMessage = String.format(MESSAGE_NO_VALUE_FOR_REQUIRED_PREFIX, " ti/");
-        assertCommandBehavior(
-                "add title d/description i/12", expectedMessage);
-    }
-    
+        
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         //TODO

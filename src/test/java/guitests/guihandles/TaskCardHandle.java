@@ -62,7 +62,7 @@ public class TaskCardHandle extends GuiHandle {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM-yyyy");
     	return getTitle().equals(task.getTitle().fullTitle) && getDescription().equals(task.getDescription().fullDescription)
                 && getStartDate().equals("Start Date: " + dateFormat.format(task.getStartDate().startDate)) && getDueDate().equals("Due Date: " + dateFormat.format(task.getDueDate().dueDate))
-                && getInterval().equals(task.getInterval().value) && getTimeInterval().equals(task.getTimeInterval().value) && getStatus().equals(task.getStatus().status);
+                && getInterval().equals(task.getInterval().toString()) && getTimeInterval().equals(task.getTimeInterval().toString()) && getStatus().equals(task.getStatus().status);
     }
 
     @Override

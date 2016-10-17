@@ -2,9 +2,12 @@ package seedu.task.model.task;
 
 public class Description {
 
-    public final String fullDescription;
+    public String fullDescription;
     
     public Description(String description) {
+        if (description.equals("Not Set")) {
+            this.fullDescription = "";
+        }
         description = description.trim();
         this.fullDescription = description;
     }

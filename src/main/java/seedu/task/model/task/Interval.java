@@ -10,22 +10,27 @@ public class Interval {
     public static final String MESSAGE_INTERVAL_CONSTRAINTS =
             "Interval should only contain numbers";
     public static final String INTERVAL_VALIDATION_REGEX = "[1-9][0-9]*|1";
-
-    public final String value;
+    public static final Integer DEFAULT_VALUE= 1;
+    public final Integer value;
+    
 
     /**
      * Validates given interval.
      *
      * @throws IllegalValueException if given interval string is invalid.
      */
-    public Interval(String interval) throws IllegalValueException {
-        assert interval != null;
-        interval = interval.trim();
-        if (!isValidInterval(interval)) {
-            throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS);
-        }
-        this.value = interval;
-    }
+	public Interval(String interval) throws IllegalValueException {
+		assert interval != null;
+		if (interval.equals("Not Set")) {
+			this.value = DEFAULT_VALUE;
+		} else {
+			interval = interval.trim();
+			if (!isValidInterval(interval)) {
+				throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS);
+			}
+			this.value = Integer.parseInt(interval.trim());
+		}
+	}
 
     /**
      * Returns if a given string is a valid task interval.
@@ -36,14 +41,12 @@ public class Interval {
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Interval // instanceof handles nulls
-                && this.value.equals(((Interval) other).value)); // state check
+        return other == this;
     }
 
     @Override

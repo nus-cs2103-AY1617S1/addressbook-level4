@@ -10,22 +10,28 @@ public class TimeInterval {
     public static final String MESSAGE_TIME_INTERVAL_CONSTRAINTS =
             "Time interval should only contain numbers";
     public static final String TIME_INTERVAL_VALIDATION_REGEX = "[1-9][0-9]*|1";
+    public static final Integer DEFAULT_VALUE= 7;
+    
+    public Integer value;
 
-    public final String value;
 
     /**
      * Validates given interval.
      *
      * @throws IllegalValueException if given interval string is invalid.
      */
-    public TimeInterval(String timeInterval) throws IllegalValueException {
-        assert timeInterval != null;
-        timeInterval = timeInterval.trim();
-        if (!isValidTimeInterval(timeInterval)) {
-            throw new IllegalValueException(MESSAGE_TIME_INTERVAL_CONSTRAINTS);
-        }
-        this.value = timeInterval;
-    }
+	public TimeInterval(String timeInterval) throws IllegalValueException {
+		assert timeInterval != null;
+		if (timeInterval.equals("Not Set")) {
+			this.value = DEFAULT_VALUE;
+		} else {
+			timeInterval = timeInterval.trim();
+			if (!isValidTimeInterval(timeInterval)) {
+				throw new IllegalValueException(MESSAGE_TIME_INTERVAL_CONSTRAINTS);
+			}
+			this.value = Integer.parseInt(timeInterval.trim());
+		}
+	}
 
     /**
      * Returns if a given string is a valid task time interval.
@@ -36,14 +42,12 @@ public class TimeInterval {
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TimeInterval // instanceof handles nulls
-                && this.value.equals(((TimeInterval) other).value)); // state check
+        return other == this;
     }
 
     @Override

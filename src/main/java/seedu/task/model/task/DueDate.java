@@ -1,5 +1,6 @@
 package seedu.task.model.task;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +26,10 @@ public class DueDate {
       }
   }
   
+	public DueDate(Date date) {
+		dueDate = date;
+	}
+  
   public static boolean isValidDate(String inDate) {
       DATE_FORMAT.setLenient(false);
       try {
@@ -49,4 +54,5 @@ public class DueDate {
   public int hashCode() {
       return dueDate.hashCode();
   }
+
 }

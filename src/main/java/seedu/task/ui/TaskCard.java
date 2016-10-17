@@ -56,8 +56,8 @@ public class TaskCard extends UiPart{
         //dueDate.setText(task.getDueDate().toString());
         startDate.setText("Start Date: " + isDateNull(task.getStartDate().startDate));
         dueDate.setText("Due Date: " + isDateNull(task.getDueDate().dueDate));
-        interval.setText(task.getInterval().value);
-        timeInterval.setText(task.getTimeInterval().value);
+        interval.setText(task.getInterval().toString());
+        timeInterval.setText(task.getTimeInterval().value.toString());
         status.setText(task.getStatus().status.toString());
         tags.setText(task.tagsString());
     }
