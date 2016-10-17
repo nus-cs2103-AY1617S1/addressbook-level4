@@ -32,16 +32,16 @@ public class UpdateCommand extends Command{
     
     private final String name;
     private final String detail;
-    private final String onDate;
-    private final String byDate;
+    private final String onDateTime;
+    private final String byDateTime;
     
-    public UpdateCommand(int targetIndex, String name, String onDate, String byDate, String detail) {
-        
+    public UpdateCommand(int targetIndex, String name, String onDateTime, String byDateTime, String detail) {
+        System.out.println("HELLO" + onDateTime);
         this.targetIndex = targetIndex;
         this.name = name;
         this.detail = detail;
-        this.onDate = onDate;
-        this.byDate = byDate;
+        this.onDateTime = onDateTime;
+        this.byDateTime = byDateTime;
     }
     
     
@@ -57,29 +57,29 @@ public class UpdateCommand extends Command{
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
         
-        try {
-            Name newName = this.name == null ? taskToUpdate.getName() : new Name(this.name); 
+        try {            
+            Name newName = this.name.equals("") ? taskToUpdate.getName() : new Name(this.name); 
 
             Detail newDetail;
             TaskDate newByDate;
             TaskDate newOnDate;
             
-            if (detail == null) {
+            if (this.detail == null) {
                 newDetail = taskToUpdate.getDetail();
             } else {
                 newDetail = this.detail.trim().equals("-") ?  new Detail(null) : new Detail(this.detail);
             }
             
-            if (byDate == null) {
+            if (this.byDateTime == null) {
                 newByDate = taskToUpdate.getByDate();
             } else {
-                newByDate = this.byDate.trim().equals("-") ?  new TaskDate(null) : new TaskDate(this.byDate);
+                newByDate = this.byDateTime.trim().equals("-") ?  new TaskDate(null) : new TaskDate(this.byDateTime);
             }
             
-            if (onDate == null) {
+            if (this.onDateTime == null) {
                 newOnDate = taskToUpdate.getOnDate();
             } else {
-                newOnDate = this.onDate.trim().equals("-") ?  new TaskDate(null) : new TaskDate(this.onDate);
+                newOnDate = this.onDateTime.trim().equals("-") ?  new TaskDate(null) : new TaskDate(this.onDateTime);
             }
             
             Task newTask = new Task(newName, newDetail, taskToUpdate.isDone(), newOnDate, newByDate, taskToUpdate.getTags());

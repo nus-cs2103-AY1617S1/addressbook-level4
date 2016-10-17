@@ -3,6 +3,8 @@ package seedu.todo.logic.parser;
 import static seedu.todo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.todo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,12 +13,14 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.*;
 
+import com.joestelmach.natty.*;
+
 /**
  * Parses user input.
  */
-public class Parser {
-
-    public Parser() {
+public class ToDoListParser {
+    
+    public ToDoListParser() {
     }
 
     /**
@@ -86,21 +90,22 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        Pattern[] dataPatterns = { ParserFormats.TASK_DATA_ARGS_FORMAT_FT, ParserFormats.TASK_DATA_ARGS_FORMAT_BY,
-                ParserFormats.TASK_DATA_ARGS_FORMAT_ON, ParserFormats.TASK_DATA_ARGS_FORMAT_FLOAT };
+        
+        Pattern[] dataPatterns = { ParserFormats.ADD_TASK_ARGS_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_FORMAT_BY,
+                ParserFormats.ADD_TASK_ARGS_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT };
 
         Matcher matcher;
         try {
             for (Pattern p : dataPatterns) {
                 matcher = p.matcher(args.trim());
                 if (matcher.matches()) {
-                    if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_FT)) {
+                    if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_FT)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
                                 matcher.group("onDateTime"), matcher.group("byDateTime"));
-                    } else if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_ON)) {
+                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_ON)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
                                 matcher.group("onDateTime"), null);
-                    } else if (p.equals(ParserFormats.TASK_DATA_ARGS_FORMAT_BY)) {
+                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_BY)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"), null,
                                 matcher.group("byDateTime"));
                     } else {
@@ -253,13 +258,11 @@ public class Parser {
 
         String name = null, onDate = null, byDate = null, detail = null;
         args = args.substring(1).trim();
-        System.out.println(args);
 
         Matcher matcher;
         matcher = ParserFormats.UPDATE_TASK_ARGS_FORMAT.matcher(args.trim());
         if (matcher.matches()) {
-            
-            return new UpdateCommand(index.get(), matcher.group("name"), matcher.group("onDateTime"), 
+            return new UpdateCommand(index.get(), matcher.group("name").trim(), matcher.group("onDateTime"), 
                     matcher.group("byDateTime"), matcher.group("detail"));
         } else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
