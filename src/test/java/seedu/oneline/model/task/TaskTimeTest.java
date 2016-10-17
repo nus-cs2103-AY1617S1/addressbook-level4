@@ -3,8 +3,13 @@ package seedu.oneline.model.task;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 import seedu.oneline.commons.exceptions.IllegalValueException;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -64,5 +69,27 @@ public class TaskTimeTest {
             assert false;
         }
     }
+    
+    @Test
+    public void constructor_DMY() {
+        String[] validFormats = new String[]{
+                "5 October 2016", 
+                "5 Oct 16", 
+                "Oct 5 16",
+                "10/5/16",
+                "10/05/16"};
+        try {
+            for (String t : validFormats){
+                TaskTime tTime = new TaskTime(t);
+                Calendar tCal = DateUtils.toCalendar(tTime.getDate());
+                assertTrue(tCal.get(Calendar.DAY_OF_MONTH) == 5);
+                assertTrue(tCal.get(Calendar.MONTH) == Calendar.OCTOBER);
+                assertTrue(tCal.get(Calendar.YEAR) == 2016);
+            }
+        } catch (Exception e) {
+            assert false;
+        }
+    }
+    
     
 }
