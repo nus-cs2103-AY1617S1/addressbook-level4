@@ -68,4 +68,17 @@ public class FxViewUtil {
         }
     }
 
+    /**
+     * Toggles the style class:
+     *      If supplied style class is available, remove it.
+     *      Else, add one instance of it.
+     */
+    public static void toggleClassStyle(Node node, String classStyle) {
+        if (node.getStyleClass().contains(classStyle)) {
+            removeClassStyle(node, classStyle);
+        } else {
+            addClassStyle(node, classStyle);
+        }
+    }
+
 }
