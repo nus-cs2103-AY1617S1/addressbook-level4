@@ -142,13 +142,7 @@ public class MainWindow extends UiPart {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
-
-    @FXML
-    public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load(primaryStage);
-        helpWindow.show();
-    }
-
+    
     public void show() {
         primaryStage.show();
     }
