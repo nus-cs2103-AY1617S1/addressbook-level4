@@ -52,18 +52,34 @@ public class DateTime {
         }
     }
     
+    public void setDateTime(LocalDateTime newDate) {
+        this.ldt = newDate;
+    }
+
     public LocalDateTime getDateTime() {
         return this.ldt;
+    }
+
+    public void setIsRecurring(boolean recurs) {
+        this.isRecurring = recurs;
     }
 
     public boolean isRecurring() {
         return this.isRecurring;
     }
     
+    public void setInterval(Period newInterval) {
+        this.interval = newInterval;
+    }
+
     public Period getInterval() {
         return this.interval;
     }
     
+    public void setEndDate(LocalDateTime newEndDate) {
+        this.endDate = newEndDate;
+    }
+
     public LocalDateTime getEndDate() {
         return this.endDate;
     }
