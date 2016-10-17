@@ -336,25 +336,6 @@ Priority | As a ... | I want to ... | So that I can...
 
 > 3a2. Use case resumes at step 2
 
-#### Use case: Sort tasks
-
-**MSS**
-
-1. User requests to sort
-2. ForgetMeNot displays a list of sort options
-3. User requests to sort in a specific way
-4. ForgetMeNot displays the list of tasks after sorting
-      Use case ends
-      
-**Extensions**
-	1a. List of tasks is empty
-	
-> 1a1. ForgetMeNot shows list is empty message
-
-	2a. Requested sorting manner does not exists
-	
-> 2a1. ForgetMeNot shows error message
-
 #### Use case: Edit a task
 
 **MSS**
