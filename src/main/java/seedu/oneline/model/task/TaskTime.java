@@ -16,7 +16,6 @@ public class TaskTime implements Comparable<TaskTime> {
     public static final String MESSAGE_TASK_TIME_CONSTRAINTS =
             "Task time should have a valid date or time format";
     
-    private final Calendar timeOfCreation;
     private final Date value;
 
     /**
@@ -34,10 +33,8 @@ public class TaskTime implements Comparable<TaskTime> {
 
         if (time.isEmpty()){
             // represent an empty tasktime with a null value field
-            timeOfCreation = Calendar.getInstance();
             value = null;
         } else {        
-            timeOfCreation = Calendar.getInstance();
             value = getDate(time);
         }
     }
@@ -60,23 +57,6 @@ public class TaskTime implements Comparable<TaskTime> {
         Date date = dates.get(0).getDates().get(0);
         
         return date;
-    }
-    
-    /**
-     * Returns true if the date supplied has passed (relative to now)
-     * 
-     * @param d the date in question
-     * @return true if date has passed
-     */
-    private boolean dateHasPassed(Date d){
-        Calendar dCal = DateUtils.toCalendar(d);
-        
-        if (dCal.get(Calendar.DATE) == timeOfCreation.get(Calendar.DATE) 
-                && dCal.get(Calendar.MONTH) == timeOfCreation.get(Calendar.MONTH)){
-            return false;
-        }
-        
-        return dCal.before(timeOfCreation);
     }
 
     /**
