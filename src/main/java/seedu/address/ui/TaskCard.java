@@ -45,18 +45,20 @@ public class TaskCard extends UiPart{
         id.setText(displayedIndex + ". ");
         dbd.setText(task.getDueByDate().getFriendlyString());
         dbt.setText(task.getDueByTime().getFriendlyString());
-        priority.setText(task.getPriority().value);
-        /*
+        priority.setText(task.getPriority().value);        
         switch(task.getPriority().value) {
         	case "low": 
         		priority.setTextFill(Color.LAWNGREEN);
+        		break;
         	case "medium":
         		priority.setTextFill(Color.GOLD);
+        		break;
         	case "high":
         		priority.setTextFill(Color.RED);
-        }*/
+        		break;
+        }
         tags.setText(task.tagsString());
-        tags.setTextFill(Color.GOLD);        
+        tags.setTextFill(Color.MAROON);        
     }
 
     public HBox getLayout() {
