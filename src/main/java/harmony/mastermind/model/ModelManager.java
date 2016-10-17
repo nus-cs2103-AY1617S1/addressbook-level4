@@ -16,6 +16,7 @@ import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.Redoable;
 import harmony.mastermind.logic.commands.Undoable;
 import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.tag.Tag;
@@ -36,6 +37,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
     private final Stack<Undoable> undoHistory;
+    private final Stack<Redoable> redoHistory;
+   
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -51,6 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
         undoHistory = new Stack<>();
+        redoHistory = new Stack<>();
     }
 
     public ModelManager() {
@@ -61,6 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
         undoHistory = new Stack<>();
+        redoHistory = new Stack<>();
     }
 
     @Override
@@ -86,6 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    
     /** undo last action performed**/
     //@@author A0138862W
     public CommandResult undo() throws EmptyStackException{
@@ -93,6 +99,29 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
         return commandResult;
+    }
+    
+    @Override
+    //@@author A0138862W
+    public void pushToRedoHistory(Redoable command){
+        redoHistory.push(command);
+    }
+    
+    @Override
+    /** redo the action that being undone function**/
+    //@@author A0138862W
+    public CommandResult redo() throws EmptyStackException{
+        CommandResult commandResult = redoHistory.pop().redo();
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+        return commandResult;
+    }
+    
+    @Override
+    /** This method should only be called when the user entered a new command other than redo/undo **/
+    //@@author A0138862W
+    public void clearRedoHistory(){
+        redoHistory.clear();
     }
 
     @Override

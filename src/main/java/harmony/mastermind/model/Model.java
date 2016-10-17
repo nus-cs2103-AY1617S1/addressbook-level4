@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.Redoable;
 import harmony.mastermind.logic.commands.Undoable;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ArchiveTaskList;
@@ -47,6 +48,16 @@ public interface Model {
     
     /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
     CommandResult undo() throws EmptyStackException;
+    
+    /** push the command to redo history */
+    void pushToRedoHistory(Redoable command);
+    
+    /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
+    CommandResult redo() throws EmptyStackException;
+    
+    /** empty redoHistory **/
+    // required when a new command is entered, model should throw away all remaining commands in the redo history
+    void clearRedoHistory();
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
