@@ -28,7 +28,7 @@
             <Insets bottom="5.0" left="15.0" top="5.0" />
          </padding>
       </MenuBar>
-      <AnchorPane fx:id="detailsPlaceHolder" styleClass="background" VBox.vgrow="NEVER" />
+      <AnchorPane fx:id="infoHeaderPlaceholder" styleClass="background" VBox.vgrow="NEVER" minHeight="50.0"  maxHeight="50.0"/>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="taskList" prefHeight="0.0">
