@@ -128,7 +128,7 @@ Each of the four components
 * Exposes its functionality using a `{Component Name}Manager` class.
 <br><br>
 
-For example, the **`Logic`** component (see the class diagram in *figure 2* below) defines it's API in the `Logic.java`
+For example, the **`Logic`** component (see the class diagram in *figure 2* below) defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
