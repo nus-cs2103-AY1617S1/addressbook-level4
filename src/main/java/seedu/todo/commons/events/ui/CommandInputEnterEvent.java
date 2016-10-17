@@ -3,9 +3,9 @@ package seedu.todo.commons.events.ui;
 import seedu.todo.commons.events.BaseEvent;
 
 /**
- * An event requesting the help panel to be hidden away.
+ * An event when the user presses "ENTER" on the keyboard in the command input.
  */
-public class HideHelpEvent extends BaseEvent {
+public class CommandInputEnterEvent extends BaseEvent {
 
     @Override
     public String toString() {
