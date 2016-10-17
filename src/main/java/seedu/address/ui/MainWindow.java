@@ -32,7 +32,7 @@ public class MainWindow extends UiPart {
     
     
     private DeadlineListPanel deadlineListPanel;
-    //private TodoListPanel todoListPanel; 
+    private TodoListPanel todoListPanel; 
      
     
     private BrowserPanel browserPanel;
@@ -128,7 +128,7 @@ public class MainWindow extends UiPart {
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         
         deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredDeadlineList());
-        //todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredPersonList());
+        todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredTodoList());
     }
 
     private AnchorPane getDeadlineListPlaceHolder() {
@@ -214,9 +214,9 @@ public class MainWindow extends UiPart {
         return this.deadlineListPanel;
     }
     
-   // public TodoListPanel getTodoListPanel() {
-    //    return this.todoListPanel;
-    //}
+    public TodoListPanel getTodoListPanel() {
+        return this.todoListPanel;
+    }
 
     public void loadPersonPage(ReadOnlyTask person) {
         browserPanel.loadPersonPage(person);
