@@ -31,10 +31,70 @@ public class TodoListPanel extends UiPart {
     @FXML
     private ListView<ImmutableTask> todoListView;
 
+    /**
+     * Default Constructor for {@link TodoListPanel}
+     */
     public TodoListPanel() {
         super();
     }
 
+    /**
+     * Loads and initialise the {@link TodoListPanel} to the placeHolder
+     * @param primaryStage of the application
+     * @param placeHolder where the view element {@link #todoListView} should be placed
+     * @return an instance of this class
+     */
+    public static TodoListPanel load(Stage primaryStage, AnchorPane placeHolder,
+            ObservableList<ImmutableTask> todoList) {
+        
+        TodoListPanel todoListPanel = 
+                UiPartLoader.loadUiPart(primaryStage, placeHolder, new TodoListPanel());
+        todoListPanel.configure(todoList);
+        return todoListPanel;
+    }
+
+    /**
+     * Configures the {@link TodoListPanel}
+     * @param todoList a list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
+     */
+    private void configure(ObservableList<ImmutableTask> todoList) {
+        setConnections(todoList);
+        addToPlaceholder();
+    }
+
+    /**
+     * Adds this view element to external placeholder
+     */
+    private void addToPlaceholder() {
+        placeHolderPane.getChildren().add(panel);
+    }
+
+    /**
+     * Links the list of {@link ImmutableTask} to the todoListView.
+     * @param todoList a list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
+     */
+    private void setConnections(ObservableList<ImmutableTask> todoList) {
+        todoListView.setItems(todoList);
+        todoListView.setCellFactory(listView -> new TodoListViewCell());
+    }
+
+    /* Ui Methods */
+    /**
+     * Toggles the expanded/collapsed view of a task card.
+     * @param index of a task card that is shown on the Ui (that means index accepts a range of 1 to num of tasks).
+     */
+    public void toggleExpandCollapsed(int index) {
+
+    }
+
+    public void scrollTo(int index) {
+        Platform.runLater(() -> {
+            todoListView.scrollTo(index);
+            todoListView.getSelectionModel().clearAndSelect(index);
+        });
+    }
+
+    /* Override Methods */
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -49,47 +109,10 @@ public class TodoListPanel extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
-    
-    public static TodoListPanel load(Stage primaryStage, AnchorPane todoListPlaceholder, 
-            ObservableList<ImmutableTask> todoList) {
-        
-        TodoListPanel todoListPanel = 
-                UiPartLoader.loadUiPart(primaryStage, todoListPlaceholder, new TodoListPanel());
-        todoListPanel.configure(todoList);
-        return todoListPanel;
-    }
 
-    private void configure(ObservableList<ImmutableTask> todoList) {
-        setConnections(todoList);
-        addToPlaceholder();
-    }
-
-    private void setConnections(ObservableList<ImmutableTask> todoList) {
-        todoListView.setItems(todoList);
-        todoListView.setCellFactory(listView -> new TodoListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void addToPlaceholder() {
-        placeHolderPane.getChildren().add(panel);
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        todoListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in todo list panel changed to : '" + newValue + "'");
-                //TODO: raise(new TodoListPanelSelectionChangedEvent(newValue));
-            }
-        });
-    }
-
-    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-            todoListView.scrollTo(index);
-            todoListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
+    /**
+     * Models a Task Card as a single ListCell of the ListView
+     */
     private class TodoListViewCell extends ListCell<ImmutableTask> {
 
         public TodoListViewCell() {
