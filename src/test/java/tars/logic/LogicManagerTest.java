@@ -756,6 +756,32 @@ public class LogicManagerTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedTars,
                 expectedList);
     }
+    
+    @Test
+    public void execute_find_filterSearch_bothDoneAndUndoneSearched() throws Exception {
+      
+        assertCommandBehavior("find -do -ud", TaskQuery.BOTH_STATUS_SEARCHED_ERROR);
+    }
+    
+    @Test
+    public void execute_find_filterSearch_multipleFlagsUsed() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.meetAdam();
+        Task p1 = helper.generateTask(2);
+        Task p2 = helper.generateTask(3);
+
+        List<Task> threeTasks = helper.generateTaskList(pTarget1, p1, p2);
+        Tars expectedTars = helper.generateTars(threeTasks);
+        List<Task> expectedList = helper.generateTaskList(pTarget1);
+        helper.addToModel(model, threeTasks);
+        
+        String searchKeywords = "\nFilter Search Keywords: [Task Name: adam meet] "
+                + "[Priority: medium] " + "[Status: Undone] [Tags: tag2 tag1]";
+
+        assertCommandBehavior("find -n meet -n adam -p medium -ud -t tag1 -t tag2",
+                Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedTars,
+                expectedList);
+    }
 
     /**
      * @@author A0124333U
