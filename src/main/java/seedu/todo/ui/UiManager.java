@@ -11,6 +11,7 @@ import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
+import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
 import seedu.todo.commons.events.ui.JumpToListRequestEvent;
 import seedu.todo.commons.events.ui.SelectionChangedEvent;
 import seedu.todo.commons.events.ui.ShowHelpEvent;
@@ -97,6 +98,12 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     //==================== Event Handling Code =================================================================
+    @Subscribe
+    private void handleExpandCollapseTaskEvent(ExpandCollapseTaskEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getTodoListPanel().toggleExpandCollapsed(event.taskIndex);
+    }
+
 
     @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
