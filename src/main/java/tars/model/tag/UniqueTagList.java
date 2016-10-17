@@ -3,6 +3,7 @@ package tars.model.tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import tars.commons.exceptions.DuplicateDataException;
+import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.CollectionUtil;
 
 import java.util.*;
@@ -140,6 +141,21 @@ public class UniqueTagList implements Iterable<Tag> {
             throw new TagNotFoundException();
         }
         internalList.remove(toRemove);
+    }
+    
+    /**
+     * Update the equivalent Tag from the list.
+     *
+     * @throws TagNotFoundException if no such Tag could be found in the list.
+     * @throws IllegalValueException if the given tag name string is invalid.
+     */
+    public void update(ReadOnlyTag oldTag, Tag tagToUpdate)
+            throws TagNotFoundException, IllegalValueException {
+        int selectedIndex = internalList.indexOf(new Tag(oldTag));
+        if (selectedIndex == -1) {
+            throw new TagNotFoundException();
+        }
+        internalList.set(selectedIndex, tagToUpdate);
     }
 
     @Override
