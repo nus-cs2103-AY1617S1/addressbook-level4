@@ -65,6 +65,125 @@
                         <Font size="13.0" />
                      </font>
                   </TitledPane>
+                  <TitledPane fx:id="titleTaskDay1" animated="false" layoutX="10.0" layoutY="10.0" text="\\\$ Day 1">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <ListView fx:id="taskListViewDay1" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <stylesheets>
+                                    <URL value="@Extensions.css" />
+                                    <URL value="@DarkTheme.css" />
+                                 </stylesheets>
+                              </ListView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane fx:id="titleTaskDay2" animated="false" layoutX="10.0" layoutY="126.0" text="\\\$ Day 2">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <ListView fx:id="taskListViewDay2" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <stylesheets>
+                                    <URL value="@Extensions.css" />
+                                    <URL value="@DarkTheme.css" />
+                                 </stylesheets>
+                              </ListView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane fx:id="titleTaskDay3" animated="false" layoutX="10.0" layoutY="126.0" text="\\\$ Day 3">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <ListView fx:id="taskListViewDay3" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <stylesheets>
+                                    <URL value="@Extensions.css" />
+                                    <URL value="@DarkTheme.css" />
+                                 </stylesheets>
+                              </ListView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane fx:id="titleTaskDay4" animated="false" layoutX="10.0" layoutY="577.0" text="\\\$ Day 4">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <ListView fx:id="taskListViewDay4" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <stylesheets>
+                                    <URL value="@Extensions.css" />
+                                    <URL value="@DarkTheme.css" />
+                                 </stylesheets>
+                              </ListView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane fx:id="titleTaskDay5" animated="false" layoutX="10.0" layoutY="606.0" text="\\\$ Day 5">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <ListView fx:id="taskListViewDay5" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <stylesheets>
+                                    <URL value="@Extensions.css" />
+                                    <URL value="@DarkTheme.css" />
+                                 </stylesheets>
+                              </ListView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane fx:id="titleTaskDay6" animated="false" layoutX="10.0" layoutY="635.0" text="\\\$ Day 6">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <ListView fx:id="taskListViewDay6" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <stylesheets>
+                                    <URL value="@Extensions.css" />
+                                    <URL value="@DarkTheme.css" />
+                                 </stylesheets>
+                              </ListView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane fx:id="titleTaskDay7" animated="false" layoutX="10.0" layoutY="242.0" text="\\\$ Day 7">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <ListView fx:id="taskListViewDay7" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <stylesheets>
+                                    <URL value="@Extensions.css" />
+                                    <URL value="@DarkTheme.css" />
+                                 </stylesheets>
+                              </ListView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
                </panes>
             </Accordion>
          </children>

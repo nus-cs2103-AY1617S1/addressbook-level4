@@ -38,12 +38,17 @@ public class TaskListPanel extends UiPart {
     private ObservableList<ReadOnlyTask> completedTaskList;
     private ObservableList<ReadOnlyTask> incompleteTaskList;
     
-    @FXML
-    private ListView<ReadOnlyTask> taskListView;
-    @FXML
-    private ListView<ReadOnlyTask> completedTaskListView;
-    @FXML
-    private ListView<ReadOnlyTask> incompleteTaskListView;
+    //all list views
+    @FXML private ListView<ReadOnlyTask> taskListView;
+    @FXML private ListView<ReadOnlyTask> completedTaskListView;
+    @FXML private ListView<ReadOnlyTask> incompleteTaskListView;
+    @FXML private ListView<ReadOnlyTask> taskListViewDay1;
+    @FXML private ListView<ReadOnlyTask> taskListViewDay2;
+    @FXML private ListView<ReadOnlyTask> taskListViewDay3;
+    @FXML private ListView<ReadOnlyTask> taskListViewDay4;
+    @FXML private ListView<ReadOnlyTask> taskListViewDay5;
+    @FXML private ListView<ReadOnlyTask> taskListViewDay6;
+    @FXML private ListView<ReadOnlyTask> taskListViewDay7;
     
     //incomplete/complete title labels
     @FXML private TitledPane titleCompletedTasks;
@@ -99,16 +104,26 @@ public class TaskListPanel extends UiPart {
         updateFloatingTaskList(taskList);
         updateCompletedAndIncompleteTaskList(taskList);
         
-        setupListView(taskListView, taskList);
-        setupListView(completedTaskListView, taskList);
-        setupListView(incompleteTaskListView, taskList);
-        
+        setupListViews(taskList, taskListView, 
+                        completedTaskListView,
+                        incompleteTaskListView,
+                        taskListViewDay1,
+                        taskListViewDay2,
+                        taskListViewDay3,
+                        taskListViewDay4,
+                        taskListViewDay5,
+                        taskListViewDay6,
+                        taskListViewDay7);
+
         setEventHandlerForSelectionChangeEvent();
     }
 
-    private void setupListView(ListView<ReadOnlyTask> listView, ObservableList<ReadOnlyTask> taskList) {
-        listView.setItems(taskList);
-        listView.setCellFactory(newListView -> new TaskListViewCell());
+    private void setupListViews(ObservableList<ReadOnlyTask> taskList, ListView<ReadOnlyTask>... listViews) {
+        for(ListView<ReadOnlyTask> t : listViews) {
+            t.setItems(taskList);
+            t.setCellFactory(newListView -> new TaskListViewCell());
+        }
+
     }
 
     private void addToPlaceholder() {
