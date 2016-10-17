@@ -192,12 +192,21 @@ Examples:
 Untags the task with `ID #2` from `Homework` tag
 
 
+## Storing : `store`
+Change the storage location for the data file.<br>
+
+Format: `store location`
+
 ## Undoing : `undo`
 Undo the last operation.<br>
 
 Format: `undo`
 
-> Only undo one operation at most.
+## Resetting : `reset`
+Resets user's config to default.<br>
+
+Format: `reset`
+
 
 ## Clearing all entries : `clear`
 Clears all entries from the Do-Do Bird.<br>

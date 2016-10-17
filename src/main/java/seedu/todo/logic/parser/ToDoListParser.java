@@ -77,6 +77,13 @@ public class ToDoListParser {
 
         case UpdateCommand.COMMAND_WORD:
             return prepareUpdate(arguments);
+            
+        case StoreCommand.COMMAND_WORD:
+            return prepareStore(arguments);
+            
+        case ResetCommand.COMMAND_WORD:
+            return new ResetCommand();
+
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -314,6 +321,17 @@ public class ToDoListParser {
 
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
 
+    }
+    
+    /**
+     * Parses arguments in the context of the store command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareStore(String args) {
+       args = args.trim();
+       return new StoreCommand(args);
     }
 
 }

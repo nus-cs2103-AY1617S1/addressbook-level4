@@ -2,6 +2,7 @@ package seedu.todo.logic;
 
 import javafx.collections.ObservableList;
 import seedu.todo.commons.core.ComponentManager;
+import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.logic.commands.Command;
 import seedu.todo.logic.commands.CommandResult;
@@ -18,11 +19,15 @@ import java.util.logging.Logger;
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final Model model;
     private final ToDoListParser parser;
+    private final Model model;
+    private final Config config;
+    private final Storage storage;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Config config, Storage storage) {
         this.model = model;
+        this.config = config;
+        this.storage = storage;        
         this.parser = new ToDoListParser();
     }
 
@@ -30,7 +35,9 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        command.setData(model);
+        command.setModel(model);
+        command.setConfig(config);
+        command.setStorage(storage);
         return command.execute();
     }
 

@@ -56,13 +56,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyToDoList newData) {
         toDoList.resetData(newData);
-        indicateAddressBookChanged();
+        indicateToDoListChanged();
     }
     
     @Override
     public boolean undo() {
         if (toDoList.undo()) {
-            indicateAddressBookChanged();
+            indicateToDoListChanged();
             return true;
         }
         return false;
@@ -74,21 +74,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    public void indicateAddressBookChanged() {
+    public void indicateToDoListChanged() {
         raise(new ToDoListChangedEvent(toDoList));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         toDoList.removeTask(target);
-        indicateAddressBookChanged();
+        indicateToDoListChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         toDoList.addTask(task);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateToDoListChanged();
     }
     
     @Override
@@ -114,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
             toDoList.getTasks().get(index).setOnDate(newTask.getOnDate());
             toDoList.getTasks().get(index).setByDate(newTask.getByDate());
             toDoList.syncTagsWithMasterList(toDoList.getTasks().get(index));
-            indicateAddressBookChanged();
+            indicateToDoListChanged();
         }
     }
 
@@ -126,7 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
             throw new TaskNotFoundException();
         } else {
             toDoList.getTasks().get(index).setTags(newTask.getTags());
-            indicateAddressBookChanged();
+            indicateToDoListChanged();
         }
     }
     

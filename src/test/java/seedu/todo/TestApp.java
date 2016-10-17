@@ -47,7 +47,7 @@ public class TestApp extends MainApp {
         config.setAppTitle(APP_TITLE);
         //config.setAddressBookFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
-        config.setAddressBookName(ADDRESS_BOOK_NAME);
+        config.setToDoListName(ADDRESS_BOOK_NAME);
         return config;
     }
 
