@@ -32,7 +32,11 @@ public class CommandParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
+    
+    private static final Pattern LOCAL_DATE_FORMAT_WITH_YEAR = Pattern.compile(".*(?<arguments>\\d[\\d?][ /:-]\\d[\\d?][ /:-]\\d\\d(\\d\\d)?).*");
+    
+    private static final Pattern LOCAL_DATE_FORMAT_WITHOUT_YEAR =  Pattern.compile(".* (?<arguments>\\d(\\d)?[ /:-]\\d(\\d)?).*");
+    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
@@ -186,6 +190,16 @@ public class CommandParser {
         
     }
     
+    private String convertToNattyDateFormat(String arguments) {
+        Matcher matchWithoutYear = LOCAL_DATE_FORMAT_WITHOUT_YEAR.matcher(arguments);
+        Matcher matchWithYear = LOCAL_DATE_FORMAT_WITH_YEAR.matcher(arguments);
+        if (matchWithYear.matches()) {
+            
+        } else if (matchWithoutYear.matches()) {
+            
+        }
+        return null;
+    }
     /**
      * Takes in a date from Natty and converts it into a string representing date
      * Format of date returned is according to TaskDate
