@@ -23,8 +23,8 @@
     * [Continuous Integration](#continuous-integration)
     * [Making a Release](#making-a-release)
     * [Managing Dependencies](#managing-dependencies)
-* [Appendix A : User Stories](#appendix-a--user-stories)
-* [Appendix B : Use Cases](#appendix-b--use-cases)
+* [Appendix A: User Stories](#appendix-a--user-stories)
+* [Appendix B: Use Cases](#appendix-b--use-cases)
     * [Use case: Create new event](#use-case-create-new-event)
     * [Use case: List uncompleted tasks](#use-case-list-uncompleted-tasks)
     * [Use case: Update information of a task](#use-case-update-information-of-a-task)
@@ -34,9 +34,9 @@
     * [Use case: Find tasks using keywords](#use-case-find-tasks-using-keywords)
     * [Use case: Delete all data](#use-case-delete-all-data)
     * [Use case: Change data storage file location](#use-case-change-data-storage-file-location)
-* [Appendix C : Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D : Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e--product-survey)
+* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix E: Product Survey](#appendix-e--product-survey)
     * [Google Calendar](#google-calendar)
     * [Todoist](#todoist)
     * [Microsoft Outlook](#microsoft-outlook)
@@ -512,7 +512,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 <br>
 
-## Appendix A : User Stories
+## Appendix A: User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -548,7 +548,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 <br>
 
-## Appendix B : Use Cases
+## Appendix B: Use Cases
 
 (For all use cases below, the **System** is the `TaSc` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -719,7 +719,7 @@ Use case ends
 
 <br>
 
-## Appendix C : Non Functional Requirements
+## Appendix C: Non Functional Requirements
 
 1. The application should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. The application should come with automated unit tests and open source code.
@@ -740,7 +740,7 @@ Use case ends
 
 <br>
 
-## Appendix D : Glossary
+## Appendix D: Glossary
 
 **Command:** A keyword that the program understands, to allow user to tell the program to execute a certain action.
 
@@ -762,7 +762,7 @@ Use case ends
 
 <br>
 
-## Appendix E : Product Survey
+## Appendix E: Product Survey
 
 This section indicates the strengths and weaknesses of our competitors’ products with regards to their capability in catering to Jim’s requirements.
 
