@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
+import javafx.collections.ObservableList;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -13,7 +14,8 @@ import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.model.task.ImmutableTask;
 
 public class ShowCommand extends BaseCommand {
-    private Argument<Integer> index = new IntArgument("index").required(); 
+    private Argument<Integer> index = new IntArgument("index").required();
+    private static final Integer INDEX_OFFSET =1 ; 
 
     @Override
     protected Parameter[] getArguments() {
@@ -32,7 +34,7 @@ public class ShowCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
-        ImmutableTask task = this.model.getObserveableList().get(index.getValue());
+        ImmutableTask task = this.model.getObserveableList().get(index.getValue() - INDEX_OFFSET );
         EventsCenter.getInstance().post(new ExpandCollapseTaskEvent(task)); 
         return new CommandResult("Command executed");
     }
