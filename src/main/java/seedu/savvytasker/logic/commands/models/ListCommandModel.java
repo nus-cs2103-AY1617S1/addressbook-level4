@@ -13,7 +13,7 @@ public class ListCommandModel extends CommandModel {
         this.listType = listType;
     }
     
-    public ListType getTargetIndex() {
+    public ListType getListType() {
         return listType;
     }
 

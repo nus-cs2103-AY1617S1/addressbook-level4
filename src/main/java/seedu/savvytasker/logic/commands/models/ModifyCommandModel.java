@@ -19,13 +19,14 @@ public class ModifyCommandModel extends CommandModel {
     private String location;
     private PriorityLevel priority;
     private RecurrenceType recurringType;
-    private int numberOfRecurrence;
+    private Integer numberOfRecurrence;
     private String category;
     private String description;
+    private Boolean isArchived;
     
     public ModifyCommandModel(int index, String taskName, Date startDateTime, Date endDateTime, String location,
-            PriorityLevel priority, RecurrenceType recurringType, int numberOfRecurrence, String category, 
-            String description) {
+            PriorityLevel priority, RecurrenceType recurringType, Integer numberOfRecurrence, String category, 
+            String description, Boolean isArchived) {
         this.index = index;
         this.taskName = taskName;
         this.startDateTime = startDateTime;
@@ -36,8 +37,9 @@ public class ModifyCommandModel extends CommandModel {
         this.numberOfRecurrence = numberOfRecurrence;
         this.category = category;
         this.description = description;
+        this.isArchived = isArchived;
     }
-    
+
     public ModifyCommandModel(int index) {
         this.index = index;
     }
@@ -98,11 +100,11 @@ public class ModifyCommandModel extends CommandModel {
         this.recurringType = recurringType;
     }
 
-    public int getNumberOfRecurrence() {
+    public Integer getNumberOfRecurrence() {
         return numberOfRecurrence;
     }
 
-    public void setNumberOfRecurrence(int numberOfRecurrence) {
+    public void setNumberOfRecurrence(Integer numberOfRecurrence) {
         this.numberOfRecurrence = numberOfRecurrence;
     }
 
@@ -120,5 +122,13 @@ public class ModifyCommandModel extends CommandModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public Boolean getIsArchived() {
+        return isArchived;
+    }
+
+    public void setIsArchived(Boolean isArchived) {
+        this.isArchived = isArchived;
     }
 }
