@@ -4,6 +4,7 @@ package seedu.oneline.model.task;
 import static org.junit.Assert.*;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
@@ -371,6 +372,29 @@ public class TaskTimeTest {
             assertTrue(past.compareTo(present) < 0);
             assertTrue(present.compareTo(present) == 0);
             assertTrue(present.compareTo(future) < 0);
+        } catch (IllegalValueException e){
+            assert false;
+        }
+    }
+    
+    @SuppressWarnings("deprecation")
+    @Test
+    public void constructor_timeInferredResultsIn2349(){
+        String[] tests = new String[]{
+                "5 October 2016", 
+                "5 October",
+                "Monday",
+                "next Monday",
+                "today"
+        };
+        try {
+            for (String test : tests){
+                TaskTime t = new TaskTime(test);
+                Date tCal = t.getDate();
+                assertTrue(tCal.getHours() == 23);
+                assertTrue(tCal.getMinutes() == 59);
+                assertTrue(tCal.getSeconds() == 59);
+            }
         } catch (IllegalValueException e){
             assert false;
         }
