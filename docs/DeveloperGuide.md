@@ -111,7 +111,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 > * Notice how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` being coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
-<br>
+<br><br><br>
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
@@ -169,6 +169,8 @@ Given above is the Sequence Diagram for interactions within the `Logic` componen
 
 > The model class is not coupled to the other three components.
 
+<br><br><br><br><br>
+
 The `Model` component
 
 * stores a `UserPref` object that represents the user's preferences.
@@ -203,7 +205,7 @@ and logging destinations.
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`)
-
+<br><br><br><br><br>
 ## Testing
 
 Tests can be found in the `./src/test/java` folder. There are two available options for tesing.

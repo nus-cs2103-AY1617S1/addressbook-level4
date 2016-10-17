@@ -66,6 +66,7 @@ Unlike other complicated task managers, Menion is simple and intuitive. It relie
 > <li>Event has a starting date/time and an ending date/time.
 > <li> Floating Task does not have any dates attached to it.
 
+<br><br>
 #### Adding an activity
 Adds an activity to Menion<br>
 
@@ -114,6 +115,8 @@ Undo the most previous command.
 
 Format : `undo`
 
+<br>
+
 #### Complete an activity
 Marks an activity as completed.
 
@@ -145,6 +148,8 @@ Examples:
 * `list WEEK`
 * `list JANUARY`
 * `list 12/3/2016`
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 #### Finding all activities containing any keyword in their name
 Finds any activities whose names contain any of the given keywords.<br>
