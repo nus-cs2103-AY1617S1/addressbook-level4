@@ -7,7 +7,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.commons.events.ui.CommandInputEnterEvent;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.commons.util.TextAreaResizerUtil;
 import seedu.todo.ui.UiPart;
@@ -65,6 +67,7 @@ public class CommandInputView extends UiPart {
     private void configureProperties() {
         setCommandInputHeightAutoResizeable();
         unflagErrorWhileTyping();
+        listenAndRaiseEnterEvent();
     }
 
     /**
@@ -76,6 +79,18 @@ public class CommandInputView extends UiPart {
             if (event.getCode() == KeyCode.ENTER) {
                 String command = commandTextField.getText();
                 listener.onCommandReceived(command);
+                event.consume(); //To prevent commandTextField from printing a new line.
+            }
+        });
+    }
+
+    /**
+     * Listens for Enter keystrokes, and raises an event when it happens.
+     */
+    public void listenAndRaiseEnterEvent() {
+        this.commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                EventsCenter.getInstance().post(new CommandInputEnterEvent());
                 event.consume(); //To prevent commandTextField from printing a new line.
             }
         });
