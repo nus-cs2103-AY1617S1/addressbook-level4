@@ -29,14 +29,16 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         if (listing.equals("all")) {
+            System.out.println("printing all");
             model.updateFilteredListToShowAll();
         } else if (listing.equals("done")) {
+            System.out.println("printing done");
             model.updateFilteredListToShowAllDone();
         } else if (TaskDate.isValidDate(listing)) {
-//            String[] keywords = listing.split("\\s+");
-//            Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+            System.out.println("printing date");
             model.updateFilteredTaskListToShowDate(listing);
         } else {
+            System.out.println("printing undone");
             model.updateFilteredTaskListToShowUndone();
         }
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));

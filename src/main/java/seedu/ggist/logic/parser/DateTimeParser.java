@@ -3,7 +3,6 @@ package seedu.ggist.logic.parser;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.model.task.TaskDate;
 import seedu.ggist.model.task.TaskTime;
 
 import java.text.SimpleDateFormat;
