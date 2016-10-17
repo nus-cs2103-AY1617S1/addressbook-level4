@@ -14,20 +14,20 @@ public class TaskTimeTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
     
-    private void IllegalValueExceptionThrown(String inputTime, String errorMessage) throws Exception{
+    private void IllegalValueExceptionThrown(String inputDateTime, String errorMessage) throws Exception{
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(errorMessage);    
-        new TaskTime(inputTime);
+        new TaskTime(inputDateTime);
     }
 
-    // Tests for invalid time inputs to TaskTime constructor
+    // Tests for invalid datetime inputs to TaskTime constructor
     
     /**
-     * Invalid equivalence partitions for time: null, empty, other strings
+     * Invalid equivalence partitions for datetime: null, other strings
      */
     
     @Test
-    public void constructor_nullTime_assertionThrown() {
+    public void constructor_nullDateTime_assertionThrown() {
         thrown.expect(AssertionError.class);
         try {
             new TaskTime(null);
@@ -38,16 +38,31 @@ public class TaskTimeTest {
     }
 
     @Test
-    public void constructor_emptyTime_assertionThrown() throws Exception {
-        IllegalValueExceptionThrown("", TaskTime.MESSAGE_TASK_TIME_CONSTRAINTS);
-    }
-
-    @Test
-    public void constructor_unsupportedTimeFormats_assertionThrown() throws Exception {
+    public void constructor_unsupportedDateTimeFormats_assertionThrown() throws Exception {
         IllegalValueExceptionThrown("day after", TaskTime.MESSAGE_TASK_TIME_CONSTRAINTS);
         IllegalValueExceptionThrown("clearly not a time format", TaskTime.MESSAGE_TASK_TIME_CONSTRAINTS);
-        IllegalValueExceptionThrown("Tuesd", TaskTime.MESSAGE_TASK_TIME_CONSTRAINTS);
+        IllegalValueExceptionThrown("T u e s d a y", TaskTime.MESSAGE_TASK_TIME_CONSTRAINTS);
     }
     
+    // Tests for valid datetime inputs
+    
+    /**
+     * Valid equivalence partitions for datetime:
+     *  - day month and year specified
+     *  - only day and month specified
+     *  - only day specified
+     *  - relative date specified
+     *  - empty string
+     */
 
+    @Test
+    public void constructor_emptyDateTime() {
+        try {
+            TaskTime t = new TaskTime("");
+            assert t.getDate() == null;
+        } catch (Exception e) {
+            assert false;
+        }
+    }
+    
 }
