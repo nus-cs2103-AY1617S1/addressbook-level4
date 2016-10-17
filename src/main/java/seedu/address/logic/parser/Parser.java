@@ -53,7 +53,7 @@ public class Parser {
 
 	// Different regexes for different permutations of arguments
 	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern
-			.compile("(?i)(?<taskType>event|deadline|someday)(?<addTaskArgs>.*)");
+			.compile("(?i)(?<taskType>event|ev|deadline|dl|someday|sd)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern
 			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
 
@@ -124,9 +124,6 @@ public class Parser {
 
 		case ExitCommand.COMMAND_WORD:
 			return new ExitCommand();
-
-		// case HelpCommand.COMMAND_WORD:
-		// return new HelpCommand();
 
 		case UndoCommand.COMMAND_WORD:
 			return new UndoCommand();
@@ -199,12 +196,15 @@ public class Parser {
 		// TODO change hardcoded strings to references to strings in command
 		// classes
 		case "event":
+		case "ev":
 			return prepareAddEvent(addTaskArgs);
 
 		case "deadline":
+		case "dl":
 			return prepareAddDeadline(addTaskArgs);
 
 		case "someday":
+		case "sd":
 			return prepareAddSomeday(addTaskArgs);
 
 		default:
