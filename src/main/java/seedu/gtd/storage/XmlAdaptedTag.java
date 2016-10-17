@@ -3,7 +3,6 @@ package seedu.gtd.storage;
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.gtd.commons.exceptions.IllegalValueException;
-import seedu.gtd.commons.util.CollectionUtil;
 import seedu.gtd.model.tag.Tag;
 
 /**
