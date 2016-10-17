@@ -121,13 +121,13 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "repeattime", "tag");
+        final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "repeat", "tag");
         HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
         String name = parsed.get("add");
         String by = parsed.get("by");
         String startTime = parsed.get("from");
         String endTime = parsed.get("to");
-        String recurrence = parsed.get("repeattime");
+        String recurrence = parsed.get("repeat");
         String tags = parsed.get("tag");
 
         if(name == null){
@@ -159,7 +159,7 @@ public class Parser {
             return null;
         return string;
     }
-    
+
     /**
      * Precondition: argument is not null.
      * Takes in a string and remove all occurrences of full stops and commas.
@@ -180,7 +180,7 @@ public class Parser {
      */
     private Command prepareList(String args){
         assert args != null;
-        
+
         // No arguments, use default 'list' command
         if (args.trim().equals("")) {
             try {
