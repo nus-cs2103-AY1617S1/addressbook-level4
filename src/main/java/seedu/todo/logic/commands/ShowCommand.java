@@ -17,19 +17,16 @@ public class ShowCommand extends BaseCommand {
 
     @Override
     protected Parameter[] getArguments() {
-        // TODO Auto-generated method stub
         return new Parameter[] { index };
     }
 
     @Override
     public String getCommandName() {
-        // TODO Auto-generated method stub
         return "show";
     }
 
     @Override
     public List<CommandSummary> getCommandSummary() {
-        // TODO Auto-generated method stub
         return ImmutableList.of(new CommandSummary("Shows details of a task", getCommandName(), getArgumentSummary()));
     }
 
