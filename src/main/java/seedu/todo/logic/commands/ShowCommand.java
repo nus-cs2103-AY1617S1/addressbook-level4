@@ -10,6 +10,7 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
+import seedu.todo.model.task.ImmutableTask;
 
 public class ShowCommand extends BaseCommand {
     
@@ -32,7 +33,8 @@ public class ShowCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
-        EventsCenter.getInstance().post(new ExpandCollapseTaskEvent(index.getValue())); 
+        ImmutableTask task = this.model.getObserveableList().get(index.getValue());
+        EventsCenter.getInstance().post(new ExpandCollapseTaskEvent(task)); 
         return new CommandResult("Command executed.");
     }
 
