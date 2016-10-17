@@ -36,4 +36,6 @@ public interface Storage extends TaskSchedulerStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleTaskSchedulerChangedEvent(TaskSchedulerChangedEvent abce);
+    
+    void setTaskSchedulerFilePath(String newPath);
 }
