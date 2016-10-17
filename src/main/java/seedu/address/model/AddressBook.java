@@ -127,6 +127,15 @@ public class AddressBook implements ReadOnlyLifeKeeper {
             }
     }
 
+	public void markTask(Task task, boolean isComplete) throws TaskNotFoundException {
+        if (tasks.contains(task)) {
+            TaskManager.marksTask(tasks.get(task), isComplete);
+
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+	}
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
@@ -175,4 +184,6 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
+
 }

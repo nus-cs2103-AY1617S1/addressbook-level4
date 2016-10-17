@@ -89,12 +89,19 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized Task undoEditTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
         Task editedTask = addressBook.editTask(oldTask, newParams, "undo");
-        updateFilteredListToShowAll();
         indicateAddressBookChanged();
         
         return editedTask;
     }
 
+	@Override
+	public synchronized void markTask(Task taskToMark, boolean isComplete) throws TaskNotFoundException {
+		addressBook.markTask(taskToMark, isComplete);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+		
+	}
+    
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
@@ -172,5 +179,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
+
 
 }

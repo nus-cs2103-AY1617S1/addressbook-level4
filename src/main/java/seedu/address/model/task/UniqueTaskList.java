@@ -99,6 +99,14 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList;
     }
 
+    /**
+     * Returns task if the list contains an equivalent task as the given argument.
+     */
+    public Task get(Task toGet) {
+        assert toGet != null;
+        return internalList.get(internalList.indexOf(toGet));
+    }
+
     @Override
     public Iterator<Task> iterator() {
         return internalList.iterator();

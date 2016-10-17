@@ -20,7 +20,9 @@ public class UndoCommand extends Command {
 
 	public static final String MESSAGE_UNDO_ADD_SUCCESS = "Undo: Adding of new task: %1$s";
 	public static final String MESSAGE_UNDO_DELETE_SUCCESS = "Undo: Deleting task: %1$s";
-	   public static final String MESSAGE_UNDO_EDIT_SUCCESS = "Undo: Editting task from: %1$s\nto: %2$s";
+    public static final String MESSAGE_UNDO_EDIT_SUCCESS = "Undo: Editting task from: %1$s\nto: %2$s";
+    public static final String MESSAGE_UNDO_DONE_SUCCESS = "Undo: Marked task as Completed: %1$s";
+	   
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Lifekeeper";
 	
 	@Override
@@ -39,12 +41,16 @@ public class UndoCommand extends Command {
 				
             case EditCommand.COMMAND_WORD:
                 return undoEdit(toUndo);
+                
+            case DoneCommand.COMMAND_WORD:
+                return undoDone(toUndo);
 			}
 
 		}
 		
 			return new CommandResult(MESSAGE_END_OF_UNDO);
 	}
+
 
 	/**
 	 * Undo Add command which was previously called
@@ -92,12 +98,26 @@ public class UndoCommand extends Command {
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task to be edited cannot be missing";
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            //I think should assert here instead since duplicate task wont happen if it runs correctly
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            assert false : "The unedited task should not be a duplicate of the edited task";
         }
-        return null;
-
-        
+        return null;   
     }
+
+	/**
+     * Undo Edit command which was previously called
+     */
+	private CommandResult undoDone(PreviousCommand toUndo) {
+		boolean isComplete = false;
+		Task unmarkedTask = toUndo.getUpdatedTask();
+        try {
+    		model.markTask(unmarkedTask, isComplete);
+    		
+            return new CommandResult(String.format(MESSAGE_UNDO_DONE_SUCCESS, unmarkedTask));
+        } catch (TaskNotFoundException tnfe) {
+            assert false : "The target task to be edited cannot be missing";
+        }
+		return null;
+	}
+
 	
 }

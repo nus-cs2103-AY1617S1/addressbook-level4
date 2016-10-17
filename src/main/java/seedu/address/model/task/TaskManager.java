@@ -26,6 +26,9 @@ public class TaskManager {
         return newTask;
     }
 
+	public static void marksTask(Task task, boolean isComplete) {
+		task.setCompletionStatus(isComplete);
+	}
 
 	private static TaskName updateTaskName(Task oldTask, Task newParams, String type) throws IllegalValueException {
         TaskName newTaskName;
@@ -88,4 +91,7 @@ public class TaskManager {
 
         return newTags;
     }
+
+
+
 }

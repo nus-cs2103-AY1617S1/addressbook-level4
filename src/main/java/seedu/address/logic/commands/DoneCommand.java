@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -17,8 +19,9 @@ public class DoneCommand extends Command {
 			+ ": Marks the completion of the task identified by the index number shown in the last task listing.\n"
 			+ "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-	public static final String MESSAGE_DONE_TASK_SUCCESS = "Task Completed: %1$s";
-
+	public static final String MESSAGE_DONE_TASK_SUCCESS = "Marked task as Completed: %1$s";
+	public static final String MESSAGE_TASK_COMPLETED = "Task is already Completed";
+	
 	public final int targetIndex;
 
 	public DoneCommand(int targetIndex) {
@@ -37,16 +40,24 @@ public class DoneCommand extends Command {
 
 		ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
 
-		try {
-			model.deleteTask(taskToMark);
+		if (taskToMark.getCompletionStatus() == false) {
 
-			PreviousCommand doneCommand = new PreviousCommand(COMMAND_WORD, taskToMark);
-			PreviousCommandsStack.push(doneCommand);
+			Task unmarkedTask = new Task(taskToMark);
+			boolean isComplete = true;
+			try {
+				model.markTask(unmarkedTask, isComplete);
 
-		} catch (TaskNotFoundException tnfe) {
-			assert false : "The target task cannot be missing";
+				PreviousCommand doneCommand = new PreviousCommand(COMMAND_WORD, unmarkedTask);
+				PreviousCommandsStack.push(doneCommand);
+
+			} catch (TaskNotFoundException tnfe) {
+				assert false : "The target task cannot be missing";
+			}
+			return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark));
+
+		} else {
+			return new CommandResult(String.format(MESSAGE_TASK_COMPLETED));
 		}
-
-		return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark));
 	}
 }
+
