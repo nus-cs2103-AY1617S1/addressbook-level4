@@ -5,7 +5,7 @@
 
 # Quick start
  
-1. Ensure that you have the latest Java version ‘1.8.0_60’ or later installed in your 	Computer.<br>
+1. Ensure that you have the latest Java version â€˜1.8.0_60â€™ or later installed in your 	Computer.<br>
 	> Having any Java 8 version is not enough<br>
 	> The application will not work for any earlier Java versions
 2. Find the project in the `Project Explorer` or `Package Explorer` (usually located 	at the left side)
@@ -115,21 +115,21 @@ help
 Adds a task to the planner <br><br>
 Format:<br> 
 ```
-1. add TASKNAME DATE(optional)
-2. add TASKNAME DATE(optional) STARTTIME to ENDTIME isRECURRING(optional)
-3. add TASKNAME DATE(optional) by ENDTIME(optional) isRECURRING(optional)
+1. add TASKNAME d/DATE(optional)
+2. add TASKNAME d/DATE(optional) s/STARTTIME e/ENDTIME r/isRECURRING(optional)
+3. add TASKNAME d/DATE(optional) e/ENDTIME(optional) r/isRECURRING(optional)
 ```
 
 Examples:<br>
-1. `add gym today` <br>
+
+1. `add gym d/today` <br>
 > Task with no specified timing is added to today's schedule<br>
-
-2. `add meeting tomorrow 2pm to 4pm` <br>
-
+ 
+2. `add meeting d/tomorrow s/2pm e/4pm` <br>
 > Fixed task is added from 2pm to 4pm the next day<br>
-3. `add math homework by 6pm` <br>
 
-> Task with a deadline is added, no date is specified so today’s date is assumed<br>
+3. `add math homework e/6pm` <br>
+> Task with a deadline is added, no date is specified so todayâ€™s date is assumed<br>
 
 
 ### Viewing a schedule : `show`
@@ -150,7 +150,7 @@ Examples:<br>
 
 <br>
 
-The show function will generate the user’s schedule when queried. Starting from the current time, it will consider all tasks in hand for the day and assign them to timeslots. 
+The show function will generate the userâ€™s schedule when queried. Starting from the current time, it will consider all tasks in hand for the day and assign them to timeslots. 
 
 Urgent tasks will be scheduled first(tasks with nearing deadlines). Fixed tasks will be scheduled only during their specified timeslot and floating tasks will be inserted to remaining empty timeslots throughout the day. Daily Planner will even account for breaks in between certain hours of consecutive tasks(say, every 3 hours). 
 
@@ -181,7 +181,7 @@ find cs lecture
 
 ### Editing a task: `edit`
 
-Edits a particular task’s details<br>
+Edits a particular taskâ€™s details<br>
 Format:
 ```
 edit DATE(optional) INDEX  
