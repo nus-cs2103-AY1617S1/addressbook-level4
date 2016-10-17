@@ -33,22 +33,15 @@ public class EditCommand extends Command {
 	private final TaskDate endDate;
 	private final int targetIndex;
 	
-	private Name constructName(String taskName) {
-		try {
-			return new Name(taskName);
-		} catch (IllegalValueException e) {
-			return null;
-		}
+	private Name constructName(String taskName) throws IllegalValueException {
+		return new Name(taskName);
 	}
 	
-	private UniqueTagList constructTagList(Set<String> tags) {
+	private UniqueTagList constructTagList(Set<String> tags) throws IllegalValueException {
 		if(tags.size() > 0) {
 			final Set<Tag> tagSet = new HashSet<>();
 	        for (String tagName : tags) {
-	            try {
-					tagSet.add(new Tag(tagName));
-				} catch (IllegalValueException e) {
-				}
+				tagSet.add(new Tag(tagName));
 	        }
 	        return new UniqueTagList(tagSet);
 		}
@@ -62,7 +55,7 @@ public class EditCommand extends Command {
 		return null;
 	}
 	
-	public EditCommand(int targetIndex, String taskName, Set<String> tags, Date startDate, Date endDate) {
+	public EditCommand(int targetIndex, String taskName, Set<String> tags, Date startDate, Date endDate) throws IllegalValueException {
 		this.targetIndex = targetIndex;
 		this.taskName = constructName(taskName);
 		this.tags = constructTagList(tags);

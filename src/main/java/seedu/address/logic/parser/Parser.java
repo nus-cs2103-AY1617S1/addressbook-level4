@@ -419,11 +419,8 @@ public class Parser {
         		return new IncorrectCommand(ive.getMessage());
         	}
         } else if(tagMatcherMatches) {
-        	try {
-        		tagSet = getTagsFromArgs(tagMatcher.group("tagArguments"));
-        	} catch(IllegalValueException ive) {
-        		return new IncorrectCommand(ive.getMessage());
-        	}
+        	final Collection<String> tagStrings = Arrays.asList(tagMatcher.group("tagArguments").replaceFirst("t/", "").split(" t/"));
+            tagSet = new HashSet<>(tagStrings);
         } else if(noDateMatcherMatches) {
         	String[] keywords = noDateMatcher.group("keywords").split("\\s+");
     		keywordSet = new HashSet<>(Arrays.asList(keywords));
@@ -436,13 +433,14 @@ public class Parser {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
+        System.out.println(tagSet.toString());
         return new FindCommand(keywordSet, startTime, endTime, deadline, tagSet);
     }
     
     private Command prepareEdit(String args) {
     	if(args == null || args.length() == 0)
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+                    EditCommand.MESSAGE_USAGE));
     	
     	final Matcher noDateMatcher = EDIT_ARGS_WITHOUT_DATE_FORMAT.matcher(args.trim());
         final Matcher dateMatcher = EDIT_ARGS_WITH_DATE_FORMAT.matcher(args.trim());
@@ -521,9 +519,14 @@ public class Parser {
         	}
         } else {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+                    EditCommand.MESSAGE_USAGE));
         }
-        return new EditCommand(targetIndex, taskName, tagSet, startTime, endTime);
+        
+        try {
+        	return new EditCommand(targetIndex, taskName, tagSet, startTime, endTime);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }   
     }
     
     /**

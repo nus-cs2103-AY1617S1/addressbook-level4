@@ -770,6 +770,20 @@ public class LogicManagerTest {
                 expectedList);
         
     }
+    
+    @Test
+    public void execute_edit_invalidTaskData() throws Exception {
+        Task toBeAdded = new Task(new Name("anything"), new UniqueTagList(),
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+       
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeAdded);
+    	model.addTask(toBeAdded);
+        assertCommandBehavior(
+                "edit 1 []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS, expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior(
+        		"edit 1 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS, expectedAB, expectedAB.getTaskList());
+    }
 
 
     /**
