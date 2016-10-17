@@ -348,3 +348,11 @@ Todoist : SWOT
 > Todoist is a cross platform task management application, with access to over 10 different platforms and the ability to collaborate on tasks. There are also multiple categories to choose from to tag tasks for, and with a daily streak, it encourages people to keep up the habit of clearing existing tasks that have been taken down. With Karma Mode, it allows also for users to rack up enough tasks during the week and have 'off days' where they do not have to continuously do tasks to keep their streak up.
 
 > One flaw with Todoist is that the projects, while doing a great job of categorising tasks, do not possess subproject hierarchy and thus would make complex projects hard to split downwards in an orderly fashion.
+
+Priority Matrix : SWOT
+
+> Priority Matrix is a powerful software application that helps individuals be more effective at managing their priorities. It is supported on a number of platforms, including Microsoft Windows, Mac OS X, Android, and iOS. A unique feature of Priority Matrix is that it separates its UI into 4 quadrants (Critical and Immediate, Critical but not Immediate, Not Critical but Immediate, and Uncategorised) which organize tasks based on importance and urgency so that users can have better time management.
+
+> One strength of Priority Matrix is that it offers a cloud-based synchronization of data, allowing for data management across multiple devices.
+
+> One improvement for Priority Matrix is that it could make its UI more aesthetically pleasing.
