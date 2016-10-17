@@ -365,7 +365,7 @@ The **`Storage`** component
 * Depends on the **`Model`** component, but the **`Logic`** and **`UI`** components depend on it.
 <br><br>
 
-****`Storage`** Interface:**
+**`Storage` Interface:**
 
 The **`Storage`** interface allows you to request for any storage-related operations, such as reading and saving the user's preferences and tasklist.
 
