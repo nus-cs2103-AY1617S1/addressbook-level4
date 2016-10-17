@@ -51,7 +51,6 @@ public class RecurrenceRate {
      * @throws IllegalValueException if either values are invalid.
      */
     public RecurrenceRate(String rate, String timePeriod) throws IllegalValueException {
-        assert timePeriod != null && rate != null;
         
         if (!isValidTimePeriod(timePeriod.trim())) {
             throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);

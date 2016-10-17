@@ -173,7 +173,6 @@ public class CommandParser {
         }
         logger.info("Number of keywords in \"" + argsTrimmed + "\" = " + numberOfKeywords);
         
-        assert matcher.group("taskName") != null;
         try {
             if (numberOfKeywords == 0) {
                 pattern = Pattern.compile(REGEX_CASE_IGNORE_OPENING + REGEX_NAME_NO_CLOSE_BRACE + REGEX_CLOSE_BRACE
