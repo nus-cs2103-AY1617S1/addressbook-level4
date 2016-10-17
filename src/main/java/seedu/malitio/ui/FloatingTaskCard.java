@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
-public class TaskCard extends UiPart{
+public class FloatingTaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
 
@@ -19,15 +19,15 @@ public class TaskCard extends UiPart{
     @FXML
     private Label tags;
 
-    private ReadOnlyTask task;
+    private ReadOnlyFloatingTask task;
     private int displayedIndex;
 
-    public TaskCard(){
+    public FloatingTaskCard(){
 
     }
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
-        TaskCard card = new TaskCard();
+    public static FloatingTaskCard load(ReadOnlyFloatingTask task, int displayedIndex){
+        FloatingTaskCard card = new FloatingTaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);

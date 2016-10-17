@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.util.FxViewUtil;
-import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
 import java.util.logging.Logger;
 
@@ -50,7 +50,7 @@ public class BrowserPanel extends UiPart{
         return browserPanel;
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
+    public void loadTaskPage(ReadOnlyFloatingTask task) {
         loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
     }
 

@@ -22,9 +22,12 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This floating task already exists in Malitio";
-    public static final String MESSAGE_DUPLICATE_SCHEDULE = "This event or deadline already exists in Malitio";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in Malitio";
+    private static final String MESSAGE_DUPLICATE_DEADLINE ="This deadline already exists in Malitio";
     private FloatingTask toAddFloatingTask;
-    private Schedule toAddSchedule;
+    private Deadline toAddDeadline;
+    private Event toAddEvent;
+    
     /**
      * Convenience constructor for floating tasks using raw values.
      *
@@ -53,7 +56,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAddSchedule = new Deadlines(
+        this.toAddDeadline = new Deadline(
                 new Name(name),
                 new DateTime(date),
                 new UniqueTagList(tagSet)
@@ -72,7 +75,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         // check if start < end
-        this.toAddSchedule = new Events(
+        this.toAddEvent = new Event(
                 new Name(name),
                 new DateTime(start),
                 new DateTime(end),
@@ -82,20 +85,28 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        if (toAddSchedule == null){
+        if (toAddFloatingTask!=null){
             try {
                 model.addFloatingTask(toAddFloatingTask);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAddFloatingTask));
-            } catch (UniqueTaskList.DuplicateTaskException e) {
+            } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_TASK);
             }
         }
+        else if (toAddDeadline != null){
+            try {
+                model.addDeadline(toAddDeadline);
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toAddDeadline));
+            } catch (UniqueDeadlineList.DuplicateDeadlineException e) {
+                return new CommandResult(MESSAGE_DUPLICATE_DEADLINE);
+            } 
+        }
         else {
             try {
-                model.addSchedule(toAddSchedule);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, toAddSchedule));
-            } catch (UniqueScheduleList.DuplicateScheduleException e) {
-                return new CommandResult(MESSAGE_DUPLICATE_SCHEDULE);
+                model.addEvent(toAddEvent);
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toAddEvent));
+            } catch (UniqueEventList.DuplicateEventException e) {
+                return new CommandResult(MESSAGE_DUPLICATE_EVENT);
             } 
         }
     }

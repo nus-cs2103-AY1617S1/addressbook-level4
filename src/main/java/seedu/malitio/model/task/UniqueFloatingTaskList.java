@@ -15,14 +15,14 @@ import java.util.*;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueScheduleList implements Iterable<Schedule> {
+public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicateScheduleException extends DuplicateDataException {
-        protected DuplicateScheduleException() {
-            super("Operation would result in duplicate event/deadline");
+    public static class DuplicateFloatingTaskException extends DuplicateDataException {
+        protected DuplicateFloatingTaskException() {
+            super("Operation would result in duplicate floating tasks");
         }
     }
 
@@ -30,19 +30,19 @@ public class UniqueScheduleList implements Iterable<Schedule> {
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
-    public static class ScheduleNotFoundException extends Exception {}
+    public static class FloatingTaskNotFoundException extends Exception {}
 
-    private final ObservableList<Schedule> internalList = FXCollections.observableArrayList();
+    private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
      */
-    public UniqueScheduleList() {}
+    public UniqueFloatingTaskList() {}
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(ReadOnlySchedule toCheck) {
+    public boolean contains(ReadOnlyFloatingTask toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -50,45 +50,45 @@ public class UniqueScheduleList implements Iterable<Schedule> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Schedule toAdd) throws DuplicateScheduleException {
+    public void add(FloatingTask toAdd) throws DuplicateFloatingTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicateScheduleException();
+            throw new DuplicateFloatingTaskException();
         }
         internalList.add(toAdd);
     }
 
     /**
-     * Removes the equivalent schedule from the list.
+     * Removes the equivalent task from the list.
      *
-     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws FloatingTaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlySchedule toRemove) throws ScheduleNotFoundException {
+    public boolean remove(ReadOnlyFloatingTask toRemove) throws FloatingTaskNotFoundException {
         assert toRemove != null;
-        final boolean scheduleFoundAndDeleted = internalList.remove(toRemove);
-        if (!scheduleFoundAndDeleted) {
-            throw new ScheduleNotFoundException();
+        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
+        if (!taskFoundAndDeleted) {
+            throw new FloatingTaskNotFoundException();
         }
-        return scheduleFoundAndDeleted;
+        return taskFoundAndDeleted;
     }
 
-    public ObservableList<Schedule> getInternalList() {
+    public ObservableList<FloatingTask> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Schedule> iterator() {
+    public Iterator<FloatingTask> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueScheduleList // instanceof handles nulls
+                || (other instanceof UniqueFloatingTaskList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniqueScheduleList) other).internalList));
+                ((UniqueFloatingTaskList) other).internalList));
     }
 
     @Override
@@ -96,4 +96,3 @@ public class UniqueScheduleList implements Iterable<Schedule> {
         return internalList.hashCode();
     }
 }
-

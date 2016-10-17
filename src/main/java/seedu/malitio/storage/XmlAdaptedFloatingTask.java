@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedTask {
+public class XmlAdaptedFloatingTask {
 
     @XmlElement(required = true)
     private String name;
@@ -24,7 +24,7 @@ public class XmlAdaptedTask {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
+    public XmlAdaptedFloatingTask() {}
 
 
     /**
@@ -32,7 +32,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(ReadOnlyTask source) {
+    public XmlAdaptedFloatingTask(ReadOnlyFloatingTask source) {
         name = source.getName().fullName;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -45,7 +45,7 @@ public class XmlAdaptedTask {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted Task
      */
-    public Task toModelType() throws IllegalValueException {
+    public FloatingTask toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());

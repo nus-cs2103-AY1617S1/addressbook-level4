@@ -6,15 +6,16 @@ import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.events.model.MalitioChangedEvent;
 import seedu.malitio.commons.util.StringUtil;
+import seedu.malitio.model.task.Deadline;
+import seedu.malitio.model.task.Event;
 import seedu.malitio.model.task.FloatingTask;
-import seedu.malitio.model.task.ReadOnlySchedule;
-import seedu.malitio.model.task.ReadOnlyTask;
-import seedu.malitio.model.task.Schedule;
-import seedu.malitio.model.task.Task;
-import seedu.malitio.model.task.UniqueScheduleList.DuplicateScheduleException;
-import seedu.malitio.model.task.UniqueTaskList;
-import seedu.malitio.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.malitio.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.malitio.model.task.ReadOnlyDeadline;
+import seedu.malitio.model.task.ReadOnlyEvent;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
+import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -27,8 +28,9 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Malitio malitio;
-    private final FilteredList<Task> filteredFloatingTasks;
-    private final FilteredList<Schedule> filteredEventsAndDeadlines;
+    private final FilteredList<FloatingTask> filteredFloatingTasks;
+    private final FilteredList<Deadline> filteredDeadlines;
+    private final FilteredList<Event> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given Malitio
@@ -43,7 +45,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         malitio = new Malitio(src);
         filteredFloatingTasks = new FilteredList<>(malitio.getFloatingTasks());
-        filteredEventsAndDeadlines = new FilteredList<>(malitio.getSchedules());
+        filteredDeadlines = new FilteredList<>(malitio.getDeadlines());
+        filteredEvents = new FilteredList<>(malitio.getEvents());
     }
 
     public ModelManager() {
@@ -53,7 +56,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyMalitio initialData, UserPrefs userPrefs) {
         malitio = new Malitio(initialData);
         filteredFloatingTasks = new FilteredList<>(malitio.getFloatingTasks());
-        filteredEventsAndDeadlines = new FilteredList<>(malitio.getSchedules());
+        filteredDeadlines = new FilteredList<>(malitio.getDeadlines());
+        filteredEvents = new FilteredList<>(malitio.getEvents());
     }
 
     @Override
@@ -73,22 +77,30 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyFloatingTask target) throws FloatingTaskNotFoundException {
         malitio.removeTask(target);
         indicatemalitioChanged();
     }
 
     @Override
-    public void addFloatingTask(FloatingTask task) throws DuplicateTaskException {
+    public void addFloatingTask(FloatingTask task) throws DuplicateFloatingTaskException {
         malitio.addFloatingTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredTaskListToShowAll();
         indicatemalitioChanged();
     }
 
     @Override
-    public void addSchedule(Schedule schedule) throws DuplicateScheduleException {
-        malitio.addSchedule(schedule);
-        updateFilteredScheduleToShowAll();
+    public void addDeadline(Deadline deadline) throws DuplicateDeadlineException {
+        malitio.addDeadline(deadline);
+        updateFilteredDeadlineListToShowAll();
+        indicatemalitioChanged();
+        
+    }
+    
+    @Override
+    public void addEvent(Event event) throws DuplicateEventException {
+        malitio.addEvent(event);
+        updateFilteredDeadlineListToShowAll();
         indicatemalitioChanged();
         
     }
@@ -96,23 +108,33 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
+    public UnmodifiableObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList() {
         return new UnmodifiableObservableList<>(filteredFloatingTasks);
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlySchedule> getFilteredEventsAndDeadlines() {
-        return new UnmodifiableObservableList<>(filteredEventsAndDeadlines);
+    public UnmodifiableObservableList<ReadOnlyDeadline> getFilteredDeadlineList() {
+        return new UnmodifiableObservableList<>(filteredDeadlines);
     }
 
     @Override
-    public void updateFilteredListToShowAll() {
+    public UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList() {
+        return new UnmodifiableObservableList<>(filteredEvents);
+    }
+    
+    @Override
+    public void updateFilteredTaskListToShowAll() {
         filteredFloatingTasks.setPredicate(null);
     }
     
     @Override
-    public void updateFilteredScheduleToShowAll() {
-        filteredEventsAndDeadlines.setPredicate(null);
+    public void updateFilteredDeadlineListToShowAll() {
+        filteredDeadlines.setPredicate(null);
+    }
+    
+    @Override
+    public void updateFilteredEventListToShowAll() {
+        filteredEvents.setPredicate(null);
     }
 
     @Override
@@ -125,19 +147,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredSchedule(Set<String> keywords){
-    	updateFilteredSchedule(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredDeadlineList(Set<String> keywords){
+    	updateFilteredDeadlines(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredSchedule(Expression expression) {
-        filteredEventsAndDeadlines.setPredicate(expression::satisfies);
+    private void updateFilteredDeadlines(Expression expression) {
+        filteredDeadlines.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredEventList(Set<String> keywords){
+        updateFilteredEvents(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredEvents(Expression expression) {
+        filteredEvents.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyTask task);
-        boolean satisfies(ReadOnlySchedule schedule);
+        boolean satisfies(ReadOnlyFloatingTask task);
+        boolean satisfies(ReadOnlyDeadline deadline);
+        boolean satisfies(ReadOnlyEvent event);
         String toString();
     }
 
@@ -150,13 +182,18 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask task) {
+        public boolean satisfies(ReadOnlyFloatingTask task) {
             return qualifier.run(task);
         }
         
         @Override
-        public boolean satisfies(ReadOnlySchedule schedule) {
-            return qualifier.run(schedule);
+        public boolean satisfies(ReadOnlyDeadline deadline) {
+            return qualifier.run(deadline);
+        }
+        
+        @Override
+        public boolean satisfies(ReadOnlyEvent event) {
+            return qualifier.run(event);
         }
 
         @Override
@@ -166,8 +203,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask task);
-        boolean run(ReadOnlySchedule schedule);
+        boolean run(ReadOnlyFloatingTask task);
+        boolean run(ReadOnlyDeadline schedule);
+        boolean run(ReadOnlyEvent event);
         String toString();
     }
 
@@ -179,7 +217,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask task) {
+        public boolean run(ReadOnlyFloatingTask task) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()
@@ -187,16 +225,26 @@ public class ModelManager extends ComponentManager implements Model {
         }
         
         @Override
-        public boolean run(ReadOnlySchedule schedule) {
+        public boolean run(ReadOnlyDeadline deadline) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(schedule.getName().fullName
-                            + " " + schedule.getDue().toString()
-                            + " " + schedule.getStart().toString()
-                            + " " + schedule.getEnd().toString(), 
+                    .filter(keyword -> StringUtil.containsIgnoreCase(deadline.getName().fullName
+                            + " " + deadline.getDue().toString(), 
                             keyword))
                     .findAny() 
                     .isPresent();
         }
+        
+        @Override
+        public boolean run(ReadOnlyEvent event) {
+            return nameKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(event.getName().fullName
+                            + " " + event.getStart().toString()
+                            + " " + event.getEnd().toString(), 
+                            keyword))
+                    .findAny() 
+                    .isPresent();
+        }
+
 
         @Override
         public String toString() {

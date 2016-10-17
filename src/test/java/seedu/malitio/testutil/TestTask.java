@@ -6,7 +6,7 @@ import seedu.malitio.model.task.*;
 /**
  * A mutable task object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyFloatingTask {
 
     private Name name;
     private DateTime due;

@@ -3,10 +3,12 @@ package seedu.malitio.model;
 
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
-import seedu.malitio.model.task.ReadOnlySchedule;
-import seedu.malitio.model.task.ReadOnlyTask;
-import seedu.malitio.model.task.UniqueScheduleList;
-import seedu.malitio.model.task.UniqueTaskList;
+import seedu.malitio.model.task.ReadOnlyDeadline;
+import seedu.malitio.model.task.ReadOnlyEvent;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueDeadlineList;
+import seedu.malitio.model.task.UniqueEventList;
+import seedu.malitio.model.task.UniqueFloatingTaskList;
 
 import java.util.List;
 
@@ -17,19 +19,26 @@ public interface ReadOnlyMalitio {
 
     UniqueTagList getUniqueTagList();
 
-    UniqueTaskList getUniqueTaskList();
+    UniqueFloatingTaskList getUniqueFloatingTaskList();
     
-    UniqueScheduleList getUniqueScheduleList();
+    UniqueDeadlineList getUniqueDeadlineList();
+    
+    UniqueEventList getUniqueEventList();
 
     /**
      * Returns an unmodifiable view of tasks list
      */
-    List<ReadOnlyTask> getTaskList();
+    List<ReadOnlyFloatingTask> getFloatingTaskList();
     
     /**
-     * Returns an unmodifiable view of tasks list
+     * Returns an unmodifiable view of deadlines list
      */
-    List<ReadOnlySchedule> getScheduleList();
+    List<ReadOnlyDeadline> getDeadlineList();
+    
+    /**
+     * Returns an unmodifiable view of deadlines list
+     */
+    List<ReadOnlyEvent> getEventList();    
 
     /**
      * Returns an unmodifiable view of tags list

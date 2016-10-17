@@ -43,7 +43,7 @@ public class TypicalTestTasks {
             ab.addTask(new FloatingTask(lecture));
             ab.addTask(new FloatingTask(homework));
             ab.addTask(new FloatingTask(play));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
             assert false : "not possible";
         }
     }

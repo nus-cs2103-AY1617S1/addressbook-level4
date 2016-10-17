@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import seedu.malitio.TestApp;
 import seedu.malitio.testutil.TestUtil;
 import seedu.malitio.model.task.FloatingTask;
-import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.Task;
 
 import java.util.List;
@@ -32,20 +32,20 @@ public class TaskListPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public List<ReadOnlyTask> getSelectedTasks() {
-        ListView<ReadOnlyTask> taskList = getListView();
+    public List<ReadOnlyFloatingTask> getSelectedTasks() {
+        ListView<ReadOnlyFloatingTask> taskList = getListView();
         return taskList.getSelectionModel().getSelectedItems();
     }
 
-    public ListView<ReadOnlyTask> getListView() {
-        return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
+    public ListView<ReadOnlyFloatingTask> getListView() {
+        return (ListView<ReadOnlyFloatingTask>) getNode(TASK_LIST_VIEW_ID);
     }
 
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
      * @param tasks A list of task in the correct order.
      */
-    public boolean isListMatching(ReadOnlyTask... tasks) {
+    public boolean isListMatching(ReadOnlyFloatingTask... tasks) {
         return this.isListMatching(0, tasks);
     }
     
@@ -60,8 +60,8 @@ public class TaskListPanelHandle extends GuiHandle {
     /**
      * Returns true if the {@code tasks} appear as the sub list (in that order) at position {@code startPosition}.
      */
-    public boolean containsInOrder(int startPosition, ReadOnlyTask... tasks) {
-        List<ReadOnlyTask> tasksInList = getListView().getItems();
+    public boolean containsInOrder(int startPosition, ReadOnlyFloatingTask... tasks) {
+        List<ReadOnlyFloatingTask> tasksInList = getListView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
         if (startPosition + tasks.length > tasksInList.size()){
@@ -83,7 +83,7 @@ public class TaskListPanelHandle extends GuiHandle {
      * @param startPosition The starting position of the sub list.
      * @param tasks A list of task in the correct order.
      */
-    public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
+    public boolean isListMatching(int startPosition, ReadOnlyFloatingTask... tasks) throws IllegalArgumentException {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " tasks");
@@ -103,7 +103,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyFloatingTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
@@ -114,7 +114,7 @@ public class TaskListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the task.
      */
-    public TaskCardHandle navigateToTask(ReadOnlyTask task) {
+    public TaskCardHandle navigateToTask(ReadOnlyFloatingTask task) {
         int index = getTaskIndex(task);
 
         guiRobot.interact(() -> {
@@ -130,8 +130,8 @@ public class TaskListPanelHandle extends GuiHandle {
     /**
      * Returns the position of the task given, {@code NOT_FOUND} if not found in the list.
      */
-    public int getTaskIndex(ReadOnlyTask targetTask) {
-        List<ReadOnlyTask> tasksInList = getListView().getItems();
+    public int getTaskIndex(ReadOnlyFloatingTask targetTask) {
+        List<ReadOnlyFloatingTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
             if(tasksInList.get(i).getName().equals(targetTask.getName())){
                 return i;
@@ -143,7 +143,7 @@ public class TaskListPanelHandle extends GuiHandle {
     /**
      * Gets a task from the list by index
      */
-    public ReadOnlyTask getTask(int index) {
+    public ReadOnlyFloatingTask getTask(int index) {
         return getListView().getItems().get(index);
     }
 
@@ -151,7 +151,7 @@ public class TaskListPanelHandle extends GuiHandle {
         return getTaskCardHandle(new FloatingTask(getListView().getItems().get(index)));
     }
 
-    public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
+    public TaskCardHandle getTaskCardHandle(ReadOnlyFloatingTask task) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> taskCardNode = nodes.stream()
                 .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))

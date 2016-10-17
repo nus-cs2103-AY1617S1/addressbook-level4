@@ -106,7 +106,7 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyMalitio expectedmalitio,
-                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+                                       List<? extends ReadOnlyFloatingTask> expectedShownList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
@@ -177,7 +177,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getFloatingTaskList());
 
     }
 
@@ -197,7 +197,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getFloatingTaskList());
 
     }
 
@@ -207,7 +207,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         Malitio expectedAB = helper.generateMalitio(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        List<? extends ReadOnlyFloatingTask> expectedList = expectedAB.getFloatingTaskList();
 
         // prepare malitio state
         helper.addToModel(model, 2);
@@ -273,7 +273,7 @@ public class LogicManagerTest {
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getFloatingTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredFloatingTaskList().get(1), threeTasks.get(1));
     }
@@ -302,7 +302,7 @@ public class LogicManagerTest {
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getFloatingTaskList());
     }
 
 

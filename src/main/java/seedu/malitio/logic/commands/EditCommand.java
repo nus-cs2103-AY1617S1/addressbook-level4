@@ -10,10 +10,9 @@ import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.Name;
-import seedu.malitio.model.task.ReadOnlyTask;
-import seedu.malitio.model.task.Task;
-import seedu.malitio.model.task.UniqueTaskList;
-import seedu.malitio.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueFloatingTaskList;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 /**
  * Edits a task identified using it's last displayed index from Malitio.
@@ -122,21 +121,21 @@ public class EditCommand extends Command{
  */
     @Override
     public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredFloatingTaskList();
+        UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownList = model.getFilteredFloatingTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        ReadOnlyFloatingTask taskToEdit = lastShownList.get(targetIndex - 1);
                 
         try {
             assert model != null;
             model.addFloatingTask(editedTask);
             model.deleteTask(taskToEdit);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (FloatingTaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));

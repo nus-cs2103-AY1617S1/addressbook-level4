@@ -2,8 +2,8 @@ package seedu.malitio.logic.commands;
 
 import seedu.malitio.commons.core.Messages;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
-import seedu.malitio.model.task.ReadOnlyTask;
-import seedu.malitio.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from Malitio.
@@ -29,18 +29,18 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredFloatingTaskList();
+        UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownList = model.getFilteredFloatingTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyFloatingTask taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.deleteTask(taskToDelete);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (FloatingTaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 

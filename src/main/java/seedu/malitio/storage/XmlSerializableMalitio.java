@@ -4,10 +4,12 @@ import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.ReadOnlyMalitio;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
-import seedu.malitio.model.task.ReadOnlySchedule;
-import seedu.malitio.model.task.ReadOnlyTask;
-import seedu.malitio.model.task.UniqueScheduleList;
-import seedu.malitio.model.task.UniqueTaskList;
+import seedu.malitio.model.task.ReadOnlyDeadline;
+import seedu.malitio.model.task.ReadOnlyEvent;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueDeadlineList;
+import seedu.malitio.model.task.UniqueEventList;
+import seedu.malitio.model.task.UniqueFloatingTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -23,15 +25,18 @@ import java.util.stream.Collectors;
 public class XmlSerializableMalitio implements ReadOnlyMalitio {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedFloatingTask> floatingTasks;
     @XmlElement
-    private List<XmlAdaptedSchedule> schedules;
+    private List<XmlAdaptedDeadline> deadlines;
+    @XmlElement
+    private List<XmlAdaptedEvent> events;
     @XmlElement
     private List<Tag> tags;
 
     {
-        tasks = new ArrayList<>();
-        schedules = new ArrayList<>();
+        floatingTasks = new ArrayList<>();
+        deadlines = new ArrayList<>();
+        events = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -44,8 +49,9 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
      * Conversion
      */
     public XmlSerializableMalitio(ReadOnlyMalitio src) {
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        schedules.addAll(src.getScheduleList().stream().map(XmlAdaptedSchedule::new).collect(Collectors.toList()));
+        floatingTasks.addAll(src.getFloatingTaskList().stream().map(XmlAdaptedFloatingTask::new).collect(Collectors.toList()));
+        deadlines.addAll(src.getDeadlineList().stream().map(XmlAdaptedDeadline::new).collect(Collectors.toList()));
+        events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -61,9 +67,9 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
-        UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : tasks) {
+    public UniqueFloatingTaskList getUniqueFloatingTaskList() {
+        UniqueFloatingTaskList lists = new UniqueFloatingTaskList();
+        for (XmlAdaptedFloatingTask p : floatingTasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -74,8 +80,47 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
     }
     
     @Override
-    public List<ReadOnlyTask> getTaskList() {
-        return tasks.stream().map(p -> {
+    public UniqueDeadlineList getUniqueDeadlineList() {
+        UniqueDeadlineList lists = new UniqueDeadlineList();
+        for (XmlAdaptedDeadline p : deadlines) {
+            try {
+                lists.add(p.toModelType());
+            } catch (IllegalValueException e) {
+                //TODO: better error handling
+            }
+        }
+        return lists;
+    }
+    
+    @Override
+    public UniqueEventList getUniqueEventList() {
+        UniqueEventList lists = new UniqueEventList();
+        for (XmlAdaptedEvent p : events) {
+            try {
+                lists.add(p.toModelType());
+            } catch (IllegalValueException e) {
+                //TODO: better error handling
+            }
+        }
+        return lists;
+    }
+    
+    @Override
+    public List<ReadOnlyFloatingTask> getFloatingTaskList() {
+        return floatingTasks.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                //TODO: better error handling
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    public List<ReadOnlyDeadline> getDeadlineList() {
+        return deadlines.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
@@ -86,36 +131,23 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
     
+    @Override
+    public List<ReadOnlyEvent> getEventList() {
+        return events.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                //TODO: better error handling
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
 
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags);
     }
 
-    @Override
-    public UniqueScheduleList getUniqueScheduleList() {
-        UniqueScheduleList lists = new UniqueScheduleList();
-        for (XmlAdaptedSchedule p : schedules) {
-            try {
-                lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
-        }
-        return lists;
-    }
-
-    @Override
-    public List<ReadOnlySchedule> getScheduleList() {
-        return schedules.stream().map(p -> {
-            try {
-                return p.toModelType();
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-                //TODO: better error handling
-                return null;
-            }
-        }).collect(Collectors.toCollection(ArrayList::new));
-    }
 
 }

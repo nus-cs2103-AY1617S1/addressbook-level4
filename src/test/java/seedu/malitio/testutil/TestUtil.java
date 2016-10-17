@@ -135,7 +135,7 @@ public class TestUtil {
     }
 
     public static Malitio generateEmptymalitio() {
-        return new Malitio(new UniqueTaskList(), new UniqueTaskList(), new UniqueTagList());
+        return new Malitio(new UniqueFloatingTaskList(), new UniqueFloatingTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableMalitio generateSampleStoragemalitio() {
@@ -326,7 +326,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyFloatingTask task) {
         return card.isSameTask(task);
     }
 

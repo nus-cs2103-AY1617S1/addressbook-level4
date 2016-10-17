@@ -9,28 +9,24 @@ import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.DateTime;
-import seedu.malitio.model.task.Deadlines;
-import seedu.malitio.model.task.Events;
+import seedu.malitio.model.task.Deadline;
 import seedu.malitio.model.task.Name;
-import seedu.malitio.model.task.ReadOnlySchedule;
-import seedu.malitio.model.task.Schedule;
+import seedu.malitio.model.task.ReadOnlyDeadline;
 
-public class XmlAdaptedSchedule {
+public class XmlAdaptedDeadline {
 
     @XmlElement(required = true)
     private String name;
 
 
-    @XmlElement
+    @XmlElement(required = true)
     private String due; 
-    private String start;
-    private String end;
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedSchedule() {}
+    public XmlAdaptedDeadline() {}
 
 
     /**
@@ -38,8 +34,9 @@ public class XmlAdaptedSchedule {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedSchedule(ReadOnlySchedule source) {
+    public XmlAdaptedDeadline(ReadOnlyDeadline source) {
         name = source.getName().fullName;
+        due = source.getDue().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -51,13 +48,14 @@ public class XmlAdaptedSchedule {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted Task
      */
-    public Schedule toModelType() throws IllegalValueException {
+    public Deadline toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
+        final DateTime due = new DateTime(this.due);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-            return new Schedule(name,tags);
+            return new Deadline(name, due, tags);
     }
 }

@@ -15,14 +15,14 @@ import java.util.*;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<Task> {
+public class UniqueDeadlineList implements Iterable<Deadline> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate tasks");
+    public static class DuplicateDeadlineException extends DuplicateDataException {
+        protected DuplicateDeadlineException() {
+            super("Operation would result in duplicate deadlines");
         }
     }
 
@@ -30,19 +30,19 @@ public class UniqueTaskList implements Iterable<Task> {
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {}
+    public static class DeadlineNotFoundException extends Exception {}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Deadline> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
      */
-    public UniqueTaskList() {}
+    public UniqueDeadlineList() {}
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(ReadOnlyTask toCheck) {
+    public boolean contains(ReadOnlyDeadline toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -50,45 +50,45 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(Deadline toAdd) throws DuplicateDeadlineException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicateTaskException();
+            throw new DuplicateDeadlineException();
         }
         internalList.add(toAdd);
     }
 
     /**
-     * Removes the equivalent task from the list.
+     * Removes the equivalent schedule from the list.
      *
-     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws DeadlineNotFoundException if no such deadline could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public boolean remove(ReadOnlyDeadline toRemove) throws DeadlineNotFoundException {
         assert toRemove != null;
-        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
-        if (!taskFoundAndDeleted) {
-            throw new TaskNotFoundException();
+        final boolean deadlineFoundAndDeleted = internalList.remove(toRemove);
+        if (!deadlineFoundAndDeleted) {
+            throw new DeadlineNotFoundException();
         }
-        return taskFoundAndDeleted;
+        return deadlineFoundAndDeleted;
     }
 
-    public ObservableList<Task> getInternalList() {
+    public ObservableList<Deadline> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Task> iterator() {
+    public Iterator<Deadline> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueTaskList // instanceof handles nulls
+                || (other instanceof UniqueDeadlineList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                ((UniqueDeadlineList) other).internalList));
     }
 
     @Override

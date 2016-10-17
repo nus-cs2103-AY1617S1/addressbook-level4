@@ -4,7 +4,7 @@ import seedu.malitio.commons.core.EventsCenter;
 import seedu.malitio.commons.core.Messages;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.events.ui.JumpToListRequestEvent;
-import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
 /**
  * Selects a task identified using it's last displayed index from the malitio.
@@ -29,7 +29,7 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredFloatingTaskList();
+        UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownList = model.getFilteredFloatingTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
