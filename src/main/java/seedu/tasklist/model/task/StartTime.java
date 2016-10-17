@@ -68,6 +68,12 @@ public class StartTime {
     	}
     }
 
+    public boolean isMissing(){
+    	if(starttime.getTime().equals(new Date(0)))
+        return true;
+        else return false;
+        } 
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
