@@ -101,6 +101,10 @@
     -fx-text-fill: #010504;
 }
 
+.label-done {
+	-fx-text-fill: #ff0000;
+}
+
 .cell_big_label {
     -fx-font-size: 16px;
     -fx-text-fill: #010504;

@@ -71,6 +71,12 @@ public class TaskCard extends UiPart{
             endTime.setText(taskEndTime.toString());
         }
         
+        boolean isDone = task.getIsDone();
+        if (isDone) {
+        	cardPane.setStyle("-fx-background-color: #ff0000");
+        	
+        }
+        
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
     }
