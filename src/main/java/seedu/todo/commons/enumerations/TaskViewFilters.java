@@ -1,6 +1,7 @@
 package seedu.todo.commons.enumerations;
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
+import seedu.todo.commons.util.TimeUtil;
 
 import seedu.todo.model.task.ImmutableTask;
 
@@ -8,10 +9,12 @@ public enum TaskViewFilters {
     DEFAULT("default", null), 
     COMPLETE("complete", (task) -> task.isCompleted()), 
     INCOMPLETE ("incomplete", (task) -> !task.isCompleted()),
-    DUE_TODAY ("due today", (task) -> task.getEndTime().get().toLocalDate().
-               equals(LocalDateTime.now().toLocalDate()) 
-               && !task.isEvent());
-    
+    DUE_TODAY ("due today", (task) -> new TimeUtil().
+                isToday(task.getEndTime().get(), LocalDateTime.now())
+                && !task.isEvent()),
+    DUE_TOMORROW ("due tomorrow", (task) -> new TimeUtil().
+                  isTomorrow(task.getEndTime().get(),LocalDateTime.now())
+                  && !task.isEvent());
     
     private final String name;
     
