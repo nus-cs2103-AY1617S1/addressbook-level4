@@ -69,13 +69,15 @@ public class Tokenizer {
             }
         }
 
-        if (inputCommand.length() == 0)
+        if (inputCommand.length() == 0) {
             return null;
+        }
 
         // Split inputCommand into arraylist of chunks
 
-        if (StringUtils.countMatches(inputCommand, QUOTE) % 2 == 1)
+        if (StringUtils.countMatches(inputCommand, QUOTE) % 2 == 1) {
             throw new UnmatchedQuotesException("Unmatched double-quotes detected.");
+        }
 
         // --- Split by quotes
         String[] splitString = inputCommand.split(QUOTE);
@@ -109,8 +111,9 @@ public class Tokenizer {
             String token = tokenizedSplitString.get(tokenIndex.getValue()).string;
             String tokenField = null;
             // Should just EAFP instead of LBYL, but oh well.
-            if (tokenIndex.getValue() + 1 < tokenizedSplitString.size() && !tokenizedSplitString.get(tokenIndex.getValue() + 1).isToken)
+            if (tokenIndex.getValue() + 1 < tokenizedSplitString.size() && !tokenizedSplitString.get(tokenIndex.getValue() + 1).isToken) {
                 tokenField = tokenizedSplitString.get(tokenIndex.getValue() + 1).string;
+            }
             parsedResult.put(tokenType, new String[] { token, tokenField });
         }
         return parsedResult;
@@ -135,8 +138,9 @@ public class Tokenizer {
         Map<String, Integer> tokenIndices = new HashMap<String, Integer>();
         for (int i = 0; i < tokenizedSplitString.size(); i++) { // Java doesn't eager-evaluate the terminating condition
             TokenizedString currString = tokenizedSplitString.get(i);
-            if (currString.isQuote)
+            if (currString.isQuote) {
                 continue;
+            }
             
             // Record token.
             if (currString.isToken) {
@@ -149,8 +153,9 @@ public class Tokenizer {
             for (String token : tokens) {
                 Matcher m = Pattern.compile(String.format("\\b%s\\b", token), Pattern.CASE_INSENSITIVE)
                         .matcher(currString.string);
-                if (!m.find())
+                if (!m.find()) {
                     continue;
+                }
                 
                 // Found. Replace current element with split elements.
                 String preString = currString.string.substring(0, m.start()).trim();
@@ -158,11 +163,13 @@ public class Tokenizer {
                 
                 tokenizedSplitString.remove(i);
                 List<TokenizedString> replacedSplitStrings = new ArrayList<TokenizedString>();
-                if (!preString.isEmpty())
+                if (!preString.isEmpty()) {
                     replacedSplitStrings.add(new TokenizedString(preString, false, false));
+                }
                 replacedSplitStrings.add(new TokenizedString(token, true, false));
-                if (!postString.isEmpty())
+                if (!postString.isEmpty()) {
                     replacedSplitStrings.add(new TokenizedString(postString, false, false));
+                }
                 tokenizedSplitString.addAll(i, replacedSplitStrings);
                 
                 // Restart outer loop at current index.
