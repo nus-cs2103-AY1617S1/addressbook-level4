@@ -108,8 +108,8 @@ public abstract class TaskListGuiTest {
     /**
      * Asserts the floatingTask shown in the card is same as the given floatingTask
      */
-    public void assertMatching(TaskDateComponent floatingTask, FloatingTaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndTask(card, floatingTask));
+    public void assertMatching(TaskDateComponent task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**

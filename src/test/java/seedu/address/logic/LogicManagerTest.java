@@ -628,7 +628,7 @@ public class LogicManagerTest {
         assertCommandBehavior("done 1", 
         		String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete),
         	    expectedAB,
-        	    new TaskList().getTaskList());
+        	    new TaskList().getTaskComponentList());
         		
         assertEquals(expectedAB, model.getTaskList());
         assertEquals(expectedAB, latestSavedTaskList);

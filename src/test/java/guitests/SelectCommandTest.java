@@ -48,7 +48,7 @@ public class SelectCommandTest extends TaskListGuiTest {
 
     private void assertTaskSelected(int index) {
         assertEquals(taskListPanel.getSelectedTasks().size(), 1);
-        TaskDateComponent selectedPerson = floatingTaskListPanel.getSelectedTasks().get(0);
+        TaskDateComponent selectedTask = taskListPanel.getSelectedTasks().get(0);
         assertEquals(taskListPanel.getTask(index-1), selectedTask);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }

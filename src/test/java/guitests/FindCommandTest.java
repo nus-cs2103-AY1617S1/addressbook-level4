@@ -55,12 +55,15 @@ public class FindCommandTest extends TaskListGuiTest {
     @Test
     public void find_byType(){
     	//Floating tasks
-    	assertFindResult("find -F",td.trash, td.book, td.homework, td.lecture, td.meeting, td.george);
+    	assertFindResult("find -F",td.trash.getTaskDateComponent().get(0), td.book.getTaskDateComponent().get(0), 
+    	        td.homework.getTaskDateComponent().get(0), td.lecture.getTaskDateComponent().get(0), 
+    	        td.meeting.getTaskDateComponent().get(0), td.george.getTaskDateComponent().get(0));
     	//Completed tasks
     	commandBox.runCommand("done 1");
-    	assertFindResult("find -C", td.trash);    	
+    	assertFindResult("find -C", td.trash.getTaskDateComponent().get(0));    	
     }
     
+    private void assertFindResult(String command, TaskDateComponent... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");
