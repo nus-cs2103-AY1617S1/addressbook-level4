@@ -10,6 +10,7 @@ public class TestFloatingTask implements ReadOnlyTask {
 
     private Name name;
     private UniqueTagList tags;
+    private boolean isCompleted;
 
     public TestFloatingTask() {
         tags = new UniqueTagList();
@@ -46,6 +47,10 @@ public class TestFloatingTask implements ReadOnlyTask {
         return sb.toString();
     }
 
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+    
     @Override
     public boolean isCompleted() {
         return false;
