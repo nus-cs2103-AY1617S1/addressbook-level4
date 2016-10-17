@@ -1,8 +1,11 @@
 package teamfour.tasc.model.task.util;
 
+import java.util.Date;
+
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 import teamfour.tasc.model.task.Complete;
 import teamfour.tasc.model.task.Deadline;
+import teamfour.tasc.model.task.Name;
 import teamfour.tasc.model.task.Period;
 import teamfour.tasc.model.task.ReadOnlyTask;
 import teamfour.tasc.model.task.Recurrence;
@@ -19,14 +22,20 @@ public class TaskCompleteConverter {
     private final Task completedTask;
     private final Task uncompletedRemainingRecurringTask;
     
+    public static final String TASK_NAME_COMPLETED_SUFFIX = "[Completed At %s]";
+    
     /**
      * Constructor for converter.
      * @throws IllegalValueException 
      */
-    public TaskCompleteConverter(ReadOnlyTask uncompletedTask)
+    public TaskCompleteConverter(ReadOnlyTask uncompletedTask, Date currentTime)
             throws IllegalArgumentException, TaskAlreadyCompletedException, IllegalValueException {
         
         if (uncompletedTask == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        if (currentTime == null) {
             throw new IllegalArgumentException();
         }
         
@@ -34,7 +43,10 @@ public class TaskCompleteConverter {
             throw new TaskAlreadyCompletedException();
         }
         
-        this.completedTask = new Task(uncompletedTask.getName(),
+        String completedString = String.format(TASK_NAME_COMPLETED_SUFFIX, currentTime);
+        
+        this.completedTask = new Task(
+                new Name(uncompletedTask.getName().getName() + completedString),
                 new Complete(true),
                 uncompletedTask.getDeadline(),
                 uncompletedTask.getPeriod(),
