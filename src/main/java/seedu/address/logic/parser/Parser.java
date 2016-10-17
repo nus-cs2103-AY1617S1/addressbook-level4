@@ -3,29 +3,17 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.xml.bind.JAXBException;
-
-import com.joestelmach.natty.DateGroup;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.IncorrectCommandException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.util.XmlUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -38,25 +26,19 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.TaskManager;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.Status;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskType;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.address.storage.XmlSerializableTaskManager;
+
 
 public class Parser {
 	// @@author A0141019U
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-	// Different regexes for different permutations of arguments
+	// Different regex for different permutations of arguments
 	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern
 			.compile("(?i)(?<taskType>event|deadline|someday)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern
 			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
-
+	
+	// Start and end on same day
 	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile(
 			"(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+on\\s+(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
 	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile(
@@ -69,7 +51,14 @@ public class Parser {
 			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
 	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile(
 			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'\\s+on\\s+(?<date>\\S+)");
+	
+	// Start and end on different days
+	private static final Pattern EVENT_ARGS_FORMAT_7 = Pattern.compile(
+			"(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)");
+	private static final Pattern EVENT_ARGS_FORMAT_8 = Pattern.compile(
+			"(?i)from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
 
+	
 	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern
 			.compile("(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+by\\s+(?<dateTime>.+)");
 	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern
@@ -79,6 +68,7 @@ public class Parser {
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>(\\s*[^\\s+])+)'");
 
 	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
+	
 	
 	//@@author A0141019U
 	public Command parseCommand(String userInput) {
@@ -213,13 +203,15 @@ public class Parser {
 	
 	//@@author A0141019U
 	private Command prepareAddEvent(String arguments) {
+		arguments = arguments.trim();
+		
 		ArrayList<Matcher> matchers = new ArrayList<>();
-		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments.trim()));
-		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments.trim()));
-		matchers.add(EVENT_ARGS_FORMAT_3.matcher(arguments.trim()));
-		matchers.add(EVENT_ARGS_FORMAT_4.matcher(arguments.trim()));
-		matchers.add(EVENT_ARGS_FORMAT_5.matcher(arguments.trim()));
-		matchers.add(EVENT_ARGS_FORMAT_6.matcher(arguments.trim()));
+		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_3.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_4.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_5.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_6.matcher(arguments));
 
 		// Null values will always be overwritten if the matcher matches.
 		String taskName = null;
@@ -249,6 +241,30 @@ public class Parser {
 			}
 		}
 		
+		ArrayList<Matcher> diffDayMatchers = new ArrayList<>();
+		diffDayMatchers.add(EVENT_ARGS_FORMAT_7.matcher(arguments));
+		diffDayMatchers.add(EVENT_ARGS_FORMAT_8.matcher(arguments));
+		
+		for (Matcher matcher : diffDayMatchers) {
+			if (matcher.matches()) {
+				isAnyMatch = true;
+
+				taskName = matcher.group("taskName").trim();
+				String startDayAndTime = matcher.group("startDateTime").trim();
+				String endDayAndTime = matcher.group("endDateTime").trim();
+				
+				try {
+					startDateTime = DateUtil.parseDate(startDayAndTime);
+					endDateTime = DateUtil.parseDate(endDayAndTime);
+				} catch (ParseException e) {
+					// TODO better command
+					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+				}				
+
+				break;
+			}
+		}
+
 		System.out.println("task name: " + taskName);
 		System.out.println("start date: " + startDateTime.toString());
 		System.out.println("end date: " + endDateTime.toString());
@@ -265,6 +281,7 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 	}
+	
 
 	private Command prepareAddDeadline(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
@@ -430,7 +447,7 @@ public class Parser {
 
 	public static void main(String[] args) {
 		Parser p = new Parser();
-		p.parseCommand("add event 'eat' from 00:00 to 01:00 on 2012-12-25");
+		p.parseCommand("add event 'eat' from 2012-12-25 00:00 to 2012-12-26 01:00");
 	}
 	
 }

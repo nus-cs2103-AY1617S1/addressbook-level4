@@ -158,11 +158,11 @@ public class DateUtil {
 		meridien = meridien.toLowerCase();
 		int hour;
 
-		if (meridien.equals("am")) {
-			hour = Integer.parseInt(hour12);
+		if (meridien.equals("pm")) {
+			hour = 12 +Integer.parseInt(hour12);
 		}
 		else {
-			hour = 12 + Integer.parseInt(hour12);
+			hour = Integer.parseInt(hour12);
 		}
 
 		if (hour > 23) {
