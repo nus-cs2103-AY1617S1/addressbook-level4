@@ -78,8 +78,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override 
-    public synchronized void editPerson(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException {
-        addressBook.changePerson(target, args);
+    public synchronized void editPerson(ReadOnlyTask target, String args, char category) throws PersonNotFoundException, IllegalValueException {
+        addressBook.changePerson(target, args, category);
         //updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
