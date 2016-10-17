@@ -183,13 +183,8 @@ public class LogicManagerTest {
     public void execute_undo_add() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.task();
-
-<<<<<<< HEAD
+        
         logic.execute(helper.generateAddCommand(toBeAdded), TAB_HOME);
-=======
-        System.out.println(helper.generateAddCommand(toBeAdded));
-        System.out.println(logic.execute(helper.generateAddCommand(toBeAdded)).feedbackToUser);
->>>>>>> master
         
         assertCommandBehavior("undo", "Undo successfully.\n"
                 + "=====Undo Details=====\n"
@@ -283,7 +278,7 @@ public class LogicManagerTest {
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
-                + "[Undo Unmark Command] task Tags: [tag1],[tag2] has been archived\n"
+                + "[Undo Mark Command] task Tags: [tag1],[tag2] has been unmarked\n"
                 + "==================",       
                 model.getTaskManager(),
                 model.getListToMark(TAB_HOME));
