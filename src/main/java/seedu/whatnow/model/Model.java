@@ -25,6 +25,9 @@ public interface Model {
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered task list with filter keyword as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(Set<String> key);
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
@@ -40,4 +43,18 @@ public interface Model {
     
     /** Mark the given task as completed */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList();
+    
+    /** Updates the filter of the filtered task list to show all tasks */
+    void updateFilteredScheduleListToShowAll();
+
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredScheduleList(Set<String> keywords);
+    
+    /** Updates the filter of the filtered task list to show only task of a specific status specified by the keyword */
+    void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword);
+    
+    
 }

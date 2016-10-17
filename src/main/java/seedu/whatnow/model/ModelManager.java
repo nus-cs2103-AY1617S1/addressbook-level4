@@ -25,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredSchedules;
 
     /**
      * Initializes a ModelManager with the given WhatNow
@@ -39,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         whatNow = new WhatNow(src);
         filteredTasks = new FilteredList<>(whatNow.getTasks());
+        filteredSchedules = new FilteredList<>(whatNow.getTasks());
     }
 
     public ModelManager() {
@@ -48,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
         whatNow = new WhatNow(initialData);
         filteredTasks = new FilteredList<>(whatNow.getTasks());
+        filteredSchedules = new FilteredList<>(whatNow.getTasks());
     }
 
     @Override
@@ -100,6 +103,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAllByStatus(keyword);
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(Set<String> keyword) {
+        updateFilteredTaskList(keyword);
+        return new UnmodifiableObservableList<>(filteredTasks);
+    }
 
     @Override
     public void updateFilteredListToShowAll() {
@@ -118,6 +127,35 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    //=========== Filtered Schedule List Accessors ===============================================================
+    
+    @Override 
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList() {
+        String[] status = {"completed"}; //Test only, to be changed to schedule task
+        Set<String> keyword = new HashSet<>(Arrays.asList(status));
+        updateFilteredScheduleListToShowAllByStatus(keyword);
+        return new UnmodifiableObservableList<>(filteredSchedules);
+    }
+    
+    @Override
+    public void updateFilteredScheduleListToShowAll() {
+        filteredTasks.setPredicate(null);
+    }
+    
+    @Override
+    public void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword) {
+        updateFilteredScheduleList(new PredicateExpression(new TaskStatusQualifier(keyword)));
+    }
+
+    @Override
+    public void updateFilteredScheduleList(Set<String> keywords){
+        updateFilteredScheduleList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredScheduleList(Expression expression) {
+        filteredSchedules.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
