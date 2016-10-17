@@ -14,9 +14,7 @@ import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * This class links up with TaskCard.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.  
@@ -32,6 +30,11 @@ public class TaskCard extends UiPart{
     
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
+
+    /*Static Field*/
+    //Provides a global reference between an ImmutableTask to the wrapper TaskCard class,
+    //since we have no direct access of TaskCard from the ListView object.
+    private static final Map<ImmutableTask, TaskCard> taskCardMap = new HashMap<>();
     
     /*Layout Declarations*/
     @FXML
@@ -62,6 +65,7 @@ public class TaskCard extends UiPart{
         TaskCard taskListCard = new TaskCard();
         taskListCard.task = task;
         taskListCard.displayedIndex = displayedIndex;
+        taskCardMap.put(task, taskListCard);
         return UiPartLoader.loadUiPart(taskListCard);
     }
 
@@ -184,5 +188,14 @@ public class TaskCard extends UiPart{
         } else {
             FxViewUtil.removeClassStyle(taskCard, STYLE_SELECTED);
         }
+    }
+
+    /**
+     * Gets the mapped {@link TaskCard} object from an {@link ImmutableTask} object
+     * @param task that is being wrapped by the {@link TaskCard} object
+     * @return a {@link TaskCard} object that contains this task (can be null if not available)
+     */
+    public TaskCard getTaskCard(ImmutableTask task) {
+        return taskCardMap.get(task);
     }
 }
