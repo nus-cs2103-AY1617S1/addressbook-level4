@@ -204,11 +204,12 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareDelete(String args) {       
+    private Command prepareDelete(String args) {
+        char cat = args.charAt(1);
         Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ", "").split(",")); //might need to change split regex to ; instead of ,
               
         if(args.contains("-")){          
-            String[] temp = args.replaceAll(" ", "").split("-");
+            String[] temp = args.replaceAll(" ", "").replaceAll(Character.toString(cat),"").split("-");
             int start;
             int end;
             try{ 
@@ -218,18 +219,18 @@ public class Parser {
                 return new IncorrectCommand(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
-            String newArgs = Integer.toString(start);
+            String newArgs = Character.toString(cat).concat(Integer.toString(start));
             for(int i = start+1; i<= end; i++){
-                newArgs = newArgs.concat(",");        
+                newArgs = newArgs.concat(",".concat(Character.toString(cat)));        
                 newArgs = newArgs.concat(Integer.toString(i));
             }
-            System.out.println(newArgs);
             indexes = Arrays.asList(newArgs.trim().replaceAll(" ", "").split(",")); //might need to change split regex to ; instead of ,
         }
 
         Iterator<String> itr = indexes.iterator();
-        ArrayList<Integer> pass = new ArrayList<Integer>();
-        Optional<Integer> index = parseIndex(itr.next());
+        ArrayList<String> pass = new ArrayList<String>();
+        pass.addAll(indexes);
+        Optional<Integer> index = parseIndex(Character.toString(itr.next().charAt(1)));
         //System.out.println(index.isPresent() + args);
         
         if(!index.isPresent()){
@@ -237,19 +238,14 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }     
         
-        pass.add(index.get());
-        
         while(itr.hasNext()){
-            index = parseIndex(itr.next());
+            index = parseIndex(Character.toString(itr.next().charAt(1)));
             // System.out.println(index.isPresent() + args + indexes.size());
             if(!index.isPresent()){
                 return new IncorrectCommand(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));             
             }           
-            if(!pass.contains(index.get())) //for duplicate indexes
-                pass.add(index.get());
         }
-
         return new DeleteCommand(pass);
     }
     
