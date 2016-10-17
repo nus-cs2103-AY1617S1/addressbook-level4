@@ -360,12 +360,12 @@ public class Parser {
     }
 
     private Flag[] generateFlagArrayForFindCommand() {
-        Flag nameFlag = new Flag(Flag.NAME, true);
+        Flag nameFlag = new Flag(Flag.NAME, false);
         Flag priorityFlag = new Flag(Flag.PRIORITY, false);
         Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
         Flag doneFlag = new Flag(Flag.DONE, false);
         Flag undoneFlag = new Flag(Flag.UNDONE, false);
-        Flag tagFlag = new Flag(Flag.TAG, true);
+        Flag tagFlag = new Flag(Flag.TAG, false);
 
         Flag[] flags = { nameFlag, dateTimeFlag, priorityFlag, doneFlag, undoneFlag, tagFlag };
 
