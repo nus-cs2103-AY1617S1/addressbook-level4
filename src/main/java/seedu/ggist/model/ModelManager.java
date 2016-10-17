@@ -268,7 +268,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return taskDateKeyWords.equals(task.getStartDate().toString()) || taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString());
+            return taskDateKeyWords.equals(task.getStartDate().toString()) || 
+                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone();
+            
         }
 
         @Override
