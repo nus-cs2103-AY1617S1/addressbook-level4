@@ -97,6 +97,16 @@ public class ConfigController implements Controller {
         }
     }
 
+    /**
+     * Updates a config value and performs the necessary actions for the configuration.
+     * Throws a {@code CannotConfigureException} if an error was encountered while performing configuration actions.
+     * 
+     * @param config         Config object which will be updated.
+     * @param configName     Config setting name to update.
+     * @param configValue    New value to set for the config setting.
+     * @return               Config object after setting values.
+     * @throws CannotConfigureException if an error was encountered during configuration.
+     */
     private Config updateConfigByName(Config config, String configName, String configValue) throws CannotConfigureException {
         switch (configName) {
         case "appTitle" :
