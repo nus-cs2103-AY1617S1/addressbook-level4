@@ -59,7 +59,7 @@ public class JimiParser {
             Pattern.compile("(\"(?<taskDetails>.+)\")( due (?<dateTime>.+))?");
     
     private static final Pattern ADD_EVENT_DATA_ARGS_FORMAT =
-            Pattern.compile("(\"(?<taskDetails>.+)\") on (?<startDateTime>((?!to).)*)( to (?<endDateTime>.+))?");
+            Pattern.compile("(\"(?<taskDetails>.+)\") on (?<startDateTime>((?! to ).)*)( to (?<endDateTime>.+))?");
     
     private static final List<Command> COMMAND_STUB_LIST =
             Arrays.asList(new AddCommand(), new EditCommand(), new SelectCommand(), new DeleteCommand(),

@@ -74,10 +74,13 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         
+        // events do not always have an end date 
+        DateTime endDateTimeToAdd = endDateTime.isEmpty() ? null : new DateTime(endDateTime.get(0));
+                
         this.toAdd = new Event(
                 new Name(name), 
                 new DateTime(startDateTime.get(0)), 
-                new DateTime(endDateTime.get(0)),
+                endDateTimeToAdd,
                 new UniqueTagList(tagSet)
         );
     }
