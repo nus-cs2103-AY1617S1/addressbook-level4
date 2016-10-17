@@ -2,8 +2,6 @@ package seedu.todo.logic.commands;
 
 import java.util.List;
 
-import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Arrays;
-
 import com.google.common.collect.ImmutableList;
 
 import seedu.todo.commons.core.EventsCenter;
