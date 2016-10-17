@@ -232,7 +232,7 @@ public class TaskTimeTest {
         };
         try {
             for (Calendar d : testDays) {
-                String t = d.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+                String t = d.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US);
                 TaskTime tTime = new TaskTime(t);
                 Calendar tCal = tTime.getCalendar();
                 assertTrue(withinSevenDays(d, tCal));
