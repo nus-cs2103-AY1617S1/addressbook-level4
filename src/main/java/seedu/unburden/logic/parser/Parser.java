@@ -1,5 +1,11 @@
 package seedu.unburden.logic.parser;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.unburden.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -50,6 +56,16 @@ public class Parser {
                             "(d/(?<date>[^/]+))?" + 
                             "(s/(?<startTimeArguments>[^/]+))?" + 
                             "(e/(?<endTimeArguments>[^/]+))?");
+    
+    private static final String byToday = "by Today";
+    
+    private static final String byTomorrow = "by Tomorrow";
+    
+    private static final String byNextWeek = "by Next Week";
+    
+    private static final String byNextMonth = "by Next Month";
+    
+    private static final DateFormat dateFormatter = new SimpleDateFormat("dd-mm-yyyy");
     
     public Parser() {}
 
@@ -133,10 +149,40 @@ public class Parser {
             );
         	}
         	else{
+        		if(matcher3.group("name").toLowerCase().contains(byToday.toLowerCase())){
+        			return new AddCommand(
+        					matcher3.group("name").replaceAll(("?i")+Pattern.quote(byToday), ""),
+        					dateFormatter.format(LocalDate.now()),
+        					getTagsFromArgs(matcher3.group("tagArguments"))
+        					);
+        		}
+        		else if(matcher3.group("name").toLowerCase().contains(byTomorrow.toLowerCase())){
+        			return new AddCommand(
+        					matcher3.group("name").replaceAll(("?i")+Pattern.quote(byTomorrow), ""),
+        					dateFormatter.format(LocalDate.now().plusDays(1)),
+        					getTagsFromArgs(matcher3.group("tagArguments"))
+        					);
+        		}
+        		else if(matcher3.group("name").toLowerCase().contains(byNextWeek.toLowerCase())){
+        			return new AddCommand(
+        					matcher3.group("name").replaceAll(("?i")+Pattern.quote(byNextWeek), ""),
+        					dateFormatter.format(LocalDate.now().plusWeeks(1)),
+        					getTagsFromArgs(matcher3.group("tagArguments"))
+        					);
+        		}
+        		else if(matcher3.group("name").toLowerCase().contains(byNextMonth.toLowerCase())){
+        			return new AddCommand(
+        					matcher3.group("name").replaceAll(("?i")+Pattern.quote(byNextMonth), ""),
+        					dateFormatter.format(LocalDate.now().plusMonths(1)),
+        					getTagsFromArgs(matcher3.group("tagArguments"))
+        					);
+        		}
+        		else{
         		return new AddCommand(
         				matcher3.group("name"),
         				getTagsFromArgs(matcher3.group("tagArguments"))
-        	);
+        				);
+        		}
         	}
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
