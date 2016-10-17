@@ -4,6 +4,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ShowCommand;
+import seedu.address.logic.commands.ShowDoneCommand;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
@@ -74,6 +76,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	addressBook.doneTask(target);
+    	updateFilteredTaskListToShow(ShowCommand.isNotDone());
     	indicateTaskManagerChanged();
     	
     }
@@ -81,6 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undoneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	addressBook.undoneTask(target);
+    	updateFilteredTaskListToShow(ShowDoneCommand.isDone());
     	indicateTaskManagerChanged();
     	
     }
@@ -137,7 +141,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskListToShowDone(Predicate<Task> predicate) {
+    public void updateFilteredTaskListToShow(Predicate<Task> predicate) {
     	filteredTasks.setPredicate(predicate);
     }
 
