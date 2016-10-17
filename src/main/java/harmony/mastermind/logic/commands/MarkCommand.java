@@ -34,11 +34,9 @@ public class MarkCommand extends Command implements Undoable, Redoable {
     public final int targetIndex;
 
     public Task taskToMark;
-    public String currentTab;
 
     public MarkCommand(int targetIndex, String currentTab) {
         this.targetIndex = targetIndex;
-        this.currentTab = currentTab;
     }
 
     @Override
@@ -96,7 +94,7 @@ public class MarkCommand extends Command implements Undoable, Redoable {
 
     //@@author A0124797R
     private void executeMark() throws TaskAlreadyMarkedException, IndexOutOfBoundsException, TaskNotFoundException {
-        ObservableList<Task> lastShownList = model.getListToMark(currentTab);
+        ObservableList<Task> lastShownList = model.getListToMark();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

@@ -50,8 +50,6 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             model.clearRedoHistory();
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, taskToUnmark));
-        } catch (IndexOutOfBoundsException ioobe) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (TaskAlreadyUnmarkedException tau) {
             return new CommandResult(String.format(MESSAGE_UNMARK_FAILURE, taskToUnmark));
         } catch (DuplicateTaskException dte) {
@@ -85,8 +83,6 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             model.pushToUndoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, taskToUnmark));
-        } catch (IndexOutOfBoundsException iobe) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (TaskAlreadyUnmarkedException tau) {
             return new CommandResult(String.format(MESSAGE_UNMARK_FAILURE, taskToUnmark));
         } catch (DuplicateTaskException dte) {
@@ -96,13 +92,14 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
         }
     }
 
+    //@@author A0124797R
     private void executeUnmark() throws IndexOutOfBoundsException, TaskNotFoundException,
         TaskAlreadyUnmarkedException, DuplicateTaskException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredArchiveList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            throw new IndexOutOfBoundsException();
+            throw new TaskNotFoundException();
         }
         
         taskToUnmark = (Task) lastShownList.get(targetIndex - 1);
