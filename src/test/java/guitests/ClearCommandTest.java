@@ -6,9 +6,10 @@ import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends ToDoListGuiTest {
 
+ /*
     @Test
     public void clear() {
-/*
+
         //verify a non-empty list can be cleared
         assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
         assertClearCommandSuccess();
@@ -22,8 +23,8 @@ public class ClearCommandTest extends ToDoListGuiTest {
         //verify clear command works when the list is empty
         assertClearCommandSuccess();
     }
-
-    private void assertClearCommandSuccess() {*/
+*/
+    private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
     }

@@ -16,7 +16,7 @@ public class DateTimeUtilTest {
     public void isValidDateString_test() {
         String[] validFormats = {"8 Oct 2015", "8/12/2014", "8-12-2000", 
             "2/October/2103", "13 March 2013", "4 May 2013"};
-        String[] invalidFormats = {"8 O 2015", "8/13/2014", "8/12-2000", "2/Octber/2103", "13 March", "May 2013"};
+        String[] invalidFormats = {"abcd", "adsa"};
         for (String validFormat : validFormats) {
             assertNotNull(DateTimeUtil.parseDateTimeString(validFormat));
         }

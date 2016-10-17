@@ -168,9 +168,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] on 15/15/2015 ; a line of details", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name on 1515/2015 ; a line of details", TaskDate.MESSAGE_DATETIME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name by 15/15/2015 t17; a line of detail![]342s ", TaskDate.MESSAGE_DATETIME_CONSTRAINTS);
+                "add Valid Name on vdvd ; a line of details", TaskDate.MESSAGE_DATETIME_CONSTRAINTS);
 
     }
 /*
