@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.logging.Logger;
@@ -84,7 +85,7 @@ public class TodoListPanel extends UiPart {
      * @param index of a task card that is shown on the Ui (that means index accepts a range of 1 to num of tasks).
      */
     public void toggleExpandCollapsed(int index) {
-
+        todoListView.getItems().get(FxViewUtil.convertToListIndex(index));
     }
 
     public void scrollTo(int index) {
@@ -126,7 +127,7 @@ public class TodoListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                TaskCard taskCard = TaskCard.load(task, getIndex() + 1);
+                TaskCard taskCard = TaskCard.load(task, FxViewUtil.convertToUiIndex(getIndex()));
                 setGraphic(taskCard.getLayout());
                 setTaskCardStyleProperties(taskCard);
             }

@@ -99,4 +99,17 @@ public class FxViewUtil {
         return recurringTask;
     }
 
+    /**
+     * Converts an index from a list to the index that is displayed to the user via the Ui
+     */
+    public static int convertToListIndex(int uiIndex) {
+        return uiIndex - 1;
+    }
+
+    /**
+     * Converts an index displayed on the Ui to the user, to the index used on the list
+     */
+    public static int convertToUiIndex(int listIndex) {
+        return listIndex + 1;
+    }
 }
