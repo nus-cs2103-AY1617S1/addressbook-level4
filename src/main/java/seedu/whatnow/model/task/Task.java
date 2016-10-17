@@ -32,7 +32,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags(), source.getStatus());
+        this(source.getName(), source.getTaskDate(), source.getTags(), source.getStatus());
     }
     
     /**
