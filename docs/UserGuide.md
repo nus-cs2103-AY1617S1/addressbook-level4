@@ -15,7 +15,10 @@
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/dearjim_initial.png">
-<center>Figure 1: GUI of DearJim</center>
+
+<p align="center">
+Figure 1: GUI of DearJim
+</p>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -42,8 +45,12 @@ Format: `help`<br>
 Example:
 * `help`
 
-> <img src="images/dearjim_help.png"><br>
-<center>Figure 2: Help Command</center>
+> <img src="images/dearjim_help.png">
+
+<p align="center">
+Figure 2: Help Command
+</p>
+
 
 
  
@@ -243,8 +250,10 @@ Example:
 * `list`
 
 > <img src="images/dearjim_list.png">
-<center>Figure 3: List View</center>
 
+<p align="center">
+Figure 3: List View
+</p>
 
 ### Finding a task : `find`
 Forgot the details about a task you added? Find an existing task by name.<br>
@@ -274,11 +283,18 @@ Format: none, just type a command and let DearJim provide you hints on the comma
 Examples:
 * Typing `add` in the command input generates the `add` command format in the result display
 ><img src="images/dearjim_hint_add.png">
-<center>Figure 4: Hints for add command</center>
+
+<p align="center">
+Figure 4: Hints for add command
+</p>
+
 
 * Typing `delete` in the command input generates the `delete` command format in the result display
 ><img src="images/dearjim_hint_delete.png">
-<center>Figure 5: Hints for delete command</center>
+
+<p align="center">
+Figure 5: Hints for delete command
+</p>
 
 
 ### Saving the data 
