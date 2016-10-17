@@ -23,17 +23,23 @@ import java.util.stream.Collectors;
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTask> floatingTasks;
     @XmlElement
-    private List<XmlAdaptedArchiveTask> archivedTasks;
+    private List<XmlAdaptedEvent> events;
+    @XmlElement
+    private List<XmlAdaptedDeadline> deadlines;
+    @XmlElement
+    private List<XmlAdaptedArchive> archives;
     @XmlElement
     private List<Tag> tags;
     
 
     {
-        tasks = new ArrayList<>();
+        floatingTasks = new ArrayList<>();
+        events = new ArrayList<>();
+        deadlines= new ArrayList<>();
+        archives = new ArrayList<>();
         tags = new ArrayList<>();
-        archivedTasks = new ArrayList<>();
     }
 
     /**
@@ -47,19 +53,78 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
      */
     //@@author A0124797R
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        floatingTasks.addAll(src.getFloatingTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
+        deadlines.addAll(src.getDeadlineList().stream().map(XmlAdaptedDeadline::new).collect(Collectors.toList()));
         tags = src.getTagList();
-        archivedTasks.addAll(src.getArchiveList().stream()
-                .map(XmlAdaptedArchiveTask::new).collect(Collectors.toList()));
+        archives.addAll(src.getArchiveList().stream()
+                .map(XmlAdaptedArchive::new).collect(Collectors.toList()));
     }
 
-
+    //@@author A0124797R
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : tasks) {
+        for (XmlAdaptedTask xmlt : floatingTasks) {
             try {
-                lists.add(p.toModelType());
+                lists.add(xmlt.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        for (XmlAdaptedEvent xmle : events) {
+            try {
+                lists.add(xmle.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        for (XmlAdaptedDeadline xmld : deadlines) {
+            try {
+                lists.add(xmld.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        return lists;
+    }
+
+    //@@author A0124797R
+    @Override
+    public UniqueTaskList getUniqueFloatingTaskList() {
+        UniqueTaskList lists = new UniqueTaskList();
+        
+        for (XmlAdaptedTask xmlt : floatingTasks) {
+            try {
+                lists.add(xmlt.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        return lists;
+    }
+
+    //@@author A0124797R
+    @Override
+    public UniqueTaskList getUniqueEventList() {
+        UniqueTaskList lists = new UniqueTaskList();
+        for (XmlAdaptedEvent xmle : events) {
+            try {
+                lists.add(xmle.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        return lists;
+    }
+
+    //@@author A0124797R
+    @Override
+    public UniqueTaskList getUniqueDeadlineList() {
+        UniqueTaskList lists = new UniqueTaskList();
+        for (XmlAdaptedDeadline xmld : deadlines) {
+            try {
+                lists.add(xmld.toModelType());
             } catch (IllegalValueException e) {
 
             }
@@ -71,7 +136,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     @Override
     public ArchiveTaskList getUniqueArchiveList() {
         ArchiveTaskList lists = new ArchiveTaskList();
-        for (XmlAdaptedArchiveTask p : archivedTasks) {
+        for (XmlAdaptedArchive p : archives) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -91,9 +156,49 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         }
     }
 
+    //@@author A0124797R 
     @Override
     public List<ReadOnlyTask> getTaskList() {
-        return tasks.stream().map(p -> {
+        List<ReadOnlyTask> tasks = getFloatingTaskList();
+        List<ReadOnlyTask> event = getEventList();
+        List<ReadOnlyTask> deadline = getDeadlineList();
+
+        tasks.addAll(event);
+        tasks.addAll(deadline);
+        
+        return tasks;
+    }
+    
+    //@@author A0124797R 
+    @Override
+    public List<ReadOnlyTask> getFloatingTaskList() {
+        return floatingTasks.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
+    
+    //@@author A0124797R 
+    @Override
+    public List<ReadOnlyTask> getEventList() {
+        return events.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
+    
+    //@@author A0124797R 
+    @Override
+    public List<ReadOnlyTask> getDeadlineList() {
+        return deadlines.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
@@ -106,7 +211,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     //@@author A0124797R 
     @Override
     public List<ReadOnlyTask> getArchiveList() {
-        return archivedTasks.stream().map(p -> {
+        return archives.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {

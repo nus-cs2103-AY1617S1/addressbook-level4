@@ -19,46 +19,54 @@ import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
+import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 
 /**
  * Adds a task to the task manager.
  * 
  */
 // @@author A0138862W
-public class AddCommand extends Command implements Undoable {
+public class AddCommand extends Command implements Undoable, Redoable {
 
-    // http://stackoverflow.com/questions/24472120/match-optional-components-in-any-order
-    // the Add command can have multiple aliases, the naming convention is
-    // COMMAND_KEYWORD_<command_keyword>
     public static final String COMMAND_KEYWORD_ADD = "add";
     public static final String COMMAND_KEYWORD_DO = "do";
 
+    // The main idea of capturing parameters in any order is inspired by (author
+    // velop):
+    // http://stackoverflow.com/questions/1177081/mulitple-words-in-any-order-using-regex
+
+    // As for capturing optional group AND in any order:
+    // http://stackoverflow.com/questions/24472120/match-optional-components-in-any-order
+
+    // We wrote the regular expression and tested at:
+    // https://regex101.com/r/bFQrP6/1
     // @@author A0138862W
-    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?:.*?name\\/\"(?<name>.+?)\"))"
-                                                         + "(?=(?:.*?startDate\\/\"(?<startDate>.+?)\")?)"
-                                                         + "(?=(?:.*?endDate\\/\"(?<endDate>.+?)\")?)"
-                                                         + "(?=(?:.*tags\\/(?<tags>\\w+(?:,\\w+)*)?)?)"
+    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?:.*?\\s\\'(?<name>.+?)'))"
+                                                         + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
+                                                         + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
+                                                         + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
                                                          + ".*";
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
 
-    public static final String COMMAND_SUMMARY = "Adding a task:"
-                                                 + "\n"
-                                                 + "("
-                                                 + COMMAND_KEYWORD_ADD
-                                                 + " | "
-                                                 + COMMAND_KEYWORD_DO
-                                                 + ") "
-                                                 + " name/\"<taskName>\" [startDate/\"<start_date\">] [endDate/\"<end_date\">] [tags/<comma_spearated_tags>]";
+    public static final String COMMAND_FORMAT = "(add|do) '<name>' [sd/'<startDate>'] [ed/'<endDate>'] [t/'<tags>...']";
 
-    public static final String MESSAGE_USAGE = COMMAND_SUMMARY
-                                               + "\n"
-                                               + "Example: "
-                                               + COMMAND_KEYWORD_ADD
-                                               + " name/\"do laundry\" startDate/\"today\" endDate/\"next friday 6pm\"";
+    public static final String MESSAGE_EXAMPLE_EVENT = "add 'attend workshop' sd/'today 7pm' ed/'next monday 1pm' t/'programming,java'";
+    public static final String MESSAGE_EXAMPLE_DEADLINE = "add 'submit homework' ed/'next sunday 11pm' t/'math,physics'";
+    public static final String MESSAGE_EXAMPLE_FLOATING = "do 'chores' t/'cleaning'";
+    
+    public static final String MESSAGE_EXAMPLES = new StringBuilder()
+                                                    .append("[Format]\n")
+                                                    .append(COMMAND_FORMAT+ "\n\n")
+                                                    .append("[Examples]:\n")
+                                                    .append("Event: "+ MESSAGE_EXAMPLE_EVENT+"\n")
+                                                    .append("Deadline: "+MESSAGE_EXAMPLE_DEADLINE+"\n")
+                                                    .append("Floating: "+MESSAGE_EXAMPLE_FLOATING)
+                                                    .toString();
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Add Command] Task deleted: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS = "[Redo Add Command] Task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Mastermind";
 
     private final Task toAdd;
@@ -107,8 +115,14 @@ public class AddCommand extends Command implements Undoable {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addTask(toAdd);
-            model.getCommandHistory().push(this);
+            executeAdd();
+            
+            // push this command into undoHistory
+            model.pushToUndoHistory(this);
+            
+            // this is a new command entered by user (not undo/redo)
+            // need to clear the redoHistory Stack 
+            model.clearRedoHistory();
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -118,16 +132,40 @@ public class AddCommand extends Command implements Undoable {
     }
 
     @Override
+    /** action to perform when ModelManager requested to undo this command **/
     // @@author A0138862W
     public CommandResult undo() {
         try {
             // remove the task that's previously added.
             model.deleteTask(toAdd);
+            
+            model.pushToRedoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
         } catch (UniqueTaskList.TaskNotFoundException pne) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
+    }
+
+    @Override
+    /** action to perform when ModelManager requested to redo this command**/
+    // @@author A0138862W
+    public CommandResult redo() {
+        assert model != null;
+        try {
+            executeAdd();
+            
+            model.pushToUndoHistory(this);
+
+            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, toAdd));
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        }        
+    }
+    
+    /** extract method since it's reusable for execute() and redo()**/
+    private void executeAdd() throws DuplicateTaskException {
+        model.addTask(toAdd);
     }
 
 }

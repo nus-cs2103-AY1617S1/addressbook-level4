@@ -15,6 +15,12 @@ public class TaskBuilder {
         this.task = new TestTask();
     }
 
+    //@@author A0124797R
+    public TaskBuilder withName(String name) {
+        this.task.setName(name);
+        return this;
+    }
+
 
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {

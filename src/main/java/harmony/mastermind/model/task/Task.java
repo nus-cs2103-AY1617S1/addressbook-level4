@@ -2,6 +2,7 @@ package harmony.mastermind.model.task;
 
 import java.util.Date;
 
+import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 
 public class Task implements ReadOnlyTask {
@@ -101,7 +102,16 @@ public class Task implements ReadOnlyTask {
     public boolean isEvent() {
         return startDate != null && endDate != null;
     }
-    
+
+    //@@author A0124797R
+    @Override 
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Task // instanceof handles nulls
+                && this.getName().equals(((Task) other).getName())); // state check
+        
+    }
+        
     @Override
     //@@author A0124797R
     public boolean isMarked() {
@@ -118,5 +128,11 @@ public class Task implements ReadOnlyTask {
     public Task unmark() {
         this.marked = false;
         return this;
+    }
+    
+    //@@author A0124797R
+    @Override
+    public String toString() {
+        return getAsText();
     }
 }

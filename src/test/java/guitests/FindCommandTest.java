@@ -7,34 +7,41 @@ import harmony.mastermind.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
+    //@@author A0124797R
     public void find_nonEmptyList() {
         assertFindResult("find Mark"); //no results
-        assertFindResult("find Meier", td.benson, td.daniel); //multiple results
+        assertFindResult("find assignment", td.task2, td.task3); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Meier",td.daniel);
+        assertFindResult("find assignment",td.task3);
+        
+        assertListSize(1); // should only contain task3
+        assertResultMessage("1 tasks listed!");
+        assertTrue(taskListPanel.isListMatching(td.task3));
     }
 
     @Test
+    //@@author A0124797R
     public void find_emptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
+        assertFindResult("find Marking"); //no results
     }
 
     @Test
+    //@@author A0124797R
     public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+        commandBox.runCommand("findassignment");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " persons listed!");
-        assertTrue(personListPanel.isListMatching(expectedHits));
+        assertResultMessage(expectedHits.length + " tasks listed!");
+        assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }

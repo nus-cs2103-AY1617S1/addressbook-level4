@@ -12,7 +12,7 @@ import harmony.mastermind.model.task.*;
 /**
  * Adds a task to the task manager.
  */
-public class RelocateCommand extends Command {
+public class RelocateCommand extends Command{
 
     public static final String COMMAND_WORD = "relocate";
 
@@ -33,16 +33,15 @@ public class RelocateCommand extends Command {
      */
     public RelocateCommand(String newFilePath) throws IllegalValueException {
         this.newFilePath = newFilePath;
+        
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
         model.relocateSaveLocation(newFilePath);
-        model.getCommandHistory().push(this);
             
         return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
-        
-
     }
+    
 }

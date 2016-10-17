@@ -19,10 +19,6 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
-    @XmlElement(required = true)
-    private Date startDate;
-    @XmlElement(required = true)
-    private Date endDate;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -40,8 +36,6 @@ public class XmlAdaptedTask {
     //@@author A0138862W
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName();
-        startDate = source.getStartDate();
-        endDate = source.getEndDate();
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -61,10 +55,8 @@ public class XmlAdaptedTask {
         }
         
         final String name = this.name;
-        final Date startDate = this.startDate;
-        final Date endDate = this.endDate;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, startDate, endDate, tags);
+        return new Task(name, tags);
     }
 }

@@ -15,17 +15,14 @@ public class UndoCommand extends Command{
             + "\n" + COMMAND_WORD;
 
     @Override
+    //@@author A0138862W
     public CommandResult execute() {
 
         try{
             // All Command supports undo operation must implement Undoable interface
-            // If the Command is not Undoable, a ClassCastException is thrown
-            
-            // Pop the first Command from the AddressBook command history
-            Undoable command = (Undoable) model.getCommandHistory().pop();
             
             // execute the undo implementation
-            CommandResult undoResult = command.undo();
+            CommandResult undoResult = model.undo();
             
             // display successful message and the details of the undo operations
             return new CommandResult(
@@ -35,8 +32,6 @@ public class UndoCommand extends Command{
                     "==================");
         }catch(EmptyStackException ex){
             return new CommandResult(MESSAGE_EMPTY_COMMAND_HISTORY);
-        }catch(ClassCastException cce){
-            return new CommandResult(MESSAGE_COMMAND_NOT_UNDOABLE);
         }
     }
     
