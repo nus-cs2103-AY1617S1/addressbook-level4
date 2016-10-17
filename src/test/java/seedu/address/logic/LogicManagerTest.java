@@ -154,22 +154,25 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
                 "add ^wrong args wrong args^", expectedMessage);
+//        assertCommandBehavior(
+//                "add Valid Name 12345 e/valid@email.butNoPhonePrefix at valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix at valid, address", expectedMessage);
+                "add Valid Name s/12345 valid@email.butNoPrefix at valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix at valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name s/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
+        String invalidDate = "not_numbers";
         assertCommandBehavior(
                 "add []\\[;] s/090909 e/090909 at valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/not_numbers e/010116 at valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
+                "add Valid Name s/" + invalidDate + " e/010116 at valid, address", 
+                String.format(Messages.MESSAGE_INVALID_DATE_FORMAT,invalidDate));
         assertCommandBehavior(
-                "add Valid Name s/010116 e/notAnEmail at valid, address", Messages.MESSAGE_INVALID_DATE_FORMAT);
+                "add Valid Name s/010116 e/" + invalidDate + " at valid, address", 
+                String.format(Messages.MESSAGE_INVALID_DATE_FORMAT,invalidDate));
 //        assertCommandBehavior(
 //                "add Valid Name s/01012016 e/01012016 a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 

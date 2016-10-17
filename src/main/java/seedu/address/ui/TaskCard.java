@@ -80,7 +80,7 @@ public class TaskCard extends UiPart{
     public void hideFieldsAccordingToType(ReadOnlyTask task) {
         
         if (task.tagsString().contains("Event")) {
-        } else if (task.tagsString().contains("Reminder")) {
+        } else if (task.tagsString().contains("Deadline")) {
             phone.setVisible(false);
             address.setVisible(false);
         } else {

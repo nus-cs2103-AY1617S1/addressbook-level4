@@ -40,8 +40,8 @@ public class Parser {
                     ); 
  
     private static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)"
-                    + "(?>\\s+\\bby\\b)"
+            Pattern.compile("(?<name>.+?)"
+                    + "(?>(\\s+\\b(by|in|at)\\b))"
                     + "(?<endDate>.*)"
                     );
     
