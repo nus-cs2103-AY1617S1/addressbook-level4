@@ -12,7 +12,7 @@ public class TaskTime implements Comparable<TaskTime> {
     public static final String MESSAGE_TASK_TIME_CONSTRAINTS =
             "Task time should ...";
 
-    public final Date value;
+    private final Date value;
 
     /**
      * Validates given email.
@@ -45,10 +45,10 @@ public class TaskTime implements Comparable<TaskTime> {
      * @param test the list of dategroups under test
      * @return true if list contains a valid date
      * 
-     * Pre-condition: test is the result of applying natty's Parser.parse(time) 
+     * Pre-condition: test is the return value of applying natty's Parser.parse(time) 
      * where time is the time in question
      */
-    public static boolean isValidTaskTime(List<DateGroup> test) {
+    private static boolean isValidTaskTime(List<DateGroup> test) {
         return !(test.isEmpty() || test.get(0).getDates().isEmpty());
     }
 
@@ -89,7 +89,7 @@ public class TaskTime implements Comparable<TaskTime> {
      * Serialize field for storage
      */
     public String serialize() {
-        return value.toString();
+        return value == null ? "" : value.toString();
     }
     
     /**
@@ -104,7 +104,13 @@ public class TaskTime implements Comparable<TaskTime> {
      */
     @Override
     public int compareTo(TaskTime o) {
-        return this.value.compareTo(o.value);
+        if (this.value == null){
+            return o.value == null ? 0 : -1;
+        } else if (o.value == null){
+            return 1;
+        } else {
+            return this.value.compareTo(o.value);
+        }
     }
     
 }
