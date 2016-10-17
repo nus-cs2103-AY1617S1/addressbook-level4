@@ -195,34 +195,34 @@ public class CommandParser {
     private String convertToNattyDateFormat(String arguments) {
         Matcher matchWithoutYear = LOCAL_DATE_FORMAT_WITHOUT_YEAR.matcher(arguments);
         Matcher matchWithYear = LOCAL_DATE_FORMAT_WITH_YEAR.matcher(arguments);
+        String localDateString;
+        SimpleDateFormat localDateFormat;
+        SimpleDateFormat nattyDateFormat;
+        if (matchWithYear.matches()) {
+            localDateString = matchWithYear.group("arguments");
+            localDateFormat = new SimpleDateFormat("dd/MM/yy");
+            nattyDateFormat = new SimpleDateFormat("MM/dd/yy");
+        } else if (matchWithoutYear.matches()) {
+            localDateString = matchWithoutYear.group("arguments");
+            localDateFormat = new SimpleDateFormat("dd/MM");
+            nattyDateFormat = new SimpleDateFormat("MM/dd");
+        } else {
+            return arguments;
+        }
+        return convertToNattyFormat(arguments, localDateString, localDateFormat, nattyDateFormat);
+    }
+
+    private String convertToNattyFormat(String arguments, String localDateString, 
+            SimpleDateFormat localDateFormat, SimpleDateFormat nattyDateFormat){ 
         try {
-            if (matchWithYear.matches()) {
-                String localDateString = matchWithYear.group("arguments");
-                SimpleDateFormat localDateFormatWithYear = new SimpleDateFormat("dd/MM/yy");
-                SimpleDateFormat nattyDateFormatWithYear = new SimpleDateFormat("MM/dd/yy");          
-                Date localDate = localDateFormatWithYear.parse(localDateString);
-                String nattyDateString = nattyDateFormatWithYear.format(localDate);
-                int indexOfDate = arguments.indexOf(localDateString);
-                StringBuilder convertDateStringBuilder = new StringBuilder(arguments);
-                convertDateStringBuilder.replace(indexOfDate, indexOfDate + localDateString.length(), nattyDateString);
-                String stringFromConvertedDate = convertDateStringBuilder.substring(indexOfDate);
-                String stringUpToConvertedDate = convertDateStringBuilder.substring(0, indexOfDate);
-                return convertToNattyDateFormat(stringUpToConvertedDate) + stringFromConvertedDate;
-            } else if (matchWithoutYear.matches()) {
-                String localDateString = matchWithoutYear.group("arguments");
-                SimpleDateFormat localDateFormatWithYear = new SimpleDateFormat("dd/MM");
-                SimpleDateFormat nattyDateFormatWithYear = new SimpleDateFormat("MM/dd");          
-                Date localDate = localDateFormatWithYear.parse(localDateString);
-                String nattyDateString = nattyDateFormatWithYear.format(localDate);
-                int indexOfDate = arguments.indexOf(localDateString);
-                StringBuilder convertDateStringBuilder = new StringBuilder(arguments);
-                convertDateStringBuilder.replace(indexOfDate, indexOfDate + localDateString.length(), nattyDateString);
-                String stringFromConvertedDate = convertDateStringBuilder.substring(indexOfDate);
-                String stringUpToConvertedDate = convertDateStringBuilder.substring(0, indexOfDate);
-                return convertToNattyDateFormat(stringUpToConvertedDate) + stringFromConvertedDate;
-            } else {
-                return arguments;
-            }
+            Date localDate = localDateFormat.parse(localDateString);
+            String nattyDateString = nattyDateFormat.format(localDate);
+            int indexOfDate = arguments.indexOf(localDateString);
+            StringBuilder convertDateStringBuilder = new StringBuilder(arguments);
+            convertDateStringBuilder.replace(indexOfDate, indexOfDate + localDateString.length(), nattyDateString);
+            String stringFromConvertedDate = convertDateStringBuilder.substring(indexOfDate);
+            String stringUpToConvertedDate = convertDateStringBuilder.substring(0, indexOfDate);
+            return convertToNattyDateFormat(stringUpToConvertedDate) + stringFromConvertedDate;
         } catch (ParseException e) {
             return arguments;
         }
