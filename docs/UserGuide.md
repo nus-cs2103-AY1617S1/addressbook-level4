@@ -164,10 +164,10 @@ Format: `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECUR
 > Notice that this is similar to the `add` command format!  
 
 Examples:
-* `Company meeting tonight, at 7pm to 9pm`
-* `edit 2 Company meeting tomorrow morning, at 7am to 9am -high`
-* `Buy coffee for boss, by 8am repeat every day`
-* `edit 3 Buy coffee for boss, by 7am repeat every 2 days`
+* `Company meeting tonight at 7pm to 9pm`
+* `edit 2 Company meeting tomorrow morning at 7am to 9am -high`
+* `Buy coffee for boss by 8am repeat every day`
+* `edit 3 Buy coffee for boss by 7am repeat every 2 days`
 
 **_Editing out details in a task_**
 
@@ -179,7 +179,7 @@ Examples:
 > Use [-reset end] to remove the end time 
 
 Examples:
-* `Buy coffee for boss, by 8am repeat every day`
+* `Buy coffee for boss by 8am repeat every day`
 * `edit 1 -reset repeat start`
 * `edit 2 -reset end`
 
