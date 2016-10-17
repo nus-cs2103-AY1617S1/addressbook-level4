@@ -99,7 +99,7 @@ public class TaskTimeTest {
                 "10/05/16",
                 "oCt 5 16"};
         try {
-            for (String t : validFormats){
+            for (String t : validFormats) {
                 TaskTime tTime = new TaskTime(t);
                 Calendar tCal = DateUtils.toCalendar(tTime.getDate());
                 assertTrue(tCal.get(Calendar.DAY_OF_MONTH) == 5);
@@ -127,7 +127,7 @@ public class TaskTimeTest {
                 "10/5",
                 "5 ocT"};
         try {
-            for (String t : validFormats){
+            for (String t : validFormats) {
                 TaskTime tTime = new TaskTime(t);
                 Calendar tCal = DateUtils.toCalendar(tTime.getDate());
                 assertTrue(tCal.get(Calendar.DAY_OF_MONTH) == 5);
@@ -211,7 +211,7 @@ public class TaskTimeTest {
                 "this mon",
                 "MoNday"};
         try {
-            for (String t : validFormats){
+            for (String t : validFormats) {
                 Calendar tCal = new TaskTime(t).getCalendar();
                 assertTrue(tCal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY);
             }
@@ -231,7 +231,7 @@ public class TaskTimeTest {
                 yesterday, now, tomorrow
         };
         try {
-            for (Calendar d : testDays){
+            for (Calendar d : testDays) {
                 String t = d.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
                 TaskTime tTime = new TaskTime(t);
                 Calendar tCal = tTime.getCalendar();
@@ -257,6 +257,13 @@ public class TaskTimeTest {
         return nightOfd1.before(d2) && d2.before(sevenDaysAfterd1);
     }
     
-    
-    
+    // test cases for relative day entries (next DAY, today, tomorrow)
+    @Test
+    public void constructor_relativeDay_supportsDocumentedFormats() {
+        try {
+            new TaskTime("next mon");
+        } catch (IllegalValueException e) {
+            assert false;
+        }
+    }
 }
