@@ -6,6 +6,7 @@ import seedu.taskitty.model.tag.UniqueTagList;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
+import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -85,13 +86,10 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Marks a task as done in the task manager.
      * 
      * @throws UniqueTaskList.TaskNotFoundException if task is not found.
+     * @throws UniqueTaskList.DuplicateMarkAsDoneException if task has already been previously marked as done
      */
-    public boolean doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-    	if (tasks.mark(key)) {
-    		return true;
-    	} else {
-    		throw new UniqueTaskList.TaskNotFoundException();
-    	}
+    public void doneTask(ReadOnlyTask key) throws UniqueTaskList.DuplicateMarkAsDoneException, UniqueTaskList.TaskNotFoundException {
+    	tasks.mark(key);
     }
     
     /**

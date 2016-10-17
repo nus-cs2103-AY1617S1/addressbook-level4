@@ -4,6 +4,7 @@ import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
+import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 
 import java.util.Set;
 
@@ -23,8 +24,9 @@ public interface Model {
     /** Edits the given task. */
     void editTask(ReadOnlyTask target, Task task, int index) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
 
-    /** Marks the given task as done. */
-    void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    /** Marks the given task as done. 
+     * @throws DuplicateMarkAsDoneException */
+    void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException;
     
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;

@@ -31,6 +31,12 @@ public class UniqueTaskList implements Iterable<Task> {
      * there is no such matching task in the list.
      */
     public static class TaskNotFoundException extends Exception {}
+    
+    /**
+     * Signals that the done operation targeting a specified task in the list is a duplicate operation if the task has already been previously
+     * marked as done.
+     */
+    public static class DuplicateMarkAsDoneException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
@@ -63,9 +69,13 @@ public class UniqueTaskList implements Iterable<Task> {
     /** Marks the given task as done from the list.
      * 
      * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws DuplicateMarkAsDoneException if specified task in list had already been marked as done previously.
      */
-    public boolean mark(ReadOnlyTask toMark) throws TaskNotFoundException {
+    public void mark(ReadOnlyTask toMark) throws TaskNotFoundException, DuplicateMarkAsDoneException {
     	assert toMark != null;
+    	if (toMark.getIsDone()) {
+    		throw new DuplicateMarkAsDoneException();
+    	}
     	final boolean taskFoundAndMarkedAsDone = internalList.remove(toMark);
     	Task editableToMark = (Task) toMark;
     	editableToMark.markAsDone();
@@ -73,7 +83,6 @@ public class UniqueTaskList implements Iterable<Task> {
     	if (!taskFoundAndMarkedAsDone) {
     		throw new TaskNotFoundException();
     	}
-    	return taskFoundAndMarkedAsDone;
     }
     
     /**
