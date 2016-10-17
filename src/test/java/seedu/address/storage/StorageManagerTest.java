@@ -46,14 +46,14 @@ public class StorageManagerTest {
         assertEquals(original, retrieved);
     }
 
-//    @Test
-//    public void taskSchedulerReadSave() throws Exception {
-//        TaskScheduler original = new TypicalTestTasks().getTypicalTaskScheduler();
-//        storageManager.saveTaskScheduler(original);
-//        ReadOnlyTaskScheduler retrieved = storageManager.readTaskScheduler().get();
-//        assertEquals(original, new TaskScheduler(retrieved));
-//        //More extensive testing of TaskScheduler saving/reading is done in XmlTaskSchedulerStorageTest
-//    }
+    @Test
+    public void taskSchedulerReadSave() throws Exception {
+        TaskScheduler original = new TypicalTestTasks().getTypicalTaskScheduler();
+        storageManager.saveTaskScheduler(original);
+        ReadOnlyTaskScheduler retrieved = storageManager.readTaskScheduler().get();
+        assertEquals(original, new TaskScheduler(retrieved));
+        //More extensive testing of TaskScheduler saving/reading is done in XmlTaskSchedulerStorageTest
+    }
 
 
 }

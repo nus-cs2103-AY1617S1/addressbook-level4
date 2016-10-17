@@ -54,44 +54,13 @@ public class XmlTaskSchedulerStorage implements TaskSchedulerStorage {
      * Similar to {@link #saveTaskScheduler(ReadOnlyTaskScheduler)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveTaskScheduler(ReadOnlyTaskScheduler taskScheduler, String filePath, boolean userSet) throws IOException {
+    public void saveTaskScheduler(ReadOnlyTaskScheduler taskScheduler, String filePath) throws IOException {
         assert taskScheduler != null;
         assert filePath != null;
-        
-        filePath = checkPath(filePath, userSet);
         
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
         XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskScheduler(taskScheduler));
-    }
-
-    /**
-     * Compare updated user preference save path with config.json
-     * 
-     */
-    
-    private String checkPath(String filePath2, boolean userSet) {
-        Config initializedConfig;
-        String configFilePathUsed;
-
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-
-        logger.info("Using config file : " + configFilePathUsed);
-
-        try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            initializedConfig = configOptional.orElse(new Config());
-        } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
-                    "Using default config properties");
-            initializedConfig = new Config();
-        }
-        if (initializedConfig.getTaskSchedulerFilePath() == filePath2) {
-            return filePath2;
-        }
-        else {
-            return initializedConfig.getTaskSchedulerFilePath();
-        }
     }
 
     @Override
