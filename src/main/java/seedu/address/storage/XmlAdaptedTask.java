@@ -53,17 +53,18 @@ public class XmlAdaptedTask {
         if (source.getTaskReference().getTaskType() == TaskType.NON_FLOATING) {
             startDate = source.getStartDate().getDateInLong();
             endDate = source.getEndDate().getDateInLong();
-        }
-        if (source.getTaskReference().getTaskType() == TaskType.FLOATING) {
+        } else if (source.getTaskReference().getTaskType() == TaskType.FLOATING) {
             startDate = TaskDate.DATE_NOT_PRESENT;
             endDate = TaskDate.DATE_NOT_PRESENT;
         }
         if (source.getTaskReference().getRecurringType() != RecurringType.NONE) {
-            handleRecurringTask(source.getStartDate(),
-                    source.getEndDate(), 
+            TaskDate startCopy = new TaskDate(source.getStartDate());
+            TaskDate endCopy = new TaskDate(source.getEndDate());
+            RecurringTaskManager.getInstance().handleRecurringTask(startCopy,
+                    endCopy, 
                     source.getTaskReference().getRecurringType());
-            startDate = source.getStartDate().getDateInLong();
-            endDate = source.getEndDate().getDateInLong();
+            startDate = startCopy.getDateInLong();
+            endDate = endCopy.getDateInLong();
         }
         recurringType = source.getTaskReference().getRecurringType().name();
     }
@@ -100,51 +101,5 @@ public class XmlAdaptedTask {
         }
 
         return new Task(name, tags, taskStartDate, taskEndDate, toBeAdded);
-    }
-    
-    private void handleRecurringTask(TaskDate start, TaskDate end, RecurringType type) {
-        LocalDate local;
-        switch(type) {
-            case DAILY:
-                local = end.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                local = local.plusDays(1);
-                end.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());
-                if (start.getDateInLong() != TaskDate.DATE_NOT_PRESENT) {
-                    local = start.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    local = local.plusDays(1);
-                    start.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());                    
-                }
-                break;
-            case WEEKLY:
-                local = end.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                local = local.plusWeeks(1);
-                end.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());
-                if (start.getDateInLong() != TaskDate.DATE_NOT_PRESENT) {
-                    local = start.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    local = local.plusWeeks(1);
-                    start.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());                    
-                }
-                break;
-            case MONTHLY:
-                local = end.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                local = local.plusMonths(1);
-                end.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());
-                if (start.getDateInLong() != TaskDate.DATE_NOT_PRESENT) {
-                    local = start.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    local = local.plusMonths(1);
-                    start.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());                    
-                }                
-                break;
-            case YEARLY:
-                local = end.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                local = local.plusYears(1);
-                end.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());
-                if (start.getDateInLong() != TaskDate.DATE_NOT_PRESENT) {
-                    local = start.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    local = local.plusYears(1);
-                    start.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());                    
-                }                
-                break;
-        }
     }
 }
