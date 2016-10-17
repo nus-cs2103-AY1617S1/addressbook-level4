@@ -255,12 +255,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the application
-`* * *` | user | add a new task with a description | view more information about a task when I need to 
+`* * ` | user | add a new task with a description | view more information about a task when I need to 
 `* * *` | user | add a task with a deadline | be reminded of tasks that I have to complete soon and prioritise them 
-`* * *` | user | add a task with a priority rank | view a prioritised list of tasks and know which task to start with
-`* * *` | user | add a task with a location | immediately know the location and context without having to refer to other sources
+`* * ` | user | add a task with a priority rank | view a prioritised list of tasks and know which task to start with
+`* * ` | user | add a task with a location | immediately know the location and context without having to refer to other sources
 `* * *` | user | add a task with tag(s) | search or filter tasks by these tags
-`* * *` | user | select a task to access widgets like Google Calendar and Google Maps | immediately connect with these frequently used applications, without having to take more steps such as opening a browser and visiting the link, and typing in the search bar
+`* * ` | user | select a task to access widgets like Google Calendar and Google Maps | immediately connect with these frequently used applications, without having to take more steps such as opening a browser and visiting the link, and typing in the search bar
 `* * *` | user | delete a task | remove clutter from the task list
 `* * *` | user | find a task by title | find tasks easily
 `* * *` | user | find a task by tags | categorise and find tasks easily
