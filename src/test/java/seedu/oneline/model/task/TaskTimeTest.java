@@ -227,15 +227,20 @@ public class TaskTimeTest {
      */
     @Test
     public void constructor_day_resultsInNextUpcomingDay() {
-        Calendar[] testDays = new Calendar[]{
-                yesterday, now, tomorrow
+        String[] testDays = new String[]{
+                "mon",
+                "tue",
+                "wed",
+                "thu",
+                "fri",
+                "sat",
+                "sun"
         };
         try {
-            for (Calendar d : testDays) {
-                String t = d.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US);
+            for (String t : testDays) {
                 TaskTime tTime = new TaskTime(t);
                 Calendar tCal = tTime.getCalendar();
-                assertTrue(withinSevenDays(d, tCal));
+                assertTrue(withinSevenDays(now, tCal));
             }
         } catch (Exception e) {
             assert false;
@@ -253,7 +258,7 @@ public class TaskTimeTest {
         nightOfd1.set(Calendar.HOUR, 23);
         nightOfd1.set(Calendar.MINUTE, 59);
         Calendar sevenDaysAfterd1 = (Calendar) nightOfd1.clone();
-        sevenDaysAfterd1.add(Calendar.DAY_OF_MONTH, 7);
+        sevenDaysAfterd1.add(Calendar.DAY_OF_MONTH, 8);
         boolean res = (nightOfd1.before(d2) || isSameDay(nightOfd1, d2)) && d2.before(sevenDaysAfterd1);
         return res;
     }
