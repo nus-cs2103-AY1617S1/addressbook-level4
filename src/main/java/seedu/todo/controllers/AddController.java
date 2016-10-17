@@ -168,10 +168,12 @@ public class AddController implements Controller {
                 naturalFrom = parsedResult.get("time")[1];
                 break setTime;
             }
-            if (parsedResult.get("timeFrom") != null && parsedResult.get("timeFrom")[1] != null)
+            if (parsedResult.get("timeFrom") != null && parsedResult.get("timeFrom")[1] != null) {
                 naturalFrom = parsedResult.get("timeFrom")[1];
-            if (parsedResult.get("timeTo") != null && parsedResult.get("timeTo")[1] != null)
+            }
+            if (parsedResult.get("timeTo") != null && parsedResult.get("timeTo")[1] != null) {
                 naturalTo = parsedResult.get("timeTo")[1];
+            }
         }
         return new String[] { naturalFrom, naturalTo };
     }
@@ -184,10 +186,12 @@ public class AddController implements Controller {
      */
     private String parseName(Map<String, String[]> parsedResult) {
         String name = null;
-        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null)
+        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null) {
             name = parsedResult.get("default")[1];
-        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[1] != null)
+        }
+        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[1] != null) {
             name = parsedResult.get("eventType")[1];
+        }
         return name;
     }
 
@@ -199,8 +203,9 @@ public class AddController implements Controller {
      */
     private boolean parseIsTask(Map<String, String[]> parsedResult) {
         boolean isTask = true;
-        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[0].equals("event"))
+        if (parsedResult.get("eventType") != null && parsedResult.get("eventType")[0].equals("event")) {
             isTask = false;
+        }
         return isTask;
     }
 
