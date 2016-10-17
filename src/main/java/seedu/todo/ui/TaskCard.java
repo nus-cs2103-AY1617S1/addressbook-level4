@@ -61,6 +61,12 @@ public class TaskCard extends UiPart{
         this.timeUtil = new TimeUtil();
     }
 
+    /**
+     * Loads and initialise one cell of the task in the to-do list ListView.
+     * @param task to be displayed on the cell
+     * @param displayedIndex index to be displayed on the card itself to the user
+     * @return an instance of this class
+     */
     public static TaskCard load(ImmutableTask task, int displayedIndex){
         TaskCard taskListCard = new TaskCard();
         taskListCard.task = task;
