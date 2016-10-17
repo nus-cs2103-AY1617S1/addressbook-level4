@@ -29,10 +29,17 @@
 
 .main-window {
   color: text-color;
+  -fx-background-color: #ffffff;
   -fx-font-family: "Roboto";
 }
 
-.scroll-pane, .split-pane {
+.view-title-text {
+  -fx-font-size: 20px;
+}
+
+.scroll-pane, .split-pane, .scroll-pane > .viewport {
+  -fx-background-insets: 0;
+  -fx-padding: 0;
   -fx-background-color: #ffffff;
 }
 
@@ -173,10 +180,6 @@ VBox.header {
 }
 
 /* HELP VIEW */
-
-.help-pane {
-  -fx-background-color: #ffffff;
-}
 
 .commandtext-name {
   -fx-font-size: 18px;

@@ -12,6 +12,7 @@ import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch.Patch;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import seedu.todo.MainApp;
 import seedu.todo.commons.exceptions.CannotRedoException;
 import seedu.todo.commons.exceptions.CannotUndoException;
 import seedu.todo.commons.util.FileUtil;
@@ -29,7 +30,8 @@ public class JsonStorage implements Storage {
     private final DiffMatchPatch dmp = new DiffMatchPatch();
 
     private File getStorageFile() {
-        return new File("database.json");
+        String filePath = MainApp.getConfig().getDatabaseFilePath();
+        return new File(filePath);
     }
     
     /**
@@ -40,6 +42,27 @@ public class JsonStorage implements Storage {
         // Don't need to worry about future because it cannot exceed limit.
         while (historyPatch.size() > HISTORY_SIZE)
             historyPatch.removeFirst();
+    }
+    
+    @Override
+    public void move(String newPath) throws IOException {
+        boolean hasMoved = false;
+        
+        try {
+            FileUtil.createParentDirsOfFile(new File(newPath));
+        } catch (IOException e) {
+            throw e;
+        }
+        
+        try {
+            hasMoved = getStorageFile().renameTo(new File(newPath));
+        } catch (SecurityException e) {
+            throw new IOException(e.getMessage(), e.getCause());
+        }
+        
+        if (!hasMoved) {
+            throw new IOException(String.format("Could not move file to \"%s\".", newPath));
+        }
     }
 
     @Override

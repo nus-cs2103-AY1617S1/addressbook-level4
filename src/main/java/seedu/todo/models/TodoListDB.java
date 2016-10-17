@@ -141,6 +141,10 @@ public class TodoListDB {
         }
     }
     
+    public void move(String newPath) throws IOException {
+        storage.move(newPath);
+    }
+    
     /**
      * Returns the maximum possible number of undos.
      * 

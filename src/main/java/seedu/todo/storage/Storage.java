@@ -22,6 +22,8 @@ public interface Storage {
      */
     public TodoListDB load() throws IOException;
 
+    public void move(String newPath) throws IOException;
+
     /**
      * Rolls back the DB by one commit, persists the DB, and returns a
      * TodoListDB object.

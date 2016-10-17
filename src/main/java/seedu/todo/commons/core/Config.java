@@ -1,5 +1,8 @@
 package seedu.todo.commons.core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -13,9 +16,7 @@ public class Config {
     // Config values customizable through config file
     private String appTitle = "GetShitDone";
     private Level logLevel = Level.INFO;
-    private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/todo.xml";
-    private String addressBookName = "MyTodos";
+    private String databaseFilePath = "database.json";
 
 
     public Config() {
@@ -37,28 +38,12 @@ public class Config {
         this.logLevel = logLevel;
     }
 
-    public String getUserPrefsFilePath() {
-        return userPrefsFilePath;
+    public String getDatabaseFilePath() {
+        return databaseFilePath;
     }
 
-    public void setUserPrefsFilePath(String userPrefsFilePath) {
-        this.userPrefsFilePath = userPrefsFilePath;
-    }
-
-    public String getAddressBookFilePath() {
-        return addressBookFilePath;
-    }
-
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
-    }
-
-    public String getAddressBookName() {
-        return addressBookName;
-    }
-
-    public void setAddressBookName(String addressBookName) {
-        this.addressBookName = addressBookName;
+    public void setDatabaseFilePath(String databaseFilePath) {
+        this.databaseFilePath = databaseFilePath;
     }
 
 
@@ -75,14 +60,12 @@ public class Config {
 
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
-                && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(addressBookName, o.addressBookName);
+                && Objects.equals(databaseFilePath, o.databaseFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, addressBookFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, databaseFilePath);
     }
 
     @Override
@@ -90,10 +73,26 @@ public class Config {
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nAddressBook name : " + addressBookName);
+        sb.append("\nLocal data file location : " + databaseFilePath);
         return sb.toString();
+    }
+    
+    public List<ConfigDefinition> getDefinitions() {
+        ConfigDefinition configAppTitle = new ConfigDefinition("appTitle", "App Title", appTitle);
+        ConfigDefinition configDatabaseFilePath = new ConfigDefinition("databaseFilePath", "Database File Path", databaseFilePath);
+                
+        return Arrays.asList(configAppTitle, configDatabaseFilePath);
+    }
+    
+    public List<String> getDefinitionsNames() {
+        List<ConfigDefinition> definitions = getDefinitions();
+        List<String> names = new ArrayList<>();
+        
+        for (ConfigDefinition definition : definitions) {
+            names.add(definition.getConfigName());
+        }
+        
+        return names;
     }
 
 }

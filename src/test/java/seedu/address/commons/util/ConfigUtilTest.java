@@ -7,12 +7,16 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.todo.commons.core.Config;
+import seedu.todo.commons.core.ConfigDefinition;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.ConfigUtil;
 import seedu.todo.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 
@@ -78,15 +82,17 @@ public class ConfigUtilTest {
         Config config = new Config();
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setAddressBookFilePath("addressbook.xml");
-        config.setAddressBookName("TypicalAddressBookName");
+        config.setDatabaseFilePath("database.json");
         return config;
+    }
+
+    private List<String> getTypicalConfigNames() {
+        return Arrays.asList("appTitle", "databaseFilePath");
     }
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        return new ConfigUtil().readConfig(configFilePath);
+        return ConfigUtil.readConfig(configFilePath);
     }
 
     @Test
@@ -106,24 +112,42 @@ public class ConfigUtilTest {
         Config original = getTypicalConfig();
 
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";
-        ConfigUtil configStorage = new ConfigUtil();
 
         //Try writing when the file doesn't exist
-        configStorage.saveConfig(original, configFilePath);
-        Config readBack = configStorage.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath);
+        Config readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setAppTitle("Updated Title");
         original.setLogLevel(Level.FINE);
-        configStorage.saveConfig(original, configFilePath);
-        readBack = configStorage.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath);
+        readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
+    }
+    
+    @Test
+    public void getDefinitions_configInOrder_configNamesCorrect() {
+        List<String> expected = getTypicalConfigNames();
+        List<ConfigDefinition> actualDefinitions = new Config().getDefinitions();
+        List<String> actual = new ArrayList<>();
+        
+        for (ConfigDefinition defn : actualDefinitions) {
+            actual.add(defn.getConfigName());
+        }
+        
+        assertEquals(expected.size(), actual.size());
+        
+        for (String configName : expected) {
+            boolean isInExpected = actual.indexOf(configName) >= 0;
+            assertEquals(isInExpected, true);
+        }
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        new ConfigUtil().saveConfig(config, configFilePath);
+        new ConfigUtil();
+        ConfigUtil.saveConfig(config, configFilePath);
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {

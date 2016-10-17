@@ -45,6 +45,10 @@ public class HelpController implements Controller {
                                          AddController.getCommandDefinition(),
                                          ListController.getCommandDefinition(),
                                          UpdateController.getCommandDefinition(),
+                                         CompleteTaskController.getCommandDefinition(),
+                                         UncompleteTaskController.getCommandDefinition(),
+                                         DestroyController.getCommandDefinition(),
+                                         ConfigController.getCommandDefinition(),
                                          DestroyController.getCommandDefinition(),
                                          ExitController.getCommandDefinition() };
     }
