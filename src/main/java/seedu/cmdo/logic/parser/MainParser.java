@@ -346,7 +346,11 @@ public class MainParser {
     private static void extractDetail(String args) throws IllegalValueException {
     	// Check if only one ' used
     	if (args.lastIndexOf("'") == args.indexOf("'"))
-    		throw new IllegalValueException("Encapsulate your task detauls in ' '.");
+    		throw new IllegalValueException("Encapsulate your task details in ' '.");
+    	// Check if detail is empty.
+    	if (args.lastIndexOf("'") == args.indexOf("'")+1) {
+    		throw new IllegalValueException("Blank task? Did you mean to block out a date? Type help to see usage.");
+    	}
     	// Split into '  ...  '
     	String[] details = args.split("^'(.+)'$");
     	// Details only, get rid of anything after the '
