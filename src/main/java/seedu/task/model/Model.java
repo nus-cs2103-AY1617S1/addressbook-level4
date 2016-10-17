@@ -32,6 +32,9 @@ public interface Model {
     /** Adds the given event */
     void addEvent(Event event) throws UniqueEventList.DuplicateEventException;
     
+    /** Edits the given task */
+    void editTask(Task task, int index) throws UniqueTaskList.DuplicateTaskException;
+    
     /** Marks the given task */
     void markTask(int index);
 

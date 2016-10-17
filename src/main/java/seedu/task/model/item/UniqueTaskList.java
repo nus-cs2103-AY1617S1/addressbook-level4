@@ -61,6 +61,19 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
+     * Replaces a task in the list with the edited task.
+     *
+     * @throws DuplicateTaskException if the task to replaced is a duplicate of an existing task in the list.
+     */
+    public void edit(Task toEdit, int index) throws DuplicateTaskException {
+        assert toEdit != null;
+        if (contains(toEdit)) {
+            throw new DuplicateTaskException();
+        }
+        internalList.set(index, toEdit);
+    }
+    
+    /**
      * Marks a task in the list
      */
     public void mark(int toMark){

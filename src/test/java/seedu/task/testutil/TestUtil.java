@@ -318,6 +318,19 @@ public class TestUtil {
         listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
+    
+    /**
+     * Edits task according to index in the array of tasks.
+     * @param tasks A array of tasks.
+     * @param tasksToEdit The tasks that are to be edited in the original array.
+     * @param index Integer of task index to edit
+     * @return The modified array of tasks.
+     */
+    public static TestTask[] editTasksToList(final TestTask[] tasks, int index, TestTask taskToEdit) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.set(index, taskToEdit);
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();

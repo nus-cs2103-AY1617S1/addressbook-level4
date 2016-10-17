@@ -33,6 +33,27 @@ class TestDataHelper{
         return new Task(name, des, false);
     }
     
+    Task computingEditedFloatTask() throws Exception {
+        Name name = new Name("Do CS2106 Project");
+        Description des = new Description("To post on Github");
+        
+        return new Task(name, des, false);
+    }
+    
+    Task computingEditedNameFloatTask() throws Exception {
+        Name name = new Name("Do CS2106 Project");
+        Description des = new Description("post on Github");
+        
+        return new Task(name, des, false);
+    }
+    
+    Task computingEditedDescFloatTask() throws Exception {
+        Name name = new Name("Do CS2103 Project");
+        Description des = new Description("To post on Github");
+        
+        return new Task(name, des, false);
+    }
+    
     Task completedTask() throws Exception {
     	Name name = new Name("Run tests");
     	Description des = new Description("for task");
@@ -121,6 +142,26 @@ class TestDataHelper{
         cmd.append(p.getEvent().toString());
         cmd.append(" /desc ").append(p.getDescription().toString());
         cmd.append(" /from ").append(p.getDuration().toString());
+
+        return cmd.toString();
+    }
+    
+    /** Generates the correct edit task command based on the new description string given */
+    String generateEditTaskCommand(Task p) {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("edit -t 1");
+        cmd.append(" /name ").append(p.getTask().toString());
+        cmd.append(" /desc ").append(p.getDescription().toString());
+
+        return cmd.toString();
+    }
+    
+    /** Generates the correct list task */
+    String generateListTaskCommand() {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("list -t");
 
         return cmd.toString();
     }
