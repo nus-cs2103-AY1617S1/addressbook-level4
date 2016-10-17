@@ -11,6 +11,11 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
+## Introduction
+*DearJim* is a revolutionary task manager designed to help you organise your tasks that is simple and easy to use. *DearJim* is a Java desktop application that has a GUI, and the main mode of input in *DearJim* is through keyboard commands. 
+
+This guide describes the design and implementation of *DearJim*. It will help you understand how *DearJim* works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
+
 
 ## Setting up
 
@@ -47,6 +52,8 @@
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
+>_The Architecture Diagram of DearJim_
+
 
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
@@ -71,15 +78,18 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
+> _The class diagram for the Logic Component of DearJim_
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
 <img src="images\SDforDeleteTask.PNG" width="800">
+> _The sequence diagram for the scenario `delete 1`_
+
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -88,6 +98,7 @@ The diagram below shows how the `EventsCenter` reacts to that event, which event
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
+> _The sequence diagram showing the `TaskManagerChangedEvent` and effects on `Storage` and `UI`_
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -98,6 +109,7 @@ The sections below give more details of each component.
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
+> _The class diagram for the UI component of DearJim_
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -105,7 +117,7 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+The `UI` component uses JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
@@ -118,22 +130,25 @@ The `UI` component,
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
+> _The class diagram for the Logic component of DearJim_
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
  
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
+> _The sequence diagram for the interactions within the `Logic` component for `execute("delete 1")`_
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
+> _The class diagram for the Model component of DearJim_
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -147,6 +162,7 @@ The `Model`,
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
+> _The class diagram for the Storage component of DearJim_
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
@@ -262,7 +278,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add tasks to the todo list | remember what I have to do / what I have to attend to
 `* * *` | user | view upcoming tasks | check what I need to do / have to do soon
 `* * *` | user | search for details on a task or event | view what needs to be done
-`* * *` | user | delete task that has been completed | I do not have to keep track of it	
+`* * *` | user | delete task that has been completed | completely remove it from my task manager	
 `* * *` | user | mark the task as completed upon completion | keep an archive of tasks that I have completed
 `* * *` | user | view tasks that I have completed | recall what I have completed
 `* * *` | user | call up the todo list with a simple keystroke | start the application anytime during my workflow
@@ -276,28 +292,60 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Add task
+#### Use case: UC01 - Add a task
 
 **MSS**
 
-1. User requests to add task
-2. TaskManager adds task <br>
-Use case ends.
+1. User enters an `add` command, specifying details of the task to be added, following the `add` command format
+2. TaskManager parses the `add` command, and adds the task to the current task list
+3. TaskManager saves the current task list to storage and updates the GUI to display the updated list with the newly added task<br>
+Use case ends
 
 **Extensions**
 
-1a. User enters an invalid command
+2a. User enters an input that does not follow the `add` command format
 
-> 1a1. TaskManager shows an error message, informing the user what parameters he has filled wrongly and the correct format of adding a task <br>
+> 2a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `add` command and an example `add` command <br>
   Use case resumes at step 1
+  
+3a. User identifies a mistake in the details of the task added
+> 3a1. User edits the task details (UC03)<br>
+  Use case ends
 
-#### Use case: List
+
+
+#### Use case: UC02 - List all undone tasks
 
 **MSS**
 
-1. User requests to add task
-2. TaskManager shows a list of tasks <br>
-Use case ends.
+1. User enters the `list` command
+2. TaskManager parses the `list` command
+3. TaskManager removes any filters for the task list and updates the GUI to display the entire list of undone tasks<br>
+Use case ends
+
+**Extensions**
+
+2a. User enters an input that does not follow the `list` command format
+
+>2a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `list` command and an example `list` command <br>
+ Use case resumes at step 1
+  
+2b. The list is empty
+
+> Use case ends
+
+
+#### Use case: UC03 - Edit an undone task
+
+**MSS**
+
+1. User requests to list undone tasks (UC02)
+2. TaskManager shows the list of all undone tasks
+3. User enters the `edit` command, specifying the `INDEX` of the task in the list to be edited, the fields to be edited and their new values, following the `edit` command format
+4. TaskManager parses the `edit` command and looks for the task in the list
+5. TaskManager edits the requested fields on the specified task according to the command entered
+6. TaskManager updates the GUI to display the new list of undone tasks<br>
+Use case ends
 
 **Extensions**
 
@@ -305,15 +353,29 @@ Use case ends.
 
 > Use case ends
 
-#### Use case: Edit task
+4a. The given index is invalid
+
+> 4a1. TaskManager displays an error message on the GUI, informing the user that the given index is invalid and thus cannot edit any task <br>
+  Use case resumes at step 3
+  
+4b. User enters an input that does not follow the `edit` command format
+
+>4b1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `edit` command and an example `edit` command <br>
+ Use case resumes at step 3
+
+
+#### Use case: UC04 - Delete an undone task
 
 **MSS**
 
-1. User requests to list tasks
-2. TaskManager shows a list of tasks
-3. User requests to edit a specific task in the list
-4. TaskManager edits the task <br>
-Use case ends.
+1. User requests to list undone tasks (UC02)
+2. TaskManager shows the list of all undone tasks
+3. User enters the `delete` command, specifying the `INDEX` of the task in the list to be deleted, following the `delete` command format
+4. TaskManager parses the `delete` command and looks for the task in the list
+5. TaskManager deletes the task from the list
+6. TaskManager updates the GUI to display the new list of undone tasks<br>
+
+Use case ends
 
 **Extensions**
 
@@ -321,33 +383,17 @@ Use case ends.
 
 > Use case ends
 
-3a. The given index is invalid
+4a. The given index is invalid
 
-> 3a1. TaskManager shows an error message <br>
-  Use case resumes at step 2
+> 4a1. TaskManager displays an error message on the GUI, informing the user that the given index is invalid and thus cannot delete any task <br>
+  Use case resumes at step 3
+  
+4b. User enters an input that does not follow the `edit` command format
 
+>4b1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `delete` command and an example `delete` command <br>
+ Use case resumes at step 3
 
-#### Use case: Delete task
-
-**MSS**
-
-1. User requests to list tasks
-2. TaskManager shows a list of tasks
-3. User requests to delete a specific task in the list
-4. TaskManager deletes the task <br>
-Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. TaskManager shows an error message <br>
-  Use case resumes at step 2
-
+  
 
 ## Appendix C : Non Functional Requirements
 
@@ -356,9 +402,9 @@ Use case ends.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 5. Should have <1 second startup and processing times.
-6. Should be easy to learn and use
-7. Should be available without Internet connection
-8. Should be scalable and maintainable
+6. Should be easy to learn and use.
+7. Should be available without Internet connection.
+8. Should be scalable and maintainable.
 
 
 ## Appendix D : Glossary
@@ -369,7 +415,7 @@ Use case ends.
 
 ##### Scalable
 
-> Open for extension, closed for modification
+> Able to work well as number of tasks grows
 
 ##### Synonyms
 
@@ -377,7 +423,7 @@ Use case ends.
 
 ##### Maintainable
 
-> Readable and easy to edit code
+> Code that is readable and easy to contribute towards
 
 ## Appendix E : Product Survey
 
@@ -388,4 +434,4 @@ Todo.txt | <ol> <li> Works on many platforms, can be accessed on devices that su
 Google Calendar | <ol> <li> Can be synced to mobile devices </li> <li> Alerts via notifications on phones </li> <li> Switches between views easily </li> <li> Minimalistic interface </li>  </ol>  | <ol> <li> Requires an Internet connection to be used </li> <li> Cannot be brought up with a keyboard shortcut </li> </ol> 
 Remember the milk | <ol> <li> Supports email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Synchronises across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li>  </ol> | <ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol>
 
-<strong>Summary:</strong> We noticed that these products have very good features, but we realised that none of these products have the specific combination of products that Jim wants. Therefore, we are merging certain good features across these products to make a targeted product for Jim.
+<strong>Summary:</strong> We noticed that these products have very good features, but we realised that none of these products have the specific combination of products that caters to our target audience. Therefore, we are incorporating some of the good features while designing DearJim carefully to avoid the pitfalls found in these products, to make a targeted product for our intended audience.
