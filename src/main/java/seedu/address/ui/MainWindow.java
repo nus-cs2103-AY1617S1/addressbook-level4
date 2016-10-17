@@ -29,15 +29,10 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-<<<<<<< HEAD
-=======
-    
-    
+        
     private DeadlineListPanel deadlineListPanel;
     private TodoListPanel todoListPanel; 
      
-    
->>>>>>> c4a7d1cc83574791cb03126171176ffe43645d8d
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
@@ -52,8 +47,8 @@ public class MainWindow extends UiPart {
 
     private String addressBookName;
 
-    @FXML
-    private AnchorPane browserPlaceholder;
+    //@FXML
+    //private AnchorPane browserPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -67,20 +62,14 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
-<<<<<<< HEAD
     //@FXML
     //private AnchorPane statusbarPlaceholder;
-=======
-    @FXML
-    private AnchorPane statusbarPlaceholder;
 
     @FXML
     private AnchorPane deadlineListPanelPlaceholder;
     
     @FXML
     private AnchorPane todoListPanelPlaceholder;
-
->>>>>>> c4a7d1cc83574791cb03126171176ffe43645d8d
 
 
     public MainWindow() {
@@ -129,7 +118,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        //browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
