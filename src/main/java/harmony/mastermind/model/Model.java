@@ -49,7 +49,11 @@ public interface Model {
     
     /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
     CommandResult undo() throws EmptyStackException;
-
+    
+    //@@author A0124797R
+    /** Returns the current list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getCurrentList();
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
@@ -72,7 +76,7 @@ public interface Model {
     //@@author A0124797R
     /** Returns filtered task list as an {@code ObervableList<Task>} */
     ObservableList<Task> getListToMark(String currentTab);
-    
+
     //@@author A0124797R
     /** update current tab */
     void updateCurrentTab(String tab);

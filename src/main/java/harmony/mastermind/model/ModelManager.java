@@ -186,13 +186,14 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
-    //@@author A0124797R
     @Override
+    //@@author A0124797R
     public ObservableList<Task> getListToMark(String currentTab) {
-        return getCurrentList(currentTab);
+        return getCurrentObservableList();
     }
 
     @Override
+    //@@author A0124797R
     public void updateFilteredListToShowAll(String tab) {
         switch (tab) {
             case TAB_HOME:      filteredTasks.setPredicate(null);
@@ -213,8 +214,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    //@author A0124797R
     @Override
+    //@@author A0124797R
     public void updateFilteredTagTaskList(Set<Tag> keywords){
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));
     }
@@ -223,7 +224,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
-    private ObservableList<Task> getCurrentList(String currentTab) {
+    //@@author A0124797R
+    private ObservableList<Task> getCurrentObservableList() {
         ObservableList<Task> list = filteredTasks;
         
         switch (currentTab) {
@@ -240,8 +242,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
         
         return list;
-            
-            
+    }
+    
+    @Override
+    //@@author A0124797R
+    public UnmodifiableObservableList<ReadOnlyTask> getCurrentList() {
+        return new UnmodifiableObservableList<ReadOnlyTask>(getCurrentObservableList());
     }
     
     private void searchTask(String keyword, Memory memory) { 
