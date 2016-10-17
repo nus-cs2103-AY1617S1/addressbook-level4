@@ -10,6 +10,8 @@ public interface ReadOnlyTask {
 
     Name getName();
     DueDate getDueDate();
+	Address getAddress();
+	Priority getPriority();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -53,5 +55,4 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
 }

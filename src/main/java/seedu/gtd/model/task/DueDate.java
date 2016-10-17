@@ -28,7 +28,7 @@ public class DueDate {
     }
 
     /**
-     * Returns true if a given string is a valid person due date number.
+     * Returns true if a given string is a valid task due date number.
      */
     public static boolean isValidDueDate(String test) {
         return test.matches(DUEDATE_VALIDATION_REGEX);
