@@ -159,5 +159,24 @@ public class TaskTimeTest {
         }
     }
     
+
+    /**
+     * Tests whether inputting today's day and month causes 
+     * the year to remain the same as today's year
+     */
+    @Test
+    public void constructor_DMToday() {
+        // construct a string that represents MM/DD 
+        // where MM/DD is the month and date of yesterday
+        String todayString = Integer.toString(thisMonth) 
+                + " " + Integer.toString(thisDay);
+        try {
+            TaskTime tTime = new TaskTime(todayString);
+            Calendar tCal = DateUtils.toCalendar(tTime.getDate());
+            assertTrue(tCal.get(Calendar.YEAR) == thisYear);
+        } catch (Exception e) {
+            assert false;
+        }
+    }
     
 }
