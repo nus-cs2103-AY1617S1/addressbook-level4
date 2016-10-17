@@ -36,9 +36,11 @@ public class AddCommand extends Command {
     private final Task toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * Created an add command for SINGULAR NON-RANGE DATE AND TIME
      *
      * @throws IllegalValueException if any of the raw values are invalid
+     * 
+     * @@author A0139661Y
      */
     public AddCommand(String details,
                       LocalDate dueByDate,
@@ -57,6 +59,34 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
+    
+    /**
+     * Created an add command for RANGE DATE AND TIME
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     * 
+     * @@author A0139661Y
+     */
+    public AddCommand(String details,
+                      LocalDate dueByDateStart,
+                      LocalTime dueByTimeStart,
+                      LocalDate dueByDateEnd,
+                      LocalTime dueByTimeEnd,
+                      String priority,
+                      Set<String> tags) throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Detail(details),
+                new DueByDate (dueByDateStart, dueByDateEnd),
+                new DueByTime(dueByTimeStart, dueByTimeEnd),
+                new Priority(priority),
+                new UniqueTagList(tagSet)
+        );
+    }
+
 
     public AddCommand(Task toAdd) {
         this.toAdd = toAdd;
