@@ -15,8 +15,6 @@ import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
-import seedu.todo.ui.UiManager;
-import seedu.todo.ui.views.IndexView;
 
 /**
  * Controller to add an event or task.

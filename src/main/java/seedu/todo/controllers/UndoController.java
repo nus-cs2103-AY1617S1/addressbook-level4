@@ -9,7 +9,6 @@ import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
-import seedu.todo.ui.views.IndexView;
 
 /**
  * Controller to undo a database commit.
