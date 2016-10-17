@@ -8,7 +8,6 @@ import seedu.ggist.model.task.TaskTime;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class DateTimeParser {
 

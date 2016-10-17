@@ -47,5 +47,8 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to reflect changes */
     void updateFilteredListToShowChanges();
+    
+    /** Updates the filter of the filtered task list to show task in a particular day */
+    void updateFilteredTaskListToShowDate(String keywords);
 
 }

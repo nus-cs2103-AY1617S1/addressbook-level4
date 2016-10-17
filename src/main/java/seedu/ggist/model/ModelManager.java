@@ -164,6 +164,15 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskListToShowUndone(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
+    
+    @Override
+    public void updateFilteredTaskListToShowDate(String keywords){
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(keywords)));
+    }
+
+    private void updateFilteredTaskListToShowDate(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
@@ -247,6 +256,24 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", taskNameKeyWords);
+        }
+    }
+    
+    private class DateQualifier implements Qualifier {
+        private String taskDateKeyWords;
+
+        DateQualifier(String taskDateKeyWords) {
+            this.taskDateKeyWords = taskDateKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return taskDateKeyWords.equals(task.getStartDate().toString()) || taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString());
+        }
+
+        @Override
+        public String toString() {
+            return "name=" + String.join(", ", taskDateKeyWords);
         }
     }
 }

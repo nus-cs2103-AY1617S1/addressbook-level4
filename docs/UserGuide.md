@@ -67,7 +67,7 @@ General format: `add TASK,[DATE] [TIME], [PRIORITY], [FREQUENCY]`
 
 
 ##### Without any deadline
-Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
+Format: `add TASK, [DATE] [TIME], [PRIORITY], [FREQUENCY]`
 
 Examples: 
 * `add buy milk, low`
@@ -91,11 +91,11 @@ Format: `add TASK, DATE, START TIME, END TIME, [PRIORITY], [FREQUENCY]`
 
 Examples: 
 * `add tennis, 21 nov, 1pm, 3pm, high`
-* `add lunch with parents on friday from 12pm to 1pm`
+* `add lunch with parents on friday from 12pm-1pm`
 
 > * The comma after `[TASK]` can be replaced with a `on`. <br>
 > * The comma after `[DATE]` can be replaced with a `from`. <br>
-> * The comma after `[START TIME]` can be replaced with a `to`. <br>
+> * The comma after `[START TIME]` can be replaced with a `-`. <br>
 
 
 ##### With start and end time on different days
@@ -103,17 +103,16 @@ Format: `add TASK, START DATE TIME, END DATE TIME, [PRIORITY], [FREQUENCY]`
 
 Examples: 
 * `add dad's birthday celebration, next thurs 1900, next thurs 2100, high`
-* `add going overseas from fri at 1pm to next fri at 10pm`
+* `add going overseas from fri at 1pm-next fri at 10pm`
 
 > * `[DATE]` and `[TIME]` has to separated by a space. <br>
 > * The comma after `[TASK]` can be replaced with a `from`. <br>
-> * The comma after `[START DATE TIME]` can be replaced with a `to`.
-
+> * The comma after `[START DATE TIME]` can be replaced with a `-`.
 
 ##### Recurring
 To make tasks repeating, simply  add the FREQUENCY parameter at the back.
 
-Format: `add TASK, [DATE], [TIME], [PRIORITY], [FREQUENCY]`
+Format: `add TASK, [DATE] [TIME], [PRIORITY], [FREQUENCY]`
 
 Examples: 
 * `add water the plants, 0800, high, daily`
@@ -127,6 +126,7 @@ Format: `list [PARAMETERS]`
 > * `list` shows all incomplete tasks
 > * `list all` shows all tasks
 > * `list done` shows all completed tasks
+> * `list [DATE]` shows all tasks starting or ending in a particular day
 
 #### Searching tasks by keywords: `search`
 Searches and lists all tasks that contain the specified keyword, inclusive of `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY`.<br>

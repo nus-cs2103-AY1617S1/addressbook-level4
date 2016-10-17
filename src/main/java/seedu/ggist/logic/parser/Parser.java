@@ -27,7 +27,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern LIST_ARGS_FORMAT =
-            Pattern.compile("(?<listing>\\S*)");
+            Pattern.compile("(?<listing>.*)");
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
@@ -39,18 +39,18 @@ public class Parser {
         
     //regex for tasks with start and end time spanning different days
     private static final Pattern EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*(,|from)\\s*(?<startDateTime>.+)\\s*(,|to)\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|from)\\s*(?<startDateTime>.+)\\s*(,|-)\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
    
   //regex for tasks with start and end time within same day
     private static final Pattern EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*(,|on)\\s*(?<day>.+)\\s*(,|from)\\s*(?<startTime>.+)\\s*(,|to|-)\\s*(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|on)\\s*(?<day>.+)\\s*(,|from)\\s*(?<startTime>.+)\\s*(,|-)\\s*(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
     public Parser() {}
-
     /**
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
      * @return the command based on the user input
+     * @throws IllegalValueException 
      */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -118,6 +118,7 @@ public class Parser {
                 matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
                 matcherTwo = EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcherTwo.matches()) {
+                    System.out.println("events same");
                     return new AddCommand(
                         matcherTwo.group("taskName"),
                         new DateTimeParser(matcherTwo.group("day")).getDate(),
@@ -127,6 +128,7 @@ public class Parser {
                         getTagsFromArgs(matcherTwo.group("tagArguments"))
                  );
                 } else if (matcher.matches()) {
+                    System.out.println("events diff");
                     return new AddCommand(
                         matcher.group("taskName"),
                         new DateTimeParser(matcher.group("startDateTime")).getDate(),
@@ -140,6 +142,7 @@ public class Parser {
             } else if (taskType.equals("deadlineTask")) {
                 matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
+                    System.out.println("deadline");
                     return new AddCommand(
                         matcher.group("taskName"),
                         new DateTimeParser(matcher.group("dateTime")).getDate(),
@@ -150,6 +153,7 @@ public class Parser {
             } else if (taskType.equals("floatingTask")) {
                 matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
+                    System.out.println("floating");
                     return new AddCommand(
                         matcher.group("taskName"),
                         getTagsFromArgs(matcher.group("tagArguments"))
@@ -316,9 +320,18 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ListCommand.MESSAGE_USAGE));
         }
-        
         final String listing = matcher.group("listing");
-        return new ListCommand(listing);
+        
+        try {
+            if (args.equals("") || ListCommand.isValidListArgs(listing)) {
+                return new ListCommand(listing);
+            } else {
+                String dateListing = new DateTimeParser(listing).getDate();
+                return new ListCommand(dateListing);
+            }
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(ListCommand.MESSAGE_USAGE);
+        }
     }
 
 }
