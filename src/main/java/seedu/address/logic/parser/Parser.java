@@ -26,11 +26,6 @@ public class Parser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     
-    private static final Pattern EDIT_ARGS_FORMAT = 
-            Pattern.compile("(?<index>\\d+)"
-                    + " (?<property>\\w+)"
-                    + " (?<newInfo>.*)");
-    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
@@ -39,13 +34,12 @@ public class Parser {
                     + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
                     + "(?<tagArguments>(?: t/[^;]+)*)"
                     );
-
-//    private static final Pattern EVENT_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-//            Pattern.compile("(?<name>[^/]+)"
-//                    + " (?<isDatePrivate>p?)d/(?<date>[^@]+)"
-//                    + " (?<isStartTimePrivate>p?)s/(?<start>[^/]+)"
-//                    + " (?<isEndTimePrivate>p?)e/(?<end>[^/]+)"
-//                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
+    		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
+            + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
+            + "(?<tagArguments>(?: t/[^;]+)*)"
+            );
 
     public Parser() {}
 
