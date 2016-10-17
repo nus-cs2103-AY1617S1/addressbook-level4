@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+//@@author A0141019U
 public class DateUtil {
 
 	private static final Pattern[] STANDARD_DATE_FORMATS = new Pattern[] {

@@ -48,7 +48,7 @@ import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.storage.XmlSerializableTaskManager;
 
 public class Parser {
-
+	// @@author A0141019U
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
 	// Different regexes for different permutations of arguments
@@ -79,13 +79,8 @@ public class Parser {
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>(\\s*[^\\s+])+)'");
 
 	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
-
-	private com.joestelmach.natty.Parser nattyParser;
-
-	public Parser() {
-		nattyParser = new com.joestelmach.natty.Parser();
-	}
-
+	
+	//@@author A0141019U
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
@@ -169,7 +164,7 @@ public class Parser {
 		return indices;
 	}
 
-
+	//@@author A0141019U
 	private Command prepareAdd(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(ADD_COMMAND_FORMAT_1.matcher(arguments.trim()));
@@ -215,7 +210,8 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
-
+	
+	//@@author A0141019U
 	private Command prepareAddEvent(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments.trim()));
@@ -330,32 +326,7 @@ public class Parser {
 		}
 	}
 
-	/**
-	 * Uses Natty to parse the date/time contained in the input string. If no
-	 * time is specified, time at instant of parsing is taken.
-	 * 
-	 * @param string
-	 *            that contains date/time to be parsed
-	 * @return LocalDateTime
-	 * @throws ParseException
-	 *             if 0, or more than one date is found
-	 */
-	private LocalDateTime parseDate(String string) throws ParseException {
-		List<DateGroup> groups = nattyParser.parse(string);
-		List<Date> dates = groups.get(0).getDates();
-
-		if (groups.size() > 1 || groups.size() == 0 || dates.size() > 1 || dates.size() == 0) {
-			System.out.println("parsing error");
-			// TODO better err msg
-			throw new ParseException(
-					"Error while parsing date and time. Trying entering the date in yyyy-mm-dd instead", 0);
-		}
-
-		Date input = dates.get(0);
-		Instant instant = input.toInstant();
-		return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-	}
-
+	//@@author A0141019U
 	// Only supports task type and done|not-done options.
 	private Command prepareList(String arguments) {
 		if (arguments.equals("")) {
@@ -433,7 +404,8 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 	}
-
+	
+	//@@author A0141019U
 	/**
 	 * Returns an ArrayList of the specified indices in the {@code command} IF
 	 * positive unsigned integers are given. Returns an ArrayList with a single
