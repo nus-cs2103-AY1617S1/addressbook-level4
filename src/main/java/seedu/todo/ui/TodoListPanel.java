@@ -3,6 +3,7 @@ package seedu.todo.ui;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -89,7 +90,7 @@ public class TodoListPanel extends UiPart {
         });
     }
 
-    class TodoListViewCell extends ListCell<ImmutableTask> {
+    private class TodoListViewCell extends ListCell<ImmutableTask> {
 
         public TodoListViewCell() {
         }
@@ -102,8 +103,18 @@ public class TodoListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                TaskCard taskCard = TaskCard.load(task, getIndex() + 1);
+                setGraphic(taskCard.getLayout());
+                setTaskCardStyleProperties(taskCard);
             }
+        }
+
+        /**
+         * Sets the style properties of a cell on the to-do list, that cannot be done in any other places.
+         */
+        private void setTaskCardStyleProperties(TaskCard taskCard) {
+            this.setPadding(Insets.EMPTY);
+            this.selectedProperty().addListener((observable, oldValue, newValue) -> taskCard.markAsSelected(newValue));
         }
     }
 
