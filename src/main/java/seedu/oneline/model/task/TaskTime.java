@@ -77,7 +77,7 @@ public class TaskTime implements Comparable<TaskTime> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskTime // instanceof handles nulls
-                && this.value.equals(((TaskTime) other).value)); // state check TODO
+                && this.value.compareTo(((TaskTime) other).value) == 0); // state check TODO
     }
 
     @Override
