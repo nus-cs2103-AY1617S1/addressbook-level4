@@ -13,8 +13,8 @@
    
 1. Download the latest `dearjim.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/dearjim_initial.png">
+3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
+<img src="images/dearjim_initial.png">
 
 <p align="center">
 Figure 1: GUI of DearJim
@@ -282,7 +282,7 @@ Format: none, just type a command and let DearJim provide you hints on the comma
 
 Examples:
 * Typing `add` in the command input generates the `add` command format in the result display
-><img src="images/dearjim_hint_add.png">
+<img src="images/dearjim_hint_add.png">
 
 <p align="center">
 Figure 4: Hints for add command
@@ -290,7 +290,7 @@ Figure 4: Hints for add command
 <br>
 
 * Typing `delete` in the command input generates the `delete` command format in the result display
-><img src="images/dearjim_hint_delete.png">
+<img src="images/dearjim_hint_delete.png">
 
 <p align="center">
 Figure 5: Hints for delete command
