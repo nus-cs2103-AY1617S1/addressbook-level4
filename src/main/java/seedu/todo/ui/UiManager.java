@@ -11,10 +11,7 @@ import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
-import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
-import seedu.todo.commons.events.ui.JumpToListRequestEvent;
-import seedu.todo.commons.events.ui.SelectionChangedEvent;
-import seedu.todo.commons.events.ui.ShowHelpEvent;
+import seedu.todo.commons.events.ui.*;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
@@ -111,8 +108,9 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleHideHelpEvent() {
-        
+    private void handleHideHelpEvent(HideHelpEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getHelpPanel().hideHelpPanel();
     }
 
     @Subscribe
