@@ -119,6 +119,11 @@
     -fx-text-fill: black;
 }
 
+.info-header .label {
+	-fx-text-fill: white;
+	-fx-font-size: 16px;
+}
+
 .result-display {
     -fx-background-color: #F2F2F2;
     -fx-border-color: transparent;
@@ -189,7 +194,7 @@
     -fx-background-radius: 0;
     -fx-background-color: #4C5564;
     -fx-font-family: Helvetica;
-    -fx-font-size: 11pt;
+    -fx-font-size: 10pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
