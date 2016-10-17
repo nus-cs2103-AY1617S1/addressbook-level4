@@ -41,7 +41,8 @@ public class AddCommand extends Command {
                 //new DateTime(openTime),
                 //new DateTime(closeTime),
                 //new Boolean(importance),
-                new UniqueTagList(tagSet)
+                new UniqueTagList(tagSet),
+                false
         );
     }
 

@@ -15,29 +15,28 @@ public class Task implements ReadOnlyTask {
     private Name name;
     //private DateTime openTime;
     //private DateTime closeTime;
-    //private boolean isImportant;
-
     private UniqueTagList tags;
+    private boolean isImportant;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
+    public Task(Name name, UniqueTagList tags,boolean isCompleted) {
         // open time, urgent, and close time can be null
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         //TODO: set default values
         //this.openTime = openTime;
         //this.closeTime = closeTime;
-        //this.isImportant = isImportant;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags); 
+        this.isImportant = false; // protect internal tags from changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getTags(),false);
     }
 
     @Override
@@ -54,12 +53,13 @@ public class Task implements ReadOnlyTask {
     public DateTime getCloseTime() {
         return closeTime;
     }
-
+    **/
+    
     @Override
     public boolean getImportance() {
         return isImportant;
     }
-    **/
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -72,6 +72,11 @@ public class Task implements ReadOnlyTask {
         tags.setTags(replacement);
     }
 
+    public void setIsImportant(boolean isImportant)
+    {
+    	this.isImportant=isImportant;
+    	
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

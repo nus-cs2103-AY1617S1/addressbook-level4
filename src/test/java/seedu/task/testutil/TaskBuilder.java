@@ -41,6 +41,10 @@ public class TaskBuilder {
 //        this.person.setEmail(new Email(email));
 //        return this;
 //    }
+    public TaskBuilder withImportance(boolean isImportant) throws IllegalValueException{
+    	this.task.setIsImportant(isImportant);
+    	return this;
+    }
 
     public TestTask build() {
         return this.task;

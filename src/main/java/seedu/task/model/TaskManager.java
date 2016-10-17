@@ -94,7 +94,12 @@ public class TaskManager implements ReadOnlyTaskManager {
     	tasks.update(originalTask,updateTask); 
     }
     
-    
+    public void pinTask(ReadOnlyTask originalTask, Task toPin) throws UniqueTaskList.TaskNotFoundException {
+    	syncTagsWithMasterList(toPin);
+    	tasks.pin(originalTask,toPin); 
+    }
+  
+        
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}

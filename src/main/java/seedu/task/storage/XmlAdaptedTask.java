@@ -22,8 +22,8 @@ public class XmlAdaptedTask {
 //    private DateTime openTime;
 //    @XmlElement(required = false)
 //    private DateTime closeTime;
-//    @XmlElement(required = false)
-//    private boolean isImportant;
+    @XmlElement(required = false)
+    private boolean isImportant;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -46,8 +46,9 @@ public class XmlAdaptedTask {
 //        isImportant = source.getImportance();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
+            tagged.add(new XmlAdaptedTag(tag));            
         }
+        isImportant=source.getImportance();
     }
 
     /**
@@ -65,6 +66,7 @@ public class XmlAdaptedTask {
 //        final DateTime closeTime = new DateTime(this.closeTime);
 //        final boolean isImportant = this.isImportant;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, tags); //(name, openTime, closeTime, isImportant, tags)
+        final boolean isImportant=false;
+        return new Task(name, tags,isImportant); //(name, openTime, closeTime, isImportant, tags)
     }
 }
