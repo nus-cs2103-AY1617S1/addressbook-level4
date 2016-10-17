@@ -15,13 +15,12 @@ public abstract class Command {
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *
      * @param displaySize used to generate summary
+     * @param todoSize 
+     * @param deadlineSize 
      * @return summary message for persons displayed
      */
-    public static String getMessageForPersonListShownSummary(int displaySize) {
-        if( displaySize <= 1 )
-            return String.format(Messages.MESSAGE_TASK1_LISTED_OVERVIEW, displaySize);
-        else
-            return String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, displaySize);
+    public static String getMessageForPersonListShownSummary(int displaySize, int deadlineSize, int todoSize) {
+            return String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, displaySize, deadlineSize, todoSize);
     }
 
     /**
