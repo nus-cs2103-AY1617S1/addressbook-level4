@@ -23,9 +23,9 @@ public class StartTime {
     public StartTime(String email) throws IllegalValueException {
         assert email != null;
         email = email.trim();
-        if (!isValidEmail(email)) {
-            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
-        }
+        //if (!isValidEmail(email)) {
+          //  throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
+        //}
         this.value = email;
     }
 

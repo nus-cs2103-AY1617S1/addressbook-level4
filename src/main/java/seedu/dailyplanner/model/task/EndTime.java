@@ -21,9 +21,9 @@ public class EndTime {
      */
     public EndTime(String address) throws IllegalValueException {
         assert address != null;
-        if (!isValidAddress(address)) {
-            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
-        }
+        //if (!isValidAddress(address)) {
+          //  throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+        //}
         this.value = address;
     }
 

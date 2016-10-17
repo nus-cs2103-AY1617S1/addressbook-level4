@@ -87,22 +87,71 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        System.out.println(args);
+        String taskName = "",date = "",startTime = "",endTime = "",isRecurring = "";
+        HashMap<String,String> mapArgs = parseAdd(args.trim());
+        
+        //If arguments are in hashmap, pass them to addCommand, if not pass them as null
+        
+        if (mapArgs.containsKey("taskName")) {
+            taskName = mapArgs.get("taskName");
         }
+        if (mapArgs.containsKey("date")) {
+            date = mapArgs.get("date");
+        }
+        if (mapArgs.containsKey("startTime")) {
+            startTime = mapArgs.get("startTime");
+        }
+        if (mapArgs.containsKey("endTime")) {
+            endTime = mapArgs.get("endTime");
+        }
+        if (mapArgs.containsKey("isRecurring")) {
+            isRecurring = mapArgs.get("isRecurring");
+        }
+        
+        Set<String> emptySet = new HashSet<String>();
+        
+        
         try {
             return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("date"),
-                    matcher.group("starttime"),
-                    matcher.group("endtime"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    taskName,
+                    date,
+                    startTime,
+                    endTime,
+                    emptySet
+                    //getTagsFromArgs(matcher.group("tagArguments")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    /**
+     * Parses the arguments given by the user in the add command and returns it to 
+     * prepareAdd in a HashMap with keys taskName, date, startTime, endTime, isRecurring
+     */
+    
+    private HashMap<String,String> parseAdd(String arguments) {
+        HashMap<String,String> mapArgs = new HashMap<String,String>();
+        String[] splitArgs = arguments.split(" ");
+        mapArgs.put("taskName", splitArgs[0]);
+        //loop through rest of arguments, add them to hashmap if valid
+        for (int i=1; i<splitArgs.length; i++) {
+            if (splitArgs[i].substring(0, 2).equals("d/")) {
+                mapArgs.put("date", splitArgs[i].substring(2));
+            }
+            if (splitArgs[i].substring(0, 2).equals("s/")) {
+                mapArgs.put("startTime", splitArgs[i].substring(2));
+            }
+            if (splitArgs[i].substring(0, 2).equals("e/")) {
+                mapArgs.put("endTime", splitArgs[i].substring(2));
+            }
+            if (splitArgs[i].substring(0, 2).equals("r/")) {
+                mapArgs.put("isRecurring", splitArgs[i].substring(2));
+            }
+        }
+        
+        return mapArgs;
     }
 
     /**
