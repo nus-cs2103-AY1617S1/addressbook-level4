@@ -4,7 +4,7 @@ package seedu.menion.model.activity;
 import seedu.menion.commons.exceptions.IllegalValueException;
 
 /**
- * Represents an activity's note in the task manager.
+ * Represents an activity's completion status in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidNote(String)}
  */
 public class Completed {
