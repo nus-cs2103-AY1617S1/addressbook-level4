@@ -253,6 +253,7 @@ public class LogicManagerTest {
         String expectedMessage = MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> personList = helper.generateFloatingTaskList(2);
+        Collections.sort(personList);
 
         // set AB state to 2 persons
         model.resetData(new TaskManager());
@@ -278,6 +279,7 @@ public class LogicManagerTest {
     public void execute_select_jumpsToCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generateFloatingTaskList(3);
+        Collections.sort(threePersons);
 
         TaskManager expectedAB = helper.generateTaskManager(threePersons);
         helper.addToModel(model, threePersons);
@@ -306,8 +308,11 @@ public class LogicManagerTest {
     public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generateFloatingTaskList(3);
+        // TODO: check if this is ok
+        Collections.sort(threePersons);
 
         TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        
         expectedAB.removeFloatingTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
@@ -333,8 +338,10 @@ public class LogicManagerTest {
         Task p2 = helper.generateFloatingTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourPersons = helper.generateFloatingTaskList(p1, pTarget1, p2, pTarget2);
+        Collections.sort(fourPersons);
         TaskManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Task> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2);
+        Collections.sort(expectedList);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
@@ -352,6 +359,7 @@ public class LogicManagerTest {
         Task p4 = helper.generateFloatingTaskWithName("KEy sduauo");
 
         List<Task> fourPersons = helper.generateFloatingTaskList(p3, p1, p4, p2);
+        Collections.sort(fourPersons);
         TaskManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Task> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);

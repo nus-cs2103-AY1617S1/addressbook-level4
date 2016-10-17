@@ -247,21 +247,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         
     }
 
-    private boolean bothHaveEndDate(Task other) {
-        return this.endDate != null && other.endDate != null;
-    }
-
-    private boolean otherHasStartDateThisHasEndDate(Task other) {
-        return other.startDate != null && this.endDate != null;
-    }
-
-    private boolean thisHasStartDateOtherHasEndDate(Task other) {
-        return this.startDate != null && other.endDate != null;
-    }
-
-    private boolean bothHaveStartDate(Task other) {
-        return this.startDate != null && other.startDate != null;
-    }
     /*
     private boolean bothHaveRecurrenceRate(Task other) {
         return this.recurrenceRate != null && other.recurrenceRate != null;
@@ -269,22 +254,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      */
     private boolean haveDifferentPriority(Task other) {
         return !this.priority.equals(other.priority);
-    }
-
-    private int compareByStartDate(Task other) {
-        return this.startDate.compareTo(other.startDate);
-    }
-    
-    private int compareStartDateWithOtherEndDate(Task other) {
-        return this.startDate.compareTo(other.endDate);
-    }
-    
-    private int compareEndDateWithOtherStartDate(Task other) {
-        return this.endDate.compareTo(other.startDate);
-    }
-
-    private int compareByEndDate(Task other) {
-        return this.endDate.compareTo(other.endDate);
     }
 
     private int compareByPriorityValue(Task other) {
