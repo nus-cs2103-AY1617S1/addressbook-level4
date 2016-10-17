@@ -29,21 +29,21 @@ public class UpdateCommand extends Command {
 	private StartTime startTime;
 	private EndTime endTime;
 	private Priority priority;
-    private UniqueTagList tags;
+	private UniqueTagList tags;
 
 	public UpdateCommand(int targetIndex, String taskDetails, String startTime, String endTime, String priority, UniqueTagList tags)
-            throws IllegalValueException {
-        this.targetIndex = targetIndex - 1;
-        if (taskDetails != null)
-            this.taskDetails = new TaskDetails(taskDetails);
-        if (startTime != null)
-            this.startTime = new StartTime(startTime);
-        if (endTime != null)
-            this.endTime = new EndTime(endTime);
-        if (priority != null)
-            this.priority = new Priority(priority);
-        this.tags = new UniqueTagList(tags);
-    }
+			throws IllegalValueException {
+		this.targetIndex = targetIndex - 1;
+		if (taskDetails != null)
+			this.taskDetails = new TaskDetails(taskDetails);
+		if (startTime != null)
+			this.startTime = new StartTime(startTime);
+		if (endTime != null)
+			this.endTime = new EndTime(endTime);
+		if (priority != null)
+			this.priority = new Priority(priority);
+		this.tags = new UniqueTagList(tags);
+	}
 
 	@Override
 	public CommandResult execute() {
@@ -53,29 +53,20 @@ public class UpdateCommand extends Command {
 		} else {
 			Task taskToUpdate = lastShownList.get(targetIndex);
 
-			if (taskDetails != null)
-				taskToUpdate.setTaskDetails(taskDetails);
-			if (startTime != null){
-				if(taskToUpdate.isFloating()){
-					taskToUpdate.floatCounter--;
-				}
-				taskToUpdate.setStartTime(startTime);
-
+			if(taskToUpdate.isFloating()){
+				taskToUpdate.floatCounter--;
 			}
-
 			if (endTime != null){
 				if(taskToUpdate.getEndTime().endtime.before(endTime.endtime)){
 					taskToUpdate.overdueCounter--;
 				}
-				if(taskToUpdate.isFloating()){
-					taskToUpdate.floatCounter--;
-				}
-				taskToUpdate.setEndTime(endTime);         
 			}
-			if (priority != null)
-				taskToUpdate.setPriority(priority);
-			model.updateFilteredList();
-			return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
+			try {
+				model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, tags);
+				return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
+			} catch (UniqueTaskList.DuplicateTaskException e) {
+				return new CommandResult(MESSAGE_DUPLICATE_TASK);
+			}
 		}
 	}
 }

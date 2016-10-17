@@ -157,7 +157,7 @@ public class ModelManager extends ComponentManager implements Model {
 			}
 			if(myTask.isFloating()){
 				myTask.floatCounter--;
-			}	
+			}
 		}
 		taskList.markTaskAsComplete(task);
 		updateFilteredListToShowIncomplete();

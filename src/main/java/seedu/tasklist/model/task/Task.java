@@ -39,7 +39,6 @@ public class Task implements ReadOnlyTask {
 		this.uniqueID = currentID++;
 		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
 		this.isComplete = false;
-		System.out.println("Over: "+isOverDue());
 	}
 
 	/**
