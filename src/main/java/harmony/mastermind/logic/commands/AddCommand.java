@@ -19,13 +19,14 @@ import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
+import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 
 /**
  * Adds a task to the task manager.
  * 
  */
 // @@author A0138862W
-public class AddCommand extends Command implements Undoable {
+public class AddCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_KEYWORD_ADD = "add";
     public static final String COMMAND_KEYWORD_DO = "do";
@@ -65,6 +66,7 @@ public class AddCommand extends Command implements Undoable {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Add Command] Task deleted: %1$s";
+    public static final String MESSAGE_REDO_SUCCESS = "[Redo Add Command] Task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Mastermind";
 
     private final Task toAdd;
@@ -113,8 +115,14 @@ public class AddCommand extends Command implements Undoable {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addTask(toAdd);
+            executeAdd();
+            
+            // push this command into undoHistory
             model.pushToUndoHistory(this);
+            
+            // this is a new command entered by user (not undo/redo)
+            // need to clear the redoHistory Stack 
+            model.clearRedoHistory();
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -130,11 +138,34 @@ public class AddCommand extends Command implements Undoable {
         try {
             // remove the task that's previously added.
             model.deleteTask(toAdd);
+            
+            model.pushToRedoHistory(this);
 
             return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
         } catch (UniqueTaskList.TaskNotFoundException pne) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
+    }
+
+    @Override
+    /** action to perform when ModelManager requested to redo this command**/
+    // @@author A0138862W
+    public CommandResult redo() {
+        assert model != null;
+        try {
+            executeAdd();
+            
+            model.pushToUndoHistory(this);
+
+            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, toAdd));
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        }        
+    }
+    
+    /** extract method since it's reusable for execute() and redo()**/
+    private void executeAdd() throws DuplicateTaskException {
+        model.addTask(toAdd);
     }
 
 }

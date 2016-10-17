@@ -46,7 +46,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll(tab);
+        model.updateFilteredListToShowAll();
         
         if (tab.equals(ModelManager.TAB_TASKS.toLowerCase())) {
             return new CommandResult(MESSAGE_SUCCESS_TASKS);

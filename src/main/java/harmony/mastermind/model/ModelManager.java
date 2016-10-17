@@ -15,6 +15,7 @@ import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.Redoable;
 import harmony.mastermind.logic.commands.Undoable;
 import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.tag.Tag;
@@ -38,6 +39,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredDeadlines;
     private final FilteredList<Task> filteredArchives;
     private final Stack<Undoable> undoHistory;
+    private final Stack<Redoable> redoHistory;
+   
 
     public static final String TAB_HOME = "Home";
     public static final String TAB_TASKS = "Tasks";
@@ -65,6 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines = new FilteredList<>(taskManager.getDeadlines());
         filteredArchives = new FilteredList<>(taskManager.getArchives());
         undoHistory = new Stack<>();
+        redoHistory = new Stack<>();
         currentTab = TAB_HOME;
     }
 
@@ -80,6 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines = new FilteredList<>(taskManager.getDeadlines());
         filteredArchives = new FilteredList<>(taskManager.getArchives());
         undoHistory = new Stack<>();
+        redoHistory = new Stack<>();
     }
 
     @Override
@@ -111,13 +116,37 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    
     /** undo last action performed**/
     //@@author A0138862W
     public CommandResult undo() throws EmptyStackException{
         CommandResult commandResult = undoHistory.pop().undo();
-        updateFilteredListToShowAll(currentTab);
+        updateFilteredListToShowAll();
         indicateTaskManagerChanged();
         return commandResult;
+    }
+    
+    @Override
+    //@@author A0138862W
+    public void pushToRedoHistory(Redoable command){
+        redoHistory.push(command);
+    }
+    
+    @Override
+    /** redo the action that being undone function**/
+    //@@author A0138862W
+    public CommandResult redo() throws EmptyStackException{
+        CommandResult commandResult = redoHistory.pop().redo();
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+        return commandResult;
+    }
+    
+    @Override
+    /** This method should only be called when the user entered a new command other than redo/undo **/
+    //@@author A0138862W
+    public void clearRedoHistory(){
+        redoHistory.clear();
     }
 
     @Override
@@ -129,7 +158,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
-        updateFilteredListToShowAll(currentTab);
+        updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
     
@@ -144,7 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@author A0124797R
     public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException,
     UniqueTaskList.DuplicateTaskException {
-        taskManager.unmarkTask((Task)target);
+        taskManager.unmarkTask(target);
         indicateTaskManagerChanged();
     }
     
@@ -194,8 +223,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     //@@author A0124797R
-    public void updateFilteredListToShowAll(String tab) {
-        switch (tab) {
+    public void updateFilteredListToShowAll() {
+        switch (currentTab) {
             case TAB_HOME:      filteredTasks.setPredicate(null);
                                 break;
             case TAB_TASKS:     filteredFloatingTasks.setPredicate(null);

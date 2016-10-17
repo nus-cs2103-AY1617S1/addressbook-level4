@@ -117,7 +117,7 @@ public class LogicManagerTest {
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
-
+        
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getTaskManager());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
@@ -180,7 +180,7 @@ public class LogicManagerTest {
     
     @Test
     //@@author A0138862W
-    public void execute_undo_add() throws Exception{
+    public void execute_undoAndRedo_add() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.task();
         
@@ -192,11 +192,18 @@ public class LogicManagerTest {
                 + "==================",
                 model.getTaskManager(),
                 model.getTaskManager().getTaskList());
+        
+        assertCommandBehavior("redo", "Redo successfully.\n"
+                + "=====Redo Details=====\n"
+                + "[Redo Add Command] Task added: task Tags: [tag1],[tag2]\n"
+                + "==================",
+                model.getTaskManager(),
+                model.getTaskManager().getTaskList());
     }
     
     @Test
     //@@author A0138862W
-    public void execute_undo_edit() throws Exception{
+    public void execute_undoAndRedo_edit() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
         List<Task> onePerson = helper.generateTaskList(toBeEdited);
@@ -211,6 +218,14 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Edit Command] Task reverted: task Tags: [tag1],[tag2]\n"
+                + "==================",       
+                expectedTM,
+                expectedList);
+        
+        assertCommandBehavior("redo",
+                "Redo successfully.\n"
+                + "=====Redo Details=====\n"
+                + "[Redo Edit Command] Edit the following task: task Tags: [tag1],[tag2]\n"
                 + "==================",       
                 expectedTM,
                 expectedList);
@@ -236,6 +251,14 @@ public class LogicManagerTest {
                 + "==================",       
                 expectedTM,
                 expectedList);
+        
+        assertCommandBehavior("redo",
+                "Redo successfully.\n"
+                + "=====Redo Details=====\n"
+                + "[Redo Delete Command] Deleted Task: task Tags: [tag1],[tag2]\n"
+                + "==================",
+                model.getTaskManager(),
+                model.getListToMark(TAB_HOME));
     }
     
     @Test
@@ -258,6 +281,14 @@ public class LogicManagerTest {
                 + "==================",       
                 expectedTM,
                 expectedList);
+        
+        assertCommandBehavior("redo",
+                "Redo successfully.\n"
+                + "=====Redo Details=====\n"
+                + "[Redo Mark Command] task Tags: [tag1],[tag2] has been archived\n"
+                + "==================",       
+                model.getTaskManager(),
+                model.getListToMark(TAB_HOME));
     }
     
     @Test
@@ -279,6 +310,14 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Mark Command] task Tags: [tag1],[tag2] has been unmarked\n"
+                + "==================",       
+                model.getTaskManager(),
+                model.getListToMark(TAB_HOME));
+        
+        assertCommandBehavior("redo",
+                "Redo successfully.\n"
+                + "=====Redo Details=====\n"
+                + "[Redo Mark Command] task Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
                 model.getTaskManager(),
                 model.getListToMark(TAB_HOME));
