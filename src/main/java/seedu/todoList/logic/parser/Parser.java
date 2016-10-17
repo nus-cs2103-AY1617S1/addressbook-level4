@@ -28,18 +28,18 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
+            Pattern.compile("(?<name>.+)"
                     + " d/(?<date>[^/]+)"
                     + " p/(?<priority>[^/]+)");
     
     private static final Pattern event_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
+            Pattern.compile("(?<name>.+)"
                     + " d/(?<date>[^/]+)"
                     + " s/(?<startTime>[^/]+)"
                     + " e/(?<endTime>[^/]+)");
     
     private static final Pattern deadline_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
+            Pattern.compile("(?<name>.+)"
                     + " d/(?<date>[^/]+)"
                     + " e/(?<endTime>[^/]+)");
 
