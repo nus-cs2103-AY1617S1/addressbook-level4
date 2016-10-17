@@ -3,6 +3,8 @@ package seedu.emeraldo.model.task;
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import java.time.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a Task's date and time in Emeraldo.
@@ -11,61 +13,69 @@ import java.time.*;
 public class DateTime {
     
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task date and time must follow this format DD/MM/YYYY HH:MM in 24 hours format";
-    public static final String DATETIME_VALIDATION_REGEX = "((0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|[1][0-2])/(([0-9][0-9])?[0-9][0-9]))"
-                                                            + "( ([01][0-9]|[2][0-3]):([0-5][0-9]))?";
+    public static final Pattern DATETIME_VALIDATION_REGEX =
+            Pattern.compile("((?<day>(0?[1-9]|[12][0-9]|3[01]))"            //Day regex
+                    + "/(?<month>(0?[1-9]|[1][0-2]))/"                      //Month regex
+                    + "(?<year>(([0-9][0-9])?[0-9][0-9])))"                 //Year regex
+                    + "( (?<hour>([01][0-9]|[2][0-3])))?"                   //Hour regex
+                    + "(:(?<minute>([0-5][0-9])))?");                       //Minute regex
+    
     public final String value;
-    public final LocalDateTime valueDateTime;
+//    public final LocalDateTime valueDateTime;
     public final LocalDate valueDate;
     public final LocalTime valueTime;
 
     /**
      * Validates given date and time.
      *
-     * @throws IllegalValueException if given address string is invalid.
+     * @throws IllegalValueException if given date and time string is invalid.
      */
     public DateTime(String dateTime) throws IllegalValueException {
         assert dateTime != null;
-        if (!isValidDateTime(dateTime)) {
+        final Matcher matcher = DATETIME_VALIDATION_REGEX.matcher(dateTime.trim());
+        if (!matcher.matches()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
         
+        final String day = matcher.group("day");
+        final String month = matcher.group("month");
+        final String year = matcher.group("year");
+        final String hour = matcher.group("hour");
+        final String minute = matcher.group("minute");
         this.value = dateTime;
         
         if(dateTime.equals("")){            //Constructing an empty DateTime object 
-            this.valueDateTime = null;
+//            this.valueDateTime = null;
             this.valueDate = null;
             this.valueTime = null;
-        }else if(!dateTime.contains(":")){           //Constructing a DateTime object with Date only
-            String [] dateTimeArr = dateTime.split(" ");
-            String [] dateArr = dateTimeArr[0].split("/");
-            int year = Integer.parseInt(dateArr[2]);
-            int month = Integer.parseInt(dateArr[1]);
-            int day = Integer.parseInt(dateArr[0]);
-            this.valueDate = LocalDate.of(year, month, day);
             
-            this.valueDateTime = null;
+        }else if(!dateTime.contains(":")){           //Constructing a DateTime object with Date only
+            int yearParsed = Integer.parseInt(year);
+            int monthParsed = Integer.parseInt(month);
+            int dayParsed = Integer.parseInt(day);
+            this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
+            
+//            this.valueDateTime = null;
             this.valueTime = null;
+            
         } else {                                    //Constructing a DateTime object with Date and time
-            String [] dateTimeArr = dateTime.split(" ");
-            String [] dateArr = dateTimeArr[0].split("/");
-            int year = Integer.parseInt(dateArr[2]);
-            int month = Integer.parseInt(dateArr[1]);
-            int day = Integer.parseInt(dateArr[0]);
-            this.valueDate = LocalDate.of(year, month, day);
+            int yearParsed = Integer.parseInt(year);
+            int monthParsed = Integer.parseInt(month);
+            int dayParsed = Integer.parseInt(day);
+            this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
         
-            String [] timeArr = dateTimeArr[1].split(":");
-            int hour = Integer.parseInt(timeArr[0]);
-            int minute = Integer.parseInt(timeArr[1]);
-            this.valueTime = LocalTime.of(hour, minute);
+            int hourParsed = Integer.parseInt(hour);
+            int minuteParsed = Integer.parseInt(minute);
+            this.valueTime = LocalTime.of(hourParsed, minuteParsed);
         
-            this.valueDateTime = LocalDateTime.of(this.valueDate, this.valueTime);
+//            this.valueDateTime = LocalDateTime.of(this.valueDate, this.valueTime);
         }
     }
-
+/*
     private static boolean isValidDateTime(String test) {
         return test.matches(DATETIME_VALIDATION_REGEX);
     }
-
+*/
     @Override
     public String toString() {
         return value;
