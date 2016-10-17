@@ -203,20 +203,39 @@ public class CommandParser {
         String localDateString = null;
         SimpleDateFormat localDateFormat;
         SimpleDateFormat nattyDateFormat;
+        char dateSeparator;
         if (matchWithYear.matches()) {
             localDateString = matchWithYear.group("arguments");
-            localDateFormat = new SimpleDateFormat("dd/MM/yy");
-            nattyDateFormat = new SimpleDateFormat("MM/dd/yy");
+            dateSeparator = getDateSeparator(localDateString);
+            localDateFormat = new SimpleDateFormat("dd" + dateSeparator + "MM" + dateSeparator + "yy");
+            nattyDateFormat = new SimpleDateFormat("MM" + dateSeparator + "dd" + dateSeparator + "yy");
         } else if (matchWithoutYear.matches()) {
             localDateString = matchWithoutYear.group("arguments");
-            localDateFormat = new SimpleDateFormat("dd/MM");
-            nattyDateFormat = new SimpleDateFormat("MM/dd");
+            dateSeparator = getDateSeparator(localDateString);
+            localDateFormat = new SimpleDateFormat("dd" + dateSeparator + "MM");
+            nattyDateFormat = new SimpleDateFormat("MM" + dateSeparator + "dd");
         } else {
             return arguments;
         }
+        System.out.println(localDateString);
+        System.out.println(convertToNattyFormat(arguments, localDateString, localDateFormat, nattyDateFormat));
         return convertToNattyFormat(arguments, localDateString, localDateFormat, nattyDateFormat);
     }
     
+    /**
+     * Helper method to get the separator between day month and year in a date
+     * @param localDateString the string representing the date
+     * @return the separator character used in localDateString
+     */
+    private char getDateSeparator(String localDateString) {
+        // if 2nd char in string is an integer, then the 3rd char must be the separator
+        // else 2nd char is the separator
+        if (StringUtil.isUnsignedInteger(localDateString.substring(1,2))) {
+            return localDateString.charAt(2);
+        } else {
+            return localDateString.charAt(1);
+        }
+    }
     /**
      * Helper method to convert the local date format inside arguments into a format
      * which can be parsed by natty
