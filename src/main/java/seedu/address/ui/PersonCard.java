@@ -42,7 +42,7 @@ public class PersonCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(person.getName().taskDetails);
-        id.setText(displayedIndex + ". ");
+        id.setText("E" + displayedIndex + ". ");
         phone.setText(person.getDate().value);
         address.setText(person.getStart().value);
         email.setText(person.getEnd().value);

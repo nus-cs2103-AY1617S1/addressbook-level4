@@ -42,7 +42,7 @@ public class TodoCard extends UiPart {
     @FXML
     public void initialize() {
         name.setText(todo.getName().taskDetails);
-        id.setText(displayedIndex + ". ");
+        id.setText("T" + displayedIndex + ". ");
         phone.setText(todo.getDate().value);
         address.setText(todo.getStart().value);
         email.setText(todo.getEnd().value);

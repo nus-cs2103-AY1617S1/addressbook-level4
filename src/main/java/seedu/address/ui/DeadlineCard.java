@@ -42,7 +42,7 @@ public class DeadlineCard extends UiPart {
     @FXML
     public void initialize() {
         name.setText(deadline.getName().taskDetails);
-        id.setText(displayedIndex + ". ");
+        id.setText("D" + displayedIndex + ". ");
         phone.setText(deadline.getDate().value);
         address.setText(deadline.getStart().value);
         email.setText(deadline.getEnd().value);
