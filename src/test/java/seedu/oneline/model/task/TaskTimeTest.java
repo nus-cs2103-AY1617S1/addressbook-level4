@@ -261,7 +261,46 @@ public class TaskTimeTest {
     @Test
     public void constructor_relativeDay_supportsDocumentedFormats() {
         try {
-            new TaskTime("next mon");
+            Calendar tCal = new TaskTime("next mon").getCalendar();
+            assertTrue(tCal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY);
+        } catch (IllegalValueException e) {
+            assert false;
+        }
+    }
+    
+    /**
+     * Employs exhaustive testing for all valid days to make sure that
+     * the day referenced by "next DAY" is 
+     * the DAY >= this coming Sunday and <= the nearest Sunday after this coming Sunday
+     */
+    @Test
+    public void constructor_relativeDay_pointsToNearestDayAfterSunday() {
+        Calendar thisSunday = (Calendar) now.clone(); // this past sunday (may include today)
+        thisSunday.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
+        thisSunday.set(Calendar.HOUR_OF_DAY,0);
+        thisSunday.set(Calendar.MINUTE,0);
+        thisSunday.set(Calendar.SECOND,0);
+        thisSunday.add(Calendar.DATE,7);
+        
+        Calendar nextSunday = (Calendar) thisSunday.clone();
+        nextSunday.add(Calendar.DATE,7);
+        
+        String[] days = new String[]{
+            "next mon",
+            "next tue",
+            "next wed",
+            "next thu",
+            "next fri",
+            "next sat",
+            "next sun"
+        };
+        
+        try {
+            for (String day : days){
+                Calendar tCal = new TaskTime(day).getCalendar();
+                assertTrue(tCal.after(thisSunday) || tCal.equals(thisSunday));
+                assertTrue(tCal.before(nextSunday));
+            }
         } catch (IllegalValueException e) {
             assert false;
         }
