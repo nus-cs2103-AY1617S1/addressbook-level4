@@ -18,7 +18,7 @@ public class TaskManager {
                     updateReminder(oldTask, newParams, type),
                     updateTags(oldTask, newParams)
                     );
-            newTask.setCompletionStatus(newParams.getCompletionStatus());
+            newTask.setCompletionStatus(oldTask.getCompletionStatus());
         } catch (IllegalValueException ive) {
             assert false : "There should not be any illegal value at this point";
         }

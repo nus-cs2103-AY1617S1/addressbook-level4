@@ -24,7 +24,9 @@ public class PersonCard extends UiPart{
     private Label email;
     @FXML
     private Label tags;
-
+    @FXML
+    private Label completion;
+    
     private ReadOnlyTask person;
     private int displayedIndex;
 
@@ -47,6 +49,10 @@ public class PersonCard extends UiPart{
         address.setText(person.getReminder().forDisplay());
         email.setText(person.getPriority().forDisplay());
         tags.setText(person.tagsString());
+        completion.setText(person.toStringCompletionStatus());
+        if(person.getCompletionStatus() == true) {
+        	cardPane.setStyle("-fx-background-color: springgreen;");
+        }
     }
 
     public HBox getLayout() {

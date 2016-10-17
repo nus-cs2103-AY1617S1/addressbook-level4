@@ -79,4 +79,13 @@ public class TestPerson implements ReadOnlyTask {
 	public boolean getCompletionStatus() {
 		return isCompleted;
 	}
+
+    @Override
+	public String toStringCompletionStatus() {
+        if(isCompleted) {
+        	return "Completed";
+        } 
+        
+        	return "";	
+    }
 }

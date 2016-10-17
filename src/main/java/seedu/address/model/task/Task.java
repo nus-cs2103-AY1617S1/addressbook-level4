@@ -85,6 +85,15 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
+    public String toStringCompletionStatus() {
+        if(isCompleted) {
+        	return "Completed";
+        } 
+        
+        	return "";	
+    }
+    
+    @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
