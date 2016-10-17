@@ -65,7 +65,7 @@ public class Parser {
     
     private static final String byNextMonth = "by Next Month";
     
-    private static final DateFormat dateFormatter = new SimpleDateFormat("dd-mm-yyyy");
+    private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
     
     public Parser() {}
 
@@ -151,29 +151,38 @@ public class Parser {
         	else{
         		if(matcher3.group("name").toLowerCase().contains(byToday.toLowerCase())){
         			return new AddCommand(
-        					matcher3.group("name").replaceAll(("?i")+Pattern.quote(byToday), ""),
-        					dateFormatter.format(LocalDate.now()),
+        					matcher3.group("name").replaceAll("(?i)"+Pattern.quote(byToday), ""),
+        					dateFormatter.format(Calendar.getInstance().getTime()),
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
         		else if(matcher3.group("name").toLowerCase().contains(byTomorrow.toLowerCase())){
+        			Calendar calendar = Calendar.getInstance();
+        			calendar.setTime(calendar.getTime());
+        			calendar.add(Calendar.DAY_OF_YEAR, 1);
         			return new AddCommand(
-        					matcher3.group("name").replaceAll(("?i")+Pattern.quote(byTomorrow), ""),
-        					dateFormatter.format(LocalDate.now().plusDays(1)),
+        					matcher3.group("name").replaceAll("(?i)"+Pattern.quote(byTomorrow), ""),
+        					dateFormatter.format(calendar.getTime()),
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
         		else if(matcher3.group("name").toLowerCase().contains(byNextWeek.toLowerCase())){
+        			Calendar calendar = Calendar.getInstance();
+        			calendar.setTime(calendar.getTime());
+        			calendar.add(Calendar.WEEK_OF_YEAR, 1);
         			return new AddCommand(
-        					matcher3.group("name").replaceAll(("?i")+Pattern.quote(byNextWeek), ""),
-        					dateFormatter.format(LocalDate.now().plusWeeks(1)),
+        					matcher3.group("name").replaceAll("(?i)"+Pattern.quote(byNextWeek), ""),
+        					dateFormatter.format(calendar.getTime()),
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
         		else if(matcher3.group("name").toLowerCase().contains(byNextMonth.toLowerCase())){
+        			Calendar calendar = Calendar.getInstance();
+        			calendar.setTime(calendar.getTime());
+        			calendar.add(Calendar.WEEK_OF_MONTH, 4);
         			return new AddCommand(
-        					matcher3.group("name").replaceAll(("?i")+Pattern.quote(byNextMonth), ""),
-        					dateFormatter.format(LocalDate.now().plusMonths(1)),
+        					matcher3.group("name").replaceAll("(?i)"+Pattern.quote(byNextMonth), ""),
+        					dateFormatter.format(calendar.getTime()),
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
