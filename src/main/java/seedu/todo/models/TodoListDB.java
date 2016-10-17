@@ -58,7 +58,7 @@ public class TodoListDB {
         LocalDateTime now = LocalDateTime.now();
         int count = 0;
         for (Task task : tasks) {
-            if (!task.isCompleted() && task.getDueDate().compareTo(now) < 0)
+            if (!task.isCompleted() && task.getDueDate() != null && task.getDueDate().compareTo(now) < 0)
                 count++;
         }
         return count;
