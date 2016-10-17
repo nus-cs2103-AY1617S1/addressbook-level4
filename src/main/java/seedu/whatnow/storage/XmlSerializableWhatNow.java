@@ -10,6 +10,7 @@ import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.UniqueTaskList;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,7 +64,12 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
-            }
+            	System.out.println("Illegal exception error in XmlSerializableWhatNow line 67");
+            } catch (ParseException e) {
+				// TODO Auto-generated catch block
+            	System.out.println("Parse exception error in XmlSerializableWhatNow line 70");
+				e.printStackTrace();
+			}
         }
         return lists;
     }
@@ -76,8 +82,14 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
             } catch (IllegalValueException e) {
                 e.printStackTrace();
                 //TODO: better error handling
+                System.out.println("IllegalValueException error in List<ReadOnlyTask>getTaskList line 85");
                 return null;
-            }
+            } catch (ParseException e) {
+				// TODO Auto-generated catch block
+            	 System.out.println("ParseException error in List<ReadOnlyTask>getTaskList line 89");
+				e.printStackTrace();
+				return null;
+			}
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 

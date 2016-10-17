@@ -13,6 +13,7 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     
+    private TaskDate taskDate;
     private UniqueTagList tags;
     
     private String status;
@@ -31,7 +32,19 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags(), source.getStatus());
+        this(source.getName(), source.getTaskDate(), source.getTags(), source.getStatus());
+    }
+    
+    /**
+     * 	Every field must be present and not null
+     * 
+     */
+    public Task(Name name, TaskDate taskDate, UniqueTagList tags,  String status) {
+        assert !CollectionUtil.isAnyNull(name, tags);
+        this.name = name;
+        this.taskDate = taskDate;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.status = status;
     }
 
     @Override
@@ -43,6 +56,12 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+
+    @Override
+    public TaskDate getTaskDate() {
+    	return taskDate;
+    }
+
     
     @Override
     public String getStatus() {
@@ -60,9 +79,15 @@ public class Task implements ReadOnlyTask {
         this.name = name;
     }
     
+
+    public void setTaskDate(TaskDate taskDate) {
+    	this.taskDate = taskDate;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
+
 
     @Override
     public boolean equals(Object other) {

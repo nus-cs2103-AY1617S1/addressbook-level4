@@ -15,6 +15,8 @@ public interface ReadOnlyTask {
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
+    
+    TaskDate getTaskDate();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -37,7 +39,8 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(getStatus())
+        		.append(" " + getTaskDate())
+                .append(" " + getStatus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
@@ -56,5 +59,4 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
 }
