@@ -341,4 +341,33 @@ public class TaskTimeTest {
         return d1.get(Calendar.YEAR) == d2.get(Calendar.YEAR) &&
                 d1.get(Calendar.DAY_OF_YEAR) == d2.get(Calendar.DAY_OF_YEAR);
     }
+    
+    // test if ordering of two task time is supported
+    
+    /**
+     * Equivalent partition for dates comparison:
+     *  - d1 < d2
+     *  - d1 == d2
+     *  - d1 > d2
+     */
+    
+    /**
+     * Pre-condition: TaskTime 
+     * produces the exact same date when calendar.getTime().toString() is passed
+     * as input in the constructor
+     */
+    @Test
+    public void comparable_testCompareDates(){
+        try {
+            TaskTime past = new TaskTime(yesterday.getTime().toString());
+            TaskTime present = new TaskTime(now.getTime().toString());
+            TaskTime future = new TaskTime(tomorrow.getTime().toString());
+            
+            assertTrue(past.compareTo(present) < 0);
+            assertTrue(present.compareTo(present) == 0);
+            assertTrue(present.compareTo(future) < 0);
+        } catch (IllegalValueException e){
+            assert false;
+        }
+    }
 }
