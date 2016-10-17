@@ -51,6 +51,11 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+    public void setTaskSchedulerFilePath(String newPath) {
+        this.taskSchedulerStorage = new XmlTaskSchedulerStorage(newPath);
+    }
+    
+    @Override
     public Optional<ReadOnlyTaskScheduler> readTaskScheduler() throws DataConversionException, FileNotFoundException {
         logger.fine("Attempting to read data from file: " + taskSchedulerStorage.getTaskSchedulerFilePath());
 

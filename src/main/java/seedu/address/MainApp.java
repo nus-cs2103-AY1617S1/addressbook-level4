@@ -8,6 +8,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.events.storage.FilePathChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
@@ -182,6 +183,18 @@ public class MainApp extends Application {
         this.stop();
     }
 
+    @Subscribe
+    public void changeFilePathRequestEvent(FilePathChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        config.setTaskSchedulerFilePath(event.toString());
+        try {
+            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+        storage.setTaskSchedulerFilePath(event.toString());
+    }
+    
     public static void main(String[] args) {
         launch(args);
     }
