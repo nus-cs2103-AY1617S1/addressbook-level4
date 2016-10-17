@@ -37,6 +37,7 @@ public class TaskTime implements Comparable<TaskTime> {
             // represent an empty tasktime with a null value field
             timeOfCreation = Calendar.getInstance();
             value = null;
+            valueCalendar = null;
         } else {        
             timeOfCreation = Calendar.getInstance();
             value = getDate(time);
