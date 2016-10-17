@@ -10,13 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.MainWindow">
-   <stylesheets>
-      <URL value="@DarkTheme.css" />
-      <URL value="@Extensions.css" />
-   </stylesheets>
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.MainWindow">
    <children>
-      <MenuBar stylesheets="@../../../../../DODOBIRD/src/main/resources/view/DarkTheme.css" VBox.vgrow="NEVER">
+      <MenuBar stylesheets="@DarkTheme.css" VBox.vgrow="NEVER">
          <menus>
             <Menu mnemonicParsing="false" styleClass="label" text="File">
                <items>
@@ -33,7 +29,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <SplitPane id="splitPane" dividerPositions="0.6" style="-fx-background-color: #FFFFFF;" stylesheets="@../../../../../DODOBIRD/src/main/resources/view/Extensions.css" VBox.vgrow="ALWAYS">
+      <SplitPane id="splitPane" dividerPositions="0.6" style="-fx-background-color: #FFFFFF;" stylesheets="@Extensions.css" VBox.vgrow="ALWAYS">
          <items>
             <VBox minWidth="340" prefWidth="340" style="-fx-background-color: #FFFFFF;">
                 <padding>
@@ -62,4 +58,8 @@
       </AnchorPane>
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
 </VBox>
