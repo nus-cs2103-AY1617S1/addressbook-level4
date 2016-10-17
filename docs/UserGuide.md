@@ -15,6 +15,7 @@
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/dearjim_initial.png">
+<center>Figure 1: GUI of DearJim</center>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -40,17 +41,30 @@ Format: `help`<br>
 
 Example:
 * `help`
+
 > <img src="images/dearjim_help.png"><br>
+<center>Figure 2: Help Command</center>
 
 
  
 ### Adding a task: `add`
 Adds a task into the task manager.<br>
-Format: `[add] NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Format: `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 >To make the command format more natural, we allow you to substitute `start` with `from/at`, `end` with `to/by`.
 
 >We do not require an explicit command for `add`. We make it the default thing to do, when you type in anything! Hence typing in `add` itself is optional. However, if you want to add a task that starts with other command words, please include the `add` to override the other command words!
+
+
+**_Adding a task_**
+
+Format: `NAME `
+
+> The simplest form of a task. Type away!
+
+Examples:
+* `Buy coffee powder`
+* `Buy baby powder -l`
 
 **_Specifying task priority_**
 
@@ -71,19 +85,9 @@ Keyword: `-PRIORITY`
 Examples:
 * `Do something later -l`
 * `Do something later -low`
-
-
-**_Adding a task_**
-
-Format: `NAME [-PRIORITY]`
-
-> The simplest form of a task. Type away!
-
-Examples:
-* `Buy coffee powder`
 * `Buy coffee powder -medium`
 * `Buy washing powder -h`
-* `Buy baby powder -l`
+
 
 
 **_Specifying repeated tasks_**
@@ -101,17 +105,16 @@ Supported `RECURRING_INTERVAL`
 * Any day of the week e.g `mon`, `monday`, `thurs`, `sun`, ...
 
 Examples: 
-* `Go run at track, at 7am repeat every 3 days`
-* `Go visit mum, repeat every sun`
+* `Go run at track at 7am repeat every 3 days`
+* `Go visit mum repeat every sun`
 
 > You cannot have a repeated task without specifying a time. Read on to see how to do so.
 
 **_Adding a task with deadline_**
 
 Nobody likes deadlines. What is worse, is missing them. <br>
-Format: `NAME, end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 > The `end` keyword denotes a deadline. 
-> Take note of the `,` after the `NAME`, it is used to mark the end of your task's name, and start of the dates. `,` is not needed if you only specify the task's name and priority, as shown above.
 
 >`DATE_TIME` is flexible!
 >* If no `DATE` is specified, `DATE` will be assumed to be the current date
@@ -130,10 +133,10 @@ Format: `NAME, end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 >> Take note to demarcate the hours and minutes with a colon. The following examples are not allowed: `730am`, `2015`.
 
 Examples:
-* `Do project proposal, by 5pm tomorrow`
-* `eat lunch, by 1pm today -h`
-* `Buy coffee for boss, by 7:00 repeat every day`
-* `finish CS2101 assignment, by 13th Sep`
+* `Do project proposal by 5pm tomorrow`
+* `eat lunch by 1pm today -h`
+* `Buy coffee for boss by 7:00 repeat every day`
+* `finish CS2101 assignment by 13th Sep`
 
 > Notice how the `end` keyword can be substituted with `by`.
 
@@ -142,22 +145,21 @@ Examples:
 
 Having that company meeting? Planning to have lunch with a friend next week? <br> 
 Format:
-`NAME, start DATE_TIME [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]` 
+`NAME start DATE_TIME [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]` 
 > We accept `from` and `at` to indicate the start time and `to` and `by` to indicate the end time.
-> Take note of the `,` after the `NAME`, it is use to mark the end of your task's name.
 > `end DATE_TIME` can be unspecified.
 
 Example: 
-* `Company meeting tonight, at 7pm to 9pm`
-* `Family dinner, at noon`
-* `Meet Akshay, from 1pm to 2pm -h`
+* `Company meeting tonight at 7pm to 9pm`
+* `Family dinner at noon`
+* `Meet Akshay from 1pm to 2pm -h`
 
 >Tip: If you do not know the end time for your event yet, you can leave it blank first, and `edit` it in later!
 
 
 ### Editing a task: `edit`
 Edits an existing task in the task manager. Just in case you need to change any details, or add in missing ones! <br>
-Format: `edit INDEX [NAME], [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Format: `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 > `INDEX` refers to the task number in the current displayed list.<br>
 > Notice that this is similar to the `add` command format!  
 
@@ -170,17 +172,16 @@ Examples:
 **_Editing out details in a task_**
 
  You can also remove any section if they are no longer relevant! <br>
- Format: `edit INDEX [repeat] [start] [end] -reset`
+ Format: `edit INDEX [repeat] [start] [end] [-reset parameter]`
  > `INDEX` refers to the task number in the current displayed list.<br>
-> Use [repeat] to remove the recurring time
-> Use [start] to remove the start time
-> Use [end] to remove the end time 
+> Use [-reset repeat] to remove the recurring time
+> Use [-reset start] to remove the start time
+> Use [-reset end] to remove the end time 
 
 Examples:
 * `Buy coffee for boss, by 8am repeat every day`
-* `edit 1 repeat -reset`
-* `edit 2 start -reset`
-* `edit 3 end -reset`
+* `edit 1 -reset repeat start`
+* `edit 2 -reset end`
 
 ### Deleting a task: `delete`
 Deletes an existing task in your task manager. This will remove them from the storage. If you want to mark them as done instead, look at the `done` command. <br>
@@ -239,9 +240,11 @@ Format: `list`
 > Displays all uncompleted tasks in the task manager.
 
 Example:
-> <img src="images/dearjim_list.png">
-
 * `list`
+
+> <img src="images/dearjim_list.png">
+<center>Figure 3: List View</center>
+
 
 ### Finding a task : `find`
 Forgot the details about a task you added? Find an existing task by name.<br>
@@ -270,10 +273,12 @@ Format: none, just type a command and let DearJim provide you hints on the comma
 
 Examples:
 ><img src="images/dearjim_hint_add.png">
+<center>Figure 4: Hints for add command</center>
 
 * Typing `add` in the command input generates the `add` command format in the result display
 
 ><img src="images/dearjim_hint_delete.png">
+<center>Figure 5: Hints for delete command</center>
 
 * Typing `delete` in the command input generates the `delete` command format in the result display
 
@@ -288,14 +293,14 @@ There is no need to save manually.
        the file that contains the data of your previous *DearJim* folder.
 
 **Q**: How do I install the program?<br>
-**A**: Double click the icon
+**A**: Double click the icon.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `[add] NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
-Edit | `edit INDEX [NAME], [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Add | `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
+Edit | `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset parameter]`
 Delete | `delete INDEX`
 Undo | `undo`
 Redo | `redo`
