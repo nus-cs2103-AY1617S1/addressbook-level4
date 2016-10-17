@@ -76,7 +76,7 @@ public class TodoListPanel extends UiPart {
      */
     private void setConnections(ObservableList<ImmutableTask> todoList) {
         todoListView.setItems(todoList);
-        todoListView.setCellFactory(listView -> new TodoListViewCell());
+        todoListView.setCellFactory(param -> new TodoListViewCell());
     }
 
     /* Ui Methods */
@@ -85,7 +85,11 @@ public class TodoListPanel extends UiPart {
      * @param index of a task card that is shown on the Ui (that means index accepts a range of 1 to num of tasks).
      */
     public void toggleExpandCollapsed(int index) {
-        todoListView.getItems().get(FxViewUtil.convertToListIndex(index));
+        ImmutableTask task = todoListView.getItems().get(FxViewUtil.convertToListIndex(index));
+        TaskCard taskCard = TaskCard.getTaskCard(task);
+        if (taskCard != null) {
+            taskCard.toggleCardCollapsing();
+        }
     }
 
     public void scrollTo(int index) {
