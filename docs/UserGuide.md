@@ -352,7 +352,7 @@ folder is at `/dropbox/`, you may do so by typing:
 
 <br>
 
-### Viewing help : `help`
+### Viewing help: `help`
 
 There are so many commands in TaSc, but you don't have to memorise them. 
 Just open this document anytime again by typing the `help` command:
