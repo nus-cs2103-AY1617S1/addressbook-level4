@@ -11,6 +11,7 @@ import com.joestelmach.natty.*;
 
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
 import seedu.todo.controllers.concerns.Tokenizer;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
@@ -98,20 +99,7 @@ public class AddController implements Controller {
         createCalendarItem(db, isTask, name, dateFrom, dateTo);
         
         // Re-render
-        renderIndex(db);
-    }
-
-    /**
-     * Renders the indexView.
-     * 
-     * @param db
-     */
-    private void renderIndex(TodoListDB db) {
-        IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getAllTasks();
-        view.events = db.getAllEvents();
-        UiManager.renderView(view);
-        UiManager.updateConsoleMessage(MESSAGE_ADD_SUCCESS);
+        Renderer.renderIndex(db, MESSAGE_ADD_SUCCESS);
     }
 
     /**
