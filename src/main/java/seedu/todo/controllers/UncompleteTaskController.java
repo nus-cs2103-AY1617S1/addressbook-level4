@@ -36,7 +36,7 @@ public class UncompleteTaskController implements Controller {
     @Override
     public float inputConfidence(String input) {
         // TODO
-        return input.startsWith("uncomplete") ? 1 : 0;
+        return input.toLowerCase().startsWith("uncomplete") ? 1 : 0;
     }
 
     @Override

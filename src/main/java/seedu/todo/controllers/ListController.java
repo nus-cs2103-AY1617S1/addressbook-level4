@@ -28,7 +28,7 @@ public class ListController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return (input.startsWith("list")) ? 1 : 0;
+        return (input.toLowerCase().startsWith("list")) ? 1 : 0;
     }
 
     @Override

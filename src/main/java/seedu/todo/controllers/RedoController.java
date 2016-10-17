@@ -23,7 +23,7 @@ public class RedoController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return input.startsWith("redo") ? 1 : 0;
+        return input.toLowerCase().startsWith("redo") ? 1 : 0;
     }
     
     /**

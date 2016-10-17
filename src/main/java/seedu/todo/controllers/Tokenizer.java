@@ -147,7 +147,8 @@ public class Tokenizer {
             
             // Try to match all the tokens
             for (String token : tokens) {
-                Matcher m = Pattern.compile(String.format("\\b%s\\b", token)).matcher(currString.string);
+                Matcher m = Pattern.compile(String.format("\\b%s\\b", token), Pattern.CASE_INSENSITIVE)
+                        .matcher(currString.string);
                 if (!m.find())
                     continue;
                 

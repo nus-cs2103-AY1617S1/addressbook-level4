@@ -28,7 +28,7 @@ public class HelpController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return (input.startsWith("help")) ? 1 : 0;
+        return (input.toLowerCase().startsWith("help")) ? 1 : 0;
     }
 
     @Override

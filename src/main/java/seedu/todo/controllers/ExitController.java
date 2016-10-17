@@ -24,7 +24,7 @@ public class ExitController implements Controller {
     
     @Override
     public float inputConfidence(String input) {
-        return (input.startsWith("exit")) ? 1 : 0;
+        return (input.toLowerCase().startsWith("exit")) ? 1 : 0;
     }
 
     @Override
