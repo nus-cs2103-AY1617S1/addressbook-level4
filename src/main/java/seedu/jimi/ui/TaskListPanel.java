@@ -15,10 +15,14 @@ import javafx.stage.Stage;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.jimi.model.event.Event;
+import seedu.jimi.model.task.DateTime;
 import seedu.jimi.model.task.DeadlineTask;
+import seedu.jimi.model.task.Event;
 import seedu.jimi.model.task.ReadOnlyTask;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -37,6 +41,7 @@ public class TaskListPanel extends UiPart {
     private ObservableList<ReadOnlyTask> floatingTaskList;
     private ObservableList<ReadOnlyTask> completedTaskList;
     private ObservableList<ReadOnlyTask> incompleteTaskList;
+    private ArrayList<ObservableList<ReadOnlyTask>> daysTaskList = new ArrayList<>(7);
     
     //all list views
     @FXML private ListView<ReadOnlyTask> taskListView;
@@ -101,13 +106,19 @@ public class TaskListPanel extends UiPart {
         this.completedTaskList = FXCollections.observableArrayList();
         this.incompleteTaskList = FXCollections.observableArrayList();
         
+        for(int i = 0; i < 7; i++){
+            this.daysTaskList.add(i, FXCollections.observableArrayList());
+        }
+        
         updateFloatingTaskList(taskList);
         updateCompletedAndIncompleteTaskList(taskList);
+        updateTasksForDays(taskList, daysTaskList);
         
         setupListViews(taskList, taskListView, 
                         completedTaskListView,
-                        incompleteTaskListView,
-                        taskListViewDay1,
+                        incompleteTaskListView);
+        
+        setupDaysListViews(daysTaskList, taskListViewDay1,
                         taskListViewDay2,
                         taskListViewDay3,
                         taskListViewDay4,
@@ -118,12 +129,21 @@ public class TaskListPanel extends UiPart {
         setEventHandlerForSelectionChangeEvent();
     }
 
+
+
+    private void setupDaysListViews(ArrayList<ObservableList<ReadOnlyTask>> daysTaskList, 
+                        ListView<ReadOnlyTask>... taskListViewDays) {
+        for(ListView<ReadOnlyTask> lv : taskListViewDays){
+            int i = 0;
+            lv.setItems(daysTaskList.get(i++));
+        }
+    }
+
     private void setupListViews(ObservableList<ReadOnlyTask> taskList, ListView<ReadOnlyTask>... listViews) {
         for(ListView<ReadOnlyTask> t : listViews) {
             t.setItems(taskList);
             t.setCellFactory(newListView -> new TaskListViewCell());
         }
-
     }
 
     private void addToPlaceholder() {
@@ -161,6 +181,8 @@ public class TaskListPanel extends UiPart {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
         updateFloatingTaskList(abce.data.getTaskList());
         updateCompletedAndIncompleteTaskList(abce.data.getTaskList());
+        updateTasksForDays(abce.data.getTaskList(), daysTaskList);
+        
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
     }
     
@@ -209,6 +231,29 @@ public class TaskListPanel extends UiPart {
 
     private void updateCompleteTasksTitle() {
         this.titleCompletedTasks.setText("Completed Tasks (" + completedTaskList.size() + ")");
+    }
+    
+    /**
+     * Populates all the individual listViews for days with respective tasks due on those days.
+     * @param taskList
+     */
+    private void updateTasksForDays(List<ReadOnlyTask> taskList, ArrayList<ObservableList<ReadOnlyTask>> taskArrList) {
+        for(int i = 0; i <= 6 ; i++) {//populates the lists up 7 days in a week, including today
+            ObservableList<ReadOnlyTask> newTaskList = FXCollections.observableArrayList();
+            
+            Date currentDate = Calendar.getInstance().getTime();
+            currentDate.setDate(currentDate.getDate() + i); //configure date to check for
+            DateTime dateToCheckFor = new DateTime(currentDate);
+            
+            for(ReadOnlyTask t : taskArrList.get(i)) {
+                if(t instanceof DeadlineTask
+                    && ((DeadlineTask) t).getDeadline().getDate().equals(dateToCheckFor)) {
+                    newTaskList.add(t);
+                }
+            }
+            
+            taskArrList.get(i).setAll(newTaskList);
+        }
     }
     
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
