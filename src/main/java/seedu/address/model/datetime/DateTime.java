@@ -1,6 +1,8 @@
 package seedu.address.model.datetime;
 
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.Duration;
 
 /**
  * struct for LocalDateTime and some extra member vars for recurring events
@@ -13,7 +15,7 @@ public class DateTime {
 
     // for recurrence
     private boolean isRecurring;
-    private int interval; // in days
+    private Period interval; // in days
     private LocalDateTime endDate;
     
     DateTime(LocalDateTime ldt) {
@@ -21,10 +23,9 @@ public class DateTime {
 
         this.ldt = ldt;
         this.isRecurring = false;
-        this.interval = -1;
     }
     
-    DateTime(LocalDateTime ldt, boolean isRecurring, int interval, LocalDateTime endDate) {
+    DateTime(LocalDateTime ldt, boolean isRecurring, Period interval, LocalDateTime endDate) {
         assert ldt != null;
         assert endDate != null;
                
@@ -32,7 +33,7 @@ public class DateTime {
 
         if(isRecurring == false) {
 	        this.isRecurring = false;
-	        this.interval = -1;
+	        this.interval = Period.ZERO;
         } else {
 	        this.isRecurring = isRecurring;
 	        this.interval = interval;
@@ -44,7 +45,7 @@ public class DateTime {
         return this.isRecurring;
     }
     
-    public int getInterval() {
+    public Period getInterval() {
         return this.interval;
     }
     
