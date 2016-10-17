@@ -775,8 +775,8 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(pTarget1);
         helper.addToModel(model, threeTasks);
         
-        String searchKeywords = "\nFilter Search Keywords: [Task Name: adam meet] "
-                + "[Priority: medium] " + "[Status: Undone] [Tags: tag2 tag1]";
+        String searchKeywords = "\nFilter Search Keywords: [Task Name: meet adam] "
+                + "[Priority: medium] " + "[Status: Undone] [Tags: tag1 tag2]";
 
         assertCommandBehavior("find -n meet -n adam -p medium -ud -t tag1 -t tag2",
                 Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedTars,
