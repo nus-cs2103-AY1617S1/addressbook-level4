@@ -244,7 +244,7 @@ public class AddController implements Controller {
         } else {
             naturalFrom = StringUtil.replaceNull(naturalFrom, "<start time>");
             naturalTo = StringUtil.replaceNull(naturalTo, "<end time>");
-            disambiguationString = String.format("add event %s from \"%s\" to \"%s\"", name, naturalFrom, naturalTo);
+            disambiguationString = String.format("add event \"%s\" from \"%s\" to \"%s\"", name, naturalFrom, naturalTo);
         }
         
         System.out.println(disambiguationString); // TODO
