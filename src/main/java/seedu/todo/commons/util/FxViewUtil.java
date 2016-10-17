@@ -74,6 +74,19 @@ public class FxViewUtil {
     }
 
     /**
+     * Toggles the style class:
+     *      If supplied style class is available, remove it.
+     *      Else, add one instance of it.
+     */
+    public static void toggleClassStyle(Node node, String classStyle) {
+        if (node.getStyleClass().contains(classStyle)) {
+            removeClassStyle(node, classStyle);
+        } else {
+            addClassStyle(node, classStyle);
+        }
+    }
+
+    /**
      * Sets a recurring task on the UI specified in handler to repeat every specified seconds.
      * Does not start until the user executes .play()
      * @param seconds duration between each repeats
