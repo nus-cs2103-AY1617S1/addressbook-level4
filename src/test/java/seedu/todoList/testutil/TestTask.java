@@ -2,22 +2,22 @@ package seedu.todoList.testutil;
 
 //import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.attributes.*;
 
 /**
  * A mutable task object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask extends Todo implements ReadOnlyTask {
 
     //private Name name;
     private Todo Todo;
-    private Priority priority;
-    private StartTime startTime;
-    private EndTime endTime;
-    //private Email email;
-    //private Phone phone;
-    //private UniqueTagList tags;
+    private static Name name;
+    private static Priority priority;
+    private static Date date;
+
 
     public TestTask() {
+        super(name, date, priority);
         //tags = new UniqueTagList();
     }
 
@@ -25,49 +25,45 @@ public class TestTask implements ReadOnlyTask {
         this.Todo = Todo;
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-
-    public void setStartTime(StartTime startTime) {
-        this.startTime = startTime;
-    }
     
-    public void setEndTime(EndTime endTime) {
-        this.endTime = endTime;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    @Override
+    //@Override
     public Todo getTodo() {
         return Todo;
     }
     
-    @Override
+    //@Override
     public Priority getPriority() {
         return priority;
     }
-    @Override
-    public StartTime getStartTime() {
-        return startTime;
-    }
 
     @Override
-    public EndTime getEndTime() {
-        return endTime;
+    public Name getName() {
+        return name;
     }
 
-    @Override
-    public String toString() {
-        return getAsText();
+    public Date getDate() {
+        return date;
     }
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add_task " + this.getTodo().todo + " ");
+        sb.append("add " + this.getName().name + " ");
+        //sb.append(this.getName().name + " ");
+        sb.append("d/" + this.getDate().date + " ");
         sb.append("p/" + this.getPriority().priority + " ");
-        sb.append("s/" + this.getStartTime().startTime + " ");
-        sb.append("e/" + this.getEndTime().endTime + " ");
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
 }

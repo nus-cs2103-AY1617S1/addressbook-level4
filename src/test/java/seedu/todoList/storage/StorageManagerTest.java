@@ -8,7 +8,8 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
-import seedu.todoList.model.ReadOnlyTodoList;
+import seedu.todoList.model.ReadOnlyTaskList;
+//import seedu.todoList.model.ReadOnlyTodoList;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.UserPrefs;
 import seedu.todoList.storage.JsonUserPrefsStorage;
@@ -34,7 +35,7 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
+        storageManager = new StorageManager(getTempFilePath("ab"), null, null, getTempFilePath("prefs"));
     }
 
 
@@ -62,7 +63,7 @@ public class StorageManagerTest {
     public void TodoListReadSave() throws Exception {
         TaskList original = new TypicalTestTask().getTypicalTodoList();
         storageManager.saveTodoList(original);
-        ReadOnlyTodoList retrieved = storageManager.readTodoList().get();
+        ReadOnlyTaskList retrieved = storageManager.readTodoList().get();
         assertEquals(original, new TaskList(retrieved));
         //More extensive testing of TodoList saving/reading is done in XmlTodoListStorageTest
     }
@@ -75,7 +76,7 @@ public class StorageManagerTest {
     @Test
     public void handleTodoListChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlTodoListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        Storage storage = new StorageManager(new XmlTodoListStorageExceptionThrowingStub("dummy"), null, null, new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleTodoListChangedEvent(new TodoListChangedEvent(new TaskList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
@@ -91,8 +92,8 @@ public class StorageManagerTest {
             super(filePath);
         }
 
-        @Override
-        public void saveTodoList(ReadOnlyTodoList TodoList, String filePath) throws IOException {
+        //@Override
+        public void saveTodoList(ReadOnlyTaskList TodoList, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

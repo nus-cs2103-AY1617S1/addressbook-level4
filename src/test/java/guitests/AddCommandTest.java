@@ -43,7 +43,7 @@ public class AddCommandTest extends TodoListGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateTotask(taskToAdd.getTodo().todo);
+        TaskCardHandle addedCard = taskListPanel.navigateTotask(taskToAdd.getTodo());
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task

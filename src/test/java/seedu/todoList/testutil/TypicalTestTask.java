@@ -10,18 +10,18 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 public class TypicalTestTask {
 
    
-    public static TestTask  a1, a2, a3, a4, a5, a6, a7;
+    public static TestTask  a1, a2, a3, a4, a5, a6, a7, a8;
 
     public TypicalTestTask() {
         try {
-            a1 =  new TaskBuilder().withTodo("assignment 1").withPriority("1").withStartTime("1400").withEndTime("1600").build();
-            a2 = new TaskBuilder().withTodo("project 1").withPriority("2").withStartTime("1100").withEndTime("1200").build();
-            a3 = new TaskBuilder().withTodo("teambuilding 3").withPriority("3").withStartTime("1300").withEndTime("1330").build();
-            a4 = new TaskBuilder().withTodo("assignment 4").withPriority("4").withStartTime("1400").withEndTime("1430").build();
-            a5 = new TaskBuilder().withTodo("project 5").withPriority("5").withStartTime("1500").withEndTime("1530").build();
+            a1 = new TaskBuilder().withName("assignment 1").withDate("30-10-2016").withPriority("1").build();
+            a2 = new TaskBuilder().withName("project 1").withDate("26-10-2016").withPriority("2").build();
+            a3 = new TaskBuilder().withName("teambuilding 3").withDate("27-10-2016").withPriority("3").build();
+            a4 = new TaskBuilder().withName("assignment 4").withDate("27-10-2016").withPriority("2").build();
+            a5 = new TaskBuilder().withName("project 5").withDate("28-10-2016").withPriority("5").build();
             //Manually added
-            a6 = new TaskBuilder().withTodo("assignment 6").withPriority("2").withStartTime("1600").withEndTime("1630").build();
-            a7 = new TaskBuilder().withTodo("homework 7").withPriority("1").withStartTime("1700").withEndTime("1730").build();
+            a6 = new TaskBuilder().withName("assignment 6").withDate("28-10-2016").withPriority("2").build();
+            a7 = new TaskBuilder().withName("homework 7").withDate("29-10-2016").withPriority("1").build();
 
         } catch (IllegalValueException e) {
             e.printStackTrace();
@@ -32,13 +32,13 @@ public class TypicalTestTask {
     public static void loadTodoListWithSampleData(TaskList ab) {
 
         try {
-            ab.addTask(new Task(a1));
-            ab.addTask(new Task(a2));
-            ab.addTask(new Task(a3));
-            ab.addTask(new Task(a4));
-            ab.addTask(new Task(a5));
-            ab.addTask(new Task(a6));
-            ab.addTask(new Task(a7));
+            ab.addTask(new Todo(a1));
+            ab.addTask(new Todo(a2));
+            ab.addTask(new Todo(a3));
+            ab.addTask(new Todo(a4));
+            ab.addTask(new Todo(a5));
+            ab.addTask(new Todo(a6));
+            ab.addTask(new Todo(a7));
         } catch (UniqueTaskList.DuplicatetaskException e) {
             assert false : "not possible";
         }

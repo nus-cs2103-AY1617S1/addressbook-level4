@@ -3,6 +3,7 @@ package seedu.todoList.testutil;
 
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.attributes.*;
 /**
  *
  */
@@ -14,23 +15,23 @@ public class TaskBuilder {
         this.task = new TestTask();
     }
 
-    public TaskBuilder withTodo(String Todo) throws IllegalValueException {
-        this.task.setTodo(new Todo(Todo));
+    public TaskBuilder withTodo(Todo todo) throws IllegalValueException {
+        this.task.setTodo(new Todo(todo));
+        return this;
+    }
+    
+    public TaskBuilder withName(String name) throws IllegalValueException {
+        this.task.setName(new Name(name));
+        return this;
+    }
+    
+    public TaskBuilder withDate(String date) throws IllegalValueException {
+        this.task.setDate(new Date(date));
         return this;
     }
 
     public TaskBuilder withPriority(String priority) throws IllegalValueException {
         this.task.setPriority(new Priority(priority));
-        return this;
-    }
-    
-    public TaskBuilder withStartTime(String startTime) throws IllegalValueException {
-        this.task.setStartTime(new StartTime(startTime));
-        return this;
-    }
-    
-    public TaskBuilder withEndTime(String endTime) throws IllegalValueException {
-        this.task.setEndTime(new EndTime(endTime));
         return this;
     }
 

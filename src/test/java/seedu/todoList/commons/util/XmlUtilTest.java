@@ -56,7 +56,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableTaskList dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTaskList.class);
-        assertEquals(9, dataFromFile.gettaskList().size());
+        assertEquals(9, dataFromFile.getTaskList().size());
         //assertEquals(0, dataFromFile.getTagList().size());
     }
 
@@ -89,8 +89,8 @@ public class XmlUtilTest {
         //TODO: use equality instead of string comparisons
 
 
-        TodoListBuilder builder = new TodoListBuilder(new TodoList());
-        dataToWrite = new XmlSerializableTodoList(builder.withTask(TestUtil.generateSampletaskData().get(0)).build());
+        TodoListBuilder builder = new TodoListBuilder(new TaskList());
+        dataToWrite = new XmlSerializableTaskList(builder.withTask(TestUtil.generateSampletaskData().get(0)).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskList.class);

@@ -15,9 +15,9 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.commons.util.FileUtil;
 import seedu.todoList.commons.util.XmlUtil;
 import seedu.todoList.model.TaskList;
-import seedu.todoList.model.tag.Tag;
-import seedu.todoList.model.tag.UniqueTagList;
+
 import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.attributes.*;
 import seedu.todoList.storage.XmlSerializableTaskList;
 
 import org.loadui.testfx.GuiTest;
@@ -66,14 +66,13 @@ public class TestUtil {
     private static Task[] getSampletaskData() {
         try {
             return new Task[]{
-                    new Task(new Todo("Assignment 11"), new Priority("1"), new StartTime("1400"), new EndTime("1500")),
-                    new Task(new Todo("Assignment 12"), new Priority("2"), new StartTime("1200"), new EndTime("1230")),
-                    new Task(new Todo("Assignment 13"), new Priority("3"), new StartTime("1300"), new EndTime("1330")),
-                    new Task(new Todo("Assignment 14"), new Priority("1"), new StartTime("1400"), new EndTime("1430")),
-                    new Task(new Todo("Assignment 15"), new Priority("2"), new StartTime("1500"), new EndTime("1530")),
-                    new Task(new Todo("Assignment 16"), new Priority("3"), new StartTime("1600"), new EndTime("1630")),
-                    new Task(new Todo("Assignment 17"), new Priority("4"), new StartTime("17000"), new EndTime("1730")),
-
+                    new Todo(new Name("Assignment 11"), new Date("01-11-2016"), new Priority("1")),
+                    new Todo(new Name("Assignment 12"), new Date("02-11-2016"), new Priority("2")),
+                    new Todo(new Name("Assignment 13"), new Date("03-11-2016"), new Priority("3")),
+                    new Todo(new Name("Assignment 14"), new Date("04-11-2016"), new Priority("4")),
+                    new Todo(new Name("Assignment 15"), new Date("05-11-2016"), new Priority("5")),
+                    new Todo(new Name("Assignment 16"), new Date("06-11-2016"), new Priority("6")),
+                    new Todo(new Name("Assignment 17"), new Date("07-11-2016"), new Priority("7")),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -82,7 +81,7 @@ public class TestUtil {
         }
     }
 
-    public static final Tag[] sampleTagData = getSampleTagData();
+    /*public static final Tag[] sampleTagData = getSampleTagData();
 
     private static Tag[] getSampleTagData() {
         try {
@@ -95,7 +94,7 @@ public class TestUtil {
             return null;
             //not possible
         }
-    }
+    }*/
 
     public static List<Task> generateSampletaskData() {
         return Arrays.asList(sampletaskData);
@@ -135,8 +134,8 @@ public class TestUtil {
     }
 
 
-    public static TodoList generateEmptyTodoList() {
-        return new TodoList(new UniqueTaskList());
+    public static TaskList generateEmptyTodoList() {
+        return new TaskList(new UniqueTaskList());
 
     }
 
@@ -328,11 +327,11 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, Todo task) {
         return card.isSametask(task);
     }
 
-    public static Tag[] getTagList(String tags) {
+    /*public static Tag[] getTagList(String tags) {
 
         if (tags.equals("")) {
             return new Tag[]{};
@@ -351,6 +350,6 @@ public class TestUtil {
         }).collect(Collectors.toList());
 
         return collect.toArray(new Tag[split.length]);
-    }
+    }*/
 
 }

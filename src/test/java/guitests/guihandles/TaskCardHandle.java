@@ -4,15 +4,16 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.todoList.model.task.ReadOnlyTask;
+import seedu.todoList.model.task.Todo;
 
 /**
  * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
-    private static final String TODO_FIELD_ID = "#Todo";
+    private static final String NAME_FIELD_ID = "#Name";
+    private static final String DATE_FIELD_ID = "#Date";
     private static final String PRIORITY_FIELD_ID = "#Priority";
-    private static final String STARTTIME_FIELD_ID = "#StartTime";
-    private static final String ENDTIME_FIELD_ID = "#EndTime";
+    //private static final String ENDTIME_FIELD_ID = "#EndTime";
 
     private Node node;
 
@@ -25,32 +26,29 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(fieldId, node);
     }
 
-    public String getTodo() {
-        return getTextFromLabel(TODO_FIELD_ID);
+    public String getName() {
+        return getTextFromLabel(NAME_FIELD_ID);
     }
 
     public String getPriority() {
         return getTextFromLabel(PRIORITY_FIELD_ID);
     }
 
-    public String getStartTime() {
-        return getTextFromLabel(STARTTIME_FIELD_ID);
+    public String getDate() {
+        return getTextFromLabel(DATE_FIELD_ID);
     }
 
-    public String getEndTime() {
-        return getTextFromLabel(ENDTIME_FIELD_ID);
-    }
 
-    public boolean isSametask(ReadOnlyTask task){
-        return getTodo().equals(task.getTodo().todo) && getPriority().equals(task.getPriority().priority)
-                && getStartTime().equals(task.getStartTime().startTime) && getEndTime().equals(task.getEndTime().endTime);
+    public boolean isSametask(Todo task){
+        return getName().equals(task.getName().name) && getDate().equals(task.getDate().date)
+                && getPriority().equals(task.getPriority().priority);
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getTodo().equals(handle.getTodo())
+            return getName().equals(handle.getName())
                     && getPriority().equals(handle.getPriority()); //TODO: compare the rest
         }
         return super.equals(obj);
@@ -58,6 +56,6 @@ public class TaskCardHandle extends GuiHandle {
 
     @Override
     public String toString() {
-        return getTodo() + " " + getPriority();
+        return getName() + " " + getPriority();
     }
 }
