@@ -30,6 +30,10 @@
     -fx-font-size: 12pt;
 }
 
+.code {
+    -fx-font-family: "Consolas";
+}
+
 .gridPanel {
     -fx-hgap: 16pt;
     -fx-vgap: 2pt;
@@ -65,7 +69,7 @@
 }
 
 .commandInput {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Consolas";
     -fx-font-size: 14pt;
 }
 

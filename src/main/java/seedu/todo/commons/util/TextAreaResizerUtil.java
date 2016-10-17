@@ -58,6 +58,6 @@ public class TextAreaResizerUtil {
             singleLineHeight = rawHeight;
         }
         int numRows = (int) Math.ceil(rawHeight/singleLineHeight);
-        return singleLineHeight * numRows + 10; //10 is added to account for the border of textarea
+        return singleLineHeight * numRows * 1.9; //10 is added to account for the border of textarea
     }
 }
