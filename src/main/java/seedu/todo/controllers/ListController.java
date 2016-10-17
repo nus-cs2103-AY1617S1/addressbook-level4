@@ -47,6 +47,58 @@ public class ListController implements Controller {
         tokenDefinitions.put("timeTo", new String[] { "to", "before" });
         return tokenDefinitions;
     }
+    
+    private boolean parseListAllType (Map<String, String[]> parsedResult) {
+        if (parsedResult.get("eventType") != null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    private boolean parseListAllStatus (Map<String, String[]> parsedResult) {
+        if (parsedResult.get("status") != null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    private boolean parseIsComplete (Map<String, String[]> parsedResult) {
+        if (parsedResult.get("status")[0].contains("uncomplete")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    private boolean parseIsTask (Map<String, String[]> parsedResult) {
+        if (parsedResult.get("eventType")[0].equals("event")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    private String[] parseDates(Map<String, String[]> parsedResult) {
+        String naturalFrom = null;
+        String naturalTo = null;
+        String naturalOn = null;
+        
+        if (parsedResult.get("time") == null) {
+            if (parsedResult.get("timeFrom") != null) {
+                naturalFrom = parsedResult.get("timeFrom")[1];
+            }
+            if (parsedResult.get("timeTo") != null) {
+                naturalTo = parsedResult.get("timeTo")[1];
+            }
+        } else {
+            naturalOn = parsedResult.get("time")[1];
+        }
+        
+        return new String[] { naturalOn, naturalFrom, naturalTo };
+    }
+    
 
     @Override
     public void process(String input) {
@@ -60,48 +112,70 @@ public class ListController implements Controller {
         }
         
         // Task or event?
-        boolean isTask = true;
-        boolean isEvent = true;
-        boolean listAll = true;
-        boolean isCompleted = true;
-        boolean listAllStatus = true;
-        String naturalFrom = null;
-        String naturalTo = null;
-        String naturalOn = null;
+        boolean listAll = parseListAllType(parsedResult);
         
-        //check if required to list all or just task or event
-        if (parsedResult.get("eventType") != null) {
-            listAll = false;
-            if (parsedResult.get("eventType")[0].equals("event")) {
-                isTask = false;
-            } else {
-                isEvent = false;
-            }
-        }
-        
-        //check if required to list only completed or uncomplete
-        if (parsedResult.get("status") != null) {
-            listAllStatus = false;
-            if (parsedResult.get("status")[0].equals("uncomplete")) {
-                isCompleted = false;
-            }
-        } 
-        
-        if (parsedResult.get("time") == null) {
-            if (parsedResult.get("timeFrom") != null) {
-                naturalFrom = parsedResult.get("timeFrom")[1];
-            }
-            if (parsedResult.get("timeTo") != null) {
-                naturalTo = parsedResult.get("timeTo")[1];
-            }
+        boolean isTask;
+        boolean isEvent;
+        //if listing all type , set isTask and isEvent true
+        if (listAll) {
+            isTask = true;
+            isEvent = true;
         } else {
-            naturalOn = parsedResult.get("time")[1];
+            isTask = parseIsTask(parsedResult);
+            isEvent = !parseIsTask(parsedResult);
         }
+        
+        boolean listAllStatus = parseListAllStatus(parsedResult);
+        boolean isCompleted = false; //default 
+        //if listing all status, isCompleted will be ignored, listing both complete and uncomplete
+        if (!listAllStatus) {
+            isCompleted = parseIsComplete(parsedResult);
+        }
+        
+        String[] parsedDates = parseDates(parsedResult);
+        String naturalOn = parsedDates[0];
+        String naturalFrom = parsedDates[1];
+        String naturalTo = parsedDates[2];
 
         // Parse natural date using Natty.
         LocalDateTime dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
         LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
         LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+        
+        //setting up view
+        IndexView view = setupView(isTask, isEvent, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo);
+        
+        // Update console message
+        int numTasks = view.tasks.size();
+        int numEvents = view.events.size();
+        String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, 
+                numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"), 
+                numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
+        UiManager.updateConsoleMessage(consoleMessage);
+    }
+
+    /**
+     * Setting up the view 
+     * 
+     * @param isTask
+     *            true if CalendarItem should be a Task, false if Event
+     * @param isEvent
+     *            true if CalendarItem should be a Event, false if Task  
+     * @param listAll
+     *            true if listing all type, isTask or isEvent are ignored          
+     * @param isCompleted
+     *            true if user request completed item
+     * @param listAllStatus
+     *            true if user did not request any status, isCompleted is ignored
+     * @param dateOn
+     *            Date if user specify for a certain date
+     * @param dateFrom
+     *            Due date for Task or start date for Event
+     * @param dateTo
+     *            End date for Event
+     */
+    private IndexView setupView(boolean isTask, boolean isEvent, boolean listAll, boolean isCompleted,
+            boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, LocalDateTime dateTo) {
         TodoListDB db = TodoListDB.getInstance();
         IndexView view = UiManager.loadView(IndexView.class);
         // isTask and isEvent = true, list all type
@@ -122,14 +196,7 @@ public class ListController implements Controller {
         }
         
         UiManager.renderView(view);
-        
-        // Update console message
-        int numTasks = view.tasks.size();
-        int numEvents = view.events.size();
-        String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, 
-                numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"), 
-                numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
-        UiManager.updateConsoleMessage(consoleMessage);
+        return view;
     }
 
     private void setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
