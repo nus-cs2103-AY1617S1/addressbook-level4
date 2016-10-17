@@ -117,12 +117,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public void editTaskName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        tasks.setName(task, new Name(newInfo));
+        tasks.setTaskName(task, new Name(newInfo));
     }
-    
-//    public void editTaskDate(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
-//        tasks.editDate(task, newInfo);
-//    }
     
     public void editTaskStartTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.setStartTime(task, new StartTime(newInfo));

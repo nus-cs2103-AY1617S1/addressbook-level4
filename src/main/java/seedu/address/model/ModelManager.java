@@ -124,6 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
             taskManager.editTaskEndTime(task, newEnd);
         
         updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
     }
 
 
