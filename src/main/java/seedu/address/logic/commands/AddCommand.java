@@ -38,13 +38,13 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     // TODO allow tag list as params
-    public AddCommand(String name, String startDate, String endDate) throws IllegalValueException, DateTimeParseException {
+    public AddCommand(String name, LocalDateTime startDate, LocalDateTime endDate) throws IllegalValueException, DateTimeParseException {
        	this.toAdd = new Task(
         		new Name(name),
         		new TaskType("event"),
         		new Status("not done"), 
-        		Optional.of(LocalDateTime.parse(startDate)), 
-        		Optional.of(LocalDateTime.parse(endDate)),
+        		Optional.of(startDate), 
+        		Optional.of(endDate),
         		new UniqueTagList()
                 );
     }
@@ -54,13 +54,13 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String endDate) throws IllegalValueException, DateTimeParseException {
+    public AddCommand(String name, LocalDateTime endDate) throws IllegalValueException, DateTimeParseException {
     	this.toAdd = new Task(
         		new Name(name),
-        		new TaskType("event"),
+        		new TaskType("deadline"),
         		new Status("not done"), 
         		Optional.empty(), 
-        		Optional.of(LocalDateTime.parse(endDate)),
+        		Optional.of(endDate),
         		new UniqueTagList()
                 );
     	System.out.println("deadline added: " + toAdd);

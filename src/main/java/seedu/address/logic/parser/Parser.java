@@ -186,6 +186,8 @@ public class Parser {
 				isAnyMatch = true;
 				taskType = matcher.group("taskType").trim();
 				addTaskArgs = matcher.group("addTaskArgs").trim();
+				
+				break;
 			}
 		}
 
@@ -280,7 +282,7 @@ public class Parser {
 				taskName = matcher.group("taskName").trim();
 				String dateTimeString = matcher.group("dateTime").trim();
 				try {
-					dateTime = parseDate(dateTimeString);
+					dateTime = DateUtil.parseDate(dateTimeString);
 				} catch (ParseException e) {
 					// TODO better command
 					return new IncorrectCommand(
@@ -300,7 +302,7 @@ public class Parser {
 
 		// TODO format date properly
 		try {
-			return new AddCommand(taskName, dateTime.toString());
+			return new AddCommand(taskName, dateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
@@ -450,8 +452,8 @@ public class Parser {
 	}
 
 	public static void main(String[] args) {
-//		Parser p = new Parser();
-//		p.parseCommand("add deadline 'eat' by 2012-12-25");
+		Parser p = new Parser();
+		p.parseCommand("add deadline 'eat' by 2012-12-25 00:00");
 	}
 	
 }
