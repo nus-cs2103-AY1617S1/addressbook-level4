@@ -25,6 +25,10 @@ public class Priority {
         return test.matches(PRIORITY_VALIDATION_REGEX);
     }
     
+	@Override
+    public String toString() {
+        return Integer.toString(priority);
+    }
 	
 	@Override
     public boolean equals(Object other) {

@@ -70,8 +70,8 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
-//        case EditCommand.COMMAND_WORD:
-//            return prepareEdit(arguments);
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
         
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand(arguments);
@@ -252,7 +252,8 @@ public class Parser {
         return new FindCommand(keywordSet, dataType);
     }
 
-//    private Command prepareEdit(String args) {
-//        
-//    }
+    private Command prepareEdit(String args) {
+        final Matcher matcher_dataType = task_DATATYPE_ARGS_FORMAT.matcher(args.trim());
+        return null;
+    }
 }

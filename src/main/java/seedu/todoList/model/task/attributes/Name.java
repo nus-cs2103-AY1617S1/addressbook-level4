@@ -8,8 +8,8 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "task names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "task names can accept any characters";
+    public static final String NAME_VALIDATION_REGEX = ".+";
 
     public final String name;
 
