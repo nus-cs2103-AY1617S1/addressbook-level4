@@ -287,7 +287,7 @@ Examples:
 <p align="center">
 Figure 4: Hints for add command
 </p>
-
+<br>
 
 * Typing `delete` in the command input generates the `delete` command format in the result display
 ><img src="images/dearjim_hint_delete.png">
@@ -295,7 +295,7 @@ Figure 4: Hints for add command
 <p align="center">
 Figure 5: Hints for delete command
 </p>
-
+<br>
 
 ### Saving the data 
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
