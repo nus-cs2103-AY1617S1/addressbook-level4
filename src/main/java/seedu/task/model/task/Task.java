@@ -21,7 +21,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags,boolean isCompleted) {
+    public Task(Name name, UniqueTagList tags,boolean isImportant) {
         // open time, urgent, and close time can be null
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
