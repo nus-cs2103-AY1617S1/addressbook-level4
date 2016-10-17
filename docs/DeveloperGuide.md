@@ -55,8 +55,9 @@ This guide contains all necessary information for both new and experienced contr
 
 1. **JDK `1.8.0_60`**  or later<br>
 
+    > **Note:**<br>
     > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
+    > This app will not work with earlier versions of Java 8.
 
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
