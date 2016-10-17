@@ -14,10 +14,15 @@ public class StartDate {
   public final Date startDate;
 
   public StartDate(String dateToValidate) throws IllegalValueException, ParseException {
-      if (!isValidDate(dateToValidate)) {
+      if (dateToValidate.equals("Not Set")) {
+          this.startDate = null;
+      }
+      else if (!isValidDate(dateToValidate)) {
           throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
       }
-      this.startDate = DATE_FORMAT.parse(dateToValidate);
+      else {
+          this.startDate = DATE_FORMAT.parse(dateToValidate);
+      }
   }
   
   public static boolean isValidDate(String inDate) {
@@ -32,7 +37,7 @@ public class StartDate {
   
   @Override
   public String toString() {
-      return DATE_FORMAT.format(startDate);
+      return startDate == null ? "Not Set" : DATE_FORMAT.format(startDate);
   }
 
   @Override

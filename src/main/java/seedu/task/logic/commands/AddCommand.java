@@ -17,9 +17,11 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
-            + "Parameters: TITLE d/description sd/start_date dd/due_date i/interval ti/timeinterval [t/TAG]...\n"
+            + "Parameters: TITLE d/DESCRIPTION [sd/START_DATE] [dd/DUE_DATE] i/INTERVAL ti/TIMEINTERVAL [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " HOMEWORK d/math homework sd/11-01-2012 dd/11-01-2012 i/123 ti/12";
+            + " HOMEWORK d/math homework dd/11-01-2012 i/123 ti/12";
+    public static final String MESSAGE_EVENT_USAGE = "To add an event, DUE_DATE is required\n"
+            + "Example: " + COMMAND_WORD + " HOMEWORK d/math homework sd/11-01-2012 dd/11-01-2012 i/123 ti/12";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";

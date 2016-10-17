@@ -1,5 +1,7 @@
 package guitests.guihandles;
 
+import java.text.SimpleDateFormat;
+
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
@@ -57,8 +59,9 @@ public class TaskCardHandle extends GuiHandle {
     }
     
     public boolean isSameTask(ReadOnlyTask task){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM-yyyy");
     	return getTitle().equals(task.getTitle().fullTitle) && getDescription().equals(task.getDescription().fullDescription)
-                && getStartDate().equals(task.getStartDate().toString()) && getDueDate().equals(task.getDueDate().toString())
+                && getStartDate().equals("Start Date: " + dateFormat.format(task.getStartDate().startDate)) && getDueDate().equals("Due Date: " + dateFormat.format(task.getDueDate().dueDate))
                 && getInterval().equals(task.getInterval().value) && getTimeInterval().equals(task.getTimeInterval().value) && getStatus().equals(task.getStatus().status);
     }
 

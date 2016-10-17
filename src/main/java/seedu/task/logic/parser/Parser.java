@@ -31,8 +31,10 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT_ADD = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<title>[^/]+)"
                     + " d/(?<description>[^/]+)"
-                    + " sd/(?<startDate>[^/]+)"
-                    + " dd/(?<dueDate>[^/]+)"
+                    //+ " sd/(?<startDate>[^/]+)"
+                    //+ " dd/(?<dueDate>[^/]+)"
+                    + "( sd/(?<startDate>[^/]+))?"
+                    + "( dd/(?<dueDate>[^/]+))?"
                     + " i/(?<interval>[^/]+)"
                     + " ti/(?<timeInterval>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -106,12 +108,15 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        else if (matcher.group("startDate")!=null && matcher.group("dueDate")==null) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EVENT_USAGE));
+        }
         try {
         	return new AddCommand(
         	        matcher.group("title"),
                     matcher.group("description"),
-                    matcher.group("startDate"),
-                    matcher.group("dueDate"),
+                    isInputPresent(matcher.group("startDate")),
+                    isInputPresent(matcher.group("dueDate")),
                     matcher.group("interval"),
                     matcher.group("timeInterval"),
                     getTagsFromArgs(matcher.group("tagArguments"))
@@ -119,6 +124,15 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    /**
+     * Check if the input is present, hence having the attribute of task optional
+     * @param input of task's attribute
+     * @return specified null format or actual input
+     */
+    private String isInputPresent(String input) {
+        return input == null ? "Not Set" : input;
     }
     
     /**
