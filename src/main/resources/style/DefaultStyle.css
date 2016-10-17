@@ -8,24 +8,28 @@
 
 .text1 {
     -fx-text-fill: #FFFFFF;
+    -fx-fill: #ffffff;
     -fx-font-family: "Segoe UI Black";
     -fx-font-size: 17pt;
 }
 
 .text2 {
     -fx-text-fill: #FFFFFF;
+    -fx-fill: #ffffff;
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 15pt;
 }
 
 .text3 {
     -fx-text-fill: #FFFFFF;
+    -fx-fill: #ffffff;
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 13pt;
 }
 
 .text4 {
     -fx-text-fill: #FFFFFF;
+    -fx-fill: #ffffff;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 12pt;
 }
@@ -34,11 +38,15 @@
     -fx-font-family: "Consolas";
 }
 
+.bolder {
+    -fx-font-weight: bolder;
+}
+
 .gridPanel {
     -fx-hgap: 16pt;
     -fx-vgap: 2pt;
     -fx-background-color: #3D3D3D;
-    -fx-padding: 2 8 2 8;
+    -fx-padding: 8 8 8 8;
 }
 
 .spacing {
