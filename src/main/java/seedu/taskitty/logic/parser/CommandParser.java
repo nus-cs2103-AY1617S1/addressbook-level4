@@ -31,12 +31,9 @@ public class CommandParser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     
-    /**
-     * Used for checking for number date formats in arguments
-     */
-    private static final Pattern LOCAL_NUMBER_DATE_FORMAT_WITH_YEAR = Pattern.compile(".*(?<arguments>\\d[\\d?][ /:-]\\d[\\d?][/:-]\\d\\d(\\d\\d)?).*");
-    
-    private static final Pattern LOCAL_NUMBER_DATE_FORMAT_WITHOUT_YEAR =  Pattern.compile(".* (?<arguments>\\d(\\d)?[/:-]\\d(\\d)?).*");
+      
+    //Used for checking for number date formats in arguments
+    private static final Pattern LOCAL_DATE_FORMAT =  Pattern.compile(".* (?<arguments>\\d(\\d)?[/:-]\\d(\\d)?).*");
     
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -198,28 +195,16 @@ public class CommandParser {
      * @return arguments with converted dates if any
      */
     private String convertToNattyDateFormat(String arguments) {
-        Matcher matchWithoutYear = LOCAL_NUMBER_DATE_FORMAT_WITHOUT_YEAR.matcher(arguments);
-        Matcher matchWithYear = LOCAL_NUMBER_DATE_FORMAT_WITH_YEAR.matcher(arguments);
-        String localDateString = null;
-        SimpleDateFormat localDateFormat;
-        SimpleDateFormat nattyDateFormat;
-        char dateSeparator;
-        if (matchWithYear.matches()) {
-            localDateString = matchWithYear.group("arguments");
-            dateSeparator = getDateSeparator(localDateString);
-            localDateFormat = new SimpleDateFormat("dd" + dateSeparator + "MM" + dateSeparator + "yy");
-            nattyDateFormat = new SimpleDateFormat("MM" + dateSeparator + "dd" + dateSeparator + "yy");
-        } else if (matchWithoutYear.matches()) {
-            localDateString = matchWithoutYear.group("arguments");
-            dateSeparator = getDateSeparator(localDateString);
-            localDateFormat = new SimpleDateFormat("dd" + dateSeparator + "MM");
-            nattyDateFormat = new SimpleDateFormat("MM" + dateSeparator + "dd");
+        Matcher matchDate = LOCAL_DATE_FORMAT.matcher(arguments);
+        if (matchDate.matches()) {
+            String localDateString = matchDate.group("arguments");
+            char dateSeparator = getDateSeparator(localDateString);
+            SimpleDateFormat localDateFormat = new SimpleDateFormat("dd" + dateSeparator + "MM");
+            SimpleDateFormat nattyDateFormat = new SimpleDateFormat("MM" + dateSeparator + "dd");
+            return convertToNattyFormat(arguments, localDateString, localDateFormat, nattyDateFormat);
         } else {
             return arguments;
-        }
-        System.out.println(localDateString);
-        System.out.println(convertToNattyFormat(arguments, localDateString, localDateFormat, nattyDateFormat));
-        return convertToNattyFormat(arguments, localDateString, localDateFormat, nattyDateFormat);
+        }       
     }
     
     /**
