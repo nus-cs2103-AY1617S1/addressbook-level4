@@ -15,6 +15,8 @@ import seedu.savvytasker.model.task.RecurrenceType;
 public class XmlAdaptedTask {
 
     @XmlElement(required = true)
+    private int id;
+    @XmlElement(required = true)
     private String taskName;
     @XmlElement(required = false)
     private Date startDateTime;
@@ -32,6 +34,8 @@ public class XmlAdaptedTask {
     private String category;
     @XmlElement(required = false)
     private String description;
+    @XmlElement(required = true)
+    private boolean isArchived;
 
     /**
      * No-arg constructor for JAXB use.
@@ -45,6 +49,7 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
+        id = source.getId();
         taskName = source.getTaskName();
         startDateTime = source.getStartDateTime();
         endDateTime = source.getEndDateTime();
@@ -54,6 +59,7 @@ public class XmlAdaptedTask {
         numberOfRecurrence = source.getNumberOfRecurrence();
         category = source.getCategory();
         description = source.getDescription();
+        isArchived = source.isArchived();
     }
 
     /**
@@ -62,6 +68,7 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted Task
      */
     public Task toModelType() throws IllegalValueException {
+        final int id = this.id;
         final String taskName = this.taskName;
         final Date startDateTime = this.startDateTime;
         final Date endDateTime = this.endDateTime;
@@ -71,7 +78,8 @@ public class XmlAdaptedTask {
         final int numberOfRecurrence = this.numberOfRecurrence;
         final String category = this.category;
         final String description = this.description;
-        return new Task(taskName, startDateTime, endDateTime, location, priority,
-                recurringType, numberOfRecurrence, category, description);
+        final boolean isArchived = this.isArchived;
+        return new Task(id, taskName, startDateTime, endDateTime, location, priority,
+                recurringType, numberOfRecurrence, category, description, isArchived);
     }
 }
