@@ -6,7 +6,9 @@ import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Arrays;
 
 import com.google.common.collect.ImmutableList;
 
+import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.enumerations.TaskViewFilters;
+import seedu.todo.commons.events.ui.ChangeViewRequestEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;
@@ -16,6 +18,7 @@ public class ViewCommand extends BaseCommand {
     
     private static final String VERB = "view is currently displayed";
     private Argument<String> view = new StringArgument("view").required();
+    private TaskViewFilters viewSpecified;
                          
         
 
@@ -37,20 +40,23 @@ public class ViewCommand extends BaseCommand {
     
     @Override
     protected void validateArguments(){
-        if(!Arrays.asList(TaskViewFilters.values()).
-                contains(view.getValue().toLowerCase())){
-            String error = String.format("%s is not a valid view.", view.getValue());
-            errors.put("view", error);
+        TaskViewFilters[] viewArray = TaskViewFilters.values();
+        String viewSpecified = view.getValue().trim().toLowerCase();
+        for (int i=0; i<viewArray.length; i++){
+            if(viewArray[i].toString().contentEquals(viewSpecified)){
+                this.viewSpecified = viewArray[i];
+                return;
+            }
         }
-        
-            
+        String error = String.format("The view %s does not exist", view.getValue());
+        errors.put("view", error);
     }
 
     @Override
     public CommandResult execute() throws ValidationException {
-        
-        
-        return taskSuccessfulResult( view.getValue(), ViewCommand.VERB);
+        model.view(viewSpecified.getFilter(), null);
+        EventsCenter.getInstance().post(new ChangeViewRequestEvent(viewSpecified));
+        return taskSuccessfulResult( viewSpecified.toString(), ViewCommand.VERB);
     }
 
 }
