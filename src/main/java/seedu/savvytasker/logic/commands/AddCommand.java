@@ -27,8 +27,10 @@ public class AddCommand extends Command {
     public AddCommand(AddCommandModel commandModel) {
         // all tasks starts off as active, archive them using 'mark'
         final boolean isArchived = false;
+        // TODO: implement smart defaults for start/end dates
         this.toAdd = new Task(commandModel.getId(), commandModel.getTaskName(),
-                commandModel.getStartDateTime(), commandModel.getEndDateTime(),
+                commandModel.getStartDateTime().getInferredDateTime(), 
+                commandModel.getEndDateTime().getInferredDateTime(),
                 commandModel.getLocation(), commandModel.getPriority(),
                 commandModel.getRecurringType(), commandModel.getNumberOfRecurrence(),
                 commandModel.getCategory(), commandModel.getDescription(), isArchived);

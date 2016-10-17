@@ -1,18 +1,19 @@
 package seedu.savvytasker.logic.commands.models;
 
-import java.util.Date;
-
+import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.RecurrenceType;
 
 /**
  * Represents a model for use with the add command.
+ * @author A0139915W
  */
 public class AddCommandModel extends CommandModel {
     
+    private int id;
     private String taskName;
-    private Date startDateTime;
-    private Date endDateTime;
+    private InferredDate startDateTime;
+    private InferredDate endDateTime;
     private String location;
     private PriorityLevel priority;
     private RecurrenceType recurringType;
@@ -20,9 +21,10 @@ public class AddCommandModel extends CommandModel {
     private String category;
     private String description;
     
-    public AddCommandModel(String taskName, Date startDateTime, Date endDateTime, String location,
+    public AddCommandModel(int id, String taskName, InferredDate startDateTime, InferredDate endDateTime, String location,
             PriorityLevel priority, RecurrenceType recurringType, int numberOfRecurrence, String category, 
             String description) {
+        this.id = id;
         this.taskName = taskName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -38,6 +40,14 @@ public class AddCommandModel extends CommandModel {
         this.taskName = taskName;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTaskName() {
         return taskName;
     }
@@ -46,19 +56,19 @@ public class AddCommandModel extends CommandModel {
         this.taskName = taskName;
     }
 
-    public Date getStartDateTime() {
+    public InferredDate getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(Date startDateTime) {
+    public void setStartDateTime(InferredDate startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public Date getEndDateTime() {
+    public InferredDate getEndDateTime() {
         return endDateTime;
     }
 
-    public void setEndDateTime(Date endDateTime) {
+    public void setEndDateTime(InferredDate endDateTime) {
         this.endDateTime = endDateTime;
     }
 

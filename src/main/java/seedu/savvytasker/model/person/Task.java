@@ -64,6 +64,7 @@ public class Task implements ReadOnlyTask {
                 source.getCategory(), source.getDescription(), source.isArchived());
         
         //this.id should follow that of the source.
+        //this.isArchived should follow that of the source.
         this.taskName = commandModel.getTaskName() == null ? this.taskName : commandModel.getTaskName();
         this.startDateTime = commandModel.getStartDateTime() == null ? this.startDateTime : commandModel.getStartDateTime();
         this.endDateTime = commandModel.getEndDateTime() == null ? this.endDateTime : commandModel.getEndDateTime();
@@ -73,7 +74,6 @@ public class Task implements ReadOnlyTask {
         this.numberOfRecurrence = commandModel.getNumberOfRecurrence() == null ? this.numberOfRecurrence : commandModel.getNumberOfRecurrence().intValue();
         this.category = commandModel.getCategory() == null ? this.category : commandModel.getCategory();
         this.description = commandModel.getDescription() == null ? this.description : commandModel.getDescription();
-        this.isArchived = commandModel.getIsArchived() == null ? this.isArchived : commandModel.getIsArchived().booleanValue();
     }
 
     @Override
@@ -176,11 +176,16 @@ public class Task implements ReadOnlyTask {
         this.description = description;
     }
     
+    public void setArchived(boolean isArchived) {
+        if (isArchived) mark();
+        else unmark();
+    }
+    
     /**
      * Marks the task as complete, also moves this task from the active list 
      * to the archived list.
      */
-    public void Mark() { 
+    public void mark() { 
         if (!isMarked()) {
             this.isArchived = true;
         }
@@ -190,7 +195,7 @@ public class Task implements ReadOnlyTask {
      * Unmarks the task as complete, also moves this task from the archived list 
      * to the active list.
      */
-    public void Unmark() {
+    public void unmark() {
         if (isMarked()) {
             this.isArchived = false;
         }
