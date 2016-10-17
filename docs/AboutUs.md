@@ -43,5 +43,11 @@ Responsibilities: Data, Integration, Documentation
 
 We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
 
+* [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch/)
+* [Joshua Lee](https://github.com/lejolly)
+* [Leow YiJin](https://github.com/yijinl)
+* [Martin Choo](https://github.com/m133225)
+* [Thien Nguyen](https://github.com/ndt93)
+* [You Liang](https://github.com/yl-coder)
 * [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
 * [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
