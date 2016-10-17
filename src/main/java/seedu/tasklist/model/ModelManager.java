@@ -17,6 +17,7 @@ import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +25,11 @@ import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang.time.DateUtils;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 
 /**
  * Represents the in-memory model of the task list data. All changes to any
@@ -203,6 +209,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));
     }
+    
+    @Override
+    public void updateFilteredListToShowDate(String date) {
+    	updateFilteredListToShowAll();
+	    updateFilteredTaskList(new PredicateExpression(new DateQualifier(date)));
+
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -309,6 +322,22 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask person) {
             return person.getPriority().priorityLevel.equals(this.priority);
+        }
+    }
+    
+    private class DateQualifier implements Qualifier {
+        private final Calendar requestedTime;
+	    
+        public DateQualifier(String time) {
+        	requestedTime = Calendar.getInstance();
+        	List<DateGroup> dates = new Parser().parse(time);
+        	requestedTime.setTime(dates.get(0).getDates().get(0));
+        }
+    	
+        @Override
+        public boolean run(ReadOnlyTask person) {        	
+        	return DateUtils.isSameDay(person.getStartTime().starttime, requestedTime) ||
+                    (person.getStartTime().toCardString().equals("-") && DateUtils.isSameDay(person.getEndTime().endtime, requestedTime));
         }
     }
 }

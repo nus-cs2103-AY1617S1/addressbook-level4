@@ -1,5 +1,9 @@
 package seedu.tasklist.logic.commands;
 
+import java.util.Date;
+
+import seedu.tasklist.logic.parser.TimePreparser;
+
 /**
  * Shows all tasks that fulfill the category keyword.
  * Keyword matching is case insensitive.
@@ -23,23 +27,27 @@ public class ShowCommand extends Command {
 
     @Override
     public CommandResult execute() {
-    	switch (keyword) {
-    	
-        case "all":
-    	    model.updateFilteredListToShowAll(); break;
-    	    
-        case "incomplete":
-            model.updateFilteredListToShowIncomplete(); break;
-    		
-        case "complete":
-            model.updateFilteredListToShowComplete(); break;
-    		
-        case "p/high": case "p/med": case "p/low":
-            model.updateFilteredListToShowPriority(keyword); break;
-    	
-        default:
+        String requestedTime = TimePreparser.preparse(keyword);
+        
+    	if (keyword.equals("all")) {
+    	    model.updateFilteredListToShowAll();
+    	}
+    	else if (keyword.equals("incomplete")) {
+            model.updateFilteredListToShowIncomplete();
+    	}
+    	else if (keyword.equals("complete")) {
+            model.updateFilteredListToShowComplete();
+    	}
+    	else if (keyword.equals("p/high") || keyword.equals("p/med") || keyword.equals("p/low")) {
+            model.updateFilteredListToShowPriority(keyword);
+    	}
+    	else if (!requestedTime.isEmpty() && !requestedTime.equals(new Date(0).toString())) {
+    	    model.updateFilteredListToShowDate(requestedTime);
+    	}
+    	else {
             return new CommandResult(String.format(MESSAGE_SHOW_FAILURE));
     	}
+    	
         return new CommandResult(String.format(getMessageForTaskListShownSummary(model.getFilteredTaskList().size())));
     }
 }
