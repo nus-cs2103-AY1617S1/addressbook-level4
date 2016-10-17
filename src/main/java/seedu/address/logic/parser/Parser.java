@@ -3,10 +3,6 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.task.Date;
-import seedu.address.model.task.EndTime;
-import seedu.address.model.task.StartTime;
-
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,8 +58,8 @@ public class Parser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
-//        case EditCommand.COMMAND_WORD:
-//            return prepareEdit(arguments);
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -79,7 +75,13 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+        
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -91,43 +93,21 @@ public class Parser {
         }
     }
 
-//    private Command prepareEdit(String args) {
-//        final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
-//        //final String index = matcher.group("index");
-//        //final String property = matcher.group("property");
-//        //final String newInfo = matcher.group("newInfo"); 
-//        
-//        // Validate arg string format
-//        if (!matcher.matches()) {
-//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-//        }
-//        
-//        if (matcher.group("property").toLowerCase().equals("date")) {
-//            System.out.println("is it valid date?");
-//            System.out.println(matcher.group("newInfo"));
-//            if(!Date.isValidDate(matcher.group("newInfo"))) {
-//                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
-//            }
-//        }
-//        if (matcher.group("property").toLowerCase().equals("starttime")) {
-//            System.out.println("is it a valid start time?");
-//            System.out.println(matcher.group("newInfo"));
-//            if(!StartTime.isValidStartTime(matcher.group("newInfo"))) {
-//                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartTime.MESSAGE_TIME_CONSTRAINTS));
-//            }
-//        }
-//        if (matcher.group("property").toLowerCase().equals("endtime")) {
-//            if(!EndTime.isValidEndTime(matcher.group("newInfo"))) {
-//                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartTime.MESSAGE_TIME_CONSTRAINTS));
-//            }
-//        }
-//        
-//        return new EditCommand(
-//                matcher.group("index"),
-//                matcher.group("property"),
-//                matcher.group("newInfo")
-//        );
-//    }
+    private Command prepareEdit(String args) {
+        final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
+        String name, startTime, endTime;
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        } else {
+            name = (matcher.group("name") == null) ? null : matcher.group("name");
+            startTime = (matcher.group("start") == null) ? null : matcher.group("start");
+            endTime = (matcher.group("end") == null) ? null : matcher.group("end");
+        }
+        
+        return new EditCommand(matcher.group("index"), name, startTime, endTime);
+    }
 
     /**
      * Parses arguments in the context of the add task command.
