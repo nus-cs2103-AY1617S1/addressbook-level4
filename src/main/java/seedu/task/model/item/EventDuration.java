@@ -110,17 +110,8 @@ public class EventDuration {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		
 		EventDuration other = (EventDuration) obj;
-		if (endTime == null) {
-			if (other.endTime != null)
-				return false;
-		} else if (!endTime.equals(other.endTime))
-			return false;
-		if (startTime == null) {
-			if (other.startTime != null)
-				return false;
-		} else if (!startTime.equals(other.startTime))
-			return false;
-		return true;
+		return this.toString().equals(other.toString());
 	}
 }
