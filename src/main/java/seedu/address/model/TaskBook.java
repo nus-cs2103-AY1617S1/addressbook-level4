@@ -143,10 +143,27 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.PersonNotFoundException();
+        int taskCategory = key.getTaskCategory();
+        if(taskCategory == 1){
+            if (persons.remove(key)) {
+                return true;
+            } else {
+                throw new UniqueTaskList.PersonNotFoundException();
+            }
+        }
+        else if (taskCategory == 2){
+            if (deadlines.remove(key)) {
+                return true;
+            } else {
+                throw new UniqueTaskList.PersonNotFoundException();
+            }
+        }
+        else{
+            if (todo.remove(key)) {
+                return true;
+            } else {
+                throw new UniqueTaskList.PersonNotFoundException();
+            }
         }
     }
 
