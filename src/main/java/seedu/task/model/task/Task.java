@@ -15,14 +15,14 @@ public class Task implements ReadOnlyTask {
     private Name name;
     //private DateTime openTime;
     //private DateTime closeTime;
-    //private boolean isImportant;
+    private boolean isCompleted;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
+    public Task(Name name, UniqueTagList tags,boolean isCompleted) {
         // open time, urgent, and close time can be null
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
@@ -30,14 +30,15 @@ public class Task implements ReadOnlyTask {
         //this.openTime = openTime;
         //this.closeTime = closeTime;
         //this.isImportant = isImportant;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags);
+        this.isCompleted=false;  // protect internal tags from changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getTags(),source.getComplete());
     }
 
     @Override
@@ -53,13 +54,13 @@ public class Task implements ReadOnlyTask {
     @Override
     public DateTime getCloseTime() {
         return closeTime;
-    }
+    }**/
 
     @Override
-    public boolean getImportance() {
-        return isImportant;
+    public boolean getComplete() {
+        return isCompleted;
     }
-    **/
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -72,6 +73,14 @@ public class Task implements ReadOnlyTask {
         tags.setTags(replacement);
     }
 
+    /**
+     * Set isCompleted to be true for the selected task
+     */
+    public void setIsCompleted(boolean isCompleted) {
+        this.isCompleted=isCompleted;
+    }
+    
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

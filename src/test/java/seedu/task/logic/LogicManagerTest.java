@@ -388,7 +388,8 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags); //privatePhone, email, privateAddress, 
+            boolean isComplete=false;
+            return new Task(name, tags,isComplete); //privatePhone, email, privateAddress, 
         }
 
         /**
@@ -404,7 +405,8 @@ public class LogicManagerTest {
 //                    new Phone("" + Math.abs(seed)),
 //                    new Email(seed + "@email"),
 //                    new Address("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                    false
             );
         }
 
@@ -503,7 +505,8 @@ public class LogicManagerTest {
 //                    new Phone("1"),
 //                    new Email("1@email"),
 //                    new Address("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
+                    new UniqueTagList(new Tag("tag")),
+                    false              
             );
         }
     }

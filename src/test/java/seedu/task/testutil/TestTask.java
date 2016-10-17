@@ -13,6 +13,7 @@ public class TestTask implements ReadOnlyTask {
 //    private Email email;
 //    private Phone phone;
     private UniqueTagList tags;
+    private boolean isCompleted;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -22,6 +23,9 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
 
+    public void setIsCompleted(boolean isCompleted){
+    	this.isCompleted=isCompleted;
+    }
 //    public void setAddress(Address address) {
 //        this.address = address;
 //    }
@@ -53,7 +57,11 @@ public class TestTask implements ReadOnlyTask {
 //    public Address getAddress() {
 //        return address;
 //    }
-
+    @Override
+    public boolean getComplete() {
+        return isCompleted;
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return tags;
