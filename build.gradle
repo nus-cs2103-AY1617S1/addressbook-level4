@@ -14,6 +14,7 @@ allprojects {
     apply plugin: 'idea'
     apply plugin: 'java'
     apply plugin: 'jacoco'
+    apply plugin: 'eclipse'
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
