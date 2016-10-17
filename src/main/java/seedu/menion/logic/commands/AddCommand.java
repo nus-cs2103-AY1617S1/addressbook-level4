@@ -2,6 +2,7 @@ package seedu.menion.logic.commands;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.*;
+import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class AddCommand extends Command {
     private ActivityTime endTime;
     private Note note;
     private String activityType;
+    private Completed status = new Completed(false);
 
     /**
      * Convenience constructor using raw values.
@@ -42,14 +44,14 @@ public class AddCommand extends Command {
             activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
             name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
             note = new Note(activityDetails.get(Activity.INDEX_ACTIVITY_NOTE));
-            this.toAdd = new Activity(activityType, name, note);
+            this.toAdd = new Activity(activityType, name, note, status);
         } else if (activityDetails.size() == Activity.TASK_LENGTH) {
             activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
             name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
             note = new Note(activityDetails.get(Activity.INDEX_ACTIVITY_NOTE));
             startDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_STARTDATE));
             startTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_STARTTIME));
-            this.toAdd = new Activity(activityType, name, note, startDate, startTime);
+            this.toAdd = new Activity(activityType, name, note, startDate, startTime, status);
         } else {
             activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
             name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
@@ -58,7 +60,7 @@ public class AddCommand extends Command {
             startTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_STARTTIME));
             endDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_ENDDATE));
             endTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_ENDTIME));
-            this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime);
+            this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status);
         }
       //  this.eventStub = new EventStub(activityDetails);
     }
@@ -67,12 +69,37 @@ public class AddCommand extends Command {
     public CommandResult execute() {
     	assert model != null;
         try {
-            model.addTask(toAdd);
+            if (toAdd.getActivityType().equals("task")){
+                System.out.println("task added");
+                model.addTask(toAdd);
+            }
+            else if (toAdd.getActivityType().equals("event")){
+                System.out.println("event added");
+                model.addEvent(toAdd);
+            }
+            else {
+                System.out.println("floating task added");
+                model.addFloatingTask(toAdd);
+            }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueActivityList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-
     }
 
+    /*
+     * undo delete the added activity previously
+     */
+	@Override
+	public boolean undo() {
+		assert model != null;
+		 try {
+	            model.deleteTask(toAdd);
+	            return true;
+	     } 
+		 catch (TaskNotFoundException pnfe) {
+	            // there will not be a task not found exception here
+	        	return false;
+	     }
+	}
 }

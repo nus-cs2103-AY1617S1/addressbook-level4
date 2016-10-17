@@ -1,11 +1,14 @@
 package seedu.menion.logic.parser;
 
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.joestelmach.natty.*;
 
 public class AddParser {
 
@@ -13,12 +16,12 @@ public class AddParser {
 	};
 
 	private static final Pattern REGULAR_TASK_REGEX = Pattern
-			.compile("(.+)by: (0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9]) n:(.+)");
+			.compile("(.+)[\\ ]*?by[\\ ]*?:[\\ ]*?(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	private static final Pattern EVENTS_REGEX = Pattern
-			.compile("(.+)from: (0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9]) "
-					+ "to: (0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9]) n:(.+)");
+			.compile("(.+)[\\ ]*?from:[\\ ]*?(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])"
+					+ "[\\ ]*?to[\\ ]*?:[\\ ]*?(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	private static final Pattern FLOATING_TASK_REGEX = Pattern
-			.compile("(.+)n:(.+)");
+			.compile("(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	
 	private static final String REGULAR_TASK = "task";
 	private static final String EVENTS = "event";
@@ -70,27 +73,42 @@ public class AddParser {
 		
 
 	}
+	
+	public static String dateHandler(String dateToHandle){
+		Parser parser = new Parser();
+		
+		List<DateGroup> dateInfo = parser.parse(dateToHandle);
+		DateGroup dateGroup = dateInfo.get(0);
+		Date date = dateGroup.getDates().get(0);
+		Calendar cal = dateToCalendar(date);
 
-	/**
-	 * Checks if the dates input by the user is a valid date.
-	 */
-	public static Boolean DateValidator(String dateToCheck){
-		
-		if (dateToCheck == null){
-			return false;
-		}
-		
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-		sdf.setLenient(false);
-		
-		try {
-			Date date = sdf.parse(dateToCheck);
-			
-		} catch (ParseException e){
-			return false;
-		}
-		return true;
+		return dateToString(cal);
+
 	}
+	
+	
+	private static String dateToString(Calendar cal){
+		String date;
+		
+		String monthString = new DateFormatSymbols().getMonths()[cal.get(Calendar.MONTH)];
+		
+		date = cal.get(Calendar.DAY_OF_MONTH) + " " + monthString + " " + cal.get(Calendar.YEAR);
+		
+		return date;
+	}
+	
+	/**
+	 * Converts a Date object into Calendar object.
+	 * @param dateToConvert
+	 * @return
+	 */
+	private static Calendar dateToCalendar(Date dateToConvert){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(dateToConvert);
+		return cal;
+		
+	}
+
 	
 	/**
 	 * Input the arguments into the parsedArguments ArrayList.
@@ -99,8 +117,8 @@ public class AddParser {
 	 */
 	private static void inputFloatingTaskArguments(){
 
-		parsedArguments.add(1, matcher.group(1));
-		parsedArguments.add(2, matcher.group(2));
+		parsedArguments.add(1, matcher.group(1).trim());
+		parsedArguments.add(2, matcher.group(2).trim());
 		
 	}
 	
@@ -113,9 +131,9 @@ public class AddParser {
 	 */
 	private static void inputTaskArguments() {
 
-		parsedArguments.add(1, matcher.group(1));
-		parsedArguments.add(2, matcher.group(4));
-		parsedArguments.add(3, matcher.group(2));
+		parsedArguments.add(1, matcher.group(1).trim());
+		parsedArguments.add(2, matcher.group(4).trim());
+		parsedArguments.add(3, dateHandler(matcher.group(2)));
 		parsedArguments.add(4, matcher.group(3));		
 		
 	}
@@ -131,11 +149,11 @@ public class AddParser {
 	 */
 	private static void inputEventArguments() {
 
-		parsedArguments.add(1, matcher.group(1));
-		parsedArguments.add(2, matcher.group(6));
-		parsedArguments.add(3, matcher.group(2));
+		parsedArguments.add(1, matcher.group(1).trim());
+		parsedArguments.add(2, matcher.group(6).trim());
+		parsedArguments.add(3, dateHandler(matcher.group(2)));
 		parsedArguments.add(4, matcher.group(3));
-		parsedArguments.add(5, matcher.group(4));
+		parsedArguments.add(5, dateHandler(matcher.group(4)));
 		parsedArguments.add(6, matcher.group(5));
 
 	}

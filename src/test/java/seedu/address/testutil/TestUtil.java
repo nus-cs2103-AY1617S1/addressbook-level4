@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.ActivityCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -60,45 +60,27 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Activity[] samplePersonData = getSamplePersonData();
+    public static final Activity[] sampleActivityData = getSamplePersonData();
 
     private static Activity[] getSamplePersonData() {
         try {
             return new Activity[]{
-                    new Activity("task", new ActivityName("cs2101"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
-                    new Activity("task", new ActivityName("cs2103t"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
-                    new Activity("task", new ActivityName("cs2010"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
-                    new Activity("task", new ActivityName("cs2020"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
-                    new Activity("task", new ActivityName("cs1010"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
-                    new Activity("task", new ActivityName("cs1101s"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
-                    new Activity("task", new ActivityName("cs1010s"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
-                    new Activity("task", new ActivityName("cs1020"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359")),
-                    new Activity("task", new ActivityName("cs1231"), new Note("must do"), new ActivityDate("12-12-2012"), new ActivityTime("2359"))
+                    // Floating Task
+                   // new Activity(Activity.FLOATING_TASK_TYPE, new ActivityName("Pay JS for spotify!"), new Note(" It costs $15")),
+                    // Task
+                    new Activity(Activity.TASK_TYPE, new ActivityName("Do CS2103T testing"), new Note("it is so hard!"), new ActivityDate("10-08-2016"), new ActivityTime("1900"), new Completed(Completed.UNCOMPLETED_ACTIVITY)),
+                    // Event
+                   // new Activity(Activity.EVENT_TYPE, new ActivityName("CS2103T tutorial"), new Note("Don't Sleep"), new ActivityDate("10-08-2016"), new ActivityTime("1500"), new ActivityDate("10-08-2016"), new ActivityTime("1800"))               
             };
         } catch (IllegalValueException e) {
             assert false;
             //not possible
             return null;
-        }
-    }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
         }
     }
 
     public static List<Activity> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
+        return Arrays.asList(sampleActivityData);
     }
 
     /**
@@ -273,49 +255,49 @@ public class TestUtil {
     }
 
     /**
-     * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
-     * @return The modified persons after removal of the subset from persons.
+     * Removes a subset from the list of activities.
+     * @param activities The list of activities
+     * @param activitiesToRemove The subset of activities.
+     * @return The modified activities after removal of the subset from activities.
      */
-    public static TestTask[] removePersonsFromList(final TestTask[] persons, TestTask... personsToRemove) {
-        List<TestTask> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
+    public static TestActivity[] removeActivitiesFromList(final TestActivity[] activities, TestActivity... activitiesToRemove) {
+        List<TestActivity> listOfActivities = asList(activities);
+        listOfActivities.removeAll(asList(activitiesToRemove));
+        return listOfActivities.toArray(new TestActivity[listOfActivities.size()]);
     }
 
 
     /**
-     * Returns a copy of the list with the person at specified index removed.
+     * Returns a copy of the list with the activity at specified index removed.
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestTask[] removePersonFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    public static TestActivity[] removeActivityFromList(final TestActivity[] list, int targetIndexInOneIndexedFormat) {
+        return removeActivitiesFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
-     * Replaces persons[i] with a person.
-     * @param persons The array of persons.
-     * @param person The replacement person
-     * @param index The index of the person to be replaced.
+     * Replaces activities[i] with a activity.
+     * @param activities The array of activities.
+     * @param activity The replacement activity
+     * @param index The index of the activity to be replaced.
      * @return
      */
-    public static TestTask[] replacePersonFromList(TestTask[] persons, TestTask person, int index) {
-        persons[index] = person;
-        return persons;
+    public static TestActivity[] replacePersonFromList(TestActivity[] activities, TestActivity activity, int index) {
+        activities[index] = activity;
+        return activities;
     }
 
     /**
-     * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
-     * @return The modified array of persons.
+     * Appends activities to the array of activities.
+     * @param activities A array of activities.
+     * @param activitiesToAdd The activities that are to be appended behind the original array.
+     * @return The modified array of activities.
      */
-    public static TestTask[] addPersonsToList(final TestTask[] persons, TestTask... personsToAdd) {
-        List<TestTask> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
+    public static TestActivity[] addPersonsToList(final TestActivity[] activities, TestActivity... activitiesToAdd) {
+        List<TestActivity> listOfActivities = asList(activities);
+        listOfActivities.addAll(asList(activitiesToAdd));
+        return listOfActivities.toArray(new TestActivity[listOfActivities.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -326,8 +308,8 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyActivity person) {
-        return card.isSamePerson(person);
+    public static boolean compareCardAndPerson(ActivityCardHandle card, ReadOnlyActivity activity) {
+        return card.isSameActivity(activity);
     }
 
     public static Tag[] getTagList(String tags) {

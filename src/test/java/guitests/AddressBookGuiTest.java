@@ -10,7 +10,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestTasks;
+import seedu.address.testutil.TypicalTestActivities;
 import seedu.menion.commons.core.EventsCenter;
 import seedu.menion.model.ActivityManager;
 import seedu.menion.model.activity.ReadOnlyActivity;
@@ -31,15 +31,15 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestTasks td = new TypicalTestTasks();
-
+    protected TypicalTestActivities td = new TypicalTestActivities();
+    
     /*
      *   Handles to GUI elements present at the start up are created in advance
      *   for easy access from child classes.
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle personListPanel;
+    protected ActivityListPanelHandle activityListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -59,7 +59,7 @@ public abstract class AddressBookGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            personListPanel = mainGui.getPersonListPanel();
+            activityListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -77,7 +77,9 @@ public abstract class AddressBookGuiTest {
      */
     protected ActivityManager getInitialData() {
         ActivityManager ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestTasks.loadAddressBookWithSampleData(ab);
+
+        TypicalTestActivities.loadAddressBookWithSampleData(ab);
+
         return ab;
     }
 
@@ -97,7 +99,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyActivity person, PersonCardHandle card) {
+    public void assertMatching(ReadOnlyActivity person, ActivityCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
@@ -105,7 +107,7 @@ public abstract class AddressBookGuiTest {
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = personListPanel.getNumberOfPeople();
+        int numberOfPeople = activityListPanel.getNumberOfPeople();
         assertEquals(size, numberOfPeople);
     }
 
