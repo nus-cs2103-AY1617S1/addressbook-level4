@@ -49,8 +49,8 @@ public class XmlAdaptedTask {
             activityType = source.getActivityType().toString();
             name = source.getActivityName().fullName;
             note = source.getNote().toString();
-            endDate = source.getActivityEndDate().toString();
-            endTime = source.getActivityEndTime().toString();
+            startDate = source.getActivityStartDate().toString();
+            startTime = source.getActivityStartTime().toString();
             status = source.getActivityStatus().toString();
     }
 
