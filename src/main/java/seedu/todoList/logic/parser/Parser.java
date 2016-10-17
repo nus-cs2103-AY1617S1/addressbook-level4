@@ -70,6 +70,9 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
+//        case EditCommand.COMMAND_WORD:
+//            return prepareEdit(arguments);
+        
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand(arguments);
 
@@ -109,7 +112,7 @@ public class Parser {
                 return new AddCommand(
                         matcher_task.group("name"),
                         matcher_task.group("date"),
-                        matcher_task.group("priority")
+                        Integer.parseInt(matcher_task.group("priority"))
                 );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -249,4 +252,7 @@ public class Parser {
         return new FindCommand(keywordSet, dataType);
     }
 
+//    private Command prepareEdit(String args) {
+//        
+//    }
 }
