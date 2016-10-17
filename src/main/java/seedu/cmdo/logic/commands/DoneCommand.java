@@ -4,6 +4,7 @@ import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
+import seedu.cmdo.model.task.UniqueTaskList.TaskAlreadyDoneException;
 import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
 
 /*
@@ -21,6 +22,7 @@ public class DoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Done task: %1$s";
+    public static final String MESSAGE_ALREADY_DONE = "Already done!";
 
     public final int targetIndex;
 
@@ -45,6 +47,8 @@ public class DoneCommand extends Command {
             model.doneTask(taskToComplete);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
+        } catch (TaskAlreadyDoneException tade) {
+        	return new CommandResult(String.format(MESSAGE_ALREADY_DONE));
         }
         
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToComplete.getDetail().details));
