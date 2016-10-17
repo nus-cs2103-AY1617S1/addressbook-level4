@@ -77,6 +77,7 @@ public class TaskTimeTest {
      *  - empty string
      */
 
+    // test cases for date, month and year input
     @Test
     public void constructor_emptyDateTime() {
         try {
@@ -108,11 +109,12 @@ public class TaskTimeTest {
         }
     }
     
+    // test cases for only date and month input
     /**
-     * Equivalence partitions for fields with only date and month input
-     *  - day and month has passed in current year
-     *  - day and month has not passed in current year
-     *  - day and month is the current day
+     * Boundary cases for fields with only date and month input
+     *  - date and month has passed in current year
+     *  - date and month has not passed in current year
+     *  - date and month is the current day
      */
     
     @Test
@@ -197,4 +199,26 @@ public class TaskTimeTest {
         }
     }
     
+    // Tests for day specified only
+    /**
+     * Boundary cases for fields with only day input
+     *  - day has passed in current week
+     *  - day has not passed in current week
+     *  - day is today
+     */
+    
+    @Test
+    public void constructor_D() {
+        String[] validFormats = new String[]{
+                "Monday",
+                "this mon"};
+        try {
+            for (String t : validFormats){
+                Calendar tCal = new TaskTime(t).getCalendar();
+                assertTrue(tCal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY);
+            }
+        } catch (Exception e) {
+            assert false;
+        }
+    }
 }
