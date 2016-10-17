@@ -154,7 +154,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TodoListPanel getPersonListPanel() {
+    public TodoListPanel getTodoListPanel() {
         return this.todoListPanel;
     }
 }
