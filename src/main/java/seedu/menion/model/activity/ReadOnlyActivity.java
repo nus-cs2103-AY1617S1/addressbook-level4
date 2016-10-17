@@ -86,9 +86,7 @@ public interface ReadOnlyActivity {
         final StringBuilder builder = new StringBuilder();
         builder.append(getActivityName())
                 .append(" Note: ")
-                .append(getNote())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getNote());
         return builder.toString();
     }
     
