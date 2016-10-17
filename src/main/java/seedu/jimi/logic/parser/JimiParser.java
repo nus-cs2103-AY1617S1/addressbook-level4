@@ -1,15 +1,38 @@
 package seedu.jimi.logic.parser;
 
 import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.jimi.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
+
+import seedu.jimi.commons.exceptions.DateNotParsableException;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.StringUtil;
-import seedu.jimi.logic.commands.*;
+import seedu.jimi.logic.commands.AddCommand;
+import seedu.jimi.logic.commands.ClearCommand;
+import seedu.jimi.logic.commands.Command;
+import seedu.jimi.logic.commands.DeleteCommand;
+import seedu.jimi.logic.commands.EditCommand;
+import seedu.jimi.logic.commands.ExitCommand;
+import seedu.jimi.logic.commands.FindCommand;
+import seedu.jimi.logic.commands.HelpCommand;
+import seedu.jimi.logic.commands.IncorrectCommand;
+import seedu.jimi.logic.commands.ListCommand;
+import seedu.jimi.logic.commands.SelectCommand;
 
 /**
  * Parses user input.
@@ -33,7 +56,11 @@ public class JimiParser {
             Pattern.compile("(?<targetIndex>\\d+\\s)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
     
     private static final Pattern DETAILS_ARGS_FORMAT = 
-            Pattern.compile("(\"(?<taskDetails>.+)\")( by (?<dateTime>.+))?");
+            Pattern.compile("(\"(?<taskDetails>.+)\")( due (?<dateTime>.+))?");
+    
+    private static final List<Command> COMMAND_STUB_LIST =
+            Arrays.asList(new AddCommand(), new EditCommand(), new SelectCommand(), new DeleteCommand(),
+                    new ClearCommand(), new FindCommand(), new ListCommand(), new ExitCommand(), new HelpCommand());
     
     public JimiParser() {}
 
@@ -51,43 +78,41 @@ public class JimiParser {
         
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
         
-        case AddCommand.COMMAND_WORD :
-            return prepareAdd(arguments);
-        
-        case EditCommand.COMMAND_WORD :
-            return prepareEdit(arguments);
-        
-        case SelectCommand.COMMAND_WORD :
-            return prepareSelect(arguments);
-        
-        case CompleteCommand.COMMAND_WORD :
-            return prepareComplete(arguments);
-            
-        case DeleteCommand.COMMAND_WORD :
-            return prepareDelete(arguments);
-        
-        case ClearCommand.COMMAND_WORD :
-            return new ClearCommand();
-        
-        case FindCommand.COMMAND_WORD :
-            return prepareFind(arguments);
-        
-        case ListCommand.COMMAND_WORD :
-            return new ListCommand();
-        
-        case ExitCommand.COMMAND_WORD :
-            return new ExitCommand();
-        
-        case HelpCommand.COMMAND_WORD :
-            return new HelpCommand();
-        
-        default :
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
-        }
+        return prepareCommand(commandWord, arguments);
     }
 
+    /**
+     * Identifies which command to prepare according to raw command word.
+     * 
+     * @param commandWord command word from raw input
+     * @param arguments arguments from raw input
+     * @return correct Command corresponding to the command word if valid, else returns incorrect command.
+     */
+    private Command prepareCommand(String commandWord, String arguments) {
+        for (Command command : COMMAND_STUB_LIST) {
+            // if validation checks implemented by the respective commands are passed
+            if (command.isValidCommandWord(commandWord)) {
+                // identify which command this is
+                if (command instanceof AddCommand) {
+                    return prepareAdd(arguments);
+                } else if (command instanceof EditCommand) {
+                    return prepareEdit(arguments);
+                } else if (command instanceof SelectCommand) {
+                    return prepareSelect(arguments);
+                } else if (command instanceof DeleteCommand) {
+                    return prepareDelete(arguments);
+                } else if (command instanceof FindCommand) {
+                    return prepareFind(arguments);
+                } else { // commands that do not require arguments e.g. exit
+                    return command;
+                }
+            }
+        }
+        
+        return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+    }
+    
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -108,15 +133,33 @@ public class JimiParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
+        List<Date> dates;
+        try {
+            dates = parseStringToDate(detailsMatcher.group("dateTime"));
+        } catch (DateNotParsableException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+        
         try {
             return new AddCommand(
                     detailsMatcher.group("taskDetails"),
-                    detailsMatcher.group("dateTime"),
+                    dates,
                     getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    private static List<Date> parseStringToDate(final String str) throws DateNotParsableException {
+        if(str == null)
+            return new ArrayList<Date>();
+        final Parser dateParser = new Parser();
+        final List<DateGroup> groups = dateParser.parse(str);
+        if(!groups.isEmpty())
+            return groups.get(0).getDates();
+        else
+            throw new DateNotParsableException(MESSAGE_INVALID_DATE);
     }
 
     /**
@@ -143,21 +186,6 @@ public class JimiParser {
             return new IncorrectCommand(ive.getMessage());
         }
         
-    }
-    
-    /**
-     * Sets up Complete command to be executed.
-     * @param arguments Full user input of arguments
-     * @return Prepared completeCommand
-     */
-    private Command prepareComplete(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
-        }
-
-        return new CompleteCommand(index.get());
     }
     
     /**
