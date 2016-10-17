@@ -17,7 +17,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the task manager. "
             + "Parameters: NAME [DATE] [START_TIME] [END_TIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " finish CS2103T t/friends t/owesMoney";
