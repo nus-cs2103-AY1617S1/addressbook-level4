@@ -31,19 +31,18 @@ public class CommandParser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern EDIT_ARGS_FORMAT = Pattern.compile("(?i:"
-    													//+"(?<taskName>.*?)?"
-            											+"(?:/(?<taskName>.*?))?"
-    													+"(?:"
-            											+"(?:by (?<endDateFormatOne>.*?))"
-            											+"|(?:from (?<startDateFormatOne>.*?))"
-            											+"|(?:at (?<startDateFormatTwo>.*?))"
-            											+"|(?:start (?<startDateFormatThree>.*?))"
+    													+"(?<taskName>.*?)?"
+            											+"(?:"
+            											+"(?:, by (?<endDateFormatOne>.*?))"
+            											+"|(?:, from (?<startDateFormatOne>.*?))"
+            											+"|(?:, at (?<startDateFormatTwo>.*?))"
+            											+"|(?:, start (?<startDateFormatThree>.*?))"
             											+")?"
             											+"(?:"
-            											+"(?:to (?<endDateFormatTwo>.*?))?"
-            											+"(?:end (?<endDateFormatThree>.*?))?"
+            											+"(?:, to (?<endDateFormatTwo>.*?))?"
+            											+"(?:, end (?<endDateFormatThree>.*?))?"
             											+")?"
-            											+"(?:repeat every (?<recurrenceRate>.*?))?"
+            											+"(?:, repeat every (?<recurrenceRate>.*?))?"
             											+"(?:"
             											+"(?:-reset (?<resetField>.*?))"
             											+")?"
@@ -562,7 +561,6 @@ public class CommandParser {
          String resetField = null;
          
          if (!matcher.matches()) {
-        	 System.out.println("Error 2");
              return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
          }
          
