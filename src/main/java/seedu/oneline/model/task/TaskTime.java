@@ -9,13 +9,16 @@ import com.joestelmach.natty.*;
 public class TaskTime implements Comparable<TaskTime> {
 
     public static final String MESSAGE_TASK_TIME_CONSTRAINTS =
-            "Task time should ...";
+            "Task time should have a valid date or time format";
 
     private final Date value;
 
     /**
      * Sets this.value to null if empty time string is given. 
      * Otherwise sets this.value to the date represented by time string.
+     * 
+     * An empty TaskTime is represented by a TaskTime whose 
+     * .getDate method returns null
      *
      * @throws IllegalValueException if given time string is invalid.
      */
