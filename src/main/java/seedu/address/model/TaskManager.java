@@ -2,8 +2,12 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.EndTime;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.StartTime;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -112,21 +116,22 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
-    public void editTaskName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
-        tasks.editName(task, newInfo);      
+    public void editTaskName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
+        tasks.setName(task, new Name(newInfo));
     }
     
-    public void editTaskDate(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
-        tasks.editDate(task, newInfo);
+//    public void editTaskDate(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
+//        tasks.editDate(task, newInfo);
+//    }
+    
+    public void editTaskStartTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
+        tasks.setStartTime(task, new StartTime(newInfo));
     }
     
-//    public void editTaskStartTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
-//        tasks.editStartTime(task, newInfo);
-//    }
-//    
-//    public void editTaskEndTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException {
-//        tasks.editEndTime(task, newInfo);
-//    }
+    public void editTaskEndTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
+        tasks.setEndTime(task, new EndTime(newInfo));
+    }
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

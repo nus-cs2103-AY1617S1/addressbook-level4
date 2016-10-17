@@ -5,6 +5,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
@@ -77,27 +78,19 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-//    @Override
-//    public synchronized void editTask(ReadOnlyTask task, String property, String newInfo) throws TaskNotFoundException {
-//        assert task != null;
-//        assert property != null;
-//        assert newInfo != null;
-//        
-//        if(property.toLowerCase().equals("name"))
-//            addressBook.editTaskName(task, newInfo);
-//        
-//        else if(property.toLowerCase().equals("date"))
-//            addressBook.editTaskDate(task, newInfo);
-//            
-//        else if(property.toLowerCase().equals("starttime"))
-//            addressBook.editTaskStartTime(task, newInfo);
-//
-//        else if(property.toLowerCase().equals("endtime"))
-//            addressBook.editTaskEndTime(task, newInfo);
-//            
-//            updateFilteredListToShowAll();
-//            indicateTaskManagerChanged();
-//    }
+    @Override
+    public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd) throws TaskNotFoundException, IllegalValueException {
+        if (newName != null)
+            addressBook.editTaskName(task, newName);
+        
+        if (newStart != null)
+            addressBook.editTaskStartTime(task, newStart);
+        
+        if (newEnd != null)
+            addressBook.editTaskEndTime(task, newEnd);
+        
+        updateFilteredListToShowAll();
+    }
 
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -106,7 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-
+    
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
