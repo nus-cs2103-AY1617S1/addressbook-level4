@@ -9,9 +9,12 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Start {
 
-    public static final String MESSAGE_START_CONSTRAINTS =
-            "Task start time should be 4 numbers keyed in together in 24 hour format.";
-    public static final String START_VALIDATION_REGEX = "\\d{4}";
+    public static final String MESSAGE_START_CONSTRAINTS = "Task start time can be entered in 24hour or 12hour format.";
+    public static final String START_VALIDATION_REGEX = "([012][0-3][0-5]\\d{1})|" +
+    													"([1-9](?:pm|am|PM|AM))|" + 
+    													"(1[0-2](?:pm|am|PM|AM))|" +
+    													"([1-9]\\.[0-5]{1}\\d{1}(?:pm|am))|" +
+    													"(1[0-2]\\.[0-5]{1}\\d{1}(?:pm|am))";
 
     public final String value;
 

@@ -9,9 +9,13 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class End {
     
-    public static final String MESSAGE_END_CONSTRAINTS = "Task start time should be 4 numbers keyed in together in 24 hour format.";
-    public static final String END_VALIDATION_REGEX = "\\d{4}";
-
+    public static final String MESSAGE_END_CONSTRAINTS = "Task end time can be entered in 24hour or 12hour format.";
+    public static final String END_VALIDATION_REGEX = "([012][0-3][0-5]\\d{1})|" +
+    												  "([1-9](?:pm|am|PM|AM))|" + 
+    												  "(1[0-2](?:pm|am|PM|AM))|" +
+    												  "([1-9]\\.[0-5]{1}\\d{1}(?:pm|am))|" +
+    												  "(1[0-2]\\.[0-5]{1}\\d{1}(?:pm|am))";
+    public static final String DEFAULT_END_TIME = "2359";
     public final String value;
 
     /**
@@ -20,18 +24,23 @@ public class End {
      * @throws IllegalValueException if given address string is invalid.
      */
     public End(String end) throws IllegalValueException {
-        assert end != null;
+        //assert end != null;
+    	if (end == null) 
+    		end = "default";
         if (!isValidEnd(end)) {
             throw new IllegalValueException(MESSAGE_END_CONSTRAINTS);
         }
-        this.value = end;
+        if (end == "default")
+        	this.value = DEFAULT_END_TIME;
+        else
+        	this.value = end;
     }
 
     /**
      * Returns true if a given string is a valid person email.
      */
     public static boolean isValidEnd(String test) {
-    	if (test == "" || test.matches(END_VALIDATION_REGEX))
+    	if (test == "" || test.matches(END_VALIDATION_REGEX) || test == "default")
     		return true;
     	else
     		return false;
