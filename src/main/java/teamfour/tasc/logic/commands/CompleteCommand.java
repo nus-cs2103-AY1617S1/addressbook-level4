@@ -7,6 +7,7 @@ import teamfour.tasc.model.task.ReadOnlyTask;
 import teamfour.tasc.model.task.Task;
 import teamfour.tasc.model.task.UniqueTaskList.TaskNotFoundException;
 import teamfour.tasc.model.task.exceptions.TaskAlreadyCompletedException;
+import teamfour.tasc.model.task.util.TaskUtil;
 
 /**
  * Marks a task as complete using the last displayed index from the task list.
@@ -45,7 +46,7 @@ public class CompleteCommand extends Command {
         oldReadOnlyTask = lastShownList.get(targetIndex - 1);
 
         try {
-            newTask = Task.convertToComplete(oldReadOnlyTask);
+            newTask = TaskUtil.convertToComplete(oldReadOnlyTask);
         } catch (TaskAlreadyCompletedException tace) {
             return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_ALREADY_COMPLETED,
                     oldReadOnlyTask));
