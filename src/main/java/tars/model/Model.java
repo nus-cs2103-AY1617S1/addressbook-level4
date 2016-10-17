@@ -7,6 +7,7 @@ import tars.commons.flags.Flag;
 import tars.logic.commands.Command;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
+import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Stack;
+
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -40,6 +43,9 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
+    
+    /** Rename all tag with the new tag name */
+    void renameTag(ReadOnlyTag oldTag, String newTagName) throws IllegalValueException, TagNotFoundException;
 
     /** Marks tasks as done or undone. */
     void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException;
@@ -66,5 +72,8 @@ public interface Model {
     
     /** Returns the redoable command history stack */
     Stack<Command> getRedoableCmdHist();
+    
+    /** Returns the unique tag list as an {@code ObservableList<? extends ReadOnlyTag>} */
+    ObservableList<? extends ReadOnlyTag> getUniqueTagList();
 
 }

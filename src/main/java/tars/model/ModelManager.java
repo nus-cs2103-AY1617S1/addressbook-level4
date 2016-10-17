@@ -1,5 +1,6 @@
 package tars.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
@@ -12,6 +13,8 @@ import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
+import tars.model.tag.ReadOnlyTag;
+import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.DateTime;
@@ -89,6 +92,11 @@ public class ModelManager extends ComponentManager implements Model {
     public Stack<Command> getRedoableCmdHist() {
         return redoableCmdHistStack;
     }
+    
+    @Override
+    public ObservableList<? extends ReadOnlyTag> getUniqueTagList() {
+        return tars.getUniqueTagList().getInternalList();
+    }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTarsChanged() {
@@ -105,6 +113,18 @@ public class ModelManager extends ComponentManager implements Model {
         Task editedTask = tars.editTask(toEdit, argsToEdit);
         indicateTarsChanged();
         return editedTask;
+    }
+    
+    @Override
+    /** @@author A0139924W */
+    public synchronized void renameTag(ReadOnlyTag oldTag, String newTagName)
+            throws IllegalValueException, TagNotFoundException {
+        Tag newTag = new Tag(newTagName);
+        
+        tars.getUniqueTaskList().renameTag(oldTag, newTag);
+        tars.getUniqueTagList().update(oldTag, newTag);
+        
+        indicateTarsChanged();
     }
     
     @Override
