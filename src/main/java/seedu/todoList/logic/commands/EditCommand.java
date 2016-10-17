@@ -23,6 +23,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_task_SUCCESS = "Edited task: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
     
+    public final int targetIndex;
     private final Task toEdit;
     
     /**
@@ -30,11 +31,13 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String priority)
+    public EditCommand(String name, String date, int priority, int targetIndex)
             throws IllegalValueException {
+    	this.targetIndex = targetIndex;
         this.toEdit = new Todo(
                 new Name(name),
-                new Priority(priority)
+                new Date(date),
+                new Priority(Integer.toString(priority))
         );
     }
     
@@ -43,8 +46,9 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String startTime, String endTime)
+    public EditCommand(String name, String date, String startTime, String endTime, int targetIndex)
             throws IllegalValueException {
+    	this.targetIndex = targetIndex;
         this.toEdit = new Event(
                 new Name(name),
                 new Date(date),
@@ -58,8 +62,9 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String endTime)
+    public EditCommand(String name, String date, String endTime, int targetIndex)
             throws IllegalValueException {
+    	this.targetIndex = targetIndex;
         this.toEdit = new Deadline(
                 new Name(name),
                 new Date(date),
@@ -71,7 +76,7 @@ public class EditCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.editTask(toEdit);
+            model.editTask(targetIndex, toEdit);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         } catch (UniqueTaskList.DuplicatetaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
