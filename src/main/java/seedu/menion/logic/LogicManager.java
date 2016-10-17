@@ -39,7 +39,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredTaskList();
     }
     
-    /*
+    
     @Override
     public ObservableList<ReadOnlyActivity> getFilteredFloatingTaskList() {
         return model.getFilteredFloatingTaskList();
@@ -49,5 +49,5 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyActivity> getFilteredEventList() {
         return model.getFilteredEventList();
     }
-    */
+    
 }

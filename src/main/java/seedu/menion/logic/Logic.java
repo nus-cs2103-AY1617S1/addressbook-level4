@@ -19,9 +19,9 @@ public interface Logic {
     ObservableList<ReadOnlyActivity> getFilteredTaskList();
     
     /** Returns the filtered list of floating tasks */
-    //ObservableList<ReadOnlyActivity> getFilteredFloatingTaskList();
+    ObservableList<ReadOnlyActivity> getFilteredFloatingTaskList();
     
     /** Returns the filtered list of events */
-    //ObservableList<ReadOnlyActivity> getFilteredEventList();
+    ObservableList<ReadOnlyActivity> getFilteredEventList();
 
 }
