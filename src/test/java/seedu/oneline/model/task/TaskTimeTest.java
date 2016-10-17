@@ -28,7 +28,7 @@ public class TaskTimeTest {
         yesterday = Calendar.getInstance();
         yesterday.add(Calendar.DATE, -1);
         tomorrow = Calendar.getInstance();
-        tomorrow.add(Calendar.DATE, -1);
+        tomorrow.add(Calendar.DATE, 1);
         thisDay = now.get(Calendar.DAY_OF_MONTH);
         thisMonth = now.get(Calendar.MONTH);
         thisYear = now.get(Calendar.YEAR);
@@ -243,7 +243,7 @@ public class TaskTimeTest {
     }
 
     /**
-     * Returns true if the two dates are between 1 to 7 days apart (both inclusive)
+     * Returns true if the two dates are between 0 to 6 days apart (both inclusive)
      * @param d1
      * @param d2
      * @return true if difference between the two dates is 7
@@ -254,7 +254,8 @@ public class TaskTimeTest {
         nightOfd1.set(Calendar.MINUTE, 59);
         Calendar sevenDaysAfterd1 = (Calendar) nightOfd1.clone();
         sevenDaysAfterd1.add(Calendar.DAY_OF_MONTH, 7);
-        return nightOfd1.before(d2) && d2.before(sevenDaysAfterd1);
+        boolean res = (nightOfd1.before(d2) || isSameDay(nightOfd1, d2)) && d2.before(sevenDaysAfterd1);
+        return res;
     }
     
     // test cases for relative day entries (next DAY, today, tomorrow)
@@ -298,11 +299,43 @@ public class TaskTimeTest {
         try {
             for (String day : days){
                 Calendar tCal = new TaskTime(day).getCalendar();
-                assertTrue(tCal.after(thisSunday) || tCal.equals(thisSunday));
+                assertTrue(tCal.after(thisSunday) || isSameDay(tCal, thisSunday));
                 assertTrue(tCal.before(nextSunday));
             }
         } catch (IllegalValueException e) {
             assert false;
         }
+    }
+    
+    // test case for "today" and "tomorrow" inputs
+    @Test
+    public void constructor_today_supportsDocumentedFormats() {
+        try {
+            Calendar tCal = new TaskTime("today").getCalendar();
+            assertTrue(isSameDay(tCal, now));
+        } catch (IllegalValueException e) {
+            assert false;
+        }
+    }
+
+    @Test
+    public void constructor_tomorrow_supportsDocumentedFormats() {
+        try {
+            Calendar tCal = new TaskTime("tomorrow").getCalendar();
+            assertTrue(isSameDay(tCal, tomorrow));
+        } catch (IllegalValueException e) {
+            assert false;
+        }
+    }
+
+    /**
+     * Returns true if d1 and d2 are on the same day
+     * @param d1
+     * @param d2
+     * @return true if d1.day == d2.day and d1.year == d2.year
+     */
+    private boolean isSameDay(Calendar d1, Calendar d2) {
+        return d1.get(Calendar.YEAR) == d2.get(Calendar.YEAR) &&
+                d1.get(Calendar.DAY_OF_YEAR) == d2.get(Calendar.DAY_OF_YEAR);
     }
 }
