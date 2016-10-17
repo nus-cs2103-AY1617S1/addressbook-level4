@@ -15,8 +15,8 @@ public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": marks the task identified by the index number used in the last task listing.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
+            + "Marks the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

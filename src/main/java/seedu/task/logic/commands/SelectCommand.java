@@ -15,10 +15,17 @@ public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the person identified by the index number used in the last person listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "\n" 
+    		+ "Selects an existing task/event from the TaskBook.\n\n"
+            + "Selects a task at the specified INDEX in the most recent task listing.\n"
+            + "Parameters: SELECT_TYPE + INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " -t" + " 1\n\n"
+            + "Selects a event at the specified INDEX in the most recent event listing.\n"
+            + "Parameters: SELECT_TYPE + INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " -e" + " 1";
+    		
+    
+    
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
 
