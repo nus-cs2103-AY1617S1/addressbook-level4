@@ -12,19 +12,24 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the task manager data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskManager addressBook;
+    private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
-
+    private Deque<TaskManager> taskManagerHistory = new ArrayDeque<TaskManager>(); 
+    private Deque<TaskManager> undoHistory = new ArrayDeque<TaskManager>();
+    
     /**
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
@@ -34,10 +39,10 @@ public class ModelManager extends ComponentManager implements Model {
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new TaskManager(src);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        taskManager = new TaskManager(src);
+        filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
     public ModelManager() {
@@ -45,35 +50,64 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
-        addressBook = new TaskManager(initialData);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        taskManager = new TaskManager(initialData);
+        filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
-        addressBook.resetData(newData);
+        taskManager.resetData(newData);
         indicateTaskManagerChanged();
     }
-
+    
+    public void clearHistory() {
+        taskManagerHistory.clear();
+        undoHistory.clear();
+    }
+    
     @Override
     public ReadOnlyTaskManager getTaskManager() {
-        return addressBook;
+        return taskManager;
     }
-
+    
+    @Override
+    public void saveToHistory() {
+        taskManagerHistory.push(new TaskManager(taskManager));
+        undoHistory.clear();
+    }
+    
+    @Override
+    public void loadFromHistory() throws NoSuchElementException {
+        TaskManager oldManager = taskManagerHistory.pop();
+        undoHistory.push(new TaskManager(taskManager));
+        taskManager.setTasks(oldManager.getTasks());
+        taskManager.setTags(oldManager.getTagList());
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void loadFromUndoHistory() throws NoSuchElementException {
+        TaskManager oldManager = undoHistory.pop();
+        taskManagerHistory.push(new TaskManager(taskManager));
+        taskManager.setTasks(oldManager.getTasks());
+        taskManager.setTags(oldManager.getTagList());
+        indicateTaskManagerChanged();
+    }
+    
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
-        raise(new TaskManagerChangedEvent(addressBook));
+        raise(new TaskManagerChangedEvent(taskManager));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removeTask(target);
+        taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(task);
+        taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
@@ -81,13 +115,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd) throws TaskNotFoundException, IllegalValueException {
         if (newName != null)
-            addressBook.editTaskName(task, newName);
+            taskManager.editTaskName(task, newName);
         
         if (newStart != null)
-            addressBook.editTaskStartTime(task, newStart);
+            taskManager.editTaskStartTime(task, newStart);
         
         if (newEnd != null)
-            addressBook.editTaskEndTime(task, newEnd);
+            taskManager.editTaskEndTime(task, newEnd);
         
         updateFilteredListToShowAll();
     }

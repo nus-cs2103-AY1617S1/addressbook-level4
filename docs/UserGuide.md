@@ -58,10 +58,8 @@ Examples:
 * `add EE2020 project d/30/10/16 t/6pm`
 
 #### Priority tasks: `priority`
-Allows the user to set the priority of a task when creating it.<br>
-Format : `add <task name> priority <high/low>`
-
-> Priority high or low based on how important the task is. It should always follow the add command.
+Allows the user to set the priority of a task when creating it. If the task is of importance, the user can assign it with a high priority. <br>
+Format : `add <task name> priority high`
 
 Example:
 * `add CS2101 by 01/01/2016 priority high`
@@ -69,6 +67,10 @@ Example:
 #### Undo a Task: `undo`
 Undo the most recent task entered in the command line<br>
 Format: `undo`
+
+#### Redo a Task: `redo`
+Redo the most recent undo entered in the command line<br>
+Format: `redo`
 
 #### Deleting a Task: `delete`
 Deletes a particular task in the task manager<br>

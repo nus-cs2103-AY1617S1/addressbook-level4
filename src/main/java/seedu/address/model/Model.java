@@ -29,6 +29,18 @@ public interface Model {
      * @throws IllegalValueException */
     void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd) throws TaskNotFoundException, IllegalValueException;
     
+    /** Saves the current task manager*/
+    void saveToHistory();
+    
+    /** Loads the previous task manager from the stored stack of task managers*/
+    void loadFromHistory();
+    
+    /** Loads the previous task manager from the stored stack of undone task managers*/
+    void loadFromUndoHistory();    
+    
+    /** Clears the contents of the undo and redo collections from the task manager*/
+    void clearHistory();
+
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
