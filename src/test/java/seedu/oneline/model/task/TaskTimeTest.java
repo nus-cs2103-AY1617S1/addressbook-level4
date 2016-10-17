@@ -3,7 +3,9 @@ package seedu.oneline.model.task;
 
 import static org.junit.Assert.*;
 
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
+import java.util.Locale;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
 
@@ -79,7 +81,7 @@ public class TaskTimeTest {
 
     // test cases for date, month and year input
     @Test
-    public void constructor_emptyDateTime() {
+    public void constructor_emptyDateTime_isAccepted() {
         try {
             TaskTime t = new TaskTime("");
             assert t.getDate() == null;
@@ -89,7 +91,7 @@ public class TaskTimeTest {
     }
     
     @Test
-    public void constructor_DMY() {
+    public void constructor_dateMonthYear_supportsDocumentedFormats() {
         String[] validFormats = new String[]{
                 "5 October 2016", 
                 "5 Oct 16", 
@@ -118,7 +120,7 @@ public class TaskTimeTest {
      */
     
     @Test
-    public void constructor_DM() {
+    public void constructor_dateMonth_supportsDocumentedFormats() {
         String[] validFormats = new String[]{
                 "5 October",
                 "5 Oct",
@@ -145,11 +147,11 @@ public class TaskTimeTest {
     }
 
     /**
-     * Tests whether inputting a day and month that has passed will result
+     * Tests whether inputting a date and month that has passed will result
      * in next year's value in TaskTime object
      */
     @Test
-    public void constructor_DMPast() {
+    public void constructor_dateMonthPast_setsCorrectYear() {
         // construct a string that represents MM/DD 
         // where MM/DD is the month and date of yesterday
         String yesterdayString = Integer.toString(yesterday.get(Calendar.DAY_OF_MONTH)) 
@@ -164,11 +166,11 @@ public class TaskTimeTest {
     }
     
     /**
-     * Tests whether inputting today's day and month causes 
+     * Tests whether inputting today's date and month causes 
      * the year stored in TaskTime to remain the same as today's year
      */
     @Test
-    public void constructor_DMToday() {
+    public void constructor_dateMonthToday__setsCorrectYear() {
         String todayString = Integer.toString(thisMonth) 
                 + " " + Integer.toString(thisDay);
         try {
@@ -181,11 +183,11 @@ public class TaskTimeTest {
     }
 
     /**
-     * Tests whether inputting tomorrow's day and month causes 
+     * Tests whether inputting tomorrow's date and month causes 
      * the year stored in TaskTime to remain the same as tomorrow's year
      */
     @Test
-    public void constructor_DMFuture() {
+    public void constructor_dateMonthFuture_setsCorrectYear() {
         // construct a string that represents MM/DD 
         // where MM/DD is the month and date of tomorrow
         String tomorrowString = Integer.toString(tomorrow.get(Calendar.DAY_OF_MONTH)) 
@@ -202,13 +204,13 @@ public class TaskTimeTest {
     // Tests for day specified only
     /**
      * Boundary cases for fields with only day input
-     *  - day has passed in current week
-     *  - day has not passed in current week
+     *  - day has passed from today
+     *  - day has not passed from today
      *  - day is today
      */
     
     @Test
-    public void constructor_D() {
+    public void constructor_day_supportsDocumentedFormats() {
         String[] validFormats = new String[]{
                 "Monday",
                 "this mon"};
@@ -220,5 +222,42 @@ public class TaskTimeTest {
         } catch (Exception e) {
             assert false;
         }
+    }
+    
+
+    /**
+     * Tests whether inputting a day that has passed will result in 
+     * nearest upcoming day being stored in tasktime
+     */
+    @Test
+    public void constructor_DPast() {
+        Calendar[] testDays = new Calendar[]{
+                yesterday, now, tomorrow
+        };
+        try {
+            for (Calendar d : testDays){
+                String t = d.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+                TaskTime tTime = new TaskTime(t);
+                Calendar tCal = tTime.getCalendar();
+                assertTrue(withinSevenDays(d, tCal));
+            }
+        } catch (Exception e) {
+            assert false;
+        }
+    }
+
+    /**
+     * Returns true if the two dates are between 1 to 7 days apart (both inclusive)
+     * @param d1
+     * @param d2
+     * @return true if difference between the two dates is 7
+     */
+    private boolean withinSevenDays(Calendar d1, Calendar d2) {
+        Calendar nightOfd1 = (Calendar) d1.clone();
+        nightOfd1.set(Calendar.HOUR, 23);
+        nightOfd1.set(Calendar.MINUTE, 59);
+        Calendar sevenDaysAfterd1 = (Calendar) d1.clone();
+        sevenDaysAfterd1.add(Calendar.DAY_OF_MONTH, 8);
+        return nightOfd1.before(d2) && d2.before(sevenDaysAfterd1);
     }
 }
