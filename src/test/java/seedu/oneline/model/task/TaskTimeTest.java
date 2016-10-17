@@ -91,5 +91,38 @@ public class TaskTimeTest {
         }
     }
     
+
+    @Test
+    public void constructor_DM() {
+        String[] validFormats = new String[]{
+                "5 October",
+                "5 Oct",
+                "10/5"};
+        try {
+            for (String t : validFormats){
+                Calendar now = Calendar.getInstance();
+                int thisDay = now.get(Calendar.DAY_OF_MONTH);
+                int thisMonth = now.get(Calendar.MONTH);
+                int thisYear = now.get(Calendar.YEAR);
+                
+                Calendar fifthOct = Calendar.getInstance();
+                fifthOct.set(thisYear, Calendar.OCTOBER, 5);
+                
+                
+                TaskTime tTime = new TaskTime(t);
+                Calendar tCal = DateUtils.toCalendar(tTime.getDate());
+                assertTrue(tCal.get(Calendar.DAY_OF_MONTH) == 5);
+                assertTrue(tCal.get(Calendar.MONTH) == Calendar.OCTOBER);
+                
+                // checks if date refers to previous year if day has passed
+                assertTrue(now.compareTo(fifthOct) > 0 ? 
+                        tCal.get(Calendar.YEAR) == thisYear + 1 : 
+                            tCal.get(Calendar.YEAR) == thisYear);
+            }
+        } catch (Exception e) {
+            assert false;
+        }
+    }
+    
     
 }
