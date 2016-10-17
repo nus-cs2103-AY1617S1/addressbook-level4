@@ -72,7 +72,10 @@ public class Parser {
         
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-            
+
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
+
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
 
@@ -96,7 +99,9 @@ public class Parser {
         }
     }
 
-    /**
+
+
+	/**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
@@ -164,6 +169,17 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
+    
+    private Command prepareDone(String args) {
+    	 Optional<Integer> index = parseIndex(args);
+         if(!index.isPresent()){
+             return new IncorrectCommand(
+                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+         }
+
+         return new DoneCommand(index.get());
+		
+	}
     
     /**
      * Parses arguments in the context of the edit person command.

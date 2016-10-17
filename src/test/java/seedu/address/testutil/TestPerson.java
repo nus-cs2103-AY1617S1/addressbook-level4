@@ -12,6 +12,7 @@ public class TestPerson implements ReadOnlyTask {
     private Reminder address;
     private Priority email;
     private DueDate phone;
+    private boolean isCompleted;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -73,4 +74,9 @@ public class TestPerson implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+	@Override
+	public boolean getCompletionStatus() {
+		return isCompleted;
+	}
 }

@@ -15,6 +15,7 @@ public class Task implements ReadOnlyTask {
     private DueDate duedate;
     private Priority priority;
     private Reminder reminder;
+    private boolean isCompleted;
 
     private UniqueTagList tags;
 
@@ -28,6 +29,7 @@ public class Task implements ReadOnlyTask {
         this.priority = priority;
         this.reminder = reminder;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted = false;
     }
 
     /**
@@ -73,6 +75,15 @@ public class Task implements ReadOnlyTask {
         this.reminder = reminder;
     }
 
+    @Override
+    public boolean getCompletionStatus() {
+        return isCompleted;
+    }
+    
+    public void setCompletionStatus(boolean isComplete) {
+        this.isCompleted = isComplete;
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);

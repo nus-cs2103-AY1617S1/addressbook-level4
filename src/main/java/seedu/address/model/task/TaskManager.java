@@ -18,6 +18,7 @@ public class TaskManager {
                     updateReminder(oldTask, newParams, type),
                     updateTags(oldTask, newParams)
                     );
+            newTask.setCompletionStatus(newParams.getCompletionStatus());
         } catch (IllegalValueException ive) {
             assert false : "There should not be any illegal value at this point";
         }
@@ -25,7 +26,8 @@ public class TaskManager {
         return newTask;
     }
 
-    private static TaskName updateTaskName(Task oldTask, Task newParams, String type) throws IllegalValueException {
+
+	private static TaskName updateTaskName(Task oldTask, Task newParams, String type) throws IllegalValueException {
         TaskName newTaskName;
 
         if (newParams.getName().toString().equals(NULL_ENTRY)&& type == "edit") {
@@ -72,7 +74,7 @@ public class TaskManager {
 
         return newReminder;
     }
-
+   
     private static UniqueTagList updateTags(Task oldTask, Task newParams) {
         UniqueTagList newTags = new UniqueTagList(oldTask.getTags());
 
