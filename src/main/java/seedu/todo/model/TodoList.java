@@ -3,10 +3,8 @@ package seedu.todo.model;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -16,7 +14,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -31,8 +28,7 @@ import seedu.todo.storage.MoveableStorage;
  * data to other parts of the logic layer, and the ImmutableTodoList interface so that it can be
  * serialized and persisted directly
  */
-public class TodoList implements ImmutableTodoList, Model {
-    private static final String INDEX_OUT_OF_BOUND_FORMAT = "There is no task no. %d";
+public class TodoList implements ImmutableTodoList, TodoListModel {
     private static final String INCORRECT_FILE_FORMAT_FORMAT = "%s doesn't seem to be in the correct format.";
     private static final String FILE_NOT_FOUND_FORMAT = "%s does not seem to exist.";
     private static final String FILE_SAVE_ERROR_FORMAT = "Couldn't save file: %s";
@@ -54,9 +50,6 @@ public class TodoList implements ImmutableTodoList, Model {
         } catch (FileNotFoundException | DataConversionException e) {
             logger.info("Data file not found. Will be starting with an empty TodoList");
         }
-
-        // Set the default comparators
-        view(null, null);
     }
 
     private void raiseStorageEvent(String message, Exception e) {
@@ -73,24 +66,6 @@ public class TodoList implements ImmutableTodoList, Model {
         } catch (IOException e) {
             events.post(new DataSavingExceptionEvent(e));
         }
-    }
-
-    private int getTaskIndex(int index) throws ValidationException {
-        int taskIndex; 
-        
-        try {
-            ImmutableTask task = getObserveableList().get(index - 1);
-            taskIndex = tasks.indexOf(task);
-        } catch (IndexOutOfBoundsException e) {
-            taskIndex = -1;
-        }
-        
-        if (taskIndex == -1) {
-            String message = String.format(TodoList.INDEX_OUT_OF_BOUND_FORMAT, index);
-            throw new ValidationException(message);
-        }
-        
-        return taskIndex;
     }
 
     @Override
@@ -115,17 +90,14 @@ public class TodoList implements ImmutableTodoList, Model {
 
     @Override
     public ImmutableTask delete(int index) throws ValidationException {
-        Task task;
-        task = tasks.remove(getTaskIndex(index));
+        Task task = tasks.remove(index);
         saveTodoList();
         return task;
     }
 
     @Override
     public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
-        Task task;
-        task = tasks.get(getTaskIndex(index));
-
+        Task task = tasks.get(index);
         ValidationTask validationTask = new ValidationTask(task);
         update.accept(validationTask);
         validationTask.validate();
@@ -136,17 +108,7 @@ public class TodoList implements ImmutableTodoList, Model {
         saveTodoList();
         return task;
     }
-
-    @Override
-    public void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> comparator) {
-        filteredTasks.setPredicate(filter);
-
-        sortedTasks.setComparator((a, b) -> {
-            int pin = Boolean.compare(b.isPinned(), a.isPinned());
-            return pin != 0 || comparator == null ? pin : comparator.compare(a, b);
-        });
-    }
-
+    
     @Override
     public void save(String location) throws ValidationException {
         try {
@@ -170,13 +132,8 @@ public class TodoList implements ImmutableTodoList, Model {
     }
 
     @Override
-    public String getStorageLocation() {
-        return storage.getLocation();
-    }
-
-    @Override
-    public UnmodifiableObservableList<ImmutableTask> getObserveableList() {
-        return new UnmodifiableObservableList<>(sortedTasks);
+    public ObservableList<? extends ImmutableTask> getObservableList() {
+        return tasks;
     }
 
     @Override

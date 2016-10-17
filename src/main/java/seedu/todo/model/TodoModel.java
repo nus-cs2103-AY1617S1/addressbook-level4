@@ -1,5 +1,8 @@
 package seedu.todo.model;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
@@ -14,14 +17,50 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class TodoModel implements Model {
+    private static final String INDEX_OUT_OF_BOUND_FORMAT = "There is no task no. %d";
+
     private TodoListModel todolist;
+    private MoveableStorage<ImmutableTodoList> storage;
+    private ObservableList<? extends ImmutableTask> tasks;
+    private FilteredList<? extends ImmutableTask> filteredTasks;
+    private SortedList<? extends ImmutableTask> sortedTasks;
     
     public TodoModel(Config config) {
         this(new TodoListStorage(config.getTodoListFilePath()));
     }
     
     public TodoModel(MoveableStorage<ImmutableTodoList> storage) {
-        this.todolist = new TodoList(storage);
+        this(new TodoList(storage), storage);
+    }
+    
+    public TodoModel(TodoListModel todolist, MoveableStorage<ImmutableTodoList> storage) {
+
+        this.storage = storage;
+        this.todolist = todolist;
+
+        tasks = todolist.getObservableList();
+        filteredTasks = new FilteredList<>(tasks);
+        sortedTasks = new SortedList<>(filteredTasks);
+
+        view(null, null);
+    }
+
+    private int getTaskIndex(int index) throws ValidationException {
+        int taskIndex;
+
+        try {
+            ImmutableTask task = getObservableList().get(index - 1);
+            taskIndex = tasks.indexOf(task);
+        } catch (IndexOutOfBoundsException e) {
+            taskIndex = -1;
+        }
+
+        if (taskIndex == -1) {
+            String message = String.format(TodoModel.INDEX_OUT_OF_BOUND_FORMAT, index);
+            throw new ValidationException(message);
+        }
+
+        return taskIndex;
     }
     
     @Override
@@ -36,17 +75,22 @@ public class TodoModel implements Model {
 
     @Override
     public ImmutableTask delete(int index) throws ValidationException {
-        return todolist.delete(index);
+        return todolist.delete(getTaskIndex(index));
     }
 
     @Override
     public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
-        return todolist.update(index, update);
+        return todolist.update(getTaskIndex(index), update);
     }
 
     @Override
-    public void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort) {
-        todolist.view(filter, sort);
+    public void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> comparator) {
+        filteredTasks.setPredicate(filter);
+
+        sortedTasks.setComparator((a, b) -> {
+            int pin = Boolean.compare(b.isPinned(), a.isPinned());
+            return pin != 0 || comparator == null ? pin : comparator.compare(a, b);
+        });
     }
 
     @Override
@@ -61,11 +105,11 @@ public class TodoModel implements Model {
 
     @Override
     public String getStorageLocation() {
-        return todolist.getStorageLocation();
+        return storage.getLocation();
     }
 
     @Override
-    public UnmodifiableObservableList<ImmutableTask> getObserveableList() {
-        return todolist.getObserveableList();
+    public UnmodifiableObservableList<ImmutableTask> getObservableList() {
+        return new UnmodifiableObservableList(sortedTasks);
     }
 }

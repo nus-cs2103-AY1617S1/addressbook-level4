@@ -1,10 +1,8 @@
 package seedu.todo.model;
 
-import java.util.Comparator;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
-import seedu.todo.commons.core.UnmodifiableObservableList;
+import javafx.collections.ObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
@@ -63,13 +61,6 @@ public interface TodoListModel {
     ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException;
 
     /**
-     * Changes the filter predicate and sort comparator used to display the tasks. A null
-     * value for either parameter resets it to the default value - showing everything for 
-     * the filter and insertion order for sort. 
-     */
-    void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort);
-
-    /**
      * Changes the save path of the TodoList storage 
      * @throws ValidationException if the path is not valid
      */
@@ -82,14 +73,8 @@ public interface TodoListModel {
     void load(String location) throws ValidationException;
 
     /**
-     * Obtains the current storage methods 
-     * @return
-     */
-    String getStorageLocation();
-
-    /**
      * Get an observable list of tasks. Used mainly by the JavaFX UI. 
      */
-    UnmodifiableObservableList<ImmutableTask> getObserveableList();
+    ObservableList<? extends ImmutableTask> getObservableList();
 }
 

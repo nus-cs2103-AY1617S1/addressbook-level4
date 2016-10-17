@@ -62,6 +62,6 @@ public class TodoLogic implements Logic {
     }
     
     public ObservableList<ImmutableTask> getObservableTaskList() {
-        return model.getObserveableList();
+        return model.getObservableList();
     }
 }

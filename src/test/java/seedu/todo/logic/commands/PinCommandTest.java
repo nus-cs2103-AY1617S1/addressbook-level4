@@ -22,7 +22,7 @@ public class PinCommandTest extends CommandTest {
     }
     
     private long getPinnedCount() {
-        return model.getObserveableList().stream().filter(ImmutableTask::isPinned).count();
+        return model.getObservableList().stream().filter(ImmutableTask::isPinned).count();
     }
     
     @Test
