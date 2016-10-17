@@ -51,16 +51,17 @@ public class XmlTaskManagerStorageTest {
         assertFalse(readTaskManager("NonExistentFile.xml").isPresent());
     }
 
-    @Test
-    public void read_notXmlFormat_exceptionThrown() throws Exception {
-
-        thrown.expect(DataConversionException.class);
-        readTaskManager("NotXmlFormatMastermind.xml");
-
-        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
-         */
-    }
+//    redundant 
+//    @Test
+//    public void read_notXmlFormat_exceptionThrown() throws Exception {
+//
+//        thrown.expect(DataConversionException.class);
+//        readTaskManager("NotXmlFormatMastermind.xml");
+//
+//        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
+//         * That means you should not have more than one exception test in one method
+//         */
+//    }
 
     @Test
     public void readAndSaveTaskManager_allInOrder_success() throws Exception {
@@ -99,7 +100,7 @@ public class XmlTaskManagerStorageTest {
         saveTaskManager(new TaskManager(), null);
     }
 
-    //@author A0139194X
+    //@@author A0139194X
     @Test
     public void setTaskManagerFilePath_correctFilePath_assertionSuccess() {
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
@@ -107,7 +108,7 @@ public class XmlTaskManagerStorageTest {
         assertEquals(xmlTaskManagerStorage.getTaskManagerFilePath(), SECOND_TEST_DATA_FOLDER);
     }
     
-    //@author A0139194X
+    //@@author A0139194X
     @Test
     public void migrateIntoNewFolder_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
@@ -115,7 +116,7 @@ public class XmlTaskManagerStorageTest {
         xmlTaskManagerStorage.migrateIntoNewFolder(TEST_DATA_FOLDER, null);
     }
     
-    //@author A0139194X
+    //@@author A0139194X
     @Test
     public void deleteFile_nullFilePath_assertionFailure() {
         thrown.expect(AssertionError.class);
@@ -123,7 +124,7 @@ public class XmlTaskManagerStorageTest {
         xmlTaskManagerStorage.deleteFile(null);
     }
     
-    //@author A0139194X
+    //@@author A0139194X
     @Test
     public void migrateNewFolder_allInOrder_success() throws IOException, DataConversionException {
         String filePath = testFolder.getRoot().getPath();
