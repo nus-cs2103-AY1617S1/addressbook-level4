@@ -121,13 +121,13 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "repeattime", "tag");
+        final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "repeat", "tag");
         HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
         String name = parsed.get("add");
         String by = parsed.get("by");
         String startTime = parsed.get("from");
         String endTime = parsed.get("to");
-        String recurrence = parsed.get("repeattime");
+        String recurrence = parsed.get("repeat");
         String tags = parsed.get("tag");
 
         if(name == null){
@@ -153,7 +153,7 @@ public class Parser {
     /**
      * Takes in a string and return null if it is empty,
      * or returns the string itself otherwise.
-     * 
+     *
      * @param string the string to check
      * @return null if string is null or empty, the string itself otherwise
      */
@@ -162,7 +162,7 @@ public class Parser {
             return null;
         return string;
     }
-    
+
     /**
      * Parses the command string in the context of the list task command.
      *
@@ -171,7 +171,7 @@ public class Parser {
      */
     private Command prepareList(String command){
         assert command.isEmpty() == false;
-        
+
         // No arguments, use default 'list' command
         if (command.trim().equals("list")) {
             try {
@@ -215,7 +215,7 @@ public class Parser {
      */
     private Command prepareShow(String command){
         assert command.isEmpty() == false;
-        
+
         if (command.trim().equals("show")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
@@ -254,7 +254,7 @@ public class Parser {
      */
     private Command prepareHide(String command){
         assert command.isEmpty() == false;
-        
+
         if (command.trim().equals("hide")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE));
         }
