@@ -87,7 +87,7 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
             model.pushToUndoHistory(this);
 
         } catch (TaskNotFoundException | IndexOutOfBoundsException tnfe) {
-            assert false : "The target task cannot be missing";
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, toDelete));
