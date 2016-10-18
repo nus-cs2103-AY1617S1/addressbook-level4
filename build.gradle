@@ -80,7 +80,7 @@ allprojects {
         archiveName = "TaSc.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
+            attributes "Main-Class": "teamfour.tasc.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")
