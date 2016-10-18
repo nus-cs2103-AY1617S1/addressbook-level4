@@ -39,12 +39,14 @@ public class ListCommand extends Command {
         mapInputToCorrectArgumentForExecution();
         if (type.equals("all")) {
             model.updateFilteredListToShowAll();
-            return new CommandResult(MESSAGE_SUCCESS);
+            model.updateFilteredScheduleListToShowAll();
+        } else if (type.equals("incomplete")) {
+            model.updateFilteredListToShowAllIncomplete();
+            model.updateFilteredScheduleListToShowAllIncomplete();
+        } else {
+            model.updateFilteredListToShowAllCompleted();
+            model.updateFilteredScheduleListToShowAllCompleted();
         }
-        
-        String[] status = {type};
-        Set<String> keyword = new HashSet<>(Arrays.asList(status));
-        model.updateFilteredListToShowAllByStatus(keyword);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
