@@ -20,7 +20,6 @@ public class RedoCommand extends Command{
 			UndoAndRedo reqCommand = (UndoAndRedo) model.getRedoStack().pop();
 			model.getUndoStack().push(reqCommand);
 			return reqCommand.redo();
-			//return new CommandResult(String.format(MESSAGE_SUCCESS));
 		}
 	}
 }
