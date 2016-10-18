@@ -278,7 +278,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | choose the data file location | store the file on the cloud (For e.g. Dropbox) to sync the data across multiple computers or other preferable locations.
 `*` | user with many tasks in WhatNow | sort tasks by priority | locate the most important and immediate tasks easily
 
-{More to be added}
+
 
 
 ## Appendix B : Use Cases
@@ -461,7 +461,6 @@ Use case ends<br>
 9. Should be able to retrieve backup or archived data. 
 10. Should be secured. 
 
-{More to be added}
 
 
 ## Appendix D : Glossary
