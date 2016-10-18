@@ -2,12 +2,13 @@ package seedu.task.model.task;
 
 import java.util.Objects;
 
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.model.tag.UniqueTagList;
 
 /**
  * Represents a Task in the task list.
- * Guarantees: details are present and not null, field values are validated.
+ * Guarantees: field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
@@ -16,12 +17,14 @@ public class Task implements ReadOnlyTask {
     private DateTime closeTime;
 
     private UniqueTagList tags;
+    public static final String MESSAGE_TASK_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
+
 
     /**
-     * Every field must be present and not null.
+     * Assigns instance variables
+     * TODO: Checks if dateTime pair is valid
      */
     public Task(Name name, DateTime openTime, DateTime closeTime, UniqueTagList tags) {
-        // open time, urgent, and close time can be null
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.openTime = openTime;
@@ -31,6 +34,7 @@ public class Task implements ReadOnlyTask {
 
     /**
      * Copy constructor.
+     * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getTags());

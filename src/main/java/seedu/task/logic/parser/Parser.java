@@ -26,7 +26,7 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
+            Pattern.compile("(?<name>[^/]*)"
                     + "( s/(?<openTime>[^/]+))?"
                     + "( c/(?<closeTime>[^/]+))?"
                     + "(?<tagArguments>(?: t/[^/]+)*)" // variable number of tags

@@ -40,8 +40,8 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().taskName;
-        openTime = source.getOpenTime().toString();
-        closeTime = source.getCloseTime().toString();
+        //openTime = source.getOpenTime().toString();
+        //closeTime = source.getCloseTime().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -59,8 +59,8 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final DateTime openTime = new DateTime(this.openTime);
-        final DateTime closeTime = new DateTime(this.closeTime);
+        final DateTime openTime = new DateTime(null); //TODO: WRITE PROPER TEST
+        final DateTime closeTime = new DateTime(null);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, openTime, closeTime, tags); 
     }

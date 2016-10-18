@@ -15,7 +15,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
  */
 public class DateTime {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "HELLO";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "You have entered an invalid Date/Time format. For a complete list of all acceptable formats, please view our user guide.";
 
     public final Optional<Instant> value;
 
@@ -43,8 +43,8 @@ public class DateTime {
      * @param test output from date/time parser
      */
     public static boolean isValidDateTime(String dateTime) {
-        //TODO: change this
         List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
+        Instant date = possibleDates.get(0).toInstant();
         return !possibleDates.isEmpty() && (possibleDates.size() == 1);
     }
 
