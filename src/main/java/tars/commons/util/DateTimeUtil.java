@@ -1,6 +1,10 @@
 package tars.commons.util;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,5 +57,25 @@ public class DateTimeUtil {
         }
         
         return new String[] { "", "" };
+    }
+
+    public static boolean isWithinWeek(LocalDateTime endDateTime) {
+        if (endDateTime == null) {
+            return false;
+        } else {
+            LocalDateTime today = LocalDateTime.now();
+            LocalDateTime startThisWeek = today.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+            LocalDateTime endThisWeek = today.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+            return endDateTime.isAfter(startThisWeek) && endDateTime.isBefore(endThisWeek);
+        }
+    }
+
+    public static boolean isOverDue(LocalDateTime endDateTime) {
+        if (endDateTime == null) {
+            return false;
+        } else {
+            LocalDateTime endOfToday = LocalDateTime.now().with(LocalTime.MAX);
+            return endDateTime.isBefore(endOfToday);
+        }
     }
 }
