@@ -126,11 +126,13 @@ public class ActivityParser {
     private Command prepareDelete(String args) {
 
         Optional<Integer> index = parseIndex(args);
+        System.out.println("index:" + index);
+        ArrayList<String> activityType = DeleteParser.parseArguments(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        previousCommand = new DeleteCommand(index.get());
+        previousCommand = new DeleteCommand(activityType.get(0), index.get());
         return previousCommand;
     }
     
