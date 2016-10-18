@@ -2,6 +2,7 @@ package teamfour.tasc.logic;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -191,8 +192,10 @@ public class CommandHelperTest {
     
     @Test
     public void convertDateToPrettyTimeParserFriendlyString_validInput() {
-        Date input = new Date(0);
-        String expectedOutput = "Jan 01 1970 07:30:00";
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2016, 0, 1, 0, 0, 0);
+        Date input = calendar.getTime();
+        String expectedOutput = "Jan 01 2016 00:00:00";
         
         assertEquals(expectedOutput,
                 CommandHelper.convertDateToPrettyTimeParserFriendlyString(input));
