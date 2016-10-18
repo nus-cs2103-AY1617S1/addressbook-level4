@@ -72,15 +72,14 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-
-    @Override
     public TaskDate getTaskDate() {
     	return taskDate;
     }
 
+    @Override
+    public UniqueTagList getTags() {
+        return new UniqueTagList(tags);
+    }
     
     @Override
     public String getStatus() {
@@ -91,7 +90,15 @@ public class Task implements ReadOnlyTask {
     public String getTaskType() {
         return taskType;
     }
-
+    
+    public void setName(Name name) {
+        this.name = name;
+    }
+    
+    public void setTaskDate(TaskDate taskDate) {
+        this.taskDate = taskDate;
+    }
+    
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
@@ -99,19 +106,9 @@ public class Task implements ReadOnlyTask {
         tags.setTags(replacement);
     }
     
-    public void setName(Name name) {
-        this.name = name;
-    }
-    
-
-    public void setTaskDate(TaskDate taskDate) {
-    	this.taskDate = taskDate;
-    }
-
     public void setStatus(String status) {
         this.status = status;
     }
-
 
     @Override
     public boolean equals(Object other) {

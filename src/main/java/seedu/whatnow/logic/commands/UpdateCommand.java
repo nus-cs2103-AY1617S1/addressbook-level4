@@ -1,5 +1,6 @@
 package seedu.whatnow.logic.commands;
 
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +15,7 @@ import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.Name;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
+import seedu.whatnow.model.task.TaskDate;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -46,8 +48,14 @@ public class UpdateCommand extends Command {
         processArg();
     }
     
+    /**
+     * Processes the arguments in the update command
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
     private void processArg() throws IllegalValueException {
         String newName = "a";
+        String date = null;
         final Set<Tag> tagSet = new HashSet<>();
         if (arg_type.toUpperCase().compareToIgnoreCase("tag") == 0) {
             Set<String> tags = processTag();
@@ -55,15 +63,23 @@ public class UpdateCommand extends Command {
                 tagSet.add(new Tag(tagName));
             }
         }
+        if (arg_type.toUpperCase().compareToIgnoreCase("date") == 0) {
+            date = arg;
+        }
         if (arg_type.toUpperCase().compareToIgnoreCase("description") == 0) {
             newName = arg;
         }
-        toUpdate = new Task(
-                new Name(newName),
-                new UniqueTagList(tagSet),
-                null);   
+        
+        try {
+            toUpdate = (date == null) ? new Task(new Name(newName), new UniqueTagList(tagSet), null) : new Task(new Name(newName), new TaskDate(date), new UniqueTagList(tagSet), null);
+        } catch (ParseException e) {
+            System.out.println("ParseException in UpdateCommand.java line 71");
+        }
     }
     
+    /**
+     * Processes the tags in the update command
+     */
     private Set<String> processTag() {
         if (arg.isEmpty()) {
             return Collections.emptySet();
@@ -76,8 +92,14 @@ public class UpdateCommand extends Command {
     private void updateTheCorrectField(ReadOnlyTask taskToUpdate) {
         if (arg_type.toUpperCase().compareToIgnoreCase("tag") == 0) {
             toUpdate.setName(taskToUpdate.getName());
+            toUpdate.setTaskDate(taskToUpdate.getTaskDate());
         }
         if (arg_type.toUpperCase().compareToIgnoreCase("description") == 0) {
+            toUpdate.setTags(taskToUpdate.getTags());
+            toUpdate.setTaskDate(taskToUpdate.getTaskDate());
+        }
+        if (arg_type.toUpperCase().compareToIgnoreCase("date") == 0) {
+            toUpdate.setName(taskToUpdate.getName());
             toUpdate.setTags(taskToUpdate.getTags());
         }
         toUpdate.setStatus(taskToUpdate.getStatus());
@@ -98,9 +120,9 @@ public class UpdateCommand extends Command {
         
         try {
             model.updateTask(taskToUpdate, toUpdate);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate));
+        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate));
     }
 }

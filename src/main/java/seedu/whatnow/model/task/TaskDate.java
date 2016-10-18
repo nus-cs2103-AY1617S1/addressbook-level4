@@ -18,8 +18,8 @@ public class TaskDate {
 	public static final String MESSAGE_NAME_CONSTRAINTS = "Task Date should be represented as one of the followings:"
 			+ "dd/mm/yy\n" + "day month year\n" + "today\n" + "tomorrow\n";
 
-	public static final String DATE_ALPHA_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.]+([0-9]{4}";	//To be updated
-	public static final String DATE_ALPHA_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.]";
+	public static final String DATE_ALPHA_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])+([0-9]{4})";	//To be updated
+	public static final String DATE_ALPHA_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2}+[\\w\\.])";
 
 	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+)/([0-9]{2}+)/([0-9]{4})"; //"\\d{2}/\\d{2}/\\d{4}"; //To be updated
 	public static final String DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX = "([0-9]{2})/([0-9]{2})";//"\\d{2}/\\d{2}";
