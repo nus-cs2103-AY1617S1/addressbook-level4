@@ -72,7 +72,21 @@ public class UnCompleteCommand extends Command {
      */
     @Override
     public boolean undo() {
+        assert model != null;
+
+        callCompleteActivity(this.targetType);
+        
         return true;
     }
 
+    private void callCompleteActivity(String targetType) {
+
+        if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
+            model.completeFloatingTask(targetIndex - 1);
+        } else if (targetType.equals(Activity.TASK_TYPE)) {
+            model.completeTask(targetIndex - 1);
+        } else {
+            model.completeEvent(targetIndex - 1);
+        }
+    }
 }
