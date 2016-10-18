@@ -27,8 +27,9 @@ import seedu.todo.models.TodoListDB;
 public class AddController implements Controller {
     
     private static final String NAME = "Add";
-    private static final String DESCRIPTION = "Adds a task / event to the to-do list.";
-    private static final String COMMAND_SYNTAX = "add <task> by <deadline> || add <event> at <time>";
+    private static final String DESCRIPTION = "Adds a task / event to the to-do list.\n"
+                                            + "Accepts natural date formats (e.g. \"Today 5pm\" is allowed).";
+    private static final String COMMAND_SYNTAX = "add <task> by <deadline> || add <event> from <start_date> to <end_date>";
     
     private static final String MESSAGE_ADD_SUCCESS = "Item successfully added!";
     
