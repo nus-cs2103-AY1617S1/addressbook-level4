@@ -26,10 +26,10 @@ public class XmlAdaptedTask {
     private String endTime;
     
     @XmlElement
-    private String locationParameter;
+    private String location;
     
     @XmlElement
-    private String remarksParameter;
+    private String remarks;
 
     /**
      * No-arg constructor for JAXB use.
@@ -44,12 +44,26 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        startDate = source.getInterval().getStartDate().toString();
-        startTime = source.getInterval().getStartTime().toString();
+        
+        startDate = null;
+        if (source.getInterval().getStartDate() != null) {
+            startDate = source.getInterval().getStartDate().toString();
+        }
+        
+        startTime = null;
+        if (source.getInterval().getStartTime() != null) {
+            startTime = source.getInterval().getStartTime().toString();
+        }
+        
         endDate = source.getInterval().getEndDate().toString();
-        endTime = source.getInterval().getEndTime().toString();
-        locationParameter = source.getLocationParameter().toString();
-        remarksParameter = source.getRemarksParameter().toString();
+        
+        endTime = null;
+        if (source.getInterval().getEndTime() != null) {
+            endTime = source.getInterval().getEndTime().toString();
+        }
+        
+        location = source.getLocation().toString();
+        remarks = source.getRemarks().toString();
     }
 
     /**
@@ -60,8 +74,8 @@ public class XmlAdaptedTask {
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
         final Interval interval = new Interval(this.startDate, this.startTime, this.endDate, this.endTime);
-        final LocationParameter location = new LocationParameter(this.locationParameter);
-        final RemarksParameter remarks = new RemarksParameter(this.remarksParameter);
+        final Location location = new Location(this.location);
+        final Remarks remarks = new Remarks(this.remarks);
         return new Task(name, interval, location, remarks);
     }
 }

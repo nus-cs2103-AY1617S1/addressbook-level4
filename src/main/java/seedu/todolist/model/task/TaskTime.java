@@ -76,7 +76,10 @@ public class TaskTime {
     
     @Override
     public String toString() {
-        return time.format(DateTimeFormatter.ofPattern(TIME_DISPLAY_FORMAT));
+        if (this.time != null) {
+            return time.format(DateTimeFormatter.ofPattern(TIME_DISPLAY_FORMAT));
+        }
+        return null;
     }
 
     @Override

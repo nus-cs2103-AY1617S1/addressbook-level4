@@ -8,8 +8,8 @@ public interface ReadOnlyTask {
 
     Name getName();
     Interval getInterval();
-    LocationParameter getLocationParameter();  
-    RemarksParameter getRemarksParameter();
+    Location getLocation();  
+    Remarks getRemarks();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -25,12 +25,46 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" from ").append(getInterval().startDate + " ").append(getInterval().startTime)
-                .append(" to ").append(getInterval().endDate + " ").append(getInterval().endTime)
-                .append(" at ").append(getLocationParameter())
-                .append(" remarks ").append(getRemarksParameter());
+        builder.append("\t" + getNameAsText() + "\n")
+                .append("\t\t\t\t" + getIntervalAsText() + "\n")
+                .append("\t\t\t\t" + getLocationAsText() + "\n")
+                .append("\t\t\t\t" + getRemarksAsText() + "\n");
         return builder.toString();
     }
-
+    
+    /**
+     * Formats the name as text.
+     */
+    default String getNameAsText() {
+        return "Task: " + getName().toString();
+    }
+    
+    /**
+     * Formats the interval as text.
+     */
+    default String getIntervalAsText() {
+            return "Time: " + getInterval().toString();
+    }
+    
+    /**
+     * Formats the location as text.
+     */
+    default String getLocationAsText() {
+        Location location = getLocation();
+        if (location.location != null) {
+            return "Location: " + getLocation().toString();
+        }
+        return " ";
+    }
+    
+    /**
+     * Formats the remarks as text.
+     */
+    default String getRemarksAsText() {
+        Remarks remarks = getRemarks();
+        if (remarks.remarks != null) {
+            return "Remarks: " + getRemarks().toString();
+        }
+        return " ";
+    } 
 }

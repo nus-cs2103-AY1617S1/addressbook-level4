@@ -50,7 +50,7 @@ public class TaskDate {
     /**
      * Returns true if a given string is a valid task date.
      */
-    public static boolean isValidDate(String test) {
+    private boolean isValidDate(String test) {
         if (test.matches(DATE_VALIDATION_REGEX_FORMAT)) {
             return true;
         }
@@ -77,7 +77,10 @@ public class TaskDate {
 
     @Override
     public String toString() {
-        return date.format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
+        if (this.date != null) {
+            return date.format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
+        }
+        return null;
     }
 
     @Override
