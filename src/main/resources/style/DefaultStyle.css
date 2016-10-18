@@ -94,8 +94,6 @@
     -fx-wrap-text: true;
 }
 
-
-
 .roundLabel {
     -fx-background-radius: 10;
     -fx-text-fill: #ffffff;
@@ -129,6 +127,10 @@
 
 .taskCard .highlightedBackground {
     -fx-background-color: #00A4FF;
+}
+
+.taskCard .lightBackground {
+    -fx-background-color: #d2d2d2;
 }
 
 .taskCard .pinImage {
