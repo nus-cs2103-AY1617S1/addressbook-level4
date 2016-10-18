@@ -48,6 +48,8 @@ Format: `add <details> <day> <time> /<priority> -<tag>`
  
 > You can type anything in details. It must not end with `by`, `on`, `before` or `at`.
 > 
+> If will default as a one hour block if end time is not keyed in or if only one time slot is keyed in.
+>
 > For time, typing `tml`, `tmr`, `tomorrow` will still be recognised as tomorrow.
 >
 > For time, typing `1300`, `1pm`, will be recognised as 1300.
@@ -58,6 +60,18 @@ Format: `add <details> <day> <time> /<priority> -<tag>`
 > You can also add a tag to the task by using `-`.
 <br><img src="images/Add2.jpeg" width="600"><br>
 <br><img src="images/Add2a.jpeg" width="600"><br>
+
+#### Blocking time slots in CMDo: `block`
+Block a time slot in CMDo <br>
+Format: `block <day> <time> /<priority> -<tag>` 
+ 
+> You can type anything in details. It must not end with `by`, `on`, `before` or `at`.
+> 
+> If will default as a one hour block if end time is not keyed in or if only one time slot is keyed in.
+>
+> For time, typing `tml`, `tmr`, `tomorrow` will still be recognised as tomorrow.
+>
+> For time, typing `1300`, `1pm`, will be recognised as 1300.
 
 #### Finding task in CMDo : `find <day>` or `param` or `/priority`
 Shows a list of all task in the CMDo on that day. It also acts as a filter.<br>
@@ -157,7 +171,7 @@ There is no need to save manually.
 **A**: You have to check your to-do list, isnt that the point?
 
 **Q**: How do i block out slots for unconfirmed tasks?
-**A**: just key in the timming after the task description.
+**A**: use the block command
 
 **Q**: How do i see upcoming tasks?
 **A**: The list will be sorted according to date and time
@@ -169,7 +183,8 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add <task> <day> <time> <priority>`
+Add | `add <task> <day> <start time> <end time> <priority>`
+Block | `Block <day> <start time> <end time>`
 Delete | `delete <INDEX>`
 Done | `done <INDEX>`
 Find | `find <keyword>`
