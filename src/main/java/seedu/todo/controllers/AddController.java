@@ -31,6 +31,7 @@ public class AddController implements Controller {
     private static final String COMMAND_SYNTAX = "add <task> by <deadline> || add <event> at <time>";
     
     private static final String MESSAGE_ADD_SUCCESS = "Item successfully added!";
+    private static final String MESSAGE_DISAMBIGUATE = "Your last command wasn't clear, did you mean the following?";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -252,7 +253,8 @@ public class AddController implements Controller {
             disambiguationString = String.format("add event \"%s\" from \"%s\" to \"%s\"", name, naturalFrom, naturalTo);
         }
         
-        System.out.println(disambiguationString); // TODO
+        // Show an error in the console
+        Renderer.showConsoleError(MESSAGE_DISAMBIGUATE, disambiguationString);
     }
     
 }
