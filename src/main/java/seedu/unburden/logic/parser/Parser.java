@@ -124,6 +124,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
+		Calendar calendar = Calendar.getInstance();
         final Matcher matcher1 = ADD_FORMAT_1.matcher(args.trim());
         final Matcher matcher2 = ADD_FORMAT_2.matcher(args.trim());
         final Matcher matcher3 = ADD_FORMAT_3.matcher(args.trim());
@@ -157,7 +158,6 @@ public class Parser {
         					);
         		}
         		else if(matcher3.group("name").toLowerCase().contains(byTomorrow.toLowerCase())){
-        			Calendar calendar = Calendar.getInstance();
         			calendar.setTime(calendar.getTime());
         			calendar.add(Calendar.DAY_OF_YEAR, 1);
         			return new AddCommand(
@@ -167,7 +167,6 @@ public class Parser {
         					);
         		}
         		else if(matcher3.group("name").toLowerCase().contains(byNextWeek.toLowerCase())){
-        			Calendar calendar = Calendar.getInstance();
         			calendar.setTime(calendar.getTime());
         			calendar.add(Calendar.WEEK_OF_YEAR, 1);
         			return new AddCommand(
@@ -177,7 +176,6 @@ public class Parser {
         					);
         		}
         		else if(matcher3.group("name").toLowerCase().contains(byNextMonth.toLowerCase())){
-        			Calendar calendar = Calendar.getInstance();
         			calendar.setTime(calendar.getTime());
         			calendar.add(Calendar.WEEK_OF_MONTH, 4);
         			return new AddCommand(
