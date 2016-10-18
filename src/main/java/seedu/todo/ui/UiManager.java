@@ -103,6 +103,19 @@ public class UiManager extends ComponentManager implements Ui {
             instance.mainWindow.loadComponents();
         }
     }
+    
+    /**
+     * Sets the message shown in the console input box and reloads the console box.
+     * Does not do anything if no views have been loaded yet.
+     * 
+     * @param consoleInputValue   Message to display in the console input box.
+     */
+    public static void updateConsoleInputValue(String consoleInputValue) {
+        if (currentView != null) {
+            View.consoleInputValue = consoleInputValue;
+            instance.mainWindow.loadComponents();
+        }
+    }
 
 
     /** ================ DISPLAY ERRORS ================== **/
