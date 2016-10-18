@@ -43,6 +43,10 @@ public class Event implements ReadOnlyTask {
     public boolean isCompleted() {
         return isCompleted;
     }
+    
+    public void setCompleted(boolean c) {
+        isCompleted = c;
+    }
 
     @Override
     public UniqueTagList getTags() {

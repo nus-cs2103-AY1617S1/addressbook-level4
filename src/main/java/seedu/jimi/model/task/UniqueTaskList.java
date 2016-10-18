@@ -1,11 +1,13 @@
 package seedu.jimi.model.task;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.jimi.commons.util.CollectionUtil;
 import seedu.jimi.commons.exceptions.DuplicateDataException;
-
-import java.util.*;
+import seedu.jimi.commons.util.CollectionUtil;
+import seedu.jimi.model.event.Event;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -77,10 +79,16 @@ public class UniqueTaskList<T extends ReadOnlyTask> implements Iterable<T> {
     /**
      * Sets the selected task to be complete/incomplete.
      */
-    public void complete(ReadOnlyTask toComplete, boolean isComplete){
+    public void complete(ReadOnlyTask toComplete, boolean isComplete) {
         assert toComplete != null;
         int targetIndex = internalList.indexOf(toComplete);
-        ((FloatingTask) internalList.get(targetIndex)).setCompleted(isComplete);
+        if (toComplete instanceof DeadlineTask) {
+            ((DeadlineTask) internalList.get(targetIndex)).setCompleted(isComplete);
+        } else if (toComplete instanceof Event) {
+            ((Event) internalList.get(targetIndex)).setCompleted(isComplete);
+        } else {
+            ((FloatingTask) internalList.get(targetIndex)).setCompleted(isComplete);
+        }
     }
     
     /**
