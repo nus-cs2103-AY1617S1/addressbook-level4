@@ -71,7 +71,7 @@ public class GuiHandle {
         System.out.println("in getText:" + s);
         return s;
     }
-
+    
     public void focusOnSelf() {
         if (stageTitle != null) {
             focusOnWindow(stageTitle);

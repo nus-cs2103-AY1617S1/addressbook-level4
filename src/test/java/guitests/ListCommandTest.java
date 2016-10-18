@@ -6,6 +6,7 @@ import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.testutil.TestTask;
 import harmony.mastermind.testutil.TestUtil;
 
+import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static org.junit.Assert.assertTrue;
 
 public class ListCommandTest extends TaskManagerGuiTest {
@@ -33,10 +34,16 @@ public class ListCommandTest extends TaskManagerGuiTest {
         //list archives
         targetTab = "Archives";
         assertListSuccess(targetTab);
+        
+        //ensure the list command is not case sensitive
+        targetTab = "Events";
+        commandBox.runCommand("list events");
+        assertCurrentTab(targetTab);
 
         //list an invalid tab
         targetTab = "event";
         commandBox.runCommand("list " + targetTab);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
     }
 
     /**

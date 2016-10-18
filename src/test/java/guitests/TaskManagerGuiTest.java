@@ -62,6 +62,7 @@ public abstract class TaskManagerGuiTest {
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
+            tabPane = mainGui.getTabPane();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
         });
