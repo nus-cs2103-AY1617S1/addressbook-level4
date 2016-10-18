@@ -41,6 +41,7 @@ public interface Model {
     void unmarkTask(Task target) throws UniqueTaskList.DuplicateTaskException,
     ArchiveTaskList.TaskNotFoundException;
     
+    //@@author A0139149X
     /** Relocates save location to given directory */
     void relocateSaveLocation(String directory) throws FolderDoesNotExistException;
     

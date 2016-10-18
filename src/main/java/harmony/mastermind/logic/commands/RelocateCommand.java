@@ -13,6 +13,7 @@ import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.events.storage.AccessDeniedEvent;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
+import harmony.mastermind.commons.exceptions.UnwrittableFolderException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
@@ -51,13 +52,13 @@ public class RelocateCommand extends Command{
         assert model != null;
         try {
             checkSaveLocation(newFilePath);
+            checkWrittableDirectory(newFilePath);
             model.relocateSaveLocation(newFilePath);
             return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
         } catch (FolderDoesNotExistException fdnee) {
             return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
         } catch (UnwrittableFolderException ufe) {
             return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
-
         }
     }
     
@@ -75,10 +76,10 @@ public class RelocateCommand extends Command{
     }
     
     //@@author A0139194X
-    public void checkWrittableDirectory(String newFilePath) {
+    public void checkWrittableDirectory(String newFilePath) throws UnwrittableFolderException {
         File newFile = new File(newFilePath);
         if (!(newFile.isDirectory() && newFile.canWrite())) {
-            throw new UnwrittableFolderException(newFilePath);
+            throw new UnwrittableFolderException(newFilePath + " is not writtable.");
         }
     }
     
