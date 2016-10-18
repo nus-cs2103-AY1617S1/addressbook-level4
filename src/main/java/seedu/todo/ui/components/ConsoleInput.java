@@ -16,6 +16,7 @@ public class ConsoleInput extends Component {
 
     // Props
     public String consoleOutput;
+    public String consoleInputValue;
     private String lastCommandEntered;
     
     // Input handler
@@ -43,6 +44,11 @@ public class ConsoleInput extends Component {
     public void componentDidMount() {
         // Makes ConsoleInput full width wrt parent container.
         FxViewUtil.makeFullWidth(this.mainNode);
+        
+        // Set text in ConsoleInput box if provided
+        if (consoleInputValue.length() > 0) {
+            consoleInputTextField.setText(consoleInputValue);
+        }
         
         // Load Console.
         loadConsole();
