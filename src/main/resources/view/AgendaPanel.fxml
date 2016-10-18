@@ -5,9 +5,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.AgendaPanel">
+<VBox styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.AgendaPanel">
    <children>
-      <ScrollPane>
+      <ScrollPane styleClass="background" stylesheets="@DarkTheme.css">
          <content>
             <TableView fx:id="tasksTableView" minHeight="20.0" stylesheets="@DarkTheme.css">
               <columns>
@@ -16,10 +16,13 @@
                 <TableColumn fx:id="tasksTableColumnDetails" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="-1.0" text="Details" />
                   <TableColumn fx:id="tasksTableColumnEndDate" editable="false" maxWidth="-1.0" minWidth="300.0" prefWidth="-1.0" text="Due" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
          </content>
       </ScrollPane>
-      <ScrollPane>
+      <ScrollPane styleClass="background" stylesheets="@DarkTheme.css">
          <content>
             <TableView fx:id="eventsTableView" minHeight="20.0" stylesheets="@DarkTheme.css">
                <columns>
@@ -29,6 +32,9 @@
                   <TableColumn fx:id="eventsTableColumnStartDate" editable="false" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="From" />
                   <TableColumn fx:id="eventsTableColumnEndDate" editable="false" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="To" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
          </content>
       </ScrollPane>

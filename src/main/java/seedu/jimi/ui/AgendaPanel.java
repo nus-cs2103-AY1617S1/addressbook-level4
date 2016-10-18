@@ -145,62 +145,6 @@ public class AgendaPanel extends UiPart{
      * Formatting of data shown to user is done here.
      */
     private void configureTaskColumnsCellFactories() {
-        eventsTableColumnId.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> p) {  
-                
-                return new SimpleStringProperty("t" + (p.getTableView().getItems().indexOf(p.getValue()) + 1 ) + ".");
-            }
-         });
-        
-        eventsTableColumnTags.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
-                ReadOnlyTask a  = cd.getValue();
-
-                return Bindings.createStringBinding(() -> a.tagsString());
-            }
-         });
-        
-        eventsTableColumnDetails.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {
-                ReadOnlyTask a  = cd.getValue();
-
-                return Bindings.createStringBinding(() -> a.getName().toString());
-            }
-        });
-        
-        eventsTableColumnStartDate.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
-                if(cd.getValue() instanceof DeadlineTask){
-                    DeadlineTask a = (DeadlineTask) cd.getValue();
-                    return Bindings.createStringBinding(() -> a.getDeadline().toString());
-                }
-               return new SimpleStringProperty();
-            }
-        });
-        
-        eventsTableColumnEndDate.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
-                if(cd.getValue() instanceof DeadlineTask){
-                    DeadlineTask a = (DeadlineTask) cd.getValue();
-                    return Bindings.createStringBinding(() -> a.getDeadline().toString());
-                }
-               return new SimpleStringProperty();
-            }
-        });
-        
-        
-    }
-    
-    /**
-     * Sets up the cellValueFactories for all events TableColumn views.
-     * Formatting of data shown to user is done here.
-     */
-    private void configureEventsColumnsCellFactories() {
         tasksTableColumnId.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> p) {  
@@ -237,6 +181,62 @@ public class AgendaPanel extends UiPart{
                return new SimpleStringProperty();
             }
         });
+        
+        
+    }
+    
+    /**
+     * Sets up the cellValueFactories for all events TableColumn views.
+     * Formatting of data shown to user is done here.
+     */
+    private void configureEventsColumnsCellFactories() {
+        eventsTableColumnId.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> p) {  
+                
+                return new SimpleStringProperty("e" + (p.getTableView().getItems().indexOf(p.getValue()) + 1 ) + ".");
+            }
+         });
+        
+        eventsTableColumnTags.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
+                ReadOnlyTask a  = cd.getValue();
+
+                return Bindings.createStringBinding(() -> a.tagsString());
+            }
+         });
+        
+        eventsTableColumnDetails.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {
+                ReadOnlyTask a  = cd.getValue();
+
+                return Bindings.createStringBinding(() -> a.getName().toString());
+            }
+        });
+        
+        eventsTableColumnStartDate.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
+                if(cd.getValue() instanceof Event){
+                    Event a = (Event) cd.getValue();
+                    return Bindings.createStringBinding(() -> a.getStart().toString());
+                }
+               return new SimpleStringProperty();
+            }
+        });
+        
+        eventsTableColumnEndDate.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
+                if(cd.getValue() instanceof Event){
+                    Event a = (Event) cd.getValue();
+                    return Bindings.createStringBinding(() -> a.getEnd().toString());
+                }
+               return new SimpleStringProperty();
+            }
+        });
     }
     
     /**
@@ -264,8 +264,7 @@ public class AgendaPanel extends UiPart{
         ObservableList<ReadOnlyTask> newEventsList = FXCollections.observableArrayList();
         
         for(ReadOnlyTask t : eventList){
-            if(t instanceof Event 
-                    && ((Event) t).getStart().compareTo(new DateTime()) > 0) { //checks if startDate is ahead of current system time
+            if(t instanceof Event) { //checks if startDate is ahead of current system time
                 newEventsList.add(t);
             }
         }
@@ -280,6 +279,7 @@ public class AgendaPanel extends UiPart{
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
         updateTasksList(abce.data.getTaskList());
+        updateEventsList(abce.data.getTaskList());
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Reloading lists : " + ""+abce.data.getTaskList().size()));
     }
 }
