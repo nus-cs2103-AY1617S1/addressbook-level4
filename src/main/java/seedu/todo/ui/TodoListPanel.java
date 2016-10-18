@@ -82,10 +82,9 @@ public class TodoListPanel extends UiPart {
     /* Ui Methods */
     /**
      * Toggles the expanded/collapsed view of a task card.
-     * @param index of a task card that is shown on the Ui (that means index accepts a range of 1 to num of tasks).
+     * @param task to be expanded or collapsed from view.
      */
-    public void toggleExpandCollapsed(int index) {
-        ImmutableTask task = todoListView.getItems().get(FxViewUtil.convertToListIndex(index));
+    public void toggleExpandCollapsed(ImmutableTask task) {
         TaskCard taskCard = TaskCard.getTaskCard(task);
         if (taskCard != null) {
             taskCard.toggleCardCollapsing();
