@@ -6,9 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Date;
 import java.util.regex.Pattern;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -48,7 +46,7 @@ public class Time {
 
         final Pattern DAYTIME24H_FORMAT = Pattern.compile("(?i)((?<Day>(mon|tue(s)?|wed(nes)?|thu(r(s)?)?|fri|sat(ur)?|sun)(day)?)) (?<Hour>([0-9]|0[0-9]|1[0-9]|2[0-3])):(?<Minute>[0-5][0-9])");
         final Pattern TIME24H_FORMAT = Pattern.compile("(?<Hour>[0-9]|0[0-9]|1[0-9]|2[0-3]):(?<Minute>[0-5][0-9])");
-        final Pattern DAY_FORMAT = Pattern.compile("(?i)(?<Day>(mon|tue|wed|thu|fri|sat|sun))");
+        final Pattern DAY_FORMAT = Pattern.compile("(?i)(?<Day>(mon|tue(s)?|wed(nes)?|thu(r(s)?)?|fri|sat(ur)?|sun)(day)?)");
 
 
         final Matcher matcher_DAYTIME24H = DAYTIME24H_FORMAT.matcher(time);
@@ -117,7 +115,7 @@ public class Time {
 
     private DayOfWeek convertToDayEnum(String day) {
     	assert day != null;
-    	switch (day.substring(0, Math.min(day.length(), 3)).toLowerCase()) {
+    	switch (day.toLowerCase().substring(0, Math.min(day.length(), 3))) {
 		case "sun":
 			return DayOfWeek.SUNDAY;
 		case "mon":
