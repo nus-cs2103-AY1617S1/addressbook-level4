@@ -15,6 +15,7 @@ public class TestTask implements ReadOnlyTask {
     private TaskRecurrence recurrence;
     
     private UniqueTagList tags;
+    private boolean isCompleted;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -49,6 +50,10 @@ public class TestTask implements ReadOnlyTask {
         this.recurrence = recurrence;
     }
 
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+    
     @Override
     public TaskName getName() {
         return name;
@@ -77,6 +82,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public UniqueTagList getTags() {
         return tags;
+    }
+    
+    @Override
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
     @Override
