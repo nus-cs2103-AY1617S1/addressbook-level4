@@ -108,6 +108,8 @@ public class LogicManagerTest {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
+        System.out.println("resultfeedback: " + result.feedbackToUser);
+        System.out.println("expected: " + expectedMessage);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
@@ -302,13 +304,19 @@ public class LogicManagerTest {
     public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
+        
+        //System.out.println("Test execute: " + threeTasks.get(1));
 
         TaskManager expectedAB = helper.generateTaskManager(threeTasks);
         expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
+        
+        // to past in a list instead of a task
+        List<Task> taskToDelete = new ArrayList<>();
+        taskToDelete.add(threeTasks.get(1));
 
         assertCommandBehavior("del 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -403,8 +411,8 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new TaskType("" + Math.abs(seed)),
-                    new Status(seed + "@email"),
+                    new TaskType("someday"),
+                    new Status("not done"),
                     Optional.empty(),
                     Optional.empty(),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
