@@ -68,6 +68,16 @@ public class ClearController implements Controller {
         }
         
         String[] parsedDates = parseDates(parsedResult);
+        
+        //no dates provided
+        if (parsedDates == null) {
+            int totalCalendarItems = db.getAllEvents().size() + db.getAllTasks().size();
+            db.destroyAllEvent();
+            db.destroyAllTask();
+            Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
+            return ;
+        }
+        
         String naturalOn = parsedDates[0];
         String naturalFrom = parsedDates[1];
         String naturalTo = parsedDates[2];
@@ -79,15 +89,7 @@ public class ClearController implements Controller {
         LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
         //if all are null, means date provided but natty deem as invalid date
         
-        //no dates provided
-        if (parsedDates == null) {
-            int totalCalendarItems = db.getAllEvents().size() + db.getAllTasks().size();
-            db.destroyAllEvent();
-            db.destroyAllTask();
-            Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
-        } else {
-            
-        }
+
     }
     
     /**
