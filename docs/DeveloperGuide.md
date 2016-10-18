@@ -50,7 +50,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/harmony/mastermind/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke clean up method where necessary.
 
@@ -92,7 +92,7 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/harmony/mastermind/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
@@ -100,7 +100,7 @@ and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/harmony/mastermind/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -112,7 +112,7 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/harmony/mastermind/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -123,11 +123,11 @@ The `UI` component,
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/harmony/mastermind/model/Model.java)
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
-* Stores the Address Book data
+* Stores the Mastermind's data
 * Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
@@ -136,15 +136,15 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/harmony/mastermind/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Mastermind's data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commans` package.
+Classes used by multiple components are in the `harmony.mastermind.commons` package.
 
 ## Implementation
 
@@ -205,13 +205,13 @@ Tests can be found in the `./src/test/java` folder.
 
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `harmony.mastermind`
    2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `harmony.mastermind.commons.core`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `harmony.mastermind.storage`
 
 **Headless GUI Testing** :
 Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
@@ -236,7 +236,7 @@ Here are the steps to create a new release.
 
 ## Managing Dependencies
 
-A project often depends on third party libraries. For example, Address Book depends on the
+A project often depends on third party libraries. For example, Mastermind depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -250,7 +250,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
+`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the app
 `* * *` | user | add a new task | so I can register my things to do
 `* * *` | user | add a floating task | have a task without a deadline
 `* * *` | user | add a recurring task | add repeating tasks only once
@@ -258,16 +258,16 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | edit a task | update entries as needed
 `* * *` | user | find a task by name | locate details of the task without having to go through the entire list
 `* * *` | user | find a task by deadline | locate tasks that are due soon without having to go through the entire list
-`* * *` | user | undo a task entered | increase my workflow
-`* * *` | user | re-do a task entered | increase my workflow
+`* * *` | user | undo a task entered | recover from my mistakes easily
+`* * *` | user | re-do a task entered | recover from my mistakes easily
 `* * *` | user | sort list by alphabetical order and date | find my tasks easily
 `* * *` | user | mark tasks as done | archive my completed tasks
 `* * *` | user | specify the location of file storage | choose where to save the to do list
 `* *` | user | see my tasks in user interface | have an easier time using the app
-`* *` | user | set categories | organise my tasks
-`* *` | user | block out timings | reserve time slots for tasks
-`* *` | user | create subtasks | breakdown my tasks into smaller problems
 `*` | user | specify my own natural language | customise the app
+`*` | user | set categories | organise my tasks
+`*` | user | block out timings | reserve time slots for tasks
+`*` | user | create subtasks | breakdown my tasks into smaller problems
 `*` | user | set reminders for tasks | reduce chances of forgetting to do a task
 `*` | user | import a list of to do tasks | add in tasks without registering them individually
 
@@ -288,9 +288,9 @@ Priority | As a ... | I want to ... | So that I can...
 | [UC7](#uc7-undo-action) | Undo Action  | Undo last action performed. |
 | [UC8](#uc8-redo-action) | Redo Action  | Redo an action performed in UC7. |
 | [UC9](#uc9-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
-| [UC10](#uc10-clear-a-category) | Clear a category  | System performs bulk delete on the cateogry specified (Deadlines, events, tasks). |
+| [UC10](#uc10-clear-a-category) | Clear a category  | System performs bulk delete on the category specified (Deadlines, events, tasks). |
 | [UC11](#uc11-clear-all-category) | Clear all category  | System performs bulk delete on every category (Deadlines, events, tasks). |
-| [UC12](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specifed by the user. |
+| [UC12](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
 | [UC13](#uc13-exit-application) | Exit application  | Quit the application |
 
 ---
@@ -309,7 +309,7 @@ Display help when requested, or when user enter an invalid command.
 
 ##### Extensions
 
-1a. User entered an invalid command
+1a. User entered an invalid command.
 
 * 1a1. Use case resume at 2.
 
@@ -323,15 +323,13 @@ Adding a task. A task can be concrete (have defined date/time) or floating (with
 
 1. User requests to add a task.
 
-2. System accepts the command & parameters and create task.
+2. System accepts the command & parameters, creates the task and displays successful message to User.
 
-3. System displays successful message to User.
-
-4. Use case ends.
+3. Use case ends.
 
 ##### Extensions
 
-1a. User entered an invalid command
+1a. User entered an invalid command.
 
 * 1a1. System display unsuccessful message.
 
@@ -343,7 +341,7 @@ Adding a task. A task can be concrete (have defined date/time) or floating (with
 
 * 1b2. Use case resume at 2.
 
-1c. User enteres task without date/time.
+1c. User enters task without date/time.
 
 * 1c1. System accepts the command as floating task.
 
@@ -364,6 +362,12 @@ Display lists of tasks added into the System.
 3. Use case ends.
 
 ##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 2a. System cannot find any task.
 
@@ -395,6 +399,12 @@ should return all tasks matches "grocery" in name OR having tag with "milk" or "
 
 ##### Extensions
 
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
 2a. System cannot find any task.
 
 * 2a1. System display message, "No matching task found.".
@@ -416,6 +426,12 @@ Edit the details of a single task. The command only update fields specified by t
 4. Use case ends.
 
 ##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 2a. Invalid index.
 
@@ -442,6 +458,12 @@ Remove a task entry by index.
 4. Use case ends.
 
 ##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 2a. Invalid index.
 
@@ -471,6 +493,12 @@ Undo last action performed.
 
 ##### Extensions
 
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
 2a. System cannot find any previous action in Undo stack.
 
 * 2a1. System display unsuccessful message.
@@ -494,6 +522,12 @@ Redo an action performed in UC7.
 4. Use case ends.
 
 ##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 2a. System cannot find any previous action in Redo stack.
 
@@ -519,6 +553,12 @@ Mark a task as done by index. A marked task should be automatically archived and
 
 ##### Extensions
 
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
 2a. Invalid Index.
 
 * 2a1. System cannot find the task associated with the index.
@@ -531,17 +571,23 @@ Mark a task as done by index. A marked task should be automatically archived and
 
 ### UC10: Clear a category
 
-System performs bulk delete on the cateogry specified (Deadlines, events, tasks).
+System performs bulk delete on the category specified (Deadlines, events, tasks).
 
 ##### Main Success Scenario
 
 1. User requests to clear a category.
 
-2. System proceed to perform bulk action descibed in UC6 for the specified category.
+2. System proceed to perform bulk action described in UC6 for the specified category.
 
 3. Use case ends.
 
 ##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 2a. Invalid category
 
@@ -566,13 +612,18 @@ System performs bulk delete on every category (Deadlines, events, tasks).
 3. Use case ends.
 
 ##### Extensions
-N.I.L.
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 ---
 
 ### UC12: Relocate storage location
 
-Change the current storage to other directory specifed by the user.
+Change the current storage to other directory specified by the user.
 
 ##### Main Success Scenario
 
@@ -582,13 +633,19 @@ Change the current storage to other directory specifed by the user.
 
 3. System copy current storage to the new location.
 
-4. System update all future command to reference the new location.
+4. System deletes old file at old storage location.
 
 5. System displays successful message.
 
 6. Use case ends.
 
 ##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 2a. Invalid storage location.
 
@@ -619,23 +676,36 @@ Quit the application.
 4. Use case ends.
 
 ##### Extensions
-N.I.L
 
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
+---
 
 ## Appendix C : Non Functional Requirements
 
 1. Should backup tasks list.
-2. Should be able to store 1000 tasks.
-3. Should only receive keyboard inputs.
+2. Should work as a stand alone.
+3. Should be able to store 1000 tasks.
 4. Should be maintainable and scalable.
-5. Should be user friendly for new users.
-6. Should be able to be accessed offline.
-7. Should come with automated unit testing.
-8. Should be able to startup and quit within 1 second.
-9. Should display up to date tasks when command is given.
-10. Should be able to run on all [mainstream OS](#mainstream-os).
-11. Should be able to display tasks within 1 second when command is given.
-12. Should have a simple GUI that displays [relevant information](#relevant-information).
+5. Should not use relational databases.
+6. Should be user friendly for new users.
+7. Should be able to be accessed offline.
+8. Should come with automated unit testing.
+9. Should follow the Object-oriented paradigm.
+10. Should work without requiring an installer.
+11. Should be able to startup and quit within 1 second.
+12. Should display up to date tasks when command is given.
+13. Should store data locally and should be in a .xml file.
+14. Should work well without any third party framework/library.
+15. Should have a Command Line Interface as the primary mode of input.
+16. Should be able to display tasks within 1 second when command is given.
+17. Should be able to run on all [mainstream OS](#mainstream-os) for desktop.
+18. Should have a simple GUI that displays [relevant information](#relevant-information).
+
 
 ## Appendix D : Glossary
 
@@ -696,13 +766,13 @@ N.I.L
 >4.  Able to support recurring tasks
 >5.  Able to sort tasks by priority level
 >6.  Able to integrate from e-mail
->7.  Able to backup auotmatically
+>7.  Able to backup automatically
 
 > Cons:
 >1.  Unable to block out timings
 >2.  Unable to export out To-do list
 >3.  Minimal CLI
->4.  Have to do alot of clicking
+>4.  Have to do a lot of clicking
 
 ##### Any.Do
 

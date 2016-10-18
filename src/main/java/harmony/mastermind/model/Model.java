@@ -5,6 +5,9 @@ import java.util.Set;
 import java.util.Stack;
 
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
+import harmony.mastermind.logic.commands.Command;
+import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.Redoable;
 import harmony.mastermind.logic.commands.Undoable;
@@ -40,8 +43,9 @@ public interface Model {
     void unmarkTask(Task target) throws UniqueTaskList.DuplicateTaskException,
     ArchiveTaskList.TaskNotFoundException;
     
+    //@@author A0139149X
     /** Relocates save location to given directory */
-    void relocateSaveLocation(String directory);
+    void relocateSaveLocation(String directory) throws FolderDoesNotExistException;
     
     /** push the command to undo history */
     void pushToUndoHistory(Undoable command);
@@ -101,6 +105,9 @@ public interface Model {
     
     /** Search */
     void searchTask(String input);
+
+    /** Indicate that user needs to confirm command execution */
+    void indicateConfirmationToUser() throws CommandCancelledException;
 
 
 }
