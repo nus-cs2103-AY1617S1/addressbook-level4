@@ -17,7 +17,7 @@ import seedu.jimi.model.event.Event;
  * @see T#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList<T extends ReadOnlyTask> implements Iterable<T> {
+public class UniqueTaskList<T> implements Iterable<T> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -59,7 +59,7 @@ public class UniqueTaskList<T extends ReadOnlyTask> implements Iterable<T> {
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
-        internalList.add((T) toAdd);
+        internalList.add(toAdd);
     }
 
     /**
