@@ -192,9 +192,9 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
         
         // Parser doesn't support these yet, skipping test case
-        //assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
-        //assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
-        //assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
+        assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
         assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
     }
 
