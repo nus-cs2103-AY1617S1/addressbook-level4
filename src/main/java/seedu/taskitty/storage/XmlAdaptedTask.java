@@ -24,6 +24,8 @@ public class XmlAdaptedTask {
     private String startTime;
     @XmlElement
     private String endTime;
+    @XmlElement
+    private boolean isDone;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -45,6 +47,7 @@ public class XmlAdaptedTask {
         TaskDate sourceEndDate = source.getEndDate();
         TaskTime sourceStartTime = source.getStartTime();
         TaskTime sourceEndTime = source.getEndTime();
+        boolean sourceIsDone = source.getIsDone();
         if (sourceStartDate != null) {
             startDate = sourceStartDate.toString();
         }
@@ -57,10 +60,17 @@ public class XmlAdaptedTask {
         if (sourceEndTime != null) {
             endTime = sourceEndTime.toString();
         }
+        isDone = source.getIsDone();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
+    }
+    
+    public void markAsDone() {
+    	if (!isDone) {
+    		isDone = true;
+    	}
     }
 
     /**
@@ -95,6 +105,13 @@ public class XmlAdaptedTask {
             endTime = new TaskTime(this.endTime);
         }
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, startDate, startTime, endDate, endTime, tags);
+        
+        Task task = new Task(name, startDate, startTime, endDate, endTime, tags);
+        
+       if (isDone) {
+        	task.markAsDone();
+       }
+        
+        return task;
     }
 }
