@@ -1,6 +1,5 @@
 package seedu.tasklist.logic.commands;
 
-import seedu.tasklist.model.ModelManager;
 import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.UndoInfo;
 import seedu.tasklist.model.task.Task;
@@ -32,9 +31,9 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        if((ModelManager.redoStack.isEmpty()))
+        if((model.getRedoStack().isEmpty()))
            return new CommandResult(MESSAGE_FAILURE);
-        undoInfo = ModelManager.redoStack.pop();
+        undoInfo = model.getRedoStack().pop();
         int undoID = undoInfo.getUndoID();
         switch(undoID){
             case ADD_CMD_ID:
@@ -83,7 +82,7 @@ public class RedoCommand extends Command {
         try {
             model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getTags());
             model.updateTaskUndo(originalTask, stubTask.getTaskDetails(), stubTask.getStartTime(), stubTask.getEndTime(), stubTask.getPriority(), stubTask.getTags());
-            ModelManager.undoStack.push(undoInfo);
+            model.getUndoStack().push(undoInfo);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             e.printStackTrace();
         }

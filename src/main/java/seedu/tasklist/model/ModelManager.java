@@ -416,4 +416,15 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 	}
 
+    @Override
+    public LinkedList<UndoInfo> getUndoStack() {
+        return undoStack;
+    }
+
+    @Override
+    public LinkedList<UndoInfo> getRedoStack() {
+        // TODO Auto-generated method stub
+        return redoStack;
+    }
+
 }

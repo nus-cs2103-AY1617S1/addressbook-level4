@@ -2,7 +2,6 @@ package seedu.tasklist.logic.commands;
 
 import java.util.ArrayList;
 
-import seedu.tasklist.model.ModelManager;
 import seedu.tasklist.model.UndoInfo;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
@@ -35,10 +34,10 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        if((ModelManager.undoStack.isEmpty()))
+        if((model.getUndoStack().isEmpty()))
            return new CommandResult(MESSAGE_FAILURE);
-        undoInfo = ModelManager.undoStack.pop();
-        ModelManager.redoStack.push(undoInfo);
+        undoInfo = model.getUndoStack().pop();
+        model.getRedoStack().push(undoInfo);
         int undoID = undoInfo.getUndoID();
         switch (undoID) {
             case ADD_CMD_ID:               
