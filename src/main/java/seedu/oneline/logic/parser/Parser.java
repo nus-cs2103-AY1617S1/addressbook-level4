@@ -3,6 +3,7 @@ package seedu.oneline.logic.parser;
 import static seedu.oneline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.oneline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
@@ -37,19 +38,22 @@ public class Parser {
     
     public Parser() {}
 
-    private static final Map<String, Class<?>> COMMAND_CLASSES = initCommandClasses();
+    private static final Map<String, Class<? extends Command>> COMMAND_CLASSES = initCommandClasses();
     
-    private static Map<String, Class<?>> initCommandClasses() {
-        Map<String, Class<?>> commands = new HashMap<String, Class<?>>();
+    private static Map<String, Class<? extends Command>> initCommandClasses() {
+        Map<String, Class<? extends Command>> commands = new HashMap<String, Class<? extends Command>>();
         commands.put(AddCommand.COMMAND_WORD.toLowerCase(), AddCommand.class);
         commands.put(SelectCommand.COMMAND_WORD.toLowerCase(), SelectCommand.class);
         commands.put(EditCommand.COMMAND_WORD.toLowerCase(), EditCommand.class);
         commands.put(DeleteCommand.COMMAND_WORD.toLowerCase(), DeleteCommand.class);
+        commands.put(DoneCommand.COMMAND_WORD.toLowerCase(), DoneCommand.class);
         commands.put(ClearCommand.COMMAND_WORD.toLowerCase(), ClearCommand.class);
         commands.put(FindCommand.COMMAND_WORD.toLowerCase(), FindCommand.class);
         commands.put(ListCommand.COMMAND_WORD.toLowerCase(), ListCommand.class);
         commands.put(ExitCommand.COMMAND_WORD.toLowerCase(), ExitCommand.class);
         commands.put(HelpCommand.COMMAND_WORD.toLowerCase(), HelpCommand.class);
+        commands.put(UndoCommand.COMMAND_WORD.toLowerCase(), UndoCommand.class);
+        commands.put(RedoCommand.COMMAND_WORD.toLowerCase(), RedoCommand.class);
         return commands;
     }
     
@@ -71,21 +75,19 @@ public class Parser {
         if (!COMMAND_CLASSES.containsKey(commandWord)) {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
-        Class<?> cmdClass = COMMAND_CLASSES.get(commandWord);
-        Object obj = null;
+        Class<? extends Command> cmdClass = COMMAND_CLASSES.get(commandWord);
         try {
-            obj = cmdClass.getConstructor(String.class).newInstance(arguments);
+            Constructor<? extends Command> constructor = cmdClass.getConstructor(String.class);
+            Command cmd = constructor.newInstance(arguments);
+            return cmd;
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                 | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
             assert false : "Every command constructor should have a Class(String args) constructor";
-            return null;
         } catch (InvocationTargetException e) {
             return new IncorrectCommand(e.getCause().getMessage());
         }
-        assert obj instanceof Command;
-        Command cmd = (Command) obj;
-        return cmd;
+        return null;
     }
 
     /**
@@ -93,6 +95,15 @@ public class Parser {
      *
      * @param args full command args string
      * @return the fields specified in the args
+     * 
+     * Example:
+     * Command entered: add name .from X which is some date .to Y which is some other date .due someday
+     * Returns the following K,V pairs:
+     *      TaskField.NAME: "name"
+     *      TaskField.START_TIME: "X which is some date"
+     *      TaskField.END_TIME: "Y which is some other date"
+     *      TaskField.DEADLINE: "someday"
+     * 
      */
     public static Map<TaskField, String> getTaskFieldsFromArgs(String args) throws IllegalCmdArgsException {
         // Clear extra whitespace characters
@@ -131,6 +142,10 @@ public class Parser {
         // Extract the respective task fields into results map
         Map<TaskField, String> result = new HashMap<TaskField, String>();
         if (fieldIndexes.size() == 0) {
+            if (splitted[0].equals("")) { 
+                throw new IllegalCmdArgsException("Task Name is a compulsory field.");
+            }
+            result.put(TaskField.NAME, String.join(" ", splitted));
             return result;
         }
         Integer firstIndex = fieldIndexes.get(0).getValue();

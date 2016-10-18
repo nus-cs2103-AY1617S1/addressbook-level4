@@ -9,22 +9,22 @@ import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a task identified using it's last displayed index from the task book.
+ * Marks a task identified using it's last displayed index from the task book as done.
  */
-public class DeleteCommand extends Command {
+public class DoneCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "done";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
+            + ": Marks the task identified by the index number used in the last task listing as done.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Marked task as done: %1$s";
 
     public final int targetIndex;
 
-    public DeleteCommand(String args) throws IllegalCmdArgsException {
+    public DoneCommand(String args) throws IllegalCmdArgsException {
         Integer index = null;
         try {
             index = Parser.getIndexFromArgs(args);
@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
         this.targetIndex = index;
     }
 
-    public DeleteCommand(int targetIndex) {
+    public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -52,20 +52,15 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deleteTask(taskToDelete);
+            model.doneTask(targetIndex);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
-    }
-    
-    @Override
-    public boolean canUndo() {
-        return true;
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
     }
 
 }
