@@ -377,9 +377,10 @@ public class LogicManagerTest {
     
     @Test
     public void execute_undo_redo() throws Exception {
-        Task task1 = TestDataHelper.generateTask(1);
-        Task task2 = TestDataHelper.generateTask(2);
-        Task task3 = TestDataHelper.generateTask(3);
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Simple task");
+        Task task2 = helper.generateTaskWithName("Harder task");
+        Task task3 = helper.generateTaskWithName("Hardest task");
         TaskBook expectedTaskBook1 = new TaskBook(model.getTaskBook());
         logic.execute(TestDataHelper.generateAddCommand(task1));
         TaskBook expectedTaskBook2 = new TaskBook(model.getTaskBook());
@@ -396,10 +397,15 @@ public class LogicManagerTest {
         // Redo command
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook2, Arrays.asList(task1));
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook3, Arrays.asList(task1, task2));
-        Task task4 = TestDataHelper.generateTask(4);
-        logic.execute(TestDataHelper.generateAddCommand(task4));
+        Task task4 = helper.generateTaskWithName("Crazy task");
+        logic.execute(helper.generateAddCommand(task4));
         TaskBook expectedTaskBook4 = new TaskBook(model.getTaskBook());
         assertCommandBehavior("redo", RedoCommand.MESSAGE_NO_NEXT_STATE, expectedTaskBook4, Arrays.asList(task1, task2, task4));
+        
+        // Undo find command
+        //logic.execute(FindCommand.COMMAND_WORD + " harder");
+        //assertCommandBehavior("redo", RedoCommand.MESSAGE_NO_NEXT_STATE, expectedTaskBook4, Arrays.asList(task2));
+        
     }
 
 }
