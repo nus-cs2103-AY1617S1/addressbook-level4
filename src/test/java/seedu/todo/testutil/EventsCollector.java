@@ -39,4 +39,8 @@ public class EventsCollector{
     public BaseEvent get(int index){
         return events.get(index);
     }
+    
+    public int size(){
+        return events.size();
+    }
 }
