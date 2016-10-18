@@ -55,12 +55,14 @@ public class DueDate extends DateTime {
             }
 
             this.value.setTime(taskDate);
+            this.value.set(Calendar.MILLISECOND, 0);
+            this.value.set(Calendar.SECOND, 0);
         }
     }
     
     public String forDisplay() {
         if (this.value == null) {
-            return "";
+            return "Due:\t\t\t-";
         } else {
             return "Due:\t\t\t".concat(this.toString());
         }

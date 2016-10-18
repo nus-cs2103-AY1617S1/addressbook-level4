@@ -27,6 +27,8 @@ public abstract class DateTime {
             this.value = null;
         } else {
             this.value = Calendar.getInstance();
+            this.value.set(Calendar.MILLISECOND, 0);
+            this.value.set(Calendar.SECOND, 0);
         }
     }
 
@@ -55,10 +57,14 @@ public abstract class DateTime {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DateTime // instanceof handles nulls
-                        && this.value.equals(((DateTime) other).value)); // state
-                                                                         // check
+        if (value == null || ((DateTime) other).value == null) {
+            return !((value == null) ^ ((DateTime) other).value == null);
+        } else {
+            return other == this // short circuit if same object
+                    || (other instanceof DateTime // instanceof handles nulls
+                            && this.value.equals(((DateTime) other).value)); // state
+                                                                             // check
+        }
     }
 
     @Override
