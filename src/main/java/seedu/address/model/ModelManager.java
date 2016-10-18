@@ -8,6 +8,8 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -76,6 +78,14 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
         indicateTaskListChanged();
+    }
+    
+    @Override
+    public synchronized void editTask(Task target, Name name, UniqueTagList tags,
+    		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
+    	taskList.updateTask(target, name, tags, startDate, endDate);
+    	indicateTaskListChanged();
+    	updateFilteredListToShowAll();
     }
     
     @Override
@@ -310,12 +320,16 @@ public class ModelManager extends ComponentManager implements Model {
 			
 			Date deadline = new Date(task.getEndDate().getDate());
 			
+			//Strictly before
 			if(deadline.before(this.deadline)
 					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
 				return true;
-			if(deadline.getDate()==this.deadline.getDate()&&deadline.getMonth()==this.deadline.getMonth()
+			
+			//When only enter a date
+			if(deadline.getDate()==this.deadline.getDate() && deadline.getMonth()==this.deadline.getMonth()
 					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
 				return true;
+			
 			return false;
 		}
     	

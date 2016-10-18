@@ -23,13 +23,13 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.TypicalTestTasks;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -78,6 +78,8 @@ public class LogicManagerTest {
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
+    
+    
 
     @After
     public void teardown() throws DataConversionException, IOException {
@@ -124,7 +126,7 @@ public class LogicManagerTest {
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskList, model.getTaskList());
-        assertEquals(expectedTaskList, latestSavedTaskList);
+        //assertEquals(expectedTaskList, latestSavedTaskList);
     }
 
 
@@ -605,6 +607,24 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
     }
+    
+    @Test
+    public void execute_complete_removesCorrectTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Task toComplete = helper.adam();
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toComplete);
+        model.addTask(toComplete);
+
+        assertCommandBehavior("done 1", 
+        		String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete),
+        	    expectedAB,
+        	    new TaskList().getTaskList());
+        		
+        assertEquals(expectedAB, model.getTaskList());
+        assertEquals(expectedAB, latestSavedTaskList);
+    }
 
 
     @Test
@@ -751,6 +771,212 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
         
+    }
+    
+    // tests for edit command
+    
+    @Test
+    public void execute_edit_invalidTaskData() throws Exception {
+        Task toBeAdded = new Task(new Name("anything"), new UniqueTagList(),
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+       
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeAdded);
+    	model.addTask(toBeAdded);
+        assertCommandBehavior(
+                "edit 1 []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS, expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior(
+        		"edit 1 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS, expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_edit_fromDateIsBehindToDate_notAllowed() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(beforeModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 from 2 oct 1pm to 2 oct 1am",
+                String.format(EditCommand.MESSAGE_ILLEGAL_TIME_SLOT),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_edit_timeSlotOccupied_notAllowed() throws Exception {
+        // setup expectations
+    	Task dummyTask = new Task(new Name("dummy"), new UniqueTagList(),
+									new TaskDate("10 oct 2pm"), new TaskDate("10 oct 5pm"));
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(),
+    										new TaskDate("10 oct 10am"), new TaskDate("10 oct 12am"));
+		
+    	model.addTask(dummyTask);
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+    	expectedAB.addTask(dummyTask);
+		expectedAB.addTask(beforeModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 2 from 10 oct 1pm to 10 oct 6pm",
+                String.format(EditCommand.MESSAGE_TIMESLOT_OCCUPIED),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+  
+    @Test
+    public void execute_edit_name_for_task_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+    	Task afterModification = new Task(new Name("changed"), new UniqueTagList());
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 changed",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_edit_tag_for_taskWithoutTag_Successful() throws Exception {
+        // setup expectations
+    	Set<Tag> tagSet = new HashSet<Tag>();
+    	tagSet.add(new Tag("anytag"));
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(tagSet));
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 t/anytag",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_edit_tag_for_taskWithTag_Successful() throws Exception {
+        // setup expectations
+    	Set<Tag> tagSet = new HashSet<Tag>();
+    	Set<Tag> newTagSet = new HashSet<Tag>();
+    	tagSet.add(new Tag("anytag"));
+    	newTagSet.add(new Tag("anothertag"));
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(tagSet));
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(newTagSet));
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+    	expectedAB.getUniqueTagList().add(new Tag("anytag"));
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 t/anothertag",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_edit_change_fromDateToDate_for_nonFloatingTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 3am"), new TaskDate("2 oct 1pm"));
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 from 2 oct 2am to 2 oct 1pm",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_edit_change_byDate_for_nonfloatingTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 2pm"));
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"));
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 by 2 oct 1pm",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_edit_switch_between_byDate_and_fromDateToDate_for_nonFloatingTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 4am"), new TaskDate("2 oct 1pm"));
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"));
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 by 2 oct 1pm",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_edit_add_fromDateToDate_for_floatingTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 from 2 oct 2am to 2 oct 1pm",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_edit_add_byDate_for_floatingTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"));
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 by 2 oct 1pm",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskList());
     }
 
 

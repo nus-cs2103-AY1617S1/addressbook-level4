@@ -63,9 +63,12 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTags(), source.getStartDate(), source.getEndDate());
+        
         if (source.getEndDate().getDate() == TaskDate.DATE_NOT_PRESENT) {
             type = TaskType.FLOATING;
         }
+        
+        if(source.getType() == TaskType.COMPLETED) type = TaskType.COMPLETED;
     }
 
     @Override
@@ -130,5 +133,32 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
+	@Override
+	public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
+		if(name != null)
+			this.name = name;
+		
+		if(tags != null){
+			
+			this.tags = tags;
+			
+		}
+		
+		if(this.startDate.equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+				&& this.endDate.equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+				&& endDate != null) {
+			this.type = TaskType.NON_FLOATING;
+		}
+		
+		if(startDate != null) {
+			this.startDate = startDate;
+		} else if(endDate != null) {
+			this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+		}
+		
+		if(endDate != null)
+			this.endDate = endDate;
+	}
 
 }
