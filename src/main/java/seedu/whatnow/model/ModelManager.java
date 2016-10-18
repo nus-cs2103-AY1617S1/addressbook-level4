@@ -25,6 +25,10 @@ import java.util.stream.Collectors;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final String TASK_TYPE_FLOATING = "floating";
+    private static final String TASK_TYPE_NOT_FLOATING = "not_floating";
+    private static final String TASK_STATUS_COMPLETED = "completed";
+    private static final String TASK_STATUS_INCOMPLETE = "incomplete";
 
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
@@ -124,7 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredListToShowAll() {
-        String[] taskType = {"floating"};
+        String[] taskType = {TASK_TYPE_FLOATING};
         Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
         updateFilteredTaskList(new PredicateExpression(new TaskTypeQualifier(keyword)));
     }
@@ -132,7 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAllIncomplete() {
         filteredTasks.setPredicate(p -> {
-            if ((p.getTaskType().equals(("floating")) && (p.getStatus().equals("incomplete")))) {
+            if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
                 return true;
             } else {
                 return false;
@@ -143,7 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAllCompleted() {
         filteredTasks.setPredicate(p -> {
-            if ((p.getTaskType().equals(("floating")) && (p.getStatus().equals("completed")))) {
+            if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
                 return true;
             } else {
                 return false;
@@ -186,7 +190,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredScheduleListToShowAll() {
-        String[] taskType = {"not_floating"};
+        String[] taskType = {TASK_TYPE_NOT_FLOATING};
         Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
         updateFilteredScheduleList(new PredicateExpression(new TaskTypeQualifier(keyword)));
     }
@@ -194,7 +198,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredScheduleListToShowAllIncomplete() {
         filteredSchedules.setPredicate(p -> {
-            if ((p.getTaskType().equals(("not_floating")) && (p.getStatus().equals("incomplete")))) {
+            if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
                 return true;
             } else {
                 return false;
@@ -205,7 +209,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredScheduleListToShowAllCompleted() {
         filteredSchedules.setPredicate(p -> {
-            if ((p.getTaskType().equals(("not_floating")) && (p.getStatus().equals("completed")))) {
+            if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
                 return true;
             } else {
                 return false;
