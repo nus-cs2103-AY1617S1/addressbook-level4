@@ -57,6 +57,7 @@ public class TaskCard extends UiPart{
         startTime.setText(task.getStartTime().toCardString());
         priority.setText(task.getPriority().toString());
         endTime.setText(task.getEndTime().toCardString());
+        setColour();
         statusButton.setVisible(true);
         setStatusButtonColour();
         tags.setText(task.tagsString());
@@ -64,6 +65,18 @@ public class TaskCard extends UiPart{
 
     public HBox getLayout() {
         return cardPane;
+    }
+    
+    private void setColour(){
+        if(task.isOverDue()){
+        	cardPane.setStyle("-fx-background-color: #FFC0C0;");
+        }
+        else if(task.isComplete()){
+        	cardPane.setStyle("-fx-background-color: #C0FFC0;");
+        }
+        else {
+        	cardPane.setStyle("-fx-background-color: #FFFFFF;");
+        }
     }
 
     public void setStatusButtonColour() {
