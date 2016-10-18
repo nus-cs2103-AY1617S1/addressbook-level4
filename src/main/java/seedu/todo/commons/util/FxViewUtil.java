@@ -1,9 +1,14 @@
 package seedu.todo.commons.util;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 import java.util.Optional;
 
@@ -66,6 +71,32 @@ public class FxViewUtil {
         while (node.getStyleClass().contains(classStyle)) {
             node.getStyleClass().remove(classStyle);
         }
+    }
+
+    /**
+     * Toggles the style class:
+     *      If supplied style class is available, remove it.
+     *      Else, add one instance of it.
+     */
+    public static void toggleClassStyle(Node node, String classStyle) {
+        if (node.getStyleClass().contains(classStyle)) {
+            removeClassStyle(node, classStyle);
+        } else {
+            addClassStyle(node, classStyle);
+        }
+    }
+
+    /**
+     * Sets a recurring task on the UI specified in handler to repeat every specified seconds.
+     * Does not start until the user executes .play()
+     * @param seconds duration between each repeats
+     * @param handler method to run is specified here
+     * @return {@link Timeline} object to run.
+     */
+    public static Timeline setRecurringUiTask(int seconds, EventHandler<ActionEvent> handler) {
+        Timeline recurringTask = new Timeline(new KeyFrame(Duration.seconds(seconds), handler));
+        recurringTask.setCycleCount(Timeline.INDEFINITE);
+        return recurringTask;
     }
 
 }

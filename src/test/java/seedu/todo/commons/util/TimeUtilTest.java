@@ -1,20 +1,20 @@
 package seedu.todo.commons.util;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
- * Tests TimeUtil class
- * In this test, today is 3 May 2016, 13:15:10
+ * Tests the TimeUtil class
  */
 public class TimeUtilTest {
-    
+
+    //@@author A0135805H
     /**
      * A subclass of TimeUtil that provides the ability to override the current system time, 
      * so that time sensitive components can be conveniently tested. 
@@ -25,7 +25,7 @@ public class TimeUtilTest {
          * Construct a ModifiedTimeUtil object overriding the current time with Clock object.
          * Is only used for dependency injection in testing time sensitive components.
          */
-        private ModifiedTimeUtil (Clock clock) {
+        private ModifiedTimeUtil(Clock clock) {
             this.clock = clock;
         }
         
@@ -33,7 +33,7 @@ public class TimeUtilTest {
          * Construct a ModifiedTimeUtil object overriding the current time with LocalDateTime object.
          * Is only used for dependency injection in testing time sensitive components.
          */
-        public ModifiedTimeUtil (LocalDateTime pseudoCurrentTime) {
+        public ModifiedTimeUtil(LocalDateTime pseudoCurrentTime) {
             this(Clock.fixed(pseudoCurrentTime.toInstant(
                     ZoneId.systemDefault().getRules().getOffset(pseudoCurrentTime)), ZoneId.systemDefault()));
         }
@@ -42,16 +42,25 @@ public class TimeUtilTest {
     /**
      * Aids to test taskDeadlineText with a current time and due time, against an expected output.
      */
-    private void testTaskDeadlineTextHelper (String expectedOutput, LocalDateTime currentTime, LocalDateTime dueTime) {
+    private void testTaskDeadlineTextHelper(String expectedOutput, LocalDateTime currentTime, LocalDateTime dueTime) {
         TimeUtil timeUtil = new ModifiedTimeUtil(currentTime);
         String generatedOutput = timeUtil.getTaskDeadlineText(dueTime);
         assertEquals(expectedOutput, generatedOutput);
     }
+
+    /**
+     * Aids to test eventTimeText with a current time, startTime and endTime, against an expected output.
+     */
+    private void testEventTimeTextHelper(String expectedOutput, LocalDateTime currentTime,
+                                         LocalDateTime startTime, LocalDateTime endTime) {
+        TimeUtil timeUtil = new ModifiedTimeUtil(currentTime);
+        String generatedOutput = timeUtil.getEventTimeText(startTime, endTime);
+        assertEquals(expectedOutput, generatedOutput);
+    }
         
-    @Test (expected = AssertionError.class)
+    @Test
     public void getTaskDeadlineString_nullEndTime() {
-        TimeUtil timeUtil = new TimeUtil();
-        timeUtil.getTaskDeadlineText(null);
+        testTaskDeadlineTextHelper("", LocalDateTime.now(), null);
     }
     
     @Test
@@ -132,10 +141,10 @@ public class TimeUtilTest {
     
     @Test
     public void getTaskDeadlineText_todayAfterDeadline() {
-        testTaskDeadlineTextHelper("since 12:00 PM", 
+        testTaskDeadlineTextHelper("since today, 12:00 PM",
                 LocalDateTime.of(2016, Month.MARCH, 20, 18, 45), LocalDateTime.of(2016, Month.MARCH, 20, 12, 0));
-        testTaskDeadlineTextHelper("since 4:50 PM", 
-                LocalDateTime.of(2016, Month.MARCH, 20, 23, 58), LocalDateTime.of(2016, Month.MARCH, 20, 16, 50));
+        testTaskDeadlineTextHelper("since tonight, 6:50 PM",
+                LocalDateTime.of(2016, Month.MARCH, 20, 23, 58), LocalDateTime.of(2016, Month.MARCH, 20, 18, 50));
         testTaskDeadlineTextHelper("30 minutes ago", 
                 LocalDateTime.of(2016, Month.MARCH, 20, 0, 30), LocalDateTime.of(2016, Month.MARCH, 20, 0, 0));
     }
@@ -200,22 +209,65 @@ public class TimeUtilTest {
                 LocalDateTime.of(2020, Month.AUGUST, 31, 12, 35), LocalDateTime.of(2016, Month.FEBRUARY, 13, 13, 0));
     }
     
-    @Test (expected = AssertionError.class)
+    @Test
     public void getEventTimeText_nullStartTime() {
-        TimeUtil timeUtil = new TimeUtil();
-        timeUtil.getEventTimeText(null, LocalDateTime.now());
+        testEventTimeTextHelper("", LocalDateTime.now(), null, LocalDateTime.now().plusMinutes(1));
     }
     
-    @Test (expected = AssertionError.class)
+    @Test
     public void getEventTimeText_nullEndTime() {
-        TimeUtil timeUtil = new TimeUtil();
-        timeUtil.getEventTimeText(LocalDateTime.now(), null);
+        testEventTimeTextHelper("", LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), null);
+    }
+
+    @Test
+    public void getEventTimeText_sameDay() {
+        LocalDateTime currentTime = LocalDateTime.of(2016, 10, 20, 12, 00);
+        testEventTimeTextHelper("yesterday, from 4:50 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 19, 16, 50), LocalDateTime.of(2016, 10, 19, 20, 30));
+        testEventTimeTextHelper("today, from 4:50 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 20, 16, 50), LocalDateTime.of(2016, 10, 20, 20, 30));
+        testEventTimeTextHelper("tonight, from 6:00 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 20, 18, 00), LocalDateTime.of(2016, 10, 20, 20, 30));
+        testEventTimeTextHelper("tomorrow, from 4:50 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 21, 16, 50), LocalDateTime.of(2016, 10, 21, 20, 30));
+        testEventTimeTextHelper("21 November, from 4:50 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 11, 21, 16, 50), LocalDateTime.of(2016, 11, 21, 20, 30));
+        testEventTimeTextHelper("21 November 2017, from 4:50 PM to 8:30 PM", currentTime,
+                LocalDateTime.of(2017, 11, 21, 16, 50), LocalDateTime.of(2017, 11, 21, 20, 30));
+    }
+
+    @Test
+    public void getEventTimeText_differentDay() {
+        LocalDateTime currentTime = LocalDateTime.of(2016, 10, 20, 12, 00);
+        testEventTimeTextHelper("from yesterday, 4:50 PM to today, 2:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 19, 16, 50), LocalDateTime.of(2016, 10, 20, 14, 30));
+        testEventTimeTextHelper("from yesterday, 4:50 PM to tonight, 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 19, 16, 50), LocalDateTime.of(2016, 10, 20, 20, 30));
+        testEventTimeTextHelper("from today, 4:50 PM to tomorrow, 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 20, 16, 50), LocalDateTime.of(2016, 10, 21, 20, 30));
+        testEventTimeTextHelper("from tonight, 6:50 PM to tomorrow, 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 20, 18, 50), LocalDateTime.of(2016, 10, 21, 20, 30));
+        testEventTimeTextHelper("from tomorrow, 6:50 PM to 22 October, 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 21, 18, 50), LocalDateTime.of(2016, 10, 22, 20, 30));
+        testEventTimeTextHelper("from 18 October, 6:50 PM to 22 October, 8:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 18, 18, 50), LocalDateTime.of(2016, 10, 22, 20, 30));
+    }
+
+    @Test
+    public void getEventTimeText_differentYear() {
+        LocalDateTime currentTime = LocalDateTime.of(2016, 12, 31, 12, 00);
+        testEventTimeTextHelper("from 19 October, 4:50 PM to 3 January 2017, 2:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 19, 16, 50), LocalDateTime.of(2017, 1, 3, 14, 30));
+        testEventTimeTextHelper("from 19 October, 4:50 PM to tomorrow, 2:30 PM", currentTime,
+                LocalDateTime.of(2016, 10, 19, 16, 50), LocalDateTime.of(2017, 1, 1, 14, 30));
+        testEventTimeTextHelper("from today, 4:50 PM to 4 January 2017, 2:30 PM", currentTime,
+                LocalDateTime.of(2016, 12, 31, 16, 50), LocalDateTime.of(2017, 1, 4, 14, 30));
     }
     
-    @Test (expected = AssertionError.class)
+    @Test
     public void isOverdue_nullEndTime() {
         TimeUtil timeUtil = new TimeUtil();
-        timeUtil.isOverdue(null);
+        assertFalse(timeUtil.isOverdue(null));
     }
     
     @Test
@@ -231,7 +283,8 @@ public class TimeUtilTest {
         LocalDateTime laterEndTime = LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 35);
         assertTrue(timeUtil.isOverdue(laterEndTime));
     }
-    
+
+    //@@author
     @Test
     public void toAmericanDateFormat_matches() {
         assertEquals("12/6", TimeUtil.toAmericanDateFormat("6/12"));

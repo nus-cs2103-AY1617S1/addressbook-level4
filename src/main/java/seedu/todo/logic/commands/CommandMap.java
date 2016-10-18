@@ -22,6 +22,7 @@ public class CommandMap {
         .add(RedoCommand.class)
         .add(SaveCommand.class)
         .add(LoadCommand.class)
+        .add(ShowCommand.class)
         .build();
     
     private static Map<String, Class<? extends BaseCommand>> commandMap;

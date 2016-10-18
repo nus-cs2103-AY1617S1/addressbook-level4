@@ -111,32 +111,6 @@
     -fx-fit-to-height: 20px;
 }
 
-/*Selected*/
-.selected {
-    -fx-background-color: #00A4FF;
-}
-
-.selected .label {
-    -fx-text-fill: #FFFFFF;
-}
-
-.selected .roundLabel {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #00A4FF;
-}
-
-.selected .pinImage {
-    -fx-image: url("../images/star_white.png");
-}
-
-.selected .dateImage {
-    -fx-image: url("../images/clock_white.png");
-}
-
-.selected .locationImage {
-    -fx-image: url("../images/location_white.png");
-}
-
 /*Completed*/
 .completed .label{
     -fx-text-fill: #7F7F7F;
@@ -186,6 +160,33 @@
 }
 
 .overdue .locationImage {
+    -fx-image: url("../images/location_white.png");
+}
+
+
+/*Selected*/
+.selected {
+    -fx-background-color: #00A4FF;
+}
+
+.selected .label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.selected .roundLabel {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #00A4FF;
+}
+
+.selected .pinImage {
+    -fx-image: url("../images/star_white.png");
+}
+
+.selected .dateImage {
+    -fx-image: url("../images/clock_white.png");
+}
+
+.selected .locationImage {
     -fx-image: url("../images/location_white.png");
 }
 

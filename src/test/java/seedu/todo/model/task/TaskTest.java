@@ -157,6 +157,12 @@ public class TaskTest {
         LocalDateTime anotherTime = LocalDateTime.now().plusDays(1);
         task.setLastUpdated(anotherTime);
     }
+    
+    @Test
+    public void testLastUpdatedNull() throws Exception {
+        task.setLastUpdated(null);
+        assertNotNull(task.getLastUpdated());
+    }
 
     @Test
     public void testCompleted() {
