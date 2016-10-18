@@ -32,8 +32,17 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-
+    public static class NoPrevCommandException extends Exception {
+    	public  NoPrevCommandException() {
+    		super("No previous Command was found");
+    	}
+    }
+    
+    private ObservableList<Task> internalList = FXCollections.observableArrayList();
+    
+ //   private Stack<Task[]> reqStack = new Stack<>();
+    
+    //private Task[] array = new Task[];
     /**
      * Constructs empty TaskList.
      */
@@ -57,6 +66,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
+        
         internalList.add(toAdd);
     }
 
@@ -73,7 +83,50 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
-
+    
+    /**
+     * Updates the equivalent task from the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean update(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException {
+        assert old != null;
+        final boolean taskFoundAndUpdated = internalList.contains(old);
+        if (!taskFoundAndUpdated) {
+            throw new TaskNotFoundException();
+        }
+        internalList.set(internalList.indexOf(old), toUpdate);
+        return taskFoundAndUpdated;
+    }
+    
+    /**
+     * Mark the equivalent task from the list as completed.
+     */
+    public boolean mark(ReadOnlyTask target) throws TaskNotFoundException {
+        assert target!= null;
+        final boolean taskFoundAndMarked = internalList.contains(target);
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        internalList.get(internalList.indexOf(target)).setStatus("completed");
+        internalList.set(internalList.indexOf(target), internalList.get(internalList.indexOf(target)));
+        return taskFoundAndMarked;
+    }
+    
+    /**
+     * 
+     * Mark the equivalent task from the list as uncompleted.
+     */
+    public boolean unmark(ReadOnlyTask target) throws TaskNotFoundException {
+    	assert target!=null;
+    	final boolean taskFoundAndMarked = internalList.contains(target);
+    	if(!taskFoundAndMarked) {
+    		throw new TaskNotFoundException();
+    	}
+    	internalList.get(internalList.indexOf(target)).setStatus("incomplete");
+    	internalList.set(internalList.indexOf(target), internalList.get(internalList.indexOf(target)));
+    	return taskFoundAndMarked;
+    }
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

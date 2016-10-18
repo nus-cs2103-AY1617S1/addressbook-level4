@@ -32,6 +32,13 @@ Responsibilities: Coding lead
 
 -----
 
+## Project Mentor
+
+#### [Akshay Narayan](https://github.com/okkhoy) 
+<img src="images/AkshayNarayan.jpg" width="150"><br>
+
+-----
+
 # Contributors
 
 We welcome contributions. See [Contact Us](ContactUs.md) page for more info.

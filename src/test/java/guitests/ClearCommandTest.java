@@ -14,9 +14,9 @@ public class ClearCommandTest extends WhatNowGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.hoon));
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand(td.h.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.h));
+        commandBox.runCommand("delete todo 1");
         assertListSize(0);
 
         //verify clear command works when the list is empty
@@ -26,6 +26,6 @@ public class ClearCommandTest extends WhatNowGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage("WhatNow has been cleared!");
     }
 }

@@ -130,12 +130,17 @@ public class UniqueTagList implements Iterable<Tag> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueTagList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTagList) other).internalList));
+        if (other instanceof UniqueTagList) {
+            for (Tag tag : this.internalList) {
+                if (!(((UniqueTagList) other).getInternalList()).contains(tag)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
-
+ 
     @Override
     public int hashCode() {
         return internalList.hashCode();

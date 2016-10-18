@@ -20,7 +20,6 @@ import seedu.whatnow.storage.StorageManager;
 import seedu.whatnow.ui.Ui;
 import seedu.whatnow.ui.UiManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -50,7 +49,6 @@ public class MainApp extends Application {
 
         config = initConfig(getApplicationParameter("config"));
         storage = new StorageManager(config.getWhatNowFilePath(), config.getUserPrefsFilePath());
-
         userPrefs = initPrefs(config);
 
         initLogging(config);
@@ -62,6 +60,18 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+    }
+    
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+    
+    public Config getConfig() {
+        return this.config;
+    }
+    
+    public void setStorage(Storage storage){
+        this.storage = storage;
     }
 
     private String getApplicationParameter(String parameterName){
@@ -165,7 +175,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping WhatNow ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

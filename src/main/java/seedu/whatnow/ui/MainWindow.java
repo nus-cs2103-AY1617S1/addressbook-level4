@@ -1,12 +1,22 @@
 package seedu.whatnow.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.GuiSettings;
@@ -29,7 +39,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private ScheduleListPanel scheduleListPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -44,7 +54,7 @@ public class MainWindow extends UiPart {
     private String whatNowName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane scheduleListPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -60,8 +70,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-
-
+    
     public MainWindow() {
         super();
     }
@@ -97,6 +106,7 @@ public class MainWindow extends UiPart {
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
+        
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
@@ -108,7 +118,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        scheduleListPanel = ScheduleListPanel.load(primaryStage, getScheduleListPlaceholder(), logic.getFilteredScheduleList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getWhatNowFilePath());
@@ -129,6 +139,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    private AnchorPane getScheduleListPlaceholder() {
+        return scheduleListPlaceholder;
     }
 
     public void hide() {
@@ -185,12 +199,8 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
+    
+    public ScheduleListPanel getScheduleListPanel() {
+        return this.scheduleListPanel;
     }
 }

@@ -10,6 +10,7 @@ import seedu.whatnow.model.Model;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.storage.Storage;
 
+import java.text.ParseException;
 import java.util.logging.Logger;
 
 /**
@@ -27,7 +28,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) {
+    public CommandResult execute(String commandText) throws ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);
@@ -37,5 +38,10 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredScheduleList() {
+        return model.getFilteredScheduleList();
     }
 }

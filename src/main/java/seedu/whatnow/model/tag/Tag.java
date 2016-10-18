@@ -4,13 +4,13 @@ package seedu.whatnow.model.tag;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Tag in the whatnow book.
+ * Represents a Tag in WhatNow.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
 
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}*";
 
     public String tagName;
 
