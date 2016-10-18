@@ -121,9 +121,9 @@ public class MainParser {
     private Command prepareAdd(String args){
         try {
         	args = extractDetail(args);	// Saves to detailToAdd
+        	args = extractDueByDateAndTime(args);
         	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
         		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
-        	reducedArgs = extractDueByDateAndTime(args);
         	LocalDateTime dt = LocalDateTime.MIN;
         	LocalDateTime dtStart = LocalDateTime.MIN;
         	LocalDateTime dtEnd = LocalDateTime.MIN;
