@@ -15,8 +15,6 @@ public class TaskCardHandle extends GuiHandle {
     private static final String DESCRIPTION_FIELD_ID = "#description";
     private static final String START_DATE_FIELD_ID = "#startDate";
     private static final String DUE_DATE_FIELD_ID = "#dueDate";
-    private static final String INTERVAL_FIELD_ID = "#interval";
-    private static final String TIME_INTERVAL_FIELD_ID = "#timeInterval";
     private static final String STATUS_FIELD_ID = "#status";
     
     private Node node;
@@ -45,14 +43,6 @@ public class TaskCardHandle extends GuiHandle {
     public String getDueDate() {
         return getTextFromLabel(DUE_DATE_FIELD_ID);
     }
-
-    public String getInterval() {
-        return getTextFromLabel(INTERVAL_FIELD_ID);
-    }
-
-    public String getTimeInterval() {
-        return getTextFromLabel(TIME_INTERVAL_FIELD_ID);
-    }
     
     public String getStatus() {
         return getTextFromLabel(STATUS_FIELD_ID);
@@ -62,7 +52,7 @@ public class TaskCardHandle extends GuiHandle {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM-yyyy");
     	return getTitle().equals(task.getTitle().fullTitle) && getDescription().equals(task.getDescription().fullDescription)
                 && getStartDate().equals("Start Date: " + dateFormat.format(task.getStartDate().startDate)) && getDueDate().equals("Due Date: " + dateFormat.format(task.getDueDate().dueDate))
-                && getInterval().equals(task.getInterval().toString()) && getTimeInterval().equals(task.getTimeInterval().toString()) && getStatus().equals(task.getStatus().status);
+                && getStatus().equals(task.getStatus().status);
     }
 
     @Override
@@ -73,8 +63,6 @@ public class TaskCardHandle extends GuiHandle {
                     && getDescription().equals(handle.getDescription())
                     && getStartDate().equals(handle.getStartDate())
                     && getDueDate().equals(handle.getDueDate())
-                    && getInterval().equals(handle.getInterval())
-                    && getTimeInterval().equals(handle.getTimeInterval())
                     && getStatus().equals(handle.getStatus()); 
         }
         return super.equals(obj);
@@ -82,6 +70,6 @@ public class TaskCardHandle extends GuiHandle {
 
     @Override
     public String toString() {
-        return getTitle() + " " + getDescription()+ " " + getStartDate()+ " " + getDueDate()+ " " + getInterval()+ " " + getTimeInterval()+" " + getStatus();
+        return getTitle() + " " + getDescription()+ " " + getStartDate()+ " " + getDueDate()+ " " + getStatus();
     }
 }

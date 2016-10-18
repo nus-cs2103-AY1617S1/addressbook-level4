@@ -30,18 +30,22 @@ public class ArgumentTokenizer {
 		Prefix(String prefix) {
 			this.prefix = prefix;
 		}
-		
-		Prefix(String prefix, boolean isOptional){
+
+		Prefix(String prefix, boolean isOptional) {
 			this.prefix = prefix;
-			this.isOptional = isOptional; 
+			this.isOptional = isOptional;
+		}
+
+		public void SetIsOptional(boolean isOptional) {
+			this.isOptional = isOptional;
 		}
 
 		String getPrefix() {
 			return this.prefix;
 		}
-		
-		boolean isOptional(){
-			return this.isOptional; 
+
+		boolean isOptional() {
+			return this.isOptional;
 		}
 
 		@Override
@@ -111,18 +115,19 @@ public class ArgumentTokenizer {
 
 	/**
 	 * Returns last value of given prefix.
-	 * @throws NoValueForRequiredTagException is thrown 
-	 * when there is no value for required task
+	 * 
+	 * @throws NoValueForRequiredTagException
+	 *             is thrown when there is no value for required task
 	 */
 	public String getValue(Prefix prefix) throws NoValueForRequiredTagException {
 		Optional<String> valuesForPrexix = getAllValues(prefix)
 				.flatMap((values) -> Optional.of(values.get(values.size() - 1)));
 		if (prefix.isOptional && !valuesForPrexix.isPresent()) {
 			return null;
-		} else if(!prefix.isOptional && !valuesForPrexix.isPresent()){
-			throw new NoValueForRequiredTagException(String.format(Messages.MESSAGE_NO_VALUE_FOR_REQUIRED_PREFIX, prefix.getPrefix()));
-		}
-		else {
+		} else if (!prefix.isOptional && !valuesForPrexix.isPresent()) {
+			throw new NoValueForRequiredTagException(
+					String.format(Messages.MESSAGE_NO_VALUE_FOR_REQUIRED_PREFIX, prefix.getPrefix()));
+		} else {
 			return valuesForPrexix.get().trim();
 		}
 	}
@@ -133,21 +138,22 @@ public class ArgumentTokenizer {
 	public Optional<List<String>> getAllValues(Prefix prefix) {
 		if (!this.tokenizedArguments.containsKey(prefix))
 			return Optional.empty();
-			
+
 		List<String> values = new ArrayList<>(this.tokenizedArguments.get(prefix));
 		return Optional.of(values);
 	}
-    
+
 	/**
 	 * Returns the preamble (text before the first valid prefix), if any.
 	 * Leading/trailing spaces will be trimmed. If the string before the first
 	 * prefix is empty, NoSuchElementException will be returned.
-	 * @throws NoValueForRequiredTagException 
+	 * 
+	 * @throws NoValueForRequiredTagException
 	 */
 	public String getPreamble() throws NoValueForRequiredTagException {
-		String preambleValue= getValue(new Prefix(""));
-		if(preambleValue.isEmpty())
-			throw new NoSuchElementException(); 
+		String preambleValue = getValue(new Prefix(""));
+		if (preambleValue.isEmpty())
+			throw new NoSuchElementException();
 		return preambleValue.trim();
 	}
 
@@ -240,14 +246,14 @@ public class ArgumentTokenizer {
 		values.add(value);
 		this.tokenizedArguments.put(prefix, values);
 	}
-	
+
 	/**
-	 * Throw when there is no value for required tag. 
+	 * Throw when there is no value for required tag.
 	 */
 	public class NoValueForRequiredTagException extends Exception {
-	    public NoValueForRequiredTagException(String message) {
-	        super(message);
-	    }
+		public NoValueForRequiredTagException(String message) {
+			super(message);
+		}
 	}
-	
+
 }

@@ -25,6 +25,7 @@ public class AddCommand extends Command {
 			+ COMMAND_WORD + " HOMEWORK d/Math homework. dd/01-01-2012 i/2 ti/7";
 
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+	public static final String MESSAGE_SUCCESS_MANY_TASKS = "%1$s tasks added: %2$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
 	private List<Task> tasksToAdd;
@@ -66,7 +67,10 @@ public class AddCommand extends Command {
 			for (Task task : tasksToAdd) {
 				model.addTask(task);
 			}
-			return new CommandResult(String.format(MESSAGE_SUCCESS, "aa"));
+			if(tasksToAdd.size()==1)
+				return new CommandResult(String.format(MESSAGE_SUCCESS,tasksToAdd.get(0).getTitle()));
+			else
+				return new CommandResult(String.format(MESSAGE_SUCCESS_MANY_TASKS,tasksToAdd.get(0).getInterval(),tasksToAdd.get(0).getTitle()));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}

@@ -29,7 +29,7 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    public static final Prefix descriptionPrefix = new Prefix(" d/", true);
+    public static final Prefix descriptionPrefix = new Prefix(" d/");
     public static final Prefix startDatePrefix = new Prefix(" sd/", true);
     public static final Prefix dueDatePrefix = new Prefix(" dd/", true);
     public static final Prefix intervalPrefix = new Prefix(" i/", true);
@@ -105,10 +105,11 @@ public class Parser {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, startDatePrefix, dueDatePrefix,
 				intervalPrefix, timeIntervalPrefix, tagArgumentsPrefix);
 		argsTokenizer.tokenize(args);
-		//if (argsTokenizer.getValue(startDatePrefix).get()!=null && argsTokenizer.getValue(dueDatePrefix).get()==null) {
-        //    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EVENT_USAGE));
-        //}
 		try {
+			//For deadlines - if there is startDate, set dueDatePrefix as required
+			if (argsTokenizer.getValue(startDatePrefix)!=null) {
+				dueDatePrefix.SetIsOptional(false);
+			}
 			return new AddCommand(argsTokenizer.getPreamble(), 
 					isInputPresent(argsTokenizer.getValue(descriptionPrefix)),
 					isInputPresent(argsTokenizer.getValue(startDatePrefix)), 
