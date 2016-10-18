@@ -44,7 +44,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label titleLabel;
     @FXML
-    private Label typeLabel;
+    private Label typeLabel, moreInfoLabel;
     @FXML
     private Label descriptionLabel, dateLabel, locationLabel;
     @FXML
@@ -201,7 +201,12 @@ public class TaskCard extends UiPart{
      * @param task that is being wrapped by the {@link TaskCard} object
      * @return a {@link TaskCard} object that contains this task (can be null if not available)
      */
-    public static TaskCard getTaskCard(ImmutableTask task) {
+    static TaskCard getTaskCard(ImmutableTask task) {
         return taskCardMap.get(task);
+    }
+
+    /* Getters */
+    public int getDisplayedIndex() {
+        return displayedIndex;
     }
 }
