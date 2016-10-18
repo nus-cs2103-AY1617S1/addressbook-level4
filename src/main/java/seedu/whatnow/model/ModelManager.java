@@ -44,6 +44,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<ReadOnlyTask> stackOfOldTask;
     private final Stack<ReadOnlyTask> stackOfNewTask;
     private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
+    private final Stack<ReadOnlyTask> stackOfDeletedTasks;
+    private final Stack<String> stackOfDeletedTaskTypes;
+    
+   // private final Stack<ReadyOnlyTask> stackOf
     /**
      * Initializes a ModelManager with the given WhatNow
      * WhatNow and its variables should not be null
@@ -65,6 +69,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfOldTask = new Stack<>();
         stackOfNewTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
+        stackOfDeletedTasks = new Stack<>();
+        stackOfDeletedTaskTypes = new Stack<>();
     }
 
     public ModelManager() {
@@ -82,6 +88,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfOldTask = new Stack<>();
         stackOfNewTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
+        stackOfDeletedTasks = new Stack<>();
+        stackOfDeletedTaskTypes = new Stack<>();
     }
 
     @Override
@@ -114,7 +122,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        whatNow.removeTask(target);
+        stackOfDeletedTasks.push(target);
+    	whatNow.removeTask(target);
         indicateWhatNowChanged();
     }
 
@@ -164,13 +173,20 @@ public class ModelManager extends ComponentManager implements Model {
 	public Stack<ReadOnlyTask> getNewTask() {
 		return stackOfNewTask;
 	}
-    
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
         filteredTasks.setPredicate(null);
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-
+    @Override
+    public Stack<ReadOnlyTask> getDeletedStackOfTask() {
+    	return stackOfDeletedTasks;
+    }
+    @Override
+    public Stack<String> getDeletedStackOfTaskType() {
+    	return stackOfDeletedTaskTypes;
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
