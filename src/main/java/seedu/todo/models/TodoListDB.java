@@ -142,6 +142,30 @@ public class TodoListDB {
     }
     
     /**
+     * Destroys all Task in the DB by date
+     * 
+     * 
+     * @return true if the save was successful, false otherwise
+     */
+    public boolean destroyAllTaskByDate(LocalDateTime givenDate) {
+        List<Task> selectedTasks = getTaskByDate(givenDate);
+        tasks.removeAll(selectedTasks);
+        return save();
+    }
+    
+    /**
+     * Destroys all Task in the DB by a range of date
+     * 
+     * 
+     * @return true if the save was successful, false otherwise
+     */
+    public boolean destroyAllTaskByRange(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        List<Task> selectedTasks = getTaskByRange(dateFrom, dateTo);
+        tasks.removeAll(selectedTasks);
+        return save();
+    }
+    
+    /**
      * Create a new Event in the DB and return it.<br>
      * <i>The new record is not persisted until <code>save</code> is explicitly
      * called.</i>
@@ -175,6 +199,32 @@ public class TodoListDB {
         events = new LinkedHashSet<Event>();
         return save();
     }
+    
+    /**
+     * Destroys all Event in the DB by date
+     * 
+     * 
+     * @return true if the save was successful, false otherwise
+     */
+    public boolean destroyAllEventByDate(LocalDateTime givenDate) {
+        List<Event> selectedEvents = getEventByDate(givenDate);
+        events.removeAll(selectedEvents);
+        return save();
+    }
+    
+    /**
+     * Destroys all Event in the DB by a range of date
+     * 
+     * 
+     * @return true if the save was successful, false otherwise
+     */
+    public boolean destroyAllEventByRange(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        List<Event> selectedEvents = getEventByRange(dateFrom, dateTo);
+        events.removeAll(selectedEvents);
+        return save();
+    }
+    
+    
     
     /**
      * Gets the singleton instance of the TodoListDB.
@@ -267,6 +317,29 @@ public class TodoListDB {
     }
     
     /**
+     * Get a list of Task in the DB filtered by a given date.
+     * 
+     * @return list of tasks
+     */
+    public List<Task> getTaskByDate(LocalDateTime givenDate) {
+        ArrayList<Task> taskByDate = new ArrayList<Task>();
+        Iterator<Task> iterator = tasks.iterator();
+        while (iterator.hasNext()) {
+            Task currTask = iterator.next();
+            LocalDateTime currTaskDueDate = DateUtil.floorDate(currTask.getDueDate());
+            
+            if (currTaskDueDate == null) {
+                currTaskDueDate = LocalDateTime.MIN;
+            }
+            
+            if (currTaskDueDate.equals(givenDate)) {
+                taskByDate.add(currTask);
+            }
+        }
+        return taskByDate;
+    }
+    
+    /**
      * Get a list of Task in the DB filtered by status and one date.
      * 
      * @return list of tasks
@@ -293,6 +366,36 @@ public class TodoListDB {
             }
         }
         return taskByDate;
+    }
+    
+    /**
+     * Get a list of Task in the DB filtered by range of date.
+     * 
+     * @return list of tasks
+     */
+    public List<Task> getTaskByRange (LocalDateTime fromDate , LocalDateTime toDate) {
+        ArrayList<Task> taskByRange = new ArrayList<Task>();
+        Iterator<Task> iterator = tasks.iterator();
+        if (fromDate == null) {
+            fromDate = LocalDateTime.MIN;
+        }
+        
+        if (toDate == null) {
+            toDate = LocalDateTime.MAX;
+        }
+        while (iterator.hasNext()) {
+            Task currTask = iterator.next();
+            LocalDateTime currTaskDueDate = DateUtil.floorDate(currTask.getDueDate());
+            if (currTaskDueDate == null) {
+                currTaskDueDate = LocalDateTime.MIN;
+            }
+            
+            if (currTaskDueDate.compareTo(fromDate) >= 0 && currTaskDueDate.compareTo(toDate) <= 0) {
+                taskByRange.add(currTask);
+            }
+            
+        }
+        return taskByRange;
     }
     
     /**
@@ -336,7 +439,7 @@ public class TodoListDB {
      * 
      * @return list of events
      */
-    public List<Event> getEventbyDate(LocalDateTime givenDate) {
+    public List<Event> getEventByDate(LocalDateTime givenDate) {
         ArrayList<Event> eventByDate = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
         while (iterator.hasNext()) {
