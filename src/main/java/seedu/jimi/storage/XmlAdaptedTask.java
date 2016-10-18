@@ -21,16 +21,16 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public class XmlAdaptedTask {
 
     @XmlElement(required = true)
-    private String name;
+    private String name = "";
     @XmlElement(required = true)
-    private String isCompleted;
+    private String isCompleted = "";
     
     @XmlElement(required = true)
-    private String taskDeadline;
+    private String taskDeadline = "";
     @XmlElement(required = true)
-    private String eventStartDatetime;
+    private String eventStartDatetime = "";
     @XmlElement(required = true)
-    private String eventEndDatetime;
+    private String eventEndDatetime = "";
     
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -54,11 +54,12 @@ public class XmlAdaptedTask {
             taskDeadline = ((DeadlineTask) source).getDeadline().toString();
         } else if (source instanceof Event) {
             eventStartDatetime = ((Event) source).getStart().toString();
-            eventEndDatetime = ((Event) source).getEnd().toString();
-        } else {
-            /* Set all null since floating task */
-            taskDeadline = eventStartDatetime = eventEndDatetime = null;
+            DateTime endDate = ((Event) source).getEnd();
+            if (endDate != null) {
+                eventEndDatetime = endDate.toString();
+            }
         }
+        
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -81,19 +82,17 @@ public class XmlAdaptedTask {
         final boolean isCompletedBoolean = Boolean.parseBoolean(isCompleted);
         ReadOnlyTask toConvert;
         
-        if (taskDeadline == null && eventStartDatetime == null) { // floating
-            toConvert = new FloatingTask(name, tags);
-            ((FloatingTask) toConvert).setCompleted(isCompletedBoolean);
-        } else if (taskDeadline != null) { // deadline task
-            toConvert = new DeadlineTask(name, new DateTime(taskDeadline), tags);
-            ((DeadlineTask) toConvert).setCompleted(isCompletedBoolean);
+        if (taskDeadline.isEmpty() && eventStartDatetime.isEmpty()) { // floating
+            toConvert = new FloatingTask(name, tags, isCompletedBoolean);
+        } else if (!taskDeadline.isEmpty()) { // deadline task
+            toConvert = new DeadlineTask(name, new DateTime(taskDeadline), tags, isCompletedBoolean);
         } else {
             toConvert = new Event(
                     name, 
                     new DateTime(eventStartDatetime), 
                     new DateTime(eventEndDatetime), 
-                    tags);
-            ((Event) toConvert).setCompleted(isCompletedBoolean);
+                    tags, 
+                    isCompletedBoolean);
         }
         
         return toConvert;
