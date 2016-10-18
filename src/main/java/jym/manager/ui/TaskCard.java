@@ -13,7 +13,7 @@ public class TaskCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label desc;
     @FXML
     private Label id;
     @FXML
@@ -43,14 +43,17 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
     	try{
-    	System.out.println(task);
-        name.setText(task.getDescription().toString());
-        id.setText(displayedIndex + ". ");
-        if(task.getLocation() != null) address.setText(task.getLocation().toString());
-        if(task.getDate() != null) deadline.setText("Due: " + task.getDate().toString());
-        else {
-        	deadline.setText("No deadline assigned");
-        }
+	//    	System.out.println(task);
+	        desc.setText(task.getDescription().toString());
+	        id.setText(displayedIndex + ". ");
+	        if(task.getLocation() != null) {
+	        	address.setText(task.getLocation().toString());
+	        }
+	        if(task.getDate() != null) {
+	        	deadline.setText("Due: " + task.getDate().toString());
+	        } else {
+	        	deadline.setText("No deadline assigned");
+	        }
     	}catch(NullPointerException npe){
     		npe.printStackTrace();
     	}

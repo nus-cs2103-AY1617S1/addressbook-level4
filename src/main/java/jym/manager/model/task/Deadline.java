@@ -3,6 +3,7 @@ package jym.manager.model.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 import jym.manager.commons.exceptions.IllegalValueException;
@@ -45,20 +46,37 @@ public class Deadline {
             throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
         }
         this.value = deadline;
+        
     }
-
+    public Deadline(Deadline other){
+    	this.value = other.toString();
+    	this.date = other.getDate();
+    }
     /**
      * Returns if a given string is a valid person email.
      */
-    public static boolean isValidDeadline(String test) {
+    public boolean isValidDeadline(String test) {
     	if(test == null) return false;
-    	
 		 LocalDateTime ldt = null;
-	     if(test != null){
-	     	test.replaceAll("\\n", "");
-	     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
-	     	ldt = LocalDateTime.parse(test, formatter);
+	     test.replaceAll("\\n", "");
+	     if(test.contains("T")){
+	    	 try{
+	 			ldt = LocalDateTime.parse(test);
+	 		} catch(DateTimeParseException dtpe){
+	 			dtpe.printStackTrace();
+	 		}
+	     } else {
+	     	try{
+		     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
+		     	ldt = LocalDateTime.parse(test, formatter);
+	    	}catch(DateTimeParseException dtpe){
+	    		dtpe.printStackTrace();
+	    	}
 	     }
+    	
+		if(ldt != null){
+			this.date = ldt;
+		}
 	     return (ldt != null);
     }
 
@@ -73,7 +91,11 @@ public class Deadline {
     public LocalDateTime getDate(){
     	return this.date;
     }
-
+    
+    public boolean hasDeadline(){
+    	return this.date != null;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

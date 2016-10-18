@@ -30,7 +30,9 @@ public class Location {
 //        }
         this.value = location;
     }
-
+    public Location(Location other){
+    	this.value = other.toString();
+    }
     /**
      * Returns true if a given string is a valid person email.
      */

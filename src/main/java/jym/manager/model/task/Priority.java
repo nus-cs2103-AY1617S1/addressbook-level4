@@ -11,7 +11,7 @@ public class Priority {
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority should only contain numbers";
     public static final String PRIORITY_VALIDATION_REGEX = "\\d+";
 
-    public final Integer value;
+    private final Integer value;
 
     /**
      * Validates given phone number.
@@ -20,6 +20,9 @@ public class Priority {
      */
     public Priority(int priority) {
         this.value = priority;
+    }
+    public Priority(Priority other){
+    	this.value = other.getValue();
     }
     //0 priority indicates there is no basically no priority value for the task
     public Priority(){
@@ -32,7 +35,9 @@ public class Priority {
     public static boolean isValidPriority(String test) {
         return test.matches(PRIORITY_VALIDATION_REGEX);
     }
-
+    public int getValue(){
+    	return this.value;
+    }
     @Override
     public String toString() {
         return value.toString();

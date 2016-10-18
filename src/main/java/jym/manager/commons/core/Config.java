@@ -12,7 +12,7 @@ public class Config {
 
     // Config values customizable through config file
     private String appTitle = "Address App";
-    private Level logLevel = Level.INFO;
+    private Level logLevel = Level.ALL;
     private String userPrefsFilePath = "preferences.json";
     private String addressBookFilePath = "data/addressbook.xml";
     private String addressBookName = "MyAddressBook";

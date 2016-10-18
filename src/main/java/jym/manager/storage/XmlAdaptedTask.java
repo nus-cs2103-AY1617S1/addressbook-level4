@@ -16,12 +16,10 @@ import jym.manager.model.task.*;
 public class XmlAdaptedTask {
 
     @XmlElement(required = true)
-    private String name;
-    @XmlElement(required = true)
+    private String description;
+    @XmlElement(required = false)
     private String deadline;
-    @XmlElement(required = true)
-    private String email;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     private String address;
 
     @XmlElement
@@ -39,14 +37,14 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getDescription().toString();
+        description = source.getDescription().toString();
         deadline = source.getDate().toString();
-        email = "placeholder";
+ 
         address = source.getLocation().toString();
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
+//        tagged = new ArrayList<>();
+//        for (Tag tag : source.getTags()) {
+//            tagged.add(new XmlAdaptedTag(tag));
+//        }
     }
 
     /**
@@ -59,10 +57,10 @@ public class XmlAdaptedTask {
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
-        final Description desc = new Description(this.name);
-       
-        final Location address = new Location(this.address);
+        final Description desc = new Description(this.description);
+        final Deadline dline = new Deadline(this.deadline);
+        final Location addr = new Location(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(desc, address, tags);
+        return new Task(desc, dline, addr, tags);
     }
 }

@@ -13,6 +13,7 @@ public class TestTask implements ReadOnlyTask {
     private Description description;
     private Location address;
     private Deadline deadline;
+    private Priority pri;
 //    private Phone phone;
     private UniqueTagList tags;
 
@@ -69,14 +70,21 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getDescription().toString() + " ");
+        if(this.hasDeadline()){
+        	sb.append("by " + this.getDate().toString());
+        }
+        if(this.getLocation() != null){
+        	sb.append("at " + this.getLocation().toString());
+        }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 
-
+    public boolean hasDeadline(){
+    	return (this.deadline != null && this.deadline.hasDeadline());
+    }
 	@Override
 	public Priority getPriority() {
-		// TODO Auto-generated method stub
-		return null;
+		return pri;
 	}
 }

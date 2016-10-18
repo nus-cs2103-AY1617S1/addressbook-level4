@@ -35,8 +35,14 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     		Object o = objects[i];
     		if(o instanceof String){
     			this.loc = new Location((String)o);
+    		} else if(o instanceof Location){ 
+    			this.loc = (Location)o;
     		} else if(o instanceof LocalDateTime){
     			this.dueDate = new Deadline((LocalDateTime)o);
+    		} else if(o instanceof Deadline){ 
+    			this.dueDate = (Deadline)o;
+    		} else if(o instanceof Priority){
+    			this.pri = (Priority)o;
     		} else if(o instanceof Integer){
     			this.pri = new Priority((Integer)o);
     		} else if(o instanceof UniqueTagList){
@@ -44,7 +50,12 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     		}
     	}
 	}
-
+	public Task(Description d, Deadline due, Location location){
+		this.descr = d;
+		this.dueDate = due;
+		this.loc = location;
+	
+	}
     /**
      * Every field must be present and not null.
      */
@@ -126,7 +137,9 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
         return getAsText();
     }
 
-
+    public boolean hasDeadline(){
+    	return this.dueDate != null && this.dueDate.hasDeadline();
+    }
 
 
 }

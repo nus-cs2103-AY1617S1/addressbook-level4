@@ -123,24 +123,41 @@ public class Parser {
 //        }
         System.out.println(matcher.groupCount());
         
-        String[] sections = args.split("\\sby\\s");
+        String[] sections = args.split("\\sby\\s|\\sat\\s");
         String date = null;
         String description = sections[0];
+        String location = null;
+        List<String> list = Arrays.asList(sections);
+        list.forEach(n-> System.out.println(n));
+        
         if(sections.length > 1){
-        	date = sections[1];
+        	Pattern dateRegex = Pattern.compile("(\\d\\d[- /.]\\d\\d[- /.]\\d\\d\\d\\d)(.*)");
+        	try {
+        		Matcher m = dateRegex.matcher(sections[1]);
+        		if(m.matches()){
+        			date = sections[1];
+        			System.out.println(date);
+        			if(sections.length > 2) location = sections[2];
+        		} else {
+        			location = sections[1];
+        			System.out.println(location);
+        			if(sections.length > 2) date = sections[2];
+        		}
+        	} catch (Exception e){
+        		e.printStackTrace();
+        	}
+        	
+        //	if(sections[1])
+        //	date = sections[1];
         }
      
     
-        LocalDateTime ldt = null;
-        if(date != null){
-        	date.replaceAll("\\n", "");
-        	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
-        	ldt = LocalDateTime.parse(date, formatter);
-        }
+        LocalDateTime ldt = parseDate(date);
         try {
             return new AddCommand(
                     description,
-                    ldt//,
+                    ldt,
+                    location
  //                   getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
