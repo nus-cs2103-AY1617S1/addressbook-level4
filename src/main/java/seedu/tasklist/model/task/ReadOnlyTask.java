@@ -43,13 +43,12 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTaskDetails()+ "\n")
-                .append("Start time: ")
+                .append("Starts:\t")
                 .append(getStartTime().toCardString() + "\t")
-                .append("End time:")
+                .append("Ends:\t")
                 .append(getEndTime().toCardString()+ "\n")
-                .append("Priority: ")
-                .append(getPriority()+ "\n")
-                .append("Tags: ");
+                .append("Priority:\t")
+                .append(getPriority()+ "\n");
         getTags().forEach(builder::append);
         return builder.toString();
     }

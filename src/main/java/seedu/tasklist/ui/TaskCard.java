@@ -54,9 +54,9 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getTaskDetails().taskDetails);
         id.setText(displayedIndex + ". ");
-        startTime.setText("Starts:   " + task.getStartTime().toCardString());
-        priority.setText("Priority: " + task.getPriority());
-        endTime.setText("Ends:     " + task.getEndTime().toCardString());
+        startTime.setText(task.getStartTime().toCardString());
+        priority.setText(task.getPriority().toString());
+        endTime.setText(task.getEndTime().toCardString());
         statusButton.setVisible(true);
         setStatusButtonColour();
         tags.setText(task.tagsString());
@@ -67,9 +67,11 @@ public class TaskCard extends UiPart{
     }
 
     public void setStatusButtonColour() {
-    	//TODO: add if overdue
     	if(task.isComplete()){
     		statusButton.setImage(new Image(COMPLETED_ICON_URL));
+    	}
+    	else if(task.isOverDue()){
+    		statusButton.setImage(new Image(OVERDUE_ICON_URL));
     	}
     	else{
     		statusButton.setImage(new Image(INCOMPLETE_ICON_URL));
