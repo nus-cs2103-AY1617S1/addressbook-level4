@@ -13,6 +13,7 @@ public class Flag {
     public static final String REMOVETAG = "-tr";
     public static final String DONE = "-do";
     public static final String UNDONE = "-ud";
+    public static final String RECURRING = "-r";
 
     public String prefix;
     public boolean hasMultiple;

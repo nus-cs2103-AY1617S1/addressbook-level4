@@ -9,6 +9,9 @@ import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,43 +19,95 @@ import java.util.Set;
  * Adds a task to tars.
  * 
  * @@author A0139924W
+ * @@author A0140022H
  */
 public class AddCommand extends UndoableCommand {
 
-	public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to tars. "
-            + "Parameters: NAME [-dt DATETIME] [-p PRIORITY] [-t TAG]...\n"
+            + "Parameters: NAME [-dt DATETIME] [-p PRIORITY] [-t TAG] [-r NUM_TIMES FREQUENCY]...\n " 
             + "Example: " + COMMAND_WORD
-            + " cs2103 project meeting -dt 05/09/2016 1400 to 06/09/2016 2200 -p h -t project";
+            + " cs2103 project meeting -dt 05/09/2016 1400 to 06/09/2016 2200 -p h -t project -r 2 every week";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_UNDO = "Removed %1$s";
     public static final String MESSAGE_REDO = "Added %1$s";
-
-    private final Task toAdd;
     
+    private static final String DATETIME_DAY = "day";
+    private static final String DATETIME_WEEK = "week";
+    private static final String DATETIME_MONTH = "month";
+    private static final String DATETIME_YEAR = "year";
+    private static final int DATETIME_INCREMENT = 1;
+    private static final int DATETIME_INDEX_OF_ENDDATE = 1;
+    private static final int DATETIME_INDEX_OF_STARTDATE = 0;
+    private static final int DATETIME_EMPTY_DATE = 0;
+    
+    private static final int ADDTASK_FIRST_ITERATION = 0;
+    private static final int ADDTASK_DEFAULT_NUMTASK = 1;
+
+    private static final int RECURRINGSTRING_NOT_EMPTY = 1;
+    private static final int RECURRINGSTRING_INDEX_OF_NUMTASK = 0;
+    private static final int RECURRINGSTRING_INDEX_OF_FREQUENCY = 2;
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter
+            .ofPattern("d/M/uuuu HHmm");
+    private static final DateTimeFormatter stringFormatter = DateTimeFormatter
+            .ofPattern("dd/MM/uuuu HHmm");
+
+    private Task toAdd;
+    private ArrayList<Task> toAddArray;
+
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException if any of the raw values are invalid
-     * @throws DateTimeException if given dateTime string is invalid.
+     * @throws IllegalValueException
+     *             if any of the raw values are invalid
+     * @throws DateTimeException
+     *             if given dateTime string is invalid.
      */
-    public AddCommand(String name, String[] dateTime, String priority, Set<String> tags)
+    public AddCommand(String name, String[] dateTime, String priority, Set<String> tags, String[] recurringString)
             throws IllegalValueException, DateTimeException {
 
+        toAddArray = new ArrayList<Task>();
+        
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
-        this.toAdd = new Task(
-                new Name(name),
-                new DateTime(dateTime[0], dateTime[1]),
-                new Priority(priority),
-                new Status(),
-                new UniqueTagList(tagSet)
-        );
+
+        int numTask = ADDTASK_DEFAULT_NUMTASK;
+        if (recurringString != null && recurringString.length > 1) {
+            numTask = Integer.parseInt(recurringString[RECURRINGSTRING_INDEX_OF_NUMTASK]);
+        }
+
+        for (int i = ADDTASK_FIRST_ITERATION; i < numTask; i++) {
+            if (i != ADDTASK_FIRST_ITERATION) {
+                if (recurringString != null 
+                        && recurringString.length > RECURRINGSTRING_NOT_EMPTY) {
+                    if (dateTime[DATETIME_INDEX_OF_STARTDATE] != null 
+                            || dateTime[DATETIME_INDEX_OF_STARTDATE].length() > DATETIME_EMPTY_DATE) {
+                        dateTime[DATETIME_INDEX_OF_STARTDATE] 
+                                = modifyDate(dateTime[DATETIME_INDEX_OF_STARTDATE], 
+                                             recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
+                    }
+                    if (dateTime[DATETIME_INDEX_OF_ENDDATE] != null 
+                            || dateTime[DATETIME_INDEX_OF_ENDDATE].length() > DATETIME_EMPTY_DATE) {
+                        dateTime[DATETIME_INDEX_OF_ENDDATE] = 
+                                modifyDate(dateTime[DATETIME_INDEX_OF_ENDDATE], 
+                                           recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
+                    }
+                }
+            }
+
+            this.toAdd = new Task(new Name(name), 
+                    new DateTime(dateTime[DATETIME_INDEX_OF_STARTDATE], 
+                                 dateTime[DATETIME_INDEX_OF_ENDDATE]), 
+                    new Priority(priority),
+                    new Status(), 
+                    new UniqueTagList(tagSet));
+            toAddArray.add(toAdd);
+        }
 
     }
 
@@ -60,7 +115,9 @@ public class AddCommand extends UndoableCommand {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addTask(toAdd);
+            for(Task toAdd: toAddArray) {
+                model.addTask(toAdd);
+            }
             model.getUndoableCmdHist().push(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
@@ -68,31 +125,55 @@ public class AddCommand extends UndoableCommand {
         }
 
     }
-    
+
     @Override
     public CommandResult undo() {
         assert model != null;
         try {
-            model.deleteTask(toAdd);
-            return new CommandResult(
-                    String.format(UndoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_UNDO, toAdd)));
+            for(Task toAdd: toAddArray) {
+                model.deleteTask(toAdd);
+            }
+            return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_UNDO, toAdd)));
         } catch (TaskNotFoundException e) {
-            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
-                    Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
+            return new CommandResult(
+                    String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
         }
     }
-    
+
     @Override
     public CommandResult redo() {
         assert model != null;
         try {
-            model.addTask(toAdd);
-            return new CommandResult(
-                    String.format(RedoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_REDO, toAdd)));
+            for(Task toAdd: toAddArray) {
+                model.addTask(toAdd);
+            }
+            return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_REDO, toAdd)));
         } catch (DuplicateTaskException e) {
-            return new CommandResult(
-                    String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
+            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
         }
+    }
+    
+    /**
+     * Modifies the date based on the frequency for recurring tasks
+     * 
+     * @@author A0140022H
+     */
+    private String modifyDate(String dateToModify, String frequency) {
+        LocalDateTime date = LocalDateTime.parse(dateToModify, formatter);
+
+        switch (frequency.toLowerCase()) {
+        case DATETIME_DAY:      date = date.plusDays(DATETIME_INCREMENT);
+                                break;
+        case DATETIME_WEEK:     date = date.plusWeeks(DATETIME_INCREMENT);
+                                break;
+        case DATETIME_MONTH:    date = date.plusMonths(DATETIME_INCREMENT);
+                                break;
+        case DATETIME_YEAR:     date = date.plusYears(DATETIME_INCREMENT);
+                                break;
+        }
+
+        dateToModify = date.format(stringFormatter);
+        return dateToModify;
     }
 
 }
