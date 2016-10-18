@@ -1,4 +1,4 @@
-# Developer Guide 
+# Developer Guide
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -20,7 +20,7 @@
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -30,7 +30,7 @@
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -88,7 +88,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The sections below give more details of each component.
@@ -184,7 +184,7 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
 <br>
@@ -206,26 +206,26 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
-  
+
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+
 <br>
 ## Dev Ops
 
@@ -241,12 +241,12 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 ### Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
-   
+
 ### Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the
@@ -297,12 +297,12 @@ Use case ends.
 
 1a. The format of the input is wrong
 
-> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1b. The task limit has been reached
 
-> 1b1. TaskManager displays an error and prompts the user to delete a task
+> 1b1. TaskManager displays an error and prompts the user to delete a task <br>
 > Use Case ends.
 
 <br>
@@ -324,7 +324,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. TaskManager displays an error
+> 3a1. TaskManager displays an error <br>
 > Use Case ends.
 
 <br>
@@ -341,7 +341,7 @@ Use case ends.
 
 1a. There is no command to be undone
 
-> 1a1. TaskManager displays an error
+> 1a1. TaskManager displays an error <br>
 > Use Case ends.
 
 <br>
@@ -357,12 +357,12 @@ Use case ends.
 
 1a. The format of the input is wrong
 
-> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1b. The user attempts to create an alias of a pre-existing alias
 
-> 1b1. TaskManager displays an error
+> 1b1. TaskManager displays an error <br>
 > Use Case continues at step 1.
 
 <br>
@@ -380,7 +380,7 @@ Use case ends.
 
 1a. The format of the input is wrong
 
-> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1a. The list of tasks is empty
@@ -389,11 +389,11 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. TaskManager displays an error
+> 3a1. TaskManager displays an error <br>
 > Use Case resumes at step 3.
 
 <br>
-#### Use case: Favouriting a task
+#### Use case: Marking a task as favorite
 
 **MSS**
 
@@ -407,7 +407,7 @@ Use case ends.
 
 1a. The format of the input is wrong
 
-> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1a. The list of tasks is empty
@@ -416,7 +416,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. TaskManager displays an error
+> 3a1. TaskManager displays an error <br>
 > Use Case resumes at step 3.
 
 <br>
@@ -432,7 +432,7 @@ Use case ends.
 
 1a. The format of the input is wrong
 
-> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1a. There are no tasks
@@ -459,7 +459,7 @@ Use case ends.
 ## Appendix E : Product Survey
 
 Task Managers | Google Calender | Wunderlist | HabitRPG | Ours
--------- | :-------- | :-------- | :-------- | :-------- 
+-------- | :-------- | :-------- | :-------- | :--------
 Basic task manager features (CRUD) | Available | Available | Available (limited) | Available
 Quick add | Available | Not available | Available | Available | Available
 Undo | Available | Available | Available | Available
