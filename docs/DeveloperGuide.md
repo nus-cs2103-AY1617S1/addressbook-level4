@@ -258,7 +258,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 | `* * *`  | user    | to create tasks without a deadline   | -             |
 | `* * *`  | user    | to create tasks with a deadline      | -             |
 | `* * *`  | user    | to create events with a timeslot     | -             |
-| `* * *`  | user    | to create tasks without a deadline   | -             |
+| `* * *`  | user    | to create recurring tasks            | -             |
 | `* * *`  | user    | to update tasks / events             | -             |
 | `* * *`  | user    | to delete tasks                      | -             |
 | `* * *`  | user    | to delete task fields                | -             |
