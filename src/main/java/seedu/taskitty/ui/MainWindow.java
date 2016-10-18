@@ -30,7 +30,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+
     private TaskListPanel taskListPanel;
     private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
@@ -115,7 +115,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -202,11 +202,5 @@ public class MainWindow extends UiPart {
         return this.deadlineListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
 
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
 }
