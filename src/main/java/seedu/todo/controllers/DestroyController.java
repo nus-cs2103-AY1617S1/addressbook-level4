@@ -6,7 +6,6 @@ import seedu.todo.models.CalendarItem;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
-import seedu.todo.ui.UiManager;
 
 /**
  * Controller to destroy a CalendarItem.
@@ -21,7 +20,9 @@ public class DestroyController implements Controller {
     private static final String COMMAND_SYNTAX = "destroy <index>";
     
     private static final String MESSAGE_DELETE_SUCCESS = "Item deleted successfully!\n" + "To undo, type \"undo\".";
-    private static final String MESSAGE_INVALID_CALENDARITEM = "Could not delete task/event: invalid index provided!";
+    private static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not delete task/event: Invalid index provided!";
+    private static final String MESSAGE_MISSING_INDEX = "Please specify the index of the item to delete.";
+    private static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -40,8 +41,24 @@ public class DestroyController implements Controller {
     public void process(String args) {
         // TODO: Example of last minute work
         
+        // Extract param
+        String param = args.replaceFirst("(delete|destroy|remove)", "").trim();
+        
+        if (param.length() <= 0) {
+            Renderer.renderDisambiguation(COMMAND_SYNTAX, MESSAGE_MISSING_INDEX);
+            return;
+        }
+        
+        assert param.length() > 0;
+        
         // Get index.
-        int index = Integer.decode(args.replaceFirst("(delete|destroy|remove)", "").trim());
+        int index = 0;
+        try {
+            index = Integer.decode(param);
+        } catch (NumberFormatException e) {
+            Renderer.renderDisambiguation(COMMAND_SYNTAX, MESSAGE_INDEX_NOT_NUMBER);
+            return;
+        }
         
         // Get record
         EphemeralDB edb = EphemeralDB.getInstance();
@@ -49,7 +66,7 @@ public class DestroyController implements Controller {
         TodoListDB db = TodoListDB.getInstance();
         
         if (calendarItem == null) {
-            UiManager.updateConsoleMessage(MESSAGE_INVALID_CALENDARITEM);
+            Renderer.renderDisambiguation(String.format("destroy %d", index), MESSAGE_INDEX_OUT_OF_RANGE);
             return;
         }
         
