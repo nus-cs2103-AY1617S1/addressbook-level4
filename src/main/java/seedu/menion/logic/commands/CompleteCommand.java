@@ -23,6 +23,7 @@ public class CompleteCommand extends Command {
     
     public final int targetIndex;
     public final String targetType;
+    ReadOnlyActivity activityToComplete;
     
     
     public CompleteCommand(String[] splited) {
@@ -50,7 +51,7 @@ public class CompleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
-        ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex - 1);
+        activityToComplete = lastShownList.get(targetIndex - 1);
 
         model.completeActivity(activityToComplete);
         model.updateFilteredListToShowAll();
@@ -62,6 +63,9 @@ public class CompleteCommand extends Command {
      */
     @Override
     public boolean undo() {
+    	assert model != null;
+    	activityToComplete.setUncomplete();
+    	
         return true;
     }
 

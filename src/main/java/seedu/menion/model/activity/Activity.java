@@ -132,6 +132,11 @@ public class Activity implements ReadOnlyActivity {
     public void setCompleted() {
         this.status = new Completed(true);
     }
+    
+    @Override
+    public void setUncomplete() {
+    	this.status = new Completed(false);
+    }
 
     @Override
     public Completed getActivityStatus() {

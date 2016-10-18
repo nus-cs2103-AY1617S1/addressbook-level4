@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
         if (targetType.equals(" task")) {
             lastShownList = model.getFilteredTaskList();
         }
-        else if (targetType.equals(" floating")) {
+        else if (targetType.equals(" floatingTask")) {
             lastShownList = model.getFilteredFloatingTaskList();
         }
         else if (targetType.equals(" event")) {
