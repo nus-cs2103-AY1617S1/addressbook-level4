@@ -11,6 +11,9 @@ import seedu.savvytasker.model.task.RecurrenceType;
  */
 public interface ReadOnlyTask {
     
+    int getId();
+    boolean isMarked();
+    boolean isArchived();
     String getTaskName();
     Date getStartDateTime();
     Date getEndDateTime();
@@ -22,18 +25,23 @@ public interface ReadOnlyTask {
     String getDescription();
 
     /**
-     * Returns true if both have the same state. (interfaces cannot override .equals)
+     * Returns true if both tasks have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-        return getTaskName().equals(other.getTaskName()); // no constraints on duplicate tasks
+        return getId() == other.getId();
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the task as text, showing all task details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTaskName())
+        builder.append(" Id: ")
+                .append(getId())
+                .append(" Task Name: ")
+                .append(getTaskName())
+                .append(" Archived: ")
+                .append(isArchived())
                 .append(" Start: ")
                 .append(getStartDateTime())
                 .append(" End: ")

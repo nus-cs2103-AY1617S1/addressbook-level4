@@ -1,6 +1,5 @@
 package seedu.savvytasker.logic.parser;
 
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,16 +63,11 @@ public class AddCommandParser implements CommandParser<AddCommand> {
             Integer nrOfRecurrence = TASK_PARSER.parseNumberOfRecurrence(matcher.group(REGEX_REF_NUMBER_OF_RECURRENCE));
             String category = TASK_PARSER.parseCategory(matcher.group(REGEX_REF_CATEGORY));
             String description = TASK_PARSER.parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
-            
-            Date startDateTime = null, endDateTime = null;
-            int numberOfRecurrence = 0;
-            if (nrOfRecurrence != null) numberOfRecurrence = nrOfRecurrence.intValue();
-            if (startDate != null) startDateTime = startDate.getInferredDateTime();
-            if (endDate != null) endDateTime = endDate.getInferredDateTime();
+
             return new AddCommand(
-                    new AddCommandModel(taskName, startDateTime, 
-                            endDateTime, location, priority, 
-                            recurrence, numberOfRecurrence, 
+                    new AddCommandModel(taskName, startDate, 
+                            endDate, location, priority, 
+                            recurrence, nrOfRecurrence, 
                             category, description));
         }
         

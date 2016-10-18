@@ -26,12 +26,13 @@ public class AddCommand extends Command {
      * Creates an add command.
      */
     public AddCommand(AddCommandModel commandModel) {
-        this.toAdd = new Task(commandModel.getTaskName(),
+        final boolean isArchived = false;   // all tasks are first added as active tasks
+        final int taskId = 0;               // taskId to be assigned by ModelManager, leave as 0
+        this.toAdd = new Task(taskId, commandModel.getTaskName(),
                 commandModel.getStartDateTime(), commandModel.getEndDateTime(),
                 commandModel.getLocation(), commandModel.getPriority(),
                 commandModel.getRecurringType(), commandModel.getNumberOfRecurrence(),
-                commandModel.getCategory(), commandModel.getDescription()
-        );
+                commandModel.getCategory(), commandModel.getDescription(), isArchived);
     }
 
     @Override
@@ -41,6 +42,7 @@ public class AddCommand extends Command {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
+            assert false; // ModelManager will ensure no duplicated tasks
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 

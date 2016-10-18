@@ -1,6 +1,7 @@
 package seedu.savvytasker.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
@@ -11,11 +12,12 @@ import seedu.savvytasker.model.person.Task;
 import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the savvy tasker data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -23,19 +25,22 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final SavvyTasker savvyTasker;
     private final FilteredList<Task> filteredTasks;
+    private final SortedList<Task> sortedAndFilteredTasks;
 
     /**
      * Initializes a ModelManager with the given SavvyTasker
-     * AddressBook and its variables should not be null
+     * and its variables should not be null
      */
     public ModelManager(SavvyTasker src) {
         super();
         assert src != null;
 
-        logger.fine("Initializing with address book: " + src);
+        logger.fine("Initializing with savvy tasker: " + src);
 
         savvyTasker = new SavvyTasker(src);
         filteredTasks = new FilteredList<>(savvyTasker.getTasks());
+        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
+        
     }
 
     public ModelManager() {
@@ -45,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlySavvyTasker initialData) {
         savvyTasker = new SavvyTasker(initialData);
         filteredTasks = new FilteredList<>(savvyTasker.getTasks());
+        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
     }
 
     @Override
@@ -77,30 +83,57 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task t) throws DuplicateTaskException {
+        t.setId(savvyTasker.getNextTaskId());
         savvyTasker.addTask(t);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
     }
 
-    //=========== Filtered Person List Accessors ===============================================================
+    //=========== Filtered/Sorted Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<ReadOnlyTask>(filteredTasks);
+        return new UnmodifiableObservableList<ReadOnlyTask>(sortedAndFilteredTasks);
     }
 
     @Override
-    public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+    public void updateFilteredListToShowActiveSortedByDueDate() {
+        updateFilteredListToShowActive(new TaskSortedByDueDate());
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredListToShowActiveSortedByPriorityLevel() {
+        updateFilteredListToShowActive(new TaskSortedByPriorityLevel());
+    }
+
+    @Override
+    public void updateFilteredListToShowActive() {
+        updateFilteredTaskList(new PredicateExpression(new TaskIsActiveQualifier()));
+    }
+    
+    private void updateFilteredListToShowActive(Comparator<Task> comparator) {
+        updateFilteredTaskList(
+                new PredicateExpression(new TaskIsActiveQualifier()),
+                comparator);
+    }
+    
+    @Override
+    public void updateFilteredListToShowArchived() {
+        updateFilteredTaskList(new PredicateExpression(new TaskIsArchivedQualifier()));
+    }
+
+    @Override
+    public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new TaskNameExactMatchQualifier(keywords)));
     }
-
+    
     private void updateFilteredTaskList(Expression expression) {
+        updateFilteredTaskList(expression, new TaskSortedByDefault());
+    }
+
+    private void updateFilteredTaskList(Expression expression, Comparator<Task> comparator) {
         filteredTasks.setPredicate(expression::satisfies);
+        sortedAndFilteredTasks.setComparator(comparator);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -153,6 +186,110 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+
+    /**
+     * Qualifier for checking if {@link Task} is active. Tasks that are not archived are active.
+     * @author A0139915W
+     *
+     */
+    private class TaskIsActiveQualifier implements Qualifier {
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return task.isArchived() == false;
+        }
+
+        @Override
+        public String toString() {
+            return "isArchived=false";
+        }
+    }
+    
+    /**
+     * Qualifier for checking if {@link Task} is archived
+     * @author A0139915W
+     *
+     */
+    private class TaskIsArchivedQualifier implements Qualifier {
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return task.isArchived() == true;
+        }
+
+        @Override
+        public String toString() {
+            return "isArchived=true";
+        }
+    }
+    
+    //========== Inner classes/interfaces used for sorting ==================================================
+    
+    /**
+     * Compares {@link Task} by their default field, id
+     * @author A0139915W
+     *
+     */
+    private class TaskSortedByDefault implements Comparator<Task> {
+        
+        @Override
+        public int compare(Task task1, Task task2) {
+            if (task1 == null && task2 == null) return 0;
+            else if (task1 == null) return 1;
+            else if (task2 == null) return -1;
+            else return task1.getId() - task2.getId();
+        }
+        
+    }
+    
+    /**
+     * Compares {@link Task} by their DueDate
+     * @author A0139915W
+     *
+     */
+    private class TaskSortedByDueDate implements Comparator<Task> {
+
+        @Override
+        public int compare(Task task1, Task task2) {
+            if (task1 == null && task2 == null) return 0;
+            else if (task1 == null) return 1;
+            else if (task2 == null) return -1;
+            else {
+                // End dates can be nulls (floating tasks)
+                // Check for existence of endDateTime before comparing
+                if (task1.getEndDateTime() == null &&
+                    task2.getEndDateTime() == null) {
+                    return 0;
+                } else if (task1.getEndDateTime() == null) {
+                    return 1;
+                } else if (task2.getEndDateTime() == null) {
+                    return -1;
+                } else {
+                    return task1.getEndDateTime().compareTo(task2.getEndDateTime());
+                }
+            }
+        }
+        
+    }
+    
+    /**
+     * Compares {@link Task} by their PriorityLevel
+     * @author A0139915W
+     *
+     */
+    private class TaskSortedByPriorityLevel implements Comparator<Task> {
+
+        @Override
+        public int compare(Task task1, Task task2) {
+            if (task1 == null && task2 == null) return 0;
+            else if (task1 == null) return 1;
+            else if (task2 == null) return -1;
+            else {
+                return task2.getPriority().compareTo(task1.getPriority());
+            }
+        }
+        
     }
 
 }

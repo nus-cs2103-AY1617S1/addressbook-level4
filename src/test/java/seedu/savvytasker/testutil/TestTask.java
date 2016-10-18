@@ -11,6 +11,7 @@ import seedu.savvytasker.model.task.RecurrenceType;
  */
 public class TestTask implements ReadOnlyTask {
     
+    private int id;
     private String taskName;
     private Date startDateTime;
     private Date endDateTime;
@@ -20,8 +21,13 @@ public class TestTask implements ReadOnlyTask {
     private int numberOfRecurrence;
     private String category;
     private String description;
+    private boolean isArchived;
 
     public TestTask() {
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -69,6 +75,20 @@ public class TestTask implements ReadOnlyTask {
         return description;
     }
     
+    @Override
+    public boolean isMarked() {
+        return isArchived(); // all marked tasks are archived
+    }
+
+    @Override
+    public boolean isArchived() {
+        return isArchived;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
@@ -103,6 +123,10 @@ public class TestTask implements ReadOnlyTask {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public void setArchived(boolean isArchived) {
+        this.isArchived = isArchived;
     }
 
     @Override

@@ -12,6 +12,7 @@ import seedu.savvytasker.model.task.RecurrenceType;
  */
 public class Task implements ReadOnlyTask {
 
+    private int id;
     private String taskName;
     private Date startDateTime;
     private Date endDateTime;
@@ -21,19 +22,26 @@ public class Task implements ReadOnlyTask {
     private int numberOfRecurrence;
     private String category;
     private String description;
+    private boolean isArchived;
 
-    public Task(String taskName, Date startDateTime, Date endDateTime, String location,
-            PriorityLevel priority, RecurrenceType recurringType, int numberOfRecurrence, 
-            String category, String description) {
+    public Task(int id, String taskName, Date startDateTime, Date endDateTime, String location,
+            PriorityLevel priority, RecurrenceType recurringType, Integer numberOfRecurrence, 
+            String category, String description, boolean isArchived) {
+        this.id = id;
         this.taskName = taskName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.location = location;
         this.priority = priority;
         this.recurringType = recurringType;
-        this.numberOfRecurrence = numberOfRecurrence;
+        if (numberOfRecurrence == null) {
+            this.numberOfRecurrence = 0;
+        } else {
+            this.numberOfRecurrence = numberOfRecurrence.intValue();
+        }
         this.category = category;
         this.description = description;
+        this.isArchived = isArchived;
     }
     
     public Task(String taskName) {
@@ -44,29 +52,47 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getTaskName(), source.getStartDateTime(), source.getEndDateTime(), 
-                source.getLocation(), source.getPriority(), source.getRecurringType(),
-                source.getNumberOfRecurrence(), source.getCategory(), source.getDescription());
+        this(source.getId(), source.getTaskName(), source.getStartDateTime(), 
+                source.getEndDateTime(), source.getLocation(), source.getPriority(), 
+                source.getRecurringType(), source.getNumberOfRecurrence(), 
+                source.getCategory(), source.getDescription(), source.isArchived());
     }
 
     /**
      * Copy and modify constructor
      */
     public Task(ReadOnlyTask source, ModifyCommandModel commandModel) {
-        this(source.getTaskName(), source.getStartDateTime(), source.getEndDateTime(), 
-                source.getLocation(), source.getPriority(), source.getRecurringType(),
-                source.getNumberOfRecurrence(), source.getCategory(), source.getDescription());
+        this(source.getId(), source.getTaskName(), source.getStartDateTime(), 
+                source.getEndDateTime(), source.getLocation(), source.getPriority(), 
+                source.getRecurringType(), source.getNumberOfRecurrence(), 
+                source.getCategory(), source.getDescription(), source.isArchived());
         
+        //this.id should follow that of the source.
+        //this.isArchived should follow that of the source.
         this.taskName = commandModel.getTaskName() == null ? this.taskName : commandModel.getTaskName();
         this.startDateTime = commandModel.getStartDateTime() == null ? this.startDateTime : commandModel.getStartDateTime();
         this.endDateTime = commandModel.getEndDateTime() == null ? this.endDateTime : commandModel.getEndDateTime();
         this.location = commandModel.getLocation() == null ? this.location : commandModel.getLocation();
         this.priority = commandModel.getPriority() == null ? this.priority : commandModel.getPriority();
         this.recurringType = commandModel.getRecurringType() == null ? this.recurringType : commandModel.getRecurringType();
-        this.numberOfRecurrence = commandModel.getNumberOfRecurrence() == ModifyCommandModel.UNINITIALIZED_NR_RECURRENCE_VALUE ? 
-                this.numberOfRecurrence : commandModel.getNumberOfRecurrence();
+        this.numberOfRecurrence = commandModel.getNumberOfRecurrence() == null ? this.numberOfRecurrence : commandModel.getNumberOfRecurrence().intValue();
         this.category = commandModel.getCategory() == null ? this.category : commandModel.getCategory();
         this.description = commandModel.getDescription() == null ? this.description : commandModel.getDescription();
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+    
+    @Override
+    public boolean isMarked() {
+        return isArchived(); // all marked tasks are archived
+    }
+    
+    @Override
+    public boolean isArchived() {
+        return this.isArchived;
     }
 
     @Override
@@ -114,6 +140,10 @@ public class Task implements ReadOnlyTask {
         return description;
     }
     
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
@@ -148,6 +178,31 @@ public class Task implements ReadOnlyTask {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public void setArchived(boolean isArchived) {
+        if (isArchived) mark();
+        else unmark();
+    }
+    
+    /**
+     * Marks the task as complete, also moves this task from the active list 
+     * to the archived list.
+     */
+    public void mark() { 
+        if (!isMarked()) {
+            this.isArchived = true;
+        }
+    }
+    
+    /**
+     * Unmarks the task as complete, also moves this task from the archived list 
+     * to the active list.
+     */
+    public void unmark() {
+        if (isMarked()) {
+            this.isArchived = false;
+        }
     }
 
     @Override

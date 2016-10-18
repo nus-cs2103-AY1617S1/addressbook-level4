@@ -1,9 +1,10 @@
 package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.logic.commands.models.ListCommandModel;
+import seedu.savvytasker.model.task.ListType;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all tasks in the savvy tasker to the user.
  */
 public class ListCommand extends Command {
 
@@ -18,6 +19,11 @@ public class ListCommand extends Command {
 
     private final ListCommandModel commandModel;
     
+    /**
+     * Creates the List command to list the specified tasks
+     * @author A0139915W
+     * @param commandModel Arguments for the List command, must not be null
+     */
     public ListCommand(ListCommandModel commandModel) {
         assert commandModel != null;
         this.commandModel = commandModel;
@@ -25,7 +31,22 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll();
+        ListType listType = commandModel.getListType();
+        assert listType != null;
+        switch (listType)
+        {
+        case DueDate:
+            model.updateFilteredListToShowActiveSortedByDueDate();
+            break;
+        case PriorityLevel:
+            model.updateFilteredListToShowActiveSortedByPriorityLevel();
+            break;
+        case Archived:
+            model.updateFilteredListToShowArchived();
+            break;
+        default:
+            assert false; // should not reach here
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
     
