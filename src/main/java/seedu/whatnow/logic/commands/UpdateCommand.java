@@ -21,7 +21,7 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
  */
 
 
-public class UpdateCommand extends Command {
+public class UpdateCommand extends UndoAndRedo {
     
     public static final String COMMAND_WORD = "update";
     
@@ -83,6 +83,9 @@ public class UpdateCommand extends Command {
         toUpdate.setStatus(taskToUpdate.getStatus());
     }
     
+    private void undoUpdateTheCorrectField(ReadOnlyTask tasktoUndoUpdate) {
+    	
+    }
     @Override
     public CommandResult execute() {
 
@@ -101,6 +104,33 @@ public class UpdateCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
+        model.getUndoStack().push(this);
         return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate));
     }
+
+	@Override
+	public CommandResult undo() {
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getCurrentFilteredTaskList();
+		
+		ReadOnlyTask tasktoUndoUpdate = lastShownList.get(targetIndex -1);
+		
+		try {
+			model.undoUpdateTask( model.getOldTask().pop(),(Task) tasktoUndoUpdate );
+		} catch (TaskNotFoundException pnfe) {
+			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
+		}
+		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
+	}
+	@Override
+	public CommandResult redo() {
+		// TODO Auto-generated method stub
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getCurrentFilteredTaskList();
+		ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex -1);
+		try {
+			model.updateTask(taskToUpdate, (Task) model.getNewTask().pop());
+		} catch(TaskNotFoundException pnfe) {
+			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
+		}
+		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
+	}
 }

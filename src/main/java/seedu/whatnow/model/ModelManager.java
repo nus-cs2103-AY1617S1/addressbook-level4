@@ -32,8 +32,12 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> filteredSchedules;
 
+    private final FilteredList<Task> backUpFilteredTasks;
+    private final FilteredList<Task> backUpFilteredSchedules;
     private final Stack<Command> stackOfUndo;
     private final Stack<Command> stackOfRedo;
+    private final Stack<ReadOnlyTask> oldTask;
+    private final Stack<ReadOnlyTask> newTask;
     /**
      * Initializes a ModelManager with the given WhatNow
      * WhatNow and its variables should not be null
@@ -50,6 +54,10 @@ public class ModelManager extends ComponentManager implements Model {
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
         stackOfUndo = new Stack<>();
         stackOfRedo = new Stack<>();
+        backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
+        backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
+        oldTask = new Stack<>();
+        newTask = new Stack<>();
     }
 
     public ModelManager() {
@@ -62,6 +70,10 @@ public class ModelManager extends ComponentManager implements Model {
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
         stackOfUndo =  new Stack<>();
         stackOfRedo = new Stack<>();
+        backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
+        backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
+        oldTask = new Stack<>();
+        newTask = new Stack<>();
     }
 
     @Override
@@ -69,7 +81,11 @@ public class ModelManager extends ComponentManager implements Model {
         whatNow.resetData(newData);
         indicateWhatNowChanged();
     }
-
+    
+    @Override
+	public synchronized void revertData() {
+		whatNow.revertEmptyWhatNow();
+	}
     @Override
     public ReadOnlyWhatNow getWhatNow() {
         return whatNow;
@@ -101,14 +117,25 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException {
-        whatNow.updateTask(old, toUpdate);
+        oldTask.push(old);
+    	whatNow.updateTask(old, toUpdate);
         indicateWhatNowChanged();
     }
-    
+    @Override
+    public synchronized void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException {
+    	newTask.push(old);
+    	whatNow.updateTask(old, (Task) toUpdate);
+    	indicateWhatNowChanged();
+    }
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         whatNow.markTask(target);
         indicateWhatNowChanged();
+    }
+    @Override
+    public synchronized void unMarkTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	whatNow.unMarkTask(target);
+    	indicateWhatNowChanged();
     }
     /*
     @Override
@@ -128,7 +155,14 @@ public class ModelManager extends ComponentManager implements Model {
 	public Stack<Command> getRedoStack() {
 		return stackOfRedo;
 	}
-
+	@Override
+	public Stack<ReadOnlyTask> getOldTask() {
+		return oldTask;
+	}
+	@Override
+	public Stack<ReadOnlyTask> getNewTask() {
+		return newTask;
+	}
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -138,7 +172,10 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAllByStatus(keyword);
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredTaskList()  {
+    	return new UnmodifiableObservableList<>(backUpFilteredTasks);
+    }
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
@@ -182,6 +219,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList() {
     	return new UnmodifiableObservableList<>(filteredSchedules);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredScheduleList() {
+    	return new UnmodifiableObservableList<>(backUpFilteredSchedules);
     }
     
     @Override

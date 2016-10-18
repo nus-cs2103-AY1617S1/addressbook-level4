@@ -118,6 +118,20 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndMarked;
     }
     
+    /**
+     * 
+     * Mark the equivalent task from the list as uncompleted.
+     */
+    public boolean unmark(ReadOnlyTask target) throws TaskNotFoundException {
+    	assert target!=null;
+    	final boolean taskFoundAndMarked = internalList.contains(target);
+    	if(!taskFoundAndMarked) {
+    		throw new TaskNotFoundException();
+    	}
+    	internalList.get(internalList.indexOf(target)).setStatus("incomplete");
+    	internalList.set(internalList.indexOf(target), internalList.get(internalList.indexOf(target)));
+    	return taskFoundAndMarked;
+    }
     /*
     public boolean undo() throws NoPrevCommandException {
     	System.out.println("Entered here");

@@ -19,6 +19,8 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyWhatNow newData);
 
+    /** Reverts to the pre-existing backing model and replaces with backup-ed data */
+	void revertData();
     /** Returns the WhatNow */
     ReadOnlyWhatNow getWhatNow();
     
@@ -42,6 +44,9 @@ public interface Model {
     /** Returns the filtered task list with filter keyword as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(Set<String> key);
 
+    /**	Returns old copy of the filteredTaskList before a clear */
+	UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredTaskList();
+	
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
@@ -54,15 +59,27 @@ public interface Model {
     /** Update the given task */
     void updateTask(ReadOnlyTask old, Task toUpdate) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Undo the update done on given task */
+	void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException;
+
     /** Mark the given task as completed */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
    
+    /** Mark the given task as incomplete */
+	void unMarkTask(ReadOnlyTask target) throws TaskNotFoundException;
+	
     /**Gets the UndoStack if possible */
     Stack<Command> getUndoStack();
     
     /**Gets the redoStack if possible*/
     Stack<Command> getRedoStack();
     
+    /**Gets the oldTask if possible */
+	Stack<ReadOnlyTask> getOldTask();
+	
+	/**Gets the newTask if possible */
+	Stack<ReadOnlyTask> getNewTask();
+	
   //=========== Methods for Schedule List ===============================================================
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();
@@ -73,6 +90,9 @@ public interface Model {
     /** Returns the filtered task list with filter keyword as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> key);
     
+    /** Returns the filtered task list before the clear */
+	UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredScheduleList();
+    
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredScheduleListToShowAll();
 
@@ -81,5 +101,4 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to show only task of a specific status specified by the keyword */
     void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword);
-
 }

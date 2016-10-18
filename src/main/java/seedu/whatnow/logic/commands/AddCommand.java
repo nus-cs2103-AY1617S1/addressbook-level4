@@ -83,12 +83,6 @@ public class AddCommand extends UndoAndRedo {
 		try {
 			//Task todo = model.getUndoStack().pop();
 			model.deleteTask(toAdd);
-//			model.getRedoStack().push(this);
-//			System.out.println("mode.getUndoStack.pop(): " + model.getUndoStack().peek());
-//			if(model.getUndoStack().isEmpty()) {
-//				System.out.println("The stack is empty at undo() in addCommand");
-//			}
-//			model.getRedoStack().push(model.getUndoStack().pop());
 			return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 		} catch (TaskNotFoundException pnfe) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));

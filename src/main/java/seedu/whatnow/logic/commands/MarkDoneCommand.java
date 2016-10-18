@@ -8,7 +8,7 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Marks a task identified using it's last displayed index from WhatNow as completed.
  */
-public class MarkDoneCommand extends Command {
+public class MarkDoneCommand extends UndoAndRedo {
     
     public static final String COMMAND_WORD = "done";
 
@@ -22,7 +22,8 @@ public class MarkDoneCommand extends Command {
 
     public final String taskType;
     public final int targetIndex;
-
+    
+    public ReadOnlyTask taskToMark;
     public MarkDoneCommand(String taskType, int targetIndex) {
         this.taskType = taskType;
         this.targetIndex = targetIndex;
@@ -39,15 +40,39 @@ public class MarkDoneCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
+        taskToMark = lastShownList.get(targetIndex - 1);
 
         try {
             model.markTask(taskToMark);
+            model.getUndoStack().push(this);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
+        return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
     }
+
+
+	@Override
+	public CommandResult undo() {
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+		ReadOnlyTask taskToUnmark = lastShownList.get(targetIndex -1);
+		
+		taskToUnmark = lastShownList.get(targetIndex -1);
+		try {
+			model.unMarkTask(taskToUnmark);
+		} catch(TaskNotFoundException pufe) {
+			assert false: "The target task cannot be missing";
+		}
+		return null;
+	}
+
+
+	@Override
+	public CommandResult redo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
