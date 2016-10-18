@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**` Project Meeting s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103 d/Discuss about roles and milestones` : 
+   * **`add`**` Project Meeting s/05-10-2016 r/daily n/2 c/CS2103 d/Discuss about roles and milestones` : 
      adds a task named `Project Meeting` to Savvy Tasker for 2 days.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
@@ -52,20 +52,23 @@ There is no need to save manually.
 Adds a task to Savvy Tasker.<br>
 Format: `add TASK_NAME [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]` 
 
-> If DATE is entered but TIME is not entered, the task is assumed to occur all-day <br>
-> If TIME is entered but DATE is not entered, DATE is assumed to be current date <br>
-> Tasks with START_TIME only, are assumed to occur for 1 hour from specified START_TIME only <br>
-> Tasks with either one of or both END_DATE and/or END_TIME, are assumed to be tasks with deadlines <br>
-> Tasks with START_DATE only, are assumed to have the same START_DATE and END_DATE <br>
-> Tasks with either or both START_DATE and/or START_TIME, are assumed to be events instead of task <br>
-> If START_DATE and END_DATE are different, the RECURRING_TYPE has to be larger than the duration between START_DATE and END_DATE. (e.g. A 3d2n camp cannot be recurring daily but can be recurring weekly) <br>
-> If START_DATE and END_DATE are different, END_DATE must be later than START_DATE, and END_TIME does not have to be later than START_TIME <br>
-> If START_DATE and END_DATE are the same, END_TIME must be later than START_TIME <br>
-> For DATE the format is as follows: dd-mm-yyyy <br>
-> For TIME the format is as follows: hh:MM, hh:MM defaults to 00:00 if not specified. <br>
-> Having more than 1 task for any specific timing is allowed (Multitasking) <br>
-> RECURRING_TYPE can be `none`, `daily`, `weekly` or `monthly`, `yearly`, by default RECURRING_TYPE set as `none`, NUMBER_OF_RECURRENCE set as 0 <br>
-> PRIORITY_LEVEL can be `high`, `medium`, `low`, by default PRIORITY_LEVEL is set as `low` <br>
+> Parameters | Description  
+> -------- | :-------- 
+> Add | `add TASK_NAME [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
+> Alias | `alias k/KEYWORD s/SHORT_KEYWORD`
+> Clear | `clear`
+> Delete | `delete INDEX [MORE_INDEX]`
+> Exit | `exit`
+> Find | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
+> List | `list [t/LIST_TYPE]`
+> Help | `help`
+> Select | `select INDEX [MORE_INDEX]`
+> Modify | `modify INDEX [t/TASK_NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
+> Mark | `mark INDEX [MORE_INDEX]`
+> Unmark | `unmark INDEX [MORE_INDEX]`
+> Undo | `undo`
+> Redo | `redo`
+> Unalias | `unalias  s/SHORT_KEYWORD`
 
 Examples: 
 * `add Project Meeting s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103 d/Discuss about roles and milestones` <br>
