@@ -50,7 +50,7 @@ public class DateTimeParser {
         assert this.dates != null;
 
         if(this.dates.size() < 2) {
-            return null;
+            return extractStartDate();
         }
 
         return Date2LocalDateTime(this.dates.get(1));
