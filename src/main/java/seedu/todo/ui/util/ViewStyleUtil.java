@@ -17,7 +17,6 @@ public class ViewStyleUtil {
     public static final String STYLE_CODE = "code";
     public static final String STYLE_BOLDER = "bolder";
     public static final String STYLE_UNDERLINE = "underline";
-    public static final String STYLE_ROUND_LABEL = "roundLabel";
 
     /*Static Helper Methods*/
     /**
