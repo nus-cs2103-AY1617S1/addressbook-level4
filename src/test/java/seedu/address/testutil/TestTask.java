@@ -40,10 +40,6 @@ public class TestTask implements ReadOnlyTask {
 	public void setStartDate(String startDate) {
 		this.startDate = Optional.of(LocalDateTime.parse(startDate));
 	}
-	
-	public void setEndDate(String endDate) {
-		this.endDate = Optional.of(LocalDateTime.parse(endDate));
-	}
     
     public void setStartDate(LocalDateTime date) throws UnsupportedOperationException {
         if (taskType.value.equals(TaskType.Type.DEADLINE)) {

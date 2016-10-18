@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.time.LocalDateTime;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.*;
@@ -37,13 +39,13 @@ public class TaskBuilder {
         return this;
     }
     
-    public TaskBuilder withStartDate(String startDateAndTime) throws IllegalValueException {
-        this.task.setStartDate(startDateAndTime);
+    public TaskBuilder withStartDate(LocalDateTime startDate) throws IllegalValueException {
+        this.task.setStartDate(startDate);
         return this;
     }
     
-    public TaskBuilder withEndDate(String endDateAndTime) throws IllegalValueException {
-        this.task.setEndDate(endDateAndTime);
+    public TaskBuilder withEndDate(LocalDateTime endDate) throws IllegalValueException {
+        this.task.setEndDate(endDate);
         return this;
     }
 

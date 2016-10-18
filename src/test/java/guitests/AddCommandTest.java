@@ -9,6 +9,7 @@ import seedu.address.model.task.TaskType;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -19,57 +20,57 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //add one someday task
         TestTask[] currentList = td.getTypicalTasks();
         TestTask[] somedayList = td.getSomedayTasks();
-        TestTask taskToAdd1 = td.hoon;
-        assertAddSuccess(taskToAdd1, "typical", currentList);
-        assertAddSuccess(taskToAdd1, "someday", somedayList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd1);
+        TestTask taskToAdd = TypicalTestTasks.somedayAdd;
+        assertAddSuccess(taskToAdd, "typical", currentList);
+        assertAddSuccess(taskToAdd, "someday", somedayList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add a deadline task that is a today task
         TestTask[] todayList = td.getTodayTasks();
-        TestTask taskToAdd2 = td.;//TODO
-        assertAddSuccess(taskToAdd2, "typical", currentList);
-        assertAddSuccess(taskToAdd2, "today", todayList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd2);
+        taskToAdd = TypicalTestTasks.deadlineTodayAdd;
+        assertAddSuccess(taskToAdd, "typical", currentList);
+        assertAddSuccess(taskToAdd, "today", todayList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add a deadline task that is an tomorrow task
         TestTask[] tomorrowList = td.getTomorrowTasks();
-        TestTask taskToAdd3 = td.;//TODO
-        assertAddSuccess(taskToAdd3, "typical", currentList);
-        assertAddSuccess(taskToAdd3, "tomorrow", tomorrowList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd3);
+        taskToAdd = TypicalTestTasks.deadlineTomorrowAdd;//TODO
+        assertAddSuccess(taskToAdd, "typical", currentList);
+        assertAddSuccess(taskToAdd, "tomorrow", tomorrowList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add an event task that is a in-7-day task
         TestTask[] in7DaysList = td.getIn7DaysTasks();
-        TestTask taskToAdd4 = td.;//TODO
-        assertAddSuccess(taskToAdd4, "typical", currentList);
-        assertAddSuccess(taskToAdd4, "in 7 days", in7DaysList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd4);
+        taskToAdd = TypicalTestTasks.eventIn7DaysAdd;//TODO
+        assertAddSuccess(taskToAdd, "typical", currentList);
+        assertAddSuccess(taskToAdd, "in 7 days", in7DaysList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add an event task that is a in-30-days task
         TestTask[] in30DaysList = td.getIn30DaysTasks();
-        TestTask taskToAdd5 = td.;//TODO
-        assertAddSuccess(taskToAdd5, "typical", currentList);
-        assertAddSuccess(taskToAdd5, "in 30 days", in30DaysList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd5);
+        taskToAdd = TypicalTestTasks.eventIn30DaysAdd;//TODO
+        assertAddSuccess(taskToAdd, "typical", currentList);
+        assertAddSuccess(taskToAdd, "in 30 days", in30DaysList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add duplicate someday task
-        commandBox.runCommand(td.hoon.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.somedayAdd.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
         
         //add duplicate deadline task
-        commandBox.runCommand(td..getAddCommand()); //TODO
+        commandBox.runCommand(TypicalTestTasks.deadlineTodayAdd.getAddCommand()); //TODO
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
         
         //add duplicate event task
-        commandBox.runCommand(td..getAddCommand()); //TODO
+        commandBox.runCommand(TypicalTestTasks.eventIn7DaysAdd.getAddCommand()); //TODO
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.alice, "typical");
+        assertAddSuccess(TypicalTestTasks.somedayAdd, "typical");
 
         //invalid command
         commandBox.runCommand("adds Johnny");

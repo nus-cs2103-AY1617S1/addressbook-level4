@@ -27,45 +27,45 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         targetIndex = currentList.length/2;
         assertDeleteSuccess(targetIndex, "typical", currentList);
 
-        //delete a someday task
+        //delete a someday task from the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         TestTask[] somedayList = td.getSomedayTasks();
-        int targetIndex = ?; //TO-DO: index must not one of the above three
+        targetIndex = 5; 
         assertDeleteSuccess(targetIndex, "typical", currentList);
         assertDeleteSuccess(targetIndex, "someday", somedayList);
         
-        //delete a deadline task
+        //delete a deadline task from the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
-        int targetIndex = ?; //TO-DO
+        targetIndex = 5; 
         assertDeleteSuccess(targetIndex, "typical", currentList);
         
-        //delete an event task
+        //delete an event task from the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
-        int targetIndex = ?; //TO-DO
+        targetIndex = 10; 
         assertDeleteSuccess(targetIndex, "typical", currentList);
         
-        //delete a today task
+        //delete a today task from the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         TestTask[] todayList = td.getTodayTasks();
-        int targetIndex = ?; //TO-DO: index must not one of the above three
+        targetIndex = 1;
         assertDeleteSuccess(targetIndex, "today", todayList);
         
-        //delete a tomorrow task
+        //delete a tomorrow task from the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         TestTask[] tomorrowList = td.getTomorrowTasks();
-        int targetIndex = ?; //TO-DO: index must not one of the above three
+        targetIndex = 1; 
         assertDeleteSuccess(targetIndex, "tomorrow", tomorrowList);
         
-        //delete an in-7-days task
+        //delete an in-7-days task from the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         TestTask[] in7DaysList = td.getIn7DaysTasks();
-        int targetIndex = ?; //TO-DO: index must not one of the above three
+        targetIndex = 5; 
         assertDeleteSuccess(targetIndex, "in 7 days", in7DaysList);
         
-        //delete an in-30-days task
+        //delete an in-30-days task from the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         TestTask[] in30DaysList = td.getIn30DaysTasks();
-        int targetIndex = ?; //TO-DO: index must not one of the above three
+        targetIndex = 5; 
         assertDeleteSuccess(targetIndex, "in 30 days", in30DaysList);
         
         //invalid index
