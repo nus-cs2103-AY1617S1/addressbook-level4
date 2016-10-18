@@ -1,5 +1,7 @@
 # Developer Guide
 
+* [Introduction](#introduction)
+* [Target Audience](#target-audience)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -12,6 +14,19 @@
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
+
+## Introduction
+Welcome to Mastermind Developer Guide! <br>
+
+Mastermind is a to-do task manager that helps the user to keep track of their tasks. We aim to provide our users with an effective and efficient solution to managing their tasks so they are able to better handle their time, as well as completing tasks required. 
+
+
+## Target Audience
+This developer guide is for both existing and new developers of the team who are interested in working on Mastermind in the future. <br>
+
+This guide will be showing you the Product Architecture, APIs and the details regarding the different components. <br>
+
+The next page will be showing you the introduction and set-up to make sure that you have the necessary tools before getting started, so do remember to read them! Feel free to approach our team for any clarifications that you may face during the process. Good luck and have fun coding! 
 
 
 ## Setting up
@@ -43,6 +58,20 @@
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+
+### Troubleshooting Project Setup
+**Problem: Eclipse reports compile errors after new commits are pulled from Git**<br>
+
+•	Reason: Eclipse fails to recognize new files that appeared due to the Git pull. <br>
+•	Solution Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose Gradle -> Refresh Gradle Project
+<br>
+
+**Problem: Eclipse reports some required libraries missing**<br>
+
+•	Reason: Required libraries may not have been downloaded during the project import.<br>
+•	Solution: Run tests using Gradle once (to refresh the libraries).
+
+
 
 ## Design
 
