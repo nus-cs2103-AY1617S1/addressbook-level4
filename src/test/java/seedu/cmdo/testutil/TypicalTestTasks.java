@@ -49,6 +49,11 @@ public class TypicalTestTasks {
         return new TestTask[]{grocery, house, car, zika};
     }
     
+    //@@author A0139661Y
+    public TestTask[] getEmptyTasks() {
+    	return new TestTask[]{};
+    }
+    
     public ToDoList getTypicalToDoList(){
         ToDoList ab = new ToDoList();
         loadToDoListWithSampleData(ab);
