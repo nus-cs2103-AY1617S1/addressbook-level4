@@ -6,7 +6,7 @@ import seedu.oneline.commons.events.ui.ExitAppRequestEvent;
 /**
  * Terminates the program.
  */
-public class ExitCommand extends Command {
+public class ExitCommand extends MutatingCommand {
 
     public static final String COMMAND_WORD = "exit";
 

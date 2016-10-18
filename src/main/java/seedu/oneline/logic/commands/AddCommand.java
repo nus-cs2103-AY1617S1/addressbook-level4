@@ -15,7 +15,7 @@ import seedu.oneline.model.task.*;
 /**
  * Adds a task to the task book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends MutatingCommand {
 
     public static final String COMMAND_WORD = "add";
 

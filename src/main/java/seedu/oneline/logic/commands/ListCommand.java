@@ -4,7 +4,7 @@ package seedu.oneline.logic.commands;
 /**
  * Lists all tasks in the task book to the user.
  */
-public class ListCommand extends Command {
+public class ListCommand extends MutatingCommand {
 
     public static final String COMMAND_WORD = "list";
 
