@@ -32,12 +32,12 @@ public class AddCommandTest extends TarsGuiTest {
 
         // add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.taskA);
-
-        // invalid command
         
+     // invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        assertAddSuccess(td.taskA);
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
