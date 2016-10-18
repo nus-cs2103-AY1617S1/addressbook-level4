@@ -45,7 +45,7 @@ public class TodoList implements TodoListModel {
         this.storage = storage;
         
         try {
-            setTasks(storage.read().getTasks());
+            setTasks(storage.read().getTasks(), false);
         } catch (FileNotFoundException | DataConversionException e) {
             logger.info("Data file not found. Will be starting with an empty TodoList");
         }
@@ -128,8 +128,20 @@ public class TodoList implements TodoListModel {
 
     @Override
     public void setTasks(List<ImmutableTask> todoList) {
+        setTasks(todoList, true);
+    }
+
+    /**
+     * We have a private version of setTasks because we also need to setTask during initialization, 
+     * but we don't want the list to be save during init (where we presumably got the data from)
+     */
+    private void setTasks(List<ImmutableTask> todoList, boolean persistToDisk) {
         this.tasks.clear();
         this.tasks.addAll(todoList.stream().map(Task::new).collect(Collectors.toList()));
+        
+        if (persistToDisk) {
+            saveTodoList();
+        }
     }
 
     @Override

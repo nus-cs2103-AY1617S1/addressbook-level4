@@ -174,6 +174,13 @@ public class TodoModelTest {
         assertEquals(1, todolist.getTasks().size());
     }
     
+    @Test
+    public void testPersistAfterUndo() throws Exception {
+        model.add("Test task 1");
+        model.undo();
+        verify(storage, times(2)).save(todolist);
+    }
+    
     @Test(expected = ValidationException.class)
     public void testOnlyUndoDataChanges() throws Exception {
         // Actions that does not cause underlying data to change should not cause 
@@ -205,6 +212,14 @@ public class TodoModelTest {
         model.redo();
         assertEquals(3, todolist.getTasks().size());
         assertEquals("Test task 3", getTask(2).getTitle());
+    }
+
+    @Test
+    public void testPersistAfterRedo() throws Exception {
+        model.add("Test task 1");
+        model.undo();
+        model.redo();
+        verify(storage, times(3)).save(todolist);
     }
     
     @Test
