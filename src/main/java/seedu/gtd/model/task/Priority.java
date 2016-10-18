@@ -9,7 +9,7 @@ import seedu.gtd.commons.exceptions.IllegalValueException;
 public class Priority {
 
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority numbers should only contain numbers";
-    public static final String PRIORITY_VALIDATION_REGEX = "\\d+";
+    public static final String PRIORITY_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String value;
 
