@@ -15,9 +15,9 @@ import javafx.stage.Stage;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.jimi.model.task.DateTime;
+import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.task.DeadlineTask;
-import seedu.jimi.model.task.Event;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.task.ReadOnlyTask;
 
 import java.util.ArrayList;
