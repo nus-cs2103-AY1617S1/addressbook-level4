@@ -7,6 +7,7 @@ import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
 import seedu.oneline.model.task.UniqueTaskList;
+import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -111,6 +112,10 @@ public class TaskBook implements ReadOnlyTaskBook {
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
+    }
+    
+    public Task doneTask(int index) throws UniqueTaskList.TaskNotFoundException {
+        return tasks.done(index);
     }
     
 //// tag-level operations
