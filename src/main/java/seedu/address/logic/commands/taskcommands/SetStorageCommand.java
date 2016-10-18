@@ -42,8 +42,9 @@ public class SetStorageCommand extends TaskCommand {
 		return new CommandResult(String.format(MESSAGE_SET_STORAGE_SUCCESS, storageLocation));
 	}
 	
-	/*
+	/*z
 	 * Checks if a provided folder path from the user is a valid directory
+	 * Should be a directory, writable and readable
 	 */
 	private boolean isDirectory(String folderpath) {
 		if (folderpath == null || folderpath.isEmpty()) {
@@ -52,7 +53,7 @@ public class SetStorageCommand extends TaskCommand {
 		
 		try {
 			Path path = Paths.get(folderpath);
-			return Files.isDirectory(path);
+			return Files.isDirectory(path) && Files.isWritable(path) && Files.isReadable(path);
 		} catch (InvalidPathException ipe) {
 			return false;
 		} catch (SecurityException sece) {

@@ -3,8 +3,8 @@
   "logLevel" : "INFO",
   "userPrefsFilePath" : "task-userpreferences.json",
   "tasksFileName" : "tasks.xml",
-  "tasksFilePath" : "data/tasks.xml",
+  "tasksFilePath" : "/home/sriram/tasks.xml",
   "aliasFileName" : "alias.xml",
-  "aliasFilePath" : "data/alias.xml",
+  "aliasFilePath" : "/home/sriram/alias.xml",
   "taskManagerName" : "TaskManager"
 }
