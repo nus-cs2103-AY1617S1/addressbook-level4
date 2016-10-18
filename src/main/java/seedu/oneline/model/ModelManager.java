@@ -14,6 +14,7 @@ import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -75,7 +76,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskBook.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllNotDone();
         indicateAddressBookChanged();
     }
 
@@ -84,14 +85,14 @@ public class ModelManager extends ComponentManager implements Model {
 //        assert taskBook.getUniqueTaskList().contains(newTask);
 //        assert !taskBook.getUniqueTaskList().contains(newTask);
         taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllNotDone();
         indicateAddressBookChanged();
     }
     
     @Override
     public synchronized void doneTask(int index) throws TaskNotFoundException {
         taskBook.doneTask(index);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllNotDone();
         indicateAddressBookChanged();
     }
 
@@ -105,6 +106,15 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    }
+    
+    @Override
+    public void updateFilteredListToShowAllNotDone() {
+        filteredTasks.setPredicate(getNotDonePredicate());
+    }
+    
+    private Predicate<Task> getNotDonePredicate() {
+        return task -> !task.isCompleted();
     }
 
     @Override
