@@ -89,10 +89,4 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
-    @Override
-    public void saveTaskManagerk(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
-        // TODO Auto-generated method stub
-        
-    }
-
 }
