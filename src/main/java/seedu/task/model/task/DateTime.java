@@ -44,6 +44,7 @@ public class DateTime {
      */
     public static boolean isValidDateTime(String dateTime) {
         List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
+        //TODO: check if date is before today
         Instant date = possibleDates.get(0).toInstant();
         return !possibleDates.isEmpty() && (possibleDates.size() == 1);
     }
@@ -67,6 +68,10 @@ public class DateTime {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+    public Optional<Instant> getDateTimeValue() {
+        return this.value;
     }
 
 }

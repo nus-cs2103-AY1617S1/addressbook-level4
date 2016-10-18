@@ -75,12 +75,18 @@ public class UpdateCommand extends Command {
             }
         }
         
-        Task newTask = new Task(
-                updatedTaskName,
-                openTime,
-                closeTime,
-                newTaskTags
-        );
+        Task newTask; 
+        try {
+            newTask = new Task(
+                    updatedTaskName,
+                    openTime,
+                    closeTime,
+                    newTaskTags
+            );
+        } catch (IllegalValueException e1) {
+            e1.printStackTrace();
+            return new CommandResult(e1.getMessage()); 
+        }
         
         assert model != null;
         try {

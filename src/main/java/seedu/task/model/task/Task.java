@@ -1,5 +1,6 @@
 package seedu.task.model.task;
 
+import java.time.Instant;
 import java.util.Objects;
 
 import seedu.task.commons.exceptions.IllegalValueException;
@@ -17,26 +18,45 @@ public class Task implements ReadOnlyTask {
     private DateTime closeTime;
 
     private UniqueTagList tags;
-    public static final String MESSAGE_TASK_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
 
 
     /**
      * Assigns instance variables
-     * TODO: Checks if dateTime pair is valid
+     * @throws IllegalValueException if DateTime pair is invalid
      */
-    public Task(Name name, DateTime openTime, DateTime closeTime, UniqueTagList tags) {
+    public Task(Name name, DateTime openTime, DateTime closeTime, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        if (!isValidDateTimePair(openTime, closeTime)) {
+            throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
+        }
+    }
+    /**
+     * Checks is openTime is before closeTime
+     * @param openTime Open Time DateTime object
+     * @param closeTime Close Time DateTime object
+     * @return
+     */
+    private boolean isValidDateTimePair(DateTime openTime,
+            DateTime closeTime) {
+        if( openTime.getDateTimeValue().isPresent() && openTime.getDateTimeValue().isPresent()) {
+            Instant openTimeValue = openTime.getDateTimeValue().get();
+            Instant closeTimeValue = openTime.getDateTimeValue().get();
+            return openTimeValue.isBefore(closeTimeValue);
+        } else {
+            return true;
+        }
     }
 
     /**
      * Copy constructor.
      * @throws IllegalValueException 
      */
-    public Task(ReadOnlyTask source) {
+    public Task(ReadOnlyTask source) throws IllegalValueException {
         this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getTags());
     }
 
