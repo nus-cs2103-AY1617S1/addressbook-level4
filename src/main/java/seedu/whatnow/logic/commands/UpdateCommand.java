@@ -38,7 +38,10 @@ public class UpdateCommand extends UndoAndRedo {
     private static final String ARG_TYPE_DATE = "date";
     private static final String ARG_TYPE_TAG = "tag";
     private static final String DELIMITER_BLANK_SPACE = " ";
-    private static final String TASK_TYPE_FLOATING = "todo";
+    private static final String TASK_TYPE_TODO = "todo";
+    private static final String TASK_TYPE_FLOATING = "floating";
+    private static final String TASK_TYPE_NOT_FLOATING = "not_floating";
+    private static final String REMOVE = "none";
     
     public final int targetIndex;
     public final String taskType;
@@ -64,20 +67,28 @@ public class UpdateCommand extends UndoAndRedo {
         String date = null;
         final Set<Tag> tagSet = new HashSet<>();
         if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TAG) == 0) {
-            Set<String> tags = processTag();
-            for (String tagName : tags) {
-                tagSet.add(new Tag(tagName));
-            }
+            if (arg.toUpperCase().compareToIgnoreCase(REMOVE) != 0) {
+                Set<String> tags = processTag();
+                for (String tagName : tags) {
+                    tagSet.add(new Tag(tagName));
+                }
+            }   
         }
+        
         if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DATE) == 0) {
-            date = arg;
+            date = (arg.toUpperCase().compareToIgnoreCase(REMOVE) == 0) ? null : arg;
         }
+        
         if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == 0) {
             newName = arg;
         }
         
         try {
             toUpdate = (date == null) ? new Task(new Name(newName), new UniqueTagList(tagSet), null) : new Task(new Name(newName), new TaskDate(date), new UniqueTagList(tagSet), null);
+            if (date == null)
+                toUpdate.setTaskType(TASK_TYPE_FLOATING);
+            else
+                toUpdate.setTaskType(TASK_TYPE_NOT_FLOATING);
         } catch (ParseException e) {
             System.out.println("ParseException in UpdateCommand.java line 71");
         }
@@ -111,7 +122,6 @@ public class UpdateCommand extends UndoAndRedo {
             toUpdate.setName(taskToUpdate.getName());
             toUpdate.setTags(taskToUpdate.getTags());
             toUpdate.setStatus(taskToUpdate.getStatus());
-            toUpdate.setTaskType(taskToUpdate.getTaskType());
         }
         toUpdate.setStatus(taskToUpdate.getStatus());
     }
@@ -119,11 +129,12 @@ public class UpdateCommand extends UndoAndRedo {
     private void undoUpdateTheCorrectField(ReadOnlyTask tasktoUndoUpdate) {
     	
     }
+    
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;
         
-        if (taskType.equals(TASK_TYPE_FLOATING)) {
+        if (taskType.equals(TASK_TYPE_TODO) || taskType.equalsIgnoreCase(TASK_TYPE_FLOATING)) {
             lastShownList = model.getCurrentFilteredTaskList();
         } else {
             lastShownList = model.getCurrentFilteredScheduleList();
