@@ -1,4 +1,4 @@
-package seedu.todo.commons.util;
+package seedu.todo.ui.util;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;

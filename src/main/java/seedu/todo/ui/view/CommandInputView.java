@@ -11,7 +11,7 @@ import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.CommandInputEnterEvent;
 import seedu.todo.commons.util.FxViewUtil;
-import seedu.todo.commons.util.TextAreaResizerUtil;
+import seedu.todo.ui.util.TextAreaResizerUtil;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
 
