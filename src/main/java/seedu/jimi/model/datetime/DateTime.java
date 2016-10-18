@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Objects;
 
@@ -46,6 +47,18 @@ public class DateTime implements Comparable<DateTime> {
     
     private LocalDateTime getLocalDateTime() {
         return dtInstance;
+    }
+    
+    public long getDifferenceInHours(DateTime other) {
+        return ChronoUnit.HOURS.between(dtInstance, other.getLocalDateTime());
+    }
+    
+    public long getDifferenctInDays(DateTime other) {
+        return ChronoUnit.DAYS.between(dtInstance, other.getLocalDateTime());
+    }
+    
+    public long getDifferenceInMonths(DateTime other) {
+        return ChronoUnit.MONTHS.between(dtInstance, other.getLocalDateTime());
     }
     
     @Override
