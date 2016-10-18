@@ -529,7 +529,6 @@ public class Parser {
         	targetIndex = Integer.parseInt(noDateMatcher.group("targetIndex"));
         	taskName = noDateMatcher.group("name").replaceFirst("\\s", "");
         	
-        	System.out.print(taskName);
         	try {
         		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
         	} catch(IllegalValueException ive) {

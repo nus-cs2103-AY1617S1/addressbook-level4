@@ -11,6 +11,9 @@ import seedu.address.testutil.TestUtil;
 
 import java.util.function.Supplier;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.status.StatusLogger;
+
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
  * testing
@@ -63,9 +66,11 @@ public class TestApp extends MainApp {
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);
+        ui.turnOffAutoComplete();
     }
 
     public static void main(String[] args) {
+    	StatusLogger.getLogger().setLevel(Level.OFF);
         launch(args);
     }
 }
