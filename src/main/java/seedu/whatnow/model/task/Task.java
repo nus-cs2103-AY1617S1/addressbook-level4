@@ -63,9 +63,7 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTaskDate(), source.getTags(), source.getStatus(), source.getTaskType());
     }
-    
-
-
+   
     @Override
     public Name getName() {
         return name;
@@ -109,6 +107,10 @@ public class Task implements ReadOnlyTask {
     public void setStatus(String status) {
         this.status = status;
     }
+    
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -120,7 +122,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, status, tags);
+        return Objects.hash(name, taskDate, tags, status, taskType);
     }
 
     @Override
