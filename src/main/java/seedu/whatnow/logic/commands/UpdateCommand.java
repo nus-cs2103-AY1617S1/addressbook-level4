@@ -150,6 +150,7 @@ public class UpdateCommand extends UndoAndRedo {
         
         try {
             model.updateTask(taskToUpdate, toUpdate);
+            model.getUndoStack().push(this);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
@@ -159,27 +160,14 @@ public class UpdateCommand extends UndoAndRedo {
 
 	@Override
 	public CommandResult undo() {
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getCurrentFilteredTaskList();
-		
-		ReadOnlyTask tasktoUndoUpdate = lastShownList.get(targetIndex -1);
-		
-		try {
-			model.undoUpdateTask( model.getOldTask().pop(),(Task) tasktoUndoUpdate );
-		} catch (TaskNotFoundException pnfe) {
-			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-		}
-		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
+		assert model != null;
+		model.revertDataUpdate();
+		return new CommandResult(UndoCommand.MESSAGE_SUCCESS); 
 	}
 	@Override
 	public CommandResult redo() {
-		// TODO Auto-generated method stub
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getCurrentFilteredTaskList();
-		ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex -1);
-		try {
-			model.updateTask(taskToUpdate, (Task) model.getNewTask().pop());
-		} catch(TaskNotFoundException pnfe) {
-			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-		}
-		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
+		assert model != null;
+		model.revertToPrevDataUpdate();
+		return new CommandResult(RedoCommand.MESSAGE_FAIL);
 	}
 }

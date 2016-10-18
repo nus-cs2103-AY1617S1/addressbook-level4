@@ -55,7 +55,6 @@ public class DeleteCommand extends UndoAndRedo {
 			model.getUndoStack().push(this);
 			model.getDeletedStackOfTask().push(taskToDelete);
 			model.getDeletedStackOfTaskType().push(taskType);
-			return new CommandResult(String.format(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete)));
 		} catch (TaskNotFoundException pnfe) {
 			assert false : "The target task cannot be missing";
 		}
@@ -109,6 +108,9 @@ public class DeleteCommand extends UndoAndRedo {
 		assert model != null;
 		try {
 			model.deleteTask(taskToDelete);
+			model.getUndoStack().push(this);
+			model.getDeletedStackOfTask().push(taskToDelete);
+			model.getDeletedStackOfTaskType().push(taskType);
 		} catch (TaskNotFoundException pnfe) {
 			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 		}
