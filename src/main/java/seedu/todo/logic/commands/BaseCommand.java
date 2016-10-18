@@ -9,7 +9,7 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.model.ErrorBag;
-import seedu.todo.model.TodoModel;
+import seedu.todo.model.Model;
 
 /**
  * The base class for commands. All commands need to implement an execute function 
@@ -27,7 +27,7 @@ public abstract class BaseCommand {
     
     private static final String TASK_MODIFIED_SUCCESS_MESSAGE = "'%s' successfully %s!";
 
-    protected TodoModel model;
+    protected Model model;
     
     protected ErrorBag errors = new ErrorBag(); 
     
@@ -50,7 +50,7 @@ public abstract class BaseCommand {
     /**
      * Binds the data model to the command object
      */
-    public void setModel(TodoModel model) {
+    public void setModel(Model model) {
         this.model = model;
     }
 

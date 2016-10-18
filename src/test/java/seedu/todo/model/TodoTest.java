@@ -14,12 +14,10 @@ import org.junit.rules.ExpectedException;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
-import seedu.todo.storage.MoveableStorage;
-import seedu.todo.testutil.TimeUtil;
+import seedu.todo.storage.MovableStorage;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -32,16 +30,14 @@ public class TodoTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
-    @Mock private MoveableStorage<ImmutableTodoList> storage;
+    @Mock private MovableStorage<ImmutableTodoList> storage;
     @Mock private ImmutableTodoList storageData;
     private TodoList todo;
-    private UnmodifiableObservableList<ImmutableTask> observableList;
 
     @Before
     public void setUp() throws Exception {
         when(storage.read()).thenReturn(storageData);
         todo = new TodoList(storage);
-        observableList = todo.getObserveableList();
     }
 
     @Test
@@ -95,7 +91,7 @@ public class TodoTest {
         assertTrue(beforeUpdate.isEqual(getTask(0).getLastUpdated()));
 
         Thread.sleep(1);
-        todo.update(1, t -> t.setPinned(true));
+        todo.update(0, t -> t.setPinned(true));
         LocalDateTime afterUpdate = getTask(0).getLastUpdated();
 
         assertTrue(afterUpdate.isAfter(beforeUpdate));
@@ -109,7 +105,7 @@ public class TodoTest {
         todo.add("Old Title");
 
         // Check that updating string fields work
-        assertNotNull(todo.update(1, t -> {
+        assertNotNull(todo.update(0, t -> {
             t.setTitle(TITLE);
             t.setDescription(DESCRIPTION);
         }));
@@ -124,74 +120,13 @@ public class TodoTest {
         todo.add("Test Task");
 
         // Check that updating boolean fields work
-        assertNotNull(todo.update(1, t -> t.setPinned(true)));
+        assertNotNull(todo.update(0, t -> t.setPinned(true)));
         assertTrue(getTask(0).isPinned());
         verify(storage, times(2)).save(todo);
 
-        assertNotNull(todo.update(1, t -> t.setCompleted(true)));
+        assertNotNull(todo.update(0, t -> t.setCompleted(true)));
         assertTrue(getTask(0).isCompleted());
         verify(storage, times(3)).save(todo);
-    }
-
-    @Test
-    public void testUpdateDateFields() throws Exception {
-        todo.add("Test Task");
-
-        assertNotNull(todo.update(1, t -> {
-            t.setStartTime(TimeUtil.now);
-            t.setEndTime(TimeUtil.now.plusHours(4));
-        }));
-        
-        ImmutableTask task = observableList.get(0);
-        assertEquals(TimeUtil.now, task.getStartTime().get());
-        assertEquals(TimeUtil.now.plusHours(4), task.getEndTime().get());
-        
-        todo.update(1, t -> t.setEndTime(TimeUtil.now));
-        task = observableList.get(0);
-        assertEquals(TimeUtil.now, task.getStartTime().get());
-        assertEquals(TimeUtil.now, task.getEndTime().get());
-    }
-
-    @Test
-    public void testSorting() throws Exception {
-        todo.add("Task 3", p -> p.setEndTime(TimeUtil.now));
-        todo.add("Task 2", p -> p.setEndTime(TimeUtil.now.plusHours(2)));
-        todo.add("Task 1", p -> p.setEndTime(TimeUtil.now.plusHours(1)));
-
-        // Check that the items are sorted in lexicographical order by title
-        todo.view(null, (a, b) -> a.getTitle().compareTo(b.getTitle()));
-        assertEquals("Task 1", observableList.get(0).getTitle());
-        assertEquals("Task 2", observableList.get(1).getTitle());
-        assertEquals(3, observableList.size());
-
-        // Insert an item that comes before all others lexicographically
-        todo.add("Task 0", p -> p.setEndTime(TimeUtil.now.plusHours(3)));
-        assertEquals("Task 0", observableList.get(0).getTitle());
-
-        // Change its title and check that it has moved down
-        todo.update(1, t -> t.setTitle("Task 4"));
-        assertEquals("Task 1", observableList.get(0).getTitle());
-        assertEquals("Task 4", observableList.get(3).getTitle());
-
-        // Check that sorting by time works
-        // Chronological ordering would give us Task 3, 1, 2, 4
-        todo.view(null, (a, b) -> a.getEndTime().get().compareTo(b.getEndTime().get()));
-        assertEquals("Task 3", observableList.get(0).getTitle());
-        assertEquals("Task 1", observableList.get(1).getTitle());
-        assertEquals("Task 2", observableList.get(2).getTitle());
-        assertEquals("Task 4", observableList.get(3).getTitle());
-    }
-
-    @Test
-    public void testFiltering() {
-        todo.add("Foo");
-        todo.add("FooBar");
-        todo.add("Bar");
-        todo.add("Bar Bar");
-
-        // Give us only tasks with "Foo" in the title
-        todo.view(t -> t.getTitle().contains("Foo"), null);
-        assertEquals(2, observableList.size());
     }
 
     @Test
@@ -202,49 +137,23 @@ public class TodoTest {
         todo.add("Bar Bar");
 
         // Delete the first task, then check that it has been deleted
-        ImmutableTask topTask = todo.getObserveableList().get(0);
-        todo.delete(1);
+        ImmutableTask topTask = todo.getObservableList().get(0);
+        todo.delete(0);
         assertFalse(todo.getTasks().contains(topTask));
         assertEquals(3, todo.getTasks().size());
         verify(storage, times(5)).save(todo);
 
         // Continue deleting the top task until the list is empty
-        todo.delete(1);
+        todo.delete(0);
         verify(storage, times(6)).save(todo);
 
-        todo.delete(1);
+        todo.delete(0);
         verify(storage, times(7)).save(todo);
 
-        todo.delete(1);
+        todo.delete(0);
         verify(storage, times(8)).save(todo);
 
         assertTrue(todo.getTasks().isEmpty());
-    }
-
-    @Test(expected = ValidationException.class)
-    public void testIllegalUpdate() throws Exception {
-        todo.add("Foo Bar Test");
-        todo.update(2, t -> t.setTitle("Test 2"));
-    }
-
-    @Test(expected = ValidationException.class)
-    public void testIllegalDelete() throws Exception {
-        todo.add("Foo Bar Test");
-        todo.delete(2);
-    }
-
-    @Test
-    public void testPinning() throws Exception {
-        todo.add("Task 1");
-        todo.add("Task 2");
-        todo.add("Task 3");
-
-        // Get the last item and pin it
-        ImmutableTask lastTask = observableList.get(2);
-        todo.update(3, t -> t.setPinned(true));
-
-        assertTrue(observableList.get(0).isPinned());
-        assertEquals(lastTask.getTitle(), observableList.get(0).getTitle());
     }
 
     @Test
@@ -252,7 +161,7 @@ public class TodoTest {
         todo.add("Task 1");
 
         try {
-            todo.update(1, t -> t.setTitle(""));
+            todo.update(0, t -> t.setTitle(""));
             fail();
         } catch (ValidationException e) {
             // Check that the bad update didn't go through
@@ -265,7 +174,7 @@ public class TodoTest {
         todo.add("Task 1");
 
         try {
-            todo.update(1, t -> {
+            todo.update(0, t -> {
                 t.setStartTime(LocalDateTime.now());
                 t.setTitle("Title changed");
             });
@@ -292,28 +201,6 @@ public class TodoTest {
             t.setStartTime(LocalDateTime.now());
             t.setEndTime(LocalDateTime.now().minusHours(2));
         });
-    }
-
-    @Test
-    public void testSave() throws Exception {
-        todo.save("new location");
-        verify(storage).save(todo, "new location");
-    }
-
-    @Test
-    public void testLoad() throws Exception {
-        when(storageData.getTasks())
-            .thenReturn(ImmutableList.of(new Task("Hello world")));
-        when(storage.read("new location")).thenReturn(storageData);
-
-        todo.load("new location");
-        assertEquals("Hello world", getTask(0).getTitle());
-    }
-
-    @Test
-    public void testGetSaveLocation() throws Exception {
-        when(storage.getLocation()).thenReturn("test location");
-        assertEquals("test location", todo.getStorageLocation());
     }
 
     private ImmutableTask getTask(int index) {

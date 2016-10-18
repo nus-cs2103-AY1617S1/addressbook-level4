@@ -33,7 +33,7 @@ public class LoadCommandTest extends CommandTest {
         when(tasks.getTasks()).thenReturn(ImmutableList.of(new Task("Hello world")));
             
         execute(true);
-        assertEquals("Hello world", model.getTasks().get(0).getTitle());
+        assertEquals("Hello world", getTaskAt(1).getTitle());
     }
 
     @Test(expected = ValidationException.class)

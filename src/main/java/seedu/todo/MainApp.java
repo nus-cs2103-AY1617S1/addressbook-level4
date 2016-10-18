@@ -41,7 +41,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
-    protected TodoModel model;
+    protected Model model;
     protected Dispatcher dispatcher; 
     protected Parser parser;
     protected Config config;
@@ -63,7 +63,7 @@ public class MainApp extends Application {
 
         parser = new TodoParser();
 
-        model = new TodoList(new TodoListStorage(config.getTodoListFilePath()));
+        model = new TodoModel(config);
         
         dispatcher = new TodoDispatcher();
         logic = new TodoLogic(parser, model, dispatcher);

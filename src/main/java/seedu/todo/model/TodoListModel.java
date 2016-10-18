@@ -1,18 +1,16 @@
 package seedu.todo.model;
 
-import seedu.todo.commons.core.UnmodifiableObservableList;
+import java.util.List;
+import java.util.function.Consumer;
+
+import javafx.collections.ObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 
-import java.util.Comparator;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
-
-public interface Model {
+public interface TodoListModel extends ImmutableTodoList {
     /**
      * Adds a new task or event with title only to the todo list.
      *
@@ -61,25 +59,6 @@ public interface Model {
     ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException;
 
     /**
-     * Changes the filter predicate and sort comparator used to display the tasks. A null
-     * value for either parameter resets it to the default value - showing everything for 
-     * the filter and insertion order for sort. 
-     */
-    void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort);
-
-    /**
-     * Undoes the last operation that modifies the todolist
-     * @throws ValidationException if there are no more changes to undo
-     */
-    void undo() throws ValidationException;
-
-    /**
-     * Redoes the last operation that was undone
-     * @throws ValidationException if there are no more changes to redo
-     */
-    void redo() throws ValidationException;
-    
-    /**
      * Changes the save path of the TodoList storage 
      * @throws ValidationException if the path is not valid
      */
@@ -92,12 +71,13 @@ public interface Model {
     void load(String location) throws ValidationException;
 
     /**
-     * Obtains the current storage methods 
+     * Replaces the tasks in list with the one in the 
      */
-    String getStorageLocation();
+    void setTasks(List<ImmutableTask> todoList);
 
     /**
      * Get an observable list of tasks. Used mainly by the JavaFX UI. 
      */
-    UnmodifiableObservableList<ImmutableTask> getObservableList();
+    ObservableList<ImmutableTask> getObservableList();
 }
+

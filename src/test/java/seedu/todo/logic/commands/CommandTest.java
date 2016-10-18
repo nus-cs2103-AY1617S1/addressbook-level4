@@ -17,10 +17,9 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.parser.ParseResult;
-import seedu.todo.model.ImmutableTodoList;
-import seedu.todo.model.TodoList;
+import seedu.todo.model.*;
 import seedu.todo.model.task.ImmutableTask;
-import seedu.todo.storage.MoveableStorage;
+import seedu.todo.storage.MovableStorage;
 
 /**
  * Base test case for testing commands. All command tests should extend this class. 
@@ -31,8 +30,9 @@ public abstract class CommandTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
-    protected TodoList model;
-    @Mock protected MoveableStorage<ImmutableTodoList> storage;
+    protected Model model;
+    protected TodoList todolist;
+    @Mock protected MovableStorage<ImmutableTodoList> storage;
     @Mock protected ImmutableTodoList storageData;
     protected BaseCommand command;
     protected StubParseResult params;
@@ -45,7 +45,8 @@ public abstract class CommandTest {
         when(storage.read()).thenReturn(storageData);
         when(storageData.getTasks()).thenReturn(Collections.emptyList());
         
-        model = new TodoList(storage);
+        todolist = new TodoList(storage);
+        model = new TodoModel(todolist, storage);
         params = new StubParseResult();
         command = commandUnderTest();
     }
@@ -54,28 +55,21 @@ public abstract class CommandTest {
      * Returns the task visible in the model at 1-indexed position, mimicking user input
      */
     protected ImmutableTask getTaskAt(int index) {
-        return model.getObserveableList().get(index - 1);
-    }
-    
-    /**
-     * Asserts that the model has this number of tasks in memory
-     */
-    protected void assertTotalTaskCount(int size) {
-        assertEquals(size, model.getTasks().size());
+        return model.getObservableList().get(index - 1);
     }
     
     /**
      * Asserts that the model has this number of tasks visible
      */
     protected void assertVisibleTaskCount(int size) {
-        assertEquals(size, model.getObserveableList().size());
+        assertEquals(size, model.getObservableList().size());
     }
     
     /**
      * Asserts that the task exists in memory
      */
     protected void assertTaskExist(ImmutableTask task) {
-        if (!model.getTasks().contains(task)) {
+        if (!todolist.getTasks().contains(task)) {
             throw new AssertionError("Task not found in model");
         }
     }
@@ -85,7 +79,7 @@ public abstract class CommandTest {
      * Asserts that the task does not exist in memory
      */
     protected void assertTaskNotExist(ImmutableTask task) {
-        if (model.getTasks().contains(task)) {
+        if (todolist.getTasks().contains(task)) {
             throw new AssertionError("Task found in model");
         }
     }
@@ -94,7 +88,7 @@ public abstract class CommandTest {
      * Asserts that the task is visible to the user through the model
      */
     protected void assertTaskVisible(ImmutableTask task) {
-        if (!model.getObserveableList().contains(task)) {
+        if (!model.getObservableList().contains(task)) {
             throw new AssertionError("Task is not visible");
         }
     }
@@ -105,7 +99,7 @@ public abstract class CommandTest {
      * to assert that the task exists, but is not visible
      */
     protected void assertTaskNotVisible(ImmutableTask task) {
-        if (model.getObserveableList().contains(task)) {
+        if (model.getObservableList().contains(task)) {
             throw new AssertionError("Task is visible");
         }
     }
