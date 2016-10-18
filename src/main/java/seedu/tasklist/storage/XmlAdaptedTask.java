@@ -25,6 +25,8 @@ public class XmlAdaptedTask {
     private String priority;
     @XmlElement(required = true)
     private int uniqueID;
+    @XmlElement(required = true)
+    private String recurringFrequency;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -45,6 +47,7 @@ public class XmlAdaptedTask {
         startTime = source.getStartTime().toString();
         endTime = source.getEndTime().toString();
         priority = source.getPriority().priorityLevel;
+        recurringFrequency = source.getRecurringFrequency();
         uniqueID = source.getUniqueID();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -67,6 +70,7 @@ public class XmlAdaptedTask {
         final EndTime endTime = new EndTime(this.endTime);
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, startTime, endTime, priority, tags);
+        
+        return new Task(name, startTime, endTime, priority, tags, recurringFrequency);
     }
 }

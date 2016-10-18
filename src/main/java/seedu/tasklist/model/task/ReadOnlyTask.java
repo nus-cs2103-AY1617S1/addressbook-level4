@@ -11,11 +11,12 @@ public interface ReadOnlyTask {
     StartTime getStartTime();
     EndTime getEndTime();
     Priority getPriority();
-    Recurring getRecurring();
+    String getRecurringFrequency();
     int getUniqueID();
     boolean isFloating();
     boolean isOverDue();
     boolean isComplete();
+    boolean isRecurring();
 
 	
 
@@ -35,7 +36,8 @@ public interface ReadOnlyTask {
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
                 && other.getPriority().equals(this.getPriority())
-                && other.getRecurring().equals(this.getRecurring())
+                && other.isRecurring() == this.isRecurring()
+                && other.getRecurringFrequency().equals(this.getRecurringFrequency())
                 && (other.getUniqueID()==this.getUniqueID()));
     }
 

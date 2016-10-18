@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.CollectionUtil;
+import seedu.tasklist.commons.util.RecurringUtil;
 import seedu.tasklist.model.tag.UniqueTagList;
 
 /**
@@ -22,10 +23,12 @@ public class Task implements ReadOnlyTask {
 	private StartTime startTime;
 	private EndTime endTime;
 	private Priority priority;
-	private Recurring recurring;
 	private int uniqueID;
 	private boolean isComplete;
+	private boolean isRecurring;
+	private String recurringFrequency;
 	private UniqueTagList tags;
+	
 	public static int floatCounter;
 	public static int IncompleteCounter;
 	public static int overdueCounter;
@@ -33,23 +36,31 @@ public class Task implements ReadOnlyTask {
 	/**
 	 * Every field must be present and not null.
 	 */
-	public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags, Recurring recurring) {
-		assert !CollectionUtil.isAnyNull(taskDetails, startTime, endTime, priority, tags);
+	public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags, String recurringFrequency) {
+		assert !CollectionUtil.isAnyNull(taskDetails, startTime, endTime, priority, tags, recurringFrequency);
 		this.taskDetails = taskDetails;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.priority = priority;
 		this.uniqueID = currentID++;
 		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-		this.recurring = recurring;
 		this.isComplete = false;
+		
+		switch (recurringFrequency) {
+		    case "daily": case "weekly": case "monthly": case "yearly": 
+                this.isRecurring = true;
+                this.recurringFrequency = recurringFrequency;
+            default:
+                this.isRecurring = false;
+                this.recurringFrequency = "";
+		}
 	}
 
 	/**
 	 * Copy constructor.
 	 */
 	public Task(ReadOnlyTask source) {
-		this(source.getTaskDetails(), source.getStartTime(), source.getEndTime(), source.getPriority(), source.getTags(), source.getRecurring());
+		this(source.getTaskDetails(), source.getStartTime(), source.getEndTime(), source.getPriority(), source.getTags(), source.getRecurringFrequency());
 	}
 
 	@Override
@@ -68,8 +79,8 @@ public class Task implements ReadOnlyTask {
 	}
 	
 	@Override
-	public Recurring getRecurring() {
-	    return recurring;
+	public String getRecurringFrequency() {
+	    return recurringFrequency;
 	}
 
 	@Override
@@ -94,7 +105,7 @@ public class Task implements ReadOnlyTask {
 	}
     
 	public boolean isRecurring() {
-	    return this.recurring.isRecurring();
+	    return this.isRecurring;
 	}
 	
 	@Override
@@ -111,6 +122,7 @@ public class Task implements ReadOnlyTask {
     }
 
 	public EndTime getEndTime(){
+		setRecurringTime();
 		return endTime;
 	}
 
@@ -130,10 +142,9 @@ public class Task implements ReadOnlyTask {
 		this.priority = priority;
 	}
 
-	public void setRecurringTime() throws IllegalValueException {
-	    if (recurring.isRecurring() && isComplete) {
-	        Calendar newtime = recurring.setRecurringTime(this.startTime.starttime);
-	        setStartTime(new StartTime(newtime.toString()));
+	public void setRecurringTime() {
+	    if (isRecurring && isComplete && !this.recurringFrequency.equals("")) {
+	        RecurringUtil.updateRecurringDate(endTime.endtime, recurringFrequency);
 	        isComplete = false;
 	    }
 	}
