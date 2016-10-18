@@ -152,6 +152,8 @@ The add class allows the user to add tasks, deadlines or events to Mastermind. T
 
 You can refer to Figure 4 and Figure 5 below and the next page for the class diagram of Add.
 
+##### Delete
+This delete allows the user to delete whatever they have input into the program beforehand. What the user have to do is to delete and choose the index that he or she wishes to delete.
 
 ##### Clear 
 Clear deletes the objects. <br>
@@ -208,6 +210,7 @@ The `Storage` component,
 ### Common classes
 
 Classes used by multiple components are in the `harmony.mastermind.commons` package.
+This component will be maintained by developers working on any of the other components because of its wide scope of application. You can find 4 packages, namely: core, events, exceptions and utils. 
 
 ## Implementation
 
@@ -283,9 +286,13 @@ Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
-## Continuous Integration
+## Dev Ops
 
-We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
+### Build Automation
+See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+
+### Continuous Integration
+We use [Travis CI](https://travis-ci.org/) to perform Continuous Integration on our projects to ensure that every time we merge a new feature into the main branch, automated testing is done to verify that the app is working.
 See [UsingTravis.md](UsingTravis.md) for more details.
 
 ## Making a Release
@@ -294,7 +301,7 @@ Here are the steps to create a new release.
 
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
+ 3. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
 
 ## Managing Dependencies
