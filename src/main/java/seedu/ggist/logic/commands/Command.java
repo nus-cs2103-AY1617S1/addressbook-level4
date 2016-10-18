@@ -15,6 +15,8 @@ public abstract class Command {
     protected Model model;
     public static Stack<String> listOfCommands = new Stack<String>();
     public static Stack<ReadOnlyTask> listOfTasks = new Stack<ReadOnlyTask>();
+    public static Stack<String> redoListOfCommands = new Stack<String>();
+    public static Stack<ReadOnlyTask> redoListOfTasks = new Stack<ReadOnlyTask>();
     public static String lastListing = null;
 
     /**
