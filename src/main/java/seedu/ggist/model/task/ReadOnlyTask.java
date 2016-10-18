@@ -15,6 +15,7 @@ public interface ReadOnlyTask {
     TaskTime getEndTime();
     boolean getDone();
     void setDone();
+    void setUnDone();
     
     /**
      * The returned TagList is a deep copy of the internal TagList,
