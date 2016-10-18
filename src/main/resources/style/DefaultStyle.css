@@ -2,7 +2,7 @@
     -fx-background-color: #2D2D2D;
     -fx-border-color: #00A4FF;
     -fx-border-width: 1px;
-    -fx-padding: 8;
+    -fx-padding: 12;
     -fx-spacing: 4;
 }
 
@@ -51,6 +51,12 @@
     -fx-vgap: 2pt;
     -fx-background-color: #3D3D3D;
     -fx-padding: 8 8 8 8;
+}
+
+.spacingBig {
+    -fx-spacing: 16px;
+    -fx-hgap: 16px;
+    -fx-vgap: 16px;
 }
 
 .spacing {
@@ -105,6 +111,25 @@
     -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI Semilight";
 }
+
+/***View Filter Styles Start***/
+.viewFilter {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14pt;
+}
+
+.viewFilter .selected {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 100;
+    -fx-padding: 0 8 0 8;
+}
+
+.viewFilter .selected .label {
+    -fx-text-fill: #2D2D2D;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+
 
 /***TaskCard Styles Start***/
 /*Default and Base*/
