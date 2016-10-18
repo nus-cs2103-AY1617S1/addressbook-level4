@@ -3,6 +3,7 @@ package seedu.address.model.item;
 import java.util.Objects;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 
 import seedu.address.model.tag.UniqueTagList;
 
@@ -17,9 +18,13 @@ public class Item {
 	private Description description;
 	private boolean isDone;
 	
-	
 	private LocalDateTime startDate;
-	private LocalDateTime endDate;
+    private LocalDateTime endDate;
+	
+	// for recurring events only
+	private boolean isRecurring;
+	private Period recurInterval;
+	private LocalDateTime recurEndDate;
 	
 	
     /**
@@ -32,8 +37,7 @@ public class Item {
 		// this.tags = new UniqueTagList(tags); // protect internal tags from
 		// changes in the arg list
     }
-
-
+	
 	public Description getDescription() {
 		return description;
     }
@@ -57,6 +61,7 @@ public class Item {
     public void setIsDone(boolean doneness) {
         this.isDone = doneness;
     }
+
 
     @Override
     public int hashCode() {
