@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import seedu.todo.commons.exceptions.ValidationException;
 
+//@@author A00923282A
 public class FindCommandTest extends CommandTest {
     
     @Override
@@ -46,6 +47,14 @@ public class FindCommandTest extends CommandTest {
         setParameter("task expands");
         execute(true);
         assertVisibleTaskCount(3);
+    }
+    
+    @Test
+    public void testUnsuccessfulFind() throws ValidationException{
+        assertVisibleTaskCount(4);
+        setParameter("team");
+        execute(true);
+        assertVisibleTaskCount(0);
     }
 
 }
