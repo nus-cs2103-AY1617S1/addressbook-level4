@@ -2,6 +2,7 @@ package seedu.todo.controllers;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,6 @@ public class ClearController implements Controller {
     private static final String COMMAND_SYNTAX = "clear";
     
     private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s tasks and events have been deleted!";
-    private static final String MESSAGE_CLEAR_FAILURE = "Invalid format for clear command. Date entered : %s";
     private String invalidDate = null;
     
     private static CommandDefinition commandDefinition =
@@ -72,9 +72,11 @@ public class ClearController implements Controller {
         String[] parsedDates = parseDates(parsedResult);
         
         //no dates provided
-        if (parsedDates == null) {
+        if (parsedDates == null && parseExactClearCommand(parsedResult)) {
             destroyAll(db);
             return;
+        } else {
+            displayErrorMessage(input, parsedDates);
         }
         
         String naturalOn = parsedDates[0];
@@ -87,10 +89,10 @@ public class ClearController implements Controller {
         LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
         LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
         
-        destroyByDate(db, naturalOn, naturalFrom, naturalTo, dateOn, dateFrom, dateTo);
+        destroyByDate(db, parsedDates, dateOn, dateFrom, dateTo, input);
 
     }
-    
+
     /**
      * Clear all tasks and events by a single or a range of date that exist in the database.
      * 
@@ -103,8 +105,8 @@ public class ClearController implements Controller {
      * @param dateTo
      *            null if parsing failed or End date for Event
      */
-    private void destroyByDate(TodoListDB db, String naturalOn, String naturalFrom, String naturalTo,
-            LocalDateTime dateOn, LocalDateTime dateFrom, LocalDateTime dateTo) {
+    private void destroyByDate(TodoListDB db, String[] parsedDate, LocalDateTime dateOn, 
+            LocalDateTime dateFrom, LocalDateTime dateTo, String input) {
         if (dateOn != null) {
             destroyByDate(db, dateOn);
             return;
@@ -112,7 +114,7 @@ public class ClearController implements Controller {
             destroyByRange(db, dateFrom, dateTo);
             return;
         } else { //natty deem all dates as invalid
-            displayErrorMessage(db, naturalOn, naturalFrom, naturalTo);
+            displayErrorMessage(input, parsedDate);
         }
     }
 
@@ -134,14 +136,28 @@ public class ClearController implements Controller {
     }
 
     /**
-     * display error message due to failure in parsing given date
+     * display error message due to invalid clear command
      * 
-     * @param TodoListDB
-     * @param naturalOn, naturalFrom, naturalTo
-     *            null if not entered, or natural date that user has entered
+     * @param input
+     *            based on user input
+     * @param parsedDate            
+     *            the date entered by the user      
      */
-    private void displayErrorMessage(TodoListDB db, String naturalOn, String naturalFrom, String naturalTo) {
-        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_FAILURE, invalidDate));
+    private void displayErrorMessage(String input, String[] parsedDate) {
+        String consoleDisplayMessage = String.format("You have entered : %s.",input);
+        String commandLineMessage;
+        if (parsedDate == null) {
+            commandLineMessage = COMMAND_SYNTAX;
+        } else if (parsedDate[0] != null) {
+            commandLineMessage = String.format("%s by <date>", COMMAND_SYNTAX);
+        } else if (parsedDate[1] != null && parsedDate[2] != null) {
+            commandLineMessage = String.format("%s from <date> to <date>", COMMAND_SYNTAX);
+        } else if (parsedDate[1] != null) {
+            commandLineMessage = String.format("%s from <date>", COMMAND_SYNTAX);
+        } else {
+            commandLineMessage = String.format("%s to <date>", COMMAND_SYNTAX);
+        }
+        Renderer.renderDisambiguation(commandLineMessage, consoleDisplayMessage);
     }
     
     /**
@@ -168,6 +184,10 @@ public class ClearController implements Controller {
         db.destroyAllEvent();
         db.destroyAllTask();
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
+    }
+    
+    private boolean parseExactClearCommand(Map<String, String[]> parsedResult) {
+        return parsedResult.get("default")[1] == null;
     }
     
     /**
