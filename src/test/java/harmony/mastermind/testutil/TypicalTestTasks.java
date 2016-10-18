@@ -31,8 +31,9 @@ public class TypicalTestTasks {
             
             //manual inputs
             task5 = new TaskBuilder().withName("do past year papers")
+                    .withEndDate("tomorrow")
                     .withTags("homework").build();
-            task6 = new TaskBuilder().withName("sweep floor").build();
+            task6 = new TaskBuilder().withName("sweep floor").withEndDate("friday").build();
             
             //completed tasks
             task7 = new TaskBuilder().withName("lecture").build();
