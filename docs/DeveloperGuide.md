@@ -267,7 +267,21 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `DoMePlease` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
+
+**MSS**
+
+1. User adds a deadline
+2. DoMePlease shows the added deadline
+3. Use case ends
+
+**Extensions**
+
+&nbsp;&nbsp;&nbsp;&nbsp;1a. The given date and time is invalid
+> 1a1. DoMePlease shows an error message
+> 1a2. Use case resumes at step 1
+
+#### Use case: Delete task
 
 **MSS**
 
@@ -281,14 +295,14 @@ Priority | As a ... | I want to ... | So that I can...
 
 **Extensions**
 
-2a. The list is empty
+&nbsp;&nbsp;&nbsp;&nbsp;2a. The list is empty
 
-> Use case ends
+> 2a1. Use case ends
 
-3a. The given index is invalid
+&nbsp;&nbsp;&nbsp;&nbsp;3a. The given index is invalid
 
 > 3a1. DoMePlease shows an error message <br>
-  Use case resumes at step 2
+> 3a2. Use case resumes at step 2
 
 #### Use case: Edit Task
 
@@ -304,16 +318,62 @@ Priority | As a ... | I want to ... | So that I can...
 
 **Extensions**
 
-2a. The list is empty
+&nbsp;&nbsp;&nbsp;&nbsp;2a. The list is empty
 
-> Use case ends
+> 2a. Use case ends
 
-3a. The given index is invalid
+&nbsp;&nbsp;&nbsp;&nbsp;3a. The given index is invalid
 
-> 3a1. DoMePlease shows an error message <br>
-  Use case resumes at step 2
+> 3a1. DoMePlease shows an error message
+> 3a2. Use case resumes at step 2
 
-{More to be added}
+#### Use case: View task
+
+**MSS**
+
+1. User requests to view tasks on a specific date
+2. DoMePlease shows the tasks on the given date and month
+3. Use case ends
+
+**Extensions**
+
+&nbsp;&nbsp;&nbsp;&nbsp;1a. The given date has no month
+> 1a1. DoMePlease shows the tasks on the given date on the current month
+
+#### Use case: Help
+
+**MSS**
+
+1. User requests to see UserGuide
+2. DoMePlease shows a web view of the UserGuide
+3. Use case ends
+
+**Extensions**
+
+&nbsp;&nbsp;&nbsp;&nbsp;2a. The user has no Internet connection
+> 2a1. Web view shows blank page
+
+#### Use case: Undo
+
+**MSS**
+
+1. User requests to undo the previous command
+2. DoMePlease displays a message that the previous reversible command is undone
+3. Use case ends
+
+**Extensions**
+
+&nbsp;&nbsp;&nbsp;&nbsp;2a. User has no previous reversible command
+> 2a1. DoMePlease shows an error message
+
+#### Use case: Exit
+
+**MSS**
+
+1. User requests to exit DoMePlease
+2. DoMePlease application window close
+3. Use case ends
+
 
 ## Appendix C : Non Functional Requirements
 
