@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.cmdo.ui.MainWindow">
+<VBox prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.cmdo.ui.MainWindow">
    <children>
       <MenuBar VBox.vgrow="NEVER">
          <menus>
@@ -33,14 +33,15 @@
             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </VBox.margin>
       </AnchorPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.3" VBox.vgrow="ALWAYS">
+      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="taskList" SplitPane.resizableWithParent="false">
                 <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </padding>
                <children>
-                  <AnchorPane fx:id="welcomePane" prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane fx:id="taskCategoryPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" VBox.vgrow="ALWAYS" />
+                  <AnchorPane fx:id="welcomePanePlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
             <ScrollPane fitToHeight="true" fitToWidth="true">

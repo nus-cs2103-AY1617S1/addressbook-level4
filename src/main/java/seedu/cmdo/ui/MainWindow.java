@@ -36,7 +36,7 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     @FXML
-    private AnchorPane welcomePane;
+    private AnchorPane welcomePanePlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -44,6 +44,9 @@ public class MainWindow extends UiPart {
     @FXML
     private MenuItem helpMenuItem;
 
+    @FXML
+    private AnchorPane taskCategoryPlaceholder;
+    
     @FXML
     private AnchorPane taskListPanelPlaceholder;
 
@@ -97,8 +100,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-    	welcomePane.getChildren().add((new WelcomeMessage()).getWelcomePane());
-    	//welcomeMessage = new WelcomeMessage.load(welcomePane); 
+    	taskCategoryPlaceholder.getChildren().add((new TaskCategory()).getTaskCategoryPane());
+    	welcomePanePlaceholder.getChildren().add((new WelcomeMessage()).getWelcomePane());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(true));
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
