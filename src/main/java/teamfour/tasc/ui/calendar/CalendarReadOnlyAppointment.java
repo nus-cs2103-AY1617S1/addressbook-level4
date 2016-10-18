@@ -18,9 +18,11 @@ import teamfour.tasc.model.task.ReadOnlyTask;
 public class CalendarReadOnlyAppointment implements Appointment {
 
     protected ReadOnlyTask associatedTask;
+    private int associatedIndex;
     
-    public CalendarReadOnlyAppointment(ReadOnlyTask associatedTask) {
+    public CalendarReadOnlyAppointment(ReadOnlyTask associatedTask, int associatedIndex) {
         this.associatedTask = associatedTask;
+        this.associatedIndex = associatedIndex;
     }
 
     /**
@@ -51,7 +53,7 @@ public class CalendarReadOnlyAppointment implements Appointment {
 
     @Override
     public String getSummary() {
-        return associatedTask.getName().getName();
+        return getDescription();
     }
 
     @Override
@@ -61,7 +63,7 @@ public class CalendarReadOnlyAppointment implements Appointment {
 
     @Override
     public String getDescription() {
-        return associatedTask.getName().getName();
+        return "(" + associatedIndex + "): " + associatedTask.getName().getName();
     }
 
     @Override

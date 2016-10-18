@@ -98,10 +98,14 @@ public class CalendarPanel extends UiPart {
     public void refreshTasks(List<ReadOnlyTask> taskList) {
         agendaView.appointments().clear();
         
+        int index = 0;
+        
         for (ReadOnlyTask task : taskList) {
+            index++; 
+            
             if (isDisplayableInCalendar(task)) {
                 try {
-                    agendaView.appointments().addAll(generateAppointmentsForTask(task));
+                    agendaView.appointments().addAll(generateAppointmentsForTask(task, index));
                 } catch (IllegalValueException ive) {
                     assert false: "Not possible";
                 }
@@ -117,11 +121,12 @@ public class CalendarPanel extends UiPart {
      * @param task
      * @throws IllegalValueException 
      */
-    private List<Appointment> generateAppointmentsForTask(ReadOnlyTask task) throws IllegalValueException {
+    private List<Appointment> generateAppointmentsForTask(ReadOnlyTask task, int index)
+            throws IllegalValueException {
         assert isDisplayableInCalendar(task);
         
         List<Appointment> allAppointments = new ArrayList<Appointment>();
-        allAppointments.add(new CalendarReadOnlyAppointment(task));
+        allAppointments.add(new CalendarReadOnlyAppointment(task, index));
         
         Recurrence taskRecurrence = task.getRecurrence();
         
@@ -146,7 +151,7 @@ public class CalendarPanel extends UiPart {
                 
                 remainingRecurrence = remainingRecurrence.getRecurrenceWithOneFrequencyLess();
                 
-                allAppointments.add(new CalendarReadOnlyRecurredAppointment(task, currentDeadline, currentPeriod));
+                allAppointments.add(new CalendarReadOnlyRecurredAppointment(task, index, currentDeadline, currentPeriod));
             }
         }
         
@@ -160,7 +165,7 @@ public class CalendarPanel extends UiPart {
         logger.fine("Calendar will handle selectTask()");
         agendaView.selectedAppointments().clear();
         
-        CalendarReadOnlyAppointment taskAppointment = new CalendarReadOnlyAppointment(taskToSelect);
+        CalendarReadOnlyAppointment taskAppointment = new CalendarReadOnlyAppointment(taskToSelect, -1);
         for (Appointment appointment : agendaView.appointments()) {
             if (taskAppointment.hasSameAssociatedTask(appointment)) {
                 logger.fine("Calendar found the right task to select!");

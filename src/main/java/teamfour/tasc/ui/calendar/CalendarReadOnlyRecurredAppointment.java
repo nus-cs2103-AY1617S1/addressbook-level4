@@ -14,8 +14,9 @@ public class CalendarReadOnlyRecurredAppointment extends CalendarReadOnlyAppoint
     private final Period periodForOccurence;
     
     public CalendarReadOnlyRecurredAppointment(ReadOnlyTask associatedTask,
+            int associatedIndex,
             Deadline deadlineForOccurrence, Period periodForOccurence) {
-        super(associatedTask);
+        super(associatedTask, associatedIndex);
 
         this.deadlineForOccurrence = deadlineForOccurrence;
         this.periodForOccurence = periodForOccurence;
