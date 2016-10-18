@@ -24,13 +24,13 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withLocationParameter(String locationParameter) throws IllegalValueException {
-    	this.task.setLocationParameter(new LocationParameter(locationParameter));
+    public TaskBuilder withLocation(String location) throws IllegalValueException {
+    	this.task.setLocation(new Location(location));
         return this;
     }
     
-    public TaskBuilder withRemarksParameter(String remarksParameter) throws IllegalValueException {
-        this.task.setRemarksParameter(new RemarksParameter(remarksParameter));
+    public TaskBuilder withRemarks(String remarks) throws IllegalValueException {
+        this.task.setRemarks(new Remarks(remarks));
         return this;
     }
 

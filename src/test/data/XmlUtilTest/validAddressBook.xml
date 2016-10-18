@@ -6,8 +6,8 @@
         <startTime>09:30AM</startTime>
         <endDate>18 Oct 2016</endDate>
         <endTime>06:00PM</endTime>
-        <locationParameter>NUS</locationParameter>
-        <remarksParameter>print flyers</remarksParameter>
+        <location>NUS</location>
+        <remarks>print flyers</remarks>
     </tasks>
     <tasks>
         <name>Dinner with mum</name>
@@ -15,8 +15,8 @@
         <startTime>07:00PM</startTime>
         <endDate>14 Oct 2016</endDate>
         <endTime>08:30PM</endTime>
-        <locationParameter>Orchard</locationParameter>
-        <remarksParameter>make reservation</remarksParameter>
+        <location>Orchard</location>
+        <remarks>make reservation</remarks>
     </tasks>
     <tasks>
         <name>Dinner with dad</name>
@@ -24,8 +24,8 @@
         <startTime>07:00PM</startTime>
         <endDate>24 Oct 2016</endDate>
         <endTime>08:30PM</endTime>
-        <locationParameter>Orchard</locationParameter>
-        <remarksParameter>make reservation</remarksParameter>
+        <location>Orchard</location>
+        <remarks>make reservation</remarks>
     </tasks>
     <tasks>
         <name>Christmas dinner</name>
@@ -33,7 +33,7 @@
         <startTime>07:00PM</startTime>
         <endDate>25 Dec 2016</endDate>
         <endTime>08:30PM</endTime>
-        <locationParameter>Orchard</locationParameter>
-        <remarksParameter>make reservation</remarksParameter>
+        <location>Orchard</location>
+        <remarks>make reservation</remarks>
     </tasks>
 </addressbook>
