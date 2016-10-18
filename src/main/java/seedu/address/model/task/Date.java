@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Dates should only contain 6 numbers";
-    public static final String DATE_VALIDATION_REGEX = "\\d{6}";
+    public static final String DATE_VALIDATION_REGEX = "\\d{6}|(no date)";
 
     public final String value;
 
@@ -31,7 +31,7 @@ public class Date {
      * Returns true if a given string is a valid person phone number.
      */
     public static boolean isValidDate(String test) {
-    	if (test == "" || test.matches(DATE_VALIDATION_REGEX))
+    	if (test.matches(DATE_VALIDATION_REGEX))
     		return true;
     	else
     		return false;
