@@ -40,11 +40,11 @@ public abstract class TaskManagerGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
-    protected TodayTaskListTabPanelHandle todayTaskListTabPanelHandle;
-    protected TomorrowTaskListTabPanelHandle tomorrowTaskListTabPanelHandle;
-    protected In7DaysTaskListTabPanelHandle in7DaysTaskListTabPanelHandle;
-    protected In30DaysTaskListTabPanelHandle in30DaysTaskListTabPanelHandle;
-    protected SomedayTaskListTabPanelHandle somedayTaskListTabPanelHandle;
+    protected TodayTaskListTabPanelHandle todayTaskListTabPanel;
+    protected TomorrowTaskListTabPanelHandle tomorrowTaskListTabPanel;
+    protected In7DaysTaskListTabPanelHandle in7DaysTaskListTabPanel;
+    protected In30DaysTaskListTabPanelHandle in30DaysTaskListTabPanel;
+    protected SomedayTaskListTabPanelHandle somedayTaskListTabPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -65,11 +65,11 @@ public abstract class TaskManagerGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
-            todayTaskListTabPanelHandle = mainGui.getTodayTaskListTabPanel();
-            tomorrowTaskListTabPanelHandle = mainGui.getTomorrowTaskListTabPanel();
-            in7DaysTaskListTabPanelHandle = mainGui.getIn7DaysTaskListTabPanel();
-            in30DaysTaskListTabPanelHandle = mainGui.getIn30DaysTaskListTabPanel();
-            somedayTaskListTabPanelHandle = mainGui.getSomedayTaskListTabPanel();
+            todayTaskListTabPanel = mainGui.getTodayTaskListTabPanel();
+            tomorrowTaskListTabPanel = mainGui.getTomorrowTaskListTabPanel();
+            in7DaysTaskListTabPanel = mainGui.getIn7DaysTaskListTabPanel();
+            in30DaysTaskListTabPanel = mainGui.getIn30DaysTaskListTabPanel();
+            somedayTaskListTabPanel = mainGui.getSomedayTaskListTabPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -132,6 +132,47 @@ public abstract class TaskManagerGuiTest {
         int numberOfTasks = taskListPanel.getNumberOfTasks();
         assertEquals(size, numberOfTasks);
     }
+    
+    /**
+     * Asserts the size of the today task list in the tab pane is equal to the given number.
+     */
+    protected void assertTodayListSize(int size) {
+        int numberOfTasks = todayTaskListTabPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
+    /**
+     * Asserts the size of the tomorrow task list in the tab pane is equal to the given number.
+     */
+    protected void assertTomorrowListSize(int size) {
+        int numberOfTasks = tomorrowTaskListTabPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
+    /**
+     * Asserts the size of the in-7-days task list in the tab pane is equal to the given number.
+     */
+    protected void assertIn7DaysListSize(int size) {
+        int numberOfTasks = in7DaysTaskListTabPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
+    /**
+     * Asserts the size of the in-30-days task list in the tab pane is equal to the given number.
+     */
+    protected void assertIn30DaysListSize(int size) {
+        int numberOfTasks = in30DaysTaskListTabPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
+    /**
+     * Asserts the size of the someday task list in the tab pane is equal to the given number.
+     */
+    protected void assertSomedayListSize(int size) {
+        int numberOfTasks = somedayTaskListTabPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
 
     /**
      * Asserts the message shown in the Result Display area is same as the given string.

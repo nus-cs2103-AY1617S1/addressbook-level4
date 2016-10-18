@@ -9,13 +9,13 @@ import seedu.address.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask someday, deadline, event, daniel, elle, fiona, george, hoon, ida;
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Aid alice").withStatus("not done").build();
-            benson =  new TaskBuilder().withName("Aid benson").withStatus("not done").build();
-            carl =  new TaskBuilder().withName("Aid carl").withStatus("not done").build();
+            someday =  new TaskBuilder().withName("hw 1").withStatus("not done").withTaskType("someday").build();
+            deadline =  new TaskBuilder().withName("hw 2").withStatus("not done").withTaskType("deadline").withEndDate("16:00 03-03-15").build();
+            event =  new TaskBuilder().withName("hw 3").withStatus("not done").withTaskType("event").withStartDate("").withEndDate("").build();
             daniel =  new TaskBuilder().withName("Aid daniel").withStatus("not done").build();
             elle =  new TaskBuilder().withName("Aid elle").withStatus("not done").build();
             fiona =  new TaskBuilder().withName("Aid fiona").withStatus("not done").build();
@@ -34,9 +34,9 @@ public class TypicalTestTasks {
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
+            ab.addTask(new Task(someday));
+            ab.addTask(new Task(deadline));
+            ab.addTask(new Task(event));
             ab.addTask(new Task(daniel));
             ab.addTask(new Task(elle));
             ab.addTask(new Task(fiona));
@@ -48,6 +48,26 @@ public class TypicalTestTasks {
 
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+    }
+    //STUB
+    public TestTask[] getTodayTasks() {
+        return new TestTask[] {};
+    }
+    //STUB
+    public TestTask[] getTomorrowTasks() {
+        return new TestTask[] {};
+    }
+    //STUB
+    public TestTask[] getIn7DaysTasks() {
+        return new TestTask[] {};
+    }
+    //STUB
+    public TestTask[] getIn30DaysTasks() {
+        return new TestTask[] {};
+    }
+    //STUB
+    public TestTask[] getSomedayTasks() {
+        return new TestTask[] {alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public TaskManager getTypicalTaskManager(){

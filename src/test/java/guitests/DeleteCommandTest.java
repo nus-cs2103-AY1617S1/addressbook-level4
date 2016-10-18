@@ -15,18 +15,59 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
-        assertDeleteSuccess(targetIndex, currentList);
+        assertDeleteSuccess(targetIndex, "typical", currentList);
 
         //delete the last in the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
-        assertDeleteSuccess(targetIndex, currentList);
+        assertDeleteSuccess(targetIndex, "typical", currentList);
 
         //delete from the middle of the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
-        assertDeleteSuccess(targetIndex, currentList);
+        assertDeleteSuccess(targetIndex, "typical", currentList);
 
+        //delete a someday task
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        TestTask[] somedayList = td.getSomedayTasks();
+        int targetIndex = ?; //TO-DO: index must not one of the above three
+        assertDeleteSuccess(targetIndex, "typical", currentList);
+        assertDeleteSuccess(targetIndex, "someday", somedayList);
+        
+        //delete a deadline task
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        int targetIndex = ?; //TO-DO
+        assertDeleteSuccess(targetIndex, "typical", currentList);
+        
+        //delete an event task
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        int targetIndex = ?; //TO-DO
+        assertDeleteSuccess(targetIndex, "typical", currentList);
+        
+        //delete a today task
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        TestTask[] todayList = td.getTodayTasks();
+        int targetIndex = ?; //TO-DO: index must not one of the above three
+        assertDeleteSuccess(targetIndex, "today", todayList);
+        
+        //delete a tomorrow task
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        TestTask[] tomorrowList = td.getTomorrowTasks();
+        int targetIndex = ?; //TO-DO: index must not one of the above three
+        assertDeleteSuccess(targetIndex, "tomorrow", tomorrowList);
+        
+        //delete an in-7-days task
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        TestTask[] in7DaysList = td.getIn7DaysTasks();
+        int targetIndex = ?; //TO-DO: index must not one of the above three
+        assertDeleteSuccess(targetIndex, "in 7 days", in7DaysList);
+        
+        //delete an in-30-days task
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        TestTask[] in30DaysList = td.getIn30DaysTasks();
+        int targetIndex = ?; //TO-DO: index must not one of the above three
+        assertDeleteSuccess(targetIndex, "in 30 days", in30DaysList);
+        
         //invalid index
         commandBox.runCommand("del " + currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
@@ -38,14 +79,28 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of tasks (before deletion).
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+    private void assertDeleteSuccess(int targetIndexOneIndexed, String listType, final TestTask[] currentList) {
         TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("del " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous tasks except the deleted task
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        switch (listType) {
+        case "typical":
+        	assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        case "today":
+            assertTrue(todayTaskListTabPanel.isListMatching(expectedRemainder));
+        case "tomorrow":
+            assertTrue(tomorrowTaskListTabPanel.isListMatching(expectedRemainder));
+        case "in 7 days":
+            assertTrue(in7DaysTaskListTabPanel.isListMatching(expectedRemainder));
+        case "in 30 days":
+            assertTrue(in30DaysTaskListTabPanel.isListMatching(expectedRemainder));
+        case "someday":
+            assertTrue(somedayTaskListTabPanel.isListMatching(expectedRemainder));
+        default:
+        }
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));

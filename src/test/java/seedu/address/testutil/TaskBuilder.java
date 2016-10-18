@@ -31,17 +31,22 @@ public class TaskBuilder {
         this.task.setStatus(new Status(status));
         return this;
     }
-/*
-    public TaskBuilder withPhone(String phone) throws IllegalValueException {
-        this.task.setPhone(new Phone(phone));
+
+    public TaskBuilder withTaskType(String taskType) throws IllegalValueException {
+        this.task.setTaskType(taskType);
+        return this;
+    }
+    
+    public TaskBuilder withStartDate(String startDateAndTime) throws IllegalValueException {
+        this.task.setStartDate(startDateAndTime);
+        return this;
+    }
+    
+    public TaskBuilder withEndDate(String endDateAndTime) throws IllegalValueException {
+        this.task.setEndDate(endDateAndTime);
         return this;
     }
 
-    public TaskBuilder withEmail(String email) throws IllegalValueException {
-        this.task.setEmail(new Email(email));
-        return this;
-    }
-*/
     public TestTask build() {
         return this.task;
     }

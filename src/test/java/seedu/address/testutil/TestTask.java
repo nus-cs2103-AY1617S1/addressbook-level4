@@ -11,7 +11,7 @@ import seedu.address.model.task.*;
  */
 public class TestTask implements ReadOnlyTask {
 
-	public final TaskType taskType;
+	public TaskType taskType;
 	private Name name;
 	private Status status;
 	private Optional<LocalDateTime> startDate;
@@ -32,6 +32,18 @@ public class TestTask implements ReadOnlyTask {
     public void setStatus(Status status) {
         this.status = status;
     }
+    
+    public void setTaskType(String taskType) {
+        this.taskType = new TaskType(taskType);
+    }
+    
+	public void setStartDate(String startDate) {
+		this.startDate = Optional.of(LocalDateTime.parse(startDate));
+	}
+	
+	public void setEndDate(String endDate) {
+		this.endDate = Optional.of(LocalDateTime.parse(endDate));
+	}
     
     public void setStartDate(LocalDateTime date) throws UnsupportedOperationException {
         if (taskType.value.equals(TaskType.Type.DEADLINE)) {
@@ -92,6 +104,16 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTaskType().value + " '");
+        sb.append(this.getName().fullName + "'");
+        //sb.append("e/" + this.getEmail().value + " ");
+        //sb.append("a/" + this.getAddress().value + " ");
+        //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        return sb.toString();
+    }
+    
+    public String getEditCommand(int index) {
+    	StringBuilder sb = new StringBuilder();
+        sb.append("edit " + this.getTaskType().value + " " + index + " '");
         sb.append(this.getName().fullName + "'");
         //sb.append("e/" + this.getEmail().value + " ");
         //sb.append("a/" + this.getAddress().value + " ");
