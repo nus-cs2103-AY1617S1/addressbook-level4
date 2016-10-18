@@ -221,11 +221,11 @@ Examples:
 * `done todo 4`<br>
   Marks the 4th Todo task from the displayed list in WhatNow as completed. <br>
   <img src="images/UI_Prototype/WhatNowUI-DoneTodo-Colour.png" width="600"><br>
-Figure 7: How the GUI will look like after a todo task has been marked as completed.<br>
+Figure 10: How the GUI will look like after a todo task has been marked as completed.<br>
 * `done schedule 2`<br>
   Marks the 2nd Schedule task from the displayed list in WhatNow as completed. <br>
   <img src="images/UI_Prototype/WhatNowUI-DoneSchedule-Colour.png" width="600"><br>
-Figure 8: How the GUI will look like after a scheduled task has been marked as completed.<br>
+Figure 11: How the GUI will look like after a scheduled task has been marked as completed.<br>
 
 
 
@@ -238,7 +238,7 @@ Examples:
 * `undo`<br>
    Undo the previous action <br>
 <img src="images/UI_Prototype/WhatNowUI-Undo-Colour.png" width="600"><br>
-Figure 10: How the GUI will look like after an update action is undone.<br>
+Figure 12: How the GUI will look like after an update action is undone.<br>
 
 
 
@@ -251,7 +251,7 @@ Examples:
 * `redo`<br>
    Redo the previous action <br>
 <img src="images/UI_Prototype/WhatNowUI-Redo-Colour.png" width="600"> <br>
-Figure 11: How the GUI will look like after an update action is redone.<br>
+Figure 13: How the GUI will look like after an update action is redone.<br>
 
 
 
@@ -276,7 +276,7 @@ Examples:
 * `find CS3235`<br>
   Returns any tasks having the description `CS3235`. <br>
 <img src="images/UI_Prototype/WhatNowUI-Find-Colour.png" width="600"><br>
-Figure 12: How the GUI will look like after a find for the keyword.<br>
+Figure 14: How the GUI will look like after a find for the keyword.<br>
 
 
 
@@ -287,7 +287,7 @@ Result: `Displaying the help page` message will be shown in the feedback box.
 
 > Help is also shown if you enter an incorrect command e.g. `abcd` <br>
 > <img src="images/UI_Prototype/WhatNowUI-Help-Colour.png" width="600"><br>
-> Figure 13: How the GUI will look like when the help page is displayed. <br>
+> Figure 15: How the GUI will look like when the help page is displayed. <br>
 
 
 
