@@ -16,8 +16,6 @@ public class TaskCard extends UiPart{
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label tags;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -36,8 +34,6 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
-        id.setText(displayedIndex + ". ");
-        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {

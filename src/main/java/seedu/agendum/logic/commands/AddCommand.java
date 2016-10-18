@@ -1,11 +1,8 @@
 package seedu.agendum.logic.commands;
 
 import seedu.agendum.commons.exceptions.IllegalValueException;
-import seedu.agendum.model.tag.Tag;
-import seedu.agendum.model.tag.UniqueTagList;
 import seedu.agendum.model.task.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,7 +13,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task with no time and date. "
-            + "Parameters: NAME [t/TAG]...\n"
+            + "Parameters: NAME\n"
             + "Example: " + COMMAND_WORD
             + " Watch Star Wars t/movies";
 
@@ -30,15 +27,10 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, Set<String> tags)
+    public AddCommand(String name)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
         this.toAdd = new Task(
-                new Name(name),
-                new UniqueTagList(tagSet)
+                new Name(name)
         );
     }
 

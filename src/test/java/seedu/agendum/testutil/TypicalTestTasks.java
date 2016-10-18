@@ -13,10 +13,8 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("meet Alice Pauline").withUncompletedStatus()
-                    .withTags("friends").build();
-            benson = new TaskBuilder().withName("meet Benson Meier").withUncompletedStatus()
-                    .withTags("owesMoney", "friends").build();
+            alice =  new TaskBuilder().withName("meet Alice Pauline").withUncompletedStatus().build();
+            benson = new TaskBuilder().withName("meet Benson Meier").withUncompletedStatus().build();
             carl = new TaskBuilder().withName("meet Carl Kurz").withUncompletedStatus().build();
             daniel = new TaskBuilder().withName("meet Daniel Meier").withUncompletedStatus().build();
             elle = new TaskBuilder().withName("meet Elle Meyer").withUncompletedStatus().build();
