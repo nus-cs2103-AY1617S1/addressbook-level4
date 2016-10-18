@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
@@ -191,10 +192,15 @@ public class Parser {
 		
 		Set<String> tags = new HashSet<String>();
         
-        for (int i = 0; i < additionalArgs.length; i++) {
-            String[] splitTag = additionalArgs[i].trim().split("/");
-            tags.add(splitTag[1]);
-        }
+		try {
+		    for (int i = 0; i < additionalArgs.length; i++) {
+		        String[] splitTag = additionalArgs[i].trim().split("t/");
+		        tags.add(splitTag[1]);
+		    }
+		} catch (ArrayIndexOutOfBoundsException e) {
+		    return new IncorrectCommand("Invalid command format!\n" + AddCommand.MESSAGE_USAGE); 
+		} //Zac@All: Not sure if there is a better way to fix this. This captures the cases where user dont type
+		  //on or by when adding a schedule/deadline
 		
 		try {
 			return new AddCommand(arguments[DESCRIPTION], tags);
