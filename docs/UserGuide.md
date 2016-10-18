@@ -370,7 +370,7 @@ Just open this document anytime again by typing the `help` command:
 ### Calendar
 TaSc provides a calendar view for you to visualise your tasks.
 
-//TODO image of the calendar UI
+<img src="images/Ui-Calendar.png" width="200">
 <br><br>
 
 ### Autocomplete and suggestions
@@ -379,7 +379,7 @@ Shows suggested command keywords, dates, sorting order, and tags as you type.
 Use the <kbd>up</kbd> and <kbd>down</kbd> arrow keys to select a keyword in the list,<br>
 and the <kbd>tab</kbd> key to autocomplete with the highlighted keyword.
 
-><img src="images/Ui-Autocomplete.png" width="200">
+<img src="images/Ui-Autocomplete.png" width="200">
 
 <br>
 
