@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<tasklist>
+<addressbook>
     <tasks>
         <name>Hans Muster</name>
         <dueDate isPrivate="false">9482424</dueDate>
@@ -54,4 +54,4 @@
         <address isPrivate="false">chicago ave</address>
         <priority isPrivate="false">1</priority>
     </tasks>
-</tasklist>
+</addressbook>
