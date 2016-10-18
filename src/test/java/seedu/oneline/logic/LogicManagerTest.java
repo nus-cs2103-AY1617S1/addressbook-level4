@@ -368,6 +368,34 @@ public class LogicManagerTest {
                 expectedList);
     }
 
+    @Test
+    public void execute_undo_redo() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTask(1);
+        Task task2 = helper.generateTask(2);
+        Task task3 = helper.generateTask(3);
+        TaskBook expectedTaskBook1 = new TaskBook(model.getTaskBook());
+        logic.execute(helper.generateAddCommand(task1));
+        TaskBook expectedTaskBook2 = new TaskBook(model.getTaskBook());
+        logic.execute(helper.generateAddCommand(task2));
+        TaskBook expectedTaskBook3 = new TaskBook(model.getTaskBook());
+        logic.execute(helper.generateAddCommand(task3));
+        
+        // Undo command
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook3, Arrays.asList(task1, task2));
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook2, Arrays.asList(task1));
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook1, Collections.emptyList());
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_NO_PREVIOUS_STATE, expectedTaskBook1, Collections.emptyList());
+        
+        // Redo command
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook2, Arrays.asList(task1));
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook3, Arrays.asList(task1, task2));
+        Task task4 = helper.generateTask(4);
+        logic.execute(helper.generateAddCommand(task4));
+        TaskBook expectedTaskBook4 = new TaskBook(model.getTaskBook());
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_NO_NEXT_STATE, expectedTaskBook4, Arrays.asList(task1, task2, task4));
+    }
+
 
     /**
      * A utility class to generate test data.
