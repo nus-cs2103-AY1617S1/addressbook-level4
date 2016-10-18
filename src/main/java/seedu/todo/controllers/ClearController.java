@@ -25,6 +25,7 @@ public class ClearController implements Controller {
     
     private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s tasks and events have been deleted!";
     private static final String MESSAGE_CLEAR_FAILURE = "Invalid format for clear command. Date entered : %s";
+    private String invalidDate = null;
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -38,7 +39,6 @@ public class ClearController implements Controller {
         return (input.toLowerCase().startsWith(COMMAND_SYNTAX)) ? 1 : 0;
     }
     
-    private String invalidDate = null;
 
     /**
      * Get the token definitions for use with <code>tokenizer</code>.<br>
