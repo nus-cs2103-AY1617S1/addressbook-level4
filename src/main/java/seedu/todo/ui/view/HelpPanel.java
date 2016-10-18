@@ -71,7 +71,6 @@ public class HelpPanel extends UiPart {
         helpGrid.getChildren().clear();
         int rowIndex = 0;
         for (CommandSummary commandSummary : commandSummaries) {
-            System.out.println(rowIndex);
             appendCommandSummary(rowIndex++, commandSummary);
         }
     }
