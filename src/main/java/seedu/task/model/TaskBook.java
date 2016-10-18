@@ -120,8 +120,8 @@ public class TaskBook implements ReadOnlyTaskBook {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void editTask(Task task, int index) throws UniqueTaskList.DuplicateTaskException {
-        tasks.edit(task, index);
+    public void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException {
+        tasks.edit(editTask, targetTask);
     }
 
     

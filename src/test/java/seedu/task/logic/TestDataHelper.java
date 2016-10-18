@@ -148,10 +148,10 @@ class TestDataHelper{
     }
     
     /** Generates the correct edit task command based on the new description string given */
-    String generateEditTaskCommand(Task p) {
+    String generateEditTaskCommand(Task p, int index) {
         StringBuffer cmd = new StringBuffer();
 
-        cmd.append("edit -t 1");
+        cmd.append("edit -t " + index);
         cmd.append(" /name ").append(p.getTask().toString());
         cmd.append(" /desc ").append(p.getDescription().toString());
 

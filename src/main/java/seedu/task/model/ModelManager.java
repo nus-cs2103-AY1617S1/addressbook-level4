@@ -94,23 +94,22 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void addEvent(Event event) throws DuplicateEventException {
+    public synchronized void addEvent(Event event) throws DuplicateEventException {
         taskBook.addEvent(event);
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
     
     @Override
-
     public void markTask(ReadOnlyTask target){
         taskBook.markTask(target);
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
-    
-        
-    public void editTask(Task task, int index) throws UniqueTaskList.DuplicateTaskException {
-        taskBook.editTask(task, index);
+   
+    @Override
+    public synchronized void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.editTask(editTask, targetTask);
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();   
     }

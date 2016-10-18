@@ -70,7 +70,7 @@ public class EditTaskCommand extends EditCommand  {
             ReadOnlyTask targetTask = lastShownList.get(getTargetIndex());
             
             Task editTask = editTask(targetTask);
-            model.editTask(editTask, getTargetIndex());
+            model.editTask(editTask, targetTask);
             
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editTask));
 
