@@ -34,4 +34,7 @@ public interface Model {
     /** Edits the floating task at the specified index */
     void editReadOnlyTask(int targetIdx, ReadOnlyTask floatingTask);
 
+    /** Sets the task to be completed/incomplete */
+    void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);
+
 }
