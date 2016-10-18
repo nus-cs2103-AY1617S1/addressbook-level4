@@ -260,8 +260,8 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
-    -fx-background-insets: 3;
+    -fx-background-color: derive(grey, 50%);
+    -fx-background-insets: 0;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -274,11 +274,11 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 0 0 0 0;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
+    -fx-padding: 0 0 0 0;
 }
 
 #cardPane {
