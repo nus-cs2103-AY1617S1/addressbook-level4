@@ -160,4 +160,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+    
+    public boolean contains(Task task){
+    	return tasks.contains(task);
+    }
 }

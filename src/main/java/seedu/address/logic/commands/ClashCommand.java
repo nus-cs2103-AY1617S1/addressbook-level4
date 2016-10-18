@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+
 public class ClashCommand extends Command {
 	
 	public static final String COMMAND_WORD = "clash";
@@ -10,8 +12,13 @@ public class ClashCommand extends Command {
 	
 	@Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll();
-        return new CommandResult(MESSAGE_SUCCESS);
+		try{
+			model.updateFilteredListToShowClashing();
+		}
+		catch (DuplicateTaskException dte){
+			
+		}
+        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
 	
 	

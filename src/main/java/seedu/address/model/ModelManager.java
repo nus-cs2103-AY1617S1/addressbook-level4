@@ -10,6 +10,7 @@ import seedu.address.model.task.Deadline;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -100,26 +101,31 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(expression::satisfies);
     }
     
-    public void updateFilteredListToShowClashing(){
-    	FilteredList<Task> clashingTasks = new FilteredList<Task>(null);
-    	for(int i=0; i<filteredPersons.size(); i++){
-    		boolean isClashing = false;
-    		Task task = filteredPersons.get(i);
-    		Deadline deadline = task.getDeadline();
-    		for(int j=i; j<filteredPersons.size()-i; j++){
-    			Task task2 = filteredPersons.get(j);
-    			Deadline deadline2 = task2.getDeadline();
-    			if(deadline.equals(deadline2)){
-    				clashingTasks.add(task2);
-    				isClashing = true;
-    			}
-    		}
-    		if(isClashing){
-    			clashingTasks.add(task);
-    		}
-    	}
-    	//filteredPersons = clashingTasks;
-    }
+    public void updateFilteredListToShowClashing() throws DuplicateTaskException {
+    	
+		TaskManager taskmanager = new TaskManager();
+		for(int i=0; i<filteredPersons.size()-1; i++){
+			boolean isClashing = false;
+			Task task = filteredPersons.get(i);
+			Deadline deadline = task.getDeadline();
+			for(int j=i+1; j<filteredPersons.size(); j++){
+				Task task2 = filteredPersons.get(j);
+				Deadline deadline2 = task2.getDeadline(); 
+				if(deadline.equals(deadline2)){
+					if(!taskmanager.contains(task2))
+						taskmanager.addTask(task2);	
+					isClashing = true;
+				}
+			}
+			if(isClashing){
+				if(!taskmanager.contains(task))
+					taskmanager.addTask(task);
+			}
+		}
+		FilteredList<Task> clashingTasks = new FilteredList<Task>(taskmanager.getTasks());
+		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(clashingTasks)));	
+}
+ 
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -137,8 +143,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask person) {
-            return qualifier.run(person);
+        public boolean satisfies(ReadOnlyTask task) {
+            return qualifier.run(task);
         }
 
         @Override
@@ -171,6 +177,24 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
-    }
+    }   
     
+    private class ClashQualifier implements Qualifier {
+    	private FilteredList<Task> tasks;
+    	
+    	ClashQualifier(FilteredList<Task> tasks){ 
+    		this.tasks = tasks;
+    	}
+
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			for(Task temp: tasks){
+				if(temp.equals(task)){
+					return true;
+				}
+			}			
+			return false;
+		}
+    }
+
 }
