@@ -64,14 +64,26 @@ public class MainParser {
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
-
-        final String commandWord = matcher.group("commandWord");
-        String arguments = matcher.group("arguments");
-//        arguments = getCleanString(arguments);
+    	String[] splitedInput = userInput.split("\\s+");
+    	String commandWord, arguments; 
+    	if(splitedInput.length == 2 && ((splitedInput[1].equals("done")) || (splitedInput[1].equals("all")))){
+    		Matcher matcher = LIST_COMMAND_FORMAT.matcher(userInput.trim());
+            if (!matcher.matches()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
+            commandWord = matcher.group("commandWord");
+            arguments = matcher.group("arguments");
+    	}
+    	else{
+    		Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+            if (!matcher.matches()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
+            commandWord = matcher.group("commandWord");
+            arguments = matcher.group("arguments");
+            
+    	}
+    	arguments = getCleanString(arguments);
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -94,10 +106,11 @@ public class MainParser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
-
-        case ListCommand.COMMAND_WORD:        	
+            
+        case ListCommand.COMMAND_WORD_ALL:        	
         case ListCommand.COMMAND_WORD_SHORT_ALL:
         	return prepareList(arguments);
+        case ListCommand.COMMAND_WORD_DONE:	
         case ListCommand.COMMAND_WORD_SHORT_DONE:
             return prepareList("--done");
             
@@ -176,6 +189,7 @@ public class MainParser {
     	try {
     	// Determine if edit command is input correctly
     	Optional<Integer> checkForIndex = parseLooseIndex(args);
+    	
         if(!checkForIndex.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -183,6 +197,12 @@ public class MainParser {
     	
         // Determine if the edit command is used correctly
     	String[] splittedArgs = getCleanString(args).split(" ");
+        boolean validTime = false;
+        for(String sArg : splittedArgs){
+        	if(sArg.equals("at"))
+        		validTime = true;
+        }
+        
     	Integer index = Integer.valueOf(splittedArgs[0]);
         if(index == null){
             return new IncorrectCommand(
@@ -195,8 +215,15 @@ public class MainParser {
         extractDetail(args);
         
         // Parse date and time
-        reducedArgs = extractDueByDateAndTime(args);
+        reducedArgs = extractDueByDateAndTime(args, validTime);
         LocalDateTime dt;
+        
+        // empty details
+        if(extractDetail(reducedArgs).isEmpty()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }        
+        
         if (datesAndTimes.size() != 0)
         	dt = datesAndTimes.get(0);
         else
@@ -402,10 +429,12 @@ public class MainParser {
      * 
      * @@author A0139661Y
      */
-    public String extractDueByDateAndTime(String dirtyArgs) {
+    public String extractDueByDateAndTime(String dirtyArgs, boolean validTime) {
     	Parser parser = new Parser();
     	List<DateGroup> groups = parser.parse(dirtyArgs);
     	String cleanArgs = dirtyArgs;
+    	
+    	
     	
     	try {
     		// This retrieves either the start date/time, or the only date/time.
