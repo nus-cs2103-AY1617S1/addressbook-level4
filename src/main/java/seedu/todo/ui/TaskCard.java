@@ -167,13 +167,6 @@ public class TaskCard extends UiPart{
     }
 
     /**
-     * Toggles the task card's collapsed or expanded state.
-     */
-    public void toggleCardCollapsing() {
-        FxViewUtil.toggleClassStyle(taskCard, STYLE_COLLAPSED);
-    }
-
-    /**
      * Allows timing, and deadline highlight style to be updated automatically.
      */
     private void setTimingAutoUpdate() {
@@ -182,6 +175,13 @@ public class TaskCard extends UiPart{
             setStyle();
         });
         timeline.play();
+    }
+
+    /**
+     * Toggles the task card's collapsed or expanded state.
+     */
+    public void toggleCardCollapsing() {
+        FxViewUtil.toggleClassStyle(taskCard, STYLE_COLLAPSED);
     }
 
     /**
