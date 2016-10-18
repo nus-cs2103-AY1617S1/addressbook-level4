@@ -14,7 +14,6 @@ import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.ggist.model.task.UniqueTaskList.TaskTypeNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -29,7 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
     
-    public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
+    //public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -83,8 +82,9 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    public synchronized void editTask(ReadOnlyTask target) throws TaskTypeNotFoundException {
-    	taskManager.editTask(target);
+    public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
+    	taskManager.editTask(target, field, value);
+    	updateFilteredTaskListToShowUndone();
     	indicateTaskManagerChanged();
     }
 
