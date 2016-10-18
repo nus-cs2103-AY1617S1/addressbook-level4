@@ -18,12 +18,12 @@ public class TypicalTestTasks {
                     .withTags("careful").build();
             floatingTask2 = new TaskBuilder().withName("bring along notes")
                     .withTags("pen", "cs2103").build();
-            deadline1 = new TaskBuilder().withName("copy answer").dueOn("11012015 0006").build();
-            deadline2 = new TaskBuilder().withName("do some sit-up").dueOn("11042016 0000").build();
-            event1 = new TaskBuilder().withName("eat with mom").start("10072016 1250").end("10072016 1500").build();
-            event2 = new TaskBuilder().withName("forgive and forget").start("01072016 1250").end("12122016 0600").build();
-            event3 = new TaskBuilder().withName("go shopping").start("11052016 1250").end("11052016 1500").build();
-            event4 = new TaskBuilder().withName("hopping").start("31062016 1250").end("13072016 1500").build();
+            deadline1 = new TaskBuilder().withName("copy answer").build();
+            deadline2 = new TaskBuilder().withName("do some sit-up").build();
+            event1 = new TaskBuilder().withName("eat with mom").build();
+            event2 = new TaskBuilder().withName("forgive and forget").build();
+            event3 = new TaskBuilder().withName("go shopping").build();
+            event4 = new TaskBuilder().withName("hopping").build();
 
             //Manually added
             manualFloatingTask = new TaskBuilder().withName("spa relaxation").build();
