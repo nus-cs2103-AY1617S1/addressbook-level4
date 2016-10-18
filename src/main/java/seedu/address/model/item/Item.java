@@ -2,6 +2,8 @@ package seedu.address.model.item;
 
 import java.util.Objects;
 
+import java.time.LocalDateTime;
+
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -14,6 +16,11 @@ public class Item {
     private UniqueTagList tags;
 	private Description description;
 	private boolean isDone;
+	
+	
+	private LocalDateTime startDate;
+	private LocalDateTime endDate;
+	
 	
     /**
      * Every field must be present and not null.
