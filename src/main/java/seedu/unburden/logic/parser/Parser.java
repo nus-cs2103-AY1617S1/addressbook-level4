@@ -1,8 +1,6 @@
 package seedu.unburden.logic.parser;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZoneId;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -32,8 +30,12 @@ public class Parser {
     private static final Pattern KEYWORDS_NAME_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
+    /*private static final Pattern KEYWORDS_DATE_FORMAT = 
+    		Pattern.compile("(?<dates>\\S+([0-9]{2}[/][0-9]{2}[/][0-9]{4})*)");*/
+    
     private static final Pattern KEYWORDS_DATE_FORMAT = 
-    		Pattern.compile("(?<dates>\\S+([0-9]{2}[/][0-9]{2}[/][0-9]{4})*)"); 
+    		Pattern.compile("(?<dates>[0-9]{2}[-][0-9]{2}[-][0-9]{4}$)");
+
 
     private static final Pattern ADD_FORMAT_1 = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)" + 
@@ -298,7 +300,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-		Calendar calendar = Calendar.getInstance();
     	final Matcher matcherName = KEYWORDS_NAME_FORMAT.matcher(args.trim());
         final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
         if (!matcherName.matches() && !matcherDate.matches()) {
@@ -307,30 +308,29 @@ public class Parser {
         }
 
         if(matcherDate.matches()){
-        	final String keyword = matcherDate.group("dates");
-        	final Set<String> dateKeyword = new HashSet<>(Arrays.asList(keyword));
+        	final String keywords = matcherDate.group("dates");
+        	final Set<String> dateKeyword = new HashSet<>(Arrays.asList(keywords));
         	return new FindCommand(dateKeyword, "date");
         }
         else{ //keywords delimited by whitespace
-        	switch(matcherName.group("keywords")){
-        	case today: final String todayKeyword = dateFormatter.format(Calendar.getInstance().getTime());
-        				return new FindCommand(new HashSet<>(Arrays.asList(todayKeyword)), "date");
+        	Calendar calendar = Calendar.getInstance();
+        	switch(matcherName.group("keywords").toLowerCase()){
+        	case today: final String todayKeyword = dateFormatter.format(calendar.getTime());
+        				final Set<String> todayKeywords = new HashSet<>(Arrays.asList(todayKeyword));
+        				System.out.println("today");
+        				System.out.println("today");
+        				return new FindCommand(todayKeywords, "date");
 			case tomorrow: calendar.setTime(calendar.getTime());
 						   calendar.add(Calendar.DAY_OF_YEAR, 1);
 						   final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
-						   return new FindCommand(new HashSet<>(Arrays.asList(tomorrowKeyword)), "date");
-        	case nextWeek: calendar.setTime(calendar.getTime());
-        				   calendar.add(Calendar.WEEK_OF_YEAR, 1);
-        				   final String nextWeekKeyword = dateFormatter.format(calendar.getTime());
-        				   return new FindCommand(new HashSet<>(Arrays.asList(nextWeekKeyword)), "date");
-        	case nextMonth: calendar.setTime(calendar.getTime());
-        					calendar.add(Calendar.WEEK_OF_YEAR, 4);
-        					final String nextMonthKeyword = dateFormatter.format(calendar.getTime());
-        					return new FindCommand(new HashSet<>(Arrays.asList(nextMonthKeyword)), "date");
+						   final Set<String> tomorrowKeywords = new HashSet<>(Arrays.asList(tomorrowKeyword));
+						   System.out.println("tomorrow");
+						   return new FindCommand(tomorrowKeywords, "date");
         	}
-        	final String[] keywords = matcherName.group("keywords").split("\\s+");
-        	final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        	return new FindCommand(keywordSet, "name");
+        	System.out.println("name");
+        	final String[] nameKeywords = matcherName.group("keywords").split("\\s+");
+        	final Set<String> nameKeyword = new HashSet<>(Arrays.asList(nameKeywords));
+        	return new FindCommand(nameKeyword, "name");
         }
     }
 
