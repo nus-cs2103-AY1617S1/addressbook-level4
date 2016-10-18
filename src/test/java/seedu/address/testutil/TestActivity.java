@@ -105,6 +105,11 @@ public class TestActivity implements ReadOnlyActivity {
     }
 
     @Override
+    public void setUncompleted() {
+        this.status = new Completed(false);
+    }
+    
+    @Override
     public Completed getActivityStatus() {
         return this.status;
     }
@@ -232,10 +237,4 @@ public class TestActivity implements ReadOnlyActivity {
     public Activity get() {
         return null;
     }
-
-	@Override
-	public void setUncomplete() {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -10,13 +10,13 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 public class Completed {
     public static final String COMPLETED_ACTIVITY = "Completed";
     public static final String UNCOMPLETED_ACTIVITY = "Uncompleted";
-    public boolean isCompleted;
+    public boolean status;
     
     /**
      * Constructor for a Completed, takes in new boolean as status.
      */
     public Completed(boolean complete) {
-        this.isCompleted = complete;
+        this.status = complete;
     }
     
     // Constructor for Completed, using String
@@ -24,16 +24,16 @@ public class Completed {
         assert(status != null);
         
         if (status.equals(COMPLETED_ACTIVITY)) {
-            this.isCompleted = true;
+            this.status = true;
         }
         else if (status.equals(UNCOMPLETED_ACTIVITY)) {
-            this.isCompleted = false;
+            this.status = false;
         }
     }
     
     @Override
     public String toString() {
-        if (isCompleted == true) {
+        if (status) {
             return COMPLETED_ACTIVITY;
         }
         else {
@@ -42,6 +42,6 @@ public class Completed {
     }
     
     public void complete() {
-        this.isCompleted = true;
+        this.status = true;
     }
 }

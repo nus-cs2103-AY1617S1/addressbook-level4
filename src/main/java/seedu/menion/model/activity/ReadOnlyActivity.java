@@ -36,7 +36,9 @@ public interface ReadOnlyActivity {
     ArrayList<String> getActivityDetails();
     
     void setCompleted();
-    void setUncomplete();
+    
+    void setUncompleted();
+
     void setActivityDetails();
     
     /**

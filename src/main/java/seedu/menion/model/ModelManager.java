@@ -70,9 +70,49 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ActivityManagerChangedEvent(activityManager));
     }
 
+    /**
+     * Methods for Completing an activity
+     */
     @Override
-    public void completeActivity(ReadOnlyActivity activity) {
-        activityManager.completeActivity(activity);
+    public void completeFloatingTask(int index) {
+        activityManager.completeFloatingTask(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    @Override
+    public void completeTask(int index) {
+        activityManager.completeTask(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override
+    public void completeEvent(int index) {
+        activityManager.completeEvent(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    /**
+     * Methods for Un-completing an activity
+     */
+    @Override
+    public void UncompleteFloatingTask(int index) {
+        activityManager.unCompleteFloatingTask(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public void UncompleteTask(int index) {
+        activityManager.unCompleteTask(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public void UncompleteEvent(int index) {
+        activityManager.unCompleteEvent(index);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }

@@ -78,6 +78,9 @@ public class ActivityParser {
         case CompleteCommand.COMMAND_WORD:
             return prepareComplete(arguments);
             
+        case UnCompleteCommand.COMMAND_WORD:
+            return prepareUnComplete(arguments);
+            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -112,6 +115,32 @@ public class ActivityParser {
         }
         
         previousCommand = new CompleteCommand(splited);
+        return previousCommand;
+    }
+    
+    private Command prepareUnComplete(String args) {
+
+        String[] splited = args.split("\\s+");
+        assert(splited.length == 3); // Should only contain a space, Activity Type and Index
+        boolean isValidType = false; // Checks that the activity type is of valid type
+        String activityType = splited[1];
+
+        if (activityType.equals(Activity.FLOATING_TASK_TYPE) || activityType.equals(Activity.TASK_TYPE) || activityType.equals(Activity.EVENT_TYPE)) {
+            isValidType = true;
+        }
+        if (!isValidType) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+
+        Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
+
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+        
+        previousCommand = new UnCompleteCommand(splited);
         return previousCommand;
     }
     /**
