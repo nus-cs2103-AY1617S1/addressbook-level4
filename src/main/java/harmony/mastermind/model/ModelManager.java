@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.commons.util.StringUtil;
@@ -193,7 +194,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     public synchronized void indicateConfirmationToUser() throws CommandCancelledException {
-        raise();
+        raise(new ExpectingConfirmationEvent());
     }
     
     //=========== Filtered List Accessors ===============================================================

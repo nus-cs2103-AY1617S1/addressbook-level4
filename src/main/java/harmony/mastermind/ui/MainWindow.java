@@ -9,6 +9,7 @@ import com.google.common.eventbus.Subscribe;
 import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.GuiSettings;
 import harmony.mastermind.commons.core.LogsCenter;
+import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.ExitAppRequestEvent;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -73,6 +74,7 @@ public class MainWindow extends UiPart {
     String prevCommandText;
 
     private CommandResult mostRecentResult;
+    private boolean isExpectingConfirmation = false;
 
     // UI elements
     @FXML
@@ -426,7 +428,6 @@ public class MainWindow extends UiPart {
         String currentTab = getCurrentTab();
 
         setStyleToIndicateCorrectCommand();
-        
         if (!currCommandText.equals(PreviousCommand.COMMAND_WORD)) {
             /*
              * We assume the command is correct. If it is incorrect, the command box
@@ -448,6 +449,26 @@ public class MainWindow extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 
+    @Subscribe
+    //@@author A0139194X
+    private void handleExpectingConfirmationEvent(ExpectingConfirmationEvent event) {
+        isExpectingConfirmation = true;
+        consoleOutput.setText("Type \"Yes\" to confirm clearing Mastermind." + "\n"
+                               + "Type \"No\" to cancel.");
+        while (isExpectingConfirmation) {
+            String confirmation = commandField.getText();
+            setStyleToIndicateCorrectCommand();
+
+            if (confirmation.toLowerCase().trim().equals("yes")) {
+                isExpectingConfirmation = false;
+                break;
+            } else if (confirmation.toLowerCase().trim().equals("no")) {
+                isExpectingConfirmation = false;
+                break;
+            }
+        }
+    }
+    
     @Subscribe
     //@@author A0124797R
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {

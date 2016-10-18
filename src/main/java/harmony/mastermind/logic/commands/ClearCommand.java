@@ -20,14 +20,14 @@ public class ClearCommand extends Command implements Confirmable {
     @Override
     public CommandResult execute() {
         assert model != null;
-        confirmWithUser();
+        //confirmWithUser();
         
         model.resetData(TaskManager.getEmptyTaskManager());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
-    public CommandResult confirmWithUser() {
-        return null;
+    public void confirmWithUser() throws CommandCancelledException {
+        model.indicateConfirmationToUser();
     }
 }

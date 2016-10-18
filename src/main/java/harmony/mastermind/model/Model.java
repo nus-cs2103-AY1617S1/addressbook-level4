@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.Redoable;
 import harmony.mastermind.logic.commands.Undoable;
@@ -101,6 +102,9 @@ public interface Model {
     
     /** Search */
     void searchTask(String input);
+
+    /** Indicate that user needs to confirm command execution */
+    void indicateConfirmationToUser() throws CommandCancelledException;
 
 
 }
