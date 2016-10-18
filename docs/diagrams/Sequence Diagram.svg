@@ -14,10 +14,10 @@
 		.st6 {fill:#ffffff;font-family:Source Code Pro;font-size:1.00001em}
 		.st7 {marker-end:url(#mrkr4-68);stroke:#4d5388;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
 		.st8 {fill:#4d5388;fill-opacity:1;stroke:#4d5388;stroke-opacity:1;stroke-width:0.13368983957219}
-		.st9 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
+		.st9 {fill:#ffffff;stroke:none;stroke-linecap:butt}
 		.st10 {fill:#3b3f6a;font-family:Source Code Pro;font-size:0.666664em}
 		.st11 {font-size:1em}
-		.st12 {fill:#ffffff;stroke:none;stroke-linecap:butt}
+		.st12 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
 		.st13 {marker-end:url(#mrkr3-105);stroke:#4d5388;stroke-dasharray:3.5,2.5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
 		.st14 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
 	]]>
@@ -180,10 +180,10 @@
 			<text x="13.8" y="247.74" class="st10">add/delete/etc.</text>		</g>
 		<g id="shape81-93" transform="translate(484.701,-106.242)">
 			<title>Message.81</title>
-			<desc>saveTodoList</desc>
+			<desc>save</desc>
 			<path d="M0 231.16 L80.24 231.16" class="st7"/>
-			<rect x="15.0615" y="226.364" width="57.5991" height="9.59985" class="st9"/>
-			<text x="15.06" y="233.56" class="st10">saveTodoList</text>		</g>
+			<rect x="34.2613" y="226.364" width="19.1997" height="9.59985" class="st12"/>
+			<text x="34.26" y="233.56" class="st10">save</text>		</g>
 		<g id="shape82-100" transform="translate(372.581,-72.2259)">
 			<title>Return Message</title>
 			<path d="M0 231.16 L-323.43 231.16" class="st13"/>
