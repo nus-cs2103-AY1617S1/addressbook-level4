@@ -26,7 +26,22 @@ public class TaskBuilder {
         }
         return this;
     }
-
+    
+    public TaskBuilder withStatus(String status) throws IllegalValueException {
+        this.task.setStatus(status);
+        return this;
+    }
+    
+    public TaskBuilder withTaskType(String taskType) throws IllegalValueException {
+        this.task.setTaskType(taskType);
+        return this;
+    }
+    
+    public TaskBuilder withDate(String date) throws IllegalValueException {
+        this.task.setDate(date);
+        return this;
+    }
+    
     public TestTask build() {
         return this.task;
     }

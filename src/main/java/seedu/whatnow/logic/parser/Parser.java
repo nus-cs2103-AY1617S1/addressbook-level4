@@ -126,10 +126,6 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareAdd(String args){
-		/*if(TEMP3.matcher(args).find()) {
-			System.out.println("matches");
-		}*/
-		
 		int DESCRIPTION = 1;
 
 		final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
@@ -215,11 +211,9 @@ public class Parser {
 		return new HashSet<>(tagStrings);
 	}
 
-	  /**
+	 /**
      * Parses arguments in the context of the change data file location command.
-    /**
-     * Parses arguments in the context of the list command.
-     * *
+     * 
      * @param args full command args string
      * @return the prepared command
      */
@@ -257,6 +251,11 @@ public class Parser {
 	 */
 	private Command prepareDelete(String args) {
 	    String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
+	    if (argComponents.length < 2) {
+	        return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+	    }
+	    
 		Optional<Integer> index = parseIndex(argComponents[INDEX]);
 		if(!index.isPresent()){
 			return new IncorrectCommand(
@@ -265,7 +264,7 @@ public class Parser {
 
 		return new DeleteCommand(argComponents[TASK_TYPE], index.get());
 	}
-
+    
     /**
      * Parses arguments in the context of the update task command.
      *
