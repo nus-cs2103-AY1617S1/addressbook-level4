@@ -7,6 +7,8 @@ import seedu.oneline.commons.core.UnmodifiableObservableList;
 import seedu.oneline.commons.events.model.TaskBookChangedEvent;
 import seedu.oneline.commons.exceptions.StateNonExistentException;
 import seedu.oneline.commons.util.StringUtil;
+import seedu.oneline.logic.commands.Command;
+import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
@@ -57,6 +59,12 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(taskBook.getTasks());
     }
 
+    @Override
+    public CommandResult executeCommand(Command command) {
+        command.setData(this);
+        return command.execute();
+    }
+    
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
