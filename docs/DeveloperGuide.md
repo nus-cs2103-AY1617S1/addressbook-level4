@@ -13,6 +13,9 @@
 11. [Appendix D: Glossary](#appendix-d--glossary)
 12. [Appendix E : Product Survey](#appendix-e--product-survey)
 
+## 0. Introduction 
+
+&nbsp;&nbsp;&nbsp;&nbsp; DoMePlease is a task management application that accepts 3 kinds of tasks, namely: floating tasks, deadlines and events. This guide introduces you to our code base so that you can dive straight into code without much lead-time.
 
 ## 1. Setting up
 
@@ -62,9 +65,9 @@
 `Commons` represents a collection of classes used by multiple other components.
 Two of those classes play an important role at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used to by componnents to communicate with other components using events (i.e. a form of _Event Driven_ design)
+  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log files.
-* Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+* Classes used by multiple components are in the `seedu.addressbook.commands` package. 
 
 The rest of the App consists four components.
 * [**`UI`**](#2-3-ui-component) : The UI of tha App.
@@ -100,8 +103,8 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DatedTaskListPanel`,
+`StatusBarFooter`, `UndatedTaskListPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -254,7 +257,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use DoMePlease.
 `* * *` | user | add a new task | record the priority.
 `* * *` | user | add a new event| record the date, time and duration of the event.
-`* * *` | user | find task(s) by keyword, date, priority or tag | search for one or more tasks by certain properties. 
+`* * *` | user | find task(s) by keyword, priority or tag | search for one or more tasks by certain properties. 
 `* * *` | user | see a list of all my tasks | have an overview of what I need to do.
 `* * *` | user | edit an existing task | modify or update entries that I have previously entered.
 
