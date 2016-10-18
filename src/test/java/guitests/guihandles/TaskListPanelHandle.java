@@ -6,10 +6,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.testutil.TestUtil;
+import seedu.task.TestApp;
+import seedu.task.testutil.TestUtil;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Task;
 
 import java.util.List;
 import java.util.Optional;
@@ -115,14 +115,20 @@ public class TaskListPanelHandle extends GuiHandle {
      */
     public TaskCardHandle navigateToTask(ReadOnlyTask task) {
         int index = getTaskIndex(task);
-
-        guiRobot.interact(() -> {
+        return navigateToTask(index);
+    }
+    
+    /**
+     * Navigates the listview to display and select the task by index.
+     */
+    public TaskCardHandle navigateToTask(int index) {
+           guiRobot.interact(() -> {
             getListView().scrollTo(index);
             guiRobot.sleep(150);
             getListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
-        return getTaskCardHandle(task);
+        return getTaskCardHandle(index);
     }
 
 

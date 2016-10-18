@@ -14,7 +14,7 @@
 1. Download the latest `MESS.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your to-do list.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
-   <img src="images/mockup1.JPG" width="600"><br>
+   <img src="images/mockup pic.jpg" width="600"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -23,8 +23,8 @@
    * **`add`**`meeting`: adds a task named CS2103 Tutorial
    * **`find`**`meeting `: searches the task named tutorial   
    * **`delete`**`presentation`: delete a task named Quiz
-   * **`update`**`presentation ddate/10/10/2016:1200` : updates presentation to have a deadline on 10/10/2016 on 12:00
-   * **`undo`** : undo previous action
+   * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
+   * **`undo`** : undo previous one action
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -39,29 +39,38 @@
  
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
-Format: `add TASK_NAME [sdate/START_DATE:START_TIME ddate/DEADLINE_DATE:DEADLINE_TIME]`
+Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 
-> Date format of START_DATE and DEADLINE_DATE is DD-MM-YYYY:HHMM e.g. 01/10/2016:2100
+> Date format of START_DATE and CLOSE_DATE is DD-MM-YYYY:HHMM e.g. 01/10/2016:2100
+> This is only the standard date time format. There is flexibility on the datetime format. You can use both type of date time format.
 
 * `TASK_NAME` must be unique.
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
-* 
+* `TAG` is for users to write tags for different tasks. Mulitple tags are available by typing `t/TAG t/TAG`.
 
 
 Examples:
-* `add proposal ddate/10-10-2016:2100` <br> Adds a proposal task with a deadline on 10-10-2016 at 21:00
-* `add meeting sdate/01-10-2016:1300 ddate/01-10-2016:2200`<br> Adds a meeting event which start on 1-10-2016 at 1 p.m. and ends at 10 p.m.
+* `add proposal c/10-10-2016:2100` <br> Adds a proposal task with a deadline on 10-10-2016 at 21:00
+* `add meeting s/01-10-2016:1300 c/01-10-2016:2200`<br> Adds a meeting event which start on 1-10-2016 at 1 p.m. and ends at 10 p.m.
 * `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
+* `add tutorial t/cs2103` <br> Adds a flaoting task named tutorial with a tag CS2013
+* `add quiz t/cs2102 t/easy` <br> Adds a flaoting task named tutorial with a tag CS2012 and easy
+
+Examples on date time flexibility:
+* `add project three days from now` <br> Adds a project task three days later from the time you input this command
+* `add meet with friends in three days` <br> Adds meet with friend as a task three days later from the time you input this command
 
 #### Deleting a task : `delete`
-Deletes a specific task with the same input task name or index from the to-do list.<br>
+Deletes a specific task by task name or index from the to-do list.<br>
 Format: `delete TASK_NAME` or `delete INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
 
 Examples:
 * `delete meeting`<br>
   Deletes `meeting` task.
-* `delete 1`
+* `delete 1`<br>
   Deletes the first task in the to-do list.
 
 #### Listing all persons : `list`
@@ -70,7 +79,7 @@ Format: `list`
 
 #### Finding all tasks and events containing keyword in their name: `find`
 Finds tasks which have names containing any of the given keywords.<br>
-Format: `find KEYWORD`
+Format: `find KEYWORD` or `find t/TAG`
 
 > * The search is case insensitive. e.g `meeting` will match `Meeting`
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -81,14 +90,35 @@ Format: `find KEYWORD`
 
 Examples:
 * `find meeting`<br>
-  Returns tasks having name `meeting`
+  Returns tasks having name `meeting` 
+* `find t/cs2103`<br>
+  Returns tasks having tag `cs2103`
+
 
 #### Update entries : `update`
 Update a specific task.<br>
-Format: `update TASK_NAME [sdate/START_DATE:START_TIME ddate/DEADLINE_DATE:DEADLINE_TIME]`
+Format: `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
+
+> * INDEX refers to the number appears on the list in front the task name.
+> * The TAG here will be added to the referred task and the orginial tag remains. If you want to delete a tag, use `rt/TO_REMOVE_TAG` to delete tag by name.
+> * TO_REMOVE_TAG refers to the tag (or tags) that you want to be removed by typing the tags' name that you want to delete.
+> * You can choose what to update. It depends on you whether you want to update only one information or update multiple information. 
+
+Examples:
+* `update 2 shopping c/03/10/2016:2100`<br>
+   update the taks name of the second task on the list to shopping and the start time to 3/10/2016 9 p.m.
+
+* `update 1 t/cs2103`<br>
+  add the tag of the first task on to-do list to cs2103
+
+* `update 3 c/three hours later` <br>
+  update the taks name of the third task on the list to a deadline three hours after you type this command
+  
+* `update 2 t/family rt/friends` <br>  
+   add a tag family to the second task and remove the tag named friends
 
 #### Undo action : `undo`
-Undo the previous action.<br>
+Undo the previous one action.<br>
 Format: `undo`
 
 #### Viewing help : `help`
@@ -106,25 +136,24 @@ There is no need to save manually.
 ## FAQ
 **Q**: Can I add event which have a start date and time to my to-do list ?<br>
 
-**A**: Yes, you can create an event by typing command with a start and end date.
-       For example, you have a trip from 10-10-2016 8:00 to 13-10-2016 21:00. You can type command like this: `add trip            sdate/10-10-2016:0800 ddate/13-10-2016 ddtime/21:00`.
+**A**: Yes, you can create an event by typing command with a start and end date. For example, you have a trip from 10/10/2016 8:00 to 13/10/2016 21:00. You can type command like this: `add trip s/10/10/2016:0800 c/13/10/2016:2100`.
        
 **Q**: If I don't know the deadline of my task yet, can I still add my task?<br>
 
 **A**: Yes, you can still add your task. You can create a floating task by only type in command `add TASK_NAME` if you don't know the deadline of your task.
 
-> <img src="images/mockup3.JPG" width="600"><br>
+> <img src="images/mockup pic2.jpg" width="600"><br>
 In this example, you can see shopping is a floating task without a start time and deadline. 
   	
 ## Command Summary
 
 Command | Format  
 -------- | :--------
-Add | `add TASK_NAME [sdate/START_DATE:START_TIME ddate/DEADLINE_DATE:DEADLINE_TIME]`
-Delete | `delete TASK_NAME`
+Add | `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
+Delete | `delete TASK_NAME` or `delete INDEX`
 List | `list`
-Find | `find KEYWORD`
-Update | `update TASK_NAME [sdate/START_DATE:START_TIME ddate/DEADLINE_DATE:DEADLINE_TIME]`
+Find | `find KEYWORD` or `find t/TAG`
+Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
 Undo | `undo`
 Help | `help`
 Exit | `exit`
