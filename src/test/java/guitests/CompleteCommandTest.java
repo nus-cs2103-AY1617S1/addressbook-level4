@@ -40,7 +40,7 @@ public class CompleteCommandTest extends AddressBookGuiTest {
      * @param currentList A copy of the current list of tasks (before completion).
      */
     private void assertCompleteSuccess(int targetIndexOneIndexed, final TestFloatingTask[] currentList) {
-        TestFloatingTask taskToComplete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestFloatingTask taskToComplete = currentList[targetIndexOneIndexed - 1]; //-1 because array uses zero indexing
 
         commandBox.runCommand("complete " + targetIndexOneIndexed);
 

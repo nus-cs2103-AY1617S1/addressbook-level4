@@ -132,8 +132,6 @@ public class LogicManagerTest {
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
         unknownCommand = "exi";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
-        unknownCommand = "c";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
         unknownCommand = "cl";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
         unknownCommand = "cle";
