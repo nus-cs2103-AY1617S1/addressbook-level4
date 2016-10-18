@@ -59,7 +59,8 @@ public class TodoListDB {
         LocalDateTime now = LocalDateTime.now();
         int count = 0;
         for (Task task : tasks) {
-            if (!task.isCompleted() && task.getDueDate() != null && task.getDueDate().compareTo(now) < 0) {
+            LocalDateTime dueDate = task.getDueDate();
+            if (!task.isCompleted() && dueDate != null && dueDate.compareTo(now) < 0) {
                 count++;
             }
         }
@@ -79,7 +80,8 @@ public class TodoListDB {
         LocalDateTime now = LocalDateTime.now();
         int count = 0;
         for (Event event : events) {
-            if (event.getStartDate().compareTo(now) >= 0) {
+            LocalDateTime startDate = event.getStartDate();
+            if (startDate != null && startDate.compareTo(now) >= 0) {
                 count++;
             }
         }
