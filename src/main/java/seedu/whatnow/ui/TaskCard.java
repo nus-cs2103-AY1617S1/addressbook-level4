@@ -23,8 +23,6 @@ public class TaskCard extends UiPart{
     private Label tags;
     @FXML
     private Label status;
-    @FXML
-    private Label taskType;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -56,7 +54,6 @@ public class TaskCard extends UiPart{
         } else {
             status.setText(task.getStatus());
         }
-        taskType.setText(task.getTaskType());
     }
 
     public HBox getLayout() {

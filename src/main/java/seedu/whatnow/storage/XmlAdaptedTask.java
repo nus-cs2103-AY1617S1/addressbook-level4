@@ -28,9 +28,6 @@ public class XmlAdaptedTask {
     @XmlElement
     private String status;
     
-    @XmlElement
-    private String taskType;
-    
     /**
      * No-arg constructor for JAXB use.
      */
@@ -52,7 +49,6 @@ public class XmlAdaptedTask {
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
-        taskType = source.getTaskType();
     }
 
     /**
