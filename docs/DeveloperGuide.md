@@ -75,6 +75,13 @@ The next page will be showing you the introduction and set-up to make sure that 
 
 ## Design
 
+### Software Architecture
+
+To start off, let us introduce you to the overall structure of Mastermind.DO have a basic understanding of Mastermind’s each different component before focusing on them individually. <br>
+
+Mastermind is split up into 5 main components, namely the UI, Logic, Model, Storage and Commons, as shown below, in Figure 1. 
+
+
 <img src="images/Architecture.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
@@ -99,33 +106,23 @@ Each of the four components
 * Defines its _API_ an interface with the same name as the Component. `Logic.java`
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
-
-<img src="images\SDforDeletePerson.png" width="800">
-
->Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
- instead of asking the `Storage` to save the updates to the hard disk.
-
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
-
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
-  coupling between components.
 
 The sections below give more details of each component.
 
-### UI component
+#### UI component
+
+UI is implemented by JavaFX 8 and consists of the main panel Main Window. This component primarily handles user input such as text input which will be entered via Command Line Input (CLI) as shown in Figure 2. On top of text input, users are also allowed to use keypress or mouse click and pass on to the Logic component. <br>
+
+If you are intending to work on the UI, you will need to update the application’s internal state, which also includes: <br>
+1.	UiManager.java <br>
+2.	UiPartLoader.java <br>
+3.	UiPart.java <br>
+4.	BrowserPanel.java
+
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/harmony/mastermind/ui/Ui.java)
-
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
@@ -137,7 +134,8 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raises from various parts of the App and updates the UI accordingly.
 
-### Logic component
+#### Logic component
+Logic is the brain of the application as it controls and manages the overall flow of the application. Upon receiving the user input from UI, it will process the input using the parser and return the result of executing the user input back to the UI. The inputs Logic take in are command words such as add, edit, delete, etc., and executes them accordingly based on their functionality. If you were to work on this execution of user input, you will need to access Storage to retrieve and update state of tasks. 
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
@@ -147,6 +145,42 @@ The `UI` component,
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+
+
+##### Add 
+The add class allows the user to add tasks, deadlines or events to Mastermind. Tasks, deadlines and events are different objects. They are being stored as object attributes such as name, description, end date, start date and type. <br>
+
+You can refer to Figure 4 and Figure 5 below and the next page for the class diagram of Add.
+
+
+##### Clear 
+Clear deletes the objects. <br>
+
+The user can delete the objects either at the homepage, deadlines, tasks or events tabs. The user is required to choose the correct index of the object. <br>
+ 
+After inputting the command, the object is cleared from the Storage. <br> 
+
+
+##### Edit 
+This is also to allow the user to update attributes of items he has already added in Mastermind. <br>
+
+The user can update the task by choosing the index of the task they want to change. They will then choose the specific field such as start date that they want to change. 
+If there are multiple items, this is resolved by looking at the description of the task displayed to the user, allowing the user to choose the correct task instead. <br>
+
+However, the user can only update one item at a time. To update, the item being updated must be found, and removed from the Storage. After updating the attribute, the item is re-added back into Storage. If the update is successful, the details of the item will be printed and it will be shown to the user the new updates. Otherwise, an error message is generated. 
+
+
+##### Exit
+This exit command runs when the user tries to exit the program, allowing the program to close.
+
+
+##### Find
+To find an item, the user will search through the Storage by calling “find <task>”, “find <date>” or “find <tag>”. It calls FindTagCommand to find the exact terms of the keywords entered by the user.
+
+
+##### Mark
+The Mark class is to allow users to mark their tasks/deadlines/events as completed, thus removing this object from the tasks/deadlines/events field, and moving into the Archive. The Mark class will not delete the object immediately, in case users would want to unmark the object due to person reasons by the UnmarkCommand. 
+
 
 ### Model component
 
