@@ -3,7 +3,6 @@ package seedu.malitio.testutil;
 import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.Malitio;
 import seedu.malitio.model.tag.Tag;
-import seedu.malitio.model.task.Task;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
 
 /**

@@ -10,8 +10,6 @@ import seedu.malitio.TestApp;
 import seedu.malitio.testutil.TestUtil;
 import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
-import seedu.malitio.model.task.Task;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
