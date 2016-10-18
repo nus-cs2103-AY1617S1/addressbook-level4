@@ -78,6 +78,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
      	taskList.resetData(newData);
         indicateTaskListChanged();
+        clearRedoStack();
 	}
 
     @Override

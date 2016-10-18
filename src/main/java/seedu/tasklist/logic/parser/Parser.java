@@ -86,6 +86,9 @@ public class Parser {
         	
         case UndoCommand.COMMAND_WORD:
             return prepareUndo();
+            
+        case RedoCommand.COMMAND_WORD:
+            return prepareRedo();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -100,6 +103,10 @@ public class Parser {
 
     private Command prepareUndo() {
         return new UndoCommand();
+    }
+    
+    private Command prepareRedo() {
+        return new RedoCommand();
     }
 
     private Command prepareUpdate(String args) {
