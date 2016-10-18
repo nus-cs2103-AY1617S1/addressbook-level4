@@ -45,6 +45,25 @@ public class DateTimeParser {
         dategroups = parser.parse(this.datetime);
     }
     
+    public LocalDateTime extractStartDate() {
+        assert this.dategroups != null;
+
+        if(this.dategroups.isEmpty()) {
+            throw new UnsupportedOperationException("No start date group detected.");
+        }
+
+        return extractLDT(this.dategroups.get(0));
+    }
+    
+    public LocalDateTime extractEndDate() {
+        assert this.dategroups != null;
+
+        if(this.dategroups.size() < 2 || this.dategroups.isEmpty()) {
+            throw new UnsupportedOperationException("No end date group detected!");
+        }
+
+        return extractLDT(this.dategroups.get(1));
+    }
     /**
      * extracts the date from the DateGroup object and massages it into
      * a LocalDateTime object
