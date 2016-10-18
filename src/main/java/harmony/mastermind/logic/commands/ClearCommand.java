@@ -12,6 +12,7 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Mastermind has been cleared!";
     public static final String COMMAND_SUMMARY = "Clearing current tab's tasks:"
             + "\n" + COMMAND_WORD;
+    public static final String MESSAGE_FAIL = "No changes made.";
 
     public ClearCommand() {}
 
@@ -22,7 +23,7 @@ public class ClearCommand extends Command {
         try {
             confirmWithUser();
         } catch (CommandCancelledException cce) {
-            
+            return new CommandResult(MESSAGE_FAIL);
         }
         
         model.resetData(TaskManager.getEmptyTaskManager());
@@ -31,7 +32,6 @@ public class ClearCommand extends Command {
 
 
     private void confirmWithUser() throws CommandCancelledException {
-        // TODO Auto-generated method stub
         
     }
 }
