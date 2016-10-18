@@ -10,10 +10,11 @@ import javafx.stage.Stage;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.CommandInputEnterEvent;
-import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.TextAreaResizerUtil;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.logging.Logger;
 
@@ -123,14 +124,14 @@ public class CommandInputView extends UiPart {
      * Indicate an error visually on the {@link #commandTextField}
      */
     public void flagError() {
-        FxViewUtil.addClassStyle(commandTextField, ERROR_STYLE);
+        ViewStyleUtil.addClassStyle(commandTextField, ERROR_STYLE);
     }
 
     /**
      * Remove the error flag visually on the {@link #commandTextField}
      */
     private void unflagError() {
-        FxViewUtil.removeClassStyle(commandTextField, ERROR_STYLE);
+        ViewStyleUtil.removeClassStyle(commandTextField, ERROR_STYLE);
     }
 
     /**

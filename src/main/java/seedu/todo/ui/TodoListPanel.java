@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.logging.Logger;

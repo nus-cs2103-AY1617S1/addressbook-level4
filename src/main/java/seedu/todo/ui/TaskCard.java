@@ -8,10 +8,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.ui.util.ViewGeneratorUtil;
+import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -123,7 +125,7 @@ public class TaskCard extends UiPart{
         } else {
             tagList.sort((o1, o2) -> o1.toString().compareToIgnoreCase(o2.toString()));
             for (Tag tag : tagList) {
-                Label tagLabel = FxViewUtil.constructRoundedText(tag.tagName);
+                Label tagLabel = ViewGeneratorUtil.constructRoundedText(tag.tagName);
                 tagsBox.getChildren().add(tagLabel);
             }
         }
@@ -137,11 +139,11 @@ public class TaskCard extends UiPart{
         boolean isOverdue = task.getEndTime().isPresent() && timeUtil.isOverdue(task.getEndTime().get());
         
         if (isCompleted) {
-            FxViewUtil.addClassStyle(taskCard, STYLE_COMPLETED);
+            ViewStyleUtil.addClassStyle(taskCard, STYLE_COMPLETED);
         } else if (isOverdue) {
-            FxViewUtil.addClassStyle(taskCard, STYLE_OVERDUE);
+            ViewStyleUtil.addClassStyle(taskCard, STYLE_OVERDUE);
         }
-        FxViewUtil.addClassStyle(taskCard, STYLE_COLLAPSED);
+        ViewStyleUtil.addClassStyle(taskCard, STYLE_COLLAPSED);
     }
     
     /**
@@ -181,7 +183,7 @@ public class TaskCard extends UiPart{
      * Toggles the task card's collapsed or expanded state.
      */
     public void toggleCardCollapsing() {
-        FxViewUtil.toggleClassStyle(taskCard, STYLE_COLLAPSED);
+        ViewStyleUtil.toggleClassStyle(taskCard, STYLE_COLLAPSED);
     }
 
     /**
@@ -190,9 +192,9 @@ public class TaskCard extends UiPart{
      */
     public void markAsSelected(boolean isSelected) {
         if (isSelected) {
-            FxViewUtil.addClassStyle(taskCard, STYLE_SELECTED);
+            ViewStyleUtil.addClassStyle(taskCard, STYLE_SELECTED);
         } else {
-            FxViewUtil.removeClassStyle(taskCard, STYLE_SELECTED);
+            ViewStyleUtil.removeClassStyle(taskCard, STYLE_SELECTED);
         }
     }
 

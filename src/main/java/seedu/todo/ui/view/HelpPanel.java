@@ -9,10 +9,12 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.logic.commands.CommandSummary;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.ViewGeneratorUtil;
+import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -82,15 +84,15 @@ public class HelpPanel extends UiPart {
      * @param commandSummary to be displayed
      */
     private void appendCommandSummary(int rowIndex, CommandSummary commandSummary) {
-        Text commandScenario = FxViewUtil.constructText(commandSummary.scenario, STYLE_TEXT_4);
-        Text commandName = FxViewUtil.constructText(commandSummary.command, STYLE_TEXT_4);
-        Text commandArgument = FxViewUtil.constructText(" " + commandSummary.arguments, STYLE_TEXT_4);
+        Text commandScenario = ViewGeneratorUtil.constructText(commandSummary.scenario, STYLE_TEXT_4);
+        Text commandName = ViewGeneratorUtil.constructText(commandSummary.command, STYLE_TEXT_4);
+        Text commandArgument = ViewGeneratorUtil.constructText(" " + commandSummary.arguments, STYLE_TEXT_4);
 
-        FxViewUtil.addClassStyle(commandArgument, STYLE_CODE);
-        FxViewUtil.addClassStyle(commandName, STYLE_CODE);
-        FxViewUtil.addClassStyle(commandName, "bolder");
+        ViewStyleUtil.addClassStyle(commandArgument, STYLE_CODE);
+        ViewStyleUtil.addClassStyle(commandName, STYLE_CODE);
+        ViewStyleUtil.addClassStyle(commandName, "bolder");
 
-        TextFlow combinedCommand = FxViewUtil.placeIntoTextFlow(commandName, commandArgument);
+        TextFlow combinedCommand = ViewGeneratorUtil.placeIntoTextFlow(commandName, commandArgument);
         helpGrid.addRow(rowIndex, commandScenario, combinedCommand);
     }
 
