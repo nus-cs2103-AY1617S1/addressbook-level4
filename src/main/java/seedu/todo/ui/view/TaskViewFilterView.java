@@ -1,20 +1,22 @@
 package seedu.todo.ui.view;
 
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.WordUtils;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.enumerations.TaskViewFilters;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.util.FxViewUtil;
-import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -29,6 +31,9 @@ public class TaskViewFilterView extends UiPart {
     /* Layout Views */
     private AnchorPane placeholder;
     private FlowPane filterViewPane;
+
+    /* Variables */
+    private Map<TaskViewFilters, HBox> taskFilterBoxesMap = new HashMap<>();
 
     /* Layout Initialisation */
     /**
@@ -76,23 +81,44 @@ public class TaskViewFilterView extends UiPart {
     }
 
     private void appendEachViewFilter(TaskViewFilters filter) {
-        String[] partitionedText = StringUtil.partitionStringAtPosition(filter.toString(), filter.getUnderlineChar());
-        Text leftText = ViewGeneratorUtil.constructText(partitionedText[0], ViewStyleUtil.STYLE_TEXT_4);
-        Text centreText = ViewGeneratorUtil.constructText(partitionedText[1], ViewStyleUtil.STYLE_TEXT_4);
-        Text rightText = ViewGeneratorUtil.constructText(partitionedText[2], ViewStyleUtil.STYLE_TEXT_4);
+        String filterName = WordUtils.capitalize(filter.getViewName());
+        String[] partitionedText = StringUtil.partitionStringAtPosition(filterName, filter.getUnderlineChar());
+        Label leftText = new Label(partitionedText[0]);
+        Label centreText = new Label(partitionedText[1]);
+        Label rightText = new Label(partitionedText[2]);
+
         ViewStyleUtil.addClassStyles(centreText, ViewStyleUtil.STYLE_UNDERLINE);
 
-        TextFlow textContainer = ViewGeneratorUtil.placeIntoTextFlow(leftText, centreText, rightText);
-        ViewStyleUtil.addClassStyles(textContainer, ViewStyleUtil.STYLE_ROUND_LABEL);
+        HBox textContainer = new HBox();
+        textContainer.getChildren().add(leftText);
+        textContainer.getChildren().add(centreText);
+        textContainer.getChildren().add(rightText);
+
+        taskFilterBoxesMap.put(filter, textContainer);
         filterViewPane.getChildren().add(textContainer);
     }
 
     /* Methods interfacing with UiManager */
+    public void selectViewFilter(TaskViewFilters filter) {
+        clearAllViewFiltersSelection();
+        HBox filterBox = taskFilterBoxesMap.get(filter);
+        ViewStyleUtil.addClassStyles(filterBox, ViewStyleUtil.STYLE_SELECTED);
+    }
+
 
     /* Helper Methods */
-
+    private void clearAllViewFiltersSelection() {
+        for (HBox filterBox : taskFilterBoxesMap.values()) {
+            ViewStyleUtil.removeClassStyles(filterBox, ViewStyleUtil.STYLE_SELECTED);
+        }
+    }
 
     /* Override Methods */
+    @Override
+    public void setPlaceholder(AnchorPane placeholder) {
+        this.placeholder = placeholder;
+    }
+
     @Override
     public void setNode(Node node) {
         this.filterViewPane = (FlowPane) node;
