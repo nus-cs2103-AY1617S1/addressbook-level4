@@ -25,6 +25,15 @@ public class TaskBuilder {
         return this;
     }
     
+    public TaskBuilder start(String start) throws IllegalValueException {
+        this.Task.setStart(new DateTime(start));
+        return this;
+    }
+    public TaskBuilder end(String end) throws IllegalValueException {
+        this.Task.setEnd(new DateTime(end));
+        return this;
+    }
+    
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             Task.getTags().add(new Tag(tag));

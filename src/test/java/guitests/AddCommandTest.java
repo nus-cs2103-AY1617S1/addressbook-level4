@@ -16,23 +16,23 @@ public class AddCommandTest extends MalitioGuiTest {
     public void addTask() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.relax;
+        TestTask taskToAdd = td.manualFloatingTask;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
-        taskToAdd = td.prepare;
+        taskToAdd = td.manualDeadline;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
-        commandBox.runCommand(td.relax.getAddCommand());
+        commandBox.runCommand(td.manualFloatingTask.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.sleep);
+        assertAddSuccess(td.floatingTask1);
 
         //invalid command
         commandBox.runCommand("adds run");
@@ -60,7 +60,7 @@ public class AddCommandTest extends MalitioGuiTest {
     */
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.test);
+        assertAddSuccess(td.event4);
        }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {

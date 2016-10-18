@@ -35,7 +35,7 @@ public class EditCommand extends Command{
     
     private final FloatingTask editedTask;
     
-    public String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited task.\nOld: %1$s\nNew: %2$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited task.\nOld: %1$s\nNew: %2$s";
     
 /*    private String newName;
     

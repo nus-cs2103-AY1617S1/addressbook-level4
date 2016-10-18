@@ -12,11 +12,11 @@ public class FindCommandTest extends MalitioGuiTest {
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find jump"); //no results
-        assertFindResult("find cs2103", td.lecture, td.homework); //multiple results
+        assertFindResult("find cs2103", td.event1, td.event2); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find sleep",td.sleep);
+        assertFindResult("find sleep",td.floatingTask1);
     }
 
     @Test
