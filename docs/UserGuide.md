@@ -272,6 +272,15 @@ Exits the program.<br>
 Format: `exit`
 
 <br>
+#### Changing the storage location : `setstorage`
+Changes the storage location for alias.xml and tasks.xml to wherever you prefer. <br>
+Format: `setstorage PATH` <br>
+
+Examples:
+* `setstorage C:/Users/Bob/Documents`
+* `setstorage relativefolder`
+
+<br>
 #### Saving the data
 Task data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
@@ -334,4 +343,5 @@ List aliases | `list alias[es]`
 Undo | `undo`
 Clear | `clear`
 Sync | `sync`
+Set storage location | `setstorage PATH`
 

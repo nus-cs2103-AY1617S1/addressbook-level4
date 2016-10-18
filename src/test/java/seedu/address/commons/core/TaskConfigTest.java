@@ -30,6 +30,16 @@ public class TaskConfigTest {
         assertFalse(defaultConfig.equals(null));
         assertTrue(defaultConfig.equals(defaultConfig));
     }
+    
+    @Test
+    public void setStorageLocationMethod() {
+    	TaskConfig config = new TaskConfig();
+    	String validPath = System.getProperty("user.home");
+    	config.setStorageLocation(validPath);
+    	
+    	assertEquals(config.getTasksFilePath(), validPath + "/tasks.xml");
+    	assertEquals(config.getAliasFilePath(), validPath + "/alias.xml");
+    }
 
 
 }

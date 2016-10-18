@@ -2,7 +2,9 @@
   "appTitle" : "Task Manager",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "task-userpreferences.json",
-  "tasksFilePath" : "data/tasks.xml",
-  "aliasFilePath" : "data/alias.xml",
+  "tasksFileName" : "tasks.xml",
+  "tasksFilePath" : "/home/sriram/tasks.xml",
+  "aliasFileName" : "alias.xml",
+  "aliasFilePath" : "/home/sriram/alias.xml",
   "taskManagerName" : "TaskManager"
 }
