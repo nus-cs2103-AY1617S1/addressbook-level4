@@ -4,10 +4,6 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
-
-## Project Team
-
 
 #### [Ang Kiang Siang](https://docs.google.com/document/u/1/d/1O3HF7qsh6KVeLesPmcQ0nPxSqhrkJxvS-OA_g-k-two/pub?embedded=true) <br>
 <img src="images/angkiangsiang.png" width="150"><br>

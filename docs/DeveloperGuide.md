@@ -296,16 +296,15 @@ Priority | As a ... | I want to ... | So that I can...
 
 
 #### Use case: UC01 add task.
-Actor: User
-Preconditions: User is logged in
+   Actor: User
+   Preconditions: User is logged in
 
 **MSS**
 
-1.User requests to add new task description.
+1. User requests to add new task description.
+2. System will update the database of the newly created task.
 
-2.System will update the database of the newly created task.
-
-Use Case end.
+   Use Case end.
 
 **Extension**
 
@@ -315,14 +314,14 @@ Use Case end.
 
 #### Use case: UC02 view upcoming task.
 
-Actor: User
-Preconditions: User is logged in
+   Actor: User
+   Preconditions: User is logged in
 
 **MSS**
 
-1.User requests to view upcoming task
-2.System will show the list of upcoming task
-Use Case end.
+1. User requests to view upcoming task
+2. System will show the list of upcoming task
+   Use Case end.
 
 
 **Extension**
@@ -332,16 +331,16 @@ Use Case end.
     Use case ends
 
 #### Use case: UC03 Delete task
-Actor: User
-Precondition: User is logged in
+   Actor: User
+   Precondition: User is logged in
 
 **MSS**
 
-1.User request to delete a specific task<br>
-2.System request confirmation of deletion of task
-3.User confirm to delete task
-4.System will delete the specific task.
-Use Case ends
+1. User request to delete a specific task<br>
+2. System request confirmation of deletion of task
+3. User confirm to delete task
+4. System will delete the specific task.
+   Use Case ends
 
 **Extension**
  
@@ -352,14 +351,14 @@ Use Case ends
        Use case resume at step 1.
 
 #### Use case: UC04 Information of the a particular command.
-Actor: User
-Precondition: User is logged in
+   Actor: User
+   Precondition: User is logged in
 
 **MSS**
 
-1.User enter help a particular command
-2.System show the user guide of the particular command
-3.Use Case ends
+1. User enter help a particular command
+2. System show the user guide of the particular command
+   Use Case ends
 
 **Extension**
  
@@ -373,9 +372,9 @@ Preconditions: User is familiar with the available command
 
 **MSS**
 
-1.User enter a shorter version of a command
-2.System identify which command to execute based on user input
-Use case ends.
+1. User enter a shorter version of a command
+2. System identify which command to execute based on user input
+   Use case ends.
 
 **Extension** 
 
@@ -388,15 +387,15 @@ Use case ends.
     Use case ends
 
 #### Use case UC06 set reminder for tasks
-Actor: User
-Preconditions: User is logged in, tasks is created.
+   Actor: User
+   Preconditions: User is logged in, tasks is created.
 
 **MSS**
 
-1.User requests to list all tasks
-2.System shows a list of tasks
-3.User request to set reminder for specific task in the list
-4.System set reminder for the selected task and display action successful message
+1. User requests to list all tasks
+2. System shows a list of tasks
+3. User request to set reminder for specific task in the list
+4. System set reminder for the selected task and display action successful message
 Use case ends
 
 **Extension**
@@ -409,14 +408,14 @@ Use case ends
     Use case resume at step 2
 
 #### Use case UC07 view task that is due on the day after launching application
-Actor: User
-Preconditions: User have not launch application
+   Actor: User
+   Preconditions: User have not launch application
 
 **MSS**
 
-1.User launch application
-2.System display a list of task that is due on the day
-3.Use case ends
+1. User launch application
+2. System display a list of task that is due on the day
+3. Use case ends
 
 **Extension**
 
@@ -424,17 +423,17 @@ Preconditions: User have not launch application
     > Use case ends
 
 #### Use case UC08 add category to task
-Actor: User
-Preconditions: User is logged in, task is created.
+   Actor: User
+   Preconditions: User is logged in, task is created.
 
 **MSS**
 
-1.User requests to list all tasks
-2.System shows a list of tasks
-3.User request to add category for specific task in the list
-4.System prompt for category to set with
-5.User enter category
-6.System set category for the selected task and display action successful message
+1. User requests to list all tasks
+2. System shows a list of tasks
+3. User request to add category for specific task in the list
+4. System prompt for category to set with
+5. User enter category
+6. System set category for the selected task and display action successful message
 Use case ends
 
 **Extension**
@@ -447,19 +446,19 @@ Use case ends
     Use case resume at step 2
 
 #### Use case: UC09 edit task details
-Actor: User
-Preconditions: User is logged in.
+   Actor: User
+   Preconditions: User is logged in.
 
 **MSS**
 
-1.User requests to list all tasks
-2.System shows a list of tasks
-3.User chooses one task to edit its details
-4.System retrieves details of chosen task from file
-5.User edits details of the task
-6.System requests for confirmation
-7.User confirms changes 
-8.System updates the details of the task in file and displays the changed task
+1. User requests to list all tasks
+2. System shows a list of tasks
+3. User chooses one task to edit its details
+4. System retrieves details of chosen task from file
+5. User edits details of the task
+6. System requests for confirmation
+7. User confirms changes 
+8. System updates the details of the task in file and displays the changed task
 Use Case ends
 
 **Extension**
@@ -486,20 +485,20 @@ Use Case ends
     Use Case ends. 
 
 #### Use case: UC10 set priority to tasks
-Actor: User
-Preconditions: User is logged in.
+   Actor: User
+   Preconditions: User is logged in.
 
 **MSS**
 
-1.User requests to list all tasks
-2.System shows a list of tasks
-3.User chooses to set priority of tasks 
-4.System shows the view for setting priority of tasks 
-5.User set priority to tasks 
-6.System requests for confirmation
-7.User confirms changes 
-8.System updates prioritizing for tasks in database and displays current prioritizing for tasks
-    Use Case ends
+1. User requests to list all tasks
+2. System shows a list of tasks
+3. User chooses to set priority of tasks 
+4. System shows the view for setting priority of tasks 
+5. User set priority to tasks 
+6. System requests for confirmation
+7. User confirms changes 
+8. System updates prioritizing for tasks in database and displays current prioritizing for tasks
+   Use Case ends
 
 **Extensions**
 
@@ -521,14 +520,14 @@ Preconditions: User is logged in.
     Use Case ends. 
 
 #### Use case: UC11 create a task that happens repeatedly by specifying an interval
-Actor: User
-Preconditions: User is logged in.
+   Actor: User
+   Preconditions: User is logged in.
 
 **MSS**
 
-1.User requests to add task with specified start date and interval
-2.System updates the database with information.
-Use Case ends
+1. User requests to add task with specified start date and interval
+2. System updates the database with information.
+   Use Case ends
 
 **Extensions**
 
@@ -546,12 +545,12 @@ Preconditions: User is logged in, tasks are created.
 
 **MSS**
 
-1.User requests to list all tasks.
-2.System displays a list of all created tasks.
-3.User selects a task to edit
-4.User changes the color of the task.
-5.System updates the database with the changed details.
-Use Case ends
+1. User requests to list all tasks.
+2. System displays a list of all created tasks.
+3. User selects a task to edit
+4. User changes the color of the task.
+5. System updates the database with the changed details.
+   Use Case ends
 
 **Extensions**
 
@@ -576,7 +575,7 @@ Use Case ends
 2. TaskManager shows a list of tasks
 3. User requests to delete a specific task in the list
 4. TaskManager deletes the task
-Use case ends.
+   Use case ends.
 
 **Extensions**
 
