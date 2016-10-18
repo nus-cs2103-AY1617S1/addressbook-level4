@@ -45,7 +45,9 @@ Format: `help`
 #### Adding a task in CMDo: `add`
 Adds a task to CMDo <br>
 Format: `add <details> <day> <time> /<priority> -<tag>` 
- 
+
+> You need to type your details in '' after add, eg. add 'feed dog'.
+> 
 > You can type anything in details. It must not end with `by`, `on`, `before` or `at`.
 > 
 > If will default as a one hour block if end time is not keyed in or if only one time slot is keyed in.
@@ -65,6 +67,8 @@ Format: `add <details> <day> <time> /<priority> -<tag>`
 Block a time slot in CMDo <br>
 Format: `block <day> <time> /<priority> -<tag>` 
  
+> You need to type your details in '' after add, eg. add 'feed dog'.
+> 
 > You can type anything in details. It must not end with `by`, `on`, `before` or `at`.
 > 
 > If will default as a one hour block if end time is not keyed in or if only one time slot is keyed in.
