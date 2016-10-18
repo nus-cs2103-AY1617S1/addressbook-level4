@@ -6,9 +6,15 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.model.datetime.DateTime;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
-import seedu.jimi.model.task.*;
+import seedu.jimi.model.task.DeadlineTask;
+import seedu.jimi.model.task.FloatingTask;
+import seedu.jimi.model.task.Name;
+import seedu.jimi.model.task.ReadOnlyTask;
+import seedu.jimi.model.task.UniqueTaskList;
 
 /**
  * Adds a task to the Jimi.
@@ -18,10 +24,17 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = 
-            COMMAND_WORD + ": Adds a task to Jimi with one optional tag.\n"
+            COMMAND_WORD + ": Adds a task or event to Jimi with one optional tag.\n"
+            + "\n"
+            + "To add a task:\n"
             + "Parameters: \"TASK_DETAILS\" [due DATE_TIME] [t/TAG]\n"
             + "Example: " + COMMAND_WORD + " \"do dishes\" t/important\n"
-            + "> Tip: typing `a` or `ad` instead of `add` works too.";
+            + "\n"
+            + "To add an event:\n"
+            + "Parameters: \"TASK_DETAILS\" on START_DATE_TIME [to END_DATE_TIME] [t/TAG]\n"
+            + "Example: " + COMMAND_WORD + " \"linkin park concert\" on sunday 2pm t/fun\n"
+            + "\n"
+            + "> Tip: Typing `a` or `ad` instead of `add` works too.";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
@@ -33,39 +46,45 @@ public class AddCommand extends Command {
     }
     
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructor using raw values to add tasks.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String dateTime, Set<String> tags) throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        if (dateTime == null) {
-            this.toAdd = 
-                    new FloatingTask(new Name(name), new UniqueTagList(tagSet));
-        } else {
-            this.toAdd = 
-                    new DeadlineTask(new Name(name), new DateTime(dateTime), new UniqueTagList(tagSet));
-        }
-    }
-
     public AddCommand(String name, List<Date> dates, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
         if (dates.size() == 0) {
-            this.toAdd = 
-                    new FloatingTask(new Name(name), new UniqueTagList(tagSet));
+            this.toAdd = new FloatingTask(new Name(name), new UniqueTagList(tagSet));
         } else {
-            this.toAdd = 
-                    new DeadlineTask(new Name(name), new DateTime(dates.get(0)), new UniqueTagList(tagSet));
+            this.toAdd = new DeadlineTask(new Name(name), new DateTime(dates.get(0)), new UniqueTagList(tagSet));
         }
-
     }
-
+    
+    /**
+     * Convenience constructor using raw values to add events.
+     * 
+     * @throws IllegalValueException
+     */
+    public AddCommand(String name, List<Date> startDateTime, List<Date> endDateTime, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        
+        // events do not always have an end date 
+        DateTime endDateTimeToAdd = endDateTime.isEmpty() ? null : new DateTime(endDateTime.get(0));
+                
+        this.toAdd = new Event(
+                new Name(name), 
+                new DateTime(startDateTime.get(0)), 
+                endDateTimeToAdd,
+                new UniqueTagList(tagSet)
+        );
+    }
+    
     @Override
     public CommandResult execute() {
         assert model != null;

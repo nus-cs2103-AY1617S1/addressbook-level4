@@ -1,9 +1,12 @@
-package seedu.jimi.model.task;
+package seedu.jimi.model.event;
 
 import java.util.Objects;
 
 import seedu.jimi.commons.util.CollectionUtil;
+import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.tag.UniqueTagList;
+import seedu.jimi.model.task.Name;
+import seedu.jimi.model.task.ReadOnlyTask;
 
 public class Event implements ReadOnlyTask {
 
@@ -44,6 +47,11 @@ public class Event implements ReadOnlyTask {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+
+    @Override
+    public void setTags(UniqueTagList replacement) {
+        tags.setTags(replacement);
     }
 
     @Override

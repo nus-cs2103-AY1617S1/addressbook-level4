@@ -12,10 +12,10 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see FloatingTask#equals(Object)
+ * @see T#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<FloatingTask> {
+public class UniqueTaskList<T extends ReadOnlyTask> implements Iterable<T> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -32,7 +32,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
      */
     public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
+    private final ObservableList<T> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
@@ -42,7 +42,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(ReadOnlyTask toCheck) {
+    public boolean contains(T toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -52,12 +52,12 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(ReadOnlyTask toAdd) throws DuplicateTaskException {
+    public void add(T toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
-        internalList.add((FloatingTask) toAdd);
+        internalList.add((T) toAdd);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public boolean remove(T toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
@@ -80,24 +80,24 @@ public class UniqueTaskList implements Iterable<FloatingTask> {
     public void complete(ReadOnlyTask toComplete, boolean isComplete){
         assert toComplete != null;
         int targetIndex = internalList.indexOf(toComplete);
-        internalList.get(targetIndex).setCompleted(isComplete);
+        ((FloatingTask) internalList.get(targetIndex)).setCompleted(isComplete);
     }
     
     /**
      * Replaces the floating task at the specified index with {@code toEdit}
      */
-    public void edit(int targetIndex, FloatingTask toEdit) {
+    public void edit(int targetIndex, T toEdit) {
         assert toEdit != null;
         internalList.set(targetIndex, toEdit);
     }
 
-    public ObservableList<FloatingTask> getInternalList() {
+    public ObservableList<T> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<FloatingTask> iterator() {
-        Iterator<FloatingTask> i = internalList.iterator();
+    public Iterator<T> iterator() {
+        Iterator<T> i = internalList.iterator();
         return i;
     }
 

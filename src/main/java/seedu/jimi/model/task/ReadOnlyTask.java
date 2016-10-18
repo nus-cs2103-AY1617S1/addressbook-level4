@@ -18,6 +18,12 @@ public interface ReadOnlyTask {
      */
     UniqueTagList getTags();
     
+    
+    /**
+     * Replaces this task's tags with the tags in the argument tag list.
+     */
+    public void setTags(UniqueTagList replacement); 
+    
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -37,5 +43,7 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    
+    
 
 }

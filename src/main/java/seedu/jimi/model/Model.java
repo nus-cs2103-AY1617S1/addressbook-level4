@@ -3,7 +3,6 @@ package seedu.jimi.model;
 import java.util.Set;
 
 import seedu.jimi.commons.core.UnmodifiableObservableList;
-import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
 
@@ -33,7 +32,7 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
 
     /** Edits the floating task at the specified index */
-    void editFloatingTask(int targetIdx, FloatingTask floatingTask);
+    void editReadOnlyTask(int targetIdx, ReadOnlyTask floatingTask);
 
     /** Sets the task to be completed/incomplete */
     void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);

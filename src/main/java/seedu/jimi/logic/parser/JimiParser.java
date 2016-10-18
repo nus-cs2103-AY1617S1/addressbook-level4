@@ -50,14 +50,17 @@ public class JimiParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<detailsArguments>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
 
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
-            Pattern.compile("(?<targetIndex>\\d+\\s)(?<name>[^/]+)(?<tagArguments>(?: t/[^/]+)?)");
+            Pattern.compile("(?<targetIndex>\\d+\\s)(\"(?<name>[^/]+)\")");
     
-    private static final Pattern DETAILS_ARGS_FORMAT = 
+    private static final Pattern ADD_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(\"(?<taskDetails>.+)\")( due (?<dateTime>.+))?");
+    
+    private static final Pattern ADD_EVENT_DATA_ARGS_FORMAT =
+            Pattern.compile("(\"(?<taskDetails>.+)\") on (?<startDateTime>((?! to ).)*)( to (?<endDateTime>.+))?");
     
     private static final List<Command> COMMAND_STUB_LIST =
             Arrays.asList(new AddCommand(), new EditCommand(), new CompleteCommand(), new SelectCommand(), new DeleteCommand(),
@@ -78,7 +81,7 @@ public class JimiParser {
         }
         
         final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final String arguments = matcher.group("arguments").trim();
         
         return prepareCommand(commandWord, arguments);
     }
@@ -123,46 +126,80 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        final Matcher detailsAndTagsMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate entire args string format
         if (!detailsAndTagsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
-        final Matcher detailsMatcher =
-                DETAILS_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
-        // Validate details args format
-        if (!detailsMatcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        final Matcher taskDetailsMatcher =
+                ADD_TASK_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
+        final Matcher eventDetailsMatcher =
+                ADD_EVENT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
+        
+        if (taskDetailsMatcher.matches()) { // if user trying to add task 
+            return generateAddCommandForTask(detailsAndTagsMatcher, taskDetailsMatcher);
+        } else if (eventDetailsMatcher.matches()) { // if user trying to add event
+            return generateAddCommandForEvent(detailsAndTagsMatcher, eventDetailsMatcher);
         }
         
-        List<Date> dates;
+        /* default return IncorrectCommand */
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    }
+    
+    /**
+     * Creates an AddCommand in the context of adding an event.
+     * 
+     * @return an AddCommand if raw args is valid, else IncorrectCommand
+     */
+    private Command generateAddCommandForEvent(final Matcher detailsAndTagsMatcher, final Matcher eventDetailsMatcher) {
         try {
-            dates = parseStringToDate(detailsMatcher.group("dateTime"));
+            List<Date> startDates = parseStringToDate(eventDetailsMatcher.group("startDateTime"));
+            List<Date> endDates = parseStringToDate(eventDetailsMatcher.group("endDateTime"));
+            return new AddCommand(
+                    eventDetailsMatcher.group("taskDetails"),
+                    startDates,
+                    endDates,
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
+            );
         } catch (DateNotParsableException e) {
             return new IncorrectCommand(e.getMessage());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
         }
-        
+    }
+
+    /**
+     * Creates an AddCommand in the context of adding an task.
+     * 
+     * @return an AddCommand if raw args is valid, else IncorrectCommand
+     */
+    private Command generateAddCommandForTask(final Matcher detailsAndTagsMatcher, final Matcher taskDetailsMatcher) {
         try {
+            List<Date> dates = parseStringToDate(taskDetailsMatcher.group("dateTime"));
             return new AddCommand(
-                    detailsMatcher.group("taskDetails"),
+                    taskDetailsMatcher.group("taskDetails"),
                     dates,
                     getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
             );
+        } catch (DateNotParsableException e) {
+            return new IncorrectCommand(e.getMessage());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
     
     private static List<Date> parseStringToDate(final String str) throws DateNotParsableException {
-        if(str == null)
+        if (str == null) {
             return new ArrayList<Date>();
+        }
         final Parser dateParser = new Parser();
         final List<DateGroup> groups = dateParser.parse(str);
-        if(!groups.isEmpty())
+        if (!groups.isEmpty()) {
             return groups.get(0).getDates();
-        else
+        } else {
             throw new DateNotParsableException(MESSAGE_INVALID_DATE);
+        }
     }
 
     /**
@@ -171,24 +208,38 @@ public class JimiParser {
      * @param args Full user command input args
      * @return  the prepared edit command
      */
-    private Command prepareEdit(String args){
-        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
-        
+    private Command prepareEdit(String args) {
+        final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        if (!matcher.matches()) {
+        if (!detailsAndTagsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
+        final Matcher detailsMatcher =
+                EDIT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
+        if (detailsMatcher.matches()) { // if user input matches format
+            return generateEditCommandForTask(detailsAndTagsMatcher, detailsMatcher);
+        }
+        
+        /* default return IncorrectCommand */
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    }
+    
+    /**
+     * Creates an EditCommand in the context of editing an task.
+     * 
+     * @return an EditCommand if raw args is valid, else IncorrectCommand
+     */
+    private Command generateEditCommandForTask(final Matcher detailsAndTagsMatcher, final Matcher detailsMatcher) {
         try {
             return new EditCommand(
-                    matcher.group("name"),
-                    getTagsFromArgs(matcher.group("tagArguments")),
-                    Integer.parseInt(matcher.group("targetIndex").trim())
-                    );
+                    detailsMatcher.group("name"),
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
+                    Integer.parseInt(detailsMatcher.group("targetIndex").trim())
+            );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-        
     }
     
     /**

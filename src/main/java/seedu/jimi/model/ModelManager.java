@@ -6,7 +6,6 @@ import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.util.StringUtil;
-import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
@@ -22,7 +21,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskBook taskBook;
-    private final FilteredList<FloatingTask> filteredFloatingTasks;
+    private final FilteredList<ReadOnlyTask> filteredReadOnlyTasks;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -36,7 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with task book: " + src + " and user prefs " + userPrefs);
 
         taskBook = new TaskBook(src);
-        filteredFloatingTasks = new FilteredList<>(taskBook.getFloatingTasks());
+        filteredReadOnlyTasks = new FilteredList<>(taskBook.getTasks());
     }
 
     public ModelManager() {
@@ -45,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         taskBook = new TaskBook(initialData);
-        filteredFloatingTasks = new FilteredList<>(taskBook.getFloatingTasks());
+        filteredReadOnlyTasks = new FilteredList<>(taskBook.getTasks());
     }
 
     @Override
@@ -62,8 +61,8 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * @return A modifiable version of the task list.
      */
-    public FilteredList<FloatingTask> getModifiableTaskList() {
-        return filteredFloatingTasks;
+    public FilteredList<ReadOnlyTask> getModifiableTaskList() {
+        return filteredReadOnlyTasks;
     }
     
     /** Raises an event to indicate the model has changed */
@@ -90,7 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
      * @param targetIndex Index of oldTask to be replaced by.
      */
     @Override
-    public synchronized void editFloatingTask(int targetIndex, FloatingTask newTask) {
+    public synchronized void editReadOnlyTask(int targetIndex, ReadOnlyTask newTask) {
         taskBook.editTask(targetIndex, newTask);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -112,12 +111,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredFloatingTasks);
+        return new UnmodifiableObservableList<>(filteredReadOnlyTasks);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredFloatingTasks.setPredicate(null);
+        filteredReadOnlyTasks.setPredicate(null);
     }
 
     @Override
@@ -126,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredTaskList(Expression expression) {
-        filteredFloatingTasks.setPredicate(expression::satisfies);
+        filteredReadOnlyTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

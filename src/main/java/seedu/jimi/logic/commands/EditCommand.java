@@ -25,7 +25,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Edits an existing task/event in Jimi. \n"
             + "Parameters: INDEX(must be a positive integer) EDITS_TO_MAKE\n" 
-            + "Example: " + COMMAND_WORD + " 2 clear trash";
+            + "Example: " + COMMAND_WORD + " 2 \"clear trash\"\n"
+            + "> Tip: Typing `e`, `ed`, `edi` instead of `edit` works too.";
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Updated task details: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
@@ -75,7 +76,7 @@ public class EditCommand extends Command {
                 newName == null ? taskToEdit.getName() : newName,
                 newTagList == null ? taskToEdit.getTags() : newTagList);
         
-        model.editFloatingTask(taskIndex - 1, new FloatingTask(taskToReplace));
+        model.editReadOnlyTask(taskIndex - 1, new FloatingTask(taskToReplace));
         
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToReplace));
     }

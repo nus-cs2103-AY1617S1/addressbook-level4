@@ -1,5 +1,6 @@
 package seedu.jimi.model.task;
 
+import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.tag.UniqueTagList;
 
 public class DeadlineTask extends FloatingTask implements ReadOnlyTask {

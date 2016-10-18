@@ -1,17 +1,17 @@
-package seedu.jimi.model.task;
+package seedu.jimi.model.datetime;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 
 public class DateTime implements Comparable<DateTime> {
-    public static final String MESSAGE_DATETIME_CONSTRAINTS =
-            "Date and time must be in the format: " + DateTimeFormatter.ISO_DATE_TIME.toString();
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String TIME_FORMAT = "HH:mm";
     public static final String DATETIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
@@ -27,7 +27,7 @@ public class DateTime implements Comparable<DateTime> {
         try {
             dtInstance = LocalDateTime.parse(dateStr, dtFormatter);
         } catch (DateTimeParseException e) {
-            throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_DATE);
         }
     }
     
@@ -47,6 +47,18 @@ public class DateTime implements Comparable<DateTime> {
     
     private LocalDateTime getLocalDateTime() {
         return dtInstance;
+    }
+    
+    public long getDifferenceInHours(DateTime other) {
+        return ChronoUnit.HOURS.between(dtInstance, other.getLocalDateTime());
+    }
+    
+    public long getDifferenctInDays(DateTime other) {
+        return ChronoUnit.DAYS.between(dtInstance, other.getLocalDateTime());
+    }
+    
+    public long getDifferenceInMonths(DateTime other) {
+        return ChronoUnit.MONTHS.between(dtInstance, other.getLocalDateTime());
     }
     
     @Override
