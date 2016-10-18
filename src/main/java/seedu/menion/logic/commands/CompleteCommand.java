@@ -6,8 +6,6 @@ import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
-
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -55,7 +53,7 @@ public class CompleteCommand extends Command {
         ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex - 1);
 
         model.completeActivity(activityToComplete);
-        
+        model.updateFilteredListToShowAll();
         return new CommandResult(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
     }
 

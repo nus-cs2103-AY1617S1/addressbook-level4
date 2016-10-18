@@ -73,10 +73,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void completeActivity(ReadOnlyActivity activity) {
         activityManager.completeActivity(activity);
-        System.out.println("so is this compelted? : " + activity.getActivityStatus().toString());
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
+    
     @Override
     public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
         activityManager.removeTask(target);
