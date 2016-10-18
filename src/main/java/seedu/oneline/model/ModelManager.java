@@ -62,6 +62,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public CommandResult executeCommand(Command command) {
         command.setData(this);
+        if (command.canUndo()) {
+            saveState();
+        }
         return command.execute();
     }
     
@@ -180,26 +183,38 @@ public class ModelManager extends ComponentManager implements Model {
     
     public void undo() throws StateNonExistentException {
         if (prevState.size() == 0) {
-            throw new StateNonExistentException("No previous state to undo.");
+            throw new StateNonExistentException();
         }
-        // todo: implement
+        nextState.push(new ModelState(this));
+        loadState(prevState.pop());
     }
     
     public void redo() throws StateNonExistentException {
         if (nextState.size() == 0) {
-            throw new StateNonExistentException("No previous state to undo.");
+            throw new StateNonExistentException();
         }
-        // todo: implement
+        prevState.push(new ModelState(this));
+        loadState(nextState.pop());
+    }
+    
+    private void saveState() {
+        prevState.push(new ModelState(this));
+        nextState.clear();
+    }
+    
+    private void loadState(ModelState state) {
+        resetData(state.data);
+        filteredTasks.setPredicate(state.filterPredicate);
     }
     
     private static class ModelState {
         
-        final TaskBook data;
-        final Predicate<? super Task> expression;
+        final ReadOnlyTaskBook data;
+        final Predicate<? super Task> filterPredicate;
         
         public ModelState(ModelManager manager) {
             data = new TaskBook(manager.getTaskBook());
-            expression = manager.filteredTasks.getPredicate();
+            filterPredicate = manager.filteredTasks.getPredicate();
         }
         
     }
