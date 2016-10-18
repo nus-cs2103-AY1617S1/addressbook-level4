@@ -6,10 +6,11 @@ package seedu.task.logic.commands;
 public class CommandResult {
 
     public final String feedbackToUser;
+    public final boolean isSuccessful;
 
-    public CommandResult(String feedbackToUser) {
+    public CommandResult(boolean isSuccessful, String feedbackToUser) {
         assert feedbackToUser != null;
         this.feedbackToUser = feedbackToUser;
+        this.isSuccessful = isSuccessful;
     }
-
 }

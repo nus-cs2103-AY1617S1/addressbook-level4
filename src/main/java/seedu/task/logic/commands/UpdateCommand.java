@@ -53,7 +53,7 @@ public class UpdateCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(false, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
@@ -80,9 +80,9 @@ public class UpdateCommand extends Command {
         try {
             model.updateTask(taskToUpdate, newTask);
         } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(false, MESSAGE_DUPLICATE_TASK);
         }
 
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
+        return new CommandResult(true, String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
     }
 }
