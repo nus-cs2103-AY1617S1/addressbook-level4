@@ -5,6 +5,7 @@ import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
+import seedu.task.logic.commands.UndoableCommand;
 import seedu.task.logic.parser.Parser;
 import seedu.task.model.Model;
 import seedu.task.model.task.ReadOnlyTask;
@@ -20,22 +21,34 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Parser parser;
+    private UndoableCommand previousCommand;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new Parser();
+        this.previousCommand = null;
     }
 
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        command.setData(model);
-        return command.execute();
+        command.setData(model, previousCommand);
+        CommandResult result = command.execute();
+        setPreviousCommand(result.isSuccessful, command);
+        return result;
     }
 
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+    
+    private void setPreviousCommand(boolean isSuccessful, Command command) {
+        if (isSuccessful && command instanceof UndoableCommand) {
+            this.previousCommand = (UndoableCommand) command;
+        } else {
+            this.previousCommand = null;
+        }
     }
 }
