@@ -34,8 +34,6 @@ public class UpdateTaskCommand extends TaskCommand {
 
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated task: %1$s";
     public static final String MESSAGE_CANNOT_UPDATE_TASK = "Selected task's description cannot be updated";
-    public static final String MESSAGE_DEADLINE_TASK_REQUIRED = "Deadline task required for update of deadline";
-    public static final String MESSAGE_EVENT_TASK_REQUIRED = "Event task required for update of start date and end date";
     
     public static final String TASK_DETAILS_UPDATE_TASK = "[Update Task][Task: %s]";
     public static final String TASK_DETAILS_UPDATE_DESCRIPTION = "[Update Task][Description: %s]";
@@ -76,10 +74,9 @@ public class UpdateTaskCommand extends TaskCommand {
     
     /**
      * This constructor is called by the user enters a command to update the deadline of a task.
-     * Pre-Cond: Targeted task to update has to be a DeadlineTask
      * 
      * Example: update 1 date 31 Oct
-     * (Changes the task (deadline task) at index 1 to have a deadline of 31 Oct 2016)
+     * (Changes the task at index 1 to have a deadline of 31 Oct 2016 (Whether or not it is a deadline task))
      */
     public UpdateTaskCommand(int targetIndex, Date newDeadline) {
         this.targetIndex = targetIndex;
@@ -88,10 +85,9 @@ public class UpdateTaskCommand extends TaskCommand {
     
     /**
      * This constructor is called by the user enters a command to update the start date and end date of a task.
-     * Pre-Cond: Targeted task to update has to be an EventTask
      * 
      * Example: update 1 date 31 Oct to 1 Nov
-     * (Changes the task (event task) at index 1 to have a start date of 31 Oct and end date of 1 Nov)
+     * (Changes the task at index 1 to have a start date of 31 Oct and end date of 1 Nov (Whether or not it is an event task))
      */
     public UpdateTaskCommand(int targetIndex, Date newStartDate, Date newEndDate) {
         this.targetIndex = targetIndex;
@@ -113,11 +109,11 @@ public class UpdateTaskCommand extends TaskCommand {
     		updatedTask = prepareUpdatedDescriptionForTask(taskToUpdate);
     		
     	} else if (newDeadline != null) {
-    		// User wants to change the deadline of a DeadlineTask
+    		// User wants to change the deadline of a Task
     		updatedTask = prepareUpdatedDeadlineForTask(taskToUpdate);
 
     	} else if ((newStartDate != null && newEndDate != null)) {
-    		// User wants to change the start date and end date of an EventTask
+    		// User wants to change the start date and end date of a Task
     		updatedTask = prepareUpdatedStartEndDateForTask(taskToUpdate);
     		
     	} else {
@@ -150,28 +146,18 @@ public class UpdateTaskCommand extends TaskCommand {
      * Create a new task with a different deadline to replace taskToUpdate
      */
     public Task prepareUpdatedDeadlineForTask(Task taskToUpdate) throws IllegalValueException {
-    	// Check if it is indeed a DeadlineTask
-		if (taskToUpdate instanceof DeadlineTask) {
-			DeadlineTask task = (DeadlineTask) taskToUpdate;
-			return new DeadlineTask(task.getDescription().getContent(), newDeadline);
-			
-		} else {
-			throw new IllegalValueException(MESSAGE_DEADLINE_TASK_REQUIRED);
-		}
+    	// Create a deadline task to replace the original task
+    	String description = taskToUpdate.getDescription().getContent();
+		return new DeadlineTask(description, newDeadline);
     }
     
     /**
      * Create a new task with a different start and end date to replace taskToUpdate
      */
     public Task prepareUpdatedStartEndDateForTask(Task taskToUpdate) throws IllegalValueException {
-    	// Check if it is indeed a EventTask
-		if (taskToUpdate instanceof EventTask) {
-			EventTask task = (EventTask) taskToUpdate;
-			return new EventTask(task.getDescription().getContent(), newStartDate, newEndDate);
-			
-		} else {
-			throw new IllegalValueException(MESSAGE_EVENT_TASK_REQUIRED);
-		}
+    	// Create an event task to replace the original task
+    	String description = taskToUpdate.getDescription().getContent();
+		return new EventTask(description, newStartDate, newEndDate);
     }
     
     /**
