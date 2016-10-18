@@ -16,10 +16,10 @@ public class AddParser {
 	};
 
 	private static final Pattern REGULAR_TASK_REGEX = Pattern
-			.compile("(.+)[\\ ]*?by[\\ ]*?:[\\ ]*?(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
+			.compile("(.+)[\\ ]*?by[\\ ]*?:[\\ ]*?(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	private static final Pattern EVENTS_REGEX = Pattern
-			.compile("(.+)[\\ ]*?from:[\\ ]*?(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])"
-					+ "[\\ ]*?to[\\ ]*?:[\\ ]*?(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
+			.compile("(.+)[\\ ]*?from:[\\ ]*?(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])"
+					+ "[\\ ]*?to[\\ ]*?:[\\ ]*?(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	private static final Pattern FLOATING_TASK_REGEX = Pattern
 			.compile("(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	
@@ -73,7 +73,7 @@ public class AddParser {
 		
 
 	}
-	
+	/*
 	public static String dateHandler(String dateToHandle){
 		Parser parser = new Parser();
 		
@@ -85,7 +85,7 @@ public class AddParser {
 		return dateToString(cal);
 
 	}
-	
+	*/
 	
 	private static String dateToString(Calendar cal){
 		String date;
@@ -145,7 +145,7 @@ public class AddParser {
 
 		parsedArguments.add(1, matcher.group(1).trim());
 		parsedArguments.add(2, matcher.group(4).trim());
-		parsedArguments.add(3, dateHandler(matcher.group(2)));
+		parsedArguments.add(3, matcher.group(2));
 		parsedArguments.add(4, matcher.group(3));		
 		
 	}
@@ -163,9 +163,9 @@ public class AddParser {
 
 		parsedArguments.add(1, matcher.group(1).trim());
 		parsedArguments.add(2, matcher.group(6).trim());
-		parsedArguments.add(3, dateHandler(matcher.group(2)));
+		parsedArguments.add(3, matcher.group(2));
 		parsedArguments.add(4, matcher.group(3));
-		parsedArguments.add(5, dateHandler(matcher.group(4)));
+		parsedArguments.add(5, matcher.group(4));
 		parsedArguments.add(6, matcher.group(5));
 
 	}
