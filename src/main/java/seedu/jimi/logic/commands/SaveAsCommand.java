@@ -27,6 +27,7 @@ public class SaveAsCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This save directory is originally used in Jimi";
     public static final String MESSAGE_CONFIG_FILE_NOT_FOUND = "Config file is not found. ";
     public static final String MESSAGE_UPDATING_SAVE_DIR = "There is an error updating the new save directory.";
+    public static final String MESSAGE_DUPLICATE_SAVE_DIRECTORY = "New save directory is the same as the old save directory.";
 
     private String taskBookFilePath;
 
@@ -44,6 +45,10 @@ public class SaveAsCommand extends Command {
             Config config = ConfigUtil.readConfig(defaultConfigFilePathUsed).orElse(new Config());
             
             String oldTaskBookFilePath = config.getTaskBookFilePath();
+            if (oldTaskBookFilePath.equals(taskBookFilePath))   {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(String.format(MESSAGE_DUPLICATE_SAVE_DIRECTORY));
+            }
             config.setTaskBookFilePath(taskBookFilePath);
             
             ConfigUtil.saveConfig(config, defaultConfigFilePathUsed);
