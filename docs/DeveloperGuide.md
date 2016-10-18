@@ -337,11 +337,11 @@ Use case ends.
 
 ##### Date:
 
-> Date is given in format �[date]/[month]/[year]�
+> Date is given in format `[date]/[month]/[year]`
 
 ##### Time:
 
-> Time is given in format �[hour]:[minute]�
+> Time is given in format `[hour]:[minute]`
 
 ##### Keyword:
 
