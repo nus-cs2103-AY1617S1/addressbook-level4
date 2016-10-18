@@ -312,6 +312,19 @@ Use case resumes at step 1
 4. TaskManager edits the TDE <br>
 Use case ends.
 
+**Extensions**
+
+>2a. The TDE list is empty <br>
+>Use case ends
+
+>3a. The given index is invalid <br>
+3a1. TaskManager shows an error message <br>
+Use case resumes at step 2 <br>
+
+>3b The given parameter is invalid <br>
+> 3b1 TaskManager shows an error message <br>
+Use case resumes at step 2
+
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -337,11 +350,11 @@ Use case ends.
 
 ##### Date:
 
-> Date is given in format `[date]/[month]/[year]`
+> Date is given in format �[date]/[month]/[year]�
 
 ##### Time:
 
-> Time is given in format `[hour]:[minute]`
+> Time is given in format �[hour]:[minute]�
 
 ##### Keyword:
 
