@@ -21,7 +21,7 @@ import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
-import seedu.jimi.storage.XmlSerializableAddressBook;
+import seedu.jimi.storage.XmlSerializableTaskBook;
 
 import java.io.File;
 import java.io.IOException;
@@ -118,7 +118,7 @@ public class TestUtil {
     }
 
     public static void createDataFileWithSampleData(String filePath) {
-        createDataFileWithData(generateSampleStorageAddressBook(), filePath);
+        createDataFileWithData(generateSampleStorageTaskBook(), filePath);
     }
 
     public static <T> void createDataFileWithData(T data, String filePath) {
@@ -139,8 +139,8 @@ public class TestUtil {
         return new TaskBook(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyTaskBook());
+    public static XmlSerializableTaskBook generateSampleStorageTaskBook() {
+        return new XmlSerializableTaskBook(generateEmptyTaskBook());
     }
 
     /**

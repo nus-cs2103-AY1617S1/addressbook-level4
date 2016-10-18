@@ -14,7 +14,7 @@ import seedu.jimi.model.UserPrefs;
 import seedu.jimi.storage.JsonUserPrefsStorage;
 import seedu.jimi.storage.Storage;
 import seedu.jimi.storage.StorageManager;
-import seedu.jimi.storage.XmlAddressBookStorage;
+import seedu.jimi.storage.XmlTaskBookStorage;
 import seedu.jimi.testutil.EventsCollector;
 import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
@@ -85,7 +85,7 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage{
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlTaskBookStorage{
 
         public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
