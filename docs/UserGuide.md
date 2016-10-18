@@ -80,11 +80,11 @@ Keyword: `-PRIORITY`
 
 `PRIORITY` also accepts variations of `low`, `medium` and `high`.
 
-`PRIORITY` | Variations  
+PRIORITY | Variations  
 -------- | :--------:
-`low` | `l`, `low`
-`medium` | `m`, `med`, `medium`
-`high` | `h`, `high`
+low | l, low
+medium | m, med, medium
+high | h, high
  
 > To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add command, where `PRIORITY` can be replaced by `low`, `medium` or `high`, e.g `-low`, `-medium`, `-high`.
 
@@ -132,8 +132,8 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 >   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
 >   * `midnight` can be used to specify 12AM
 >   * `noon` can be used to specify 12PM
->   * 24-hour clock format such as `20:15` are also accepted <br>
->> Take note to demarcate the hours and minutes with a colon. The following examples are not allowed: `730am`, `2015`.
+>   * 24-hour clock format such as `20:15` are also accepted
+>   * Take note to demarcate the hours and minutes with a colon. The following examples are not allowed: `730am`, `1930`.
 
 Examples:
 * `Do project proposal by 5pm tomorrow`
