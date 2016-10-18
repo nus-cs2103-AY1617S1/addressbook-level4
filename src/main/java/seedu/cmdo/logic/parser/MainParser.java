@@ -381,13 +381,15 @@ public class MainParser {
     
 	/**
      * Extracts the priority out of the args.
+     * If / precedes neither high, medium or low, it will throw an error
+     * Otherwise, it is taken to have default no priority.
      * 
      * @param splittedArgs an array of split user input
      * @return priority level string.
      * 
      * @@author A0139661Y
      */ 
-    private String extractPriority(String[] splittedArgs) {
+    private String extractPriority(String[] splittedArgs) throws IllegalValueException {
     	List<String> rawArgs = Arrays.asList(splittedArgs);
     	for (String rawArg : rawArgs) {
     		if (rawArg.toLowerCase().startsWith("/")) {
@@ -398,10 +400,12 @@ public class MainParser {
     				return Priority.MEDIUM;
     			case Priority.LOW:
     				return Priority.LOW;
+    			default:
+    				throw new IllegalValueException(MESSAGE_INVALID_PRIORITY);
     			}
     		}
     	}
-    	return Priority.LOW;
+    	return "";
     }
     
     /**
