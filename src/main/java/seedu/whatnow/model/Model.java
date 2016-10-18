@@ -113,4 +113,8 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to show only task of a specific status specified by the keyword */
     void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword);
+
+    /** Updates the filter of the filtered task list to display all task types*/
+    UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList();
+    
 }

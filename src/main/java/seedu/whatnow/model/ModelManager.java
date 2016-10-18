@@ -41,8 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> backUpFilteredSchedules;
     private final Stack<Command> stackOfUndo;
     private final Stack<Command> stackOfRedo;
-    private final Stack<ReadOnlyTask> oldTask;
-    private final Stack<ReadOnlyTask> newTask;
+    private final Stack<ReadOnlyTask> stackOfOldTask;
+    private final Stack<ReadOnlyTask> stackOfNewTask;
     private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
     /**
      * Initializes a ModelManager with the given WhatNow
@@ -62,8 +62,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfRedo = new Stack<>();
         backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
         backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
-        oldTask = new Stack<>();
-        newTask = new Stack<>();
+        stackOfOldTask = new Stack<>();
+        stackOfNewTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
     }
 
@@ -79,8 +79,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfRedo = new Stack<>();
         backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
         backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
-        oldTask = new Stack<>();
-        newTask = new Stack<>();
+        stackOfOldTask = new Stack<>();
+        stackOfNewTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
     }
 
@@ -127,13 +127,13 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException {
-        oldTask.push(old);
+        stackOfOldTask.push(old);
     	whatNow.updateTask(old, toUpdate);
         indicateWhatNowChanged();
     }
     @Override
     public synchronized void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException {
-    	newTask.push(old);
+    	stackOfNewTask.push(old);
     	whatNow.updateTask(old, (Task) toUpdate);
     	indicateWhatNowChanged();
     }
@@ -142,6 +142,7 @@ public class ModelManager extends ComponentManager implements Model {
         whatNow.markTask(target);
         indicateWhatNowChanged();
     }
+
     @Override
     public synchronized void unMarkTask(ReadOnlyTask target) throws TaskNotFoundException {
     	whatNow.unMarkTask(target);
@@ -157,12 +158,19 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	@Override
 	public Stack<ReadOnlyTask> getOldTask() {
-		return oldTask;
+		return stackOfOldTask;
 	}
 	@Override
 	public Stack<ReadOnlyTask> getNewTask() {
-		return newTask;
+		return stackOfNewTask;
 	}
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
+        filteredTasks.setPredicate(null);
+        return new UnmodifiableObservableList<>(filteredTasks);
+    }
+
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

@@ -176,7 +176,6 @@ public class WhatNow implements ReadOnlyWhatNow {
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
     }
 
     @Override
