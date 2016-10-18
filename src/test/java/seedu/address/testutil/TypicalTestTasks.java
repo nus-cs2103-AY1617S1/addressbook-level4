@@ -26,8 +26,8 @@ public class TypicalTestTasks {
         try {
         	//Floating tasks
             trash =  new TaskBuilder().withName("take trash").withTags("notUrgent").build();
-            book = new TaskBuilder().withName("read book").withTags("weekly", "textBook").build();
-            homework = new TaskBuilder().withName("do homework").build();
+            book = new TaskBuilder().withName("read book").withTags("CS2105", "textBook").build();
+            homework = new TaskBuilder().withName("do homework").withTags("CS2105").build();
             lecture = new TaskBuilder().withName("read weblecture").build();
             meeting = new TaskBuilder().withName("group meeting").build();
             george = new TaskBuilder().withName("visit George Best").build();

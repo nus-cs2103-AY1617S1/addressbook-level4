@@ -319,8 +319,8 @@ public class ModelManager extends ComponentManager implements Model {
 			Date startDate = timeArray[START_DATE_INDEX];
 			Date endDate = timeArray[END_DATE_INDEX];
 			
-			if((startDate.after(this.startTime)||(startDate.getDate()==this.startTime.getDate()&&startDate.getMonth()==this.startTime.getMonth()))
-					&& (endDate.before(this.endTime)||(endDate.getDate()==this.endTime.getDate()&&endDate.getMonth()==this.endTime.getMonth())))
+			if((startDate.after(this.startTime)||startDate.equals(this.startTime))
+					&& (endDate.before(this.endTime)||endDate.equals(this.endTime)))
 				return true;
 			return false;	
 		}
@@ -341,7 +341,6 @@ public class ModelManager extends ComponentManager implements Model {
     		this.deadline = deadline;
     	}
 
-		@SuppressWarnings("deprecation")
 		@Override
 		public boolean run(TaskDateComponent task) {
 			
@@ -356,13 +355,7 @@ public class ModelManager extends ComponentManager implements Model {
 			
 			Date deadline = new Date(task.getEndDate().getDateInLong());
 			
-			//Strictly before
-			if(deadline.before(this.deadline)
-					&& task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
-				return true;
-			
-			//When only enter a date
-			if(deadline.getDate()==this.deadline.getDate() && deadline.getMonth()==this.deadline.getMonth()
+			if((deadline.before(this.deadline) || this.deadline.equals(deadline))
 					&& task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
 				return true;
 			

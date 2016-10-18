@@ -104,12 +104,12 @@ public class NavbarPanel extends UiPart {
     	switch(navigation){
     		
     		case NAVBAR_DEADLINES:
-    			day = new Date(System.currentTimeMillis());
-    			command = FindCommand.COMMAND_WORD +" by "+ formatter.format(day);
+    			day = new Date(System.currentTimeMillis()+24*60*60*1000);
+    			command = FindCommand.COMMAND_WORD +" by "+ formatter.format(day) + " 12am";
     			return command;
     		case NAVBAR_INCOMING_DEADLINES:
-    			day = new Date(System.currentTimeMillis()+24 * 7 * 60 * 60 * 1000);
-    			command = FindCommand.COMMAND_WORD +" by "+ formatter.format(day);
+    			day = new Date(System.currentTimeMillis()+24*8*60*60*1000);
+    			command = FindCommand.COMMAND_WORD +" by "+ formatter.format(day) + " 12am";
     			return command;
     		case NAVBAR_FLOATING_TASKS:
     			command = FindCommand.COMMAND_WORD +" -F";
