@@ -13,7 +13,7 @@ import com.joestelmach.natty.*;
 
 
 /**
- * Represents a Task's date number in the address book.
+ * Represents a Task's end time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
  */
 public class EndTime {
@@ -25,7 +25,7 @@ public class EndTime {
     /**
      * Validates given end.
      *
-     * @throws IllegalValueException if given end address string is invalid.
+     * @throws IllegalValueException if given end timing string is invalid.
      */
     public EndTime(String input) throws IllegalValueException {
         input = input.trim();

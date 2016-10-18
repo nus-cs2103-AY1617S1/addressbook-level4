@@ -13,7 +13,7 @@ import com.joestelmach.natty.*;
 
 
 /**
- * Represents a Task's date number in the address book.
+ * Represents a Task's start time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
  */
 public class StartTime {
@@ -25,7 +25,7 @@ public class StartTime {
     /**
      * Validates given start.
      *
-     * @throws IllegalValueException if given start address string is invalid.
+     * @throws IllegalValueException if given start timing string is invalid.
      */
     public StartTime(String input) throws IllegalValueException {
         input = input.trim();

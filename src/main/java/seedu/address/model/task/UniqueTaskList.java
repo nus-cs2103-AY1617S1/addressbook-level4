@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 
@@ -25,6 +26,12 @@ public class UniqueTaskList implements Iterable<Task> {
             super("Operation would result in duplicate tasks");
         }
     }
+    
+//    public static class StartTimeAfterEndTime extends IllegalValueException{
+//    	protected  StartTimeAfterEndTime() {
+//			super("Start time cannot be after End time");
+//		}
+//    }
 
     /**
      * Signals that an operation targeting a specified task in the list would fail because
@@ -60,42 +67,36 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
 
-    public void editName(ReadOnlyTask toEdit, String newName) throws TaskNotFoundException {
+    public void setTaskName(ReadOnlyTask toEdit, Name newName) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
             throw new TaskNotFoundException();
-        Task taskFound = internalList.get(internalList.indexOf(toEdit));
-        taskFound.getName().setName(newName);
-        internalList.set(internalList.indexOf(toEdit), taskFound);
+        int taskIndex = internalList.indexOf(toEdit);
+        Task taskFound = internalList.get(taskIndex);
+        taskFound.setName(newName);
+        internalList.set(taskIndex, taskFound);
     }
     
-    public void editDate(ReadOnlyTask toEdit, String newDate) throws TaskNotFoundException {
+    public void setStartTime(ReadOnlyTask toEdit, StartTime newTiming) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
             throw new TaskNotFoundException();
-        Task taskFound = internalList.get(internalList.indexOf(toEdit));
-        taskFound.getDate().setDate(newDate);
-        internalList.set(internalList.indexOf(toEdit), taskFound);
+        int taskIndex = internalList.indexOf(toEdit);
+        Task taskFound = internalList.get(taskIndex);
+        taskFound.setStartTime(newTiming);
+        internalList.set(taskIndex, taskFound);
     }
     
-//    public void editStartTime(ReadOnlyTask toEdit, String newTiming) throws TaskNotFoundException {
-//        assert toEdit != null;
-//        if(!internalList.contains(toEdit))
-//            throw new TaskNotFoundException();
-//        Task taskFound = internalList.get(internalList.indexOf(toEdit));
-//        taskFound.getStartTime().setStartTime(newTiming);
-//        internalList.set(internalList.indexOf(toEdit), taskFound);
-//    }
-//    
-//    public void editEndTime(ReadOnlyTask toEdit, String newTiming) throws TaskNotFoundException {
-//        assert toEdit != null;
-//        if(!internalList.contains(toEdit))
-//            throw new TaskNotFoundException();
-//        Task taskFound = internalList.get(internalList.indexOf(toEdit));
-//        taskFound.getEndTime().setEndTime(newTiming);
-//        internalList.set(internalList.indexOf(toEdit), taskFound);
-//    }
-//    
+    public void setEndTime(ReadOnlyTask toEdit, EndTime newTiming) throws TaskNotFoundException {
+        assert toEdit != null;
+        if(!internalList.contains(toEdit))
+            throw new TaskNotFoundException();
+    int taskIndex = internalList.indexOf(toEdit);
+    Task taskFound = internalList.get(taskIndex);
+    taskFound.setEndTime(newTiming);
+    internalList.set(taskIndex, taskFound);
+    }
+    
     
     /**
      * Removes the equivalent task from the list.
