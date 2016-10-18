@@ -10,7 +10,7 @@ import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
  * @author zexuan
  *
  */
-public class CompleteCommand extends Command{
+public class CompleteCommand extends Command {
     
     public static final String COMMAND_WORD = "complete";
 
@@ -24,30 +24,30 @@ public class CompleteCommand extends Command{
 
     public final int targetIndex;
     
-    public CompleteCommand(){
+    public CompleteCommand() {
         this.targetIndex = 0;
     }
     
-    public CompleteCommand(int targetIndex){
+    public CompleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
     
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
+        
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
+        
         ReadOnlyTask taskToComplete = lastShownList.get(targetIndex - 1);
-
+        
         model.completeTask(taskToComplete, true);
         
         return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));
     }
-
+    
     @Override
     public boolean isValidCommandWord(String commandWord) {
         for (int i = 1; i <= COMMAND_WORD.length(); i++) {

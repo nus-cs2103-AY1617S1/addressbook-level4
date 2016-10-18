@@ -101,7 +101,7 @@ public class JimiParser {
                     return prepareEdit(arguments);
                 } else if (command instanceof CompleteCommand) {
                     return prepareComplete(arguments);
-                }else if (command instanceof SelectCommand) {
+                } else if (command instanceof SelectCommand) {
                     return prepareSelect(arguments);
                 } else if (command instanceof DeleteCommand) {
                     return prepareDelete(arguments);
@@ -122,7 +122,7 @@ public class JimiParser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
+    private Command prepareAdd(String args) {
         final Matcher detailsAndTagsMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate entire args string format
         if (!detailsAndTagsMatcher.matches()) {
@@ -213,11 +213,11 @@ public class JimiParser {
      */
     private Command prepareComplete(String args) {
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        if (!index.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
         }
-
+        
         return new CompleteCommand(index.get());
     }
     
