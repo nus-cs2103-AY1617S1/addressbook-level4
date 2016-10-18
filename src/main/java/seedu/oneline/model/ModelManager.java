@@ -5,6 +5,7 @@ import seedu.oneline.commons.core.ComponentManager;
 import seedu.oneline.commons.core.LogsCenter;
 import seedu.oneline.commons.core.UnmodifiableObservableList;
 import seedu.oneline.commons.events.model.TaskBookChangedEvent;
+import seedu.oneline.commons.exceptions.StateNonExistentException;
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
@@ -165,6 +166,22 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    
+  //========== Inner functions and classes used for undo/redo ==================================================
+    
+    public void undo() throws StateNonExistentException {
+        if (prevState.size() == 0) {
+            throw new StateNonExistentException("No previous state to undo.");
+        }
+        // todo: implement
+    }
+    
+    public void redo() throws StateNonExistentException {
+        if (nextState.size() == 0) {
+            throw new StateNonExistentException("No previous state to undo.");
+        }
+        // todo: implement
     }
     
     private static class ModelState {
