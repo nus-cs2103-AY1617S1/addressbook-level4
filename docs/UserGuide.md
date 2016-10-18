@@ -217,6 +217,17 @@ Examples:
 * `list favorites` <br>
 
 <br>
+#### Listing Completed Tasks: `list complete[d]`
+List all the tasks that you have completed. <br>
+Format: `list complete[d]`
+
+> You can type either `complete` or its past tense form, `favorited`
+
+Examples:
+* `list complete`
+* `list completed` <br>
+
+<br>
 #### Setting an alias: `alias`
 Sets a one-word alias for any sentence to be used as a command.<br>
 Format: `alias SHORTCUT [ANY_SENTENCE]`
@@ -338,11 +349,13 @@ Complete | `complete INDEX`
 Uncomplete | `uncomplete INDEX`
 Favorite | `favorite INDEX`
 Unfavorite | `unfavorite INDEX`
-List favorites | `list favorite[s]`
 Alias | `alias SHORTCUT ANY_SENTENCE`
 Unalias | `unalias SHORTCUT`
+List favorites | `list favorite[s]`
+List completed | `list complete[d]`
 List aliases | `list alias[es]`
 Undo | `undo`
 Clear | `clear`
+Exit | `exit`
 Set storage location | `setstorage PATH`
 

@@ -13,7 +13,7 @@
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 ## Introduction
-Welcome to the <i>Tusk</i> codebase! This guide aims to get you to speed as soon as possible with the development environment, general architecture and in-depth implementation details, in that order.
+Welcome to the <i>Tusk</i> codebase! This guide aims to get you up to speed as soon as possible with the development environment, general architecture and in-depth implementation details, in that order.
 
 Let's get started!
 
@@ -101,11 +101,11 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
@@ -124,7 +124,7 @@ The `UI` component,
 
 1. `Logic` uses the `TaskCommandsParser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
@@ -141,7 +141,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* exposes a `UnmodifiableObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -154,7 +154,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Task data in xml format and read it back.
 
 <br>
 ### Common classes
@@ -186,7 +186,7 @@ and logging destinations.
 ### Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
-(default: `config.json`):
+(default: `taskconfig.json`):
 
 <br>
 ## Testing
@@ -275,10 +275,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | view all the tasks that I have created on a GUI | have a good overall picture of the tasks
 `* * *` | user | specify the location of the file containing my task data | choose to store the data locally or in the cloud
 `* * *` | user who has just executed a wrong command | undo the command | rectify my mistakes easily
-`* *` | user | add recurring tasks | add repeating tasks once and not have to do so repeatedly
 `* *` | user | set aliases for certain keywords | type commands faster
 `* *` | user | set a particular task as favorite | see the tasks that have a higher priority
-`* *` | user who uses Google Calendar | sync the tasks between Google Calendar and the App | switch between the two freely
 `*` | user | autocomplete the commands that I am typing | type commands faster
 
 <br>
