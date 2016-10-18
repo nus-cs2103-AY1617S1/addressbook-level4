@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 import java.util.Stack;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the task manager data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -32,15 +32,15 @@ public class ModelManager extends ComponentManager implements Model {
     private final String initialHistory = "";
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given TaskManager
+     * TaskManager and its variables should not be null
      */
     public ModelManager(TaskManager src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
         filteredItems = new FilteredList<>(taskManager.getItems());
