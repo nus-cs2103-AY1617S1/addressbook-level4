@@ -10,14 +10,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.LogsCenter;
+import seedu.tasklist.commons.events.model.TaskListChangedEvent;
 import seedu.tasklist.model.Model;
 import seedu.tasklist.model.ReadOnlyTaskList;
+import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Panel containing the list of persons.
@@ -27,7 +32,7 @@ public class CategoryPanel extends UiPart {
     private static final String FXML = "CategoryPanel.fxml";
     private AnchorPane gridpane;
     private AnchorPane placeHolderPane;
-    private List<Task> tasks;
+    private ReadOnlyTaskList latestSavedTaskList;
 
     @FXML
     private Label overdueNo;
@@ -72,10 +77,17 @@ public class CategoryPanel extends UiPart {
         categoryPanel.overdueNo.setText(Integer.toString(Task.overdueCounter));
         categoryPanel.floatingNo.setText(Integer.toString(Task.floatCounter));
         categoryPanel.totalNo.setText(Integer.toString(readOnlyTaskList.getTaskList().size()));
-        
+        EventsCenter.getInstance().registerHandler(categoryPanel);
         return categoryPanel;
     }
-
+    
+    @Subscribe
+    private void modelChangedEvent(TaskListChangedEvent abce) {
+    	overdueNo.setText(Integer.toString(Task.overdueCounter));
+    	floatingNo.setText(Integer.toString(Task.floatCounter));
+    	totalNo.setText(Integer.toString(abce.data.getTaskList().size()));
+    }
+    
     private void configure() {
     	gridpane.setStyle("-fx-background-color: #FFFFFF;");
         addToPlaceholder();
