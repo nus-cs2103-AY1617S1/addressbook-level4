@@ -7,7 +7,7 @@ import seedu.todo.model.task.ImmutableTask;
 
 
 //@@author A0092382A
-public enum TaskViewFilters {
+public enum TaskViewFilter {
     DEFAULT("show all", null, 5), 
     
     COMPLETED("completed", (task) -> task.isCompleted(), 0), 
@@ -25,7 +25,7 @@ public enum TaskViewFilters {
     
     private final int underlineChar;
 
-    TaskViewFilters(String name, Predicate<ImmutableTask> filter, int underlineCharPosition) {
+    TaskViewFilter(String name, Predicate<ImmutableTask> filter, int underlineCharPosition) {
         this.name = name;
         this.filter = filter;
         this.underlineChar = underlineCharPosition;
@@ -37,6 +37,10 @@ public enum TaskViewFilters {
     
     public Predicate<ImmutableTask> getFilter() {
         return this.filter;
+    }
+    
+    public int getUnderlineChar() {
+        return this.underlineChar;
     }
     
     
