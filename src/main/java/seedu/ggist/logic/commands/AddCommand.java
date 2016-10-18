@@ -25,7 +25,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";
     
     private enum TaskType {
-        FLOATING("task"), DEADLINE("dealine"), EVENT("event"); 
+        FLOATING("task"), DEADLINE("deadline"), EVENT("event"); 
         
         private final String taskType;
         TaskType(String taskType) {
