@@ -21,7 +21,7 @@ public class TypicalTestTasks {
             deadline1 = new TaskBuilder().withName("copy answer").build();
             deadline2 = new TaskBuilder().withName("do some sit-up").build();
             event1 = new TaskBuilder().withName("eat with mom").build();
-            event2 = new TaskBuilder().withName("forgive and forget").build();
+            event2 = new TaskBuilder().withName("forgive with forget").build();
             event3 = new TaskBuilder().withName("go shopping").build();
             event4 = new TaskBuilder().withName("hopping").build();
 
@@ -39,11 +39,11 @@ public class TypicalTestTasks {
         try {
             ab.addFloatingTask(new FloatingTask(floatingTask1));
             ab.addFloatingTask(new FloatingTask(floatingTask2));
-            ab.addDeadline(new Deadline(deadline1));
-            ab.addDeadline(new Deadline(deadline2));
-            ab.addEvent(new Event(event1));
-            ab.addEvent(new Event(event2));
-            ab.addEvent(new Event(event3));
+            ab.addFloatingTask(new FloatingTask(deadline1));
+            ab.addFloatingTask(new FloatingTask(deadline2));
+            ab.addFloatingTask(new FloatingTask(event1));
+            ab.addFloatingTask(new FloatingTask(event2));
+            ab.addFloatingTask(new FloatingTask(event3));
         } catch (DuplicateDataException e) {
             assert false : "not possible";
         }
