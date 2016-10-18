@@ -134,10 +134,13 @@ public class TaskViewFilterView extends UiPart {
 
     /**
      * Mark the filter as selected on {@link #filterViewPane}
+     * However, if filter is null, nothing is done.
      */
     private void selectViewFilter(TaskViewFilter filter) {
-        HBox filterBox = taskFilterBoxesMap.get(filter);
-        ViewStyleUtil.addClassStyles(filterBox, ViewStyleUtil.STYLE_SELECTED);
+        if (filter != null) {
+            HBox filterBox = taskFilterBoxesMap.get(filter);
+            ViewStyleUtil.addClassStyles(filterBox, ViewStyleUtil.STYLE_SELECTED);
+        }
     }
 
     /* Override Methods */
