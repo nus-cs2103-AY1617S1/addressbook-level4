@@ -1,12 +1,11 @@
 package seedu.savvytasker.model;
 
-import java.util.Set;
-
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.model.person.ReadOnlyTask;
 import seedu.savvytasker.model.person.Task;
 import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
+import seedu.savvytasker.model.task.FindType;
 
 /**
  * The API of the Model component.
@@ -45,6 +44,6 @@ public interface Model {
     void updateFilteredListToShowArchived();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredTaskList(FindType findType, String[] keywords);
 
 }

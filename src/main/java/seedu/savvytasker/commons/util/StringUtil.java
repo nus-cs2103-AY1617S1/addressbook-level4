@@ -9,6 +9,17 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    public static boolean containsExactIgnoreCase(String source, String query) {
+        List<String> strings = Arrays.asList(source);
+        return strings.stream().filter(s -> s.equalsIgnoreCase(query)).count() > 0;
+    }
+    
+    public static boolean containsPartialIgnoreCase(String source, String query) {
+        String[] split = source.toLowerCase().split("\\s+");
+        List<String> strings = Arrays.asList(split);
+        return strings.stream().filter(s -> s.contains(query.toLowerCase())).count() > 0;
+    }
+    
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
