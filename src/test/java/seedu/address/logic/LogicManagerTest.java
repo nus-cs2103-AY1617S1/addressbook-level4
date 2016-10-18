@@ -297,6 +297,29 @@ public class LogicManagerTest {
                 expectedAB.getPersonList());
     }
 
+    @Test
+    public void execute_edit_name_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeEdited = helper.adam();
+        AddressBook expectedAB = new AddressBook();
+        
+        // actual to be edited
+        toBeEdited.setTags(new UniqueTagList());
+        model.addPerson(toBeEdited);
+            
+        // expected result after edit
+        toBeEdited.setName(new Name("new name"));
+        expectedAB.addPerson(toBeEdited);
+            
+        // execute command and verify result
+        assertCommandBehavior(helper.generateEditCommand(1, "new name"),
+                    String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, toBeEdited),
+                    expectedAB,
+                    expectedAB.getPersonList());
+    }
+
+    
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
@@ -413,6 +436,35 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
+        
+        /** Generates the correct edit command based on the person given */
+        String generateEditCommand(int field, String params) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("edit 11");
+
+            switch(field){
+            case 1:
+                cmd.append(" " + params);
+                break;
+            case 2:
+                cmd.append(" d/").append(params);
+                break;
+            case 3:
+                cmd.append(" date/").append(params);
+                break;
+            case 4:
+                cmd.append(" time/").append(params);
+                break;
+            case 5:
+                String [] tagsArray = params.split(" ");
+                UniqueTagList tags = new UniqueTagList();
+                for(String t: tagsArray){
+                    cmd.append(" t/").append(t);
+                }
+            }
+            return cmd.toString();
+        }
 
         /**
          * Generates an AddressBook with auto-generated persons.
@@ -493,5 +545,7 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag"))
             );
         }
+        
+        
     }
 }
