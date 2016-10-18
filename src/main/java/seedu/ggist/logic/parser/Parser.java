@@ -79,7 +79,10 @@ public class Parser {
                 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-        	
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
