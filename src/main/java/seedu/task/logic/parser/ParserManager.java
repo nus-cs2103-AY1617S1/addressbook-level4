@@ -61,7 +61,7 @@ public class ParserManager {
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-            return new SearchParser().prepare(arguments);
+            return new FindParser().prepare(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListParser().prepare(arguments);

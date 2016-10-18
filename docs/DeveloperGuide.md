@@ -305,26 +305,24 @@ Use case ends.
     Use case resumes at step 1
 
 <br>
-#### Use case 3: List tasks
+#### Use case 3: List tasks/events
 
 **MSS**
 
-1. User requests to list tasks
-2. TaskBook shows a list of tasks
+1. User requests to list tasks/events
+2. TaskBook shows a list of tasks/events
 Use case ends.
 
-<br>
-#### Use case 4: List events
+The Use case can be elaborated by the SD as below in addition the SD mentioned in the [Design](#design):  
 
-**MSS**
+<img src="images/ListOverall.png" width="800"><br>
+<img src="images/ListRefSD.png" width="800"><br>
 
-1. User requests to list events
-2. TaskBook shows a list of events
-  Use case ends.
+The SD for list events is similiar to task. 
 
 <br>
 
-#### Use case 5: Edit task details
+#### Use case 4: Edit task details
 
 **MSS**
 1. User requests to list tasks
@@ -423,18 +421,22 @@ Use case ends.
 
 <br>
 
-#### Use case 10: Simple search for tasks  
+#### Use case 10: Simple find for tasks  
 
 **MSS**
-1. User request to search for tasks containing a set of keywords in description
-2. TaskBook displays zero or more tasks matching the search criteria
+1. User request to find for tasks containing a set of keywords in description
+2. TaskBook displays zero or more tasks matching the find criteria
 
   Use case ends.
 
 **Extensions**
 1a. No keywords entered after command word
-  > 1a1. Taskbook displays help message on the search command
-  Use case resumes at step 1
+  > 1a1. Taskbook displays help message on the find command
+  Use case resumes at step 1  
+
+
+<img src="images/FindOverall.png" width="800"><br>
+<img src="images/FindRefSD.png" width="800"><br>
 
 <br>
 
@@ -453,7 +455,12 @@ Extensions
   > 1a1. Taskbook displays displays a message indicating no commands can be undone
   Use case ends
 
-{More to be added}
+Besides the abstract SD as shown in the section [Design](#design). A more detailed Sequence Diagram of undo a deletion of task is shown below:
+
+<img src="images/UndoOverall.png" width="800"><br>
+<img src="images/UndoRefSD.png" width="800"><br>
+
+
 
 ## Appendix C : Non Functional Requirements
 - Storage
