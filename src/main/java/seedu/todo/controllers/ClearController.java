@@ -184,7 +184,11 @@ public class ClearController implements Controller {
             date = groups.get(0).getDates().get(0);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Error!"); // TODO
-            invalidDate = natural;
+            if (invalidDate != null) {
+                invalidDate = String.format("from %s to %s", invalidDate, natural);
+            } else {
+                invalidDate = natural;
+            }
             return null;
         }
         LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
