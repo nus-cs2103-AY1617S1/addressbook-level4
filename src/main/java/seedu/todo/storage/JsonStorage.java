@@ -21,7 +21,7 @@ import seedu.todo.models.TodoListDB;
 
 public class JsonStorage implements Storage {
     
-    // Ideally this would be a single circular-queue, but there is such built-in
+    // Ideally this would be a single circular-queue, but there is no such built-in
     // mechanism, and we would really really like to keep this operation O(1).
     private Deque<LinkedList<Patch>> historyPatch = new ArrayDeque<LinkedList<Patch>>();
     private Deque<LinkedList<Patch>> futurePatch = new ArrayDeque<LinkedList<Patch>>();
