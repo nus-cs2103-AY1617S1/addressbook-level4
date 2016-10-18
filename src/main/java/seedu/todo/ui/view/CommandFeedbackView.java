@@ -21,7 +21,6 @@ public class CommandFeedbackView extends UiPart {
 
     private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
     private static final String FXML = "CommandFeedbackView.fxml";
-    private static final String ERROR_STYLE = "error";
 
     @FXML
     private Label commandFeedbackLabel;
@@ -68,14 +67,14 @@ public class CommandFeedbackView extends UiPart {
      * Indicate an error visually on the {@link #commandFeedbackLabel}
      */
     public void flagError() {
-        ViewStyleUtil.addClassStyle(commandFeedbackLabel, ERROR_STYLE);
+        ViewStyleUtil.addClassStyle(commandFeedbackLabel, ViewStyleUtil.STYLE_ERROR);
     }
 
     /**
      * Remove the error flag visually on the {@link #commandFeedbackLabel}
      */
     public void unFlagError() {
-        ViewStyleUtil.removeClassStyle(commandFeedbackLabel, ERROR_STYLE);
+        ViewStyleUtil.removeClassStyle(commandFeedbackLabel, ViewStyleUtil.STYLE_ERROR);
     }
 
     /* Override Methods */

@@ -24,12 +24,7 @@ import java.util.*;
 public class TaskCard extends UiPart{
     /*Constants*/
     private static final String FXML = "TaskCard.fxml";
-    
-    private static final String STYLE_COLLAPSED = "collapsed";
-    private static final String STYLE_COMPLETED = "completed";
-    private static final String STYLE_OVERDUE = "overdue";
-    private static final String STYLE_SELECTED = "selected";
-    
+
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
 
@@ -127,9 +122,9 @@ public class TaskCard extends UiPart{
         boolean isOverdue = task.getEndTime().isPresent() && timeUtil.isOverdue(task.getEndTime().get());
         
         if (isCompleted) {
-            ViewStyleUtil.addClassStyle(taskCard, STYLE_COMPLETED);
+            ViewStyleUtil.addClassStyle(taskCard, ViewStyleUtil.STYLE_COMPLETED);
         } else if (isOverdue) {
-            ViewStyleUtil.addClassStyle(taskCard, STYLE_OVERDUE);
+            ViewStyleUtil.addClassStyle(taskCard, ViewStyleUtil.STYLE_OVERDUE);
         }
     }
 
@@ -138,7 +133,7 @@ public class TaskCard extends UiPart{
      * else hide the {@link #moreInfoLabel} otherwise.
      */
     private void initialiseCollapsibleView() {
-        ViewStyleUtil.addRemoveClassStyle(taskCard, STYLE_COLLAPSED, true);
+        ViewStyleUtil.addRemoveClassStyle(taskCard, ViewStyleUtil.STYLE_COLLAPSED, true);
         FxViewUtil.setCollapsed(moreInfoLabel, !isTaskCollapsible());
     }
     
@@ -181,7 +176,7 @@ public class TaskCard extends UiPart{
     public void toggleCardCollapsing() {
         if (isTaskCollapsible()) {
             //Sets both the collapsed style of the card, and mark the visibility of the "more" label.
-            boolean isCollapsing = ViewStyleUtil.toggleClassStyle(taskCard, STYLE_COLLAPSED);
+            boolean isCollapsing = ViewStyleUtil.toggleClassStyle(taskCard, ViewStyleUtil.STYLE_COLLAPSED);
             FxViewUtil.setCollapsed(moreInfoLabel, !isCollapsing);
         }
     }
@@ -191,7 +186,7 @@ public class TaskCard extends UiPart{
      * @param isSelected true when the card is selected
      */
     public void markAsSelected(boolean isSelected) {
-        ViewStyleUtil.addRemoveClassStyle(taskCard, STYLE_SELECTED, isSelected);
+        ViewStyleUtil.addRemoveClassStyle(taskCard, ViewStyleUtil.STYLE_SELECTED, isSelected);
     }
 
     /* Helper Methods */

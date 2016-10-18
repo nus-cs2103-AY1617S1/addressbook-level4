@@ -6,6 +6,18 @@ import javafx.scene.Node;
  * Deals with the CSS styling of View elements
  */
 public class ViewStyleUtil {
+
+    /* Style Classes Constants */
+    public static final String STYLE_COLLAPSED = "collapsed";
+    public static final String STYLE_COMPLETED = "completed";
+    public static final String STYLE_OVERDUE = "overdue";
+    public static final String STYLE_SELECTED = "selected";
+    public static final String STYLE_TEXT_4 = "text4";
+    public static final String STYLE_ERROR = "error";
+    public static final String STYLE_CODE = "code";
+    public static final String STYLE_BOLDER = "bolder";
+
+    /*Static Helper Methods*/
     /**
      * Adds only one instance of the class style to the node object
      */

@@ -26,8 +26,6 @@ public class HelpPanel extends UiPart {
 
     private final Logger logger = LogsCenter.getLogger(HelpPanel.class);
     private static final String FXML = "HelpPanel.fxml";
-    private static final String STYLE_TEXT_4 = "text4";
-    private static final String STYLE_CODE = "code";
 
     /*Layouts*/
     private AnchorPane placeholder;
@@ -84,13 +82,13 @@ public class HelpPanel extends UiPart {
      * @param commandSummary to be displayed
      */
     private void appendCommandSummary(int rowIndex, CommandSummary commandSummary) {
-        Text commandScenario = ViewGeneratorUtil.constructText(commandSummary.scenario, STYLE_TEXT_4);
-        Text commandName = ViewGeneratorUtil.constructText(commandSummary.command, STYLE_TEXT_4);
-        Text commandArgument = ViewGeneratorUtil.constructText(" " + commandSummary.arguments, STYLE_TEXT_4);
+        Text commandScenario = ViewGeneratorUtil.constructText(commandSummary.scenario, ViewStyleUtil.STYLE_TEXT_4);
+        Text commandName = ViewGeneratorUtil.constructText(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
+        Text commandArgument = ViewGeneratorUtil.constructText(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
 
-        ViewStyleUtil.addClassStyle(commandArgument, STYLE_CODE);
-        ViewStyleUtil.addClassStyle(commandName, STYLE_CODE);
-        ViewStyleUtil.addClassStyle(commandName, "bolder");
+        ViewStyleUtil.addClassStyle(commandArgument, ViewStyleUtil.STYLE_CODE);
+        ViewStyleUtil.addClassStyle(commandName, ViewStyleUtil.STYLE_CODE);
+        ViewStyleUtil.addClassStyle(commandName, ViewStyleUtil.STYLE_BOLDER);
 
         TextFlow combinedCommand = ViewGeneratorUtil.placeIntoTextFlow(commandName, commandArgument);
         helpGrid.addRow(rowIndex, commandScenario, combinedCommand);
