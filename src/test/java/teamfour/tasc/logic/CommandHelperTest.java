@@ -188,4 +188,13 @@ public class CommandHelperTest {
         } catch (IllegalValueException e) {
         }
     }
+    
+    @Test
+    public void convertDateToPrettyTimeParserFriendlyString_validInput() {
+        Date input = new Date(0);
+        String expectedOutput = "Jan 01 1970 07:30:00";
+        
+        assertEquals(expectedOutput,
+                CommandHelper.convertDateToPrettyTimeParserFriendlyString(input));
+    }
 }
