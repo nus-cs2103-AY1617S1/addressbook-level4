@@ -1,11 +1,16 @@
 package teamfour.tasc.logic.commands;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.core.Messages;
 import teamfour.tasc.commons.core.UnmodifiableObservableList;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 import teamfour.tasc.commons.util.CollectionUtil;
+import teamfour.tasc.logic.LogicManager;
 import teamfour.tasc.model.tag.Tag;
 import teamfour.tasc.model.tag.UniqueTagList;
 import teamfour.tasc.model.tag.UniqueTagList.DuplicateTagException;
@@ -74,6 +79,8 @@ public class UpdateCommand extends Command {
     public final boolean removePeriod;
     public final boolean removeRecurrence;
     public final Set<String> tagsToRemove;
+    
+    private final Logger logger = LogsCenter.getLogger(UpdateCommand.class);
 
     private ReadOnlyTask oldReadOnlyTask;
     private Task newTask;
@@ -170,28 +177,50 @@ public class UpdateCommand extends Command {
         if (this.updatedBy != null) {
             newDeadline = new Deadline(CommandHelper.convertStringToDate(this.updatedBy));
         }
-        if (this.updatedStartTime != null) {
-            if (newPeriod.getEndTime() == null && this.updatedEndTime == null) {
+        
+        if (this.updatedStartTime != null || this.updatedEndTime != null) {
+            if (this.updatedStartTime == null && newPeriod.getStartTime() == null) {
                 throw new IllegalValueException(MESSAGE_PERIOD_NEED_BOTH_START_AND_END_TIME);
-            } else if (newPeriod.getEndTime() == null) {
-                newPeriod = new Period(CommandHelper.convertStringToDate(this.updatedStartTime),
-                        CommandHelper.convertStringToDate(this.updatedEndTime));
+            }
+            if (this.updatedEndTime == null && newPeriod.getEndTime() == null) {
+                throw new IllegalValueException(MESSAGE_PERIOD_NEED_BOTH_START_AND_END_TIME);
+            }
+            
+            // TODO magic string
+            // TODO SLAP
+            // TODO better test this!
+            String finalDateString = "";
+            int startDateIndex = 0;
+            int endDateIndex = 1;
+            
+            if (this.updatedStartTime != null && this.updatedEndTime != null) {
+                finalDateString = this.updatedStartTime + " and " + this.updatedEndTime;
+            }
+            else if (this.updatedStartTime != null) {
+                // must do it the other way round, otherwise Pretty Time will get confused
+                finalDateString = CommandHelper.convertDateToPrettyTimeParserFriendlyString(newPeriod.getEndTime()) +
+                        " and " + this.updatedStartTime;
+                startDateIndex = 1;
+                endDateIndex = 0;
+            }
+            else if (this.updatedEndTime != null) {
+                finalDateString = CommandHelper.convertDateToPrettyTimeParserFriendlyString(newPeriod.getStartTime()) +
+                        " and " + this.updatedEndTime;
+            }
+            
+            List<Date> finalOutput = CommandHelper.convertStringToMultipleDates(finalDateString);
+            
+            if (finalOutput.size() == 2) {                    
+                newPeriod = new Period(finalOutput.get(startDateIndex), finalOutput.get(endDateIndex));
             } else {
-                newPeriod = new Period(CommandHelper.convertStringToDate(this.updatedStartTime),
-                        newPeriod.getEndTime());
-            }
-        }
-        if (this.updatedEndTime != null) {
-            if (newPeriod.getStartTime() == null) {
                 throw new IllegalValueException(MESSAGE_PERIOD_NEED_BOTH_START_AND_END_TIME);
             }
-
-            newPeriod = new Period(newPeriod.getStartTime(),
-                    CommandHelper.convertStringToDate(this.updatedEndTime));
         }
+        
         if (this.updatedRecurrence != null) {
             newRecurrence = CommandHelper.getRecurrence(this.updatedRecurrence);
         }
+        
         if (this.tagsToAdd != null) {
             for (String updatedTag : this.tagsToAdd) {
                 try {
