@@ -44,6 +44,11 @@ public class Parser {
   //regex for tasks with start and end time within same day
     private static final Pattern EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<taskName>.+)\\s*(,|on)\\s*(?<day>.+)\\s*(,|from)\\s*(?<startTime>.+)\\s*(,|-)\\s*(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
+    
+  //regex for edit
+    private static final Pattern EDIT_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<index>\\d+?)\\s+?(?<field>.+)\\s*,\\s*(?<value>.+)" , Pattern.CASE_INSENSITIVE);
+    
     public Parser() {}
     /**
      * Parses user input into command for execution.
@@ -238,26 +243,27 @@ public class Parser {
     }
     
     private Command prepareEdit(String args) {
-    	String field;
-    	String value;
-    	int index = -1;
-  
-    	String[] splitedArgs = args.trim().split("\\s+");
-    	if (splitedArgs.length >= 3) {
-    		index = Integer.parseInt(splitedArgs[0]);
-    		field = splitedArgs[1];
-    		StringBuffer toBeEdited = new StringBuffer ();
-    		for (int i = 2; i < splitedArgs.length; i++) {
-    			toBeEdited.append(splitedArgs[i]);
-    			toBeEdited.append(" ");
-    		}	
-    		value = toBeEdited.toString();
-    
-    	} else {
-    		return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        int index = Integer.parseInt(matcher.group("index"));
+        String field  = matcher.group("field");
+        String value = matcher.group("value");
+
+    	try {
+    	    if (field.equals("start date") || field.equals("end date")) {
+    	        value = new DateTimeParser(value).getDate();
+    	    }
+    	
+    	    if (field.equals("start time") || field.equals("end time")) {
+    	        value = new DateTimeParser(value).getTime();
+    	    }
+    	} catch (IllegalValueException e) {
+    	    return new IncorrectCommand(e.getMessage());
     	}
-         return new EditCommand(index, field, value.trim());
+         return new EditCommand(index, field.trim(), value.trim());
     }
 
     /**
