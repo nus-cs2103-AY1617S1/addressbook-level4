@@ -60,7 +60,16 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
         resetData(newData.getReadOnlyListOfTasks());
     }
 
-//// person-level operations
+//// task-level operations
+    
+    /**
+     * Returns the next available id for use to uniquely identify a task.
+     * @author A0139915W
+     * @return The next available id.
+     */
+    public int getNextTaskId() {
+        return tasks.getNextId();
+    }
 
     /**
      * Adds a task to savvy tasker.

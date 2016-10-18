@@ -9,6 +9,7 @@ import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.util.StringUtil;
 import seedu.savvytasker.model.person.ReadOnlyTask;
 import seedu.savvytasker.model.person.Task;
+import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
 
 import java.util.Comparator;
@@ -24,7 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final SavvyTasker savvyTasker;
     private final FilteredList<Task> filteredTasks;
-    private SortedList<Task> sortedAndFilteredTasks;
+    private final SortedList<Task> sortedAndFilteredTasks;
 
     /**
      * Initializes a ModelManager with the given SavvyTasker
@@ -81,7 +82,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task t) {
+    public synchronized void addTask(Task t) throws DuplicateTaskException {
+        t.setId(savvyTasker.getNextTaskId());
         savvyTasker.addTask(t);
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
@@ -131,7 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression, Comparator<Task> comparator) {
         filteredTasks.setPredicate(expression::satisfies);
-        sortedAndFilteredTasks = new SortedList<>(filteredTasks, comparator);
+        sortedAndFilteredTasks.setComparator(comparator);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -284,8 +286,7 @@ public class ModelManager extends ComponentManager implements Model {
             else if (task1 == null) return 1;
             else if (task2 == null) return -1;
             else {
-                int result =task1.getPriority().compareTo(task2.getPriority());
-                return result;
+                return task2.getPriority().compareTo(task1.getPriority());
             }
         }
         

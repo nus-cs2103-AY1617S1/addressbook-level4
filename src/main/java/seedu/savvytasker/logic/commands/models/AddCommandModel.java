@@ -12,7 +12,6 @@ import seedu.savvytasker.model.task.RecurrenceType;
  */
 public class AddCommandModel extends CommandModel {
     
-    private int id;
     private String taskName;
     private Date startDateTime;
     private Date endDateTime;
@@ -23,10 +22,9 @@ public class AddCommandModel extends CommandModel {
     private String category;
     private String description;
     
-    public AddCommandModel(int id, String taskName, InferredDate startDateTime, InferredDate endDateTime, String location,
+    public AddCommandModel(String taskName, InferredDate startDateTime, InferredDate endDateTime, String location,
             PriorityLevel priority, RecurrenceType recurringType, Integer numberOfRecurrence, String category, 
             String description) {
-        this.id = id;
         this.taskName = taskName;
         setStartDateTime(startDateTime);
         setEndDateTime(endDateTime);
@@ -40,14 +38,6 @@ public class AddCommandModel extends CommandModel {
     
     public AddCommandModel(String taskName) {
         this.taskName = taskName;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTaskName() {

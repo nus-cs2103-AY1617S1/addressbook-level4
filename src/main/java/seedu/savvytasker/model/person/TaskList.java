@@ -45,17 +45,45 @@ public class TaskList implements Iterable<Task> {
     }
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-
+    private int nextId = 0;
+    private boolean isNextIdInitialized = false;
+    
     /**
      * Constructs empty TaskList.
      */
     public TaskList() {}
+    
+    /**
+     * Gets the next available id for uniquely identifying a task in
+     * Savvy Tasker.
+     * @return The next available id;
+     */
+    public int getNextId() {
+        if (!isNextIdInitialized) {
+            int nextLowest = Integer.MIN_VALUE;
+            LinkedList<Integer> usedIds = new LinkedList<Integer>();
+            for (Task t : internalList) {
+                usedIds.add(t.getId());
+                if (t.getId() > nextLowest) {
+                    nextLowest = t.getId();
+                }
+            }
+            
+            // assumption that the number of tasks < 2^31
+            // implementation will be buggy if nextId exceeds 2^31
+            nextId = nextLowest;
+            assert nextId < Integer.MAX_VALUE;
+            isNextIdInitialized = true;
+        }
+        nextId++;
+        return nextId;
+    }
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
-        return true; // no requirements for duplicates at the moment.
+        return internalList.contains(toCheck);
     }
 
     /**
@@ -65,10 +93,9 @@ public class TaskList implements Iterable<Task> {
      */
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
-        //if (contains(toAdd)) {
-        //    throw new DuplicateTaskException();
-        //}
-        // no constraints on duplicate tasks
+        if (contains(toAdd)) {
+            throw new DuplicateTaskException();
+        }
         internalList.add(toAdd);
     }
 

@@ -64,10 +64,8 @@ public class AddCommandParser implements CommandParser<AddCommand> {
             String category = TASK_PARSER.parseCategory(matcher.group(REGEX_REF_CATEGORY));
             String description = TASK_PARSER.parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
 
-            //TODO: Logic manager to get static instance of id, tracking highest id used.
-            int taskId = 0;
             return new AddCommand(
-                    new AddCommandModel(taskId, taskName, startDate, 
+                    new AddCommandModel(taskName, startDate, 
                             endDate, location, priority, 
                             recurrence, nrOfRecurrence, 
                             category, description));

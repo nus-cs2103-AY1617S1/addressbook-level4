@@ -5,6 +5,7 @@ import java.util.Set;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.model.person.ReadOnlyTask;
 import seedu.savvytasker.model.person.Task;
+import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
 
 /**
@@ -23,8 +24,10 @@ public interface Model {
     /** Modifies the given Task. */
     void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException;
 
-    /** Adds the given Task. */
-    void addTask(Task task);
+    /** Adds the given Task. 
+     * @throws {@link DuplicateTaskException} if a duplicate is found
+     * */
+    void addTask(Task task) throws DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
