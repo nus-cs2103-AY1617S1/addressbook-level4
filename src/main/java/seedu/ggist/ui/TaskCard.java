@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -45,10 +46,26 @@ public class TaskCard extends UiPart{
     public void initialize() {
         taskName.setText(task.getTaskName().taskName);
         id.setText(displayedIndex + ". ");
-        startDate.setText(task.getStartDate().value);
-        startTime.setText(task.getStartTime().value);
-        endDate.setText(task.getEndDate().value);
-        endTime.setText(task.getEndTime().value);
+        if (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)) {
+            startDate.setText("");
+        } else {
+            startDate.setText(task.getStartDate().value);
+        }
+        if (task.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
+            startTime.setText("");
+        } else {
+            startTime.setText(task.getStartTime().value);
+        }
+        if (task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) {
+            endDate.setText("");
+        } else {
+            endDate.setText(task.getEndDate().value);
+        } 
+        if (task.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET)) {
+            endTime.setText("");
+        } else {
+            endTime.setText(task.getEndTime().value);
+        }
         tags.setText(task.tagsString());
     }
 
