@@ -2,23 +2,21 @@ package teamfour.tasc.ui;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import np.com.ngopal.control.AutoFillTextBox;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.events.ui.IncorrectCommandAttemptedEvent;
 import teamfour.tasc.commons.util.FxViewUtil;
 import teamfour.tasc.logic.Logic;
 import teamfour.tasc.logic.commands.CommandResult;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
@@ -34,11 +32,10 @@ public class CommandBox extends UiPart {
 
     @FXML
     private TextField commandTextField;
+    @FXML
+    private AutoFillTextBox<String> wordList;
     
     private CommandResult mostRecentResult;
-    
-    private String[] autoCompleteWordList;
-    private int wordIndex;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
             ResultDisplay resultDisplay, Logic logic) {
@@ -57,46 +54,27 @@ public class CommandBox extends UiPart {
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
+        placeHolderPane.getChildren().add(wordList);
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             checkCurrentWord(newValue);
-        });
-        commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent ke) {
-                if (ke.getCode().equals(KeyCode.UP)) {
-                    wordIndex += 1;
-                    wordIndex = (wordIndex + autoCompleteWordList.length) % autoCompleteWordList.length;
-                    autoComplete();
-                } else if (ke.getCode().equals(KeyCode.DOWN)) {
-                    wordIndex -= 1;
-                    wordIndex = (wordIndex + autoCompleteWordList.length) % autoCompleteWordList.length;
-                    autoComplete();
-                }
-            }
         });
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
     
-    private void autoComplete() {
-        if (autoCompleteWordList.length > 0) {
-            System.out.println(autoCompleteWordList[wordIndex]);
-        }
-    }
-    
     private void setWordChoices(String word) {
         String[] keywords = {"add", "clear", "complete", "delete", "exit", "find", "help", "hide", "list", "relocate", "select", "show", "undo", "update"};
-        ArrayList<String> list = new ArrayList<String>();
+        ObservableList<String> words = FXCollections.observableArrayList();
         int endIndex = word.length();
         for(String keyword: keywords) {
             if (keyword.length() >= endIndex) {
                 if (keyword.substring(0, endIndex).equalsIgnoreCase(word)) {
-                    list.add(keyword + " ");
+                    words.add(keyword + " ");
                 }
             }
         }
-        autoCompleteWordList = list.toArray(new String[0]);
-        wordIndex = 0;
-        autoComplete();
+        wordList = new AutoFillTextBox<String>(words);
+        wordList.autosize();
     }
     
     private void checkCurrentWord(String command) {
@@ -125,7 +103,9 @@ public class CommandBox extends UiPart {
 
     @FXML
     private void handleCommandInputChanged() {
+        
         //Take a copy of the command text
+        
         previousCommandTest = commandTextField.getText();
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly

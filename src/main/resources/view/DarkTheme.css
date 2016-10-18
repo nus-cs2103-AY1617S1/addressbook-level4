@@ -28,6 +28,12 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
+.word-list {
+	-fx-skin: "np.com.ngopal.control.AutoFillTextBoxSkin";
+	-fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
 .tab-pane {
     -fx-padding: 0 0 0 1;
 }
