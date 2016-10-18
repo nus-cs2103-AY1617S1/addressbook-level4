@@ -528,7 +528,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | User | Create a new task with a start time and end time | Create an event for my calendar
 `* * *` | User | Create a new task with the deadline (with no time slot) | Create a task that needs to be completed on my calendar
 `* * *` | User | Add tags to a task | Categorize the related tasks
-`* * *` | User | Change details in a task | Keep my tasks up to date
+`* * *` | User | Change details in a task | Keep the details of my tasks up to date
 `* * *` | User | Delete a task | Remove outdated tasks
 `* * *` | User | Mark a task as completed | Manage and view my tasks more effectively
 `* * *` | User | Show all tasks | See a complete view of my past and current schedule
@@ -543,6 +543,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | User | Hide tasks/events with specified tag(s) and date | Hide tasks/events which I do not care about in the list
 `* *` | User | Undo my changes | Reverse any wrong action that was taken
 `* *` | User | View a calendar interface | Visualise all my tasks in a calendar format
+`* *` | User | Change the calendar view from daily to weekly | View more tasks and events beyond the day
 `*` | User | Convert an email to a task | Create a task based on email that I have received
 `*` | User | Add a location to a task | Make my event happen on a location
 `*` | User | See all free time within a time range | Easily schedule other tasks/events into a free time
@@ -559,25 +560,22 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS:**
 
 1. User creates new task with start time and end time
-2. Program checks the start time and end time
-3. Program creates the task with given start time and end time<br>
+2. Program creates the task with given start time and end time<br>
 Use case ends
 
 **Extensions:**
 
 2a. The start time or end time given is invalid
-> 2a1. Program shows an error message<br>
-> 2a2. Program prompts for re-type of task details<br>
-> 2a3. User re-types the start time and end time<br>
+> 2a1. Program shows an error message, prompts for re-type of task details<br>
+> 2a2. User re-types the start time and end time<br>
   Use case resumes at step 2
 
 2b. The start time is later than the end time
-> 2b1. Program shows an error message<br>
-> 2b2. Program provides two options: Swap time around, or re-type task details<br>
->     * 2b2i. User requests to swap time around<br>
+> 2b1. Program shows an error message, provides two options: Swap time around, or re-type task details<br>
+>     * 2b1i. User requests to swap time around<br>
 >           * Program swap time around<br>
 >           * Use case resumes at step 3<br>
->     * 2b2ii. User requests to retype timing<br>
+>     * 2b1ii. User requests to retype timing<br>
 >           * Use case resumes at step 2a3
 
 <br>
@@ -688,12 +686,13 @@ Use case ends
 
 1. User requests to delete all data
 2. Program ask for user's confirmation
-3. Program deletes all data<br>
+3. User confirms the deletion
+4. Program deletes all data<br>
 Use case ends
 
 **Extensions:**
 
-2a. User declines the confirmation
+3a. User declines the confirmation
 > Use case ends
 
 <br>
@@ -715,8 +714,7 @@ Use case ends
 
 2a. Previous data storage file location has a data file
 
-> 2a1. Program copies the data file to the current location
-> 2a2. Program deletes the data file from the previous location<br>
+> 2a1. Program copies the data file to the current location and deletes the data file from the previous location<br>
   Use case ends
 
 <br>
@@ -731,13 +729,13 @@ Use case ends
 5. The application should run primarily on commandline-like interface.
 6. The application should be able to work offline.
 7. The application should ship with regression testing available.
-8. The application should be able to handle both tasks and events as the same concept.
+8. The application should be able to handle floating tasks (tasks with no deadline at all), normal tasks and events as the same concept.
 9. The source code should be well-documented and ready to be continued by someone else.
 10. The application should allow users to undo up to at least 10 most recent commands.
 11. The application should be usable straight away, without requiring any installation.
-12. The application should allow users to change the stored data location.
+12. The application should still be usable even if the storage data is at a different location rather than at the default location.
 13. Version control should be used during development of product.
-14. The application should provide help when the user enters an invalid command.
+14. The application should come with user-friendly documentation to teach users how to use.
 15. The data storage file should be in a human-readable and editable format.
 
 <br>
@@ -797,7 +795,12 @@ Weaknesses:
 
 Summary:
 
-The calendar view is a useful feature to help users visualize their schedules. On the other hand, the lack of ability to add floating tasks may cause inconvenience to users.
+The calendar view is a useful feature to help users visualize their schedules. On the other hand,
+the lack of ability to add floating tasks may cause inconvenience to users. 
+
+Our Program:
+
+We will allow tasks with no deadlines and time slots (periods).
 <br><br>
 
 #### Todoist
@@ -824,6 +827,11 @@ Weaknesses:
 Summary:
 
 Does not store completed tasks, and still requires mouse for most actions
+
+Our Program:
+
+We will include completion status for all tasks. All commands will be able to be executed by typing
+them through the command box.
 <br><br>
 
 #### Microsoft Outlook
@@ -858,6 +866,11 @@ Summary:
 
 While it provides recurring features, and seperates tasks and events, tasks are not shown on the calendar view, which
 makes it hard to visualise the due dates of the tasks. The use of mouse is required for some features.
+
+Our Program:
+
+We will not only provide a good calendar UI for tasks, we will also strive to minimize mouse usage by allowing
+user to access the commands by typing through the command box.
 <br><br>
 
 #### iCalendar
@@ -889,3 +902,7 @@ Weaknesses:
 Summary:
 
 Its design is very user-friendly. Since it is supported by other powerful modules by Apple, it has relatively complete features and functionalities. However, it would be better if further details of tasks and events are supported.
+
+Our Program:
+
+We will implement completion status. We will implement prioritizing of tasks through using tags.
