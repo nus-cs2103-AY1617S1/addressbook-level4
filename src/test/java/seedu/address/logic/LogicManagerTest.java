@@ -415,6 +415,9 @@ public class LogicManagerTest {
         assertToolTipBehavior("ad", AddCommand.TOOL_TIP + "\n");
         assertToolTipBehavior("add", AddCommand.TOOL_TIP + "\n");
         assertToolTipBehavior("add f", AddCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("meet akshay at 1pm", AddCommand.TOOL_TIP + "\n");
+        // TODO: the behavior for this case..
+        //assertToolTipBehavior("do cs2103 tests", AddCommand.TOOL_TIP + "\n");
     }
     
     @Test
