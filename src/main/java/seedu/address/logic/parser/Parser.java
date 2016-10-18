@@ -210,13 +210,17 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
         }
         try {
-            RecurringType recurringType;
+            RecurringType recurringType = RecurringType.NONE;
             
             if (matcher.group("recurring").isEmpty()) {
                 recurringType = RecurringType.NONE;
             }
             else {
-                recurringType = extractRecurringInfo(matcher.group("recurring"));
+                try{
+                    recurringType = extractRecurringInfo(matcher.group("recurring"));
+                } catch (IllegalArgumentException iae) {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));                    
+                }
             }
             
             if(matcher.group("deadline") != null) {
@@ -589,7 +593,7 @@ public class Parser {
         return dateGroups.get(0).getDates().get(0);
     }
     
-    public static RecurringType extractRecurringInfo(String recurringInfo) {
+    public static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
         recurringInfo = recurringInfo.toUpperCase().trim();
         RecurringDateParser recurringParser = RecurringDateParser.getInstance();
         return recurringParser.getRecurringType(recurringInfo);

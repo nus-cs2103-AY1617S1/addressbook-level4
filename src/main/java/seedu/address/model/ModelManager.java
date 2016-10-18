@@ -192,7 +192,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(TaskDateComponent task) {
 
-            return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.tIsArchived();
+            return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.isArchived();
         }
 
         @Override
@@ -211,7 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(TaskDateComponent task) {
 
-            return task.tIsArchived() == isArchived;
+            return task.isArchived() == isArchived;
         }
 
         @Override

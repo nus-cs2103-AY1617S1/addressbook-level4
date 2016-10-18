@@ -22,7 +22,7 @@ public class RecurringDateParser {
         }
     }
     
-    public RecurringType getRecurringType(String input) {
+    public RecurringType getRecurringType(String input) throws IllegalArgumentException {
         if (recurringTypes.contains(RecurringType.valueOf(input))) {
             return RecurringType.valueOf(input);
         }
