@@ -9,6 +9,8 @@ public class CommandParserList {
 		return new Class[]{AddCommandParser.class, DeleteCommandParser.class, FindCommandParser.class,
 				FavoriteCommandParser.class,
 				UnfavoriteCommandParser.class,
+				CompleteCommandParser.class,
+				UncompleteCommandParser.class,
 				ListCommandParser.class,
 				AddAliasCommandParser.class, 
 				DeleteAliasCommandParser.class};

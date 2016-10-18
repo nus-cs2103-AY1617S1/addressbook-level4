@@ -6,7 +6,7 @@ import java.util.Date;
 /*
  * A DeadlineTask is a task that holds a date as the deadline
  */
-public class DeadlineTask extends Task implements FavoritableTask, DatedTask {
+public class DeadlineTask extends Task implements FavoritableTask, CompletableTask, DatedTask {
 
 	private Date deadline;
 

@@ -25,11 +25,12 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	private final FilteredList<Task> filteredTasks;
 
 
+
 	public TaskManager() {
-		// TODO: make use of loaded data
 		this.tasks = new UniqueItemCollection<Task>();
 		this.alias = new UniqueItemCollection<Alias>();
 		filteredTasks = new FilteredList<>(tasks.getInternalList());
+		filterUncompletedTasks();
 	}
 	
 	public TaskManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> alias, UserPrefs userPrefs) {
@@ -68,6 +69,22 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		
 	}
 	
+	@Override
+	public void completeTask(Task toComplete) {
+		assert tasks.contains(toComplete);
+		toComplete.setAsComplete();
+		indicateTaskManagerChanged();
+		
+	}
+	
+	@Override
+	public void uncompleteTask(Task toUncomplete) {
+		assert tasks.contains(toUncomplete);
+		toUncomplete.setAsUncomplete();
+		indicateTaskManagerChanged();
+		
+	}
+	
     /** Keeps the internal ObservableList sorted.
      * Raises an event to indicate the model has changed.
      */
@@ -81,14 +98,25 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	    filterTasks(new PredicateExpression(new NameQualifier(keywords)));
 	}
 	
+	
 	public void filterTasks(Expression expression) {
 	    filteredTasks.setPredicate(expression::satisfies);
 	}
-
+	
+	@Override
+	public void filterUncompletedTasks() {
+		filteredTasks.setPredicate(p -> !p.isComplete());
+	}
+	
 	@Override
 	public void clearTasksFilter() {
-	    filteredTasks.setPredicate(null);
+	    filteredTasks.setPredicate(p -> !p.isComplete());
 		
+	}
+	
+	@Override
+	public void filterCompletedTasks(){
+		filteredTasks.setPredicate(p -> p.isComplete());
 	}
 
 	@Override
@@ -117,7 +145,8 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	public UnmodifiableObservableList<Alias> getAlias() {
 		return new UnmodifiableObservableList<>(alias.getInternalList());
 	}
-  	
+    
+   
 	interface Expression {
         boolean satisfies(Task task);
         String toString();
@@ -167,8 +196,5 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
-
-
 	
 }

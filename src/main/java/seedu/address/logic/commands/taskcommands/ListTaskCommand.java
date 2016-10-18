@@ -14,6 +14,8 @@ public class ListTaskCommand extends TaskCommand {
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     public static final String MESSAGE_NOTASKS = "No tasks to list";
     public static final String MESSAGE_ALIAS_SUCCESS = "Listed all aliases";
+    public static final String MESSAGE_COMPLETED_SUCCESS = "Listed all completed tasks";
+
     public final String argument;
     
     public ListTaskCommand(String argument) {
@@ -27,8 +29,11 @@ public class ListTaskCommand extends TaskCommand {
             return new CommandResult(MESSAGE_ALIAS_SUCCESS);
 
         }
+        if(argument.equals("completed")){
+        	model.filterCompletedTasks();
+        	return new CommandResult(MESSAGE_COMPLETED_SUCCESS);
+        }
         else {
-
             model.clearTasksFilter();
             if(model.getCurrentFilteredTasks().size() == 0) {
                 return new CommandResult(MESSAGE_NOTASKS);

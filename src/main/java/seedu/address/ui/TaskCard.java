@@ -29,20 +29,30 @@ public class TaskCard extends UiPart{
     private int displayedIndex;
 
     public TaskCard(){
-
     }
 
     public static TaskCard load(Task task, int displayedIndex){
-        TaskCard card = new TaskCard();
-        card.task = task;
-        card.displayedIndex = displayedIndex;
-        return UiPartLoader.loadUiPart(card);
+    	//if(task.isComplete()){
+    		TaskCard card = new TaskCard();
+    		card.task = task;
+    		card.displayedIndex = displayedIndex;
+    		return UiPartLoader.loadUiPart(card);
+    	/*}
+    	else{
+    		return null;
+    	}
+    	*/
     }
 
     @FXML
     public void initialize() {
         description.setText(task.getDescription().getContent());
-        id.setText(displayedIndex + ". ");
+        if(task.isComplete()){
+        	id.setText(displayedIndex + ". [Completed] ");
+        }
+        else{
+        	id.setText(displayedIndex + ". ");
+        }
         
         // Format to display the dates
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
