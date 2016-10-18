@@ -2,6 +2,7 @@ package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.logic.commands.models.AliasCommandModel;
 import seedu.savvytasker.model.person.*;
+import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 
 /**
  * Command to create aliases
@@ -34,8 +35,7 @@ public class AliasCommand extends Command {
         try {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (Exception e) {
-            //TODO: Exception for duplicate alias
+        } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ALIAS);
         }
 
