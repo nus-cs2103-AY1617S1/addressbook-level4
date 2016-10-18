@@ -379,6 +379,7 @@ Priority | As a ... | I want to ... | So that I can...
 #### Use case: Mark task as done
 
 **MSS**
+
 1. User request to mark a specific task as done.
 2. System prompts for confirmation.
 3. User confirms.
