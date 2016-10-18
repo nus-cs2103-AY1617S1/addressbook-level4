@@ -7,6 +7,8 @@ import seedu.agendum.commons.exceptions.IllegalValueException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static seedu.agendum.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.agendum.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -22,6 +24,8 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+
+    private static final Pattern TASK_INDEXES_ARGS_FORMAT = Pattern.compile("((\\d+|\\d+-\\d+)?[ ]*,?[ ]*)+");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -115,14 +119,13 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        Set<Integer> taskIds = parseIndexes(args);
+        if (taskIds.isEmpty()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
-        return new DeleteCommand(index.get());
+        return new DeleteCommand(taskIds);
     }
 
     /**
@@ -132,14 +135,13 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareMark(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        Set<Integer> taskIds = parseIndexes(args);
+        if (taskIds.isEmpty()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
 
-        return new MarkCommand(index.get());
+        return new MarkCommand(taskIds);
     }
  
     /**
@@ -149,14 +151,13 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareUnmark(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        Set<Integer> taskIds = parseIndexes(args);
+        if (taskIds.isEmpty()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
         }
 
-        return new UnmarkCommand(index.get());
+        return new UnmarkCommand(taskIds);
     }
 
     /**
@@ -172,14 +173,14 @@ public class Parser {
         }
         final String givenIndex = matcher.group("targetIndex");
         final String givenName = matcher.group("name").trim();
-        Optional<Integer> index = parseIndex(givenIndex);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
+        final int index = Integer.parseInt(givenIndex);
+
+        if (index <= 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
         }
 
         try {
-            return new RenameCommand(index.get(), givenName);
+            return new RenameCommand(index, givenName);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -217,6 +218,37 @@ public class Parser {
         }
         return Optional.of(Integer.parseInt(index));
 
+    }
+
+    /**
+     * Returns the specified indices in the {@code command} if positive unsigned integer(s) are given.
+     *   Returns an empty set otherwise.
+     */
+    private Set<Integer> parseIndexes(String args) {
+        final Matcher matcher = TASK_INDEXES_ARGS_FORMAT.matcher(args.trim());
+        Set<Integer> taskIds = new HashSet<Integer>();
+
+        if (!matcher.matches()) {
+            return taskIds;
+        }
+
+        args = args.replaceAll("[ ]+", ",").replaceAll(",+", ",");
+        String[] taskIdStrings = args.split(",");
+        for (String taskIdString : taskIdStrings) {
+            if (taskIdString.matches("\\d+")) {
+                taskIds.add(Integer.parseInt(taskIdString));
+            } else if (taskIdString.matches("\\d+-\\d+")) {
+                String[] startAndEndIndexes = taskIdString.split("-");
+                int startIndex = Integer.parseInt(startAndEndIndexes[0]);
+                int endIndex = Integer.parseInt(startAndEndIndexes[1]);
+                taskIds.addAll(IntStream.rangeClosed(startIndex,endIndex).boxed().collect(Collectors.toList()));
+            }
+        }
+        if (taskIds.remove(0)) {
+            return new HashSet<Integer>();
+        }
+
+        return taskIds;
     }
 
     /**

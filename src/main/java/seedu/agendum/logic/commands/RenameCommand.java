@@ -15,7 +15,7 @@ public class RenameCommand extends Command {
     public static final String COMMAND_WORD = "rename";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rename an existing task. "
-            + "Parameters: INDEX (must be a positive integer) NAME\n"
+            + "Parameters: INDEX (must be a positive number) NAME\n"
             + "Example: " + COMMAND_WORD
             + " 2 Watch Star Wars";
 

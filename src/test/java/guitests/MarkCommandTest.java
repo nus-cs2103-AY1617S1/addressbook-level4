@@ -9,6 +9,8 @@ import seedu.agendum.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 public class MarkCommandTest extends ToDoListGuiTest {
 
     @Test
@@ -51,7 +53,9 @@ public class MarkCommandTest extends ToDoListGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedList));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, taskToMark));
+        ArrayList<Integer> markedTaskIndices = new ArrayList<Integer>();
+        markedTaskIndices.add(targetIndexOneIndexed);
+        assertResultMessage(String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, markedTaskIndices));
     }
 
 }
