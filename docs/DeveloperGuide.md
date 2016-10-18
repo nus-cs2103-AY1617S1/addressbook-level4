@@ -1,5 +1,6 @@
 # Developer Guide
 
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -11,6 +12,10 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
+## Introduction
+Welcome to the <i>Tusk</i> codebase! This guide aims to get you to speed as soon as possible with the development environment, general architecture and in-depth implementation details, in that order.
+
+Let's get started!
 
 ## Setting up
 
@@ -46,8 +51,7 @@
 ## Design
 
 ### Architecture
-
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/TuskArchitecture.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -56,12 +60,20 @@ Given below is a quick overview of each component.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+Three of those classes play important roles at the architecture level.
+* `EventsCentre` : Used by components to communicate with other components using events (i.e. a form of _Event Driven_ design) (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `UniqueItemCollection<T>` : Used to store unique lists of Tasks and Aliases.
 
 The rest of the App consists four components.
+
+Component Name | Interface | Implementation |
+-------- | :----------- | :-----------
+[**`UI`**](#ui-component) | [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java) | UIManager.java
+[**`Logic`**](#logic-component) | [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java) | LogicManager.java
+[**`Model`**](#model-component) | [`InMemoryTaskList.java`](../src/main/java/seedu/address/model/task/InMemoryTaskList.java) | TaskManager.java
+[**`Storage`**](#storage-component) | [`TaskStorage.java`](../src/main/java/seedu/address/model/task/InMemoryTaskList.java)
+
 * [**`UI`**](#ui-component) : The UI of tha App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
