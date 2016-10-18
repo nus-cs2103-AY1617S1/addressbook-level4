@@ -18,8 +18,9 @@ public class TimePreparser {
                     String rearrangedDate = matcher.group("month") + "/" + matcher.group("day") + "/"
                             + matcher.group("year");
                     System.out.println("rearrangedDate: "+rearrangedDate);
-                    result += rearrangedDate + " ";
+                    token = rearrangedDate;
                 }   
+                result +=  token + " ";
             }
         } 
         else {
