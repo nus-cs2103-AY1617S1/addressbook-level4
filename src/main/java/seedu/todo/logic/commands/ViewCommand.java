@@ -41,7 +41,7 @@ public class ViewCommand extends BaseCommand {
         TaskViewFilters[] viewArray = TaskViewFilters.values();
         String viewSpecified = view.getValue().trim().toLowerCase();
         for (int i=0; i<viewArray.length; i++){
-            if(viewArray[i].toString().contentEquals(viewSpecified)){
+            if(viewArray[i].getViewName().contentEquals(viewSpecified)){
                 this.viewSpecified = viewArray[i];
                 return;
             }
