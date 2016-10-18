@@ -32,19 +32,22 @@ public class StartTime {
     	}
     	else{
     		String preparsedTime = TimePreparser.preparse(input);
-    		if(!preparsedTime.equals(new Date(0).toString())){
-        		List<DateGroup> dates = new Parser().parse(preparsedTime);
-        		if(dates.isEmpty()){
-        			throw new IllegalValueException("Start time is invalid!");
-        		}
-        		else if(dates.get(0).getDates().isEmpty()){
-        			throw new IllegalValueException("Start time is invalid!");
-        		}
-        		else{
-        			startTime.setTime(dates.get(0).getDates().get(0));
-        		}
-        	}
+    		List<DateGroup> dates = new Parser().parse(preparsedTime);
+    		if(dates.isEmpty()){
+    			throw new IllegalValueException("Start time is invalid!");
+    		}
+    		else if(dates.get(0).getDates().isEmpty()){
+    			throw new IllegalValueException("Start time is invalid!");
+    		}
+    		else{
+    			startTime.setTime(dates.get(0).getDates().get(0));
+    		}
     	}
+    }
+    
+    public StartTime(Long unixTime) {
+    	startTime = Calendar.getInstance();
+    	startTime.setTimeInMillis(unixTime);
     }
 
     @Override
