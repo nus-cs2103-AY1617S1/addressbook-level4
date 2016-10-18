@@ -113,9 +113,10 @@
 }
 
 /***View Filter Styles Start***/
-.viewFilter {
+.viewFilter .label{
     -fx-font-family: "Segoe UI";
     -fx-font-size: 14pt;
+    -fx-text-fill: #FFFFFF;
 }
 
 .viewFilter .selected {
@@ -128,8 +129,6 @@
     -fx-text-fill: #2D2D2D;
     -fx-font-family: "Segoe UI Semibold";
 }
-
-
 
 /***TaskCard Styles Start***/
 /*Default and Base*/
