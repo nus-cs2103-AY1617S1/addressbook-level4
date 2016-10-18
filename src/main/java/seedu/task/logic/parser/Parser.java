@@ -138,6 +138,9 @@ public class Parser {
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        } else if (matcher.group("newTitle")==null && matcher.group("description")==null && matcher.group("startDate")==null && matcher.group("dueDate")==null
+        		&& matcher.group("interval")==null && matcher.group("timeInterval")==null && matcher.group("tagArguments")==null) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         try {
 			return new EditCommand(
