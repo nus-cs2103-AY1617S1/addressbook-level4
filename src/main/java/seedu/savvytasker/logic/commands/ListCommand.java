@@ -50,7 +50,7 @@ public class ListCommand extends Command {
         default:
             assert false; // should not reach here
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
     
     @Override
