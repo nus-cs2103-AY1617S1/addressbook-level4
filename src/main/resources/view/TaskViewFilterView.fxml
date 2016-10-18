@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.FlowPane?>
 
-
-<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" />
+<FlowPane alignment="CENTER_LEFT" hgap="6.0" maxWidth="-Infinity" minWidth="-Infinity" styleClass="viewFilter" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.TaskViewFilterView">
+   <padding>
+      <Insets bottom="-4.0" right="8.0" top="-4.0" />
+   </padding>
+</FlowPane>
