@@ -10,6 +10,7 @@ import tars.model.task.TaskQuery;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
+import tars.model.task.rsv.RsvTask;
 
 import java.time.DateTimeException;
 import java.util.HashMap;
@@ -40,6 +41,9 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
+    
+    /** Adds the given reserved task */
+    void addRsvTask(RsvTask rsvTask) throws DuplicateTaskException;
 
     /** Marks tasks as done or undone. */
     void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException;
@@ -66,5 +70,7 @@ public interface Model {
     
     /** Returns the redoable command history stack */
     Stack<Command> getRedoableCmdHist();
+
+   
 
 }
