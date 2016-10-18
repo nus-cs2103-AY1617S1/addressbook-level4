@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import java.util.Set;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -14,7 +15,6 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.Alias;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.Task;
 
 /*
  * Manages a list of tasks 1and acts as a gateway for Commands to perform CRUD operations on the list
@@ -25,22 +25,29 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	private final FilteredList<Task> filteredTasks;
 
 
+
 	public TaskManager() {
-		// TODO: make use of loaded data
-		this.tasks = new UniqueItemCollection<Task>();
-		this.alias = new UniqueItemCollection<Alias>();
-		filteredTasks = new FilteredList<>(tasks.getInternalList());
+		this(new UniqueItemCollection<Task>(), new UniqueItemCollection<Alias>(), null);		
 	}
 	
 	public TaskManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> alias, UserPrefs userPrefs) {
 		this.tasks = tasks;
 		this.alias = alias;
 		filteredTasks = new FilteredList<>(this.tasks.getInternalList());
+		filterUncompletedTasks();
 	}
 	
 	@Override
 	public synchronized void addTask(Task toAdd) throws DuplicateItemException {
 		tasks.add(toAdd);
+		indicateTaskManagerChanged();
+	}
+	
+	@Override
+	public synchronized void updateTask(Task toUpdate, Task newTask) throws ItemNotFoundException {
+		assert tasks.contains(toUpdate);
+		
+		tasks.replace(toUpdate, newTask);
 		indicateTaskManagerChanged();
 	}
 
@@ -56,7 +63,6 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		
 		toFavorite.setAsFavorite();
 		indicateTaskManagerChanged();
-		
 	}
 
 	@Override
@@ -64,6 +70,21 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		assert tasks.contains(toUnfavorite);
 		
 		toUnfavorite.setAsNotFavorite();
+		indicateTaskManagerChanged();
+	}
+	
+	@Override
+	public void completeTask(Task toComplete) {
+		assert tasks.contains(toComplete);
+		toComplete.setAsComplete();
+		indicateTaskManagerChanged();
+		
+	}
+	
+	@Override
+	public void uncompleteTask(Task toUncomplete) {
+		assert tasks.contains(toUncomplete);
+		toUncomplete.setAsUncomplete();
 		indicateTaskManagerChanged();
 		
 	}
@@ -81,14 +102,31 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	    filterTasks(new PredicateExpression(new NameQualifier(keywords)));
 	}
 	
+	
 	public void filterTasks(Expression expression) {
 	    filteredTasks.setPredicate(expression::satisfies);
 	}
-
+	
+	@Override
+	public void filterUncompletedTasks() {
+		filteredTasks.setPredicate(p -> !p.isComplete());
+	}
+	
 	@Override
 	public void clearTasksFilter() {
-	    filteredTasks.setPredicate(null);
-		
+	    filteredTasks.setPredicate(p -> !p.isComplete());
+	}
+	
+	@Override
+	public void refreshTasksFilter() {
+		Predicate<? super Task> currentPredicate = filteredTasks.getPredicate();
+		filteredTasks.setPredicate(null);
+		filteredTasks.setPredicate(currentPredicate);
+	}
+	
+	@Override
+	public void filterCompletedTasks(){
+		filteredTasks.setPredicate(p -> p.isComplete());
 	}
 
 	@Override
@@ -117,7 +155,8 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	public UnmodifiableObservableList<Alias> getAlias() {
 		return new UnmodifiableObservableList<>(alias.getInternalList());
 	}
-  	
+    
+   
 	interface Expression {
         boolean satisfies(Task task);
         String toString();
@@ -167,8 +206,5 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
-
-
 	
 }

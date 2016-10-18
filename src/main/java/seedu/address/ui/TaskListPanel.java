@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.model.task.Task;
 import seedu.address.commons.core.LogsCenter;
 
@@ -64,21 +63,11 @@ public class TaskListPanel extends UiPart {
     private void setConnections(ObservableList<Task> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent();
     }
 
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
     }
 
     public void scrollTo(int index) {
@@ -96,11 +85,12 @@ public class TaskListPanel extends UiPart {
         @Override
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
-
+            
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
-            } else {
+            } 
+            else {
             	TaskCard currentCard = TaskCard.load(task, getIndex() + 1);
             	HBox cardPane = currentCard.getLayout();
                
@@ -112,8 +102,6 @@ public class TaskListPanel extends UiPart {
                 } else {
                 	cardPane.setStyle(null);
                 }
-                
-                
             }
         }
     }

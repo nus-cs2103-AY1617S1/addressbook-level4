@@ -24,7 +24,7 @@ public class FindTaskCommandTest {
 	public void setup() throws IllegalValueException {
 		// Initialize task list to hold 3 tasks ("Task 1", "Task 2", "Task 3")
 		emptyTaskList = TestUtil.setupEmptyTaskList();
-		taskList = TestUtil.setupSomeTasksInTaskList(3);
+		taskList = TestUtil.setupFloatingTasks(3);
 	}
 	
 	@Test

@@ -1,0 +1,450 @@
+<html>
+<body>
+<article class="markdown-body entry-content" itemprop="text"><h1>User Guide</h1>
+
+<h2>Command Summary</h2>
+
+<table><thead>
+<tr>
+<th>Command</th>
+<th align="left">Format</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Help</td>
+<td align="left"><code>help</code></td>
+</tr>
+<tr>
+<td>Add floating tasks</td>
+<td align="left"><code>add TASK</code></td>
+</tr>
+<tr>
+<td>Add deadline tasks</td>
+<td align="left"><code>add TASK by DATE</code></td>
+</tr>
+<tr>
+<td>Add event tasks</td>
+<td align="left"><code>add TASK from START_DATE to/- END_DATE</code></td>
+</tr>
+<tr>
+<td>Add daily</td>
+<td align="left"><code>add daily, TASK</code></td>
+</tr>
+<tr>
+<td>Add weekly</td>
+<td align="left"><code>add weekly [on] DAY_OF_WEEK[s], TASK</code></td>
+</tr>
+<tr>
+<td>Add monthly</td>
+<td align="left"><code>add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK</code></td>
+</tr>
+<tr>
+<td>Add yearly</td>
+<td align="left"><code>add yearly [on] DATE, TASK</code></td>
+</tr>
+<tr>
+<td>List</td>
+<td align="left"><code>list</code></td>
+</tr>
+<tr>
+<td>Find</td>
+<td align="left"><code>find KEYWORD [MORE_KEYWORDS]</code></td>
+</tr>
+<tr>
+<td>Update task</td>
+<td align="left"><code>update INDEX task UPDATED_VALUE</code></td>
+</tr>
+<tr>
+<td>Update description</td>
+<td align="left"><code>update INDEX description UPDATED_VALUE</code></td>
+</tr>
+<tr>
+<td>Update date</td>
+<td align="left"><code>update INDEX date UPDATED_VALUE</code></td>
+</tr>
+<tr>
+<td>Delete</td>
+<td align="left"><code>delete INDEX</code></td>
+</tr>
+<tr>
+<td>Favorite</td>
+<td align="left"><code>favorite INDEX</code></td>
+</tr>
+<tr>
+<td>Unfavorite</td>
+<td align="left"><code>unfavorite INDEX</code></td>
+</tr>
+<tr>
+<td>List favorites</td>
+<td align="left"><code>list favorite[s]</code></td>
+</tr>
+<tr>
+<td>Alias</td>
+<td align="left"><code>alias SHORTCUT ANY_SENTENCE</code></td>
+</tr>
+<tr>
+<td>Unalias</td>
+<td align="left"><code>unalias SHORTCUT</code></td>
+</tr>
+<tr>
+<td>List aliases</td>
+<td align="left"><code>list alias[es]</code></td>
+</tr>
+<tr>
+<td>Undo</td>
+<td align="left"><code>undo</code></td>
+</tr>
+<tr>
+<td>Clear</td>
+<td align="left"><code>clear</code></td>
+</tr>
+<tr>
+<td>Sync</td>
+<td align="left"><code>sync</code></td>
+</tr>
+</tbody></table>
+<h2>Commands</h2>
+
+<blockquote>
+<p><strong>Command Format</strong></p>
+
+<ul>
+<li>Words in <code>UPPER_CASE</code> are the parameters.</li>
+<li>Items with <code>/</code> imply that only one of them is chosen.</li>
+<li>Items surrounded by open(<code>[</code>) and closed(<code>]</code>) square brackets are optional.</li>
+<li>Items surrounded by open(<code>(</code>) and closed(<code>)</code>) brackets are grouped together.</li>
+<li>The order of parameters is fixed.</li>
+</ul>
+</blockquote>
+
+<h4>Viewing help : <code>help</code></h4>
+
+<p>Format: <code>help</code></p>
+
+<blockquote>
+<p>Help is also shown if you enter an incorrect command e.g. <code>abcd</code></p>
+</blockquote>
+
+<br>
+
+<h4>Adding a task: <code>add</code></h4>
+
+<p>Adds a task to the task manager. <br>
+The task can be a floating task with only a description, or <br>
+it can be a deadline task with a description and a deadline, or <br>
+it can be an event task with a description, a start date and an end date.<br>
+Format (floating): <code>add TASK</code> <br>
+Format (deadline): <code>add TASK by DATE</code> <br>
+Format (event): <code>add TASK from START_DATE to/- END_DATE</code></p>
+
+<blockquote>
+<p><strong>Date Format</strong></p>
+
+<ul>
+<li>Note that <code>DATE</code> and all other dates follow the following format: </li>
+<li>1) <code>DAY MONTH</code> or <code>MONTH DAY</code></li>
+<li>2) <code>DAY MONTH YEAR</code> or <code>MONTH DAY YEAR</code></li>
+<li><code>MONTH</code> should be in alphabets instead of numbers.</li>
+<li><code>MONTH</code> can either be in the long-form ('October') or the short-form ('Oct'), and it is case-insensitive.</li>
+<li>Any deviations from the above format may not be interpreted correctly.</li>
+</ul>
+</blockquote>
+
+<p>Examples (floating):</p>
+
+<ul>
+<li><code>add Project meeting</code></li>
+</ul>
+
+<p>Examples (deadline):</p>
+
+<ul>
+<li><code>add Project meeting by Oct 10</code></li>
+<li><code>add Project meeting by 10 October 2016</code></li>
+<li><code>add Project meeting by OcToBeR 10 2017</code></li>
+</ul>
+
+<p>Examples (event):</p>
+
+<ul>
+<li><code>add Project meeting from Oct1-Oct2</code></li>
+<li><code>add Project meeting from Oct 1 to Oct 2</code></li>
+<li><code>add Overseas work from 1 Aug 2016 to 31 Aug 2017</code></li>
+<li><code>add Overseas work from 1 August 2016 - 31 August 2017</code>
+For event tasks, make sure that <code>START_DATE</code> is earlier than <code>END_DATE</code> or it will be rejected.</li>
+</ul>
+
+<p><br></p>
+
+<h4>Adding a recurring task: <code>add daily/weekly/monthly/yearly</code></h4>
+
+<p>Adds a recurring task to the task manager.<br>
+Format (daily): <code>add daily, TASK</code> <br> 
+Format (weekly): <code>add weekly [on] DAY_OF_WEEK[s], TASK</code> <br>
+Format (monthly): <code>add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK</code> <br>
+Format (yearly): <code>add yearly [on] DATE, TASK</code> <br></p>
+
+<blockquote>
+<p>Note that a comma <code>,</code> is needed after every <code>add daily/weekly/monthly/yearly</code> <br>
+For <code>add monthly</code>, if the <code>DAY_OF_MONTH</code> is too large for certain months (E.g. 31 is too large for February), it will be ignored on those months.</p>
+</blockquote>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>add daily, Morning exercise</code></li>
+<li><code>add weekly on Monday, dance lesson Wednesday from Oct 1 - Oct 2</code></li>
+<li><code>add weekly on Mondays, dance lesson Wednesday from Oct 1 - Oct 2</code></li>
+<li><code>add monthly 20, Project review with colleagues</code></li>
+<li><code>add monthly on 20, Project review with colleagues</code></li>
+<li><code>add monthly on 21st, Project review with colleagues</code></li>
+<li><code>add monthly on 22nd, Project review with colleagues</code></li>
+<li><code>add monthly on 23rd, Project review with colleagues</code></li>
+<li><code>add monthly on 24th, Project review with colleagues</code></li>
+<li><code>add yearly 21 Oct, Mom's birthday</code></li>
+<li><code>add yearly on 21 Oct, Mom's birthday</code></li>
+</ul>
+
+<p><br></p>
+
+<h4>Listing all tasks : <code>list</code></h4>
+
+<p>Shows a list of all the tasks.<br>
+Format: <code>list</code></p>
+
+<p><br></p>
+
+<h4>Searching for tasks using keywords: <code>find</code></h4>
+
+<p>Finds tasks that contain any of the given keywords.<br>
+Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+
+<blockquote>
+<p>Finds all the tasks with the keywords. <br>
+Only full words will be matched e.g. meeting will not match meetings
+Tasks matching at least one keyword will be returned (i.e. OR search).</p>
+</blockquote>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>find meeting</code> <br>
+Returns all tasks with the keyword meeting.</li>
+<li><code>find lunch dinner</code> <br>
+Returns any task with lunch or dinner.</li>
+</ul>
+
+<p><br></p>
+
+<h4>Updating a task: <code>update</code></h4>
+
+<p>Updates the entire task, the description of the task or the date of the task.<br>
+Format (task): <code>update INDEX task UPDATED_VALUE</code> <br>
+Format (description): <code>update INDEX description UPDATED_VALUE</code> <br>
+Format (date): <code>update INDEX date UPDATED_VALUE</code></p>
+
+<blockquote>
+<p>Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+<code>task</code>: Updates the entire task as if <code>add UPDATED_VALUE</code> has been executed <br>
+<code>description</code>: Updates the description of the task with <code>UPDATED_VALUE</code> <br>
+<code>date</code>: Updates the date of the task with <code>UPDATED_VALUE</code> if it is already has a date</p>
+</blockquote>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>list</code></li>
+<li><code>update 1 task overseas from oct 31 to nov 1</code> <br>
+Updates the entire task as though so that the description is <code>overseas</code>, the start date is <code>oct 31</code> and the end date is <code>nov 1</code></li>
+<li><code>list</code></li>
+<li><code>update 2 description project discussion</code> or</li>
+<li><code>update 2 description project discussion</code> <br>
+Updates the description of the 2nd task on the list with <code>project discussion</code></li>
+<li><code>list</code></li>
+<li><code>update 1 date 31 October 2016</code> <br>
+Updates the date of the 1st task on the list to <code>31 October 2016</code></li>
+<li><code>find dinner</code></li>
+<li><code>update 1 date 6pm-7pm</code> <br>
+Updates the 1st task in the results of the <code>find</code> command with the new start time and end time if the task has a start date and an end date (event task)</li>
+</ul>
+
+<p><br></p>
+
+<h4>Deleting a task: <code>delete</code></h4>
+
+<p>Deletes the specified task.<br>
+Format: <code>delete INDEX</code></p>
+
+<blockquote>
+<p>Deletes the task at the specific index. The index refers to the index shown in the most recent listing. <br>
+The index must be a positive integer 1, 2, 3… If the task selected is a recurring task, user will be prompted to delete all instances of the task or only the next instance of the task.</p>
+</blockquote>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>list</code></li>
+<li><code>delete 2</code> <br>
+Deletes the 2nd task on the list</li>
+<li><code>find dinner</code></li>
+<li><code>delete 1</code> <br>
+Deletes the 1st task in the results of the <code>find</code> command</li>
+</ul>
+
+<p><br></p>
+
+<h4>Favoriting a task: <code>favorite</code></h4>
+
+<p>Favorites the task at the specified INDEX. The index refers to the index number shown in the most recent listing.<br>
+The favorited task will appear at the top of any lists that include it. <br>
+Format: <code>favorite INDEX</code></p>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>list</code></li>
+<li><code>favorite 2</code> <br>
+Favorites the 2nd task in the task list.</li>
+<li><code>find Dinner</code></li>
+<li><code>favorite 1</code> <br>
+Favorites the 1st task in the results of the <code>find</code> command</li>
+</ul>
+
+<p><br></p>
+
+<h4>Unfavoriting a task: <code>unfavorite</code></h4>
+
+<p>Unfavorites the task at the specified INDEX. The index refers to the index number shown in the most recent listing. <br>
+Format: <code>unfavorite INDEX</code></p>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>list</code></li>
+<li><code>unfavorite 2</code> <br>
+Unfavorites the 2nd task in the task list.</li>
+</ul>
+
+<p><br></p>
+
+<h4>Listing favorites: <code>list favorite[s]</code></h4>
+
+<p>List all the tasks that you have favorited. <br>
+Format: <code>list favorite[s]</code> </p>
+
+<blockquote>
+<p>You can type either <code>favorite</code> or its plural form, <code>favorites</code></p>
+</blockquote>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>list favorite</code></li>
+<li><code>list favorites</code> <br></li>
+</ul>
+
+<p><br></p>
+
+<h4>Setting an alias: <code>alias</code></h4>
+
+<p>Sets a one-word alias for any sentence to be used as a command.<br>
+Format: <code>alias SHORTCUT [ANY_SENTENCE]</code></p>
+
+<blockquote>
+<p><code>ANY_SENTENCE</code> is tagged to <code>SHORTCUT</code> so that if <code>SHORTCUT</code> is used as the first command, <code>ANY_SENTENCE</code> will be inserted in it's place instead. <br>
+<code>SHORTCUT</code> can only consist of one word.</p>
+</blockquote>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>alias am add Meeting</code></li>
+<li><code>am</code> <br>
+Typing <code>am, July 10, 5-6</code> is the same as <code>add Meeting, July 10, 5-6</code></li>
+<li><code>alias s search Dinner</code></li>
+<li><code>s</code> <br>
+Typing <code>s</code> is the same as <code>search Dinner</code></li>
+</ul>
+
+<p><br></p>
+
+<h4>Deleting an alias: <code>unalias</code></h4>
+
+<p>Deletes the alias that you have created previously.<br>
+Format: <code>unalias SHORTCUT</code></p>
+
+<blockquote>
+<p>If you have created <code>SHORTCUT</code> as an alias previously, it will be removed. <br>
+<code>SHORTCUT</code> must be an aliased command.</p>
+</blockquote>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>alias am add Meeting</code> <br>
+Typing <code>am, July 10, 5-6</code> is the same as <code>add Meeting, July 10, 5-6</code></li>
+<li><code>unalias am</code> <br>
+Typing <code>am</code> no longer translates into <code>add Meeting</code></li>
+</ul>
+
+<p><br></p>
+
+<h4>Listing aliases: <code>list alias[es]</code></h4>
+
+<p>List all the aliases that you have created. <br>
+Format: <code>list alias[es]</code></p>
+
+<blockquote>
+<p>You can type either <code>alias</code> or its plural form, <code>aliases</code></p>
+</blockquote>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>list alias</code></li>
+<li><code>list aliases</code> <br></li>
+</ul>
+
+<p><br></p>
+
+<h4>Undoing an action: <code>undo</code></h4>
+
+<p>Undoes the previous command.<br>
+Format: <code>undo</code></p>
+
+<p>Examples:</p>
+
+<ul>
+<li><code>list</code></li>
+<li><code>delete 1</code></li>
+<li><code>undo</code> <br>
+Undoes your latest <code>delete</code> command</li>
+</ul>
+
+<blockquote>
+<p>Only 1 consecutive <code>undo</code> command is allowed. Therefore, typing <code>undo</code> twice will only undo the previous command and not the one before.</p>
+</blockquote>
+
+<p><br></p>
+
+<h4>Clearing all entries : <code>clear</code></h4>
+
+<p>Clears all entries from the Task Manager.<br>
+Format: <code>clear</code></p>
+
+<p><br></p>
+
+<h4>Exiting the program : <code>exit</code></h4>
+
+<p>Exits the program.<br>
+Format: <code>exit</code></p>
+
+<p><br></p>
+
+<h4>Saving the data</h4>
+
+<p>Task data are saved in the hard disk automatically after any command that changes the data.<br>
+There is no need to save manually.</p>
+</article>
+</html>
+</body>

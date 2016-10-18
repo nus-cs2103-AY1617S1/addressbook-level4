@@ -22,6 +22,9 @@ public class XmlAdaptedTask {
     private boolean favorite;
     
     @XmlElement(required = true)
+    private boolean complete;
+    
+    @XmlElement(required = true)
     private Date startDate;
     
     @XmlElement(required = true)
@@ -44,6 +47,7 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(Task source) {
     	description = source.getDescription().toString();
     	favorite = source.isFavorite();
+    	complete = source.isComplete();
     	taskType = source.getClass();
     	
     	// Set dates appropriately
@@ -90,6 +94,11 @@ public class XmlAdaptedTask {
     		taskToReturn.setAsFavorite();
     	} else {
     		taskToReturn.setAsNotFavorite();
+    	}
+    	
+    	//Set complete
+    	if (complete) {
+    		taskToReturn.setAsComplete();
     	}
     	
     	return taskToReturn;

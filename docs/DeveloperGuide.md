@@ -1,5 +1,6 @@
-# Developer Guide 
+# Developer Guide
 
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -11,6 +12,10 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
+## Introduction
+Welcome to the <i>Tusk</i> codebase! This guide aims to get you up to speed as soon as possible with the development environment, general architecture and in-depth implementation details, in that order.
+
+Let's get started!
 
 ## Setting up
 
@@ -20,7 +25,7 @@
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -30,7 +35,7 @@
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -46,7 +51,6 @@
 ## Design
 
 ### Architecture
-
 <img src="images/Architecture.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
@@ -56,39 +60,36 @@ Given below is a quick overview of each component.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+Three of those classes play important roles at the architecture level.
+* `EventsCentre` : Used by components to communicate with other components using events (i.e. a form of _Event Driven_ design) (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `UniqueItemCollection<T>` : Used to store unique lists of Tasks and Aliases.
 
-The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+The rest of the App consists four components, where each components defines its API in an interface and implements its functionality in one main class.
 
-Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+Component Name | Purpose | Interface | Implementation |
+-------- | :----------- | :----------- |:-----------
+[**`UI`**](#ui-component) | Handles the <i>Tusk</i> UI | [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java) | `UIManager.java`
+[**`Logic`**](#logic-component) | Executes commands from the UI | [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java) | `LogicManager.java`
+[**`Model`**](#model-component) | Holds all required data in-memory | [`InMemoryTaskList.java`](../src/main/java/seedu/address/model/task/InMemoryTaskList.java) | `TaskManager.java`
+[**`Storage`**](#storage-component) | Reads data from, and writes data to, the hard disk. | [`TaskStorage.java`](../src/main/java/seedu/address/storage/task/TaskStorage.java) | `TaskStorageManager.java`
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+### Integrated Behavior
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images/SDforDeleteTask.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when any Task related data is changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images/SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The sections below give more details of each component.
@@ -100,11 +101,11 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
@@ -121,39 +122,39 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
+1. `Logic` uses the `TaskCommandsParser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
 <br>
 ### Model component
 
-<img src="images/ModelClassDiagram1.png" width="800"><br>
+<img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`InMemoryTaskList.java`](../src/main/java/seedu/address/model/task/InMemoryTaskList.java)
 
-The `Model`,
+The `Model` component,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* exposes a `UnmodifiableObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 <br>
 ### Storage component
 
-<img src="images/StorageClassDiagram1.png" width="800"><br>
+<img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`TaskStorage.java`](../src/main/java/seedu/address/storage/task/TaskStorage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Task data in xml format and read it back.
 
 <br>
 ### Common classes
@@ -184,8 +185,8 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
-(default: `config.json`):
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
+(default: `taskconfig.json`):
 
 <br>
 ## Testing
@@ -206,26 +207,26 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
-  
+
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+
 <br>
 ## Dev Ops
 
@@ -241,12 +242,12 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 ### Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
-   
+
 ### Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the
@@ -274,10 +275,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | view all the tasks that I have created on a GUI | have a good overall picture of the tasks
 `* * *` | user | specify the location of the file containing my task data | choose to store the data locally or in the cloud
 `* * *` | user who has just executed a wrong command | undo the command | rectify my mistakes easily
-`* *` | user | add recurring tasks | add repeating tasks once and not have to do so repeatedly
 `* *` | user | set aliases for certain keywords | type commands faster
 `* *` | user | set a particular task as favorite | see the tasks that have a higher priority
-`* *` | user who uses Google Calendar | sync the tasks between Google Calendar and the App | switch between the two freely
 `*` | user | autocomplete the commands that I am typing | type commands faster
 
 <br>
@@ -290,19 +289,19 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User adds a task
-2. TaskManager adds the task
+2. TaskManager adds the task<br>
 Use case ends.
 
 **Extensions**
 
 1a. The format of the input is wrong
 
-> TaskManager shows an error and prompts the user again reiterating the correct command format
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1b. The task limit has been reached
 
-> TaskManager shows an error and prompts the user to delete a task.
+> 1b1. TaskManager displays an error and prompts the user to delete a task <br>
 > Use Case ends.
 
 <br>
@@ -313,7 +312,7 @@ Use case ends.
 1. User requests to list tasks
 2. TaskManager shows a list of tasks
 3. User requests to delete a specific task in the list
-4. TaskManager deletes the task 
+4. TaskManager deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -324,7 +323,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. TaskManager shows an error.
+> 3a1. TaskManager displays an error <br>
 > Use Case ends.
 
 <br>
@@ -334,14 +333,109 @@ Use case ends.
 
 1. User undos a command.
 2. TaskManager returns to state before command is executed.
-3. TaskManager displays that command that has been undone.
+3. TaskManager displays that command that has been undone.<br>
 Use case ends.
 
 **Extensions**
 
 1a. There is no command to be undone
 
-> 1a1. TaskManager shows an error.
+> 1a1. TaskManager displays an error <br>
+> Use Case ends.
+
+<br>
+#### Use case: Adding an Alias
+
+**MSS**
+
+1. User adds an Alias
+2. TaskManager adds Alias<br>
+Use case ends.
+
+**Extensions**
+
+1a. The format of the input is wrong
+
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
+> Use Case resumes at step 1.
+
+1b. The user attempts to create an alias of a pre-existing alias
+
+> 1b1. TaskManager displays an error <br>
+> Use Case continues at step 1.
+
+<br>
+#### Use case: Updating a task
+
+**MSS**
+
+1. User lists all tasks
+2. TaskManager displays all tasks
+3. User updates a task
+4. TaskManager updates the specified task<br>
+Use case ends.
+
+**Extensions**
+
+1a. The format of the input is wrong
+
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
+> Use Case resumes at step 1.
+
+1a. The list of tasks is empty
+
+> Use Case ends.
+
+3a. The given index is invalid
+
+> 3a1. TaskManager displays an error <br>
+> Use Case resumes at step 3.
+
+<br>
+#### Use case: Marking a task as favorite
+
+**MSS**
+
+1. User lists all tasks
+2. TaskManager displays all tasks
+3. User favourites a task
+4. TaskManager favourites the specified task<br>
+Use case ends.
+
+**Extensions**
+
+1a. The format of the input is wrong
+
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
+> Use Case resumes at step 1.
+
+1a. The list of tasks is empty
+
+> Use Case ends.
+
+3a. The given index is invalid
+
+> 3a1. TaskManager displays an error <br>
+> Use Case resumes at step 3.
+
+<br>
+#### Use case: Clearing list of tasks
+
+**MSS**
+
+1. User clears all tasks
+2. TaskManager clears all tasks <br>
+Use case ends.
+
+**Extensions**
+
+1a. The format of the input is wrong
+
+> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
+> Use Case resumes at step 1.
+
+1a. There are no tasks
+
 > Use Case ends.
 
 <br>
@@ -364,7 +458,7 @@ Use case ends.
 ## Appendix E : Product Survey
 
 Task Managers | Google Calender | Wunderlist | HabitRPG | Ours
--------- | :-------- | :-------- | :-------- | :-------- 
+-------- | :-------- | :-------- | :-------- | :--------
 Basic task manager features (CRUD) | Available | Available | Available (limited) | Available
 Quick add | Available | Not available | Available | Available | Available
 Undo | Available | Available | Available | Available

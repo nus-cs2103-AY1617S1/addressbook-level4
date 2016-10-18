@@ -2,7 +2,7 @@ package seedu.address.model.task;
 
 import java.util.Set;
 
-import seedu.address.commons.collections.UniqueItemCollection;
+import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.Alias;
@@ -15,12 +15,17 @@ public interface InMemoryTaskList {
 	/*
 	 * Adds a task to the current in-memory representation of the Task List
 	 */
-	void addTask(Task toAdd) throws UniqueItemCollection.DuplicateItemException;
+	void addTask(Task toAdd) throws DuplicateItemException;
+	
+	/*
+	 * Updates a task with a new task from the current in-memory representation of the Task List
+	 */
+	void updateTask(Task toAdd, Task newTask) throws ItemNotFoundException, DuplicateItemException;
 	
 	/*
 	 * Removes a task from the current in-memory representation of the Task List
 	 */
-	void deleteTask(Task toRemove) throws UniqueItemCollection.ItemNotFoundException;
+	void deleteTask(Task toRemove) throws ItemNotFoundException;
 	
 	/*
 	 * Favorites a task in the current in-memory representation of the Task List
@@ -33,14 +38,40 @@ public interface InMemoryTaskList {
 	void unfavoriteTask(Task toFavorite);
 	
 	/*
+	 * Completes a task in the current in-memory representation of the Task List
+	 */
+	void completeTask(Task toComplete);
+	
+	/*
+	 * Uncompletes a task in the current in-memory representation of the Task List
+	 */
+	void uncompleteTask(Task toUncomplete);
+	
+	/*
 	 * Adds a set of keywords to filter the task list by
 	 */
 	void filterTasks(Set<String> keywords);
 	
 	/*
+	 * Filters completed tasks out of list
+	 */
+	void filterUncompletedTasks();
+	
+	/*
+	 * Filters completed tasks from task list
+	 */
+	void filterCompletedTasks();
+
+	
+	/*
 	 * Clears the filtering keywords applied to the tasks
 	 */
 	void clearTasksFilter();
+	
+	/*
+	 * Reapplies the same filter as before - refreshes observable list for display
+	 */
+	void refreshTasksFilter();
 	
 	/*
 	 * Gets the current list of tasks with the filtering words applied
@@ -50,7 +81,7 @@ public interface InMemoryTaskList {
 	/*
 	 * Adds a one-word alias for any sentence to be used as a command.
 	 */
-	void addAlias(Alias toAdd) throws UniqueItemCollection.DuplicateItemException;
+	void addAlias(Alias toAdd) throws DuplicateItemException;
 	
 	/*
 	 * Removes an alias from the current in-memory representation of the Alias List
@@ -61,6 +92,8 @@ public interface InMemoryTaskList {
 	 * Gets the list of alias
 	 */
 	UnmodifiableObservableList<Alias> getAlias();
+
+
 
 	
 	

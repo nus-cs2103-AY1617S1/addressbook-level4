@@ -5,10 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.*;
 

@@ -13,7 +13,6 @@ import seedu.address.commons.core.TaskConfig;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.Task;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,7 +28,6 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -43,8 +41,6 @@ public class MainWindow extends UiPart {
 
     private String addressBookName;
 
-    @FXML
-    private AnchorPane browserPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -107,7 +103,6 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTasksFilePath());
@@ -189,13 +184,5 @@ public class MainWindow extends UiPart {
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
-    }
-
-    public void loadTaskPage(Task task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
     }
 }

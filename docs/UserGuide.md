@@ -1,4 +1,4 @@
-# User Guide
+# Tusk: User Guide
 
 * [Introduction](#introduction)
 * [Quick Start](#quick-start)
@@ -10,9 +10,13 @@
 
 <br>
 ## Introduction
-With many deadlines and tasks streaming in, you can be easily overwhelmed if you are not able to keep track of them effectively. While traditional task managers require you to interact through a graphical user interface, our task manager allows you to manage your tasks quickly through keyboard commands.
+With a never-ending stream of deadlines and tasks, it's easy to be overwhelmed without an effective task management system. Traditional task managers require you to interact with them through a graphical user interface, which is too slow for users like you! <i>Tusk</i> implements a new paradigm of task management.
 
-With our task manager, you can add, delete and edit tasks without a fuss. Through the usage of shortcuts, you will be able to enter your desired commands quickly. Best of all, it works with Google Calendar so any changes that you have made on either platform will be synchronized. Managing tasks has never been such a breeze.
+While traditional task managers require you to interact with them through a graphical user interface, <i> Tusk </i> allows you to manage your tasks quickly through keyboard commands.
+
+With <i>Tusk</i>, you can add, delete and edit tasks without a fuss. Through shortcuts that you define, you can create custom commands that make <i> Tusk </i> entirely yours over time. Managing tasks has never been such a breeze.
+
+Get started with <i>Tusk</i> now!
 
 <br>
 ## Quick Start
@@ -54,60 +58,44 @@ Format: `help`
 
 <br>
 #### Adding a task: `add`
-Adds a task to the task manager. <br>
-The task can be a floating task with only a description, or <br>
-it can be a deadline task with a description and a deadline, or <br>
-it can be an event task with a description, a start date and an end date.<br>
-Format (floating): `add TASK` <br>
-Format (deadline): `add TASK by DATE` <br>
-Format (event): `add TASK from START_DATE to/- END_DATE`
+Adds a task to the task manager. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
 
 > **Date Format**
-> * Note that `DATE` and all other dates follow the following format: 
+> * Note that `DATE` and all other dates follow the following format:
 > * 1) `DAY MONTH` or `MONTH DAY`
 > * 2) `DAY MONTH YEAR` or `MONTH DAY YEAR`
 > * `MONTH` should be in alphabets instead of numbers.
 > * `MONTH` can either be in the long-form ('October') or the short-form ('Oct'), and it is case-insensitive.
 > * Any deviations from the above format may not be interpreted correctly.
 
-Examples (floating):
+
+##### Floating Tasks
+These tasks only have a description. <br>
+Format: `add TASK` <br>
+
+Example:
 * `add Project meeting`
 
-Examples (deadline):
+##### Deadline Tasks
+These tasks havea description and a deadline (due date) <br>
+Format: `add TASK by DATE` <br>
+
+Examples:
 * `add Project meeting by Oct 10`
 * `add Project meeting by 10 October 2016`
 * `add Project meeting by OcToBeR 10 2017`
 
-Examples (event):
+##### Event Tasks
+These tasks have a description, start date and an end date.<br>
+Format: `add TASK from START_DATE to/- END_DATE` <br>
+
+Examples:
 * `add Project meeting from Oct1-Oct2`
 * `add Project meeting from Oct 1 to Oct 2`
 * `add Overseas work from 1 Aug 2016 to 31 Aug 2017`
 * `add Overseas work from 1 August 2016 - 31 August 2017`
   For event tasks, make sure that `START_DATE` is earlier than `END_DATE` or it will be rejected.
 
-<br>
-#### Adding a recurring task: `add daily/weekly/monthly/yearly`
-Adds a recurring task to the task manager.<br>
-Format (daily): `add daily, TASK` <br> 
-Format (weekly): `add weekly [on] DAY_OF_WEEK[s], TASK` <br>
-Format (monthly): `add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK` <br>
-Format (yearly): `add yearly [on] DATE, TASK` <br>
-
-> Note that a comma `,` is needed after every `add daily/weekly/monthly/yearly` <br>
-> For `add monthly`, if the `DAY_OF_MONTH` is too large for certain months (E.g. 31 is too large for February), it will be ignored on those months.
-
-Examples:
-* `add daily, Morning exercise`
-* `add weekly on Monday, dance lesson Wednesday from Oct 1 - Oct 2`
-* `add weekly on Mondays, dance lesson Wednesday from Oct 1 - Oct 2`
-* `add monthly 20, Project review with colleagues`
-* `add monthly on 20, Project review with colleagues`
-* `add monthly on 21st, Project review with colleagues`
-* `add monthly on 22nd, Project review with colleagues`
-* `add monthly on 23rd, Project review with colleagues`
-* `add monthly on 24th, Project review with colleagues`
-* `add yearly 21 Oct, Mom's birthday`
-* `add yearly on 21 Oct, Mom's birthday`
 
 <br>
 #### Listing all tasks : `list`
@@ -119,7 +107,6 @@ Format: `list`
 Finds tasks that contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> Finds all the tasks with the keywords. <br>
 > Only full words will be matched e.g. meeting will not match meetings
 > Tasks matching at least one keyword will be returned (i.e. OR search).
 
@@ -131,12 +118,12 @@ Examples:
 
 <br>
 #### Updating a task: `update`
-Updates the entire task, the description of the task or the date of the task.<br>
+Updates the <i>entire task</i>, the <i>description</i> of the task or the <i>date</i> of the task.<br>
 Format (task): `update INDEX task UPDATED_VALUE` <br>
 Format (description): `update INDEX description UPDATED_VALUE` <br>
 Format (date): `update INDEX date UPDATED_VALUE`
 
-> Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 > `task`: Updates the entire task as if `add UPDATED_VALUE` has been executed <br>
 > `description`: Updates the description of the task with `UPDATED_VALUE` <br>
 > `date`: Updates the date of the task with `UPDATED_VALUE` if it is already has a date
@@ -145,13 +132,15 @@ Examples:
 * `list`
 * `update 1 task overseas from oct 31 to nov 1` <br>
   Updates the entire task as though so that the description is `overseas`, the start date is `oct 31` and the end date is `nov 1`
+<br> <br>
 * `list`
-* `update 2 description project discussion` or
 * `update 2 description project discussion` <br>
   Updates the description of the 2nd task on the list with `project discussion`
+  <br><br>
 * `list`
 * `update 1 date 31 October 2016` <br>
   Updates the date of the 1st task on the list to `31 October 2016`
+  <br><br>
 * `find dinner`
 * `update 1 date 6pm-7pm` <br>
   Updates the 1st task in the results of the `find` command with the new start time and end time if the task has a start date and an end date (event task)
@@ -161,51 +150,82 @@ Examples:
 Deletes the specified task.<br>
 Format: `delete INDEX`
 
-> Deletes the task at the specific index. The index refers to the index shown in the most recent listing. <br>
-> The index must be a positive integer 1, 2, 3… If the task selected is a recurring task, user will be prompted to delete all instances of the task or only the next instance of the task.
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 
 Examples:
 * `list`
 * `delete 2` <br>
   Deletes the 2nd task on the list
+  <br><br>
 * `find dinner`
 * `delete 1` <br>
   Deletes the 1st task in the results of the `find` command
 
 <br>
-#### Favoriting a task: `favorite`
-Favorites the task at the specified INDEX. The index refers to the index number shown in the most recent listing.<br>
-The favorited task will appear at the top of any lists that include it. <br>
+#### Marking a task as completed: `complete`
+Marks the specified task as completed.<br>
+Format: `complete INDEX`
+
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> Completed tasks can be accessed with `list complete[d]`.
+
+<br>
+#### Marking a task as incomplete: `uncomplete`
+Marks the specified task as incomplete<br>
+Format: `uncomplete INDEX`
+
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+
+<br>
+#### Marking a task as favorite: `favorite`
+Marks the specified task as favorite. <br>
 Format: `favorite INDEX`
+
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> The task marked as favorite will appear at the top of any lists that include it. <br>
 
 Examples:
 * `list`
 * `favorite 2` <br>
-  Favorites the 2nd task in the task list.
+  Marks the 2nd task in the task list as favorite.
+<br><br>
 * `find Dinner`
 * `favorite 1` <br>
-  Favorites the 1st task in the results of the `find` command
+  Marks the 1st task in the results of the `find` command as favorite.
 
 <br>
-#### Unfavoriting a task: `unfavorite`
-Unfavorites the task at the specified INDEX. The index refers to the index number shown in the most recent listing. <br>
+#### Marking a task as not-favorite: `unfavorite`
+Marks the specified task as a not-favorite task (the default). <br>
 Format: `unfavorite INDEX`
+
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 
 Examples:
 * `list`
 * `unfavorite 2` <br>
-  Unfavorites the 2nd task in the task list.
+  Marks the 2nd task in the task list as not-favorite.
 
 <br>
 #### Listing favorites: `list favorite[s]`
 List all the tasks that you have favorited. <br>
-Format: `list favorite[s]` 
+Format: `list favorite[s]`
 
 > You can type either `favorite` or its plural form, `favorites`
 
 Examples:
 * `list favorite`
 * `list favorites` <br>
+
+<br>
+#### Listing Completed Tasks: `list complete[d]`
+List all the tasks that you have completed. <br>
+Format: `list complete[d]`
+
+> You can type either `complete` or its past tense form, `favorited`
+
+Examples:
+* `list complete`
+* `list completed` <br>
 
 <br>
 #### Setting an alias: `alias`
@@ -219,6 +239,7 @@ Examples:
 * `alias am add Meeting`
 * `am` <br>
   Typing `am, July 10, 5-6` is the same as `add Meeting, July 10, 5-6`
+<br><br>
 * `alias s search Dinner`
 * `s` <br>
   Typing `s` is the same as `search Dinner`
@@ -234,10 +255,10 @@ Format: `unalias SHORTCUT`
 Examples:
 * `alias am add Meeting` <br>
   Typing `am, July 10, 5-6` is the same as `add Meeting, July 10, 5-6`
+  <br><br>
 * `unalias am` <br>
   Typing `am` no longer translates into `add Meeting`
 
-<br>
 #### Listing aliases: `list alias[es]`
 List all the aliases that you have created. <br>
 Format: `list alias[es]`
@@ -272,6 +293,15 @@ Exits the program.<br>
 Format: `exit`
 
 <br>
+#### Changing the storage location : `setstorage`
+Changes the storage location for alias.xml and tasks.xml to wherever you prefer. <br>
+Format: `setstorage PATH` <br>
+
+Examples:
+* `setstorage C:/Users/Bob/Documents`
+* `setstorage relativefolder`
+
+<br>
 #### Saving the data
 Task data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
@@ -292,12 +322,6 @@ Examples:
 * `unf`<kbd>TAB</kbd><br>
   `unfavorite` completed for you.
 
-<br>
-## Google Integration
-
-At any time, you can enter `sync` as a command and follow the on-screen instructions to begin automatically synchronizing your in-app tasks with Google Calendar.
-
-Any of your present and future tasks will be synchronized bidirectionally and automatically. If the same task is edited locally and on Google Calendar, changes made on Google Calendar will be prioritized during synchronization.
 
 <br>
 ## FAQ
@@ -315,23 +339,23 @@ Help | `help`
 Add floating tasks | `add TASK`
 Add deadline tasks | `add TASK by DATE`
 Add event tasks | `add TASK from START_DATE to/- END_DATE`
-Add daily | `add daily, TASK`
-Add weekly | `add weekly [on] DAY_OF_WEEK[s], TASK`
-Add monthly | `add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK`
-Add yearly | `add yearly [on] DATE, TASK`
 List | `list`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 Update task | `update INDEX task UPDATED_VALUE`
 Update description | `update INDEX description UPDATED_VALUE`
 Update date | `update INDEX date UPDATED_VALUE`
 Delete | `delete INDEX`
+Complete | `complete INDEX`
+Uncomplete | `uncomplete INDEX`
 Favorite | `favorite INDEX`
 Unfavorite | `unfavorite INDEX`
-List favorites | `list favorite[s]`
 Alias | `alias SHORTCUT ANY_SENTENCE`
 Unalias | `unalias SHORTCUT`
+List favorites | `list favorite[s]`
+List completed | `list complete[d]`
 List aliases | `list alias[es]`
 Undo | `undo`
 Clear | `clear`
-Sync | `sync`
+Exit | `exit`
+Set storage location | `setstorage PATH`
 

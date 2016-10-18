@@ -20,7 +20,7 @@ public class HelpWindow extends UiPart {
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-W15-C2/main/blob/master/docs/UserGuide.md";
+            HelpWindow.class.getResource("/userguide/userguide.html").toExternalForm();
 
     private AnchorPane mainPane;
 
@@ -47,7 +47,6 @@ public class HelpWindow extends UiPart {
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
 
         WebView browser = new WebView();
@@ -57,6 +56,6 @@ public class HelpWindow extends UiPart {
     }
 
     public void show() {
-        dialogStage.showAndWait();
+        dialogStage.show();
     }
 }

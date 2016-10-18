@@ -3,7 +3,7 @@ package seedu.address.model.task;
 /*
  * Represents a highly general Task object to be subclassed
  */
-public abstract class Task implements FavoritableTask, Comparable<Task> {
+public abstract class Task implements FavoritableTask, CompletableTask, Comparable<Task> {
 	/*
 	 * All tasks are required to minimally have a description
 	 */
@@ -13,6 +13,11 @@ public abstract class Task implements FavoritableTask, Comparable<Task> {
 	 * Indicates if this task is favorited
 	 */
 	protected boolean favorite = false;
+	
+	/*
+	 * Indicates if this task is completed
+	 */
+	protected boolean complete = false;
 	
 	
 	@Override
@@ -28,6 +33,21 @@ public abstract class Task implements FavoritableTask, Comparable<Task> {
 	@Override
 	public boolean isFavorite() {
 		return this.favorite;
+	}
+	
+	@Override
+	public void setAsComplete() {
+		this.complete = true;
+	}
+	
+	@Override
+	public void setAsUncomplete() {
+		this.complete = false;
+	}
+	
+	@Override
+	public boolean isComplete(){
+		return this.complete;
 	}
 	
 	

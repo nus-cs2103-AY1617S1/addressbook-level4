@@ -1,13 +1,11 @@
 package seedu.address.logic.commands.taskcommands;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import seedu.address.commons.collections.UniqueItemCollection;
+import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.Description;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
@@ -19,10 +17,16 @@ public class AddTaskCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to TaskManager. "
-            + "Parameters: DESCRIPTION \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to TaskManager. \n"
+            + "1) Parameters: DESCRIPTION \n"
             + "Example: " + COMMAND_WORD
-            + " Finish V0.1";
+            + " Finish V0.1 \n"
+            + "2) Parameters: DESCRIPTION by DEADLINE \n"
+            + "Example: " + COMMAND_WORD
+            + " Finish V0.1 by Oct 31 \n"
+            + "3) Parameters: DESCRIPTION from START_DATE to END_DATE \n"
+            + "Example: " + COMMAND_WORD
+            + " Software Demo from Oct 31 to Nov 1";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in TaskManager";
@@ -41,7 +45,7 @@ public class AddTaskCommand extends TaskCommand {
     	if (description == null || description.isEmpty()) {
     		throw new IllegalValueException(MESSAGE_EMPTY_TASK + MESSAGE_USAGE);
     	}
-    	this.toAdd = new FloatingTask(new Description(description));
+    	this.toAdd = new FloatingTask(description);
     }
     
     /**
@@ -78,6 +82,13 @@ public class AddTaskCommand extends TaskCommand {
     public String getTaskDetails() {
     	return toAdd.toString();
     }
+    
+    /**
+     * Retrieve the task to add
+     */
+    public Task getTask() {
+    	return toAdd;
+    }
 
     @Override
     public CommandResult execute() {
@@ -86,7 +97,7 @@ public class AddTaskCommand extends TaskCommand {
             model.addTask(toAdd);
             model.clearTasksFilter();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueItemCollection.DuplicateItemException e) {
+        } catch (DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
