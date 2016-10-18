@@ -219,7 +219,7 @@ public class MainWindow extends UiPart {
         browserPanel.loadPersonPage(person);
     }
 
-    public void releaseResources() {
+    /*public void releaseResources() {
         browserPanel.freeResources();
-    }
+    }*/
 }
