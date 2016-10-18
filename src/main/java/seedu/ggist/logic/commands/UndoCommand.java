@@ -45,6 +45,10 @@ public class UndoCommand extends Command {
                 e.printStackTrace();
             }        
         }
+        
+        else if (previousCommand.equals("done")){
+        
+        }
 
         return new CommandResult(String.format(MESSAGE_UNDO_COMMAND_SUCCESS, previousCommand));
     }
