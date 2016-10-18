@@ -105,6 +105,11 @@ public class TestActivity implements ReadOnlyActivity {
     }
 
     @Override
+    public void setUncompleted() {
+        this.status = new Completed(false);
+    }
+    
+    @Override
     public Completed getActivityStatus() {
         return this.status;
     }
