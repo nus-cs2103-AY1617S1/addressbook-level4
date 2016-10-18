@@ -39,7 +39,7 @@ public class CompleteCommandTest extends TaskListGuiTest {
         //Check changes are reflected in Completed panel
         //Noted that completed tasks are not listed in the deleting order but adding order.
         commandBox.runCommand("find -C");
-        assertTrue(taskListPanel.isListMatching(completed));
+        assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(completed)));
 
     }
 
@@ -55,7 +55,7 @@ public class CompleteCommandTest extends TaskListGuiTest {
         commandBox.runCommand("done " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous floatingTasks except the deleted floatingTask
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(expectedRemainder)));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));

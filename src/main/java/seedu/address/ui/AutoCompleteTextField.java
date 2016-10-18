@@ -31,7 +31,7 @@ public class AutoCompleteTextField extends TextField
 		textProperty().addListener(new ChangeListener<String>(){
 			@Override
 			public void changed(ObservableValue<? extends String> observableValue, String oldString, String newString) {				
-				if (getText().length() == 0){
+				if (getText().length() == 0 || getCurrentWord() == null){
 					dictionaryPopup.hide();
 				} else {
 					LinkedList<String> searchResult = new LinkedList<>();
@@ -93,7 +93,7 @@ public class AutoCompleteTextField extends TextField
 		dictionary.add("by");
 		dictionary.add("t/");
 		//command word
-		String[] commandWords = {"add","block","cd","delete","done","help","u","r","find","list","select","exit"};
+		String[] commandWords = {"add","block","cd","clear","delete","done","help","u","r","find","list","select","exit"};
 		for(String s: commandWords) dictionary.add(s);
 		//date
 		String[] dateWords = {"jan","feb","mar","apr","may","jun","jul",
@@ -107,6 +107,7 @@ public class AutoCompleteTextField extends TextField
 	 * Returns current word that should be provided suggestions.
 	 */
 	private String getCurrentWord(){
+		if(getText().endsWith(" ")) return null;
 		String[] enteredWords = getText().split(" ");
 		return enteredWords[enteredWords.length - 1];
 	}

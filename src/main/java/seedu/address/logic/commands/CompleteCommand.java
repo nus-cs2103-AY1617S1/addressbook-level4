@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.TaskDate;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -29,14 +32,14 @@ public class CompleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<TaskDateComponent> lastShownList = model.getFilteredTaskComponentList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        TaskDateComponent taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.archiveTask(taskToDelete);
@@ -44,7 +47,6 @@ public class CompleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToDelete.getTaskReference()));
     }
-
 }

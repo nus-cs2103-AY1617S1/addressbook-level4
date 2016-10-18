@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.joestelmach.natty.Parser;
 
 import seedu.address.model.tag.UniqueTagList;
@@ -15,11 +18,15 @@ public class TestTask extends Task implements ReadOnlyTask {
     private TaskType type = TaskType.FLOATING;
     private TaskDate startDate;
     private TaskDate endDate;
+    private RecurringType recurringType;
+    private List<TaskDateComponent> recurringDates;
 
     public TestTask() {
         tags = new UniqueTagList();
         startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+        recurringType = RecurringType.NONE;
+        recurringDates = new ArrayList<TaskDateComponent>();
     }
 
     public void setName(Name name) {
@@ -51,6 +58,16 @@ public class TestTask extends Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return tags;
     }
+    
+    @Override
+    public RecurringType getRecurringType() {
+        return recurringType;
+    }
+    
+    @Override
+    public List<TaskDateComponent> getTaskDateComponent() {
+        return recurringDates;
+    }
 
     @Override
     public String toString() {
@@ -58,7 +75,7 @@ public class TestTask extends Task implements ReadOnlyTask {
     }
     
     @Override
-    public TaskType getType(){
+    public TaskType getTaskType(){
     	return type;
     }
     
@@ -84,7 +101,7 @@ public class TestTask extends Task implements ReadOnlyTask {
     	this.type = TaskType.NON_FLOATING;
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        if(this.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT){
+        if(this.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT){
         	sb.append("by "+ this.getEndDate().getInputDate() + " ");
         }else{
         	sb.append("from "+ this.getStartDate().getInputDate() + " ");

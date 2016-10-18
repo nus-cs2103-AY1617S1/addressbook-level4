@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList;
@@ -30,10 +31,11 @@ public class AddNonFloatingCommand extends AddCommand {
 
     /**
      * Convenience constructor using raw values.
+     * @param recurringType 
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddNonFloatingCommand(String name, Set<String> tags, TaskDate startDate, TaskDate endDate)
+    public AddNonFloatingCommand(String name, Set<String> tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -43,7 +45,8 @@ public class AddNonFloatingCommand extends AddCommand {
                 new Name(name),
                 new UniqueTagList(tagSet),
                 new TaskDate(startDate),
-                new TaskDate(endDate)
+                new TaskDate(endDate),
+                recurringType
         );
         if(!this.toAdd.isValidTimeSlot()){
         	indicateAttemptToExecuteIncorrectCommand();

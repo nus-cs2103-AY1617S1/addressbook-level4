@@ -46,7 +46,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-
+    private final ObservableList<TaskDateComponent> internalComponentList = FXCollections.observableArrayList();
     /**
      * Constructs empty TaskList.
      */
@@ -66,14 +66,14 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean overlaps(ReadOnlyTask toCheck) {
         assert toCheck != null;
         //If to check is floating or deadline tasks, ignored.
-        if(toCheck.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
+        if(toCheck.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
         	return false;
         //Only compare tasks with certain time slots.
         for(Task t: internalList){
-        	if(t.getType().equals(TaskType.NON_FLOATING)){
-        		if(t.getStartDate().getDate()!=TaskDate.DATE_NOT_PRESENT){
-        			if(!(t.getEndDate().getParsedDate().before(toCheck.getStartDate().getParsedDate())||
-        	        	t.getStartDate().getParsedDate().after(toCheck.getEndDate().getParsedDate())))
+        	if(t.getTaskType().equals(TaskType.NON_FLOATING)){
+        		if(t.getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
+        			if(!(t.getEndDate().getDate().before(toCheck.getStartDate().getDate())||
+        	        	t.getStartDate().getDate().after(toCheck.getEndDate().getDate())))
         	        		return true;
         		}
         	}
@@ -96,6 +96,7 @@ public class UniqueTaskList implements Iterable<Task> {
         	throw new TimeslotOverlapException();
         }
         internalList.add(toAdd);
+        internalComponentList.addAll(toAdd.getTaskDateComponent());
     }
 
     /**
@@ -106,16 +107,19 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
+        internalComponentList.removeAll(toRemove.getTaskDateComponent());
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
     }
     
-    
-
     public ObservableList<Task> getInternalList() {
         return internalList;
+    }
+
+    public ObservableList<TaskDateComponent> getInternalComponentList() {
+        return internalComponentList;
     }
 
     @Override
@@ -136,14 +140,15 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.hashCode();
     }
 
-	public boolean archive(ReadOnlyTask target) {
+	public boolean archive(TaskDateComponent target) {
 		assert target != null;
         boolean taskFoundAndArchived = false;
-        
-        for(ReadOnlyTask t : internalList){
+        System.out.println(internalComponentList.contains(target));
+        for(TaskDateComponent t : internalComponentList){
         	if(t.equals(target)){
-        		t.setType(TaskType.COMPLETED);
+        		t.archive();
         		taskFoundAndArchived = true;
+        		t.getTaskReference().completeTaskWhenAllComponentArchived();
         	}
         }
         return taskFoundAndArchived;
@@ -154,10 +159,10 @@ public class UniqueTaskList implements Iterable<Task> {
 		if(startDate != null && endDate != null) {
 			for(Task t: internalList){
 				if(!t.equals(target)) {
-					if(t.getType().equals(TaskType.NON_FLOATING)){
-		        		if(t.getStartDate().getDate()!=TaskDate.DATE_NOT_PRESENT){
-		        			if(!(t.getEndDate().getParsedDate().before(startDate.getParsedDate())||
-		        	        	t.getStartDate().getParsedDate().after(endDate.getParsedDate())))
+					if(t.getTaskType().equals(TaskType.NON_FLOATING)){
+		        		if(t.getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
+		        			if(!(t.getEndDate().getDate().before(startDate.getDate())||
+		        	        	t.getStartDate().getDate().after(endDate.getDate())))
 		        	        		return true;
 		        		}
 		        	}
@@ -177,7 +182,9 @@ public class UniqueTaskList implements Iterable<Task> {
         		if(checkUpdateOverlapping(target, startDate, endDate))
         			throw new TimeslotOverlapException();
         		
+        		int componentToChange = internalComponentList.indexOf(t.getTaskDateComponent().get(0));// added as a stop gap measure
         		t.updateTask(name, tags, startDate, endDate);
+        		internalComponentList.set(componentToChange, t.getTaskDateComponent().get(0)); // added as a stop gap measure
         		taskFoundAndUpdated = true;
         	}
         }

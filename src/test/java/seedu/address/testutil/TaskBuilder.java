@@ -45,6 +45,9 @@ public class TaskBuilder {
     }
 
     public TestTask build() {
+        Task copyTask = new Task(this.task);
+        TaskDateComponent component = new TaskDateComponent(copyTask ,this.task.getStartDate(),this.task.getEndDate());
+        this.task.getTaskDateComponent().add(component);
         return this.task;
     }
 

@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.TaskList;
 import seedu.address.model.task.*;
@@ -23,8 +26,8 @@ public class TypicalTestTasks {
         try {
         	//Floating tasks
             trash =  new TaskBuilder().withName("take trash").withTags("notUrgent").build();
-            book = new TaskBuilder().withName("read book").withTags("weekly", "textBook").build();
-            homework = new TaskBuilder().withName("do homework").build();
+            book = new TaskBuilder().withName("read book").withTags("CS2105", "textBook").build();
+            homework = new TaskBuilder().withName("do homework").withTags("CS2105").build();
             lecture = new TaskBuilder().withName("read weblecture").build();
             meeting = new TaskBuilder().withName("group meeting").build();
             george = new TaskBuilder().withName("visit George Best").build();
@@ -71,6 +74,16 @@ public class TypicalTestTasks {
 
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{trash, book, homework, lecture, meeting, george, labDeadline, tutorialSlot, essayDeadline,concert};
+    }
+    
+    public TaskDateComponent[] getTypicalTaskComponents() {
+        List<TaskDateComponent> components = new ArrayList<TaskDateComponent>();
+        TestTask[] tasks = getTypicalTasks();
+        for(TestTask t : tasks) {
+            components.addAll(t.getTaskDateComponent());
+        }
+        TaskDateComponent[] taskComponents = new TaskDateComponent[components.size()];
+        return components.toArray(taskComponents);
     }
 
     public TaskList getTypicalTaskList() throws TimeslotOverlapException{

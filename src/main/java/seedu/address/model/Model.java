@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
@@ -12,6 +13,8 @@ import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.Date;
 import java.util.Set;
+
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -24,7 +27,7 @@ public interface Model {
     ReadOnlyTaskList getTaskList();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(TaskDateComponent target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task 
      * @throws TimeslotOverlapException */
@@ -32,7 +35,8 @@ public interface Model {
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
+    UnmodifiableObservableList<TaskDateComponent> getFilteredTaskComponentList();
+    
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
@@ -42,7 +46,7 @@ public interface Model {
     /** Updates the file path for current storage manager of the model.*/
 	void changeDirectory(String filePath);
 
-	void archiveTask(ReadOnlyTask target) throws TaskNotFoundException;
+	void archiveTask(TaskDateComponent target) throws TaskNotFoundException;
 
 	void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException;
 

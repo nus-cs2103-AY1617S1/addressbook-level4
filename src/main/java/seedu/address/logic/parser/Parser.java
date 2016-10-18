@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 import seedu.address.logic.commands.*;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.RecurringDateParser;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskDate;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -75,6 +77,7 @@ public class Parser {
                     + " (from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     + " to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
                     + "|by (?<deadline>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+))"
+                    + "(?<recurring>(?: [^/(t/) ]+)*)"
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
         
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -207,11 +210,19 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
         }
         try {
+            RecurringType recurringType;
+            
+            if (matcher.group("recurring").isEmpty()) {
+                recurringType = RecurringType.NONE;
+            }
+            else {
+                recurringType = extractRecurringInfo(matcher.group("recurring"));
+            }
             
             if(matcher.group("deadline") != null) {
-                return prepareAddNonFloatingByDate(matcher);
+                return prepareAddNonFloatingByDate(matcher, recurringType);
             } else {
-                return prepareAddNonFloatingFromDateToDate(matcher);
+                return prepareAddNonFloatingFromDateToDate(matcher, recurringType);
             }
 
         } catch (IllegalValueException ive) {
@@ -222,27 +233,29 @@ public class Parser {
     /**
      * Prepares arguments in the context of adding a non floating task by date only
      * @param matcher Contains the information we need
+     * @param recurringType 
      * @return the prepared add non floating command
      * @throws IllegalValueException Signals for incorrect command
      */
-    private Command prepareAddNonFloatingByDate(Matcher matcher) throws IllegalValueException {
+    private Command prepareAddNonFloatingByDate(Matcher matcher, RecurringType recurringType) throws IllegalValueException {
         String endInput = matcher.group("deadline");
-        
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
                 new TaskDate(TaskDate.DATE_NOT_PRESENT),
-                new TaskDate(getDateFromString(endInput).getTime())
+                new TaskDate(getDateFromString(endInput).getTime()),
+                recurringType
                 );
     }
 
     /**
      * Prepares arguments in the context of adding a non floating task from date to date
      * @param matcher Contains the information we need
+     * @param recurringType 
      * @return the prepared add non floating command
      * @throws IllegalValueException Signals for incorrect command
      */    
-    private Command prepareAddNonFloatingFromDateToDate(Matcher matcher) throws IllegalValueException {
+    private Command prepareAddNonFloatingFromDateToDate(Matcher matcher, RecurringType recurringType) throws IllegalValueException {
         String startInput = matcher.group("startdate");
         String endInput = matcher.group("enddate");
         
@@ -250,7 +263,8 @@ public class Parser {
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
                 new TaskDate(getDateFromString(startInput).getTime()),
-                new TaskDate(getDateFromString(endInput).getTime())
+                new TaskDate(getDateFromString(endInput).getTime()),
+                recurringType
                 );
     }
     
@@ -573,6 +587,12 @@ public class Parser {
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
         
         return dateGroups.get(0).getDates().get(0);
+    }
+    
+    public static RecurringType extractRecurringInfo(String recurringInfo) {
+        recurringInfo = recurringInfo.toUpperCase().trim();
+        RecurringDateParser recurringParser = RecurringDateParser.getInstance();
+        return recurringParser.getRecurringType(recurringInfo);
     }
 
 }

@@ -11,13 +11,11 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class AddCommandTest extends TaskListGuiTest {
+public class EditCommandTest extends TaskListGuiTest {
 
     @Test
-    public void add() {
+    public void edit() {
+    	
         //add one floatingTask
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.hoon;
@@ -62,6 +60,20 @@ public class AddCommandTest extends TaskListGuiTest {
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+        commandBox.runCommand(taskToAdd.getAddFloatingCommand());
+
+        //confirm the new card contains the right data
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        assertMatching(taskToAdd.getTaskDateComponent().get(0), addedCard);
+
+        //confirm the list now contains all previous floatingTasks plus the new floatingTask
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
+        
+        assertTrue(taskListPanel.isListMatching(taskComponents));
+    }
+    
+    private void assertEditSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddFloatingCommand());
 
         //confirm the new card contains the right data

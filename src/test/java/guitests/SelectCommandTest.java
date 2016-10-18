@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskDateComponent;
 
 import static org.junit.Assert.assertEquals;
 
@@ -47,7 +48,7 @@ public class SelectCommandTest extends TaskListGuiTest {
 
     private void assertTaskSelected(int index) {
         assertEquals(taskListPanel.getSelectedTasks().size(), 1);
-        ReadOnlyTask selectedTask = taskListPanel.getSelectedTasks().get(0);
+        TaskDateComponent selectedTask = taskListPanel.getSelectedTasks().get(0);
         assertEquals(taskListPanel.getTask(index-1), selectedTask);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }

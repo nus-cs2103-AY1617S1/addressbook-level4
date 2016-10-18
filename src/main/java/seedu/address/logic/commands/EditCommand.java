@@ -78,7 +78,7 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 		
-		if (startDate != null && endDate != null && startDate.getDate() > endDate.getDate()) {
+		if (startDate != null && endDate != null && startDate.getDateInLong() > endDate.getDateInLong()) {
 			return new CommandResult(MESSAGE_ILLEGAL_TIME_SLOT);
 		}
 		

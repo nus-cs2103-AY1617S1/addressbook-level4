@@ -67,9 +67,9 @@ public class TestUtil {
             return new Task[]{
                     new Task(new Name("take trash"), new UniqueTagList()),
                     new Task(new Name("read book"), new UniqueTagList()),
-                    new Task(new Name("do homework"), new UniqueTagList(), new TaskDate("2 oct 2am"), new TaskDate("2 oct 3am")),
-                    new Task(new Name("read weblecture"), new UniqueTagList(),new TaskDate("2 oct 4am"), new TaskDate("2 oct 5am")),
-                    new Task(new Name("group meeting"), new UniqueTagList(),new TaskDate("2 oct 9am"), new TaskDate("2 oct 11am")),
+                    new Task(new Name("do homework"), new UniqueTagList(), new TaskDate("2 oct 2am"), new TaskDate("2 oct 3am"), RecurringType.NONE),
+                    new Task(new Name("read weblecture"), new UniqueTagList(),new TaskDate("2 oct 4am"), new TaskDate("2 oct 5am"), RecurringType.NONE),
+                    new Task(new Name("group meeting"), new UniqueTagList(),new TaskDate("2 oct 9am"), new TaskDate("2 oct 11am"), RecurringType.NONE),
                     new Task(new Name("jogging"), new UniqueTagList()),
                     new Task(new Name("visit George Best"), new UniqueTagList()),
                     new Task(new Name("eat with Hoon Meier"), new UniqueTagList()),
@@ -326,10 +326,19 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, TaskDateComponent task) {
         return card.isSameTask(task);
     }
 
+    public static TaskDateComponent[] convertTasksToDateComponents(final TestTask[] tasks) {
+        List<TaskDateComponent> componentList = new ArrayList<TaskDateComponent>();
+        for(TestTask t : tasks) {
+            componentList.addAll(t.getTaskDateComponent());
+        }
+        TaskDateComponent[] taskComponents = new TaskDateComponent[componentList.size()];
+        return componentList.toArray(taskComponents);
+    }
+    
     public static Tag[] getTagList(String tags) {
 
         if (tags.equals("")) {

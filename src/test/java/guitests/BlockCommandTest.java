@@ -5,6 +5,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.AddFloatingCommand;
 import seedu.address.logic.commands.AddNonFloatingCommand;
 import seedu.address.logic.commands.BlockCommand;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
@@ -20,16 +21,17 @@ public class BlockCommandTest extends TaskListGuiTest {
         TestTask slotToBlock = td.block1;
         assertBlockSuccess(slotToBlock, currentList);
         currentList = TestUtil.addTasksToList(currentList, slotToBlock);
-
+        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(currentList);
+        
         //block slot is overlapped with tasks
         commandBox.runCommand(td.block2.getBlockCommand());
         assertResultMessage(BlockCommand.MESSAGE_TIMESLOT_OCCUPIED);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.isListMatching(taskComponents));
         
         //block slot is illegal
         commandBox.runCommand("block from 2 oct 2pm to 2 oct 1pm");
         assertResultMessage(BlockCommand.MESSAGE_ILLEGAL_TIME_SLOT);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.isListMatching(taskComponents));
         
         //add to empty list
         commandBox.runCommand("clear");
@@ -45,11 +47,12 @@ public class BlockCommandTest extends TaskListGuiTest {
 
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(slotToBlock.getName().fullName);
-        assertMatching(slotToBlock, addedCard);
+        assertMatching(slotToBlock.getTaskDateComponent().get(0), addedCard);
 
         //confirm the list now contains all previous floatingTasks plus the new floatingTask
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, slotToBlock);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
+        assertTrue(taskListPanel.isListMatching(taskComponents));
     }
     
 }

@@ -4,6 +4,7 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskDateComponent;
 
 /**
  * Provides a handle to a floating task card in the task list panel.
@@ -26,8 +27,8 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName);
+    public boolean isSameTask(TaskDateComponent task){
+        return getFullName().equals(task.getTaskReference().getName().fullName);
     }
 
     @Override
