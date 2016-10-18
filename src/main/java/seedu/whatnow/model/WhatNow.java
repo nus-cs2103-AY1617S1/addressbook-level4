@@ -19,7 +19,8 @@ public class WhatNow implements ReadOnlyWhatNow {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
-
+    private UniqueTaskList backUpTasks;
+    private UniqueTagList backUpTags;
     {
         tasks = new UniqueTaskList();
         tags = new UniqueTagList();
@@ -44,6 +45,7 @@ public class WhatNow implements ReadOnlyWhatNow {
     public static ReadOnlyWhatNow getEmptyWhatNow() {
         return new WhatNow();
     }
+   
 
 //// list overwrite operations
 
@@ -67,6 +69,9 @@ public class WhatNow implements ReadOnlyWhatNow {
     public void resetData(ReadOnlyWhatNow newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
+	public void revertEmptyWhatNow(ReadOnlyWhatNow backUp) {
+		resetData(backUp.getTaskList(),backUp.getTagList());
+	}
 
 //// task-level operations
 
@@ -125,8 +130,6 @@ public class WhatNow implements ReadOnlyWhatNow {
             throw new UniqueTaskList.TaskNotFoundException();
         } 
     }
-    
-
     /**
      * Updates a task on WhatNow.
      * 
@@ -152,6 +155,15 @@ public class WhatNow implements ReadOnlyWhatNow {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+
+	public boolean unMarkTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+		if(tasks.unmark(target)) {
+			return true;
+		} else {
+			throw new UniqueTaskList.TaskNotFoundException();
+		}
+	}
+
 
 //// tag-level operations
 
@@ -200,5 +212,4 @@ public class WhatNow implements ReadOnlyWhatNow {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
-
 }
