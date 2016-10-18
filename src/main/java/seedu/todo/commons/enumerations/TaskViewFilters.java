@@ -8,25 +8,27 @@ import seedu.todo.model.task.ImmutableTask;
 
 //@@author A0092382A
 public enum TaskViewFilters {
-    DEFAULT("default", null), 
-    COMPLETE("complete", (task) -> task.isCompleted()), 
-    INCOMPLETE ("incomplete", (task) -> !task.isCompleted()),
+    DEFAULT("show all", null, 5), 
+    
+    COMPLETED("completed", (task) -> task.isCompleted(), 0), 
+    
+    INCOMPLETE ("incomplete", (task) -> !task.isCompleted(), 0),
+    
     DUE_TODAY ("due today", (task) -> new TimeUtil().
                 isToday(task.getEndTime().get(), LocalDateTime.now())
                 && !task.isEvent()
-                && !task.isCompleted()),
-    DUE_TOMORROW ("due tomorrow", (task) -> new TimeUtil().
-                  isTomorrow(task.getEndTime().get(),LocalDateTime.now())
-                  && !task.isEvent()
-                  && !task.isCompleted());
+                && !task.isCompleted(), 4);
     
     private final String name;
     
     private final Predicate<ImmutableTask> filter;
+    
+    private final int underlineChar;
 
-    TaskViewFilters(String name, Predicate<ImmutableTask> filter) {
+    TaskViewFilters(String name, Predicate<ImmutableTask> filter, int underlineCharPosition) {
         this.name = name;
         this.filter = filter;
+        this.underlineChar = underlineCharPosition;
     }
     
     public String getViewName() {
