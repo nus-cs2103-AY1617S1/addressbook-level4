@@ -80,10 +80,6 @@ The Architecture Diagram above explains the high-level design of the App. Here i
 
 [**`Commons`**](#common-modules) represents a collection of modules used by multiple other components. A few of these modules play important roles at the architecture level.
 
-* `Events` : This module is used by components to marshal information around and inform other components that things have happened. (i.e. a form of _Event Driven_ design)
-* `Util` : Used by many classes to write log messages to the App's log file.
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
 The rest of the App consists three components.
 
 * [**`UI`**](#ui-component): The user facing elements of tha App, representing the view layer. 
@@ -126,7 +122,9 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
+<img src="diagrams/Ui Image.svg" class="u-max-full-width">
 
+<figcaption>Visual identification of view elements in the UI</figcaption>
 
 The UI consists of a `MainWindow` that contains several view elements. They are `TodoListView`, `CommandInputView`, `CommandFeedbackView`, `FilterBarView`, and so on. All these classes, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
 
@@ -185,7 +183,7 @@ The model component represents the application's state and data layer. It is imp
 - `TodoModel` - represents the todolist tasks
 - `UserPrefs` - represents saved user preferences 
 
-Each individual data model handles their own CRUD operations, with the `Model` acting as a facade to present a simplified and uniform interface for external components to work with. Each of the data model holds a `Storage` object that is initalized by the `Model` and injected into them. The storage interfaces exposes a simple interface for reading and writing to the appropriate storage mechanism. 
+Each individual data model handles their own CRUD operations, with the `Model` acting as a facade to present a simplified and uniform interface for external components to work with. Each of the data model holds a `Storage` object that is initalized by the `Model` and injected into them. The storage interfaces exposes a simple interface for reading and writing to the appropriate storage mechanism (read more below).
 
 To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The UI component binds to the  the model through the `getObservableList` function which returns an `UnmodifiableObseravbleList` object that the UI can bind to.
 
@@ -197,6 +195,11 @@ The model ensure safety by exposing as much of its internal state as possible as
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
+The storage component represents the persistence layer of the data. It is implemented by `TodoListStorage` which holds and contains `ImmutableTodoList`. Similarly, `JsonUserPrefsStorage` stores the user preferences. 
+
+Both classes implement `FixedStorage`, which exposes methods to read and save data from storage. Users can choose to move their storage file, hence `MovableStorage` is exposed to allow them to do so. User preferences cannot be exported.
+
+The file extension currently chosen is XML. Hence, classes have been written to serialize and parse the data to and fro XML.
 
 ### Common modules
 
@@ -206,12 +209,19 @@ Modules used by multiple components are in the `seedu.todo.commons` package.
 
 The core module contains many important classes used throughout the application.
 
-The important classes would be `UnmodifiableObservableList` where it applies the Observer pattern to allow the UI component to be listen to changes to the data.
-
+* `UnmodifiableObservableList` :  Apply the Observer pattern to allow the UI component to be listen to changes to the data.
 * `Events` : This module is used by components to marshal information around and inform other components that things have happened. (i.e. a form of _Event Driven_ design)
-* `Util` : Used by many classes to write log messages to the App's log file.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
+#### Util
+
+The util module contains many different helper methods and classes used throughout the application. The things that can, and should be reused can be found in here.
+
+#### Exceptions
+
+The exceptions module contains all common exceptions that will be used and thrown throughout the application.
+
+* `ValidationException` : Used by many classes to signal that the command or model parsed is not valid and something should be done.
 
 ## Implementation
 
