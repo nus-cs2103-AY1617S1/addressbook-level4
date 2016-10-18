@@ -92,6 +92,8 @@ public class MarkDoneCommand extends UndoAndRedo {
 		try {
 			System.out.println("Entered here");
 			model.markTask(taskToMark);
+			model.getStackOfMarkDoneTask().push(taskToMark);
+			model.getStackOfMarkDoneTaskTaskType().push(taskType);
 		} catch (TaskNotFoundException pnfe) {
 			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 		}
