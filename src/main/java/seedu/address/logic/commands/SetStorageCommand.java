@@ -1,19 +1,11 @@
 //@@author A0143756Y
 package seedu.address.logic.commands;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.json.simple.JSONObject;
-
-import seedu.address.commons.core.Config;
+import java.nio.file.InvalidPathException;
+import java.io.IOException;
 
 /**
  * Sets task manager data storage location, according to user specifications.
