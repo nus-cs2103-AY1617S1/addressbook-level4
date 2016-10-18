@@ -71,11 +71,8 @@ public class ClearController implements Controller {
         
         //no dates provided
         if (parsedDates == null) {
-            int totalCalendarItems = db.getAllEvents().size() + db.getAllTasks().size();
-            db.destroyAllEvent();
-            db.destroyAllTask();
-            Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
-            return ;
+            destroyAll(db);
+            return;
         }
         
         String naturalOn = parsedDates[0];
@@ -87,9 +84,76 @@ public class ClearController implements Controller {
         LocalDateTime dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
         LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
         LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
-        //if all are null, means date provided but natty deem as invalid date
         
+        destroyByDate(db, naturalOn, naturalFrom, naturalTo, dateOn, dateFrom, dateTo);
 
+    }
+
+    private void destroyByDate(TodoListDB db, String naturalOn, String naturalFrom, String naturalTo,
+            LocalDateTime dateOn, LocalDateTime dateFrom, LocalDateTime dateTo) {
+        if (dateOn != null) {
+            destroyByDate(db, dateOn);
+            return;
+        } else if (dateFrom != null || dateTo != null) {
+            destroyByRange(db, dateFrom, dateTo);
+            return;
+        } else { //natty deem all dates as invalid
+            displayErrorMessage(db, naturalOn, naturalFrom, naturalTo);
+        }
+    }
+
+    /**
+     * clear all tasks and events of given date range that exist in the database.
+     * 
+     * @param TodoListDB, dateFrom, dateTo
+     */
+    private void destroyByRange(TodoListDB db, LocalDateTime dateFrom, LocalDateTime dateTo) {
+        int totalCalendarItems = db.getEventByRange(dateFrom, dateTo).size() + db.getTaskByRange(dateFrom, dateTo).size();
+        db.destroyAllEventByRange(dateFrom, dateTo);
+        db.destroyAllTaskByRange(dateFrom, dateTo);
+        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
+        
+    }
+
+    /**
+     * display error message due to failure in parsing given date
+     * 
+     * @param TodoListDB, naturalOn, nautralFrom, naturalTo
+     */
+    private void displayErrorMessage(TodoListDB db, String naturalOn, String naturalFrom, String naturalTo) {
+        String errorMessage;
+        if (naturalOn == null) {
+            errorMessage = String.format(MESSAGE_CLEAR_FAILURE, naturalOn);
+        } else if (naturalFrom == null) {
+            errorMessage = String.format(MESSAGE_CLEAR_FAILURE, naturalFrom);
+        } else {
+            errorMessage = String.format(MESSAGE_CLEAR_FAILURE, naturalTo);
+        }
+        Renderer.renderIndex(db, errorMessage);
+    }
+    
+    /**
+     * clear all tasks and events of the date that exist in the database.
+     * 
+     * @param TodoListDB, givenDate
+     */
+    private void destroyByDate(TodoListDB db, LocalDateTime givenDate) {
+        int totalCalendarItems = db.getEventByDate(givenDate).size() + db.getTaskByDate(givenDate).size();
+        db.destroyAllEventByDate(givenDate);
+        db.destroyAllTaskByDate(givenDate);
+        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
+    }
+
+    /**
+     * clear all tasks and events that exist in the database.
+     * 
+     * @param TodoListDB
+     */
+    private void destroyAll(TodoListDB db) {
+        int totalCalendarItems = db.getAllEvents().size() + db.getAllTasks().size();
+        db.destroyAllEvent();
+        db.destroyAllTask();
+        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
     }
     
     /**
