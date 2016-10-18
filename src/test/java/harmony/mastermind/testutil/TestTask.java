@@ -2,6 +2,7 @@ package harmony.mastermind.testutil;
 
 import java.util.Date;
 
+import guitests.TaskManagerGuiTest;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
 
@@ -12,9 +13,10 @@ import harmony.mastermind.model.task.*;
 public class TestTask implements ReadOnlyTask {
     
     private String name;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private UniqueTagList tags;
+    private boolean marked;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -26,12 +28,12 @@ public class TestTask implements ReadOnlyTask {
     }
     
     //@@author A0124797R
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
     
     //@@author A0124797R
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -41,6 +43,12 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add");
         sb.append(" '" + this.getName() + "' ");
+        if (startDate!=null) {
+            sb.append("sd/'" + startDate + "' ");
+        }
+        if (endDate!=null) {
+            sb.append("ed/'" + endDate + "' ");
+        }
         sb.append("t/'");
         this.getTags().getInternalList().stream().forEach(s -> sb.append(s.tagName + ","));
 
@@ -59,34 +67,45 @@ public class TestTask implements ReadOnlyTask {
     //@@author A0124797R
     @Override
     public Date getStartDate() {
-        return startDate;
+        if (startDate!=null) {
+            return TaskManagerGuiTest.prettyTimeParser.parse(startDate).get(0);
+        }else {
+            return null;
+        }
     }
 
     //@@author A0124797R
     @Override
     public Date getEndDate() {
-        return endDate;
+        if (endDate!=null) {
+            return TaskManagerGuiTest.prettyTimeParser.parse(endDate).get(0);
+        }else {
+            return null;
+        }
     }
 
     @Override
+    // @@author A0124797R
     public boolean isFloating() {
-        return false;
+        return startDate == null && endDate == null;
     }
 
     @Override
+    // @@author A0124797R
     public boolean isDeadline() {
-        return false;
+        return startDate == null && endDate != null;
     }
 
     @Override
+    // @@author A0124797R
     public boolean isEvent() {
-        return false;
+        return startDate != null && endDate != null;
     }
 
     @Override
+    //@@author A0124797R
     public boolean isMarked() {
-        // TODO Auto-generated method stub
-        return false;
+        return this.marked;
     }
     
     @Override
@@ -113,6 +132,12 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    //@@author A0124797R
+    public TestTask mark() {
+        this.marked = true;
+        return this;
     }
     
 }

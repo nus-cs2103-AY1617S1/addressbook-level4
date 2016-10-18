@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import org.testfx.api.FxToolkit;
 
 import java.util.concurrent.TimeoutException;
@@ -32,6 +33,7 @@ public abstract class TaskManagerGuiTest {
     TestApp testApp;
 
     protected TypicalTestTasks td = new TypicalTestTasks();
+    public static final PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance

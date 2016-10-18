@@ -68,7 +68,6 @@ public class GuiHandle {
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         
         String s = ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
-        System.out.println("in getText:" + s);
         return s;
     }
     

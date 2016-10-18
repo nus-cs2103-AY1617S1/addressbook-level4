@@ -3,19 +3,16 @@ package guitests;
 import org.junit.Test;
 
 import harmony.mastermind.logic.commands.ListCommand;
-import harmony.mastermind.testutil.TestTask;
-import harmony.mastermind.testutil.TestUtil;
 
 import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static org.junit.Assert.assertTrue;
 
 public class ListCommandTest extends TaskManagerGuiTest {
 
     @Test
+    //@@author A0124797R
     public void list() {
 
         //start with the Home tab
-        TestTask[] currentList = td.getTypicalTasks();
         String targetTab = "Home";
         assertCurrentTab(targetTab);
 
@@ -47,15 +44,15 @@ public class ListCommandTest extends TaskManagerGuiTest {
     }
 
     /**
-     * Runs the delete command to delete the task at specified index and confirms the result is correct.
-     * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of tasks (before deletion).
+     * Runs the list command to show the specific tab and confirms the current tab is correct.
+     * param tab e.g. to show the Events tab, events should be given as the target tab.
      */
-    private void assertListSuccess(String tab) {
-        commandBox.runCommand("list " + tab);
+    //@@author A0124797R
+    private void assertListSuccess(String targetTab) {
+        commandBox.runCommand("list " + targetTab);
 
         //confirm the current view is in the correct tab
-        assertCurrentTab(tab);
+        assertCurrentTab(targetTab);
     }
 
 }

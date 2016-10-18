@@ -298,7 +298,7 @@ public class Parser {
     //@@author A0124797R
     private Command prepareUnmark(String args, String currentTab) {
         if (!currentTab.equals(TAB_ARCHIVES)) {
-            return new IncorrectCommand(UnmarkCommand.MESSAGE_UNMARK_FAILURE);
+            return new IncorrectCommand(UnmarkCommand.MESSAGE_UNMARK_TASK_FAILURE);
         }
 
         Optional<Integer> index = parseIndex(args);

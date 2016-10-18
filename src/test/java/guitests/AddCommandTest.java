@@ -42,9 +42,11 @@ public class AddCommandTest extends TaskManagerGuiTest {
     //@@author A0124797R
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
+        
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
+
     }
 
 }
