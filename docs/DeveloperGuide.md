@@ -296,14 +296,13 @@ Priority | As a ... | I want to ... | So that I can...
 
 
 #### Use case: UC01 add task.
-   Actor: User
+   Actor: User<br>
    Preconditions: User is logged in
 
 **MSS**
 
 1. User requests to add new task description.
-2. System will update the database of the newly created task.
-
+2. System will update the database of the newly created task.<br>
    Use Case end.
 
 **Extension**
@@ -314,13 +313,13 @@ Priority | As a ... | I want to ... | So that I can...
 
 #### Use case: UC02 view upcoming task.
 
-   Actor: User
+   Actor: User<br>
    Preconditions: User is logged in
 
 **MSS**
 
 1. User requests to view upcoming task
-2. System will show the list of upcoming task
+2. System will show the list of upcoming task<br>
    Use Case end.
 
 
@@ -331,7 +330,7 @@ Priority | As a ... | I want to ... | So that I can...
     Use case ends
 
 #### Use case: UC03 Delete task
-   Actor: User
+   Actor: User<br>
    Precondition: User is logged in
 
 **MSS**
@@ -339,7 +338,7 @@ Priority | As a ... | I want to ... | So that I can...
 1. User request to delete a specific task<br>
 2. System request confirmation of deletion of task
 3. User confirm to delete task
-4. System will delete the specific task.
+4. System will delete the specific task.<br>
    Use Case ends
 
 **Extension**
@@ -351,13 +350,13 @@ Priority | As a ... | I want to ... | So that I can...
        Use case resume at step 1.
 
 #### Use case: UC04 Information of the a particular command.
-   Actor: User
+   Actor: User<br>
    Precondition: User is logged in
 
 **MSS**
 
 1. User enter help a particular command
-2. System show the user guide of the particular command
+2. System show the user guide of the particular command<br>
    Use Case ends
 
 **Extension**
@@ -373,7 +372,7 @@ Preconditions: User is familiar with the available command
 **MSS**
 
 1. User enter a shorter version of a command
-2. System identify which command to execute based on user input
+2. System identify which command to execute based on user input<br>
    Use case ends.
 
 **Extension** 
@@ -387,7 +386,7 @@ Preconditions: User is familiar with the available command
     Use case ends
 
 #### Use case UC06 set reminder for tasks
-   Actor: User
+   Actor: User<br>
    Preconditions: User is logged in, tasks is created.
 
 **MSS**
@@ -395,7 +394,7 @@ Preconditions: User is familiar with the available command
 1. User requests to list all tasks
 2. System shows a list of tasks
 3. User request to set reminder for specific task in the list
-4. System set reminder for the selected task and display action successful message
+4. System set reminder for the selected task and display action successful message<br>
 Use case ends
 
 **Extension**
@@ -408,14 +407,14 @@ Use case ends
     Use case resume at step 2
 
 #### Use case UC07 view task that is due on the day after launching application
-   Actor: User
+   Actor: User<br>
    Preconditions: User have not launch application
 
 **MSS**
 
 1. User launch application
-2. System display a list of task that is due on the day
-3. Use case ends
+2. System display a list of task that is due on the day<br>
+Use case ends
 
 **Extension**
 
@@ -423,7 +422,7 @@ Use case ends
     > Use case ends
 
 #### Use case UC08 add category to task
-   Actor: User
+   Actor: User<br>
    Preconditions: User is logged in, task is created.
 
 **MSS**
@@ -433,7 +432,7 @@ Use case ends
 3. User request to add category for specific task in the list
 4. System prompt for category to set with
 5. User enter category
-6. System set category for the selected task and display action successful message
+6. System set category for the selected task and display action successful message<br>
 Use case ends
 
 **Extension**
@@ -458,7 +457,7 @@ Use case ends
 5. User edits details of the task
 6. System requests for confirmation
 7. User confirms changes 
-8. System updates the details of the task in file and displays the changed task
+8. System updates the details of the task in file and displays the changed task<br>
 Use Case ends
 
 **Extension**
@@ -485,7 +484,7 @@ Use Case ends
     Use Case ends. 
 
 #### Use case: UC10 set priority to tasks
-   Actor: User
+   Actor: User<br>
    Preconditions: User is logged in.
 
 **MSS**
@@ -497,7 +496,7 @@ Use Case ends
 5. User set priority to tasks 
 6. System requests for confirmation
 7. User confirms changes 
-8. System updates prioritizing for tasks in database and displays current prioritizing for tasks
+8. System updates prioritizing for tasks in database and displays current prioritizing for tasks<br>
    Use Case ends
 
 **Extensions**
@@ -526,7 +525,7 @@ Use Case ends
 **MSS**
 
 1. User requests to add task with specified start date and interval
-2. System updates the database with information.
+2. System updates the database with information.<br>
    Use Case ends
 
 **Extensions**
@@ -540,7 +539,7 @@ Use Case ends
     Use Case ends
 
 #### Use case: UC12 Color coding a task
-Actor: User
+Actor: User<br>
 Preconditions: User is logged in, tasks are created.
 
 **MSS**
@@ -550,7 +549,8 @@ Preconditions: User is logged in, tasks are created.
 3. User selects a task to edit
 4. User changes the color of the task.
 5. System updates the database with the changed details.
-   Use Case ends
+
+Use Case ends
 
 **Extensions**
 
@@ -575,6 +575,7 @@ Preconditions: User is logged in, tasks are created.
 2. TaskManager shows a list of tasks
 3. User requests to delete a specific task in the list
 4. TaskManager deletes the task
+
    Use case ends.
 
 **Extensions**
