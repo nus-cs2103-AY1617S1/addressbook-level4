@@ -4,7 +4,9 @@ import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import tars.commons.core.Messages;
-import tars.logic.commands.AddCommand;
+import tars.commons.exceptions.IllegalValueException;
+import tars.model.task.Name;
+import tars.model.task.Priority;
 import tars.testutil.TestTask;
 import tars.testutil.TestUtil;
 
@@ -35,7 +37,6 @@ public class AddCommandTest extends TarsGuiTest {
         assertAddSuccess(td.taskA);
 
         // invalid command
-        
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
@@ -52,4 +53,21 @@ public class AddCommandTest extends TarsGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 
+    //@@author A0140022H
+    @Test
+    public void addRecurring() {
+        commandBox.runCommand("clear");
+        TestTask[] recurringList = new TestTask[0];
+        recurringList = TestUtil.addTasksToList(recurringList, td.taskC, td.taskD);
+        try {
+            recurringList[1].setName(new Name("Task C"));
+            recurringList[1].setPriority(new Priority("l"));
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        commandBox.runCommand("add Task C -dt 03/09/2016 1400 to 04/09/2016 1400 -p l -r 2 every day");
+        assertTrue(taskListPanel.isListMatching(recurringList));
+    }
 }

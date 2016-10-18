@@ -143,8 +143,9 @@ public class Parser {
         Flag priorityFlag = new Flag(Flag.PRIORITY, false);
         Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
         Flag tagFlag = new Flag(Flag.TAG, true);
+        Flag recurringFlag = new Flag(Flag.RECURRING, false);
 
-        Flag[] flags = { priorityFlag, dateTimeFlag, tagFlag };
+        Flag[] flags = { priorityFlag, dateTimeFlag, tagFlag, recurringFlag };
 
         TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
         HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
@@ -162,7 +163,8 @@ public class Parser {
             return new AddCommand(name,
                     DateTimeUtil.getDateTimeFromArgs(argumentMap.get(dateTimeFlag).replace(Flag.DATETIME + " ", "")),
                     argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
-                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag));
+                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag),
+                    ExtractorUtil.getRecurringFromArgs(argumentMap.get(recurringFlag), recurringFlag));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
