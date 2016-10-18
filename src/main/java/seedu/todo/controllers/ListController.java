@@ -40,7 +40,7 @@ public class ListController implements Controller {
     private static Map<String, String[]> getTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
         tokenDefinitions.put("default", new String[] {"list"});
-        tokenDefinitions.put("eventType", new String[] { "event", "task"});
+        tokenDefinitions.put("eventType", new String[] { "event", "events", "task", "tasks"});
         tokenDefinitions.put("status", new String[] { "complete" , "completed", "uncomplete", "uncompleted"});
         tokenDefinitions.put("time", new String[] { "at", "by", "on", "time" });
         tokenDefinitions.put("timeFrom", new String[] { "from" });
@@ -64,20 +64,12 @@ public class ListController implements Controller {
         }
     }
     
-    private boolean parseIsComplete (Map<String, String[]> parsedResult) {
-        if (parsedResult.get("status")[0].contains("uncomplete")) {
-            return false;
-        } else {
-            return true;
-        }
+    private boolean parseIsUncomplete (Map<String, String[]> parsedResult) {
+        return parsedResult.get("status")[0].contains("uncomplete");
     }
     
     private boolean parseIsTask (Map<String, String[]> parsedResult) {
-        if (parsedResult.get("eventType")[0].equals("event")) {
-            return false;
-        } else {
-            return true;
-        }
+        return parsedResult.get("eventType")[0].equals("task");
     }
     
     private String[] parseDates(Map<String, String[]> parsedResult) {
@@ -114,22 +106,17 @@ public class ListController implements Controller {
         // Task or event?
         boolean listAll = parseListAllType(parsedResult);
         
-        boolean isTask;
-        boolean isEvent;
+        boolean isTask = true; //default
         //if listing all type , set isTask and isEvent true
-        if (listAll) {
-            isTask = true;
-            isEvent = true;
-        } else {
+        if (!listAll) {
             isTask = parseIsTask(parsedResult);
-            isEvent = !parseIsTask(parsedResult);
         }
         
         boolean listAllStatus = parseListAllStatus(parsedResult);
         boolean isCompleted = false; //default 
         //if listing all status, isCompleted will be ignored, listing both complete and uncomplete
         if (!listAllStatus) {
-            isCompleted = parseIsComplete(parsedResult);
+            isCompleted = !parseIsUncomplete(parsedResult);
         }
         
         String[] parsedDates = parseDates(parsedResult);
@@ -143,7 +130,7 @@ public class ListController implements Controller {
         LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
         
         //setting up view
-        IndexView view = setupView(isTask, isEvent, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo);
+        IndexView view = setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo);
         
         // Update console message
         int numTasks = view.tasks.size();
@@ -174,7 +161,7 @@ public class ListController implements Controller {
      * @param dateTo
      *            End date for Event
      */
-    private IndexView setupView(boolean isTask, boolean isEvent, boolean listAll, boolean isCompleted,
+    private IndexView setupView(boolean isTask, boolean listAll, boolean isCompleted,
             boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, LocalDateTime dateTo) {
         TodoListDB db = TodoListDB.getInstance();
         IndexView view = UiManager.loadView(IndexView.class);
@@ -182,16 +169,13 @@ public class ListController implements Controller {
         if (listAll) {
             //no event or task keyword found
             isTask = false;
-            isEvent = false;
             setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
             setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
         }
         
         if (isTask) {
             setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
-        }
-        
-        if (isEvent) {
+        } else {
             setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
         }
         
