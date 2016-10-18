@@ -6,7 +6,7 @@ import harmony.mastermind.model.TaskManager;
 /**
  * Clears the task manager.
  */
-public class ClearCommand extends Command {
+public class ClearCommand extends Command implements Confirmable {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Mastermind has been cleared!";
@@ -20,18 +20,14 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-            confirmWithUser();
-        } catch (CommandCancelledException cce) {
-            return new CommandResult(MESSAGE_FAIL);
-        }
+        confirmWithUser();
         
         model.resetData(TaskManager.getEmptyTaskManager());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-
-    private void confirmWithUser() throws CommandCancelledException {
-        
+    @Override
+    public CommandResult confirmWithUser() {
+        return null;
     }
 }

@@ -13,6 +13,7 @@ import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
+import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.Redoable;
@@ -105,10 +106,6 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(taskManager));
     }
     
-    private void askForUserConfirmation() {
-        raise(new UserConfirmationEvent());
-    }
-    
     @Override
     //@@author A0124797R
     public void updateCurrentTab(String tab) {
@@ -193,6 +190,10 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void relocateSaveLocation(String target) {
         taskManager.relocateSaveLocation(target);
         indicateTaskManagerChanged();
+    }
+    
+    public synchronized void indicateConfirmationToUser() throws CommandCancelledException {
+        raise();
     }
     
     //=========== Filtered List Accessors ===============================================================
