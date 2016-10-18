@@ -23,8 +23,8 @@ public class ClearController implements Controller {
     private static final String DESCRIPTION = "Clear all tasks/events or by specify date.";
     private static final String COMMAND_SYNTAX = "clear";
     
-    private static final String MESSAGE_LISTING_SUCCESS = "A total of %s has been deleted!";
-    private static final String MESSAGE_LISTING_FAILURE = "Invalid format for clear command. Date entered : ";
+    private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s tasks and events have been deleted!";
+    private static final String MESSAGE_CLEAR_FAILURE = "Invalid format for clear command. Date entered : %s";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -79,14 +79,15 @@ public class ClearController implements Controller {
         LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
         //if all are null, means date provided but natty deem as invalid date
         
-        // Render
-        int numTasks = db.getAllTasks().size();
-        int numEvents = db.getAllEvents().size();
-        String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS,
-                numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"),
-                numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
-        
-        Renderer.renderIndex(db, consoleMessage);
+        //no dates provided
+        if (parsedDates == null) {
+            int totalCalendarItems = db.getAllEvents().size() + db.getAllTasks().size();
+            db.destroyAllEvent();
+            db.destroyAllTask();
+            Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
+        } else {
+            
+        }
     }
     
     /**
@@ -113,7 +114,7 @@ public class ClearController implements Controller {
      * Extracts the natural dates from parsedResult.
      * 
      * @param parsedResult
-     * @return { naturalOn, naturalFrom, naturalTo }
+     * @return { naturalOn, naturalFrom, naturalTo } or null if no date provided
      */
     private String[] parseDates(Map<String, String[]> parsedResult) {
         String naturalFrom = null;
@@ -131,7 +132,11 @@ public class ClearController implements Controller {
             naturalOn = parsedResult.get("time")[1];
         }
         
-        return new String[] { naturalOn, naturalFrom, naturalTo };
+        if (naturalFrom != null || naturalTo != null || naturalOn != null) {
+            return new String[] { naturalOn, naturalFrom, naturalTo };
+        } else {
+            return null;
+        }
     }
 
 }
