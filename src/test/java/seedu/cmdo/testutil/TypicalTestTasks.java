@@ -12,7 +12,7 @@ import seedu.cmdo.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask grocery, house, family, car, dog, zika;
+    public static TestTask grocery, house, family, car, dog, zika, vacation;
 
     public TypicalTestTasks() {
         try {
@@ -22,6 +22,11 @@ public class TypicalTestTasks {
             car = new TaskBuilder().withDetail("Add gas").withDueByDate(LocalDate.of(2014,11,20)).withDueByTime(LocalTime.of(9, 20)).withPriority("high").build();
             zika = new TaskBuilder().withDetail("Gas the zika mosquitoes").withDueByDate(LocalDate.of(2014,11,20)).withDueByTime(LocalTime.of(9, 20)).withPriority("high").build();
             dog = new TaskBuilder().withDetail("Invent automatic dog toilet").withDueByDate(LocalDate.of(2016,10,10)).withDueByTime(LocalTime.of(16, 10)).withPriority("low").withTags("dog").build();
+            vacation = new TaskBuilder().withDetail("Take grandma on a cruise")
+            							.withDueByDateRange(LocalDate.of(2016, 11, 11), LocalDate.of(2016, 12, 12))
+            							.withDueByTimeRange(LocalTime.of(1, 0), LocalTime.of(23, 59))
+            							.withPriority("")
+            							.build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

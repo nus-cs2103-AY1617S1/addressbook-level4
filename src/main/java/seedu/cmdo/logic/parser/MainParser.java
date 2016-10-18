@@ -1,7 +1,6 @@
 package seedu.cmdo.logic.parser;
 
-import static seedu.cmdo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.cmdo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.cmdo.commons.core.Messages.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.joestelmach.natty.*;
 
+import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
 import seedu.cmdo.logic.commands.*;
@@ -34,8 +34,6 @@ public class MainParser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-	private static final String MESSAGE_INVALID_PRIORITY = "Priority is either high, medium or low. Please try again.";
 	
 	public static final String NO_DATE_DEFAULT = LocalDate.MIN.toString();	// All floating tasks are giving this date.
 	public static final String NO_TIME_DEFAULT = LocalTime.MAX.toString();	// All timeless tasks are given this time.
@@ -122,9 +120,10 @@ public class MainParser {
      */
     private Command prepareAdd(String args){
         try {
-        	extractDetail(args);	// Saves to detailToAdd
-        	reducedArgs = extractDueByDateAndTime(args);
-        	removeTagsAndPriorityMarkers(reducedArgs);
+        	args = extractDetail(args);	// Saves to detailToAdd
+        	args = extractDueByDateAndTime(args);
+        	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
+        		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
         	LocalDateTime dt = LocalDateTime.MIN;
         	LocalDateTime dtStart = LocalDateTime.MIN;
         	LocalDateTime dtEnd = LocalDateTime.MIN;
@@ -343,10 +342,14 @@ public class MainParser {
      * @@author A0139661Y
      */
     
-    private static void extractDetail(String args) throws IllegalValueException {
+    private static String extractDetail(String args) throws IllegalValueException {
     	// Check if only one ' used
     	if (args.lastIndexOf("'") == args.indexOf("'"))
-    		throw new IllegalValueException("Encapsulate your task detauls in ' '.");
+    		throw new IllegalValueException(MESSAGE_ENCAPSULATE_DETAIL_WARNING);
+    	// Check if detail is empty.
+    	if (args.lastIndexOf("'") == args.indexOf("'")+1) {
+    		throw new IllegalValueException(MESSAGE_BLANK_DETAIL_WARNING);
+    	}
     	// Split into '  ...  '
     	String[] details = args.split("^'(.+)'$");
     	// Details only, get rid of anything after the '
@@ -357,30 +360,22 @@ public class MainParser {
     	output = output.replaceFirst("'","");
     	// Save to instance
     	detailToAdd = output;
-    }
-    
-    /**
-     * Extracts the details out of the reduced args string (without date and time)
-     * 
-     * @param reducedArgs
-     * @return a clean string without redundant words, tags, priority
-     * 
-     * @@author A0139661Y
-     */
-    private String removeTagsAndPriorityMarkers(String reducedArgs) {
-		return getCleanString(reducedArgs.replaceAll("-[^ ]+", "")
-										.replaceAll("/[^ ]+", ""));
+    	
+    	// return rear end
+    	return new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
     }
     
 	/**
      * Extracts the priority out of the args.
+     * If / precedes neither high, medium or low, it will throw an error
+     * Otherwise, it is taken to have default no priority.
      * 
      * @param splittedArgs an array of split user input
      * @return priority level string.
      * 
      * @@author A0139661Y
      */ 
-    private String extractPriority(String[] splittedArgs) {
+    private String extractPriority(String[] splittedArgs) throws IllegalValueException {
     	List<String> rawArgs = Arrays.asList(splittedArgs);
     	for (String rawArg : rawArgs) {
     		if (rawArg.toLowerCase().startsWith("/")) {
@@ -391,10 +386,12 @@ public class MainParser {
     				return Priority.MEDIUM;
     			case Priority.LOW:
     				return Priority.LOW;
+    			default:
+    				throw new IllegalValueException(MESSAGE_INVALID_PRIORITY);
     			}
     		}
     	}
-    	return Priority.LOW;
+    	return "";
     }
     
     /**

@@ -76,6 +76,11 @@ public class DueByTime {
 //        return value.hashCode();
 //    }
 
+	//@@author A0139661Y
+    public boolean isRange() {
+		return isRange;
+	}
+    
     /*
      * Produces a friendly string of values in the format HH:MM
      * 

@@ -25,7 +25,7 @@ public class Priority {
      * @author A0139661Y
      */
     public Priority() {
-    	value = LOW;
+    	value = NONE;
     }
     
     /**
@@ -41,7 +41,7 @@ public class Priority {
         // Test-case manual add
         if (!priority.equals("")) {
         	this.value = priority.toLowerCase();
-        } else this.value = LOW;
+        } else this.value = NONE;
     }
 
     /**

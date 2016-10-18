@@ -7,9 +7,6 @@ import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.model.tag.Tag;
 import seedu.cmdo.model.task.*;
 
-/**
- *
- */
 public class TaskBuilder {
 
     private TestTask task;
@@ -35,10 +32,22 @@ public class TaskBuilder {
         this.task.setDueByDate(new DueByDate(dbd));
         return this;
     }
+    
+    //@@author A0139661Y
+    public TaskBuilder withDueByDateRange(LocalDate dbdStart, LocalDate dbdEnd) throws IllegalValueException {
+    	this.task.setDueByDate(new DueByDate(dbdStart, dbdEnd));
+    	return this;
+    }
 
     public TaskBuilder withDueByTime(LocalTime dbt) throws IllegalValueException {
         this.task.setDueByTime(new DueByTime(dbt));
         return this;
+    }
+    
+    //@@author A0139661Y
+    public TaskBuilder withDueByTimeRange(LocalTime dbtStart, LocalTime dbtEnd) throws IllegalValueException {
+    	this.task.setDueByTime(new DueByTime(dbtStart, dbtEnd));
+    	return this;
     }
 
     public TaskBuilder withPriority(String priority) throws IllegalValueException {
@@ -49,5 +58,4 @@ public class TaskBuilder {
     public TestTask build() {
         return this.task;
     }
-
 }
