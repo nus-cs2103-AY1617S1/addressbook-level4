@@ -5,7 +5,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskDate;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.TaskType;
 
 public class TaskCard extends UiPart{
@@ -24,16 +26,20 @@ public class TaskCard extends UiPart{
     private Label startDate;
     @FXML
     private Label endDate;
+    @FXML
+    private Label recurringType;
 
     private ReadOnlyTask task;
     private int displayedIndex;
-
+    private TaskDateComponent dateComponent;
+    
     public TaskCard() {}
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+    public static TaskCard load(TaskDateComponent taskComponent, int displayedIndex){
         TaskCard card = new TaskCard();
-        card.task = task;
+        card.task = taskComponent.getTaskReference();
         card.displayedIndex = displayedIndex;
+        card.dateComponent = taskComponent;
         return UiPartLoader.loadUiPart(card);
     }
 
@@ -42,27 +48,34 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
-        if (task.getType() == TaskType.NON_FLOATING) {
-            initializeNonFloating();
-        }
-        else if (task.getType() == TaskType.FLOATING) {
-            initializeFloating();
-        }
+        initializeDate();
+        initializeRecurringType();
     }
 
-    private void initializeFloating() {
-        startDate.setText("");
-        endDate.setText("");
+    private void initializeRecurringType() {
+        String recurringTypeToShow = "";
+        if (!task.getRecurringType().equals(RecurringType.NONE)) {
+            recurringTypeToShow = task.getRecurringType().name();
+        }
+        recurringType.setText(recurringTypeToShow);
     }
 
-    private void initializeNonFloating() {
-        if (task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT) {
+    
+    private void initializeDate() {
+    	if (dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
             startDate.setText("");
         } else {
-            startDate.setText(task.getStartDate().getFormattedDate());
+            startDate.setText(dateComponent.getStartDate().getFormattedDate());
         }
-        endDate.setText(task.getEndDate().getFormattedDate());
+    	
+    	if (dateComponent.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
+            endDate.setText("");
+        } else {
+        	endDate.setText(dateComponent.getEndDate().getFormattedDate());
+        }
     }
+
+
 
     public HBox getLayout() {
         return cardPane;

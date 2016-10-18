@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPaneNav" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane id="navBarGrid" prefHeight="71.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="0.0" prefWidth="0.0" />
+            </columnConstraints>
+            <children>
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="53.0" prefHeight="73.0" prefWidth="250.0" GridPane.columnIndex="0">
+                    <stylesheets>
+                        <URL value="@DarkTheme.css" />
+                        <URL value="@Extensions.css" />
+                    </stylesheets>
+                    <padding>
+                        <Insets bottom="5" left="15" right="5" top="5" />
+                    </padding>
+
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="27.0" prefWidth="245.0" spacing="5">
+                            <children>
+                                <HBox alignment="CENTER" minWidth="150.0" prefHeight="27.0" prefWidth="211.0" scaleShape="false">
+                                   <children>
+                                   <VBox alignment="CENTER_LEFT">
+                                      <children>
+                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                    
+                                 </image>
+                                 </ImageView>
+                                      </children>
+                           </VBox>
+                                       <Label fx:id="name" styleClass="cell_big_label" text="\$first" textAlignment="CENTER">
+                                 		</Label>
+                                   </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+    </children>
+</HBox>

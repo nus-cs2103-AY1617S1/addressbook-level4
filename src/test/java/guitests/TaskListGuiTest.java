@@ -12,6 +12,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.TaskList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
@@ -40,7 +41,7 @@ public abstract class TaskListGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected FloatingTaskListPanelHandle floatingTaskListPanel;
+    protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -60,7 +61,7 @@ public abstract class TaskListGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            floatingTaskListPanel = mainGui.getFloatingTaskListPanel();
+            taskListPanel = mainGui.getFloatingTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -107,15 +108,15 @@ public abstract class TaskListGuiTest {
     /**
      * Asserts the floatingTask shown in the card is same as the given floatingTask
      */
-    public void assertMatching(ReadOnlyTask floatingTask, FloatingTaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndTask(card, floatingTask));
+    public void assertMatching(TaskDateComponent task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**
      * Asserts the size of the floatingTask list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = floatingTaskListPanel.getNumberOfPeople();
+        int numberOfPeople = taskListPanel.getNumberOfPeople();
         assertEquals(size, numberOfPeople);
     }
 

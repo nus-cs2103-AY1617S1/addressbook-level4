@@ -3,8 +3,14 @@ package seedu.address.storage;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskType;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.model.ReadOnlyTaskList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,7 +44,13 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
      * Conversion
      */
     public XmlSerializableTaskList(ReadOnlyTaskList src) {
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+    	try {
+			src = src.purify();
+		} catch (TaskNotFoundException e) {
+			// TODO Auto-generated catch block
+			assert false : "impossible";
+		}
+        tasks.addAll(src.getTaskComponentList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -80,6 +92,18 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags);
+    }
+
+	@Override
+	public ReadOnlyTaskList purify() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+    @Override
+    public List<TaskDateComponent> getTaskComponentList() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

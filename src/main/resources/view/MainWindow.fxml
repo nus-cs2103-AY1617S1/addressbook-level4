@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
+<?import javafx.scene.layout.AnchorPane?>
+
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
    <stylesheets>
-      <URL value="@DarkTheme.css" />
+      
       <URL value="@Extensions.css" />
    </stylesheets>
    <children>
@@ -22,35 +27,56 @@
                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Customize Skin">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleCustomize" text="I'm feeling lucky!" />
+               </items>
+            </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
-         <padding>
-            <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
-         </padding>
-      </AnchorPane>
-       <AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border" minHeight="100" prefHeight="100" maxHeight="100">
-           <padding>
-               <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
-           </padding>
-       </AnchorPane>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-         <items>
-            <VBox fx:id="taskList" minWidth="340" prefWidth="340">
-                <padding>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                </padding>
-               <children>
-                  <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-               </children>
-            </VBox>
-            <AnchorPane fx:id="browserPlaceholder" prefWidth="340" >
-                <padding>
-                    <Insets top="10" bottom="10" left="10" right="10"/>
-                </padding>
-            </AnchorPane>
-         </items>
-      </SplitPane>
-      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+      	<items>
+      		<VBox fx:id="navbar" minWidth="300" prefWidth="300">
+         		<padding>
+         			<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         		</padding>
+         		<children>
+         			<AnchorPane fx:id="navbarPanelPlaceholder" VBox.vgrow="ALWAYS" />
+         		</children>
+      		</VBox>
+      		<AnchorPane>
+         <children>
+         			<AnchorPane fx:id="commandBoxPlaceholder" minHeight="60.0" minWidth="870.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+            			<padding>
+               			<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+            			</padding>
+         			</AnchorPane>
+         			<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" layoutY="100.0" minHeight="600.0" prefWidth="870.0" VBox.vgrow="ALWAYS">
+            			<items>
+               			<VBox fx:id="taskList" minWidth="430" prefWidth="430">
+                   			<padding>
+                       			<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                   			</padding>
+                  				<children>
+                     				<AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  				</children>
+               			</VBox>
+               			<AnchorPane fx:id="browserPlaceholder" minWidth="430">
+                   			<padding>
+                       			<Insets bottom="10" left="10" right="10" top="10" />
+                   			</padding>
+               			</AnchorPane>
+            			</items>
+         			</SplitPane>
+         </children>
+      		</AnchorPane>
+      	</items>
+      	</SplitPane>
+      	<AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+           	<padding>
+               	<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+           	</padding>
+       	</AnchorPane>
+      	<AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
 </VBox>

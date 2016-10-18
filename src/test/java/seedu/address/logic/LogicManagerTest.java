@@ -23,13 +23,14 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.TypicalTestTasks;
-
+import java.io.IOException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -78,10 +79,12 @@ public class LogicManagerTest {
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
+    
+    
 
     @After
     public void teardown() throws DataConversionException, IOException {
-    	logic.execute("clear");
+    	//logic.execute("clear");
     	Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
 		config.setTaskListFilePath("data\\tasklist.xml");
 		ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
@@ -113,14 +116,15 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskList expectedTaskList,
-                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+                                       List<? extends TaskDateComponent> expectedShownList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
 
+        List<TaskDateComponent> componentList = model.getFilteredTaskComponentList();
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        assertEquals(expectedShownList, componentList);
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskList, model.getTaskList());
@@ -185,7 +189,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -200,7 +204,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -215,7 +219,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());        
+                expectedAB.getTaskComponentList());        
     }
 
     @Test
@@ -225,16 +229,16 @@ public class LogicManagerTest {
         Task toBeAdded = helper.adam();
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
-
+        
         // setup starting state
         model.addTask(toBeAdded); // task already in internal task list
-
+       
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
                 AddFloatingCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
     }
     
      
@@ -243,9 +247,11 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
-        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"), 
+        						  RecurringType.NONE);
         Task toBeAddedAfter = new Task(new Name("Task two"), new UniqueTagList(),
-				  new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"));
+				  new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"), 
+				  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
 
@@ -257,7 +263,33 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAddedAfter),
                 AddNonFloatingCommand.MESSAGE_TIMESLOT_OCCUPIED,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
+
+    }
+    
+    @Test
+    public void execute_addDeadlineOverlap_Successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"),
+        						  RecurringType.NONE);
+        Task toBeAddedAfter = new Task(new Name("Task two"), new UniqueTagList(),
+				  new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 11am"),
+				  RecurringType.NONE);
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(toBeAddedAfter);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal task list
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAddedAfter),
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter),
+                expectedAB,
+                expectedAB.getTaskComponentList());
 
     }
     
@@ -266,7 +298,8 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
-        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"));
+        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"),
+        						  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
 
         // execute command and verify result
@@ -274,17 +307,16 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddNonFloatingCommand.MESSAGE_ILLEGAL_TIME_SLOT,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
 
     }
-
 
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskList expectedAB = helper.generateTaskList(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        List<? extends TaskDateComponent> expectedList = expectedAB.getTaskComponentList();
 
         // prepare task list state
         helper.addToModel(model, 2);
@@ -304,7 +336,8 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
-				  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+				  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"), 
+				  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
 
@@ -312,7 +345,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateBlockCommand(toBeAdded),
                 String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
 
     }
     
@@ -321,9 +354,11 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
-        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"));
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"), 
+        						  RecurringType.NONE);
         Task toBeAddedAfter = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
-				  new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"));
+				  new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"),
+				  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeBlocked);
 
@@ -335,7 +370,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAddedAfter),
                 BlockCommand.MESSAGE_TIMESLOT_OCCUPIED,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
 
     }
     
@@ -344,7 +379,8 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
-        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"));
+        						  new TaskDate("2 oct 6am"), new TaskDate("2 oct 5am"),
+        						  RecurringType.NONE);
         TaskList expectedAB = new TaskList();
 
         // execute command and verify result
@@ -352,7 +388,7 @@ public class LogicManagerTest {
                 helper.generateBlockCommand(toBeBlocked),
                 BlockCommand.MESSAGE_ILLEGAL_TIME_SLOT,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
 
     }
     
@@ -369,13 +405,13 @@ public class LogicManagerTest {
                 "u",
                 UndoCommand.MESSAGE_FAIL,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
         
         assertCommandBehavior(
                 "r",
                 RedoCommand.MESSAGE_FAIL,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
     }
     
       
@@ -391,20 +427,20 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
         
         expectedAB = new TaskList();
         assertCommandBehavior("u",
                 UndoCommand.MESSAGE_SUCCESS,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
         
         expectedAB.addTask(toBeAdded);
         assertCommandBehavior(
                 "r",
                 String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());        
+                expectedAB.getTaskComponentList());        
     }
     
     @Test
@@ -423,7 +459,7 @@ public class LogicManagerTest {
                 "u",
                 UndoCommand.MESSAGE_FAIL,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
     	
     	for(int i = 0; i < 3; i++){
     		logic.execute("r");
@@ -434,7 +470,7 @@ public class LogicManagerTest {
                 "r",
                 RedoCommand.MESSAGE_FAIL,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -446,7 +482,7 @@ public class LogicManagerTest {
                 "u",
                 UndoCommand.MESSAGE_FAIL,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
     	
     }
     /***
@@ -460,7 +496,7 @@ public class LogicManagerTest {
     			"cd random path",
                 ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -471,7 +507,7 @@ public class LogicManagerTest {
     			"cd "+saveFolder.getRoot().getPath()+"cdtest.txt",
                 ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR,
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -483,7 +519,7 @@ public class LogicManagerTest {
     			"cd "+ saveFolder.getRoot().getPath()+"cdtest.xml",
     			String.format(ChangeDirectoryCommand.MESSAGE_SUCCESS, saveFolder.getRoot().getPath()+"cdtest.xml"),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
     	
     	//Ensure model writes to this file
     	expectedAB.addTask(helper.adam());
@@ -518,6 +554,7 @@ public class LogicManagerTest {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTasks(2);
+        List<TaskDateComponent> taskComponentList = helper.buildTaskComponentsFromTaskList(taskList);
 
         // set AB state to 2 tasks
         model.resetData(new TaskList());
@@ -525,7 +562,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskList(), taskList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskList(), taskComponentList);
     }
 
     @Test
@@ -550,7 +587,7 @@ public class LogicManagerTest {
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
     }
@@ -579,7 +616,36 @@ public class LogicManagerTest {
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskComponentList());
+    }
+    
+    @Test
+    public void execute_completeInvalidArgsFormat_errorMessageShown() throws Exception {
+    	String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE);
+    	assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
+    }
+    
+    @Test
+    public void execute_completeIndexNotFound_errorMessageShown() throws Exception {
+    	assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
+    @Test
+    public void execute_complete_removesCorrectTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Task toComplete = helper.adam();
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toComplete);
+        model.addTask(toComplete);
+
+        assertCommandBehavior("done 1", 
+        		String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete),
+        	    expectedAB,
+        	    new TaskList().getTaskComponentList());
+        		
+        assertEquals(expectedAB, model.getTaskList());
+        assertEquals(expectedAB, latestSavedTaskList);
     }
 
 
@@ -600,12 +666,13 @@ public class LogicManagerTest {
         List<Task> fourTasks = helper.generateTasks(p1, pTarget1, p2, pTarget2);
         TaskList expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTasks(pTarget1, pTarget2);
+        List<TaskDateComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedComponentList);
     }
 
     @Test
@@ -619,12 +686,13 @@ public class LogicManagerTest {
         List<Task> fourTasks = helper.generateTasks(p3, p1, p4, p2);
         TaskList expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = fourTasks;
+        List<TaskDateComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedComponentList);
     }
 
     @Test
@@ -638,12 +706,374 @@ public class LogicManagerTest {
         List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
         TaskList expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTasks(pTarget1, pTarget2, pTarget3);
+        List<TaskDateComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedComponentList);
+    }
+    
+    @Test
+    public void execute_findByDateTimeBoundary() throws Exception{
+    	TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generateTaskWithName("key key");
+        Task p1 = helper.generateTaskWithName("sduauo");
+        Task test = helper.nonFloatingByDate();
+
+        List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTaskList(fourTasks);
+        List<Task> expectedList = helper.generateTasks(test);
+        
+        expectedAB.addTask(test);
+        helper.addToModel(model, fourTasks);
+        model.addTask(test);
+        
+        List<TaskDateComponent> componentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        
+        //find by exact time successful
+        assertCommandBehavior("find by 20 oct 11am",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                componentList);
+        //find by earlier time boundary lists nothing
+        assertCommandBehavior("find by 20 oct 10am",
+                Command.getMessageForTaskListShownSummary(0),
+                expectedAB,
+                new TaskList().getTaskComponentList());
+        //find by later time boundary successful
+        assertCommandBehavior("find by 20 oct 12pm",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                componentList);
+    }
+    
+    @Test
+    public void execute_findFromDateBoundaryToDateBoundary() throws Exception{
+    	TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generateTaskWithName("key key");
+        Task p1 = helper.generateTaskWithName("sduauo");
+        Task test = helper.nonFloatingFromDateToDate();
+
+        List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTaskList(fourTasks);
+        List<Task> expectedList = helper.generateTasks(test);
+        
+        expectedAB.addTask(test);
+
+        helper.addToModel(model, fourTasks);
+        model.addTask(test);
+        List<TaskDateComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        
+        //find by exact boundary successful
+        assertCommandBehavior("find from 19 oct 10pm to 20 oct 11am",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedComponentList);
+        //find by smaller boundary lists nothing
+        assertCommandBehavior("find from 19 oct 11pm to 20 oct 11am",
+                Command.getMessageForTaskListShownSummary(0),
+                expectedAB,
+                new TaskList().getTaskComponentList());
+        //find by lax boundary successful
+        assertCommandBehavior("find from 19 oct 9pm to 20 oct 1pm",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedComponentList);
+    }
+    
+    @Test
+    public void execute_findFloatingTasksbyType_Successful() throws Exception{
+    	TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generateTaskWithName("key key");
+        Task p1 = helper.generateTaskWithName("sduauo");
+        Task test = helper.nonFloatingFromDateToDate();
+
+        List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTaskList(fourTasks);
+        List<Task> expectedList = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
+        
+        expectedAB.addTask(test);
+
+        helper.addToModel(model, fourTasks);
+        model.addTask(test);
+        
+        List<TaskDateComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+
+        assertCommandBehavior("find -F",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedComponentList);
+        
+    }
+    
+    @Test
+    public void execute_findCompletedTasksbyType_Successful() throws Exception{
+    	TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task test = helper.nonFloatingFromDateToDate();
+
+        TaskList expectedAB = new TaskList();
+        List<Task> expectedList = helper.generateTasks(test);
+        
+        expectedAB.addTask(pTarget1);
+        expectedAB.addTask(test);
+
+        model.addTask(pTarget1);
+        model.addTask(test);
+        
+        List<TaskDateComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        
+        logic.execute("done 2");
+        
+        assertCommandBehavior("find -C",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedComponentList);
+        
+    }
+    
+    @Test
+    public void execute_findbyTag_Successful() throws Exception{
+    	TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task test = helper.nonFloatingFromDateToDate();
+
+        TaskList expectedAB = new TaskList();
+        List<Task> expectedList = helper.generateTasks(test);
+        
+        expectedAB.addTask(pTarget1);
+        expectedAB.addTask(test);
+
+        model.addTask(pTarget1);
+        model.addTask(test);
+        
+        List<TaskDateComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        
+        assertCommandBehavior("find t/tag1",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedComponentList);
+        
+    }
+    
+    /** tests for edit command*/   
+    @Test
+    public void execute_edit_invalidTaskData() throws Exception {
+        Task toBeAdded = new Task(new Name("anything"), new UniqueTagList(),
+        						  new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+       
+        TaskList expectedAB = new TaskList();
+        expectedAB.addTask(toBeAdded);
+    	model.addTask(toBeAdded);
+        assertCommandBehavior(
+                "edit 1 []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS, expectedAB, expectedAB.getTaskComponentList());
+        assertCommandBehavior(
+        		"edit 1 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS, expectedAB, expectedAB.getTaskComponentList());
+    }
+    
+    @Test
+    public void execute_edit_fromDateIsBehindToDate_notAllowed() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(beforeModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 from 2 oct 1pm to 2 oct 1am",
+                String.format(EditCommand.MESSAGE_ILLEGAL_TIME_SLOT),
+                expectedAB,
+                expectedAB.getTaskComponentList());
+    }
+    
+    @Test
+    public void execute_edit_timeSlotOccupied_notAllowed() throws Exception {
+        // setup expectations
+    	Task dummyTask = new Task(new Name("dummy"), new UniqueTagList(),
+									new TaskDate("10 oct 2pm"), new TaskDate("10 oct 5pm"), RecurringType.NONE);
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(),
+    										new TaskDate("10 oct 10am"), new TaskDate("10 oct 12am"), RecurringType.NONE);
+		
+    	model.addTask(dummyTask);
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+    	expectedAB.addTask(dummyTask);
+		expectedAB.addTask(beforeModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 2 from 10 oct 1pm to 10 oct 6pm",
+                String.format(EditCommand.MESSAGE_TIMESLOT_OCCUPIED),
+                expectedAB,
+                expectedAB.getTaskComponentList());
+    }
+  
+    @Test
+    public void execute_edit_name_for_task_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+    	Task afterModification = new Task(new Name("changed"), new UniqueTagList());
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 changed",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
+    }
+    
+    @Test
+    public void execute_edit_tag_for_taskWithoutTag_Successful() throws Exception {
+        // setup expectations
+    	Set<Tag> tagSet = new HashSet<Tag>();
+    	tagSet.add(new Tag("anytag"));
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(tagSet));
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 t/anytag",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
+    }
+    
+    @Test
+    public void execute_edit_tag_for_taskWithTag_Successful() throws Exception {
+        // setup expectations
+    	Set<Tag> tagSet = new HashSet<Tag>();
+    	Set<Tag> newTagSet = new HashSet<Tag>();
+    	tagSet.add(new Tag("anytag"));
+    	newTagSet.add(new Tag("anothertag"));
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(tagSet));
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(newTagSet));
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+    	expectedAB.getUniqueTagList().add(new Tag("anytag"));
+		expectedAB.addTask(afterModification);
+
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 t/anothertag",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
+    }
+    
+    @Test
+    public void execute_edit_change_fromDateToDate_for_nonFloatingTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 3am"), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+		TestDataHelper helper = new TestDataHelper();
+        List<TaskDateComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 from 2 oct 2am to 2 oct 1pm",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedComponentList);
+    }
+    
+    @Test
+    public void execute_edit_change_byDate_for_nonfloatingTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 2pm"), RecurringType.NONE);
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+        TestDataHelper helper = new TestDataHelper();
+        List<TaskDateComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 by 2 oct 1pm",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedComponentList);
+    }
+    
+    @Test
+    public void execute_edit_switch_between_byDate_and_fromDateToDate_for_nonFloatingTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 4am"), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+        TestDataHelper helper = new TestDataHelper();
+        List<TaskDateComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 by 2 oct 1pm",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedComponentList);
+    }
+    
+    @Test
+    public void execute_edit_add_fromDateToDate_for_floatingTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 2am"), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+
+	    TestDataHelper helper = new TestDataHelper();
+	    List<TaskDateComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 from 2 oct 2am to 2 oct 1pm",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedComponentList);
+    }
+    
+    @Test
+    public void execute_edit_add_byDate_for_floatingTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE);
+		
+    	model.addTask(beforeModification);
+    	TaskList expectedAB = new TaskList();
+		expectedAB.addTask(afterModification);
+        TestDataHelper helper = new TestDataHelper();
+        List<TaskDateComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 by 2 oct 1pm",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedComponentList);
     }
 
 
@@ -660,6 +1090,22 @@ public class LogicManagerTest {
             return new Task(name, tags);
         }
         
+        public List<TaskDateComponent> buildReadOnlyTaskComponentsFromTaskList(List<ReadOnlyTask> taskList) {
+            List<TaskDateComponent> dateComponentList = new ArrayList<TaskDateComponent>();
+            for(ReadOnlyTask t : taskList) {
+                dateComponentList.addAll(t.getTaskDateComponent());
+            }
+            return dateComponentList;
+        }
+
+        public List<TaskDateComponent> buildTaskComponentsFromTaskList(List<Task> taskList) {
+            List<TaskDateComponent> dateComponentList = new ArrayList<TaskDateComponent>();
+            for(Task t : taskList) {
+                dateComponentList.addAll(t.getTaskDateComponent());
+            }
+            return dateComponentList;
+        }
+
         Task nonFloatingFromDateToDate() throws Exception {
             Name name = new Name("non floating task from XXXX to XXXX");
             Tag tag1 = new Tag("tag1");
@@ -667,7 +1113,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             TaskDate startDate = new TaskDate("19 oct 10pm");
             TaskDate endDate = new TaskDate("20 oct 11am");
-            return new Task(name, tags, startDate, endDate);
+            return new Task(name, tags, startDate, endDate, RecurringType.NONE);
         }
 
         Task nonFloatingByDate() throws Exception {
@@ -677,7 +1123,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             TaskDate startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
             TaskDate endDate = new TaskDate("20 oct 11am");
-            return new Task(name, tags, startDate, endDate);
+            return new Task(name, tags, startDate, endDate, RecurringType.NONE);
         }        
         
         /**
@@ -699,7 +1145,7 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
             cmd.append(p.getName().toString());
-            if(p.getType().equals(TaskType.NON_FLOATING)){
+            if(p.getTaskType().equals(TaskType.NON_FLOATING)){
                 generateAddNonFloatingCommand(p, cmd);
             }
             UniqueTagList tags = p.getTags();
@@ -709,16 +1155,32 @@ public class LogicManagerTest {
             System.out.println(cmd.toString());
             return cmd.toString();
         }
+        
+        /** Generates the correct block command based on the task given */
+        String generateBlockCommand(Task p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("block ");
+            
+            generateCommandComponentFromDateToDate(p, cmd);
+
+            UniqueTagList tags = p.getTags();
+            for(Tag t: tags){
+                cmd.append(" t/").append(t.tagName);
+            }
+            System.out.println(cmd.toString());
+            return cmd.toString();
+        }
 
         private void generateAddNonFloatingCommand(Task p, StringBuffer cmd) {            
-            if (p.hasOnlyDateLine()) {
+            if (p.hasOnlyEndDate()) {
                 generateAddNonFloatingCommandByDate(p, cmd);
             } else {
-                generateAddNonFloatingCommandFromDateToDate(p, cmd);   
+                generateCommandComponentFromDateToDate(p, cmd);   
             }
         }
 
-        private void generateAddNonFloatingCommandFromDateToDate(Task p, StringBuffer cmd) {
+        private void generateCommandComponentFromDateToDate(Task p, StringBuffer cmd) {
             cmd.append(" from ");
             cmd.append(p.getStartDate().getInputDate());
             cmd.append(" to ");
@@ -729,24 +1191,7 @@ public class LogicManagerTest {
             cmd.append(" by ").append(p.getEndDate().getInputDate());
         }
         
-        /** Generates the correct block command based on the task given */
-        String generateBlockCommand(Task p) {
-            StringBuffer cmd = new StringBuffer();
-
-            cmd.append("block ");
-            
-            cmd.append("from ");
-            cmd.append(p.getStartDate().getInputDate());
-            cmd.append(" to ");
-            cmd.append(p.getEndDate().getInputDate());
-
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
-            System.out.println(cmd.toString());
-            return cmd.toString();
-        }
+        
 
         /**
          * Generates an TaskList with auto-generated tasks.

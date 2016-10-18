@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList;
@@ -45,7 +46,8 @@ public class BlockCommand extends Command {
                 new Name(DUMMY_NAME),
                 new UniqueTagList(tagSet),
                 new TaskDate(startDate),
-                new TaskDate(endDate)
+                new TaskDate(endDate),
+                RecurringType.NONE
         );
         if(!this.toBlock.isValidTimeSlot()){
         	indicateAttemptToExecuteIncorrectCommand();

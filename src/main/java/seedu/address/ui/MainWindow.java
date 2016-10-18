@@ -25,11 +25,15 @@ public class MainWindow extends UiPart {
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
+    
+    private final String BLUE_THEME = getClass().getResource("/view/BlueTheme.css").toExternalForm();
+    private final String DARK_THEME = getClass().getResource("/view/DarkTheme.css").toExternalForm();
 
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private NavbarPanel navbarPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -52,6 +56,9 @@ public class MainWindow extends UiPart {
     @FXML
     private MenuItem helpMenuItem;
 
+    @FXML
+    private AnchorPane navbarPanelPlaceholder;
+    
     @FXML
     private AnchorPane taskListPanelPlaceholder;
 
@@ -77,7 +84,7 @@ public class MainWindow extends UiPart {
     }
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
+        
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
         mainWindow.configure(config.getAppTitle(), config.getTaskListName(), config, prefs, logic);
         return mainWindow;
@@ -98,6 +105,7 @@ public class MainWindow extends UiPart {
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
+        scene.getStylesheets().add(DARK_THEME);
         primaryStage.setScene(scene);
 
         setAccelerators();
@@ -109,6 +117,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
+        navbarPanel = NavbarPanel.load(primaryStage, getNavbarPlaceholder());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
@@ -125,6 +134,10 @@ public class MainWindow extends UiPart {
 
     private AnchorPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
+    }
+    
+    public AnchorPane getNavbarPlaceholder() {
+    	return navbarPanelPlaceholder;
     }
 
     public AnchorPane getTaskListPlaceholder() {
@@ -173,6 +186,18 @@ public class MainWindow extends UiPart {
     public void show() {
         primaryStage.show();
     }
+    
+    @FXML
+    public void handleCustomize(){
+    	if(scene.getStylesheets().contains(DARK_THEME)){
+    		scene.getStylesheets().add(BLUE_THEME);
+    		scene.getStylesheets().remove(DARK_THEME);
+    	}else{
+    		scene.getStylesheets().add(DARK_THEME);
+    		scene.getStylesheets().remove(BLUE_THEME);
+    	}
+    }
+    
 
     /**
      * Closes the application.
@@ -180,6 +205,14 @@ public class MainWindow extends UiPart {
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
+    }
+    
+    public NavbarPanel getNavbarPanel() {
+    	return this.navbarPanel;
+    }
+    
+    public CommandBox getCommandBox() {
+    	return this.commandBox;
     }
 
     public TaskListPanel getTaskListPanel() {
@@ -193,4 +226,6 @@ public class MainWindow extends UiPart {
     public void releaseResources() {
         browserPanel.freeResources();
     }
+    
+    
 }

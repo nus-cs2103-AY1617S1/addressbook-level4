@@ -1,12 +1,16 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.RecurringTaskManager;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +28,10 @@ public class XmlAdaptedTask {
     private long startDate;
     @XmlElement
     private long endDate;
+    @XmlElement
+    private String recurringType;
+    @XmlElement
+    private boolean isArchived;
     
     /**
      * No-arg constructor for JAXB use.
@@ -36,20 +44,29 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(ReadOnlyTask source) {
-        name = source.getName().fullName;
+    public XmlAdaptedTask(TaskDateComponent source) {
+        name = source.getTaskReference().getName().fullName;
         tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
+        for (Tag tag : source.getTaskReference().getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
-        if (source.getType() == TaskType.NON_FLOATING) {
-            startDate = source.getStartDate().getDate();
-            endDate = source.getEndDate().getDate();
-        }
-        if (source.getType() == TaskType.FLOATING) {
+        if (source.getTaskReference().getTaskType() == TaskType.NON_FLOATING) {
+            startDate = source.getStartDate().getDateInLong();
+            endDate = source.getEndDate().getDateInLong();
+        } else if (source.getTaskReference().getTaskType() == TaskType.FLOATING) {
             startDate = TaskDate.DATE_NOT_PRESENT;
             endDate = TaskDate.DATE_NOT_PRESENT;
         }
+        if (source.getTaskReference().getRecurringType() != RecurringType.NONE && source.tIsArchived()) {
+            TaskDate startCopy = new TaskDate(source.getStartDate());
+            TaskDate endCopy = new TaskDate(source.getEndDate());
+            RecurringTaskManager.getInstance().handleRecurringTask(startCopy,
+                    endCopy, 
+                    source.getTaskReference().getRecurringType());
+            startDate = startCopy.getDateInLong();
+            endDate = endCopy.getDateInLong();
+        }
+        recurringType = source.getTaskReference().getRecurringType().name();
     }
 
     /**
@@ -78,6 +95,11 @@ public class XmlAdaptedTask {
     private Task toModelTypeNonFloating(final Name name, final UniqueTagList tags) {
         final TaskDate taskStartDate = new TaskDate(startDate);
         final TaskDate taskEndDate = new TaskDate(endDate);
-        return new Task(name, tags, taskStartDate, taskEndDate);
+        RecurringType toBeAdded = RecurringType.NONE;
+        if (recurringType != null ) {
+            toBeAdded = RecurringType.valueOf(recurringType);
+        }
+
+        return new Task(name, tags, taskStartDate, taskEndDate, toBeAdded);
     }
 }

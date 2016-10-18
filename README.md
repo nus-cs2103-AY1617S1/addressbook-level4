@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W09-C2/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W09-C2/main?branch=master)
 # HappyJimTaskManager
 
 <img src="docs/images/Ui.JPG" width="600"><br>

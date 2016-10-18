@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskDateComponent;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -26,7 +26,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private ListView<TaskDateComponent> taskListView;
 
     public TaskListPanel() {
         super();
@@ -48,19 +48,19 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
+                                       ObservableList<TaskDateComponent> taskList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    private void configure(ObservableList<TaskDateComponent> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    private void setConnections(ObservableList<TaskDateComponent> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -75,7 +75,7 @@ public class TaskListPanel extends UiPart {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
+                raise(new TaskPanelSelectionChangedEvent(newValue.getTaskReference()));
             }
         });
     }
@@ -87,20 +87,20 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-    class TaskListViewCell extends ListCell<ReadOnlyTask> {
+    class TaskListViewCell extends ListCell<TaskDateComponent> {
 
         public TaskListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
-            super.updateItem(task, empty);
+        protected void updateItem(TaskDateComponent taskComponent, boolean empty) {
+            super.updateItem(taskComponent, empty);
 
-            if (empty || task == null) {
+            if (empty || taskComponent == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(taskComponent, getIndex() + 1).getLayout());
             }
         }
     }

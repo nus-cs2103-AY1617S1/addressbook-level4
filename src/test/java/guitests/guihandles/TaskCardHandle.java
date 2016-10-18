@@ -4,16 +4,17 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskDateComponent;
 
 /**
  * Provides a handle to a floating task card in the task list panel.
  */
-public class FloatingTaskCardHandle extends GuiHandle {
+public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
 
     private Node node;
 
-    public FloatingTaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -26,14 +27,14 @@ public class FloatingTaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName);
+    public boolean isSameTask(TaskDateComponent task){
+        return getFullName().equals(task.getTaskReference().getName().fullName);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof FloatingTaskCardHandle) {
-        	FloatingTaskCardHandle handle = (FloatingTaskCardHandle) obj;
+        if(obj instanceof TaskCardHandle) {
+        	TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName()); //TODO: compare the rest
         }
         return super.equals(obj);

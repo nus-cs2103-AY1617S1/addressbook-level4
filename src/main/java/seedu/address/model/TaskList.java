@@ -1,11 +1,20 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskDate;
+import seedu.address.model.task.TaskType;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.*;
@@ -38,7 +47,7 @@ public class TaskList implements ReadOnlyTaskList {
      * Tasks and Tags are copied into this task list
      */
     public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+        resetData(tasks.getInternalList(), tasks.getInternalComponentList(), tags.getInternalList());
     }
 
     public static ReadOnlyTaskList getEmptyTaskList() {
@@ -51,21 +60,31 @@ public class TaskList implements ReadOnlyTaskList {
         return tasks.getInternalList();
     }
 
+    @Override
+    public ObservableList<TaskDateComponent> getTaskComponentList() {
+        return tasks.getInternalComponentList();
+    }
+
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
+    }
+    
+    public void setComponents(List<TaskDateComponent> components) {
+        this.tasks.getInternalComponentList().setAll(components);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskDateComponent> newComponents, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setComponents(newComponents.stream().map(TaskDateComponent::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskList newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTaskComponentList(), newData.getTagList());
     }
 
 //// task-level operations
@@ -162,4 +181,51 @@ public class TaskList implements ReadOnlyTaskList {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
+	@Override
+	public ReadOnlyTaskList purify() throws TaskNotFoundException  {
+		TaskList newList = new TaskList(this); 
+		for(Task t : tasks){
+			if(t.getTaskType()==TaskType.COMPLETED) {
+				Task copyToRemove = new Task(t);
+				newList.removeTask(copyToRemove);					
+			}
+		}
+		return new TaskList(newList);
+	}
+
+	public boolean archiveTask(TaskDateComponent target) throws TaskNotFoundException {
+		// TODO Auto-generated method stub
+		if (tasks.archive(target)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+	}
+	
+	public boolean updateTask(Task target, Name name, UniqueTagList tags,
+    		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
+		if (tasks.updateTask(target, name, tags, startDate, endDate)) {
+			if(tags != null) {
+				this.tags.mergeFrom(tags);
+
+		        // Create map with values = tag object references in the master list
+		        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+		        for (Tag tag : this.tags) {
+		            masterTagObjects.put(tag, tag);
+		        }
+
+		        // Rebuild the list of task tags using references from the master list
+		        final Set<Tag> commonTagReferences = new HashSet<>();
+		        for (Tag tag : tags) {
+		            commonTagReferences.add(masterTagObjects.get(tag));
+		        }
+		        target.setTags(new UniqueTagList(commonTagReferences));
+			}
+
+			return true;
+		} else {
+			throw new UniqueTaskList.TaskNotFoundException();
+		}
+	}
 }

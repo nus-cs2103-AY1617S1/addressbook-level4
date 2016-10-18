@@ -20,11 +20,17 @@ import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.status.StatusLogger;
 
 /**
  * The main entry point to the application.
@@ -45,6 +51,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
+    	
         logger.info("=============================[ Initializing TaskList ]===========================");
         super.init();
 
@@ -183,6 +190,7 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
+    	StatusLogger.getLogger().setLevel(Level.OFF);
         launch(args);
     }
 }
