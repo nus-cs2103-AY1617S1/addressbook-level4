@@ -73,14 +73,14 @@ public class XmlWhatNowStorageTest {
         assertEquals(original, new WhatNow(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.hoon));
-        original.removeTask(new Task(TypicalTestTasks.alice));
+        original.addTask(new Task(TypicalTestTasks.h));
+        original.removeTask(new Task(TypicalTestTasks.a));
         xmlWhatNowStorage.saveWhatNow(original, filePath);
         readBack = xmlWhatNowStorage.readWhatNow(filePath).get();
         assertEquals(original, new WhatNow(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTasks.ida));
+        original.addTask(new Task(TypicalTestTasks.i));
         xmlWhatNowStorage.saveWhatNow(original); //file path not specified
         readBack = xmlWhatNowStorage.readWhatNow().get(); //file path not specified
         assertEquals(original, new WhatNow(readBack));

@@ -15,6 +15,8 @@ public interface ReadOnlyTask {
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
+    
+    TaskDate getTaskDate();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -24,13 +26,27 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()));
     }
-
+    
     /**
-     * Formats the task as text, showing all contact details.
+     * Return the status of the task.
+     * @return
+     */
+    String getStatus();
+    
+    /**
+     * Return the task type of the task.
+     * @return
+     */
+    String getTaskType();
+    
+    /**
+     * Formats the task as text, showing all details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+        		.append(" " + getTaskDate())
+                .append(" " + getStatus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
@@ -49,5 +65,4 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
 }
