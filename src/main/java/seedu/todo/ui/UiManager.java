@@ -114,15 +114,15 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
+    private void handleHighlightTaskEvent(HighlightTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
+        mainWindow.getTodoListPanel().scrollAndSelect(event.getTask());
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToTaskEvent event) {
+    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTodoListPanel().scrollTo(event.targetIndex);
+        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
     }
 
 }
