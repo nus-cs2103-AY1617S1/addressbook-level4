@@ -4,6 +4,9 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.commands.CommandResult;
 
+/*
+ * Shows Help for Commands
+ */
 public class HelpTaskCommand extends TaskCommand {
     public static final String COMMAND_WORD = "help";
 
