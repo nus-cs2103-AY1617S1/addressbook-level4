@@ -19,6 +19,7 @@ public class CommandMap {
         .add(PinCommand.class)
         .add(SaveCommand.class)
         .add(LoadCommand.class)
+        .add(ShowCommand.class)
         .build();
     
     private static Map<String, Class<? extends BaseCommand>> commandMap;
