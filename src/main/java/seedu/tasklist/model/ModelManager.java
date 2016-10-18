@@ -17,6 +17,7 @@ import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -73,7 +74,16 @@ public class ModelManager extends ComponentManager implements Model {
 	public void resetData(ReadOnlyTaskList newData) {
 		taskList.resetData(newData);
 		indicateTaskListChanged();
+		if (newData.isEmpty())
+     		addToUndoStack(UndoCommand.CLR_CMD_ID, (Task) taskList.getTaskList());
 	}
+
+    @Override
+    public void clearTaskUndo(ArrayList<Task> tasks) throws TaskNotFoundException {
+        TaskList oldTaskList = new TaskList();
+        oldTaskList.setTasks(tasks);
+        taskList.resetData(oldTaskList);
+    }
 
 	@Override
 	public ReadOnlyTaskList getTaskList() {

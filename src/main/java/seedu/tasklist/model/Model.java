@@ -1,5 +1,6 @@
 package seedu.tasklist.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -78,5 +79,7 @@ public interface Model {
             Priority priority, UniqueTagList tags) throws DuplicateTaskException;
 
     void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException;
+
+    void clearTaskUndo(ArrayList<Task> tasks) throws TaskNotFoundException;
 
 }

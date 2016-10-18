@@ -1,5 +1,7 @@
 package seedu.tasklist.logic.commands;
 
+import java.util.ArrayList;
+
 import seedu.tasklist.model.ModelManager;
 import seedu.tasklist.model.UndoInfo;
 import seedu.tasklist.model.task.ReadOnlyTask;
@@ -21,6 +23,7 @@ public class UndoCommand extends Command {
     public static final int DEL_CMD_ID = 2;
     public static final int UPD_CMD_ID = 3;
     public static final int DONE_CMD_ID = 4;
+    public static final int CLR_CMD_ID = 5;
     
     private static final int CURRENT_TASK = 0;
     private static final int ORIGINAL_TASK_INDEX = 1;
@@ -49,11 +52,23 @@ public class UndoCommand extends Command {
             case DONE_CMD_ID:
                 undoDone(undoInfo.getTasks().get(CURRENT_TASK));
                 return new CommandResult(MESSAGE_SUCCESS);
+            case CLR_CMD_ID:
+                undoClear(undoInfo.getTasks());
+                return new CommandResult(MESSAGE_SUCCESS);
             default:
                 return new CommandResult(MESSAGE_FAILURE);
         }
     }
     
+    private void undoClear(ArrayList<Task> tasks) {
+        try {
+            model.clearTaskUndo(tasks);
+        }
+        catch (TaskNotFoundException e) {
+            assert false: "The target task cannot be missing";
+        }
+    }
+
     private void undoAdd(Task task){
         try {
             model.deleteTaskUndo(task);
@@ -85,7 +100,7 @@ public class UndoCommand extends Command {
             model.markTaskAsIncomplete(task);
         } 
         catch (TaskNotFoundException e) {
-            e.printStackTrace();
+            assert false: "The target task cannot be missing";
         }
     }
 

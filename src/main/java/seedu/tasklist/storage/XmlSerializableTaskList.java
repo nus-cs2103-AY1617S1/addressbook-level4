@@ -84,4 +84,9 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
         return Collections.unmodifiableList(tags);
     }
 
+    @Override
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
 }

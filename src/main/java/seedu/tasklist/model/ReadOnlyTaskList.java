@@ -26,5 +26,7 @@ public interface ReadOnlyTaskList {
      * Returns an unmodifiable view of tags list
      */
     List<Tag> getTagList();
+    
+    boolean isEmpty();
 
 }
