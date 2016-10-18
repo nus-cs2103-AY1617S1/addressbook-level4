@@ -5,7 +5,10 @@ import java.util.Set;
 import java.util.Stack;
 
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
+import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.Redoable;
 import harmony.mastermind.logic.commands.Undoable;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ArchiveTaskList;
@@ -39,17 +42,44 @@ public interface Model {
     void unmarkTask(Task target) throws UniqueTaskList.DuplicateTaskException,
     ArchiveTaskList.TaskNotFoundException;
     
+    //@@author A0139149X
     /** Relocates save location to given directory */
-    void relocateSaveLocation(String directory);
+    void relocateSaveLocation(String directory) throws FolderDoesNotExistException;
     
     /** push the command to undo history */
     void pushToUndoHistory(Undoable command);
     
     /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
     CommandResult undo() throws EmptyStackException;
+    
+    //@@author A0124797R
+    /** Returns the current list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getCurrentList();
 
+    /** push the command to redo history */
+    void pushToRedoHistory(Redoable command);
+    
+    /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
+    CommandResult redo() throws EmptyStackException;
+    
+    /** empty redoHistory **/
+    // required when a new command is entered, model should throw away all remaining commands in the redo history
+    void clearRedoHistory();
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    //@@author A0124797R
+    /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
+    
+    //@@author A0124797R
+    /** Returns the filtered event list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList();
+    
+    //@@author A0124797R
+    /** Returns the filtered deadline list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList();
     
     //@@author A0124797R
     /** Returns the filtered archive list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
@@ -59,7 +89,11 @@ public interface Model {
     /** Returns filtered task list as an {@code ObervableList<Task>} */
     ObservableList<Task> getListToMark();
 
-    /** Updates the filter of the filtered task list to show all tasks */
+    //@@author A0124797R
+    /** update current tab */
+    void updateCurrentTab(String tab);
+
+    /** Updates the filter of the filtered task list for current tab to show all tasks */
     void updateFilteredListToShowAll();
     
     /** Updates the filter of the filtered task list to filter by the given keywords*/
