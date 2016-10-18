@@ -90,6 +90,7 @@ public class XmlTaskManagerStorageTest {
         xmlTaskManagerStorage.saveTaskManager(original); //file path not specified
         readBack = xmlTaskManagerStorage.readTaskManager().get(); //file path not specified
         assertEquals(original, new TaskManager(readBack));
+        System.out.println("test3");
 
     }
 
