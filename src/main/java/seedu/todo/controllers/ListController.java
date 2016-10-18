@@ -31,7 +31,8 @@ public class ListController implements Controller {
     private static final String DESCRIPTION = "Lists all tasks and events.";
     private static final String COMMAND_SYNTAX = "list";
     
-    private static final String MESSAGE_LISTING_SUCCESS = "Listing a total of %d %s and %d %s.";
+    private static final String MESSAGE_LISTING_SUCCESS = "Listing a total of %s";
+    private static final String MESSAGE_LISTING_FAILURE = "No task or event found!";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -55,42 +56,6 @@ public class ListController implements Controller {
         tokenDefinitions.put("timeTo", new String[] { "to", "before" });
         return tokenDefinitions;
     }
-    
-    private boolean parseListAllType (Map<String, String[]> parsedResult) {
-        return !(parsedResult.get("eventType") != null);
-    }
-    
-    private boolean parseListAllStatus (Map<String, String[]> parsedResult) {
-        return !(parsedResult.get("status") != null);
-    }
-    
-    private boolean parseIsUncomplete (Map<String, String[]> parsedResult) {
-        return parsedResult.get("status")[0].contains("uncomplete");
-    }
-    
-    private boolean parseIsTask (Map<String, String[]> parsedResult) {
-        return parsedResult.get("eventType")[0].equals("task");
-    }
-    
-    private String[] parseDates(Map<String, String[]> parsedResult) {
-        String naturalFrom = null;
-        String naturalTo = null;
-        String naturalOn = null;
-        
-        if (parsedResult.get("time") == null) {
-            if (parsedResult.get("timeFrom") != null) {
-                naturalFrom = parsedResult.get("timeFrom")[1];
-            }
-            if (parsedResult.get("timeTo") != null) {
-                naturalTo = parsedResult.get("timeTo")[1];
-            }
-        } else {
-            naturalOn = parsedResult.get("time")[1];
-        }
-        
-        return new String[] { naturalOn, naturalFrom, naturalTo };
-    }
-    
 
     @Override
     public void process(String input) {
@@ -173,25 +138,45 @@ public class ListController implements Controller {
             events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
         }
         
+        // Update console message
         int numTasks = 0;
         int numEvents = 0;
-        // Update console message
+        
         if (tasks != null) {
             numTasks = tasks.size();
         }
         
-        if (events != null) {
+        if(events != null) {
             numEvents = events.size();
         }
-
-        String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, 
-                numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"), 
-                numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
+        
+        String consoleMessage = MESSAGE_LISTING_FAILURE;
+        if (numTasks != 0 || numEvents != 0) {
+            consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, formatDisplayMessage(numTasks, numEvents));
+        }
         
         Renderer.renderIndex(db, consoleMessage, tasks, events);
        
     }
-
+    
+    private String formatDisplayMessage (int numTasks, int numEvents) {
+        if (numTasks != 0 && numEvents != 0) {
+            return String.format("%s and %s.", formatTaskMessage(numTasks), formatEventMessage(numEvents));
+        } else if (numTasks != 0) {
+            return formatTaskMessage(numTasks);
+        } else {
+            return formatEventMessage(numEvents);
+        }
+    }
+    
+    private String formatEventMessage (int numEvents) {
+        return String.format("%d %s", numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
+    }
+    
+    private String formatTaskMessage (int numTasks) {
+        return String.format("%d %s", numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"));
+    }
+    
     private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
             LocalDateTime dateTo, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
@@ -224,6 +209,12 @@ public class ListController implements Controller {
         }
     }
     
+    /**
+     * Parse a natural date into a LocalDateTime object.
+     * 
+     * @param natural
+     * @return LocalDateTime object
+     */
     private LocalDateTime parseNatural(String natural) {
         Parser parser = new Parser();
         List<DateGroup> groups = parser.parse(natural);
@@ -237,5 +228,71 @@ public class ListController implements Controller {
         LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         return DateUtil.floorDate(ldt);
     }
+    
+    /**
+     * Extracts the intended CalendarItem type specify from parsedResult.
+     * 
+     * @param parsedResult
+     * @return true if Task or event is not specify, false if either Task or Event specify
+     */
+    private boolean parseListAllType (Map<String, String[]> parsedResult) {
+        return !(parsedResult.get("eventType") != null);
+    }
+    
+    /**
+     * Extracts the intended status type specify from parsedResult.
+     * 
+     * @param parsedResult
+     * @return true if Task or event is not specify, false if either Task or Event specify
+     */
+    private boolean parseListAllStatus (Map<String, String[]> parsedResult) {
+        return !(parsedResult.get("status") != null);
+    }
+    
+    /**
+     * Extracts the intended CalendarItem status from parsedResult.
+     * 
+     * @param parsedResult
+     * @return true if uncomplete, false if complete
+     */
+    private boolean parseIsUncomplete (Map<String, String[]> parsedResult) {
+        return parsedResult.get("status")[0].contains("uncomplete");
+    }
+    
+    /**
+     * Extracts the intended CalendarItem type from parsedResult.
+     * 
+     * @param parsedResult
+     * @return true if Task, false if Event
+     */
+    private boolean parseIsTask (Map<String, String[]> parsedResult) {
+        return parsedResult.get("eventType")[0].equals("task");
+    }
+    
+    /**
+     * Extracts the natural dates from parsedResult.
+     * 
+     * @param parsedResult
+     * @return { naturalOn, naturalFrom, naturalTo }
+     */
+    private String[] parseDates(Map<String, String[]> parsedResult) {
+        String naturalFrom = null;
+        String naturalTo = null;
+        String naturalOn = null;
+        
+        if (parsedResult.get("time") == null) {
+            if (parsedResult.get("timeFrom") != null) {
+                naturalFrom = parsedResult.get("timeFrom")[1];
+            }
+            if (parsedResult.get("timeTo") != null) {
+                naturalTo = parsedResult.get("timeTo")[1];
+            }
+        } else {
+            naturalOn = parsedResult.get("time")[1];
+        }
+        
+        return new String[] { naturalOn, naturalFrom, naturalTo };
+    }
+    
 
 }
