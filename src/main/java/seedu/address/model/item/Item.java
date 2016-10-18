@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.time.LocalDateTime;
 import java.time.Period;
 
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -32,6 +33,7 @@ public class Item {
      */
 	public Item(Description desc) {
 		// assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+	    assert desc != null;
 		this.description = desc;
 		this.isDone = false;
 		// this.tags = new UniqueTagList(tags); // protect internal tags from
@@ -39,12 +41,14 @@ public class Item {
     }
 	
 	public Item(Description desc, LocalDateTime start, LocalDateTime end) {
+	    assert !CollectionUtil.isAnyNull(desc, start, end);
 	    this.description = desc;
 	    this.startDate = start;
 	    this.endDate = end;
 	}
 	
 	public Item(Description desc, LocalDateTime end) {
+	    assert !CollectionUtil.isAnyNull(desc, end);
 	    this.description = desc;
 	    this.endDate = end;
 	}
