@@ -2,6 +2,8 @@ package teamfour.tasc.ui.calendar;
 
 import java.time.LocalDateTime;
 
+import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
+import teamfour.tasc.commons.util.DateUtil;
 import teamfour.tasc.model.task.Deadline;
 import teamfour.tasc.model.task.Period;
 import teamfour.tasc.model.task.ReadOnlyTask;
@@ -12,11 +14,23 @@ public class CalendarReadOnlyRecurredAppointment extends CalendarReadOnlyAppoint
     private final Period periodForOccurence;
     
     public CalendarReadOnlyRecurredAppointment(ReadOnlyTask associatedTask,
+            int associatedIndex,
             Deadline deadlineForOccurrence, Period periodForOccurence) {
-        super(associatedTask);
+        super(associatedTask, associatedIndex);
 
         this.deadlineForOccurrence = deadlineForOccurrence;
         this.periodForOccurence = periodForOccurence;
+    }
+    
+    @Override
+    public AppointmentGroup getAppointmentGroup() {
+        if (associatedTask.getDeadline().hasDeadline()) {
+            if (associatedTask.isOverdue(DateUtil.getCurrentTime())) {
+                return CalendarAppointmentGroups.OVERDUE;
+            }
+        }
+        
+        return CalendarAppointmentGroups.RECURRING;
     }
 
     @Override
