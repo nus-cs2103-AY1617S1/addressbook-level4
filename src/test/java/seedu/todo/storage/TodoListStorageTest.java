@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Iterator;
 
 import com.google.common.collect.ImmutableList;
 import org.junit.Before;
@@ -22,7 +23,10 @@ import org.mockito.junit.MockitoRule;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.model.ImmutableTodoList;
+import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
+import seedu.todo.testutil.TestTodoList;
+import seedu.todo.testutil.TestUtil;
 
 public class TodoListStorageTest {
     @Rule
@@ -101,7 +105,7 @@ public class TodoListStorageTest {
 
     @Test
     public void testReadAndSave() throws Exception {
-        when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
+        when(original.getTasks()).thenReturn(new TestTodoList().getTasks());
         // Save in new file and read back
         storage.save(original);
         ImmutableTodoList readBack = storage.read(filePath);
@@ -114,10 +118,11 @@ public class TodoListStorageTest {
         storage.save(original);
         
         // Modify data, overwrite exiting file, and read back
-        when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
+        when(original.getTasks()).thenReturn(new TestTodoList().getTasks());
         storage.save(original);
 
         ImmutableTodoList readBack = storage.read(filePath);
+        
         assertTrue(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
 

@@ -1,25 +1,41 @@
 package seedu.todo.testutil;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.task.ImmutableTask;
-import seedu.todo.model.task.Task;
 
 public class TestTodoList implements ImmutableTodoList {
 
     @Override
     public List<ImmutableTask> getTasks() {
-        Task task1 = new Task("test1");
-        task1.setStartTime(LocalDateTime.now());
-        task1.setEndTime(LocalDateTime.now().plusDays(1l));
-
-        List<ImmutableTask> listOfTasks = new ArrayList<>();
-        listOfTasks.add(task1);
-
-        return listOfTasks;
+        try {
+            List<ImmutableTask> list = new ArrayList<>();
+            
+            list.add(new TestTaskBuilder("test1").build());
+            list.add(new TestTaskBuilder("test2")
+                    .withCompleted()
+                    .withPinned()
+                    .build());
+            list.add(new TestTaskBuilder("test3")
+                    .withDescription("description")
+                    .withLocation("location")
+                    .build());
+            list.add(new TestTaskBuilder("test4")
+                    .withTime()
+                    .build());
+            list.add(new TestTaskBuilder("test5")
+                    .withTags("tag", "tag1")
+                    .build());
+            
+            return list;
+        } catch (IllegalValueException e) {
+            assert false;
+            //not possible
+            return null;
+        }
     }
 
 }
