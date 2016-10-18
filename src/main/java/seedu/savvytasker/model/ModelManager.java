@@ -45,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
         savvyTasker = new SavvyTasker(src);
         filteredTasks = new FilteredList<>(savvyTasker.getTasks());
         sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
-        
+        updateFilteredListToShowActive(); // shows only active tasks on start
     }
 
     public ModelManager() {
@@ -56,6 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
         savvyTasker = new SavvyTasker(initialData);
         filteredTasks = new FilteredList<>(savvyTasker.getTasks());
         sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
+        updateFilteredListToShowActive(); // shows only active tasks on start
     }
 
     @Override
@@ -392,7 +393,18 @@ public class ModelManager extends ComponentManager implements Model {
             else if (task1 == null) return 1;
             else if (task2 == null) return -1;
             else {
-                return task2.getPriority().compareTo(task1.getPriority());
+                // Priority Level can be nulls
+                // Check for existence of priorityLevel before comparing
+                if (task1.getPriority() == null &&
+                    task2.getPriority() == null) {
+                    return 0;
+                } else if (task1.getPriority() == null) {
+                    return 1;
+                } else if (task2.getPriority() == null) {
+                    return -1;
+                } else {
+                    return task2.getPriority().compareTo(task1.getPriority());
+                }
             }
         }
         
