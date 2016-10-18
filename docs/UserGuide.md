@@ -218,36 +218,42 @@ Examples:
 Lists all tasks in TARS with available list filters.<br>
 Format: 
 * `ls`
-* `ls -do` 
-* `ls -all`
-* `ls -dt [START_DATE] to [START_TIME]` *[Under Development]*
-* `ls -t <TAG>[ , <TAG>, <TAG>]` *[Under Development]*
-* `ls -p [PRIORITY]` *[Under Development]*
+* `ls -dt [dsc]`
+* `ls -p [dsc]`
 
-> default is to list all undone task <br>
-> use -do to list all done task <br>
-> use -all to list all done and undone tasks <br>
-> use -dt to list all undone tasks in that date range <br>
-> use -t to list all undone tasks with a searched tag(s) <br>
-> use -p to list all undone tasks with that particular priority level
+> default is to list all tasks <br>
+> use -dt to list all tasks by earliest end dateTime s<br>
+> use -p to list all task by priority from low to high <br>
+> use dsc to list task in reverse order
 
 Examples:
 * `ls`
-* `ls -do`
-* `ls -all`
-* `ls -dt 23/09/16 to 24/09/16`
-* `ls -t assignments, projects`
-* `ls -p high`
+* `ls -dt`
+* `ls -dt dsc`
+* `ls -p`
+* `ls -p dsc`
 
 
 #### Finding tasks : `find`
 Finds all tasks containing a list of keywords (i.e. AND search).<br>
-Format: `find <KEYWORD>[, KEYWORD, KEYWORD]`
+Two modes: Quick Search & Filter Search. <br>
+Format:
+* [Quick Search]: `find <KEYWORD>[, KEYWORD, KEYWORD]` <br>
+* [Filter Search]: `find -n <NAME_KEYWORD>[, NAME_KEYWORD, NAME_KEYWORD] -dt [START_DATE] to [END_DATE] -p [PRIORITY(h/m/l)] -do (or -ud) -t <TAG_KEYWORD>[, TAG_KEYWORD, TAG_KEYWORD]`
 
-> `<KEYWORD>` are **case-insensitive**. The order of the `<KEYWORD>` does not matter.
+> **Quick Search Mode**: Find tasks quickly by entering keywords that match what is displayed in the task list <br><br>
+> **Filter Search Mode**: Find tasks using task filters (i.e. -n, -p, -dt, -do, -ud, -t) <br>
+> Use -n to filter tasks by task name <br>
+> Use -p to filter tasks by priority level <br>
+> Use -dt to filter tasks by date (in a date range) <br>
+> Use -do to filter all done tasks (Cannot be used together with -ud)<br>
+> Use -ud to filter all undone tasks (Cannot be used together with -do)<br>
+> Use -t to filter tasks by tags <br><br>
+> `<KEYWORD>` are **case-insensitive**. The order of the `<KEYWORD>` or `Flags` (for filter search) does not matter.
 
 Examples: 
-* `find meet John` returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
+* `find meet John` uses Quick Search and returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
+* `find -n meet -dt 17/10/2016 1300 to 18/10/2016 1400` uses Filter Search and returns all tasks whose name contains "meet" and whose task date falls within the range "17/10/2016 1300 to 18/10/2016 1400" (e.g. meet Tim for dinner, 17/10/2016 1800 to 17/10/2016 1900)
 
 #### Undoing a command : `undo`
 Undo a command executed by the user. <br>
@@ -298,14 +304,12 @@ Command | Format
 [Edit](#editing-a-task--edit) | `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)>`
 [Edit [Append]](#editing-a-task-by-appending-details-to-a-task--edit--ap) | `edit <INDEX> -ap <TO APPEND>`
 [Exit](#exiting-the-program--exit) | `exit`
-[Find](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
+[Find [Quick Serach]](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
+[Find [Filter Serach]](#finding-tasks--find) | `find -n <NAME_KEYWORD> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITYLEVEL> -do [or -ud] -t <TAG_KEYWORD>`
 [Help](#displaying-a-list-of-available-commands--help) | `help`
 [List](#listing-tasks--ls) | `ls`
-[List [Done]](#listing-tasks--ls) | `ls -do`
-[List [All]](#listing-tasks--ls) | `ls -all`
-[List [Date]](#listing-tasks--ls) | `ls -dt [<START_DATE> to <END_DATE>]`
-[List [Priority]](#listing-tasks--ls) | `ls -p [PRIORITY]`
-[List [Tags]](#listing-tasks--ls) | `ls -t <TAG>[ , <TAG>, <TAG>]`
+[List [Date]](#listing-tasks--ls) | `ls -dt`
+[List [Priority]](#listing-tasks--ls) | `ls -p`
 [Mark Done](#marking-tasks--mark) | `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Mark Undone](#marking-tasks--mark) | `mark -ud <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Reserve](#reserving-timeslots-for-a-task--rsv) | `rsv -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`

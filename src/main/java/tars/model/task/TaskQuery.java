@@ -20,6 +20,9 @@ public class TaskQuery extends Task {
     private String tagQuery = "";
     private String statusString = "";
     private final static String NEWLINE = "\n";
+    public final static String MESSAGE_BOTH_STATUS_SEARCHED_ERROR = "Both '-do (Done)' and '-ud (Undone)' flags "
+            + "have been detected.\n"
+            + "Please search for either '-do (Done)' or '-ud (Undone)' status";
 
     public TaskQuery() {
     }
@@ -96,15 +99,29 @@ public class TaskQuery extends Task {
     }
 
     public ArrayList<String> getTagKeywordsAsList() {
-        return new ArrayList<String>(Arrays.asList(tagQuery.split(",")));
+        return new ArrayList<String>(Arrays.asList(tagQuery.split(" ")));
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Filter Search Keywords: ").append("[Task Name: ").append(getName()).append("] [DateTime: ")
-                .append(getDateTime()).append("] [Priority: ").append(priorityString()).append("] [Status: ")
-                .append(statusString).append("] [Tags: ").append(tagQuery).append("]");
+        builder.append("Filter Search Keywords: ");
+
+        if (getName().toString() != "") {
+            builder.append("[Task Name: ").append(getName()).append("] ");
+        }
+        if (getDateTime().getEndDate() != null) {
+            builder.append("[DateTime: ").append(getDateTime()).append("] ");
+        }
+        if (priorityString() != "") {
+            builder.append("[Priority: ").append(priorityString()).append("] ");
+        }
+        if (statusString != "") {
+            builder.append("[Status: ").append(statusString).append("] ");
+        }
+        if (tagQuery != "") {
+            builder.append("[Tags: ").append(tagQuery).append("]");
+        }
 
         return builder.toString();
     }
