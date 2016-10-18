@@ -76,6 +76,12 @@ The Architecture Diagram above explains the high-level design of the App. Here i
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained)) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
+[**`Commons`**](#common-modules) represents a collection of modules used by multiple other components. A few of these modules play important roles at the architecture level.
+
+* `Events` : This module is used by components to marshal information around and inform other components that things have happened. (i.e. a form of _Event Driven_ design)
+* `Util` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
 The rest of the App consists three components.
 
 * [**`UI`**](#ui-component): The user facing elements of tha App, representing the view layer. 
@@ -110,7 +116,9 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandInputView`, `CommandFeedbackView`, `TodoListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
+
+
+The UI consists of a `MainWindow` that contains several view elements. They are `TodoListView`, `CommandInputView`, `CommandFeedbackView`, `FilterBarView`, and so on. All these classes, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](../src/main/java/seedu/todo/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
@@ -155,12 +163,14 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 **API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
-The model component represents the application's data layer. It consists of two subcomponents - 
+The model component represents the application's state and data layer. It is implemented by `TodoModel`, which is a composite of of the individual data models for the application, as well as higher level information about the state of the application itself, such as the current view and the undo/redo stack. 
 
-- `TodoModel` - representing the application's internal memory state  
-- `Storage` - representing the application's data on disk  
+- `TodoModel` - represents the todolist tasks
+- `UserPrefs` - represents saved user preferences 
 
-The model interface is injected into command objects by the logic component, and exposes a CRUD interface that allows commands to modify the application's data. To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The UI component binds to the  the model through the `getObservableList` function which returns an `UnmodifiableObseravbleList` object that the UI can bind to.
+Each individual data model handles their own CRUD operations, with the `Model` acting as a facade to present a simplified and uniform interface for external components to work with. Each of the data model holds a `Storage` object that is initalized by the `Model` and injected into them. The storage interfaces exposes a simple interface for reading and writing to the appropriate storage mechanism. 
+
+To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The UI component binds to the  the model through the `getObservableList` function which returns an `UnmodifiableObseravbleList` object that the UI can bind to.
 
 The model ensure safety by exposing as much of its internal state as possible as immutable objects using interfaces such as `ImmutableTask`.
 
@@ -168,14 +178,21 @@ The model ensure safety by exposing as much of its internal state as possible as
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
-The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+### Common modules
 
-### Common classes
+Modules used by multiple components are in the `seedu.todo.commons` package.
 
-Classes used by multiple components are in the `seedu.todo.commons` package.
+#### Core
+
+The core module contains many important classes used throughout the application.
+
+The important classes would be `UnmodifiableObservableList` where it applies the Observer pattern to allow the UI component to be listen to changes to the data.
+
+* `Events` : This module is used by components to marshal information around and inform other components that things have happened. (i.e. a form of _Event Driven_ design)
+* `Util` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
 
 ## Implementation
 
@@ -272,6 +289,9 @@ public class MyArgument extends Argument<T> {
 }
 ```
 
+### User Interface
+lalalalalalala
+
 ### Logging
 
 We are using the [`java.util.logging`][jul] package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -330,9 +350,9 @@ We have two types of tests:
     1. **Unit tests** - targeting the lowest level methods/classes.  
       e.g. `seedu.todo.commons.UrlUtilTest`
     2. **Integration tests** - that are checking the integration of multiple code units (those code units are assumed to be working).  
-      e.g. `seedu.todo.storage.StorageManagerTest`
+      e.g. `seedu.todo.model.TodoModelTest`
     3. **Hybrids of unit and integration tests.** These test are checking multiple code units as well as how the are connected together.    
-      e.g. `seedu.todo.logic.LogicManagerTest`
+      e.g. `seedu.todo.logic.BaseCommandTest`
 
 ### Headless GUI Testing 
 
@@ -357,9 +377,11 @@ We use [Travis CI][travis] to perform Continuous Integration on our projects. Se
 
 Here are the steps to create a new release.
 
- 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
- 2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) and upload the JAR file your created.
+ 1. Update the `Version` number in `MainApp.java`
+ 2. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
+ 3. Tag the repo with the version number. e.g. `v0.1`
+ 4. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) and upload the JAR file your created.
+ 5. Update `README` to show the new release 
 
 ### Managing Dependencies
 
@@ -510,6 +532,7 @@ Priority | As a ...  | I want to ... | So that I can...
 ★★★      | user      | view tasks | see all the tasks I have
 ★★★      | user      | view incomplete tasks only | to know what are the tasks I have left to do.
 ★★★      | user with multiple computers | save the todo list file to a specific location | move the list to other computers
+★★       | user with a lot tasks | add tags to my tasks | organize my tasks 
 ★★       | user      | set recurring tasks | do not need to repeatedly add tasks
 ★★       | user      | sort tasks by various parameters| organize my tasks and locate a task easily
 ★★       | user      | set reminders for a task | do not need to mentally track deadlines

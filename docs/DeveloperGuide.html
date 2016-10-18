@@ -33,7 +33,10 @@
 <li><a href="#ui-component">UI component</a></li>
 <li><a href="#logic-component">Logic component</a></li>
 <li><a href="#model-component">Model component</a></li>
-<li><a href="#common-classes">Common classes</a></li>
+<li><a href="#common-modules">Common modules</a><ul>
+<li><a href="#core">Core</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#implementation">Implementation</a><ul>
@@ -44,6 +47,7 @@
 <li><a href="#arguments">Arguments</a></li>
 </ul>
 </li>
+<li><a href="#user-interface">User Interface</a></li>
 <li><a href="#logging">Logging</a><ul>
 <li><a href="#logging-levels">Logging Levels</a></li>
 </ul>
@@ -160,6 +164,12 @@ developing the application's <abbr title="User interface">UI</abbr>.</li>
 <li><code>EventsCentre</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google's Event Bus library</a>) is used by components to communicate with other components using events (i.e. a form of <em>Event Driven</em> design)</li>
 <li><code>LogsCenter</code> : Used by many classes to write log messages to the App's log file.</li>
 </ul>
+<p><a href="#common-modules"><strong><code>Commons</code></strong></a> represents a collection of modules used by multiple other components. A few of these modules play important roles at the architecture level.</p>
+<ul>
+<li><code>Events</code> : This module is used by components to marshal information around and inform other components that things have happened. (i.e. a form of <em>Event Driven</em> design)</li>
+<li><code>Util</code> : Used by many classes to write log messages to the App's log file.</li>
+<li><code>LogsCenter</code> : Used by many classes to write log messages to the App's log file.</li>
+</ul>
 <p>The rest of the App consists three components.</p>
 <ul>
 <li><a href="#ui-component"><strong><code>UI</code></strong></a>: The user facing elements of tha App, representing the view layer. </li>
@@ -183,7 +193,7 @@ coupling between components.</p>
 <div class="no-page-break"><h3 id="ui-component"><span>3.2 </span><abbr title="User interface">UI</abbr> component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3><p><img class="u-max-full-width" src="diagrams/Ui Component.svg"/></p></div>
 
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/ui/Ui.java"><code>Ui.java</code></a></p>
-<p>The <abbr title="User interface">UI</abbr> consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandInputView</code>, <code>CommandFeedbackView</code>, <code>TodoListPanel</code>, <code>StatusBarFooter</code>, etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class and they can be loaded using the <code>UiPartLoader</code>.</p>
+<p>The <abbr title="User interface">UI</abbr> consists of a <code>MainWindow</code> that contains several view elements. They are <code>TodoListView</code>, <code>CommandInputView</code>, <code>CommandFeedbackView</code>, <code>FilterBarView</code>, and so on. All these classes, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class and they can be loaded using the <code>UiPartLoader</code>.</p>
 <p>The <code>UI</code> component uses JavaFx <abbr title="User interface">UI</abbr> framework. The layout of these <abbr title="User interface">UI</abbr> parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="../src/main/java/seedu/todo/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
  <a href="../src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
 <p>The <code>UI</code> component,</p>
@@ -216,22 +226,26 @@ the command the user called</li>
 <div class="no-page-break"><h3 id="model-component"><span>3.4 </span>Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3><p><img class="container u-max-full-width" src="diagrams/Model Component.svg"/></p></div>
 
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/model/Model.java"><code>Model.java</code></a></p>
-<p>The model component represents the application's data layer. It consists of two subcomponents - </p>
+<p>The model component represents the application's state and data layer. It is implemented by <code>TodoModel</code>, which is a composite of of the individual data models for the application, as well as higher level information about the state of the application itself, such as the current view and the undo/redo stack. </p>
 <ul>
-<li><code>TodoModel</code> - representing the application's internal memory state  </li>
-<li><code>Storage</code> - representing the application's data on disk  </li>
+<li><code>TodoModel</code> - represents the todolist tasks</li>
+<li><code>UserPrefs</code> - represents saved user preferences </li>
 </ul>
-<p>The model interface is injected into command objects by the logic component, and exposes a <abbr title="Create, Retrieve, Update, Delete">CRUD</abbr> interface that allows commands to modify the application's data. To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The <abbr title="User interface">UI</abbr> component binds to the  the model through the <code>getObservableList</code> function which returns an <code>UnmodifiableObseravbleList</code> object that the <abbr title="User interface">UI</abbr> can bind to.</p>
+<p>Each individual data model handles their own <abbr title="Create, Retrieve, Update, Delete">CRUD</abbr> operations, with the <code>Model</code> acting as a facade to present a simplified and uniform interface for external components to work with. Each of the data model holds a <code>Storage</code> object that is initalized by the <code>Model</code> and injected into them. The storage interfaces exposes a simple interface for reading and writing to the appropriate storage mechanism. </p>
+<p>To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The <abbr title="User interface">UI</abbr> component binds to the  the model through the <code>getObservableList</code> function which returns an <code>UnmodifiableObseravbleList</code> object that the <abbr title="User interface">UI</abbr> can bind to.</p>
 <p>The model ensure safety by exposing as much of its internal state as possible as immutable objects using interfaces such as <code>ImmutableTask</code>.</p>
 <p><img class="container u-max-full-width" src="diagrams/Storage Component.svg"/></p>
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/storage/Storage.java"><code>Storage.java</code></a></p>
-<p>The <code>Storage</code> component,</p>
-<ul>
-<li>can save <code>UserPref</code> objects in json format and read it back.</li>
-<li>can save the Address Book data in xml format and read it back.</li>
-</ul>
-<div class="no-page-break"><h3 id="common-classes"><span>3.5 </span>Common classes<a class="headerlink" href="#common-classes" title="Permanent link">#</a></h3><p>Classes used by multiple components are in the <code>seedu.todo.commons</code> package.</p></div>
+<div class="no-page-break"><h3 id="common-modules"><span>3.5 </span>Common modules<a class="headerlink" href="#common-modules" title="Permanent link">#</a></h3><p>Modules used by multiple components are in the <code>seedu.todo.commons</code> package.</p></div>
 
+<div class="no-page-break"><h4 id="core"><span>3.5.1 </span>Core<a class="headerlink" href="#core" title="Permanent link">#</a></h4><p>The core module contains many important classes used throughout the application.</p></div>
+
+<p>The important classes would be <code>UnmodifiableObservableList</code> where it applies the Observer pattern to allow the <abbr title="User interface">UI</abbr> component to be listen to changes to the data.</p>
+<ul>
+<li><code>Events</code> : This module is used by components to marshal information around and inform other components that things have happened. (i.e. a form of <em>Event Driven</em> design)</li>
+<li><code>Util</code> : Used by many classes to write log messages to the App's log file.</li>
+<li><code>LogsCenter</code> : Used by many classes to write log messages to the App's log file.</li>
+</ul>
 <div class="no-page-break"><h2 id="implementation"><span>4 </span>Implementation<a class="headerlink" href="#implementation" title="Permanent link">#</a></h2><h3 id="logic"><span>4.1 </span>Logic<a class="headerlink" href="#logic" title="Permanent link">#</a></h3></div>
 
 <p>See the <a href="#logic-component">Logic component architecture</a> section for the high level overview of the Logic component.  </p>
@@ -306,7 +320,9 @@ the command the user called</li>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
-<div class="no-page-break"><h3 id="logging"><span>4.2 </span>Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3><p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p></div>
+<div class="no-page-break"><h3 id="user-interface"><span>4.2 </span>User Interface<a class="headerlink" href="#user-interface" title="Permanent link">#</a></h3><p>lalalalalalala</p></div>
+
+<div class="no-page-break"><h3 id="logging"><span>4.3 </span>Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3><p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p></div>
 
 <ul>
 <li>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#configuration">Configuration</a>)</li>
@@ -318,7 +334,7 @@ the command the user called</li>
 <div class="codehilite"><pre><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LogsCenter</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(&lt;</span><span class="n">YOUR</span> <span class="n">CLASS</span><span class="o">&gt;.</span><span class="na">class</span><span class="o">);</span>
 </pre></div>
 <p>at the top of your class, and replace <code>&lt;YOUR CLASS&gt;</code> with the class the logger is used in.</p>
-<div class="no-page-break"><h4 id="logging-levels"><span>4.2.1 </span>Logging Levels<a class="headerlink" href="#logging-levels" title="Permanent link">#</a></h4><table>
+<div class="no-page-break"><h4 id="logging-levels"><span>4.3.1 </span>Logging Levels<a class="headerlink" href="#logging-levels" title="Permanent link">#</a></h4><table>
 <thead>
 <tr>
 <th>Level</th>
@@ -345,7 +361,7 @@ the command the user called</li>
 </tbody>
 </table></div>
 
-<div class="no-page-break"><h3 id="configuration"><span>4.3 </span>Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h3><p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>)</p></div>
+<div class="no-page-break"><h3 id="configuration"><span>4.4 </span>Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h3><p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>)</p></div>
 
 <div class="no-page-break"><h2 id="testing"><span>5 </span>Testing<a class="headerlink" href="#testing" title="Permanent link">#</a></h2><p>Tests can be found in the <code>./src/test/java</code> folder.</p></div>
 
@@ -373,9 +389,9 @@ as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-e
 <li><strong>Unit tests</strong> - targeting the lowest level methods/classes.<br/>
   e.g. <code>seedu.todo.commons.UrlUtilTest</code></li>
 <li><strong>Integration tests</strong> - that are checking the integration of multiple code units (those code units are assumed to be working).<br/>
-  e.g. <code>seedu.todo.storage.StorageManagerTest</code></li>
+  e.g. <code>seedu.todo.model.TodoModelTest</code></li>
 <li><strong>Hybrids of unit and integration tests.</strong> These test are checking multiple code units as well as how the are connected together.  <br/>
-  e.g. <code>seedu.todo.logic.LogicManagerTest</code></li>
+  e.g. <code>seedu.todo.logic.BaseCommandTest</code></li>
 </ol>
 </li>
 </ol>
@@ -392,9 +408,11 @@ as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-e
 <div class="no-page-break"><h3 id="making-a-release"><span>6.3 </span>Making a Release<a class="headerlink" href="#making-a-release" title="Permanent link">#</a></h3><p>Here are the steps to create a new release.</p></div>
 
 <ol>
+<li>Update the <code>Version</code> number in <code>MainApp.java</code></li>
 <li>Generate a JAR file <a href="UsingGradle.md#creating-the-jar-file">using Gradle</a>.</li>
 <li>Tag the repo with the version number. e.g. <code>v0.1</code></li>
 <li><a href="https://help.github.com/articles/creating-releases/">Crete a new release using GitHub</a> and upload the JAR file your created.</li>
+<li>Update <code>README</code> to show the new release </li>
 </ol>
 <div class="no-page-break"><h3 id="managing-dependencies"><span>6.4 </span>Managing Dependencies<a class="headerlink" href="#managing-dependencies" title="Permanent link">#</a></h3><p>Our project depends on third-party libraries. We use Gradle to automate our dependency management. </p></div>
 
@@ -590,6 +608,12 @@ public class YourCommand extends BaseCommand {
 <td align="left">user with multiple computers</td>
 <td align="left">save the todo list file to a specific location</td>
 <td align="left">move the list to other computers</td>
+</tr>
+<tr>
+<td>★★</td>
+<td align="left">user with a lot tasks</td>
+<td align="left">add tags to my tasks</td>
+<td align="left">organize my tasks</td>
 </tr>
 <tr>
 <td>★★</td>

@@ -36,6 +36,10 @@ for filename, title in files.items():
     for i, figcaption in enumerate(soup.find_all('figcaption')):
         # Wrap the figure and the caption in a <figure>
         figure = figcaption.find_previous_sibling(True)
+        if not figure:
+            print("Cannot find figure for " + str(figcaption))
+            continue
+        
         if figure.name == 'p':
             figure.name = 'figure'
         else:
