@@ -21,39 +21,45 @@ public class ViewStyleUtil {
 
     /*Static Helper Methods*/
     /**
-     * Adds only one instance of the class style to the node object
+     * Adds only one instance of all the class styles to the node object
+     * @param node view object to add the class styles to
+     * @param classStyles all the class styles that is to be added to the node
      */
-    public static void addClassStyle(Node node, String classStyle) {
-        if (!node.getStyleClass().contains(classStyle)) {
-            node.getStyleClass().add(classStyle);
-        }
-    }
-
-    /**
-     * Removes all instances of the class style
-     */
-    public static void removeClassStyle(Node node, String classStyle) {
-        while (node.getStyleClass().contains(classStyle)) {
-            node.getStyleClass().remove(classStyle);
-        }
-    }
-
-    /**
-     * Adds or removes class style based on a boolean parameter
-     * @param node to add/remove style onto
-     * @param classStyle to add to/remove from the node
-     * @param isAdding true to add, false to remove
-     */
-    public static void addRemoveClassStyle(Node node, String classStyle, boolean isAdding) {
-        if (isAdding) {
+    public static void addClassStyles(Node node, String... classStyles) {
+        for (String classStyle : classStyles) {
             addClassStyle(node, classStyle);
-        } else {
+        }
+    }
+
+    /**
+     * Remove all instance of all the class styles to the node object
+     * @param node view object to add the class styles to
+     * @param classStyles all the class styles that is to be removed from the node
+     */
+    public static void removeClassStyles(Node node, String... classStyles) {
+        for (String classStyle : classStyles) {
             removeClassStyle(node, classStyle);
         }
     }
 
     /**
-     * Toggles the style class:
+     * Adds or removes class style based on a boolean parameter
+     * @param isAdding true to add, false to remove
+     * @param node view object to add the class styles to
+     * @param classStyles all the class styles that is to be added to/removed from the node
+     */
+    public static void addRemoveClassStyles(boolean isAdding, Node node, String... classStyles) {
+        for (String classStyle : classStyles) {
+            if (isAdding) {
+                addClassStyles(node, classStyle);
+            } else {
+                removeClassStyles(node, classStyle);
+            }
+        }
+    }
+
+    /**
+     * Toggles one style class to the node:
      *      If supplied style class is available, remove it.
      *      Else, add one instance of it.
      *  @return true if toggled from OFF -> ON
@@ -61,10 +67,29 @@ public class ViewStyleUtil {
     public static boolean toggleClassStyle(Node node, String classStyle) {
         boolean wasPreviouslyOff = !node.getStyleClass().contains(classStyle);
         if (wasPreviouslyOff) {
-            addClassStyle(node, classStyle);
+            addClassStyles(node, classStyle);
         } else {
-            removeClassStyle(node, classStyle);
+            removeClassStyles(node, classStyle);
         }
         return wasPreviouslyOff;
+    }
+
+    /* Private Helper Methods */
+    /**
+     * Adds only one instance of a single class style to the node object
+     */
+    private static void addClassStyle(Node node, String classStyle) {
+        if (!node.getStyleClass().contains(classStyle)) {
+            node.getStyleClass().add(classStyle);
+        }
+    }
+
+    /**
+     * Removes all instances of a single class style from the node object
+     */
+    private static void removeClassStyle(Node node, String classStyle) {
+        while (node.getStyleClass().contains(classStyle)) {
+            node.getStyleClass().remove(classStyle);
+        }
     }
 }

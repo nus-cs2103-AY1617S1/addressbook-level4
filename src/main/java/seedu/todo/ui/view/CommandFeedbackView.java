@@ -67,14 +67,14 @@ public class CommandFeedbackView extends UiPart {
      * Indicate an error visually on the {@link #commandFeedbackLabel}
      */
     public void flagError() {
-        ViewStyleUtil.addClassStyle(commandFeedbackLabel, ViewStyleUtil.STYLE_ERROR);
+        ViewStyleUtil.addClassStyles(commandFeedbackLabel, ViewStyleUtil.STYLE_ERROR);
     }
 
     /**
      * Remove the error flag visually on the {@link #commandFeedbackLabel}
      */
     public void unFlagError() {
-        ViewStyleUtil.removeClassStyle(commandFeedbackLabel, ViewStyleUtil.STYLE_ERROR);
+        ViewStyleUtil.removeClassStyles(commandFeedbackLabel, ViewStyleUtil.STYLE_ERROR);
     }
 
     /* Override Methods */

@@ -80,10 +80,10 @@ public class TaskViewFilterView extends UiPart {
         Text leftText = ViewGeneratorUtil.constructText(partitionedText[0], ViewStyleUtil.STYLE_TEXT_4);
         Text centreText = ViewGeneratorUtil.constructText(partitionedText[1], ViewStyleUtil.STYLE_TEXT_4);
         Text rightText = ViewGeneratorUtil.constructText(partitionedText[2], ViewStyleUtil.STYLE_TEXT_4);
-        ViewStyleUtil.addClassStyle(centreText, ViewStyleUtil.STYLE_UNDERLINE);
+        ViewStyleUtil.addClassStyles(centreText, ViewStyleUtil.STYLE_UNDERLINE);
 
         TextFlow textContainer = ViewGeneratorUtil.placeIntoTextFlow(leftText, centreText, rightText);
-        ViewStyleUtil.addClassStyle(textContainer, ViewStyleUtil.STYLE_ROUND_LABEL);
+        ViewStyleUtil.addClassStyles(textContainer, ViewStyleUtil.STYLE_ROUND_LABEL);
         filterViewPane.getChildren().add(textContainer);
     }
 
