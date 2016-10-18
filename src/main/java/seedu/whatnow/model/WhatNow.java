@@ -125,7 +125,15 @@ public class WhatNow implements ReadOnlyWhatNow {
             throw new UniqueTaskList.TaskNotFoundException();
         } 
     }
-    
+    /*
+    public boolean undoCommand() throws UniqueTaskList.NoPrevCommandException {
+    	if(tasks.undo()) {
+    		return true;
+    	}
+    	else {
+    		throw new UniqueTaskList.NoPrevCommandException();
+    	}
+    }*/
 
     /**
      * Updates a task on WhatNow.

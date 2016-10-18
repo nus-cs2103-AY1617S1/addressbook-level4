@@ -2,9 +2,11 @@ package seedu.whatnow.model;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.Stack;
 
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.commons.exceptions.DataConversionException;
+import seedu.whatnow.logic.commands.Command;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
@@ -54,7 +56,9 @@ public interface Model {
     
     /** Mark the given task as completed */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
-    
+   
+    /**Gets the UndoStack if possible */
+    Stack<Command> getUndoStack();
     
   //=========== Methods for Schedule List ===============================================================
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
@@ -74,6 +78,5 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to show only task of a specific status specified by the keyword */
     void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword);
-    
-    
+
 }

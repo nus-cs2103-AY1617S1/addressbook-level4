@@ -8,11 +8,12 @@ import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.*;
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Adds a task to WhatNow.
  */
-public class AddCommand extends Command {
+public class AddCommand extends UndoAndRedo {
 
 	public static final String COMMAND_WORD = "add";
 
@@ -65,10 +66,21 @@ public class AddCommand extends Command {
 		assert model != null;
 		try {
 			model.addTask(toAdd);
+			model.getUndoStack().push(this);
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
-
+	}
+	
+	@Override
+	public CommandResult undo() {
+		assert model != null;
+        try {
+            model.deleteTask(toAdd);
+            return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
+        } catch (TaskNotFoundException pnfe) {
+        	return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
+        } 
 	}
 }

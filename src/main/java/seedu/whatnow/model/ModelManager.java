@@ -7,15 +7,18 @@ import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.StringUtil;
+import seedu.whatnow.logic.commands.Command;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
+import seedu.whatnow.model.task.UniqueTaskList.NoPrevCommandException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -29,6 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> filteredSchedules;
 
+    private final Stack<Command> stackOfUndo;
     /**
      * Initializes a ModelManager with the given WhatNow
      * WhatNow and its variables should not be null
@@ -43,6 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
         whatNow = new WhatNow(src);
         filteredTasks = new FilteredList<>(whatNow.getTasks());
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
+        stackOfUndo = new Stack<>();
     }
 
     public ModelManager() {
@@ -53,6 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
         whatNow = new WhatNow(initialData);
         filteredTasks = new FilteredList<>(whatNow.getTasks());
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
+        stackOfUndo =  new Stack<>();
     }
 
     @Override
@@ -101,7 +107,16 @@ public class ModelManager extends ComponentManager implements Model {
         whatNow.markTask(target);
         indicateWhatNowChanged();
     }
-
+    /*
+    @Override
+    public synchronized void undoCommand() throws UniqueTaskList.NoPrevCommandException{
+    	whatNow.undoCommand();
+    	indicateWhatNowChanged();
+    }*/
+    @Override
+    public Stack<Command> getUndoStack() {
+    	return stackOfUndo;
+    }
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

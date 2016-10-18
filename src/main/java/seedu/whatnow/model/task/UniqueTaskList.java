@@ -32,8 +32,17 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-
+    public static class NoPrevCommandException extends Exception {
+    	public  NoPrevCommandException() {
+    		super("No previous Command was found");
+    	}
+    }
+    
+    private ObservableList<Task> internalList = FXCollections.observableArrayList();
+    
+ //   private Stack<Task[]> reqStack = new Stack<>();
+    
+    //private Task[] array = new Task[];
     /**
      * Constructs empty TaskList.
      */
@@ -57,6 +66,9 @@ public class UniqueTaskList implements Iterable<Task> {
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
+        
+        System.out.println(internalList.toArray());
+       // reqStack.push((Task[]) internalList.toArray());
         internalList.add(toAdd);
     }
 
@@ -67,8 +79,10 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
+      //  reqStack.push((List)internalList);
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
+   //     	reqStack.pop();
             throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
@@ -99,11 +113,24 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
         internalList.get(internalList.indexOf(target)).setStatus("completed");
-        System.out.println(internalList.get(internalList.indexOf(target)).getStatus());
+      //  System.out.println(internalList.get(internalList.indexOf(target)).getStatus());
         internalList.set(internalList.indexOf(target), internalList.get(internalList.indexOf(target)));
         return taskFoundAndMarked;
     }
     
+    /*
+    public boolean undo() throws NoPrevCommandException {
+    	System.out.println("Entered here");
+    	System.out.println("my peek of reqStack is: " + reqStack.peek());
+    	if(reqStack.isEmpty()) {
+    		throw new NoPrevCommandException();
+    	}
+    	else {
+    		//List<Task> tempList = reqStack.pop();
+    		//internalList = (ObservableList<Task>) tempList;
+    		return true;
+    	}
+    }*/
     public ObservableList<Task> getInternalList() {
         return internalList;
     }
