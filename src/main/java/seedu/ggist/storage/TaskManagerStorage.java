@@ -40,6 +40,10 @@ public interface TaskManagerStorage {
      * @see #saveTaskManager(ReadOnlyTaskManager)
      */
     void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException;
-
+    
+    /**
+     * Set task manager storage location
+     */
+    void setTaskManagerFilePath(String filePath);
 
 }

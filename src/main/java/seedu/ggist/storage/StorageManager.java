@@ -5,7 +5,9 @@ import com.google.common.eventbus.Subscribe;
 import seedu.ggist.commons.core.ComponentManager;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
+import seedu.ggist.commons.events.storage.ChangeSaveFileEvent;
 import seedu.ggist.commons.events.storage.DataSavingExceptionEvent;
+import seedu.ggist.commons.events.ui.ChangeFileLocationEvent;
 import seedu.ggist.commons.exceptions.DataConversionException;
 import seedu.ggist.model.ReadOnlyTaskManager;
 import seedu.ggist.model.UserPrefs;
@@ -76,7 +78,12 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         taskManagerStorage.saveTaskManager(taskManager, filePath);
     }
-
+    
+    @Override
+    public void setTaskManagerFilePath(String filePath) {
+        logger.fine("Attempting to change data location to: " + filePath);
+        taskManagerStorage.setTaskManagerFilePath(filePath);
+    }
 
     @Override
     @Subscribe
@@ -87,6 +94,13 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
+    }
+    
+    @Subscribe
+    public void handleChangeSaveFileEvent(ChangeSaveFileEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "New data file location set"));
+        setTaskManagerFilePath(event.path);
+        raise(new ChangeFileLocationEvent(event.path));
     }
 
 }

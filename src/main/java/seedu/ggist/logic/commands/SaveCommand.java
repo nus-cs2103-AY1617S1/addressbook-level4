@@ -4,7 +4,10 @@ import java.io.File;
 import java.util.Optional;
 
 import seedu.ggist.commons.core.Config;
+import seedu.ggist.commons.core.EventsCenter;
 import seedu.ggist.commons.core.Messages;
+import seedu.ggist.commons.events.storage.ChangeSaveFileEvent;
+import seedu.ggist.commons.events.ui.ShowHelpRequestEvent;
 import seedu.ggist.commons.util.ConfigUtil;
 import seedu.ggist.commons.util.FileUtil;
 import seedu.ggist.model.ReadOnlyTaskManager;
@@ -59,6 +62,7 @@ public class SaveCommand extends Command{
         } catch (Exception e) {
             updateConfig = new Config();
         }
+        EventsCenter.getInstance().post(new ChangeSaveFileEvent(filePath));
         return new CommandResult(String.format(MESSAGE_SUCCESS , filePath));
     }
     
