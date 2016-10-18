@@ -9,7 +9,9 @@ import java.util.Map;
 
 import com.joestelmach.natty.*;
 
+import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
@@ -25,8 +27,9 @@ import seedu.todo.models.TodoListDB;
 public class AddController implements Controller {
     
     private static final String NAME = "Add";
-    private static final String DESCRIPTION = "Adds a task / event to the to-do list.";
-    private static final String COMMAND_SYNTAX = "add <task> by <deadline> || add <event> at <time>";
+    private static final String DESCRIPTION = "Adds a task / event to the to-do list.\n"
+                                            + "Accepts natural date formats (e.g. \"Today 5pm\" is allowed).";
+    private static final String COMMAND_SYNTAX = "add <task> by <deadline> || add <event> from <start_date> to <end_date>";
     
     private static final String MESSAGE_ADD_SUCCESS = "Item successfully added!";
     
@@ -84,13 +87,20 @@ public class AddController implements Controller {
         
         // Validate isTask, name and times.
         if (validateParams(isTask, name, naturalFrom, naturalTo)) {
-            renderDisambiguation(parsedResult);
+            renderDisambiguation(isTask, name, naturalFrom, naturalTo);
             return;
         }
         
         // Parse natural date using Natty.
-        LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
-        LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+        LocalDateTime dateFrom;
+        LocalDateTime dateTo;
+        try {
+            dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom);
+            dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+        } catch (InvalidNaturalDateException e) {
+            renderDisambiguation(isTask, name, naturalFrom, naturalTo);
+            return;
+        }
         
         // Create and persist task / event.
         TodoListDB db = TodoListDB.getInstance();
@@ -214,23 +224,39 @@ public class AddController implements Controller {
      * 
      * @param natural
      * @return LocalDateTime object
+     * @throws InvalidNaturalDateException 
      */
-    private LocalDateTime parseNatural(String natural) {
+    private LocalDateTime parseNatural(String natural) throws InvalidNaturalDateException {
         Parser parser = new Parser();
         List<DateGroup> groups = parser.parse(natural);
         Date date = null;
         try {
             date = groups.get(0).getDates().get(0);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Error!"); // TODO
-            return null;
+            throw new InvalidNaturalDateException(natural);
         }
         LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         return ldt;
     }
     
-    private void renderDisambiguation(Map<String, String[]> parsedResult) {
-        System.out.println("Disambiguate!");
+    private void renderDisambiguation(boolean isTask, String name, String naturalFrom, String naturalTo) {
+        name = StringUtil.replaceNull(name, "<name>");
+        naturalTo = StringUtil.replaceNull(name, "<end time>");
+
+        String disambiguationString;
+        String errorMessage = ""; // TODO
+        
+        if (isTask) {
+            naturalFrom = StringUtil.replaceNull(naturalFrom, "<deadline>");
+            disambiguationString = String.format("add task \"%s\" by \"%s\"", name, naturalFrom);
+        } else {
+            naturalFrom = StringUtil.replaceNull(naturalFrom, "<start time>");
+            naturalTo = StringUtil.replaceNull(naturalTo, "<end time>");
+            disambiguationString = String.format("add event \"%s\" from \"%s\" to \"%s\"", name, naturalFrom, naturalTo);
+        }
+        
+        // Show an error in the console
+        Renderer.renderDisambiguation(disambiguationString, errorMessage);
     }
     
 }

@@ -37,4 +37,13 @@ public class StringUtil {
     public static String pluralizer(int num, String singular, String plural) {
     	return num == 1 ? singular : plural;
     }
+    
+    /**
+     * Returns <code>string</code> if not null, <code>replaceString</code> otherwise.
+     * @param string String to check
+     * @param replaceString String to return if <code>string</code> is null
+     */
+    public static String replaceNull(String string, String replaceString) {
+        return (string == null) ? replaceString : string;
+    }
 }

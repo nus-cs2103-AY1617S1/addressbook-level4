@@ -83,6 +83,7 @@ public class MainWindow extends View {
         // Load ConsoleInput
         ConsoleInput consoleInput = ConsoleInput.load(primaryStage, getConsoleInputPlaceholder());
         consoleInput.consoleOutput = consoleMessage;
+        consoleInput.consoleInputValue = consoleInputValue;
         consoleInput.render();
     }
 

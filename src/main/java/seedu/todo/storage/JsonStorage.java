@@ -40,8 +40,9 @@ public class JsonStorage implements Storage {
      */
     private void pruneHistory() {
         // Don't need to worry about future because it cannot exceed limit.
-        while (historyPatch.size() > HISTORY_SIZE)
+        while (historyPatch.size() > HISTORY_SIZE) {
             historyPatch.removeFirst();
+        }
     }
     
     @Override

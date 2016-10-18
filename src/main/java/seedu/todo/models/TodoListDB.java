@@ -47,7 +47,13 @@ public class TodoListDB {
     public List<Task> getAllTasks() {
         return new ArrayList<Task>(tasks);
     }
+
     
+    /**
+     * Count tasks which are not marked as complete, where {@code isComplete} is false.
+     * 
+     * @return Number of incomplete tasks
+     */
     public int countIncompleteTasks() {
         int count = 0;
         for (Task task : tasks) {
@@ -58,11 +64,17 @@ public class TodoListDB {
         return count;
     }
     
+    /**
+     * Count tasks which are overdue, where {@code dueDate} is before the time now.
+     * 
+     * @return Number of overdue tasks
+     */
     public int countOverdueTasks() {
         LocalDateTime now = LocalDateTime.now();
         int count = 0;
         for (Task task : tasks) {
-            if (!task.isCompleted() && task.getDueDate() != null && task.getDueDate().compareTo(now) < 0) {
+            LocalDateTime dueDate = task.getDueDate();
+            if (!task.isCompleted() && dueDate != null && dueDate.compareTo(now) < 0) {
                 count++;
             }
         }
@@ -77,12 +89,18 @@ public class TodoListDB {
     public List<Event> getAllEvents() {
         return new ArrayList<Event>(events);
     }
-    
+
+    /**
+     * Count events which are in the future, where {@code startDate} is after the time now.
+     * 
+     * @return Number of future events
+     */
     public int countFutureEvents() {
         LocalDateTime now = LocalDateTime.now();
         int count = 0;
         for (Event event : events) {
-            if (event.getStartDate().compareTo(now) >= 0) {
+            LocalDateTime startDate = event.getStartDate();
+            if (startDate != null && startDate.compareTo(now) >= 0) {
                 count++;
             }
         }
