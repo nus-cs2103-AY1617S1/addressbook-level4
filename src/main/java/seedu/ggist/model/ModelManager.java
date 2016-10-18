@@ -14,7 +14,6 @@ import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.ggist.model.task.UniqueTaskList.TaskTypeNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -29,7 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
     
-    public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
+    //public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -83,48 +82,9 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    public synchronized void editTask (int index, String type, String toEdit) throws TaskTypeNotFoundException {
-    	Task toBeEditedTask = filteredTasks.get(index-1);
-    	switch (type) {
-    	case "task":
-    		try{
-    			toBeEditedTask.getTaskName().editTaskName(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		break;
-    	case "start date":
-    		try{
-    		 toBeEditedTask.getStartDate().editDate(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		 break;
-    	case "start time":
-    		try{
-    		toBeEditedTask.getStartTime().editTime(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		break;
-    	case "end date":
-    		try{
-    		toBeEditedTask.getEndTime().editTime(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		break;
-        case "end time":
-            try{
-            toBeEditedTask.getEndTime().editTime(toEdit);
-            } catch (IllegalValueException ive) {
-                System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-            }
-            break;
-    	default:
-    		throw new TaskTypeNotFoundException();
-    	}
-    	updateFilteredListToShowChanges();
+    public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
+    	taskManager.editTask(target, field, value);
+    	updateFilteredTaskListToShowUndone();
     	indicateTaskManagerChanged();
     }
 
@@ -179,7 +139,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredTaskList(Expression expression) {
+    public void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
