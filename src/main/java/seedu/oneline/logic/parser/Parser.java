@@ -93,6 +93,15 @@ public class Parser {
      *
      * @param args full command args string
      * @return the fields specified in the args
+     * 
+     * Example:
+     * Command entered: add name .from X which is some date .to Y which is some other date .due someday
+     * Returns the following K,V pairs:
+     *      TaskField.NAME: "name"
+     *      TaskField.START_TIME: "X which is some date"
+     *      TaskField.END_TIME: "Y which is some other date"
+     *      TaskField.DEADLINE: "someday"
+     * 
      */
     public static Map<TaskField, String> getTaskFieldsFromArgs(String args) throws IllegalCmdArgsException {
         // Clear extra whitespace characters
@@ -131,6 +140,10 @@ public class Parser {
         // Extract the respective task fields into results map
         Map<TaskField, String> result = new HashMap<TaskField, String>();
         if (fieldIndexes.size() == 0) {
+            if (splitted[0].equals("")) { 
+                throw new IllegalCmdArgsException("Task Name is a compulsory field.");
+            }
+            result.put(TaskField.NAME, String.join(" ", splitted));
             return result;
         }
         Integer firstIndex = fieldIndexes.get(0).getValue();

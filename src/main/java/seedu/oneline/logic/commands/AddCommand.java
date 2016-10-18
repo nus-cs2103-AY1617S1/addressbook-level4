@@ -19,10 +19,10 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task book. \n"
+            + "Parameters: <taskName> [.from <start> .to <end>] [.due <deadline>] [.every <period>] [#<cat>] \n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " Acad meeting .from 2pm .to 4pm #acad";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
@@ -58,11 +58,11 @@ public class AddCommand extends Command {
         }                 
         
         this.toAdd = new Task(
-                new TaskName(fields.get(TaskField.NAME)),
-                new TaskTime(fields.get(TaskField.START_TIME)),
-                new TaskTime(fields.get(TaskField.END_TIME)),
-                new TaskTime(fields.get(TaskField.DEADLINE)),
-                new TaskRecurrence(fields.get(TaskField.RECURRENCE)),
+                newName,
+                newStartTime,
+                newEndTime,
+                newDeadline,
+                newRecurrence,
                 new UniqueTagList(tagSet)
         );
     }
