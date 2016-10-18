@@ -67,7 +67,9 @@ public class ActivityParser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            System.out.println("here");
+            System.out.println("Arguments = " + arguments);
+        	//return new ListCommand();
             
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand(previousCommand);

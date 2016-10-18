@@ -34,7 +34,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
      * Tasks and Tags are copied into this activity manager
      */
     public ActivityManager(ReadOnlyActivityManager toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList(),
+        this(toBeCopied.getUniqueTaskList(),
                  toBeCopied.getUniqueFloatingTaskList(),
                  toBeCopied.getUniqueEventList());
     }
@@ -42,7 +42,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     /**
      * Tasks and Tags are copied into this task manager
      */
-    public ActivityManager(UniqueActivityList tasks, UniqueTagList tags, 
+    public ActivityManager(UniqueActivityList tasks, 
                             UniqueActivityList floatingTasks,
                             UniqueActivityList events) {
         resetData(tasks.getInternalList(), tags.getInternalList(),
