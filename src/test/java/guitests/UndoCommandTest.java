@@ -15,120 +15,35 @@ public class UndoCommandTest extends TaskManagerGuiTest {
     Stack<TestTask[]> testTaskList;
     
     @Test
-    public void add() {
+    public void undo() {
         testTaskList = new Stack<TestTask[]>();
         testTaskList.push(td.getTypicalTasks());
         TestTask taskToAdd = td.todo;
-        testTaskList.push(addTask(taskToAdd, testTaskList.peek()));
-        taskToAdd = td.deadline;
-        testTaskList.push(addTask(taskToAdd, testTaskList.peek()));
-        taskToAdd = td.event;
-        addTask(taskToAdd, testTaskList.peek());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertNoMoreUndos();
-    }
-    
-    @Test
-    public void clear() {
-        TestTask[] list1 = td.getTypicalTasks();
-        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
-        commandBox.runCommand("clear");
-        assertUndoSuccess(list1);
-        assertNoMoreUndos();
-    }
-    
-    @Test
-    public void edit() {
-        testTaskList = new Stack<TestTask[]>();
-        testTaskList.push(td.getTypicalTasks());
-        TestTask taskToEdit = td.todo;
-        testTaskList.push(editTask(1, taskToEdit, testTaskList.peek()));
-        taskToEdit = td.deadline;
-        testTaskList.push(editTask(3, taskToEdit, testTaskList.peek()));
-        taskToEdit = td.event;
-        editTask(2, taskToEdit, testTaskList.peek());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertNoMoreUndos();
-    }
-    
-    @Test
-    public void delete() {
-        testTaskList = new Stack<TestTask[]>();
-        testTaskList.push(td.getTypicalTasks());
-        int targetIndex = 1;
-        testTaskList.push(deleteTask(targetIndex, testTaskList.peek()));
-        targetIndex = testTaskList.get(1).length;
-        testTaskList.push(deleteTask(targetIndex, testTaskList.peek()));
-        targetIndex = testTaskList.get(2).length/2;
-        deleteTask(targetIndex, testTaskList.peek());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertNoMoreUndos();       
-    }
-    
-    @Test
-    public void find() {
-        commandBox.runCommand("find task");
-        commandBox.runCommand("find xmas");
-        commandBox.runCommand("find xmas");
-        assertUndoSuccess(td.shop, td.dinner);
-        assertUndoSuccess();
-        assertUndoSuccess(td.getTypicalTasks());
-        assertNoMoreUndos();
-    }
-    
-    @Test
-    public void multiple() {
-        testTaskList = new Stack<TestTask[]>();
-        testTaskList.push(td.getTypicalTasks());
-        TestTask taskToAdd = td.todo;
-        testTaskList.push(addTask(taskToAdd, testTaskList.peek()));
-        taskToAdd = td.deadline;
         testTaskList.push(addTask(taskToAdd, testTaskList.peek()));
         testTaskList.push(deleteTask(testTaskList.get(1).length / 2, testTaskList.peek()));
-        commandBox.runCommand("find xmas");
-        testTaskList.push(new TestTask[]{td.shop, td.dinner});
         commandBox.runCommand("clear");
         assertUndoSuccess(testTaskList.pop());
         assertUndoSuccess(testTaskList.pop());
+        testTaskList.push(TestUtil.addPersonsToList(testTaskList.peek(), taskToAdd));
+        commandBox.runCommand("find xmas");
+        testTaskList.push(new TestTask[]{td.shop, td.dinner});
+        TestTask taskToEdit = td.event;
+        editTask(1, taskToEdit, testTaskList.peek());                   
         assertUndoSuccess(testTaskList.pop());
         assertUndoSuccess(testTaskList.pop());
         assertUndoSuccess(testTaskList.pop());
-        assertNoMoreUndos();
+        assertNoMoreUndos();        
     }
     
     @Test
-    public void inBetween() {
-        testTaskList = new Stack<TestTask[]>();
-        testTaskList.push(td.getTypicalTasks());
-        TestTask taskToAdd = td.todo;
-        testTaskList.push(addTask(taskToAdd, testTaskList.peek()));
-        taskToAdd = td.deadline;
-        testTaskList.push(addTask(taskToAdd, testTaskList.peek()));
-        testTaskList.push(deleteTask(testTaskList.get(1).length / 2, testTaskList.peek()));
-        testTaskList.push(deleteTask(1, testTaskList.peek()));
-        commandBox.runCommand("clear");
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        testTaskList.push(addTask(taskToAdd, testTaskList.peek()));
-        commandBox.runCommand("find xmas");
-        testTaskList.push(new TestTask[]{td.shop, td.dinner});
-        commandBox.runCommand("clear");
-        testTaskList.push(new TestTask[]{});
-        addTask(taskToAdd, testTaskList.peek());        
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertNoMoreUndos();
-        
+    public void invalidCommand_noUndos() {
+        TestTask[] currentList = td.getTypicalTasks();
+        commandBox.runCommand("adds party");
+        assertNoMoreUndos(); 
+        commandBox.runCommand("delete " + currentList.length + 1);
+        assertNoMoreUndos(); 
+        commandBox.runCommand("findevent");
+        assertNoMoreUndos(); 
     }
     
     private TestTask[] addTask(TestTask taskToAdd, TestTask[] list) {
