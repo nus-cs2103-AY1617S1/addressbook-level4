@@ -1,11 +1,9 @@
 package seedu.todo.commons.util;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 /**
@@ -34,16 +32,10 @@ public class TextAreaResizerUtil {
     private void setupTextArea(TextArea textArea) {
         ChangeListener<Object> changeListener = (observable, oldValue, newValue) -> {
             double height = getCorrectedHeight();
-            TimerTask action = new TimerTask() {
-                @Override
-                public void run() {
-                    textArea.setMaxHeight(height);
-                    textArea.setPrefHeight(height);
-                }
-            };
-
-            Timer timer = new Timer();
-            timer.schedule(action, 1);
+            Platform.runLater(() -> {
+                textArea.setMaxHeight(height);
+                textArea.setPrefHeight(height);
+            });
         };
         textArea.widthProperty().addListener(changeListener);
         textArea.textProperty().addListener(changeListener);
@@ -58,6 +50,6 @@ public class TextAreaResizerUtil {
             singleLineHeight = rawHeight;
         }
         int numRows = (int) Math.ceil(rawHeight/singleLineHeight);
-        return singleLineHeight * numRows * 1.9; //10 is added to account for the border of textarea
+        return singleLineHeight * (numRows + 1); //10 is added to account for the border of textarea
     }
 }
