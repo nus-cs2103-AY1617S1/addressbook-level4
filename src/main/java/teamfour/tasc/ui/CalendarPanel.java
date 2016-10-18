@@ -25,6 +25,7 @@ import teamfour.tasc.model.task.Deadline;
 import teamfour.tasc.model.task.Period;
 import teamfour.tasc.model.task.ReadOnlyTask;
 import teamfour.tasc.model.task.Recurrence;
+import teamfour.tasc.ui.calendar.CalendarAppointmentGroups;
 import teamfour.tasc.ui.calendar.CalendarReadOnlyAppointment;
 import teamfour.tasc.ui.calendar.CalendarReadOnlyRecurredAppointment;
 

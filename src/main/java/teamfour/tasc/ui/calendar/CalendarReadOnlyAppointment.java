@@ -8,6 +8,7 @@ import java.util.Date;
 
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
+import teamfour.tasc.commons.util.DateUtil;
 import teamfour.tasc.model.task.ReadOnlyTask;
 
 /**
@@ -16,7 +17,7 @@ import teamfour.tasc.model.task.ReadOnlyTask;
  */
 public class CalendarReadOnlyAppointment implements Appointment {
 
-    private ReadOnlyTask associatedTask;
+    protected ReadOnlyTask associatedTask;
     
     public CalendarReadOnlyAppointment(ReadOnlyTask associatedTask) {
         this.associatedTask = associatedTask;
@@ -81,7 +82,22 @@ public class CalendarReadOnlyAppointment implements Appointment {
 
     @Override
     public AppointmentGroup getAppointmentGroup() {
-        // not supported
+        if (associatedTask.getComplete().isCompleted()) {
+            return CalendarAppointmentGroups.COMPLETED;
+        }
+        
+        if (associatedTask.getPeriod().hasPeriod()) {
+            return CalendarAppointmentGroups.PERIOD;
+        }
+        
+        if (associatedTask.getDeadline().hasDeadline()) {
+            if (associatedTask.isOverdue(DateUtil.getCurrentTime())) {
+                return CalendarAppointmentGroups.OVERDUE;
+            }
+            
+            return CalendarAppointmentGroups.DEADLINE;
+        }
+        
         return null;
     }
 
