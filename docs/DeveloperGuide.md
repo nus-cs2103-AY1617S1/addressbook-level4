@@ -63,6 +63,7 @@ We use the Java coding standard found at <https://oss-generic.github.io/process/
 ### Architecture
 
 <img src="images/Architecture.png" width="600">
+
 <figcaption>Simplistic overview of the application</figcaption>
 
 The Architecture Diagram above explains the high-level design of the App. Here is a quick overview of each component.
@@ -94,16 +95,19 @@ Each of the three components defines its API in an `interface` with the same nam
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `TodoLogic.java` class.
 
 <img src="diagrams/Logic Component.svg" class="u-max-full-width">
+
 <figcaption>Example of a Logic class diagram exposing its API to other components</figcaption>
 
 The Sequence Diagram below shows how the components interact when the user issues a generic command.
 
 <img src="diagrams/Sequence Diagram.svg" class="u-max-full-width">
+
 <figcaption>The interaction of major components in the application through a sequence diagram</figcaption>
 
 The diagram below shows how the `EventsCenter` reacts to a `help` command event, where the UI does not know or contain any business side logic.
 
 <img src="diagrams/Events Center Diagram.svg" class="container u-max-full-width">
+
 <figcaption>A sequence diagram showing how EventsCenter work</figcaption>
 
 !!! note "Event Driven Design" 
@@ -117,6 +121,7 @@ The sections below give more details of each component.
 ### UI component
 
 <img src="diagrams/Ui Component.svg" class="u-max-full-width">
+
 <figcaption>The relation between the UI subcomponents</figcaption>
 
 **API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
@@ -137,8 +142,10 @@ The `UI` component,
 ### Logic component
 
 <img src="diagrams/Logic Component.svg" class="u-max-full-width">
+
 <figcaption>The relation between the Logic subcomponents</figcaption>
 <img src="diagrams/Logic Component 1.svg" class="u-max-full-width">
+
 <figcaption>Continuation of the relation between the Logic subcomponents</figcaption>
 
 **API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
@@ -162,11 +169,13 @@ the command the user called
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call. See [the implementation section](#logic) below for the implementation details of the logic component.  
  
 <img src="images/DeletePersonSdForLogic.png" class="u-max-full-width">
+
 <figcaption>The process of deleting a person within the Logic component</figcaption>
 
 ### Model component
 
 <img src="diagrams/Model Component.svg" class="container u-max-full-width">
+
 <figcaption>The relation between the Model subcomponents</figcaption>
 
 **API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
@@ -183,6 +192,7 @@ To avoid tight coupling with the command classes, the model exposes only a small
 The model ensure safety by exposing as much of its internal state as possible as immutable objects using interfaces such as `ImmutableTask`.
 
 <img src="diagrams/Storage Component.svg" class="container u-max-full-width">
+
 <figcaption>The relation between the Storage subcomponents</figcaption>
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)

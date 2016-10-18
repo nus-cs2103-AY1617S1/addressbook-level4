@@ -152,8 +152,8 @@ developing the application's <abbr title="User interface">UI</abbr>.</li>
 
 <div class="no-page-break"><h2 id="design"><span>3 </span>Design<a class="headerlink" href="#design" title="Permanent link">#</a></h2><h3 id="architecture"><span>3.1 </span>Architecture<a class="headerlink" href="#architecture" title="Permanent link">#</a></h3></div>
 
-<p><img src="images/Architecture.png" width="600">
-<figcaption>Simplistic overview of the application</figcaption></img></p>
+<figure><img src="images/Architecture.png" width="600"/><figcaption><strong>Figure 1. </strong>Simplistic overview of the application</figcaption></figure>
+
 <p>The Architecture Diagram above explains the high-level design of the App. Here is a quick overview of each component.</p>
 <p><code>Main</code> has only one class called <a href="../src/main/java/seedu/todo/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
 <ul>
@@ -179,14 +179,14 @@ developing the application's <abbr title="User interface">UI</abbr>.</li>
 </ul>
 <p>Each of the three components defines its API in an <code>interface</code> with the same name and are bootstrapped at launch by <code>MainApp</code>.</p>
 <p>For example, the <code>Logic</code> component (see the class diagram given below) defines it's API in the <code>Logic.java</code> interface and exposes its functionality using the <code>TodoLogic.java</code> class.</p>
-<p><img class="u-max-full-width" src="diagrams/Logic Component.svg">
-<figcaption>Example of a Logic class diagram exposing its API to other components</figcaption></img></p>
+<figure><img class="u-max-full-width" src="diagrams/Logic Component.svg"/><figcaption><strong>Figure 2. </strong>Example of a Logic class diagram exposing its API to other components</figcaption></figure>
+
 <p>The Sequence Diagram below shows how the components interact when the user issues a generic command.</p>
-<p><img class="u-max-full-width" src="diagrams/Sequence Diagram.svg">
-<figcaption>The interaction of major components in the application through a sequence diagram</figcaption></img></p>
+<figure><img class="u-max-full-width" src="diagrams/Sequence Diagram.svg"/><figcaption><strong>Figure 3. </strong>The interaction of major components in the application through a sequence diagram</figcaption></figure>
+
 <p>The diagram below shows how the <code>EventsCenter</code> reacts to a <code>help</code> command event, where the <abbr title="User interface">UI</abbr> does not know or contain any business side logic.</p>
-<p><img class="container u-max-full-width" src="diagrams/Events Center Diagram.svg">
-<figcaption>A sequence diagram showing how EventsCenter work</figcaption></img></p>
+<figure><img class="container u-max-full-width" src="diagrams/Events Center Diagram.svg"/><figcaption><strong>Figure 4. </strong>A sequence diagram showing how EventsCenter work</figcaption></figure>
+
 <div class="admonition note">
 <p class="admonition-title">Event Driven Design</p>
 <p>Note how the event is propagated through the <code>EventsCenter</code> to <code>UI</code> without <code>Model</code> having
@@ -194,8 +194,8 @@ to be coupled to either of them. This is an example of how this Event Driven app
 coupling between components.</p>
 </div>
 <p>The sections below give more details of each component.</p>
-<div class="no-page-break"><h3 id="ui-component"><span>3.2 </span><abbr title="User interface">UI</abbr> component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3><p><img class="u-max-full-width" src="diagrams/Ui Component.svg">
-<figcaption>The relation between the <abbr title="User interface">UI</abbr> subcomponents</figcaption></img></p></div>
+<div class="no-page-break"><h3 id="ui-component"><span>3.2 </span><abbr title="User interface">UI</abbr> component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3><figure><img class="u-max-full-width" src="diagrams/Ui Component.svg"/><figcaption><strong>Figure 5. </strong>The relation between the UI subcomponents</figcaption></figure></div>
+
 
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/ui/Ui.java"><code>Ui.java</code></a></p>
 <p>The <abbr title="User interface">UI</abbr> consists of a <code>MainWindow</code> that contains several view elements. They are <code>TodoListView</code>, <code>CommandInputView</code>, <code>CommandFeedbackView</code>, <code>FilterBarView</code>, and so on. All these classes, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class and they can be loaded using the <code>UiPartLoader</code>.</p>
@@ -207,10 +207,10 @@ coupling between components.</p>
 <li>Binds itself to some data in the <code>Model</code> so that the <abbr title="User interface">UI</abbr> can auto-update when data in the <code>Model</code> change.</li>
 <li>Responds to events raised from various parts of the App and updates the <abbr title="User interface">UI</abbr> accordingly.</li>
 </ul>
-<div class="no-page-break"><h3 id="logic-component"><span>3.3 </span>Logic component<a class="headerlink" href="#logic-component" title="Permanent link">#</a></h3><p><img class="u-max-full-width" src="diagrams/Logic Component.svg">
-<figcaption>The relation between the Logic subcomponents</figcaption>
-<img class="u-max-full-width" src="diagrams/Logic Component 1.svg">
-<figcaption>Continuation of the relation between the Logic subcomponents</figcaption></img></img></p></div>
+<div class="no-page-break"><h3 id="logic-component"><span>3.3 </span>Logic component<a class="headerlink" href="#logic-component" title="Permanent link">#</a></h3><figure><img class="u-max-full-width" src="diagrams/Logic Component.svg"/><figcaption><strong>Figure 6. </strong>The relation between the Logic subcomponents</figcaption></figure></div>
+
+
+<figure><img class="u-max-full-width" src="diagrams/Logic Component 1.svg"/><figcaption><strong>Figure 7. </strong>Continuation of the relation between the Logic subcomponents</figcaption></figure>
 
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/logic/Logic.java"><code>Logic.java</code></a></p>
 <p>The logic component is the glue sitting between the <abbr title="User interface">UI</abbr> and the data model. It consists of three separate subcomponents, each of which also defines their own API using interfaces or abstract classes - </p>
@@ -229,10 +229,10 @@ the command the user called</li>
 <li>The command execution can affect the <code>Model</code> (e.g. adding a person), and/or raise events.</li>
 </ol>
 <p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call. See <a href="#logic">the implementation section</a> below for the implementation details of the logic component.  </p>
-<p><img class="u-max-full-width" src="images/DeletePersonSdForLogic.png">
-<figcaption>The process of deleting a person within the Logic component</figcaption></img></p>
-<div class="no-page-break"><h3 id="model-component"><span>3.4 </span>Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3><p><img class="container u-max-full-width" src="diagrams/Model Component.svg">
-<figcaption>The relation between the Model subcomponents</figcaption></img></p></div>
+<figure><img class="u-max-full-width" src="images/DeletePersonSdForLogic.png"/><figcaption><strong>Figure 8. </strong>The process of deleting a person within the Logic component</figcaption></figure>
+
+<div class="no-page-break"><h3 id="model-component"><span>3.4 </span>Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3><figure><img class="container u-max-full-width" src="diagrams/Model Component.svg"/><figcaption><strong>Figure 9. </strong>The relation between the Model subcomponents</figcaption></figure></div>
+
 
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/model/Model.java"><code>Model.java</code></a></p>
 <p>The model component represents the application's state and data layer. It is implemented by <code>TodoModel</code>, which is a composite of of the individual data models for the application, as well as higher level information about the state of the application itself, such as the current view and the undo/redo stack. </p>
@@ -243,8 +243,8 @@ the command the user called</li>
 <p>Each individual data model handles their own <abbr title="Create, Retrieve, Update, Delete">CRUD</abbr> operations, with the <code>Model</code> acting as a facade to present a simplified and uniform interface for external components to work with. Each of the data model holds a <code>Storage</code> object that is initalized by the <code>Model</code> and injected into them. The storage interfaces exposes a simple interface for reading and writing to the appropriate storage mechanism. </p>
 <p>To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The <abbr title="User interface">UI</abbr> component binds to the  the model through the <code>getObservableList</code> function which returns an <code>UnmodifiableObseravbleList</code> object that the <abbr title="User interface">UI</abbr> can bind to.</p>
 <p>The model ensure safety by exposing as much of its internal state as possible as immutable objects using interfaces such as <code>ImmutableTask</code>.</p>
-<p><img class="container u-max-full-width" src="diagrams/Storage Component.svg">
-<figcaption>The relation between the Storage subcomponents</figcaption></img></p>
+<figure><img class="container u-max-full-width" src="diagrams/Storage Component.svg"/><figcaption><strong>Figure 10. </strong>The relation between the Storage subcomponents</figcaption></figure>
+
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/storage/Storage.java"><code>Storage.java</code></a></p>
 <div class="no-page-break"><h3 id="common-modules"><span>3.5 </span>Common modules<a class="headerlink" href="#common-modules" title="Permanent link">#</a></h3><p>Modules used by multiple components are in the <code>seedu.todo.commons</code> package.</p></div>
 
