@@ -128,6 +128,10 @@ public class ActivityParser {
         //Optional<Integer> index = parseIndex(args);
         //System.out.println("index:" + index);
         ArrayList<String> activityType = DeleteParser.parseArguments(args);
+        if(activityType.isEmpty()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
         Integer index = Integer.valueOf(activityType.get(1));
         if(index == null){
             return new IncorrectCommand(
