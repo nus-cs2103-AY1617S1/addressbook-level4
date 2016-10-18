@@ -181,7 +181,7 @@ Perhaps now you have a change of schedule, or you are unsatisfied with the task 
 
 _Format:_
 ```java
-edit <index> [name/"<task_name>"] [startDate/"<start_>"] [on/DATE] [t/TAGS...]
+edit <index> '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
 ```
 
 >* At least one optional argument is required.
@@ -191,11 +191,11 @@ _Examples:_
 
 ```java
 // Selects the 2nd task in Mastermind and edit the task name to Dinner.
-> edit 2 name/"Dinner"
+> edit 2 'Dinner'
 ```
 ```java
 // Selects the 1st task and edit the `startDate` to tomorrow 8pm.
-edit 1 startDate/"tomorrow 8pm"
+edit 1 sd/'tomorrow 8pm'
 ```
 
 
