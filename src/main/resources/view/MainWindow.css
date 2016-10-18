@@ -1,0 +1,73 @@
+.table-view {
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: #1d1d1d;
+    -fx-background-color: #1d1d1d;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Verdana";
+    -fx-text-fill: lightGray;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+.table-row-cell {
+    -fx-cell-size: 50px;
+}
+
+.text-field{
+    -fx-background-color: #3f3f3f;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Lucida Console";
+    -fx-text-fill: deepSkyBlue;
+    -fx-border-radius: 0 0 0 0;
+    -fx-background-radius: 0 0 0 0;
+}
+
+.tab-pane .tab-header-area .headers-region,
+.tab-pane .tab-header-area .tab-header-background{
+    -fx-background-color: #1d1d1d;
+}
+
+.tab-pane .tab-header-area .tab{
+    -fx-background-color: #1d1d1d;
+}
+
+.tab-pane .tab-header-area .tab-label{
+    -fx-text-fill: lightGray;
+    -fx-font-weight: bold;
+    -fx-font-style: oblique;
+}
+
+.tab-pane .tab-header-area .tab:selected .tab-label{
+    -fx-text-fill: deepSkyBlue;
+    -fx-font-weight: bold;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: deepSkyBlue;
+}
+
+.text-area,
+.text-area .content{
+    -fx-background-color: #1d1d1d;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Lucida Console";
+    -fx-text-fill: deepSkyBlue;
+}
