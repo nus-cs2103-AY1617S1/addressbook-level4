@@ -14,6 +14,8 @@ import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
+import java.util.Stack;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -26,6 +28,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
 
+    private final Stack<ModelState> prevState = new Stack<ModelState>();
+    private final Stack<ModelState> nextState = new Stack<ModelState>();
+    
+    
     /**
      * Initializes a ModelManager with the given Task book
      * Task book and its variables should not be null
@@ -159,6 +165,18 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    
+    private static class ModelState {
+        
+        final TaskBook data;
+        final Predicate<? super Task> expression;
+        
+        public ModelState(ModelManager manager) {
+            data = new TaskBook(manager.getTaskBook());
+            expression = manager.filteredTasks.getPredicate();
+        }
+        
     }
 
 }
