@@ -1,9 +1,16 @@
 package guitests.guihandles;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import seedu.tasklist.commons.exceptions.IllegalValueException;
+import seedu.tasklist.model.task.EndTime;
+import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.ReadOnlyTask;
+import seedu.tasklist.model.task.StartTime;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -29,21 +36,33 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getPriority() {
+    	Pattern pattern = Pattern.compile(".*(?<priority>(low|med|high)).*");
+    	Matcher matcher = pattern.matcher(getTextFromLabel(ADDRESS_FIELD_ID));
+        if(!matcher.matches())
+        	assert false;
+        return matcher.group("priority");
     }
 
-    public String getPhone() {
+    public String getStartTime() {
         return getTextFromLabel(PHONE_FIELD_ID);
     }
 
-    public String getEmail() {
+    public String getEndTime() {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
     public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getTaskDetails().toString()) && getPhone().equals("Starts:   "+person.getStartTime().toCardString())
-                && getEmail().equals("Ends:     "+person.getEndTime().toCardString()) && getAddress().equals("Priority: "+person.getPriority().toString());
+
+		String start = getStartTime().equals("-")?"":getStartTime();
+		String end = getEndTime().equals("-")?"":getEndTime();
+        try {
+			return getFullName().equals(person.getTaskDetails().taskDetails) && person.getStartTime().equals(new StartTime(start))
+			        && person.getEndTime().equals(new EndTime(end)) && person.getPriority().equals(new Priority(getPriority()));
+		} catch (IllegalValueException e) {
+			assert false;
+			return false;
+		}
     }
 
     @Override
@@ -51,7 +70,7 @@ public class PersonCardHandle extends GuiHandle {
         if(obj instanceof PersonCardHandle) {
             PersonCardHandle handle = (PersonCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getPriority().equals(handle.getPriority()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
@@ -60,15 +79,11 @@ public class PersonCardHandle extends GuiHandle {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getFullName()+ "\n")
-                .append("Start time: ")
-                .append(getPhone() + "\t")
-                .append("End time:")
-                .append(getEmail() + "\n")
-                .append("Priority: ")
-                .append(getAddress()+ "\n")
-                .append("Tags: ");
+                .append(getStartTime() + "\t")
+                .append(getEndTime()+ "\n")
+                .append(getPriority()+ "\n");
+//        getTags().forEach(builder::append);
         return builder.toString();
 
-        //return getFullName() + " " + getAddress();
     }
 }
