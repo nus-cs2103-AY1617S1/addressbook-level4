@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  */
 public class TaskBook implements ReadOnlyTaskBook {
 
-    private final UniqueTaskList tasks;
+    private final UniqueTaskList<ReadOnlyTask> tasks;
     private final UniqueTagList tags;
 
     {
