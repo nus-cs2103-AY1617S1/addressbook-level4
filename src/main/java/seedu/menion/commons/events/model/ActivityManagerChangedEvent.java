@@ -14,6 +14,6 @@ public class ActivityManagerChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of activities " + data.getTaskList().size() + ", number of tags " + data.getTagList().size();
+        return "number of activities " + data.getTaskList().size();
     }
 }

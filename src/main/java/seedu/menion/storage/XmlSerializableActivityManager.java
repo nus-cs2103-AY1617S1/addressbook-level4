@@ -24,10 +24,18 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
     private List<XmlAdaptedTask> tasks;
     @XmlElement
     private List<Tag> tags;
+    
+    @XmlElement
+    private List<XmlAdaptedFloatingTask> floatingTasks;
+    @XmlElement
+    private List<XmlAdaptedEvent> events;
+    
 
     {
         tasks = new ArrayList<>();
         tags = new ArrayList<>();
+        floatingTasks = new ArrayList<>();
+        events = new ArrayList<>();
     }
 
     /**
@@ -40,18 +48,10 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
      */
     public XmlSerializableActivityManager(ReadOnlyActivityManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tags = src.getTagList();
+        floatingTasks.addAll(src.getFloatingTaskList().stream().map(XmlAdaptedFloatingTask::new).collect(Collectors.toList()));
+        events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
     }
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     @Override
     public UniqueActivityList getUniqueTaskList() {
@@ -77,10 +77,56 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
             }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
+    
+    @Override
+    public UniqueActivityList getUniqueFloatingTaskList() {
+        UniqueActivityList lists = new UniqueActivityList();
+        for (XmlAdaptedFloatingTask t : floatingTasks) {
+            try {
+                lists.add(t.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        return lists;
+    }
 
     @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
+    public List<ReadOnlyActivity> getFloatingTaskList() {
+        return floatingTasks.stream().map(t -> {
+            try {
+                return t.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
     }
+    
+    @Override
+    public UniqueActivityList getUniqueEventList() {
+        UniqueActivityList lists = new UniqueActivityList();
+        for (XmlAdaptedEvent t : events) {
+            try {
+                lists.add(t.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        return lists;
+    }
+
+    @Override
+    public List<ReadOnlyActivity> getEventList() {
+        return events.stream().map(t -> {
+            try {
+                return t.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
+    }
+
 
 }

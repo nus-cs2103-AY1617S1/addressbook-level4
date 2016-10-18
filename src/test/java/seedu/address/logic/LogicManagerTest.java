@@ -172,7 +172,6 @@ public class LogicManagerTest {
                 "add Valid Name p/12345 e/notAnEmail a/valid, address", ActivityTime.MESSAGE_REMINDER_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
     }
 *//*
     @Test
@@ -182,13 +181,11 @@ public class LogicManagerTest {
         Activity toBeAdded = helper.exampletask();
         ActivityManager expectedAB = new ActivityManager();
         expectedAB.addTask(toBeAdded);
-
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
-
     }*/
     
 
@@ -200,17 +197,14 @@ public class LogicManagerTest {
         Activity toBeAdded = helper.exampletask();
         ActivityManager expectedAB = new ActivityManager();
         expectedAB.addTask(toBeAdded);
-
         // setup starting state
         model.addTask(toBeAdded); // person already in internal address book
-
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
-
     }
     */
 
@@ -221,10 +215,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         ActivityManager expectedAB = helper.generateMenion(2);
         List<? extends ReadOnlyActivity> expectedList = expectedAB.getTaskList();
-
         // prepare address book state
         helper.addToModel(model, 2);
-
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
@@ -275,15 +267,12 @@ public class LogicManagerTest {
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
-
     @Test
     public void execute_select_jumpsToCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Activity> threePersons = helper.generateTaskList(3);
-
         ActivityManager expectedAB = helper.generateTaskManager(threePersons);
         helper.addToModel(model, threePersons);
-
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_ACTIVITY_SUCCESS, 2),
                 expectedAB,
@@ -309,17 +298,14 @@ public class LogicManagerTest {
     public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Activity> threeTasks = helper.generateTaskList(3);
-
         ActivityManager expectedAB = helper.generateTaskManager(threeTasks);
         expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
-
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
-
 */
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
@@ -335,12 +321,10 @@ public class LogicManagerTest {
         Activity pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
         Activity p1 = helper.generateTaskWithName("KE Y");
         Activity p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
-
         List<Activity> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Activity> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
-
         assertCommandBehavior("find KEY",
                 Command.getMessageForActivityListShownSummary(expectedList.size()),
                 expectedAB,
@@ -355,12 +339,10 @@ public class LogicManagerTest {
         Activity p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
         Activity p3 = helper.generateTaskWithName("key key");
         Activity p4 = helper.generateTaskWithName("KEy sduauo");
-
         List<Activity> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
         ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Activity> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
-
         assertCommandBehavior("find KEY",
                 Command.getMessageForActivityListShownSummary(expectedList.size()),
                 expectedAB,
@@ -375,12 +357,10 @@ public class LogicManagerTest {
         Activity pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
         Activity pTarget3 = helper.generateTaskWithName("key key");
         Activity p1 = helper.generateTaskWithName("sduauo");
-
         List<Activity> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
         ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Activity> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
-
         assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForActivityListShownSummary(expectedList.size()),
                 expectedAB,
@@ -399,8 +379,9 @@ public class LogicManagerTest {
             Note note = new Note("test note");
             ActivityDate startDate = new ActivityDate("18-09-2016");
             ActivityTime startTime = new ActivityTime("1900");
+            Completed status = new Completed(Completed.UNCOMPLETED_ACTIVITY);
             
-            return new Activity(activityType, name, note, startDate, startTime);
+            return new Activity(activityType, name, note, startDate, startTime, status);
         }
 
         /**
@@ -416,7 +397,8 @@ public class LogicManagerTest {
                     new ActivityName("task " + seed),
                     new Note("" + Math.abs(seed)),
                     new ActivityDate("18-08-1994"),
-                    new ActivityTime("1900")
+                    new ActivityTime("1900"),
+                    new Completed(Completed.UNCOMPLETED_ACTIVITY)
             );
         }
 
@@ -509,7 +491,8 @@ public class LogicManagerTest {
                     new ActivityName(taskName),
                     new Note("test note"),
                     new ActivityDate("18-06-2016"),
-                    new ActivityTime("1900"));
+                    new ActivityTime("1900"),
+                    new Completed(Completed.UNCOMPLETED_ACTIVITY));
         }
     }
 }
