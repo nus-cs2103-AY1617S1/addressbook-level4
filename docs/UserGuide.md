@@ -10,9 +10,9 @@
 
 <br>
 ## Introduction
-With a never-ending stream of deadlines and tasks, it's easy to be overwhelmed without an effective task management system. Traditional task manager require you to interact with them through a graphical user interface, which is too slow for users like you. <i>Tusk</i> implements a new paradigm of task management.
+With a never-ending stream of deadlines and tasks, it's easy to be overwhelmed without an effective task management system. Traditional task managers require you to interact with them through a graphical user interface, which is too slow for users like you! <i>Tusk</i> implements a new paradigm of task management.
 
-While traditional task managers require you to interact through a graphical user interface, <i> Tusk </i> allows you to manage your tasks quickly through keyboard commands.
+While traditional task managers require you to interact with them through a graphical user interface, <i> Tusk </i> allows you to manage your tasks quickly through keyboard commands.
 
 With <i>Tusk</i>, you can add, delete and edit tasks without a fuss. Through shortcuts that you define, you can create custom commands that make <i> Tusk </i> entirely yours over time. Managing tasks has never been such a breeze.
 

@@ -136,9 +136,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`InMemoryTaskList.java`](../src/main/java/seedu/address/model/task/InMemoryTaskList.java)
 
-The `Model`,
+The `Model` component,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes a `UnmodifiableObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list
@@ -150,7 +150,7 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`TaskStorage.java`](../src/main/java/seedu/address/storage/task/TaskStorage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
