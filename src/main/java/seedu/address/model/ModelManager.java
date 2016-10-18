@@ -6,6 +6,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.task.Deadline;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -100,7 +101,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     public void updateFilteredListToShowClashing(){
-    	updateFilterPersonList(new PredicateExpression(new DeadlineQualifier()));
+    	FilteredList<Task> clashingTasks = new FilteredList<Task>(null);
+    	for(int i=0; i<filteredPersons.size(); i++){
+    		boolean isClashing = false;
+    		Task task = filteredPersons.get(i);
+    		Deadline deadline = task.getDeadline();
+    		for(int j=i; j<filteredPersons.size()-i; j++){
+    			Task task2 = filteredPersons.get(j);
+    			Deadline deadline2 = task2.getDeadline();
+    			if(deadline.equals(deadline2)){
+    				clashingTasks.add(task2);
+    				isClashing = true;
+    			}
+    		}
+    		if(isClashing){
+    			clashingTasks.add(task);
+    		}
+    	}
+    	//filteredPersons = clashingTasks;
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -154,19 +172,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-    
-    private class DeadlineQualifier implements Qualifier {
-        
-    	private Set<String> tasks = null;
-        
-        @Override
-        public boolean run(ReadOnlyTask task) {
-        	return tasks.stream()
-        			.filter(StringUtil.containsIgnoreCase(source, query))
-        }
-        
-    	
-    }
-    
     
 }
