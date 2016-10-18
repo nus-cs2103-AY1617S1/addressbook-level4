@@ -60,7 +60,7 @@ public class TaskList implements Iterable<Task> {
      */
     public int getNextId() {
         if (!isNextIdInitialized) {
-            int nextLowest = Integer.MIN_VALUE;
+            int nextLowest = -1; // first id to be used is 0. Start finding with -1
             LinkedList<Integer> usedIds = new LinkedList<Integer>();
             for (Task t : internalList) {
                 usedIds.add(t.getId());
@@ -68,7 +68,6 @@ public class TaskList implements Iterable<Task> {
                     nextLowest = t.getId();
                 }
             }
-            
             // assumption that the number of tasks < 2^31
             // implementation will be buggy if nextId exceeds 2^31
             nextId = nextLowest;
