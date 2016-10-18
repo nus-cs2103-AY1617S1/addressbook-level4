@@ -24,13 +24,13 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
     	switch(dataType) {
-    		case "todo":
+    		case " todo":
     			model.updateFilteredTodoListToShowAll();
     			return new CommandResult(MESSAGE_SUCCESS);
-    		case "event":
+    		case " event":
     			model.updateFilteredEventListToShowAll();
     			return new CommandResult(MESSAGE_SUCCESS);
-    		case "deadline":
+    		case " deadline":
     			model.updateFilteredDeadlineListToShowAll();
     			return new CommandResult(MESSAGE_SUCCESS);
     	}
