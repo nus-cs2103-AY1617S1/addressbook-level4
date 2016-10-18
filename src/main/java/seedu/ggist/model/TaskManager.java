@@ -129,7 +129,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public void editTask(ReadOnlyTask key, String field, String value) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.contains(key)) {
-            tasks.edit(key,  field, value);
+            tasks.edit(key, field, value);
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }

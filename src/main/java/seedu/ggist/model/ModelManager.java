@@ -84,7 +84,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
     	taskManager.editTask(target, field, value);
-    	updateFilteredTaskListToShowUndone();
+    	if (target.getDone()) {
+    	    updateFilteredListToShowAllDone();
+    	} else {
+    	    updateFilteredTaskListToShowUndone();
+    	}
     	indicateTaskManagerChanged();
     }
 
