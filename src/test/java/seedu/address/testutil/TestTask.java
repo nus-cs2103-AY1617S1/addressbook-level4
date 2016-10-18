@@ -28,6 +28,14 @@ public class TestTask extends Task implements ReadOnlyTask {
         recurringType = RecurringType.NONE;
         recurringDates = new ArrayList<TaskDateComponent>();
     }
+    
+    public TestTask(TestTask copy) {
+        tags = new UniqueTagList(copy.tags);
+        startDate = new TaskDate(copy.startDate);
+        endDate = new TaskDate(copy.endDate);
+        recurringType = RecurringType.NONE;
+        recurringDates = new ArrayList<TaskDateComponent>();
+    }
 
     public void setName(Name name) {
         this.name = name;
@@ -35,6 +43,10 @@ public class TestTask extends Task implements ReadOnlyTask {
     
     public void setType(TaskType type){
     	this.type = type;
+    }
+    
+    public void setTag(UniqueTagList tags){
+    	this.tags = tags;
     }
     
     public void setStartDate(String date){

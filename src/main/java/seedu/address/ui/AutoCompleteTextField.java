@@ -93,7 +93,7 @@ public class AutoCompleteTextField extends TextField
 		dictionary.add("by");
 		dictionary.add("t/");
 		//command word
-		String[] commandWords = {"add","block","cd","clear","delete","done","help","u","r","find","list","select","exit"};
+		String[] commandWords = {"add","block","cd","clear","delete","done","edit","help","u","r","find","list","select","exit"};
 		for(String s: commandWords) dictionary.add(s);
 		//date
 		String[] dateWords = {"jan","feb","mar","apr","may","jun","jul",
