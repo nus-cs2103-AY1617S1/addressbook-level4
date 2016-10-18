@@ -1,8 +1,10 @@
 package seedu.address.testutil;
 
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.model.task.InMemoryTaskList;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
 
 /**
@@ -25,6 +27,22 @@ public class TestUtil {
 		}
 		return newTaskList;
 	}
+	
+	// Setting up tasks in the TaskList in order to find them in the tests
+		public static InMemoryTaskList setupSomeCompletedTasksInTaskList(int n) throws IllegalValueException {
+			InMemoryTaskList newTaskList = new TaskManager();
+			// Add 3 tasks into the task manager
+			for (int i = 0; i < n; i++) {
+				AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
+				command.setData(newTaskList);
+				command.execute();
+			}
+			UnmodifiableObservableList<Task> list= newTaskList.getCurrentFilteredTasks();
+			for (int i = 0; i < n; i++) {
+				list.get(i).setAsComplete();
+			}
+			return newTaskList;
+		}
 // TODO: DISABLED TESTUTIL
 //    public static String LS = System.lineSeparator();
 //
