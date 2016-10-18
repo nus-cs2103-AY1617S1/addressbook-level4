@@ -20,13 +20,15 @@ public class TaskDateTime {
     public TaskDateTime(String args) throws IllegalValueException {
         if (args == null || args.trim().isEmpty())
             return;
-        String[] split = args.trim().replace("at", "").split("\\s+");
-        if (split.length > 0) {
-            date = DateFormatter.convertStringToDate(split[0].trim());
+        
+        date = DateFormatter.convertStringToDate(args);
+        if (!DateFormatter.convertDateToFullTimeString(date)
+                .equals(DateFormatter.convertDateToFullTimeString(new Date()))) {
+            time = date;
         }
-        if (split.length > 1 && !split[1].trim().isEmpty()) {
-            time = DateFormatter.convertStringToTime(split[1].trim());
-        }
+//        if (split.length > 1 && !split[1].trim().isEmpty()) {
+//            time = DateFormatter.convertStringToTime(split[1].trim());
+//        }
     }
     
     public Date getDate() { 
@@ -38,10 +40,11 @@ public class TaskDateTime {
     }
     
     public String getDateString() {
-        if (date == null)
-            return "";
-        else 
-            return DateFormatter.convertDateToString(date);
+//        if (date == null)
+//            return "";
+//        else 
+//            return DateFormatter.convertDateToString(date);
+        return getDisplayDateString();
     }
     
     public String getDisplayDateString() {
@@ -52,10 +55,11 @@ public class TaskDateTime {
     }
     
     public String getTimeString() {
-        if (time == null)
-            return "";
-        else 
-            return " " + DateFormatter.convertTimeToString(date);
+//        if (time == null)
+//            return "";
+//        else 
+//            return " " + DateFormatter.convertTimeToString(date);
+        return getDisplayTimeString();
     }
     
     public String getDisplayTimeString() {
@@ -80,8 +84,8 @@ public class TaskDateTime {
     }
     
     public boolean isSameStateAs(TaskDateTime other) {
-        
-        return (getDateString().equals(other.getDateString()) 
-                && getTimeString().equals(other.getTimeString()));
+        return getDisplayString().equals(other.getDisplayString());
+//                (getDateString().equals(other.getDateString()) 
+//                && getTimeString().equals(other.getTimeString()));
     }
 }

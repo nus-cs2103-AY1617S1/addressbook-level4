@@ -1,17 +1,9 @@
 package seedu.address.logic.commands;
 
-import java.io.IOException;
-
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.storage.FilePathChangedEvent;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.XmlFileStorage;
 
-public class SetPathCommand extends Command {
+public class SetpathCommand extends Command {
 
     public static final String COMMAND_WORD = "setpath";
     
@@ -22,7 +14,7 @@ public class SetPathCommand extends Command {
     
     private String savedPathLink;
     
-    public SetPathCommand(String arguments) {
+    public SetpathCommand(String arguments) {
         this.savedPathLink = arguments;
     }
 

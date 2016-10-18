@@ -21,7 +21,6 @@ public class FindCommandTest extends TaskSchedulerGuiTest {
     @Test
     public void find_Date() {
         assertFindResult("find 14-Oct-2016", td.benson, td.carl);
-        assertTrue(true);
     }
     
     @Test
