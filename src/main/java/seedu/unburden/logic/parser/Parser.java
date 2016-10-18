@@ -57,13 +57,21 @@ public class Parser {
                             "(s/(?<startTimeArguments>[^/]+))?" + 
                             "(e/(?<endTimeArguments>[^/]+))?");
     
-    private static final String byToday = "by Today";
+    private static final String byToday = "by today";
     
-    private static final String byTomorrow = "by Tomorrow";
+    private static final String byTomorrow = "by tomorrow";
     
-    private static final String byNextWeek = "by Next Week";
+    private static final String byNextWeek = "by next week";
     
-    private static final String byNextMonth = "by Next Month";
+    private static final String byNextMonth = "by next month";
+    
+    private static final String today = "today";
+    
+    private static final String tomorrow = "tomorrow";
+    
+    private static final String nextWeek = "next week";
+    
+    private static final String nextMonth = "next month";
     
     private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
     
@@ -150,14 +158,14 @@ public class Parser {
             );
         	}
         	else{
-        		if(matcher3.group("name").toLowerCase().contains(byToday.toLowerCase())){
+        		if(matcher3.group("name").toLowerCase().contains(byToday)){
         			return new AddCommand(
         					matcher3.group("name").replaceAll("(?i)"+Pattern.quote(byToday), ""),
         					dateFormatter.format(Calendar.getInstance().getTime()),
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
-        		else if(matcher3.group("name").toLowerCase().contains(byTomorrow.toLowerCase())){
+        		else if(matcher3.group("name").toLowerCase().contains(byTomorrow)){
         			calendar.setTime(calendar.getTime());
         			calendar.add(Calendar.DAY_OF_YEAR, 1);
         			return new AddCommand(
@@ -166,7 +174,7 @@ public class Parser {
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
-        		else if(matcher3.group("name").toLowerCase().contains(byNextWeek.toLowerCase())){
+        		else if(matcher3.group("name").toLowerCase().contains(byNextWeek)){
         			calendar.setTime(calendar.getTime());
         			calendar.add(Calendar.WEEK_OF_YEAR, 1);
         			return new AddCommand(
@@ -175,7 +183,7 @@ public class Parser {
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
-        		else if(matcher3.group("name").toLowerCase().contains(byNextMonth.toLowerCase())){
+        		else if(matcher3.group("name").toLowerCase().contains(byNextMonth)){
         			calendar.setTime(calendar.getTime());
         			calendar.add(Calendar.WEEK_OF_MONTH, 4);
         			return new AddCommand(
