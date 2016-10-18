@@ -38,6 +38,17 @@ public class Item {
 		// changes in the arg list
     }
 	
+	public Item(Description desc, LocalDateTime start, LocalDateTime end) {
+	    this.description = desc;
+	    this.startDate = start;
+	    this.endDate = end;
+	}
+	
+	public Item(Description desc, LocalDateTime end) {
+	    this.description = desc;
+	    this.endDate = end;
+	}
+	
 	public Description getDescription() {
 		return description;
     }
