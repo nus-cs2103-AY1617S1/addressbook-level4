@@ -98,6 +98,10 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredPersonList(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
     }
+    
+    public void updateFilteredListToShowClashing(){
+    	updateFilterPersonList(new PredicateExpression(new DeadlineQualifier()));
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -126,7 +130,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask person);
+        boolean run(ReadOnlyTask task);
         String toString();
     }
 
@@ -150,5 +154,19 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    
+    private class DeadlineQualifier implements Qualifier {
+        
+    	private Set<String> tasks = null;
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	return tasks.stream()
+        			.filter(StringUtil.containsIgnoreCase(source, query))
+        }
+        
+    	
+    }
+    
+    
 }
