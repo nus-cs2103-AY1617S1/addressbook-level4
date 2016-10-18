@@ -5,6 +5,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
@@ -65,6 +67,33 @@ public class GuiHandle {
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+    }
+    
+    protected String getTextFromPriorityRectangle(String fieldId, Node parentNode){
+        Paint rectanglePaint =  ((Rectangle) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getFill();
+        String fillColour = rectanglePaint.toString();
+        
+        // TODO: tidy up this function
+        /*
+        String RED = Paint.valueOf("red").toString(),
+                YELLOW = Paint.valueOf("yellow").toString(),
+                GREEN = Paint.valueOf("green").toString();
+                */
+        // TODO: Use readable color instead of color codes..
+        
+        switch (fillColour){
+            case "0xff0000ff":
+                return "HIGH";
+            case "0xffff00ff":
+                return "MEDIUM";
+            case "0x008000ff":
+                return "LOW";
+                
+            default:
+                assert false : "Rectangle should only be of the 3 colours above";
+                return "MEDIUM";
+            // TODO: throw exception maybe?
+        }
     }
 
     public void focusOnSelf() {

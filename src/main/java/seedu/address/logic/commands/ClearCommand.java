@@ -22,6 +22,7 @@ public class ClearCommand extends UndoableCommand {
 
     private List<Task> clearedTasks;
 
+
     public ClearCommand() {}
 
 

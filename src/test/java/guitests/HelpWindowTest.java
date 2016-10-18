@@ -14,7 +14,8 @@ public class HelpWindowTest extends AddressBookGuiTest {
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
+        // Removed the top menu bar
+        //assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
 
         assertHelpWindowOpen(commandBox.runHelpCommand());
 

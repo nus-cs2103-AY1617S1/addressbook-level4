@@ -12,10 +12,10 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     
-    public static final String TOOL_TIP = "list";
+    public static final String TOOL_TIP = "list [done]";
 
-    public static final String MESSAGE_SUCCESS = "Listed all items";
-    public static final String DONE_MESSAGE_SUCCESS = "Listed all done items";
+    public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    public static final String DONE_MESSAGE_SUCCESS = "Listed all done tasks";
     
 
     Boolean isListDoneCommand;

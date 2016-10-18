@@ -735,31 +735,31 @@ public class CommandParser {
      */
     // TODO: apply software eng to this shit
     private void updateMatchedCommands(List<String> toolTips, final String commandWord) {
-        if (StringUtil.isSubstring(AddCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(AddCommand.COMMAND_WORD, commandWord)){
             toolTips.add(AddCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstring(SelectCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(SelectCommand.COMMAND_WORD, commandWord)){
             toolTips.add(SelectCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstring(DeleteCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(DeleteCommand.COMMAND_WORD, commandWord)){
             toolTips.add(DeleteCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstring(ClearCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(ClearCommand.COMMAND_WORD, commandWord)){
             toolTips.add(ClearCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstring(FindCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(FindCommand.COMMAND_WORD, commandWord)){
             toolTips.add(FindCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstring(ListCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(ListCommand.COMMAND_WORD, commandWord)){
             toolTips.add(ListCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstring(ExitCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(ExitCommand.COMMAND_WORD, commandWord)){
             toolTips.add(ExitCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstring(HelpCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(HelpCommand.COMMAND_WORD, commandWord)){
             toolTips.add(HelpCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstring(EditCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(EditCommand.COMMAND_WORD, commandWord)){
             toolTips.add(EditCommand.TOOL_TIP);
         }
     }

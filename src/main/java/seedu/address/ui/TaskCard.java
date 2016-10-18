@@ -6,12 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.TimePeriod;
 
 public class TaskCard extends UiPart{
-
-    private static final int INTEGER_CONSTANT_ONE = 1;
 
     private static final String FXML = "TaskListCard.fxml";
 
@@ -22,15 +22,11 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label priority;
+    private Rectangle priority;
     @FXML
     private Label startDate;
     @FXML
-    private Label startTime;
-    @FXML
     private Label endDate;
-    @FXML
-    private Label endTime;
     @FXML
     private Label recurrenceRate;
     @FXML
@@ -55,46 +51,55 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().name);
-        priority.setText(task.getPriorityValue().toString());
-        id.setText(displayedIndex + "");
+        switch(task.getPriorityValue()){
+            case LOW:
+                priority.setFill(Paint.valueOf("green"));
+                break;
+            case MEDIUM:
+                priority.setFill(Paint.valueOf("yellow"));
+                break;
+            case HIGH:
+                priority.setFill(Paint.valueOf("red"));
+                break;
+            default:
+                assert false: "priority should only be LOW, MEDIUM, or HIGH";
+        }       
+
         
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy");
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("h:mm a");
-        String startDateText, endDateText, startTimeText, endTimeText, recurrenceRateText;
+        id.setText(displayedIndex + ".");
+        
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy, h:mm a");
+        String startDateText, endDateText, recurrenceRateText;
         
         startDateText = "";
-        startTimeText = "";
         endDateText = "";
-        endTimeText = "";
         recurrenceRateText = "";
         
         if (task.getStartDate().isPresent()){
-            startDateText = dateFormatter.format(task.getStartDate().get());
-            startTimeText = timeFormatter.format(task.getStartDate().get());
+            startDateText = "Start: " + dateFormatter.format(task.getStartDate().get());
         }
         
         if (task.getEndDate().isPresent()){
-            endDateText = dateFormatter.format(task.getEndDate().get());
-            endTimeText = timeFormatter.format(task.getEndDate().get());
+            endDateText = "End: " + dateFormatter.format(task.getEndDate().get());
         }
         
         startDate.setText(startDateText);
-        startTime.setText(startTimeText);
         endDate.setText(endDateText);
-        endTime.setText(endTimeText);
         
-        //TODO: assert true?
         if (task.getRecurrenceRate().isPresent()){
             Integer recurrenceRateInteger = task.getRecurrenceRate().get().rate;
             TimePeriod timePeriod = task.getRecurrenceRate().get().timePeriod;
-            if (recurrenceRateInteger != INTEGER_CONSTANT_ONE && timePeriod != null) {
-                recurrenceRateText = "every " + recurrenceRateInteger.toString() + " " + timePeriod.toString().toLowerCase() 
+            if (recurrenceRateInteger != null && timePeriod != null) {
+                recurrenceRateText = "every " 
+                        + (recurrenceRateInteger == 1 ? "" : recurrenceRateInteger.toString() + " ")
+                        + timePeriod.toString().toLowerCase() 
                         + (recurrenceRateInteger.intValue() > 1 ? "s" : "");
-            } else if (recurrenceRateInteger == INTEGER_CONSTANT_ONE && timePeriod != null) {
+            } else if (recurrenceRateInteger == null && timePeriod != null) {
                 recurrenceRateText = "every " + timePeriod.toString().toLowerCase();
             }
         }
         recurrenceRate.setText(recurrenceRateText);
+        
     }
 
     public HBox getLayout() {
