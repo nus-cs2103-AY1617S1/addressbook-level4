@@ -795,7 +795,12 @@ Weaknesses:
 
 Summary:
 
-The calendar view is a useful feature to help users visualize their schedules. On the other hand, the lack of ability to add floating tasks may cause inconvenience to users.
+The calendar view is a useful feature to help users visualize their schedules. On the other hand,
+the lack of ability to add floating tasks may cause inconvenience to users. 
+
+Our Program:
+
+We will allow tasks with no deadlines and time slots (periods).
 <br><br>
 
 #### Todoist
@@ -822,6 +827,11 @@ Weaknesses:
 Summary:
 
 Does not store completed tasks, and still requires mouse for most actions
+
+Our Program:
+
+We will include completion status for all tasks. All commands will be able to be executed by typing
+them through the command box.
 <br><br>
 
 #### Microsoft Outlook
@@ -856,6 +866,11 @@ Summary:
 
 While it provides recurring features, and seperates tasks and events, tasks are not shown on the calendar view, which
 makes it hard to visualise the due dates of the tasks. The use of mouse is required for some features.
+
+Our Program:
+
+We will not only provide a good calendar UI for tasks, we will also strive to minimize mouse usage by allowing
+user to access the commands by typing through the command box.
 <br><br>
 
 #### iCalendar
@@ -887,3 +902,7 @@ Weaknesses:
 Summary:
 
 Its design is very user-friendly. Since it is supported by other powerful modules by Apple, it has relatively complete features and functionalities. However, it would be better if further details of tasks and events are supported.
+
+Our Program:
+
+We will implement completion status. We will implement prioritizing of tasks through using tags.
