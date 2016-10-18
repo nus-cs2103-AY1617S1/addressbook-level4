@@ -156,25 +156,25 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 d/valid@dueDate.butNoDueDatePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 e/valid@email.butNoDueDatePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name d/12345 valid@address.butNoPrefix p/valid, priority", expectedMessage);
+                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name d/12345 a/valid@email.butNoAddressPrefix valid, priority", expectedMessage);
+                "add Valid Name p/12345 e/valid@email.butNoPriorityPrefix valid, address", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] d/12345 a/valid@address p/valid, priority", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/not_numbers a/valid@e.mail a/valid, address", DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/12345 a/notAnAddress a/valid, address", Address.MESSAGE_ADDRESS_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnAddress a/valid, address", Address.MESSAGE_ADDRESS_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/12345 e/notAnAddress a/valid, address", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnAddress a/valid, address", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -391,12 +391,12 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             DueDate privateDueDate = new DueDate("111111");
-            Address address = new Address("111, alpha street");
-            Priority privatePriority = new Priority("1");
+            Address email = new Address("adam@gmail.com");
+            Priority privatePriority = new Priority("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privateDueDate, address, privatePriority, tags);
+            return new Task(name, privateDueDate, email, privatePriority, tags);
         }
 
         /**
@@ -410,7 +410,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new DueDate("" + Math.abs(seed)),
-                    new Address(seed + "@address"),
+                    new Address(seed + "@email"),
                     new Priority("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
