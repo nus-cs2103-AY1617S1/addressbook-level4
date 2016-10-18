@@ -91,13 +91,15 @@ public class Parser {
         String taskName = "",date = "",startTime = "",endTime = "",isRecurring = "";
         HashMap<String,String> mapArgs = parseAdd(args.trim());
         
-        //If arguments are in hashmap, pass them to addCommand, if not pass them as null
+        //If arguments are in hashmap, pass them to addCommand, if not pass them as empty string
         
         if (mapArgs.containsKey("taskName")) {
             taskName = mapArgs.get("taskName");
         }
         if (mapArgs.containsKey("date")) {
             date = mapArgs.get("date");
+        } else {
+            date = "today";
         }
         if (mapArgs.containsKey("startTime")) {
             startTime = mapArgs.get("startTime");
