@@ -82,7 +82,7 @@ Examples:
 * `add prepare presentation slides by monday 2pm, high`
 
 > * `[DATE]` and `[TIME]` has to separated by a space or an 'at'.<br>
-> * The comma after `[TASK]` can be replaced with a `by` or 'on'.
+> * The comma after `[TASK]` can be replaced with a `by`, `on` or `at`.
 
 
 

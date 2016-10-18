@@ -15,6 +15,7 @@ public class Messages {
     public static final String MESSAGE_NO_END_TIME_SET = "No end time set";
     public static final String MESSAGE_INVALID_Task_DISPLAYED_INDEX = "Invalid task index";
     public static final String MESSAGE_TASK_NOT_IN_GGIST = "Task is not found in GGist";
-    public static final String MESSAGE_TASK_TYPE_NOT_IN_GGIST = "Target type does not exist";
+    public static final String MESSAGE_TASK_TYPE_NOT_IN_GGIST = "Target type does not exists";
     public static final String MESSAGE_NO_PREVIOUS_COMMAND = "No previous command";
+    public static final String MESSAGE_DEST_FILE_EXISTS = "Specified file already exists";
 }

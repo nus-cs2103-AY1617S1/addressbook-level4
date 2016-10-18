@@ -35,7 +35,7 @@ public class Parser {
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*(,|by|on)\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|by|on|at)\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
         
     //regex for tasks with start and end time spanning different days
     private static final Pattern EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT = 
@@ -94,7 +94,10 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+            
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
+            
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -332,6 +335,20 @@ public class Parser {
         } catch (IllegalValueException e) {
             return new IncorrectCommand(ListCommand.MESSAGE_USAGE);
         }
+    }
+    
+    /**
+     * Parses arguments in the context of the save command.
+     *
+     * @param args full command arguments string
+     * @return the prepared command
+     */
+    private Command prepareSave(String args) {
+        if (args.equals("")) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SaveCommand.MESSAGE_USAGE));
+        }
+        return new SaveCommand(args.trim());
     }
 
 }
