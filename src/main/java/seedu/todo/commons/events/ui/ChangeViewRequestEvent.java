@@ -1,6 +1,6 @@
 package seedu.todo.commons.events.ui;
 
-import seedu.todo.commons.enumerations.TaskViewFilters;
+import seedu.todo.commons.enumerations.TaskViewFilter;
 import seedu.todo.commons.events.BaseEvent;
 
 /**
@@ -8,9 +8,9 @@ import seedu.todo.commons.events.BaseEvent;
  */
 public class ChangeViewRequestEvent extends BaseEvent {
 
-    private final TaskViewFilters view;
+    private final TaskViewFilter view;
 
-    public ChangeViewRequestEvent(TaskViewFilters view){
+    public ChangeViewRequestEvent(TaskViewFilter view){
         this.view = view;
     }
 
@@ -19,7 +19,7 @@ public class ChangeViewRequestEvent extends BaseEvent {
         return this.getClass().getSimpleName();
     }
 
-    public TaskViewFilters getNewSelection() {
+    public TaskViewFilter getNewView() {
         return view;
     }
 }
