@@ -129,6 +129,17 @@ public class TodoListDB {
     }
     
     /**
+     * Destroys all Task in the DB and persists the commit.
+     * 
+     * 
+     * @return true if the save was successful, false otherwise
+     */
+    public boolean destroyAllTask() {
+        tasks = new LinkedHashSet<Task>();
+        return save();
+    }
+    
+    /**
      * Create a new Event in the DB and return it.<br>
      * <i>The new record is not persisted until <code>save</code> is explicitly
      * called.</i>
@@ -149,6 +160,17 @@ public class TodoListDB {
      */
     public boolean destroyEvent(Event event) {
         events.remove(event);
+        return save();
+    }
+    
+    /**
+     * Destroys all Event in the DB and persists the commit.
+     * 
+     * 
+     * @return true if the save was successful, false otherwise
+     */
+    public boolean destroyAllEvent() {
+        events = new LinkedHashSet<Event>();
         return save();
     }
     
