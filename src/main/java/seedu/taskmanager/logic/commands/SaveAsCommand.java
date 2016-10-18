@@ -20,6 +20,7 @@ public class SaveAsCommand extends Command {
     public static final String MESSAGE_ERROR_CONVERTING_FILE = "Error reading from config file: " + Config.DEFAULT_CONFIG_FILE;
     public static final String MESSAGE_SUCCESS = "File path changed! Custom file path specified: %1$s";
     public static final String MESSAGE_SAME_FILE_PATH = "File path is already saved at the specified location!";
+    public static final String MESSAGE_ERROR_SAVING_FILE = "Error occured saving to file.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Saves task manager information to the specified storage file path. \n"
             + "Parameters: " + COMMAND_WORD + " FILEPATH \n"
             + "Example: " + COMMAND_WORD +  " " + " data/newtaskbook.xml" + "\n"
@@ -47,7 +48,9 @@ public class SaveAsCommand extends Command {
                 return new CommandResult(MESSAGE_SAME_FILE_PATH);
             }
 
+            
             currentConfig.setTaskManagerFilePath(newConfigFilePath);
+            ConfigUtil.saveConfig(currentConfig, newConfigFilePath);
             logger.info(currentConfig.toString());
             return new CommandResult(String.format(MESSAGE_SUCCESS, newConfigFilePath));
 /*            logger.info("Using config file : " + configFilePathUsed);
@@ -62,11 +65,13 @@ public class SaveAsCommand extends Command {
 
             return new CommandResult(MESSAGE_SUCCESS);
             
-*/        } catch (DataConversionException e) {
-            return new CommandResult(MESSAGE_ERROR_CONVERTING_FILE); 
-            }
+*/        
+        } catch (DataConversionException e) {
+            return new CommandResult(MESSAGE_ERROR_CONVERTING_FILE);
+        } catch (IOException e) {
+            return new CommandResult(MESSAGE_ERROR_SAVING_FILE);
         }
-    
+    }
     
 // need to use Config class to access config.json file and edit accordingly
 // test to check where the file is going to be saved by using Logger.info(<configobject>.toString());
