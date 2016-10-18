@@ -15,6 +15,7 @@ import seedu.todo.ui.controller.CommandController;
 import seedu.todo.ui.view.CommandErrorView;
 import seedu.todo.ui.view.CommandFeedbackView;
 import seedu.todo.ui.view.CommandInputView;
+import seedu.todo.ui.view.HelpPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,8 +34,10 @@ public class MainWindow extends UiPart {
     private CommandInputView commandInputView;
     private CommandFeedbackView commandFeedbackView;
     private CommandErrorView commandErrorView;
-    
+
     private TodoListPanel todoListPanel;
+    private HelpPanel helpPanel;
+
     private Config config;
     private UserPrefs userPrefs;
 
@@ -55,6 +58,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
+
+    @FXML
+    private AnchorPane helpPanelPlaceholder;
 
 
     public MainWindow() {
@@ -97,6 +103,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         todoListPanel = TodoListPanel.load(primaryStage, todoListPanelPlaceholder, logic.getObservableTaskList());
+        helpPanel = HelpPanel.load(primaryStage, helpPanelPlaceholder);
         commandFeedbackView = CommandFeedbackView.load(primaryStage, resultDisplayPlaceholder);
         commandInputView = CommandInputView.load(primaryStage, commandBoxPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, errorViewPlaceholder);
@@ -135,13 +142,7 @@ public class MainWindow extends UiPart {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
-
-    @FXML
-    public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load(primaryStage);
-        helpWindow.show();
-    }
-
+    
     public void show() {
         primaryStage.show();
     }
@@ -154,7 +155,12 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TodoListPanel getPersonListPanel() {
+    /* Getters */
+    TodoListPanel getTodoListPanel() {
         return this.todoListPanel;
+    }
+
+    HelpPanel getHelpPanel() {
+        return this.helpPanel;
     }
 }

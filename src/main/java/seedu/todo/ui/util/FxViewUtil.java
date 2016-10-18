@@ -1,10 +1,9 @@
-package seedu.todo.commons.util;
+package seedu.todo.ui.util;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +12,7 @@ import javafx.util.Duration;
 import java.util.Optional;
 
 /**
- * Contains utility methods for JavaFX views
+ * Contains generic utility methods for JavaFX views
  */
 public class FxViewUtil {
 
@@ -43,48 +42,6 @@ public class FxViewUtil {
             setCollapsed(nodeToHide, true);
         }
     }
-    
-    /**
-     * Constructs a label view with a dark grey rounded background.
-     */
-    public static Label constructRoundedText(String text) {
-        Label label = new Label();
-        label.setText(text);
-        label.getStyleClass().add("roundLabel");
-        label.setPadding(new Insets(0, 8, 0, 8));
-        return label;
-    }
-
-    /**
-     * Adds only one instance of the class style to the node object
-     */
-    public static void addClassStyle(Node node, String classStyle) {
-        if (!node.getStyleClass().contains(classStyle)) {
-            node.getStyleClass().add(classStyle);
-        }
-    }
-
-    /**
-     * Removes all instances of the class style
-     */
-    public static void removeClassStyle(Node node, String classStyle) {
-        while (node.getStyleClass().contains(classStyle)) {
-            node.getStyleClass().remove(classStyle);
-        }
-    }
-
-    /**
-     * Toggles the style class:
-     *      If supplied style class is available, remove it.
-     *      Else, add one instance of it.
-     */
-    public static void toggleClassStyle(Node node, String classStyle) {
-        if (node.getStyleClass().contains(classStyle)) {
-            removeClassStyle(node, classStyle);
-        } else {
-            addClassStyle(node, classStyle);
-        }
-    }
 
     /**
      * Sets a recurring task on the UI specified in handler to repeat every specified seconds.
@@ -99,4 +56,17 @@ public class FxViewUtil {
         return recurringTask;
     }
 
+    /**
+     * Converts an index from a list to the index that is displayed to the user via the Ui
+     */
+    public static int convertToListIndex(int uiIndex) {
+        return uiIndex - 1;
+    }
+
+    /**
+     * Converts an index displayed on the Ui to the user, to the index used on the list
+     */
+    public static int convertToUiIndex(int listIndex) {
+        return listIndex + 1;
+    }
 }

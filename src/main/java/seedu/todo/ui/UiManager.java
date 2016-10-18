@@ -11,9 +11,7 @@ import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
-import seedu.todo.commons.events.ui.JumpToListRequestEvent;
-import seedu.todo.commons.events.ui.SelectionChangedEvent;
-import seedu.todo.commons.events.ui.ShowHelpEvent;
+import seedu.todo.commons.events.ui.*;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
@@ -97,29 +95,34 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     //==================== Event Handling Code =================================================================
-
     @Subscribe
-    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
+    private void handleExpandCollapseTaskEvent(ExpandCollapseTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
+        mainWindow.getTodoListPanel().toggleExpandCollapsed(event.task);
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.handleHelp();
+        mainWindow.getHelpPanel().displayCommandSummaries(event.getCommandSummaries());
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleCommandInputEnterEvent(CommandInputEnterEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+        mainWindow.getHelpPanel().hideHelpPanel();
     }
 
-    //TODO: Rename this method, or delete it if this method is of no use.
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(SelectionChangedEvent event){
+    private void handleHighlightTaskEvent(HighlightTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getTodoListPanel().scrollAndSelect(event.getTask());
+    }
+
+    @Subscribe
+    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
     }
 
 }

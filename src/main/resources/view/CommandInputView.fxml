@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.CommandInputView">
+<AnchorPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.CommandInputView">
    <TextArea fx:id="commandTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="480.0" promptText="Your wish is my command. Enter your command." style="-fx-background-radius: 0;" styleClass="commandInput" stylesheets="@../style/DefaultStyle.css" wrapText="true">
       <font>
          <Font name="Segoe UI" size="20.0" />

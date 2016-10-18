@@ -7,11 +7,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.util.FxViewUtil;
-import seedu.todo.commons.util.TextAreaResizerUtil;
+import seedu.todo.commons.events.ui.CommandInputEnterEvent;
+import seedu.todo.ui.util.FxViewUtil;
+import seedu.todo.ui.util.TextAreaResizerUtil;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.logging.Logger;
 
@@ -22,7 +25,6 @@ import java.util.logging.Logger;
 public class CommandInputView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandInputView.class);
     private static final String FXML = "CommandInputView.fxml";
-    private static final String ERROR_STYLE = "error";
 
     private AnchorPane placeHolder;
     private AnchorPane commandInputPane;
@@ -65,6 +67,7 @@ public class CommandInputView extends UiPart {
     private void configureProperties() {
         setCommandInputHeightAutoResizeable();
         unflagErrorWhileTyping();
+        listenAndRaiseEnterEvent();
     }
 
     /**
@@ -76,6 +79,18 @@ public class CommandInputView extends UiPart {
             if (event.getCode() == KeyCode.ENTER) {
                 String command = commandTextField.getText();
                 listener.onCommandReceived(command);
+                event.consume(); //To prevent commandTextField from printing a new line.
+            }
+        });
+    }
+
+    /**
+     * Listens for Enter keystrokes, and raises an event when it happens.
+     */
+    public void listenAndRaiseEnterEvent() {
+        this.commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                EventsCenter.getInstance().post(new CommandInputEnterEvent());
                 event.consume(); //To prevent commandTextField from printing a new line.
             }
         });
@@ -108,14 +123,14 @@ public class CommandInputView extends UiPart {
      * Indicate an error visually on the {@link #commandTextField}
      */
     public void flagError() {
-        FxViewUtil.addClassStyle(commandTextField, ERROR_STYLE);
+        ViewStyleUtil.addClassStyle(commandTextField, ViewStyleUtil.STYLE_ERROR);
     }
 
     /**
      * Remove the error flag visually on the {@link #commandTextField}
      */
     private void unflagError() {
-        FxViewUtil.removeClassStyle(commandTextField, ERROR_STYLE);
+        ViewStyleUtil.removeClassStyle(commandTextField, ViewStyleUtil.STYLE_ERROR);
     }
 
     /**

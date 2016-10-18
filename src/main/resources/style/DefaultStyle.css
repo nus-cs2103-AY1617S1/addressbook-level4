@@ -6,6 +6,49 @@
     -fx-spacing: 4;
 }
 
+.text1 {
+    -fx-text-fill: #FFFFFF;
+    -fx-fill: #ffffff;
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 17pt;
+}
+
+.text2 {
+    -fx-text-fill: #FFFFFF;
+    -fx-fill: #ffffff;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 15pt;
+}
+
+.text3 {
+    -fx-text-fill: #FFFFFF;
+    -fx-fill: #ffffff;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 13pt;
+}
+
+.text4 {
+    -fx-text-fill: #FFFFFF;
+    -fx-fill: #ffffff;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12pt;
+}
+
+.code {
+    -fx-font-family: "Consolas";
+}
+
+.bolder {
+    -fx-font-weight: bolder;
+}
+
+.gridPanel {
+    -fx-hgap: 16pt;
+    -fx-vgap: 2pt;
+    -fx-background-color: #3D3D3D;
+    -fx-padding: 8 8 8 8;
+}
+
 .spacing {
     -fx-spacing: 8px;
     -fx-hgap: 8px;
@@ -34,7 +77,7 @@
 }
 
 .commandInput {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Consolas";
     -fx-font-size: 14pt;
 }
 
@@ -49,13 +92,6 @@
     -fx-font-family: "Segoe UI";
     -fx-font-size: 12pt;
     -fx-wrap-text: true;
-}
-
-.commandErrorGrid {
-    -fx-hgap: 16pt;
-    -fx-vgap: 2pt;
-    -fx-background-color: #3D3D3D;
-    -fx-padding: 2 8 2 8;
 }
 
 .roundLabel {
@@ -91,6 +127,10 @@
 
 .taskCard .highlightedBackground {
     -fx-background-color: #00A4FF;
+}
+
+.taskCard .lightBackground {
+    -fx-background-color: #d2d2d2;
 }
 
 .taskCard .pinImage {

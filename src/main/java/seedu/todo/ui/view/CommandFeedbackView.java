@@ -6,9 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.logging.Logger;
 
@@ -20,7 +21,6 @@ public class CommandFeedbackView extends UiPart {
 
     private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
     private static final String FXML = "CommandFeedbackView.fxml";
-    private static final String ERROR_STYLE = "error";
 
     @FXML
     private Label commandFeedbackLabel;
@@ -67,14 +67,14 @@ public class CommandFeedbackView extends UiPart {
      * Indicate an error visually on the {@link #commandFeedbackLabel}
      */
     public void flagError() {
-        FxViewUtil.addClassStyle(commandFeedbackLabel, ERROR_STYLE);
+        ViewStyleUtil.addClassStyle(commandFeedbackLabel, ViewStyleUtil.STYLE_ERROR);
     }
 
     /**
      * Remove the error flag visually on the {@link #commandFeedbackLabel}
      */
     public void unFlagError() {
-        FxViewUtil.removeClassStyle(commandFeedbackLabel, ERROR_STYLE);
+        ViewStyleUtil.removeClassStyle(commandFeedbackLabel, ViewStyleUtil.STYLE_ERROR);
     }
 
     /* Override Methods */

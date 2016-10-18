@@ -8,10 +8,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.util.FxViewUtil;
+import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.ViewGeneratorUtil;
+import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +27,6 @@ public class CommandErrorView extends UiPart {
 
     private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
     private static final String FXML = "CommandErrorView.fxml";
-    private static final String TEXT_STYLE = "commandError";
 
     private AnchorPane placeholder;
     private VBox errorViewBox;
@@ -138,21 +139,9 @@ public class CommandErrorView extends UiPart {
      * @param rightText text for the second column
      */
     private void addRowToGrid(GridPane targetGrid, int rowIndex, String leftText, String rightText) {
-        Label leftLabel = generateLabel(leftText);
-        Label rightLabel = generateLabel(rightText);
+        Label leftLabel = ViewGeneratorUtil.constructLabel(leftText, ViewStyleUtil.STYLE_TEXT_4);
+        Label rightLabel = ViewGeneratorUtil.constructLabel(rightText, ViewStyleUtil.STYLE_TEXT_4);
         targetGrid.addRow(rowIndex, leftLabel, rightLabel);
-    }
-
-    /**
-     * Generates a {@link Label} object that is used to feed into the error grids later on.
-     * @param text to be wrapped in the {@link Label} object
-     * @return a {@link Label} object
-     */
-    private Label generateLabel(String text) {
-        Label label = new Label(text);
-        FxViewUtil.addClassStyle(label, TEXT_STYLE);
-        label.autosize();
-        return label;
     }
 
     /**
