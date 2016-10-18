@@ -88,7 +88,19 @@ public class ClearController implements Controller {
         destroyByDate(db, naturalOn, naturalFrom, naturalTo, dateOn, dateFrom, dateTo);
 
     }
-
+    
+    /**
+     * Clear all tasks and events by a single or a range of date that exist in the database.
+     * 
+     * @param db
+     *            TodoListDB object
+     * @param naturalOn, naturalFrom, naturalTo
+     *            null if not entered, or natural date that user has entered
+     * @param dateOn, dateFrom
+     *            null if parsing failed or Due date for Task or start date for Event
+     * @param dateTo
+     *            null if parsing failed or End date for Event
+     */
     private void destroyByDate(TodoListDB db, String naturalOn, String naturalFrom, String naturalTo,
             LocalDateTime dateOn, LocalDateTime dateFrom, LocalDateTime dateTo) {
         if (dateOn != null) {
