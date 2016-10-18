@@ -22,7 +22,9 @@ public class AutoCompleteTextField extends TextField
 	private final SortedSet<String> dictionary;
 	
 	private ContextMenu dictionaryPopup;
-
+	
+	public boolean turnOn = true;
+	
 	public AutoCompleteTextField() {
 		super();
 		dictionary = new TreeSet<>();
@@ -38,7 +40,7 @@ public class AutoCompleteTextField extends TextField
 					searchResult.addAll(dictionary.subSet(getCurrentWord(), getCurrentWord() + Character.MAX_VALUE));
 					if (dictionary.size() > 0){
 						populatePopup(searchResult);
-						if (!dictionaryPopup.isShowing()){
+						if (!dictionaryPopup.isShowing() && turnOn){
 							dictionaryPopup.show(AutoCompleteTextField.this, Side.BOTTOM, getText().length()*8, 0);
 						}
 					} else {

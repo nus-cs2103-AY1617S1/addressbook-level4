@@ -92,7 +92,7 @@ public class TaskListPanelHandle extends GuiHandle {
         for (int i = 0; i < tasks.length; i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
-            guiRobot.sleep(300);
+            guiRobot.sleep(500);
             if (!TestUtil.compareCardAndTask(getFloatingTaskCardHandle(startPosition + i), tasks[i])) {
                 return false;
             }
@@ -102,7 +102,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
 
     public TaskCardHandle navigateToTask(String name) {
-        guiRobot.sleep(700); //Allow a bit of time for the list to be updated
+        guiRobot.sleep(800); //Allow a bit of time for the list to be updated
         final Optional<TaskDateComponent> task = getListView().getItems().stream().filter(p -> p.getTaskReference().getName().fullName.equals(name)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);

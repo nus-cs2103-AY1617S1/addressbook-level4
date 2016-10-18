@@ -95,7 +95,9 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
     
-
+    public void turnOffAutoComplete(){
+    	commandTextField.turnOn = false;
+    }
 
     /**
      * Sets the command box style to indicate a correct command.
