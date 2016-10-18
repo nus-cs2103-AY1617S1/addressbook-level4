@@ -15,6 +15,7 @@ public class Messages {
     public static final String MESSAGE_NO_START_TIME_SET = "No start time set";
     public static final String MESSAGE_NO_END_TIME_SET = "No end time set";
     public static final String MESSAGE_NO_PREVIOUS_COMMAND = "No previous command";
+    public static final String MESSAGE_NO_PREVIOUS_UNDO_COMMAND = "No previous undo command";
     public static final String MESSAGE_DEST_FILE_EXISTS = "Specified file already exists";
     public static final String MESSAGE_INVALID_TASK_VALUE = "The value for task name provided is invalid";
     public static final String MESSAGE_INVALID_STARTDATE_VALUE = "The value for start date provided is invalid";
