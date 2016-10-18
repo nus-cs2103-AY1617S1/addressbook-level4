@@ -39,10 +39,5 @@ public class FindCommand extends Command {
         model.updateFilteredTaskList(keywords);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
-    
-    @Override
-    public boolean isMutating() {
-        return true;
-    }
 
 }
