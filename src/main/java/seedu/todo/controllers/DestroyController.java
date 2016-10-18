@@ -1,21 +1,27 @@
 package seedu.todo.controllers;
 
 import seedu.todo.commons.EphemeralDB;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.CalendarItem;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
-import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to destroy a CalendarItem.
+ * 
+ * @author louietyj
+ *
+ */
 public class DestroyController implements Controller {
     
-    private static String NAME = "Destroy";
-    private static String DESCRIPTION = "Destroys a task/event by listed index";
-    private static String COMMAND_SYNTAX = "destroy <index>";
+    private static final String NAME = "Destroy";
+    private static final String DESCRIPTION = "Destroys a task/event by listed index";
+    private static final String COMMAND_SYNTAX = "destroy <index>";
     
-    private static String MESSAGE_DELETE_SUCCESS = "Item deleted successfully!\n" + "To undo, type \"undo\".";
-    private static String MESSAGE_INVALID_CALENDARITEM = "Could not delete task/event: invalid index provided!";
+    private static final String MESSAGE_DELETE_SUCCESS = "Item deleted successfully!\n" + "To undo, type \"undo\".";
+    private static final String MESSAGE_INVALID_CALENDARITEM = "Could not delete task/event: invalid index provided!";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -27,7 +33,7 @@ public class DestroyController implements Controller {
     @Override
     public float inputConfidence(String input) {
         // TODO
-        return (input.startsWith("delete") || input.startsWith("destroy")) || input.startsWith("remove") ? 1 : 0;
+        return (input.toLowerCase().startsWith("delete") || input.startsWith("destroy")) || input.startsWith("remove") ? 1 : 0;
     }
 
     @Override
@@ -56,13 +62,7 @@ public class DestroyController implements Controller {
         }
         
         // Re-render
-        IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getAllTasks();
-        view.events = db.getAllEvents();
-        UiManager.renderView(view);
-        
-        // Show console message
-        UiManager.updateConsoleMessage(MESSAGE_DELETE_SUCCESS);
+        Renderer.renderIndex(db, MESSAGE_DELETE_SUCCESS);
     }
 
 }

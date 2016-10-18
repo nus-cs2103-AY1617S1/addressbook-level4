@@ -5,10 +5,17 @@ import java.util.Map;
 
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
 import seedu.todo.commons.util.StringUtil;
+import seedu.todo.controllers.concerns.Renderer;
+import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
-import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to undo a database commit.
+ * 
+ * @author louietyj
+ *
+ */
 public class UndoController implements Controller {
     
     private static final String MESSAGE_SUCCESS = "Successfully undid %s %s!\nTo redo, type \"redo\".";
@@ -17,9 +24,16 @@ public class UndoController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return input.startsWith("undo") ? 1 : 0;
+        return input.toLowerCase().startsWith("undo") ? 1 : 0;
     }
     
+    /**
+     * Get the token definitions for use with <code>tokenizer</code>.<br>
+     * This method exists primarily because Java does not support HashMap
+     * literals...
+     * 
+     * @return tokenDefinitions
+     */
     private static Map<String, String[]> getTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
         tokenDefinitions.put("default", new String[] {"undo"});
@@ -63,13 +77,7 @@ public class UndoController implements Controller {
         db = TodoListDB.getInstance();
         
         // Render
-        IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getAllTasks();
-        view.events = db.getAllEvents();
-        UiManager.renderView(view);
-        
-        // Update console message
-        UiManager.updateConsoleMessage(String.format(MESSAGE_SUCCESS, numUndo,
+        Renderer.renderIndex(db, String.format(MESSAGE_SUCCESS, numUndo,
                 StringUtil.pluralizer(numUndo, "command", "commands")));
     }
 }

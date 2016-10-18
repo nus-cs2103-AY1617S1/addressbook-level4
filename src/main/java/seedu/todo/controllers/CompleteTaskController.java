@@ -1,17 +1,22 @@
 package seedu.todo.controllers;
 
 import seedu.todo.commons.EphemeralDB;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.CalendarItem;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
-import seedu.todo.ui.UiManager;
-import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to mark a task as completed.
+ * 
+ * @author louietyj
+ *
+ */
 public class CompleteTaskController implements Controller {
     
-    private static String NAME = "Complete Task";
-    private static String DESCRIPTION = "Marks a task as completed, by listed index";
-    private static String COMMAND_SYNTAX = "complete <index>";
+    private static final String NAME = "Complete Task";
+    private static final String DESCRIPTION = "Marks a task as completed, by listed index";
+    private static final String COMMAND_SYNTAX = "complete <index>";
     
     private static final String MESSAGE_SUCCESS = "Task marked as complete!";
     private static final String MESSAGE_INVALID_ITEM = "Could not mark task as complete: Invalid index provided!";
@@ -29,7 +34,7 @@ public class CompleteTaskController implements Controller {
     @Override
     public float inputConfidence(String input) {
         // TODO
-        return input.startsWith("complete") ? 1 : 0;
+        return input.toLowerCase().startsWith("complete") ? 1 : 0;
     }
 
     @Override
@@ -45,19 +50,19 @@ public class CompleteTaskController implements Controller {
         TodoListDB db = TodoListDB.getInstance();
         
         if (calendarItem == null) {
-            renderAndOutput(db, MESSAGE_INVALID_ITEM);
+            Renderer.renderIndex(db, MESSAGE_INVALID_ITEM);
             return;
         }
         
         if (!(calendarItem instanceof Task)) {
-            renderAndOutput(db, MESSAGE_CANNOT_COMPLETE_EVENT);
+            Renderer.renderIndex(db, MESSAGE_CANNOT_COMPLETE_EVENT);
             return;
         }
         
         Task task = (Task) calendarItem;
         
         if (task.isCompleted()) {
-            renderAndOutput(db, MESSAGE_ALREADY_COMPLETED);
+            Renderer.renderIndex(db, MESSAGE_ALREADY_COMPLETED);
             return;
         }
         
@@ -67,23 +72,12 @@ public class CompleteTaskController implements Controller {
         
         if (!hadSaved) {
             task.setIncomplete();
-            renderAndOutput(db, MESSAGE_COULD_NOT_SAVE);
+            Renderer.renderIndex(db, MESSAGE_COULD_NOT_SAVE);
             return;
         }
         
         // Show success
-        renderAndOutput(db, MESSAGE_SUCCESS);
-    }
-    
-    private void renderAndOutput(TodoListDB db, String message) {
-        // Re-render
-        IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getAllTasks();
-        view.events = db.getAllEvents();
-        view.render();
-
-        // Update console message
-        UiManager.updateConsoleMessage(message);
+        Renderer.renderIndex(db, MESSAGE_SUCCESS);
     }
 
 }

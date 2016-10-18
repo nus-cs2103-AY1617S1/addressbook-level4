@@ -11,16 +11,21 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 import seedu.todo.commons.EphemeralDB;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.CalendarItem;
 import seedu.todo.models.TodoListDB;
-import seedu.todo.ui.UiManager;
-import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to update a CalendarItem.
+ * 
+ * @author louietyj
+ *
+ */
 public class UpdateController implements Controller {
     
-    private static String NAME = "Update";
-    private static String DESCRIPTION = "Updates a task by listed index.";
-    private static String COMMAND_SYNTAX = "update <index> <task> by <deadline>";
+    private static final String NAME = "Update";
+    private static final String DESCRIPTION = "Updates a task by listed index.";
+    private static final String COMMAND_SYNTAX = "update <index> <task> by <deadline>";
     
     private static final String MESSAGE_UPDATE_SUCCESS = "Item successfully updated!";
     
@@ -34,7 +39,7 @@ public class UpdateController implements Controller {
     @Override
     public float inputConfidence(String input) {
         // TODO
-        return (input.startsWith("update")) ? 1 : 0;
+        return (input.toLowerCase().startsWith("update")) ? 1 : 0;
     }
 
     @Override
@@ -75,11 +80,6 @@ public class UpdateController implements Controller {
         }
         
         // Re-render
-        IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getAllTasks();
-        view.events = db.getAllEvents();
-        UiManager.renderView(view);
-        
-        UiManager.updateConsoleMessage(MESSAGE_UPDATE_SUCCESS);
+        Renderer.renderIndex(db, MESSAGE_UPDATE_SUCCESS);
     }
 }

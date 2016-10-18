@@ -5,11 +5,17 @@ import java.util.Arrays;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.HelpView;
 
+/**
+ * Controller to show commands help.
+ * 
+ * @author louietyj
+ *
+ */
 public class HelpController implements Controller {
 
-    private static String NAME = "Help";
-    private static String DESCRIPTION = "Shows documentation for all valid commands.";
-    private static String COMMAND_SYNTAX = "help";
+    private static final String NAME = "Help";
+    private static final String DESCRIPTION = "Shows documentation for all valid commands.";
+    private static final String COMMAND_SYNTAX = "help";
     
     private static final String MESSAGE_HELP_SUCCESS = "Showing all commands.";
     
@@ -22,7 +28,7 @@ public class HelpController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return (input.startsWith("help")) ? 1 : 0;
+        return (input.toLowerCase().startsWith("help")) ? 1 : 0;
     }
 
     @Override
@@ -39,6 +45,10 @@ public class HelpController implements Controller {
                                          AddController.getCommandDefinition(),
                                          ListController.getCommandDefinition(),
                                          UpdateController.getCommandDefinition(),
+                                         CompleteTaskController.getCommandDefinition(),
+                                         UncompleteTaskController.getCommandDefinition(),
+                                         DestroyController.getCommandDefinition(),
+                                         ConfigController.getCommandDefinition(),
                                          DestroyController.getCommandDefinition(),
                                          ExitController.getCommandDefinition() };
     }

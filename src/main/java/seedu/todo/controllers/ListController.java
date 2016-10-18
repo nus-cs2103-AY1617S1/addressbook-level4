@@ -13,15 +13,23 @@ import com.joestelmach.natty.Parser;
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.commons.util.StringUtil;
+import seedu.todo.controllers.concerns.Tokenizer;
+import seedu.todo.controllers.concerns.Renderer;
+import seedu.todo.models.Event;
+import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
-import seedu.todo.ui.UiManager;
-import seedu.todo.ui.views.IndexView;
 
+/**
+ * Controller to list CalendarItems.
+ * 
+ * @author louietyj
+ *
+ */
 public class ListController implements Controller {
     
-    private static String NAME = "List";
-    private static String DESCRIPTION = "Lists all tasks and events.";
-    private static String COMMAND_SYNTAX = "list";
+    private static final String NAME = "List";
+    private static final String DESCRIPTION = "Lists all tasks and events.";
+    private static final String COMMAND_SYNTAX = "list";
     
     private static final String MESSAGE_LISTING_SUCCESS = "Listing a total of %d %s and %d %s.";
     
@@ -34,7 +42,7 @@ public class ListController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return (input.startsWith("list")) ? 1 : 0;
+        return (input.toLowerCase().startsWith("list")) ? 1 : 0;
     }
     
     private static Map<String, String[]> getTokenDefinitions() {
@@ -49,19 +57,11 @@ public class ListController implements Controller {
     }
     
     private boolean parseListAllType (Map<String, String[]> parsedResult) {
-        if (parsedResult.get("eventType") != null) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(parsedResult.get("eventType") != null);
     }
     
     private boolean parseListAllStatus (Map<String, String[]> parsedResult) {
-        if (parsedResult.get("status") != null) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(parsedResult.get("status") != null);
     }
     
     private boolean parseIsUncomplete (Map<String, String[]> parsedResult) {
@@ -130,15 +130,8 @@ public class ListController implements Controller {
         LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
         
         //setting up view
-        IndexView view = setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo);
+        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo);
         
-        // Update console message
-        int numTasks = view.tasks.size();
-        int numEvents = view.events.size();
-        String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, 
-                numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"), 
-                numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
-        UiManager.updateConsoleMessage(consoleMessage);
     }
 
     /**
@@ -161,57 +154,73 @@ public class ListController implements Controller {
      * @param dateTo
      *            End date for Event
      */
-    private IndexView setupView(boolean isTask, boolean listAll, boolean isCompleted,
+    private void setupView(boolean isTask, boolean listAll, boolean isCompleted,
             boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, LocalDateTime dateTo) {
         TodoListDB db = TodoListDB.getInstance();
-        IndexView view = UiManager.loadView(IndexView.class);
+        List<Task> tasks = null;
+        List<Event> events = null;
         // isTask and isEvent = true, list all type
         if (listAll) {
             //no event or task keyword found
             isTask = false;
-            setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
-            setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
         }
         
         if (isTask) {
-            setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
         } else {
-            setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db, view);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
         }
         
-        UiManager.renderView(view);
-        return view;
+        int numTasks = 0;
+        int numEvents = 0;
+        // Update console message
+        if (tasks != null) {
+            numTasks = tasks.size();
+        }
+        
+        if (events != null) {
+            numEvents = events.size();
+        }
+
+        String consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, 
+                numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"), 
+                numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
+        
+        Renderer.renderIndex(db, consoleMessage, tasks, events);
+       
     }
 
-    private void setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
-            LocalDateTime dateTo, TodoListDB db, IndexView view) {
+    private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
+            LocalDateTime dateTo, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
             if (listAllStatus) {
-                view.events = db.getAllEvents();
+                return db.getAllEvents();
             } else if (isCompleted) {
-                view.events = db.getEventByRange(null, LocalDateTime.now());
+                return db.getEventByRange(null, LocalDateTime.now());
             } else {
-                view.events = db.getEventByRange(LocalDateTime.now(), null);
+                return db.getEventByRange(LocalDateTime.now(), null);
             }
         } else if (dateOn != null) { //by keyword found
-            view.events = db.getEventbyDate(dateOn);
+            return db.getEventbyDate(dateOn);
         } else {
-            view.events = db.getEventByRange(dateFrom, dateTo);
+            return db.getEventByRange(dateFrom, dateTo);
         }
     }
 
-    private void setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
-            LocalDateTime dateTo, TodoListDB db, IndexView view) {
+    private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
+            LocalDateTime dateTo, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
             if (listAllStatus) {
-                view.tasks = db.getAllTasks();
+                return db.getAllTasks();
             } else {
-                view.tasks = db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+                return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
             }
         } else if (dateOn != null) { //by keyword found
-            view.tasks = db.getTaskByDate(dateOn, isCompleted, listAllStatus);
+            return db.getTaskByDate(dateOn, isCompleted, listAllStatus);
         } else {
-            view.tasks = db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+            return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
         }
     }
     
