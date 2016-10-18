@@ -9,7 +9,7 @@ import java.io.IOException;
  * Represents an storage mechanism that allows an object to be saved to a 
  * specific location
  */
-public interface MoveableStorage<T> extends FixedStorage<T> {
+public interface MovableStorage<T> extends FixedStorage<T> {
     
     String getLocation(); 
     

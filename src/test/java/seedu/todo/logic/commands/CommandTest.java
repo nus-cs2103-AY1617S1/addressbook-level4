@@ -19,7 +19,7 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.model.*;
 import seedu.todo.model.task.ImmutableTask;
-import seedu.todo.storage.MoveableStorage;
+import seedu.todo.storage.MovableStorage;
 
 /**
  * Base test case for testing commands. All command tests should extend this class. 
@@ -32,7 +32,7 @@ public abstract class CommandTest {
 
     protected Model model;
     protected TodoList todolist;
-    @Mock protected MoveableStorage<ImmutableTodoList> storage;
+    @Mock protected MovableStorage<ImmutableTodoList> storage;
     @Mock protected ImmutableTodoList storageData;
     protected BaseCommand command;
     protected StubParseResult params;

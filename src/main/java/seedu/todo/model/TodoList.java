@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
@@ -22,7 +20,7 @@ import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.ValidationTask;
-import seedu.todo.storage.MoveableStorage;
+import seedu.todo.storage.MovableStorage;
 
 /**
  * Represents the todolist inside memory. While Model works as the external 
@@ -36,12 +34,12 @@ public class TodoList implements TodoListModel {
     
     private ObservableList<Task> tasks = FXCollections.observableArrayList(Task::getObservableProperties);
 
-    private MoveableStorage<ImmutableTodoList> storage;
+    private MovableStorage<ImmutableTodoList> storage;
 
     private static final Logger logger = LogsCenter.getLogger(TodoList.class);
     private static final EventsCenter events = EventsCenter.getInstance();
 
-    public TodoList(MoveableStorage<ImmutableTodoList> storage) {
+    public TodoList(MovableStorage<ImmutableTodoList> storage) {
         this.storage = storage;
         
         try {
@@ -135,11 +133,11 @@ public class TodoList implements TodoListModel {
      * We have a private version of setTasks because we also need to setTask during initialization, 
      * but we don't want the list to be save during init (where we presumably got the data from)
      */
-    private void setTasks(List<ImmutableTask> todoList, boolean persistToDisk) {
+    private void setTasks(List<ImmutableTask> todoList, boolean persistToStorage) {
         this.tasks.clear();
         this.tasks.addAll(todoList.stream().map(Task::new).collect(Collectors.toList()));
         
-        if (persistToDisk) {
+        if (persistToStorage) {
             saveTodoList();
         }
     }

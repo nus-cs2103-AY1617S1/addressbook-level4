@@ -12,7 +12,7 @@ import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
-import seedu.todo.storage.MoveableStorage;
+import seedu.todo.storage.MovableStorage;
 import seedu.todo.testutil.TimeUtil;
 
 import java.util.Collections;
@@ -28,7 +28,7 @@ public class TodoModelTest {
     @Rule
     public final ExpectedException exception = ExpectedException.none();
     
-    @Mock private MoveableStorage<ImmutableTodoList> storage;
+    @Mock private MovableStorage<ImmutableTodoList> storage;
     @Mock private ImmutableTodoList storageData;
     
     private TodoList todolist;

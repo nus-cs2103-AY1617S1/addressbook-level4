@@ -14,12 +14,10 @@ import org.junit.rules.ExpectedException;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
-import seedu.todo.storage.MoveableStorage;
-import seedu.todo.testutil.TimeUtil;
+import seedu.todo.storage.MovableStorage;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -32,7 +30,7 @@ public class TodoTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
-    @Mock private MoveableStorage<ImmutableTodoList> storage;
+    @Mock private MovableStorage<ImmutableTodoList> storage;
     @Mock private ImmutableTodoList storageData;
     private TodoList todo;
 

@@ -10,7 +10,7 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
-import seedu.todo.storage.MoveableStorage;
+import seedu.todo.storage.MovableStorage;
 import seedu.todo.storage.TodoListStorage;
 
 import java.util.ArrayDeque;
@@ -35,7 +35,7 @@ public class TodoModel implements Model {
     private static final String NO_MORE_UNDO_REDO_FORMAT = "There are no more steps to %s";
 
     private TodoListModel todolist;
-    private MoveableStorage<ImmutableTodoList> storage;
+    private MovableStorage<ImmutableTodoList> storage;
     
     private ObservableList<ImmutableTask> tasks;
     private FilteredList<ImmutableTask> filteredTasks;
@@ -48,11 +48,11 @@ public class TodoModel implements Model {
         this(new TodoListStorage(config.getTodoListFilePath()));
     }
     
-    public TodoModel(MoveableStorage<ImmutableTodoList> storage) {
+    public TodoModel(MovableStorage<ImmutableTodoList> storage) {
         this(new TodoList(storage), storage);
     }
     
-    public TodoModel(TodoListModel todolist, MoveableStorage<ImmutableTodoList> storage) {
+    public TodoModel(TodoListModel todolist, MovableStorage<ImmutableTodoList> storage) {
         this.storage = storage;
         this.todolist = todolist;
 

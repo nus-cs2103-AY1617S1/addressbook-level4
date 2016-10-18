@@ -14,7 +14,7 @@ import javax.xml.bind.JAXBException;
 /**
  * A class to access TodoList data stored as an xml file on the hard disk.
  */
-public class TodoListStorage implements MoveableStorage<ImmutableTodoList> {
+public class TodoListStorage implements MovableStorage<ImmutableTodoList> {
 
     private String filePath;
 
