@@ -64,6 +64,16 @@ public class GuiHandle {
     public void pressEnter() {
         guiRobot.type(KeyCode.ENTER).sleep(500);
     }
+    
+    public void pressUpArrowKey(String textFieldId) {
+        guiRobot.clickOn(textFieldId);
+        guiRobot.type(KeyCode.UP).sleep(500);
+    }
+    
+    public void pressDownArrowKey(String textFieldId) {
+        guiRobot.clickOn(textFieldId);
+        guiRobot.type(KeyCode.DOWN).sleep(500);
+    }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();

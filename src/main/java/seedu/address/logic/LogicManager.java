@@ -55,9 +55,7 @@ public class LogicManager extends ComponentManager implements Logic {
     
     /**
      * Generates the tool tip for the current user input.
-     * It is a 2-step parser:
-     * Step 1: If user inputs an incomplete command, display the command word only to help him complete the command. (reduce clutter)
-     * Step 2: Once the command the user is trying to execute is determined, send it to the appropriate parser to display the FULL tooltip.
+     * 
      * 
      * @param commandText the user input string
      * @return the tooltip that fits the user input string

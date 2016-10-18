@@ -30,6 +30,22 @@ public class CommandBoxHandle extends GuiHandle{
         pressEnter();
         guiRobot.sleep(200); //Give time for the command to take effect
     }
+    
+    /**
+     * Retrieves the previous input entered before the current state in the Command Box.
+     */
+    public void getPreviousInput() {
+        pressUpArrowKey(COMMAND_INPUT_FIELD_ID);
+        guiRobot.sleep(200);
+    }
+    
+    /**
+     * Retrieves the next input entered after the current state in the Command Box.
+     */
+    public void getNextInput() {
+        pressDownArrowKey(COMMAND_INPUT_FIELD_ID);
+        guiRobot.sleep(200);
+    }
 
     public HelpWindowHandle runHelpCommand() {
         enterCommand("help");

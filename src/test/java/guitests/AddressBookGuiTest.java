@@ -116,4 +116,12 @@ public abstract class AddressBookGuiTest {
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
     }
+    
+    /**
+     * Asserts the command input displayed in the command box area is same as the given string.
+     * @param expected
+     */
+    protected void assertCommandInput(String expected) {
+        assertEquals(expected, commandBox.getCommandInput());
+    }
 }

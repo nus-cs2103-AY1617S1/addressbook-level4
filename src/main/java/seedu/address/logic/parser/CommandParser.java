@@ -718,7 +718,7 @@ public class CommandParser {
         
         // if no command matches, by default it is an add command so add the add command tooltip
         if (toolTips.isEmpty()){
-            toolTips.add(AddCommand.COMMAND_WORD);
+            toolTips.add(AddCommand.TOOL_TIP);
         }
         return toolTips;      
     }
@@ -733,40 +733,40 @@ public class CommandParser {
         
         // checks all command words to see if there is a match
         if (StringUtil.isSubstringFromStart(AddCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(AddCommand.COMMAND_WORD);
+            toolTips.add(AddCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(ClearCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(ClearCommand.COMMAND_WORD);
+            toolTips.add(ClearCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(DeleteCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(DeleteCommand.COMMAND_WORD);
+            toolTips.add(DeleteCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(DoneCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(DoneCommand.COMMAND_WORD);
+            toolTips.add(DoneCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(EditCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(EditCommand.COMMAND_WORD);
+            toolTips.add(EditCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(ExitCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(ExitCommand.COMMAND_WORD);
+            toolTips.add(ExitCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(FindCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(FindCommand.COMMAND_WORD);
+            toolTips.add(FindCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(HelpCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(HelpCommand.COMMAND_WORD);
+            toolTips.add(HelpCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(ListCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(ListCommand.COMMAND_WORD);
+            toolTips.add(ListCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(RedoCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(RedoCommand.COMMAND_WORD);
+            toolTips.add(RedoCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(SelectCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(SelectCommand.COMMAND_WORD);
+            toolTips.add(SelectCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(UndoCommand.COMMAND_WORD, commandWord)){
-            toolTips.add(UndoCommand.COMMAND_WORD);
+            toolTips.add(UndoCommand.TOOL_TIP);
         }
 
     }
