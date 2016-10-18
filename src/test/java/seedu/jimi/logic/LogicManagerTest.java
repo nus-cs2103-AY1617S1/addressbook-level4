@@ -2,10 +2,12 @@ package seedu.jimi.logic;
 
 import com.google.common.eventbus.Subscribe;
 
+import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.JumpToListRequestEvent;
 import seedu.jimi.commons.events.ui.ShowHelpRequestEvent;
+import seedu.jimi.commons.util.ConfigUtil;
 import seedu.jimi.logic.Logic;
 import seedu.jimi.logic.LogicManager;
 import seedu.jimi.logic.commands.*;
@@ -368,7 +370,28 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
+    
+    @Test
+    public void execute_saveAs_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveAsCommand.MESSAGE_USAGE);
+        assertCommandBehavior("saveas ", expectedMessage);
+        assertCommandBehavior("saveas data/taskbook", expectedMessage);
+        assertCommandBehavior("saveas data/taskbook.txt", expectedMessage);
+    }
+    
+    @Test
+    public void excute_saveAs_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Config expectedConfig = helper.generateConfigFile("data/newTaskBook.xml");
+        
+        
+        Config latestConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).orElse(new Config());
+        
+        assertCommandBehavior("saveas data/newTaskBook.xml" , String.format(SaveAsCommand.MESSAGE_SUCCESS, expectedConfig.getTaskBookFilePath()));
+        assertEquals(expectedConfig, latestConfig);
+    }
+    
+    
 
     /**
      * A utility class to generate test data.
@@ -487,6 +510,15 @@ public class LogicManagerTest {
                     new Name(name),
                     new UniqueTagList(new Tag("tag"))
             );
+        }
+        
+        /**
+         * Generates a config file with the given task book file path name. Other fields will have some dummy values.
+         */
+        Config generateConfigFile(String taskBookFilePathName) throws Exception {
+            Config config = new Config();
+            config.setTaskBookFilePath(taskBookFilePathName);
+            return config;
         }
     }
 }
