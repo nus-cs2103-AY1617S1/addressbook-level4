@@ -21,6 +21,7 @@ import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.PreviousCommand;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.task.ReadOnlyTask;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -290,6 +291,7 @@ public class MainWindow extends UiPart {
         initDeadlineTab();
         initArchiveTab();
 
+        Platform.runLater(()->commandField.requestFocus());
     }
 
     /**
