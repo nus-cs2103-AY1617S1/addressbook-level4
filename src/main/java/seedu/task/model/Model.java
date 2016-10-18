@@ -29,7 +29,7 @@ public interface Model {
 	void updateTask(ReadOnlyTask orginalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException;
 
 	/** Pins the given task as important */
-	void pinTask(ReadOnlyTask originalTask, Task toPin) throws UniqueTaskList.TaskNotFoundException;
+	void pinTask(ReadOnlyTask originalTask, Task toPin);
 
 	/**
 	 * Returns the filtered task list as an {@code UnmodifiableObservableList
