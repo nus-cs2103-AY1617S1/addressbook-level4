@@ -25,8 +25,7 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
-    /** Edits the given task 
-     * @throws IllegalValueException */
+    /** Edits the given task */
     void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd) throws TaskNotFoundException, IllegalValueException;
     
     /** Saves the current task manager*/

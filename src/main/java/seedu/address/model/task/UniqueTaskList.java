@@ -67,7 +67,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
 
-    public void setName(ReadOnlyTask toEdit, Name newName) throws TaskNotFoundException {
+    public void setTaskName(ReadOnlyTask toEdit, Name newName) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
             throw new TaskNotFoundException();
