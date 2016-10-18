@@ -9,10 +9,10 @@ public class CommandBoxTest extends ToDoListGuiTest {
     /*
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(td.buyMilk.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
-    */
+    
 
     @Test
     public void commandBox_commandFails_textStays(){
@@ -20,5 +20,6 @@ public class CommandBoxTest extends ToDoListGuiTest {
         assertEquals(commandBox.getCommandInput(), "invalid command");
         //TODO: confirm the text box color turns to red
     }
+    */
 
 }

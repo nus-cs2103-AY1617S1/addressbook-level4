@@ -23,7 +23,7 @@ public class TagCommand extends Command{
             + "Parameters: INDEX TAGNAME [MORE TAGNAMES]\n"
             + "Example: " + COMMAND_WORD + " 1 birthday clique";
 
-    public static final String MESSAGE_TAG_TASK_SUCCESS = "Tagged Task: Name : %1$s";
+    public static final String MESSAGE_SUCCESS = "Tagged Task: Name : %1$s";
 
     public final int targetIndex;
     public final UniqueTagList tags;
@@ -70,7 +70,7 @@ public class TagCommand extends Command{
             assert false : "The target task cannot be found";
         }
 
-        return new CommandResult(String.format(MESSAGE_TAG_TASK_SUCCESS, taskToTag.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToTag.getName()));
     }
     
     

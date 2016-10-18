@@ -68,7 +68,7 @@ public class SearchCommand extends Command {
                 String fromDateString = data.split("@")[0].trim();
                 LocalDateTime fromDateTime = DateTimeUtil.parseDateTimeString(fromDateString);
                     
-                String tillDateString = data.split("@")[0].trim();
+                String tillDateString = data.split("@")[1].trim();
                 LocalDateTime tillDateTime = DateTimeUtil.parseDateTimeString(tillDateString);
                     
                 model.updateFilteredTaskListFromTillDate(fromDateTime, tillDateTime);

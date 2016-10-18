@@ -94,9 +94,10 @@ public class ToDoList implements ReadOnlyToDoList {
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         UniqueTaskList topList = this.tasksHistory.pop();
         UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
-        topList.add(p);
         this.tasksHistory.push(oldList);
         this.tasksHistory.push(topList);
+        topList.add(p);
+        
     }
 
     /**
@@ -126,9 +127,9 @@ public class ToDoList implements ReadOnlyToDoList {
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         UniqueTaskList topList = this.tasksHistory.pop();
         UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+        this.tasksHistory.push(oldList);
+        this.tasksHistory.push(topList);
         if (topList.remove(key)) {
-            this.tasksHistory.push(oldList);
-            this.tasksHistory.push(topList);
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
