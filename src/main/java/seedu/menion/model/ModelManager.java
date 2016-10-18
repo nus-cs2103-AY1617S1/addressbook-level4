@@ -71,8 +71,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void completeActivity(ReadOnlyActivity activity) {
-        activityManager.completeActivity(activity);
+    public void completeFloatingTask(int index) {
+        activityManager.completeFloatingTask(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    @Override
+    public void completeTask(int index) {
+        activityManager.completeTask(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override
+    public void completeEvent(int index) {
+        activityManager.completeEvent(index);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }

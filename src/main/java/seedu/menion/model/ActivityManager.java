@@ -142,8 +142,26 @@ public class ActivityManager implements ReadOnlyActivityManager {
         events.add(t);
     }
     
-    public void completeActivity(ReadOnlyActivity t) {
-        t.setCompleted();
+    public void completeTask(int index) {
+        Activity dub;
+        dub = tasks.getInternalList().get(index);
+        dub.setCompleted();
+        tasks.getInternalList().set(index, dub);        
+    }
+    
+    public void completeEvent(int index) {
+        Activity dub;
+        dub = events.getInternalList().get(index);
+        dub.setCompleted();
+        events.getInternalList().set(index, dub);    
+        
+    }
+    
+    public void completeFloatingTask(int index) {
+        Activity dub;
+        dub = floatingTasks.getInternalList().get(index);
+        dub.setCompleted();
+        floatingTasks.getInternalList().set(index, dub);    
     }
     /**
      * Ensures that every tag in this task:
