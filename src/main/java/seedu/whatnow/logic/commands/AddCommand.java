@@ -76,7 +76,6 @@ public class AddCommand extends UndoAndRedo {
 	public CommandResult undo() {
 		assert model != null;
 		try {
-			//Task todo = model.getUndoStack().pop();
 			model.deleteTask(toAdd);
 			return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 		} catch (TaskNotFoundException pnfe) {
@@ -89,7 +88,6 @@ public class AddCommand extends UndoAndRedo {
 		assert model != null;
 		try {
 			model.addTask(toAdd);
-	//		model.getUndoStack().push(model.getRedoStack().pop());
 			return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 		} catch (DuplicateTaskException e) {
 			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
