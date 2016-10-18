@@ -40,21 +40,20 @@
 								</HBox>
 							</children>
 						</HBox>
-						<Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime">
-							<graphic>
-								<Label fx:id="startDate" styleClass="cell_small_label"
-									text="\$startDate">
-									<graphic>
-										<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Deadline:" />
-									</graphic>
-								</Label>
-							</graphic>
-						</Label>
-						<Label fx:id="note" styleClass="cell_small_label" text="\$note">
-							<graphic>
-								<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Note: " />
-							</graphic>
-						</Label>
+						<HBox>
+							<children>
+								<Text strokeType="OUTSIDE" styleClass="cell_small_label" strokeWidth="0.0" text="Deadline: " />
+								<Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
+								<Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+								<Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
+							</children>
+						</HBox>
+						<HBox>
+							<children>
+								<Text strokeType="OUTSIDE" styleClass="cell_small_label" strokeWidth="0.0" text="Note: " />
+								<Label fx:id="note" styleClass="cell_small_label" text="\$note" />
+							</children>
+						</HBox>
 						<Label fx:id="status" styleClass="cell_small_label" text="\$status" />
 					</children>
 				</VBox>
