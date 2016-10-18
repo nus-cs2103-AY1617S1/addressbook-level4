@@ -13,13 +13,17 @@ import seedu.address.logic.commands.taskcommands.UpdateTaskCommand;
 import seedu.address.logic.parser.UpdateCommandParser;
 
 public class UpdateCommandParserTest {
-	// Initialized to support the tests
-	UpdateCommandParser parser = new UpdateCommandParser();
-	
 	/**
 	 * Format of update command: update INDEX task/description/date(update type) UPDATED_VALUE
+	 */
+	// Initialized to support the tests
+	UpdateCommandParser parser = new UpdateCommandParser();
+
+
+	/**
+	 * Testing correct handling of invalid formats, indices, update types, or dates
 	 * 
-	 * Testing correct handling of invalid indices, invalid update types, invalid dates and invalid 
+	 * Invalid EPs: Formats, Indices, Update types, Dates
 	 */
 	@Test
 	public void prepareCommand_invalidFormat() {
@@ -100,6 +104,12 @@ public class UpdateCommandParserTest {
 		actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 	}
+	
+	/**
+	 * Testing correct updating of tasks, description or date
+	 * 
+	 * Valid EPs: Task, Description, Date
+	 */
 	
 	/**
 	 * Testing correct updating of tasks
