@@ -225,4 +225,5 @@ Undo    | `undo`
 Edit    | `edit INDEX FIELD NEW_INFORMATION`
 Done    | `done INDEX`
 Help    | `help`
+Save    | `save FILE_LOCATION`
 Exit    | `exit`
