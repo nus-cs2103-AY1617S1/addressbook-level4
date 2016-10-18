@@ -17,8 +17,6 @@ public class Messages {
     public static final String MESSAGE_NO_PREVIOUS_COMMAND = "No previous command";
     public static final String MESSAGE_DEST_FILE_EXISTS = "Specified file already exists";
     public static final String MESSAGE_INVALID_TASK_VALUE = "The value for task name provided is invalid";
-    public static final String MESSAGE_INVALID_STARTDATE_VALUE = "The value for start date provided is invalid";
-    public static final String MESSAGE_INVALID_STARTTIME_VALUE = "The value for start time provided is invalid";
-    public static final String MESSAGE_INVALID_ENDDATE_VALUE = "The value for end date provided is invalid";
-    public static final String MESSAGE_INVALID_ENDTIME_VALUE = "The value for end time provided is invalid";
+    public static final String MESSAGE_INVALID_DATE_VALUE = "The value for date provided is invalid";
+    public static final String MESSAGE_INVALID_TIME_VALUE = "The value for time provided is invalid";
 }

@@ -1,12 +1,14 @@
 package seedu.ggist.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.ObservableList;
 import seedu.ggist.commons.core.ComponentManager;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
+import seedu.ggist.logic.commands.Command;
 import seedu.ggist.logic.commands.CommandResult;
 import seedu.ggist.logic.commands.EditCommand;
 import seedu.ggist.model.task.Task;
@@ -84,10 +86,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
     	taskManager.editTask(target, field, value);
-    	if (target.getDone()) {
+    	if (Command.lastListing == null || Command.lastListing.equals("")) {
+    	    updateFilteredListToShowAllUndone();
+    	} else if (Command.lastListing.equals("done")) {
     	    updateFilteredListToShowAllDone();
     	} else {
-    	    updateFilteredTaskListToShowUndone();
+    	    updateFilteredListToShowAll();
     	}
     	indicateTaskManagerChanged();
     }
@@ -95,7 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskManager.addTask(task);
-        updateFilteredTaskListToShowUndone();
+        updateFilteredListToShowAllUndone();
         indicateTaskManagerChanged();
     }
 
@@ -121,20 +125,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskListToShowUndone() {
-        updateFilteredTaskListToShowUndone(new PredicateExpression(new NotDoneQualifier()));
+    public void updateFilteredListToShowAllUndone() {
+        updateFilteredListToShowAllUndone(new PredicateExpression(new NotDoneQualifier()));
     }
     
-    private void updateFilteredTaskListToShowUndone(Expression expression) {
+    private void updateFilteredListToShowAllUndone(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
     @Override
-    public void updateFilteredTaskListToShowDate(String keywords){
+    public void updateFilteredListToShowDate(String keywords){
         updateFilteredTaskList(new PredicateExpression(new DateQualifier(keywords)));
     }
 
-    private void updateFilteredTaskListToShowDate(Expression expression) {
+    private void updateFilteredListToShowDate(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 

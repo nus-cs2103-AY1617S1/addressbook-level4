@@ -3,6 +3,7 @@ package seedu.ggist.model;
 import java.util.Set;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.ObservableList;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.model.task.Task;
 import seedu.ggist.model.task.ReadOnlyTask;
@@ -37,7 +38,7 @@ public interface Model {
     void updateFilteredListToShowAll();
     
     /** Updates the filter of the filtered task list to show undone tasks */
-    void updateFilteredTaskListToShowUndone();
+    void updateFilteredListToShowAllUndone();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
@@ -49,6 +50,6 @@ public interface Model {
     void updateFilteredListToShowChanges();
     
     /** Updates the filter of the filtered task list to show task in a particular day */
-    void updateFilteredTaskListToShowDate(String keywords);
+    void updateFilteredListToShowDate(String keywords);
 
 }

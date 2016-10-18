@@ -80,42 +80,44 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
+    //not sure about way of handling invalid value, logicmanager?
     public void edit(ReadOnlyTask toEdit, String field, String value) throws TaskNotFoundException {
         assert toEdit != null;
+        //Task edit = internalList.get(internalList.indexOf(toEdit));
         switch (field) {
         case "task":
             try {
                 toEdit.getTaskName().editTaskName(value);
             } catch (IllegalValueException ive) {
-                System.out.printf(Messages.MESSAGE_INVALID_TASK_VALUE, value);
+                System.out.printf(Messages.MESSAGE_INVALID_TASK_VALUE);
             }
             break;
         case "start date":
             try {
                 toEdit.getStartDate().editDate(value);
             } catch (IllegalValueException ive) {
-                System.out.printf(Messages.MESSAGE_INVALID_STARTDATE_VALUE, value);
+                System.out.printf(Messages.MESSAGE_INVALID_DATE_VALUE);
             }
             break;
         case "start time":
             try {
                 toEdit.getStartTime().editTime(value);
             } catch (IllegalValueException ive) {
-                System.out.printf(Messages.MESSAGE_INVALID_STARTTIME_VALUE, value);
+                System.out.printf(Messages.MESSAGE_INVALID_TIME_VALUE);
             }
             break;
         case "end date":
             try {
-                toEdit.getEndTime().editTime(value);
+                toEdit.getEndDate().editDate(value);
             } catch (IllegalValueException ive) {
-                System.out.printf(Messages.MESSAGE_INVALID_ENDDATE_VALUE, value);
+                System.out.printf(Messages.MESSAGE_INVALID_DATE_VALUE);
             }
             break;
         case "end time":
             try {
                 toEdit.getEndTime().editTime(value);
             } catch (IllegalValueException ive) {
-                System.out.printf(Messages.MESSAGE_INVALID_ENDTIME_VALUE, value);
+                System.out.printf(Messages.MESSAGE_INVALID_TIME_VALUE, value);
             }
             break;
         }    

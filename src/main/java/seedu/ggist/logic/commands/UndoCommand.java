@@ -49,7 +49,7 @@ public class UndoCommand extends Command {
         else if (previousCommand.equals("done")){
             ReadOnlyTask undoDone = listOfTasks.pop();
             undoDone.setUnDone();
-            model.updateFilteredTaskListToShowUndone();
+            model.updateFilteredListToShowAllUndone();
         }
 
         return new CommandResult(String.format(MESSAGE_UNDO_COMMAND_SUCCESS, previousCommand));
