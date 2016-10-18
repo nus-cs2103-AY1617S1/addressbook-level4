@@ -120,15 +120,9 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToListRequestEvent(JumpToTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getTodoListPanel().scrollTo(event.targetIndex);
-    }
-
-    //TODO: Rename this method, or delete it if this method is of no use.
-    @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(SelectionChangedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
 }

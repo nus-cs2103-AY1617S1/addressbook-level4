@@ -3,13 +3,13 @@ package seedu.todo.commons.events.ui;
 import seedu.todo.commons.events.BaseEvent;
 
 /**
- * Indicates a request to jump to the list of persons
+ * Indicates a request to jump to a specific task given an index.
  */
-public class JumpToListRequestEvent extends BaseEvent {
+public class JumpToTaskEvent extends BaseEvent {
 
     public final int targetIndex;
 
-    public JumpToListRequestEvent(int targetIndex) {
+    public JumpToTaskEvent(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
