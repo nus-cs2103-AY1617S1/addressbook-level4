@@ -14,6 +14,7 @@ import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.events.model.TaskListChangedEvent;
 import teamfour.tasc.commons.events.ui.JumpToListRequestEvent;
 import teamfour.tasc.commons.events.ui.ShowHelpRequestEvent;
+import teamfour.tasc.commons.util.DateUtil;
 import teamfour.tasc.logic.Logic;
 import teamfour.tasc.logic.LogicManager;
 import teamfour.tasc.logic.commands.AddCommand;
@@ -43,6 +44,7 @@ import teamfour.tasc.model.task.Period;
 import teamfour.tasc.model.task.ReadOnlyTask;
 import teamfour.tasc.model.task.Recurrence;
 import teamfour.tasc.model.task.Task;
+import teamfour.tasc.model.task.util.TaskCompleteConverter;
 import teamfour.tasc.storage.StorageManager;
 import teamfour.tasc.testutil.TaskBuilder;
 
@@ -178,20 +180,8 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
     }
 
-
-    @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add /wrong args wrong args", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name s/tag_wrong_prefix", Name.MESSAGE_NAME_CONSTRAINTS);
-    }
-
     @Test
     public void execute_add_invalidPersonData() throws Exception {
-        assertCommandBehavior(
-                "add \"abc,d\"", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add \"valid\" tag invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -271,7 +261,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
@@ -291,7 +281,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
@@ -311,7 +301,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList();
@@ -331,7 +321,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
@@ -351,7 +341,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
@@ -371,7 +361,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
@@ -391,7 +381,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
@@ -411,7 +401,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1, task2);
@@ -431,7 +421,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
@@ -457,7 +447,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
@@ -477,7 +467,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList();
@@ -497,7 +487,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
@@ -517,7 +507,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
@@ -537,7 +527,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
@@ -557,7 +547,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
@@ -577,7 +567,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1, task2);
@@ -597,7 +587,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
@@ -623,7 +613,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
@@ -643,7 +633,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1, task2);
@@ -663,7 +653,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task1);
@@ -683,7 +673,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
@@ -703,7 +693,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
@@ -723,7 +713,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList(task2);
@@ -743,7 +733,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList();
@@ -763,7 +753,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.adam();
         Task task2 = helper.john();
-        task2 = Task.convertToComplete(task2);
+        task2 = new TaskCompleteConverter(task2, DateUtil.getCurrentTime()).getCompletedTask();
         List<Task> list = helper.generatePersonList(task1, task2);
         TaskList expectedAB = helper.generateAddressBook(list);
         List<? extends ReadOnlyTask> expectedList = helper.generatePersonList();
@@ -979,7 +969,7 @@ public class LogicManagerTest {
 
         TaskList expectedTL = helper.generateAddressBook(threeTasks);
         Task targetedTask = threeTasks.get(1);
-        Task completedTask = Task.convertToComplete(targetedTask);
+        Task completedTask = new TaskCompleteConverter(targetedTask, DateUtil.getCurrentTime()).getCompletedTask();
         expectedTL.updateTask(targetedTask, completedTask);
         helper.addToModel(model, threeTasks);
 
