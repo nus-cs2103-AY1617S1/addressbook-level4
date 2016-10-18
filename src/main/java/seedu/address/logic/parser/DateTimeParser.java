@@ -23,6 +23,7 @@ public class DateTimeParser {
     
     // result from parser
     private List<DateGroup> dategroups;
+    private List<Date> dates;
     
     DateTimeParser(String input) {
         assert input != null;
@@ -30,6 +31,10 @@ public class DateTimeParser {
 
         this.datetime = input;
         this.parser = new com.joestelmach.natty.Parser();
+
+        // perform natty parsing
+        this.dategroups = this.parser.parse(input);
+        this.dates = this.dategroups.get(0).getDates();
     }
     
     public LocalDateTime extractStartDate() {
