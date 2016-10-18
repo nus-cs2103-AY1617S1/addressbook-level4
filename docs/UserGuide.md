@@ -220,11 +220,11 @@ Result: `Todo/Scheduled Task INDEX has been successfully marked as completed: <T
 Examples: 
 * `done todo 4`<br>
   Marks the 4th Todo task from the displayed list in WhatNow as completed. <br>
-  <img src="images/UI_Prototype/WhatNowUI-DeleteTodo-Colour.png" width="600"><br>
+  <img src="images/UI_Prototype/WhatNowUI-DoneTodo-Colour.png" width="600"><br>
 Figure 7: How the GUI will look like after a todo task has been marked as completed.<br>
 * `done schedule 2`<br>
   Marks the 2nd Schedule task from the displayed list in WhatNow as completed. <br>
-  <img src="images/UI_Prototype/WhatNowUI-DeleteSchedule-Colour.png" width="600"><br>
+  <img src="images/UI_Prototype/WhatNowUI-DoneSchedule-Colour.png" width="600"><br>
 Figure 8: How the GUI will look like after a scheduled task has been marked as completed.<br>
 
 
