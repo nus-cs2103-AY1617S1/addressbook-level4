@@ -543,7 +543,7 @@ public class MainWindow extends UiPart {
                     this.setStyle("-fx-font-weight:bold;");
                     this.setWrapText(true);
                 }else{
-                    this.setGraphic(null);
+                    this.setText("");
                 }
             }
         });
