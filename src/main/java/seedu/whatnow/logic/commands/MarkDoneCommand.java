@@ -20,7 +20,7 @@ public class MarkDoneCommand extends UndoAndRedo {
 
 	public static final String MESSAGE_MARK_TASK_SUCCESS = "Task marked as completed: %1$s";
 	public static final String MESSAGE_MARK_TASK_FAIL = "Unable to mark task as complete";
-	private static final String TASK_TYPE_FLOATING = "floating";
+	private static final String TASK_TYPE_FLOATING = "todo";
 
 	public final String taskType;
 	public final int targetIndex;
