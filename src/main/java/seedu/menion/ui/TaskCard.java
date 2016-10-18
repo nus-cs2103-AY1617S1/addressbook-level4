@@ -16,8 +16,6 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label activityType;
-    @FXML
     private Label name;
     @FXML
     private Label note;
@@ -45,7 +43,6 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        activityType.setText(task.getActivityType().toString());
         name.setText(task.getActivityName().fullName);
         note.setText(task.getNote().toString());
         startDate.setText(task.getActivityStartDate().toString());
