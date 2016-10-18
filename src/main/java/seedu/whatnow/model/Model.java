@@ -60,6 +60,9 @@ public interface Model {
     /**Gets the UndoStack if possible */
     Stack<Command> getUndoStack();
     
+    /**Gets the redoStack if possible*/
+    Stack<Command> getRedoStack();
+    
   //=========== Methods for Schedule List ===============================================================
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();

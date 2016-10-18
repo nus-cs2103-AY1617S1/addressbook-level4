@@ -8,6 +8,7 @@ import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.*;
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -67,20 +68,42 @@ public class AddCommand extends UndoAndRedo {
 		try {
 			model.addTask(toAdd);
 			model.getUndoStack().push(this);
+			if(model.getUndoStack().isEmpty()) {
+				System.out.println("Empty at add execute");
+			}
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
 	}
-	
+
 	@Override
 	public CommandResult undo() {
 		assert model != null;
-        try {
-            model.deleteTask(toAdd);
-            return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
-        } catch (TaskNotFoundException pnfe) {
-        	return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-        } 
+		try {
+			//Task todo = model.getUndoStack().pop();
+			model.deleteTask(toAdd);
+//			model.getRedoStack().push(this);
+//			System.out.println("mode.getUndoStack.pop(): " + model.getUndoStack().peek());
+//			if(model.getUndoStack().isEmpty()) {
+//				System.out.println("The stack is empty at undo() in addCommand");
+//			}
+//			model.getRedoStack().push(model.getUndoStack().pop());
+			return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
+		} catch (TaskNotFoundException pnfe) {
+			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
+		} 
+	}
+
+	@Override
+	public CommandResult redo() {
+		assert model != null;
+		try {
+			model.addTask(toAdd);
+	//		model.getUndoStack().push(model.getRedoStack().pop());
+			return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
+		} catch (DuplicateTaskException e) {
+			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
+		}
 	}
 }

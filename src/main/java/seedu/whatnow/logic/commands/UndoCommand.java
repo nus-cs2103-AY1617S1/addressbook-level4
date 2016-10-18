@@ -14,9 +14,6 @@ public class UndoCommand extends Command{
 	public static final String MESSAGE_SUCCESS = "Undo Successfully";
 	public static final String MESSAGE_FAIL = "Undo failure due to unexisting previous commands";
 
-	public UndoCommand() {
-
-	}
 	@Override
 	public CommandResult execute() {
 		assert model != null;
@@ -25,6 +22,7 @@ public class UndoCommand extends Command{
 		}
 		else {
 			UndoAndRedo reqCommand = (UndoAndRedo) model.getUndoStack().pop();
+			model.getRedoStack().push(reqCommand);
 			return reqCommand.undo();
 			//return new CommandResult(String.format(MESSAGE_SUCCESS));
 		}

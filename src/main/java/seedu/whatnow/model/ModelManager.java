@@ -33,6 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredSchedules;
 
     private final Stack<Command> stackOfUndo;
+    private final Stack<Command> stackOfRedo;
     /**
      * Initializes a ModelManager with the given WhatNow
      * WhatNow and its variables should not be null
@@ -48,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(whatNow.getTasks());
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
         stackOfUndo = new Stack<>();
+        stackOfRedo = new Stack<>();
     }
 
     public ModelManager() {
@@ -59,6 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(whatNow.getTasks());
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
         stackOfUndo =  new Stack<>();
+        stackOfRedo = new Stack<>();
     }
 
     @Override
@@ -115,8 +118,17 @@ public class ModelManager extends ComponentManager implements Model {
     }*/
     @Override
     public Stack<Command> getUndoStack() {
+    	System.out.println("At modelManager when getting:");
+    	if(stackOfUndo.isEmpty()){
+    		System.out.println("stack is empty");
+    	}
     	return stackOfUndo;
     }
+	@Override
+	public Stack<Command> getRedoStack() {
+		return stackOfRedo;
+	}
+
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -269,5 +281,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "Status=" + String.join(", ", status);
         }
     }
-
 }
