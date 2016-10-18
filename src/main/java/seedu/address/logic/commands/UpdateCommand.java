@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.task.*;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -41,7 +42,7 @@ public class UpdateCommand extends Command{
     }
 
 	@Override
-    public CommandResult execute() {
+    public CommandResult execute() throws IllegalValueException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -51,49 +52,72 @@ public class UpdateCommand extends Command{
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
 
-        String description;
-        String priority;
-        Time timeStart;
-        Time timeEnd;
-        UniqueTagList tags;
+        Description description = taskToUpdate.getDescription();
+        Priority priority = taskToUpdate.getPriority();
+        Time timeStart = taskToUpdate.getTimeStart();
+        Time timeEnd = taskToUpdate.getTimeEnd();
+        UniqueTagList tags = taskToUpdate.getTags();
+
+        LogicManager.tasks.push(new Task(description, priority, timeStart, timeEnd, tags));
+        LogicManager.indexes.push(targetIndex);
 
 			switch(property){
 				case "description":
-					description = info;
+					description = new Description(info);
 					timeStart = taskToUpdate.getTimeStart();
 					timeEnd = taskToUpdate.getTimeEnd();
-					priority = taskToUpdate.getPriority().toString();
+					priority = taskToUpdate.getPriority();
 					tags =taskToUpdate.getTags();
 					break;
+
 				case "start":
 					try {
 						timeStart = new Time(info);
 					} catch (IllegalValueException e1) {
+						LogicManager.tasks.pop();
+				        LogicManager.indexes.pop();
 						return new CommandResult(MESSAGE_TIME_CONSTRAINTS);
 					}
-					description = taskToUpdate.getDescription().toString();
+					description = taskToUpdate.getDescription();
 					timeEnd = taskToUpdate.getTimeEnd();
-					priority = taskToUpdate.getPriority().toString();
+					priority = taskToUpdate.getPriority();
 					tags =taskToUpdate.getTags();
+
+					if(timeEnd.isEndBeforeStart(timeStart)){
+						LogicManager.tasks.pop();
+			        	LogicManager.indexes.pop();
+						return new CommandResult(MESSAGE_EDIT_FAIL + ": End is before start.");
+					}
 					break;
+
 				case "priority":
-					priority = info;
-					description = taskToUpdate.getDescription().toString();
+					priority = new Priority(info);
+					description = taskToUpdate.getDescription();
 					timeEnd = taskToUpdate.getTimeEnd();
 					timeStart = taskToUpdate.getTimeStart();
 					tags =taskToUpdate.getTags();
 					break;
+
 				case "end":
 					try {
 						timeEnd = new Time(info);
 					} catch (IllegalValueException e1) {
+						LogicManager.tasks.pop();
+				        LogicManager.indexes.pop();
 						return new CommandResult(MESSAGE_TIME_CONSTRAINTS);
 					}
-					description = taskToUpdate.getDescription().toString();
-					priority = taskToUpdate.getPriority().toString();
+
+					description = taskToUpdate.getDescription();
+					priority = taskToUpdate.getPriority();
 					timeStart = taskToUpdate.getTimeStart();
 					tags =taskToUpdate.getTags();
+					if(timeEnd.isEndBeforeStart(timeStart)){
+						LogicManager.tasks.pop();
+				        LogicManager.indexes.pop();
+						return new CommandResult(MESSAGE_EDIT_FAIL + ": End is before start.");
+					}
 					break;
+
 				default: return new CommandResult(MESSAGE_EDIT_FAIL);
 		}
 
@@ -102,10 +126,13 @@ public class UpdateCommand extends Command{
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description, priority, timeStart, timeEnd, tags, targetIndex-1);
+			add = new AddCommand(description.toString(), priority.toString(), timeStart, timeEnd, tags, targetIndex-1);
 			add.model = model;
 			add.insert();
+			undo = true;
 		} catch (IllegalValueException e) {
+			LogicManager.tasks.pop();
+	        LogicManager.indexes.pop();
 			return new CommandResult(String.format(MESSAGE_EDIT_FAIL));
 		}
 		SelectCommand select = new SelectCommand(targetIndex);
@@ -113,4 +140,23 @@ public class UpdateCommand extends Command{
 		select.execute();
         return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, taskToUpdate));
 	}
+
+	@Override
+	 public CommandResult undo() throws IllegalValueException{
+		Task task = LogicManager.tasks.pop();
+		 int index = LogicManager.indexes.pop();
+
+		 DeleteCommand delete = new DeleteCommand(index);
+		 delete.model = model;
+		 delete.execute();
+
+		 AddCommand add = new AddCommand(task,index-1);
+		 add.model = model;
+		 add.insert();
+
+		 LogicManager.tasks.pop();
+		 LogicManager.indexes.pop();
+
+		 return null;
+	 }
 }

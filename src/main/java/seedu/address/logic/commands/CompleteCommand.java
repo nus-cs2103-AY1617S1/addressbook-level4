@@ -46,6 +46,7 @@ public class CompleteCommand extends Command {
 			complete = new AddTagCommand(targetIndex, "DONE");
 			complete.model = model;
 	        complete.execute();
+	        undo = true;
 		} catch (IllegalValueException pnfe) {
             assert false : "The target task cannot be missing";
         }

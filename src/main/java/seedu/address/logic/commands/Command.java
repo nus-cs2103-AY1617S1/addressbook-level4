@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 
 /**
@@ -10,7 +11,7 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
     protected Model model;
-
+    protected boolean undo = false;
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *
@@ -25,8 +26,9 @@ public abstract class Command {
      * Executes the command and returns the result message.
      *
      * @return feedback message of the operation result for display
+     * @throws IllegalValueException
      */
-    public abstract CommandResult execute();
+    public abstract CommandResult execute() throws IllegalValueException;
 
     /**
      * Provides any needed dependencies to the command.
@@ -43,4 +45,12 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
+
+    public boolean undoCanOrNot(){
+    	return undo;
+    }
+
+	public CommandResult undo() throws IllegalValueException {
+		return null;
+	}
 }

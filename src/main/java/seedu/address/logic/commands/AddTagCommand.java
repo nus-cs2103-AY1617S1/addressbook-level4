@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.task.*;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -47,10 +48,10 @@ public class AddTagCommand extends Command{
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
 
-        String description = taskToUpdate.getDescription().toString();;
+        Description description = taskToUpdate.getDescription();
         Time timeStart = taskToUpdate.getTimeStart();
         Time timeEnd = taskToUpdate.getTimeEnd();
-        String priority = taskToUpdate.getPriority().toString();
+        Priority priority = taskToUpdate.getPriority();
         UniqueTagList tags =taskToUpdate.getTags();
 
         try {
@@ -63,14 +64,39 @@ public class AddTagCommand extends Command{
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description, priority, timeStart, timeEnd, tags, targetIndex-1);
+			add = new AddCommand(description.toString(), priority.toString(), timeStart, timeEnd, tags, targetIndex-1);
 			add.model = model;
 			add.insert();
+
+			undo = true;
+			tags.remove(tag);
+		    LogicManager.tasks.push(new Task(description, priority, timeStart, timeEnd, tags));
+            LogicManager.indexes.push(targetIndex);
 		} catch (IllegalValueException e){
+			 LogicManager.tasks.pop();
 			return new CommandResult("re-adding failed");
 		};
 
         return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, taskToUpdate));
     }
+
+	 @Override
+	 public CommandResult undo() throws IllegalValueException{
+		 Task task = LogicManager.tasks.pop();
+		 int index = LogicManager.indexes.pop();
+
+		 DeleteCommand delete = new DeleteCommand(index);
+		 delete.model = model;
+		 delete.execute();
+
+		 AddCommand add = new AddCommand(task,index-1);
+		 add.model = model;
+		 add.insert();
+
+		 LogicManager.tasks.pop();
+		 LogicManager.indexes.pop();
+
+		 return null;
+	 }
 
 }

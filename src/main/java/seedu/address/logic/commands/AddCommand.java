@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,6 +34,9 @@ public class AddCommand extends Command {
 
     private Time start;
     private Time end;
+
+    private boolean canUndo = false;
+
     /**
      * Convenience constructor using raw values.
      *
@@ -72,6 +78,12 @@ public class AddCommand extends Command {
         this.index = index;
     }
 
+    public AddCommand(Task task, int index)
+            throws IllegalValueException {
+    	this.toAdd = task;
+        this.index = index;
+    }
+
     @Override
     public CommandResult execute() {
         assert model != null;
@@ -81,20 +93,38 @@ public class AddCommand extends Command {
 
         try {
             model.addTask(toAdd);
+            undo = true;
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
     }
 
+    @Override
+	 public CommandResult undo(){
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+        ReadOnlyTask personToDelete = lastShownList.get(lastShownList.size() - 1);
+
+        try {
+            model.deleteTask(personToDelete);
+            undo = false;
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
+
+	     return new CommandResult("Undo complete!");
+	 }
+
     public CommandResult insert() {
         assert model != null;
 
-        if(end.isEndBeforeStart(start))
+        if(end!=null && start!=null && end.isEndBeforeStart(start))
         	return new CommandResult(MESSAGE_ILLEGAL_START_END_TIME);
 
         try {
 			model.insertTask(index, toAdd);
+			undo = false;
 		} catch (DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
