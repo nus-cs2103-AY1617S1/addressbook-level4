@@ -1,7 +1,11 @@
 package seedu.tasklist.logic.commands;
 
 import seedu.tasklist.model.ModelManager;
+import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.UndoInfo;
+import seedu.tasklist.model.task.Task;
+import seedu.tasklist.model.task.UniqueTaskList;
+import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class RedoCommand extends Command {
 
@@ -34,16 +38,16 @@ public class RedoCommand extends Command {
         int undoID = undoInfo.getUndoID();
         switch(undoID){
             case ADD_CMD_ID:
-                redoAdd();
+                redoAdd(undoInfo.getTasks().get(CURRENT_TASK));
                 return new CommandResult(MESSAGE_SUCCESS);
             case DEL_CMD_ID:
-                redoDelete();
+                redoDelete(undoInfo.getTasks().get(CURRENT_TASK));
                 return new CommandResult(MESSAGE_SUCCESS);
             case UPD_CMD_ID:
-                redoUpdate();
+                redoUpdate(undoInfo.getTasks().get(CURRENT_TASK), undoInfo.getTasks().get(ORIGINAL_TASK_INDEX));
                 return new CommandResult(MESSAGE_SUCCESS);
             case DONE_CMD_ID:
-                redoDone();
+                redoDone(undoInfo.getTasks().get(CURRENT_TASK));
                 return new CommandResult(MESSAGE_SUCCESS);
             case CLR_CMD_ID:
                 redoClear();
@@ -55,4 +59,43 @@ public class RedoCommand extends Command {
                 return new CommandResult(MESSAGE_FAILURE);
         }
     }
+
+    private void redoAdd(Task task) {
+        try {
+            model.addTask(task);
+        } 
+        catch (UniqueTaskList.DuplicateTaskException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void redoDelete(Task task) {
+        try{
+            model.deleteTask(task);
+        }
+        catch (TaskNotFoundException e){
+            assert false: "The target task cannot be missing";
+        }
+    }
+
+    private void redoUpdate(Task task, Task task2) {
+        
+    }
+
+    private void redoDone(Task task) {
+        try {
+            model.markTaskAsComplete(task);
+        }
+        catch (TaskNotFoundException e) {
+            assert false: "The target task cannot be missing";
+        }
+    }
+
+    private void redoClear() {
+        Task.IncompleteCounter=0;
+        Task.floatCounter=0;
+        Task.overdueCounter=0;
+        model.resetData(TaskList.getEmptyTaskList());
+    }
+    
 }

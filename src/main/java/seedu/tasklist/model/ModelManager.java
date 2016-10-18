@@ -40,6 +40,8 @@ import com.joestelmach.natty.Parser;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private static final int MAXIMUM_UNDO_REDO_SIZE = 3;
+
     public static LinkedList<UndoInfo> undoStack = new LinkedList<UndoInfo>();
     public static LinkedList<UndoInfo> redoStack = new LinkedList<UndoInfo>();
 
@@ -72,7 +74,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void resetData(ReadOnlyTaskList newData) {
-		if (newData.isEmpty()){ //clear command was executed
+		if (newData.isEmpty()){ //clear or redo clear was executed
 		    List<Task> listOfTasks = (List<Task>)(List<?>)taskList.getTaskList();
      		addToUndoStack(UndoCommand.CLR_CMD_ID, listOfTasks.toArray(new Task [listOfTasks.size()]));
 		}
@@ -80,6 +82,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
         clearRedoStack();
 	}
+
+    private void clearRedoStack() {
+        redoStack.clear();
+    }
 
     @Override
     public void clearTaskUndo(ArrayList<Task> tasks) throws TaskNotFoundException {
@@ -122,6 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
 		addToUndoStack(UndoCommand.DEL_CMD_ID, (Task) target);
+        clearRedoStack();
 	}
 
 	@Override
@@ -140,6 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
 		addToUndoStack(UndoCommand.ADD_CMD_ID, task);
+        clearRedoStack();
 	}
 
     @Override
@@ -157,6 +165,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
         addToUndoStack(UndoCommand.UPD_CMD_ID, taskToUpdate, originalTask);
+        clearRedoStack();
     }
 
     @Override
@@ -182,6 +191,7 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
 		addToUndoStack(UndoCommand.DONE_CMD_ID, (Task) task);
+        clearRedoStack();
 	}
 
 
@@ -194,7 +204,7 @@ public class ModelManager extends ComponentManager implements Model {
     
 
     private void addToUndoStack(int undoID, Task... tasks) {
-        if (undoStack.size() == 3) {
+        if (undoStack.size() == MAXIMUM_UNDO_REDO_SIZE) {
             undoStack.remove(undoStack.size() - 1);
         }
         UndoInfo undoInfo = new UndoInfo(undoID, tasks);
