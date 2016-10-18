@@ -19,31 +19,31 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.CASE_INSENSITIVE);
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)", Pattern.CASE_INSENSITIVE); // one or more keywords separated by whitespace
     
     private static final Pattern LIST_ARGS_FORMAT =
-            Pattern.compile("(?<listing>.*)");
+            Pattern.compile("(?<listing>.*)", Pattern.CASE_INSENSITIVE);
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
+            Pattern.compile("(?<taskName>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)" , Pattern.CASE_INSENSITIVE); // variable number of tags;
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*(,|by|on|at)\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|by|on|at)\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
         
     //regex for tasks with start and end time spanning different days
     private static final Pattern EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*(,|from)\\s*(?<startDateTime>.+)\\s*(,|-)\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|from)\\s*(?<startDateTime>.+)\\s*(,|-)\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
    
   //regex for tasks with start and end time within same day
     private static final Pattern EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*(,|on)\\s*(?<day>.+)\\s*(,|from)\\s*(?<startTime>.+)\\s*(,|-)\\s*(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|on)\\s*(?<day>.+)\\s*(,|from)\\s*(?<startTime>.+)\\s*(,|-)\\s*(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
     public Parser() {}
     /**
      * Parses user input into command for execution.
