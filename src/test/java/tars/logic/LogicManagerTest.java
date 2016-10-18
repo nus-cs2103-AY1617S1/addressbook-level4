@@ -140,13 +140,31 @@ public class LogicManagerTest {
 
         // Execute the command
         CommandResult result = logic.execute(inputCommand);
-
+        
         // Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
         // Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTars, model.getTars());
+        assertEquals(expectedTars, latestSavedTars);
+    }
+    
+    /**
+     * @@author A0140022H
+     */
+    private void assertCommandBehaviorForList(String inputCommand, String expectedMessage,
+            ReadOnlyTars expectedTars,
+            List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+
+        // Execute the command
+        CommandResult result = logic.execute(inputCommand);
+        
+        // Confirm the ui display elements should contain the right data
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedShownList, model.getFilteredTaskList());
+
+        // Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTars, latestSavedTars);
     }
 
@@ -366,24 +384,22 @@ public class LogicManagerTest {
      */
     @Test
     public void execute_list_showsAllTasksByPriority() throws Exception {
-    	TestDataHelper helper = new TestDataHelper();
+        TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.generateTaskWithName("task1");
         Task task2 = helper.generateTaskWithName("task2");
         Task task3 = helper.generateTaskWithName("task3");
         task1.setPriority(new Priority("l"));
         task2.setPriority(new Priority("m"));
         task3.setPriority(new Priority("h"));
-        Tars expectedAB = new Tars();
-        expectedAB.addTask(task1);
-        expectedAB.addTask(task2);
-        expectedAB.addTask(task3);
-        List<Task> listToSort = helper.generateTaskList(task1, task2, task3);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        Tars expectedTars = new Tars();
+        expectedTars.addTask(task3);
+        expectedTars.addTask(task2);
+        expectedTars.addTask(task1);
+        List<Task> listToSort = helper.generateTaskList(task3, task2, task1);
+        List<Task> expectedList = helper.generateTaskList(task1, task2, task3);
         helper.addToModel(model, listToSort);
         
-        System.out.println(expectedAB.getTaskList());
-        System.out.println(listToSort);
-        assertCommandBehavior("ls -p", ListCommand.MESSAGE_SUCCESS_PRIORITY, expectedAB, expectedList);
+        assertCommandBehaviorForList("ls -p", ListCommand.MESSAGE_SUCCESS_PRIORITY, expectedTars, expectedList);
     }
     
     /**
@@ -401,17 +417,66 @@ public class LogicManagerTest {
         task1.setPriority(new Priority("l"));
         task2.setPriority(new Priority("m"));
         task3.setPriority(new Priority("h"));
-        Tars expectedAB = new Tars();
-        expectedAB.addTask(task3);
-        expectedAB.addTask(task2);
-        expectedAB.addTask(task1);
-        List<Task> listToSort = helper.generateTaskList(task3, task2, task1);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        Tars expectedTars = new Tars();
+        expectedTars.addTask(task1);
+        expectedTars.addTask(task2);
+        expectedTars.addTask(task3);
+        List<Task> listToSort = helper.generateTaskList(task1, task2, task3);
+        List<Task> expectedList = helper.generateTaskList(task3, task2, task1);
         helper.addToModel(model, listToSort);
-        
-        System.out.println(expectedAB.getTaskList());
-        System.out.println(listToSort);
-        assertCommandBehavior("ls -p dsc", ListCommand.MESSAGE_SUCCESS_PRIORITY_DESCENDING, expectedAB, expectedList);
+
+        assertCommandBehaviorForList("ls -p dsc", ListCommand.MESSAGE_SUCCESS_PRIORITY_DESCENDING, expectedTars, expectedList);
+    }
+    
+    /**
+     * Test for list command
+     * 
+     * @@author A0140022H
+     * @throws Exception
+     */
+    @Test
+    public void execute_list_showsAllTasksByDatetime() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("task1");
+        Task task2 = helper.generateTaskWithName("task2");
+        Task task3 = helper.generateTaskWithName("task3");
+        task1.setDateTime(new DateTime("", "01/02/2016 1600"));
+        task2.setDateTime(new DateTime("", "02/02/2016 1600"));
+        task3.setDateTime(new DateTime("", "03/02/2016 1600"));
+        Tars expectedTars = new Tars();
+        expectedTars.addTask(task3);
+        expectedTars.addTask(task2);
+        expectedTars.addTask(task1);
+        List<Task> listToSort = helper.generateTaskList(task3, task2, task1);
+        List<Task> expectedList = helper.generateTaskList(task1, task2, task3);
+        helper.addToModel(model, listToSort);
+
+        assertCommandBehaviorForList("ls -dt", ListCommand.MESSAGE_SUCCESS_DATETIME, expectedTars, expectedList);
+    }
+    /**
+     * Test for list command
+     * 
+     * @@author A0140022H
+     * @throws Exception
+     */
+    @Test
+    public void execute_list_showsAllTasksByDatetimeDescending() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("task1");
+        Task task2 = helper.generateTaskWithName("task2");
+        Task task3 = helper.generateTaskWithName("task3");
+        task1.setDateTime(new DateTime("", "01/02/2016 1600"));
+        task2.setDateTime(new DateTime("", "02/02/2016 1600"));
+        task3.setDateTime(new DateTime("", "03/02/2016 1600"));
+        Tars expectedTars = new Tars();
+        expectedTars.addTask(task1);
+        expectedTars.addTask(task2);
+        expectedTars.addTask(task3);
+        List<Task> listToSort = helper.generateTaskList(task1, task2, task3);
+        List<Task> expectedList = helper.generateTaskList(task3, task2, task1);
+        helper.addToModel(model, listToSort);
+
+        assertCommandBehaviorForList("ls -dt dsc", ListCommand.MESSAGE_SUCCESS_DATETIME_DESCENDING, expectedTars, expectedList);
     }
 
     /**
