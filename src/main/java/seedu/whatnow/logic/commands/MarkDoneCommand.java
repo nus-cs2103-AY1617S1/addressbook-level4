@@ -20,7 +20,7 @@ public class MarkDoneCommand extends UndoAndRedo {
 
 	public static final String MESSAGE_MARK_TASK_SUCCESS = "Task marked as completed: %1$s";
 	public static final String MESSAGE_MARK_TASK_FAIL = "Unable to mark task as complete";
-	private static final String TASK_TYPE_FLOATING = "floating";
+	private static final String TASK_TYPE_FLOATING = "todo";
 
 	public final String taskType;
 	public final int targetIndex;
@@ -67,6 +67,18 @@ public class MarkDoneCommand extends UndoAndRedo {
 
 		ReadOnlyTask taskToReAdd = model.getStackOfMarkDoneTask().pop();
 		String taskTypeToReAdd = model.getStackOfMarkDoneTaskTaskType().pop();
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+		/*
+		if (taskTypeToReAdd.equals(TASK_TYPE_FLOATING)) {
+			lastShownList = model.getCurrentFilteredTaskList();
+		} else {
+			lastShownList = model.getCurrentFilteredScheduleList();
+		}
+		if (lastShownList.size() < targetIndex) {
+			indicateAttemptToExecuteIncorrectCommand();
+			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+		}*/
+	//	ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
 		try {
 			model.unMarkTask(taskToReAdd);
 		} catch(TaskNotFoundException pufe) {
@@ -90,7 +102,6 @@ public class MarkDoneCommand extends UndoAndRedo {
 		}
 		ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
 		try {
-			System.out.println("Entered here");
 			model.markTask(taskToMark);
 			model.getStackOfMarkDoneTask().push(taskToMark);
 			model.getStackOfMarkDoneTaskTaskType().push(taskType);
