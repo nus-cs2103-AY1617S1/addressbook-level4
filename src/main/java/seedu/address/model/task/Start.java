@@ -37,9 +37,12 @@ public class Start {
         }
         if (start == "default") {
         	String new_min = new String(LocalTime.now().getMinute() + "");
+        	String new_hr = new String(LocalTime.now().getHour() + "");
+        	if (new_hr.length() ==1)
+        		new_hr = "0" + new_hr;
         	if (new_min.length() ==1 )
         		new_min = "0" + new_min;
-    		this.value = LocalTime.now().getHour() +""+ new_min;
+    		this.value = new_hr +""+ new_min;
         }
         else
         	this.value = start;
