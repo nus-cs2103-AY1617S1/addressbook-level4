@@ -12,10 +12,13 @@ import seedu.whatnow.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    
+    private TaskDate taskDate;
     private UniqueTagList tags;
-    
     private String status;
+    private String taskType;
+    
+    private static final String FLOATING = "floating";
+    private static final String NOT_FLOATING = "not_floating";
 
     /**
      * Every field must be present and not null.
@@ -25,18 +28,50 @@ public class Task implements ReadOnlyTask {
         this.name = name;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.status = status;
+        this.taskType = FLOATING;
+    }
+    
+    /**
+     *  Every field must be present and not null
+     * 
+     */
+    public Task(Name name, TaskDate taskDate, UniqueTagList tags,  String status) {
+        assert !CollectionUtil.isAnyNull(name, tags);
+        this.name = name;
+        this.taskDate = taskDate;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.status = status;
+        this.taskType = NOT_FLOATING;
+    }
+    
+    /**
+     *  Every field must be present and not null
+     * 
+     */
+    public Task(Name name, TaskDate taskDate, UniqueTagList tags,  String status, String taskType) {
+        assert !CollectionUtil.isAnyNull(name, tags);
+        this.name = name;
+        this.taskDate = taskDate;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.status = status;
+        this.taskType = taskType;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags(), source.getStatus());
+        this(source.getName(), source.getTaskDate(), source.getTags(), source.getStatus(), source.getTaskType());
     }
-
+   
     @Override
     public Name getName() {
         return name;
+    }
+
+    @Override
+    public TaskDate getTaskDate() {
+    	return taskDate;
     }
 
     @Override
@@ -48,7 +83,20 @@ public class Task implements ReadOnlyTask {
     public String getStatus() {
         return status;
     }
-
+    
+    @Override
+    public String getTaskType() {
+        return taskType;
+    }
+    
+    public void setName(Name name) {
+        this.name = name;
+    }
+    
+    public void setTaskDate(TaskDate taskDate) {
+        this.taskDate = taskDate;
+    }
+    
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
@@ -56,12 +104,12 @@ public class Task implements ReadOnlyTask {
         tags.setTags(replacement);
     }
     
-    public void setName(Name name) {
-        this.name = name;
-    }
-    
     public void setStatus(String status) {
         this.status = status;
+    }
+    
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
     }
 
     @Override
@@ -74,7 +122,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, status, tags);
+        return Objects.hash(name, taskDate, tags, status, taskType);
     }
 
     @Override

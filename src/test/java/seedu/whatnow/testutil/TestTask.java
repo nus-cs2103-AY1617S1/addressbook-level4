@@ -52,6 +52,7 @@ public class TestTask implements ReadOnlyTask {
         return this.status = status;
     }
     
+    @Override
     public String getTaskType() {
         return taskType;
     }
@@ -87,4 +88,10 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+	@Override
+	public TaskDate getTaskDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

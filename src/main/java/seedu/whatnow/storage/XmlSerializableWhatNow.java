@@ -10,6 +10,7 @@ import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.UniqueTaskList;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,7 +64,10 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
-            }
+            } catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         return lists;
     }
@@ -77,7 +81,11 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
                 e.printStackTrace();
                 //TODO: better error handling
                 return null;
-            }
+            } catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 

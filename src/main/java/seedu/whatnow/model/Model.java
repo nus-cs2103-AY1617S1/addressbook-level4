@@ -19,6 +19,8 @@ public interface Model {
 
     /** Returns the WhatNow */
     ReadOnlyWhatNow getWhatNow();
+    
+  //=========== Methods for Task List ===============================================================
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
@@ -30,10 +32,22 @@ public interface Model {
     void changeTask(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList();
+    
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered task list with filter keyword as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(Set<String> key);
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show all ongoing tasks */
+    void updateFilteredListToShowAllIncomplete();
+    
+    /** Updates the filter of the filtered task list to show all completed tasks */
+    void updateFilteredListToShowAllCompleted();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
@@ -46,4 +60,32 @@ public interface Model {
     
     /** Mark the given task as completed */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    
+  //=========== Methods for Schedule List ===============================================================
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();
+    
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList();
+    
+    /** Returns the filtered task list with filter keyword as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> key);
+    
+    /** Updates the filter of the filtered task list to show all tasks */
+    void updateFilteredScheduleListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show all ongoing tasks */
+    void updateFilteredScheduleListToShowAllIncomplete();
+    
+    /** Updates the filter of the filtered task list to show all completed tasks */
+    void updateFilteredScheduleListToShowAllCompleted();
+
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredScheduleList(Set<String> keywords);
+    
+    /** Updates the filter of the filtered task list to show only task of a specific status specified by the keyword */
+    void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword);
+    
+    
 }

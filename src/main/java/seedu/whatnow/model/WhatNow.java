@@ -118,7 +118,6 @@ public class WhatNow implements ReadOnlyWhatNow {
         }
     }
     
-
     public boolean changeTask(ReadOnlyTask key) throws TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;

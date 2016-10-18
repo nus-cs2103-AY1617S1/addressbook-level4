@@ -160,9 +160,9 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p12345 evalid@e.mail avalid, whatnow", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p12345 evalid@e.mail avalid, whatnow", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         assertCommandBehavior(
-                "add Valid Name p12345 evalid@e.mail avalid, whatnow t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name p12345 evalid@e.mail avalid, whatnow t/invalid_-[.tag", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
     }
 
@@ -266,7 +266,7 @@ public class LogicManagerTest {
     public void execute_update_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.todo("Buy milk", "lowPriority", "inProgress");
+        Task toBeAdded = helper.todo("Buy milk", "23/2/2017", "lowPriority", "inProgress");
         WhatNow expectedAB = new WhatNow();
         expectedAB.addTask(toBeAdded);
         expectedAB.addTask(helper.adam());
@@ -275,20 +275,29 @@ public class LogicManagerTest {
         
         // execute command and verify result
         ReadOnlyTask taskToUpdate = taskList.get(0);
-        Task toUpdate = helper.todo("Buy chocolate milk", "inProgress", "lowPriority");
+        Task toUpdate = helper.todo("Buy chocolate milk", "23/2/2017", "inProgress", "lowPriority");
         expectedAB.updateTask(taskToUpdate, toUpdate);
         
-        assertCommandBehavior(helper.generateUpdateCommand("Buy chocolate milk"),
-                String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate),
+        assertCommandBehavior(helper.generateUpdateCommand("description", "Buy chocolate milk"),
+                String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate),
                 expectedAB,
                 expectedAB.getTaskList());
         
         taskToUpdate = toUpdate;
-        toUpdate = helper.todo("Buy chocolate milk", "highPriority", "Completed");
+        toUpdate = helper.todo("Buy chocolate milk", "23/2/2017", "highPriority", "Completed");
         expectedAB.updateTask(taskToUpdate, toUpdate);
         
-        assertCommandBehavior(helper.generateUpdateCommand("highPriority", "Completed"),
-                String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate),
+        assertCommandBehavior(helper.generateUpdateCommand("tag", "highPriority Completed"),
+                String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        taskToUpdate = toUpdate;
+        toUpdate = helper.todo("Buy chocolate milk", "12/4/2017", "highPriority", "Completed");
+        expectedAB.updateTask(taskToUpdate, toUpdate);
+        
+        assertCommandBehavior(helper.generateUpdateCommand("date", "12/4/2017"),
+                String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -417,7 +426,7 @@ public class LogicManagerTest {
         WhatNow expectedAB = helper.generateWhatNow(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
-
+        
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
@@ -451,18 +460,20 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
+            TaskDate date = new TaskDate("12/12/2017");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags, null);
+            return new Task(name, date, tags, "incomplete");
         }
         
-        Task todo(String description, String tag01, String tag02) throws Exception {
+        Task todo(String description, String dateString, String tag01, String tag02) throws Exception {
             Name name = new Name(description);
+            TaskDate date = new TaskDate(dateString);
             Tag tag1 = new Tag(tag01);
             Tag tag2 = new Tag(tag02);
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags, null);
+            return new Task(name, date, tags, "incomplete");
         }
 
         /**
@@ -475,8 +486,9 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
+                    new TaskDate("23/2/2017"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
-                    null
+                    "incomplete"
             );
         }
 
@@ -486,7 +498,10 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
+            cmd.append("\"" + p.getName().toString() + "\"");
+            
+            if (p.getTaskDate() != null)
+                cmd.append(" on " + p.getTaskDate());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -497,27 +512,25 @@ public class LogicManagerTest {
         }
         
         /** Generates the correct update command based on the parameters given */
-        String generateUpdateCommand(String description) {
+        String generateUpdateCommand(String type, String value) {
             StringBuffer cmd = new StringBuffer();
-
-            cmd.append("update todo 1 description ");
-
-            cmd.append(description);
+            
+            cmd.append("update todo 1 ");
+            
+            if (type.equals("description")) {
+                cmd.append(type + " ");
+                cmd.append(value);
+            } else if (type.equals("date")) {
+                cmd.append(type + " ");
+                cmd.append(value);
+            } else if (type.equals("tag")) {
+                cmd.append(type + " ");
+                cmd.append(value);
+            }
 
             return cmd.toString();
         }
         
-        /** Generates the correct update command based on the parameters given */
-        String generateUpdateCommand(String tag1, String tag2) {
-            StringBuffer cmd = new StringBuffer();
-
-            cmd.append("update todo 1 tag ");
-
-            cmd.append(tag1 + " " + tag2);
-
-            return cmd.toString();
-        }
-
         /**
          * Generates an WhatNow with auto-generated tasks.
          */
