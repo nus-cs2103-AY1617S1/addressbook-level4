@@ -731,13 +731,13 @@ Use case ends
 5. The application should run primarily on commandline-like interface.
 6. The application should be able to work offline.
 7. The application should ship with regression testing available.
-8. The application should be able to handle both tasks and events as the same concept.
+8. The application should be able to handle floating tasks (tasks with no deadline at all), normal tasks and events as the same concept.
 9. The source code should be well-documented and ready to be continued by someone else.
 10. The application should allow users to undo up to at least 10 most recent commands.
 11. The application should be usable straight away, without requiring any installation.
-12. The application should allow users to change the stored data location.
+12. The application should still be usable even if the storage data is at a different location rather than at the default location.
 13. Version control should be used during development of product.
-14. The application should provide help when the user enters an invalid command.
+14. The application should come with user-friendly documentation to teach users how to use.
 15. The data storage file should be in a human-readable and editable format.
 
 <br>
