@@ -560,25 +560,22 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS:**
 
 1. User creates new task with start time and end time
-2. Program checks the start time and end time
-3. Program creates the task with given start time and end time<br>
+2. Program creates the task with given start time and end time<br>
 Use case ends
 
 **Extensions:**
 
 2a. The start time or end time given is invalid
-> 2a1. Program shows an error message<br>
-> 2a2. Program prompts for re-type of task details<br>
-> 2a3. User re-types the start time and end time<br>
+> 2a1. Program shows an error message, prompts for re-type of task details<br>
+> 2a2. User re-types the start time and end time<br>
   Use case resumes at step 2
 
 2b. The start time is later than the end time
-> 2b1. Program shows an error message<br>
-> 2b2. Program provides two options: Swap time around, or re-type task details<br>
->     * 2b2i. User requests to swap time around<br>
+> 2b1. Program shows an error message, provides two options: Swap time around, or re-type task details<br>
+>     * 2b1i. User requests to swap time around<br>
 >           * Program swap time around<br>
 >           * Use case resumes at step 3<br>
->     * 2b2ii. User requests to retype timing<br>
+>     * 2b1ii. User requests to retype timing<br>
 >           * Use case resumes at step 2a3
 
 <br>
@@ -689,12 +686,13 @@ Use case ends
 
 1. User requests to delete all data
 2. Program ask for user's confirmation
-3. Program deletes all data<br>
+3. User confirms the deletion
+4. Program deletes all data<br>
 Use case ends
 
 **Extensions:**
 
-2a. User declines the confirmation
+3a. User declines the confirmation
 > Use case ends
 
 <br>
@@ -716,8 +714,7 @@ Use case ends
 
 2a. Previous data storage file location has a data file
 
-> 2a1. Program copies the data file to the current location
-> 2a2. Program deletes the data file from the previous location<br>
+> 2a1. Program copies the data file to the current location and deletes the data file from the previous location<br>
   Use case ends
 
 <br>
