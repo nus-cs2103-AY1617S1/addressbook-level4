@@ -14,12 +14,18 @@ public class DateTime {
     
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task date and time must follow this format DD/MM/YYYY HH:MM in 24 hours format";
     public static final Pattern DATETIME_VALIDATION_REGEX =
-            Pattern.compile("(?<preKeyword>(by ))"                 //Preceeding keyword regex
-                    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"            //Day regex
-                    + "/(?<month>(0?[1-9]|[1][0-2]))/"                      //Month regex
-                    + "(?<year>(([0-9][0-9])?[0-9][0-9]))"                 //Year regex
-                    + "( (?<hour>([01][0-9]|[2][0-3])))?"                   //Hour regex
-                    + "(:(?<minute>([0-5][0-9])))?");                       //Minute regex
+            Pattern.compile("(?<preKeyword>((by )|(on )|(from )))"      //Preceeding keyword regex
+                    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"               //Day regex
+                    + "/(?<month>(0?[1-9]|[1][0-2]))/"                  //Month regex
+                    + "(?<year>(([0-9][0-9])?[0-9][0-9]))"              //Year regex
+                    + "( (?<hour>([01][0-9]|[2][0-3])))?"               //Hour regex
+                    + "(:(?<minute>([0-5][0-9])))?"                     //Minute regex
+                    + "(?<aftKeyword>(to ))?"                           //2nd keyword regex
+                    + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))?"               //Day regex
+                    + "(/(?<monthEnd>(0?[1-9]|[1][0-2]))/)?"                  //Month regex
+                    + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))?"              //Year regex
+                    + "( (?<hourEnd>([01][0-9]|[2][0-3])))?"               //Hour regex
+                    + "(:(?<minuteEnd>([0-5][0-9])))?");                     //Minute regex
     
     public final String value;
     public final String valueFormatted;
