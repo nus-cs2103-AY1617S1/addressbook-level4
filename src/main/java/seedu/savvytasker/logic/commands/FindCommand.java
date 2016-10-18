@@ -1,12 +1,12 @@
 package seedu.savvytasker.logic.commands;
 
-import java.util.Set;
-
 import seedu.savvytasker.logic.commands.models.FindCommandModel;
+import seedu.savvytasker.model.task.FindType;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
+ * @author A0139915W
  */
 public class FindCommand extends Command {
 
@@ -27,7 +27,12 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(commandModel.getKeywords());
+        FindType findType = commandModel.getFindType();
+        if (findType == null) {
+            // use default find type, partial.
+            findType = FindType.Partial;
+        }
+        model.updateFilteredTaskList(findType, commandModel.getKeywords());
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
     

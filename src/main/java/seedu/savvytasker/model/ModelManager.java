@@ -11,8 +11,13 @@ import seedu.savvytasker.model.person.ReadOnlyTask;
 import seedu.savvytasker.model.person.Task;
 import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
+import seedu.savvytasker.model.task.FindType;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -123,8 +128,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords) {
-        updateFilteredTaskList(new PredicateExpression(new TaskNameExactMatchQualifier(keywords)));
+    public void updateFilteredTaskList(FindType findType, String[] keywords) {
+        assert findType != null;
+        Qualifier qualifier = null;
+        switch (findType)
+        {
+        case Partial:
+            qualifier = new TaskNamePartialMatchQualifier(keywords);
+            break;
+        case Full:
+            qualifier = new TaskNameFullMatchQualifier(keywords);
+            break;
+        case Exact:
+            qualifier = new TaskNameExactMatchQualifier(keywords);
+            break;
+        default:
+            assert false; // should never get here.
+        }
+        updateFilteredTaskList(new PredicateExpression(qualifier));
     }
     
     private void updateFilteredTaskList(Expression expression) {
@@ -165,18 +186,59 @@ public class ModelManager extends ComponentManager implements Model {
     interface Qualifier {
         boolean run(ReadOnlyTask task);
         String toString();
+        
+        /**
+         * Helper method to build Set<String> from String[]
+         * @param keywords list of keywords
+         */
+        default Set<String> createSet(String[] keywords) {
+            HashSet<String> _keywords = new HashSet<String>();
+            for (String keyword : keywords) {
+                _keywords.add(keyword);
+            }
+            return _keywords;
+        }
     }
 
-    private class TaskNameExactMatchQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+    /**
+     * Qualifier matching a partial word from the set of keywords
+     * @author A0139915W
+     */
+    private class TaskNamePartialMatchQualifier implements Qualifier {
+        private Set<String> keyWordsToMatch;
 
-        TaskNameExactMatchQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
+        TaskNamePartialMatchQualifier(String[] keyWordsToMatch) {
+            this.keyWordsToMatch = createSet(keyWordsToMatch);
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
+            return keyWordsToMatch.stream()
+                    .filter(keyword -> StringUtil.containsPartialIgnoreCase(task.getTaskName(), keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "taskName(FullMatch)=" + String.join(", ", keyWordsToMatch);
+        }
+    }
+
+    /**
+     * Qualifier matching a full word from the set of keywords
+     * @author A0139915W
+     */
+    private class TaskNameFullMatchQualifier implements Qualifier {
+        private Set<String> keyWordsToMatch;
+
+        TaskNameFullMatchQualifier(String[] keyWordsToMatch) {
+            this.keyWordsToMatch = createSet(keyWordsToMatch);
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return keyWordsToMatch.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getTaskName(), keyword))
                     .findAny()
                     .isPresent();
@@ -184,7 +246,51 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
+            return "taskName(FullMatch)=" + String.join(", ", keyWordsToMatch);
+        }
+    }
+
+    /**
+     * Qualifier matching a exactly from the set of keywords
+     * @author A0139915W
+     */
+    private class TaskNameExactMatchQualifier implements Qualifier {
+        private Set<String> keyWordsToMatch;
+
+        TaskNameExactMatchQualifier(String[] keyWordsToMatch) {
+            this.keyWordsToMatch = new HashSet<String>();
+            this.keyWordsToMatch.add(buildSingleString(keyWordsToMatch));
+        }
+        
+        /**
+         * Builds a single string to be matched exactly against the task name.
+         * @param keyWordsToMatch list of keywords to match.
+         * @return A single string built from the list of keywords.
+         */
+        private String buildSingleString(String[] keyWordsToMatch) {
+            StringBuilder sb = new StringBuilder();
+            List<String> keywords = Arrays.asList(keyWordsToMatch);
+            Iterator<String> itr = keywords.iterator();
+            while (itr.hasNext()) {
+                sb.append(itr.next());
+                if (itr.hasNext()) {
+                    sb.append(" ");
+                }
+            }
+            return sb.toString();
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return keyWordsToMatch.stream()
+                    .filter(keyword -> StringUtil.containsExactIgnoreCase(task.getTaskName(), keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "taskName(FullMatch)=" + String.join(", ", keyWordsToMatch);
         }
     }
 

@@ -32,7 +32,10 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         ListType listType = commandModel.getListType();
-        assert listType != null;
+        if (listType == null) {
+            // use default, sort by due date
+            listType = ListType.DueDate;
+        }
         switch (listType)
         {
         case DueDate:
