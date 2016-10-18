@@ -63,7 +63,7 @@ Format (deadline): `add TASK by DATE` <br>
 Format (event): `add TASK from START_DATE to/- END_DATE`
 
 > **Date Format**
-> * Note that `DATE` and all other dates follow the following format: 
+> * Note that `DATE` and all other dates follow the following format:
 > * 1) `DAY MONTH` or `MONTH DAY`
 > * 2) `DAY MONTH YEAR` or `MONTH DAY YEAR`
 > * `MONTH` should be in alphabets instead of numbers.
@@ -88,7 +88,7 @@ Examples (event):
 <br>
 #### Adding a recurring task: `add daily/weekly/monthly/yearly`
 Adds a recurring task to the task manager.<br>
-Format (daily): `add daily, TASK` <br> 
+Format (daily): `add daily, TASK` <br>
 Format (weekly): `add weekly [on] DAY_OF_WEEK[s], TASK` <br>
 Format (monthly): `add monthly [on] DAY_OF_MONTH[st/nd/rd/th], TASK` <br>
 Format (yearly): `add yearly [on] DATE, TASK` <br>
@@ -199,7 +199,7 @@ Examples:
 <br>
 #### Listing favorites: `list favorite[s]`
 List all the tasks that you have favorited. <br>
-Format: `list favorite[s]` 
+Format: `list favorite[s]`
 
 > You can type either `favorite` or its plural form, `favorites`
 
@@ -272,6 +272,15 @@ Exits the program.<br>
 Format: `exit`
 
 <br>
+#### Changing the storage location : `setstorage`
+Changes the storage location for alias.xml and tasks.xml to wherever you prefer. <br>
+Format: `setstorage PATH` <br>
+
+Examples:
+* `setstorage C:/Users/Bob/Documents`
+* `setstorage relativefolder`
+
+<br>
 #### Saving the data
 Task data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
@@ -334,4 +343,5 @@ List aliases | `list alias[es]`
 Undo | `undo`
 Clear | `clear`
 Sync | `sync`
+Set storage location | `setstorage PATH`
 
