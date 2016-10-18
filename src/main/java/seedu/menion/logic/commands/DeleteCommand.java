@@ -38,15 +38,17 @@ public class DeleteCommand extends Command {
 
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
         
-        if (targetType.equals("task")) {
+        System.out.println("what is this activity's target type? It is " + targetType);
+        
+        if (targetType.equals(" task")) {
             System.out.println("deleting a task");
             lastShownList = model.getFilteredTaskList();
         }
-        else if (targetType.equals("floatingTask")) {
+        else if (targetType.equals(" floatingTask")) {
             System.out.println("deleting a floatingTask");
             lastShownList = model.getFilteredFloatingTaskList();
         }
-        else if (targetType.equals("event")) {
+        else if (targetType.equals(" event")) {
             System.out.println("deleting an event");
             lastShownList = model.getFilteredEventList();
         }
@@ -65,10 +67,10 @@ public class DeleteCommand extends Command {
         toBeDeleted = (Activity)activityToDelete;
         
         try {
-            if (targetType.equals("task")){
+            if (targetType.equals(" task")){
                 model.deleteTask(activityToDelete);
             }
-            else if (targetType.equals("event")){
+            else if (targetType.equals(" event")){
                 model.deleteEvent(activityToDelete);
             }
             else {
