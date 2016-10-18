@@ -15,7 +15,8 @@ public class End {
     												  "([1-9](?:pm|am|PM|AM))|" + 
     												  "(1[0-2](?:pm|am|PM|AM))|" +
     												  "([1-9]\\.[0-5]{1}\\d{1}(?:pm|am))|" +
-    												  "(1[0-2]\\.[0-5]{1}\\d{1}(?:pm|am))";
+    												  "(1[0-2]\\.[0-5]{1}\\d{1}(?:pm|am))|" +
+    												  "(no end)";
     public static final String DEFAULT_END_TIME = "2359";
     public final String value;
 
@@ -41,7 +42,7 @@ public class End {
      * Returns true if a given string is a valid person email.
      */
     public static boolean isValidEnd(String test) {
-    	if (test == "" || test.matches(END_VALIDATION_REGEX) || test == "default")
+    	if (test.matches(END_VALIDATION_REGEX) || test == "default")
     		return true;
     	else
     		return false;
