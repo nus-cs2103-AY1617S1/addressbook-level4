@@ -65,11 +65,11 @@ public class TaskViewFilterView extends UiPart {
     }
 
     /**
-     * Configure the UI properties of {@link TaskViewFilterView}
+     * Initialise and configure the UI properties of {@link TaskViewFilterView}
      */
     private void configureProperties() {
         initialiseAllViewFilters();
-        selectViewFilter(TaskViewFilter.DEFAULT);
+        selectOneViewFilter(TaskViewFilter.DEFAULT);
     }
 
     /**
@@ -81,37 +81,63 @@ public class TaskViewFilterView extends UiPart {
         }
     }
 
+    /**
+     * Add one {@link TaskViewFilter} on the {@link #filterViewPane}
+     * and save an instance to the {@link #taskFilterBoxesMap}
+     * @param filter to add onto the pane
+     */
     private void appendEachViewFilter(TaskViewFilter filter) {
+        HBox textContainer = constructViewFilterBox(filter);
+        taskFilterBoxesMap.put(filter, textContainer);
+        filterViewPane.getChildren().add(textContainer);
+    }
+
+    /**
+     * Given a filter, construct a view element to be displayed on the {@link #filterViewPane}
+     * @param filter to be displayed
+     * @return a view element
+     */
+    private HBox constructViewFilterBox(TaskViewFilter filter) {
         String filterName = WordUtils.capitalize(filter.getViewName());
         String[] partitionedText = StringUtil.partitionStringAtPosition(filterName, filter.getUnderlineChar());
+
         Label leftText = new Label(partitionedText[0]);
         Label centreText = new Label(partitionedText[1]);
         Label rightText = new Label(partitionedText[2]);
-
         ViewStyleUtil.addClassStyles(centreText, ViewStyleUtil.STYLE_UNDERLINE);
 
         HBox textContainer = new HBox();
         textContainer.getChildren().add(leftText);
         textContainer.getChildren().add(centreText);
         textContainer.getChildren().add(rightText);
-
-        taskFilterBoxesMap.put(filter, textContainer);
-        filterViewPane.getChildren().add(textContainer);
+        return textContainer;
     }
 
     /* Methods interfacing with UiManager */
-    public void selectViewFilter(TaskViewFilter filter) {
+    /**
+     * Select exactly one filter from {@link #filterViewPane}
+     */
+    public void selectOneViewFilter(TaskViewFilter filter) {
         clearAllViewFiltersSelection();
-        HBox filterBox = taskFilterBoxesMap.get(filter);
-        ViewStyleUtil.addClassStyles(filterBox, ViewStyleUtil.STYLE_SELECTED);
+        selectViewFilter(filter);
     }
 
-
     /* Helper Methods */
+    /**
+     * Clears all selection from the {@link #filterViewPane}
+     */
     private void clearAllViewFiltersSelection() {
         for (HBox filterBox : taskFilterBoxesMap.values()) {
             ViewStyleUtil.removeClassStyles(filterBox, ViewStyleUtil.STYLE_SELECTED);
         }
+    }
+
+    /**
+     * Mark the filter as selected on {@link #filterViewPane}
+     */
+    private void selectViewFilter(TaskViewFilter filter) {
+        HBox filterBox = taskFilterBoxesMap.get(filter);
+        ViewStyleUtil.addClassStyles(filterBox, ViewStyleUtil.STYLE_SELECTED);
     }
 
     /* Override Methods */
