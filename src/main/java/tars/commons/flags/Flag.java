@@ -16,6 +16,7 @@ public class Flag {
     public static final String LIST = "-ls";
     public static final String DELETE = "-d";
     public static final String EDIT ="-e";
+    public static final String RECURRING = "-r";
 
     public String prefix;
     public boolean hasMultiple;

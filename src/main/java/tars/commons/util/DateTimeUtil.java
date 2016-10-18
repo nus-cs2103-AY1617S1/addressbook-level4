@@ -1,10 +1,12 @@
 package tars.commons.util;
 
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.util.Calendar;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -12,6 +14,7 @@ import java.util.TimeZone;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import tars.commons.core.Messages;
 import tars.model.task.DateTime;
 
 /**
@@ -21,7 +24,18 @@ import tars.model.task.DateTime;
  */
 public class DateTimeUtil {
     private static final SimpleDateFormat CONVERT_NATTY_TIME_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private static final String NATTY_TIME_PREFIX = "EXPLICIT_TIME";
     
+    private static final String DATETIME_DAY = "day";
+    private static final String DATETIME_WEEK = "week";
+    private static final String DATETIME_MONTH = "month";
+    private static final String DATETIME_YEAR = "year";
+    private static final int DATETIME_INCREMENT = 1;
+    
+    private static final DateTimeFormatter formatter = DateTimeFormatter
+            .ofPattern("d/M/uuuu HHmm");
+    private static final DateTimeFormatter stringFormatter = DateTimeFormatter
+            .ofPattern("dd/MM/uuuu HHmm");
     /**
      * Extracts the new task's dateTime from the string arguments using natty.
      * 
@@ -29,35 +43,61 @@ public class DateTimeUtil {
      *         date time
      */
     public static String[] getDateTimeFromArgs(String dateArgs) {
-        List<Date> dateList = new ArrayList<Date>();
+        String endDateTime = "";
+        String startDateTime = "";
         Parser parser = new Parser(TimeZone.getDefault());
-        
+
         // swap the date format as natty read dates in US format
-        List<DateGroup> groups = parser.parse(dateArgs
-                .trim()
-                .replaceAll("(\\b\\d{1,2})/(\\d{1,2})", "$2/$1")
-                .replaceAll("(\\b\\d{1,2})-(\\d{1,2})", "$2-$1")
-        );
-        
-        for (DateGroup group : groups) {
-            dateList.addAll(group.getDates());
+        List<DateGroup> groups =
+                parser.parse(dateArgs.trim().replaceAll("(\\b\\d{1,2})/(\\d{1,2})", "$2/$1")
+                        .replaceAll("(\\b\\d{1,2})-(\\d{1,2})", "$2-$1"));
+
+        // invalid date format
+        if (dateArgs.trim().length() > 0 && groups.size() == 0) {
+            throw new DateTimeException(Messages.MESSAGE_INVALID_DATE);
         }
-        
-        // invalid date format, will pass the datetime to handle it
-        if (dateArgs.trim().length() > 0 && dateList.size() == 0) {
-            return new String[] { "", dateArgs };
+
+        if (groups.size() == 0) {
+            return new String[] {startDateTime, endDateTime};
         }
-        
-        if(dateList.size() == 1) {
-            String endDateTime = CONVERT_NATTY_TIME_FORMAT.format(dateList.get(0));
-            return new String[] { "", endDateTime };
-        } else if(dateList.size() == 2) {
-            String startDateTime = CONVERT_NATTY_TIME_FORMAT.format(dateList.get(0));
-            String endDateTime = CONVERT_NATTY_TIME_FORMAT.format(dateList.get(1));
-            return new String[] { startDateTime, endDateTime };
+
+        DateGroup group = groups.get(0);
+        String firstTreeString;
+        String secondTreeString;
+        Date firstDate;
+        Date secondDate;
+
+        if (group.getDates().size() == 1 && group.getSyntaxTree().getChildCount() == 1) {
+            firstTreeString = group.getSyntaxTree().getChild(0).toStringTree();
+            firstDate = group.getDates().get(0);
+            if (!firstTreeString.contains(NATTY_TIME_PREFIX)) {
+                firstDate = setTime(firstDate, 23, 59, 0);
+            }
+
+            endDateTime = CONVERT_NATTY_TIME_FORMAT.format(firstDate);
+
         }
-        
-        return new String[] { "", "" };
+
+        if (group.getDates().size() == 2 && group.getSyntaxTree().getChildCount() == 2) {
+            firstTreeString = group.getSyntaxTree().getChild(0).toStringTree();
+            secondTreeString = group.getSyntaxTree().getChild(1).toStringTree();
+            firstDate = group.getDates().get(0);
+            secondDate = group.getDates().get(1);
+
+            if (!firstTreeString.contains(NATTY_TIME_PREFIX)) {
+                firstDate = setTime(firstDate, 0, 0, 0);
+            }
+
+            if (!secondTreeString.contains(NATTY_TIME_PREFIX)) {
+                secondDate = setTime(secondDate, 23, 59, 0);
+            }
+
+            startDateTime = CONVERT_NATTY_TIME_FORMAT.format(firstDate);
+            endDateTime = CONVERT_NATTY_TIME_FORMAT.format(secondDate);
+            return new String[] {startDateTime, endDateTime};
+        }
+
+        return new String[] {startDateTime, endDateTime};
     }
     
     /**
@@ -139,5 +179,48 @@ public class DateTimeUtil {
         }
 
         return isTaskDateWithinRange;
+    }
+
+    /**
+     * Set the time 
+     * 
+     * @@author A0139924W
+     * @param toBeEdit
+     * @param hour
+     * @param min
+     * @param sec
+     */
+    private static Date setTime(Date toBeEdit, int hour, int min, int sec) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(toBeEdit);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 0);
+        toBeEdit = calendar.getTime();
+
+        return toBeEdit;
+    }
+
+    /**
+     * Modifies the date based on the frequency for recurring tasks
+     * 
+     * @@author A0140022H
+     */
+    public static String modifyDate(String dateToModify, String frequency) {
+        LocalDateTime date = LocalDateTime.parse(dateToModify, formatter);
+
+        switch (frequency.toLowerCase()) {
+        case DATETIME_DAY:      date = date.plusDays(DATETIME_INCREMENT);
+                                break;
+        case DATETIME_WEEK:     date = date.plusWeeks(DATETIME_INCREMENT);
+                                break;
+        case DATETIME_MONTH:    date = date.plusMonths(DATETIME_INCREMENT);
+                                break;
+        case DATETIME_YEAR:     date = date.plusYears(DATETIME_INCREMENT);
+                                break;
+        }
+
+        dateToModify = date.format(stringFormatter);
+        return dateToModify;
     }
 }

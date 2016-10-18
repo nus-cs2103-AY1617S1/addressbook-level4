@@ -215,7 +215,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedTars, expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeAdded);
 
@@ -226,7 +226,7 @@ public class LogicManagerTest {
         expectedTars.addTask(toBeAdded);
 
         assertCommandBehavior("redo",
-                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(AddCommand.MESSAGE_REDO, toBeAdded)),
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n")),
                 expectedTars, expectedTars.getTaskList());
     }
 
@@ -240,7 +240,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedTars, expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeAdded);
         model.deleteTask(toBeAdded);
@@ -266,7 +266,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeRemoved),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved), expectedTars, expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved + "\n"), expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeRemoved);
 
@@ -297,7 +297,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeRemoved),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved), expectedTars, expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved + "\n"), expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeRemoved);
 
@@ -497,7 +497,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedTars, expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
     }
 
     @Test
@@ -510,7 +510,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedTars, expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
     }
 
     @Test
@@ -523,7 +523,33 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedTars, expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
+
+    }
+    
+    /**
+     * @@author A0140022H
+     */
+    @Test
+    public void execute_add_recurring() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Task toBeAdded2 = helper.meetAdam();
+        toBeAdded2.setDateTime(new DateTime("08/09/2016 1400", "08/09/2016 1500"));
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(toBeAdded2);
+
+        System.out.println("1: " + toBeAdded);
+        System.out.println("2: " + toBeAdded2);
+        System.out.println(helper.generateAddCommand(toBeAdded).concat(" -r 2 every week"));
+        // execute command and verify result
+        
+        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n");
+        expectedMessage += String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded2 + "\n");
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded).concat(" -r 2 every week"),
+                expectedMessage, expectedAB, expectedAB.getTaskList());
 
     }
 
@@ -785,6 +811,29 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("del 2", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
+                expectedTars, expectedTars.getTaskList());
+    }
+    
+    @Test
+    public void execute_delete_Range() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+
+        Tars expectedTars = helper.generateTars(threeTasks);
+        helper.addToModel(model, threeTasks);
+        
+        // delete tasks within range
+        expectedTars.removeTask(threeTasks.get(0));
+        expectedTars.removeTask(threeTasks.get(1));
+        expectedTars.removeTask(threeTasks.get(2));
+        
+        ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<ReadOnlyTask>();
+        deletedTasks.add(threeTasks.get(0));
+        deletedTasks.add(threeTasks.get(1));
+        deletedTasks.add(threeTasks.get(2));
+        
+        String result = CommandResult.formatTasksList(deletedTasks);
+        assertCommandBehavior("del 1..3", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, result),
                 expectedTars, expectedTars.getTaskList());
     }
 
