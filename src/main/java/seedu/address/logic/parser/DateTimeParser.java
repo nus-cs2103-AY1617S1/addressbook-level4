@@ -57,6 +57,10 @@ public class DateTimeParser {
         return Date2LocalDateTime(this.dates.get(1));
     }
     
+    public boolean isRecurring() {
+        return this.dategroups.get(0).isRecurring();
+    }
+   
     /**
      * helper method for casting java.util.Date to java.time.LocalDateTime
      * safely
