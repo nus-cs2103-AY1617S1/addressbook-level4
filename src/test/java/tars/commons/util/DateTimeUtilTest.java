@@ -40,13 +40,16 @@ public class DateTimeUtilTest {
     
     @Test
     public void isDateTimeWithinRange_dateTimeWithoutStartDate() throws DateTimeException, IllegalDateException {
-        DateTime dateTimeSource = new DateTime("", "16/01/2016 1200");
+        DateTime dateTimeSource = new DateTime("15/01/2016 1200", "17/01/2016 1100");
+        DateTime dateTimeSourceWithoutStartDate = new DateTime("", "16/01/2016 1200");
         DateTime dateTimeQuery = new DateTime("14/01/2016 2000", "17/01/2016 1200");
         DateTime dateTimeQueryWithoutStartDate = new DateTime("", "16/01/2016 1200");
         DateTime dateTimeQueryWithoutStartDate2 = new DateTime("", "18/01/2016 1200");
         
         assertTrue(DateTimeUtil.isDateTimeWithinRange(dateTimeSource, dateTimeQuery));
-        assertTrue(DateTimeUtil.isDateTimeWithinRange(dateTimeSource, dateTimeQueryWithoutStartDate));
         assertFalse(DateTimeUtil.isDateTimeWithinRange(dateTimeSource, dateTimeQueryWithoutStartDate2));
+        assertTrue(DateTimeUtil.isDateTimeWithinRange(dateTimeSourceWithoutStartDate, dateTimeQuery));
+        assertTrue(DateTimeUtil.isDateTimeWithinRange(dateTimeSourceWithoutStartDate, dateTimeQueryWithoutStartDate));
+        assertFalse(DateTimeUtil.isDateTimeWithinRange(dateTimeSourceWithoutStartDate, dateTimeQueryWithoutStartDate2));
     }
 }
