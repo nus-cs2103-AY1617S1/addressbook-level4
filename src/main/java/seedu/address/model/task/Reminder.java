@@ -61,7 +61,7 @@ public class Reminder extends DateTime {
     
     public String forDisplay() {
         if (this.value == null) {
-            return "";
+            return "Reminder:\t-";
         } else {
             return "Reminder:\t".concat(this.toString());
         }

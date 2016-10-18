@@ -55,9 +55,10 @@ public abstract class DateTime {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
+        return value != null
+                && (other == this // short circuit if same object
                 || (other instanceof DateTime // instanceof handles nulls
-                        && this.value.equals(((DateTime) other).value)); // state
+                        && this.value.getTime().equals(((DateTime) other).value.getTime()))); // state
                                                                          // check
     }
 
