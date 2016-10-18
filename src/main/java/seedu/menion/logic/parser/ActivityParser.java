@@ -125,8 +125,6 @@ public class ActivityParser {
      */
     private Command prepareDelete(String args) {
 
-        //Optional<Integer> index = parseIndex(args);
-        //System.out.println("index:" + index);
         ArrayList<String> activityType = DeleteParser.parseArguments(args);
         if(activityType.isEmpty()){
             return new IncorrectCommand(
