@@ -99,11 +99,14 @@
 .cell_big_label {
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
+    -fx-max-width:300;
+    -fx-text-wrap: true;
 }
 
 .cell_small_label {
     -fx-font-size: 11px;
     -fx-text-fill: #010504;
+	-fx-max-width:300;
 }
 
 .anchor-pane {
