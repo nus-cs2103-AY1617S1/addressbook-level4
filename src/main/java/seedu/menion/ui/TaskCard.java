@@ -12,7 +12,7 @@ public class TaskCard extends UiPart{
     private static final String FXML = "TaskCard.fxml";
 
     @FXML
-    private HBox cardPane;
+    private HBox taskCardPane;
     @FXML
     private Label id;
     @FXML
@@ -52,12 +52,12 @@ public class TaskCard extends UiPart{
     }
 
     public HBox getLayout() {
-        return cardPane;
+        return taskCardPane;
     }
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        taskCardPane = (HBox)node;
     }
 
     @Override
