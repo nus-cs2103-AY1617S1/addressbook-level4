@@ -67,4 +67,11 @@ public interface Model {
     /** Returns the redoable command history stack */
     Stack<Command> getRedoableCmdHist();
 
+   /**
+     * Sorts the filtered task list by the given keywords
+     * 
+     * @@author A0140022H
+     */
+	void sortFilteredTaskList(Set<String> keywords);
+
 }

@@ -218,26 +218,20 @@ Examples:
 Lists all tasks in TARS with available list filters.<br>
 Format: 
 * `ls`
-* `ls -do` 
-* `ls -all`
-* `ls -dt [START_DATE] to [START_TIME]` *[Under Development]*
-* `ls -t <TAG>[ , <TAG>, <TAG>]` *[Under Development]*
-* `ls -p [PRIORITY]` *[Under Development]*
+* `ls -dt [dsc]`
+* `ls -p [dsc]`
 
-> default is to list all undone task <br>
-> use -do to list all done task <br>
-> use -all to list all done and undone tasks <br>
-> use -dt to list all undone tasks in that date range <br>
-> use -t to list all undone tasks with a searched tag(s) <br>
-> use -p to list all undone tasks with that particular priority level
+> default is to list all tasks <br>
+> use -dt to list all tasks by earliest end dateTime s<br>
+> use -p to list all task by priority from low to high <br>
+> use dsc to list task in reverse order
 
 Examples:
 * `ls`
-* `ls -do`
-* `ls -all`
-* `ls -dt 23/09/16 to 24/09/16`
-* `ls -t assignments, projects`
-* `ls -p high`
+* `ls -dt`
+* `ls -dt dsc`
+* `ls -p`
+* `ls -p dsc`
 
 
 #### Finding tasks : `find`
@@ -314,11 +308,8 @@ Command | Format
 [Find [Filter Serach]](#finding-tasks--find) | `find -n <NAME_KEYWORD> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITYLEVEL> -do [or -ud] -t <TAG_KEYWORD>`
 [Help](#displaying-a-list-of-available-commands--help) | `help`
 [List](#listing-tasks--ls) | `ls`
-[List [Done]](#listing-tasks--ls) | `ls -do`
-[List [All]](#listing-tasks--ls) | `ls -all`
-[List [Date]](#listing-tasks--ls) | `ls -dt [<START_DATE> to <END_DATE>]`
-[List [Priority]](#listing-tasks--ls) | `ls -p [PRIORITY]`
-[List [Tags]](#listing-tasks--ls) | `ls -t <TAG>[ , <TAG>, <TAG>]`
+[List [Date]](#listing-tasks--ls) | `ls -dt`
+[List [Priority]](#listing-tasks--ls) | `ls -p`
 [Mark Done](#marking-tasks--mark) | `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Mark Undone](#marking-tasks--mark) | `mark -ud <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Reserve](#reserving-timeslots-for-a-task--rsv) | `rsv -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
