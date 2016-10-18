@@ -28,9 +28,10 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = parser.parseCommand(commandText);
+    public CommandResult execute(String commandText, String currentTab) {
+        logger.info("----------------[" + currentTab + "Tab][USER COMMAND][" + commandText + "]");
+        Command command = parser.parseCommand(commandText, currentTab);
+        model.updateCurrentTab(currentTab);
         command.setData(model);
         return command.execute();
     }
@@ -38,6 +39,21 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
+        return model.getFilteredFloatingTaskList();
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredEventList() {
+        return model.getFilteredEventList();
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredDeadlineList() {
+        return model.getFilteredDeadlineList();
     }
     
     @Override

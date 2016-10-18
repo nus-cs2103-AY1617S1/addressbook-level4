@@ -11,5 +11,10 @@ public class CommandResult {
         assert feedbackToUser != null;
         this.feedbackToUser = feedbackToUser;
     }
+    
+    @Override
+    public String toString() {
+        return this.feedbackToUser;
+    }
 
 }

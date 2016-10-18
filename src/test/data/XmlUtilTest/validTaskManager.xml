@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
-    <tasks>
+    <events>
         <name>do laundry</name>
-    </tasks>
-    <tasks>
+        <startDate>2016-10-17T20:15:43.525+08:00</startDate>
+        <endDate>2016-10-28T18:00:00+08:00</endDate>
+    </events>
+    <events>
         <name>finish assignment</name>
-    </tasks>
-    <tasks>
+        <startDate>2016-10-17T20:15:43.525+08:00</startDate>
+        <endDate>2016-10-28T18:00:00+08:00</endDate>
+    </events>
+    <events>
         <name>cs2105 assignment</name>
-    </tasks>
-    <tasks>
+        <startDate>2016-10-17T20:15:43.525+08:00</startDate>
+        <endDate>2016-10-28T18:00:00+08:00</endDate>
+    </events>
+    <events>
         <name>complete lecture quiz</name>
-    </tasks>
-    <tasks>
+        <startDate>2016-10-17T20:15:43.525+08:00</startDate>
+        <endDate>2016-10-28T18:00:00+08:00</endDate>
+    </events>
+    <events>
         <name>sweep floor</name>
-    </tasks>
-    <tasks>
+        <startDate>2016-10-17T20:15:43.525+08:00</startDate>
+        <endDate>2016-10-28T18:00:00+08:00</endDate>
+    </events>
+    <events>
         <name>get groceries</name>
-    </tasks>
-    <tasks>
+        <startDate>2016-10-17T20:15:43.525+08:00</startDate>
+        <endDate>2016-10-28T18:00:00+08:00</endDate>
+    </events>
+    <events>
         <name>submit user guide</name>
-    </tasks>
-    <tasks>
+        <startDate>2016-10-17T20:15:43.525+08:00</startDate>
+        <endDate>2016-10-28T18:00:00+08:00</endDate>
+    </events>
+    <events>
         <name>submit developer guide</name>
-    </tasks>
+        <startDate>2016-10-17T20:15:43.525+08:00</startDate>
+        <endDate>2016-10-28T18:00:00+08:00</endDate>
+    </events>
 </taskmanager>

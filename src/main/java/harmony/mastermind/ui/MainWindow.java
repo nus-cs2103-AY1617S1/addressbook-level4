@@ -23,6 +23,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,6 +32,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -38,12 +41,20 @@ import javafx.stage.Stage;
  * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart {
-
+    
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
+    private static final double WIDTH_MULTIPLIER_INDEX = 0.045;
+    private static final double WIDTH_MULTIPLIER_NAME = 0.355;
+    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.2;
+    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.2;
+    private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
+    
+    private static final short INDEX_HOME = 0;
+    
     public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
-
+    public static final int MIN_WIDTH = 460;
+    
     private Logic logic;
 
     private Config config;
@@ -69,24 +80,99 @@ public class MainWindow extends UiPart {
 
     @FXML
     private TextArea consoleOutput;
+    
+    @FXML
+    private TabPane tabPane;
 
     @FXML
-    private TableView<ReadOnlyTask> taskTable;
+    private TableView<ReadOnlyTask> taskTableHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> indexColumn;
+    private TableColumn<ReadOnlyTask, String> indexHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> taskNameColumn;
+    private TableColumn<ReadOnlyTask, String> taskNameHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> startDateColumn;
+    private TableColumn<ReadOnlyTask, String> startDateHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> endDateColumn;
+    private TableColumn<ReadOnlyTask, String> endDateHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> tagsColumn;
+    private TableColumn<ReadOnlyTask, String> tagsHome;
+
+    @FXML
+    private TableView<ReadOnlyTask> taskTableTask;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> indexTask;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> taskNameTask;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> startDateTask;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> endDateTask;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> tagsTask;
+    
+    @FXML
+    private TableView<ReadOnlyTask> taskTableEvent;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> indexEvent;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> taskNameEvent;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> startDateEvent;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> endDateEvent;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> tagsEvent;
+    
+    @FXML
+    private TableView<ReadOnlyTask> taskTableDeadline;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> indexDeadline;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> taskNameDeadline;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> startDateDeadline;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> endDateDeadline;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> tagsDeadline;
+    
+    @FXML
+    private TableView<ReadOnlyTask> taskTableArchive;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> indexArchive;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> taskNameArchive;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> startDateArchive;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> endDateArchive;
+
+    @FXML
+    private TableColumn<ReadOnlyTask, String> tagsArchive;
 
     public MainWindow() {
         super();
@@ -125,8 +211,12 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
-        taskTable.setItems(logic.getFilteredTaskList());
+        
+        taskTableHome.setItems(logic.getFilteredTaskList());
+        taskTableTask.setItems(logic.getFilteredFloatingTaskList());
+        taskTableEvent.setItems(logic.getFilteredEventList());
+        taskTableDeadline.setItems(logic.getFilteredDeadlineList());
+        taskTableArchive.setItems(logic.getFilteredArchiveList());
 
         registerAsAnEventHandler(this);
     }
@@ -155,6 +245,10 @@ public class MainWindow extends UiPart {
         primaryStage.setMinHeight(MIN_HEIGHT);
         primaryStage.setMinWidth(MIN_WIDTH);
     }
+    
+    public String getCurrentTab() {
+        return tabPane.getSelectionModel().getSelectedItem().getText();
+    }
 
     /**
      * Returns the current size and the position of the main Window.
@@ -171,35 +265,86 @@ public class MainWindow extends UiPart {
     // ==================================
 
     @FXML
-    //@@author A0138862W
+    //@@author A0124797R
     private void initialize() {
-        indexColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.03));
-        taskNameColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.40));
-        startDateColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
-        endDateColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.20));
-        tagsColumn.prefWidthProperty().bind(taskTable.widthProperty().multiply(0.17));
+        initHomeTab();
+        initTaskTab();
+        initEventTab();
+        initDeadlineTab();
+        initArchiveTab();
 
-        taskNameColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getName()));
-        startDateColumn.setCellValueFactory(task -> {
-            if (task.getValue().isEvent()) {
-                return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getStartDate())
-                                                 + "\n"
-                                                 + task.getValue().getStartDate().toString());
-            } else {
-                return new ReadOnlyStringWrapper("");
-            }
-        });
-        endDateColumn.setCellValueFactory(task -> {
-            if (!task.getValue().isFloating()) {
-                return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getEndDate())
-                                                 + "\n"
-                                                 + task.getValue().getEndDate().toString());
-            } else {
-                return new ReadOnlyStringWrapper("");
-            }
-        });
-        tagsColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getTags().toString()));
+    }
 
+    /**
+     * Initialise the tasks in the Home tab 
+     */
+    @FXML
+    //@@author A0124797R
+    private void initHomeTab() {
+        initIndex(indexHome);
+        initName(taskNameHome);
+        initStartDate(startDateHome);
+        initEndDate(endDateHome);
+        initTags(tagsHome);
+    }
+
+    /**
+     * Initialise the tasks in the Task tab 
+     */
+    @FXML
+    //@@author A0124797R
+    private void initTaskTab() {
+        initIndex(indexTask);
+        initName(taskNameTask);
+        initStartDate(startDateTask);
+        initEndDate(endDateTask);
+        initTags(tagsTask);        
+    }
+    /**
+     * Initialise the task in the Event tab 
+     */
+    @FXML
+    //@@author A0124797R
+    private void initEventTab() {
+        initIndex(indexEvent);
+        initName(taskNameEvent);
+        initStartDate(startDateEvent);
+        initEndDate(endDateEvent);
+        initTags(tagsEvent);
+    }
+    /**
+     * Initialise the task in the Deadline tab 
+     */
+    @FXML
+    //@@author A0124797R
+    private void initDeadlineTab() {
+        initIndex(indexDeadline);
+        initName(taskNameDeadline);
+        initStartDate(startDateDeadline);
+        initEndDate(endDateDeadline);
+        initTags(tagsDeadline);        
+    }
+    /**
+     * Initialise the task in the archive tab 
+     */
+    @FXML
+    //@@author A0124797R
+    private void initArchiveTab() {
+        initIndex(indexArchive);
+        initName(taskNameArchive);
+        initStartDate(startDateArchive);
+        initEndDate(endDateArchive);
+        initTags(tagsArchive);      
+    }
+    
+
+    
+    /**
+     * Initializes the indexing of tasks
+     */
+    //@@author A0138862W
+    private void initIndex(TableColumn<ReadOnlyTask, String> indexColumn) {
+        indexColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
         indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, String>() {
             @Override
             public void updateIndex(int index) {
@@ -212,14 +357,67 @@ public class MainWindow extends UiPart {
                 }
             }
         });
-
     }
+
+    /**
+     * Initialize the Names of the tasks
+     */
+    //@@author A0138862W
+    private void initName(TableColumn<ReadOnlyTask, String> nameColumn) {
+        nameColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_NAME));
+        nameColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getName()));
+    }
+    
+    /**
+     * Initialize the start dates of the tasks
+     */
+    //@@author A0138862W
+    private void initStartDate(TableColumn<ReadOnlyTask, String> startDateColumn) {
+        startDateColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_STARTDATE));
+        startDateColumn.setCellValueFactory(task -> {
+            if (task.getValue().isEvent()) {
+                return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getStartDate())
+                                                 + "\n"
+                                                 + task.getValue().getStartDate().toString());
+            } else {
+                return new ReadOnlyStringWrapper("");
+            }
+        });
+    }
+    
+    /**
+     * Initialize the end dates of the tasks
+     */
+    //@@author A0138862W
+    private void initEndDate(TableColumn<ReadOnlyTask, String> endDateColumn) {
+        endDateColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_ENDDATE));
+        endDateColumn.setCellValueFactory(task -> {
+            if (!task.getValue().isFloating()) {
+                return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getEndDate())
+                                                 + "\n"
+                                                 + task.getValue().getEndDate().toString());
+            } else {
+                return new ReadOnlyStringWrapper("");
+            }
+        });
+    }
+    
+    /**
+     * Initialize the tags of the tasks
+     */
+    //@@author A0138862W
+    private void initTags(TableColumn<ReadOnlyTask, String> tagsColumn) {
+        tagsColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_TAGS));
+        tagsColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getTags().toString()));
+    }
+
 
     @FXML
     //@@author A0124797R
     private void handleCommandInputChanged() {
         // Take a copy of the command text
         currCommandText = commandField.getText();
+        String currentTab = getCurrentTab();
 
         setStyleToIndicateCorrectCommand();
         
@@ -229,18 +427,10 @@ public class MainWindow extends UiPart {
              * will be changed accordingly in the event handling code {@link
              * #handleIncorrectCommandAttempted}
              */
-            mostRecentResult = logic.execute(currCommandText);
+            mostRecentResult = logic.execute(currCommandText, currentTab);
             consoleOutput.setText(mostRecentResult.feedbackToUser);
-
-            System.out.println();
             
-            if (!mostRecentResult.feedbackToUser.equals(ListCommand.MESSAGE_SUCCESS_ARCHIVED)) {
-                taskTable.setItems(logic.getFilteredTaskList());
-                
-            }else {
-                taskTable.setItems(logic.getFilteredArchiveList());
-            }
-            
+            updateTab(mostRecentResult);
 
             prevCommandText = currCommandText;
         }else {
@@ -257,6 +447,23 @@ public class MainWindow extends UiPart {
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
         restoreCommandText();
+    }
+
+    //@@author A0124797R
+    private void updateTab(CommandResult result) {
+        String tab = result.toString();
+        switch (tab) {
+            case ListCommand.MESSAGE_SUCCESS:           tabPane.getSelectionModel().select(INDEX_HOME);
+                                                        break;
+            case ListCommand.MESSAGE_SUCCESS_TASKS:     tabPane.getSelectionModel().select(1);
+                                                        break;
+            case ListCommand.MESSAGE_SUCCESS_EVENTS:    tabPane.getSelectionModel().select(2);
+                                                        break;
+            case ListCommand.MESSAGE_SUCCESS_DEADLINES: tabPane.getSelectionModel().select(3);
+                                                        break;
+            case ListCommand.MESSAGE_SUCCESS_ARCHIVES:  tabPane.getSelectionModel().select(4);
+                                                        break;
+        }
     }
     
     /**
