@@ -106,6 +106,12 @@ public class ModelManager extends ComponentManager implements Model {
         whatNow.markTask(target);
         indicateWhatNowChanged();
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
+        filteredTasks.setPredicate(null);
+        return new UnmodifiableObservableList<>(filteredTasks);
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 

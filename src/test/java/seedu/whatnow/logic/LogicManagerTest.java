@@ -114,8 +114,8 @@ public class LogicManagerTest {
         
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
-
+        assertEquals(expectedShownList, model.getAllTaskTypeList());
+        
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedWhatNow, model.getWhatNow());
         assertEquals(expectedWhatNow, latestSavedWhatNow);
@@ -381,7 +381,7 @@ public class LogicManagerTest {
         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
         expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
-
+        System.out.println("Delete tasks: " + threeTasks.toString());
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
@@ -515,7 +515,7 @@ public class LogicManagerTest {
         String generateUpdateCommand(String type, String value) {
             StringBuffer cmd = new StringBuffer();
             
-            cmd.append("update todo 1 ");
+            cmd.append("update schedule 1 ");
             
             if (type.equals("description")) {
                 cmd.append(type + " ");

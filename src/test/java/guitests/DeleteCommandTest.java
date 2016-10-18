@@ -49,12 +49,6 @@ public class DeleteCommandTest extends WhatNowGuiTest {
         }
         System.out.println();
         commandBox.runCommand("delete " + targetIndexOneIndexed);
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
         //confirm the list now contains all previous tasks except the deleted task
         System.out.println("current list...");
