@@ -63,7 +63,7 @@
             </SplitPane>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <AnchorPane fx:id="eventListPanelPlaceholder" prefHeight="257.0" prefWidth="130.0">
+                  <AnchorPane fx:id="eventListPanelPlaceholder" prefHeight="257.0" prefWidth="130.0" VBox.vgrow="ALWAYS">
                       <padding>
                           <Insets bottom="10" left="10" right="10" top="10" />
                       </padding>
