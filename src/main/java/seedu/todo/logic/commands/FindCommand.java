@@ -1,11 +1,9 @@
 package seedu.todo.logic.commands;
 
-
-
-
 import java.util.List;
 
 
+import org.atteo.evo.inflector.English;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;
@@ -14,7 +12,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 public class FindCommand extends BaseCommand {
-    private static final String VERB = " result(s) found";
+    private static final String VERB= "%d %s found!";
     
     private Argument<String> keywords = new StringArgument("keywords").required();
     
@@ -28,7 +26,7 @@ public class FindCommand extends BaseCommand {
     @Override
     public String getCommandName() {
         return "find";
-}
+        }
 
     @Override
     public List<CommandSummary> getCommandSummary() {
@@ -41,7 +39,7 @@ public class FindCommand extends BaseCommand {
                                     .on(" ")
                                     .trimResults()
                                     .omitEmptyStrings()
-                                    .split(keywords.getValue().toLowerCase()));;
+                                    .split(keywords.getValue().toLowerCase()));
         
         model.view( task -> {
            for (String keyword : keywordList) {
@@ -51,8 +49,9 @@ public class FindCommand extends BaseCommand {
                }
            return false;
            }, null );
-        int results = model.getObserveableList().size();
-        return taskSuccessfulResult(Integer.toString(results), VERB);
+        int resultSize = model.getObserveableList().size();
+        String feedback = String.format(VERB, resultSize, English.plural("result", resultSize));
+        return new CommandResult(feedback);
     }
 
 
