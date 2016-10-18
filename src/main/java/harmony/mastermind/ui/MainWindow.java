@@ -2,6 +2,7 @@ package harmony.mastermind.ui;
 
 import java.util.logging.Logger;
 
+import org.controlsfx.control.textfield.TextFields;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import com.google.common.eventbus.Subscribe;
@@ -415,6 +416,10 @@ public class MainWindow extends UiPart {
     @FXML
     //@@author A0124797R
     private void handleCommandInputChanged() {
+        //@@author A0143378Y
+        //Autocomplete function 
+        String[] listOfWords = {"add", "delete", "edit", "clearall", "help"};
+        TextFields.bindAutoCompletion(commandField, listOfWords);
         // Take a copy of the command text
         currCommandText = commandField.getText();
         String currentTab = getCurrentTab();
