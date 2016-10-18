@@ -1,14 +1,24 @@
 package seedu.jimi.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
+import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Wraps all data at the address-book level
@@ -59,7 +69,17 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setReadOnlyTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
+        ArrayList<ReadOnlyTask> newList = new ArrayList<ReadOnlyTask>();
+        for (ReadOnlyTask t : newTasks) {
+            if (t instanceof DeadlineTask) {
+                newList.add(new DeadlineTask((DeadlineTask) t));
+            } else if (t instanceof Event) {
+                newList.add(new Event((Event) t));
+            } else {
+                newList.add(new FloatingTask((FloatingTask) t));
+            }
+        }
+        setReadOnlyTasks(newList);
         setTags(newTags);
     }
 
