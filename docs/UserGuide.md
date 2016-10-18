@@ -79,7 +79,7 @@ Format: `list [t/LIST_TYPE]`
 > -------- | :-------- 
 > LIST_TYPE | `Optional` Specifies the name of the task.<br>`Accepts` values `DueDate`, `PriorityLevel`, `Archived`<br>`Defaults` to `DueDate`
 
-`LIST_TYPE` Description:
+`LIST_TYPE` Explanation:
 * `DueDate` <br> 
    Tasks are sorted according to END_DATE beginning with the earliest.<br>
    If no END_DATE is specified for the task (floating tasks), they will be sorted to bottom of list.<br>
@@ -96,13 +96,18 @@ Format: `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS...]`
 > -------- | :-------- 
 > FIND_TYPE | `Optional` Specifies the name of the task.<br>`Accepts` values `Partial`, `Full`, `Exact`<br>`Defaults` to `Partial`
 
-> If FIND_TYPE is `Partial`, partial keywords will be matched e.g. `task` will match ` 2103 tasks` <br>
-> If FIND_TYPE is `Full`, only full keywords will be matched e.g. `task` will not match `2103 tasks` <br>
-> If FIND_TYPE is `Exact`, the exact set of keywords will be matched e.g. `Project Meeting` will match `Project Meeting` and not match `2103 Project Meeting` <br>
+> Only the TASK_NAME is searched. <br>
 > The search is case insensitive. e.g `task` will match `Task`<br>
 > The order of the keywords does not matter for `Partial` and `Full`. e.g. `project meeting` will match `meeting project` <br>
-> Only the TASK_NAME is searched. <br>
-> If FIND_TYPE is not `Exact`, tasks matching at least one keyword will be returned (i.e. `OR` search) e.g. `Project` will match `Project Meeting`<br>
+> Tasks matching at least one keyword will be returned, except for the case of `Exact`.<br>
+
+`FIND_TYPE` Explanation:
+* `Partial` <br> 
+   Partial keywords will be matched e.g. `task` will match `2103 tasks` <br>
+* `Full` <br> 
+   Only full keywords will be matched e.g. `task` will not match `2103 tasks` but matches `CS2103 Single Task` <br>
+* `Exact` <br> 
+   The exact set of keywords will be matched e.g. `Project Meeting` will match `Project Meeting` but not `2103 Project Meeting` <br>
 
 Examples: 
 * `find t/Full Project meeting`<br>
@@ -116,10 +121,12 @@ Examples:
 Deletes the specified task from Savvy Tasker.<br>
 Format: `delete INDEX [MORE_INDEX...]`
 
+> Parameters | Description  
+> -------- | :-------- 
+> INDEX | `Mandatory` Specifies the index of the listing shown to modify.<br>The index **must be a positive integer** 1, 2, 3, ...
+> MORE_INDEX... | `Optional` Same as INDEX.
 > Deletes the task at the specified `INDEX` and `[MORE_INDEX...]`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
+  
 Examples: 
 * `list`<br>
   `delete 2 3 5`<br>
@@ -151,12 +158,9 @@ Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/
 
 > Parameters | Description  
 > -------- | :-------- 
-> INDEX | `Mandatory` Specifies the index of the listing shown to modify.
+> INDEX | `Mandatory` Specifies the index of the listing shown to modify.<br>The index **must be a positive integer** 1, 2, 3, ...
 > TASK_NAME<br>START_DATE<br>END_DATE<br>LOCATION<br>PRIORITY_LEVEL<br>RECURRING_TYPE<br>NUMBER_OF_RECURRENCE<br>CATEGORY<br>DESCRIPTION | See [Adding a task](#adding-a-task-add)
 > <br>
-> Selects the task and modifies the task as done at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ... <br>
 > Overwrites any of the specified fields ('LOCATION', 'DESCRIPTION'...) with the new values
 
 #### Mark a task as done : `mark`
@@ -235,18 +239,18 @@ Add task named "pjm" to task list
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_NAME [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
-Alias | `alias k/KEYWORD s/SHORT_KEYWORD`
-Clear | `clear`
-Delete | `delete INDEX [MORE_INDEX]`
-Exit | `exit`
-Find | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
-List | `list [t/LIST_TYPE]`
-Help | `help`
-Select | `select INDEX [MORE_INDEX]`
-Modify | `modify INDEX [t/TASK_NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
-Mark | `mark INDEX [MORE_INDEX]`
-Unmark | `unmark INDEX [MORE_INDEX]`
-Undo | `undo`
-Redo | `redo`
-Unalias | `unalias  s/SHORT_KEYWORD`
+[Add](#adding-a-task-add) | `add TASK_NAME [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
+[Alias](#alias-a-keyword--alias) | `alias k/KEYWORD s/SHORT_KEYWORD`
+[Clear](#clearing-all-entries--clear) | `clear`
+[Delete](#deleting-a-task--delete) | `delete INDEX [MORE_INDEX]`
+[Exit](#exiting-the-program--exit) | `exit`
+[Find](#finding-all-task-containing-any-keyword-in-its-name-find) | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
+[List](#listing-all-tasks-list) | `list [t/LIST_TYPE]`
+[Help](#viewing-help--help) | `help`
+[Select](#select-a-task--select) | `select INDEX [MORE_INDEX]`
+[Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
+[Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`
+[Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`
+[Undo](#undo-the-most-recent-operation--undo) | `undo`
+[Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
+[Unalias](#unalias-a-keyword--unalias) | `unalias  s/SHORT_KEYWORD`
