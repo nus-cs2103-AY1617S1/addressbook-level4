@@ -265,6 +265,12 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | specify the location of file storage | choose where to save the to do list
 `* *` | user | see my tasks in user interface | have an easier time using the app
 `*` | user | specify my own natural language | customise the app
+`*` | user | set categories | organise my tasks
+`*` | user | block out timings | reserve time slots for tasks
+`*` | user | create subtasks | breakdown my tasks into smaller problems
+`*` | user | set reminders for tasks | reduce chances of forgetting to do a task
+`*` | user | import a list of to do tasks | add in tasks without registering them individually
+
 
 
 ## Appendix B : Use Cases
