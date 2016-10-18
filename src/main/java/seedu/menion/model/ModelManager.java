@@ -89,6 +89,27 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
+
+    @Override
+    public void UncompleteFloatingTask(int index) {
+        activityManager.unCompleteEvent(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public void UncompleteTask(int index) {
+        activityManager.unCompleteEvent(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public void UncompleteEvent(int index) {
+        activityManager.unCompleteEvent(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
     
     @Override
     public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {

@@ -142,6 +142,12 @@ public class ActivityManager implements ReadOnlyActivityManager {
         events.add(t);
     }
     
+    /**
+     * Completes an activity in the activity manager.
+     * Passes in the index of the list to complete
+     * 
+     * @param index
+     */
     public void completeTask(int index) {
         Activity dub;
         dub = tasks.getInternalList().get(index);
@@ -149,12 +155,39 @@ public class ActivityManager implements ReadOnlyActivityManager {
         tasks.getInternalList().set(index, dub);        
     }
     
-    public void completeEvent(int index) {
+    public void unCompleteEvent(int index) {
         Activity dub;
         dub = events.getInternalList().get(index);
         dub.setCompleted();
         events.getInternalList().set(index, dub);    
         
+    }
+    
+    /**
+     * UnCompletes an activity in the activity manager.
+     * Passes in the index of the list to complete
+     * 
+     * @param index
+     */
+    public void unCompleteFloatingTask(int index) {
+        Activity dub;
+        dub = floatingTasks.getInternalList().get(index);
+        dub.setUncompleted();
+        floatingTasks.getInternalList().set(index, dub);    
+    }
+    
+    public void unCompleteTask(int index) {
+        Activity dub;
+        dub = tasks.getInternalList().get(index);
+        dub.setUncompleted();
+        tasks.getInternalList().set(index, dub);        
+    }
+    
+    public void completeEvent(int index) {
+        Activity dub;
+        dub = events.getInternalList().get(index);
+        dub.setUncompleted();
+        events.getInternalList().set(index, dub);     
     }
     
     public void completeFloatingTask(int index) {
