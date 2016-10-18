@@ -6,7 +6,7 @@ import seedu.address.logic.commands.UndoableCommand;
 
 /**
  * Stores the history of undoable and redoable commands for UndoCommand to use.
- *
+ * Also stores the history of user inputs for navigating previous and next user inputs using up and down arrow keys.
  */
 public class History implements UndoableCommandHistory, InputHistory{
     

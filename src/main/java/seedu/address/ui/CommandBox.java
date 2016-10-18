@@ -90,7 +90,7 @@ public class CommandBox extends UiPart {
         // only update if user uses a backspace or enters a valid character
         if (keyCode != KeyCode.BACK_SPACE && !keyCode.isDigitKey() && !keyCode.isLetterKey()) return;
         
-        String toDisplay = logic.decideToolTip(commandTextField.getText());
+        String toDisplay = logic.generateToolTip(commandTextField.getText());
         resultDisplay.postMessage(toDisplay);
     }
 
@@ -103,9 +103,7 @@ public class CommandBox extends UiPart {
         if ((history.isLatestInput() && wantNext) || (history.isEarliestInput() && wantPrevious)) {
             return;
         }
-        
-        String currentInput = commandTextField.getText();
-        
+                
         // handle differently depending on up or left arrow
         if (wantPrevious){
             // store the current input into the next first
