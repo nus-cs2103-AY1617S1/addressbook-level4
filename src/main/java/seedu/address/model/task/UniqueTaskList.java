@@ -167,17 +167,17 @@ public class UniqueTaskList implements Iterable<Task> {
 		return false;
 	}
 
-	public boolean updateTask(ReadOnlyTask target, Name name, UniqueTagList tags, TaskDate startDate,
+	public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate,
 			TaskDate endDate) throws TimeslotOverlapException {
 		assert target != null;
 
 		boolean taskFoundAndUpdated = false;
-		for(ReadOnlyTask t : internalList) {
+		for(Task t : internalList) {
         	if(t.equals(target)) {
         		if(checkUpdateOverlapping(target, startDate, endDate))
         			throw new TimeslotOverlapException();
         		
-        		t.updateTask(name, tags, startDate, endDate);;
+        		t.updateTask(name, tags, startDate, endDate);
         		taskFoundAndUpdated = true;
         	}
         }

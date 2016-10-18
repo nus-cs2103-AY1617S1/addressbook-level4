@@ -11,6 +11,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
@@ -26,6 +27,8 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 a task by today 9pm";
 	
 	public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edit Task: %1$s";
+	public static final String MESSAGE_TIMESLOT_OCCUPIED = "This timeslot is already blocked or overlapped with existing tasks.";
+	public static final String MESSAGE_ILLEGAL_TIME_SLOT = "End time must be later than Start time.";
 	
 	private final Name taskName;
 	private final UniqueTagList tags;
@@ -34,6 +37,8 @@ public class EditCommand extends Command {
 	private final int targetIndex;
 	
 	private Name constructName(String taskName) throws IllegalValueException {
+		if (taskName.isEmpty())
+			return null;
 		return new Name(taskName);
 	}
 	
@@ -73,13 +78,17 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 		
-		ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+		if (startDate != null && endDate != null && startDate.getDate() > endDate.getDate()) {
+			return new CommandResult(MESSAGE_ILLEGAL_TIME_SLOT);
+		}
+		
+		Task taskToEdit = (Task)lastShownList.get(targetIndex - 1);
 		try {
 			model.editTask(taskToEdit, taskName, tags, startDate, endDate);
 		} catch (TaskNotFoundException e) {
 			assert false : "The target task cannot be missing";
 		} catch (TimeslotOverlapException e) {
-			assert false : "The time slot has already been occupied";
+			return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
 		return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
 	}

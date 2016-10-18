@@ -191,9 +191,26 @@ public class TaskList implements ReadOnlyTaskList {
         }
 	}
 	
-	public boolean updateTask(ReadOnlyTask target, Name name, UniqueTagList tags,
+	public boolean updateTask(Task target, Name name, UniqueTagList tags,
     		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
 		if (tasks.updateTask(target, name, tags, startDate, endDate)) {
+			if(tags != null) {
+				this.tags.mergeFrom(tags);
+
+		        // Create map with values = tag object references in the master list
+		        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+		        for (Tag tag : this.tags) {
+		            masterTagObjects.put(tag, tag);
+		        }
+
+		        // Rebuild the list of task tags using references from the master list
+		        final Set<Tag> commonTagReferences = new HashSet<>();
+		        for (Tag tag : tags) {
+		            commonTagReferences.add(masterTagObjects.get(tag));
+		        }
+		        target.setTags(new UniqueTagList(commonTagReferences));
+			}
+
 			return true;
 		} else {
 			throw new UniqueTaskList.TaskNotFoundException();

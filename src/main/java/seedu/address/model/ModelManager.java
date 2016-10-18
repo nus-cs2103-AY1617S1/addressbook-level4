@@ -81,7 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editTask(ReadOnlyTask target, Name name, UniqueTagList tags,
+    public synchronized void editTask(Task target, Name name, UniqueTagList tags,
     		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
     	taskList.updateTask(target, name, tags, startDate, endDate);
     	indicateTaskListChanged();

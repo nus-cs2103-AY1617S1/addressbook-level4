@@ -44,6 +44,6 @@ public interface Model {
 
 	void archiveTask(ReadOnlyTask target) throws TaskNotFoundException;
 
-	void editTask(ReadOnlyTask target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException;
+	void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException;
 
 }

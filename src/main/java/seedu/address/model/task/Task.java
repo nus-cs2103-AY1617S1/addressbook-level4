@@ -139,8 +139,17 @@ public class Task implements ReadOnlyTask {
 		if(name != null)
 			this.name = name;
 		
-		if(tags != null)
+		if(tags != null){
+			
 			this.tags = tags;
+			
+		}
+		
+		if(this.startDate.equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+				&& this.endDate.equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+				&& endDate != null) {
+			this.type = TaskType.NON_FLOATING;
+		}
 		
 		if(startDate != null) {
 			this.startDate = startDate;
