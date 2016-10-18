@@ -2,6 +2,12 @@
     -fx-background-color: derive(#bb1d1d, 20%);
 }
 
+.contentbox .label {
+	-fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: red;
+    -fx-opacity: 0.9;	
+}
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";

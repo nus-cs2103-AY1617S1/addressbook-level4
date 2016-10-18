@@ -4,10 +4,13 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -25,8 +28,49 @@ public class ContentBox extends UiPart {
     private VBox panel;
     private AnchorPane placeHolderPane;
 
+    
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private ImageView imagetest;
+    
+    @FXML
+    private AnchorPane summarypane;
+    
+    @FXML
+    private Label summary;
+    
+    @FXML
+    private GridPane gridpane;
+    
+    @FXML
+    private Label alltask;
+    
+    @FXML
+    private Label today;
+    
+    @FXML
+    private Label tomorrow;
+    
+    @FXML
+    private Label someday;
+    
+    @FXML
+    private Label upcoming;
+    
+    @FXML
+    private Label dummy1;
+    
+    @FXML
+    private Label dummy2;
+
+    @FXML
+    private Label dummy3;
+    
+    @FXML
+    private Label dummy4;
+    
+    @FXML
+    private Label dummy5;
+    
 
     public ContentBox() {
         super();
@@ -56,21 +100,21 @@ public class ContentBox extends UiPart {
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
-        setConnections(taskList);
+//        setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+/*    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
-
+*/
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
-
+/*
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -104,5 +148,5 @@ public class ContentBox extends UiPart {
             }
         }
     }
-
+*/
 }

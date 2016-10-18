@@ -30,7 +30,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private ContentBox contentBox;
-    private BrowserPanel browserPanel;
+//    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -45,10 +45,10 @@ public class MainWindow extends UiPart {
     private String addressBookName;
     
     @FXML
-    private AnchorPane contentBoxPlaceholder;
+    private AnchorPane contentBoxPlaceHolder;
     
-    @FXML
-    private AnchorPane browserPlaceholder;
+//    @FXML
+//    private AnchorPane browserPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -113,7 +113,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+//        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
@@ -121,7 +121,7 @@ public class MainWindow extends UiPart {
     }
     
     private AnchorPane getContentBoxPlaceholder() {
-    	return contentBoxPlaceholder;
+    	return contentBoxPlaceHolder;
     }
     
     private AnchorPane getCommandBoxPlaceholder() {
@@ -199,11 +199,12 @@ public class MainWindow extends UiPart {
     	return this.contentBox;
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
+/*    public void loadTaskPage(ReadOnlyTask task) {
         browserPanel.loadTaskPage(task);
     }
 
     public void releaseResources() {
         browserPanel.freeResources();
     }
+*/
 }
