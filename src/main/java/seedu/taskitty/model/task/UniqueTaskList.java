@@ -2,6 +2,7 @@ package seedu.taskitty.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.taskitty.commons.exceptions.DuplicateDataException;
 import seedu.taskitty.commons.util.CollectionUtil;
 
@@ -113,8 +114,11 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     public ObservableList<Task> getInternalList() {
-  
         return internalList;
+    }
+    
+    public FilteredList<Task> getFilteredTaskList(int filter) {
+        return internalList.filtered(p -> p.getNumArgs() == filter);
     }
 
     @Override
