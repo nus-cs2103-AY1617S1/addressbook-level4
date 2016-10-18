@@ -129,8 +129,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
 
 	public void markTask(Task task, boolean isComplete) throws TaskNotFoundException {
         if (tasks.contains(task)) {
-            TaskManager.marksTask(tasks.get(task), isComplete);
-
+            tasks.mark(task, isComplete);
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
