@@ -89,8 +89,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void doneTask(Task Task) throws TaskNotFoundException {
-        taskBook.doneTask(Task);
+    public synchronized void doneTask(int index) throws TaskNotFoundException {
+        taskBook.doneTask(index);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }

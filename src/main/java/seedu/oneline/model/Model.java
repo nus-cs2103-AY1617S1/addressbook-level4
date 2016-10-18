@@ -28,7 +28,7 @@ public interface Model {
     void replaceTask(ReadOnlyTask oldTask, Task newTask) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
     
     /** Marks a given task as done */
-    void doneTask(Task task) throws UniqueTaskList.TaskNotFoundException;
+    void doneTask(int index) throws UniqueTaskList.TaskNotFoundException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
