@@ -60,6 +60,10 @@ public class DateTimeParser {
     public boolean isRecurring() {
         return this.dategroups.get(0).isRecurring();
     }
+    
+    public LocalDateTime getRecurEnd() {
+        return Date2LocalDateTime(this.dategroups.get(0).getRecursUntil());
+    }
    
     /**
      * helper method for casting java.util.Date to java.time.LocalDateTime
