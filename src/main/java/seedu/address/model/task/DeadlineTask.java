@@ -1,6 +1,5 @@
 package seedu.address.model.task;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /*

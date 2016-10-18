@@ -89,6 +89,17 @@ public class AddCommandParserTest {
 		assertEquals(actualTask, expectedTask);
 	}
 	
+	@Test
+	public void prepareCommand_deadlineTask_unsuccessfulDueToIncorrectFormat() {
+		/*
+		 * DeadlineTask becomes a FloatingTask because of incorrect date formats.
+		 */
+		AddTaskCommand command = (AddTaskCommand) parser.prepareCommand("passerby Oct 31");
+		String expectedTask = "[Floating Task][Description: passerby Oct 31]";
+		String actualTask = command.getTaskDetails();
+		assertEquals(actualTask, expectedTask);
+	}
+	
 	/**
 	 * Testing situations in which user intends to create Event Tasks.
 	 */
@@ -165,4 +176,14 @@ public class AddCommandParserTest {
 		assertEquals(actualTask, expectedTask);
 	}
 
+	@Test
+	public void prepareCommand_eventTask_unsuccessfulDueToIncorrectFormat() {
+		/*
+		 * EventTask becomes a FloatingTask because of incorrect date formats.
+		 */
+		AddTaskCommand command = (AddTaskCommand) parser.prepareCommand("refrom Oct 30 to Oct 31");
+		String expectedTask = "[Floating Task][Description: refrom Oct 30 to Oct 31]";
+		String actualTask = command.getTaskDetails();
+		assertEquals(actualTask, expectedTask);
+	}
 }

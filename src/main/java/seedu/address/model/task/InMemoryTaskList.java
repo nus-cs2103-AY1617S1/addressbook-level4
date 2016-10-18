@@ -2,7 +2,7 @@ package seedu.address.model.task;
 
 import java.util.Set;
 
-import seedu.address.commons.collections.UniqueItemCollection;
+import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.Alias;
@@ -15,12 +15,17 @@ public interface InMemoryTaskList {
 	/*
 	 * Adds a task to the current in-memory representation of the Task List
 	 */
-	void addTask(Task toAdd) throws UniqueItemCollection.DuplicateItemException;
+	void addTask(Task toAdd) throws DuplicateItemException;
+	
+	/*
+	 * Updates a task with a new task from the current in-memory representation of the Task List
+	 */
+	void updateTask(Task toAdd, Task newTask) throws ItemNotFoundException, DuplicateItemException;
 	
 	/*
 	 * Removes a task from the current in-memory representation of the Task List
 	 */
-	void deleteTask(Task toRemove) throws UniqueItemCollection.ItemNotFoundException;
+	void deleteTask(Task toRemove) throws ItemNotFoundException;
 	
 	/*
 	 * Favorites a task in the current in-memory representation of the Task List
@@ -50,7 +55,7 @@ public interface InMemoryTaskList {
 	/*
 	 * Adds a one-word alias for any sentence to be used as a command.
 	 */
-	void addAlias(Alias toAdd) throws UniqueItemCollection.DuplicateItemException;
+	void addAlias(Alias toAdd) throws DuplicateItemException;
 	
 	/*
 	 * Removes an alias from the current in-memory representation of the Alias List

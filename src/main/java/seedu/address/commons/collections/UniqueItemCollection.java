@@ -66,6 +66,23 @@ public class UniqueItemCollection<T> implements Iterable<T>{
         }
         return itemFoundAndDeleted;
     }
+    
+    /**
+     * Replaces an item to remove with an item to add from the list.
+     * 
+     * @throws ItemNotFoundException if the item to be removed cannot be found in the list.
+     */
+    public boolean replace(T toRemove, T toAdd) throws ItemNotFoundException {
+    	assert toRemove != null && toAdd != null;
+    	for (int i = 0; i < internalList.size(); i++) {
+    		if (internalList.get(i) == toRemove) {
+    			internalList.remove(i);
+    			internalList.add(i, toAdd);
+    			return true;
+    		}
+    	}
+    	throw new ItemNotFoundException();
+    }
 
     public ObservableList<T> getInternalList() {
         return internalList;

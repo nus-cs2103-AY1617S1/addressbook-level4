@@ -35,19 +35,19 @@ public class AddAliasCommandTest {
 	@Test(expected=IllegalValueException.class)
 	public void addAlias_emptyStringShortcut_emptyStringSentence() throws IllegalValueException {
 		// Construction of the AddAliasCommand with an empty strings should lead to an error
-		AddAliasCommand command = new AddAliasCommand("", "");
+		new AddAliasCommand("", "");
 	}
 	
 	@Test(expected=IllegalValueException.class)
 	public void addAlias_nullShortcut_nullSentence() throws IllegalValueException {
 		// Construction of the AddAliasCommand with null shortcut and null sentence should lead to an error
-		AddAliasCommand command = new AddAliasCommand(null, null);
+		new AddAliasCommand(null, null);
 	}
 	
 	@Test(expected=IllegalValueException.class)
 	public void addAlias_validShortcut_nullSentence() throws IllegalValueException {
 		// Construction of the AddAliasCommand with valid shortcut but null sentence should lead to an error
-		AddAliasCommand command = new AddAliasCommand("am", null);
+		new AddAliasCommand("am", null);
 	}
 
 }
