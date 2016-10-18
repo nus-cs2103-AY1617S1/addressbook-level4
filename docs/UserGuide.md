@@ -60,7 +60,7 @@ Format: `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_IN
 
 >To make the command format more natural, we allow you to substitute `start` with `from/at`, `end` with `to/by`.
 
->We do not require an explicit command for `add`. We make it the default thing to do, when you type in anything! Hence typing in `add` itself is optional. However, if you want to add a task that starts with other command words, please include the `add` to override the other command words!
+>We do not require an explicit command for `add`. We make it the default thing to do, when you type in anything! Hence typing in `add` itself is optional. However, if you want to add a task that begins with other command words, please include the `add` to override the other command words. For e.g, `add help my mum to buy cooking ingredients`
 
 
 **_Adding a task_**
@@ -69,9 +69,8 @@ Format: `NAME `
 
 > The simplest form of a task. Type away!
 
-Examples:
+Example:
 * `Buy coffee powder`
-* `Buy baby powder`
 
 **_Specifying task priority_**
 
@@ -91,25 +90,22 @@ Keyword: `-PRIORITY`
 
 Examples:
 * `Do something later -l`
-* `Do something later -low`
-* `Buy coffee powder -medium`
-* `Buy washing powder -h`
-
-
+* `Buy coffee powder -med`
+* `Buy washing powder -high`
 
 **_Specifying repeated tasks_**
 
 Have one of those pesky tasks you need to do every now and then? DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`. Never forget them again!<br>
 Format: `repeat every RECURRING_INTERVAL`
-> To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add/edit command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
+> To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
 
 Recurring Interval| Format  
 -------- | :-------- 
-Hour| 8 hours
-Day| 3 days, monday
-Week| 5 weeks
-Month|  2 months
-Year| year
+Hour | 8 hours
+Day | 3 days, monday
+Week | 5 weeks
+Month |  2 months
+Year | year
 
 Examples: 
 * `Go run at track at 7am repeat every 3 days`
@@ -130,13 +126,13 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 >   * `tmr`, `tomorrow` can be used to refer to the next day
 >   * `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday` and `Sunday` refers to the nearest matching day from the current date
 >   * Dates such as `13th Sep`, `10 October 2016`, `02/10/2016 (mm/dd/yyyy)` are acceptable too. Note that the year must be specified in full e.g `10 October 2016` is allowed, but not `10 October 16`
->   * Relative dates such as `3 days later`, `1 week later`, `next sat` can be used as well
+>   * Relative dates such as `3 days later`, `1 week later` can be used as well
 >* If no `TIME` is specified, `TIME` will be assumed to be 11:59pm
 >* `TIME` formats:
 >   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
 >   * `midnight` can be used to specify 12AM
 >   * `noon` can be used to specify 12PM
->   * 24-hour clock format such as `20:15` are also accepted
+>   * 24-hour clock format such as `20:15` are also accepted <br>
 >> Take note to demarcate the hours and minutes with a colon. The following examples are not allowed: `730am`, `2015`.
 
 Examples:
@@ -165,7 +161,7 @@ Example:
 
 
 ### Editing a task: `edit`
-Edits an existing task in the task manager. Just in case you need to change any details, or add in missing ones! <br>
+Edits an existing task in the task manager. Just in case you need to change any details, or add in missing ones. <br>
 Format: `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 > `INDEX` refers to the task number in the current displayed list.<br>
 > Notice that this is similar to the `add` command format!  
@@ -178,12 +174,12 @@ Examples:
 
 **_Editing out details in a task_**
 
- You can also remove any section if they are no longer relevant! <br>
- Format: `edit INDEX [repeat] [start] [end] [-reset parameter]`
- > `INDEX` refers to the task number in the current displayed list.<br>
-> Use [-reset repeat] to remove the recurring time
-> Use [-reset start] to remove the start time
-> Use [-reset end] to remove the end time 
+You can also remove any section if they are no longer relevant. <br>
+Format: `edit INDEX [repeat] [start] [end] [-reset parameter]`
+> `INDEX` refers to the task number in the current displayed list.<br>
+> Use [-reset repeat] to remove the recurring time. <br>
+> Use [-reset start] to remove the start time. <br>
+> Use [-reset end] to remove the end time. <br>
 
 Examples:
 * `Buy coffee for boss by 8am repeat every day`
@@ -191,12 +187,11 @@ Examples:
 * `edit 2 -reset end`
 
 ### Deleting a task: `delete`
-Deletes an existing task in your task manager. This will remove them from the storage. If you want to mark them as done instead, look at the `done` command. <br>
+Deletes an existing task in your task manager. This will remove them from the storage. If you want to mark them as done instead, take a look at the `done` command below. <br>
 Format: `delete INDEX`
 > `INDEX` refers to the task number in the current displayed list.<br>
 
-Examples:
-* `delete 1`
+Example:
 * `delete 2`
 
 ### Clearing the task manager: `clear`
@@ -214,12 +209,11 @@ Format: `done INDEX`
 > Marks a task as `done` as sends it to the archive for future viewing.
 > `INDEX` refers to the task number in the current displayed list.
 
-Examples:
-* `done 1`
+Example:
 * `done 3`
 
 ### Undoing a command: `undo`
-Reverses the effects of the previous command, if the command is a reversible one. Helps you get out of sticky situations! <br>
+Reverses the effects of the previous command, if the command is reversible. Helps you get out of sticky situations! <br>
 Format: `undo`
 > Commands that you can `undo`
 > * `add`
@@ -264,7 +258,6 @@ Format: `find NAME`
 
 Examples:
 * `find Akshay`
-* `find Michelle`
 * `find company meeting`
 * `find`
 
