@@ -14,7 +14,8 @@ public class DateTime {
     
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task date and time must follow this format DD/MM/YYYY HH:MM in 24 hours format";
     public static final Pattern DATETIME_VALIDATION_REGEX =
-            Pattern.compile("(?<day>(0?[1-9]|[12][0-9]|3[01]))"            //Day regex
+            Pattern.compile("(?<preKeyword>(by ))"                 //Preceeding keyword regex
+                    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"            //Day regex
                     + "/(?<month>(0?[1-9]|[1][0-2]))/"                      //Month regex
                     + "(?<year>(([0-9][0-9])?[0-9][0-9]))"                 //Year regex
                     + "( (?<hour>([01][0-9]|[2][0-3])))?"                   //Hour regex
@@ -42,8 +43,9 @@ public class DateTime {
             this.valueDate = null;
             this.valueTime = null;
             this.value = "";
-            this.valueFormatted = "No date and time specified";
+            this.valueFormatted = "Not specified";
         } else {
+            final String preKeyword = matcher.group("preKeyword");
             final String day = matcher.group("day");
             final String month = matcher.group("month");
             final String year = matcher.group("year");
@@ -57,7 +59,7 @@ public class DateTime {
             
             if(!dateTime.contains(":")){           //Constructing a DateTime object with Date only
                 this.valueTime = null;
-                this.valueFormatted = day + " " + returnMonthInWords(monthParsed) + " " + year;
+                this.valueFormatted = preKeyword + day + " " + returnMonthInWords(monthParsed) + " " + year;
                 this.value = dateTime;
                 
             } else {                                    //Constructing a DateTime object with Date and time        
@@ -65,7 +67,7 @@ public class DateTime {
                 int minuteParsed = Integer.parseInt(minute);
                 this.valueTime = LocalTime.of(hourParsed, minuteParsed);
             
-                this.valueFormatted = day + " " + returnMonthInWords(monthParsed) +  " " 
+                this.valueFormatted = preKeyword + day + " " + returnMonthInWords(monthParsed) +  " " 
                     + year + ", " + hour + ":" + minute;
                 this.value = dateTime;
             }

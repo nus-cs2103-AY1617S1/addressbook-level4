@@ -38,7 +38,7 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Description(description),
-                new DateTime(dateTime),
+                new DateTime(dateTime.trim()),
                 new UniqueTagList(tagSet)
         );
     }

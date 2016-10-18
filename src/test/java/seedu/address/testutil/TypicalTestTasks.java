@@ -13,19 +13,19 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            application =  new TaskBuilder().withDescription("Complete application form for SEP").withDateTime("22/01/2014 12:01")
+            application =  new TaskBuilder().withDescription("Complete application form for SEP").withDateTime("by 22/01/2014 12:01")
                     .withTags("urgent").build();
-            party = new TaskBuilder().withDescription("Fred birthday party").withDateTime("21/03/2015 11:00")
+            party = new TaskBuilder().withDescription("Fred birthday party").withDateTime("by 21/03/2015 11:00")
                     .withTags("buyGift", "friends").build();
-            book = new TaskBuilder().withDescription("Return book to library").withDateTime("01/05/2015").build();
-            food = new TaskBuilder().withDescription("Bring food for party").withDateTime("01/06/2015").build();
-            haircut = new TaskBuilder().withDescription("Go for a haircut").withDateTime("30/11/2016").build();
-            fines = new TaskBuilder().withDescription("Pay for parking fines").withDateTime("30/01/2017").build();
-            tutorial = new TaskBuilder().withDescription("Complete tutorial for EE2020").withDateTime("30/05/2017").build();
+            book = new TaskBuilder().withDescription("Return book to library").withDateTime("by 01/05/2015").build();
+            food = new TaskBuilder().withDescription("Bring food for party").withDateTime("by 01/06/2015").build();
+            haircut = new TaskBuilder().withDescription("Go for a haircut").withDateTime("by 30/11/2016").build();
+            fines = new TaskBuilder().withDescription("Pay for parking fines").withDateTime("by 30/01/2017").build();
+            tutorial = new TaskBuilder().withDescription("Complete tutorial for EE2020").withDateTime("by 30/05/2017").build();
 
             //Manually added
-            homework = new TaskBuilder().withDescription("Do Homework").withDateTime("20/11/2016").build();
-            groceries = new TaskBuilder().withDescription("Buy groceries for mum").withDateTime("20/12/2016").build();
+            homework = new TaskBuilder().withDescription("Do Homework").withDateTime("by 20/11/2016").build();
+            groceries = new TaskBuilder().withDescription("Buy groceries for mum").withDateTime("by 20/12/2016").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
