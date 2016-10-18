@@ -27,6 +27,9 @@ public interface Model {
     /** Updates the given task */
     void replaceTask(ReadOnlyTask oldTask, Task newTask) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
     
+    /** Marks a given task as done */
+    void doneTask(Task task) throws UniqueTaskList.TaskNotFoundException;
+
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
@@ -35,5 +38,6 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
 
 }

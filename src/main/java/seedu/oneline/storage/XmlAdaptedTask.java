@@ -25,6 +25,8 @@ public class XmlAdaptedTask {
     private String deadline;
     @XmlElement(required = true)
     private String recurrence;
+    @XmlElement(required = true)
+    private boolean isCompleted;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -47,6 +49,7 @@ public class XmlAdaptedTask {
         deadline = source.getDeadline().serialize();
         recurrence = source.getRecurrence().serialize();
         tagged = new ArrayList<>();
+        isCompleted = source.isCompleted();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
