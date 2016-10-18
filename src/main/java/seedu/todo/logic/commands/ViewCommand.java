@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 
 import seedu.todo.commons.core.EventsCenter;
-import seedu.todo.commons.enumerations.TaskViewFilters;
+import seedu.todo.commons.enumerations.TaskViewFilter;
 import seedu.todo.commons.events.ui.ChangeViewRequestEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
@@ -16,7 +16,7 @@ public class ViewCommand extends BaseCommand {
     
     private static final String VERB = "view is currently displayed";
     private Argument<String> view = new StringArgument("view").required();
-    private TaskViewFilters viewSpecified;
+    private TaskViewFilter viewSpecified;
                          
         
 
@@ -38,7 +38,7 @@ public class ViewCommand extends BaseCommand {
     
     @Override
     protected void validateArguments(){
-        TaskViewFilters[] viewArray = TaskViewFilters.values();
+        TaskViewFilter[] viewArray = TaskViewFilter.values();
         String viewSpecified = view.getValue().trim().toLowerCase();
         for (int i=0; i<viewArray.length; i++){
             if(viewArray[i].getViewName().contentEquals(viewSpecified)){
