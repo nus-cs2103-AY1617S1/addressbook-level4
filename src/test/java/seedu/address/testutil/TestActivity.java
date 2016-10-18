@@ -196,12 +196,12 @@ public class TestActivity implements ReadOnlyActivity {
     public String getAddCommand() {
         StringBuilder build = new StringBuilder();
         
-        if (activityType == Activity.FLOATING_TASK_TYPE) {
+        if (activityType.equals(Activity.FLOATING_TASK_TYPE)) {
             build.append("add ");
             build.append(this.name.toString());
             build.append(" n:");
             build.append(this.getNote().toString());
-        } else if (activityType == Activity.TASK_TYPE) {
+        } else if (activityType.equals(Activity.TASK_TYPE)) {
             build.append("add ");
             build.append(this.name.toString());
             build.append(" by: ");
@@ -210,7 +210,7 @@ public class TestActivity implements ReadOnlyActivity {
             build.append(this.getActivityStartTime().value);
             build.append(" n:");
             build.append(this.getNote().toString());
-        } else if (activityType == Activity.EVENT_TYPE) {
+        } else if (activityType.equals(Activity.EVENT_TYPE)) {
             build.append("add ");
             build.append(this.name.toString());
             build.append(" by: ");
@@ -232,4 +232,10 @@ public class TestActivity implements ReadOnlyActivity {
     public Activity get() {
         return null;
     }
+
+	@Override
+	public void setUncomplete() {
+		// TODO Auto-generated method stub
+		
+	}
 }
