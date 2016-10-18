@@ -74,6 +74,10 @@ public class MainWindow extends UiPart {
     String prevCommandText;
 
     private CommandResult mostRecentResult;
+    
+    //List of words for autocomplete 
+    String[] listOfWords = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
+            ,"do", "add '<name>' [sd/'<startDate>'] [ed/'<endDate>'] [t/'<tags>...']", "delete INDEX"};
 
     // UI elements
     @FXML
@@ -418,7 +422,7 @@ public class MainWindow extends UiPart {
     private void handleCommandInputChanged() {
         //@@author A0143378Y
         //Autocomplete function 
-        String[] listOfWords = {"add", "delete", "edit", "clearall", "help"};
+        
         TextFields.bindAutoCompletion(commandField, listOfWords);
         // Take a copy of the command text
         currCommandText = commandField.getText();
