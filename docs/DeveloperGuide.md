@@ -305,17 +305,17 @@ Use case ends.
 **Extensions**
 
 2a. At least one parameter entered by user is invalid
-> 2a1. Savvy Tasker shows an error message and display the expected format.<br>
-  Use case resumes at step 1
-2b. START_DATE and END_DATE are different, the RECURRING_TYPE has to be larger than the duration between START_DATE and END_DATE. (e.g. A 3d2n camp cannot be recurring daily but it can be recurring weekly) 
-> 2b1. Savvy Tasker shows an error message <br>
-  Use case resumes at step 1
-2c. START_DATE and END_DATE are different, END_DATE is before START_DATE
-> 2c1. Savvy Tasker shows an error message <br>
-  Use case resumes at step 1
-2d. START_DATE and END_DATE are the same, END_TIME is before START_TIME 
-> 2d1. Savvy Tasker shows an error message <br>
-  Use case resumes at step 1
+    > 2a1. Savvy Tasker shows an error message and display the expected format.<br>
+    Use case resumes at step 1
+2b. START_DATE and END_DATE are different, the RECURRING_TYPE has to be larger than the duration between START_DATE and END_DATE. (e.g. A 3d2n camp cannot be recurring daily but it can be recurring weekly) <br>
+    > 2b1. Savvy Tasker shows an error message <br>
+    Use case resumes at step 1
+2c. START_DATE and END_DATE are different, END_DATE is before START_DATE<br>
+    > 2c1. Savvy Tasker shows an error message <br>
+    Use case resumes at step 1
+2d. START_DATE and END_DATE are the same, END_TIME is before START_TIME <br>
+    > 2d1. Savvy Tasker shows an error message <br>
+    Use case resumes at step 1
 
 #### Use case: List tasks
 
