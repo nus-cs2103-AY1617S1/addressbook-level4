@@ -559,15 +559,7 @@ public class CommandParser {
             if(split.length == 2){
             	resetField = split[1];
             }
-            
-            System.out.println("Taskname = " + taskName);
-            System.out.println("StartDate = " + startDate);
-            System.out.println("EndDate = " + endDate);
-            System.out.println("Rate = " + rate);
-            System.out.println("TimePeiod = " + timePeriod);
-            System.out.println("Reset = " + resetField);
-            System.out.println("Priority = " + priority);
-            
+
             return new EditCommand(index, taskName, startDate, endDate, rate, timePeriod, priority, resetField);
             
         } catch (IllegalValueException ive) {

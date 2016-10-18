@@ -10,6 +10,8 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.DateParser;
 import seedu.address.model.item.Task;
+import seedu.address.model.item.TimePeriod;
+import seedu.address.model.item.DateTime;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
@@ -18,6 +20,8 @@ import seedu.address.model.item.RecurrenceRate;
 public class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
+
+    private static final String STRING_CONSTANT_ONE = "1";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit an item in the To-Do List. ";
               
@@ -28,6 +32,9 @@ public class EditCommand extends UndoableCommand {
     public static final String MESSAGE_SUCCESS = "Item edited: %1$s";
     
     public static final String MESSAGE_UNDO_SUCCESS = "Undid edit item: %1$s reverted back to %2$s";
+
+    public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
+            + "at least one DATE_TIME must be provided";
 
     public final int targetIndex;
     
@@ -60,24 +67,29 @@ public class EditCommand extends UndoableCommand {
         } 
         
         if (startDateString != null) {
-            DateParser dp = new DateParser(startDateString);
-            startDate = dp.parseDate();
-        }
-        
-        if (endDateString != null) {
-            DateParser dp = new DateParser(endDateString);
-            endDate = dp.parseDate();
-        }
-        
-        if (recurrenceRateString == null && timePeriodString == null) {
-            recurrenceRate = null;
-        } else if (recurrenceRateString == null) {
-            recurrenceRate = new RecurrenceRate("1", timePeriodString);
-        } else {
-            recurrenceRate = new RecurrenceRate(recurrenceRateString, timePeriodString);
+            assert DateTime.isValidDate(startDateString);
+            startDate = DateTime.convertStringToStartDate(startDateString);
         }
 
-        //TODO: Throw IllegalValueException for default cases?
+        if (endDateString != null) {
+            assert DateTime.isValidDate(endDateString);
+            endDate = DateTime.convertStringToEndDate(endDateString, startDate);
+        }
+
+        if (recurrenceRateString != null && timePeriodString != null) {
+            recurrenceRate = new RecurrenceRate(recurrenceRateString, timePeriodString);
+        } else if (recurrenceRateString == null && timePeriodString != null) {
+            recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString);
+        } else if (recurrenceRateString != null && timePeriodString == null) {
+            throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
+        } 
+        
+        if (recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
+                recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
+                startDate == null && endDate == null) {
+            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
+        }
+        
         if(priorityString != null){
         	switch (priorityString) {
             	case ("low"): case ("l"): priority = Priority.LOW; break; 
@@ -85,6 +97,7 @@ public class EditCommand extends UndoableCommand {
             	case ("medium"): case ("m"): case ("med"): priority = Priority.MEDIUM; break;
         	}
         } 
+        
         /*
          * Check which field is to be reset
          */
@@ -123,23 +136,29 @@ public class EditCommand extends UndoableCommand {
         
         if (startDate != null) {
             model.editStartDate(taskToEdit, startDate);
-        } else if (removeStart){
+        }
+        if (removeStart){
+        	startDate = null;
             model.editStartDate(taskToEdit, startDate);
         }
 
         if (endDate != null) {
             model.editEndDate(taskToEdit, endDate);
-        } else if (removeEnd){
+        }
+        if (removeEnd){
+        	endDate = null;
             model.editEndDate(taskToEdit, endDate);
         }
 
         if (priority != null){
             model.editPriority(taskToEdit, priority);
         }
-        
-        if (recurrenceRate != null) {
+
+        if (recurrenceRate != null && (toEdit.getEndDate().isPresent() || toEdit.getStartDate().isPresent())) {
             model.editRecurrence(taskToEdit, recurrenceRate);
-        } else if (removeRepeat){
+        } 
+        if (removeRepeat){
+        	recurrenceRate = null;
             model.editRecurrence(taskToEdit, recurrenceRate);
         }
         updateHistory();
