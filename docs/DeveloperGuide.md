@@ -511,6 +511,7 @@ Use case ends.
 #### Competing product: Google Calendar
 
 **Pros:**
+
 1. Able to color-code different events
 2. Able to set reminders and task/events on repeat
 3. Able to add description such as location, remarks and people
@@ -520,6 +521,7 @@ Use case ends.
 7. Able to drag and drop task/events to another date/timing <br>
 
 **Cons:**
+
 1. Unable to check(tick) completed event
 2. Do not have a list of archived task
 3. Does not cater for floating task <br>
