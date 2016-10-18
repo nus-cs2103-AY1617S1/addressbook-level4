@@ -235,11 +235,6 @@ public class CommandParser {
         nattyDateStringBuilder.append(dateComponents[1]);
         nattyDateStringBuilder.append(dateSeparator);
         nattyDateStringBuilder.append(dateComponents[0]);
-        // check if date has a year component to append
-        if (dateComponents.length == 3) {
-            nattyDateStringBuilder.append(dateSeparator);            
-            nattyDateStringBuilder.append(dateComponents[2]);
-        }
         StringBuilder convertDateStringBuilder = new StringBuilder(arguments);
         convertDateStringBuilder.replace(indexOfDate, indexOfDate + localDateString.length(), nattyDateStringBuilder.toString());
         String stringFromConvertedDate = convertDateStringBuilder.substring(indexOfDate);
