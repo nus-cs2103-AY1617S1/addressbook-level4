@@ -101,8 +101,12 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTaskType().value + " '");
         sb.append(this.getName().fullName + "'");
-        //sb.append("e/" + this.getEmail().value + " ");
-        //sb.append("a/" + this.getAddress().value + " ");
+        if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
+        	sb.append(" by " + this.getEndDate().toString());
+        } else if (this.getTaskType().value.equals(TaskType.Type.EVENT)) {
+        	sb.append(" from " + this.getStartDate().toString());
+        	sb.append(" to " + this.getEndDate().toString());
+        }
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
@@ -111,8 +115,12 @@ public class TestTask implements ReadOnlyTask {
     	StringBuilder sb = new StringBuilder();
         sb.append("edit " + this.getTaskType().value + " " + index + " '");
         sb.append(this.getName().fullName + "'");
-        //sb.append("e/" + this.getEmail().value + " ");
-        //sb.append("a/" + this.getAddress().value + " ");
+        if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
+        	sb.append(" by " + this.getEndDate().toString());
+        } else if (this.getTaskType().value.equals(TaskType.Type.EVENT)) {
+        	sb.append(" from " + this.getStartDate().toString());
+        	sb.append(" to " + this.getEndDate().toString());
+        }
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

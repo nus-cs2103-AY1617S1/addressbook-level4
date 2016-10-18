@@ -34,21 +34,21 @@ public class AddCommandTest extends TaskManagerGuiTest {
         
         //add a deadline task that is an tomorrow task
         TestTask[] tomorrowList = td.getTomorrowTasks();
-        taskToAdd = TypicalTestTasks.deadlineTomorrowAdd;//TODO
+        taskToAdd = TypicalTestTasks.deadlineTomorrowAdd;
         assertAddSuccess(taskToAdd, "typical", currentList);
         assertAddSuccess(taskToAdd, "tomorrow", tomorrowList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add an event task that is a in-7-day task
         TestTask[] in7DaysList = td.getIn7DaysTasks();
-        taskToAdd = TypicalTestTasks.eventIn7DaysAdd;//TODO
+        taskToAdd = TypicalTestTasks.eventIn7DaysAdd;
         assertAddSuccess(taskToAdd, "typical", currentList);
         assertAddSuccess(taskToAdd, "in 7 days", in7DaysList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add an event task that is a in-30-days task
         TestTask[] in30DaysList = td.getIn30DaysTasks();
-        taskToAdd = TypicalTestTasks.eventIn30DaysAdd;//TODO
+        taskToAdd = TypicalTestTasks.eventIn30DaysAdd;
         assertAddSuccess(taskToAdd, "typical", currentList);
         assertAddSuccess(taskToAdd, "in 30 days", in30DaysList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
@@ -59,12 +59,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertTrue(taskListPanel.isListMatching(currentList));
         
         //add duplicate deadline task
-        commandBox.runCommand(TypicalTestTasks.deadlineTodayAdd.getAddCommand()); //TODO
+        commandBox.runCommand(TypicalTestTasks.deadlineTodayAdd.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
         
         //add duplicate event task
-        commandBox.runCommand(TypicalTestTasks.eventIn7DaysAdd.getAddCommand()); //TODO
+        commandBox.runCommand(TypicalTestTasks.eventIn7DaysAdd.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 

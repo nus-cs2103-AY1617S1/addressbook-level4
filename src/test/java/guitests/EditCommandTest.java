@@ -17,6 +17,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskType;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestTasks;
 
 
 public class EditCommandTest extends TaskManagerGuiTest{
@@ -25,50 +26,60 @@ public class EditCommandTest extends TaskManagerGuiTest{
 	public void edit() {
 		//edit the first in the list
         TestTask[] currentList = td.getTypicalTasks();
+        TestTask postEdit = TypicalTestTasks.somedayAdd;
         int targetIndex = 1;
-        assertEditSuccess(targetIndex, "typical", currentList);
+        assertEditSuccess(targetIndex, postEdit, "typical", currentList, currentList);
 
         //edit the last in the list
+        postEdit = TypicalTestTasks.eventIn7DaysAdd;
         targetIndex = currentList.length;
-        assertEditSuccess(targetIndex, "typical", currentList);
+        assertEditSuccess(targetIndex, postEdit, "typical", currentList, currentList);
 
         //edit from the middle of the list
+        postEdit = TypicalTestTasks.deadlineTodayAdd;
         targetIndex = currentList.length/2;
-        assertEditSuccess(targetIndex, "typical", currentList);
+        assertEditSuccess(targetIndex, postEdit, "typical", currentList, currentList);
         
         //edit a someday task from the list
         TestTask[] somedayList = td.getSomedayTasks();
-        int targetIndex = ?; //TO-DO: index must not one of the above three
-        assertEditSuccess(targetIndex, "typical", currentList);
-        assertEditSuccess(targetIndex, "someday", somedayList);
+        postEdit = TypicalTestTasks.sdAdd;
+        targetIndex = 6; 
+        assertEditSuccess(targetIndex, postEdit, "typical", currentList, currentList);
+        assertEditSuccess(targetIndex, postEdit, "someday", currentList, somedayList);
         
         //edit a deadline task from the list
-        int targetIndex = ?; //TO-DO: index must not one of the above three
-        assertEditSuccess(targetIndex, "typical", currentList);
+        postEdit = TypicalTestTasks.deadlineTomorrowAdd;
+        targetIndex = 3;
+        assertEditSuccess(targetIndex, postEdit, "typical", currentList, currentList);
         
         //edit an event task from the list
-        int targetIndex = ?; //TO-DO: index must not one of the above three
-        assertEditSuccess(targetIndex, "typical", currentList);
+        postEdit = TypicalTestTasks.eventIn30DaysAdd;
+        targetIndex = 12;
+        assertEditSuccess(targetIndex, postEdit, "typical", currentList, currentList);
         
         //edit a today task from the list
         TestTask[] todayList = td.getTodayTasks();
-        int targetIndex = ?; //TO-DO: index must not one of the above three
-        assertEditSuccess(targetIndex, "today", todayList);
+        postEdit = TypicalTestTasks.eventTodayAdd;
+        targetIndex = 9;
+        assertEditSuccess(targetIndex, postEdit, "today", currentList, todayList);
         
         //edit a tomorrow task from the list
         TestTask[] tomorrowList = td.getTomorrowTasks();
-        int targetIndex = ?; //TO-DO: index must not one of the above three
-        assertEditSuccess(targetIndex, "tomorrow", tomorrowList);
+        postEdit = TypicalTestTasks.eventTomorrowAdd;
+        targetIndex = 10;        
+        assertEditSuccess(targetIndex, postEdit, "tomorrow", currentList, tomorrowList);
         
         //edit an in-7-days task from the list
         TestTask[] in7DaysList = td.getIn7DaysTasks();
-        int targetIndex = ?; //TO-DO: index must not one of the above three
-        assertEditSuccess(targetIndex, "in 7 days", in7DaysList);
+        postEdit = TypicalTestTasks.deadLineIn7DaysAdd;
+        targetIndex = 4;
+        assertEditSuccess(targetIndex, postEdit, "in 7 days", currentList, in7DaysList);
         
         //edit an in-30-days task from the list
         TestTask[] in30DaysList = td.getIn30DaysTasks();
-        int targetIndex = ?; //TO-DO: index must not one of the above three
-        assertEditSuccess(targetIndex, "in 30 days", in30DaysList);
+        postEdit = TypicalTestTasks.deadLineIn30DaysAdd;
+        targetIndex = 5;
+        assertEditSuccess(targetIndex, postEdit, "in 30 days", currentList, in30DaysList);
 
         //invalid index
         commandBox.runCommand("edit " + currentList.length + 1);
@@ -81,7 +92,7 @@ public class EditCommandTest extends TaskManagerGuiTest{
      * @param targetIndexOneIndexed e.g. to edit the first task in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of tasks (before editing).
      */
-    private void assertEditSuccess(int targetIndexOneIndexed, TestTask postEdit, String listType, final TestTask[] currentList, TestTask...list) {
+    private void assertEditSuccess(int targetIndexOneIndexed, TestTask postEdit, String listType, final TestTask[] currentList, TestTask... list) {
         TestTask taskToEdit = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
 
         commandBox.runCommand(postEdit.getEditCommand(targetIndexOneIndexed));

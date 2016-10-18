@@ -13,7 +13,7 @@ public class TypicalTestTasks {
 
     public static TestTask someday1, someday2, deadline1, deadline2, deadlineToday, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, 
                            event1, event2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days, deadlineTodayAdd, deadlineTomorrowAdd,
-                           eventIn7DaysAdd, eventIn30DaysAdd, somedayAdd;
+                           deadLineIn7DaysAdd, deadLineIn30DaysAdd, eventTodayAdd, eventTomorrowAdd, eventIn7DaysAdd, eventIn30DaysAdd, somedayAdd, sdAdd;
 
     public TypicalTestTasks() {
         try {
@@ -35,10 +35,15 @@ public class TypicalTestTasks {
             //Manually added
             deadlineTodayAdd =  new TaskBuilder().withName("report 1").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now()).build();
             deadlineTomorrowAdd = new TaskBuilder().withName("report 2").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(1)).build();
-            eventIn7DaysAdd =  new TaskBuilder().withName("report 3").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(4)).withEndDate(LocalDateTime.now().plusDays(5)).build();
-            eventIn30DaysAdd =  new TaskBuilder().withName("report 3").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(14)).withEndDate(LocalDateTime.now().plusDays(15)).build();
+            eventTodayAdd =  new TaskBuilder().withName("report 7").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now()).withEndDate(LocalDateTime.now().plusDays(2)).build();
+            eventTomorrowAdd =  new TaskBuilder().withName("report 8").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(1)).withEndDate(LocalDateTime.now().plusDays(2)).build();
+            eventIn7DaysAdd =  new TaskBuilder().withName("report 3").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(5)).withEndDate(LocalDateTime.now().plusDays(6)).build();
+            eventIn30DaysAdd =  new TaskBuilder().withName("report 3").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(13)).withEndDate(LocalDateTime.now().plusDays(14)).build();
             somedayAdd =  new TaskBuilder().withName("report 5").withStatus("not done").withTaskType("someday").build();
-            
+            sdAdd =  new TaskBuilder().withName("report 6").withStatus("not done").withTaskType("someday").build();
+            deadlineIn7Days = new TaskBuilder().withName("report 9").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(3)).build();
+            deadlineIn30Days = new TaskBuilder().withName("report 10").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(24)).build();
+
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
