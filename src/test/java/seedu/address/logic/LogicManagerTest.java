@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.TimeZone;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -150,8 +151,6 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
                 "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
                 "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
@@ -162,13 +161,13 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] d/12345 date/11.11.11 time/1111", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] d/12345 date/11-11-2018 1111", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/can_be_anything date/not_valid_date time/1111", Date.MESSAGE_DATE_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/ab-cd-ef", Date.MESSAGE_DATE_CONSTRAINTS);
+        //TODO assertCommandBehavior(
+        //        "add Valid Name d/can_be_anything date/11-11-2018 5678pm", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/can_be_anything date/11.11.11 time/5678", Time.MESSAGE_TIME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name d/can_be_anything date/11.11.11 time/1111 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/11-11-2018 1111 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -370,8 +369,10 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             Description privatePhone = new Description("111111");
-            Date email = new Date("11.11.11");
-            Time privateAddress = new Time("1111");
+            List<java.util.Date> dateList = 
+                    (new com.joestelmach.natty.Parser(TimeZone.getDefault())).parse("11-11-2011 1111").get(0).getDates();
+            Date email = new Date(dateList);
+            Time privateAddress = new Time(dateList);
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -389,7 +390,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Person " + seed),
                     new Description("" + Math.abs(seed)),
-                    new Date("11.11.1" + seed),
+                    new Date("11.11.201" + seed),
                     new Time("111" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -403,8 +404,8 @@ public class LogicManagerTest {
 
             cmd.append(p.getName().toString());
             cmd.append(" d/").append(p.getDescription());
-            cmd.append(" date/").append(p.getDate());
-            cmd.append(" time/").append(p.getTime());
+            cmd.append(" date/").append(p.getDate().toString().replace('.', '-'));
+            cmd.append(" ").append(p.getTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -485,11 +486,13 @@ public class LogicManagerTest {
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
         Task generatePersonWithName(String name) throws Exception {
+            List<java.util.Date> dateList = 
+                    (new com.joestelmach.natty.Parser(TimeZone.getDefault())).parse("10-11-2019 1111").get(0).getDates();
             return new Task(
                     new Name(name),
-                    new Description("1"),
-                    new Date("11.11.11"),
-                    new Time("1111"),
+                    new Description("Describes task"),
+                    new Date(dateList),
+                    new Time(dateList),
                     new UniqueTagList(new Tag("tag"))
             );
         }
