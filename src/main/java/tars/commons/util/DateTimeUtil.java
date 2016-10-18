@@ -1,6 +1,8 @@
 package tars.commons.util;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +19,16 @@ import com.joestelmach.natty.Parser;
 public class DateTimeUtil {
     private static final SimpleDateFormat CONVERT_NATTY_TIME_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
     
+    private static final String DATETIME_DAY = "day";
+    private static final String DATETIME_WEEK = "week";
+    private static final String DATETIME_MONTH = "month";
+    private static final String DATETIME_YEAR = "year";
+    private static final int DATETIME_INCREMENT = 1;
+    
+    private static final DateTimeFormatter formatter = DateTimeFormatter
+            .ofPattern("d/M/uuuu HHmm");
+    private static final DateTimeFormatter stringFormatter = DateTimeFormatter
+            .ofPattern("dd/MM/uuuu HHmm");
     /**
      * Extracts the new task's dateTime from the string arguments using natty.
      * 
@@ -53,5 +65,28 @@ public class DateTimeUtil {
         }
         
         return new String[] { "", "" };
+    }
+    
+    /**
+     * Modifies the date based on the frequency for recurring tasks
+     * 
+     * @@author A0140022H
+     */
+    public static String modifyDate(String dateToModify, String frequency) {
+        LocalDateTime date = LocalDateTime.parse(dateToModify, formatter);
+
+        switch (frequency.toLowerCase()) {
+        case DATETIME_DAY:      date = date.plusDays(DATETIME_INCREMENT);
+                                break;
+        case DATETIME_WEEK:     date = date.plusWeeks(DATETIME_INCREMENT);
+                                break;
+        case DATETIME_MONTH:    date = date.plusMonths(DATETIME_INCREMENT);
+                                break;
+        case DATETIME_YEAR:     date = date.plusYears(DATETIME_INCREMENT);
+                                break;
+        }
+
+        dateToModify = date.format(stringFormatter);
+        return dateToModify;
     }
 }
