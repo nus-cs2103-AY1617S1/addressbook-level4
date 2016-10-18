@@ -350,15 +350,15 @@ Use case resumes at step 2
 
 ##### Date:
 
-> Date is given in format �[date]/[month]/[year]�
+> Date is given in format `YYYY-MM-DD`
 
 ##### Time:
 
-> Time is given in format �[hour]:[minute]�
+> Time is given in format `HH:MM`
 
 ##### Keyword:
 
-> Name of deadline, task, or event
+> Keyword in name of deadline, task, or event
 
 ##### Mainstream OS
 
