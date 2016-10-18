@@ -3,6 +3,8 @@ package guitests;
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskDateComponent;
@@ -34,6 +36,31 @@ public class EditCommandTest extends TaskListGuiTest {
         currentList[index-1] = toBeEdited;
         assertEditSuccess(toBeEdited, "edit 4 from 2 oct 9am to 2 oct 11am", currentList);
         
+        //add a tag
+        toBeEdited = currentList[index-1];
+        toBeEdited.setTag(new UniqueTagList(new Tag("testTag")));
+        currentList[index-1] = toBeEdited;
+        assertEditSuccess(toBeEdited, "edit 4 t/testTag", currentList);
+        
+        //add tags
+        toBeEdited = currentList[index-1];
+        toBeEdited.setTag(new UniqueTagList(new Tag("testTag"),new Tag("testTag1")));
+        currentList[index-1] = toBeEdited;
+        assertEditSuccess(toBeEdited, "edit 4 t/testTag t/testTag1", currentList);
+        
+//        //change name
+//        toBeEdited = currentList[index-1];
+//        toBeEdited.setName(new Name("Test name"));
+//        currentList[index-1] = toBeEdited;
+//        assertEditSuccess(toBeEdited, "edit 4 Test name", currentList);
+        
+        //invalid index
+        commandBox.runCommand("edit " + currentList.length + 1 + " invalid index");
+        assertResultMessage("The task index provided is invalid");
+        
+        //invalid command
+        commandBox.runCommand("edits read weblecture");
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
 
     }
     
