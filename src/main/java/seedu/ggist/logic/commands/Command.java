@@ -15,6 +15,7 @@ public abstract class Command {
     protected Model model;
     public static Stack<String> listOfCommands = new Stack<String>();
     public static Stack<ReadOnlyTask> listOfTasks = new Stack<ReadOnlyTask>();
+    public static String lastListing = null;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of task.
