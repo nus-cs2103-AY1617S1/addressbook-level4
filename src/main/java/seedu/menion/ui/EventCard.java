@@ -12,7 +12,7 @@ public class EventCard extends UiPart{
     private static final String FXML = "EventCard.fxml";
 
     @FXML
-    private HBox cardPane;
+    private HBox eventCardPane;
     @FXML
     private Label id;
     @FXML
@@ -58,12 +58,12 @@ public class EventCard extends UiPart{
     }
 
     public HBox getLayout() {
-        return cardPane;
+        return eventCardPane;
     }
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        eventCardPane = (HBox)node;
     }
 
     @Override
