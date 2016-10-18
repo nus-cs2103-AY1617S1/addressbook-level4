@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 
-//@@ author A0141019U
+//@@author A0141019U
 public class DateParserTest {
 	
 	LocalDateTime now = LocalDateTime.now();
@@ -45,6 +45,15 @@ public class DateParserTest {
 		LocalDateTime date = DateParser.parse(userInput);
 
 		assertEquals(christmas430pm, date);
+	}
+	
+	@Test
+	public void yyyymmddhhmmpm_monthOutOfBounds_throwsParseException() throws ParseException {
+		thrown.expect(ParseException.class);
+		thrown.expectMessage("Month is not within valid bounds 1 - 12 inclusive");
+		
+		String userInput = "2010-13-25 4:30 am";
+		DateParser.parse(userInput);
 	}
 	
 	@Test
