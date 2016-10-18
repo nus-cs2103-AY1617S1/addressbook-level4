@@ -291,6 +291,14 @@ public class Parser {
         String arg = "";
         Optional<Integer> index = parseIndex(argComponents[INDEX]);
         for (int i = ARG; i < argComponents.length; i++) {
+            if (argComponents[i].toUpperCase().compareToIgnoreCase("none") == 0 && argType.toUpperCase().compareToIgnoreCase("description") != 0) {
+                arg = argComponents[i];
+                try {
+                    return new UpdateCommand(type, index.get(), argType, arg);
+                } catch (IllegalValueException ive) {
+                    return new IncorrectCommand(ive.getMessage());
+                }
+            }
             arg += argComponents[i] + " ";
         }
         if(!index.isPresent()){
@@ -303,11 +311,7 @@ public class Parser {
         }
         
         try {
-            return new UpdateCommand(
-                type,
-                index.get(),
-                argType,
-                arg);
+            return new UpdateCommand(type, index.get(), argType, arg);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
