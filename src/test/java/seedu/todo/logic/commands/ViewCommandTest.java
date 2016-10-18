@@ -21,6 +21,7 @@ public class ViewCommandTest extends CommandTest {
     EventsCollector eventsCollector = new EventsCollector();
     ChangeViewRequestEvent event;
     ImmutableTask task1, task2, task3;
+    
     @Override
     protected BaseCommand commandUnderTest() {
         return new ViewCommand();
@@ -28,13 +29,26 @@ public class ViewCommandTest extends CommandTest {
     
     @Before
     public void setUp() throws Exception {
-        model.add("Task 3", task -> { task.setCompleted(true); task.setEndTime(LocalDateTime.now().plusDays(1)); });
-        model.add("Task 2", task -> { task.setCompleted(false); task.setEndTime(LocalDateTime.now().plusDays(4));});
-        model.add("Task 1", task -> { task.setCompleted(false); task.setEndTime(LocalDateTime.now());});
-        task1 = getTaskAt(1);
-        task2 = getTaskAt(2);
-        task3 = getTaskAt(3);
+        task3 = model.add("Task 3", task -> { 
+            task.setCompleted(true); 
+            task.setEndTime(LocalDateTime.now().plusDays(1)); 
+        });
         
+        task2 = model.add("Task 2", task -> { 
+            task.setCompleted(false); 
+            task.setEndTime(LocalDateTime.now().plusDays(4));
+        });
+        
+        task1 = model.add("Task 1", task -> { 
+            task.setCompleted(false); 
+            task.setEndTime(LocalDateTime.now());
+        });
+    }
+    
+    private void assertViewChangeEventFired(TaskViewFilter filter) {
+        assertThat(eventsCollector.get(0), instanceOf(ChangeViewRequestEvent.class));
+        event = (ChangeViewRequestEvent) eventsCollector.get(0);
+        assertEquals(event.getNewView(), filter);
     }
 
     @Test
@@ -42,32 +56,26 @@ public class ViewCommandTest extends CommandTest {
         assertVisibleTaskCount(3);
         setParameter("show all");
         execute(true);
+        
         assertVisibleTaskCount(3);
-        assertThat(eventsCollector.get(0), instanceOf(ChangeViewRequestEvent.class));
-        event = (ChangeViewRequestEvent) eventsCollector.get(0);
-        assertEquals(event.getNewView(), TaskViewFilter.DEFAULT);
-        assertTaskVisible(task1);
-        assertTaskVisible(task2);
-        assertTaskVisible(task3);
+        assertViewChangeEventFired(TaskViewFilter.DEFAULT);
     }
     
     @Test (expected = ValidationException.class)
     public void testInvalidView() throws ValidationException {
-        assertEquals( model.getObserveableList().size(), 3);
         setParameter("de fault");
         execute(false);
-        //checkFeedback received
+        // checkFeedback received
     }
     
     @Test
     public void testViewCompleted() throws ValidationException {
-        assertVisibleTaskCount(3);
         setParameter("completed");
         execute(true);
+        
         assertVisibleTaskCount(1);
-        assertThat(eventsCollector.get(0), instanceOf(ChangeViewRequestEvent.class));
-        event = (ChangeViewRequestEvent) eventsCollector.get(0);
-        assertEquals(event.getNewView(), TaskViewFilter.COMPLETED);
+        assertViewChangeEventFired(TaskViewFilter.COMPLETED);
+        
         assertTaskNotVisible(task1);
         assertTaskNotVisible(task2);
         assertTaskVisible(task3);
@@ -75,28 +83,22 @@ public class ViewCommandTest extends CommandTest {
     
     @Test
     public void testViewIncomplete() throws ValidationException {
-        assertVisibleTaskCount(3);
         setParameter("incomplete");
         execute(true);
-        assertVisibleTaskCount(2);
-        assertThat(eventsCollector.get(0), instanceOf(ChangeViewRequestEvent.class));
-        event = (ChangeViewRequestEvent) eventsCollector.get(0);
-        assertEquals(event.getNewView(), TaskViewFilter.INCOMPLETE);
+        
+        assertViewChangeEventFired(TaskViewFilter.INCOMPLETE);
         assertTaskVisible(task1);
         assertTaskVisible(task2);
         assertTaskNotVisible(task3);
-        }
+    }
         
     
     @Test
     public void testCaseInsensitive() throws ValidationException {
-        assertEquals( model.getObserveableList().size(), 3);
         setParameter("Incomplete");
         execute(true);
-        assertEquals( model.getObserveableList().size(), 2);
-        assertThat(eventsCollector.get(0), instanceOf(ChangeViewRequestEvent.class));
-        event = (ChangeViewRequestEvent) eventsCollector.get(0);
-        assertEquals(event.getNewView(), TaskViewFilter.INCOMPLETE);
+        
+        assertViewChangeEventFired(TaskViewFilter.INCOMPLETE);
         assertTaskVisible(task1);
         assertTaskVisible(task2);
         assertTaskNotVisible(task3);
@@ -104,49 +106,35 @@ public class ViewCommandTest extends CommandTest {
     
     @Test
     public void testViewDueToday() throws ValidationException {
-        assertEquals( model.getObserveableList().size(), 3);
         setParameter("due today");
         execute(true);
-        assertVisibleTaskCount(1);
-        assertThat(eventsCollector.get(0), instanceOf(ChangeViewRequestEvent.class));
-        event = (ChangeViewRequestEvent) eventsCollector.get(0);
-        assertEquals(event.getNewView(), TaskViewFilter.DUE_TODAY);
+        
+        assertViewChangeEventFired(TaskViewFilter.DUE_TODAY);
         assertTaskVisible(task1);
         assertTaskNotVisible(task2);
         assertTaskNotVisible(task3);
-        
     }
     
     @Test
     public void testSuccessiveCommands() throws ValidationException {
-        assertEquals( model.getObserveableList().size(), 3);
         setParameter("due today");
         execute(true);
         assertTaskVisible(task1);
         assertTaskNotVisible(task2);
         assertTaskNotVisible(task3);
-        assertVisibleTaskCount(1);
-        
         
         setParameter("incomplete");
         execute(true);
         assertTaskVisible(task1);
         assertTaskVisible(task2);
         assertTaskNotVisible(task3);
-        assertVisibleTaskCount(2);
         
         setParameter("show all");
         execute(true);
         assertTaskVisible(task1);
         assertTaskVisible(task2);
         assertTaskVisible(task3);
-        assertVisibleTaskCount(3);
-        assertEquals(eventsCollector.size(), 3);
         
+        assertEquals(eventsCollector.size(), 3);
     }
-    
-    
-
-    
-
 }

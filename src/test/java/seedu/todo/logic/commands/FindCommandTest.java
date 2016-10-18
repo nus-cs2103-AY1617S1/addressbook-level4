@@ -13,7 +13,6 @@ public class FindCommandTest extends CommandTest {
     protected BaseCommand commandUnderTest() {
         return new FindCommand();
     }
-
     
     @Before
     public void setUp() throws Exception {
@@ -23,18 +22,16 @@ public class FindCommandTest extends CommandTest {
         model.add("Unrelated CS2101 that expands");
     }
     
-
-
     @Test
     public void testFindSuccessful() throws ValidationException {
         assertVisibleTaskCount(4);
         setParameter("CS2101");
         execute(true);
         assertVisibleTaskCount(2);
-        }
+    }
     
     @Test
-    public void testCaseInsensitive() throws ValidationException{
+    public void testCaseInsensitive() throws ValidationException {
         assertVisibleTaskCount(4);
         setParameter("project");
         execute(true);
@@ -42,7 +39,7 @@ public class FindCommandTest extends CommandTest {
     }
     
     @Test
-    public void testMultipleParamters() throws ValidationException{
+    public void testMultipleParameters() throws ValidationException {
         assertVisibleTaskCount(4);
         setParameter("task expands");
         execute(true);
@@ -50,11 +47,10 @@ public class FindCommandTest extends CommandTest {
     }
     
     @Test
-    public void testUnsuccessfulFind() throws ValidationException{
+    public void testUnsuccessfulFind() throws ValidationException {
         assertVisibleTaskCount(4);
         setParameter("team");
         execute(true);
         assertVisibleTaskCount(0);
     }
-
 }
