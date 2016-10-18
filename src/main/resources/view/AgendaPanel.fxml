@@ -1,42 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.AgendaPanel">
+<VBox stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.AgendaPanel">
    <children>
-      <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-         <items>
-            <AnchorPane>
-               <children>
-                  <TreeTableView fx:id="tasksTreeTableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <columns>
-                        <TreeTableColumn fx:id="tasksTableColumnLeft" prefWidth="181.66668701171875" text="Name" />
-                        <TreeTableColumn fx:id="tasksTableColumnRight" prefWidth="65.33331298828125" text="Details" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TreeTableView>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <TreeTableView fx:id="eventsTreeTableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <columns>
-                        <TreeTableColumn fx:id="eventsTableColumnLeft" prefWidth="194.0" text="Name" />
-                        <TreeTableColumn fx:id="eventsTableColumnRight" prefWidth="53.0" text="Details" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TreeTableView>
-               </children>
-            </AnchorPane>
-         </items>
-      </SplitPane>
+      <ScrollPane>
+         <content>
+            <TableView fx:id="tasksTableView" minHeight="20.0" stylesheets="@DarkTheme.css">
+              <columns>
+                  <TableColumn fx:id="tasksTableColumnId" editable="false" maxWidth="60.0" minWidth="60.0" prefWidth="-1.0" text="No." />
+                <TableColumn fx:id="tasksTableColumnTags" editable="false" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Tags" />
+                <TableColumn fx:id="tasksTableColumnDetails" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="-1.0" text="Details" />
+                  <TableColumn fx:id="tasksTableColumnEndDate" editable="false" maxWidth="-1.0" minWidth="300.0" prefWidth="-1.0" text="Due" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <ScrollPane>
+         <content>
+            <TableView fx:id="eventsTableView" minHeight="20.0" stylesheets="@DarkTheme.css">
+               <columns>
+                  <TableColumn fx:id="eventsTableColumnId" editable="false" maxWidth="60.0" minWidth="60.0" prefWidth="-1.0" text="No." />
+                  <TableColumn fx:id="eventsTableColumnTags" editable="false" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Tags" />
+                  <TableColumn fx:id="eventsTableColumnDetails" editable="false" maxWidth="-1.0" minWidth="400.0" prefWidth="-1.0" text="Details" />
+                  <TableColumn fx:id="eventsTableColumnStartDate" editable="false" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="From" />
+                  <TableColumn fx:id="eventsTableColumnEndDate" editable="false" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="To" />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
    </children>
 </VBox>
