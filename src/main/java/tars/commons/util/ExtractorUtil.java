@@ -33,6 +33,22 @@ public class ExtractorUtil {
                 .split(" " + prefix.prefix + " "));
         return new HashSet<>(tagStrings);
     }
+    
+    /**
+     * Extracts the new task's dateTimes from the rsv command's dateTime arguments string.
+     * Merges duplicate dateTime strings.
+     */
+    public static Set<String> getDateTimeStringSetFromArgs(String dateTimeArguments, Flag prefix) throws IllegalValueException {
+        // no dateTime
+        if (dateTimeArguments.equals("")) {
+            return Collections.emptySet();
+        }
+        // replace first delimiter prefix, then split
+        final Collection<String> dateTimeStrings = Arrays.asList(dateTimeArguments
+                .replaceFirst(prefix.prefix + " ", "")
+                .split(" " + prefix.prefix + " "));
+        return new HashSet<>(dateTimeStrings);
+    }
 
     /**
      * Gets all flag positions from arguments string
