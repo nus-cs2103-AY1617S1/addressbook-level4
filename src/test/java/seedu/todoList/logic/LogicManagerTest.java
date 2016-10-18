@@ -413,8 +413,8 @@ public class LogicManagerTest {
         Task generatetask(int seed) throws Exception {
             return new Todo(
                     new Name("task " + seed),
-                    new Date("" + Math.abs(seed)),
-                    new Priority(seed + "startTime")
+                    new Date("11-12-2016"),
+                    new Priority(seed + "10")
                     //new EndTime("EndTime " + seed)
                     //new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
