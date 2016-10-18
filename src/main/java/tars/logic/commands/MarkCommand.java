@@ -3,9 +3,14 @@ package tars.logic.commands;
 import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
+import tars.commons.exceptions.InvalidRangeException;
+import tars.commons.exceptions.InvalidTaskDisplayedException;
 import tars.commons.flags.Flag;
 import tars.commons.util.MarkTaskTracker;
 import tars.model.task.*;
+
+import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.ArrayList;
 
 /**
@@ -35,82 +40,51 @@ public class MarkCommand extends Command {
      * @throws InvalidRangeException
      */
     public MarkCommand(String markDone, String markUndone) {
-        this.markDone = markDone.replace(Flag.DONE, " ").trim();
-        this.markUndone = markUndone.replace(Flag.UNDONE, " ").trim();
+        this.markDone = markDone;
+        this.markUndone = markUndone;
         this.tracker = new MarkTaskTracker();
-    }
-
-    /**
-     * Get string of indexes separated by spaces given a start and end index
-     */
-    private String rangeIndexString(String range) throws InvalidRangeException {
-        if (!range.contains("..")) {
-            return range;
-        }
-
-        String rangeToReturn = "";
-
-        int toIndex = range.indexOf("..");
-        String start = range.substring(0, toIndex);
-        String end = range.substring(toIndex + 2);
-
-        int startInt = Integer.parseInt(start);
-        int endInt = Integer.parseInt(end);
-
-        if (startInt > endInt) {
-            throw new InvalidRangeException();
-        }
-
-        for (int i = startInt; i <= endInt; i++) {
-            rangeToReturn += String.valueOf(i) + " ";
-        }
-
-        return rangeToReturn.trim();
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
-        if (!this.markDone.equals("") || !this.markUndone.equals("")) {
-            if (!this.markDone.equals("")) {
-                try {
-                    Status done = new Status(true);
-                    String markDone = rangeIndexString(this.markDone);
-                    ArrayList<ReadOnlyTask> markDoneTasks = getTasksFromIndexes(markDone.split(" "), done);
-                    model.mark(markDoneTasks, Flag.DONE);
-                } catch (InvalidTaskDisplayedException e) {
-                    return new CommandResult(e.getMessage());
-                } catch (DuplicateTaskException dte) {
-                    return new CommandResult(dte.getMessage());
-                } catch (InvalidRangeException ire) {
-                    return new CommandResult(ire.getMessage());
-                }
-            }
-            if (!this.markUndone.equals("")) {
-                try {
-                    Status undone = new Status(false);
-                    String markUndone = rangeIndexString(this.markUndone);
-                    ArrayList<ReadOnlyTask> markUndoneTasks = getTasksFromIndexes(markUndone.split(" "), undone);
-                    model.mark(markUndoneTasks, Flag.UNDONE);
-                } catch (InvalidTaskDisplayedException e) {
-                    return new CommandResult(e.getMessage());
-                } catch (DuplicateTaskException dte) {
-                    return new CommandResult(dte.getMessage());
-                } catch (InvalidRangeException ire) {
-                    return new CommandResult(ire.getMessage());
-                }
-            }
-            return new CommandResult(getResult());
+        if (this.markDone.equals("") && this.markUndone.equals("")) {
+            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
-        return new CommandResult(getResult());
+        
+        try {
+            handleMarkDone();
+            handleMarkUndone();
+        } catch (InvalidTaskDisplayedException e) {
+            return new CommandResult(e.getMessage());
+        } catch (DuplicateTaskException dte) {
+            return new CommandResult(dte.getMessage());
+        }         
+        return new CommandResult(getResultFromTracker());
     }
-
+    
+    private void handleMarkDone() throws InvalidTaskDisplayedException, DuplicateTaskException {
+        if (!this.markDone.equals("")) {
+            Status done = new Status(true);
+            ArrayList<ReadOnlyTask> markDoneTasks = getTasksFromIndexes(this.markDone.split(" "), done);
+            model.mark(markDoneTasks, Flag.DONE);
+        }
+    }
+    
+    private void handleMarkUndone() throws InvalidTaskDisplayedException, DuplicateTaskException {
+        if (!this.markUndone.equals("")) {
+            Status undone = new Status(false);
+            ArrayList<ReadOnlyTask> markUndoneTasks = getTasksFromIndexes(this.markUndone.split(" "), undone);
+            model.mark(markUndoneTasks, Flag.UNDONE);
+        }
+    }
+        
     /**
-     * Prepares feedback message to user
+     * Returns feedback message of mark command to user
      * 
      * @return
      */
-    private String getResult() {
+    private String getResultFromTracker() {
         String commandResult = tracker.getResult();
         return commandResult;
     }
@@ -144,24 +118,4 @@ public class MarkCommand extends Command {
         }
         return tasksList;
     }
-
-    /**
-     * Signals an index exceed the size of the internal list.
-     */
-    public class InvalidTaskDisplayedException extends Exception {
-        public InvalidTaskDisplayedException(String message) {
-            super(message);
-        }
-    }
-
-    /**
-     * Signals invalid range entered
-     */
-    public class InvalidRangeException extends Exception {
-        private static final String MESSAGE_INVALID_RANGE = "Start index must be before end index";
-        public InvalidRangeException() {
-            super(MESSAGE_INVALID_RANGE);
-        }
-    }
-
 }
