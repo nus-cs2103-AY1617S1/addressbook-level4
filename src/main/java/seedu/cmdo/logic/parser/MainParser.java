@@ -125,9 +125,10 @@ public class MainParser {
      */
     private Command prepareAdd(String args){
         try {
-        	extractDetail(args);	// Saves to detailToAdd
+        	args = extractDetail(args);	// Saves to detailToAdd
+        	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
+        		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
         	reducedArgs = extractDueByDateAndTime(args);
-        	removeTagsAndPriorityMarkers(reducedArgs);
         	LocalDateTime dt = LocalDateTime.MIN;
         	LocalDateTime dtStart = LocalDateTime.MIN;
         	LocalDateTime dtEnd = LocalDateTime.MIN;
@@ -346,7 +347,7 @@ public class MainParser {
      * @@author A0139661Y
      */
     
-    private static void extractDetail(String args) throws IllegalValueException {
+    private static String extractDetail(String args) throws IllegalValueException {
     	// Check if only one ' used
     	if (args.lastIndexOf("'") == args.indexOf("'"))
     		throw new IllegalValueException(MESSAGE_ENCAPSULATE_DETAIL_WARNING);
@@ -364,19 +365,9 @@ public class MainParser {
     	output = output.replaceFirst("'","");
     	// Save to instance
     	detailToAdd = output;
-    }
-    
-    /**
-     * Extracts the details out of the reduced args string (without date and time)
-     * 
-     * @param reducedArgs
-     * @return a clean string without redundant words, tags, priority
-     * 
-     * @@author A0139661Y
-     */
-    private String removeTagsAndPriorityMarkers(String reducedArgs) {
-		return getCleanString(reducedArgs.replaceAll("-[^ ]+", "")
-										.replaceAll("/[^ ]+", ""));
+    	
+    	// return rear end
+    	return new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
     }
     
 	/**
