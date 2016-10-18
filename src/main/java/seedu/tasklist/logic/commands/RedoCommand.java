@@ -78,8 +78,15 @@ public class RedoCommand extends Command {
         }
     }
 
-    private void redoUpdate(Task task, Task task2) {
-        
+    private void redoUpdate(Task originalTask, Task newTask) {
+        Task stubTask = new Task (newTask.getTaskDetails(), newTask.getStartTime(), newTask.getEndTime(), newTask.getPriority(), newTask.getTags());
+        try {
+            model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getTags());
+            model.updateTaskUndo(originalTask, stubTask.getTaskDetails(), stubTask.getStartTime(), stubTask.getEndTime(), stubTask.getPriority(), stubTask.getTags());
+            ModelManager.undoStack.push(undoInfo);
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            e.printStackTrace();
+        }
     }
 
     private void redoDone(Task task) {

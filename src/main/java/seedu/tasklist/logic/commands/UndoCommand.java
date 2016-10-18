@@ -92,8 +92,10 @@ public class UndoCommand extends Command {
     }
 
     private void undoUpdate(Task newTask, Task originalTask){
+        Task stubTask = new Task (newTask.getTaskDetails(), newTask.getStartTime(), newTask.getEndTime(), newTask.getPriority(), newTask.getTags());
         try {
             model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getTags());
+            model.updateTaskUndo(originalTask, stubTask.getTaskDetails(), stubTask.getStartTime(), stubTask.getEndTime(), stubTask.getPriority(), stubTask.getTags());
         } catch (UniqueTaskList.DuplicateTaskException e) {
             e.printStackTrace();
         }
