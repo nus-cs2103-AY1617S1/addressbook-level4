@@ -8,18 +8,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
-<HBox id="cardPane" fx:id="cardPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="342.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="131.0" prefWidth="342.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
+      <Rectangle fx:id="priority" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="128.0" stroke="BLACK" strokeType="INSIDE" width="8.0">
+         <HBox.margin>
+            <Insets top="1.0" />
+         </HBox.margin>
+      </Rectangle>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="125.0" prefWidth="125.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="125.0" prefWidth="125.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -27,77 +30,31 @@
                     <padding>
                         <Insets bottom="5" left="15" right="5" top="5" />
                     </padding>
-
-                    <children>
-                  <GridPane>
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+      
+                          <children>
+                  <HBox>
                      <children>
-                        <HBox>
-                           <children>
-                                       <Label fx:id="id" styleClass="cell_big_label" text="\$index" />
-                           </children>
-                        </HBox>
-                              <HBox alignment="CENTER_LEFT" spacing="5" GridPane.columnIndex="1">
-                                  <children>
-                              <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
-                                  </children>
-                              </HBox>
-                        <HBox alignment="CENTER_LEFT" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <children>
-                              <Label fx:id="recurrenceRate" text="\$recurrenceRate" />
-                           </children>
-                        </HBox>
+                                 <Label fx:id="id" styleClass="cell_big_label" text="\$index" />
+                        <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
                      </children>
-                  </GridPane>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="recurrenceRate" styleClass="cell_small_label" text="\$recurrenceRate" />
+                  <Label style="-fx-padding: 4; -fx-text-fill: #FFFFFF; -fx-background-color: #777777; -fx-font-size: 14; -fx-background-radius: 3; -fx-border-radius: 3;" text="Test Label">
+                     <VBox.margin>
+                        <Insets top="1.0" />
+                     </VBox.margin></Label>
                     </children>
                 </VBox>
-            <GridPane GridPane.columnIndex="3">
-              <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                        <Label fx:id="priority" styleClass="cell_small_label" text="\\$priority" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
-            <GridPane GridPane.columnIndex="1">
-              <columnConstraints>
-                <ColumnConstraints />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label fx:id="startDate" text="\$startDate" GridPane.columnIndex="1" />
-                  <Label fx:id="startTime" text="\$startTime" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
-            <GridPane GridPane.columnIndex="2">
-              <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label fx:id="endDate" text="\$endDate" />
-                  <Label fx:id="endTime" text="\$endTime" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
             </children>
          <rowConstraints>
             <RowConstraints />

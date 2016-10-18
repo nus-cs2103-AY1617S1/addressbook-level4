@@ -21,9 +21,9 @@ public class EditCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit an item in the To-Do List. ";
               
-    public static final String TOOL_TIP = "edit INDEX [NAME], [from/at START_DATE START_TIME][to/by END_DATE END_TIME][repeat every RECURRING_INTERVAL][-PRIORITY]";
+    public static final String TOOL_TIP = "edit INDEX [NAME], [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
 
-    public static final String MESSAGE_DUPLICATE_FLOATING_TASK = "This task already exists in the task manager";
+    //public static final String MESSAGE_DUPLICATE_FLOATING_TASK = "This task already exists in the task manager";
 
     public static final String MESSAGE_SUCCESS = "Item edited: %1$s";
     
