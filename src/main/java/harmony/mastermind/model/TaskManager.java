@@ -2,9 +2,14 @@ package harmony.mastermind.model;
 
 import javafx.collections.ObservableList;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.logic.commands.FindCommand;
 import harmony.mastermind.logic.parser.ParserSearch;
 import harmony.mastermind.memory.Memory;
@@ -140,6 +145,8 @@ public class TaskManager implements ReadOnlyTaskManager {
                 newData.getDeadlineList(), newData.getTagList(), newData.getArchiveList());
     }
 
+
+
 //// task-level operations
 
     /**
@@ -254,10 +261,6 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
-    
-    public void relocateSaveLocation(String directory) {
-        
-    }
 
 //// util methods
 
@@ -355,4 +358,5 @@ public class TaskManager implements ReadOnlyTaskManager {
         ParserSearch.run(keyword, memory);
         
     }
+
 }

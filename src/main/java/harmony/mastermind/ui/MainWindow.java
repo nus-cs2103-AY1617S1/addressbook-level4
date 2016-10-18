@@ -258,12 +258,6 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getY());
     }
 
-    /*
-     * TODO: WILL NOT WORK BECAUSE UI REVAMP REMOVED Browser panel.
-     * 
-     * @FXML public void handleHelp() { browserPanel.loadHelpPage(); }
-     */
-
     public void show() {
         primaryStage.show();
     }
