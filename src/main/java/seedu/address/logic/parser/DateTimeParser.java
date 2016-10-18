@@ -76,6 +76,10 @@ public class DateTimeParser {
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
 
+    public DateGroup getDateGroup(int index) {
+        return this.dategroups.get(index);
+    }
+
     public String getDateTime() {
         return this.datetime;
     }
