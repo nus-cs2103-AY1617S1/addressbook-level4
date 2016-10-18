@@ -108,7 +108,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleHideHelpEvent(CommandInputEnterEvent event) {
+    private void handleCommandInputEnterEvent(CommandInputEnterEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getHelpPanel().hideHelpPanel();
     }
