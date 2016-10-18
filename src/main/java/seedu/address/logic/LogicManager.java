@@ -56,12 +56,13 @@ public class LogicManager extends ComponentManager implements Logic {
     /**
      * Generates the tool tip for the current user input.
      * 
-     * 
      * @param commandText the user input string
      * @return the tooltip that fits the user input string
      */
     @Override
     public String generateToolTip(String commandText){
+        assert commandText != null;
+        
         //logger.info("----------------[INCOMPLETE USER COMMAND][" + commandText + "]");
         List<String> toolTips = parser.parseIncompleteCommand(commandText);
         

@@ -731,43 +731,43 @@ public class CommandParser {
     private void updateMatchedCommands(List<String> toolTips, final String commandWord) {
         
         
-        // checks all command words to see if there is a match
-        if (StringUtil.isSubstringFromStart(AddCommand.COMMAND_WORD, commandWord)){
+        // checks all command words to see if there is a match/*
+        if (StringUtil.isSubstringFromStart(AddCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(AddCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(ClearCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(ClearCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(ClearCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(DeleteCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(DeleteCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(DeleteCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(DoneCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(DoneCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(DoneCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(EditCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(EditCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(EditCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(ExitCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(ExitCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(ExitCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(FindCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(FindCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(FindCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(HelpCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(HelpCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(HelpCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(ListCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(ListCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(ListCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(RedoCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(RedoCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(RedoCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(SelectCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(SelectCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(SelectCommand.TOOL_TIP);
         }
-        if (StringUtil.isSubstringFromStart(UndoCommand.COMMAND_WORD, commandWord)){
+        if (StringUtil.isSubstringFromStart(UndoCommand.COMMAND_WORD, commandWord)) {
             toolTips.add(UndoCommand.TOOL_TIP);
         }
-
+        
     }
 }

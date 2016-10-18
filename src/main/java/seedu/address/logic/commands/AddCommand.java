@@ -26,13 +26,13 @@ public class AddCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List. "
-            + "Parameters: [add] NAME, [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
+            + "Parameters: [add] NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
             + " feed cat, by today 11:30am repeat every day -high";
         
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     
-    public static final String TOOL_TIP = "[add] NAME, [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
+    public static final String TOOL_TIP = "[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
 
     public static final String MESSAGE_UNDO_SUCCESS = "Undid add item: %1$s";
 
