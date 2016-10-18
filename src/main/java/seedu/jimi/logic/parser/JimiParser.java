@@ -25,6 +25,7 @@ import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.logic.commands.AddCommand;
 import seedu.jimi.logic.commands.ClearCommand;
 import seedu.jimi.logic.commands.Command;
+import seedu.jimi.logic.commands.CompleteCommand;
 import seedu.jimi.logic.commands.DeleteCommand;
 import seedu.jimi.logic.commands.EditCommand;
 import seedu.jimi.logic.commands.ExitCommand;
@@ -59,7 +60,7 @@ public class JimiParser {
             Pattern.compile("(\"(?<taskDetails>.+)\")( due (?<dateTime>.+))?");
     
     private static final List<Command> COMMAND_STUB_LIST =
-            Arrays.asList(new AddCommand(), new EditCommand(), new SelectCommand(), new DeleteCommand(),
+            Arrays.asList(new AddCommand(), new EditCommand(), new CompleteCommand(), new SelectCommand(), new DeleteCommand(),
                     new ClearCommand(), new FindCommand(), new ListCommand(), new ExitCommand(), new HelpCommand());
     
     public JimiParser() {}
@@ -98,7 +99,9 @@ public class JimiParser {
                     return prepareAdd(arguments);
                 } else if (command instanceof EditCommand) {
                     return prepareEdit(arguments);
-                } else if (command instanceof SelectCommand) {
+                } else if (command instanceof CompleteCommand) {
+                    return prepareComplete(arguments);
+                }else if (command instanceof SelectCommand) {
                     return prepareSelect(arguments);
                 } else if (command instanceof DeleteCommand) {
                     return prepareDelete(arguments);
@@ -202,6 +205,22 @@ public class JimiParser {
         return new HashSet<>(tagStrings);
     }
 
+    /**
+     * Parses arguments in the context of the complete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareComplete(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+
+        return new CompleteCommand(index.get());
+    }
+    
     /**
      * Parses arguments in the context of the delete task command.
      *

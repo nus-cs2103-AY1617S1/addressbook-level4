@@ -318,7 +318,18 @@ public class TestUtil {
         listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
     }
-
+    
+    /**
+     * @param list Array of all the tasks.
+     * @param targetIndexInOneIndexedFormat Index of task to be set to completed.
+     * @return Modified array of tasks.
+     */
+    public static TestFloatingTask[] completeTaskFromList(TestFloatingTask[] tasks, int index){
+        tasks[index].setCompleted(true);
+        
+        return tasks;
+    }
+    
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
         for(T obj : objs) {

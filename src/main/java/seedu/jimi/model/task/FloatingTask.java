@@ -56,7 +56,15 @@ public class FloatingTask implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
-
+    
+    /**
+     * Set the task to be completed/incomplete.
+     * @param isCompleted is true if task is completed.
+     */
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
