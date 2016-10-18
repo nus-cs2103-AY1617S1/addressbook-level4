@@ -33,7 +33,7 @@ public interface Model {
     void addEvent(Event event) throws UniqueEventList.DuplicateEventException;
     
     /** Edits the given task */
-    void editTask(Task task, int index) throws UniqueTaskList.DuplicateTaskException;
+    void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException;
     
     /** Marks the given task */
     void markTask(ReadOnlyTask target);
