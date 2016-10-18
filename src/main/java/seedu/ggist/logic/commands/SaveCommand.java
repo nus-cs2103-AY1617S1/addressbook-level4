@@ -7,7 +7,6 @@ import seedu.ggist.commons.core.Config;
 import seedu.ggist.commons.core.EventsCenter;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.events.storage.ChangeSaveFileEvent;
-import seedu.ggist.commons.events.ui.ShowHelpRequestEvent;
 import seedu.ggist.commons.util.ConfigUtil;
 import seedu.ggist.commons.util.FileUtil;
 import seedu.ggist.model.ReadOnlyTaskManager;
