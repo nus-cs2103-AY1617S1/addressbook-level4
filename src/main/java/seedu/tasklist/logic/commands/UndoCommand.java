@@ -24,6 +24,7 @@ public class UndoCommand extends Command {
     public static final int UPD_CMD_ID = 3;
     public static final int DONE_CMD_ID = 4;
     public static final int CLR_CMD_ID = 5;
+    public static final int STR_CMD_ID = 6;
     
     private static final int CURRENT_TASK = 0;
     private static final int ORIGINAL_TASK_INDEX = 1;
@@ -54,6 +55,9 @@ public class UndoCommand extends Command {
                 return new CommandResult(MESSAGE_SUCCESS);
             case CLR_CMD_ID:
                 undoClear(undoInfo.getTasks());
+                return new CommandResult(MESSAGE_SUCCESS);
+            case STR_CMD_ID:
+                //undoSetStorage();
                 return new CommandResult(MESSAGE_SUCCESS);
             default:
                 return new CommandResult(MESSAGE_FAILURE);
