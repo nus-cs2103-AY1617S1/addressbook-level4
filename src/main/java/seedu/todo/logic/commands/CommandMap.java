@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+//@@author A0135817B
 public class CommandMap {
     // List of command classes. Remember to register new commands here so that the
     // dispatcher can recognize them
@@ -17,6 +18,8 @@ public class CommandMap {
         .add(ExitCommand.class)
         .add(HelpCommand.class)
         .add(PinCommand.class)
+        .add(UndoCommand.class)
+        .add(RedoCommand.class)
         .add(SaveCommand.class)
         .add(LoadCommand.class)
         .build();
