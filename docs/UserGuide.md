@@ -114,9 +114,9 @@ Allows the user to edit a particular task<br>
 Format: `edit <task index> <detail to edit> <new value>`
 
 Example:
-* `edit t2 time 11am`
-* `edit s1 name CS2103T Tutorial`
-* `edit t2 date 21/11/2016`
+* `edit 2 from 11am to 2pm`
+* `edit 1 CS2103T Tutorial`
+* `edit 2 from today 3pm to tomorrow 10am`
 
 #### View all task: `home`
 Returns to the default view of the application when it is opened.<br>
@@ -127,7 +127,7 @@ Marks a task as done. <br>
 Format: `done <task index>`
 
 Example:
-* `done t1`
+* `done 1`
 
 
 #### Saving the data 

@@ -263,13 +263,15 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | view more information about various command | learn how to use those commands. 
 `* * *` | user | edit the details of a specific task | reschedule the task if the deadline has changed.
 `* * *` | new user | view the availability of all the possible commands | understand what features there are in the product.
+`* * *` | user | have a few natural variations in my command inputs | key in my task more efficiently.
 `* * *` | user | view all my tasks | I have an idea about the pending tasks.
 `* * *` | user | mark a task as done | it will be removed from my list of things to do.
 `* * *` | user | add floating tasks without date or time | I can do that task whenever I want.
+`* * *` | user | specify a specific folder as the data storage location | I can decide where to place my file for the task manager.
+`* * *` | user | have a done list | see what has been done for the day to know how productive I've been.
 `* *` | user | undo a command | go back to the previous command if I have made a mistake.
 `* *` | user | rearrange my task based on certain commands | make my schedule more flexible.
 `* *` | user | set the priority of the task when I'm adding a new task | know the urgency of the task.
-`*` | user | have a done list | see what has been done for the day to know how productive I've been.
 `*` | user | sort my task according to the priority | can work on the important task first.
 
 
@@ -291,7 +293,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 **Extensions**
 
-1a. User enters an incorrect command
+	1a. User enters an incorrect command
 
 > 1a1. ForgetMeNot shows an error and help message
 
@@ -381,7 +383,7 @@ Priority | As a ... | I want to ... | So that I can...
 2. System prompts for confirmation.
 3. User confirms.
 4. System shows user that the task is marked as done.
-       Use case ends
+     Use case ends.
        
 **Extensions**
 
