@@ -3,6 +3,7 @@ package seedu.savvytasker.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.savvytasker.commons.core.EventsCenter;
+import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.events.ui.JumpToListRequestEvent;
 import seedu.savvytasker.commons.events.ui.ShowHelpRequestEvent;
@@ -15,7 +16,6 @@ import seedu.savvytasker.model.ReadOnlyAddressBook;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.person.*;
-import seedu.savvytasker.model.tag.Tag;
 import seedu.savvytasker.storage.StorageManager;
 
 import org.junit.After;
@@ -114,7 +114,8 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        UnmodifiableObservableList<ReadOnlyTask> tasks = model.getFilteredTaskList();
+        assertEquals(expectedShownList, tasks);
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedSavvyTasker, model.getSavvyTasker());
@@ -182,23 +183,6 @@ public class LogicManagerTest {
     }
 
 
-    @Test
-    public void execute_list_showsAllPersons() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        SavvyTasker expectedST = helper.generateSavvyTasker(2);
-        List<? extends ReadOnlyTask> expectedList = expectedST.getReadOnlyListOfTasks();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedST,
-                expectedList);
-    }
-
-
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -208,9 +192,9 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
         
         // Parser doesn't support these yet, skipping test case
-        //assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
-        //assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
-        //assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
+        assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
         assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
     }
 
@@ -275,7 +259,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
+    public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -300,16 +284,20 @@ public class LogicManagerTest {
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        pTarget1.setId(0);
         Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        pTarget2.setId(1);
         Task p1 = helper.generateTaskWithName("KE Y");
+        p1.setId(2);
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        p2.setId(3);
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         SavvyTasker expectedST = helper.generateSavvyTasker(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("find t/full KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedST,
                 expectedList);
@@ -319,9 +307,13 @@ public class LogicManagerTest {
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithName("bla bla KEY bla");
+        p1.setId(0);
         Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        p2.setId(1);
         Task p3 = helper.generateTaskWithName("key key");
+        p3.setId(2);
         Task p4 = helper.generateTaskWithName("KEy sduauo");
+        p4.setId(3);
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
         SavvyTasker expectedST = helper.generateSavvyTasker(fourTasks);
@@ -338,9 +330,13 @@ public class LogicManagerTest {
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        pTarget1.setId(0);
         Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        pTarget2.setId(1);
         Task pTarget3 = helper.generateTaskWithName("key key");
+        pTarget3.setId(2);
         Task p1 = helper.generateTaskWithName("sduauo");
+        p1.setId(3);
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
         SavvyTasker expectedST = helper.generateSavvyTasker(fourTasks);
@@ -371,7 +367,9 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Task generateTask(int seed) {
-            return new Task("Task " + seed);
+            Task t = new Task("Task " + seed);
+            t.setId(seed);
+            return t;
         }
 
         /** Generates the correct add command based on the person given */
@@ -441,7 +439,7 @@ public class LogicManagerTest {
          */
         List<Task> generateTaskList(int numGenerated) throws Exception{
             List<Task> tasks = new ArrayList<>();
-            for(int i = 1; i <= numGenerated; i++){
+            for(int i = 0; i < numGenerated; i++){
                 tasks.add(generateTask(i));
             }
             return tasks;

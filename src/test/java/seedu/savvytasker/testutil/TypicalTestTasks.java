@@ -1,29 +1,45 @@
 package seedu.savvytasker.testutil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.person.*;
 import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.PriorityLevel;
 
 /**
  *
  */
 public class TypicalTestTasks {
 
-    public static TestTask hello, hello2, meeting, assignment, tutorial, dinner, happy, haloween;
-
+    public static TestTask highPriority, medPriority, lowPriority, furthestDue, 
+                            nearerDue, notSoNearerDue, earliestDue, longDue, happy, haloween;
+    private static SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            
     public TypicalTestTasks() {
         try {
-            hello =  new TaskBuilder().withTaskName("Hello Task").build();
-            hello2 =  new TaskBuilder().withTaskName("Hello Task").build();
-            meeting =  new TaskBuilder().withTaskName("Meeting Task").build();
-            assignment =  new TaskBuilder().withTaskName("Assignment Task").build();
-            tutorial =  new TaskBuilder().withTaskName("Tutorial Task").build();
-            dinner =  new TaskBuilder().withTaskName("Dinner Task").build();
+            highPriority =  new TaskBuilder().withId(0).withTaskName("High Priority Task")
+                                .withPriority(PriorityLevel.High).build();
+            medPriority =  new TaskBuilder().withId(1).withTaskName("Medium Priority Task")
+                                .withPriority(PriorityLevel.Medium).build();
+            lowPriority =  new TaskBuilder().withId(2).withTaskName("Low Priority Task")
+                                .withPriority(PriorityLevel.Low).build();
+            furthestDue =  new TaskBuilder().withId(3).withTaskName("Furthest Due Task")
+                                .withEndDateTime(getDate("01/12/2016")).build();
+            nearerDue =  new TaskBuilder().withId(4).withTaskName("Nearer Due Task")
+                                .withEndDateTime(getDate("01/11/2016")).build();
+            notSoNearerDue =  new TaskBuilder().withId(5).withTaskName("Not So Nearer Due Task")
+                    .withEndDateTime(getDate("02/11/2016")).build();
+            earliestDue =  new TaskBuilder().withId(6).withTaskName("Earliest Due Task")
+                                .withEndDateTime(getDate("01/10/2016")).build();
+            longDue =  new TaskBuilder().withId(7).withTaskName("Long Due Task")
+                    .withEndDateTime(getDate("01/1/2016")).withArchived(true).build();
             
             //Manually added
-            happy = new TaskBuilder().withTaskName("Happy Task").build();
-            haloween = new TaskBuilder().withTaskName("Haloween Task").build();
+            happy = new TaskBuilder().withId(8).withTaskName("Happy Task").build();
+            haloween = new TaskBuilder().withId(9).withTaskName("Haloween Task").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -33,24 +49,36 @@ public class TypicalTestTasks {
     public static void loadSavvyTaskerWithSampleData(SavvyTasker st) {
 
         try {
-            st.addTask(new Task(hello));
-            st.addTask(new Task(hello2));
-            st.addTask(new Task(meeting));
-            st.addTask(new Task(assignment));
-            st.addTask(new Task(tutorial));
-            st.addTask(new Task(dinner));
+            st.addTask(new Task(highPriority));
+            st.addTask(new Task(medPriority));
+            st.addTask(new Task(lowPriority));
+            st.addTask(new Task(furthestDue));
+            st.addTask(new Task(nearerDue));
+            st.addTask(new Task(notSoNearerDue));
+            st.addTask(new Task(earliestDue));
+            st.addTask(new Task(longDue));
         } catch (DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{hello, hello2, meeting, assignment, tutorial, dinner};
+        return new TestTask[]{ highPriority, medPriority, lowPriority, 
+                furthestDue, nearerDue, notSoNearerDue, earliestDue };
     }
 
     public SavvyTasker getTypicalSavvyTasker(){
         SavvyTasker st = new SavvyTasker();
         loadSavvyTaskerWithSampleData(st);
         return st;
+    }
+    
+    private Date getDate(String ddmmyyyy) {
+        try {
+            return format.parse(ddmmyyyy);
+        } catch (Exception e) {
+            assert false; //should not get an invalid date....
+        }
+        return null;
     }
 }
