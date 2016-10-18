@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the savvy tasker data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -24,7 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final SavvyTasker savvyTasker;
     private final FilteredList<Task> filteredTasks;
-    private final SortedList<Task> sortedAndFilteredTasks;
+    private SortedList<Task> sortedAndFilteredTasks;
 
     /**
      * Initializes a ModelManager with the given SavvyTasker
@@ -95,20 +95,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> updateFilteredListToShowActiveSortedByDueDate() {
-        updateFilteredListToShowActive();
-        return getFilteredAndSortedTaskList(new TaskSortedByDueDate());
+    public void updateFilteredListToShowActiveSortedByDueDate() {
+        updateFilteredListToShowActive(new TaskSortedByDueDate());
     }
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> updateFilteredListToShowActiveSortedByPriorityLevel() {
-        updateFilteredListToShowActive();
-        return getFilteredAndSortedTaskList(new TaskSortedByPriorityLevel());
+    public void updateFilteredListToShowActiveSortedByPriorityLevel() {
+        updateFilteredListToShowActive(new TaskSortedByPriorityLevel());
     }
 
     @Override
     public void updateFilteredListToShowActive() {
         updateFilteredTaskList(new PredicateExpression(new TaskIsActiveQualifier()));
+    }
+    
+    private void updateFilteredListToShowActive(Comparator<Task> comparator) {
+        updateFilteredTaskList(
+                new PredicateExpression(new TaskIsActiveQualifier()),
+                comparator);
     }
     
     @Override
@@ -117,19 +121,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new TaskNameExactMatchQualifier(keywords)));
     }
-
+    
     private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+        updateFilteredTaskList(expression, new TaskSortedByDefault());
     }
 
-    private UnmodifiableObservableList<ReadOnlyTask> getFilteredAndSortedTaskList(Comparator<Task> comparator) {
-        sortedAndFilteredTasks.clear();
-        sortedAndFilteredTasks.addAll(filteredTasks);
-        sortedAndFilteredTasks.sort(comparator);
-        return new UnmodifiableObservableList<ReadOnlyTask>(sortedAndFilteredTasks);
+    private void updateFilteredTaskList(Expression expression, Comparator<Task> comparator) {
+        filteredTasks.setPredicate(expression::satisfies);
+        sortedAndFilteredTasks = new SortedList<>(filteredTasks, comparator);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -185,7 +187,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Qualifier for checking if task is active. Tasks that are not archived are active.
+     * Qualifier for checking if {@link Task} is active. Tasks that are not archived are active.
      * @author A0139915W
      *
      */
@@ -203,7 +205,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     /**
-     * Qualifier for checking if task is archived
+     * Qualifier for checking if {@link Task} is archived
      * @author A0139915W
      *
      */
@@ -223,7 +225,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for sorting ==================================================
     
     /**
-     * Compares tasks by their default field, id
+     * Compares {@link Task} by their default field, id
      * @author A0139915W
      *
      */
@@ -240,7 +242,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     /**
-     * Compares tasks by their DueDate
+     * Compares {@link Task} by their DueDate
      * @author A0139915W
      *
      */
@@ -251,13 +253,26 @@ public class ModelManager extends ComponentManager implements Model {
             if (task1 == null && task2 == null) return 0;
             else if (task1 == null) return 1;
             else if (task2 == null) return -1;
-            else return task1.getId() - task2.getId();
+            else {
+                // End dates can be nulls (floating tasks)
+                // Check for existence of endDateTime before comparing
+                if (task1.getEndDateTime() == null &&
+                    task2.getEndDateTime() == null) {
+                    return 0;
+                } else if (task1.getEndDateTime() == null) {
+                    return 1;
+                } else if (task2.getEndDateTime() == null) {
+                    return -1;
+                } else {
+                    return task1.getEndDateTime().compareTo(task2.getEndDateTime());
+                }
+            }
         }
         
     }
     
     /**
-     * Compares tasks by their PriorityLevel
+     * Compares {@link Task} by their PriorityLevel
      * @author A0139915W
      *
      */
@@ -268,7 +283,10 @@ public class ModelManager extends ComponentManager implements Model {
             if (task1 == null && task2 == null) return 0;
             else if (task1 == null) return 1;
             else if (task2 == null) return -1;
-            else return task1.getId() - task2.getId();
+            else {
+                int result =task1.getPriority().compareTo(task2.getPriority());
+                return result;
+            }
         }
         
     }

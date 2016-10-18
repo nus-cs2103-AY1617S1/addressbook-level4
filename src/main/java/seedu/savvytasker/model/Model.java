@@ -29,11 +29,11 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
-    /** Returns the filtered and sorted task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} sorted by due date */
-    UnmodifiableObservableList<ReadOnlyTask> updateFilteredListToShowActiveSortedByDueDate();
+    /** Updates the filter of the filtered task list to show all active tasks sorted by due date */
+    void updateFilteredListToShowActiveSortedByDueDate();
 
-    /** Returns the filtered and sorted task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} sorted by priority level */
-    UnmodifiableObservableList<ReadOnlyTask> updateFilteredListToShowActiveSortedByPriorityLevel();
+    /** Updates the filter of the filtered task list to show all active tasks sorted by priority level */
+    void updateFilteredListToShowActiveSortedByPriorityLevel();
 
     /** Updates the filter of the filtered task list to show all active tasks */
     void updateFilteredListToShowActive();

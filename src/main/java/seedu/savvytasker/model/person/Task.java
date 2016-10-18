@@ -25,7 +25,7 @@ public class Task implements ReadOnlyTask {
     private boolean isArchived;
 
     public Task(int id, String taskName, Date startDateTime, Date endDateTime, String location,
-            PriorityLevel priority, RecurrenceType recurringType, int numberOfRecurrence, 
+            PriorityLevel priority, RecurrenceType recurringType, Integer numberOfRecurrence, 
             String category, String description, boolean isArchived) {
         this.id = id;
         this.taskName = taskName;
@@ -34,7 +34,11 @@ public class Task implements ReadOnlyTask {
         this.location = location;
         this.priority = priority;
         this.recurringType = recurringType;
-        this.numberOfRecurrence = numberOfRecurrence;
+        if (numberOfRecurrence == null) {
+            this.numberOfRecurrence = 0;
+        } else {
+            this.numberOfRecurrence = numberOfRecurrence.intValue();
+        }
         this.category = category;
         this.description = description;
         this.isArchived = isArchived;

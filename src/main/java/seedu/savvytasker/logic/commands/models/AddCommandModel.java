@@ -1,5 +1,7 @@
 package seedu.savvytasker.logic.commands.models;
 
+import java.util.Date;
+
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.RecurrenceType;
@@ -12,22 +14,22 @@ public class AddCommandModel extends CommandModel {
     
     private int id;
     private String taskName;
-    private InferredDate startDateTime;
-    private InferredDate endDateTime;
+    private Date startDateTime;
+    private Date endDateTime;
     private String location;
     private PriorityLevel priority;
     private RecurrenceType recurringType;
-    private int numberOfRecurrence;
+    private Integer numberOfRecurrence;
     private String category;
     private String description;
     
     public AddCommandModel(int id, String taskName, InferredDate startDateTime, InferredDate endDateTime, String location,
-            PriorityLevel priority, RecurrenceType recurringType, int numberOfRecurrence, String category, 
+            PriorityLevel priority, RecurrenceType recurringType, Integer numberOfRecurrence, String category, 
             String description) {
         this.id = id;
         this.taskName = taskName;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        setStartDateTime(startDateTime);
+        setEndDateTime(endDateTime);
         this.location = location;
         this.priority = priority;
         this.recurringType = recurringType;
@@ -56,20 +58,22 @@ public class AddCommandModel extends CommandModel {
         this.taskName = taskName;
     }
 
-    public InferredDate getStartDateTime() {
+    public Date getStartDateTime() {
         return startDateTime;
     }
 
     public void setStartDateTime(InferredDate startDateTime) {
-        this.startDateTime = startDateTime;
+        // TODO: Logic for parsing InferredDate to Date
+        this.startDateTime = null;
     }
 
-    public InferredDate getEndDateTime() {
+    public Date getEndDateTime() {
         return endDateTime;
     }
 
     public void setEndDateTime(InferredDate endDateTime) {
-        this.endDateTime = endDateTime;
+        // TODO: Logic for parsing InferredDate to Date
+        this.endDateTime = null;
     }
 
     public String getLocation() {
@@ -96,11 +100,11 @@ public class AddCommandModel extends CommandModel {
         this.recurringType = recurringType;
     }
 
-    public int getNumberOfRecurrence() {
+    public Integer getNumberOfRecurrence() {
         return numberOfRecurrence;
     }
 
-    public void setNumberOfRecurrence(int numberOfRecurrence) {
+    public void setNumberOfRecurrence(Integer numberOfRecurrence) {
         this.numberOfRecurrence = numberOfRecurrence;
     }
 
