@@ -2,6 +2,7 @@ package seedu.taskmanager.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
@@ -11,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.taskmanager.commons.core.LogsCenter;
-import seedu.taskmanager.commons.events.ui.ItemPanelSelectionChangedEvent;
+import seedu.taskmanager.commons.events.ui.ShortItemPanelSelectionChangedEvent;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.logic.Logic;
 
@@ -20,17 +21,17 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of items.
  */
-public class ItemListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(ItemListPanel.class);
-    private static final String FXML = "ItemListPanel.fxml";
+public class ShortItemListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(ShortItemListPanel.class);
+    private static final String FXML = "ShortItemListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
     private Logic logic;
 
     @FXML
-    private ListView<ReadOnlyItem> itemListView;
+    private ListView<ReadOnlyItem> shortItemListView;
 
-    public ItemListPanel() {
+    public ShortItemListPanel() {
         super();
     }
 
@@ -43,16 +44,22 @@ public class ItemListPanel extends UiPart {
     public String getFxmlPath() {
         return FXML;
     }
+    
+    @FXML 
+    public void handleShortItemClick() {
+        ReadOnlyItem newItem = shortItemListView.getSelectionModel().getSelectedItem();
+        raise(new ShortItemPanelSelectionChangedEvent(newItem, shortItemListView.getItems().indexOf(newItem)));
+    }
 
     @Override
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
 
-    public static ItemListPanel load(Stage primaryStage, AnchorPane itemListPlaceholder,
+    public static ShortItemListPanel load(Stage primaryStage, AnchorPane shortItemListPlaceholder,
                                        ObservableList<ReadOnlyItem> itemList, Logic logic) {
-        ItemListPanel itemListPanel =
-                UiPartLoader.loadUiPart(primaryStage, itemListPlaceholder, new ItemListPanel());
+        ShortItemListPanel itemListPanel =
+                UiPartLoader.loadUiPart(primaryStage, shortItemListPlaceholder, new ShortItemListPanel());
         itemListPanel.configure(itemList);
         itemListPanel.logic = logic;
         return itemListPanel;
@@ -64,9 +71,9 @@ public class ItemListPanel extends UiPart {
     }
 
     private void setConnections(ObservableList<ReadOnlyItem> itemList) {
-        itemListView.setItems(itemList);
-        itemListView.setCellFactory(listView -> new ItemListViewCell());
-        setEventHandlerForSelectionChangeEvent();
+        shortItemListView.setItems(itemList);
+        shortItemListView.setCellFactory(listView -> new ShortItemListViewCell());
+        // setEventHandlerForSelectionChangeEvent();
     }
 
     private void addToPlaceholder() {
@@ -75,28 +82,29 @@ public class ItemListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        itemListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        shortItemListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in item list panel changed to : '" + newValue + "'");
-                raise(new ItemPanelSelectionChangedEvent(newValue));
+                raise(new ShortItemPanelSelectionChangedEvent(newValue, shortItemListView.getItems().indexOf(newValue)));
             }
         });
     }
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            itemListView.scrollTo(index);
-            itemListView.getSelectionModel().clearAndSelect(index);
+            shortItemListView.scrollTo(index);
+            shortItemListView.getSelectionModel().clearAndSelect(index);
+            handleShortItemClick();
         });
     }
     
     public void updateIndex() {
-        itemListView.setCellFactory(listView -> new ItemListViewCell());
+        shortItemListView.setCellFactory(listView -> new ShortItemListViewCell());
     }
 
-    class ItemListViewCell extends ListCell<ReadOnlyItem> {
+    class ShortItemListViewCell extends ListCell<ReadOnlyItem> {
 
-        public ItemListViewCell() {
+        public ShortItemListViewCell() {
 
         }
 
@@ -108,7 +116,7 @@ public class ItemListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(ItemCard.load(item, getIndex() + 1, logic).getLayout());
+                setGraphic(ShortItemCard.load(item, getIndex() + 1, logic).getLayout());
             }
         }
     }

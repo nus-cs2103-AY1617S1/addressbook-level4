@@ -7,6 +7,7 @@ import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskmanager.commons.events.ui.ChangeDoneEvent;
+import seedu.taskmanager.commons.events.ui.FilterEvent;
 import seedu.taskmanager.commons.util.StringUtil;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ReadOnlyItem;
@@ -92,6 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
         HistoryTaskManager newHistory = new HistoryTaskManager(newData, actionTaken);
         history.push(newHistory);
         raise(new TaskManagerChangedEvent(taskManager));
+        raise(new FilterEvent(filteredItems));
     }
     
     @Override
@@ -142,13 +144,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredItems.setPredicate(null);
+    	filteredItems.setPredicate(null);
+    	raise(new FilterEvent(filteredItems));
     }
     
     
     @Override
     public void updateFilteredListToShowTask() {
-    	final String[] itemType = {"task"}; 
+        final String[] itemType = {"task"}; 
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
         updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
@@ -174,6 +177,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredPersonList(Expression expression) {
         filteredItems.setPredicate(expression::satisfies);
+        raise(new FilterEvent(filteredItems));
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
