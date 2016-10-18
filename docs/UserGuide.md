@@ -135,6 +135,27 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 >   * 24-hour clock format such as `20:15` are also accepted
 >   * Take note to demarcate the hours and minutes with a colon. The following examples are not allowed: `730am`, `1930`.
 
+<br>
+
+**_Valid Dates & Times_**
+
+Date| Format
+-------- | :-------- 
+DD/MM/YYYY| 12/12/2016
+DD/MM/YY| 12/12/16
+DD/MM| 12/12
+Month Word| may, dec
+Day|monday
+Relative Date| tommorow
+<br>
+
+Time| Format
+-------- | :-------- 
+24Hr| 20:50
+AM/PM| 8:50pm
+Preset|midnight, noon
+<br>
+
 Examples:
 * `Do project proposal by 5pm tomorrow`
 * `eat lunch by 1pm today -h`
@@ -174,17 +195,20 @@ Examples:
 
 **_Editing out details in a task_**
 
-You can also remove any section if they are no longer relevant. <br>
-Format: `edit INDEX [repeat] [start] [end] [-reset parameter]`
-> `INDEX` refers to the task number in the current displayed list.<br>
-> Use [-reset repeat] to remove the recurring time. <br>
-> Use [-reset start] to remove the start time. <br>
-> Use [-reset end] to remove the end time. <br>
+ You can also remove any section if they are no longer relevant! <br>
+ Format: `edit INDEX [-reset parameter] [repeat] [start] [end] `
+ > `INDEX` refers to the task number in the current displayed list.<br>
+> Use `[-reset repeat]` to remove the recurring time<br>
+> Use `[-reset start]` to remove the start time<br>
+> Use `[-reset end]` to remove the end time 
 
 Examples:
-* `Buy coffee for boss by 8am repeat every day`
+* `Buy coffee for boss, by 8am repeat every day`
 * `edit 1 -reset repeat start`
 * `edit 2 -reset end`
+
+>Do note that the reset will overide the editing if done on the same line, allowing you to easily remove any parts at the end of the typing instead of continously pressing the backspace.
+
 
 ### Deleting a task: `delete`
 Deletes an existing task in your task manager. This will remove them from the storage. If you want to mark them as done instead, take a look at the `done` command below. <br>
