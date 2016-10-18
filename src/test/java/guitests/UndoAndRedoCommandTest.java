@@ -2,6 +2,13 @@ package guitests;
 
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.item.DateTime;
+import seedu.address.model.item.Name;
+import seedu.address.model.item.Priority;
+import seedu.address.model.item.RecurrenceRate;
+import seedu.address.model.item.TimePeriod;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
@@ -13,6 +20,7 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
     @Test
     public void undoAndRedo() {
         // TODO: test delete more than one at once, done more than one at once
+        // This test seems pretty long...
         
         // add one person
         TestTask[] currentList = td.getTypicalTasks();
@@ -53,39 +61,67 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         // undo the delete
         assertUndoSuccess(currentList);
         
+        // clear the list
+        assertClearCommandSuccess();
+        assertUndoSuccess(currentList);
+        assertRedoSuccess();
+        
+        // add alice
+        TestTask aliceTask = new TestTask(td.alice);
+        assertAddSuccess(aliceTask);
+        
+        // primative edit undo and redo testing until the assertEditSuccess is complete
+        TestTask aliceTaskBackup = new TestTask(aliceTask);
+        commandBox.runCommand("edit 1 Call Alice from 2pm to 3pm repeat every day -high");
+        aliceTask.setName(new Name("Call Alice"));
+        aliceTask.setStartDate(DateTime.convertStringToStartDate("2pm"));
+        aliceTask.setEndDate(DateTime.convertStringToEndDate("3pm", aliceTask.getStartDate().get()));
+        try {
+            aliceTask.setRecurrence(new RecurrenceRate("1", "day"));
+        } catch (IllegalValueException e) {
+            assert false : "The test data provided cannot be invalid";
+        }
+        aliceTask.setPriority(Priority.HIGH);
+        assertTrue(personListPanel.isListMatching(aliceTask));
+        
+        assertUndoSuccess(aliceTaskBackup);
+        assertRedoSuccess(aliceTask);
+        
+        
+        // primative done undo and redo testing until the assertDoneSuccess is complete
+        commandBox.runCommand("done 1");
+        assertTrue(personListPanel.isListMatching());
+        commandBox.runCommand("list done");
+        assertTrue(personListPanel.isListMatching(aliceTask));
+        
+        // automatically directs me back to undone view
+        assertUndoSuccess(aliceTask);
+        commandBox.runCommand("list done");
+        assertTrue(personListPanel.isListMatching());
+        
+        // automatically directs me back to undone view
+        assertRedoSuccess();
+        assertTrue(personListPanel.isListMatching());
+
+        commandBox.runCommand("list done");
+        assertTrue(personListPanel.isListMatching(aliceTask));
+        commandBox.runCommand("list");
+        
+        // test whether the redo resets properly
+        assertClearCommandSuccess();
+        assertAddSuccess(taskToAdd);
+        
+        
+        // this shows that the redo has reset
+        assertUndoSuccess();
+        assertAddSuccess(aliceTaskBackup);
+        assertRedoSuccess(aliceTaskBackup);
+
+        
+        
         
         
     }
-/*
-    @Test
-    public void add() {
-        //add one person
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask personToAdd = td.hoon;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addFloatingTasksToList(currentList, personToAdd);
-
-        //add another person
-        personToAdd = td.ida;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addFloatingTasksToList(currentList, personToAdd);
-
-        //add duplicate person
-        //commandBox.runCommand(td.hoon.getAddCommand());
-        //assertResultMessage(AddCommand.MESSAGE_DUPLICATE_FLOATING_TASK);
-        //assertTrue(personListPanel.isListMatching(currentList));
-
-        //add to empty list
-        commandBox.runCommand("clear");
-        assertAddSuccess(td.alice);
-
-        
-        //invalid command
-        commandBox.runCommand("adds Johnny");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
-        
-    }
-*/
     
     private void assertUndoSuccess(TestTask... expectedList) {
         commandBox.runCommand("undo");
@@ -127,5 +163,10 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         assertResultMessage(String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
     }
         
+    private void assertClearCommandSuccess() {
+        commandBox.runCommand("clear");
+        assertListSize(0);
+        assertResultMessage("Task Manager has been cleared!");
+    }
 
 }

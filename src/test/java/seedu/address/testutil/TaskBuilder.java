@@ -37,7 +37,7 @@ public class TaskBuilder {
                 priority = Priority.MEDIUM;
         }
         
-        this.task.setPriorityValue(priority);
+        this.task.setPriority(priority);
         return this;
     }
 
