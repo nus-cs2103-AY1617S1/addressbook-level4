@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 import tars.commons.core.Messages;
 import tars.commons.exceptions.IllegalValueException;
+import tars.commons.exceptions.InvalidRangeException;
 import tars.commons.flags.Flag;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.ExtractorUtil;
@@ -223,13 +224,19 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
+        args = args.trim();
+        if (args.equals("")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
-        return new DeleteCommand(index.get());
+        try {
+            String rangeIndex = StringUtil.indexString(args);
+            args = rangeIndex;
+        } catch (InvalidRangeException ire) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE)); 
+        }
+        return new DeleteCommand(args);
     }
 
     /**
@@ -254,8 +261,17 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
 
-        String markDone = argumentMap.get(doneFlag).replace(Flag.DONE + " ", "");
-        String markUndone = argumentMap.get(undoneFlag).replace(Flag.UNDONE + " ", "");
+        String markDone = argumentMap.get(doneFlag).replace(Flag.DONE + " ", "").trim();
+        String markUndone = argumentMap.get(undoneFlag).replace(Flag.UNDONE + " ", "").trim();
+        
+        try {
+            String indexesToMarkDone = StringUtil.indexString(markDone);
+            String indexesToMarkUndone = StringUtil.indexString(markUndone);
+            markDone = indexesToMarkDone;
+            markUndone = indexesToMarkUndone;
+        } catch (InvalidRangeException | IllegalValueException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        }
 
         return new MarkCommand(markDone, markUndone);
     }
