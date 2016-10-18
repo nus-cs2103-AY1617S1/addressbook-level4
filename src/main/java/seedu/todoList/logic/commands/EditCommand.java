@@ -77,15 +77,8 @@ public class EditCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-<<<<<<< HEAD
             model.editTask(targetIndex - 1, toEdit);
             return new CommandResult(String.format(MESSAGE_EDIT_task_SUCCESS, toEdit));
-=======
-            model.editTask(targetIndex, toEdit);
-            return new CommandResult(String.format(MESSAGE_EDIT_task_SUCCESS, toEdit));
-        } catch (UniqueTaskList.DuplicatetaskException e) {
-            return new CommandResult(MESSAGE_EDIT_DUPLICATE_TASK);
->>>>>>> 208f9491254ad6882245e795f016045f67ec407a
         } catch (IllegalValueException ive) {
         	return new CommandResult(INVALID_VALUE);
         }
