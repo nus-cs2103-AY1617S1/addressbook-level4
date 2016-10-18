@@ -254,9 +254,10 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | edit a task| edit the task by accessing the task and typing the changes
 `* * *` | user | find a task by keywords | access details of tasks quickly without having to go through the entire list
-`* * *` | user |only view uncompleted task in CMDo| avoid being confused by completed task that are overd| 
+`* * *` | user |only view uncompleted task in CMDo| avoid being confused by completed task that are overdue| 
 `* * *` | user | my tasks sorted by due date and due time|locate urgent tasks easily | 
 `* * *` | user | remove my completed tasks| see only uncompleted tasks | 
+`* * *` | user | book by time slots| block out time for unconfirmed events |
 `* * *` | user | undo my previous action | make mistakes | 
 `* * *` | user | redo my previous action upon undo | make mistakes |
 `* * *` | user | set priority to my task | know which task is more important | 
@@ -296,6 +297,53 @@ Priority | As a ... | I want to ... | So that I can...
 
 > CMDo stores it as low priority
 
+2d. Two priorities are specified
+
+> CMDo stores it as the highest priority indicated (eg. low, high, high is stored as the priority)
+
+2e. Time slot clash
+
+> 2e1. CMDo shows a pop up informing of time clash with the event and ask if want to proceed.
+  > 2e1a. If yes, task is stored. <br>
+  Use case resumes at step 3
+  > 2e1a. If no, task is not stored. <br>
+  Use case resumes at step 1
+  
+### Use case: Block out time slot
+
+**MSS**
+  
+  
+1. User requests to block time slot
+2. CMDo stores the natural language into data
+4. CMD0 blocks the specified time slot <br>
+>Use case ends.
+
+**Extensions**
+
+1a. The given input is invalid
+
+> 1a. CMDo shows help message <br>
+  Use case resumes at step 1
+
+2a. Date is not specified
+
+> 2a. CMDo shows help message <br>
+  Use case resumes at step 1
+
+2b. Date is specified but time is not
+
+> 2b. CMDo shows help message <br>
+  Use case resumes at step 1
+
+2c. Time slot clash
+
+> 2c1. CMDo shows a pop up informing of time clash with the event and ask if want to proceed.
+  > 2c1a. If yes, task is stored. <br>
+  Use case resumes at step 3
+  > 2c1a. If no, task is not stored. <br>
+  Use case resumes at step 1
+  
 
 ### Use case: Delete a task
 
@@ -446,7 +494,6 @@ Use case ends.
 
 > Use case ends
 
-{More to be added}
 
 ## Appendix C : Non Functional Requirements
 
