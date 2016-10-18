@@ -81,30 +81,20 @@ public class TodoModel implements Model {
 
         return taskIndex;
     }
-
-    /**
-     * Helper function to manage the undo/redo stacks. Removes the top element from 
-     * the first deque, adds it to the second, keeps the second within the limit by 
-     * removing from the end any excess element, and returning the element that was 
-     * transferred between the stacks. The first stack should not be empty.
-     */
-    private <T> T popPush(Deque<T> from, Deque<T> to, int limit) {
-        T popped = from.removeFirst();
-        push(to, popped, limit);
-        return popped;
-    }
     
-    private <T> void push(Deque<T> deque, T element, int limit) {
-        deque.addFirst(element);
-        while (deque.size() > limit) {
-            deque.removeLast();
-        }
-    }
-    
-    private void saveUndoState() {
+    private void saveState(Deque<List<ImmutableTask>> stack) {
         List<ImmutableTask> tasks = todolist.getTasks().stream()
             .map(Task::new).collect(Collectors.toList());
-        push(undoStack, tasks, TodoModel.UNDO_LIMIT);
+        
+        stack.addFirst(tasks);
+        while (stack.size() > TodoModel.UNDO_LIMIT) {
+            stack.removeLast();
+        }
+    }
+
+    private void saveUndoState() {
+        saveState(undoStack);
+        redoStack.clear();
     }
     
     @Override
@@ -147,8 +137,9 @@ public class TodoModel implements Model {
             String message = String.format(TodoModel.NO_MORE_UNDO_REDO_FORMAT, "undo");
             throw new ValidationException(message);
         }
-
-        List<ImmutableTask> tasks = popPush(undoStack, redoStack, TodoModel.UNDO_LIMIT);
+        
+        List<ImmutableTask> tasks = undoStack.removeFirst();
+        saveState(redoStack);
         todolist.setTasks(tasks);
     }
 
@@ -159,7 +150,8 @@ public class TodoModel implements Model {
             throw new ValidationException(message);
         }
 
-        List<ImmutableTask> tasks = popPush(redoStack, undoStack, TodoModel.UNDO_LIMIT);
+        List<ImmutableTask> tasks = redoStack.removeFirst();
+        saveState(undoStack);
         todolist.setTasks(tasks);
     }
 

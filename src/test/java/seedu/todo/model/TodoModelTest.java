@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
@@ -23,6 +24,9 @@ import static org.mockito.Mockito.*;
 public class TodoModelTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
+
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
     
     @Mock private MoveableStorage<ImmutableTodoList> storage;
     @Mock private ImmutableTodoList storageData;
@@ -171,11 +175,64 @@ public class TodoModelTest {
     }
     
     @Test(expected = ValidationException.class)
+    public void testOnlyUndoDataChanges() throws Exception {
+        // Actions that does not cause underlying data to change should not cause 
+        // undo stack to increase
+        model.view(ImmutableTask::isCompleted, null);
+        model.undo();
+    }
+    
+    @Test(expected = ValidationException.class)
     public void testEmptyUndoStack() throws Exception {
         model.undo();
     }
     
+    @Test
+    public void testRedo() throws Exception {
+        model.add("Test task 1");
+        model.add("Test task 2");
+        model.add("Test task 3");
+
+        // Undo then redo add 
+        model.undo();
+        model.undo();
+        assertEquals(1, todolist.getTasks().size());
+        
+        model.redo();
+        assertEquals(2, todolist.getTasks().size());
+        assertEquals("Test task 2", getTask(1).getTitle());
+        
+        model.redo();
+        assertEquals(3, todolist.getTasks().size());
+        assertEquals("Test task 3", getTask(2).getTitle());
+    }
     
+    @Test
+    public void testActionAfterRedoClearsStack() throws Exception {
+        model.add("Test task 1");
+        model.add("Test task 2");
+        model.add("Test task 3");
+
+        // Undo then redo add 
+        model.undo();
+        model.undo();
+        assertEquals(1, todolist.getTasks().size());
+
+        model.redo();
+        assertEquals(2, todolist.getTasks().size());
+        assertEquals("Test task 2", getTask(1).getTitle());
+        
+        // There should be at least one more undo in this, but by performing 
+        // an action we should invalidate the undo stack
+        model.add("Test task 4");
+        exception.expect(ValidationException.class);
+        model.redo();
+    }
+    
+    @Test(expected = ValidationException.class)
+    public void testEmptyRedoStack() throws Exception {
+        model.redo();
+    }
 
     @Test
     public void testGetSaveLocation() throws Exception {
@@ -183,6 +240,9 @@ public class TodoModelTest {
         assertEquals("test location", model.getStorageLocation());
     }
 
+    /**
+     * Get the task at the zero-index position in memory (reverse insertion order)
+     */
     private ImmutableTask getTask(int index) {
         return todolist.getTasks().get(index);
     }
