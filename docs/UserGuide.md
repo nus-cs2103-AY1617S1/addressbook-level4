@@ -50,30 +50,25 @@ There is no need to save manually.
  
 #### Adding a task: `add`
 Adds a task to Savvy Tasker.<br>
-Format: `add TASK_NAME [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]` 
+Format: `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]` 
 
 > Parameters | Description  
 > -------- | :-------- 
-> Add | `add TASK_NAME [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
-> Alias | `alias k/KEYWORD s/SHORT_KEYWORD`
-> Clear | `clear`
-> Delete | `delete INDEX [MORE_INDEX]`
-> Exit | `exit`
-> Find | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
-> List | `list [t/LIST_TYPE]`
-> Help | `help`
-> Select | `select INDEX [MORE_INDEX]`
-> Modify | `modify INDEX [t/TASK_NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
-> Mark | `mark INDEX [MORE_INDEX]`
-> Unmark | `unmark INDEX [MORE_INDEX]`
-> Undo | `undo`
-> Redo | `redo`
-> Unalias | `unalias  s/SHORT_KEYWORD`
+> TASK_NAME | `Mandatory` Specifies the name of the task.
+> START_DATE<br>*See DATE* | `Optional` Specifies the starting date and time of the task.
+> END_DATE<br>*See DATE* | `Optional` Specifies the ending date and time of the task.
+>> DATE | About DATE.
+> LOCATION | `Optional` Specifies the location where the task happens.
+> PRIORITY_LEVEL | `Optional` Specifies the priority level of the task.<br>`Accepts` values `low`, `medium`, `high`<br>`Defaults` to `???`
+> RECURRING_TYPE | `Optional` Specifies the recurring type of the task.<br>`Accepts` values `none`, `daily`, `weekly`, `monthly`, `yearly`<br>`Defaults` to `none`
+> NUMBER_OF_RECURRENCE | `Optional` Specifies the number of times the task recurrs.<br>`Defaults` to `0`<br>`Ignored` if RECURRING_TYPE is `none`
+> CATEGORY | `Optional` Specifies the category of the task.
+> DESCRIPTION | `Optional` Describes the task.
 
 Examples: 
-* `add Project Meeting s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103 d/Discuss about roles and milestones` <br>
+* `add Project Meeting s/05-10-2016 2pm e/6pm r/daily n/2 c/CS2103 d/Discuss about roles and milestones` <br>
   Add task named, Project Meeting, under CS2103 category. The task is schedule to take place on 5th and 6th of October 2016 from 2pm to 6pm each day.
-* `add NUSSU Leadership Camp s/05-10-2016 st/14:00 e/08-10-2016 et/18:00 c/NUSSU`
+* `add NUSSU Leadership Camp s/05-10-2016 2pm e/08-10-2016 6pm c/NUSSU`
   Add task named, NUSSU Leadership Camp, under NUSSU category. The 4 day 3 night is schedule to take place from 5th October, 2pm to 8th of October 2016, 6pm.
 
 #### Listing all tasks: `list`
