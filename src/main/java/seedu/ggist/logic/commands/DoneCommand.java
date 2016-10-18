@@ -36,6 +36,8 @@ public class DoneCommand extends Command {
         try {
             model.doneTask(taskToMarkDone);
             model.updateFilteredTaskListToShowUndone();
+            listOfCommands.push(COMMAND_WORD);
+            listOfTasks.push(taskToMarkDone);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
