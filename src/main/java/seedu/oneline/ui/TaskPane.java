@@ -16,7 +16,7 @@ import seedu.oneline.commons.core.LogsCenter;
 import seedu.oneline.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.oneline.commons.util.FxViewUtil;
 import seedu.oneline.model.task.ReadOnlyTask;
-import seedu.oneline.ui.TaskListPanel.TaskListViewCell;
+import seedu.oneline.ui.TagListPanel.TagListViewCell;
 
 import java.util.logging.Logger;
 

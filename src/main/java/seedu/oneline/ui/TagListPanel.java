@@ -12,23 +12,23 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.oneline.commons.core.LogsCenter;
 import seedu.oneline.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.oneline.model.task.ReadOnlyTask;
+import seedu.oneline.model.tag.Tag;
 
 import java.util.logging.Logger;
 
 /**
  * Panel containing the list of tasks.
  */
-public class TaskListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "TaskListPanel.fxml";
+public class TagListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(TagListPanel.class);
+    private static final String FXML = "TagListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private ListView<Tag> tagListView;
 
-    public TaskListPanel() {
+    public TagListPanel() {
         super();
     }
 
@@ -47,22 +47,22 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList);
-        return taskListPanel;
+    public static TagListPanel load(Stage primaryStage, AnchorPane tagListPlaceholder,
+                                       ObservableList<Tag> tagList) {
+        TagListPanel tagListPanel =
+                UiPartLoader.loadUiPart(primaryStage, tagListPlaceholder, new TagListPanel());
+        tagListPanel.configure(tagList);
+        return tagListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    private void configure(ObservableList<Tag> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
+    private void setConnections(ObservableList<Tag> taskList) {
+        tagListView.setItems(taskList);
+        tagListView.setCellFactory(listView -> new TagListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -72,7 +72,7 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        tagListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
@@ -82,25 +82,25 @@ public class TaskListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
+            tagListView.scrollTo(index);
+            tagListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    class TaskListViewCell extends ListCell<ReadOnlyTask> {
+    class TagListViewCell extends ListCell<Tag> {
 
-        public TaskListViewCell() {
+        public TagListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
-            super.updateItem(task, empty);
+        protected void updateItem(Tag tag, boolean empty) {
+            super.updateItem(tag, empty);
 
-            if (empty || task == null) {
+            if (empty || tag == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(TagCard.load(tag).getLayout());
             }
         }
     }
