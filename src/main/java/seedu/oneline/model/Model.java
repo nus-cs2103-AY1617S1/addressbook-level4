@@ -3,6 +3,8 @@ package seedu.oneline.model;
 import java.util.Set;
 
 import seedu.oneline.commons.core.UnmodifiableObservableList;
+import seedu.oneline.logic.commands.Command;
+import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
@@ -35,5 +37,10 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    default CommandResult executeCommand(Command command) {
+        command.setData(this);
+        return command.execute();
+    }
 
 }
