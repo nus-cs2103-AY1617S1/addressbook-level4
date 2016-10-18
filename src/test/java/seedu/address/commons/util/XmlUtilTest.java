@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.testutil.ActivityManagerBuilder;
+import seedu.address.testutil.MenionBuilder;
 import seedu.address.testutil.TestUtil;
 import seedu.menion.commons.util.FileUtil;
 import seedu.menion.commons.util.XmlUtil;
@@ -86,8 +86,9 @@ public class XmlUtilTest {
         assertEquals((new ActivityManager(dataToWrite)).toString(),(new ActivityManager(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        ActivityManagerBuilder builder = new ActivityManagerBuilder(new ActivityManager());
-        dataToWrite = new XmlSerializableActivityManager(builder.withTask(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
+        MenionBuilder builder = new MenionBuilder(new ActivityManager());
+        dataToWrite = new XmlSerializableActivityManager(builder.withActivity(TestUtil.generateSamplePersonData().get(0)).build());
+
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableActivityManager.class);
