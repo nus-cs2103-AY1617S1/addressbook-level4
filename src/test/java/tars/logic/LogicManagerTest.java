@@ -715,6 +715,29 @@ public class LogicManagerTest {
         assertCommandBehavior("del 2", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedTars, expectedTars.getTaskList());
     }
+    
+    @Test
+    public void execute_delete_Range() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+
+        Tars expectedTars = helper.generateTars(threeTasks);
+        helper.addToModel(model, threeTasks);
+        
+        // delete tasks within range
+        expectedTars.removeTask(threeTasks.get(0));
+        expectedTars.removeTask(threeTasks.get(1));
+        expectedTars.removeTask(threeTasks.get(2));
+        
+        ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<ReadOnlyTask>();
+        deletedTasks.add(threeTasks.get(0));
+        deletedTasks.add(threeTasks.get(1));
+        deletedTasks.add(threeTasks.get(2));
+        
+        String result = CommandResult.formatTasksList(deletedTasks);
+        assertCommandBehavior("del 1..3", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, result),
+                expectedTars, expectedTars.getTaskList());
+    }
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
