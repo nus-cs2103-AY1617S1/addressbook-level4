@@ -2,14 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.taskcommands.AddAliasCommand;
 import seedu.address.logic.commands.taskcommands.SetStorageCommand;
-import seedu.address.model.task.InMemoryTaskList;
-import seedu.address.model.task.TaskManager;
 
 public class SetStorageCommandTest {
 

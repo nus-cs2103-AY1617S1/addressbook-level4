@@ -85,11 +85,12 @@ public class TaskListPanel extends UiPart {
         @Override
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
-
+            
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
-            } else {
+            } 
+            else {
             	TaskCard currentCard = TaskCard.load(task, getIndex() + 1);
             	HBox cardPane = currentCard.getLayout();
                
@@ -101,8 +102,6 @@ public class TaskListPanel extends UiPart {
                 } else {
                 	cardPane.setStyle(null);
                 }
-                
-                
             }
         }
     }

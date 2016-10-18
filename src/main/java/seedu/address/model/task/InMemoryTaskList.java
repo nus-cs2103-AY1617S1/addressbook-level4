@@ -38,14 +38,40 @@ public interface InMemoryTaskList {
 	void unfavoriteTask(Task toFavorite);
 	
 	/*
+	 * Completes a task in the current in-memory representation of the Task List
+	 */
+	void completeTask(Task toComplete);
+	
+	/*
+	 * Uncompletes a task in the current in-memory representation of the Task List
+	 */
+	void uncompleteTask(Task toUncomplete);
+	
+	/*
 	 * Adds a set of keywords to filter the task list by
 	 */
 	void filterTasks(Set<String> keywords);
 	
 	/*
+	 * Filters completed tasks out of list
+	 */
+	void filterUncompletedTasks();
+	
+	/*
+	 * Filters completed tasks from task list
+	 */
+	void filterCompletedTasks();
+
+	
+	/*
 	 * Clears the filtering keywords applied to the tasks
 	 */
 	void clearTasksFilter();
+	
+	/*
+	 * Reapplies the same filter as before - refreshes observable list for display
+	 */
+	void refreshTasksFilter();
 	
 	/*
 	 * Gets the current list of tasks with the filtering words applied
@@ -66,6 +92,8 @@ public interface InMemoryTaskList {
 	 * Gets the list of alias
 	 */
 	UnmodifiableObservableList<Alias> getAlias();
+
+
 
 	
 	

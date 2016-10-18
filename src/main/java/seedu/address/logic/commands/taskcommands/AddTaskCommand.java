@@ -6,7 +6,6 @@ import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemExcep
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.Description;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;

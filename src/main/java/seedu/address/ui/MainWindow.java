@@ -13,7 +13,6 @@ import seedu.address.commons.core.TaskConfig;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.Task;
 
 /**
  * The Main Window. Provides the basic application layout containing

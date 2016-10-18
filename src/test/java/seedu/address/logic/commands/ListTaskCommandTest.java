@@ -67,5 +67,35 @@ public class ListTaskCommandTest {
         assertTrue(feedback.equals(ListTaskCommand.MESSAGE_ALIAS_SUCCESS));
     }
     
-
+    @Test
+	/*
+	 * CommandResult should return a string that indicates 0 completed tasks found
+	 * (since there are no completed tasks).
+	 */
+	public void listCompletedTask_noTasksAdded() {
+    	InMemoryTaskList model;
+		model = TestUtil.setupEmptyTaskList();
+		ListTaskCommand command = new ListTaskCommand("completed");
+		command.setData(model);
+		
+		CommandResult result = command.execute();
+	    String feedback = result.feedbackToUser;
+	    assertTrue(feedback.equals(ListTaskCommand.MESSAGE_NO_COMPLETED_TASKS));
+	}
+    
+    @Test
+    public void listCompletedCommand_valid() throws IllegalValueException {
+        /* CommandResult should return a string that denotes that 
+         * the aliases have been listed.
+         */
+        InMemoryTaskList model;
+        model = TestUtil.setupSomeCompletedTasksInTaskList(3);
+        ListTaskCommand command = new ListTaskCommand("completed");
+        command.setData(model);
+        CommandResult result = command.execute();
+        String feedback = result.feedbackToUser;
+        assertTrue(feedback.equals(ListTaskCommand.MESSAGE_COMPLETED_SUCCESS));
+    }
+	
+    
 }

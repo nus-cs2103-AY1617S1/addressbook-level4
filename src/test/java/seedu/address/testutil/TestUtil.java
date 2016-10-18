@@ -4,12 +4,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.InMemoryTaskList;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
 
 /**
@@ -17,9 +19,21 @@ import seedu.address.model.task.TaskManager;
  */
 public class TestUtil {
 
-	public static InMemoryTaskList setupEmptyTaskList() {
-		return new TaskManager();
-	}
+    public static InMemoryTaskList setupEmptyTaskList() {
+        return new TaskManager();
+    }
+
+    // Setting up tasks in the TaskList in order to find them in the tests
+    public static InMemoryTaskList setupSomeTasksInTaskList(int n) throws IllegalValueException {
+        InMemoryTaskList newTaskList = new TaskManager();
+        // Add 3 tasks into the task manager
+        for (int i = 0; i < n; i++) {
+            AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
+            command.setData(newTaskList);
+            command.execute();
+        }
+        return newTaskList;
+    }
 	
 	/**
 	 * Setting up Floating tasks in the TaskList in order to find them in the tests
@@ -33,6 +47,21 @@ public class TestUtil {
 		return newTaskList;
 	}
 	
+	// Setting up tasks in the TaskList in order to find them in the tests
+		public static InMemoryTaskList setupSomeCompletedTasksInTaskList(int n) throws IllegalValueException {
+			InMemoryTaskList newTaskList = new TaskManager();
+			// Add 3 tasks into the task manager
+			for (int i = 0; i < n; i++) {
+				AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
+				command.setData(newTaskList);
+				command.execute();
+			}
+			UnmodifiableObservableList<Task> list= newTaskList.getCurrentFilteredTasks();
+			for (int i = 0; i < n; i++) {
+				list.get(i).setAsComplete();
+			}
+			return newTaskList;
+		}
 	/**
 	 * Setting up interleaved Floating, Deadline and Event tasks.
 	 * Dates for Deadline tasks are set to 1 January 2016.
@@ -68,7 +97,6 @@ public class TestUtil {
 		return newTaskList;
 	}
 }
-
 // TODO: DISABLED TESTUTIL
 //    public static String LS = System.lineSeparator();
 //
