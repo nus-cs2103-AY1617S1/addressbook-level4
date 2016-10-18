@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,27 +11,27 @@ import java.util.regex.Pattern;
 public class DateParser {
 
 	private static final Pattern[] STANDARD_DATE_FORMATS = new Pattern[] {
-			Pattern.compile("^(?<day>\\d{1,2})-|\\s(?<month>\\d{1,2})-|\\s|/(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yyyy HH:mm
-			Pattern.compile("^(?<year>\\d{4})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<day>\\d{1,2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // yyyy-MM-dd HH:mm
-			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yy HH:mm
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd MMM yyyy HH:mm
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$") // dd MMM yy HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yyyy HH:mm
+			Pattern.compile("^(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // yyyy-MM-dd HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yy HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd MMM yyyy HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$") // dd MMM yy HH:mm
 	};
 
 	private static final Pattern[] AMPM_DATE_FORMATS = new Pattern[] {
-			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy HH:mm am
-			Pattern.compile("^(?<year>\\d{4})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<day>\\d{1,2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd HH:mmpm
-			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy HH:mm pm
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy HH:mm am
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$") // dd MMM yy HH:mm am
+			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy HH:mm am
+			Pattern.compile("^(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd HH:mmpm
+			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy HH:mm pm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy HH:mm am
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$") // dd MMM yy HH:mm am
 	};
 	
 	private static final Pattern[] NO_MINUTES_DATE_FORMATS = new Pattern[] {
-			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy hh am
-			Pattern.compile("^(?<year>\\d{4})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<day>\\d{1,2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd hhpm
-			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy hh pm
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy hh am
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$") // dd MMM yy hh am
+			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy hh am
+			Pattern.compile("^(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd hhpm
+			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy hh pm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy hh am
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$") // dd MMM yy hh am
 	};
 	
 	private static final Pattern[] NATURAL_LANGUAGE = new Pattern[] {
@@ -139,8 +140,24 @@ public class DateParser {
 		LocalDateTime now = LocalDateTime.now();
 		
 		for (Matcher matcher : matchers) {
-			if (matcher.matches()) {
-				int day = parseDay(matcher.group("day"));
+			if (matcher.matches()) {				
+				int month, day;
+				switch(matcher.group("day")) {
+				case "today":
+					month = now.getMonthValue();
+					day = now.getDayOfMonth();
+					break;
+				case "tomorrow":
+					month = now.plusDays(1).getMonthValue();
+					day = now.plusDays(1).getDayOfMonth();
+					break;
+				case "next week":
+					month = now.plusDays(7).getMonthValue();
+					day = now.plusDays(7).getDayOfMonth();
+					break;
+				default:
+					throw new ParseException("Day phrase in not today, tomorrow, or next week.", -1);
+				}
 				
 				String meridiem;
 				try {
@@ -154,12 +171,13 @@ public class DateParser {
 				String minuteString;
 				try {
 					minuteString = matcher.group("minute");
+					System.out.println(minuteString);
 				} catch (IllegalArgumentException e) {
 					minuteString = "0";
 				}
 				int minute = parseMinute(minuteString);
 
-				return LocalDateTime.of(now.getYear(), now.getMonth(), day, hour, minute);
+				return LocalDateTime.of(now.getYear(), month, day, hour, minute);
 			}
 		}
 
