@@ -53,7 +53,7 @@ public class RedoCommand extends Command {
             listOfTasks.push(redoListOfTasks.peek());
             ReadOnlyTask redoDone = redoListOfTasks.pop();
             redoDone.setDone();
-            model.updateFilteredTaskListToShowUndone();
+            model.updateFilteredListToShowAllUndone();
         }
 
         return new CommandResult(String.format(MESSAGE_UNDO_COMMAND_SUCCESS, previousUndoCommand));
