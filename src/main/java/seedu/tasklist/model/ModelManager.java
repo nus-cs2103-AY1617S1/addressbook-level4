@@ -72,10 +72,12 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void resetData(ReadOnlyTaskList newData) {
-		taskList.resetData(newData);
-		indicateTaskListChanged();
-		if (newData.isEmpty())
-     		addToUndoStack(UndoCommand.CLR_CMD_ID, (Task) taskList.getTaskList());
+		if (newData.isEmpty()){ //clear command was executed
+		    List<Task> listOfTasks = (List<Task>)(List<?>)taskList.getTaskList();
+     		addToUndoStack(UndoCommand.CLR_CMD_ID, listOfTasks.toArray(new Task [listOfTasks.size()]));
+		}
+     	taskList.resetData(newData);
+        indicateTaskListChanged();
 	}
 
     @Override

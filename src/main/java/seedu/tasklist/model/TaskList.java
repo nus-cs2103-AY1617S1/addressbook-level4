@@ -71,7 +71,7 @@ public class TaskList implements ReadOnlyTaskList{
 	public ObservableList<Task> getTasks() {
 		return tasks.getInternalList();
 	}
-
+	
 	public void setTasks(List<Task> tasks) {
 		this.tasks.getInternalList().setAll(tasks);
 	}
