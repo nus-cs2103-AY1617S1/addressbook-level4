@@ -120,6 +120,12 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
+    private void handleViewChangedEvent(ChangeViewRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getTaskViewFilterView().selectViewFilter(event.getNewSelection());
+    }
+
+    @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
