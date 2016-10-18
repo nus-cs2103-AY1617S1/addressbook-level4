@@ -70,6 +70,9 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ActivityManagerChangedEvent(activityManager));
     }
 
+    /**
+     * Methods for Completing an activity
+     */
     @Override
     public void completeFloatingTask(int index) {
         activityManager.completeFloatingTask(index);
@@ -90,16 +93,19 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
 
+    /**
+     * Methods for Un-completing an activity
+     */
     @Override
     public void UncompleteFloatingTask(int index) {
-        activityManager.unCompleteEvent(index);
+        activityManager.unCompleteFloatingTask(index);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
 
     @Override
     public void UncompleteTask(int index) {
-        activityManager.unCompleteEvent(index);
+        activityManager.unCompleteTask(index);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }

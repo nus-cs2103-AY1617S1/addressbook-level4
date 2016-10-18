@@ -10,7 +10,7 @@ import seedu.menion.model.activity.ReadOnlyActivity;
  */
 public class UnCompleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "Uncomplete";
+    public static final String COMMAND_WORD = "uncomplete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": UnCompletes an activity using their type and index: "
             + "\n"

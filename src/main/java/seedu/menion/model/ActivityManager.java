@@ -155,12 +155,18 @@ public class ActivityManager implements ReadOnlyActivityManager {
         tasks.getInternalList().set(index, dub);        
     }
     
-    public void unCompleteEvent(int index) {
+    public void completeEvent(int index) {
         Activity dub;
         dub = events.getInternalList().get(index);
         dub.setCompleted();
-        events.getInternalList().set(index, dub);    
-        
+        events.getInternalList().set(index, dub);     
+    }
+    
+    public void completeFloatingTask(int index) {
+        Activity dub;
+        dub = floatingTasks.getInternalList().get(index);
+        dub.setCompleted();
+        floatingTasks.getInternalList().set(index, dub);    
     }
     
     /**
@@ -183,19 +189,13 @@ public class ActivityManager implements ReadOnlyActivityManager {
         tasks.getInternalList().set(index, dub);        
     }
     
-    public void completeEvent(int index) {
+    public void unCompleteEvent(int index) {
         Activity dub;
         dub = events.getInternalList().get(index);
         dub.setUncompleted();
-        events.getInternalList().set(index, dub);     
+        events.getInternalList().set(index, dub);        
     }
-    
-    public void completeFloatingTask(int index) {
-        Activity dub;
-        dub = floatingTasks.getInternalList().get(index);
-        dub.setCompleted();
-        floatingTasks.getInternalList().set(index, dub);    
-    }
+
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
