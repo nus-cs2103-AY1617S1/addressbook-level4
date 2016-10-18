@@ -295,13 +295,16 @@ Priority | As a ... | I want to ... | So that I can...
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
 
-Use case: UC01 add task.
+#### Use case: UC01 add task.
 Actor: User
 Preconditions: User is logged in
 
 **MSS**
+
 1.User requests to add new task description.
+
 2.System will update the database of the newly created task.
+
 Use Case end.
 
 **Extension**
@@ -310,7 +313,8 @@ Use Case end.
     >1a1. System shows an error message
     Use case resume at step 1.
 
-Use case: UC02 view upcoming task
+#### Use case: UC02 view upcoming task.
+
 Actor: User
 Preconditions: User is logged in
 
@@ -327,13 +331,13 @@ Use Case end.
     >2a1. System shows a message no upcoming task are found.
     Use case ends
 
-Use case: UC03 Delete task
+#### Use case: UC03 Delete task
 Actor: User
 Precondition: User is logged in
 
 **MSS**
 
-1.User request to delete a specific task
+1.User request to delete a specific task<br>
 2.System request confirmation of deletion of task
 3.User confirm to delete task
 4.System will delete the specific task.
@@ -347,7 +351,7 @@ Use Case ends
        >4a1. System shows connection has failed message.
        Use case resume at step 1.
 
-Use case: UC04 Information of the a particular command.
+#### Use case: UC04 Information of the a particular command.
 Actor: User
 Precondition: User is logged in
 
@@ -363,7 +367,7 @@ Precondition: User is logged in
        >1a1. System show error message
        Use case ends.
 
-Use case: UC05 use shorter version of a command
+#### Use case: UC05 use shorter version of a command
 Actor: Advance user
 Preconditions: User is familiar with the available command
 
@@ -383,7 +387,7 @@ Use case ends.
     > 2a1. System shows connection failed message.
     Use case ends
 
-Use case UC06 set reminder for tasks
+#### Use case UC06 set reminder for tasks
 Actor: User
 Preconditions: User is logged in, tasks is created.
 
@@ -404,7 +408,7 @@ Use case ends
     > 3a1. System shows an error message
     Use case resume at step 2
 
-Use case UC07 view task that is due on the day after launching application
+#### Use case UC07 view task that is due on the day after launching application
 Actor: User
 Preconditions: User have not launch application
 
@@ -419,9 +423,9 @@ Preconditions: User have not launch application
     2a. The task list is empty
     > Use case ends
 
-1.Use case UC08 add category to task
-2.Actor: User
-3.Preconditions: User is logged in, task is created.
+#### Use case UC08 add category to task
+Actor: User
+Preconditions: User is logged in, task is created.
 
 **MSS**
 
@@ -442,7 +446,7 @@ Use case ends
     > 3a1. System shows an error message
     Use case resume at step 2
 
-Use case: UC09 edit task details
+#### Use case: UC09 edit task details
 Actor: User
 Preconditions: User is logged in.
 
@@ -481,7 +485,7 @@ Use Case ends
     *a2. User confirms the cancellation 
     Use Case ends. 
 
-Use case: UC10 set priority to tasks
+#### Use case: UC10 set priority to tasks
 Actor: User
 Preconditions: User is logged in.
 
@@ -516,7 +520,7 @@ Preconditions: User is logged in.
     *a2. User confirms the cancellation 
     Use Case ends. 
 
-Use case: UC11 create a task that happens repeatedly by specifying an interval
+#### Use case: UC11 create a task that happens repeatedly by specifying an interval
 Actor: User
 Preconditions: User is logged in.
 
@@ -536,7 +540,7 @@ Use Case ends
     > 2a1. System displays the information about the connection problem with database
     Use Case ends
 
-Use case: UC12 Color coding a task
+#### Use case: UC12 Color coding a task
 Actor: User
 Preconditions: User is logged in, tasks are created.
 
@@ -571,7 +575,7 @@ Use Case ends
 1. User requests to list tasks
 2. TaskManager shows a list of tasks
 3. User requests to delete a specific task in the list
-4. TaskManager deletes the task <br>
+4. TaskManager deletes the task
 Use case ends.
 
 **Extensions**
@@ -589,18 +593,18 @@ Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
-1.System should work on any mainstream OS as long as it has Java 8 or higher installed. 
-2.System should come with automated unit tests 
-3.Should be free and come with open source code. 
-4.Interface should be user friendly and intuitive
-5.System should be able to hold up to 1000 tasks.
-6.System should be able to run system within 5 seconds after launching
-7.System should be able to export task details
-8.System should have backup option
-9.Exported task details should be intuitive and easily readable
-10.System should not allow information to be accessed outside of the program
-11.System should be able to recover from errors quickly
-12.System should be able to report errors
+   1. System should work on any mainstream OS as long as it has Java 8 or higher installed.<br> 
+   2. System should come with automated unit tests 
+   3. Should be free and come with open source code. 
+   4. Interface should be user friendly and intuitive.
+   5. System should be able to hold up to 1000 tasks.
+   6. System should be able to run system within 5 seconds after launching
+   7. System should be able to export task details
+   8. System should have backup option
+   9. Exported task details should be intuitive and easily readable
+   10. System should not allow information to be accessed outside of the program
+   11. System should be able to recover from errors quickly
+   12. System should be able to report errors
 
 
 {More to be added}
