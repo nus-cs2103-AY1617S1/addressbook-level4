@@ -164,8 +164,6 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;], 12 oct, 0000-2359", TaskName.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
                 "add Valid TaskName, abcd, 1800", TaskDate.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid TaskName, 12 oct, 5555", TaskTime.MESSAGE_TIME_CONSTRAINTS);

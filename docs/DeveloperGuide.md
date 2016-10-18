@@ -89,7 +89,7 @@ interface, and it exposes its functionality using the `LogicManager.java` class 
 
 ###An overview of interactions between components
 
-The following diagram shows how components interact with each other when the user issues the
+Figure 2 shows how components interact with each other when the user issues the
 command `delete 3` (refer to Figure 2).
 
 <img src="images\SDforDeleteTask.png" width="800">
@@ -98,12 +98,12 @@ command `delete 3` (refer to Figure 2).
 >Note how the `Model` simply raises a `TaskMangerChangedEvent` when the GGist data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The following diagram shows how the `EventsCenter` reacts to the event (`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time (refer to Figure 3).<br>
+Figure 3 shows how the `EventsCenter` reacts to the event (`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time (refer to Figure 3).<br>
 
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
 >**_Figure 3_**: EventsCentre Diagram - shows how EventsCentre reacts to the event (`delete 3`)
 
-> Note how the event passes through the `EventsCenter` to the `Storage` and `UI`. This process is done without `Model` being coupled to other components. Thus, this Event Driven approach helps us to reduce direct coupling between components.
+> Note how the event passes through the `EventsCenter` to the `Storage` and `UI`. This process is done without `Model` being coupled to other components. Thus, this Event-Driven approach helps us to reduce direct coupling between components.
 
 ###Additional details of each component.
 
@@ -134,12 +134,9 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/ggist/logic/Logic.java)
 
-1. The `Logic` component uses the `Parser` class to parse the user command.
-2. This results in a `Command` object being executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+The `Logic` component uses the `Parser` class to parse the user command. This results in a `Command` object being executed by the `LogicManager`. The command execution can affect the `Model` (e.g. adding a task) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-The following diagram displays the interactions within the `Logic` component for the `execute("delete 1")` API call(refer to Figure 6).<br>
+Figure 6 displays the interactions within the `Logic` component for the `execute("delete 1")` API call(refer to Figure 6).<br>
  
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 >**_Figure 6_**: Sequence Diagram - shows interactions within the `Logic` component for the `execute("delete 1")` API call
@@ -153,7 +150,6 @@ The following diagram displays the interactions within the `Logic` component for
 
 The `Model` component,
 * stores a `UserPref` object that represents the user's preferences.
-<<<<<<< HEAD
 * stores the GGist data.
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI binds to this list
   so that the UI updates automatically when the data in the list changes.
@@ -181,7 +177,7 @@ Classes used by multiple components are in the `seedu.ggist.commons` package.
 `java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file
+* The logging levels can be controlled using the `logLevel` setting in the configuration file
   (See [Configuration](#configuration)).
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level.
@@ -208,7 +204,7 @@ Tests can be found in the `./src/test/java` folder.
 **In Eclipse**:
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`.
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.
+* To run a subset of tests, right-click on a test package, test class, or a test and choose to run as a JUnit test.
 
 **Using Gradle**:
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
@@ -225,12 +221,12 @@ There are two types of tests:
      (those code units are assumed to be working).<br>
       e.g. `seedu.ggist.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
+      how they are connected together.<br>
       e.g. `seedu.ggist.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
-Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+The [TestFX](https://github.com/TestFX/TestFX) library allows
+ GUI tests to be run in the headless mode. 
  In the headless mode, GUI tests do not show up on the screen.
  This means that the developer can do other things on the computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
@@ -260,7 +256,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 3. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ### Managing Dependencies
@@ -379,63 +375,63 @@ Use case ends.
 
 **Strengths**
 
->Set task using the “one-shot” approach
->Syncs with Google Calendar
->All tasks are set in calendar view
->Alerts and prompts appear as notifications
->Search for Keywords
+*Set task using the “one-shot” approach
+*Syncs with Google Calendar
+*All tasks are set in calendar view
+*Alerts and prompts appear as notifications
+*Search for Keywords
 
 **Weakness**
 
->Unable to colour code for events
->Unable to strike off completed task
->Able to set recurring task, but unable to set using one “one-shot” approach
->Does not carry forwards uncompleted task 
+*Unable to colour code for events
+*Unable to strike off completed task
+*Able to set recurring task, but unable to set using one “one-shot” approach
+*Does not carry forwards uncompleted task 
 
 #### Errands
 
 **Strengths**
 
->Set priority for tasks
->Sort tasks based on priority level, due date and alphabetical order
->Strike off finished tasks
->Notification function
->View tasks in a particular day
+*Set priority for tasks
+*Sort tasks based on priority level, due date and alphabetical order
+*Strike off finished tasks
+*Notification function
+*View tasks in a particular day
 
 **Weakness**
 
->Cannot search for a particular task
->Unable carry forward the incomplete tasks
->Cannot set recurring task
->Can only see a maximum of 10 tasks at the one time
+*Cannot search for a particular task
+*Unable carry forward the incomplete tasks
+*Cannot set recurring task
+*Can only see a maximum of 10 tasks at the one time
 
 #### Fantastical
 
 **Strengths**
 
->Natural language processing
->Able to view tasks in day, week, month, year views
->Syncs with calendars
->Use shading to intensity of tasks
->Supports fixed and floating time zones for events
+*Natural language processing
+*Able to view tasks in day, week, month, year views
+*Syncs with calendars
+*Use shading to intensity of tasks
+*Supports fixed and floating time zones for events
 
 **Weakness**
 
->Cannot set recurring tasks
->Cannot transfer data to another computer
->Unable to sync account information with other computer
+*Cannot set recurring tasks
+*Cannot transfer data to another computer
+*Unable to sync account information with other computer
 
 #### Google Calendar
 
 **Strengths**
 
->Easy to choose a time slot and set task
->Can have multiple calendars
->Invite people to events
->Set reminders for events
+*Easy to choose a time slot and set task
+*Can have multiple calendars
+*Invite people to events
+*Set reminders for events
 
 **Weakness**
 
->Difficult to read if too many appointments 
->Must use with internet
+*Difficult to read if too many appointments 
+*Must use with internet
 
