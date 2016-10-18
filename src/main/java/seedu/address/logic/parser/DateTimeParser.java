@@ -32,19 +32,6 @@ public class DateTimeParser {
         this.parser = new com.joestelmach.natty.Parser();
     }
     
-    /**
-     * wrapper for natty's parser
-     * @return
-     * @author darren
-     */
-    public void parseInput() {
-        assert this.datetime != null;
-        assert this.parser != null;
-
-        // natty-side parsing
-        dategroups = parser.parse(this.datetime);
-    }
-    
     public LocalDateTime extractStartDate() {
         assert this.dategroups != null;
 
