@@ -81,59 +81,6 @@ public class DateTime {
     }
 
     /**
-     * Checks whether the dateTimeQuery falls within the range of the
-     * dateTimeSource
-     * 
-     * @@author A0124333U
-     * @param dateTimeSource
-     * @param dateTimeQuery
-     */
-    public static boolean isDateTimeWithinRange(DateTime dateTimeSource, DateTime dateTimeQuery) {
-        boolean isTaskDateWithinRange = true;
-
-        // Return false if task is a floating task (i.e. no start or end
-        // dateTime
-        if (dateTimeSource.getEndDate() == null) {
-            return false;
-        }
-
-        // Case 1: dateTimeQuery has a range of date (i.e. startDateTime &
-        // endDateTime != null)
-        if (dateTimeQuery.getStartDate() != null) {
-
-            if (dateTimeSource.getEndDate().isBefore(dateTimeQuery.getStartDate())) {
-                return false;
-            }
-            
-            // Case 1a: dateTimeSource has a range of date 
-            if (dateTimeSource.getStartDate() != null) {
-                if (dateTimeSource.getStartDate().isAfter(dateTimeQuery.getEndDate())) {
-                    return false;
-                }
-            } else {  //Case 1b: dateTimeSource only has a endDateTime
-                if (dateTimeSource.getEndDate().isAfter(dateTimeQuery.getEndDate())) {
-                    return false;
-                }
-            }
-        } else { // Case 2: dateTimeQuery only has a endDateTime
-
-            // Case 2a: dateTimeSource has a range of date  
-            if (dateTimeSource.getStartDate() != null) {
-                if (dateTimeQuery.getEndDate().isBefore(dateTimeSource.getStartDate())
-                        || dateTimeQuery.getEndDate().isAfter(dateTimeSource.getEndDate())) {
-                    return false;
-                }
-            } else { //Case 2b: dateTimeSource only has a endDateTime
-                if (!dateTimeQuery.getEndDate().equals(dateTimeSource.getEndDate())) {
-                    return false;
-                }
-            }
-        }
-
-        return isTaskDateWithinRange;
-    }
-
-    /**
      * Signals an error caused by end date occurring before start date
      */
     public class IllegalDateException extends IllegalValueException {

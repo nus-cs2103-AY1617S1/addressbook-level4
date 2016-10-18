@@ -8,13 +8,13 @@ import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
+import tars.commons.util.DateTimeUtil;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
-import tars.model.task.DateTime;
 import tars.model.task.DateTime.IllegalDateException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
@@ -248,7 +248,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
 
             if (taskQuery.getDateTimeQueryRange() != null) {
-                isTaskFound = DateTime.isDateTimeWithinRange(task.getDateTime(), taskQuery.getDateTimeQueryRange());
+                isTaskFound = DateTimeUtil.isDateTimeWithinRange(task.getDateTime(), taskQuery.getDateTimeQueryRange());
                 if (!isTaskFound) {
                     return false;
                 }
