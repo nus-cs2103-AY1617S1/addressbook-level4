@@ -64,11 +64,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskManager newData, String actionTaken) {
         taskManager.resetData(newData);
-        indicateAddressBookChanged(actionTaken);
+        indicateTaskManagerChanged(actionTaken);
     }
 
     @Override
-    public ReadOnlyTaskManager getAddressBook() {
+    public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
     }
     
@@ -76,18 +76,18 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void setDone(ReadOnlyItem target, String actionTaken) throws ItemNotFoundException {
         taskManager.setDone(target);
         raise(new ChangeDoneEvent());
-        indicateAddressBookChanged(actionTaken);
+        indicateTaskManagerChanged(actionTaken);
     }
     
     @Override
     public synchronized void setUndone(ReadOnlyItem target, String actionTaken) throws ItemNotFoundException {
         taskManager.setUndone(target);
         raise(new ChangeDoneEvent());
-        indicateAddressBookChanged(actionTaken);
+        indicateTaskManagerChanged(actionTaken);
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged(String actionTaken) {
+    private void indicateTaskManagerChanged(String actionTaken) {
         ReadOnlyTaskManager newData = new TaskManager(taskManager);
         HistoryTaskManager newHistory = new HistoryTaskManager(newData, actionTaken);
         history.push(newHistory);
@@ -106,7 +106,7 @@ public class ModelManager extends ComponentManager implements Model {
             } else {
             	HistoryTaskManager oldData = history.pop();
                 taskManager.resetData(oldData.getPastTaskManager());
-                indicateAddressBookChanged(oldData.getActionTaken());
+                indicateTaskManagerChanged(oldData.getActionTaken());
                 return currentData.getActionTaken();
             }
     	}
@@ -115,14 +115,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteItem(ReadOnlyItem target, String actionTaken) throws ItemNotFoundException {
         taskManager.removeItem(target);
-        indicateAddressBookChanged(actionTaken);
+        indicateTaskManagerChanged(actionTaken);
     }
 
     @Override
     public synchronized void addItem(Item item, String actionTaken) throws UniqueItemList.DuplicateItemException {
         taskManager.addItem(item);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged(actionTaken);
+        indicateTaskManagerChanged(actionTaken);
     }
     
     @Override
@@ -130,7 +130,7 @@ public class ModelManager extends ComponentManager implements Model {
             throws ItemNotFoundException, UniqueItemList.DuplicateItemException {
         taskManager.replaceItem(target, toReplace);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged(actionTaken);
+        indicateTaskManagerChanged(actionTaken);
     }
 
     //=========== Filtered Item List Accessors ===============================================================

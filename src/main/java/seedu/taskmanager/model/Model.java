@@ -15,7 +15,7 @@ public interface Model {
     void resetData(ReadOnlyTaskManager newData, String actionTaken);
 
     /** Returns the TaskManager */
-    ReadOnlyTaskManager getAddressBook();
+    ReadOnlyTaskManager getTaskManager();
 
     /** Deletes the given item. */
     void deleteItem(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
