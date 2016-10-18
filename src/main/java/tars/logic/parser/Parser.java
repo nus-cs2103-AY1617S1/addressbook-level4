@@ -54,7 +54,7 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
                                                                                                            // or
                                                                                                            // more
-                                                                                                 // whitespace
+    // whitespace
 
     public Parser() {
     }
@@ -103,7 +103,7 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-            
+
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
@@ -245,7 +245,7 @@ public class Parser {
         Flag doneFlag = new Flag(Flag.DONE, false);
         Flag undoneFlag = new Flag(Flag.UNDONE, false);
 
-        Flag[] flags = {doneFlag, undoneFlag};
+        Flag[] flags = { doneFlag, undoneFlag };
 
         TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
         HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
@@ -316,8 +316,7 @@ public class Parser {
         if (flagsPosMap.size() == 0) {
             return new FindCommand(generateKeywordSetFromArgs(args.trim()));
         }
-        
-        
+
         TaskQuery taskQuery;
         try {
             taskQuery = createTaskQuery(argumentMap, flags);
@@ -336,16 +335,21 @@ public class Parser {
         Boolean statusDone = true;
         Boolean statusUndone = false;
 
-        taskQuery.createNameQuery(argumentMap.get(flags[0]).replace(Flag.NAME, "").trim());
-        taskQuery.createDateTimeQuery(DateTimeUtil.getDateTimeFromArgs(argumentMap.get(flags[1]).replace(Flag.DATETIME, "").trim()));
+        taskQuery.createNameQuery(argumentMap.get(flags[0]).replace(Flag.NAME, "").trim().replaceAll("( )+", " "));
+        taskQuery.createDateTimeQuery(
+                DateTimeUtil.getDateTimeFromArgs(argumentMap.get(flags[1]).replace(Flag.DATETIME, "").trim()));
         taskQuery.createPriorityQuery(argumentMap.get(flags[2]).replace(Flag.PRIORITY, "").trim());
-        if (!argumentMap.get(flags[3]).isEmpty()) {
-            taskQuery.createStatusQuery(statusDone);
+        if (!argumentMap.get(flags[3]).isEmpty() && !argumentMap.get(flags[4]).isEmpty()) {
+            throw new IllegalValueException(TaskQuery.MESSAGE_BOTH_STATUS_SEARCHED_ERROR);
+        } else {
+            if (!argumentMap.get(flags[3]).isEmpty()) {
+                taskQuery.createStatusQuery(statusDone);
+            }
+            if (!argumentMap.get(flags[4]).isEmpty()) {
+                taskQuery.createStatusQuery(statusUndone);
+            }
         }
-        if (!argumentMap.get(flags[4]).isEmpty()) {
-            taskQuery.createStatusQuery(statusUndone);
-        }
-        taskQuery.createTagsQuery(argumentMap.get(flags[5]).replace(Flag.TAG, "").trim());
+        taskQuery.createTagsQuery(argumentMap.get(flags[5]).replace(Flag.TAG, "").trim().replaceAll("( )+", " "));
 
         return taskQuery;
     }
