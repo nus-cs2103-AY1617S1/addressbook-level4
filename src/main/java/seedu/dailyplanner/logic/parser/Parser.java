@@ -135,10 +135,13 @@ public class Parser {
     
     private HashMap<String,String> parseAdd(String arguments) {
         HashMap<String,String> mapArgs = new HashMap<String,String>();
-        String[] splitArgs = arguments.split(" ");
-        mapArgs.put("taskName", splitArgs[0]);
+        String taskName = getTaskNameFromArguments(arguments);
+        System.out.println(taskName);
+        mapArgs.put("taskName", taskName);
+        String[] splitArgs = arguments.substring(taskName.length()+1).split(" ");
+      System.out.println(splitArgs);
         //loop through rest of arguments, add them to hashmap if valid
-        for (int i=1; i<splitArgs.length; i++) {
+        for (int i=0; i<splitArgs.length; i++) {
             if (splitArgs[i].substring(0, 2).equals("d/")) {
                 mapArgs.put("date", splitArgs[i].substring(2));
             }
@@ -154,6 +157,11 @@ public class Parser {
         }
         
         return mapArgs;
+    }
+
+    private String getTaskNameFromArguments(String arguments) {
+        String[] firstPart = arguments.split("/");
+        return firstPart[0].substring(0, firstPart[0].length()-2);
     }
 
     /**
