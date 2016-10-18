@@ -68,9 +68,6 @@ public class AddCommand extends UndoAndRedo {
 		try {
 			model.addTask(toAdd);
 			model.getUndoStack().push(this);
-			if(model.getUndoStack().isEmpty()) {
-				System.out.println("Empty at add execute");
-			}
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);

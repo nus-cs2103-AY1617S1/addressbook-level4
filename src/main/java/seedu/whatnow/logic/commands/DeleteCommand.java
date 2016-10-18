@@ -23,8 +23,6 @@ public class DeleteCommand extends UndoAndRedo {
 
 	public final int targetIndex;
 	
-//	public final int targPosition;
-	
 	public ReadOnlyTask taskToDelete;
 
 	public DeleteCommand(int targetIndex) {

@@ -38,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<Command> stackOfRedo;
     private final Stack<ReadOnlyTask> oldTask;
     private final Stack<ReadOnlyTask> newTask;
+    private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
     /**
      * Initializes a ModelManager with the given WhatNow
      * WhatNow and its variables should not be null
@@ -58,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
         oldTask = new Stack<>();
         newTask = new Stack<>();
+        stackOfWhatNow = new Stack<>();
     }
 
     public ModelManager() {
@@ -74,17 +76,20 @@ public class ModelManager extends ComponentManager implements Model {
         backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
         oldTask = new Stack<>();
         newTask = new Stack<>();
+        stackOfWhatNow = new Stack<>();
     }
 
     @Override
     public void resetData(ReadOnlyWhatNow newData) {
-        whatNow.resetData(newData);
+    	stackOfWhatNow.push(new WhatNow(whatNow));
+    	whatNow.resetData(newData);
         indicateWhatNowChanged();
     }
     
     @Override
 	public synchronized void revertData() {
-		whatNow.revertEmptyWhatNow();
+		whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
+		indicateWhatNowChanged();
 	}
     @Override
     public ReadOnlyWhatNow getWhatNow() {
@@ -137,18 +142,8 @@ public class ModelManager extends ComponentManager implements Model {
     	whatNow.unMarkTask(target);
     	indicateWhatNowChanged();
     }
-    /*
-    @Override
-    public synchronized void undoCommand() throws UniqueTaskList.NoPrevCommandException{
-    	whatNow.undoCommand();
-    	indicateWhatNowChanged();
-    }*/
     @Override
     public Stack<Command> getUndoStack() {
-    	System.out.println("At modelManager when getting:");
-    	if(stackOfUndo.isEmpty()){
-    		System.out.println("stack is empty");
-    	}
     	return stackOfUndo;
     }
 	@Override

@@ -62,7 +62,6 @@ public class Parser {
 	 * @throws ParseException 
 	 */
 	public Command parseCommand(String userInput) throws ParseException {
-		//	System.out.println("User input is :" + userInput);
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -122,23 +121,13 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareAdd(String args){
-		System.out.println("Entered prepareAdd");
-//		if(TEMP3.matcher(args).find()) {
-//			System.out.println("matches");
-//		}
 		final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
-		// Validate arg string format
 		if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
 		String[] arguments = args.split("\"");
 		
-		for (int i = 0; i < arguments.length; i++) {
-			System.out.print(arguments[i] + " " + i + " ");
-		}
-		
-		// E.g. add "Buy Milk"
 		if (arguments.length == 2) {
 			try {
 				return new AddCommand(arguments[1], Collections.emptySet());
@@ -151,12 +140,6 @@ public class Parser {
 		
 		if (arguments.length > 2) {
 			additionalArgs = arguments[arguments.length - 1].split(" ");
-		}
-		
-		System.out.println();
-		
-		for (int i = 0; i < additionalArgs.length; i++) {
-			System.out.print(additionalArgs[i] + " " + i + " ");
 		}
 		
 		if (additionalArgs[1].equals("on") || additionalArgs[1].equals("by")) {
@@ -215,7 +198,6 @@ public class Parser {
     private Command prepareList(String args) {
         String[] argComponents= args.trim().split(" ");
         String listArg = argComponents[LIST_ARG];
-        System.out.println(listArg);
         if (!isListCommandValid(listArg)) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
