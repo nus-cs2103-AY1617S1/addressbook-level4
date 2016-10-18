@@ -33,7 +33,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the address book. "
-            + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate s/status ts/tagSet"
+            + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate ts/tagSet"
             + "\nExample: " + COMMAND_WORD
             + " 1 t/newTaskName"
             + "\nNote: Please enter your parameters in order.";
