@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="floatingTaskCardPane" fx:id="floatingTaskCardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -18,13 +18,13 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="70.0" prefHeight="70.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
+                        <Insets left="2.0" />
                     </padding>
 
                     <children>
@@ -38,7 +38,7 @@
                         </HBox>
                   <HBox>
                      <children>
-                        <Text strokeType="OUTSIDE" styleClass="cell_small_label" strokeWidth="0.0" text="Note: " />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_small_label" text="Note: " />
                               <Label fx:id="note" styleClass="cell_small_label" text="\$note" />
                      </children>
                   </HBox>

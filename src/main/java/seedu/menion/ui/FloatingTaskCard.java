@@ -12,7 +12,7 @@ public class FloatingTaskCard extends UiPart{
     private static final String FXML = "FloatingTaskCard.fxml";
 
     @FXML
-    private HBox cardPane;
+    private HBox floatingTaskCardPane;
     @FXML
     private Label id;
     @FXML
@@ -46,12 +46,12 @@ public class FloatingTaskCard extends UiPart{
     }
 
     public HBox getLayout() {
-        return cardPane;
+        return floatingTaskCardPane;
     }
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        floatingTaskCardPane = (HBox)node;
     }
 
     @Override
