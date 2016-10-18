@@ -39,11 +39,11 @@
                      <padding>
                         <Insets left="5.0" top="10.0" />
                      </padding></Label>
-                  			<Label fx:id="locationParameter" styleClass="cell_small_label" text="\$location">
+                  			<Label fx:id="locationParam" styleClass="cell_small_label" text="\$location">
                      <padding>
                         <Insets left="5.0" />
                      </padding></Label>
-                  			<Label fx:id="remarksParameter" styleClass="cell_small_label" text="\$remarks">
+                  			<Label fx:id="remarks" styleClass="cell_small_label" text="\$remarks">
                      <padding>
                         <Insets left="5.0" />
                      </padding></Label>
