@@ -27,6 +27,9 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+    /*
+     *  Add Command, task,event,deadline pattern
+     */
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)"
                     + " d/(?<date>[^/]+)"
@@ -40,6 +43,31 @@ public class Parser {
     
     private static final Pattern deadline_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)"
+                    + " d/(?<date>[^/]+)"
+                    + " e/(?<endTime>[^/]+)");
+    
+    /*
+     *  Edit Command, task,event,deadline pattern
+     */
+    private static final Pattern task_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<dataType>.+)"
+                    + "(?<targetIndex>.+)"
+                    + " n/(?<name>.+)"
+                    + " d/(?<date>[^/]+)"
+                    + " p/(?<priority>[^/]+)");
+    
+    private static final Pattern event_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<dataType>.+)"
+                    + "(?<targetIndex>.+)"
+                    + " n/(?<name>.+)"
+                    + " d/(?<date>[^/]+)"
+                    + " s/(?<startTime>[^/]+)"
+                    + " e/(?<endTime>[^/]+)");
+    
+    private static final Pattern deadline_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<dataType>.+)"
+                    + "(?<targetIndex>.+)"
+                    + " n/(?<name>.+)"
                     + " d/(?<date>[^/]+)"
                     + " e/(?<endTime>[^/]+)");
 
@@ -145,30 +173,15 @@ public class Parser {
     }
 
     /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
-
-    /**
      * Parses arguments in the context of the delete task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-        final Matcher matcher_dataType = task_DATATYPE_ARGS_FORMAT.matcher(args.trim());
         Optional<String> dataType = parseDataType(args);
         Optional<Integer> index = parseIndex(args);
-        if(!matcher_dataType.matches() && !dataType.isPresent() || !index.isPresent()){
+        if(!dataType.isPresent() || !index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
@@ -236,9 +249,8 @@ public class Parser {
      */
     private Command prepareFind(String args) {
         final Matcher matcher_keywords = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        final Matcher matcher_dataType = task_DATATYPE_ARGS_FORMAT.matcher(args.trim());
-        Optional<String> dataType_Present = parseDataType(args);
-        if (!matcher_keywords.matches() || !matcher_dataType.matches() && !dataType_Present.isPresent()) {
+        Optional<String> dataType = parseDataType(args);
+        if (!dataType.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
@@ -247,13 +259,56 @@ public class Parser {
         final String[] keywords = matcher_keywords.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         
-        String dataType = matcher_dataType.group("dataType");
-        
-        return new FindCommand(keywordSet, dataType);
+        return new FindCommand(keywordSet, dataType.get());
     }
 
     private Command prepareEdit(String args) {
-        final Matcher matcher_dataType = task_DATATYPE_ARGS_FORMAT.matcher(args.trim());
-        return null;
+        final Matcher matcher_index = task_INDEX_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_task = task_EDIT_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_event = event_EDIT_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_deadline = deadline_EDIT_ARGS_FORMAT.matcher(args.trim());
+        Optional<String> dataType = parseDataType(args);
+        if (!dataType.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE));
+        }
+
+        if(dataType.get() == "todo") {
+           try {
+                return new EditCommand(
+                        matcher_task.group("name"),
+                        matcher_task.group("date"),
+                        Integer.parseInt(matcher_task.group("priority")),
+                        Integer.parseInt(matcher_index.group("targetIndex"))
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }   
+        }else if(dataType.get() == "event") {
+            try {
+                return new EditCommand(
+                        matcher_event.group("name"),
+                        matcher_event.group("date"),
+                        matcher_event.group("startTime"),
+                        matcher_event.group("endTime"),
+                        Integer.parseInt(matcher_index.group("targetIndex"))
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }else if(dataType.get() == "deadline") {  
+            try {
+                return new EditCommand(
+                        matcher_deadline.group("name"),
+                        matcher_deadline.group("date"),
+                        matcher_deadline.group("endTime"),
+                        Integer.parseInt(matcher_index.group("targetIndex"))
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }else{
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE)); 
+        }
     }
 }
