@@ -256,22 +256,40 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task |
-`* * *` | user | delete a task | remove entries that I no longer need
-`* * *` | user | search tasks by keywords | locate details of tasks without having to go through the entire list
-`* * *` | user | update a task | account for the possibility of change
+`* * *` | user | add a new task with or without starting date, end date, tags, priority level or details | store different tasks in the to-do list 
+`* * *` | user | delete a task | remove a task that I no longer need to do
+`* * *` | user | search tasks by name, details, starting date, end date, tags or priority level | locate details of tasks without having to go through the entire list
+`* * *` | user | update the name, details, starting date, end date, tags or priority level of a task | account for the possibility of change
 `* * *` | user | undo the last operation | go back to the previous version
+`* * *` | user | type a command in different ways | have flexibility in the command format
+`* * *` | user | specify a location to store data | organize files as I like and access data from multiple devices using cloud syncing service
 `* * *` | user | mark tasks as "finished" | view all completed tasks
 `* * *` | user | unmark finsihed tasks | change status of tasks
-`* *` | user | group tasks into similar categories | organise them well
-`* *` | user | view tasks by categories |
+`* *` | user | group tasks into similar categories | organise tasks well
+`* *` | user | view tasks by categories | have clearer views of similar tasks 
+`* *` | user | have a daily summary of tasks | manage my time well for the day
+`* *` | user | have a weekily summary of tasks | manage my time well for the week
 `*` | user with many tasks in the to-do list | sort tasks by name | locate a task easily
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `DoDo-Bird` and the **Actor** is the `user`, unless specified otherwise)
+
+#### Use case: Add a task
+
+**MSS**
+
+1. User enter command to add a task
+2. DoDo-Bird displays information of the task and all empty fields
+Use case ends.
+
+**Extensions**
+
+2a. User adds a task with same name as an existing task
+
+> DoDo-Bird shows an error message
+> User case ends
 
 #### Use case: Delete task
 
@@ -300,30 +318,24 @@ Use case ends.
 > 3a1. DoDo-Bird shows an error message <br>
   Use case resumes at step 2
 
-#### Use case: Search task by keyword
+#### Use case: Search tasks by keyword
 
 **MSS**
 
-1. User enter command to search tasks by keyword.
-2. DoDo-Bird returns a list of tasks which name contains those keywords.
+1. User enter command to search tasks by keywords such as name, details, starting date, end date, tags or priority level.
+2. DoDo-Bird displays a list of tasks which contain those keywords.
 Use case ends.
 
-**Extensions**
-
-{More to be added}
 
 ## Appendix C : Non Functional Requirements
 
 1. (Availability/Interoperability) Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
 2. (Capacity) Should be able to hold up to 1000 Tasks and Events.
-3. (Usability) Should be able compile and run the binary.
-4. (Usability) Should favor Unix-style commands over DOS style commands.
-5. (Maintainability) Should come with automated unit tests and open source code.
-6. (Performance) Should be able to respond any command within 3 seconds.
-7. (Security/Data Integrity) Should encrypt data.
-8. (Reliability/Recoverability) Should be able to attempt to recover data for corrupted data files.
+3. (Maintainability) Should come with automated unit tests and open source code.
+4. (Performance) Should be able to respond any command within 3 seconds.
+5. (Security/Data Integrity) Should encrypt data.
+6. (Reliability/Recoverability) Should be able to attempt to recover data for corrupted data files.
 
-{More to be added}
 
 ## Appendix D : Glossary
 
