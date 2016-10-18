@@ -233,50 +233,6 @@ public class ModelManager extends ComponentManager implements Model {
             this.taskQuery = taskQuery;
         }
 
-        private boolean isDateTimeWithinRange(DateTime dateTimeSource, DateTime dateTimeQuery) {
-            boolean isTaskDateWithinRange = true;
-
-            // Return false if task is a floating task (i.e. not start or end
-            // dateTime
-            if (dateTimeSource.getEndDate() == null) {
-                return false;
-            }
-
-            // Return false if dateTimeSource Start Date is after dateTimeQuery
-            // End Date AND if dateTimeSource End Date is before dateTimeQuery
-            // Start Date
-            if (dateTimeQuery.getStartDate() != null) {
-
-                if (dateTimeSource.getEndDate().isBefore(dateTimeQuery.getStartDate())) {
-                    return false;
-                }
-
-                if (dateTimeSource.getStartDate() != null) {
-                    if (dateTimeSource.getStartDate().isAfter(dateTimeQuery.getEndDate())) {
-                        return false;
-                    } else {
-                        if (dateTimeSource.getEndDate().isAfter(dateTimeQuery.getEndDate())) {
-                            return false;
-                        }
-                    }
-                }
-            } else {
-
-                if (dateTimeSource.getStartDate() != null) {
-                    if (dateTimeQuery.getEndDate().isBefore(dateTimeSource.getStartDate())
-                            || dateTimeQuery.getEndDate().isAfter(dateTimeSource.getEndDate())) {
-                        return false;
-                    }
-                } else {
-                    if (!dateTimeQuery.getEndDate().equals(dateTimeSource.getEndDate())) {
-                        return false;
-                    }
-                }
-            }
-
-            return isTaskDateWithinRange;
-        }
-
         @Override
         public boolean run(ReadOnlyTask task) {
 
@@ -292,7 +248,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
 
             if (taskQuery.getDateTimeQueryRange() != null) {
-                isTaskFound = isDateTimeWithinRange(task.getDateTime(), taskQuery.getDateTimeQueryRange());
+                isTaskFound = DateTime.isDateTimeWithinRange(task.getDateTime(), taskQuery.getDateTimeQueryRange());
                 if (!isTaskFound) {
                     return false;
                 }
