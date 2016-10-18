@@ -54,9 +54,8 @@ allprojects {
         compile "com.google.guava:guava:$guavaVersion"
         // https://mvnrepository.com/artifact/com.opencsv/opencsv
         compile group: 'com.opencsv', name: 'opencsv', version: '3.8'
-        // https://mvnrepository.com/artifact/com.joestelmach/natty
-        compile group: 'com.joestelmach', name: 'natty', version: '0.12'
-
+        // https://mvnrepository.com/artifact/org.ocpsoft.prettytime/prettytime
+        compile group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
