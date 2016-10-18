@@ -44,7 +44,7 @@ public class Time {
     	String [] timeStrings = new String [2];
     	for (int i = 0; i < dateList.size(); i++){
         	java.util.Date date = dateList.get(i);
-        	timeStrings[i] = date.getDate() + "." + (date.getMonth() + 1) + "." + (date.getYear() + 1900);
+        	timeStrings[i] = String.format("%d%02d", date.getHours(), date.getMinutes());
         	
         	if (!isValidTime(timeStrings[i])) {
                 throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
