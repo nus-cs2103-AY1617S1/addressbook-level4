@@ -1,23 +1,26 @@
 package seedu.todo.commons.enumerations;
+
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
-
 //@@author A0092382A
-public enum TaskViewFilters {
+public enum TaskViewFilter {
     DEFAULT("show all", null, 5), 
     
-    COMPLETED("completed", (task) -> task.isCompleted(), 0), 
+    COMPLETED("completed", ImmutableTask::isCompleted, 0), 
     
-    INCOMPLETE ("incomplete", (task) -> !task.isCompleted(), 0),
+    INCOMPLETE ("incomplete", task -> !task.isCompleted(), 0),
     
-    DUE_TODAY ("due today", (task) -> new TimeUtil().
-                isToday(task.getEndTime().get(), LocalDateTime.now())
-                && !task.isEvent()
-                && !task.isCompleted(), 4);
+    DUE_TODAY ("due today", (task) -> {
+        TimeUtil time = new TimeUtil(); 
+        return !task.isCompleted() && 
+            !task.isEvent() &&
+            task.getEndTime().isPresent() && 
+            time.isToday(task.getEndTime().get(), LocalDateTime.now());
+    }, 4);
     
     private final String name;
     
@@ -25,7 +28,7 @@ public enum TaskViewFilters {
     
     private final int underlineChar;
 
-    TaskViewFilters(String name, Predicate<ImmutableTask> filter, int underlineCharPosition) {
+    TaskViewFilter(String name, Predicate<ImmutableTask> filter, int underlineCharPosition) {
         this.name = name;
         this.filter = filter;
         this.underlineChar = underlineCharPosition;
@@ -38,8 +41,8 @@ public enum TaskViewFilters {
     public Predicate<ImmutableTask> getFilter() {
         return this.filter;
     }
-
+    
     public int getUnderlineChar() {
-        return underlineChar;
+        return this.underlineChar;
     }
 }

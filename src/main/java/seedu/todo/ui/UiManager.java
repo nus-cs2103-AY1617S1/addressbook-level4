@@ -123,7 +123,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleViewChangedEvent(ChangeViewRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTaskViewFilterView().selectViewFilter(event.getNewSelection());
+        mainWindow.getTaskViewFilterView().selectViewFilter(event.getNewView());
     }
 
     @Subscribe

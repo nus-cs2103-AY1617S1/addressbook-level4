@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.WordUtils;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.enumerations.TaskViewFilters;
+import seedu.todo.commons.enumerations.TaskViewFilter;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * Shows a row of filter categories via {@link seedu.todo.commons.enumerations.TaskViewFilters}
+ * Shows a row of filter categories via {@link seedu.todo.commons.enumerations.TaskViewFilter}
  * to filter the tasks in {@link seedu.todo.ui.TodoListPanel}
  */
 public class TaskViewFilterView extends UiPart {
@@ -33,7 +33,7 @@ public class TaskViewFilterView extends UiPart {
     private FlowPane filterViewPane;
 
     /* Variables */
-    private Map<TaskViewFilters, HBox> taskFilterBoxesMap = new HashMap<>();
+    private Map<TaskViewFilter, HBox> taskFilterBoxesMap = new HashMap<>();
 
     /* Layout Initialisation */
     /**
@@ -69,19 +69,19 @@ public class TaskViewFilterView extends UiPart {
      */
     private void configureProperties() {
         initialiseAllViewFilters();
-        selectViewFilter(TaskViewFilters.DEFAULT);
+        selectViewFilter(TaskViewFilter.DEFAULT);
     }
 
     /**
-     * Display all the {@link TaskViewFilters} on the {@link #filterViewPane}
+     * Display all the {@link TaskViewFilter} on the {@link #filterViewPane}
      */
     private void initialiseAllViewFilters() {
-        for (TaskViewFilters filter : TaskViewFilters.values()) {
+        for (TaskViewFilter filter : TaskViewFilter.values()) {
             appendEachViewFilter(filter);
         }
     }
 
-    private void appendEachViewFilter(TaskViewFilters filter) {
+    private void appendEachViewFilter(TaskViewFilter filter) {
         String filterName = WordUtils.capitalize(filter.getViewName());
         String[] partitionedText = StringUtil.partitionStringAtPosition(filterName, filter.getUnderlineChar());
         Label leftText = new Label(partitionedText[0]);
@@ -100,7 +100,7 @@ public class TaskViewFilterView extends UiPart {
     }
 
     /* Methods interfacing with UiManager */
-    public void selectViewFilter(TaskViewFilters filter) {
+    public void selectViewFilter(TaskViewFilter filter) {
         clearAllViewFiltersSelection();
         HBox filterBox = taskFilterBoxesMap.get(filter);
         ViewStyleUtil.addClassStyles(filterBox, ViewStyleUtil.STYLE_SELECTED);
