@@ -2,6 +2,7 @@ package seedu.task.logic.commands;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyTaskManager;
+import seedu.task.model.tag.Tag;
 import seedu.task.model.task.Title;
 import seedu.task.model.task.Description;
 import seedu.task.model.task.DueDate;
@@ -32,8 +34,9 @@ public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the address book. "
             + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate i/interval ti/timeInterval s/status ts/tagSet"
-            + " Example: " + COMMAND_WORD
-            + " 1 t/newTaskName";
+            + "\nExample: " + COMMAND_WORD
+            + " 1 t/newTaskName"
+            + "\nNote: Please enter your parameters in order.";
 	
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
@@ -131,7 +134,7 @@ public class EditCommand extends Command {
 	 */
 	public void edit(ReadOnlyTask task) throws IllegalValueException, ParseException{
 		copy = (Task) selectedTask;
-		iterateParams(newTitle, description, startDate, dueDate, interval, timeInterval);
+		iterateParams(newTitle, description, startDate, dueDate, interval, timeInterval, tags);
 		editedTask = copy;
 	}
 	
@@ -141,7 +144,7 @@ public class EditCommand extends Command {
 	 * @throws IllegalValueException if the parameters provided were incorrect
 	 * @throws ParseException 
 	 */
-	public void iterateParams(String name, String description, String startDate, String dueDate, String interval, String timeInterval) throws IllegalValueException, ParseException{
+	public void iterateParams(String name, String description, String startDate, String dueDate, String interval, String timeInterval, Set<String> tags) throws IllegalValueException, ParseException{
 		if (name != null) {
 		    changeTitle(name);
 		}
@@ -160,6 +163,9 @@ public class EditCommand extends Command {
 		if (timeInterval != null) {
 			changeTimeInterval(timeInterval);
 		}
+		//if (tags != null) {
+			//changeTags(tags);
+		//}
 	}
 	
 	/**
@@ -223,7 +229,5 @@ public class EditCommand extends Command {
 		TimeInterval newTimeInterval = new TimeInterval(timeInterval);
 		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), newTimeInterval, copy.getStatus(), copy.getTags());
 	}
-
-
 
 }
