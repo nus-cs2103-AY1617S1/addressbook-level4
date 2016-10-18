@@ -107,7 +107,6 @@ Format: `list`
 Finds tasks that contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> Finds all the tasks with the keywords. <br>
 > Only full words will be matched e.g. meeting will not match meetings
 > Tasks matching at least one keyword will be returned (i.e. OR search).
 
@@ -119,12 +118,12 @@ Examples:
 
 <br>
 #### Updating a task: `update`
-Updates the entire task, the description of the task or the date of the task.<br>
+Updates the <i>entire task</i>, the <i>description</i> of the task or the <i>date</i> of the task.<br>
 Format (task): `update INDEX task UPDATED_VALUE` <br>
 Format (description): `update INDEX description UPDATED_VALUE` <br>
 Format (date): `update INDEX date UPDATED_VALUE`
 
-> Updates the task at the specific index. The index refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 > `task`: Updates the entire task as if `add UPDATED_VALUE` has been executed <br>
 > `description`: Updates the description of the task with `UPDATED_VALUE` <br>
 > `date`: Updates the date of the task with `UPDATED_VALUE` if it is already has a date
@@ -135,7 +134,6 @@ Examples:
   Updates the entire task as though so that the description is `overseas`, the start date is `oct 31` and the end date is `nov 1`
 <br> <br>
 * `list`
-* `update 2 description project discussion` or
 * `update 2 description project discussion` <br>
   Updates the description of the 2nd task on the list with `project discussion`
   <br><br>
@@ -152,8 +150,7 @@ Examples:
 Deletes the specified task.<br>
 Format: `delete INDEX`
 
-> Deletes the task at the specific index. The index refers to the index shown in the most recent listing. <br>
-> The index must be a positive integer 1, 2, 3… If the task selected is a recurring task, user will be prompted to delete all instances of the task or only the next instance of the task.
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 
 Examples:
 * `list`
@@ -165,29 +162,48 @@ Examples:
   Deletes the 1st task in the results of the `find` command
 
 <br>
-#### Favoriting a task: `favorite`
-Favorites the task at the specified INDEX. The index refers to the index number shown in the most recent listing.<br>
-The favorited task will appear at the top of any lists that include it. <br>
+#### Marking a task as completed: `complete`
+Marks the specified task as completed.<br>
+Format: `complete INDEX`
+
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> Completed tasks can be accessed with `list complete[d]`.
+
+<br>
+#### Marking a task as incomplete: `uncomplete`
+Marks the specified task as incomplete<br>
+Format: `uncomplete INDEX`
+
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+
+<br>
+#### Marking a task as favorite: `favorite`
+Marks the specified task as favorite. <br>
 Format: `favorite INDEX`
+
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> The task marked as favorite will appear at the top of any lists that include it. <br>
 
 Examples:
 * `list`
 * `favorite 2` <br>
-  Favorites the 2nd task in the task list.
+  Marks the 2nd task in the task list as favorite.
 <br><br>
 * `find Dinner`
 * `favorite 1` <br>
-  Favorites the 1st task in the results of the `find` command
+  Marks the 1st task in the results of the `find` command as favorite.
 
 <br>
-#### Unfavoriting a task: `unfavorite`
-Unfavorites the task at the specified INDEX. The index refers to the index number shown in the most recent listing. <br>
+#### Marking a task as not-favorite: `unfavorite`
+Marks the specified task as a not-favorite task (the default). <br>
 Format: `unfavorite INDEX`
+
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 
 Examples:
 * `list`
 * `unfavorite 2` <br>
-  Unfavorites the 2nd task in the task list.
+  Marks the 2nd task in the task list as not-favorite.
 
 <br>
 #### Listing favorites: `list favorite[s]`
@@ -318,6 +334,8 @@ Update task | `update INDEX task UPDATED_VALUE`
 Update description | `update INDEX description UPDATED_VALUE`
 Update date | `update INDEX date UPDATED_VALUE`
 Delete | `delete INDEX`
+Complete | `complete INDEX`
+Uncomplete | `uncomplete INDEX`
 Favorite | `favorite INDEX`
 Unfavorite | `unfavorite INDEX`
 List favorites | `list favorite[s]`
