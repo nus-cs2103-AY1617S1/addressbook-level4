@@ -78,14 +78,15 @@ Format: `list [t/LIST_TYPE]`
 > Parameters | Description  
 > -------- | :-------- 
 > LIST_TYPE | `Optional` Specifies the name of the task.<br>`Accepts` values `DueDate`, `PriorityLevel`, `Archived`<br>`Defaults` to `DueDate`
->   | `DueDate` | DueDate
->   | `PriorityLevel` | PriorityLevel
->   | `Archived` | Archived
 
-> If TYPE is `Due Date`, the tasks and events are sorted according to due date and time of tasks and start date and time of events, earliest first.<br>
-> If no ENDTIME specified (floating tasks), sorted to bottom of list.<br>
-> If TYPE is `Priority Level`, the tasks and events are sorted according to priority level beginning with the highest.<br>
-> If TYPE is `Archived`, the Archived tasks and events are listed. They are sorted according to the time of creation of the task.<br>
+`LIST_TYPE` Description:
+* `DueDate` <br> 
+   Tasks are sorted according to END_DATE beginning with the earliest.<br>
+   If no END_DATE is specified for the task (floating tasks), they will be sorted to bottom of list.<br>
+* `PriorityLevel` <br> 
+   Tasks are sorted according to priority level beginning with the highest.<br>
+* `Archived` <br> 
+   Tasks that have been [marked](#mark-a-task-as-done--mark) are listed. They are sorted according to the time of creation of the task.<br>
 
 #### Finding all task containing any keyword in its name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
