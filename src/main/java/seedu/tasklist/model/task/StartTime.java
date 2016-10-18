@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.parser.TimePreparser;
 
@@ -18,7 +17,7 @@ public class StartTime {
 
     public static final String MESSAGE_START_TIME_CONSTRAINTS = "Start time is invalid!";
 
-    public final Calendar starttime; 
+    public final Calendar starttime;
 
     /**
      * Validates given start time.
@@ -41,7 +40,7 @@ public class StartTime {
     		}
     	}
     	else{
-    		starttime.setTime(new Date(0));
+    		this.starttime.setTime(new Date(0));
     	}
     }
 

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
+import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.CollectionUtil;
 import seedu.tasklist.model.tag.UniqueTagList;
 
@@ -21,16 +22,18 @@ public class Task implements ReadOnlyTask {
 	private StartTime startTime;
 	private EndTime endTime;
 	private Priority priority;
+	private Recurring recurring;
 	private int uniqueID;
 	private boolean isComplete;
 	private UniqueTagList tags;
 	public static int floatCounter;
 	public static int IncompleteCounter;
 	public static int overdueCounter;
+	
 	/**
 	 * Every field must be present and not null.
 	 */
-	public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) {
+	public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags, Recurring recurring) {
 		assert !CollectionUtil.isAnyNull(taskDetails, startTime, endTime, priority, tags);
 		this.taskDetails = taskDetails;
 		this.startTime = startTime;
@@ -38,6 +41,7 @@ public class Task implements ReadOnlyTask {
 		this.priority = priority;
 		this.uniqueID = currentID++;
 		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+		this.recurring = recurring;
 		this.isComplete = false;
 	}
 
@@ -45,7 +49,7 @@ public class Task implements ReadOnlyTask {
 	 * Copy constructor.
 	 */
 	public Task(ReadOnlyTask source) {
-		this(source.getTaskDetails(), source.getStartTime(), source.getEndTime(), source.getPriority(), source.getTags());
+		this(source.getTaskDetails(), source.getStartTime(), source.getEndTime(), source.getPriority(), source.getTags(), source.getRecurring());
 	}
 
 	@Override
@@ -61,6 +65,11 @@ public class Task implements ReadOnlyTask {
 	@Override
 	public Priority getPriority() {
 		return priority;
+	}
+	
+	@Override
+	public Recurring getRecurring() {
+	    return recurring;
 	}
 
 	@Override
@@ -83,7 +92,11 @@ public class Task implements ReadOnlyTask {
 	public void setTags(UniqueTagList replacement) {
 		tags.setTags(replacement);
 	}
-
+    
+	public boolean isRecurring() {
+	    return this.recurring.isRecurring();
+	}
+	
 	@Override
 	public boolean isComplete() {
 		return isComplete;
@@ -117,9 +130,18 @@ public class Task implements ReadOnlyTask {
 		this.priority = priority;
 	}
 
+	public void setRecurringTime() throws IllegalValueException {
+	    if (recurring.isRecurring() && isComplete) {
+	        Calendar newtime = recurring.setRecurringTime(this.startTime.starttime);
+	        setStartTime(new StartTime(newtime.toString()));
+	        isComplete = false;
+	    }
+	}
+	
 	public boolean isFloating(){
 		return endTime.isMissing()&&startTime.isMissing();
 	}
+	
 	@Override
 	public boolean equals(Object other) {
 		return other == this // short circuit if same object
