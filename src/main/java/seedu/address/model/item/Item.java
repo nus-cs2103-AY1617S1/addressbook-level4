@@ -41,15 +41,31 @@ public class Item {
 	public Description getDescription() {
 		return description;
     }
-	
-	public boolean getIsDone() {
-	    return this.isDone;
+
+    public boolean getIsDone() {
+	    return isDone;
 	}
 
-	// @Override
-	// public UniqueTagList getTags() {
-	// return new UniqueTagList(tags);
-	// }
+	
+	public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public boolean isRecurring() {
+        return isRecurring;
+    }
+
+    public Period getRecurInterval() {
+        return recurInterval;
+    }
+
+    public LocalDateTime getRecurEndDate() {
+        return recurEndDate;
+    }
 
     /**
 	 * Replaces this Item's tags with the tags in the argument tag list.
@@ -62,6 +78,25 @@ public class Item {
         this.isDone = doneness;
     }
 
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setRecurring(boolean isRecurring) {
+        this.isRecurring = isRecurring;
+    }
+
+    public void setRecurInterval(Period recurInterval) {
+        this.recurInterval = recurInterval;
+    }
+
+    public void setRecurEndDate(LocalDateTime recurEndDate) {
+        this.recurEndDate = recurEndDate;
+    }
 
     @Override
     public int hashCode() {
