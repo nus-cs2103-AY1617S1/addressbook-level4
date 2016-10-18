@@ -93,7 +93,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
 	public synchronized void revertData() {
-		whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
+		
+    	whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
 		indicateWhatNowChanged();
 	}
     @Override
