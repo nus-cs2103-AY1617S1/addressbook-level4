@@ -119,6 +119,11 @@ public class UpdateTaskCommand extends TaskCommand {
     	} else {
     		assert false : "At least task, description or date should have new values";
     	}
+    	
+    	// Retain favorite status
+		if (taskToUpdate.isFavorite()) {
+			updatedTask.setAsFavorite();
+		}
     }
     
     /**
@@ -139,7 +144,7 @@ public class UpdateTaskCommand extends TaskCommand {
 		
 		} else {
 			throw new IllegalValueException(MESSAGE_CANNOT_UPDATE_TASK);
-		}
+		}	
     }
     
     /**
