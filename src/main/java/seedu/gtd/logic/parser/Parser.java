@@ -30,7 +30,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + " (?<isDueDatePrivate>p?)d/(?<dueDate>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)a/(?<priority>[^/]+)"
+                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
