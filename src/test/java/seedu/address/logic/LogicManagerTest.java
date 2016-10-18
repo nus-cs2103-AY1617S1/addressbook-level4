@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
+import seedu.address.logic.parser.DatePreParse;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
@@ -163,11 +164,9 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] d/01/01/10 s/5:00pm e/5:00am", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add Valid Name from next week to e/5:00pm", DatePreParse.MESSAGE_INCORRECT_DATE_FORMAT);
         assertCommandBehavior(
-                "add Valid Name d/not_numbers s/5:00pm e/5:00am", Date.MESSAGE_DATE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name d/01/01/10 s/notAnStartTime e/5:00pm", StartTime.MESSAGE_START_TIME_CONSTRAINTS);
+                "add Valid Name at e/5:00pm", DatePreParse.MESSAGE_INCORRECT_DATE_FORMAT);
 //        assertCommandBehavior(
 //                "add Valid Name d/01/01/10 s/5:00pm a/5:00am e/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
@@ -417,9 +416,9 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" d/").append(p.getDate());
-            cmd.append(" s/").append(p.getStartTime());
-            cmd.append(" e/").append(p.getEndTime());
+            cmd.append(p.getDate());
+            cmd.append(p.getStartTime());
+            cmd.append(p.getEndTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
