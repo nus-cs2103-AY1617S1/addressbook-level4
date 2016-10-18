@@ -8,7 +8,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Represents a Item in the address book. Guarantees: details are present and
  * not null, field values are validated.
  */
-public abstract class Item implements ReadOnlyItem{
+public class Item {
 
 
     private UniqueTagList tags;
