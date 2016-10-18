@@ -10,7 +10,6 @@ import java.util.Set;
 import com.google.common.eventbus.Subscribe;
 
 import harmony.mastermind.commons.core.Messages;
-import harmony.mastermind.commons.events.storage.AccessDeniedEvent;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.UnwrittableFolderException;
