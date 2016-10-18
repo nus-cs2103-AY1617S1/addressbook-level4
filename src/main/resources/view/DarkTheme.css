@@ -75,9 +75,11 @@
     -fx-background-color: -fx-focus-color;
 }
 
-.split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+.split-pane:horizontal > .split-pane-divider {
+   -fx-background-color: derive(#1d1d1d, 20%);
+}
+.split-pane:vertical > .split-pane-divider {
+   -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .split-pane {
@@ -160,13 +162,13 @@
 }
 
 .menu-bar {
-    -fx-background-color: white;
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
 
@@ -281,23 +283,11 @@
     -fx-text-fill: #F70D1A;
 }
 
-#filterField, #taskListPanel, #personWebpage {
+#filterField, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 
 }
 
 #taskList {
-     -fx-background-color: white;
-}
-
-#taskListView {
-	-fx-background-color: white;
-}
-
-#floatingTaskListView {
-	-fx-background-color: white;
-}
-
-#eventListView {
-	-fx-background-color: white;
+     -fx-background-color: derive(#1d1d1d, 20%);
 }

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.menion.ui.ActivityListPanel">
     <stylesheets>
@@ -12,15 +13,30 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <SplitPane dividerPositions="0.7488" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.7488" style="-fx-background-color: rgba(0,0,0,0);" VBox.vgrow="ALWAYS">
         <items>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: FFFFF;">
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: rgba(0,0,0,0);">
               <items>
-                    <ListView fx:id="taskListView" />
-                    <ListView fx:id="eventListView" />
+                  <VBox style="-fx-background-color: #87cefa;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task" />
+                          <ListView fx:id="taskListView" />
+                     </children>
+                  </VBox>
+                  <VBox style="-fx-background-color: #ffa07a;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event" />
+                          <ListView fx:id="eventListView" />
+                     </children>
+                  </VBox>
               </items>
             </SplitPane>
-            <ListView fx:id="floatingTaskListView" />
+            <VBox style="-fx-background-color: #fafad2;">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floating Task" />
+                  <ListView fx:id="floatingTaskListView" />
+               </children>
+            </VBox>
         </items>
       </SplitPane>
     </children>
