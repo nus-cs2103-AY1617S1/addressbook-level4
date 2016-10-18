@@ -17,7 +17,8 @@ public class Start {
     													"([1-9](?:pm|am|PM|AM))|" + 
     													"(1[0-2](?:pm|am|PM|AM))|" +
     													"([1-9]\\.[0-5]{1}\\d{1}(?:pm|am))|" +
-    													"(1[0-2]\\.[0-5]{1}\\d{1}(?:pm|am))";
+    													"(1[0-2]\\.[0-5]{1}\\d{1}(?:pm|am))|" +
+    													"(no start)";
 
     public final String value;
 
@@ -35,7 +36,7 @@ public class Start {
             throw new IllegalValueException(MESSAGE_START_CONSTRAINTS);
         }
         if (start == "default")
-    		this.value = LocalTime.now().getHour() + "." + LocalTime.now().getMinute();
+    		this.value = LocalTime.now().getHour() +""+ LocalTime.now().getMinute();
         else
         	this.value = start;
     }
@@ -44,7 +45,7 @@ public class Start {
      * Returns if a given string is a valid person email.
      */
     public static boolean isValidStart(String test) {
-    	if (test == "" || test.matches(START_VALIDATION_REGEX) || test == "default")
+    	if (test.matches(START_VALIDATION_REGEX) || test == "default")
     		return true;
     	else
     		return false;
