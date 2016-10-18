@@ -77,20 +77,20 @@ public class AddParserTest {
 		
 		assertEquals("meet prof damith", AddParser.parseCommand(arguments).get(1));
 		assertEquals("he is fierce", AddParser.parseCommand(arguments).get(2));
-		assertEquals("08-10-2016", AddParser.parseCommand(arguments).get(3));
+		assertEquals("10-08-2016", AddParser.parseCommand(arguments).get(3));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
-		assertEquals("08-11-2016", AddParser.parseCommand(arguments).get(5));
+		assertEquals("11-08-2016", AddParser.parseCommand(arguments).get(5));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(6));
 	}
 	
 	@Test
 	public void checkTaskArguments_returnsCorrectArguments(){
 	
-		String arguments = "complete cs2103t by : 08-18-2016 1900 n : important";
+		String arguments = "complete cs2103t by : 08-10-2016 1900 n : important";
 		
 		assertEquals("complete cs2103t", AddParser.parseCommand(arguments).get(1));
 		assertEquals("important", AddParser.parseCommand(arguments).get(2));
-		assertEquals("18-08-2016", AddParser.parseCommand(arguments).get(3));
+		assertEquals("08-10-2016", AddParser.parseCommand(arguments).get(3));
 		assertEquals("1900", AddParser.parseCommand(arguments).get(4));
 		
 	}
@@ -105,17 +105,5 @@ public class AddParserTest {
 		
 	}
 
-	@Test
-	public void checkParserReturnValues(){
-		
-		assertEquals("31-08-2016", AddParser.dateHandler("08/31/2016"));
-			
-	}
-	
-	@Test
-	public void checkDateHandleReturnValues(){
-		
-		assertEquals("01-12-2016", AddParser.dateHandler("December 1st 16"));
-	}
 	
 }

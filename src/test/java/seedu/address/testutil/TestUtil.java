@@ -117,7 +117,7 @@ public class TestUtil {
     }
 
     public static ActivityManager generateEmptyAddressBook() {
-        return new ActivityManager(new UniqueActivityList(), new UniqueTagList());
+        return new ActivityManager(new UniqueActivityList(), new UniqueActivityList(), new UniqueActivityList());
     }
 
     public static XmlSerializableActivityManager generateSampleStorageAddressBook() {
