@@ -9,6 +9,7 @@ import seedu.cmdo.commons.util.StringUtil;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
 import seedu.cmdo.model.task.UniqueTaskList;
+import seedu.cmdo.model.task.UniqueTaskList.TaskAlreadyDoneException;
 import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Collections;
@@ -72,8 +73,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void doneTask(Task target) throws TaskNotFoundException {
-        target.checkDone().setDone();
+    public synchronized void doneTask(Task target) throws TaskNotFoundException, TaskAlreadyDoneException {
+        if (target.checkDone().value) {
+        	throw new TaskAlreadyDoneException();
+        }
+    	target.checkDone().setDone();
         indicateToDoListChanged();
         updateFilteredListToShowAll();
     }

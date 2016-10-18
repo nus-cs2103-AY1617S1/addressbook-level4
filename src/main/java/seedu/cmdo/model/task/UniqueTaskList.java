@@ -31,6 +31,13 @@ public class UniqueTaskList implements Iterable<Task> {
      * there is no such matching person in the list.
      */
     public static class TaskNotFoundException extends Exception {}
+    
+    /**
+     * Signals that the task is already done and cannot be done again.
+     * 
+     * @@author A0139661Y
+     */
+    public static class TaskAlreadyDoneException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 

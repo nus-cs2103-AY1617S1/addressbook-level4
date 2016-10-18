@@ -25,6 +25,25 @@ public class AddCommandTest extends ToDoListGuiTest {
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
+        //add task with date/time range
+        taskToAdd = td.vacation;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        
+        //invalid detail parameter
+        commandBox.runCommand("add 'ppp");
+        assertResultMessage(Messages.MESSAGE_ENCAPSULATE_DETAIL_WARNING);
+        commandBox.runCommand("add ppp'");
+        assertResultMessage(Messages.MESSAGE_ENCAPSULATE_DETAIL_WARNING);
+        commandBox.runCommand("add ''");
+        assertResultMessage(Messages.MESSAGE_BLANK_DETAIL_WARNING);
+        
+        //invalid priority parameter
+        commandBox.runCommand("add 'new' /yolo");
+        assertResultMessage(Messages.MESSAGE_INVALID_PRIORITY);
+        commandBox.runCommand("add 'new'/high");
+        assertResultMessage(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
+        
         //add to empty list
         commandBox.runCommand("clear");
         assertAddSuccess(td.house);
@@ -35,7 +54,9 @@ public class AddCommandTest extends ToDoListGuiTest {
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
-        commandBox.runCommand(taskToAdd.getAddCommand());
+        if (taskToAdd.getDueByDate().isRange() || taskToAdd.getDueByTime().isRange())
+        	commandBox.runCommand(taskToAdd.getAddRangeCommand());
+        else commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getDetail().details);

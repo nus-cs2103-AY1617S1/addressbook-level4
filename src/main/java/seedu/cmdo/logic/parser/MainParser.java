@@ -1,7 +1,6 @@
 package seedu.cmdo.logic.parser;
 
-import static seedu.cmdo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.cmdo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.cmdo.commons.core.Messages.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,12 +12,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.joestelmach.natty.*;
 
+import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
 import seedu.cmdo.logic.commands.*;
-import seedu.cmdo.model.tag.UniqueTagList;
 import seedu.cmdo.model.task.Priority;
-import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Parses user input.
@@ -36,8 +34,6 @@ public class MainParser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-	private static final String MESSAGE_INVALID_PRIORITY = "Priority is either high, medium or low. Please try again.";
 	
 	public static final String NO_DATE_DEFAULT = LocalDate.MIN.toString();	// All floating tasks are giving this date.
 	public static final String NO_TIME_DEFAULT = LocalTime.MAX.toString();	// All timeless tasks are given this time.
@@ -46,6 +42,7 @@ public class MainParser {
 	private static MainParser mainParser;
 	private ArrayList<LocalDateTime> datesAndTimes;
 	private String reducedArgs;
+	private static String detailToAdd;
 	
     /**
      * Private constructor
@@ -74,7 +71,7 @@ public class MainParser {
 
         final String commandWord = matcher.group("commandWord");
         String arguments = matcher.group("arguments");
-        arguments = getCleanString(arguments);
+//        arguments = getCleanString(arguments);
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -122,24 +119,48 @@ public class MainParser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        String[] splittedArgs = getCleanString(args).split(" ");
-        reducedArgs = extractDueByDateAndTime(args);
-        LocalDateTime dt;
-        if (datesAndTimes.size() != 0)
-        	dt = datesAndTimes.get(0);
-        else
-        	dt = LocalDateTime.of(LocalDate.parse(NO_DATE_DEFAULT, DateTimeFormatter.ISO_LOCAL_DATE), 
-        			LocalTime.MAX);
-        // For testing purposes
-        datesAndTimes.clear();
-    	
-    	try {
-    		return new AddCommand(
-    				extractDetail(reducedArgs),
-    				dt.toLocalDate(),
-    				dt.toLocalTime(),
-    				extractPriority(splittedArgs),
-    				getTagsFromArgs(splittedArgs));
+        try {
+        	args = extractDetail(args);	// Saves to detailToAdd
+        	args = extractDueByDateAndTime(args);
+        	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
+        		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
+        	LocalDateTime dt = LocalDateTime.MIN;
+        	LocalDateTime dtStart = LocalDateTime.MIN;
+        	LocalDateTime dtEnd = LocalDateTime.MIN;
+        	String[] splittedArgs = getCleanString(args).split(" ");
+        	// used as flag for task type. 0 for floating, 1 for non-range, 2 for range
+        	int dataMode;
+        	if (datesAndTimes.size() == 1) {
+        		dt = datesAndTimes.get(0);
+        		dataMode = 1;
+        	} else if (datesAndTimes.size() == 2) {
+        		dtStart = datesAndTimes.get(0);
+        		dtEnd = datesAndTimes.get(1);
+        		dataMode = 2;
+        	} else {
+        		dt = LocalDateTime.of(LocalDate.parse(NO_DATE_DEFAULT, DateTimeFormatter.ISO_LOCAL_DATE), 
+        								LocalTime.MAX);
+        		dataMode = 0;
+        	}
+        	// For testing purposes
+        	datesAndTimes.clear();
+    		if (dataMode <= 1) {
+    			return new AddCommand(
+    					detailToAdd,
+    					dt.toLocalDate(),
+    					dt.toLocalTime(),
+    					extractPriority(splittedArgs),
+    					getTagsFromArgs(splittedArgs));
+    		} else {
+    			return new AddCommand(
+    					detailToAdd,
+    					dtStart.toLocalDate(),
+    					dtStart.toLocalTime(),
+    					dtEnd.toLocalDate(),
+    					dtEnd.toLocalTime(),
+    					extractPriority(splittedArgs),
+    					getTagsFromArgs(splittedArgs));
+    		}
     	} catch (IllegalValueException ive) {
     		return new IncorrectCommand(ive.getMessage());
     	}
@@ -152,7 +173,8 @@ public class MainParser {
      * @return the prepared command
      */
     private Command prepareEdit(String args){
-        // Determine if edit command is input correctly
+    	try {
+    	// Determine if edit command is input correctly
     	Optional<Integer> checkForIndex = parseLooseIndex(args);
         if(!checkForIndex.isPresent()){
             return new IncorrectCommand(
@@ -170,6 +192,7 @@ public class MainParser {
         // Store index and remove
         int targetIndex = index;
         args = args.replaceFirst("[0-9]+\\s", "");
+        extractDetail(args);
         
         // Parse date and time
         reducedArgs = extractDueByDateAndTime(args);
@@ -182,17 +205,17 @@ public class MainParser {
         // For testing purposes
         datesAndTimes.clear();
     	
-    	try {
+    	
     		return new EditCommand(
     				targetIndex,
-    				extractDetail(reducedArgs),
+    				detailToAdd,
     				dt.toLocalDate(),
     				dt.toLocalTime(),
     				extractPriority(splittedArgs),
     				getTagsFromArgs(splittedArgs));
     	} catch (IllegalValueException ive) {
     		return new IncorrectCommand(ive.getMessage());
-    	} 
+    	}
     }
 
     /**
@@ -311,32 +334,48 @@ public class MainParser {
     }
     
 //    ============== HELPER METHODS
-    
     /**
-     * Extracts the details out of the reduced args string (without date and time)
+     * Extracts the detail embedded in user input ' '.
      * 
-     * @param reducedArgs
-     * @return a clean string without redundant words, tags, priority
+     * @throws IllegalValueException if only one ' found
      * 
-     * @author A0139661Y
+     * @@author A0139661Y
      */
-    private String extractDetail(String reducedArgs) {
-		return getCleanString(reducedArgs.replaceAll("\\sby\\s$", " ")
-											.replaceAll("\\son\\s$", " ")
-											.replaceAll("\\sat\\s$", " ")
-											.replaceAll("/[^ ]+", "")
-											.replaceAll("-[^ ]+", ""));
+    
+    private static String extractDetail(String args) throws IllegalValueException {
+    	// Check if only one ' used
+    	if (args.lastIndexOf("'") == args.indexOf("'"))
+    		throw new IllegalValueException(MESSAGE_ENCAPSULATE_DETAIL_WARNING);
+    	// Check if detail is empty.
+    	if (args.lastIndexOf("'") == args.indexOf("'")+1) {
+    		throw new IllegalValueException(MESSAGE_BLANK_DETAIL_WARNING);
+    	}
+    	// Split into '  ...  '
+    	String[] details = args.split("^'(.+)'$");
+    	// Details only, get rid of anything after the '
+    	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'"), 
+    													details[0].length(), 
+    													"").toString();
+    	// Get rid of the first '
+    	output = output.replaceFirst("'","");
+    	// Save to instance
+    	detailToAdd = output;
+    	
+    	// return rear end
+    	return new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
     }
     
 	/**
      * Extracts the priority out of the args.
+     * If / precedes neither high, medium or low, it will throw an error
+     * Otherwise, it is taken to have default no priority.
      * 
      * @param splittedArgs an array of split user input
      * @return priority level string.
      * 
-     * @author A0139661Y
+     * @@author A0139661Y
      */ 
-    private String extractPriority(String[] splittedArgs) {
+    private String extractPriority(String[] splittedArgs) throws IllegalValueException {
     	List<String> rawArgs = Arrays.asList(splittedArgs);
     	for (String rawArg : rawArgs) {
     		if (rawArg.toLowerCase().startsWith("/")) {
@@ -347,10 +386,12 @@ public class MainParser {
     				return Priority.MEDIUM;
     			case Priority.LOW:
     				return Priority.LOW;
+    			default:
+    				throw new IllegalValueException(MESSAGE_INVALID_PRIORITY);
     			}
     		}
     	}
-    	return Priority.LOW;
+    	return "";
     }
     
     /**
@@ -359,7 +400,7 @@ public class MainParser {
      * This snippet of code uses natty by Joel Ostenmach and its implementation was inspired by
      * https://github.com/cs2103aug2015-t16-1j/fini
      * 
-     * @author A0139661Y
+     * @@author A0139661Y
      */
     public String extractDueByDateAndTime(String dirtyArgs) {
     	Parser parser = new Parser();
@@ -367,23 +408,28 @@ public class MainParser {
     	String cleanArgs = dirtyArgs;
     	
     	try {
-    		DateGroup group = groups.get(0);
-    		List<Date> dateList = group.getDates(); 	// Extract date
-    		Map<String, List<ParseLocation>> parseMap = group.getParseLocations();
-    		if ((!parseMap.containsKey("explicit_time") && parseMap.containsKey("relative_date")) || 
-    				(!parseMap.containsKey("explicit_time") && parseMap.containsKey("formal_date"))) {
-    			for (Date date : dateList) {
-    				LocalDateTime temp = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-    				datesAndTimes.add(LocalDateTime.of(temp.toLocalDate(), LocalTime.MAX));
-    			}
-    		} else {
-    			for (Date date : dateList) {
-    				datesAndTimes.add(LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()));
-    			}
+    		// This retrieves either the start date/time, or the only date/time.
+    		for (int i=0; i<groups.size(); i++) {
+	    		DateGroup group = groups.get(i);
+	    		List<Date> dateList = group.getDates(); 	// Extract date
+	    		Map<String, List<ParseLocation>> parseMap = group.getParseLocations();
+	    		if ((!parseMap.containsKey("explicit_time") && parseMap.containsKey("relative_date")) || 
+	    				(!parseMap.containsKey("explicit_time") && parseMap.containsKey("formal_date"))) {
+	    			for (Date date : dateList) {
+	    				LocalDateTime temp = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+	    				datesAndTimes.add(LocalDateTime.of(temp.toLocalDate(), LocalTime.MAX));
+	    			}
+	    		} else {
+	    			for (Date date : dateList) {
+	    				datesAndTimes.add(LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()));
+	    			}
+	    		}
+	    		for (ParseLocation parsedWord : parseMap.get("parse")) {
+	    			cleanArgs = cleanArgs.substring(0, parsedWord.getStart() - 1) + cleanArgs.substring(parsedWord.getEnd() -1);
+	    		}
     		}
-    		for (ParseLocation parsedWord : parseMap.get("parse")) {
-    			cleanArgs = cleanArgs.substring(0, parsedWord.getStart() - 1) + cleanArgs.substring(parsedWord.getEnd() -1);
-    		}
+    		// Sort dates and times according to whichever is earlier
+    		Collections.sort(datesAndTimes);
     		return cleanArgs;	// Return a cleaned up string
     	} catch (IndexOutOfBoundsException e) {
     		return dirtyArgs;
