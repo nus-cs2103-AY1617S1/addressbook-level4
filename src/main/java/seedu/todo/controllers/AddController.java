@@ -243,6 +243,8 @@ public class AddController implements Controller {
         naturalTo = StringUtil.replaceNull(name, "<end time>");
 
         String disambiguationString;
+        String errorMessage = ""; // TODO
+        
         if (isTask) {
             naturalFrom = StringUtil.replaceNull(naturalFrom, "<deadline>");
             disambiguationString = String.format("add task \"%s\" by \"%s\"", name, naturalFrom);
@@ -252,7 +254,8 @@ public class AddController implements Controller {
             disambiguationString = String.format("add event \"%s\" from \"%s\" to \"%s\"", name, naturalFrom, naturalTo);
         }
         
-        System.out.println(disambiguationString); // TODO
+        // Show an error in the console
+        Renderer.renderDisambiguation(disambiguationString, errorMessage);
     }
     
 }

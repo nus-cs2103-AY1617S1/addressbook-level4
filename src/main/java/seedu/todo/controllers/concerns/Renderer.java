@@ -12,6 +12,27 @@ import seedu.todo.ui.views.IndexView;
  *
  */
 public class Renderer {
+
+    private static final String MESSAGE_DISAMBIGUATE = "Your last command wasn't clear, please fix your command and try again.";
+    
+    /**
+     * Renders an error message in both the console and the input field, leave null or empty string if not needed.
+     * @param replacedCommand    Value to display in the input field
+     * @param detailedError       Message to be rendered in the console
+     */
+    public static void renderDisambiguation(String replacedCommand, String detailedError) {
+        // Update console input field
+        if (replacedCommand != null && replacedCommand.length() > 0) {
+            UiManager.updateConsoleInputValue(replacedCommand);
+        }
+        
+        // Update console message
+        if (detailedError != null && detailedError.length() > 0) {
+            UiManager.updateConsoleMessage(String.format("%s\n\n%s", MESSAGE_DISAMBIGUATE, detailedError));
+        } else {
+            UiManager.updateConsoleMessage(String.format("%s", MESSAGE_DISAMBIGUATE));
+        }
+    }
     
     /**
      * Renders the indexView.

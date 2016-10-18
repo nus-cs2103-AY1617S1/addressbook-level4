@@ -87,6 +87,12 @@ public class UiManager extends ComponentManager implements Ui {
     public static void renderView(View view) {
         if (view != null && view.getNode() != null) {
             currentView = view;
+            
+            // Clear console values first
+            View.consoleInputValue = "";
+            View.consoleMessage = "";
+            
+            // Render view
             view.render();
         }
     }
@@ -100,6 +106,19 @@ public class UiManager extends ComponentManager implements Ui {
     public static void updateConsoleMessage(String consoleMessage) {
         if (currentView != null) {
             View.consoleMessage = consoleMessage;
+            instance.mainWindow.loadComponents();
+        }
+    }
+    
+    /**
+     * Sets the message shown in the console input box and reloads the console box.
+     * Does not do anything if no views have been loaded yet.
+     * 
+     * @param consoleInputValue   Message to display in the console input box.
+     */
+    public static void updateConsoleInputValue(String consoleInputValue) {
+        if (currentView != null) {
+            View.consoleInputValue = consoleInputValue;
             instance.mainWindow.loadComponents();
         }
     }
