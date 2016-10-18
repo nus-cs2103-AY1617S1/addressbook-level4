@@ -26,10 +26,9 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]*)"
-//                  + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-//                  + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-//                  + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+            Pattern.compile("(?<name>[^/]+)"
+                    + "( s/(?<openTime>[^/]+))?"
+                    + "( c/(?<closeTime>[^/]+))?"
                     + "(?<tagArguments>(?: t/[^/]+)*)" // variable number of tags
                     + "(?<removeTagArguments>(?: rt/[^/]+)*)");
 
@@ -97,9 +96,9 @@ public class Parser {
         }
         try {
             return new AddCommand(matcher.group("name"),
-                    // matcher.group("phone"),
-                    // matcher.group("email"),
-                    // matcher.group("address"),
+                    //TODO: set group somewhere
+                    matcher.group("openTime"),
+                    matcher.group("closeTime"),
                     getTagsFromArgs(matcher.group("tagArguments")));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -205,6 +204,8 @@ public class Parser {
             return new UpdateCommand(
                     index.get(),
                     argsMatcher.group("name"),
+                    argsMatcher.group("openTime"),
+                    argsMatcher.group("closeTime"),
                     getTagsFromArgs(argsMatcher.group("tagArguments")),
                     getTagsFromArgs("rt", argsMatcher.group("removeTagArguments"))
             );

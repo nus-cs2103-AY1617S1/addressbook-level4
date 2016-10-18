@@ -15,7 +15,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
  */
 public class DateTime {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date entered should be in a relatively standard form (e.g. in X hours, tomorrow, 20 Jan 2016, 5pm)";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "HELLO";
 
     public final Optional<Instant> value;
 
@@ -25,17 +25,16 @@ public class DateTime {
      * @throws IllegalValueException if given date/time string is invalid.
      */
     public DateTime(String dateTime) throws IllegalValueException {
-        assert dateTime != null;
-        if (dateTime.equals("")) {
+        if (dateTime == null || dateTime.equals("")) {
             this.value = Optional.empty();
             return;
         }
-        List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
-        if (!isValidDateTime(possibleDates)) {
+        if (!isValidDateTime(dateTime)) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
-        
+        List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
         this.value = Optional.of(possibleDates.get(0).toInstant());
+        
     }
 
     /**
@@ -43,13 +42,19 @@ public class DateTime {
      * 
      * @param test output from date/time parser
      */
-    public static boolean isValidDateTime(List<Date> test) {
-        return !test.isEmpty() && (test.size() == 1);
+    public static boolean isValidDateTime(String dateTime) {
+        //TODO: change this
+        List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
+        return !possibleDates.isEmpty() && (possibleDates.size() == 1);
     }
 
     @Override
     public String toString() {
-        return (value.isPresent()) ? value.get().toString() : "";
+        if(value.isPresent()) {
+            return value.get().toString();
+        } else {
+            return "";
+        }
     }
 
     @Override

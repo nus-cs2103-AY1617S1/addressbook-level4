@@ -27,6 +27,8 @@
                                 <HBox>
                                     <Label fx:id="id" styleClass="cell_big_label"></Label>
                                     <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                	<Label fx:id="openTime" styleClass="cell_small_label" text="\$openTime" />
+                                	<Label fx:id="closeTime" styleClass="cell_small_label" text="\$closeTime"/>
                                 </HBox>
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>

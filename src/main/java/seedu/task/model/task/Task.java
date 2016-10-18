@@ -1,6 +1,5 @@
 package seedu.task.model.task;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import seedu.task.commons.util.CollectionUtil;
@@ -13,23 +12,20 @@ import seedu.task.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    //private DateTime openTime;
-    //private DateTime closeTime;
-    //private boolean isImportant;
+    private DateTime openTime;
+    private DateTime closeTime;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
+    public Task(Name name, DateTime openTime, DateTime closeTime, UniqueTagList tags) {
         // open time, urgent, and close time can be null
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
-        //TODO: set default values
-        //this.openTime = openTime;
-        //this.closeTime = closeTime;
-        //this.isImportant = isImportant;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -37,29 +33,14 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
     }
-    /**
-    @Override
-    public DateTime getOpenTime() {
-        return openTime;
-    }
 
-    @Override
-    public DateTime getCloseTime() {
-        return closeTime;
-    }
-
-    @Override
-    public boolean getImportance() {
-        return isImportant;
-    }
-    **/
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -89,6 +70,18 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public DateTime getOpenTime() {
+        // TODO Auto-generated method stub
+        return this.openTime;
+    }
+
+    @Override
+    public DateTime getCloseTime() {
+        // TODO Auto-generated method stub
+         return this.closeTime;
     }
 
 }
