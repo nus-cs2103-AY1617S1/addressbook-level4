@@ -242,12 +242,24 @@ Examples:
 
 #### Finding tasks : `find`
 Finds all tasks containing a list of keywords (i.e. AND search).<br>
-Format: `find <KEYWORD>[, KEYWORD, KEYWORD]`
+Two modes: Quick Search & Filter Search. <br>
+Format:
+* [Quick Search]: `find <KEYWORD>[, KEYWORD, KEYWORD]` <br>
+* [Filter Search]: `find -n <NAME_KEYWORD>[, NAME_KEYWORD, NAME_KEYWORD] -dt [START_DATE] to [END_DATE] -p [PRIORITY(h/m/l)] -do (or -ud) -t <TAG_KEYWORD>[, TAG_KEYWORD, TAG_KEYWORD]`
 
-> `<KEYWORD>` are **case-insensitive**. The order of the `<KEYWORD>` does not matter.
+> **Quick Search Mode**: Find tasks quickly by entering keywords that match what is displayed in the task list <br><br>
+> **Filter Search Mode**: Find tasks using task filters (i.e. -n, -p, -dt, -do, -ud, -t) <br>
+> Use -n to filter tasks by task name <br>
+> Use -p to filter tasks by priority level <br>
+> Use -dt to filter tasks by date (in a date range) <br>
+> Use -do to filter all done tasks (Cannot be used together with -ud)<br>
+> Use -ud to filter all undone tasks (Cannot be used together with -do)<br>
+> Use -t to filter tasks by tags <br><br>
+> `<KEYWORD>` are **case-insensitive**. The order of the `<KEYWORD>` or `Flags` (for filter search) does not matter.
 
 Examples: 
-* `find meet John` returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
+* `find meet John` uses Quick Search and returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
+* `find -n meet -dt 17/10/2016 1300 to 18/10/2016 1400` uses Filter Search and returns all tasks whose name contains "meet" and whose task date falls within the range "17/10/2016 1300 to 18/10/2016 1400" (e.g. meet Tim for dinner, 17/10/2016 1800 to 17/10/2016 1900)
 
 #### Undoing a command : `undo`
 Undo a command executed by the user. <br>
