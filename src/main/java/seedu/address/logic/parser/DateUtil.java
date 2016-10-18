@@ -10,25 +10,25 @@ import java.util.regex.Pattern;
 public class DateUtil {
 
 	private static final Pattern[] STANDARD_DATE_FORMATS = new Pattern[] {
-			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})$"), // dd-MM-yyyy HH:mm
-			Pattern.compile("^(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})$"), // yyyy-MM-dd HH:mm
-			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})$"), // dd-MM-yy HH:mm
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})$"), // dd MMM yyyy HH:mm
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})$") // dd MMM yy HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})-|\\s(?<month>\\d{1,2})-|\\s|/(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yyyy HH:mm
+			Pattern.compile("^(?<year>\\d{4})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<day>\\d{1,2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // yyyy-MM-dd HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yy HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd MMM yyyy HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$") // dd MMM yy HH:mm
 	};
 
 	private static final Pattern[] AMPM_DATE_FORMATS = new Pattern[] {
-			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy HH:mm am
-			Pattern.compile("^(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd HH:mmpm
-			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy HH:mm pm
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy HH:mm am
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$") // dd MMM yy HH:mm am
+			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy HH:mm am
+			Pattern.compile("^(?<year>\\d{4})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<day>\\d{1,2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd HH:mmpm
+			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy HH:mm pm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy HH:mm am
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$") // dd MMM yy HH:mm am
 	};
 	
 	private static final Pattern[] NO_MINUTES_DATE_FORMATS = new Pattern[] {
-			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy HH am
-			Pattern.compile("^(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd HHpm
-			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy HH pm
+			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy HH am
+			Pattern.compile("^(?<year>\\d{4})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<day>\\d{1,2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd HHpm
+			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy HH pm
 			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy HH am
 			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$") // dd MMM yy HH am
 	};
@@ -36,7 +36,7 @@ public class DateUtil {
 	/**
 	 * @return LocalDateTime if valid date format, null if unable to parse
 	 */
-	public static LocalDateTime parseDate(String dateString) throws ParseException {
+	public static LocalDateTime parse(String dateString) throws ParseException {
 		dateString = dateString.trim();
 
 		LocalDateTime dateTime = parseStandardFormat(dateString);

@@ -229,8 +229,8 @@ public class Parser {
 				String endTime = matcher.group("endTime").trim();
 				
 				try {
-					startDateTime = DateUtil.parseDate(date + " " + startTime);
-					endDateTime = DateUtil.parseDate(date + " " + endTime);
+					startDateTime = DateUtil.parse(date + " " + startTime);
+					endDateTime = DateUtil.parse(date + " " + endTime);
 				} catch (ParseException e) {
 					// TODO better command
 					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -253,8 +253,8 @@ public class Parser {
 				String endDayAndTime = matcher.group("endDateTime").trim();
 				
 				try {
-					startDateTime = DateUtil.parseDate(startDayAndTime);
-					endDateTime = DateUtil.parseDate(endDayAndTime);
+					startDateTime = DateUtil.parse(startDayAndTime);
+					endDateTime = DateUtil.parse(endDayAndTime);
 				} catch (ParseException e) {
 					// TODO better command
 					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -300,7 +300,7 @@ public class Parser {
 				taskName = matcher.group("taskName").trim();
 				String dateTimeString = matcher.group("dateTime").trim();
 				try {
-					dateTime = DateUtil.parseDate(dateTimeString);
+					dateTime = DateUtil.parse(dateTimeString);
 				} catch (ParseException e) {
 					// TODO better command
 					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
