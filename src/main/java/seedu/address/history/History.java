@@ -122,12 +122,7 @@ public class History implements UndoableCommandHistory, InputHistory{
         assert nextCommands != null;
         return nextCommands.push(input);
     }
-    
-    public void updateCurrentShownInput(String input){
-        assert input != null;
-        this.currentStoredCommandShown = input;
-    }
-    
+       
     public String getStoredCurrentShownInput(){
         return currentStoredCommandShown;
     }

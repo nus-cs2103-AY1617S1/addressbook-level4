@@ -7,17 +7,14 @@ public class InputHistoryTest extends AddressBookGuiTest {
     @Test
     public void prevAndNext() {
         
-        // TEST 1: No previous or next input
-        // Up and down should give blank
-        assertGetNextInputSuccess("");
-        assertGetPrevInputSuccess("");
+        // TEST 1: No next input
+        // Down should give blank
         assertGetNextInputSuccess("");
         
         // TEST 2: Enter a single "list" command
         commandBox.runCommand("list");
         assertCommandInput("");
         assertGetNextInputSuccess("");
-        assertGetPrevInputSuccess("list");
         assertGetPrevInputSuccess("list");
         assertGetNextInputSuccess("");
         
@@ -27,7 +24,6 @@ public class InputHistoryTest extends AddressBookGuiTest {
         assertGetNextInputSuccess("");
         assertGetPrevInputSuccess("find lol");
         assertGetPrevInputSuccess("list");
-        assertGetPrevInputSuccess("list");
         assertGetNextInputSuccess("find lol");
         
         // TEST 4: Enter a single "add" command while in the middle of the prev and next inputs
@@ -36,7 +32,6 @@ public class InputHistoryTest extends AddressBookGuiTest {
         assertGetNextInputSuccess("");
         assertGetPrevInputSuccess("add test add -low");
         assertGetPrevInputSuccess("find lol");
-        assertGetPrevInputSuccess("list");
         assertGetPrevInputSuccess("list");
         assertGetNextInputSuccess("find lol");
         assertGetNextInputSuccess("add test add -low");

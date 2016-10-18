@@ -104,7 +104,7 @@ public class CommandBox extends UiPart {
             return;
         }
                 
-        // handle differently depending on up or left arrow
+        // handle differently depending on up arrow
         if (wantPrevious){
             // store the current input into the next first
             if (history.isLatestInput()) {
@@ -119,7 +119,7 @@ public class CommandBox extends UiPart {
             commandTextField.setText(history.popPrevInput());
         }
         
-        // or down or right arrow
+        // or down arrow
         else {
             // store the current input into the prev first
             history.pushPrevInput(history.getStoredCurrentShownInput());

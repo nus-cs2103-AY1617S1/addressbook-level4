@@ -26,9 +26,6 @@ public interface InputHistory {
     /** Stores the given input string in memory as the immediate 'next' input from the current state **/
     public String pushNextInput(String input);
     
-    /** Update the current shown input string to be displayed to the user with the given input **/
-    public void updateCurrentShownInput(String input);
-    
     /** Returns the current shown input string that is to be displayed to the user **/
     public String getStoredCurrentShownInput();
 }
