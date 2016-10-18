@@ -62,6 +62,7 @@ public class RelocateCommand extends Command{
         }
     }
     
+    //@@author A0139194X
     @Subscribe
     public CommandResult handleAccessDeniedEvent (AccessDeniedEvent event) {
         return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));

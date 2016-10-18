@@ -102,7 +102,6 @@ public class StorageManager extends ComponentManager implements Storage {
             logger.warning("Permission to access " + newPath + " denied." );
             logger.warning("Reverting save location back to " + oldPath);
             taskManagerStorage.setTaskManagerFilePath(oldPath);
-            raise(new AccessDeniedEvent(newPath, oldPath));
         } catch (IOException e) {
             e.printStackTrace();
         }
