@@ -30,30 +30,16 @@ public class DateTimeParser {
     }
     
     /**
-     * produces a list of java.time.LocalDateTime from natty's parsing
+     * wrapper for natty's parser
      * @return
      * @author darren
      */
-    public List<LocalDateTime> parseInput() {
+    public List<DateGroup> parseInput() {
         assert this.datetime != null;
+        assert this.parser != null;
 
         // natty-side parsing
-        List<Date> dateTokens = this.parser.parse(this.datetime) // produces List<DateGroup>
-                                            .get(0) // produces DateGroup
-                                            .getDates(); // produces List<Date>
-        
-        if(dateTokens.isEmpty()) {
-            throw new IllegalStateException("No dates found in token!");
-        }
-
-        List<LocalDateTime> datetimes = new ArrayList<LocalDateTime>();
-        
-        // convert Date to LocalDateTime
-        for(Date date : dateTokens) {
-            datetimes.add(Date2LocalDateTime(date));
-        }
-
-        return datetimes;
+        return parser.parse(this.datetime);
     }
     
     /**
