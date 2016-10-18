@@ -392,7 +392,8 @@ public class LogicManagerTest {
         List<Task> threeTasks = helper.generateTaskList(3);
 
         TaskBook expectedAB = helper.generateTaskBook(threeTasks);
-        expectedAB.doneTask(1);
+//        expectedAB.doneTask(1);
+        expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("done 2",
