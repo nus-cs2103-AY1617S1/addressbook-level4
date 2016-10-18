@@ -16,8 +16,6 @@ public class EventCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label activityType;
-    @FXML
     private Label name;
     @FXML
     private Label note;
@@ -49,7 +47,6 @@ public class EventCard extends UiPart{
 
     @FXML
     public void initialize() {
-        activityType.setText(event.getActivityType().toString());
         name.setText(event.getActivityName().fullName);
         note.setText(event.getNote().toString());
         startDate.setText(event.getActivityStartDate().toString());
