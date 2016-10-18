@@ -125,6 +125,10 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public boolean editTask(ReadOnlyTask key) throws UniqueTaskList.TaskTypeNotFoundException {
+        
+    }
 
 //// tag-level operations
 

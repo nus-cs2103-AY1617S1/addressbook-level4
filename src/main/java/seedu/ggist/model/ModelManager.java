@@ -83,41 +83,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    public synchronized void editTask (int index, String type, String toEdit) throws TaskTypeNotFoundException {
-    	Task toBeEditedTask = filteredTasks.get(index-1);
-    	switch (type) {
-    	case "task":
-    		try{
-    			toBeEditedTask.getTaskName().editTaskName(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		break;
-    	case "date":
-    		try{
-    		 toBeEditedTask.getDate().editDate(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		 break;
-    	case "start":
-    		try{
-    		toBeEditedTask.getStartTime().editTime(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		break;
-    	case "end":
-    		try{
-    		toBeEditedTask.getEndTime().editTime(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		break;
-    	default:
-    		throw new TaskTypeNotFoundException();
-    	}
-        updateFilteredListToShowAll();
+    public synchronized void editTask(ReadOnlyTask target) throws TaskTypeNotFoundException {
+    	taskManager.editTask(target);
     	indicateTaskManagerChanged();
     }
 

@@ -17,12 +17,12 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Edits a tasl identified by the index number used in the last task listing. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Edits a task identified by the index number used in the last task listing. "
             + "Parameters: INDEX [FIELD TO CHANGE] [NEW INFO] \n\t"
             + "Example: " + COMMAND_WORD
-            + " 1, TaskName, Buy eggs";
+            + " 1, task, Buy eggs";
 
-    public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task edited: %1$s";
     public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
 
     public int targetIndex;
@@ -55,6 +55,59 @@ public class EditCommand extends Command {
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_Task_DISPLAYED_INDEX);
         }
+    }
+    
+    @Override
+    public CommandResult execute() {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        try {
+            model.editTask(taskToEdit);
+            listOfCommands.push(COMMAND_WORD);
+            listOfTasks.push(taskToEdit);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
+       
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
+    }
+    
+    Task toBeEditedTask = filteredTasks.get(index-1);
+    switch (type) {
+    case "task":
+        try{
+            toBeEditedTask.getTaskName().editTaskName(toEdit);
+        } catch (IllegalValueException ive) {
+            System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
+        }
+        break;
+    case "date":
+        try{
+         toBeEditedTask.getDate().editDate(toEdit);
+        } catch (IllegalValueException ive) {
+            System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
+        }
+         break;
+    case "start":
+        try{
+        toBeEditedTask.getStartTime().editTime(toEdit);
+        } catch (IllegalValueException ive) {
+            System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
+        }
+        break;
+    case "end":
+        try{
+        toBeEditedTask.getEndTime().editTime(toEdit);
+        } catch (IllegalValueException ive) {
+            System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
+        }
+        break;
+    default:
+        throw new TaskTypeNotFoundException();
     }
 
 }
