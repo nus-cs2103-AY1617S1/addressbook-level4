@@ -37,6 +37,8 @@ public class ClearController implements Controller {
     public float inputConfidence(String input) {
         return (input.toLowerCase().startsWith(COMMAND_SYNTAX)) ? 1 : 0;
     }
+    
+    private String invalidDate = null;
 
     /**
      * Get the token definitions for use with <code>tokenizer</code>.<br>
@@ -133,15 +135,7 @@ public class ClearController implements Controller {
      * @param TodoListDB, naturalOn, nautralFrom, naturalTo
      */
     private void displayErrorMessage(TodoListDB db, String naturalOn, String naturalFrom, String naturalTo) {
-        String errorMessage;
-        if (naturalOn == null) {
-            errorMessage = String.format(MESSAGE_CLEAR_FAILURE, naturalOn);
-        } else if (naturalFrom == null) {
-            errorMessage = String.format(MESSAGE_CLEAR_FAILURE, naturalFrom);
-        } else {
-            errorMessage = String.format(MESSAGE_CLEAR_FAILURE, naturalTo);
-        }
-        Renderer.renderIndex(db, errorMessage);
+        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_FAILURE, invalidDate));
     }
     
     /**
@@ -182,6 +176,7 @@ public class ClearController implements Controller {
             date = groups.get(0).getDates().get(0);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Error!"); // TODO
+            invalidDate = natural;
             return null;
         }
         LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
