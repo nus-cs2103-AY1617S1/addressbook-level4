@@ -21,6 +21,9 @@ public class DateTimeParser {
     // careful of name collision with our own Parser object
     private com.joestelmach.natty.Parser parser;
     
+    // result from parser
+    private List<DateGroup> dategroups;
+    
     DateTimeParser(String input) {
         assert input != null;
         assert input.isEmpty() != true;
@@ -34,12 +37,25 @@ public class DateTimeParser {
      * @return
      * @author darren
      */
-    public List<DateGroup> parseInput() {
+    public void parseInput() {
         assert this.datetime != null;
         assert this.parser != null;
 
         // natty-side parsing
-        return parser.parse(this.datetime);
+        dategroups = parser.parse(this.datetime);
+    }
+    
+    /**
+     * extracts the date from the DateGroup object and massages it into
+     * a LocalDateTime object
+     * @param dategroup
+     * @return
+     * @author darren
+     */
+    public static LocalDateTime extractLDT(DateGroup dategroup) {
+        List<Date> dates = dategroup.getDates();
+        // return first element of List<Date> (good enough?) TODO
+        return Date2LocalDateTime(dates.get(0));
     }
     
     /**
@@ -50,7 +66,7 @@ public class DateTimeParser {
      * @return
      * @author darren
      */
-    private static LocalDateTime Date2LocalDateTime(Date date) {
+    public static LocalDateTime Date2LocalDateTime(Date date) {
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
 
