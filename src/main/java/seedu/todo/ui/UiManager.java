@@ -87,6 +87,12 @@ public class UiManager extends ComponentManager implements Ui {
     public static void renderView(View view) {
         if (view != null && view.getNode() != null) {
             currentView = view;
+            
+            // Clear console values first
+            View.consoleInputValue = "";
+            View.consoleMessage = "";
+            
+            // Render view
             view.render();
         }
     }
