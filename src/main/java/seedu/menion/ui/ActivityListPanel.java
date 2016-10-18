@@ -19,9 +19,9 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of tasks.
  */
-public class TaskListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "TaskListPanel.fxml";
+public class ActivityListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(ActivityListPanel.class);
+    private static final String FXML = "ActivityListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
@@ -34,7 +34,7 @@ public class TaskListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyActivity> floatingTaskListView;
 
-    public TaskListPanel() {
+    public ActivityListPanel() {
         super();
     }
 
@@ -53,12 +53,12 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+    public static ActivityListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyActivity> floatingTaskList,
                                        ObservableList<ReadOnlyActivity> taskList,
                                        ObservableList<ReadOnlyActivity> eventList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+        ActivityListPanel taskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new ActivityListPanel());
         taskListPanel.configure(floatingTaskList, taskList, eventList);
         return taskListPanel;
     }
@@ -74,13 +74,13 @@ public class TaskListPanel extends UiPart {
 								ObservableList<ReadOnlyActivity> taskList,
 								ObservableList<ReadOnlyActivity> eventList) {
     	floatingTaskListView.setItems(floatingTaskList);
-    	floatingTaskListView.setCellFactory(listView -> new TaskListViewCell());
+    	floatingTaskListView.setCellFactory(listView -> new FloatingTaskListViewCell());
     	
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         
         eventListView.setItems(eventList);
-        eventListView.setCellFactory(listView -> new TaskListViewCell());
+        eventListView.setCellFactory(listView -> new EventListViewCell());
         
         setEventHandlerForSelectionChangeEvent();
     }
@@ -112,16 +112,51 @@ public class TaskListPanel extends UiPart {
         }
 
         @Override
-        protected void updateItem(ReadOnlyActivity activity, boolean empty) {
-            super.updateItem(activity, empty);
+        protected void updateItem(ReadOnlyActivity task, boolean empty) {
+            super.updateItem(task, empty);
 
-            if (empty || activity == null) {
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(ActivityCard.load(activity, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }
+   
+    class FloatingTaskListViewCell extends ListCell<ReadOnlyActivity> {
 
+        public FloatingTaskListViewCell() {
+        }
+
+        @Override
+        protected void updateItem(ReadOnlyActivity floatingTask, boolean empty) {
+            super.updateItem(floatingTask, empty);
+
+            if (empty || floatingTask == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(FloatingTaskCard.load(floatingTask, getIndex() + 1).getLayout());
+            }
+        }
+    }
+    
+    class EventListViewCell extends ListCell<ReadOnlyActivity> {
+
+        public EventListViewCell() {
+        }
+
+        @Override
+        protected void updateItem(ReadOnlyActivity event, boolean empty) {
+            super.updateItem(event, empty);
+
+            if (empty || event == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(EventCard.load(event, getIndex() + 1).getLayout());
+            }
+        }
+    }
 }

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane HBox.hgrow="ALWAYS" >
+        <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
@@ -22,24 +28,27 @@
                     </padding>
 
                     <children>
-                        <HBox spacing="5" alignment="CENTER_LEFT">
+                        <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label"></Label>
-                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                    <Label fx:id="id" styleClass="cell_big_label" />
+                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                                 </HBox>
                             </children>
                         </HBox>
-                        <Label fx:id="activityType" styleClass="cell_small_label" text="\$deadline" />
-                        <Label fx:id="startDate" styleClass="cell_small_label" text="\$reminder" />
-                        <Label fx:id="startTime" styleClass="cell_small_label" text="\$priority" />
-                       	<Label fx:id="endDate" styleClass="cell_small_label" text="\$deadline" />
-                        <Label fx:id="endTime" styleClass="cell_small_label" text="\$reminder" />
-                        <Label fx:id="note" styleClass="cell_small_label" text="\$priority" />
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" styleClass="cell_small_label" strokeWidth="0.0" text="Note: " />
+                              <Label fx:id="note" styleClass="cell_small_label" text="\$note" />
+                     </children>
+                  </HBox>
 				 		<Label fx:id="status" styleClass="cell_small_label" text="\$status" />
                     </children>
                 </VBox>
             </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
     </children>
 </HBox>
