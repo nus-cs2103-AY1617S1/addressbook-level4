@@ -2,12 +2,11 @@ package seedu.address.logic.parser;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.joestelmach.natty.*;
+import org.ocpsoft.prettytime.nlp.*;
+import org.ocpsoft.prettytime.nlp.parse.DateGroup;
 
 /**
  * For parsing dates and times in Sudowudo command input
@@ -19,7 +18,7 @@ public class DateTimeParser {
     
     // natty parser object
     // careful of name collision with our own Parser object
-    private com.joestelmach.natty.Parser parser;
+    private PrettyTimeParser parser;
     
     // result from parser
     private List<DateGroup> dategroups;
@@ -30,11 +29,11 @@ public class DateTimeParser {
         assert input.isEmpty() != true;
 
         this.datetime = input;
-        this.parser = new com.joestelmach.natty.Parser();
+        this.parser = new PrettyTimeParser();
 
         // perform natty parsing
-        this.dategroups = this.parser.parse(input);
-        this.dates = this.dategroups.get(0).getDates();
+        this.dategroups = this.parser.parseSyntax(input);
+        this.dates = this.parser.parse(input);
     }
     
     public LocalDateTime extractStartDate() {
@@ -64,7 +63,7 @@ public class DateTimeParser {
     public LocalDateTime getRecurEnd() {
         return Date2LocalDateTime(this.dategroups.get(0).getRecursUntil());
     }
-   
+
     /**
      * helper method for casting java.util.Date to java.time.LocalDateTime
      * safely
@@ -80,4 +79,5 @@ public class DateTimeParser {
     public String getDateTime() {
         return this.datetime;
     }
+    
 }
