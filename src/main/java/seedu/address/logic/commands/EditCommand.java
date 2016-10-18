@@ -7,7 +7,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /** 
  * Edits a person identified using its last displayed index in the task manager.
@@ -50,21 +50,21 @@ public class EditCommand extends Command{
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         UnmodifiableObservableList<ReadOnlyTask> lastShownDeadlineList = model.getFilteredDeadlineList();
         UnmodifiableObservableList<ReadOnlyTask> lastShownTodoList = model.getFilteredTodoList();
         if(category == 'E'){
-            if (lastShownList.size() < targetIndex) {
+            if (lastShownEventList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
 
-            ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
+            ReadOnlyTask eventToEdit = lastShownEventList.get(targetIndex - 1);
 
             try {
-                model.editPerson(personToEdit, editArgs, category);
+                model.editTask(eventToEdit, editArgs, category);
                 assert false: "The target task cannot be missing";
-            } catch (PersonNotFoundException | IllegalValueException pnfe) {
+            } catch (TaskNotFoundException | IllegalValueException pnfe) {
             }
 
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
@@ -78,9 +78,9 @@ public class EditCommand extends Command{
             ReadOnlyTask deadlineToEdit = lastShownDeadlineList.get(targetIndex - 1);
 
             try {
-                model.editPerson(deadlineToEdit, editArgs, category);
+                model.editTask(deadlineToEdit, editArgs, category);
                 assert false: "The target Deadline cannot be missing";
-            } catch (PersonNotFoundException | IllegalValueException pnfe) {
+            } catch (TaskNotFoundException | IllegalValueException pnfe) {
             }
 
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
@@ -94,9 +94,9 @@ public class EditCommand extends Command{
             ReadOnlyTask todoToEdit = lastShownTodoList.get(targetIndex - 1);
 
             try {
-                model.editPerson(todoToEdit, editArgs, category);
+                model.editTask(todoToEdit, editArgs, category);
                 assert false: "The target Todo cannot be missing";
-            } catch (PersonNotFoundException | IllegalValueException pnfe) {
+            } catch (TaskNotFoundException | IllegalValueException pnfe) {
             }
 
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));

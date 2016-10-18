@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedPerson> events;
     @XmlElement
     private List<XmlAdaptedPerson> deadlines;
     @XmlElement
@@ -30,7 +30,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     private List<Tag> tags;
 
     {
-        persons = new ArrayList<>();
+        events = new ArrayList<>();
         deadlines = new ArrayList<>();
         todos = new ArrayList<>();
         tags = new ArrayList<>();
@@ -45,7 +45,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
      * Conversion
      */
     public XmlSerializableAddressBook(ReadOnlyTaskBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        events.addAll(src.getEventList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         deadlines.addAll(src.getDeadlineList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         todos.addAll(src.getTodoList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
@@ -63,9 +63,9 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueEventList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedPerson p : events) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -102,8 +102,8 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
-        return persons.stream().map(p -> {
+    public List<ReadOnlyTask> getEventList() {
+        return events.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {

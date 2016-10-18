@@ -6,10 +6,10 @@ import java.util.Collections;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
@@ -40,24 +40,24 @@ public class DeleteCommand extends Command {
         //System.out.println(targetIndexes);
         //System.out.println(pass);
         
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         UnmodifiableObservableList<ReadOnlyTask> lastShownDeadlineList = model.getFilteredDeadlineList();
         UnmodifiableObservableList<ReadOnlyTask> lastShownTodoList = model.getFilteredTodoList();
         //ArrayList<ReadOnlyTask> pass = new ArrayList<ReadOnlyTask>();
         
         for(int i =0; i < targetIndexes.size(); i++){
             if(Character.toUpperCase(targetIndexes.get(i).charAt(0))=='E'){
-                if (lastShownList.size() < Character.getNumericValue(targetIndexes.get(i).charAt(1))) {
+                if (lastShownEventList.size() < Character.getNumericValue(targetIndexes.get(i).charAt(1))) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
 
-                ReadOnlyTask personToDelete = lastShownList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+                ReadOnlyTask taskToDelete = lastShownEventList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
 
                 
                 try {
-                    model.deletePerson(personToDelete);
-                } catch (PersonNotFoundException pnfe) {
+                    model.deleteTask(taskToDelete);
+                } catch (TaskNotFoundException pnfe) {
                     assert false : "The target task cannot be missing";
                 }
             }
@@ -67,11 +67,11 @@ public class DeleteCommand extends Command {
                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                }
 
-               ReadOnlyTask personToDelete = lastShownDeadlineList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+               ReadOnlyTask taskToDelete = lastShownDeadlineList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
 
                try {
-                   model.deletePerson(personToDelete);
-               } catch (PersonNotFoundException pnfe) {
+                   model.deleteTask(taskToDelete);
+               } catch (TaskNotFoundException pnfe) {
                    assert false : "The target Deadline cannot be missing";
                }
            }
@@ -82,11 +82,11 @@ public class DeleteCommand extends Command {
                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                }
 
-               ReadOnlyTask personToDelete = lastShownTodoList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+               ReadOnlyTask taskToDelete = lastShownTodoList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
 
                try {
-                   model.deletePerson(personToDelete);
-               } catch (PersonNotFoundException pnfe) {
+                   model.deleteTask(taskToDelete);
+               } catch (TaskNotFoundException pnfe) {
                    assert false : "The target Deadline cannot be missing";
                }
            }

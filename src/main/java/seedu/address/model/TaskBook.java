@@ -18,7 +18,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -26,13 +26,13 @@ import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
  */
 public class TaskBook implements ReadOnlyTaskBook {
 
-    private final UniqueTaskList persons;
+    private final UniqueTaskList events;
     private UniqueTaskList deadlines;
     private UniqueTaskList todo;
     private final UniqueTagList tags;
 
     {
-        persons = new UniqueTaskList();
+        events = new UniqueTaskList();
         deadlines = new UniqueTaskList();
         todo = new UniqueTaskList();
         tags = new UniqueTagList();
@@ -41,17 +41,17 @@ public class TaskBook implements ReadOnlyTaskBook {
     public TaskBook() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this addressbook
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueDeadlineList(), toBeCopied.getUniqueTodoList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueEventList(), toBeCopied.getUniqueDeadlineList(), toBeCopied.getUniqueTodoList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this addressbook
      */
-    public TaskBook(UniqueTaskList persons, UniqueTaskList deadlines, UniqueTaskList todo, UniqueTagList tags) {
-        resetData(persons.getInternalList(), deadlines.getInternalList(), todo.getInternalList(), tags.getInternalList());
+    public TaskBook(UniqueTaskList events, UniqueTaskList deadlines, UniqueTaskList todo, UniqueTagList tags) {
+        resetData(events.getInternalList(), deadlines.getInternalList(), todo.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyTaskBook getEmptyAddressBook() {
@@ -60,8 +60,8 @@ public class TaskBook implements ReadOnlyTaskBook {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getPersons() {
-        return persons.getInternalList();
+    public ObservableList<Task> getEvents() {
+        return events.getInternalList();
     }
 
     public ObservableList<Task> getDeadlines() {
@@ -72,8 +72,8 @@ public class TaskBook implements ReadOnlyTaskBook {
         return todo.getInternalList();
     }
     
-    public void setPersons(List<Task> persons) {
-        this.persons.getInternalList().setAll(persons);
+    public void setEvents(List<Task> events) {
+        this.events.getInternalList().setAll(events);
     }
 
     public void setDeadlines(List<Task> deadlines) {
@@ -88,45 +88,49 @@ public class TaskBook implements ReadOnlyTaskBook {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<? extends ReadOnlyTask> newDeadlines,
+    public void resetData(Collection<? extends ReadOnlyTask> newEvents, Collection<? extends ReadOnlyTask> newDeadlines,
     					  Collection<? extends ReadOnlyTask> newTodo, Collection<Tag> newTags) {
+<<<<<<< HEAD
         setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+=======
+        setEvents(newEvents.stream().map(Task::new).collect(Collectors.toList()));
+>>>>>>> code_cleanup
         setDeadlines(newDeadlines.stream().map(Task::new).collect(Collectors.toList()));
         setTodo(newTodo.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskBook newData) {
-        resetData(newData.getPersonList(), newData.getDeadlineList(), newData.getTodoList(), newData.getTagList());
+        resetData(newData.getEventList(), newData.getDeadlineList(), newData.getTodoList(), newData.getTagList());
     }
 
-//// person-level operations
+//// task-level operations
 
     /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds a task to the address book.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicatePersonException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addPerson(Task p) throws UniqueTaskList.DuplicatePersonException {
-        syncTagsWithMasterList(p);
-        if (p.getTaskCategory() == 1)
-        	persons.add(p);
-        else if (p.getTaskCategory() == 2)
-        	deadlines.add(p);
+    public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList(t);
+        if (t.getTaskCategory() == 1)
+        	events.add(t);
+        else if (t.getTaskCategory() == 2)
+        	deadlines.add(t);
         else
-        	todo.add(p);
+        	todo.add(t);
     }
 
     /**
-     * Ensures that every tag in this person:
+     * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task person) {
-        final UniqueTagList personTags = person.getTags();
-        tags.mergeFrom(personTags);
+    private void syncTagsWithMasterList(Task task) {
+        final UniqueTagList taskTags = task.getTags();
+        tags.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
@@ -134,98 +138,102 @@ public class TaskBook implements ReadOnlyTaskBook {
             masterTagObjects.put(tag, tag);
         }
 
-        // Rebuild the list of person tags using references from the master list
+        // Rebuild the list of task tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
+        for (Tag tag : taskTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
-        person.setTags(new UniqueTagList(commonTagReferences));
+        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         int taskCategory = key.getTaskCategory();
         if(taskCategory == 1){
-            if (persons.remove(key)) {
+            if (events.remove(key)) {
                 return true;
             } else {
-                throw new UniqueTaskList.PersonNotFoundException();
+                throw new UniqueTaskList.TaskNotFoundException();
             }
         }
         else if (taskCategory == 2){
             if (deadlines.remove(key)) {
                 return true;
             } else {
-                throw new UniqueTaskList.PersonNotFoundException();
+                throw new UniqueTaskList.TaskNotFoundException();
             }
         }
         else{
             if (todo.remove(key)) {
                 return true;
             } else {
-                throw new UniqueTaskList.PersonNotFoundException();
+                throw new UniqueTaskList.TaskNotFoundException();
             }
         }
     }
 
+<<<<<<< HEAD
 /*    public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+=======
+    public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+>>>>>>> code_cleanup
         if (deadlines.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.PersonNotFoundException();
+            throw new UniqueTaskList.TaskNotFoundException();
         }
     }
     
-    public boolean removeTodo(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+    public boolean removeTodo(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (todo.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.PersonNotFoundException();
+            throw new UniqueTaskList.TaskNotFoundException();
         }
     }*/
     
-    public boolean changePerson(ReadOnlyTask target, String args, char category) throws PersonNotFoundException, IllegalValueException {
+    public boolean changeTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
         //System.out.println("dummy");
         if(category == 'E'){
-            if (persons.edit(target, args)) {
+            if (events.edit(target, args)) {
                 return true;
             } else {
-                throw new UniqueTaskList.PersonNotFoundException();
+                throw new UniqueTaskList.TaskNotFoundException();
             }        
         }
         else if(category == 'D'){
             if (deadlines.edit(target, args)) {
                 return true;
             } else {
-                throw new UniqueTaskList.PersonNotFoundException();
+                throw new UniqueTaskList.TaskNotFoundException();
             }        
         }
         else{
             if (todo.edit(target, args)) {
                 return true;
             } else {
-                throw new UniqueTaskList.PersonNotFoundException();
+                throw new UniqueTaskList.TaskNotFoundException();
             }        
         }
     }
 
-    public boolean changeDeadline(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException {
+    public boolean changeDeadline(ReadOnlyTask target, String args) throws TaskNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
         //System.out.println("dummy");
         if (deadlines.edit(target, args)) {
             return true;
         } else {
-            throw new UniqueTaskList.PersonNotFoundException();
+            throw new UniqueTaskList.TaskNotFoundException();
         }        
     }
     
-    public boolean changeTodo(ReadOnlyTask target, String args) throws PersonNotFoundException, IllegalValueException {
+    public boolean changeTodo(ReadOnlyTask target, String args) throws TaskNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
         //System.out.println("dummy");
         if (todo.edit(target, args)) {
             return true;
         } else {
-            throw new UniqueTaskList.PersonNotFoundException();
+            throw new UniqueTaskList.TaskNotFoundException();
         }        
     }
 //// tag-level operations
@@ -238,7 +246,7 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return events.getInternalList().size() + " events, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
@@ -253,8 +261,8 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
-        return Collections.unmodifiableList(persons.getInternalList());
+    public List<ReadOnlyTask> getEventList() {
+        return Collections.unmodifiableList(events.getInternalList());
     }
 
     public List<ReadOnlyTask> getDeadlineList() {
@@ -271,8 +279,8 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
-        return this.persons;
+    public UniqueTaskList getUniqueEventList() {
+        return this.events;
     }
 
     public UniqueTaskList getUniqueDeadlineList() {
@@ -293,14 +301,14 @@ public class TaskBook implements ReadOnlyTaskBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskBook // instanceof handles nulls
-                && this.persons.equals(((TaskBook) other).persons)
+                && this.events.equals(((TaskBook) other).events)
                 && this.tags.equals(((TaskBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(events, tags);
     }
 
 }

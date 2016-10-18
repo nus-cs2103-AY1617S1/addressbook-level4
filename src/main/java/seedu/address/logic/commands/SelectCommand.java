@@ -30,9 +30,9 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute() {      
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         for(int i =0; i < targetIndexes.size(); i++){
-            if (lastShownList.size() < targetIndexes.get(i)) {
+            if (lastShownEventList.size() < targetIndexes.get(i)) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }

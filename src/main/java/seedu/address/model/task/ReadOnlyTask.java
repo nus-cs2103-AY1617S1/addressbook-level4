@@ -33,7 +33,7 @@ public interface ReadOnlyTask {
     }
 
     /**
-     * Formats the task as text, showing all contact details.
+     * Formats the task as text, showing all date, time, tag details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
@@ -50,7 +50,7 @@ public interface ReadOnlyTask {
     }
 
     /**
-     * Returns a string representation of this Person's tags
+     * Returns a string representation of this task's tags
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();

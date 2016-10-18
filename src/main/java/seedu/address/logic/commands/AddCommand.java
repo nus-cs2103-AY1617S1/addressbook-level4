@@ -101,7 +101,7 @@ public class AddCommand extends Command {
             else
             	return new CommandResult(String.format(TODO_SUCCESS, toAdd));
 
-        } catch (UniqueTaskList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 

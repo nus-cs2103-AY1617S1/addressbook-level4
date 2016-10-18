@@ -7,7 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
@@ -23,7 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskBook addressBook;
-    private final FilteredList<Task> filteredPersons;
+    private final FilteredList<Task> filteredEvents;
     private FilteredList<Task> filteredDeadlines;
     private FilteredList<Task> filteredTodos;
 
@@ -39,7 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         addressBook = new TaskBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredEvents = new FilteredList<>(addressBook.getEvents());
         filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
         filteredTodos = new FilteredList<>(addressBook.getTodo());
     }
@@ -50,7 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         addressBook = new TaskBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredEvents = new FilteredList<>(addressBook.getEvents());
         filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
         filteredTodos = new FilteredList<>(addressBook.getTodo());
     }
@@ -72,30 +72,30 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
     
     @Override 
-    public synchronized void editPerson(ReadOnlyTask target, String args, char category) throws PersonNotFoundException, IllegalValueException {
-        addressBook.changePerson(target, args, category);
+    public synchronized void editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
+        addressBook.changeTask(target, args, category);
         //updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors ===============================================================
+    //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
+        return new UnmodifiableObservableList<>(filteredEvents);
     }
 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
@@ -108,14 +108,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredEvents.setPredicate(null);
         filteredDeadlines.setPredicate(null);
         filteredTodos.setPredicate(null);;
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredEventList(Set<String> keywords){
+        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));
     }
     
     @Override
@@ -127,8 +127,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTodoList(Set<String> keywords){
         updateFilteredTodoList(new PredicateExpression(new NameQualifier(keywords)));
     }
-    private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+    private void updateFilteredEventList(Expression expression) {
+        filteredEvents.setPredicate(expression::satisfies);
     }
 
     private void updateFilteredDeadlineList(Expression expression) {
@@ -141,7 +141,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyTask person);
+        boolean satisfies(ReadOnlyTask task);
         String toString();
     }
 
@@ -154,8 +154,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask person) {
-            return qualifier.run(person);
+        public boolean satisfies(ReadOnlyTask task) {
+            return qualifier.run(task);
         }
 
         @Override
