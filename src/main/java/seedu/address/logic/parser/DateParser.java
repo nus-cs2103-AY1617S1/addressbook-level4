@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //@@author A0141019U
-public class DateUtil {
+public class DateParser {
 
 	private static final Pattern[] STANDARD_DATE_FORMATS = new Pattern[] {
 			Pattern.compile("^(?<day>\\d{1,2})-|\\s(?<month>\\d{1,2})-|\\s|/(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yyyy HH:mm
@@ -26,11 +26,20 @@ public class DateUtil {
 	};
 	
 	private static final Pattern[] NO_MINUTES_DATE_FORMATS = new Pattern[] {
-			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy HH am
-			Pattern.compile("^(?<year>\\d{4})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<day>\\d{1,2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd HHpm
-			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy HH pm
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy HH am
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$") // dd MMM yy HH am
+			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yyyy hh am
+			Pattern.compile("^(?<year>\\d{4})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<day>\\d{1,2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // yyyy-MM-dd hhpm
+			Pattern.compile("^(?<day>\\d{1,2})-|\\s|/(?<month>\\d{1,2})-|\\s|/(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd-MM-yy hh pm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // dd MMM yyyy hh am
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<wordMonth>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$") // dd MMM yy hh am
+	};
+	
+	private static final Pattern[] NATURAL_LANGUAGE = new Pattern[] {
+			Pattern.compile("^(?<day>today|tomorrow|next week)\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // today 14:30
+			Pattern.compile("^(?<day>today|tomorrow|next week)\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // tomorrow 2:30 pm
+			Pattern.compile("^(?<day>today|tomorrow|next week)\\s(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // next week 2 pm
+			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s(?<day>today|tomorrow|next week)$"), // 14:30 today
+			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)\\s(?<day>today|tomorrow|next week)$"), // 2:30pm 
+			Pattern.compile("^(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)\\s(?<day>today|tomorrow|next week)$"), // 2 pm next week
 	};
 
 	/**
@@ -46,6 +55,9 @@ public class DateUtil {
 		}
 		if (dateTime == null) {
 			dateTime = parseNoMinutesAmPmFormat(dateString);
+		}
+		if (dateTime == null) {
+			dateTime = parseNaturalLanguage(dateString);
 		}
 
 		return dateTime;
@@ -111,6 +123,43 @@ public class DateUtil {
 				int hour = parseHour(matcher.group("hour"), matcher.group("meridiem"));
 
 				return LocalDateTime.of(year, month, day, hour, 0);
+			}
+		}
+
+		// if matcher did not match
+		return null;
+	}
+	
+	private static LocalDateTime parseNaturalLanguage(String dateString) throws ParseException {
+		ArrayList<Matcher> matchers = new ArrayList<>();
+		for (int i=0; i<NATURAL_LANGUAGE.length; i++) {
+			matchers.add(NATURAL_LANGUAGE[i].matcher(dateString));
+		}
+		
+		LocalDateTime now = LocalDateTime.now();
+		
+		for (Matcher matcher : matchers) {
+			if (matcher.matches()) {
+				int day = parseDay(matcher.group("day"));
+				
+				String meridiem;
+				try {
+					meridiem = matcher.group("meridiem");
+				} catch (IllegalArgumentException e) {
+					meridiem = "";
+				}
+				
+				int hour = parseHour(matcher.group("hour"), meridiem);
+				
+				String minuteString;
+				try {
+					minuteString = matcher.group("minute");
+				} catch (IllegalArgumentException e) {
+					minuteString = "0";
+				}
+				int minute = parseMinute(minuteString);
+
+				return LocalDateTime.of(now.getYear(), now.getMonth(), day, hour, minute);
 			}
 		}
 
