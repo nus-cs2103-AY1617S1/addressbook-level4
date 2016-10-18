@@ -19,6 +19,7 @@ import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.*;
 import seedu.todoList.model.task.attributes.*;
 import seedu.todoList.storage.XmlSerializableTaskList;
+import seedu.todoList.storage.XmlSerializableTodoList;
 
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
@@ -328,7 +329,7 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndTask(TaskCardHandle card, Todo task) {
-        return card.isSametask(task);
+        return card.isSametask(task); //something wrong. Always return false
     }
 
     /*public static Tag[] getTagList(String tags) {
