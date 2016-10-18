@@ -94,7 +94,10 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+            
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
+            
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -332,6 +335,20 @@ public class Parser {
         } catch (IllegalValueException e) {
             return new IncorrectCommand(ListCommand.MESSAGE_USAGE);
         }
+    }
+    
+    /**
+     * Parses arguments in the context of the save command.
+     *
+     * @param args full command arguments string
+     * @return the prepared command
+     */
+    private Command prepareSave(String args) {
+        if (args.equals("")) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SaveCommand.MESSAGE_USAGE));
+        }
+        return new SaveCommand(args.trim());
     }
 
 }
