@@ -10,6 +10,8 @@ import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -86,6 +88,14 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(TaskDateComponent target) throws TaskNotFoundException {
         taskList.removeTask(target.getTaskReference());
         indicateTaskListChanged();
+    }
+    
+    @Override
+    public synchronized void editTask(Task target, Name name, UniqueTagList tags,
+    		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
+    	taskList.updateTask(target, name, tags, startDate, endDate);
+    	indicateTaskListChanged();
+    	updateFilteredListToShowAll();
     }
     
     @Override

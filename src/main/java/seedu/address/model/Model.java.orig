@@ -1,16 +1,23 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-<<<<<<< a892620c2a0110457f46ab6285c9fbf9dcc91775
-import seedu.address.model.task.FloatingTask;
-import seedu.address.model.task.ReadOnlyFloatingTask;
-=======
 import seedu.address.model.task.Task;
+<<<<<<< HEAD
+import seedu.address.model.task.TaskDateComponent;
+=======
+import seedu.address.model.task.TaskDate;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Name;
+>>>>>>> add-edit-feature
 import seedu.address.model.task.ReadOnlyTask;
->>>>>>> Re code add non floating task to a simpler way.
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
+import java.util.Date;
 import java.util.Set;
+
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -23,21 +30,27 @@ public interface Model {
     ReadOnlyTaskList getTaskList();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyFloatingTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(TaskDateComponent target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    /** Adds the given task 
+     * @throws TimeslotOverlapException */
+    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyFloatingTask> getFilteredTaskList();
-
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    UnmodifiableObservableList<TaskDateComponent> getFilteredTaskComponentList();
+    
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredTaskList(Set<String> keywords, Set<String> tags, Date startDate, Date endDate, Date deadline);
     
     /** Updates the file path for current storage manager of the model.*/
 	void changeDirectory(String filePath);
+
+	void archiveTask(TaskDateComponent target) throws TaskNotFoundException;
+
+	void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException;
 
 }

@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -11,16 +10,16 @@ import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskDateComponent;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.commons.events.model.TaskListChangedEvent;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.core.ComponentManager;
 
-import java.util.ArrayDeque;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskList = new TaskList(src);
+        RecurringTaskManager.getInstance().removeCompletedRecurringTasks(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         filteredTaskComponents = new FilteredList<>(taskList.getTaskComponentList());
         RecurringTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
@@ -61,6 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
         taskList = new TaskList(initialData);
+        RecurringTaskManager.getInstance().removeCompletedRecurringTasks(taskList);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         filteredTaskComponents = new FilteredList<>(taskList.getTaskComponentList());
         RecurringTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
@@ -90,7 +91,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+<<<<<<< HEAD
     public synchronized void archiveTask(TaskDateComponent target) throws TaskNotFoundException {
+=======
+    public synchronized void editTask(Task target, Name name, UniqueTagList tags,
+    		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
+    	taskList.updateTask(target, name, tags, startDate, endDate);
+    	indicateTaskListChanged();
+    	updateFilteredListToShowAll();
+    }
+    
+    @Override
+    public synchronized void archiveTask(ReadOnlyTask target) throws TaskNotFoundException {
+>>>>>>> add-edit-feature
         taskList.archiveTask(target);
         indicateTaskListChanged();
         updateFilteredListToShowAll();
@@ -99,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskList.addTask(task);
-        RecurringTaskManager.getInstance().updateRepeatingTasks();
+        RecurringTaskManager.getInstance().updateRecurringTasks();
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
@@ -183,7 +196,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(TaskDateComponent task) {
 
-            return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.getIsArchived();
+            return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.tIsArchived();
         }
 
         @Override
@@ -202,7 +215,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(TaskDateComponent task) {
 
-            return task.getIsArchived() == isArchived;
+            return task.tIsArchived() == isArchived;
         }
 
         @Override
@@ -351,15 +364,10 @@ public class ModelManager extends ComponentManager implements Model {
 			if(deadline.before(this.deadline)
 					&& task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
 				return true;
-<<<<<<< HEAD
-			if(deadline.getDate()==this.deadline.getDate()&&deadline.getMonth()==this.deadline.getMonth()
-					&& task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
-=======
 			
 			//When only enter a date
 			if(deadline.getDate()==this.deadline.getDate() && deadline.getMonth()==this.deadline.getMonth()
-					&& task.getStartDate().getDate() == TaskDate.DATE_NOT_PRESENT)
->>>>>>> enhance-gui
+					&& task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
 				return true;
 			
 			return false;

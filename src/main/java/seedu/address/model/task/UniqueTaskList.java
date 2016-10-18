@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -151,5 +152,42 @@ public class UniqueTaskList implements Iterable<Task> {
         	}
         }
         return taskFoundAndArchived;
+	}
+	
+	private boolean checkUpdateOverlapping(ReadOnlyTask target, TaskDate startDate,
+			TaskDate endDate) {
+		if(startDate != null && endDate != null) {
+			for(Task t: internalList){
+				if(!t.equals(target)) {
+					if(t.getTaskType().equals(TaskType.NON_FLOATING)){
+		        		if(t.getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
+		        			if(!(t.getEndDate().getDate().before(startDate.getDate())||
+		        	        	t.getStartDate().getDate().after(endDate.getDate())))
+		        	        		return true;
+		        		}
+		        	}
+				}
+	        }
+		}
+		return false;
+	}
+
+	public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate,
+			TaskDate endDate) throws TimeslotOverlapException {
+		assert target != null;
+
+		boolean taskFoundAndUpdated = false;
+		for(Task t : internalList) {
+        	if(t.equals(target)) {
+        		if(checkUpdateOverlapping(target, startDate, endDate))
+        			throw new TimeslotOverlapException();
+        		
+        		int componentToChange = internalComponentList.indexOf(t.getTaskDateComponent().get(0));// added as a stop gap measure
+        		t.updateTask(name, tags, startDate, endDate);
+        		internalComponentList.set(componentToChange, t.getTaskDateComponent().get(0)); // added as a stop gap measure
+        		taskFoundAndUpdated = true;
+        	}
+        }
+		return taskFoundAndUpdated;
 	}
 }

@@ -28,6 +28,11 @@ public interface ReadOnlyTask {
     TaskType getTaskType();
     
     RecurringType getRecurringType();
+    
+    /**
+     * Updates the task's params, used for edit.
+     */
+    void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate);
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

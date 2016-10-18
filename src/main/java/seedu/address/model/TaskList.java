@@ -7,7 +7,9 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.UniqueTaskList;
@@ -199,5 +201,31 @@ public class TaskList implements ReadOnlyTaskList {
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
+	}
+	
+	public boolean updateTask(Task target, Name name, UniqueTagList tags,
+    		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
+		if (tasks.updateTask(target, name, tags, startDate, endDate)) {
+			if(tags != null) {
+				this.tags.mergeFrom(tags);
+
+		        // Create map with values = tag object references in the master list
+		        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+		        for (Tag tag : this.tags) {
+		            masterTagObjects.put(tag, tag);
+		        }
+
+		        // Rebuild the list of task tags using references from the master list
+		        final Set<Tag> commonTagReferences = new HashSet<>();
+		        for (Tag tag : tags) {
+		            commonTagReferences.add(masterTagObjects.get(tag));
+		        }
+		        target.setTags(new UniqueTagList(commonTagReferences));
+			}
+
+			return true;
+		} else {
+			throw new UniqueTaskList.TaskNotFoundException();
+		}
 	}
 }

@@ -172,13 +172,43 @@ public class Task implements ReadOnlyTask {
     public void completeTaskWhenAllComponentArchived() {
         for (TaskDateComponent c : recurringDates) {
             if (c.tIsArchived() == false || c.getTaskReference().getRecurringType() != RecurringType.NONE) {
-                if (c.getTaskReference().getRecurringType() != RecurringType.NONE) {
-//                    RecurringTaskManager.getInstance().archiveRecurringTask(c.getTaskReference());
-                }
                 return;
             }
         }
         taskType = TaskType.COMPLETED;
     }
+
+	@Override
+	public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
+		if(name != null)
+			this.name = name;
+		
+		if(tags != null){
+			
+			this.tags = tags;
+			
+		}
+		
+		if(this.startDate.equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+				&& this.endDate.equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+				&& endDate != null) {
+			this.taskType = TaskType.NON_FLOATING;
+		}
+		
+		if(startDate != null) {
+			this.startDate = startDate;
+		} else if(endDate != null) {
+			this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+		}
+		
+		if(endDate != null)
+			this.endDate = endDate;
+		
+		// needs to be changed just a stop gap measure
+		if (recurringType.equals(RecurringType.NONE)) {
+		    recurringDates.get(0).setStartDate(this.startDate);
+            recurringDates.get(0).setEndDate(this.endDate);
+		}
+	}
 
 }
