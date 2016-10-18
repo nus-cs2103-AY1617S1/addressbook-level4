@@ -528,7 +528,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | User | Create a new task with a start time and end time | Create an event for my calendar
 `* * *` | User | Create a new task with the deadline (with no time slot) | Create a task that needs to be completed on my calendar
 `* * *` | User | Add tags to a task | Categorize the related tasks
-`* * *` | User | Change details in a task | Keep my tasks up to date
+`* * *` | User | Change details in a task | Keep the details of my tasks up to date
 `* * *` | User | Delete a task | Remove outdated tasks
 `* * *` | User | Mark a task as completed | Manage and view my tasks more effectively
 `* * *` | User | Show all tasks | See a complete view of my past and current schedule
@@ -543,6 +543,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | User | Hide tasks/events with specified tag(s) and date | Hide tasks/events which I do not care about in the list
 `* *` | User | Undo my changes | Reverse any wrong action that was taken
 `* *` | User | View a calendar interface | Visualise all my tasks in a calendar format
+`* *` | User | Change the calendar view from daily to weekly | View more tasks and events beyond the day
 `*` | User | Convert an email to a task | Create a task based on email that I have received
 `*` | User | Add a location to a task | Make my event happen on a location
 `*` | User | See all free time within a time range | Easily schedule other tasks/events into a free time
