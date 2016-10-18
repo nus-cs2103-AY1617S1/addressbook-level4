@@ -189,7 +189,6 @@ public class ListController implements Controller {
             if (listAllStatus) {
                 view.events = db.getAllEvents();
             } else if (isCompleted) {
-                System.out.println(LocalDateTime.now());
                 view.events = db.getEventByRange(null, LocalDateTime.now());
             } else {
                 view.events = db.getEventByRange(LocalDateTime.now(), null);
