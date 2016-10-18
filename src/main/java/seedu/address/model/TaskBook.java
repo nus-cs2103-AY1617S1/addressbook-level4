@@ -89,16 +89,12 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newEvents, Collection<? extends ReadOnlyTask> newDeadlines,
-    					  Collection<? extends ReadOnlyTask> newTodo, Collection<Tag> newTags) {
-<<<<<<< HEAD
-        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
-=======
+            Collection<? extends ReadOnlyTask> newTodo, Collection<Tag> newTags) {
         setEvents(newEvents.stream().map(Task::new).collect(Collectors.toList()));
->>>>>>> code_cleanup
         setDeadlines(newDeadlines.stream().map(Task::new).collect(Collectors.toList()));
         setTodo(newTodo.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
-    }
+}
 
     public void resetData(ReadOnlyTaskBook newData) {
         resetData(newData.getEventList(), newData.getDeadlineList(), newData.getTodoList(), newData.getTagList());
@@ -171,7 +167,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
 
-<<<<<<< HEAD
+
 /*    public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
 =======
     public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
