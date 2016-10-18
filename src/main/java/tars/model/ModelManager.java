@@ -1,5 +1,6 @@
 package tars.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
@@ -13,6 +14,8 @@ import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
+import tars.model.tag.ReadOnlyTag;
+import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.DateTime.IllegalDateException;
@@ -31,7 +34,7 @@ import java.util.logging.Logger;
  * be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
-	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Tars tars;
     private final FilteredList<Task> filteredTasks;
@@ -90,42 +93,60 @@ public class ModelManager extends ComponentManager implements Model {
     public Stack<Command> getRedoableCmdHist() {
         return redoableCmdHistStack;
     }
+    
+    @Override
+    public ObservableList<? extends ReadOnlyTag> getUniqueTagList() {
+        return tars.getUniqueTagList().getInternalList();
+    }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTarsChanged() {
         raise(new TarsChangedEvent(tars));
     }
 
-	@Override
-	/**
-	 * @@author A0121533W
-	 */
-	public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
-			throws TaskNotFoundException, DateTimeException, IllegalDateException, DuplicateTagException,
-			TagNotFoundException, IllegalValueException {
-		Task editedTask = tars.editTask(toEdit, argsToEdit);
-		indicateTarsChanged();
-		return editedTask;
-	}
+    @Override
+    /**
+     * @@author A0121533W
+     */
+    public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
+            throws TaskNotFoundException, DateTimeException, IllegalDateException,
+            DuplicateTagException, TagNotFoundException, IllegalValueException {
+        Task editedTask = tars.editTask(toEdit, argsToEdit);
+        indicateTarsChanged();
+        return editedTask;
+    }
+    
+    @Override
+    /** @@author A0139924W */
+    public synchronized void renameTag(ReadOnlyTag oldTag, String newTagName)
+            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
+        Tag newTag = new Tag(newTagName);
 
-	@Override
-	public synchronized void unEditTask(Task toUndo, Task replacement) throws DuplicateTaskException {
-		tars.replaceTask(toUndo, replacement);
-		indicateTarsChanged();
-	}
+        tars.getUniqueTaskList().renameTag(oldTag, newTag);
+        tars.getUniqueTagList().update(oldTag, newTag);
 
-	@Override
-	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-		tars.removeTask(target);
-		indicateTarsChanged();
-	}
+        indicateTarsChanged();
+    }
+    
+    @Override
+    public synchronized void unEditTask(Task toUndo, Task replacement)
+            throws DuplicateTaskException {
+        tars.replaceTask(toUndo, replacement);
+        indicateTarsChanged();
+    }
 
-	@Override
-	public synchronized void addTask(Task task) throws DuplicateTaskException {
-		tars.addTask(task);
-		updateFilteredListToShowAll();
-		indicateTarsChanged();
-	}
+    @Override
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        tars.removeTask(target);
+        indicateTarsChanged();
+    }
+
+    @Override
+    public synchronized void addTask(Task task) throws DuplicateTaskException {
+        tars.addTask(task);
+        updateFilteredListToShowAll();
+        indicateTarsChanged();
+    }
 
     @Override
     /**
@@ -154,9 +175,10 @@ public class ModelManager extends ComponentManager implements Model {
 	public void updateFilteredTaskList(Set<String> keywords) {
 		updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
 	}
-public void updateFilteredTaskListUsingQuickSearch(ArrayList<String> quickSearchKeywords) {
-        updateFilteredTaskList(new PredicateExpression(new QuickSearchQualifier(quickSearchKeywords)));
-    }
+    
+	public void updateFilteredTaskListUsingQuickSearch(ArrayList<String> quickSearchKeywords) {
+            updateFilteredTaskList(new PredicateExpression(new QuickSearchQualifier(quickSearchKeywords)));
+        }
 
     public void updateFilteredTaskListUsingFlags(TaskQuery taskQuery) {
         updateFilteredTaskList(new PredicateExpression(new FlagSearchQualifier(taskQuery)));
@@ -316,7 +338,7 @@ public void updateFilteredTaskListUsingQuickSearch(ArrayList<String> quickSearch
 		@Override
 		public boolean run(ReadOnlyTask task) {
 			return nameKeyWords.stream()
-					.filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
+			        .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
 					.count() == nameKeyWords.size();
 		}
 
