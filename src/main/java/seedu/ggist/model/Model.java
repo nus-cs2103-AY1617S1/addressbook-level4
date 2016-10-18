@@ -3,7 +3,6 @@ package seedu.ggist.model;
 import java.util.Set;
 
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.ObservableList;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.model.task.Task;
 import seedu.ggist.model.task.ReadOnlyTask;

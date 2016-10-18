@@ -1,7 +1,6 @@
 package seedu.ggist.model;
 
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.ObservableList;
 import seedu.ggist.commons.core.ComponentManager;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
