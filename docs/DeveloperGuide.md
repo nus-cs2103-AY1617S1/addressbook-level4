@@ -293,11 +293,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. User requests to list all Tasks
 2. DoMePlease shows a list of tasks
-3. User requests to delete a edit task in the list
-4. DoMePlease populates CLI with the Task
-5. DoMePlease shows edited Task and confirm the changes with the user
-6. DoMePlease updates the task informations
-
+3. User requests to edit certain FIELDS of the task at INDEX 
+4. DoMePlease shows the result of edit 
+5. Use case ends
 
 **Extensions**
 
@@ -305,12 +303,15 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case ends
 
-3a. The given index is invalid
+2b. The given INDEX is invalid
 
 > 3a1. DoMePlease shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
+2c. The given FIELDS are invalid 
+
+>3b1. DoMePlease shows an error message <br>
+  Use case resumes at step 2
 
 ## Appendix C : Non Functional Requirements
 
