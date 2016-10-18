@@ -24,11 +24,7 @@ public class ActivityManagerBuilder {
         return this;
     }
 
-    public ActivityManagerBuilder withTag(String tagName) throws IllegalValueException {
-        activityManager.addTag(new Tag(tagName));
-        return this;
-    }
-
+   
     public ActivityManager build(){
         return activityManager;
     }

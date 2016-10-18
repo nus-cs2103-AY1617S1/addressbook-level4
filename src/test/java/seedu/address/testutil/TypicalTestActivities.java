@@ -37,7 +37,7 @@ public class TypicalTestActivities {
         return new TestActivity[]{task};
     }
 
-    public ActivityManager getTypicalAddressBook(){
+    public ActivityManager getTypicalActivityManager(){
         ActivityManager ab = new ActivityManager();
         loadAddressBookWithSampleData(ab);
         return ab;

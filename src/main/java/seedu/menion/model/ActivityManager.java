@@ -45,7 +45,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public ActivityManager(UniqueActivityList tasks, 
                             UniqueActivityList floatingTasks,
                             UniqueActivityList events) {
-        resetData(tasks.getInternalList(), tags.getInternalList(),
+        resetData(tasks.getInternalList(),
                      floatingTasks.getInternalList(),
                      events.getInternalList());
     }
@@ -82,21 +82,18 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
-    }
 
-    public void resetData(Collection<? extends ReadOnlyActivity> newTasks, Collection<Tag> newTags,
+
+    public void resetData(Collection<? extends ReadOnlyActivity> newTasks, 
                             Collection<? extends ReadOnlyActivity> newFloatingTasks,
                             Collection<? extends ReadOnlyActivity> newEvents) {
         setTasks(newTasks.stream().map(Activity::new).collect(Collectors.toList()));
-        setTags(newTags);
         setFloatingTasks(newFloatingTasks.stream().map(Activity::new).collect(Collectors.toList()));
         setEvents(newEvents.stream().map(Activity::new).collect(Collectors.toList()));
     }
 
     public void resetData(ReadOnlyActivityManager newData) {
-        resetData(newData.getTaskList(), newData.getTagList(),
+        resetData(newData.getTaskList(),
                     newData.getFloatingTaskList(),
                     newData.getEventList());
     }
@@ -143,28 +140,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
 
-    /**
-     * Ensures that every tag in this task:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
-     */
-    private void syncTagsWithMasterList(Activity task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of task tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
-    }
 
     public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
         if (tasks.remove(key)) {
@@ -193,18 +168,11 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
 
-//// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
-
 //// util methods
 
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, "
-                + "" + tags.getInternalList().size() +  " tags"
                 + floatingTasks.getInternalList().size() + " floating tasks, "
                 + events.getInternalList().size() + " events, ";
         // TODO: refine later
@@ -225,23 +193,13 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public List<ReadOnlyActivity> getEventList() {
         return Collections.unmodifiableList(events.getInternalList());
     }
-    
-    
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
+
 
     @Override
     public UniqueActivityList getUniqueTaskList() {
         return this.tasks;
     }
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
-    
     
     @Override
     public UniqueActivityList getUniqueFloatingTaskList() {
@@ -267,7 +225,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(tasks);
         //return Objects.hash(tasks, tags, floatingTasks, events);
     }
 }
