@@ -35,8 +35,12 @@ public class Start {
         if (!isValidStart(start)) {
             throw new IllegalValueException(MESSAGE_START_CONSTRAINTS);
         }
-        if (start == "default")
-    		this.value = LocalTime.now().getHour() +""+ LocalTime.now().getMinute();
+        if (start == "default") {
+        	String new_min = new String(LocalTime.now().getMinute() + "");
+        	if (new_min.length() ==1 )
+        		new_min = "0" + new_min;
+    		this.value = LocalTime.now().getHour() +""+ new_min;
+        }
         else
         	this.value = start;
     }
