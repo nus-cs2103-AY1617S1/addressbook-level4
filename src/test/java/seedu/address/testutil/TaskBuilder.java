@@ -1,9 +1,6 @@
 package seedu.address.testutil;
 
-import java.util.Date;
-
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.*;
 
@@ -12,41 +9,41 @@ import seedu.address.model.task.*;
  */
 public class TaskBuilder {
 
-    private TestTask person;
+    private TestTask task;
 
     public TaskBuilder() {
-        this.person = new TestTask();
+        this.task = new TestTask();
     }
 
     public TaskBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+        this.task.setName(new Name(name));
         return this;
     }
 
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
-            person.getTags().add(new Tag(tag));
+            task.getTags().add(new Tag(tag));
         }
         return this;
     }
 
     public TaskBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Location(address));
+        this.task.setAddress(new Location(address));
         return this;
     }
 
     public TaskBuilder withStartDate(String startDate) throws IllegalValueException {
-        this.person.setStartDate(new TaskDateTime(startDate));
+        this.task.setStartDate(new TaskDateTime(startDate));
         return this;
     }
 
     public TaskBuilder withEndDate(String endDate) throws IllegalValueException {
-        this.person.setEndDate(new TaskDateTime(endDate));
+        this.task.setEndDate(new TaskDateTime(endDate));
         return this;
     }
 
     public TestTask build() {
-        return this.person;
+        return this.task;
     }
 
 }

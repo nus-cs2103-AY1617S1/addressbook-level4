@@ -29,17 +29,16 @@ public class AddCommandParser extends CommandParser {
             if (matcher.matches()) {
                 return new AddEventCommand(matcher.group("name"), matcher.group("startDate"),
                     matcher.group("endDate"), matcher.group("address"));
+            } else if (containsDelimiters(args)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
     
             matcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args);
-    
             if (matcher.matches()) {
-                return new AddDeadlineCommand(matcher.group("name"),
-                    matcher.group("endDate"));
+                return new AddDeadlineCommand(matcher.group("name"), matcher.group("endDate"));
             }
+            
             matcher = FLOATING_DATA_ARGS_FORMAT.matcher(args);
-            
-            
             if (matcher.matches()) {
                 return new AddFloatingCommand(args);
             } else {   
@@ -47,6 +46,14 @@ public class AddCommandParser extends CommandParser {
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    private boolean containsDelimiters(String args) {
+        if (args.contains(START_DATE_DELIMITER) || args.contains(END_DATE_DELIMITER)) {
+            return true; 
+        } else {
+            return false;
         }
     }
 }

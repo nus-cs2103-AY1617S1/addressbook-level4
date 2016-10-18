@@ -9,6 +9,9 @@ import seedu.address.logic.commands.Command;
 
 public abstract class CommandParser {
 
+    protected static final String START_DATE_DELIMITER = "s/";
+    protected static final String END_DATE_DELIMITER = "e/";
+    
     protected static final Pattern INDEX_COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)(?<arguments>.*)");
 
     protected static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
@@ -18,8 +21,12 @@ public abstract class CommandParser {
     
     protected static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " s/(?<startDate>[^/]*)"
-                    + " e/(?<endDate>.*)"
+                    + " "
+                    + START_DATE_DELIMITER
+                    + "(?<startDate>[^/]*)"
+                    + " "
+                    + END_DATE_DELIMITER
+                    + "(?<endDate>.*)"
                     + "(?>\\s+\\bat\\b)"
                     + "(?<address>.*)"
                     ); 

@@ -16,9 +16,9 @@ public class TypicalTestTasks {
             alice =  new TaskBuilder().withName("Do CS2103 Pretut").withAddress("At Home")
                     .withEndDate("071016").withStartDate("011016").withTags("Event").build();
             benson = new TaskBuilder().withName("Do CS2103 Project").withAddress("At School")
-                    .withEndDate("141016").withStartDate("071016").withTags("Event").build();
+                    .withEndDate("14 Oct 2016").withStartDate("071016").withTags("Event").build();
             carl = new TaskBuilder().withName("Eat Mcdonalds").withAddress("At Technoedge")
-                    .withEndDate("211016").withStartDate("141016").withTags("Event").build();
+                    .withEndDate("211016").withStartDate("14 Oct 2016").withTags("Event").build();
             daniel = new TaskBuilder().withName("Flunk CS2103").withAddress("In the exam hall")
                     .withEndDate("211116").withStartDate("211116").withTags("Event").build();
             elle = new TaskBuilder().withName("Working at Mcdonalds").withAddress("At Mcdonalds")
