@@ -42,8 +42,8 @@ public class PersonCardHandle extends GuiHandle {
     }
 
     public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getTaskDetails().taskDetails) && getPhone().equals("Starts:   "+person.getStartTime().toCardString())
-                && getEmail().equals("Ends:     "+person.getEndTime().toCardString()) && getAddress().equals("Priority: "+person.getPriority().priorityLevel);
+        return getFullName().equals(person.getTaskDetails().toString()) && getPhone().equals("Starts:   "+person.getStartTime().toCardString())
+                && getEmail().equals("Ends:     "+person.getEndTime().toCardString()) && getAddress().equals("Priority: "+person.getPriority().toString());
     }
 
     @Override
@@ -58,6 +58,17 @@ public class PersonCardHandle extends GuiHandle {
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getFullName()+ "\n")
+                .append("Start time: ")
+                .append(getPhone() + "\t")
+                .append("End time:")
+                .append(getEmail() + "\n")
+                .append("Priority: ")
+                .append(getAddress()+ "\n")
+                .append("Tags: ");
+        return builder.toString();
+
+        //return getFullName() + " " + getAddress();
     }
 }
