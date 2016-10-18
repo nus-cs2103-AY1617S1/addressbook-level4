@@ -148,7 +148,7 @@ public class FloatingTaskListPanelHandle extends GuiHandle {
     }
 
     public FloatingTaskCardHandle getFloatingTaskCardHandle(int index) {
-        return getFloatingTaskCardHandle(new FloatingTask(getListView().getItems().get(index)));
+        return getFloatingTaskCardHandle(new FloatingTask((FloatingTask) getListView().getItems().get(index)));
     }
 
     public FloatingTaskCardHandle getFloatingTaskCardHandle(ReadOnlyTask task) {

@@ -7,11 +7,26 @@ public class DeadlineTask extends FloatingTask implements ReadOnlyTask {
 
     private DateTime deadline;
     
+    public DeadlineTask(Name name, DateTime deadline, UniqueTagList tags, boolean isCompleted) {
+        super(name, tags, isCompleted);
+        assert deadline != null;
+        this.deadline = deadline;
+    }
+    
     public DeadlineTask(Name name, DateTime deadline, UniqueTagList tags) {
         super(name, tags);
         assert deadline != null;
         this.deadline = deadline;
     }
+    
+    /**
+     * Copy constructor.
+     */
+    public DeadlineTask(DeadlineTask source) {
+        super(source.getName(), source.getTags(), source.isCompleted());
+        this.deadline = ((DeadlineTask) source).getDeadline();
+    }
+    
     
     public DateTime getDeadline() {
         return deadline;

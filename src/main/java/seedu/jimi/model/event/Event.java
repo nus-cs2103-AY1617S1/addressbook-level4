@@ -16,6 +16,11 @@ public class Event implements ReadOnlyTask {
     private UniqueTagList tags;
     private boolean isCompleted;
     
+    public Event(Name name, DateTime start, DateTime end, UniqueTagList tags, boolean isCompleted) {
+        this(name, start, end, tags);
+        this.isCompleted = isCompleted;
+    }
+    
     public Event(Name name, DateTime start, DateTime end, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, start, end, tags);
         assert start.compareTo(end) <= 0;
@@ -25,6 +30,15 @@ public class Event implements ReadOnlyTask {
         this.end = end;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
+    
+    /**
+     * Copy constructor.
+     */
+    public Event(Event source) {
+        this(source.getName(), ((Event) source).getStart(), ((Event) source).getEnd(), source.getTags(),
+                source.isCompleted());
+    }
+    
     
     @Override
     public Name getName() {
@@ -42,6 +56,10 @@ public class Event implements ReadOnlyTask {
     @Override
     public boolean isCompleted() {
         return isCompleted;
+    }
+    
+    public void setCompleted(boolean c) {
+        isCompleted = c;
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.junit.rules.ExpectedException;
 import seedu.jimi.commons.util.FileUtil;
 import seedu.jimi.commons.util.XmlUtil;
 import seedu.jimi.model.TaskBook;
-import seedu.jimi.storage.XmlSerializableAddressBook;
+import seedu.jimi.storage.XmlSerializableTaskBook;
 import seedu.jimi.testutil.TaskBookBuilder;
 import seedu.jimi.testutil.TestUtil;
 
@@ -54,7 +54,7 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableTaskBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTaskBook.class);
         assertEquals(9, dataFromFile.getTaskList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
@@ -80,17 +80,17 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
-        XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new TaskBook());
+        XmlSerializableTaskBook dataToWrite = new XmlSerializableTaskBook(new TaskBook());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableTaskBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskBook.class);
         assertEquals((new TaskBook(dataToWrite)).toString(),(new TaskBook(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
         TaskBookBuilder builder = new TaskBookBuilder(new TaskBook());
-        dataToWrite = new XmlSerializableAddressBook(builder.withFloatingTask(TestUtil.generateSampleFloatingTaskData().get(0)).withTag("Friends").build());
+        dataToWrite = new XmlSerializableTaskBook(builder.withFloatingTask(TestUtil.generateSampleFloatingTaskData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskBook.class);
         assertEquals((new TaskBook(dataToWrite)).toString(),(new TaskBook(dataFromFile)).toString());
     }
 }
