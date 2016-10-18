@@ -1,5 +1,6 @@
 package seedu.whatnow.logic.commands;
 
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +15,7 @@ import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.Name;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
+import seedu.whatnow.model.task.TaskDate;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -32,53 +34,84 @@ public class UpdateCommand extends UndoAndRedo {
     
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s";
     
+    private static final String ARG_TYPE_DESCRIPTION = "description";
+    private static final String ARG_TYPE_DATE = "date";
+    private static final String ARG_TYPE_TAG = "tag";
+    private static final String DELIMITER_BLANK_SPACE = " ";
+    private static final String TASK_TYPE_FLOATING = "todo";
+    
     public final int targetIndex;
-    public final String type;
+    public final String taskType;
     public final String arg_type;
     public final String arg;
     private Task toUpdate;
     
-    public UpdateCommand(String type, int targetIndex, String arg_type, String arg) throws IllegalValueException {
-        this.type = type;
+    public UpdateCommand(String taskType, int targetIndex, String arg_type, String arg) throws IllegalValueException {
+        this.taskType = taskType;
         this.targetIndex = targetIndex;
         this.arg_type = arg_type;
         this.arg = arg;
         processArg();
     }
     
+    /**
+     * Processes the arguments in the update command
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
     private void processArg() throws IllegalValueException {
         String newName = "a";
+        String date = null;
         final Set<Tag> tagSet = new HashSet<>();
-        if (arg_type.toUpperCase().compareToIgnoreCase("tag") == 0) {
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TAG) == 0) {
             Set<String> tags = processTag();
             for (String tagName : tags) {
                 tagSet.add(new Tag(tagName));
             }
         }
-        if (arg_type.toUpperCase().compareToIgnoreCase("description") == 0) {
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DATE) == 0) {
+            date = arg;
+        }
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == 0) {
             newName = arg;
         }
-        toUpdate = new Task(
-                new Name(newName),
-                new UniqueTagList(tagSet),
-                null);   
+        
+        try {
+            toUpdate = (date == null) ? new Task(new Name(newName), new UniqueTagList(tagSet), null) : new Task(new Name(newName), new TaskDate(date), new UniqueTagList(tagSet), null);
+        } catch (ParseException e) {
+            System.out.println("ParseException in UpdateCommand.java line 71");
+        }
     }
     
+    /**
+     * Processes the tags in the update command
+     */
     private Set<String> processTag() {
         if (arg.isEmpty()) {
             return Collections.emptySet();
         }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(arg.split(" "));
+        final Collection<String> tagStrings = Arrays.asList(arg.split(DELIMITER_BLANK_SPACE));
         return new HashSet<>(tagStrings);
     }
     
     private void updateTheCorrectField(ReadOnlyTask taskToUpdate) {
-        if (arg_type.toUpperCase().compareToIgnoreCase("tag") == 0) {
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TAG) == 0) {
             toUpdate.setName(taskToUpdate.getName());
+            toUpdate.setTaskDate(taskToUpdate.getTaskDate());
+            toUpdate.setStatus(taskToUpdate.getStatus());
+            toUpdate.setTaskType(taskToUpdate.getTaskType());
         }
-        if (arg_type.toUpperCase().compareToIgnoreCase("description") == 0) {
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == 0) {
             toUpdate.setTags(taskToUpdate.getTags());
+            toUpdate.setTaskDate(taskToUpdate.getTaskDate());
+            toUpdate.setStatus(taskToUpdate.getStatus());
+            toUpdate.setTaskType(taskToUpdate.getTaskType());
+        }
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DATE) == 0) {
+            toUpdate.setName(taskToUpdate.getName());
+            toUpdate.setTags(taskToUpdate.getTags());
+            toUpdate.setStatus(taskToUpdate.getStatus());
+            toUpdate.setTaskType(taskToUpdate.getTaskType());
         }
         toUpdate.setStatus(taskToUpdate.getStatus());
     }
@@ -88,8 +121,13 @@ public class UpdateCommand extends UndoAndRedo {
     }
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getCurrentFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+        
+        if (taskType.equals(TASK_TYPE_FLOATING)) {
+            lastShownList = model.getCurrentFilteredTaskList();
+        } else {
+            lastShownList = model.getCurrentFilteredScheduleList();
+        }
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -101,11 +139,11 @@ public class UpdateCommand extends UndoAndRedo {
         
         try {
             model.updateTask(taskToUpdate, toUpdate);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
         model.getUndoStack().push(this);
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nBefore update: " + taskToUpdate + " \nAfter update: " + toUpdate));
+        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate));
     }
 
 	@Override

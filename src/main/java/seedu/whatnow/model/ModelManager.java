@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * Represents the in-memory model of the WhatNow data.
@@ -27,6 +28,10 @@ import java.util.logging.Logger;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final String TASK_TYPE_FLOATING = "floating";
+    private static final String TASK_TYPE_NOT_FLOATING = "not_floating";
+    private static final String TASK_STATUS_COMPLETED = "completed";
+    private static final String TASK_STATUS_INCOMPLETE = "incomplete";
 
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
@@ -162,9 +167,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        String[] status = {"incomplete"};
-        Set<String> keyword = new HashSet<>(Arrays.asList(status));
-        updateFilteredListToShowAllByStatus(keyword);
+        updateFilteredListToShowAllIncomplete();
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     @Override
@@ -181,10 +184,34 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(keyword);
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-
+    
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        String[] taskType = {TASK_TYPE_FLOATING};
+        Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
+        updateFilteredTaskList(new PredicateExpression(new TaskTypeQualifier(keyword)));
+    }
+    
+    @Override
+    public void updateFilteredListToShowAllIncomplete() {
+        filteredTasks.setPredicate(p -> {
+            if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
+                return true;
+            } else {
+                return false;
+            }}
+        );
+    }
+    
+    @Override
+    public void updateFilteredListToShowAllCompleted() {
+        filteredTasks.setPredicate(p -> {
+            if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
+                return true;
+            } else {
+                return false;
+            }}
+        );
     }
     
     @Override
@@ -205,9 +232,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList() {
-        String[] status = {"completed"}; //Test only, to be changed to schedule task
-        Set<String> keyword = new HashSet<>(Arrays.asList(status));
-        updateFilteredScheduleListToShowAllByStatus(keyword);
+        updateFilteredScheduleListToShowAllIncomplete();
         return new UnmodifiableObservableList<>(filteredSchedules);
     }
     
@@ -229,7 +254,31 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredScheduleListToShowAll() {
-        filteredTasks.setPredicate(null);
+        String[] taskType = {TASK_TYPE_NOT_FLOATING};
+        Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
+        updateFilteredScheduleList(new PredicateExpression(new TaskTypeQualifier(keyword)));
+    }
+    
+    @Override
+    public void updateFilteredScheduleListToShowAllIncomplete() {
+        filteredSchedules.setPredicate(p -> {
+            if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
+                return true;
+            } else {
+                return false;
+            }}
+        );
+    }
+    
+    @Override
+    public void updateFilteredScheduleListToShowAllCompleted() {
+        filteredSchedules.setPredicate(p -> {
+            if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
+                return true;
+            } else {
+                return false;
+            }}
+        );
     }
     
     @Override
@@ -316,6 +365,27 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "Status=" + String.join(", ", status);
+        }
+    }
+    
+    private class TaskTypeQualifier implements Qualifier {
+        private Set<String> taskType;
+        
+        TaskTypeQualifier(Set<String> taskType) {
+            this.taskType = taskType;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return taskType.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTaskType(), keyword))
+                    .findAny()
+                    .isPresent();
+        }
+        
+        @Override
+        public String toString() {
+            return "TaskType=" + String.join(", ", taskType);
         }
     }
 }

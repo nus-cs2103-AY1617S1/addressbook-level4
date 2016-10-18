@@ -49,6 +49,12 @@ public interface Model {
 	
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show all ongoing tasks */
+    void updateFilteredListToShowAllIncomplete();
+    
+    /** Updates the filter of the filtered task list to show all completed tasks */
+    void updateFilteredListToShowAllCompleted();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
@@ -95,6 +101,12 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredScheduleListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show all ongoing tasks */
+    void updateFilteredScheduleListToShowAllIncomplete();
+    
+    /** Updates the filter of the filtered task list to show all completed tasks */
+    void updateFilteredScheduleListToShowAllCompleted();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredScheduleList(Set<String> keywords);

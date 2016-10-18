@@ -34,8 +34,7 @@ public class AddCommand extends UndoAndRedo {
 	 *
 	 * @throws IllegalValueException if any of the raw values are invalid
 	 */
-	public AddCommand(String name, Set<String> tags)
-			throws IllegalValueException {
+	public AddCommand(String name, Set<String> tags) throws IllegalValueException {
 		final Set<Tag> tagSet = new HashSet<>();
 		for (String tagName : tags) {
 			tagSet.add(new Tag(tagName));
@@ -47,8 +46,7 @@ public class AddCommand extends UndoAndRedo {
 				);
 	}
 
-	public AddCommand(String name, String date, Set<String> tags)
-			throws IllegalValueException, ParseException {
+	public AddCommand(String name, String date, Set<String> tags) throws IllegalValueException, ParseException {
 		// TODO Auto-generated constructor stub
 		final Set<Tag> tagSet = new HashSet<>();
 		for (String tagName : tags) {

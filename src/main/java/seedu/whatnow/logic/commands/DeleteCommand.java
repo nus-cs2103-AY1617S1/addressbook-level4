@@ -19,21 +19,30 @@ public class DeleteCommand extends UndoAndRedo {
 			+ "Parameters: INDEX (must be a positive integer)\n"
 			+ "Example: " + COMMAND_WORD + " 1";
 
-	public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    
+    private static final String TASK_TYPE_FLOATING = "todo";
 
-	public final int targetIndex;
-	
+    private final int targetIndex;
+    private final String taskType;
+    
 	public ReadOnlyTask taskToDelete;
 
-	public DeleteCommand(int targetIndex) {
-		this.targetIndex = targetIndex;
-	}
+    public DeleteCommand(String taskType, int targetIndex) {
+        this.targetIndex = targetIndex;
+        this.taskType = taskType;
+    }
 
 
-	@Override
-	public CommandResult execute() {
-
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+    @Override
+    public CommandResult execute() {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+        
+        if (taskType.equals(TASK_TYPE_FLOATING)) {
+            lastShownList = model.getCurrentFilteredTaskList();
+        } else {
+            lastShownList = model.getCurrentFilteredScheduleList();
+        }
 
 		if (lastShownList.size() < targetIndex) {
 			indicateAttemptToExecuteIncorrectCommand();

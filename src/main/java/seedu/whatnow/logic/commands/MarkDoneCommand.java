@@ -19,6 +19,8 @@ public class MarkDoneCommand extends UndoAndRedo {
             + "Example: " + COMMAND_WORD + " schedule 1";
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Task marked as completed: %1$s";
+    
+    private static final String TASK_TYPE_FLOATING = "floating";
 
     public final String taskType;
     public final int targetIndex;
@@ -32,8 +34,12 @@ public class MarkDoneCommand extends UndoAndRedo {
 
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+        if (taskType.equals(TASK_TYPE_FLOATING)) {
+            lastShownList = model.getCurrentFilteredTaskList();
+        } else {
+            lastShownList = model.getCurrentFilteredScheduleList();
+        }
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

@@ -64,10 +64,8 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
-            	System.out.println("Illegal exception error in XmlSerializableWhatNow line 67");
             } catch (ParseException e) {
 				// TODO Auto-generated catch block
-            	System.out.println("Parse exception error in XmlSerializableWhatNow line 70");
 				e.printStackTrace();
 			}
         }
@@ -82,11 +80,9 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
             } catch (IllegalValueException e) {
                 e.printStackTrace();
                 //TODO: better error handling
-                System.out.println("IllegalValueException error in List<ReadOnlyTask>getTaskList line 85");
                 return null;
             } catch (ParseException e) {
 				// TODO Auto-generated catch block
-            	 System.out.println("ParseException error in List<ReadOnlyTask>getTaskList line 89");
 				e.printStackTrace();
 				return null;
 			}
