@@ -34,13 +34,13 @@ public class RelocateCommand extends Command{
 
     public static final String MESSAGE_SUCCESS = "Relocated save location to %1$s";
     public static final String MESSAGE_INVALID_INPUT = "%1$s is not valid.";
+    public static final String MESSAGE_UNWRITTABLE_FOLDER = "%1$s is not writtable.";
+
 
     private final String newFilePath;
 
     /**
      * Convenience constructor using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
      */
     public RelocateCommand(String newFilePath) {
         this.newFilePath = newFilePath.trim();
@@ -58,14 +58,8 @@ public class RelocateCommand extends Command{
         } catch (FolderDoesNotExistException fdnee) {
             return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
         } catch (UnwrittableFolderException ufe) {
-            return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
+            return new CommandResult(String.format(MESSAGE_UNWRITTABLE_FOLDER, newFilePath));
         }
-    }
-    
-    //@@author A0139194X
-    @Subscribe
-    public CommandResult handleAccessDeniedEvent (AccessDeniedEvent event) {
-        return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
     }
     
     //@@author A0139194X
