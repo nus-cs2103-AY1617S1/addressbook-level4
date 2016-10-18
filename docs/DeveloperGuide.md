@@ -268,10 +268,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 | `* * *`  | user    | to block off time slots for events   | will not accidentally plan clashing events | 
 | `* * *`  | user    | to undo my pervious command          | can recover from mistakes in previous command |
 | `* * *`  | user    | to view a list of all commands       | can see all commands if I forget them |
+| `* * *`  | user    | to change storage location           | can store tasks in a portable device |
 | `* *`    | user    | to see tasks grouped by deadline     | can get a better overview of which tasks I should focus on |
 | `* *`    | user    | to categorise my tasks               | can group similar tasks together |
 | `* *`    | user    | to view my tasks by their categories | - |
-| `* *`    | user    | to change storage location           | can store tasks in a portable device |
 | `* *`    | user    | short and intuitive commands         | don't have to remember commands |
 | `*`      | user    | to keep track of recurring tasks     | don't need to enter the repetitive tasks time and again |
 | `*`      | user    | to be reminded of the tasks I need to complete | - |
