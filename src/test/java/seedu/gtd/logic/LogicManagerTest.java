@@ -166,15 +166,13 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] d/12345 a/valid@address p/valid, priority", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] d/12345 a/valid, address p/1", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/not_numbers a/valid@e.mail a/valid, address", DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
+                "add Valid Name d/not_numbers a/valid, address p/2", DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/12345 a/notAnAddress a/valid, address", Address.MESSAGE_ADDRESS_CONSTRAINTS);
+                "add Valid Name d/12345 a/valid, address p/not_priority_numbers", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/12345 e/notAnAddress a/valid, address", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name d/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name d/12345 a/valid, address p/5 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -410,8 +408,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new DueDate("" + Math.abs(seed)),
-                    new Address(seed + "@address"),
-                    new Priority("House of " + seed),
+                    new Address(seed + ", -address"),
+                    new Priority("1 " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
