@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.menion.ui.ActivityListPanel">
@@ -19,13 +21,22 @@
               <items>
                   <VBox style="-fx-background-color: #87cefa;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Tahoma;" text="Task">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Italic" size="18.0" />
+                           </font></Text>
                           <ListView fx:id="taskListView" />
                      </children>
                   </VBox>
                   <VBox style="-fx-background-color: #ffa07a;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Tahoma;" text="Event">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Text>
                           <ListView fx:id="eventListView" />
                      </children>
                   </VBox>
@@ -33,7 +44,10 @@
             </SplitPane>
             <VBox style="-fx-background-color: #fafad2;">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floating Task" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Tahoma;" text="Floating Task">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
                   <ListView fx:id="floatingTaskListView" />
                </children>
             </VBox>
