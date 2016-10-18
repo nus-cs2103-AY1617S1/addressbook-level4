@@ -469,21 +469,33 @@ public class Parser {
 			}
 					
 		}
+		
+		// newName while loop might have end at end of array and not '
+		newName = newName.trim();
+		if(!newName.endsWith("'")) {
+			newName = "";
+		} else {
+			newName = newName.substring(1, newName.length()-1);		//remove the ' '
+			newName = newName.trim();
+		}
+		
 		// No values are to be edited
 		if(newName.equals("") && newStartDate.equals("") && newEndDate.equals("")) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 		
+		
+		System.out.println("newName post trim: " + newName);
 		LocalDateTime startDateTime = null;
 		LocalDateTime endDateTime = null;
 		
 		// DateParser not merged. Will have error
-		try {
+		/*try {
 			startDateTime = DateParser.parse(newStartDate);
 			endDateTime = DateParser.parse(newEndDate);
 		} catch (ParseException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-		}
+		}*/
 
 		try {
 			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);
