@@ -1,7 +1,6 @@
 package seedu.cmdo.logic.parser;
 
-import static seedu.cmdo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.cmdo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.cmdo.commons.core.Messages.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.joestelmach.natty.*;
 
+import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
 import seedu.cmdo.logic.commands.*;
@@ -34,11 +34,6 @@ public class MainParser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-	private static final String MESSAGE_INVALID_PRIORITY = "Priority is either high, medium or low. Please try again.";
-	private static final String MESSAGE_ENCAPSULATE_DETAIL_WARNING = "Encapsulate your task details in ' '.";
-	private static final String MESSAGE_BLANK_DETAIL_WARNING = "Blank task? Did you mean to block out a date? Type help to see usage.";
-
 	
 	public static final String NO_DATE_DEFAULT = LocalDate.MIN.toString();	// All floating tasks are giving this date.
 	public static final String NO_TIME_DEFAULT = LocalTime.MAX.toString();	// All timeless tasks are given this time.

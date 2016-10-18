@@ -12,5 +12,8 @@ public class Messages {
     public static final String MESSAGE_DONE_TASKS_LISTED_OVERVIEW = "%1$d done tasks listed!";
     public static final String MESSAGE_EDIT_TASK_IS_DONE_ERROR = "Cannot edit a done task!";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task edited";
-
+	public static final String MESSAGE_INVALID_PRIORITY = "Priority is either high, medium or low. Please try again.";
+	public static final String MESSAGE_ENCAPSULATE_DETAIL_WARNING = "Encapsulate your task details in ' '.";
+	public static final String MESSAGE_BLANK_DETAIL_WARNING = "Blank task? Did you mean to block out a date? Type help to see usage.";
+	public static final String MESSAGE_INVALID_PRIORITY_SPACE = "Did you remember to add a space before the /priority?";
 }
