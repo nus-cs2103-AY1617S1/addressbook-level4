@@ -138,6 +138,7 @@ public class EditCommand extends UndoableCommand {
             model.editStartDate(taskToEdit, startDate);
         }
         if (removeStart){
+        	startDate = null;
             model.editStartDate(taskToEdit, startDate);
         }
 
@@ -145,6 +146,7 @@ public class EditCommand extends UndoableCommand {
             model.editEndDate(taskToEdit, endDate);
         }
         if (removeEnd){
+        	endDate = null;
             model.editEndDate(taskToEdit, endDate);
         }
 
@@ -156,6 +158,7 @@ public class EditCommand extends UndoableCommand {
             model.editRecurrence(taskToEdit, recurrenceRate);
         } 
         if (removeRepeat){
+        	recurrenceRate = null;
             model.editRecurrence(taskToEdit, recurrenceRate);
         }
         updateHistory();
