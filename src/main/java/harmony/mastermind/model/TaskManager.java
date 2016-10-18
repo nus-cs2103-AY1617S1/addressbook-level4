@@ -95,13 +95,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(newData.getTaskList(), newData.getTagList(), newData.getArchiveList());
     }
 
-    //@@author A0139194X
-    public void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException {
-        Path filePath = Paths.get(newFilePath);
-        if (!Files.exists(filePath)) {
-            throw new FolderDoesNotExistException(newFilePath + " does not exist");
-        }
-    }
+
 
 //// task-level operations
 

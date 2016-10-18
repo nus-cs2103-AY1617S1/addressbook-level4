@@ -130,7 +130,6 @@ public class ModelManager extends ComponentManager implements Model {
 	//@@author: A0139194X
     @Override
     public synchronized void relocateSaveLocation(String newFilePath) throws FolderDoesNotExistException {
-        taskManager.checkSaveLocation(newFilePath);
         raise(new RelocateFilePathEvent(newFilePath));
         indicateTaskManagerChanged();
     }

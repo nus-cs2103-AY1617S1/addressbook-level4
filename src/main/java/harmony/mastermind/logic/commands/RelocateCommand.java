@@ -1,5 +1,9 @@
 package harmony.mastermind.logic.commands;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +16,7 @@ import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
+import harmony.mastermind.storage.StorageManager;
 
 /**
  * @author A0139194X
@@ -38,22 +43,43 @@ public class RelocateCommand extends Command{
      */
     public RelocateCommand(String newFilePath) {
         this.newFilePath = newFilePath.trim();
+        
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
+            checkSaveLocation(newFilePath);
             model.relocateSaveLocation(newFilePath);
             return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
         } catch (FolderDoesNotExistException fdnee) {
             return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
+        } catch (UnwrittableFolderException ufe) {
+            return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
+
         }
     }
     
     @Subscribe
     public CommandResult handleAccessDeniedEvent (AccessDeniedEvent event) {
         return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
+    }
+    
+    //@@author A0139194X
+    public void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException {
+        Path filePath = Paths.get(newFilePath);
+        if (!Files.exists(filePath)) {
+            throw new FolderDoesNotExistException(newFilePath + " does not exist");
+        }
+    }
+    
+    //@@author A0139194X
+    public void checkWrittableDirectory(String newFilePath) {
+        File newFile = new File(newFilePath);
+        if (!(newFile.isDirectory() && newFile.canWrite())) {
+            throw new UnwrittableFolderException(newFilePath);
+        }
     }
     
 }

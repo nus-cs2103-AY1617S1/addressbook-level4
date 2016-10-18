@@ -32,7 +32,7 @@ public class StorageManager extends ComponentManager implements Storage {
         super();
         this.taskManagerStorage = addressBookStorage;
         this.userPrefStorage = userPrefsStorage;
-}
+    }
 
     public StorageManager(String taskManagerFilePath, String userPrefsFilePath) {
         super();
@@ -84,20 +84,20 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
-    //@author A0139194X
+    //@@author A0139194X
     @Subscribe
     public void handleRelocateEvent(RelocateFilePathEvent event) {
         assert event.newFilePath != null;
         String oldPath = taskManagerStorage.getTaskManagerFilePath();
         String newPath = event.newFilePath;
-        if (event.newFilePath.endsWith("/")) {
+        if (newPath.endsWith("/")) {
             newPath = newPath + "mastermind.xml";
         } else {
             newPath = newPath + "/mastermind.xml";
         }
         taskManagerStorage.setTaskManagerFilePath(newPath);
         try {
-            taskManagerStorage.migrateIntoNewFolder(oldPath, event.newFilePath);
+            taskManagerStorage.migrateIntoNewFolder(oldPath, newPath);
         } catch (AccessDeniedException ade) {
             logger.warning("Permission to access " + newPath + " denied." );
             logger.warning("Reverting save location back to " + oldPath);

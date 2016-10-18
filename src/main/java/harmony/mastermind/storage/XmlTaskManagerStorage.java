@@ -87,9 +87,10 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     public void migrateIntoNewFolder(String oldPath, String newPath) throws IOException {
         assert oldPath != null;
         assert newPath != null;
-        newPath = newPath + "/mastermind.xml";
         Path oldDirectory = Paths.get(oldPath);
         Path newDirectory = Paths.get(newPath);
+        File newFile = new File(newPath);
+        FileUtil.createIfMissing(newFile);
         Files.copy(oldDirectory, newDirectory, StandardCopyOption.REPLACE_EXISTING);
         deleteFile(oldPath);
     }

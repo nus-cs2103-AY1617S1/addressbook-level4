@@ -182,7 +182,7 @@ public class MainApp extends Application {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
-
+    
     public static void main(String[] args) {
         launch(args);
     }
