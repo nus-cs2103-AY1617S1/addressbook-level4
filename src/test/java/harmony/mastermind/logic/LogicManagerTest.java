@@ -637,7 +637,7 @@ public class LogicManagerTest {
 
             cmd.append("edit 1");
 
-            cmd.append(" name/\"edited task name\"");
+            cmd.append(" 'edited task name'");
             
             cmd.deleteCharAt(cmd.length()-1);
 
