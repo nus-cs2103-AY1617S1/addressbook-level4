@@ -1,5 +1,6 @@
 package seedu.task.logic.commands;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -9,8 +10,13 @@ import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.task.Title;
+import seedu.task.model.task.Description;
+import seedu.task.model.task.DueDate;
+import seedu.task.model.task.Interval;
 import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.StartDate;
 import seedu.task.model.task.Task;
+import seedu.task.model.task.TimeInterval;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
@@ -38,7 +44,8 @@ public class EditCommand extends Command {
 	private Task copy, editedTask;
 	private int paramLength;
 	private String[] params;
-	private String newTitle;
+	private String newTitle, description, startDate, dueDate, interval, timeInterval;
+	private Set<String> tags;
 	private UnmodifiableObservableList<ReadOnlyTask> taskList;
 	private int taskIndex;
 	private ArrayList<Task> tempCopy = new ArrayList<Task>();
@@ -53,6 +60,12 @@ public class EditCommand extends Command {
 		//paramLength = strings.length;
 		//params = strings;
 		newTitle = title;
+		this.description = description;
+		this.startDate = startDate;
+		this.dueDate = dueDate;
+		this.interval = interval;
+		this.timeInterval = timeInterval;
+		this.tags = tags;
 	}
 	
 	
@@ -85,6 +98,8 @@ public class EditCommand extends Command {
 			return new CommandResult(MESSAGE_DUPLICATE);
 		} catch (IllegalValueException e) {
 			return new CommandResult(MESSAGE_PARAM);
+		} catch (ParseException e) {
+			return new CommandResult(MESSAGE_PARAM);
 		}
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
@@ -112,10 +127,11 @@ public class EditCommand extends Command {
 	 * Begins the editing process
 	 * @param task the specified task to edit
 	 * @throws IllegalValueException if the parameters provided were incorrect
+	 * @throws ParseException 
 	 */
-	public void edit(ReadOnlyTask task) throws IllegalValueException{
+	public void edit(ReadOnlyTask task) throws IllegalValueException, ParseException{
 		copy = (Task) selectedTask;
-		iterateParams(newTitle, params);
+		iterateParams(newTitle, description, startDate, dueDate, interval, timeInterval);
 		editedTask = copy;
 	}
 	
@@ -123,10 +139,26 @@ public class EditCommand extends Command {
 	 * Iterates through the parameters
 	 * @param params array of parameters
 	 * @throws IllegalValueException if the parameters provided were incorrect
+	 * @throws ParseException 
 	 */
-	public void iterateParams(String name, String[] params) throws IllegalValueException{
+	public void iterateParams(String name, String description, String startDate, String dueDate, String interval, String timeInterval) throws IllegalValueException, ParseException{
 		if (name != null) {
-		    changeTitle(newTitle);
+		    changeTitle(name);
+		}
+		if (description != null) {
+			changeDescription(description);
+		}
+		if (startDate != null) {
+			changeStartDate(startDate);
+		}
+		if (dueDate != null) {
+			changeDueDate(dueDate);
+		}
+		if (interval != null) {
+			changeInterval(interval);
+		}
+		if (timeInterval != null) {
+			changeTimeInterval(timeInterval);
 		}
 	}
 	
@@ -139,5 +171,59 @@ public class EditCommand extends Command {
 		Title newTitle = new Title(title);
 		copy = new Task(newTitle, copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTags());
 	}
+	
+	/**
+	 * Changes the description in a task if specified in the parameters
+	 * @param description the new description value
+	 * @throws IllegalValueException if the description value is invalid
+	 */
+	public void changeDescription(String description) throws IllegalValueException {
+		Description newDescription = new Description(description);
+		copy = new Task(copy.getTitle(), newDescription, copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTags());
+	}
+	
+	/**
+	 * Changes the start date in a task if specified in the parameters
+	 * @param startDate the new start date value
+	 * @throws IllegalValueException if the start date value is invalid
+	 * @throws ParseException if start date value is invalid
+	 */
+	public void changeStartDate(String startDate) throws IllegalValueException, ParseException {
+		StartDate newStartDate = new StartDate(startDate);
+		copy = new Task(copy.getTitle(), copy.getDescription(), newStartDate, copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTags());
+	}
+
+	/**
+	 * Changes the due date in a task if specified in the parameters
+	 * @param dueDate the new due date value
+	 * @throws IllegalValueException if the due date value is invalid
+	 * @throws ParseException if due date value is invalid
+	 */
+	public void changeDueDate(String dueDate) throws IllegalValueException, ParseException {
+		DueDate newDueDate = new DueDate(dueDate);
+		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), newDueDate, copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTags());
+	}
+
+	/**
+	 * Changes the interval in a task if specified in the parameters
+	 * @param interval the new interval value
+	 * @throws IllegalValueException if the interval value is invalid
+	 */
+	public void changeInterval(String interval) throws IllegalValueException {
+		Interval newInterval = new Interval(interval);
+		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), newInterval, copy.getTimeInterval(), copy.getStatus(), copy.getTags());
+	}
+	
+	/**
+	 * Changes the time interval in a task if specified in the parameters
+	 * @param timeInterval the new time interval value
+	 * @throws IllegalValueException if the time interval value is invalid
+	 */
+	public void changeTimeInterval(String timeInterval) throws IllegalValueException {
+		TimeInterval newTimeInterval = new TimeInterval(timeInterval);
+		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), newTimeInterval, copy.getStatus(), copy.getTags());
+	}
+
+
 
 }
