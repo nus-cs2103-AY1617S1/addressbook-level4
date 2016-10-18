@@ -142,7 +142,9 @@ public class ActivityManager implements ReadOnlyActivityManager {
         events.add(t);
     }
     
-
+    public void completeActivity(ReadOnlyActivity t) {
+        t.setCompleted();
+    }
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}

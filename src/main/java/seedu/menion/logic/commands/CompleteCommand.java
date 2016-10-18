@@ -26,7 +26,6 @@ public class CompleteCommand extends Command {
     public final int targetIndex;
     public final String targetType;
     
-    private Activity toBeCompleted;
     
     public CompleteCommand(String[] splited) {
         this.targetType = splited[1];
@@ -37,11 +36,12 @@ public class CompleteCommand extends Command {
     public CommandResult execute() {
         
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
+        
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
             lastShownList = model.getFilteredFloatingTaskList();
         }
         else if (targetType.equals(Activity.TASK_TYPE)) {
-            lastShownList = model.getFilteredFloatingTaskList();
+            lastShownList = model.getFilteredTaskList();
         }
         else {
             lastShownList = model.getFilteredEventList();
@@ -51,12 +51,10 @@ public class CompleteCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
-        
+
         ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex - 1);
-        toBeCompleted = (Activity)activityToComplete;
-        System.out.println("This is name of activtiy to be completed: " + toBeCompleted.getActivityName().fullName);
-        toBeCompleted.setCompleted();
-        System.out.println("This is the status of activity tbc: " + toBeCompleted.getActivityStatus().toString());
+
+        model.completeActivity(activityToComplete);
         
         return new CommandResult(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
     }

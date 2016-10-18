@@ -20,8 +20,8 @@ public interface Model {
     /** Deletes the given task */
     void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
     
-    /** Completes the given task. */
-    void completeTask(Activity task);
+    /** Completes the given activity. */
+    void completeActivity(ReadOnlyActivity task);
     
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
