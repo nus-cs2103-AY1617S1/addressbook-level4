@@ -175,8 +175,8 @@ public class Parser {
         if (!taskMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } else {
-            String startTime = (taskMatcher.group("start") == null) ? "" : taskMatcher.group("start");
-            String endTime = (taskMatcher.group("end") == null) ? "" : taskMatcher.group("end");
+            String startTime = (taskMatcher.group("start") == null) ? null : taskMatcher.group("start");
+            String endTime = (taskMatcher.group("end") == null) ? null : taskMatcher.group("end");
         
             try {
                 return new AddCommand(taskMatcher.group("name").replace("\\", ""), startTime, endTime,
