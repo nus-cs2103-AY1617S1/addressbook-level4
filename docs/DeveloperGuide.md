@@ -135,7 +135,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -605,43 +605,39 @@ Use case ends
 
 ##### DATE
 
-> Date is in DDMM format eg. 2909 means 29 september
+> Date is in DD mm format e.g. 29 sep
 
 ##### TIME
 
-> Time is in 24 hours format limit to 2359
+> Time is in 12 hours’ format 12pm, 7am
 
 ## Appendix E : Product Survey
 
 Remember the Milk:<br>
-* Allows for recurring weekly tasks<br>
-* Allows for no start date or end date<br>
-* Allows for date<br>
-* Allows for location (google maps)<br>
-* Allows for estimate<br>
-* Allows priority<br>
-* Allows tags<br>
-* Allows creation of list to sort tasks<br>
-
-Google Calendar:<br>
-* Generally suitable for his requirements regarding scheduling events<br>
-* The problem is this Google calendar prefer users to use mouse rather than keyboard.<br> 
-* Also it requires online connection. <br>
+Strengths:<br>
+* Generally suitable for his requirements regarding scheduling events.<br>
 * And probably a database.<br>
-
+Weakness:<br>
+* The problem is this Google calendar prefer users to use mouse rather than keyboard.<br>
+* Also it requires online connection.<br>
 Any.do:<br>
-* Can sync across platforms. <br>
+Strengths:<br>
+* Can sync across platforms.<br> 
 * Provide convenience service for scheduling.<br> 
-* Also prefers mouse. <br>
-* Need an account. <br>
+Weaknesses:<br>
+* Also prefers mouse.<br> 
+* Need an account.<br> 
 * Requires Internet connection.<br>
 
 Calendar<br>
+Strengths:<br>
 * Separate tasks and calendar in one app<br>
 * Able to add task and tag them<br>
 * Able to add recurring tasks<br>
 * Able to add in tasks to calendar in one line using auto detect<br>
 * Able to view completed tasks<br>
+Weaknesses:<br>
+* Prefers touch input<br>
 
 
 

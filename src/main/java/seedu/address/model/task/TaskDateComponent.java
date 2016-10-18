@@ -2,6 +2,12 @@ package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
 
+/**
+ * This class served as the occurrence portion in an abstraction occurrence pattern.
+ * The abstraction is the Task and the occurrence is the TaskDateComponent.
+ * @author User
+ *
+ */
 public class TaskDateComponent {
     private Task taskReference;
     private TaskDate startDate, endDate;
@@ -23,6 +29,7 @@ public class TaskDateComponent {
         this.endDate = new TaskDate(endDate);
     }
     
+    /** copy constructor */
     public TaskDateComponent(TaskDateComponent taskDateComponent) {
         this.taskReference = taskDateComponent.taskReference;
         this.startDate = taskDateComponent.startDate;
@@ -46,6 +53,11 @@ public class TaskDateComponent {
         return endDate;
     }
     
+    /**
+     * Checks if TaskDateComponent is in a valid time slot
+     * 
+     * @return True if it is in a valid time slot
+     */
     public boolean isValidTimeSlot(){
         if(startDate!=null && endDate!=null){
             return (endDate.getDate()).after(startDate.getDate());
@@ -54,6 +66,12 @@ public class TaskDateComponent {
         }
     }
     
+    /**
+     * Checks if the TaskDate has only end date
+     * 
+     * @return True if it has only an end date.
+     *          False if it also contains a start date.
+     */
     public boolean hasOnlyEndDate() {
         if (startDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT){
             return false;
@@ -61,15 +79,19 @@ public class TaskDateComponent {
         return true;
     }
     
+
     public ReadOnlyTask getTaskReference() {
         return taskReference;
     }
-    
+
+    /**
+     * Archive this task component
+     */
     public void archive() {
         isArchived = true;
     }
     
-    public boolean tIsArchived() {
+    public boolean isArchived() {
         return isArchived;
     }
     
