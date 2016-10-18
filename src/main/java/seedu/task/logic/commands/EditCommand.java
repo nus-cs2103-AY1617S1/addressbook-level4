@@ -2,6 +2,7 @@ package seedu.task.logic.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
@@ -47,10 +48,10 @@ public class EditCommand extends Command {
 	 * @param name the name/identifier of the task
 	 * @param strings the parameters
 	 */
-	public EditCommand(int index, String title, String... strings) {
+	public EditCommand(int index, String title, String description, String startDate, String dueDate, String interval, String timeInterval, Set<String> tags) {
 		taskIndex = index;
-		paramLength = strings.length;
-		params = strings;
+		//paramLength = strings.length;
+		//params = strings;
 		newTitle = title;
 	}
 	

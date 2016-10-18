@@ -38,7 +38,13 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     private static final Pattern TASK_DATA_ARGS_FORMAT_EDIT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[^/]+)"
-                    + " t/(?<newTitle>[^/]+)");
+                    + "( t/(?<newTitle>[^/]+))?"
+                    + "( d/(?<description>[^/]+))?"
+                    + "( sd/(?<startDate>[^/]+))?"
+                    + "( dd/(?<dueDate>[^/]+))?"
+                    + "( i/(?<interval>[^/]+))?"
+                    + "( ti/(?<timeInterval>[^/]+))?"
+                    + "( (?<tagArguments>(?: t/[^/]+)*))?");
 
 
     public Parser() {}
@@ -127,7 +133,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareEdit(String args){
+    private Command prepareEdit(String args) {
         final Matcher matcher = TASK_DATA_ARGS_FORMAT_EDIT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -136,10 +142,28 @@ public class Parser {
         try {
 			return new EditCommand(
 			        Integer.parseInt(matcher.group("index")),
-			        matcher.group("newTitle")
+			        matcher.group("newTitle"),
+			        matcher.group("description"),
+                    matcher.group("startDate"),
+                    matcher.group("dueDate"),
+                    matcher.group("interval"),
+                    matcher.group("timeInterval"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
 			);
 		} catch (NumberFormatException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(e.getMessage());
+		} catch (NullPointerException e) {
+			return new EditCommand(
+			        Integer.parseInt(matcher.group("index")),
+			        matcher.group("newTitle"),
+			        matcher.group("description"),
+                    matcher.group("startDate"),
+                    matcher.group("dueDate"),
+                    matcher.group("interval"),
+                    matcher.group("timeInterval"),
+                    null);
 		}
     }
 
