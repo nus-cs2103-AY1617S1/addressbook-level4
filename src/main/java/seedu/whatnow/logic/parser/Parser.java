@@ -50,6 +50,17 @@ public class Parser {
 	private static final int ARG_TYPE = 2;
 	private static final int ARG = 3;
 	private static final int LIST_ARG = 0;
+	private static final String DELIMITER_BLANK_SPACE = " ";
+	private static final String TASK_TYPE_FLOATING = "todo";
+	private static final String TASK_TYPE_NON_FLOATING = "schedule";
+	private static final String LIST_COMMAND_ARG_COMPLETED = "done";
+	private static final String LIST_COMMAND_ARG_NOT_SPECIFIED = "";
+	private static final String LIST_COMMAND_ARG_ALL_TASKS = "all";
+	private static final String TASK_ARG_DESCRIPTION = "description";
+	private static final String TASK_ARG_TAG = "tag";
+	private static final String TASK_ARG_DATE = "date";
+	private static final String TASK_ARG_TIME = "time";
+	
 
 
 	public Parser() {}
@@ -224,7 +235,7 @@ public class Parser {
     }
     
     private Command prepareList(String args) {
-        String[] argComponents= args.trim().split(" ");
+        String[] argComponents= args.trim().split(DELIMITER_BLANK_SPACE);
         String listArg = argComponents[LIST_ARG];
         if (!isListCommandValid(listArg)) {
             return new IncorrectCommand(
@@ -234,7 +245,8 @@ public class Parser {
     }
     
     private boolean isListCommandValid(String listArg) {
-        return listArg.equals("done") || listArg.equals("") || listArg.equals("all");
+        return listArg.equals(LIST_COMMAND_ARG_COMPLETED) || listArg.equals(LIST_COMMAND_ARG_NOT_SPECIFIED) 
+                || listArg.equals(LIST_COMMAND_ARG_ALL_TASKS);
     }
     
 	/**
@@ -244,14 +256,14 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareDelete(String args) {
-
-		Optional<Integer> index = parseIndex(args);
+	    String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
+		Optional<Integer> index = parseIndex(argComponents[INDEX]);
 		if(!index.isPresent()){
 			return new IncorrectCommand(
 					String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 		}
 
-		return new DeleteCommand(index.get());
+		return new DeleteCommand(argComponents[TASK_TYPE], index.get());
 	}
 
     /**
@@ -317,14 +329,14 @@ public class Parser {
 	 * @param type is todo/schedule, index is the index of item on the list, argType is description/tag/date/time
 	 */
 	private boolean isValidUpdateCommandFormat(String type, int index, String argType) {
-		if (!(type.compareToIgnoreCase("todo") == 0 || type.compareToIgnoreCase("schedule") == 0)) {
+		if (!(type.compareToIgnoreCase(TASK_TYPE_FLOATING) == 0 || type.compareToIgnoreCase(TASK_TYPE_NON_FLOATING) == 0)) {
 			return false;
 		}
 		if (index < 0) {
 			return false;
 		}
-		if (!(argType.compareToIgnoreCase("description") == 0 || argType.compareToIgnoreCase("tag") == 0 
-				|| argType.compareToIgnoreCase("date") == 0 || argType.compareToIgnoreCase("time") == 0)) {
+		if (!(argType.compareToIgnoreCase(TASK_ARG_DESCRIPTION) == 0 || argType.compareToIgnoreCase(TASK_ARG_TAG) == 0 
+				|| argType.compareToIgnoreCase(TASK_ARG_DATE) == 0 || argType.compareToIgnoreCase(TASK_ARG_TIME) == 0)) {
 			return false;
 		}
 		return true;
