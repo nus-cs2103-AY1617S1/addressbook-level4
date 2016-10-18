@@ -16,8 +16,6 @@ public class FloatingTaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label activityType;
-    @FXML
     private Label name;
     @FXML
     private Label note;
@@ -41,7 +39,6 @@ public class FloatingTaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        activityType.setText(floatingTask.getActivityType().toString());
         name.setText(floatingTask.getActivityName().fullName);
         note.setText(floatingTask.getNote().toString());
         status.setText(floatingTask.getActivityStatus().toString());
