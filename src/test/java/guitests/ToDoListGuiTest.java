@@ -78,7 +78,6 @@ public abstract class ToDoListGuiTest {
      */
     protected ToDoList getInitialData() {
         ToDoList ab = TestUtil.generateEmptyToDoList();
-        TypicalTestTasks.loadToDoListWithSampleData(ab);
         return ab;
     }
 

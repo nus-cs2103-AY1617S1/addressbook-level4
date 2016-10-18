@@ -5,8 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends ToDoListGuiTest {
-
- /*
+    /*
     @Test
     public void clear() {
 
@@ -15,17 +14,18 @@ public class ClearCommandTest extends ToDoListGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.meetHoon.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.meetHoon));
+        commandBox.runCommand(td.buyMilk.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.buyMilk));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 
         //verify clear command works when the list is empty
         assertClearCommandSuccess();
     }
-*/
+
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
     }
+    */
 }
