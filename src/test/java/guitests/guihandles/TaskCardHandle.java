@@ -33,7 +33,7 @@ public class TaskCardHandle extends GuiHandle {
 
     public boolean isSameTask(ReadOnlyTask task){
         return getDescription().equals(task.getDescription().fullDescription) 
-                 && getDateTime().equals(task.getDateTime().value);
+                 && getDateTime().equals(task.getDateTime().valueFormatted);    //Checks DateTime shown in GUI against a given task's DateTime
     }
 
     @Override

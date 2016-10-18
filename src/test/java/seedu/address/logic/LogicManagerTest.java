@@ -370,7 +370,7 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Description name = new Description("Adam Brown");
+            Description name = new Description("Complete assignments");
             DateTime privateDateTime = new DateTime("22/01/2014 12:01");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -401,7 +401,7 @@ public class LogicManagerTest {
 
             cmd.append(p.getDescription().toString());
             cmd.append("\"");
-            cmd.append(" by ").append(p.getDateTime());
+            cmd.append(" by ").append(p.getDateTime().value);
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){

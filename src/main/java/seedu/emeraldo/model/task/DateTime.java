@@ -14,13 +14,14 @@ public class DateTime {
     
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task date and time must follow this format DD/MM/YYYY HH:MM in 24 hours format";
     public static final Pattern DATETIME_VALIDATION_REGEX =
-            Pattern.compile("((?<day>(0?[1-9]|[12][0-9]|3[01]))"            //Day regex
+            Pattern.compile("(?<day>(0?[1-9]|[12][0-9]|3[01]))"            //Day regex
                     + "/(?<month>(0?[1-9]|[1][0-2]))/"                      //Month regex
-                    + "(?<year>(([0-9][0-9])?[0-9][0-9])))"                 //Year regex
+                    + "(?<year>(([0-9][0-9])?[0-9][0-9]))"                 //Year regex
                     + "( (?<hour>([01][0-9]|[2][0-3])))?"                   //Hour regex
                     + "(:(?<minute>([0-5][0-9])))?");                       //Minute regex
     
     public final String value;
+    public final String valueFormatted;
     public final LocalDate valueDate;
     public final LocalTime valueTime;
 
@@ -31,53 +32,55 @@ public class DateTime {
      */
     public DateTime(String dateTime) throws IllegalValueException {
         assert dateTime != null;
-        final Matcher matcher = DATETIME_VALIDATION_REGEX.matcher(dateTime.trim());
-        if (!matcher.matches()) {
+        final Matcher matcher = DATETIME_VALIDATION_REGEX.matcher(dateTime);
+        
+        if (!dateTime.isEmpty() && !matcher.matches()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
         
-        final String day = matcher.group("day");
-        final String month = matcher.group("month");
-        final String year = matcher.group("year");
-        final String hour = matcher.group("hour");
-        final String minute = matcher.group("minute");
-        
-        
-        if(dateTime.equals("")){            //Constructing an empty DateTime object 
+        if(dateTime.isEmpty()){
             this.valueDate = null;
             this.valueTime = null;
             this.value = "";
-            
-        }else if(!dateTime.contains(":")){           //Constructing a DateTime object with Date only
-            int yearParsed = Integer.parseInt(year);
-            int monthParsed = Integer.parseInt(month);
-            int dayParsed = Integer.parseInt(day);
-            this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
-            
-            this.valueTime = null;
-            
-//            this.value = day + " " + returnMonthInWords(monthParsed) + " " + year;
-          this.value = dateTime;  
-        } else {                                    //Constructing a DateTime object with Date and time
-            int yearParsed = Integer.parseInt(year);
-            int monthParsed = Integer.parseInt(month);
-            int dayParsed = Integer.parseInt(day);
-            this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
+            this.valueFormatted = "No date and time specified";
+        } else {
+            final String day = matcher.group("day");
+            final String month = matcher.group("month");
+            final String year = matcher.group("year");
+            final String hour = matcher.group("hour");
+            final String minute = matcher.group("minute");
         
-            int hourParsed = Integer.parseInt(hour);
-            int minuteParsed = Integer.parseInt(minute);
-            this.valueTime = LocalTime.of(hourParsed, minuteParsed);
-/*            
-            this.value = day + " " + returnMonthInWords(monthParsed) +  " " 
+            if(!dateTime.contains(":")){           //Constructing a DateTime object with Date only
+                int yearParsed = Integer.parseInt(year);
+                int monthParsed = Integer.parseInt(month);
+                int dayParsed = Integer.parseInt(day);
+                this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
+            
+                this.valueTime = null;
+                this.valueFormatted = day + " " + returnMonthInWords(monthParsed) + " " + year;
+                this.value = dateTime;
+                
+            } else {                                    //Constructing a DateTime object with Date and time
+                int yearParsed = Integer.parseInt(year);
+                int monthParsed = Integer.parseInt(month);
+                int dayParsed = Integer.parseInt(day);
+                this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
+        
+                int hourParsed = Integer.parseInt(hour);
+                int minuteParsed = Integer.parseInt(minute);
+                this.valueTime = LocalTime.of(hourParsed, minuteParsed);
+            
+                this.valueFormatted = day + " " + returnMonthInWords(monthParsed) +  " " 
                     + year + " " + hour + ":" + minute;
-*/        this.value = dateTime;
+                this.value = dateTime;
+            }
         }
         
     }
    
     @Override
     public String toString() {
-        return value;
+        return valueFormatted;
     }
 
     @Override
