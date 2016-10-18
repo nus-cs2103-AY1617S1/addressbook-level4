@@ -29,11 +29,11 @@ public class EditCommand extends Command implements Undoable, Redoable {
     public static final String COMMAND_KEYWORD_UPDATE = "update";
 
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
-                                                         + "(?=(?:.*?name\\/\"(?<name>.+?)\")?)"
-                                                         + "(?=(?:.*?startDate\\/\"(?<startDate>.+?)\")?)"
-                                                         + "(?=(?:.*?endDate\\/\"(?<endDate>.+?)\")?)"
-                                                         + "(?=(?:.*tags\\/(?<tags>\\w+(?:,\\w+)*)?)?)"
-                                                         + ".*";
+            + "(?=(?:.*?\\s\\'(?<name>.+?)')?)"
+            + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
+            + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
+            + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
+            + ".*";
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
 
@@ -44,14 +44,14 @@ public class EditCommand extends Command implements Undoable, Redoable {
                                                  + " | "
                                                  + COMMAND_KEYWORD_UPDATE
                                                  + ") "
-                                                 + "<index> [name/\"<task_name>\"] [startDate/\"<start_date\">] [endDate/\"<end_date\">] [tags/<comma_spearated_tags>]";
+                                                 + "<index> ['<task_name>'] [sd/'<start_date>'] [ed/<end_date>'] [t/'<comma_spearated_tags>']";
 
     public static final String MESSAGE_USAGE = COMMAND_SUMMARY
                                                + "\n"
                                                + "Edits the task identified by the index number used in the last task listing.\n"
                                                + "Example: "
                                                + COMMAND_KEYWORD_EDIT
-                                               + " 1 name/\"I change the task name to this, unspecified field are preserved.";
+                                               + " 1 'I change the task name to this, unspecified field are preserved.'";
 
     public static final String MESSAGE_EDIT_TASK_PROMPT = "Edit the following task: %1$s";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task successfully edited: %1$s";
