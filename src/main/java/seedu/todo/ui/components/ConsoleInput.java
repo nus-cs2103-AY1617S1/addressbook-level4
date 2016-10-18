@@ -48,6 +48,12 @@ public class ConsoleInput extends Component {
         // Set text in ConsoleInput box if provided
         if (consoleInputValue.length() > 0) {
             consoleInputTextField.setText(consoleInputValue);
+            
+            // Add invalid field css
+            consoleInputTextField.getStyleClass().add(INVALID_COMMAND_STYLECLASS);
+        } else {
+            // Remove invalid field css
+            consoleInputTextField.getStyleClass().remove(INVALID_COMMAND_STYLECLASS);
         }
         
         // Load Console.
