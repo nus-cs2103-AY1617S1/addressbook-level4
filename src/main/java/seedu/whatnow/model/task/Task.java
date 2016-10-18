@@ -12,11 +12,13 @@ import seedu.whatnow.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    
     private TaskDate taskDate;
     private UniqueTagList tags;
-    
     private String status;
+    private String taskType;
+    
+    private static final String FLOATING = "floating";
+    private static final String NOT_FLOATING = "not_floating";
 
     /**
      * Every field must be present and not null.
@@ -26,17 +28,11 @@ public class Task implements ReadOnlyTask {
         this.name = name;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.status = status;
-    }
-
-    /**
-     * Copy constructor.
-     */
-    public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTaskDate(), source.getTags(), source.getStatus());
+        this.taskType = FLOATING;
     }
     
     /**
-     * 	Every field must be present and not null
+     *  Every field must be present and not null
      * 
      */
     public Task(Name name, TaskDate taskDate, UniqueTagList tags,  String status) {
@@ -45,7 +41,30 @@ public class Task implements ReadOnlyTask {
         this.taskDate = taskDate;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.status = status;
+        this.taskType = NOT_FLOATING;
     }
+    
+    /**
+     *  Every field must be present and not null
+     * 
+     */
+    public Task(Name name, TaskDate taskDate, UniqueTagList tags,  String status, String taskType) {
+        assert !CollectionUtil.isAnyNull(name, tags);
+        this.name = name;
+        this.taskDate = taskDate;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.status = status;
+        this.taskType = taskType;
+    }
+
+    /**
+     * Copy constructor.
+     */
+    public Task(ReadOnlyTask source) {
+        this(source.getName(), source.getTaskDate(), source.getTags(), source.getStatus(), source.getTaskType());
+    }
+    
+
 
     @Override
     public Name getName() {
@@ -65,6 +84,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public String getStatus() {
         return status;
+    }
+    
+    @Override
+    public String getTaskType() {
+        return taskType;
     }
     
     public void setName(Name name) {
