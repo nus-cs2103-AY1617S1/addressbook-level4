@@ -168,7 +168,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
 
-/*    public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+/*    public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
 =======
     public boolean removeDeadline(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
 >>>>>>> code_cleanup

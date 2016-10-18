@@ -28,7 +28,7 @@ public class Date {
     }
 
     /**
-     * Returns true if a given string is a valid person phone number.
+     * Returns true if a given string is a valid task date.
      */
     public static boolean isValidDate(String test) {
     	if (test.matches(DATE_VALIDATION_REGEX))

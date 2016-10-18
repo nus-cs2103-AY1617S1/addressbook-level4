@@ -39,7 +39,7 @@ public class End {
     }
 
     /**
-     * Returns true if a given string is a valid person email.
+     * Returns true if a given string is a valid task end time.
      */
     public static boolean isValidEnd(String test) {
     	if (test.matches(END_VALIDATION_REGEX) || test == "default")

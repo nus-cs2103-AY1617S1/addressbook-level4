@@ -21,11 +21,11 @@ import java.util.stream.Collectors;
 public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
 
     @XmlElement
-    private List<XmlAdaptedPerson> events;
+    private List<XmlAdaptedTask> events;
     @XmlElement
-    private List<XmlAdaptedPerson> deadlines;
+    private List<XmlAdaptedTask> deadlines;
     @XmlElement
-    private List<XmlAdaptedPerson> todos;
+    private List<XmlAdaptedTask> todos;
     @XmlElement
     private List<Tag> tags;
 
@@ -45,9 +45,9 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
      * Conversion
      */
     public XmlSerializableAddressBook(ReadOnlyTaskBook src) {
-        events.addAll(src.getEventList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        deadlines.addAll(src.getDeadlineList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        todos.addAll(src.getTodoList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        events.addAll(src.getEventList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        deadlines.addAll(src.getDeadlineList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        todos.addAll(src.getTodoList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -65,7 +65,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     @Override
     public UniqueTaskList getUniqueEventList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : events) {
+        for (XmlAdaptedTask p : events) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -78,7 +78,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     @Override
     public UniqueTaskList getUniqueDeadlineList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : deadlines) {
+        for (XmlAdaptedTask p : deadlines) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -91,7 +91,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     @Override
     public UniqueTaskList getUniqueTodoList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : todos) {
+        for (XmlAdaptedTask p : todos) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {

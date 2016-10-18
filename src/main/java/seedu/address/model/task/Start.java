@@ -42,7 +42,7 @@ public class Start {
     }
 
     /**
-     * Returns if a given string is a valid person email.
+     * Returns if a given string is a valid task start time.
      */
     public static boolean isValidStart(String test) {
     	if (test.matches(START_VALIDATION_REGEX) || test == "default")
