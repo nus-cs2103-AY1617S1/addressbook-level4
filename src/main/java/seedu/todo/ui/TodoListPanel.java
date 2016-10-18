@@ -91,11 +91,24 @@ public class TodoListPanel extends UiPart {
         }
     }
 
-    public void scrollTo(int index) {
+    /**
+     * Scrolls the {@link #todoListView} to the particular task card at the listIndex
+     */
+    void scrollAndSelect(int listIndex) {
         Platform.runLater(() -> {
-            todoListView.scrollTo(index);
-            todoListView.getSelectionModel().clearAndSelect(index);
+            todoListView.scrollTo(listIndex);
+            todoListView.getSelectionModel().clearAndSelect(listIndex);
         });
+    }
+
+    /**
+     * Scrolls the {@link #todoListView} to the particular task card.
+     * @param task for the list to scroll to.
+     */
+    void scrollAndSelect(ImmutableTask task) {
+        TaskCard taskCard = TaskCard.getTaskCard(task);
+        int listIndex = FxViewUtil.convertToListIndex(taskCard.getDisplayedIndex());
+        scrollAndSelect(listIndex);
     }
 
     /* Override Methods */
