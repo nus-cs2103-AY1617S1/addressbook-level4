@@ -36,6 +36,9 @@ public class MainParser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
 	private static final String MESSAGE_INVALID_PRIORITY = "Priority is either high, medium or low. Please try again.";
+	private static final String MESSAGE_ENCAPSULATE_DETAIL_WARNING = "Encapsulate your task details in ' '.";
+	private static final String MESSAGE_BLANK_DETAIL_WARNING = "Blank task? Did you mean to block out a date? Type help to see usage.";
+
 	
 	public static final String NO_DATE_DEFAULT = LocalDate.MIN.toString();	// All floating tasks are giving this date.
 	public static final String NO_TIME_DEFAULT = LocalTime.MAX.toString();	// All timeless tasks are given this time.
@@ -346,10 +349,10 @@ public class MainParser {
     private static void extractDetail(String args) throws IllegalValueException {
     	// Check if only one ' used
     	if (args.lastIndexOf("'") == args.indexOf("'"))
-    		throw new IllegalValueException("Encapsulate your task details in ' '.");
+    		throw new IllegalValueException(MESSAGE_ENCAPSULATE_DETAIL_WARNING);
     	// Check if detail is empty.
     	if (args.lastIndexOf("'") == args.indexOf("'")+1) {
-    		throw new IllegalValueException("Blank task? Did you mean to block out a date? Type help to see usage.");
+    		throw new IllegalValueException(MESSAGE_BLANK_DETAIL_WARNING);
     	}
     	// Split into '  ...  '
     	String[] details = args.split("^'(.+)'$");
