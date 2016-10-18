@@ -78,9 +78,9 @@ Format: `list [t/LIST_TYPE]`
 > Parameters | Description  
 > -------- | :-------- 
 > LIST_TYPE | `Optional` Specifies the name of the task.<br>`Accepts` values `DueDate`, `PriorityLevel`, `Archived`<br>`Defaults` to `DueDate`
-> | `DueDate` | DueDate
-> | `PriorityLevel` | PriorityLevel
-> | `Archived` | Archived
+>   | `DueDate` | DueDate
+>   | `PriorityLevel` | PriorityLevel
+>   | `Archived` | Archived
 
 > If TYPE is `Due Date`, the tasks and events are sorted according to due date and time of tasks and start date and time of events, earliest first.<br>
 > If no ENDTIME specified (floating tasks), sorted to bottom of list.<br>
