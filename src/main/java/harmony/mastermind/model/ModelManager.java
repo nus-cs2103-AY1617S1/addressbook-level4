@@ -14,9 +14,11 @@ import com.google.common.eventbus.Subscribe;
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
+import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.Redoable;
@@ -94,6 +96,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
+        clearUndoHistory();
+        clearRedoHistory();
         indicateTaskManagerChanged();
     }
 
@@ -152,6 +156,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void clearRedoHistory(){
         redoHistory.clear();
     }
+    
+    //@@author A0139194X
+    /** This method should only be called when the user entered a new command other than redo/undo **/
+    public void clearUndoHistory() {
+        undoHistory.clear();
+    }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
@@ -186,6 +196,10 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void relocateSaveLocation(String newFilePath) throws FolderDoesNotExistException {
         raise(new RelocateFilePathEvent(newFilePath));
         indicateTaskManagerChanged();
+    }
+    
+    public synchronized void indicateConfirmationToUser() throws CommandCancelledException {
+        raise(new ExpectingConfirmationEvent());
     }
     
     //=========== Filtered List Accessors ===============================================================
