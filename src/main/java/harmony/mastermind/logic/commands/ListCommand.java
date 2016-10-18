@@ -11,8 +11,9 @@ import java.util.Optional;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_FORMAT = "(list) <Tab_name> \n";
 
-    public static final String MESSAGE_USAGE = "list archive";
+    public static final String MESSAGE_USAGE = "[Examples] \nlist \nlist events";
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     public static final String MESSAGE_SUCCESS_TASKS = "Listed all floating tasks";
     public static final String MESSAGE_SUCCESS_EVENTS = "Listed all events";

@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Arrays;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -26,6 +28,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public static final int NOT_FOUND = -1;
 
     private static final String TASK_LIST_VIEW_ID = "#taskTableHome";
+    private static final String ARCHIVE_LIST_VIEW_ID = "#taskTableArchive";
 
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -40,6 +43,11 @@ public class TaskListPanelHandle extends GuiHandle {
         return (TableView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
 
     }
+    
+    public TableView<ReadOnlyTask> getArchiveTableView() {
+        return (TableView<ReadOnlyTask>) getNode(ARCHIVE_LIST_VIEW_ID);
+
+    }
 
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
@@ -47,6 +55,15 @@ public class TaskListPanelHandle extends GuiHandle {
      */
     public boolean isListMatching(ReadOnlyTask... tasks) {
         return this.isListMatching(0, tasks);
+    }
+    
+    /**
+     * Returns true if the list is showing the task details correctly and in correct order.
+     * @param tasks A list of task in the correct order.
+     */
+    //@@author A0124797R
+    public boolean isArchivedListMatching(ReadOnlyTask... tasks) {
+        return this.isArchivedListMatching(0, tasks);
     }
     
     /**
@@ -60,8 +77,30 @@ public class TaskListPanelHandle extends GuiHandle {
     /**
      * Returns true if the {@code tasks} appear as the sub list (in that order) at position {@code startPosition}.
      */
-    public boolean containsInOrder(int startPosition, ReadOnlyTask... tasks) {
+    public boolean containsInOrderHome(int startPosition, ReadOnlyTask... tasks) {
         List<ReadOnlyTask> tasksInList = getTableView().getItems();
+
+        // Return false if the list in panel is too short to contain the given list
+        if (startPosition + tasks.length > tasksInList.size()){
+            return false;
+        }
+
+        // Return false if any of the tasks doesn't match
+        for (int i = 0; i < tasks.length; i++) {
+            if (!tasksInList.get(startPosition + i).getName().equals(tasks[i].getName())){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    /**
+     * Returns true if the {@code tasks} appear as the sub list (in that order) at position {@code startPosition}.
+     */
+    //@@author A0124797R
+    public boolean containsInOrderArchive(int startPosition, ReadOnlyTask... tasks) {
+        List<ReadOnlyTask> tasksInList = getArchiveTableView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
         if (startPosition + tasks.length > tasksInList.size()){
@@ -83,18 +122,45 @@ public class TaskListPanelHandle extends GuiHandle {
      * @param startPosition The starting position of the sub list.
      * @param tasks A list of task in the correct order.
      */
-    //@@author A0124797R
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
         List<ReadOnlyTask> table = getTableView().getItems();
         if (tasks.length + startPosition != table.size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (table.size() - 1) + " tasks");
         }
-        assertTrue(this.containsInOrder(startPosition, tasks));
-        
+
+        assertTrue(this.containsInOrderHome(startPosition, tasks));
+
         for (int i = 0; i < tasks.length; i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getTableView().scrollTo(scrollTo));
+            guiRobot.sleep(200);
+            
+            if (!TestUtil.compareTasks(table.get(i), tasks[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Returns true if the list is showing the task details correctly and in correct order.
+     * @param startPosition The starting position of the sub list.
+     * @param tasks A list of task in the correct order.
+     */
+    //@@author A0124797R
+    public boolean isArchivedListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
+        List<ReadOnlyTask> table = getArchiveTableView().getItems();
+        if (tasks.length + startPosition != table.size()) {
+            throw new IllegalArgumentException("List size mismatched\n" +
+                    "Expected " + (table.size() - 1) + " tasks");
+        }
+        
+        assertTrue(this.containsInOrderArchive(startPosition, tasks));
+
+        for (int i = 0; i < tasks.length; i++) {
+            final int scrollTo = i + startPosition;
+            guiRobot.interact(() -> getArchiveTableView().scrollTo(scrollTo));
             guiRobot.sleep(200);
             
             if (!TestUtil.compareTasks(table.get(i), tasks[i])) {
@@ -111,8 +177,6 @@ public class TaskListPanelHandle extends GuiHandle {
 
 
         int index = getTaskIndex(task.get());
-        
-        System.out.println("getting task: " + index);
 
         guiRobot.interact(() -> {
             getTableView().scrollTo(index);
@@ -128,18 +192,16 @@ public class TaskListPanelHandle extends GuiHandle {
      * Returns the position of the task given, {@code NOT_FOUND} if not found in the list.
      */
     public int getTaskIndex(ReadOnlyTask targetTask) {
-        System.out.println("inside");
         List<ReadOnlyTask> tasksInList = getTableView().getItems();
-
-        System.out.println("targetTask: " + targetTask.getName());
+        
         for (int i = 0; i < tasksInList.size(); i++) {
             String name = tasksInList.get(i).getName();
-            System.out.println("row " + i + ": " + name);
+            
             if(name.equals(targetTask.getName())){
                 return i;
             }
         }
-        System.out.println("failed");
+
         return NOT_FOUND;
     }
 

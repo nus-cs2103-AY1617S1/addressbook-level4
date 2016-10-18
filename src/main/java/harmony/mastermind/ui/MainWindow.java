@@ -53,6 +53,10 @@ public class MainWindow extends UiPart {
     private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
     
     private static final short INDEX_HOME = 0;
+    private static final short INDEX_TASKS = 1;
+    private static final short INDEX_EVENTS = 2;
+    private static final short INDEX_DEADLINES = 3;
+    private static final short INDEX_ARCHIVES = 4;
     
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 460;
@@ -431,15 +435,16 @@ public class MainWindow extends UiPart {
         String currentTab = getCurrentTab();
 
         setStyleToIndicateCorrectCommand();
+
+        /*
+         * We assume the command is correct. If it is incorrect, the command box
+         * will be changed accordingly in the event handling code {@link
+         * #handleIncorrectCommandAttempted}
+         */
+        mostRecentResult = logic.execute(currCommandText, currentTab);
+        consoleOutput.setText(mostRecentResult.feedbackToUser);
+        
         if (!currCommandText.equals(PreviousCommand.COMMAND_WORD)) {
-            /*
-             * We assume the command is correct. If it is incorrect, the command box
-             * will be changed accordingly in the event handling code {@link
-             * #handleIncorrectCommandAttempted}
-             */
-            mostRecentResult = logic.execute(currCommandText, currentTab);
-            consoleOutput.setText(mostRecentResult.feedbackToUser);
-            
             updateTab(mostRecentResult);
 
             prevCommandText = currCommandText;
@@ -485,13 +490,13 @@ public class MainWindow extends UiPart {
         switch (tab) {
             case ListCommand.MESSAGE_SUCCESS:           tabPane.getSelectionModel().select(INDEX_HOME);
                                                         break;
-            case ListCommand.MESSAGE_SUCCESS_TASKS:     tabPane.getSelectionModel().select(1);
+            case ListCommand.MESSAGE_SUCCESS_TASKS:     tabPane.getSelectionModel().select(INDEX_TASKS);
                                                         break;
-            case ListCommand.MESSAGE_SUCCESS_EVENTS:    tabPane.getSelectionModel().select(2);
+            case ListCommand.MESSAGE_SUCCESS_EVENTS:    tabPane.getSelectionModel().select(INDEX_EVENTS);
                                                         break;
-            case ListCommand.MESSAGE_SUCCESS_DEADLINES: tabPane.getSelectionModel().select(3);
+            case ListCommand.MESSAGE_SUCCESS_DEADLINES: tabPane.getSelectionModel().select(INDEX_DEADLINES);
                                                         break;
-            case ListCommand.MESSAGE_SUCCESS_ARCHIVES:  tabPane.getSelectionModel().select(4);
+            case ListCommand.MESSAGE_SUCCESS_ARCHIVES:  tabPane.getSelectionModel().select(INDEX_ARCHIVES);
                                                         break;
         }
     }

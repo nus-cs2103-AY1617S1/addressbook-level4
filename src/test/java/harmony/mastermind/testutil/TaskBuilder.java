@@ -20,6 +20,18 @@ public class TaskBuilder {
         this.task.setName(name);
         return this;
     }
+    
+    //@@author A0124797R
+    public TaskBuilder withStartDate(String date) {
+        this.task.setStartDate(date);
+        return this;
+    }
+    
+    //@@author A0124797R
+    public TaskBuilder withEndDate(String date) {
+        this.task.setEndDate(date);
+        return this;
+    }
 
 
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
@@ -27,6 +39,11 @@ public class TaskBuilder {
             task.getTags().add(new Tag(tag));
         }
         return this;
+    }
+    
+    public TaskBuilder mark() {
+        return this.mark();
+        
     }
 
     public TestTask build() {

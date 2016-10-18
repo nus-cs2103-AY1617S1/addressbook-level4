@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import org.testfx.api.FxToolkit;
 
 import java.util.concurrent.TimeoutException;
@@ -32,6 +33,7 @@ public abstract class TaskManagerGuiTest {
     TestApp testApp;
 
     protected TypicalTestTasks td = new TypicalTestTasks();
+    public static final PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -41,6 +43,7 @@ public abstract class TaskManagerGuiTest {
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
+    protected TabPaneHandle tabPane;
     protected CommandBoxHandle commandBox;
     private Stage stage;
 
@@ -59,8 +62,9 @@ public abstract class TaskManagerGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            taskListPanel = mainGui.getPersonListPanel();
+            taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
+            tabPane = mainGui.getTabPane();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
         });
@@ -116,4 +120,13 @@ public abstract class TaskManagerGuiTest {
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
     }
+    
+    /**
+     * Asserts the current tab is the same as the given tab name
+     */
+    protected void assertCurrentTab(String expected) {
+        assertEquals(expected, tabPane.getCurrentTab());        
+    }
+    
+    
 }
