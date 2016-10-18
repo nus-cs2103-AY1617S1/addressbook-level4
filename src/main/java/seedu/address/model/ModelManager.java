@@ -6,19 +6,26 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.Config;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.storage.Storage;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
+import com.google.common.io.Files;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the task manager data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -26,6 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final Config config;
     private Stack<TaskManager> stateHistory;
     private Stack<TaskManager> undoHistory;
 
@@ -33,28 +41,26 @@ public class ModelManager extends ComponentManager implements Model {
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
      */
-    public ModelManager(TaskManager src, UserPrefs userPrefs) {
+    public ModelManager(TaskManager src, Config config, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
+        this.config = config;
     }
 
-    public ModelManager() {
-        this(new TaskManager(), new UserPrefs());
-    }
-
-    public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskManager initialData, Config config, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
+        this.config = config;
     }
     
     public void saveState() {
@@ -96,6 +102,11 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
     }
+    
+    @Override
+    public String getTaskManagerStorageFilePath() {
+    	return config.getTaskManagerFilePath();
+    }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
@@ -123,7 +134,18 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
 	}
-
+    
+    @Override
+    public synchronized void setStorage(File newStorageFile, File oldStorageFile) throws IOException{
+    	assert newStorageFile!= null;
+    	assert oldStorageFile!= null;
+    	assert !newStorageFile.equals(oldStorageFile);
+    	
+    	Files.copy(oldStorageFile, newStorageFile);  //Throws IOException
+    	
+    	config.setTaskManagerFilePath(newStorageFile.getCanonicalPath());
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

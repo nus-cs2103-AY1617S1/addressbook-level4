@@ -6,6 +6,9 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -18,6 +21,9 @@ public interface Model {
 
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
+    
+    /** Returns TaskManagerStorageFilePath */
+    String getTaskManagerStorageFilePath();
     
     /** Saves the state of the model in case the user wishes to undo an action. */
     void saveState();
@@ -36,6 +42,10 @@ public interface Model {
     
     /** Updates the given task */
     void editTask(int index, Task task) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Sets task manager data storage location */
+    
+    void setStorage(File newStorageFileFilePath, File oldStorageFileFilePath) throws IOException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

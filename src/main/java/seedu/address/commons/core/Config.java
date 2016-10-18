@@ -20,6 +20,11 @@ public class Config {
 
     public Config() {
     }
+    
+    public Config(String taskManagerFilePath, String userPrefsFilePath){
+    	this.taskManagerFilePath = taskManagerFilePath;
+    	this.userPrefsFilePath = userPrefsFilePath;
+    }
 
     public String getAppTitle() {
         return appTitle;
