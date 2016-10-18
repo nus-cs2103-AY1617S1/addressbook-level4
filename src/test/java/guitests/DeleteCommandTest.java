@@ -15,7 +15,6 @@ public class DeleteCommandTest extends WhatNowGuiTest {
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
-        System.out.println("targetIndex: "+ targetIndex + ", currentList: " + currentList.length);
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete the last in the list
@@ -29,7 +28,7 @@ public class DeleteCommandTest extends WhatNowGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
+        commandBox.runCommand("delete " + "todo " + currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
 
     }
@@ -42,24 +41,10 @@ public class DeleteCommandTest extends WhatNowGuiTest {
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
-
-        System.out.println("current list...");
-        for(int i=0; i < currentList.length; i++){
-            System.out.println(currentList[i]);
-        }
-        System.out.println();
-        commandBox.runCommand("delete " + targetIndexOneIndexed);
+        
+        commandBox.runCommand("delete " + "todo " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous tasks except the deleted task
-        System.out.println("current list...");
-        for(int i=0; i < currentList.length; i++){
-            System.out.println(currentList[i]);
-        }
-        System.out.println();
-        System.out.println("expectedRemaninder...");
-        for(int i=0; i < expectedRemainder.length; i++){
-            System.out.println(expectedRemainder[i]);
-        }
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct

@@ -15,7 +15,7 @@ public class FindCommandTest extends WhatNowGuiTest {
         assertFindResult("find Buy", td.a, td.c, td.d, td.g); //multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("delete todo 1");
         assertFindResult("find Buy",td.c, td.d, td.g);
     }
 

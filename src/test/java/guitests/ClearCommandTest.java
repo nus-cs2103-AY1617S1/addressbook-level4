@@ -10,14 +10,13 @@ public class ClearCommandTest extends WhatNowGuiTest {
     public void clear() {
 
         //verify a non-empty list can be cleared
-        System.out.println("task length: " + td.getTypicalTasks().length);
         assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
         commandBox.runCommand(td.h.getAddCommand());
         assertTrue(taskListPanel.isListMatching(td.h));
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("delete todo 1");
         assertListSize(0);
 
         //verify clear command works when the list is empty
