@@ -43,11 +43,4 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
-    
-    /**
-     * Returns if the command is undoable/redoable
-     */
-     public boolean isMutating() {
-         return false;
-     }
 }
