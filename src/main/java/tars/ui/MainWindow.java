@@ -112,7 +112,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder);
+        infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder, logic.getFilteredTaskList());
         browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
