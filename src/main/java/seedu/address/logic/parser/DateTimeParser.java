@@ -50,7 +50,7 @@ public class DateTimeParser {
      * @return
      * @author darren
      */
-    private LocalDateTime Date2LocalDateTime(Date date) {
+    private static LocalDateTime Date2LocalDateTime(Date date) {
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
 
