@@ -21,11 +21,11 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " examination period, friday 1pm to next friday 12pm";
     
-    public static final String MESSAGE_SUCCESS = "New %1$s task added: %2$s";
+    public static final String MESSAGE_SUCCESS = "New %1$s added: %2$s";
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";
     
     private enum TaskType {
-        FLOATING("floating"), DEADLINE("dealine"), EVENT("event"); 
+        FLOATING("task"), DEADLINE("dealine"), EVENT("event"); 
         
         private final String taskType;
         TaskType(String taskType) {
@@ -114,7 +114,7 @@ public class AddCommand extends Command {
             model.addTask(toAdd); 
             listOfCommands.push(COMMAND_WORD);
             listOfTasks.push(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType, toAdd));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType, toAdd.getTaskName()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
