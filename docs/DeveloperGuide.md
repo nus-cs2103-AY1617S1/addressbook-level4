@@ -388,7 +388,7 @@ Use case ends
 > 4a1. TaskManager displays an error message on the GUI, informing the user that the given index is invalid and thus cannot delete any task <br>
   Use case resumes at step 3
   
-4b. User enters an input that does not follow the `edit` command format
+4b. User enters an input that does not follow the `delete` command format
 
 >4b1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `delete` command and an example `delete` command <br>
  Use case resumes at step 3
