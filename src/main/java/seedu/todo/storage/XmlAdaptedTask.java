@@ -20,7 +20,9 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String title;
+    @XmlElement
     private String description;
+    @XmlElement
     private String location;
 
     @XmlElement(required = true)
