@@ -161,7 +161,7 @@ public class Parser {
         		if(matcher3.group("name").toLowerCase().contains(byToday)){
         			return new AddCommand(
         					matcher3.group("name").replaceAll("(?i)"+Pattern.quote(byToday), ""),
-        					dateFormatter.format(Calendar.getInstance().getTime()),
+        					dateFormatter.format(calendar.getTime()),
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
@@ -298,7 +298,8 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcherName = KEYWORDS_NAME_FORMAT.matcher(args.trim());
+		Calendar calendar = Calendar.getInstance();
+    	final Matcher matcherName = KEYWORDS_NAME_FORMAT.matcher(args.trim());
         final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
         if (!matcherName.matches() && !matcherDate.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -311,6 +312,22 @@ public class Parser {
         	return new FindCommand(dateKeyword, "date");
         }
         else{ //keywords delimited by whitespace
+        	switch(matcherName.group("keywords")){
+        	case today: final String todayKeyword = dateFormatter.format(Calendar.getInstance().getTime());
+        				return new FindCommand(new HashSet<>(Arrays.asList(todayKeyword)), "date");
+			case tomorrow: calendar.setTime(calendar.getTime());
+						   calendar.add(Calendar.DAY_OF_YEAR, 1);
+						   final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
+						   return new FindCommand(new HashSet<>(Arrays.asList(tomorrowKeyword)), "date");
+        	case nextWeek: calendar.setTime(calendar.getTime());
+        				   calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        				   final String nextWeekKeyword = dateFormatter.format(calendar.getTime());
+        				   return new FindCommand(new HashSet<>(Arrays.asList(nextWeekKeyword)), "date");
+        	case nextMonth: calendar.setTime(calendar.getTime());
+        					calendar.add(Calendar.WEEK_OF_YEAR, 4);
+        					final String nextMonthKeyword = dateFormatter.format(calendar.getTime());
+        					return new FindCommand(new HashSet<>(Arrays.asList(nextMonthKeyword)), "date");
+        	}
         	final String[] keywords = matcherName.group("keywords").split("\\s+");
         	final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         	return new FindCommand(keywordSet, "name");
