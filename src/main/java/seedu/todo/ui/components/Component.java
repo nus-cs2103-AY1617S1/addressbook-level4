@@ -27,8 +27,9 @@ public abstract class Component extends UiPart {
      */    
     public void render() {
         // If the View is not loaded from the FXML file, we have no node to render.
-        if (mainNode == null)
+        if (mainNode == null) {
             return;
+        }
 
         assert mainNode != null;
 

@@ -25,7 +25,7 @@ import static org.junit.Assert.assertFalse;
 
 public class ConfigUtilTest {
 
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/ConfigUtilTest/");
+    private static final String TEST_DATA_FOLDER_PATH = "./src/test/data/ConfigUtilTest/";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -151,8 +151,10 @@ public class ConfigUtilTest {
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
+        String fullPath = FileUtil.getPath(TEST_DATA_FOLDER_PATH);
+        
         return configFileInTestDataFolder != null
-                                  ? TEST_DATA_FOLDER + configFileInTestDataFolder
+                                  ? fullPath + configFileInTestDataFolder
                                   : null;
     }
 
