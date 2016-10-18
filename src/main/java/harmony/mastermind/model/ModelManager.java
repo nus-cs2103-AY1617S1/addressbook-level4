@@ -14,8 +14,8 @@ import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.util.StringUtil;
-import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.Redoable;
 import harmony.mastermind.logic.commands.Undoable;
 import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.tag.Tag;
@@ -23,7 +23,6 @@ import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
-import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -35,7 +34,21 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredFloatingTasks;
+    private final FilteredList<Task> filteredEvents;
+    private final FilteredList<Task> filteredDeadlines;
+    private final FilteredList<Task> filteredArchives;
     private final Stack<Undoable> undoHistory;
+    private final Stack<Redoable> redoHistory;
+   
+
+    public static final String TAB_HOME = "Home";
+    public static final String TAB_TASKS = "Tasks";
+    public static final String TAB_EVENTS = "Events";
+    public static final String TAB_DEADLINES = "Deadlines";
+    public static final String TAB_ARCHIVES= "Archives";
+
+    private String currentTab;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -50,7 +63,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredFloatingTasks = new FilteredList<>(taskManager.getFloatingTasks());
+        filteredEvents = new FilteredList<>(taskManager.getEvents());
+        filteredDeadlines = new FilteredList<>(taskManager.getDeadlines());
+        filteredArchives = new FilteredList<>(taskManager.getArchives());
         undoHistory = new Stack<>();
+        redoHistory = new Stack<>();
+        currentTab = TAB_HOME;
     }
 
     public ModelManager() {
@@ -60,7 +79,12 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredFloatingTasks = new FilteredList<>(taskManager.getFloatingTasks());
+        filteredEvents = new FilteredList<>(taskManager.getEvents());
+        filteredDeadlines = new FilteredList<>(taskManager.getDeadlines());
+        filteredArchives = new FilteredList<>(taskManager.getArchives());
         undoHistory = new Stack<>();
+        redoHistory = new Stack<>();
     }
 
     @Override
@@ -80,12 +104,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    //@@author A0124797R
+    public void updateCurrentTab(String tab) {
+        this.currentTab = tab;
+    }
+    
+    @Override
     //@@author A0138862W
     public void pushToUndoHistory(Undoable command) {
         undoHistory.push(command);
     }
     
     @Override
+    
     /** undo last action performed**/
     //@@author A0138862W
     public CommandResult undo() throws EmptyStackException{
@@ -93,6 +124,29 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
         return commandResult;
+    }
+    
+    @Override
+    //@@author A0138862W
+    public void pushToRedoHistory(Redoable command){
+        redoHistory.push(command);
+    }
+    
+    @Override
+    /** redo the action that being undone function**/
+    //@@author A0138862W
+    public CommandResult redo() throws EmptyStackException{
+        CommandResult commandResult = redoHistory.pop().redo();
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+        return commandResult;
+    }
+    
+    @Override
+    /** This method should only be called when the user entered a new command other than redo/undo **/
+    //@@author A0138862W
+    public void clearRedoHistory(){
+        redoHistory.clear();
     }
 
     @Override
@@ -108,18 +162,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    //@author A0124797R
     @Override
+    //@author A0124797R
     public synchronized void markTask(Task target) throws TaskNotFoundException {
         taskManager.markTask(target);
         indicateTaskManagerChanged();
     }
     
-    //@author A0124797R
     @Override
+    //@author A0124797R
     public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException,
     UniqueTaskList.DuplicateTaskException {
-        taskManager.unmarkTask((Task)target);
+        taskManager.unmarkTask(target);
         indicateTaskManagerChanged();
     }
     
@@ -129,7 +183,25 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    //=========== Filtered Archived List Accessors ===============================================================
+    //=========== Filtered List Accessors ===============================================================
+    @Override
+    //@@author A0124797R
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getFloatingTasks());
+    }
+
+    //@@author A0124797R
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
+        return new UnmodifiableObservableList<>(taskManager.getEvents());
+    }
+
+    //@@author A0124797R
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
+        return new UnmodifiableObservableList<>(taskManager.getDeadlines());
+    }
+    
     //@@author A0124797R
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList() {
@@ -143,15 +215,27 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
-    //@@author A0124797R
     @Override
+    //@@author A0124797R
     public ObservableList<Task> getListToMark() {
-        return filteredTasks;
+        return getCurrentObservableList();
     }
 
     @Override
+    //@@author A0124797R
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        switch (currentTab) {
+            case TAB_HOME:      filteredTasks.setPredicate(null);
+                                break;
+            case TAB_TASKS:     filteredFloatingTasks.setPredicate(null);
+                                break;
+            case TAB_EVENTS:    filteredEvents.setPredicate(null);
+                                break;
+            case TAB_DEADLINES: filteredDeadlines.setPredicate(null);
+                                break;
+            case TAB_ARCHIVES:  filteredArchives.setPredicate(null);
+                                break;
+        }
     }
 
     @Override
@@ -159,14 +243,40 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    //@author A0124797R
     @Override
+    //@@author A0124797R
     public void updateFilteredTagTaskList(Set<Tag> keywords){
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    //@@author A0124797R
+    private ObservableList<Task> getCurrentObservableList() {
+        ObservableList<Task> list = filteredTasks;
+        
+        switch (currentTab) {
+            case "Home":        list = filteredTasks;
+                                break;
+            case "Tasks":       list = filteredFloatingTasks;
+                                break;
+            case "Events":      list = filteredEvents;
+                                break;
+            case "Deadlines":   list = filteredDeadlines;
+                                break;
+            case "Archives":    list = filteredArchives;
+                                break;
+        }
+        
+        return list;
+    }
+    
+    @Override
+    //@@author A0124797R
+    public UnmodifiableObservableList<ReadOnlyTask> getCurrentList() {
+        return new UnmodifiableObservableList<ReadOnlyTask>(getCurrentObservableList());
     }
     
     private void searchTask(String keyword, Memory memory) { 

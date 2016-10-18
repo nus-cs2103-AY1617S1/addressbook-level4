@@ -18,7 +18,7 @@ public class HelpCommand extends Command {
             + "\n" + COMMAND_WORD;
     
     public static final String SHOWING_HELP_MESSAGE = "===Command Summary==="
-            + "\n" + AddCommand.COMMAND_SUMMARY + "\n"
+            + "\n" + AddCommand.COMMAND_FORMAT + "\n"
             + "\n" + EditCommand.COMMAND_SUMMARY + "\n"
             + "\n" + UndoCommand.COMMAND_SUMMARY + "\n"
             + "\n" + MarkCommand.COMMAND_SUMMARY + "\n"

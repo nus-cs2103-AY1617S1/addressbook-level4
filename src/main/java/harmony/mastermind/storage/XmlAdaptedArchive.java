@@ -14,18 +14,24 @@ import java.util.List;
 
 /**
  * JAXB-friendly version of the Task.
+ * 
  */
-public class XmlAdaptedTask {
+//@@author A0124797R
+public class XmlAdaptedArchive {
 
     @XmlElement(required = true)
     private String name;
+    @XmlElement(required = true)
+    private Date startDate;
+    @XmlElement(required = true)
+    private Date endDate;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
+    public XmlAdaptedArchive() {}
 
 
     /**
@@ -33,10 +39,10 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    //@@author A0138862W
-    public XmlAdaptedTask(ReadOnlyTask source) {
+    public XmlAdaptedArchive(ReadOnlyTask source) {
         name = source.getName();
-
+        startDate = source.getStartDate();
+        endDate = source.getEndDate();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -44,7 +50,7 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's ReadOnlyTask object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
@@ -55,8 +61,10 @@ public class XmlAdaptedTask {
         }
         
         final String name = this.name;
+        final Date startDate = this.startDate;
+        final Date endDate = this.endDate;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, tags);
+        return new Task(name, startDate, endDate, tags).mark();
     }
 }

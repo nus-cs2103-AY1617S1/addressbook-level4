@@ -2,6 +2,8 @@ package harmony.mastermind.logic.parser;
 
 import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static harmony.mastermind.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_TAB;
+
 
 import java.text.ParseException;
 import java.util.*;
@@ -45,6 +47,8 @@ public class Parser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     private static final Pattern TASK_ARCHIVE_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)");
+    
+    private static final String TAB_ARCHIVES = "Archives";
 
     public Parser() {
     }
@@ -56,7 +60,7 @@ public class Parser {
      *            full user input string
      * @return the command based on the user input
      */
-    public Command parseCommand(String userInput) {
+    public Command parseCommand(String userInput, String currentTab) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {
@@ -91,7 +95,7 @@ public class Parser {
                 return new PreviousCommand();
 
             case MarkCommand.COMMAND_WORD:
-                return prepareMark(arguments);
+                return prepareMark(arguments, currentTab);
 
             case EditCommand.COMMAND_KEYWORD_EDIT:
             case EditCommand.COMMAND_KEYWORD_UPDATE:
@@ -100,8 +104,11 @@ public class Parser {
             case UndoCommand.COMMAND_WORD:
                 return new UndoCommand();
                 
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand();
+                
             case UnmarkCommand.COMMAND_WORD:
-                return prepareUnmark(arguments);
+                return prepareUnmark(arguments, currentTab);
 
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
@@ -123,11 +130,12 @@ public class Parser {
      */
     // @@author A0138862W
     private Command prepareAdd(String args) {
-        final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
+        final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args);
 
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            System.out.println("WTF");
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EXAMPLES));
         }
 
         try {
@@ -247,13 +255,13 @@ public class Parser {
      * @return the prepared command
      */
     //@@author A0124797R
-    private Command prepareMark(String args) {
+    private Command prepareMark(String args, String currentTab) {
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
-        return new MarkCommand(index.get());
+        return new MarkCommand(index.get(), currentTab);
     }
     
     /**
@@ -269,7 +277,10 @@ public class Parser {
         if (!type.isPresent()) {
             return new ListCommand();
         }else {
-            if (type.get().equals(ListCommand.LISTING_ARCHIVES)) {
+            if (type.get().equals(ModelManager.TAB_TASKS.toLowerCase()) ||
+                    type.get().equals(ModelManager.TAB_EVENTS.toLowerCase()) || 
+                    type.get().equals(ModelManager.TAB_DEADLINES.toLowerCase()) ||
+                    type.get().equals(ModelManager.TAB_ARCHIVES.toLowerCase())) {
                 return new ListCommand(type);
             }else {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
@@ -285,7 +296,10 @@ public class Parser {
      * @return the prepared command
      */
     //@@author A0124797R
-    private Command prepareUnmark(String args) {
+    private Command prepareUnmark(String args, String currentTab) {
+        if (!currentTab.equals(TAB_ARCHIVES)) {
+            return new IncorrectCommand(UnmarkCommand.MESSAGE_UNMARK_FAILURE);
+        }
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
@@ -322,7 +336,7 @@ public class Parser {
             return Optional.empty();
         }
 
-        String type = matcher.group("type");
+        String type = matcher.group("type").toLowerCase();
 
         return Optional.of(type);
 
