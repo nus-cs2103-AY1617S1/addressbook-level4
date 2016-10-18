@@ -14,6 +14,22 @@ import seedu.todo.ui.views.IndexView;
 public class Renderer {
     
     /**
+     * Renders an error message in both the console and the input field, leave null or empty string if not needed.
+     * 
+     * @param consoleMessage       Message to be rendered in the console
+     * @param consoleInputValue    Value to display in the input field
+     */
+    public static void showConsoleError(String consoleMessage, String consoleInputValue) {
+        if (consoleMessage != null && consoleMessage.length() > 0) {
+            UiManager.updateConsoleMessage(consoleMessage);
+        }
+        
+        if (consoleInputValue != null && consoleInputValue.length() > 0) {
+            UiManager.updateConsoleInputValue(consoleInputValue);
+        }
+    }
+    
+    /**
      * Renders the indexView.
      * 
      * @param db
