@@ -11,7 +11,7 @@ import seedu.oneline.logic.parser.Parser;
  * Finds and lists all tasks in task book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
-public class FindCommand extends MutatingCommand {
+public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 

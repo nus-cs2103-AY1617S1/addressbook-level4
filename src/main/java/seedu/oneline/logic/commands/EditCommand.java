@@ -15,7 +15,7 @@ import seedu.oneline.model.task.*;
 /**
  * Edits a task to the task book.
  */
-public class EditCommand extends MutatingCommand {
+public class EditCommand extends Command {
 
     public final int targetIndex;
     
