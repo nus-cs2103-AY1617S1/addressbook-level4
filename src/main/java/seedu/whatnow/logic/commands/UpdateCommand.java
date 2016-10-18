@@ -34,14 +34,20 @@ public class UpdateCommand extends Command {
     
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s";
     
+    private static final String ARG_TYPE_DESCRIPTION = "description";
+    private static final String ARG_TYPE_DATE = "date";
+    private static final String ARG_TYPE_TAG = "tag";
+    private static final String DELIMITER_BLANK_SPACE = " ";
+    private static final String TASK_TYPE_FLOATING = "todo";
+    
     public final int targetIndex;
-    public final String type;
+    public final String taskType;
     public final String arg_type;
     public final String arg;
     private Task toUpdate;
     
-    public UpdateCommand(String type, int targetIndex, String arg_type, String arg) throws IllegalValueException {
-        this.type = type;
+    public UpdateCommand(String taskType, int targetIndex, String arg_type, String arg) throws IllegalValueException {
+        this.taskType = taskType;
         this.targetIndex = targetIndex;
         this.arg_type = arg_type;
         this.arg = arg;
@@ -57,16 +63,16 @@ public class UpdateCommand extends Command {
         String newName = "a";
         String date = null;
         final Set<Tag> tagSet = new HashSet<>();
-        if (arg_type.toUpperCase().compareToIgnoreCase("tag") == 0) {
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TAG) == 0) {
             Set<String> tags = processTag();
             for (String tagName : tags) {
                 tagSet.add(new Tag(tagName));
             }
         }
-        if (arg_type.toUpperCase().compareToIgnoreCase("date") == 0) {
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DATE) == 0) {
             date = arg;
         }
-        if (arg_type.toUpperCase().compareToIgnoreCase("description") == 0) {
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == 0) {
             newName = arg;
         }
         
@@ -84,31 +90,41 @@ public class UpdateCommand extends Command {
         if (arg.isEmpty()) {
             return Collections.emptySet();
         }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(arg.split(" "));
+        final Collection<String> tagStrings = Arrays.asList(arg.split(DELIMITER_BLANK_SPACE));
         return new HashSet<>(tagStrings);
     }
     
     private void updateTheCorrectField(ReadOnlyTask taskToUpdate) {
-        if (arg_type.toUpperCase().compareToIgnoreCase("tag") == 0) {
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TAG) == 0) {
             toUpdate.setName(taskToUpdate.getName());
             toUpdate.setTaskDate(taskToUpdate.getTaskDate());
+            toUpdate.setStatus(taskToUpdate.getStatus());
+            toUpdate.setTaskType(taskToUpdate.getTaskType());
         }
-        if (arg_type.toUpperCase().compareToIgnoreCase("description") == 0) {
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == 0) {
             toUpdate.setTags(taskToUpdate.getTags());
             toUpdate.setTaskDate(taskToUpdate.getTaskDate());
+            toUpdate.setStatus(taskToUpdate.getStatus());
+            toUpdate.setTaskType(taskToUpdate.getTaskType());
         }
-        if (arg_type.toUpperCase().compareToIgnoreCase("date") == 0) {
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DATE) == 0) {
             toUpdate.setName(taskToUpdate.getName());
             toUpdate.setTags(taskToUpdate.getTags());
+            toUpdate.setStatus(taskToUpdate.getStatus());
+            toUpdate.setTaskType(taskToUpdate.getTaskType());
         }
         toUpdate.setStatus(taskToUpdate.getStatus());
     }
     
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getCurrentFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+        
+        if (taskType.equals(TASK_TYPE_FLOATING)) {
+            lastShownList = model.getCurrentFilteredTaskList();
+        } else {
+            lastShownList = model.getCurrentFilteredScheduleList();
+        }
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

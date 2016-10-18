@@ -36,8 +36,7 @@ public class MarkDoneCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;
         if (taskType.equals(TASK_TYPE_FLOATING)) {
             lastShownList = model.getCurrentFilteredTaskList();
-        }
-        else {
+        } else {
             lastShownList = model.getCurrentFilteredScheduleList();
         }
 
