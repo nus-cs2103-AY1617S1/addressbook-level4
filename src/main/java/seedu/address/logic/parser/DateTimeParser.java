@@ -38,35 +38,23 @@ public class DateTimeParser {
     }
     
     public LocalDateTime extractStartDate() {
-        assert this.dategroups != null;
+        assert this.dates != null;
 
         if(this.dategroups.isEmpty()) {
-            throw new UnsupportedOperationException("No start date group detected.");
+            return null;
         }
 
-        return extractLDT(this.dategroups.get(0));
+        return Date2LocalDateTime(this.dates.get(0));
     }
     
     public LocalDateTime extractEndDate() {
-        assert this.dategroups != null;
+        assert this.dates != null;
 
-        if(this.dategroups.size() < 2 || this.dategroups.isEmpty()) {
-            throw new UnsupportedOperationException("No end date group detected!");
+        if(this.dates.size() < 2) {
+            return null;
         }
 
-        return extractLDT(this.dategroups.get(1));
-    }
-    /**
-     * extracts the date from the DateGroup object and massages it into
-     * a LocalDateTime object
-     * @param dategroup
-     * @return
-     * @author darren
-     */
-    public static LocalDateTime extractLDT(DateGroup dategroup) {
-        List<Date> dates = dategroup.getDates();
-        // return first element of List<Date> (good enough?) TODO
-        return Date2LocalDateTime(dates.get(0));
+        return Date2LocalDateTime(this.dates.get(1));
     }
     
     /**
@@ -84,5 +72,4 @@ public class DateTimeParser {
     public String getDateTime() {
         return this.datetime;
     }
-    
 }
