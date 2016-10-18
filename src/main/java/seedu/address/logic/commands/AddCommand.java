@@ -66,7 +66,7 @@ public class AddCommand extends Command {
         this.toAdd = new Task(
                 new Name(name),
                 new Date(date),
-                new Start(""),
+                new Start("no start"),
                 new End(end),
                 2,
                 new UniqueTagList(tagSet)
@@ -81,9 +81,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Name(name),
-                new Date(""),
-                new Start(""),
-                new End(""),
+                new Date("no date"),
+                new Start("no start"),
+                new End("no end"),
                 3,
                 new UniqueTagList(tagSet)
         );
