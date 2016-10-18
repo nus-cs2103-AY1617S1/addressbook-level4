@@ -118,7 +118,6 @@ public class WhatNow implements ReadOnlyWhatNow {
         }
     }
     
-<<<<<<< HEAD
 
     public boolean changeTask(ReadOnlyTask key) throws TaskNotFoundException {
         if (tasks.remove(key)) {
@@ -128,13 +127,12 @@ public class WhatNow implements ReadOnlyWhatNow {
         } 
     }
     
-=======
+
     /**
      * Updates a task on WhatNow.
      * 
      * @throws UniqueTaskList.TaskNotFoundException
      */
->>>>>>> 8bc3a7ac4fe132323e728c8ac0560d00ad792005
     public boolean updateTask(ReadOnlyTask old, Task toUpdate) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.update(old, toUpdate)) {
             return true;
@@ -167,7 +165,6 @@ public class WhatNow implements ReadOnlyWhatNow {
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
     }
 
     @Override

@@ -9,21 +9,22 @@ import seedu.whatnow.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask a, b, c, d, e, f, g, h, i;
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier").withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").build();
-            elle = new TaskBuilder().withName("Elle Meyer").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").build();
-            george = new TaskBuilder().withName("George Best").build();
-
+            a = new TaskBuilder().withName("Buy apricots").withDate("").withTaskType("todo").withTags("low").withStatus("incomplete").build();
+            b = new TaskBuilder().withName("Business meeting").withDate("24/12/2016").withTaskType("schedule").withTags("high").withStatus("incomplete").build();
+            c = new TaskBuilder().withName("Buy cake").withDate("11/10/2016").withTaskType("todo").withTags("").withStatus("complete").build();
+            d = new TaskBuilder().withName("Buy a doggie").withDate("18/10/2016").withTaskType("todo").withTags("medium").withStatus("incomplete").build();
+            e = new TaskBuilder().withName("Economics Class").withDate("20/10/2016").withTaskType("schedule").withTags("").withStatus("incomplete").build();
+            f = new TaskBuilder().withName("Family Day Outing").withDate("10/08/2016").withTaskType("schedule").withTags("medium").withStatus("complete").build();
+            g = new TaskBuilder().withName("Buy grapes").withDate("").withTaskType("todo").withTags("low").withStatus("incomplete").build();
+            
+            
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").build();
-            ida = new TaskBuilder().withName("Ida Mueller").build();
+            h = new TaskBuilder().withName("homemade avacado toast").withDate("").withTaskType("todo").withTags("").withStatus("complete").build();
+            i = new TaskBuilder().withName("International Finance Forum").withDate("25/11/2016").withTaskType("schedule").withTags("high").withStatus("incomplete").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -33,20 +34,20 @@ public class TypicalTestTasks {
     public static void loadWhatNowWithSampleData(WhatNow ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
+            ab.addTask(new Task(a));
+            ab.addTask(new Task(b));
+            ab.addTask(new Task(c));
+            ab.addTask(new Task(d));
+            ab.addTask(new Task(e));
+            ab.addTask(new Task(f));
+            ab.addTask(new Task(g));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[]{a, b, c, d, e, f, g};
     }
 
     public WhatNow getTypicalWhatNow(){

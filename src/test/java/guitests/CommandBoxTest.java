@@ -8,7 +8,7 @@ public class CommandBoxTest extends WhatNowGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(td.b.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 
