@@ -105,6 +105,10 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(taskManager));
     }
     
+    private void askForUserConfirmation() {
+        raise(new UserConfirmationEvent());
+    }
+    
     @Override
     //@@author A0124797R
     public void updateCurrentTab(String tab) {
