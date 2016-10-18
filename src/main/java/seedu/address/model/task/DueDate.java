@@ -55,6 +55,8 @@ public class DueDate extends DateTime {
             }
 
             this.value.setTime(taskDate);
+            this.value.set(Calendar.MILLISECOND, 0);
+            this.value.set(Calendar.SECOND, 0);
         }
     }
     
