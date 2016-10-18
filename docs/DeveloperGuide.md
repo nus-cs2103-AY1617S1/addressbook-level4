@@ -289,7 +289,7 @@ Use case ends.
 2a. User adds a task with same name as an existing task
 
 > DoDo-Bird shows an error message
-> User case ends
+  User case ends
 
 #### Use case: Delete task
 
