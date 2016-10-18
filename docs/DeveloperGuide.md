@@ -368,3 +368,9 @@ Priority Matrix : SWOT
 > One strength of Priority Matrix is that it offers a cloud-based synchronization of data, allowing for data management across multiple devices.
 
 > One improvement for Priority Matrix is that it could make its UI more aesthetically pleasing.
+
+Any.Do : SWOT
+
+>Any.Do is a cross platform task managment application that categorises the tasks in terms of when they need to be done. The tasks can also be further categorised into custom categories that can also be shared with friends and family. The application has a very simple and intuitive UI with words of encouragement when tasks are cleared.
+
+>However, the application does not provide the option to mark a task with a priority level. This means that it would be difficult the important tasks from the trivial tasks at a glance. Furthermore, tasks are not sorted in date order, tasks that are more recent may be pushed below tasks that are dated relatively later.
