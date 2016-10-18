@@ -29,8 +29,10 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
             "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
-                    + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
-                    + "(?<tagArguments>(?: t/[^;]+)*)" + "(?<recurring>([^/](<! (daily|weekly|monthly|yearly) ))*)"
+                    + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
+            		+ "(?<frequency>(daily|weekly|monthly|yearly))?"
+                    + "((?: p/)(?<priority>[^/]+))?"
+                    + "(?<tagArguments>(?: t/[^;]+)*)"
                     );
     
     private static final Pattern TASK_UPDATE_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
@@ -177,11 +179,11 @@ public class Parser {
         } else {
             String startTime = (taskMatcher.group("start") == null) ? "" : taskMatcher.group("start");
             String endTime = (taskMatcher.group("end") == null) ? "" : taskMatcher.group("end");
-            String recurring = (taskMatcher.group("recur") == null) ? "" : taskMatcher.group("recur");
+            String frequency = (taskMatcher.group("frequency") == null) ? "" : taskMatcher.group("frequency");
         
             try {
                 return new AddCommand(taskMatcher.group("name").replace("\\", ""), startTime, endTime,
-                        taskMatcher.group("priority"), getTagsFromArgs(taskMatcher.group("tagArguments")), recurring);
+                        taskMatcher.group("priority"), getTagsFromArgs(taskMatcher.group("tagArguments")), frequency);
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
