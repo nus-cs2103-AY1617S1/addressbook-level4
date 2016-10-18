@@ -68,13 +68,14 @@ public class TaskViewFilterView extends UiPart {
      * Configure the UI properties of {@link TaskViewFilterView}
      */
     private void configureProperties() {
-        displayAllViewFilters();
+        initialiseAllViewFilters();
+        selectViewFilter(TaskViewFilters.DEFAULT);
     }
 
     /**
      * Display all the {@link TaskViewFilters} on the {@link #filterViewPane}
      */
-    private void displayAllViewFilters() {
+    private void initialiseAllViewFilters() {
         for (TaskViewFilters filter : TaskViewFilters.values()) {
             appendEachViewFilter(filter);
         }
