@@ -119,7 +119,11 @@ public class ClearController implements Controller {
     /**
      * clear all tasks and events of given date range that exist in the database.
      * 
-     * @param TodoListDB, dateFrom, dateTo
+     * @param TodoListDB
+     * @param dateFrom
+     *            null if parsing failed or Due date for Task or start date for Event
+     * @param dateTo
+     *            null if parsing failed or End date for Event
      */
     private void destroyByRange(TodoListDB db, LocalDateTime dateFrom, LocalDateTime dateTo) {
         int totalCalendarItems = db.getEventByRange(dateFrom, dateTo).size() + db.getTaskByRange(dateFrom, dateTo).size();
@@ -132,7 +136,9 @@ public class ClearController implements Controller {
     /**
      * display error message due to failure in parsing given date
      * 
-     * @param TodoListDB, naturalOn, nautralFrom, naturalTo
+     * @param TodoListDB
+     * @param naturalOn, naturalFrom, naturalTo
+     *            null if not entered, or natural date that user has entered
      */
     private void displayErrorMessage(TodoListDB db, String naturalOn, String naturalFrom, String naturalTo) {
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_FAILURE, invalidDate));
@@ -141,7 +147,9 @@ public class ClearController implements Controller {
     /**
      * clear all tasks and events of the date that exist in the database.
      * 
-     * @param TodoListDB, givenDate
+     * @param TodoListDB
+     * @param givenDate
+     *            null if parsing failed or Due date for Task or start date for Event
      */
     private void destroyByDate(TodoListDB db, LocalDateTime givenDate) {
         int totalCalendarItems = db.getEventByDate(givenDate).size() + db.getTaskByDate(givenDate).size();
