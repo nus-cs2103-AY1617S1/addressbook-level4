@@ -1,7 +1,10 @@
 package seedu.taskmanager.logic.parser;
 
+import seedu.taskmanager.commons.core.Config;
 import seedu.taskmanager.commons.core.LogsCenter;
+import seedu.taskmanager.commons.exceptions.DataConversionException;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
+import seedu.taskmanager.commons.util.ConfigUtil;
 import seedu.taskmanager.commons.util.StringUtil;
 import seedu.taskmanager.logic.commands.AddCommand;
 import seedu.taskmanager.logic.commands.ClearCommand;
@@ -19,6 +22,7 @@ import seedu.taskmanager.logic.commands.ListTaskCommand;
 import seedu.taskmanager.logic.commands.SelectCommand;
 import seedu.taskmanager.logic.commands.DoneCommand;
 import seedu.taskmanager.logic.commands.NotDoneCommand;
+import seedu.taskmanager.logic.commands.SaveAsCommand;
 import seedu.taskmanager.logic.commands.UndoCommand;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemTime;
@@ -192,6 +196,9 @@ public class Parser {
         case UndoCommand.COMMAND_WORD:
         case UndoCommand.SHORT_COMMAND_WORD:
         	return new UndoCommand();
+        	
+        case SaveAsCommand.COMMAND_WORD:
+            return prepareSaveAs(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -471,6 +478,19 @@ public class Parser {
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
+    /**
+     * Parses argument in the context of the saveAs specified file command.
+     * @param arguments full argument args string
+     * @return the prepared command
+     */
+    private Command prepareSaveAs(String args) {
+        if(!args.equals("")) {
+            return new SaveAsCommand(args);
+        }
+        
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveAsCommand.MESSAGE_USAGE));
+    }
+    
     /**
      * @param tag
      * @return tag without tag removal prefix
