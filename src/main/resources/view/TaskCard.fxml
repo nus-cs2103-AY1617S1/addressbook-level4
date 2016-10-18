@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="2.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="2.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <StackPane>
          <children>
@@ -33,6 +33,18 @@
                      </HBox.margin>
                      <styleClass>
                         <String fx:value="highlightedBackground" />
+                        <String fx:value="roundLabel" />
+                     </styleClass>
+                  </Label>
+                  <Label fx:id="moreInfoLabel" text="More" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semilight" size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="lightBackground" />
                         <String fx:value="roundLabel" />
                      </styleClass>
                   </Label>
@@ -126,7 +138,6 @@
             <Insets />
          </opaqueInsets>
       </FlowPane>
-      <HBox />
    </children>
    <opaqueInsets>
       <Insets />
