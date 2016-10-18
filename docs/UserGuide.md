@@ -27,7 +27,7 @@ This user guide covers the features of the application and has a short summary o
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`** `Midterms pr/high time/wednesday t/important` : adds a task "Midterms" to the Task Manger.
+   * **`add`** `Midterms pr/high start/wednesday t/important` : adds a task "Midterms" to the Task Manger.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -50,21 +50,20 @@ Format: `help`
 #### Add a task/tag
 ##### Add a task: `add`
 Adds a task to the task manager.<br>
-Format: `add DESCRIPTION [pr/RANK] [time/TIME] [d/DATE] [t/TAG]...`
+Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [start/ENDTIME] [t/TAG]...`
 
 > * Tasks can have different priorities, normal by default, high or low
-> * Deadlines are set for tasks when a time is entered by default
-> * Events are set when a time period is entered
+> * Deadlines are set for tasks if a endtime entered without a start time
 > * Tasks can have any number of tags (including 0)
 
 Examples:
-* `add Midterms pr/high time/wednesday d/05.10.2016 t/important`
-* `add work pr/high time/17:00`
-* `add AFA pr/low time/9:00 to 21:00 d/25.12.20161 t/anime`
+* `add Midterms pr/high start/14:00 end/16:00 t/important`
+* `add work pr/high end/17:00`
+* `add AFA pr/low start/9:00 t/anime`
 * `add get eggs pr/low t/family`
 * `add organize room`
 
-##### Add tags: `add tag`
+##### Add tags: `addTag`
 Add tags to specified task.<br>
 Format: `addTag INDEX TAG`
 
@@ -123,7 +122,7 @@ Examples:
   `delete 2`<br>
   Deletes the 2nd task in the task manager.
 
-##### Delete tags from a task: `delete tag`
+##### Delete tags from a task: `deleteTag`
 Delete tags from specified task.<br>
 Format: `deleteTag INDEX TAG`
 
@@ -133,7 +132,7 @@ Example:
   Removes the tag `NTU` from the task with the index 3
 
 
-#### Edit a task: `edit`
+#### Edit a task: `update`
 Edits the specified task.<br>
 Format: `update INDEX PROPERTY INPUT`
 
@@ -143,8 +142,8 @@ Format: `update INDEX PROPERTY INPUT`
 
 Examples:
 * `list`<br>
-  `edit 3 Complete tutorial 7 pr/ time/`<br>
-  Edits the 3rd task in the task manager by replacing the description, resetting the priority and removing the deadline
+  `update 3 descrition Go to SOC`<br>
+  Edits the 3rd task in the task manager by replacing the previous description with `Go to SOC`.
 
 
 #### Complete a task: `complete`
@@ -154,7 +153,7 @@ Format: `complete INDEX`
 Examples:
 * `list`<br>
   `complete 2`<br>
-  Add a tag `COMPLETE` the 2nd task in the task manager.
+  Add a tag `DONE` the 2nd task in the task manager.
 
 
 #### Undo action: `undo`

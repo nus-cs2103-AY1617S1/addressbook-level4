@@ -80,6 +80,9 @@ public class Parser {
         case UpdateCommand.COMMAND_WORD:
         	return prepareUpdate(arguments);
 
+        case CompleteCommand.COMMAND_WORD:
+            return prepareComplete(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -137,6 +140,23 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+
+    /**
+     * Parses arguments in the context of the complete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareComplete(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+
+        return new CompleteCommand(index.get());
     }
 
     /**

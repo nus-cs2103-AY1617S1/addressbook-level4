@@ -26,6 +26,9 @@ public class UpdateCommand extends Command{
 
     public static final String MESSAGE_EDIT_SUCCESS = "Edit successfully: %1$s";
     public static final String MESSAGE_EDIT_FAIL = "Editing failed";
+    public static final String MESSAGE_TIME_CONSTRAINTS =
+            "Time should either be in 24H format or given as a Day of the Week\n"
+          + "Eg. 9:11, 09:11, thursday, Thursday, THURSDAY, thu, Thur, THURS";
 
     public final int targetIndex;
     public final String property;
@@ -50,38 +53,45 @@ public class UpdateCommand extends Command{
 
         String description;
         String priority;
-        String timeStart;
-        String timeEnd;
+        Time timeStart;
+        Time timeEnd;
         UniqueTagList tags;
 
 			switch(property){
 				case "description":
 					description = info;
-					timeStart = taskToUpdate.getTimeStart().toString();
-					timeEnd = taskToUpdate.getTimeEnd().toString();
+					timeStart = taskToUpdate.getTimeStart();
+					timeEnd = taskToUpdate.getTimeEnd();
 					priority = taskToUpdate.getPriority().toString();
 					tags =taskToUpdate.getTags();
 					break;
 				case "start":
-					timeStart = info;
+					try {
+						timeStart = new Time(info);
+					} catch (IllegalValueException e1) {
+						return new CommandResult(MESSAGE_TIME_CONSTRAINTS);
+					}
 					description = taskToUpdate.getDescription().toString();
-					timeEnd = taskToUpdate.getTimeEnd().toString();
+					timeEnd = taskToUpdate.getTimeEnd();
 					priority = taskToUpdate.getPriority().toString();
 					tags =taskToUpdate.getTags();
-					new DeleteCommand(targetIndex).execute();
 					break;
 				case "priority":
 					priority = info;
 					description = taskToUpdate.getDescription().toString();
-					timeEnd = taskToUpdate.getTimeEnd().toString();
-					timeStart = taskToUpdate.getTimeStart().toString();
+					timeEnd = taskToUpdate.getTimeEnd();
+					timeStart = taskToUpdate.getTimeStart();
 					tags =taskToUpdate.getTags();
 					break;
 				case "end":
-					timeEnd = info;
+					try {
+						timeEnd = new Time(info);
+					} catch (IllegalValueException e1) {
+						return new CommandResult(MESSAGE_TIME_CONSTRAINTS);
+					}
 					description = taskToUpdate.getDescription().toString();
 					priority = taskToUpdate.getPriority().toString();
-					timeStart = taskToUpdate.getTimeStart().toString();
+					timeStart = taskToUpdate.getTimeStart();
 					tags =taskToUpdate.getTags();
 					break;
 				default: return new CommandResult(MESSAGE_EDIT_FAIL);

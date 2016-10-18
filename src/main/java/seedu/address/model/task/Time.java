@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
 import java.util.regex.Pattern;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -25,12 +26,12 @@ public class Time {
     public static final String TIME_VALIDATION_REGEX = "^\\s*$" // Empty String
             + "|^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" // 24H Time
             // Day Of Week and Optional 24H Time
-            + "|^(?i)(mon|tue(s)?|wed(nes)?|thu(r(s)?)?|fri|sat(ur)?|sun)(day)?" 
-            + "( ([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])?$"; 
-    
+            + "|^(?i)(mon|tue(s)?|wed(nes)?|thu(r(s)?)?|fri|sat(ur)?|sun)(day)?"
+            + "( ([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])?$";
+
 
     private LocalDateTime value;
-    
+
     //public String value;
 
     /**
@@ -44,42 +45,52 @@ public class Time {
         if (!isValidTime(time)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
-        
+
         final Pattern DAYTIME24H_FORMAT = Pattern.compile("(?i)((?<Day>(mon|tue(s)?|wed(nes)?|thu(r(s)?)?|fri|sat(ur)?|sun)(day)?)) (?<Hour>([0-9]|0[0-9]|1[0-9]|2[0-3])):(?<Minute>[0-5][0-9])");
         final Pattern TIME24H_FORMAT = Pattern.compile("(?<Hour>[0-9]|0[0-9]|1[0-9]|2[0-3]):(?<Minute>[0-5][0-9])");
         final Pattern DAY_FORMAT = Pattern.compile("(?i)(?<Day>(mon|tue|wed|thu|fri|sat|sun))");
-        
-        
+
+
         final Matcher matcher_DAYTIME24H = DAYTIME24H_FORMAT.matcher(time);
         final Matcher matcher_TIME24H = TIME24H_FORMAT.matcher(time);
         final Matcher matcher_DAY = DAY_FORMAT.matcher(time);
-         
-        
-       
+
+
+
         if (matcher_DAYTIME24H.matches()) {
             DayOfWeek dayEnum = convertToDayEnum(matcher_DAYTIME24H.group("Day"));
             Integer hour = Integer.parseInt(matcher_DAYTIME24H.group("Hour"));
             Integer minute = Integer.parseInt(matcher_DAYTIME24H.group("Minute"));
             this.value = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minute)).with(TemporalAdjusters.next(dayEnum));
         }
-        
+
         else if (matcher_DAY.matches()) {
             DayOfWeek dayEnum = convertToDayEnum(matcher_DAY.group("Day"));
-            this.value = LocalDateTime.now().with(TemporalAdjusters.next(dayEnum));    
+            this.value = LocalDateTime.now().with(TemporalAdjusters.next(dayEnum));
         }
-                
+
         else if (matcher_TIME24H.matches()) {
-           
+
     	   Integer hour = Integer.parseInt(matcher_TIME24H.group("Hour"));
     	   Integer minute = Integer.parseInt(matcher_TIME24H.group("Minute"));
     	   this.value = LocalDateTime.of(LocalDate.now(), LocalTime.of(hour, minute));
        }
-       
-       
+
+
+    }
+
+    public boolean isEndBeforeStart(Time other) {
+    	if(this.value==null ||other.value == null)
+    		return false;
+
+    	if(this.value.isBefore(other.value))
+    		return true;
+
+		return false;
     }
 
     /**
-     * Returns if a given string is a valid person time.
+     * Returns if a given string is a valid task time.
      */
     public static boolean isValidTime(String test) {
         return test.matches(TIME_VALIDATION_REGEX);
@@ -87,7 +98,7 @@ public class Time {
 
     @Override
     public String toString() {
-        return (value != null) ? value.getDayOfWeek().toString() + " " + value.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))  
+        return (value != null) ? value.getDayOfWeek().toString() + " " + value.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))
         		: "";
     }
 
@@ -103,9 +114,9 @@ public class Time {
     public int hashCode() {
         return Objects.hash(value);
     }
-    
+
     private DayOfWeek convertToDayEnum(String day) {
-    	assert day != null; 
+    	assert day != null;
     	switch (day.substring(0, Math.min(day.length(), 3)).toLowerCase()) {
 		case "sun":
 			return DayOfWeek.SUNDAY;
@@ -123,7 +134,7 @@ public class Time {
 			return DayOfWeek.SATURDAY;
 		}
 		return null;
-    
+
     }
 
 }
