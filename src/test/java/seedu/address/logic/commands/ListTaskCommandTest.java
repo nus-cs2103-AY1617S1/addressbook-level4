@@ -31,7 +31,7 @@ public class ListTaskCommandTest {
          * all tasks have been listed.
          */
         InMemoryTaskList model;
-        model = TestUtil.setupSomeTasksInTaskList(1);
+        model = TestUtil.setupFloatingTasks(1);
         ListTaskCommand command = new ListTaskCommand("");
         command.setData(model);
         CommandResult result = command.execute();
@@ -45,7 +45,7 @@ public class ListTaskCommandTest {
          * all tasks have been listed.
          */
         InMemoryTaskList model;
-        model = TestUtil.setupSomeTasksInTaskList(3);
+        model = TestUtil.setupFloatingTasks(3);
         ListTaskCommand command = new ListTaskCommand("");
         command.setData(model);
         CommandResult result = command.execute();
@@ -59,7 +59,7 @@ public class ListTaskCommandTest {
          * the aliases have been listed.
          */
         InMemoryTaskList model;
-        model = TestUtil.setupSomeTasksInTaskList(3);
+        model = TestUtil.setupFloatingTasks(3);
         ListTaskCommand command = new ListTaskCommand("alias");
         command.setData(model);
         CommandResult result = command.execute();

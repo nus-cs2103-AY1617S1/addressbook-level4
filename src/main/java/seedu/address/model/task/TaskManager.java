@@ -15,7 +15,6 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.Alias;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.Task;
 
 /*
  * Manages a list of tasks 1and acts as a gateway for Commands to perform CRUD operations on the list
@@ -43,6 +42,14 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		tasks.add(toAdd);
 		indicateTaskManagerChanged();
 	}
+	
+	@Override
+	public synchronized void updateTask(Task toUpdate, Task newTask) throws ItemNotFoundException {
+		assert tasks.contains(toUpdate);
+		
+		tasks.replace(toUpdate, newTask);
+		indicateTaskManagerChanged();
+	}
 
 	@Override
 	public synchronized void deleteTask(Task toRemove) throws ItemNotFoundException {
@@ -56,7 +63,6 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		
 		toFavorite.setAsFavorite();
 		indicateTaskManagerChanged();
-		
 	}
 
 	@Override
@@ -65,7 +71,6 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		
 		toUnfavorite.setAsNotFavorite();
 		indicateTaskManagerChanged();
-		
 	}
 	
 	@Override
@@ -110,7 +115,6 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	@Override
 	public void clearTasksFilter() {
 	    filteredTasks.setPredicate(p -> !p.isComplete());
-		
 	}
 	
 	@Override

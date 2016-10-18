@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -11,8 +11,9 @@ import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.testutil.TestUtil;
 
 public class DeleteTaskCommandTest {
-
 	
+	// Initialized to support the tests
+	InMemoryTaskList model;
 	
 	@Test
 	public void deleteTask_noTasksAdded() throws IllegalValueException {
@@ -20,13 +21,12 @@ public class DeleteTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * there are no tasks that have been added).
 		 */
-		InMemoryTaskList model;
 		model = TestUtil.setupEmptyTaskList();
-		DeleteTaskCommand command = new DeleteTaskCommand(1);
-		command.setData(model);
-				
+		
+		CommandResult result = createAndExecuteDelete(1);
+		String feedback = result.feedbackToUser;
 		String expected = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-		assertCommandFeedback(command, expected);
+		assertEquals(feedback, expected);
 	}
 	
 	@Test
@@ -35,13 +35,12 @@ public class DeleteTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * index is too large).
 		 */
-		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
-		DeleteTaskCommand command = new DeleteTaskCommand(4);
-		command.setData(model);
+		model = TestUtil.setupFloatingTasks(3);
 		
+		CommandResult result = createAndExecuteDelete(4);
+		String feedback = result.feedbackToUser;
 		String expected = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-		assertCommandFeedback(command, expected);
+		assertEquals(feedback, expected);
 	}
 	
 	@Test
@@ -50,13 +49,12 @@ public class DeleteTaskCommandTest {
 		 * CommandResult should return a string that denotes that execution failed (since 
 		 * index is too small).
 		 */
-		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
-		DeleteTaskCommand command = new DeleteTaskCommand(-1);
-		command.setData(model);
+		model = TestUtil.setupFloatingTasks(3);
 		
+		CommandResult result = createAndExecuteDelete(-1);
+		String feedback = result.feedbackToUser;
 		String expected = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-		assertCommandFeedback(command, expected);
+		assertEquals(feedback, expected);
 	}
 	
 	@Test
@@ -65,23 +63,22 @@ public class DeleteTaskCommandTest {
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to DeleteTaskCommand constructor is within the range of added tasks.
 		 */
-		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
-		DeleteTaskCommand command = new DeleteTaskCommand(2);
-		command.setData(model);
+		model = TestUtil.setupFloatingTasks(3);
 		
+		CommandResult result = createAndExecuteDelete(2);
+		String feedback = result.feedbackToUser;
 		String expected = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, "[Floating Task][Description: Task 1]");
-		assertCommandFeedback(command, expected);
+		assertEquals(feedback, expected);
 	}
 
 
-	/*
-	 * Given a command and an expected string, execute the command
-	 * and assert that the feedback corresponds to the expected string
+	/**
+	 * Utility functions
 	 */
-	public void assertCommandFeedback(DeleteTaskCommand command, String expected) {
-		CommandResult result = command.execute();
-		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(expected));
+	// Create and execute DeleteTaskCommand
+	public CommandResult createAndExecuteDelete(int index) {
+		DeleteTaskCommand command = new DeleteTaskCommand(index);
+		command.setData(model);
+		return command.execute();
 	}
 }

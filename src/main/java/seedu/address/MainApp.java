@@ -15,6 +15,8 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.TaskConfig;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.StorageChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
@@ -178,7 +180,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting TaskManager " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
@@ -200,6 +202,39 @@ public class MainApp extends Application {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
+    
+    /*
+     * Handles the event when a command indicates that the storage location should
+     * be changed
+     */
+    @Subscribe
+    private void handleStorageChangedEvent(StorageChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        
+        // Set the new storage location in the config object
+        config.setStorageLocation(event.getStoragePath());
+        
+        try {
+        	// Save the config object so that the changed file location is updated on next app reload
+        	TaskConfigUtil.saveConfig(config, TaskConfig.DEFAULT_CONFIG_FILE);
+        	UniqueItemCollection<Task> tasks = storage.readTaskManager().orElse(new UniqueItemCollection<Task>());
+        	UniqueItemCollection<Alias> aliases = storage.readAlias().orElse(new UniqueItemCollection<Alias>());
+        	
+        	// Reinitialize the current storage object
+        	storage = new TaskStorageManager(config.getTasksFilePath(), config.getAliasFilePath(), config.getUserPrefsFilePath());
+        	
+        	// Save the current status of everything into the new location
+        	// This is if we close the app without adding new tasks
+        	storage.saveTaskManager(tasks);
+        	storage.saveAlias(aliases);
+        
+        } catch (IOException iox) {
+        	EventsCenter.getInstance().post(new DataSavingExceptionEvent(iox));
+        } catch (DataConversionException dcex) {
+        	EventsCenter.getInstance().post(new DataSavingExceptionEvent(dcex));
+        }
+    }
+
 
     public static void main(String[] args) {
         launch(args);

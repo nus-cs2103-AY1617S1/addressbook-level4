@@ -10,7 +10,7 @@ import seedu.address.logic.commands.taskcommands.UnfavoriteTaskCommand;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.testutil.TestUtil;
 
-public class UnfavoriteTaskCommandTest2 {
+public class UnfavoriteTaskCommandTest {
 
 	
 	@Test
@@ -35,7 +35,7 @@ public class UnfavoriteTaskCommandTest2 {
 		 * index is too large).
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		UnfavoriteTaskCommand command = new UnfavoriteTaskCommand(4);
 		command.setData(model);
 		
@@ -50,7 +50,7 @@ public class UnfavoriteTaskCommandTest2 {
 		 * index is too small).
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		UnfavoriteTaskCommand command = new UnfavoriteTaskCommand(-1);
 		command.setData(model);
 		
@@ -65,7 +65,7 @@ public class UnfavoriteTaskCommandTest2 {
 		 * to unfavoriteTaskCommand constructor is within the range of added tasks.
 		 */
 		InMemoryTaskList model;
-		model = TestUtil.setupSomeTasksInTaskList(3);
+		model = TestUtil.setupFloatingTasks(3);
 		UnfavoriteTaskCommand command = new UnfavoriteTaskCommand(2);
 		command.setData(model);
 		

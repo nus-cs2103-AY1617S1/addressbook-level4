@@ -1,11 +1,9 @@
 package seedu.address.commons.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import org.antlr.runtime.tree.Tree;
 
 import com.joestelmach.natty.*;
 
@@ -13,6 +11,9 @@ import com.joestelmach.natty.*;
  * Utility class to check if certain date formats are valid
  */
 public class DateUtil {
+	// Format for displaying dates
+	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+	
 	/**
      * Checks if a string follows a valid date format.
      * 

@@ -1,5 +1,6 @@
 package seedu.address.commons.core;
 
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -14,8 +15,10 @@ public class TaskConfig {
     private String appTitle = "Task Manager";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "task-userpreferences.json";
-    private String tasksFilePath = "data/tasks.xml";
-    private String aliasFilePath = "data/alias.xml";
+    private String tasksFileName = "tasks.xml";
+    private String tasksFilePath = "data/" + tasksFileName;
+    private String aliasFileName = "alias.xml";
+    private String aliasFilePath = "data/" + aliasFileName;
     private String taskManagerName = "TaskManager";
 
 
@@ -49,8 +52,8 @@ public class TaskConfig {
     public String getTasksFilePath() {
         return tasksFilePath;
     }
-
-    public void setAddressBookFilePath(String tasksFilePath) {
+    
+    public void setTasksFilePath(String tasksFilePath) {
         this.tasksFilePath = tasksFilePath;
     }
     
@@ -66,8 +69,16 @@ public class TaskConfig {
         return taskManagerName;
     }
 
-    public void setAddressBookName(String taskManagerName) {
+    public void setTaskManagerName(String taskManagerName) {
         this.taskManagerName = taskManagerName;
+    }
+    
+    /*
+     * Modifes the task and alias file path based on the input storage location
+     */
+    public void setStorageLocation(String storageLocation) {
+    	this.setTasksFilePath(Paths.get(storageLocation, tasksFileName).toString());
+    	this.setAliasFilePath(Paths.get(storageLocation, aliasFileName).toString());
     }
 
 

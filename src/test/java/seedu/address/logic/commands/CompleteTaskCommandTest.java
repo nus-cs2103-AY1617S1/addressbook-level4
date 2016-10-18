@@ -7,7 +7,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.taskcommands.CompleteTaskCommand;
-import seedu.address.logic.commands.taskcommands.FavoriteTaskCommand;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.testutil.TestUtil;
 
