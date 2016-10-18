@@ -310,7 +310,8 @@ Command | Format
 [Edit](#editing-a-task--edit) | `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)>`
 [Edit [Append]](#editing-a-task-by-appending-details-to-a-task--edit--ap) | `edit <INDEX> -ap <TO APPEND>`
 [Exit](#exiting-the-program--exit) | `exit`
-[Find](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
+[Find [Quick Serach]](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
+[Find [Filter Serach]](#finding-tasks--find) | `find -n <NAME_KEYWORD> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITYLEVEL> -do [or -ud] -t <TAG_KEYWORD>`
 [Help](#displaying-a-list-of-available-commands--help) | `help`
 [List](#listing-tasks--ls) | `ls`
 [List [Done]](#listing-tasks--ls) | `ls -do`
