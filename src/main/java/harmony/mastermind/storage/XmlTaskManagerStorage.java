@@ -30,7 +30,6 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     public String getTaskManagerFilePath(){
-        System.out.println(filePath);
         return filePath;
     }
     
