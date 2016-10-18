@@ -3,6 +3,7 @@ package seedu.menion.logic.parser;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.StringUtil;
 import seedu.menion.logic.commands.*;
+import seedu.menion.model.activity.Activity;
 
 import static seedu.menion.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.menion.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -87,12 +88,28 @@ public class ActivityParser {
     }
     
     private Command prepareComplete(String args) {
-        Optional<Integer> index = parseIndex(args);
+
+        String[] splited = args.split("\\s+");
+        assert(splited.length == 3); // Should only contain a space, Activity Type and Index
+        boolean isValidType = false; // Checks that the activity type is of valid type
+        String activityType = splited[1];
+
+        if (activityType.equals(Activity.FLOATING_TASK_TYPE) || activityType.equals(Activity.TASK_TYPE) || activityType.equals(Activity.EVENT_TYPE)) {
+            isValidType = true;
+        }
+        if (!isValidType) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+
+        Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
+
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
         }
-        previousCommand = new CompleteCommand(index.get());
+        
+        previousCommand = new CompleteCommand(splited);
         return previousCommand;
     }
     /**

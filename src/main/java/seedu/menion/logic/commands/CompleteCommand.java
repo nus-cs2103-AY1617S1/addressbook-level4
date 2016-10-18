@@ -16,36 +16,48 @@ public class CompleteCommand extends Command {
 
     public static final String COMMAND_WORD = "complete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Completes an activity using their index: "
-            + "the Activity's index.\n"
-            + "Parameters: Activity_index. \n"
-            + "Example: " + COMMAND_WORD + "1";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Completes an activity using their type and index: "
+            + "\n"
+            + "Parameters: [Activity_Type] + [Activity_Index] \n"
+            + "Example: " + COMMAND_WORD + " " + Activity.EVENT_TYPE + " 1";
     
     public static final String MESSAGE_COMPLETED_ACTIVITY_SUCCESS = "Completed Activity: %1$s";
     
     public final int targetIndex;
-
+    public final String targetType;
+    
     private Activity toBeCompleted;
     
-    public CompleteCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+    public CompleteCommand(String[] splited) {
+        this.targetType = splited[1];
+        this.targetIndex = Integer.valueOf(splited[2]);
     }
 
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyActivity> lastShownList = model.getFilteredTaskList();
-
+        
+        UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
+        if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
+            lastShownList = model.getFilteredFloatingTaskList();
+        }
+        else if (targetType.equals(Activity.TASK_TYPE)) {
+            lastShownList = model.getFilteredFloatingTaskList();
+        }
+        else {
+            lastShownList = model.getFilteredEventList();
+        }
+        
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
-
+        
         ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex - 1);
         toBeCompleted = (Activity)activityToComplete;
+        System.out.println("This is name of activtiy to be completed: " + toBeCompleted.getActivityName().fullName);
+        toBeCompleted.setCompleted();
+        System.out.println("This is the status of activity tbc: " + toBeCompleted.getActivityStatus().toString());
         
-        activityToComplete.setCompleted();
-
         return new CommandResult(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
     }
 
