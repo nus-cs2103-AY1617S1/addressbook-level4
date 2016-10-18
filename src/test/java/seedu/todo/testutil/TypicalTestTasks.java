@@ -9,19 +9,23 @@ import seedu.todo.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask buyGroceries, benson, sleep, goMeeting, meetElle, meetFiona, meetGeorge, meetHoon, meetIda;
+    public static TestTask buyGroceries, buyMilk, buyRice, buyChilli;
 
     public TypicalTestTasks() {
         try {
-            buyGroceries =  new TaskBuilder().withName("buy groceries").withByDate("16/12/2016")
-                    .withOnDate("16/12/2016").withDetail("fish")
+            buyGroceries =  new TaskBuilder().withName("Buy Groceries").withByDate("12/12/2016")
+                    .withOnDate("12/12/2016").withDetail("fish")
                     .withTags("urgent").build();
-            benson = new TaskBuilder().withName("do assignment").withByDate("12/12/1234")
-                    .withOnDate("12/12/1232").withDetail("CS2103T")
+            buyMilk =  new TaskBuilder().withName("Buy Milk").withByDate("12/12/2016")
+                    .withOnDate("12/12/2016").withDetail("Marigold")
                     .withTags("urgent").build();
-            sleep = new TaskBuilder().withName("sleep").withByDate("12/12/1234")
-                    .withOnDate("12/12/1232").withDetail("urgent")
+            buyRice =  new TaskBuilder().withName("Buy Rice").withByDate("12/12/2016")
+                    .withOnDate("12/12/2016").withDetail("Thai Rice")
                     .withTags("urgent").build();
+            buyChilli =  new TaskBuilder().withName("Buy Chilli").withByDate("12/12/2016")
+                    .withOnDate("12/12/2016").withDetail("Red")
+                    .withTags("urgent").build();
+            
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -32,15 +36,16 @@ public class TypicalTestTasks {
 
         try {
             ab.addTask(new Task(buyGroceries));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(sleep));
+            ab.addTask(new Task(buyMilk));
+            ab.addTask(new Task(buyRice));
+            ab.addTask(new Task(buyChilli));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{buyGroceries, benson, sleep, goMeeting, meetElle, meetFiona, meetGeorge};
+        return new TestTask[]{buyGroceries, buyMilk, buyRice, buyChilli};
     }
 
     public ToDoList getTypicalToDoList(){

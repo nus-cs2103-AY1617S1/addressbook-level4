@@ -5,8 +5,10 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.time.LocalDateTime;
 
 import com.joestelmach.natty.*;
@@ -27,8 +29,18 @@ public class DateTimeUtil {
         if (groups.size() == 0) {
             return null;
         } else {
-            Date date = groups.get(0).getDates().get(0);
-            LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+            DateGroup group = groups.get(0);
+            Map<String, List<ParseLocation>> m = group.getParseLocations();
+            if (!m.keySet().contains("date")) {
+                return null;
+            }
+            Date date = group.getDates().get(0);
+            
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            
+            LocalDateTime ldt = LocalDateTime.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, 
+                    c.get(Calendar.DATE), c.get(Calendar.HOUR), c.get(Calendar.MINUTE));
             return ldt;
         }
     }

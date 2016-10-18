@@ -22,7 +22,7 @@ public class UntagCommand extends Command{
             + "Parameters: INDEX TAGNAME [MORE TAGNAMES]\n"
             + "Example: " + COMMAND_WORD + " 1 birthday clique";
 
-    public static final String MESSAGE_TAG_TASK_SUCCESS = "Untagged Task: %1$s";
+    public static final String MESSAGE_SUCCESS = "Untagged Task: %1$s";
 
     public final int targetIndex;
     public final UniqueTagList tags;
@@ -69,7 +69,7 @@ public class UntagCommand extends Command{
             assert false : "The target task cannot be found";
         }
 
-        return new CommandResult(String.format(MESSAGE_TAG_TASK_SUCCESS, taskToUntag.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToUntag.getName()));
     }
     
     
