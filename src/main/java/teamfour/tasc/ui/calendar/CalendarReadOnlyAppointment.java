@@ -173,7 +173,7 @@ public class CalendarReadOnlyAppointment implements Appointment {
     /**
      * Convert a java.util.Date to a java.time.LocalDateTime
      */
-    private LocalDateTime convertToLocalDateTime(Date date) {
+    protected LocalDateTime convertToLocalDateTime(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 }

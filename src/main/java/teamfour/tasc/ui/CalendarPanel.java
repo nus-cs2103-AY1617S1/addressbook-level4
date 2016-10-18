@@ -3,6 +3,7 @@ package teamfour.tasc.ui;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -18,9 +19,14 @@ import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.events.ui.TaskPanelListChangedEvent;
+import teamfour.tasc.commons.exceptions.IllegalValueException;
 import teamfour.tasc.commons.util.FxViewUtil;
+import teamfour.tasc.model.task.Deadline;
+import teamfour.tasc.model.task.Period;
 import teamfour.tasc.model.task.ReadOnlyTask;
+import teamfour.tasc.model.task.Recurrence;
 import teamfour.tasc.ui.calendar.CalendarReadOnlyAppointment;
+import teamfour.tasc.ui.calendar.CalendarReadOnlyRecurredAppointment;
 
 /**
  * Panel containing a visual overview of the calendar.
@@ -93,9 +99,57 @@ public class CalendarPanel extends UiPart {
         
         for (ReadOnlyTask task : taskList) {
             if (isDisplayableInCalendar(task)) {
-                agendaView.appointments().addAll(new CalendarReadOnlyAppointment(task));
+                try {
+                    agendaView.appointments().addAll(generateAppointmentsForTask(task));
+                } catch (IllegalValueException ive) {
+                    assert false: "Not possible";
+                }
             }
         }
+    }
+
+    /**
+     * Generate an appointment(s) given a task, taking into
+     * consideration any possible recurring.
+     * 
+     * Pre-condition: The task must be displayable in calendar.
+     * @param task
+     * @throws IllegalValueException 
+     */
+    private List<Appointment> generateAppointmentsForTask(ReadOnlyTask task) throws IllegalValueException {
+        assert isDisplayableInCalendar(task);
+        
+        List<Appointment> allAppointments = new ArrayList<Appointment>();
+        allAppointments.add(new CalendarReadOnlyAppointment(task));
+        
+        Recurrence taskRecurrence = task.getRecurrence();
+        
+        if (taskRecurrence.hasRecurrence()) {
+            Recurrence remainingRecurrence = task.getRecurrence();
+            Deadline currentDeadline = task.getDeadline();
+            Period currentPeriod = task.getPeriod();
+            
+            while (remainingRecurrence.hasRecurrence()) {
+                if (currentDeadline.hasDeadline()) {
+                    currentDeadline = new Deadline(remainingRecurrence
+                            .getNextDateAfterRecurrence(currentDeadline.getDeadline()));
+                }
+
+                if (currentPeriod.hasPeriod()) {
+                    currentPeriod = new Period(
+                            remainingRecurrence
+                                    .getNextDateAfterRecurrence(currentPeriod.getStartTime()),
+                            remainingRecurrence
+                                    .getNextDateAfterRecurrence(currentPeriod.getEndTime()));
+                }
+                
+                remainingRecurrence = remainingRecurrence.getRecurrenceWithOneFrequencyLess();
+                
+                allAppointments.add(new CalendarReadOnlyRecurredAppointment(task, currentDeadline, currentPeriod));
+            }
+        }
+        
+        return allAppointments;
     }
 
     /**
