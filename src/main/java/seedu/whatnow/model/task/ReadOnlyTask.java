@@ -32,7 +32,13 @@ public interface ReadOnlyTask {
      * @return
      */
     String getStatus();
-
+    
+    /**
+     * Return the task type of the task.
+     * @return
+     */
+    String getTaskType();
+    
     /**
      * Formats the task as text, showing all details.
      */

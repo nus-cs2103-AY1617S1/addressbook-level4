@@ -62,7 +62,6 @@ public class Parser {
 	 * @throws ParseException 
 	 */
 	public Command parseCommand(String userInput) throws ParseException {
-		//	System.out.println("User input is :" + userInput);
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -116,12 +115,12 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareAdd(String args){
-//		if(TEMP3.matcher(args).find()) {
-//			System.out.println("matches");
-//		}
+		/*if(TEMP3.matcher(args).find()) {
+			System.out.println("matches");
+		}*/
 		
 		int DESCRIPTION = 1;
-		
+
 		final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
 		
 		// Validate args string format
@@ -167,14 +166,6 @@ public class Parser {
 	                return new IncorrectCommand(ive.getMessage());
 	            }
 		    }
-		    
-			try {
-				return new AddCommand(arguments[DESCRIPTION], additionalArgs[1], Collections.emptySet());
-			} catch (IllegalValueException ive) {
-				return new IncorrectCommand(ive.getMessage());
-			} catch (ParseException ive) {
-				return new IncorrectCommand(ive.getMessage());
-			}
 		}
 		
 		Set<String> tags = new HashSet<String>();
@@ -227,7 +218,6 @@ public class Parser {
     private Command prepareList(String args) {
         String[] argComponents= args.trim().split(" ");
         String listArg = argComponents[LIST_ARG];
-        System.out.println(listArg);
         if (!isListCommandValid(listArg)) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
