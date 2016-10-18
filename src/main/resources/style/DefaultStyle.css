@@ -42,6 +42,10 @@
     -fx-font-weight: bolder;
 }
 
+.underline {
+    -fx-underline: true;
+}
+
 .gridPanel {
     -fx-hgap: 16pt;
     -fx-vgap: 2pt;
