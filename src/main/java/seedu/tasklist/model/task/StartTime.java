@@ -18,7 +18,7 @@ public class StartTime {
 
     public static final String MESSAGE_START_TIME_CONSTRAINTS = "Start time is invalid!";
 
-    public final Calendar starttime; 
+    public final Calendar startTime; 
 
     /**
      * Validates given start time.
@@ -26,42 +26,44 @@ public class StartTime {
      * @throws IllegalValueException if given start time is invalid.
      */
     public StartTime(String input) throws IllegalValueException {
-    	starttime = Calendar.getInstance();
-    	String startTime = TimePreparser.preparse(input);
-    	if(!startTime.isEmpty() && !startTime.equals(new Date(0).toString())){
-    		List<DateGroup> dates = new Parser().parse(startTime);
-    		if(dates.isEmpty()){
-    			throw new IllegalValueException("Start time is invalid!");
-    		}
-    		else if(dates.get(0).getDates().isEmpty()){
-    			throw new IllegalValueException("Start time is invalid!");
-    		}
-    		else{
-    			starttime.setTime(dates.get(0).getDates().get(0));
-    		}
+    	startTime = Calendar.getInstance();
+    	if(input == null){
+    		startTime.setTime(new Date(0));
     	}
     	else{
-    		starttime.setTime(new Date(0));
+    		String preparsedTime = TimePreparser.preparse(input);
+    		if(!preparsedTime.equals(new Date(0).toString())){
+        		List<DateGroup> dates = new Parser().parse(preparsedTime);
+        		if(dates.isEmpty()){
+        			throw new IllegalValueException("Start time is invalid!");
+        		}
+        		else if(dates.get(0).getDates().isEmpty()){
+        			throw new IllegalValueException("Start time is invalid!");
+        		}
+        		else{
+        			startTime.setTime(dates.get(0).getDates().get(0));
+        		}
+        	}
     	}
     }
 
     @Override
     public String toString() {
-    	if(starttime.getTime().equals(new Date(0))){
+    	if(startTime.getTime().equals(new Date(0))){
     		return (new Date(0)).toString();
     	}
     	else{
-    		return starttime.getTime().toString();
+    		return startTime.getTime().toString();
     	}
     }
     
     public String toCardString() {
-    	if(starttime.getTime().equals(new Date(0))){
+    	if(startTime.getTime().equals(new Date(0))){
     		return "-";
     	}
     	else{
     		DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
-    		Date startTimeString = starttime.getTime();
+    		Date startTimeString = startTime.getTime();
     		String finalStartString = df.format(startTimeString );
     		
     		return finalStartString;
@@ -69,7 +71,7 @@ public class StartTime {
     }
 
     public boolean isMissing(){
-    	if(starttime.getTime().equals(new Date(0)))
+    	if(startTime.getTime().equals(new Date(0)))
         return true;
         else return false;
         } 
@@ -77,13 +79,13 @@ public class StartTime {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (this.starttime != null && ((StartTime) other).starttime != null ) && (other instanceof StartTime // instanceof handles nulls
-                && this.starttime.equals(((StartTime) other).starttime)); // state check
+                || (this.startTime != null && ((StartTime) other).startTime != null ) && (other instanceof StartTime // instanceof handles nulls
+                && this.startTime.equals(((StartTime) other).startTime)); // state check
     }
 
     @Override
     public int hashCode() {
-        return starttime.hashCode();
+        return startTime.hashCode();
     }
 
 }
