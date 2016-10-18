@@ -58,8 +58,8 @@ public class DateTimeParser {
     }
     
     /**
-     * helper method for parseInput()
-     * converts a java.util.Date object to java.time.LocalDateTime object
+     * helper method for casting java.util.Date to java.time.LocalDateTime
+     * safely
      * 
      * @param date
      * @return
