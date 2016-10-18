@@ -266,7 +266,7 @@ public class ListController implements Controller {
      * @return true if Task, false if Event
      */
     private boolean parseIsTask (Map<String, String[]> parsedResult) {
-        return parsedResult.get("eventType")[0].equals("task");
+        return parsedResult.get("eventType")[0].contains("task");
     }
     
     /**
