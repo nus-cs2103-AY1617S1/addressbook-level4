@@ -3,6 +3,8 @@ package seedu.malitio.testutil;
 import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.Malitio;
 import seedu.malitio.model.tag.Tag;
+import seedu.malitio.model.task.FloatingTask;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
 
 /**
@@ -14,12 +16,12 @@ public class MalitioBuilder {
 
     private Malitio malitio;
 
-    public MalitioBuilder(Malitio malitio){
+    public MalitioBuilder(Malitio malitio) {
         this.malitio = malitio;
     }
 
-    public MalitioBuilder withTask(Task task) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
-        malitio.addTask(task);
+    public MalitioBuilder withTask(FloatingTask task) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
+        malitio.addFloatingTask(task);
         return this;
     }
 
