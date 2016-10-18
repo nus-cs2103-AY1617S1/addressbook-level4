@@ -10,6 +10,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.TaskBook;
 import seedu.address.model.item.Item;
+import seedu.address.testutil.TestItem;
 import seedu.address.testutil.TypicalTestItems;
 
 import java.io.IOException;
