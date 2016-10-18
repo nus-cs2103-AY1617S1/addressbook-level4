@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
+[![Build Status](https://travis-ci.org/CS2103AUG2016-W13-C1/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W13-C1/main)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W13-C1/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W13-C1/main?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/67e56af996dc4322a35923403e6be463)](https://www.codacy.com/app/monkeydesmond/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-W13-C1/main&amp;utm_campaign=Badge_Grade)
 
 # DoDo-Bird
 
