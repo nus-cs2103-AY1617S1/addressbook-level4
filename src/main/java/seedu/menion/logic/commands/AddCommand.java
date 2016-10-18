@@ -92,7 +92,15 @@ public class AddCommand extends Command {
 	public boolean undo() {
 		assert model != null;
 		 try {
-	            model.deleteTask(toAdd);
+	            if (toAdd.getActivityType().equals("task")){
+	                model.deleteTask(toAdd);
+	            }
+	            else if (toAdd.getActivityType().equals("event")){
+	                model.deleteEvent(toAdd);
+	            }
+	            else {
+	                model.deleteFloatingTask(toAdd);
+	            }
 	            return true;
 	     } 
 		 catch (TaskNotFoundException pnfe) {

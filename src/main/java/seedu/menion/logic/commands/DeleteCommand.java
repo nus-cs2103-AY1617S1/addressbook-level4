@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the activity identified by the activity type followed by the index number used in the last activity listing.\n"
             + "Parameters: ACTIVITY_TYPE(task,event,floatingTask) INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + "floatingTask" + " 1";
+            + "Example: " + COMMAND_WORD + " floating" + " 1";
 
     public static final String MESSAGE_DELETE_ACTIVITY_SUCCESS = "Deleted Activity: %1$s";
 
@@ -37,23 +37,17 @@ public class DeleteCommand extends Command {
     public CommandResult execute() {
 
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
-        
-        System.out.println("what is this activity's target type? It is " + targetType);
-        
+
         if (targetType.equals(" task")) {
-            System.out.println("deleting a task");
             lastShownList = model.getFilteredTaskList();
         }
-        else if (targetType.equals(" floatingTask")) {
-            System.out.println("deleting a floatingTask");
+        else if (targetType.equals(" floating")) {
             lastShownList = model.getFilteredFloatingTaskList();
         }
         else if (targetType.equals(" event")) {
-            System.out.println("deleting an event");
             lastShownList = model.getFilteredEventList();
         }
         else {
-            System.out.println("problem?");
             lastShownList = null;
             indicateAttemptToExecuteIncorrectCommand();
         }
@@ -91,7 +85,15 @@ public class DeleteCommand extends Command {
 	public boolean undo() {
 		assert model != null;
         try {
-			model.addTask(toBeDeleted);
+            if (toBeDeleted.getActivityType().equals("task")){
+                model.addTask(toBeDeleted);
+            }
+            else if (toBeDeleted.getActivityType().equals("event")){
+                model.addEvent(toBeDeleted);
+            }
+            else {
+                model.addFloatingTask(toBeDeleted);
+            }
 			return true;
 		} catch (DuplicateTaskException e) {
 			// there will not be a duplicate task in this case
