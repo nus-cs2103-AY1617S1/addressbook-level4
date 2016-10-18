@@ -48,20 +48,10 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
      */
     public XmlSerializableActivityManager(ReadOnlyActivityManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tags = src.getTagList();
         floatingTasks.addAll(src.getFloatingTaskList().stream().map(XmlAdaptedFloatingTask::new).collect(Collectors.toList()));
         events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
     }
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     @Override
     public UniqueActivityList getUniqueTaskList() {
@@ -138,9 +128,5 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
-    }
 
 }

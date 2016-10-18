@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 public class ActivityListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#cardPane";
+    public static final String CARD_PANE_ID = "#taskCardPane";
     private static final String PERSON_LIST_VIEW_ID = "#taskListView";
 
     public ActivityListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {

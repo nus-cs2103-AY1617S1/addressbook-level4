@@ -189,9 +189,9 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyActivity task) {
+    /*public void loadTaskPage(ReadOnlyActivity task) {
         browserPanel.loadActivityPage(task);
-    }
+    }*/
 
     public void releaseResources() {
         browserPanel.freeResources();

@@ -18,7 +18,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(td.task.getAddCommand());
         assertTrue(activityListPanel.isListMatching(td.task));
 
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("delete task 1");
         assertListSize(0);
 
         //verify clear command works when the list is empty
