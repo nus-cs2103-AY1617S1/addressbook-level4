@@ -6,13 +6,13 @@ import static org.junit.Assert.assertEquals;
 
 public class CommandBoxTest extends ToDoListGuiTest {
 
-    /*
+    
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(td.buyMilk.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
-    */
+    
 
     @Test
     public void commandBox_commandFails_textStays(){

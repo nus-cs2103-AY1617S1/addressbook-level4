@@ -66,7 +66,7 @@ public abstract class ToDoListGuiTest {
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData));
+        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();
@@ -86,9 +86,9 @@ public abstract class ToDoListGuiTest {
      * Override this in child classes to set the data file location.
      * @return
      */
-/*    protected String getDataFileLocation() {
+    protected String getDataFileLocation() {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
-    }*/
+    }
 
     @After
     public void cleanup() throws TimeoutException {

@@ -18,34 +18,34 @@ import java.util.function.Supplier;
  */
 public class TestApp extends MainApp {
 
-    //public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
     protected Supplier<ReadOnlyToDoList> initialDataSupplier = () -> null;
-    //protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyToDoList> initialDataSupplier/*, String saveFileLocation*/) {
+    public TestApp(Supplier<ReadOnlyToDoList> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
-        /*this.saveFileLocation = saveFileLocation;
+        this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
                     new XmlSerializableToDoList(this.initialDataSupplier.get()),
                     this.saveFileLocation);
-        }*/
+        }
     }
 
     @Override
     protected Config initConfig(String configFilePath) {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
-        //config.setAddressBookFilePath(saveFileLocation);
+        config.setToDoListFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
         config.setToDoListName(ADDRESS_BOOK_NAME);
         return config;
