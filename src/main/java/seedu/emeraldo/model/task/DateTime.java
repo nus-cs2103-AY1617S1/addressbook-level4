@@ -50,28 +50,23 @@ public class DateTime {
             final String hour = matcher.group("hour");
             final String minute = matcher.group("minute");
         
-            if(!dateTime.contains(":")){           //Constructing a DateTime object with Date only
-                int yearParsed = Integer.parseInt(year);
-                int monthParsed = Integer.parseInt(month);
-                int dayParsed = Integer.parseInt(day);
-                this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
+            int yearParsed = Integer.parseInt(year);
+            int monthParsed = Integer.parseInt(month);
+            int dayParsed = Integer.parseInt(day);
+            this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
             
+            if(!dateTime.contains(":")){           //Constructing a DateTime object with Date only
                 this.valueTime = null;
                 this.valueFormatted = day + " " + returnMonthInWords(monthParsed) + " " + year;
                 this.value = dateTime;
                 
-            } else {                                    //Constructing a DateTime object with Date and time
-                int yearParsed = Integer.parseInt(year);
-                int monthParsed = Integer.parseInt(month);
-                int dayParsed = Integer.parseInt(day);
-                this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
-        
+            } else {                                    //Constructing a DateTime object with Date and time        
                 int hourParsed = Integer.parseInt(hour);
                 int minuteParsed = Integer.parseInt(minute);
                 this.valueTime = LocalTime.of(hourParsed, minuteParsed);
             
                 this.valueFormatted = day + " " + returnMonthInWords(monthParsed) +  " " 
-                    + year + " " + hour + ":" + minute;
+                    + year + ", " + hour + ":" + minute;
                 this.value = dateTime;
             }
         }
