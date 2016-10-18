@@ -27,13 +27,18 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withTaskDate(String date) throws IllegalValueException {
-        this.task.setTaskDate(new TaskDate(date));
+    public TaskBuilder withStartDate(String date) throws IllegalValueException {
+        this.task.setStartDate(new TaskDate(date));
         return this;
     }
 
     public TaskBuilder withStartTime(String startTime) throws IllegalValueException {
         this.task.setStartTime(new TaskTime(startTime));
+        return this;
+    }
+    
+    public TaskBuilder withEndDate(String date) throws IllegalValueException {
+        this.task.setEndDate(new TaskDate(date));
         return this;
     }
 

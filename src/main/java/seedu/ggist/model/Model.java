@@ -2,6 +2,7 @@ package seedu.ggist.model;
 
 import java.util.Set;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.model.task.Task;
 import seedu.ggist.model.task.ReadOnlyTask;
@@ -43,5 +44,11 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to show all done tasks */
     void updateFilteredListToShowAllDone();
+    
+    /** Updates the filter of the filtered task list to reflect changes */
+    void updateFilteredListToShowChanges();
+    
+    /** Updates the filter of the filtered task list to show task in a particular day */
+    void updateFilteredTaskListToShowDate(String keywords);
 
 }

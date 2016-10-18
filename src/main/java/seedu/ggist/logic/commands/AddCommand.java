@@ -19,13 +19,13 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task\n"
             + "Parameters: TASK, [DATE], [TIME]\n"
             + "Example: " + COMMAND_WORD
-            + " go run, 12 oct, 1200-1230";
+            + " examination period, friday 1pm to next friday 12pm";
     
-    public static final String MESSAGE_SUCCESS = "New %1$s task added: %2$s";
+    public static final String MESSAGE_SUCCESS = "New %1$s added: %2$s";
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";
     
     private enum TaskType {
-        FLOATING("floating"), DEADLINE("deadline"), EVENT("event"); 
+        FLOATING("task"), DEADLINE("deadline"), EVENT("event"); 
         
         private final String taskType;
         TaskType(String taskType) {
@@ -47,14 +47,15 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String taskName, String date, String startTime, String endTime, Set<String> tags) throws IllegalValueException {      
+    public AddCommand(String taskName, String startDate, String startTime, String endDate, String endTime, Set<String> tags) throws IllegalValueException {      
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new EventTask(
                 new TaskName(taskName),
-                new TaskDate(date),
+                new TaskDate(startDate),
                 new TaskTime(startTime),
+                new TaskDate(endDate),
                 new TaskTime(endTime),
                 new UniqueTagList(tagSet)
         );
@@ -72,8 +73,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new DeadlineTask(
                 new TaskName(taskName),
-                new TaskDate(date),
+                new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),
                 new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
+                new TaskDate(date),
                 new TaskTime(endTime),
                 new UniqueTagList(tagSet)
         );
@@ -91,8 +93,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new FloatingTask(
                 new TaskName(taskName),
-                new TaskDate(Messages.MESSAGE_NO_DATE_SPECIFIED),
+                new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),
                 new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
+                new TaskDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED),
                 new TaskTime(Messages.MESSAGE_NO_END_TIME_SET),
                 new UniqueTagList(tagSet)
         );
@@ -111,7 +114,7 @@ public class AddCommand extends Command {
             model.addTask(toAdd); 
             listOfCommands.push(COMMAND_WORD);
             listOfTasks.push(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType, toAdd));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskType, toAdd.getTaskName()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }

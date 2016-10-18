@@ -9,8 +9,9 @@ import seedu.ggist.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     TaskName getTaskName();
-    TaskDate getDate();
+    TaskDate getStartDate();
     TaskTime getStartTime();
+    TaskDate getEndDate();
     TaskTime getEndTime();
     boolean getDone();
     void setDone();
@@ -28,8 +29,9 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getTaskName().equals(this.getTaskName()) // state checks here onwards
-                && other.getDate().equals(this.getDate())
+                && other.getStartDate().equals(this.getStartDate())
                 && other.getStartTime().equals(this.getStartTime())
+                && other.getEndDate().equals(this.getEndDate())
                 && other.getEndTime().equals(this.getEndTime())
          );
     }
@@ -42,11 +44,13 @@ public interface ReadOnlyTask {
         builder.append(getTaskName())
                 .append(" Task Name: ")
                 .append(getTaskName())
-                .append(" TaskDate: ")
-                .append(getDate())
-                .append(" Start TaskTime: ")
+                .append(" Start Date: ")
+                .append(getStartDate())
+                .append(" Start Time: ")
                 .append(getStartTime())
-                .append(" End TaskTime: ")
+                .append(" End Date: ")
+                .append(getEndDate())
+                .append(" End Time: ")
                 .append(getEndTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

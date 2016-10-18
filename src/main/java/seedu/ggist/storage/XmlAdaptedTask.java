@@ -18,9 +18,11 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String taskName;
     @XmlElement(required = true)
-    private String date;
+    private String startDate;
     @XmlElement(required = true)
     private String startTime;
+    @XmlElement(required = true)
+    private String endDate;
     @XmlElement(required = true)
     private String endTime;
     @XmlElement
@@ -39,8 +41,9 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         taskName = source.getTaskName().taskName;
-        date = source.getDate().value;
+        startDate = source.getStartDate().value;
         startTime = source.getStartTime().value;
+        endDate = source.getEndDate().value;
         endTime = source.getEndTime().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -59,10 +62,11 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final TaskName taskName = new TaskName(this.taskName);
-        final TaskDate taskDate = new TaskDate(this.date);
+        final TaskDate startDate = new TaskDate(this.startDate);
         final TaskTime startTime = new TaskTime(this.startTime);
+        final TaskDate endDate = new TaskDate(this.endDate);
         final TaskTime endTime = new TaskTime(this.endTime);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new EventTask(taskName, taskDate, startTime, endTime, tags);
+        return new EventTask(taskName, startDate, startTime, endDate, endTime, tags);
     }
 }

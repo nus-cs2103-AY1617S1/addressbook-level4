@@ -164,8 +164,6 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;], 12 oct, 0000-2359", TaskName.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
                 "add Valid TaskName, abcd, 1800", TaskDate.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid TaskName, 12 oct, 5555", TaskTime.MESSAGE_TIME_CONSTRAINTS);
@@ -383,13 +381,14 @@ public class LogicManagerTest {
 
         Task bungee() throws Exception {
             TaskName taskName = new TaskName("go bungee jumping");
-            TaskDate date = new TaskDate("16 Oct");
+            TaskDate startDate = new TaskDate("16 Oct");
             TaskTime startTime = new TaskTime("1800");
+            TaskDate endDate = new TaskDate("18 Oct");
             TaskTime endTime = new TaskTime("2000");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(taskName, date, startTime, endTime, tags);
+            return new Task(taskName, startDate, startTime, endDate, endTime, tags);
         }
 
         /**
@@ -404,6 +403,7 @@ public class LogicManagerTest {
                     new TaskName("Task " + seed),
                     new TaskDate("Oct 1" + Math.abs(seed)),
                     new TaskTime("123"+seed),
+                    new TaskDate("Oct 2" + Math.abs(seed)),
                     new TaskTime("213" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -416,8 +416,9 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getTaskName().toString());
-            cmd.append(",").append(p.getDate());
+            cmd.append(",").append(p.getStartDate());
             cmd.append(",").append(p.getStartTime());
+            cmd.append(",").append(p.getEndDate());
             cmd.append("-").append(p.getEndTime());
 
             UniqueTagList tags = p.getTags();
@@ -503,6 +504,7 @@ public class LogicManagerTest {
                     new TaskName(taskName),
                     new TaskDate("12 Oct"),
                     new TaskTime("1800"),
+                    new TaskDate("13 Oct"),
                     new TaskTime("2000"),
                     new UniqueTagList(new Tag("tag"))
             );

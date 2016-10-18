@@ -10,8 +10,9 @@ import seedu.ggist.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String TASKNAME_FIELD_ID = "#name";
-    private static final String DATE_FIELD_ID = "#taskDate";
+    private static final String STARTDATE_FIELD_ID = "#startDate";
     private static final String STARTTIME_FIELD_ID = "#startTime";
+    private static final String ENDDATE_FIELD_ID = "#endDate";
     private static final String ENDTIME_FIELD_ID = "#endTime";
 
     private Node node;
@@ -29,12 +30,16 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(TASKNAME_FIELD_ID);
     }
 
-    public String getDate() {
-        return getTextFromLabel(DATE_FIELD_ID);
+    public String getStartDate() {
+        return getTextFromLabel(STARTDATE_FIELD_ID);
     }
 
     public String getStartTime() {
         return getTextFromLabel(STARTTIME_FIELD_ID);
+    }
+    
+    public String getEndDate() {
+        return getTextFromLabel(ENDDATE_FIELD_ID);
     }
 
     public String getEndTime() {
@@ -42,8 +47,8 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getTaskName().taskName) && getDate().equals(task.getDate().value)
-                && getStartTime().equals(task.getStartTime().value) && getEndTime().equals(task.getEndTime().value);
+        return getFullName().equals(task.getTaskName().taskName) && getStartDate().equals(task.getStartDate().value)
+                && getStartTime().equals(task.getStartTime().value) && getEndTime().equals(task.getEndTime().value) && getEndTime().equals(task.getEndTime().value);
     }
 
     @Override
@@ -51,13 +56,13 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getDate().equals(handle.getDate()); //TODO: compare the rest
+                    && getStartDate().equals(handle.getStartDate()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getDate();
+        return getFullName() + " " + getStartDate();
     }
 }

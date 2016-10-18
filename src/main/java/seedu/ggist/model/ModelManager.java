@@ -27,7 +27,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<Task> filteredTasks;
+    private FilteredList<Task> filteredTasks;
     
     public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
 
@@ -112,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAllDone(new PredicateExpression(new DoneQualifier()));
     }
     
-    public void updateFilteredListToShowAllDone(Expression expression) {
+    private void updateFilteredListToShowAllDone(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
@@ -121,7 +121,16 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskListToShowUndone(new PredicateExpression(new NotDoneQualifier()));
     }
     
-    public void updateFilteredTaskListToShowUndone(Expression expression) {
+    private void updateFilteredTaskListToShowUndone(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredTaskListToShowDate(String keywords){
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(keywords)));
+    }
+
+    private void updateFilteredTaskListToShowDate(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
@@ -132,6 +141,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredListToShowChanges() {
+        System.out.println(filteredTasks.getPredicate());
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -204,5 +218,24 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", taskNameKeyWords);
         }
     }
+    
+    private class DateQualifier implements Qualifier {
+        private String taskDateKeyWords;
 
+        DateQualifier(String taskDateKeyWords) {
+            this.taskDateKeyWords = taskDateKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return taskDateKeyWords.equals(task.getStartDate().toString()) || 
+                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone();
+            
+        }
+
+        @Override
+        public String toString() {
+            return "name=" + String.join(", ", taskDateKeyWords);
+        }
+    }
 }

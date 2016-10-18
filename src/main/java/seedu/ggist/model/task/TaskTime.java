@@ -14,8 +14,9 @@ public class TaskTime {
     
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "TIME 24-hour format is HHMM";
-    public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])([0-5][0-9])";
+            "Only accepts time in 24hr format [hhmm] or 12hr format [hh.mm am/pm]\n"
+            + "Example: 2359 or 11.59pm\n";
+    public static final String TIME_VALIDATION_REGEX = ".+";
     public String value;
 
     /**
@@ -36,7 +37,7 @@ public class TaskTime {
     public void editTime(String newTime) throws IllegalValueException {
         assert newTime != null;
         newTime = newTime.trim();
-        if (!newTime.equals(Messages.MESSAGE_NO_START_TIME_SET) && !newTime.equals(Messages.MESSAGE_NO_END_TIME_SET)
+        if (!newTime.equals(Messages.MESSAGE_NO_START_TIME_SET) || !newTime.equals(Messages.MESSAGE_NO_END_TIME_SET)
              && !isValidTime(newTime)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
