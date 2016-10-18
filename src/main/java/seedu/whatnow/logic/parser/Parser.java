@@ -166,6 +166,14 @@ public class Parser {
 	                return new IncorrectCommand(ive.getMessage());
 	            }
 		    }
+		    
+		    try {
+                return new AddCommand(arguments[DESCRIPTION], additionalArgs[1], Collections.emptySet());
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            } catch (ParseException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
 		}
 		
 		Set<String> tags = new HashSet<String>();
