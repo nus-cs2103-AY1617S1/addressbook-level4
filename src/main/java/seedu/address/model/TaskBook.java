@@ -91,8 +91,8 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<? extends ReadOnlyTask> newDeadlines,
     					  Collection<? extends ReadOnlyTask> newTodo, Collection<Tag> newTags) {
         setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
-        setPersons(newDeadlines.stream().map(Task::new).collect(Collectors.toList()));
-        setPersons(newTodo.stream().map(Task::new).collect(Collectors.toList()));
+        setDeadlines(newDeadlines.stream().map(Task::new).collect(Collectors.toList()));
+        setTodo(newTodo.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
