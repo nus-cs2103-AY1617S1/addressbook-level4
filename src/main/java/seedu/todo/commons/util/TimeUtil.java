@@ -197,13 +197,13 @@ public class TimeUtil {
         }
     }
 
-    private boolean isTomorrow(LocalDateTime dateTimeToday, LocalDateTime dateTimeTomorrow) {
+    public boolean isTomorrow(LocalDateTime dateTimeToday, LocalDateTime dateTimeTomorrow) {
         LocalDate dayBefore = dateTimeToday.toLocalDate();
         LocalDate dayAfter = dateTimeTomorrow.toLocalDate();
         return dayBefore.plusDays(1).equals(dayAfter);
     }
     
-    private boolean isToday(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+    public boolean isToday(LocalDateTime dateTime1, LocalDateTime dateTime2) {
         LocalDate date1 = dateTime1.toLocalDate();
         LocalDate date2 = dateTime2.toLocalDate();
         return date1.equals(date2);

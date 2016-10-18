@@ -23,6 +23,8 @@ public class CommandMap {
         .add(SaveCommand.class)
         .add(LoadCommand.class)
         .add(ShowCommand.class)
+        .add(FindCommand.class)
+        .add(ViewCommand.class)
         .build();
     
     private static Map<String, Class<? extends BaseCommand>> commandMap;
