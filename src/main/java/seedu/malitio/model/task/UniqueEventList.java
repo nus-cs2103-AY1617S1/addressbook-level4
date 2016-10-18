@@ -4,6 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.malitio.commons.exceptions.DuplicateDataException;
 import seedu.malitio.commons.util.CollectionUtil;
+import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 import java.util.*;
 
@@ -59,6 +63,22 @@ public class UniqueEventList implements Iterable<Event> {
         }
         internalList.add(toAdd);
     }
+    
+    public void edit(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
+        assert edited!=null;
+        assert beforeEdit!=null;
+        if (contains(edited)) {
+            throw new DuplicateEventException();
+        }
+        
+        if (!contains(beforeEdit)) {
+            throw new EventNotFoundException();
+        }
+        
+        int indexToReplace = internalList.indexOf(beforeEdit);
+        internalList.add(indexToReplace, edited);
+        internalList.remove(beforeEdit);
+    }
 
     /**
      * Removes the equivalent schedule from the list.
@@ -95,5 +115,6 @@ public class UniqueEventList implements Iterable<Event> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
 }
 

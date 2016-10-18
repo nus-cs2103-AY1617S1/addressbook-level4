@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.malitio.commons.exceptions.DuplicateDataException;
 import seedu.malitio.commons.util.CollectionUtil;
+import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 import java.util.*;
 
@@ -58,6 +60,22 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
             throw new DuplicateDeadlineException();
         }
         internalList.add(toAdd);
+    }
+    
+    public void edit(Deadline edited, ReadOnlyDeadline beforeEdit) throws DuplicateDeadlineException, DeadlineNotFoundException {
+        assert edited!=null;
+        assert beforeEdit!=null;
+        if (contains(edited)) {
+            throw new DuplicateDeadlineException();
+        }
+        
+        if (!contains(beforeEdit)) {
+            throw new DeadlineNotFoundException();
+        }
+        
+        int indexToReplace = internalList.indexOf(beforeEdit);
+        internalList.add(indexToReplace, edited);
+        internalList.remove(beforeEdit);
     }
 
     /**

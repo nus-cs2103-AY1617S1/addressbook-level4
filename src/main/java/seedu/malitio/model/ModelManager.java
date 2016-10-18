@@ -12,8 +12,10 @@ import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
@@ -94,7 +96,6 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.addDeadline(deadline);
         updateFilteredDeadlineListToShowAll();
         indicatemalitioChanged();
-        
     }
     
     @Override
@@ -102,8 +103,29 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.addEvent(event);
         updateFilteredDeadlineListToShowAll();
         indicatemalitioChanged();
-        
     }
+    
+    @Override
+    public void editFloatingTask(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
+        malitio.editFloatingTask(edited, beforeEdit);
+        updateFilteredTaskListToShowAll();
+        indicatemalitioChanged();
+    }
+    
+    @Override
+    public void editDeadline(Deadline edited, ReadOnlyDeadline beforeEdit) throws DuplicateDeadlineException, DeadlineNotFoundException {
+        malitio.editDeadline(edited, beforeEdit);
+        updateFilteredDeadlineListToShowAll();
+        indicatemalitioChanged();
+    }
+    
+    @Override
+    public void editEvent(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
+        malitio.editEvent(edited, beforeEdit);
+        updateFilteredEventListToShowAll();
+        indicatemalitioChanged();
+    }
+
 
     //=========== Filtered Task List Accessors ===============================================================
 

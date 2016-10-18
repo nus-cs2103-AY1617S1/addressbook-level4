@@ -9,7 +9,13 @@ import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList;
 import seedu.malitio.model.task.UniqueEventList;
+import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
+import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
+import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 
 import java.util.Set;
 
@@ -61,5 +67,14 @@ public interface Model {
     
     /** Updates the filter of the filtered events to filter by the given keywords*/
     void updateFilteredEventList(Set<String> keywords);
+    
+    /** Replaces the floating task with the intended edit.*/
+    void editFloatingTask(FloatingTask editedTask, ReadOnlyFloatingTask taskToEdit) throws FloatingTaskNotFoundException, DuplicateFloatingTaskException;
+    
+    /** Replaces the deadline with the intended edit.*/
+    void editDeadline(Deadline editedDeadline, ReadOnlyDeadline deadlineToEdit) throws DuplicateDeadlineException, DeadlineNotFoundException;
+
+    /** Replaces the event with the intended edit.*/
+    void editEvent(Event editedTask, ReadOnlyEvent eventToEdit) throws DuplicateEventException, EventNotFoundException;
     
 }
