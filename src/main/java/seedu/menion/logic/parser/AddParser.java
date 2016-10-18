@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.joestelmach.natty.*;
 
 public class AddParser {
 
@@ -16,10 +15,10 @@ public class AddParser {
 	};
 
 	private static final Pattern REGULAR_TASK_REGEX = Pattern
-			.compile("(.+)[\\ ]*?by[\\ ]*?:[\\ ]*?(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
+			.compile("(.+)[\\ ]*?by[\\ ]*?:[\\ ]*?(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	private static final Pattern EVENTS_REGEX = Pattern
-			.compile("(.+)[\\ ]*?from:[\\ ]*?(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])"
-					+ "[\\ ]*?to[\\ ]*?:[\\ ]*?(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
+			.compile("(.+)[\\ ]*?from:[\\ ]*?(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])"
+					+ "[\\ ]*?to[\\ ]*?:[\\ ]*?(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9]) (0?[0-2][0-9][0-6][0-9])[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	private static final Pattern FLOATING_TASK_REGEX = Pattern
 			.compile("(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	
@@ -73,53 +72,9 @@ public class AddParser {
 		
 
 	}
-	/*
-	public static String dateHandler(String dateToHandle){
-		Parser parser = new Parser();
-		
-		List<DateGroup> dateInfo = parser.parse(dateToHandle);
-		DateGroup dateGroup = dateInfo.get(0);
-		Date date = dateGroup.getDates().get(0);
-		Calendar cal = dateToCalendar(date);
 
-		return dateToString(cal);
+	
 
-	}
-	*/
-	
-	private static String dateToString(Calendar cal){
-		String date;
-		
-		Integer month = cal.get(Calendar.MONTH) + 1;
-		String monthString = month.toString();
-		
-		if (monthString.length() < 2) { 
-			monthString = "0" + monthString;
-		}
-		
-		Integer day = cal.get(Calendar.DAY_OF_MONTH);
-		String dayString = day.toString();
-		
-		if (dayString.length() < 2){
-			dayString = "0" + dayString;
-		}
-		
-		date = dayString + "-" + monthString + "-" + cal.get(Calendar.YEAR);
-		
-		return date;
-	}
-	
-	/**
-	 * Converts a Date object into Calendar object.
-	 * @param dateToConvert
-	 * @return
-	 */
-	private static Calendar dateToCalendar(Date dateToConvert){
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(dateToConvert);
-		return cal;
-		
-	}
 
 	
 	/**

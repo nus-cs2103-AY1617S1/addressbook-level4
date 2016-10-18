@@ -17,7 +17,7 @@ public class ActivityDate {
 
     public static final String MESSAGE_ACTIVITYDATE_CONSTRAINTS = "Activity date should be in mm-dd-yy or mm-dd-yyyy format";
 
-    public static final String ACTIVITYDATE_VALIDATION_REGEX = "(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9])";
+    public static final String ACTIVITYDATE_VALIDATION_REGEX = "(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9])";
 
     public final String value;
 
