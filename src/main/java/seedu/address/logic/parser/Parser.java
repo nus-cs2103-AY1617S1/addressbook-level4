@@ -89,14 +89,14 @@ public class Parser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
-        case ShowAllCommand.COMMAND_WORD:
-            return new ShowAllCommand();
-            
-        case ShowDoneCommand.COMMAND_WORD:
-            return new ShowDoneCommand();
+//        case ShowAllCommand.COMMAND_WORD:
+//            return new ShowAllCommand();
+//            
+//        case ShowDoneCommand.COMMAND_WORD:
+//            return new ShowDoneCommand();
             
         case ShowCommand.COMMAND_WORD:
-        	return new ShowCommand();
+        	return prepareShow(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -115,20 +115,21 @@ public class Parser {
         }
     }
     
-//    private Command prepareShow(String args){
-//    	if(args.equals("done")) {
-//    		return new ShowDoneCommand();
-//    	}
-//    	
-//    	else if(args.equals("all")) {
-//    		return new ShowAllCommand();
-//    	}
-//    	else if (args.equals(null)) {
-//    		return new ShowCommand();
-//    	}
-//    	else
-//    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
-//    }
+    private Command prepareShow(String args){
+    	args = args.trim();
+    	if(args.equals("done")) {
+    		return new ShowDoneCommand();
+    	}
+    	
+    	else if(args.equals("all")) {
+    		return new ShowAllCommand();
+    	}
+    	else if (args.equals("")) {
+    		return new ShowCommand();
+    	}
+    	else
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+    }
     
     private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
