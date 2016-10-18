@@ -24,7 +24,15 @@ public class DateParserTest {
 	
 	@Test
 	public void ddmmyyHHmm_valid_valueAsExpected() throws ParseException {
-		String userInput = "25-12-16 16:30";
+		String userInput = "25-12-16 1630";
+		LocalDateTime date = DateParser.parse(userInput);
+
+		assertEquals(christmas430pm, date);
+	}
+	
+	@Test
+	public void ddmmyyHHmm_validOrder2_valueAsExpected() throws ParseException {
+		String userInput = "16:30 25-12-16";
 		LocalDateTime date = DateParser.parse(userInput);
 
 		assertEquals(christmas430pm, date);
@@ -52,13 +60,21 @@ public class DateParserTest {
 		thrown.expect(ParseException.class);
 		thrown.expectMessage("Month is not within valid bounds 1 - 12 inclusive");
 		
-		String userInput = "2010-13-25 4:30 am";
+		String userInput = "2010-13-25 430 am";
 		DateParser.parse(userInput);
 	}
 	
 	@Test
 	public void ddMMMyyyyHHmm_valid_valueAsExpected() throws ParseException {
 		String userInput = "25 dec 2016 16:30";
+		LocalDateTime date = DateParser.parse(userInput);
+
+		assertEquals(christmas430pm, date);
+	}
+	
+	@Test
+	public void ddMMMyyyyHHmm_validOrder2_valueAsExpected() throws ParseException {
+		String userInput = "16:30 25 dec 2016";
 		LocalDateTime date = DateParser.parse(userInput);
 
 		assertEquals(christmas430pm, date);
@@ -74,6 +90,16 @@ public class DateParserTest {
 	}
 	
 	@Test
+	public void ddmmyyhhmmpm_valid_valueAsExpected() throws ParseException {
+		String userInput = "2-7-11 0400am";
+		LocalDateTime date = DateParser.parse(userInput);
+		
+		LocalDateTime expected = LocalDateTime.of(2011, 7, 2, 4, 0);
+		
+		assertEquals(expected, date);
+	}
+	
+	@Test
 	public void today5pm_valid_valueAsExpected() throws ParseException {
 		String userInput = "today 5pm";
 		LocalDateTime date = DateParser.parse(userInput);
@@ -86,6 +112,16 @@ public class DateParserTest {
 	@Test
 	public void oneAmNextWeek_valid_valueAsExpected() throws ParseException {
 		String userInput = "01:00 next week";
+		LocalDateTime date = DateParser.parse(userInput);
+		
+		LocalDateTime oneAmNextWeek = LocalDateTime.now().plusDays(7).withHour(1).truncatedTo(ChronoUnit.HOURS);
+		
+		assertEquals(oneAmNextWeek, date);
+	}
+	
+	@Test
+	public void nextWeek1am_valid_valueAsExpected() throws ParseException {
+		String userInput = "next week 01:00";
 		LocalDateTime date = DateParser.parse(userInput);
 		
 		LocalDateTime oneAmNextWeek = LocalDateTime.now().plusDays(7).withHour(1).truncatedTo(ChronoUnit.HOURS);
