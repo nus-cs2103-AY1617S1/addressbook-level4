@@ -4,9 +4,10 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Ng Huan Ran](https://github.com/shusiner) <br>
-<img src="images/NgHuanRan.jpg" width="150"><br>
-**Role**: Team Leader
+####[Annabel Eng Jing Wen](http://github.com/annabeleng)  <br>
+<img src="images/AnnabelEng.jpg" width="150"><br>
+**Role**: Team Leader <br>
+Responsibilities: Documentation
 
 -----
 
@@ -24,10 +25,10 @@ Responsibilities: Code Testing
 
 -----
 
-#### [Annabel Eng Jing Wen](http://github.com/annabeleng)
-<img src="images/AnnabelEng.jpg" width="150"><br>
+#### [Ng Huan Ran](https://github.com/shusiner)
+<img src="images/NgHuanRan.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Documentation, Code Quality
+Responsibilities: Code Quality
 
  -----
 
