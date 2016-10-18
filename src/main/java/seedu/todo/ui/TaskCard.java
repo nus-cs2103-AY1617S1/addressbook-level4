@@ -8,10 +8,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
@@ -54,15 +54,16 @@ public class TaskCard extends UiPart{
     @FXML
     private FlowPane tagsBox;
     
-    /*Variables*/
+    /* Variables */
     private ImmutableTask task;
     private int displayedIndex;
-    private TimeUtil timeUtil;
+    private TimeUtil timeUtil = new TimeUtil();
 
-    public TaskCard(){
-        this.timeUtil = new TimeUtil();
+    /* Default Constructor */
+    private TaskCard(){
     }
 
+    /* Initialisation Methods */
     /**
      * Loads and initialise one cell of the task in the to-do list ListView.
      * @param task to be displayed on the cell
@@ -87,22 +88,9 @@ public class TaskCard extends UiPart{
         displayTimings();
         setStyle();
         setTimingAutoUpdate();
+        initialiseCollapsibleView();
     }
 
-    public VBox getLayout() {
-        return taskCard;
-    }
-
-    @Override
-    public void setNode(Node node) {
-        taskCard = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-    
     /**
      * Displays all other view elements, including title, type label, pin image, description and location texts.
      */
@@ -143,7 +131,15 @@ public class TaskCard extends UiPart{
         } else if (isOverdue) {
             ViewStyleUtil.addClassStyle(taskCard, STYLE_OVERDUE);
         }
-        ViewStyleUtil.addClassStyle(taskCard, STYLE_COLLAPSED);
+    }
+
+    /**
+     * Initialise the view to show collapsed state if it can be collapsed,
+     * else hide the {@link #moreInfoLabel} otherwise.
+     */
+    private void initialiseCollapsibleView() {
+        ViewStyleUtil.addRemoveClassStyle(taskCard, STYLE_COLLAPSED, true);
+        FxViewUtil.setCollapsed(moreInfoLabel, !isTaskCollapsible());
     }
     
     /**
@@ -164,7 +160,6 @@ public class TaskCard extends UiPart{
             FxViewUtil.setCollapsed(dateBox, true);
             return;
         }
-        
         dateLabel.setText(displayTimingOutput);
     }
 
@@ -179,11 +174,16 @@ public class TaskCard extends UiPart{
         timeline.play();
     }
 
+    /* Methods interfacing with UiManager*/
     /**
-     * Toggles the task card's collapsed or expanded state.
+     * Toggles the task card's collapsed or expanded state, only if this card is collapsible.
      */
     public void toggleCardCollapsing() {
-        ViewStyleUtil.toggleClassStyle(taskCard, STYLE_COLLAPSED);
+        if (isTaskCollapsible()) {
+            //Sets both the collapsed style of the card, and mark the visibility of the "more" label.
+            boolean isCollapsing = ViewStyleUtil.toggleClassStyle(taskCard, STYLE_COLLAPSED);
+            FxViewUtil.setCollapsed(moreInfoLabel, !isCollapsing);
+        }
     }
 
     /**
@@ -191,13 +191,20 @@ public class TaskCard extends UiPart{
      * @param isSelected true when the card is selected
      */
     public void markAsSelected(boolean isSelected) {
-        if (isSelected) {
-            ViewStyleUtil.addClassStyle(taskCard, STYLE_SELECTED);
-        } else {
-            ViewStyleUtil.removeClassStyle(taskCard, STYLE_SELECTED);
-        }
+        ViewStyleUtil.addRemoveClassStyle(taskCard, STYLE_SELECTED, isSelected);
     }
 
+    /* Helper Methods */
+    /**
+     * Returns true if this task card can be collapsed, based on the information given from the {@link ImmutableTask}
+     */
+    private boolean isTaskCollapsible() {
+        boolean hasDescription = task.getDescription().isPresent();
+        boolean hasTags = !task.getTags().isEmpty();
+        return hasDescription || hasTags;
+    }
+
+    /* Getters */
     /**
      * Gets the mapped {@link TaskCard} object from an {@link ImmutableTask} object
      * @param task that is being wrapped by the {@link TaskCard} object
@@ -207,8 +214,22 @@ public class TaskCard extends UiPart{
         return taskCardMap.get(task);
     }
 
-    /* Getters */
     public int getDisplayedIndex() {
         return displayedIndex;
+    }
+
+    public VBox getLayout() {
+        return taskCard;
+    }
+
+    /* Override Methods */
+    @Override
+    public void setNode(Node node) {
+        taskCard = (VBox) node;
+    }
+
+    @Override
+    public String getFxmlPath() {
+        return FXML;
     }
 }
