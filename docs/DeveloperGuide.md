@@ -335,7 +335,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. User request to delete a specific task<br>
+1. User request to delete a specific task
 2. System request confirmation of deletion of task
 3. User confirm to delete task
 4. System will delete the specific task.<br>
@@ -366,7 +366,7 @@ Priority | As a ... | I want to ... | So that I can...
        Use case ends.
 
 #### Use case: UC05 use shorter version of a command
-Actor: Advance user
+Actor: Advance user<br>
 Preconditions: User is familiar with the available command
 
 **MSS**
@@ -445,7 +445,7 @@ Use case ends
     Use case resume at step 2
 
 #### Use case: UC09 edit task details
-   Actor: User
+   Actor: User<br>
    Preconditions: User is logged in.
 
 **MSS**
@@ -548,8 +548,7 @@ Preconditions: User is logged in, tasks are created.
 2. System displays a list of all created tasks.
 3. User selects a task to edit
 4. User changes the color of the task.
-5. System updates the database with the changed details.
-
+5. System updates the database with the changed details.<br>
 Use Case ends
 
 **Extensions**
@@ -574,8 +573,7 @@ Use Case ends
 1. User requests to list tasks
 2. TaskManager shows a list of tasks
 3. User requests to delete a specific task in the list
-4. TaskManager deletes the task
-
+4. TaskManager deletes the task<br>
    Use case ends.
 
 **Extensions**
