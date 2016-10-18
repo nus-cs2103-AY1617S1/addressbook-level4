@@ -160,9 +160,9 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p12345 evalid@e.mail avalid, whatnow", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] p12345 evalid@e.mail avalid, whatnow", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         assertCommandBehavior(
-                "add Valid Name p12345 evalid@e.mail avalid, whatnow t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name p12345 evalid@e.mail avalid, whatnow t/invalid_-[.tag", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
     }
 
@@ -426,7 +426,7 @@ public class LogicManagerTest {
         WhatNow expectedAB = helper.generateWhatNow(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
-
+        
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
@@ -498,7 +498,10 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
+            cmd.append("\"" + p.getName().toString() + "\"");
+            
+            if (p.getTaskDate() != null)
+                cmd.append(" on " + p.getTaskDate());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){

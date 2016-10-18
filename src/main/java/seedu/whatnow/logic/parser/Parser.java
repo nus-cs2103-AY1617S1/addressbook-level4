@@ -115,18 +115,29 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareAdd(String args){
+		/*if(TEMP3.matcher(args).find()) {
+			System.out.println("matches");
+		}*/
+		
+		int DESCRIPTION = 1;
+
 		final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
-		// Validate arg string format
+		
+		// Validate args string format
 		if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
-		String[] arguments = args.split("\"");
+		String[] arguments = args.trim().split("\"");
+		
+		if (arguments.length < 2) {
+		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		}
 		
 		// E.g. add "Buy Milk"
 		if (arguments.length == 2) {
 			try {
-				return new AddCommand(arguments[1], Collections.emptySet());
+				return new AddCommand(arguments[DESCRIPTION], Collections.emptySet());
 			} catch (IllegalValueException ive) {
 				return new IncorrectCommand(ive.getMessage());
 			}
@@ -135,24 +146,37 @@ public class Parser {
 		String[] additionalArgs = null;
 		
 		if (arguments.length > 2) {
-			additionalArgs = arguments[arguments.length - 1].split(" ");
-		}
-			
-		if (additionalArgs[1].equals("on") || additionalArgs[1].equals("by")) {
-			try {
-				return new AddCommand(arguments[1], additionalArgs[2], Collections.emptySet());
-			} catch (IllegalValueException ive) {
-				return new IncorrectCommand(ive.getMessage());
-			} catch (ParseException ive) {
-				return new IncorrectCommand(ive.getMessage());
-			}
+			additionalArgs = arguments[arguments.length - 1].trim().split(" ");
 		}
 		
+		if (additionalArgs[0].equals("on") || additionalArgs[0].equals("by")) {
+		    if (additionalArgs.length > 2) {
+		        Set<String> tags = new HashSet<String>();
+		        
+		        for (int i = 2; i < additionalArgs.length; i++) {
+		            String[] splitTag = additionalArgs[i].trim().split("/");
+		            tags.add(splitTag[1]);
+		        }
+		        
+		        try {
+	                return new AddCommand(arguments[DESCRIPTION], additionalArgs[1], tags);
+	            } catch (IllegalValueException ive) {
+	                return new IncorrectCommand(ive.getMessage());
+	            } catch (ParseException ive) {
+	                return new IncorrectCommand(ive.getMessage());
+	            }
+		    }
+		}
+		
+		Set<String> tags = new HashSet<String>();
+        
+        for (int i = 0; i < additionalArgs.length; i++) {
+            String[] splitTag = additionalArgs[i].trim().split("/");
+            tags.add(splitTag[1]);
+        }
+		
 		try {
-			return new AddCommand(
-					matcher.group("name"),
-					getTagsFromArgs(matcher.group("tagArguments"))
-					);
+			return new AddCommand(arguments[DESCRIPTION], tags);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
