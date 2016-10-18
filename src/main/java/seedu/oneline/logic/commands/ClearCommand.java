@@ -20,4 +20,9 @@ public class ClearCommand extends Command {
         model.resetData(TaskBook.getEmptyTaskBook());
         return new CommandResult(MESSAGE_SUCCESS, true);
     }
+    
+    @Override
+    public boolean isMutating() {
+        return true;
+    }
 }
