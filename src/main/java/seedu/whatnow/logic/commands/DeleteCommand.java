@@ -34,7 +34,7 @@ public class DeleteCommand extends UndoAndRedo {
 
 	@Override
 	public CommandResult execute() {
-	
+
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList;
 
 		if (taskType.equals(TASK_TYPE_FLOATING)) {
@@ -66,24 +66,10 @@ public class DeleteCommand extends UndoAndRedo {
 
 	@Override
 	public CommandResult undo() {
-	/*
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-
-		if (taskType.equals(TASK_TYPE_FLOATING)) {
-			lastShownList = model.getCurrentFilteredTaskList();
-		} else {
-			lastShownList = model.getCurrentFilteredScheduleList();
-		}
-
-		if (lastShownList.size() < targetIndex) {
-			indicateAttemptToExecuteIncorrectCommand();
-			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-		}
-*/
 		if(model.getDeletedStackOfTask().isEmpty() || model.getDeletedStackOfTaskType().isEmpty()) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		}
-		
+
 		ReadOnlyTask taskToReAdd = model.getDeletedStackOfTask().pop();
 		String taskTypeToReAdd = model.getDeletedStackOfTaskType().pop();
 

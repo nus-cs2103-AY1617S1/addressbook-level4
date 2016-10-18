@@ -36,7 +36,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> filteredSchedules;
-
     private final FilteredList<Task> backUpFilteredTasks;
     private final FilteredList<Task> backUpFilteredSchedules;
     private final Stack<Command> stackOfUndo;
@@ -46,6 +45,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
     private final Stack<ReadOnlyTask> stackOfDeletedTasks;
     private final Stack<String> stackOfDeletedTaskTypes;
+    private final Stack<ReadOnlyTask> stackOfMarkDone;
+    private final Stack<String> stackOfMarkDoneTaskTypes;
     
    // private final Stack<ReadyOnlyTask> stackOf
     /**
@@ -71,6 +72,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfWhatNow = new Stack<>();
         stackOfDeletedTasks = new Stack<>();
         stackOfDeletedTaskTypes = new Stack<>();
+        stackOfMarkDone= new Stack<>();
+        stackOfMarkDoneTaskTypes = new Stack<>();
     }
 
     public ModelManager() {
@@ -90,6 +93,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfWhatNow = new Stack<>();
         stackOfDeletedTasks = new Stack<>();
         stackOfDeletedTaskTypes = new Stack<>();
+        stackOfMarkDone = new Stack<>();
+        stackOfMarkDoneTaskTypes = new Stack<>();
     }
 
     @Override
@@ -186,7 +191,14 @@ public class ModelManager extends ComponentManager implements Model {
     public Stack<String> getDeletedStackOfTaskType() {
     	return stackOfDeletedTaskTypes;
     }
-    
+    @Override
+    public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
+    	return stackOfMarkDone;
+    }
+    @Override
+    public Stack<String> getStackOfMarkDoneTaskTaskType() {
+    	return stackOfMarkDoneTaskTypes;
+    }
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

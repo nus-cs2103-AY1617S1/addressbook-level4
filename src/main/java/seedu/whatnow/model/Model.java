@@ -92,6 +92,12 @@ public interface Model {
 	/** Gets the deletedStackOfTaskType corresponding to stackOfTask */
 	Stack<String> getDeletedStackOfTaskType();
 	
+	/** Gets Stack of Task that were marked */
+	Stack<ReadOnlyTask> getStackOfMarkDoneTask();  
+	
+	/** Gets stack of TaskTypes corresponding to stackOfMarkDoneTask */
+	Stack<String> getStackOfMarkDoneTaskTaskType();
+	
   //=========== Methods for Schedule List ===============================================================
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();
@@ -121,5 +127,5 @@ public interface Model {
     void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword);
 
     /** Updates the filter of the filtered task list to display all task types*/
-    UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList();    
+    UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList();  
 }
