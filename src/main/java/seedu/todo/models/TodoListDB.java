@@ -227,6 +227,11 @@ public class TodoListDB {
         }
     }
     
+    /**
+     * Get a list of Task in the DB filtered by status and one date.
+     * 
+     * @return list of tasks
+     */
     public List<Task> getTaskByDate(LocalDateTime givenDate, boolean isCompleted, boolean listAllStatus) {
         ArrayList<Task> taskByDate = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
@@ -251,6 +256,11 @@ public class TodoListDB {
         return taskByDate;
     }
     
+    /**
+     * Get a list of Task in the DB filtered by status and range of date.
+     * 
+     * @return list of tasks
+     */
     public List<Task> getTaskByRange (LocalDateTime fromDate , LocalDateTime toDate, boolean isCompleted, boolean listAllStatus) {
         ArrayList<Task> taskByRange = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
@@ -282,6 +292,11 @@ public class TodoListDB {
         return taskByRange;
     }
     
+    /**
+     * Get a list of Event in the DB filtered by status and one date.
+     * 
+     * @return list of events
+     */
     public List<Event> getEventbyDate(LocalDateTime givenDate) {
         ArrayList<Event> eventByDate = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
@@ -294,6 +309,11 @@ public class TodoListDB {
         return eventByDate;
     }
     
+    /**
+     * Get a list of Event in the DB filtered by status and range of date.
+     * 
+     * @return list of events
+     */
     public List<Event> getEventByRange (LocalDateTime fromDate , LocalDateTime toDate) {
         ArrayList<Event> eventByRange = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
