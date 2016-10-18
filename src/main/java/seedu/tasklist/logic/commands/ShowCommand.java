@@ -42,7 +42,7 @@ public class ShowCommand extends Command {
 		case "incomplete":
 			model.updateFilteredListToShowIncomplete(); break;
 
-		case "complete":
+		case "complete": case "done":
 			model.updateFilteredListToShowComplete(); break;
 
 		case "p/high": case "p/med": case "p/low":
