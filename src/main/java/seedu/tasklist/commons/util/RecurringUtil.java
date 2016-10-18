@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class RecurringUtil {
 	
-	public Calendar updateRecurringDate(Calendar toUpdate, String frequency) {
+	public static Calendar updateRecurringDate(Calendar toUpdate, String frequency) {
 		
 		switch (frequency) {
 		case "daily": toUpdate.add(Calendar.DAY_OF_YEAR, 1); break;
