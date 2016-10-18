@@ -62,5 +62,10 @@ public class DeleteCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
+    
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
 
 }

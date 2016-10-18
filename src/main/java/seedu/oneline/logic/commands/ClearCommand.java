@@ -20,4 +20,9 @@ public class ClearCommand extends Command {
         model.resetData(TaskBook.getEmptyTaskBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
 }

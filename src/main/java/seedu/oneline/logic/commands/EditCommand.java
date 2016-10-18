@@ -106,5 +106,10 @@ public class EditCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.toString()));
     }
+    
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
 
 }
