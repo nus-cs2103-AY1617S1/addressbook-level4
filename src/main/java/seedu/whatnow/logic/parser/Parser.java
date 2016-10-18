@@ -245,7 +245,14 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareUpdate(String args) {
+        if (args.equals(null))
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        
         String[] argComponents= args.trim().split(" ");
+        
+        if (argComponents.length < 3)
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+
         String type = argComponents[TASK_TYPE];
         String argType = argComponents[ARG_TYPE];
         String arg = "";
