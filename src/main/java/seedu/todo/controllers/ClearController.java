@@ -24,7 +24,7 @@ public class ClearController implements Controller {
     private static final String DESCRIPTION = "Clear all tasks/events or by specify date.";
     private static final String COMMAND_SYNTAX = "clear";
     
-    private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s tasks and events have been deleted!";
+    private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s tasks and events have been deleted!\n" + "To undo, type \"undo\".";;
     private String invalidDate = null;
     
     private static CommandDefinition commandDefinition =
