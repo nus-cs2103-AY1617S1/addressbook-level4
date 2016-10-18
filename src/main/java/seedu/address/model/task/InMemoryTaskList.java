@@ -64,6 +64,11 @@ public interface InMemoryTaskList {
 	void clearTasksFilter();
 	
 	/*
+	 * Reapplies the same filter as before - refreshes observable list for display
+	 */
+	void refreshTasksFilter();
+	
+	/*
 	 * Gets the current list of tasks with the filtering words applied
 	 */
 	UnmodifiableObservableList<Task> getCurrentFilteredTasks();
@@ -82,6 +87,8 @@ public interface InMemoryTaskList {
 	 * Gets the list of alias
 	 */
 	UnmodifiableObservableList<Alias> getAlias();
+
+
 
 	
 	

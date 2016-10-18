@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import java.util.Set;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -27,16 +28,14 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 
 
 	public TaskManager() {
-		this.tasks = new UniqueItemCollection<Task>();
-		this.alias = new UniqueItemCollection<Alias>();
-		filteredTasks = new FilteredList<>(tasks.getInternalList());
-		filterUncompletedTasks();
+		this(new UniqueItemCollection<Task>(), new UniqueItemCollection<Alias>(), null);		
 	}
 	
 	public TaskManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> alias, UserPrefs userPrefs) {
 		this.tasks = tasks;
 		this.alias = alias;
 		filteredTasks = new FilteredList<>(this.tasks.getInternalList());
+		filterUncompletedTasks();
 	}
 	
 	@Override
@@ -112,6 +111,13 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	public void clearTasksFilter() {
 	    filteredTasks.setPredicate(p -> !p.isComplete());
 		
+	}
+	
+	@Override
+	public void refreshTasksFilter() {
+		Predicate<? super Task> currentPredicate = filteredTasks.getPredicate();
+		filteredTasks.setPredicate(null);
+		filteredTasks.setPredicate(currentPredicate);
 	}
 	
 	@Override

@@ -29,7 +29,7 @@ public class ListTaskCommand extends TaskCommand {
             return new CommandResult(MESSAGE_ALIAS_SUCCESS);
 
         }
-        if(argument.equals("completed")){
+        if(argument.equals("complete") || argument.equals("completed")){
         	model.filterCompletedTasks();
         	return new CommandResult(MESSAGE_COMPLETED_SUCCESS);
         }

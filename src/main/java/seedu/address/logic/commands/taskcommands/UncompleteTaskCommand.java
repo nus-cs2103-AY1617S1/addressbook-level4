@@ -38,6 +38,7 @@ public class UncompleteTaskCommand extends TaskCommand {
 
         Task taskToUncomplete = lastShownList.get(targetIndex - 1);
         model.uncompleteTask(taskToUncomplete);
+        model.refreshTasksFilter();
 
         return new CommandResult(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, taskToUncomplete));
     }

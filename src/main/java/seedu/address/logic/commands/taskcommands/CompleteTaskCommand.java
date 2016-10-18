@@ -38,7 +38,7 @@ public class CompleteTaskCommand extends TaskCommand {
 
         Task taskToComplete = lastShownList.get(targetIndex - 1);
         model.completeTask(taskToComplete);
-        model.filterUncompletedTasks();
+        model.refreshTasksFilter();
 
         return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));
     }
