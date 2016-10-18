@@ -21,10 +21,13 @@ public class AddCommand extends Command {
             + " Pay John $100 by 10112016 2359 t/oweMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Malitio";
-
-    private final Task toAdd;
-
+    public static final String MESSAGE_DUPLICATE_TASK = "This floating task already exists in Malitio";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in Malitio";
+    private static final String MESSAGE_DUPLICATE_DEADLINE ="This deadline already exists in Malitio";
+    private FloatingTask toAddFloatingTask;
+    private Deadline toAddDeadline;
+    private Event toAddEvent;
+    
     /**
      * Convenience constructor for floating tasks using raw values.
      *
@@ -36,7 +39,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
+        this.toAddFloatingTask = new FloatingTask(
                 new Name(name),
                 new UniqueTagList(tagSet)
         );
@@ -53,7 +56,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
+        this.toAddDeadline = new Deadline(
                 new Name(name),
                 new DateTime(date),
                 new UniqueTagList(tagSet)
@@ -72,7 +75,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         // check if start < end
-        this.toAdd = new Task(
+        this.toAddEvent = new Event(
                 new Name(name),
                 new DateTime(start),
                 new DateTime(end),
@@ -82,13 +85,29 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-            model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        if (toAddFloatingTask!=null){
+            try {
+                model.addFloatingTask(toAddFloatingTask);
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toAddFloatingTask));
+            } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
+                return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            }
         }
-
+        else if (toAddDeadline != null){
+            try {
+                model.addDeadline(toAddDeadline);
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toAddDeadline));
+            } catch (UniqueDeadlineList.DuplicateDeadlineException e) {
+                return new CommandResult(MESSAGE_DUPLICATE_DEADLINE);
+            } 
+        }
+        else {
+            try {
+                model.addEvent(toAddEvent);
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toAddEvent));
+            } catch (UniqueEventList.DuplicateEventException e) {
+                return new CommandResult(MESSAGE_DUPLICATE_EVENT);
+            } 
+        }
     }
-
 }

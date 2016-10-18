@@ -55,7 +55,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableMalitio dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableMalitio.class);
-        assertEquals(9, dataFromFile.getTaskList().size());
+        assertEquals(9, dataFromFile.getFloatingTaskList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
 

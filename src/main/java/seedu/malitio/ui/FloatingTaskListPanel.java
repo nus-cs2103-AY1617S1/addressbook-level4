@@ -12,23 +12,23 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
 import java.util.logging.Logger;
 
 /**
  * Panel containing the list of tasks.
  */
-public class TaskListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+public class FloatingTaskListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(FloatingTaskListPanel.class);
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private ListView<ReadOnlyFloatingTask> taskListView;
 
-    public TaskListPanel() {
+    public FloatingTaskListPanel() {
         super();
     }
 
@@ -47,20 +47,20 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPanelPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPanelPlaceholder, new TaskListPanel());
+    public static FloatingTaskListPanel load(Stage primaryStage, AnchorPane taskListPanelPlaceholder,
+                                       ObservableList<ReadOnlyFloatingTask> taskList) {
+        FloatingTaskListPanel taskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, taskListPanelPlaceholder, new FloatingTaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    private void configure(ObservableList<ReadOnlyFloatingTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    private void setConnections(ObservableList<ReadOnlyFloatingTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -87,20 +87,20 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-    class TaskListViewCell extends ListCell<ReadOnlyTask> {
+    class TaskListViewCell extends ListCell<ReadOnlyFloatingTask> {
 
         public TaskListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
+        protected void updateItem(ReadOnlyFloatingTask task, boolean empty) {
             super.updateItem(task, empty);
 
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(FloatingTaskCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }

@@ -13,7 +13,7 @@ import seedu.malitio.testutil.TestUtil;
 import seedu.malitio.testutil.TypicalTestTasks;
 import seedu.malitio.commons.core.EventsCenter;
 import seedu.malitio.model.Malitio;
-import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
 import java.util.concurrent.TimeoutException;
 
@@ -96,7 +96,7 @@ public abstract class MalitioGuiTest {
     /**
      * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
+    public void assertMatching(ReadOnlyFloatingTask task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 

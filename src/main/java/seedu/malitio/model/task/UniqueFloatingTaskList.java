@@ -15,14 +15,14 @@ import java.util.*;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<Task> {
+public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate tasks");
+    public static class DuplicateFloatingTaskException extends DuplicateDataException {
+        protected DuplicateFloatingTaskException() {
+            super("Operation would result in duplicate floating tasks");
         }
     }
 
@@ -30,19 +30,19 @@ public class UniqueTaskList implements Iterable<Task> {
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {}
+    public static class FloatingTaskNotFoundException extends Exception {}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
      */
-    public UniqueTaskList() {}
+    public UniqueFloatingTaskList() {}
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(ReadOnlyTask toCheck) {
+    public boolean contains(ReadOnlyFloatingTask toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -50,12 +50,12 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(FloatingTask toAdd) throws DuplicateFloatingTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicateTaskException();
+            throw new DuplicateFloatingTaskException();
         }
         internalList.add(toAdd);
     }
@@ -63,32 +63,32 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Removes the equivalent task from the list.
      *
-     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws FloatingTaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public boolean remove(ReadOnlyFloatingTask toRemove) throws FloatingTaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
-            throw new TaskNotFoundException();
+            throw new FloatingTaskNotFoundException();
         }
         return taskFoundAndDeleted;
     }
 
-    public ObservableList<Task> getInternalList() {
+    public ObservableList<FloatingTask> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<Task> iterator() {
+    public Iterator<FloatingTask> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueTaskList // instanceof handles nulls
+                || (other instanceof UniqueFloatingTaskList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                ((UniqueFloatingTaskList) other).internalList));
     }
 
     @Override

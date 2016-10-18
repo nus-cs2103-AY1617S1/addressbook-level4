@@ -60,26 +60,38 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Task[] sampleTaskData = getSampleTaskData();
-
-    private static Task[] getSampleTaskData() {
+    public static final FloatingTask[] sampleFloatingTaskData = getSampleTaskData();
+    public static final Deadline[] sampleDeadlineData = getSampleDeadlineData();
+    public static final Event[] sampleEventData = getSampleEventData();
+    
+    private static FloatingTask[] getSampleTaskData() {
         try {
-            return new Task[]{
-                    new Task(new Name("Ali Muster"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new UniqueTagList())
+            return new FloatingTask[]{
+                    new FloatingTask(new Name("adjust meter"), new UniqueTagList()),
+                    new FloatingTask(new Name("bring along notes"), new UniqueTagList()),
+                    new FloatingTask(new Name("copy answer"), new UniqueTagList()),
+                    new FloatingTask(new Name("do some sit-up"), new UniqueTagList()),
+                    new FloatingTask(new Name("eat with mom"), new UniqueTagList()),
+                    new FloatingTask(new Name("forgive and forget"), new UniqueTagList()),
+                    new FloatingTask(new Name("go shopping"), new UniqueTagList()),
+                    new FloatingTask(new Name("hopping"), new UniqueTagList()),
+                    new FloatingTask(new Name("Ida Mueller"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
             //not possible
             return null;
         }
+    }
+
+    private static Event[] getSampleEventData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    private static Deadline[] getSampleDeadlineData() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     public static final Tag[] sampleTagData = getSampleTagData();
@@ -97,8 +109,8 @@ public class TestUtil {
         }
     }
 
-    public static List<Task> generateSampleTaskData() {
-        return Arrays.asList(sampleTaskData);
+    public static List<FloatingTask> generateSampleTaskData() {
+        return Arrays.asList(sampleFloatingTaskData);
     }
 
     /**
@@ -135,7 +147,8 @@ public class TestUtil {
     }
 
     public static Malitio generateEmptymalitio() {
-        return new Malitio(new UniqueTaskList(), new UniqueTagList());
+        return new Malitio(new UniqueFloatingTaskList(), new UniqueDeadlineList(),
+               new UniqueEventList(), new UniqueTagList());
     }
 
     public static XmlSerializableMalitio generateSampleStoragemalitio() {
@@ -326,7 +339,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyFloatingTask task) {
         return card.isSameTask(task);
     }
 

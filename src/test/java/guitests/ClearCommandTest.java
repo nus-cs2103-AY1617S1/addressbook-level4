@@ -14,8 +14,8 @@ public class ClearCommandTest extends MalitioGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.relax.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.relax));
+        commandBox.runCommand(td.manualFloatingTask.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.manualFloatingTask));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 

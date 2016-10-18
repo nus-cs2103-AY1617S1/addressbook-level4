@@ -6,7 +6,7 @@ import seedu.malitio.model.task.*;
 /**
  * A mutable task object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyFloatingTask, ReadOnlyDeadline, ReadOnlyEvent {
 
     private Name name;
     private DateTime due;
@@ -68,6 +68,17 @@ public class TestTask implements ReadOnlyTask {
 
     public void setEnd(DateTime end) {
         this.end = end;
+    }
+
+    @Override
+    public String tagsString() {
+        // TODO Auto-generated method stub
+        return ReadOnlyDeadline.super.tagsString();
+    }
+
+    @Override
+    public String getAsText() {
+        return ReadOnlyFloatingTask.super.getAsText();
     }
 
 }

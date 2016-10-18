@@ -4,11 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.ReadOnlyDeadline;
 
-public class TaskCard2 extends UiPart{
+public class DeadlineCard extends UiPart{
 
-    private static final String FXML = "TaskListCard2.fxml";
+    private static final String FXML = "DeadlineListCard.fxml";
 
     @FXML
     private HBox cardPane2;
@@ -17,27 +17,31 @@ public class TaskCard2 extends UiPart{
     @FXML
     private Label id;
     @FXML
+    private Label due;
+
+    @FXML
     private Label tags;
 
-    private ReadOnlyTask task;
+    private ReadOnlyDeadline deadline;
     private int displayedIndex;
 
-    public TaskCard2(){
+    public DeadlineCard(){
 
     }
 
-    public static TaskCard2 load(ReadOnlyTask task, int displayedIndex){
-        TaskCard2 card = new TaskCard2();
-        card.task = task;
+    public static DeadlineCard load(ReadOnlyDeadline deadline, int displayedIndex){
+        DeadlineCard card = new DeadlineCard();
+        card.deadline = deadline;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().fullName);
+        name.setText(deadline.getName().fullName);
         id.setText(displayedIndex + ". ");
-        tags.setText(task.tagsString());
+        due.setText("Due: "+ deadline.getDue().toString());
+        tags.setText(deadline.tagsString());
     }
 
     public HBox getLayout() {

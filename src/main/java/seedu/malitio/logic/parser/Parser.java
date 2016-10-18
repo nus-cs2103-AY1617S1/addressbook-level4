@@ -101,7 +101,7 @@ public class Parser {
         boolean hasEnd = false;
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(Name.MESSAGE_NAME_CONSTRAINTS, AddCommand.MESSAGE_USAGE));
 
         }
         try {

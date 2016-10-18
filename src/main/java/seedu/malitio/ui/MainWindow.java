@@ -13,7 +13,7 @@ import seedu.malitio.commons.core.GuiSettings;
 import seedu.malitio.commons.events.ui.ExitAppRequestEvent;
 import seedu.malitio.logic.Logic;
 import seedu.malitio.model.UserPrefs;
-import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,9 +29,9 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private TaskListPanel taskListPanel;
-    private TaskListPanel2 taskListPanel2;
+    private FloatingTaskListPanel taskListPanel;
+    private DeadlineListPanel deadlineListPanel;
+    private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -45,9 +45,6 @@ public class MainWindow extends UiPart {
     private String malitioName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
-
-    @FXML
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
@@ -57,7 +54,10 @@ public class MainWindow extends UiPart {
     private AnchorPane taskListPanelPlaceholder;
     
     @FXML
-    private AnchorPane taskListPanelPlaceholder2;
+    private AnchorPane deadlineListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane eventListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -112,9 +112,9 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPanelPlaceholder(), logic.getFilteredTaskList());
-        taskListPanel2 = TaskListPanel2.load(primaryStage, getTaskListPanelPlaceholder2(), logic.getFilteredTaskList());
+        taskListPanel = FloatingTaskListPanel.load(primaryStage, getTaskListPanelPlaceholder(), logic.getFilteredFloatingTaskList());
+        deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPanelPlaceholder(), logic.getFilteredDeadlineList());
+        eventListPanel = EventListPanel.load(primaryStage, getEventListPanelPlaceholder(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getMalitioFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -136,8 +136,12 @@ public class MainWindow extends UiPart {
         return taskListPanelPlaceholder;
     }
     
-    public AnchorPane getTaskListPanelPlaceholder2() {
-        return taskListPanelPlaceholder2;
+    public AnchorPane getDeadlineListPanelPlaceholder() {
+        return deadlineListPanelPlaceholder;
+    }
+    
+    private AnchorPane getEventListPanelPlaceholder() {
+        return eventListPanelPlaceholder;
     }
 
     public void hide() {
@@ -191,19 +195,12 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TaskListPanel getTaskListPanel() {
+    public FloatingTaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
     
-    public TaskListPanel2 getTaskListPanel2() {
-        return this.taskListPanel2;
+    public DeadlineListPanel getDeadlineListPanel() {
+        return this.deadlineListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
 }

@@ -8,7 +8,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.malitio.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends MalitioGuiTest {
-
+    
+    /**
+     * Uses boundary condition testing
+     */
     @Test
     public void delete() {
 

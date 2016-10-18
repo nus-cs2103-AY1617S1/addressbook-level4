@@ -7,7 +7,9 @@ import seedu.malitio.logic.commands.Command;
 import seedu.malitio.logic.commands.CommandResult;
 import seedu.malitio.logic.parser.Parser;
 import seedu.malitio.model.Model;
-import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.ReadOnlyDeadline;
+import seedu.malitio.model.task.ReadOnlyEvent;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.storage.Storage;
 
 import java.util.logging.Logger;
@@ -35,7 +37,17 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return model.getFilteredTaskList();
+    public ObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList() {
+        return model.getFilteredFloatingTaskList();
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyDeadline> getFilteredDeadlineList() {
+        return model.getFilteredDeadlineList();
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyEvent> getFilteredEventList() {
+        return model.getFilteredEventList();
     }
 }

@@ -12,23 +12,23 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.malitio.model.task.ReadOnlyTask;
+import seedu.malitio.model.task.ReadOnlyEvent;
 
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of tasks.
+ * Panel containing the list of deadlines.
  */
-public class TaskListPanel2 extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "TaskListPanel2.fxml";
+public class EventListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
+    private static final String FXML = "EventListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView2;
+    private ListView<ReadOnlyEvent> eventListView;
 
-    public TaskListPanel2() {
+    public EventListPanel() {
         super();
     }
 
@@ -47,22 +47,22 @@ public class TaskListPanel2 extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel2 load(Stage primaryStage, AnchorPane taskListPanelPlaceholder2,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel2 taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPanelPlaceholder2, new TaskListPanel2());
-        taskListPanel.configure(taskList);
-        return taskListPanel;
+    public static EventListPanel load(Stage primaryStage, AnchorPane eventListPanelPlaceholder,
+                                       ObservableList<ReadOnlyEvent> eventList) {
+        EventListPanel eventListPanel =
+                UiPartLoader.loadUiPart(primaryStage, eventListPanelPlaceholder, new EventListPanel());
+        eventListPanel.configure(eventList);
+        return eventListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
-        setConnections(taskList);
+    private void configure(ObservableList<ReadOnlyEvent> eventList) {
+        setConnections(eventList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView2.setItems(taskList);
-        taskListView2.setCellFactory(listView -> new TaskListViewCell2());
+    private void setConnections(ObservableList<ReadOnlyEvent> eventList) {
+        eventListView.setItems(eventList);
+        eventListView.setCellFactory(listView -> new EventListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -72,7 +72,7 @@ public class TaskListPanel2 extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        taskListView2.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        eventListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
@@ -82,25 +82,25 @@ public class TaskListPanel2 extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            taskListView2.scrollTo(index);
-            taskListView2.getSelectionModel().clearAndSelect(index);
+            eventListView.scrollTo(index);
+            eventListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    class TaskListViewCell2 extends ListCell<ReadOnlyTask> {
+    class EventListViewCell extends ListCell<ReadOnlyEvent> {
 
-        public TaskListViewCell2() {
+        public EventListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
-            super.updateItem(task, empty);
+        protected void updateItem(ReadOnlyEvent event, boolean empty) {
+            super.updateItem(event, empty);
 
-            if (empty || task == null) {
+            if (empty || event == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard2.load(task, getIndex() + 1).getLayout());
+                setGraphic(EventCard.load(event, getIndex() + 1).getLayout());
             }
         }
     }

@@ -8,11 +8,11 @@ import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
+import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.Name;
-import seedu.malitio.model.task.ReadOnlyTask;
-import seedu.malitio.model.task.Task;
-import seedu.malitio.model.task.UniqueTaskList;
-import seedu.malitio.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueFloatingTaskList;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 /**
  * Edits a task identified using it's last displayed index from Malitio.
@@ -33,9 +33,9 @@ public class EditCommand extends Command{
     
     private final int targetIndex;
     
-    private final Task editedTask;
+    private final FloatingTask editedTask;
     
-    public String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited task.\nOld: %1$s\nNew: %2$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited task.\nOld: %1$s\nNew: %2$s";
     
 /*    private String newName;
     
@@ -65,7 +65,7 @@ public class EditCommand extends Command{
         for (String tagName : newTags) {
             tagSet.add(new Tag(tagName));
         }
-        this.editedTask = new Task(
+        this.editedTask = new FloatingTask(
                 new Name(name),
                 new UniqueTagList(tagSet)
         );      
@@ -121,21 +121,21 @@ public class EditCommand extends Command{
  */
     @Override
     public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownList = model.getFilteredFloatingTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        ReadOnlyFloatingTask taskToEdit = lastShownList.get(targetIndex - 1);
                 
         try {
             assert model != null;
-            model.addTask(editedTask);
+            model.addFloatingTask(editedTask);
             model.deleteTask(taskToEdit);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (FloatingTaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));

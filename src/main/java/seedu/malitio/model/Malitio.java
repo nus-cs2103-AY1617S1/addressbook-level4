@@ -3,9 +3,15 @@ package seedu.malitio.model;
 import javafx.collections.ObservableList;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
-import seedu.malitio.model.task.ReadOnlyTask;
-import seedu.malitio.model.task.Task;
-import seedu.malitio.model.task.UniqueTaskList;
+import seedu.malitio.model.task.Deadline;
+import seedu.malitio.model.task.Event;
+import seedu.malitio.model.task.FloatingTask;
+import seedu.malitio.model.task.ReadOnlyDeadline;
+import seedu.malitio.model.task.ReadOnlyEvent;
+import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueDeadlineList;
+import seedu.malitio.model.task.UniqueEventList;
+import seedu.malitio.model.task.UniqueFloatingTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,28 +22,32 @@ import java.util.stream.Collectors;
  */
 public class Malitio implements ReadOnlyMalitio {
 
-    private final UniqueTaskList tasks;
+    private final UniqueFloatingTaskList tasks;
+    private final UniqueDeadlineList deadlines;
+    private final UniqueEventList events;
     private final UniqueTagList tags;
 
     {
-        tasks = new UniqueTaskList();
+        tasks = new UniqueFloatingTaskList();
+        deadlines = new UniqueDeadlineList();
+        events = new UniqueEventList();
         tags = new UniqueTagList();
     }
 
     public Malitio() {}
 
     /**
-     * Tasks and Tags are copied into this Malitio
+     * Tasks, Schedules and Tags are copied into this Malitio
      */
     public Malitio(ReadOnlyMalitio toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueFloatingTaskList(), toBeCopied.getUniqueDeadlineList(), toBeCopied.getUniqueEventList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Tasks and Tags are copied into this Malitio
      */
-    public Malitio(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+    public Malitio(UniqueFloatingTaskList tasks, UniqueDeadlineList deadlines, UniqueEventList event, UniqueTagList tags) {
+        resetData(tasks.getInternalList(), deadlines.getInternalList(), event.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyMalitio getEmptymalitio() {
@@ -46,25 +56,43 @@ public class Malitio implements ReadOnlyMalitio {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
+    public ObservableList<FloatingTask> getFloatingTasks() {
         return tasks.getInternalList();
     }
+    
+    public ObservableList<Deadline> getDeadlines() {
+        return deadlines.getInternalList();
+    }
+    
+    public ObservableList<Event> getEvents() {
+        return events.getInternalList();
+    }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks.getInternalList().setAll(tasks);
+    public void setTasks(List<FloatingTask> floatingTask) {
+        this.tasks.getInternalList().setAll(floatingTask);
+    }
+    
+    public void setDeadlines(List<Deadline> deadlines) {
+        this.deadlines.getInternalList().setAll(deadlines);
+    }
+    
+    public void setEvents(List<Event> events) {
+        this.events.getInternalList().setAll(events);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyFloatingTask> newTasks, Collection<? extends ReadOnlyDeadline> newDeadlines,Collection<? extends ReadOnlyEvent> newEvents, Collection<Tag> newTags) {
+        setTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
+        setDeadlines(newDeadlines.stream().map(Deadline::new).collect(Collectors.toList()));
+        setEvents(newEvents.stream().map(Event::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyMalitio newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getFloatingTaskList(), newData.getDeadlineList(), newData.getEventList(), newData.getTagList());
     }
 
 //// task-level operations
@@ -74,11 +102,35 @@ public class Malitio implements ReadOnlyMalitio {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueFloatingTaskList.DuplicateFloatingTaskException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addFloatingTask(FloatingTask p) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
+    }
+    
+    /**
+     * Adds a deadline to Malitio.
+     * Also checks the new Deadline's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the deadline to point to those in {@link #tags}.
+     *
+     * @throws UniqueDeadlineList.DuplicateDeadlineException if an equivalent deadline already exists.
+     */
+    public void addDeadline(Deadline p) throws UniqueDeadlineList.DuplicateDeadlineException {
+        syncTagsWithMasterList(p);
+        deadlines.add(p);
+    }
+    
+    /**
+     * Adds a event to Malitio.
+     * Also checks the new Event's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the event to point to those in {@link #tags}.
+     *
+     * @throws UniqueEventList.DuplicateEventException if an equivalent event already exists.
+     */
+    public void addEvent(Event p) throws UniqueEventList.DuplicateEventException {
+        syncTagsWithMasterList(p);
+        events.add(p);
     }
 
     /**
@@ -86,7 +138,7 @@ public class Malitio implements ReadOnlyMalitio {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task task) {
+    private void syncTagsWithMasterList(FloatingTask task) {
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 
@@ -103,12 +155,56 @@ public class Malitio implements ReadOnlyMalitio {
         }
         task.setTags(new UniqueTagList(commonTagReferences));
     }
+    
+    private void syncTagsWithMasterList(Deadline deadline) {
+        final UniqueTagList taskTags = deadline.getTags();
+        tags.mergeFrom(taskTags);
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        // Create map with values = tag object references in the master list
+        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+        for (Tag tag : tags) {
+            masterTagObjects.put(tag, tag);
+        }
+
+        // Rebuild the list of task tags using references from the master list
+        final Set<Tag> commonTagReferences = new HashSet<>();
+        for (Tag tag : taskTags) {
+            commonTagReferences.add(masterTagObjects.get(tag));
+        }
+        deadline.setTags(new UniqueTagList(commonTagReferences));
+    }
+    
+    private void syncTagsWithMasterList(Event event) {
+        final UniqueTagList taskTags = event.getTags();
+        tags.mergeFrom(taskTags);
+
+        // Create map with values = tag object references in the master list
+        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+        for (Tag tag : tags) {
+            masterTagObjects.put(tag, tag);
+        }
+
+        // Rebuild the list of task tags using references from the master list
+        final Set<Tag> commonTagReferences = new HashSet<>();
+        for (Tag tag : taskTags) {
+            commonTagReferences.add(masterTagObjects.get(tag));
+        }
+        event.setTags(new UniqueTagList(commonTagReferences));
+    }
+
+    public boolean removeTask(ReadOnlyFloatingTask key) throws UniqueFloatingTaskList.FloatingTaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.TaskNotFoundException();
+            throw new UniqueFloatingTaskList.FloatingTaskNotFoundException();
+        }
+    }
+    
+    public boolean removeDeadline(ReadOnlyDeadline key) throws UniqueDeadlineList.DeadlineNotFoundException {
+        if (deadlines.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueDeadlineList.DeadlineNotFoundException();
         }
     }
 
@@ -127,8 +223,17 @@ public class Malitio implements ReadOnlyMalitio {
     }
 
     @Override
-    public List<ReadOnlyTask> getTaskList() {
+    public List<ReadOnlyFloatingTask> getFloatingTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
+    }
+    
+    public List<ReadOnlyDeadline> getDeadlineList() {
+        return Collections.unmodifiableList(deadlines.getInternalList());
+    }
+    
+    @Override
+    public List<ReadOnlyEvent> getEventList() {
+        return Collections.unmodifiableList(events.getInternalList());
     }
 
     @Override
@@ -137,8 +242,19 @@ public class Malitio implements ReadOnlyMalitio {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
+    public UniqueFloatingTaskList getUniqueFloatingTaskList() {
         return this.tasks;
+    }
+    
+
+    @Override
+    public UniqueDeadlineList getUniqueDeadlineList() {
+        return this.deadlines;
+    }
+    
+    @Override
+    public UniqueEventList getUniqueEventList() {
+        return this.events;
     }
 
     @Override
@@ -152,12 +268,15 @@ public class Malitio implements ReadOnlyMalitio {
         return other == this // short circuit if same object
                 || (other instanceof Malitio // instanceof handles nulls
                 && this.tasks.equals(((Malitio) other).tasks)
+                && this.deadlines.equals(((Malitio) other).deadlines)
+                && this.events.equals(((Malitio) other).events)
                 && this.tags.equals(((Malitio) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(tasks, deadlines, events, tags);
     }
+
 }
