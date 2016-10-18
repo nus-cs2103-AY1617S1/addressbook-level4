@@ -1,7 +1,10 @@
 package seedu.todoList.logic.commands;
 
+import seedu.todoList.commons.core.Messages;
+import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todoList.model.task.attributes.*;
 
 /**
@@ -22,8 +25,10 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_task_SUCCESS = "Edited task: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
+    public static final String MISSING_TASK = "The target task cannot be missing";
     public static final String MESSAGE_EDIT_DUPLICATE_TASK = "This task already exists in the Task-list";
     
+    public final String dataType;
     public final int targetIndex;
     private final Task toEdit;
     
@@ -35,6 +40,7 @@ public class EditCommand extends Command {
     public EditCommand(String name, String date, int priority, int targetIndex)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
+    	this.dataType = "todo";
         this.toEdit = new Todo(
                 new Name(name),
                 new Date(date),
@@ -50,6 +56,7 @@ public class EditCommand extends Command {
     public EditCommand(String name, String date, String startTime, String endTime, int targetIndex)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
+    	this.dataType = "event";
         this.toEdit = new Event(
                 new Name(name),
                 new Date(date),
@@ -66,6 +73,7 @@ public class EditCommand extends Command {
     public EditCommand(String name, String date, String endTime, int targetIndex)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
+    	this.dataType = "deadline";
         this.toEdit = new Deadline(
                 new Name(name),
                 new Date(date),
@@ -75,12 +83,32 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute() {
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
+    	switch (dataType) {
+    		case "todo":
+    			lastShownList = model.getFilteredTodoList();
+    			break;
+    		case "event":
+    			lastShownList = model.getFilteredEventList();
+    			break;
+    		case "deadline":
+    			lastShownList = model.getFilteredDeadlineList();
+    	}
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
+        }
+        
+        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        
         assert model != null;
         try {
-            model.editTask(targetIndex - 1, toEdit);
+            model.editTask(taskToEdit, dataType, toEdit);
             return new CommandResult(String.format(MESSAGE_EDIT_task_SUCCESS, toEdit));
         } catch (IllegalValueException ive) {
         	return new CommandResult(INVALID_VALUE);
+        }catch (TaskNotFoundException pnfe) {
+            return new CommandResult(MISSING_TASK);
         }
     }
 }
