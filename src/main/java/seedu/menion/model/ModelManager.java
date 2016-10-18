@@ -71,6 +71,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void completeActivity(ReadOnlyActivity activity) {
+        activityManager.completeActivity(activity);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override
     public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
         activityManager.removeTask(target);
         indicateActivityManagerChanged();
@@ -214,10 +221,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
-    @Override
-    public void completeTask(Activity task) {
-        task.setCompleted();
-    }
-
 }
