@@ -410,6 +410,32 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getTaskList());
 
     }
+    
+    /**
+     * @@author A0140022H
+     */
+    @Test
+    public void execute_add_recurring() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Task toBeAdded2 = helper.meetAdam();
+        toBeAdded2.setDateTime(new DateTime("08/09/2016 1400", "08/09/2016 1500"));
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(toBeAdded2);
+
+        System.out.println("1: " + toBeAdded);
+        System.out.println("2: " + toBeAdded2);
+        System.out.println(helper.generateAddCommand(toBeAdded).concat(" -r 2 every week"));
+        // execute command and verify result
+        
+        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n");
+        expectedMessage += String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded2 + "\n");
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded).concat(" -r 2 every week"),
+                expectedMessage, expectedAB, expectedAB.getTaskList());
+
+    }
 
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
