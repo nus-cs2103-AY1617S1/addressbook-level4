@@ -1,10 +1,5 @@
 package seedu.todo.logic.commands;
 
-
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +8,7 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.testutil.EventsCollector;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 public class ShowCommandTest extends CommandTest {
     
@@ -35,9 +31,7 @@ public class ShowCommandTest extends CommandTest {
         setParameter("2");
         execute(true);
         assertThat(eventCollector.get(0), instanceOf(ExpandCollapseTaskEvent.class));
-        assertEquals(model.getObserveableList().size(), 3);
+        assertEquals("Task 2", ((ExpandCollapseTaskEvent) eventCollector.get(0)).task.getTitle());
     }
-
     
-
 }

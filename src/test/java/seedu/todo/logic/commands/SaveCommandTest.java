@@ -16,20 +16,20 @@ public class SaveCommandTest extends CommandTest {
         execute(true);
         
         assertThat(result.getFeedback(), containsString("test location"));
-        verify(storage, never()).save(eq(model), anyString());
+        verify(storage, never()).save(eq(todolist), anyString());
     }
     
     @Test
     public void testSaveLocation() throws Exception {
         setParameter("new file");
         execute(true);
-        verify(storage).save(model, "new file");
+        verify(storage).save(todolist, "new file");
     }
     
     @Test(expected = ValidationException.class)
     public void testHandleFileError() throws Exception {
         setParameter("new file");
-        doThrow(new IOException()).when(storage).save(model, "new file");
+        doThrow(new IOException()).when(storage).save(todolist, "new file");
         execute(false);
     }
     

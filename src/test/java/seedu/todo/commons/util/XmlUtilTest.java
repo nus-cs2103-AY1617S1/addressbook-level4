@@ -81,7 +81,7 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
-        MoveableStorage<ImmutableTodoList> storage = new TodoListStorage(TEMP_FILE.getAbsolutePath());
+        MovableStorage<ImmutableTodoList> storage = new TodoListStorage(TEMP_FILE.getAbsolutePath());
         XmlSerializableTodoList dataToWrite = new XmlSerializableTodoList(new TodoList(storage));
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);

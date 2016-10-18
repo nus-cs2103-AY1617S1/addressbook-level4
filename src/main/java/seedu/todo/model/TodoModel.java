@@ -1,90 +1,177 @@
 package seedu.todo.model;
 
-import java.util.Comparator;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
+import seedu.todo.storage.MovableStorage;
+import seedu.todo.storage.TodoListStorage;
+
+import java.util.ArrayDeque;
+import java.util.Comparator;
+import java.util.Deque;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
- * Represents the data layer of the application.
+ * Represents the data layer of the application. The TodoModel handles any 
+ * interaction with the application state that are not persisted, such as the
+ * view (sort and filtering), undo and redo. Since this layer handles 
+ * sorting and filtering, task ID must be passed through {@link #getTaskIndex}
+ * to transform them into the index {@link TodoList} methods can use. 
  */
-public interface TodoModel {
-    /**
-     * Adds a new task or event with title only to the todo list.
-     * 
-     * @param title  the title of the task
-     * @return the task that was just created 
-     * @throws IllegalValueException if the values set in the update predicate is invalid
-     */
-    public ImmutableTask add(String title) throws IllegalValueException;
+public class TodoModel implements Model {
+    private static final int UNDO_LIMIT = 10;
     
-    /**
-     * Adds a new task or event with title and other fields to the todo list.
-     * 
-     * @param title   the title of the task 
-     * @param update  a {@link MutableTask} is passed into this lambda. All other fields 
-     *                should be set from inside this lambda. 
-     * @return the task that was just created
-     * @throws ValidationException   if the fields in the task to be updated are not valid
-     */
-    public ImmutableTask add(String title, Consumer<MutableTask> update) throws ValidationException;
-    
-    /**
-     * Deletes the given task from the todo list. This change is also propagated to the 
-     * underlying persistence layer.  
-     * 
-     * @param index  the 1-indexed position of the task that needs to be deleted
-     * @return the task that was just deleted
-     * @throws ValidationException if the task does not exist
-     */
-    public ImmutableTask delete(int index) throws ValidationException;
-    
-    /**
-     * Replaces certain fields in the task. Mutation of the {@link Task} object should 
-     * only be done in the <code>update</code> lambda. The lambda takes in one parameter, 
-     * a {@link MutableTask}, and does not expect any return value. For example: 
-     * 
-     * <pre><code>todo.update(task, t -> {
-     *     t.setEndTime(t.getEndTime.get().plusHours(2)); // Push deadline back by 2h
-     *     t.setPin(true); // Pin this task
-     * });</code></pre>
-     * 
-     * @return the task that was just updated
-     * 
-     * @throws ValidationException    if the task does not exist or if the fields in the 
-     *                                task to be updated are not valid
-     */
-    public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException;
-    
-    /**
-     * Changes the filter predicate and sort comparator used to display the tasks. A null
-     * value for either parameter resets it to the default value - showing everything for 
-     * the filter and insertion order for sort. 
-     */
-    public void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort);
+    private static final String INDEX_OUT_OF_BOUND_FORMAT = "There is no task no. %d";
+    private static final String NO_MORE_UNDO_REDO_FORMAT = "There are no more steps to %s";
 
-    /**
-     * Changes the save path of the TodoList storage 
-     * @throws ValidationException if the path is not valid
-     */
-    public void save(String location) throws ValidationException;
+    private TodoListModel todolist;
+    private MovableStorage<ImmutableTodoList> storage;
+    
+    private ObservableList<ImmutableTask> tasks;
+    private FilteredList<ImmutableTask> filteredTasks;
+    private SortedList<ImmutableTask> sortedTasks;
+    
+    private Deque<List<ImmutableTask>> undoStack = new ArrayDeque<>();
+    private Deque<List<ImmutableTask>> redoStack = new ArrayDeque<>();
+    
+    public TodoModel(Config config) {
+        this(new TodoListStorage(config.getTodoListFilePath()));
+    }
+    
+    public TodoModel(MovableStorage<ImmutableTodoList> storage) {
+        this(new TodoList(storage), storage);
+    }
+    
+    public TodoModel(TodoListModel todolist, MovableStorage<ImmutableTodoList> storage) {
+        this.storage = storage;
+        this.todolist = todolist;
 
-    /**
-     * Loads a TodoList from the path. 
-     * @throws ValidationException if the path or file is invalid
-     */
-    public void load(String location) throws ValidationException;
+        tasks = todolist.getObservableList();
+        filteredTasks = new FilteredList<>(tasks);
+        sortedTasks = new SortedList<>(filteredTasks);
+        
+        // Sets the default view 
+        view(null, null);
+    }
+
+    private int getTaskIndex(int index) throws ValidationException {
+        int taskIndex;
+
+        try {
+            ImmutableTask task = getObservableList().get(index - 1);
+            taskIndex = tasks.indexOf(task);
+        } catch (IndexOutOfBoundsException e) {
+            taskIndex = -1;
+        }
+
+        if (taskIndex == -1) {
+            String message = String.format(TodoModel.INDEX_OUT_OF_BOUND_FORMAT, index);
+            throw new ValidationException(message);
+        }
+
+        return taskIndex;
+    }
     
-    public String getStorageLocation();
+    private void saveState(Deque<List<ImmutableTask>> stack) {
+        List<ImmutableTask> tasks = todolist.getTasks().stream()
+            .map(Task::new).collect(Collectors.toList());
+        
+        stack.addFirst(tasks);
+        while (stack.size() > TodoModel.UNDO_LIMIT) {
+            stack.removeLast();
+        }
+    }
+
+    private void saveUndoState() {
+        saveState(undoStack);
+        redoStack.clear();
+    }
     
-    /**
-     * Get an observable list of tasks. Used mainly by the JavaFX UI. 
-     */
-    public UnmodifiableObservableList<ImmutableTask> getObserveableList();
+    @Override
+    public ImmutableTask add(String title) throws IllegalValueException {
+        saveUndoState();
+        return todolist.add(title);
+    }
+
+    @Override
+    public ImmutableTask add(String title, Consumer<MutableTask> update) throws ValidationException {
+        saveUndoState();
+        return todolist.add(title, update);
+    }
+
+    @Override
+    public ImmutableTask delete(int index) throws ValidationException {
+        saveUndoState();
+        return todolist.delete(getTaskIndex(index));
+    }
+
+    @Override
+    public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
+        saveUndoState();
+        return todolist.update(getTaskIndex(index), update);
+    }
+
+    @Override
+    public void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> comparator) {
+        filteredTasks.setPredicate(filter);
+
+        sortedTasks.setComparator((a, b) -> {
+            int pin = Boolean.compare(b.isPinned(), a.isPinned());
+            return pin != 0 || comparator == null ? pin : comparator.compare(a, b);
+        });
+    }
+
+    @Override
+    public void undo() throws ValidationException {
+        if (undoStack.isEmpty()) {
+            String message = String.format(TodoModel.NO_MORE_UNDO_REDO_FORMAT, "undo");
+            throw new ValidationException(message);
+        }
+        
+        List<ImmutableTask> tasks = undoStack.removeFirst();
+        saveState(redoStack);
+        todolist.setTasks(tasks);
+    }
+
+    @Override
+    public void redo() throws ValidationException {
+        if (redoStack.isEmpty()) {
+            String message = String.format(TodoModel.NO_MORE_UNDO_REDO_FORMAT, "redo");
+            throw new ValidationException(message);
+        }
+
+        List<ImmutableTask> tasks = redoStack.removeFirst();
+        saveState(undoStack);
+        todolist.setTasks(tasks);
+    }
+
+    @Override
+    public void save(String location) throws ValidationException {
+        todolist.save(location);
+    }
+
+    @Override
+    public void load(String location) throws ValidationException {
+        todolist.load(location);
+    }
+
+    @Override
+    public String getStorageLocation() {
+        return storage.getLocation();
+    }
+
+    @Override
+    public UnmodifiableObservableList<ImmutableTask> getObservableList() {
+        return new UnmodifiableObservableList<>(sortedTasks);
+    }
 }

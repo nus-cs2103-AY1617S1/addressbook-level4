@@ -15,7 +15,7 @@ import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.logic.parser.Parser;
 import seedu.todo.model.ErrorBag;
-import seedu.todo.model.TodoModel;
+import seedu.todo.model.Model;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
@@ -30,7 +30,7 @@ public class TodoLogicTest {
     @Mock private Parser parser; 
     @Mock private Dispatcher dispatcher;
     @Mock private ParseResult parseResult;
-    @Mock private TodoModel model;
+    @Mock private Model model;
     @Mock private BaseCommand command;
     
     private Logic logic;

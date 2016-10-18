@@ -18,7 +18,6 @@ public class AddCommandTest extends CommandTest {
         setParameter("Hello World");
         execute(true);
 
-        assertTotalTaskCount(1);
         ImmutableTask addedTask = getTaskAt(1);
         assertEquals("Hello World", addedTask.getTitle());
         assertFalse(addedTask.isPinned());
@@ -33,7 +32,7 @@ public class AddCommandTest extends CommandTest {
         execute(true);
         
         ImmutableTask taskWithLocation = getTaskAt(1);
-        assertTotalTaskCount(1);
+        
         assertEquals("Hello NUS", taskWithLocation.getTitle());
         assertFalse(taskWithLocation.isPinned());
         assertFalse(taskWithLocation.getDescription().isPresent());
@@ -47,7 +46,7 @@ public class AddCommandTest extends CommandTest {
         execute(true);
         
         ImmutableTask taskWithDescription = getTaskAt(1);
-        assertTotalTaskCount(1);
+        
         assertEquals("Destroy World", taskWithDescription.getTitle());
         assertEquals("Remember to get Dynamites on sale!", taskWithDescription.getDescription().get());
         assertFalse(taskWithDescription.isPinned());
@@ -61,7 +60,7 @@ public class AddCommandTest extends CommandTest {
         execute(true);
         
         ImmutableTask pinnedAddedTask = getTaskAt(1);
-        assertTotalTaskCount(1);
+        
         assertEquals("Li Kai's Presentation", pinnedAddedTask.getTitle());
         assertTrue(pinnedAddedTask.isPinned());
         assertFalse(pinnedAddedTask.getDescription().isPresent());
@@ -100,7 +99,7 @@ public class AddCommandTest extends CommandTest {
         execute(true);
         
         ImmutableTask taskWithParams = getTaskAt(1);
-        assertTotalTaskCount(1);
+        
         assertEquals("Task 1", taskWithParams.getTitle());
         assertTrue(taskWithParams.isPinned());
         assertEquals("COM1", taskWithParams.getLocation().get());

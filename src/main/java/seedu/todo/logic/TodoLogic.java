@@ -12,7 +12,7 @@ import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.logic.parser.Parser;
 import seedu.todo.model.ErrorBag;
-import seedu.todo.model.TodoModel;
+import seedu.todo.model.Model;
 import seedu.todo.model.task.ImmutableTask;
 
 /**
@@ -20,12 +20,12 @@ import seedu.todo.model.task.ImmutableTask;
  */
 public class TodoLogic implements Logic {
     private final Parser parser;
-    private final TodoModel model;
+    private final Model model;
     private final Dispatcher dispatcher;
     
     private static final Logger logger = LogsCenter.getLogger(TodoLogic.class);
     
-    public TodoLogic(Parser parser, TodoModel model, Dispatcher dispatcher) {
+    public TodoLogic(Parser parser, Model model, Dispatcher dispatcher) {
         assert parser != null;
         assert model != null;
         assert dispatcher != null;
@@ -62,6 +62,6 @@ public class TodoLogic implements Logic {
     }
     
     public ObservableList<ImmutableTask> getObservableTaskList() {
-        return model.getObserveableList();
+        return model.getObservableList();
     }
 }
