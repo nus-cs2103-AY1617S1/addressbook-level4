@@ -103,13 +103,13 @@ Have one of those pesky tasks you need to do every now and then? DearJim also al
 Format: `repeat every RECURRING_INTERVAL`
 > To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add/edit command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
 
-Supported `RECURRING_INTERVAL`
-* `hour`, `8 hours`, ...
-* `day`, `3 days`, ...
-* `week`, `5 weeks`, ...
-* `month`, `2 months`, ...
-* `year`, ...
-* Any day of the week e.g `mon`, `monday`, `thurs`, `sun`, ...
+Recurring Interval| Format  
+-------- | :-------- 
+Hour| 8 hours
+Day| 3 days, monday
+Week| 5 weeks
+Month|  2 months
+Year| year
 
 Examples: 
 * `Go run at track at 7am repeat every 3 days`
