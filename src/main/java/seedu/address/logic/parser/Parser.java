@@ -29,7 +29,7 @@ public class Parser {
     private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("\\[(?<name>[^;]+)"
                     + "; (?<date>[^;]+)"
-                    + "; (?<start>[^;]+)"
+                    + "(; (?<start>[^;]+))?"
                     + "(; (?<end>[^#]+))?"
                     + "\\]"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags

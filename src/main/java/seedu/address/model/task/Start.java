@@ -3,6 +3,8 @@ package seedu.address.model.task;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import java.time.LocalTime;
+
 /**
  * Represents a task's start time in Simply.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
@@ -10,7 +12,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Start {
 
     public static final String MESSAGE_START_CONSTRAINTS = "Task start time can be entered in 24hour or 12hour format.";
-    public static final String START_VALIDATION_REGEX = "([012]\\d{1}[0-5]\\d{1})|" +
+    public static final String START_VALIDATION_REGEX = "([01]\\d{1}[0-5]\\d{1})|" +
+    													"([2][0-3][0-5]\\d{1})|" +
     													"([1-9](?:pm|am|PM|AM))|" + 
     													"(1[0-2](?:pm|am|PM|AM))|" +
     													"([1-9]\\.[0-5]{1}\\d{1}(?:pm|am))|" +
@@ -24,19 +27,24 @@ public class Start {
      * @throws IllegalValueException if given start time string is invalid.
      */
     public Start(String start) throws IllegalValueException {
-        assert start != null;
+        //assert start != null;
+    	if (start == null) 
+    		start = "default"; 
         start = start.trim();
         if (!isValidStart(start)) {
             throw new IllegalValueException(MESSAGE_START_CONSTRAINTS);
         }
-        this.value = start;
+        if (start == "default")
+    		this.value = LocalTime.now().getHour() + "." + LocalTime.now().getMinute();
+        else
+        	this.value = start;
     }
 
     /**
      * Returns if a given string is a valid person email.
      */
     public static boolean isValidStart(String test) {
-    	if (test == "" || test.matches(START_VALIDATION_REGEX))
+    	if (test == "" || test.matches(START_VALIDATION_REGEX) || test == "default")
     		return true;
     	else
     		return false;
