@@ -64,6 +64,13 @@ public class CommandFeedbackView extends UiPart {
     }
 
     /**
+     * Clears any message in {@link #commandFeedbackLabel}
+     */
+    public void clearMessage() {
+        commandFeedbackLabel.setText("");
+    }
+
+    /**
      * Indicate an error visually on the {@link #commandFeedbackLabel}
      */
     public void flagError() {
