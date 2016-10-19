@@ -214,8 +214,8 @@ Format: `exit`
 
 #### Saving the data to a specified location : `save` 
 All GGist data is saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.<br>
-You can switch the data file location easily if you wish.<br>
+There is no need to save manually. The save file is `./data/ggist.xml` by default.<br>
+You can switch the save file location easily if you wish.<br>
 Format: `save FILE_LOCATION.xml`
 
 > Filename has to be in .xml format.
