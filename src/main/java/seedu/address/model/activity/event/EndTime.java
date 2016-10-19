@@ -56,9 +56,9 @@ public class EndTime extends DateTime {
     
     public String forDisplay() {
         if (this.value == null) {
-            return "Start:\t\t\t-";
+            return "End:\t\t\t-";
         } else {
-            return "Start:\t\t\t".concat(this.toString());
+            return "End:\t\t\t".concat(this.toString());
         }
     }
 }

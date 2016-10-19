@@ -36,9 +36,9 @@
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                        <Label fx:id="line1" styleClass="cell_small_label" text="\$line1" />
+                        <Label fx:id="line2" styleClass="cell_small_label" text="\$line2" />
+                        <Label fx:id="reminder" styleClass="cell_small_label" text="\$reminder" />
                         <Label fx:id="completion" styleClass="cell_small_label" text="\$completion" />
                     </children>
                 </VBox>
