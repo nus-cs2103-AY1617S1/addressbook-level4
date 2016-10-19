@@ -28,8 +28,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
-    
-    //public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -85,14 +83,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
     	taskManager.editTask(target, field, value);
-    	/*if (Command.lastListing == null || Command.lastListing.equals("")) {
-    	    updateFilteredListToShowAllUndone();
-    	} else if (Command.lastListing.equals("done")) {
-    	    updateFilteredListToShowAllDone();
-    	} else {
-    	    updateFilteredListToShowAll();
-    	}*/
-    	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
     }
 
@@ -109,14 +99,18 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
+    public void updateFilteredListToShowAll() {
+        filteredTasks.setPredicate(null);
+    }
 
-    @Override
+    /*@Override
     public void updateFilteredListToShowAll() {
         updateFilteredListToShowAll(new PredicateExpression(new AllQualifier()));
     }
     public void updateFilteredListToShowAll(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
-    }
+    }*/
     
     @Override
     public void updateFilteredListToShowAllDone() {

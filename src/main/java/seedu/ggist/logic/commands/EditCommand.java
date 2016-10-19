@@ -52,6 +52,13 @@ public class EditCommand extends Command {
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         try {
             model.editTask(taskToEdit, field, value);
+            /*if (Command.lastListing == null || Command.lastListing.equals("")) {
+                model.updateFilteredListToShowAllUndone();
+            } else if (Command.lastListing.equals("done")) {
+                model.updateFilteredListToShowAllDone();
+            } else {
+                model.updateFilteredListToShowAll();
+            }*/
             listOfCommands.push(COMMAND_WORD);
             listOfTasks.push(taskToEdit);
         } catch (TaskNotFoundException pnfe) {

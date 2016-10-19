@@ -80,10 +80,8 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
-    //not sure about way of handling invalid value, logicmanager?
     public void edit(ReadOnlyTask toEdit, String field, String value) throws TaskNotFoundException {
         assert toEdit != null;
-        //Task edit = internalList.get(internalList.indexOf(toEdit));
         switch (field) {
         case "task":
             try {

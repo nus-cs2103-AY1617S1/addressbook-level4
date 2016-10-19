@@ -29,7 +29,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        Command.lastListing = listing;
+        //Command.lastListing = listing;
         if (listing.equals("all")) {
             model.updateFilteredListToShowAll();
         } else if (listing.equals("done")) {
