@@ -186,7 +186,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredDateTaskList(LocalDate date, boolean hasDate) {
-		allTasks.setPredicate(p -> (p.isDeadline() && !p.getEndDate().getDate().isAfter(date)) || (p.isEvent() && 
+		allTasks.setPredicate(p -> p.isTodo() || (p.isDeadline() && !p.getEndDate().getDate().isAfter(date)) || (p.isEvent() && 
 				!(p.getEndDate().getDate().isBefore(date) || p.getStartDate().getDate().isAfter(date))));
 		filteredTodos.setPredicate(null);
 		if (hasDate) {
