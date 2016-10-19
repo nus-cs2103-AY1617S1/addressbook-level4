@@ -1,12 +1,10 @@
 package tars.model.task.rsv;
 
+import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Set;
-
 import tars.commons.util.CollectionUtil;
 import tars.model.task.DateTime;
 import tars.model.task.Name;
-import tars.model.task.Task;
 
 /**
  * A task that has unconfirmed, reserved dates.
@@ -14,16 +12,16 @@ import tars.model.task.Task;
  * @@author A0124333U
  */
 
-public class RsvTask extends Task {
+public class RsvTask{
     
     private Name name;
-    private Set<DateTime> dateTimeSet;
+    private ArrayList<DateTime> dateTimeList;
     
-    public RsvTask(Name name, Set<DateTime> dateTimeSet) {
-        assert !CollectionUtil.isAnyNull(name, dateTimeSet);
+    public RsvTask(Name name, ArrayList<DateTime> dateTimeList) {
+        assert !CollectionUtil.isAnyNull(name, dateTimeList);
         
         this.name = name;
-        this.dateTimeSet = dateTimeSet;
+        this.dateTimeList = dateTimeList;
 
     }
     
@@ -35,8 +33,8 @@ public class RsvTask extends Task {
         return name;
     }
     
-    public Set<DateTime> getDateTimeSet() {
-        return dateTimeSet;
+    public ArrayList<DateTime> getDateTimeList() {
+        return dateTimeList;
     }
     
     
@@ -48,15 +46,15 @@ public class RsvTask extends Task {
         this.name = name;
     }
     
-    public void setDateTimeSet(Set<DateTime> dateTimeSet) {
-        this.dateTimeSet = dateTimeSet;
+    public void setDateTimeList(ArrayList<DateTime> dateTimeList) {
+        this.dateTimeList = dateTimeList;
     }
     
     
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, dateTimeSet);
+        return Objects.hash(name, dateTimeList);
     }   
     
     @Override
@@ -64,7 +62,7 @@ public class RsvTask extends Task {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" DateTime: ")
-                .append(getDateTimeSet().toString());
+                .append(getDateTimeList().toString());
         
         return builder.toString();
     }

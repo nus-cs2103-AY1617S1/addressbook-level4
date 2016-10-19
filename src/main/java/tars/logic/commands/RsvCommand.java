@@ -60,7 +60,7 @@ public class RsvCommand extends UndoableCommand {
             dateTimeSet.add(new DateTime(dateTimeStringArray[0], dateTimeStringArray[1]));
         }
 
-        this.toReserve = new RsvTask(new Name(name), dateTimeSet);
+        this.toReserve = new RsvTask(new Name(name), new ArrayList<DateTime>(dateTimeSet));
 
     }
 
