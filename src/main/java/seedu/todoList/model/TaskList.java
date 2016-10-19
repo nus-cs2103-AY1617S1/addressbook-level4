@@ -78,13 +78,21 @@ public class TaskList implements ReadOnlyTaskList {
 
     /**
      * Adds a task to the TodoList.
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
      * @throws UniqueTaskList.DuplicatetaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicatetaskException {
         tasks.add(p);
+    }
+    
+    /**
+     * Edit a task to the TodoList.
+     *
+     * @throws UniqueTaskList.DuplicatetaskException if an equivalent task already exists.
+     */
+    public void editTask(Task p) throws UniqueTaskList.DuplicatetaskException {
+        tasks.edit(p);
+        
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
@@ -119,4 +127,5 @@ public class TaskList implements ReadOnlyTaskList {
                 || (other instanceof TaskList // instanceof handles nulls
                 && this.tasks.equals(((TaskList) other).tasks));
     }
+
 }
