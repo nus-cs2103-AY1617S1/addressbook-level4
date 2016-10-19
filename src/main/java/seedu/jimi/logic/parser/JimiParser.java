@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.exceptions.DateNotParsableException;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.StringUtil;
@@ -33,6 +34,7 @@ import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
 import seedu.jimi.logic.commands.IncorrectCommand;
 import seedu.jimi.logic.commands.ListCommand;
+import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.SelectCommand;
 
 /**
@@ -62,9 +64,26 @@ public class JimiParser {
     private static final Pattern ADD_EVENT_DATA_ARGS_FORMAT =
             Pattern.compile("(\"(?<taskDetails>.+)\") on (?<startDateTime>((?! to ).)*)( to (?<endDateTime>.+))?");
     
+    private static final Pattern SAVE_DIRECTORY_ARGS_FORMAT = Pattern.compile("(?<filePath>.+).xml");
+    
+    private static final Pattern SAVE_RESET_DIRECTORY_ARGS_FORMAT = Pattern.compile(SaveAsCommand.COMMAND_WORD_RESET);
+    
     private static final List<Command> COMMAND_STUB_LIST =
-            Arrays.asList(new AddCommand(), new EditCommand(), new CompleteCommand(), new SelectCommand(), new DeleteCommand(),
-                    new ClearCommand(), new FindCommand(), new ListCommand(), new ExitCommand(), new HelpCommand());
+            Arrays.asList(
+                    new AddCommand(), 
+                    new EditCommand(), 
+                    new CompleteCommand(), 
+                    new SelectCommand(), 
+                    new DeleteCommand(),
+                    new ClearCommand(), 
+                    new FindCommand(), 
+                    new ListCommand(), 
+                    new ExitCommand(), 
+                    new HelpCommand(), 
+                    new SaveAsCommand()
+            );
+
+    private static final String XML_FILE_EXTENSION = ".xml";
     
     public JimiParser() {}
 
@@ -110,6 +129,8 @@ public class JimiParser {
                     return prepareDelete(arguments);
                 } else if (command instanceof FindCommand) {
                     return prepareFind(arguments);
+                } else if (command instanceof SaveAsCommand) {
+                    return prepareSaveAs(arguments);
                 } else { // commands that do not require arguments e.g. exit
                     return command;
                 }
@@ -313,15 +334,15 @@ public class JimiParser {
         if (!matcher.matches()) {
             return Optional.empty();
         }
-
+        
         String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
+        if (!StringUtil.isUnsignedInteger(index)) {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
-
+        
     }
-
+    
     /**
      * Parses arguments in the context of the find task command.
      *
@@ -339,6 +360,27 @@ public class JimiParser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the save as command.
+     * 
+     * @param full command args string
+     * @return the prepared command
+     */
+    private Command prepareSaveAs(String args) {
+        final Matcher resetMatcher = SAVE_RESET_DIRECTORY_ARGS_FORMAT.matcher(args.trim());
+        if (resetMatcher.matches()) {
+            return new SaveAsCommand(Config.DEFAULT_XML_FILE_PATH);
+        }
+        
+        final Matcher matcher = SAVE_DIRECTORY_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveAsCommand.MESSAGE_USAGE));
+        }
+        
+        return new SaveAsCommand(matcher.group("filePath") + XML_FILE_EXTENSION);
     }
 
 }

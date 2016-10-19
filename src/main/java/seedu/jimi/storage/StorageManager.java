@@ -1,19 +1,20 @@
 package seedu.jimi.storage;
 
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
 import seedu.jimi.commons.core.ComponentManager;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.storage.DataSavingExceptionEvent;
+import seedu.jimi.commons.events.storage.StoragePathChangedEvent;
 import seedu.jimi.commons.exceptions.DataConversionException;
 import seedu.jimi.model.ReadOnlyTaskBook;
+import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.UserPrefs;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * Manages storage of TaskBook data in local storage.
@@ -51,13 +52,13 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ TaskBook methods ==============================
 
     @Override
-    public String getAddressBookFilePath() {
-        return taskBookStorage.getAddressBookFilePath();
+    public String getTaskBookFilePath() {
+        return taskBookStorage.getTaskBookFilePath();
     }
 
     @Override
     public Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException {
-        return readTaskBook(taskBookStorage.getAddressBookFilePath());
+        return readTaskBook(taskBookStorage.getTaskBookFilePath());
     }
 
     @Override
@@ -68,7 +69,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void saveTaskBook(ReadOnlyTaskBook taskBook) throws IOException {
-        saveTaskBook(taskBook, taskBookStorage.getAddressBookFilePath());
+        saveTaskBook(taskBook, taskBookStorage.getTaskBookFilePath());
     }
 
     @Override
@@ -88,5 +89,17 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-
+    
+    @Subscribe
+    public void handleStoragePathChangedEvent(StoragePathChangedEvent spce) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(spce, "Storage file path changed"));
+        try {
+            // copying previous data from old save file to new save file
+            ReadOnlyTaskBook oldTaskBook = readTaskBook(spce.oldPath).orElse(new TaskBook());
+            ((XmlTaskBookStorage) taskBookStorage).setTaskBookFilePath(spce.newPath);
+            saveTaskBook(oldTaskBook);
+        } catch (IOException  | DataConversionException e) {
+            raise(new DataSavingExceptionEvent(e));
+        } 
+    }
 }
