@@ -1,13 +1,30 @@
 package seedu.task.model.task;
 
+import java.text.ParseException;
+
+import seedu.task.commons.exceptions.IllegalValueException;
+
 public class Description {
 
-    public final String fullDescription;
+    public String fullDescription;
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Description can't be empty.";
     
-    public Description(String description) {
+    public Description(String description) throws IllegalValueException {
+        if (description.equals("Not Set")) {
+            this.fullDescription = "";
+        }
+        else if (!isValidDate(description)) {
+            throw new IllegalValueException(MESSAGE_DESCRIPTION_CONSTRAINTS);
+        }
         description = description.trim();
         this.fullDescription = description;
     }
+    
+    public static boolean isValidDate(String description) {
+    	if(description.isEmpty())
+    		return false;
+        return true;
+      }
     
     @Override
     public String toString() {

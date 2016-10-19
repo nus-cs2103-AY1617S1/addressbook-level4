@@ -3,6 +3,8 @@ package seedu.task.logic.parser;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.commands.*;
+import seedu.task.logic.parser.ArgumentTokenizer.NoValueForRequiredTagException;
+import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
 
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -27,18 +29,17 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+    public static final Prefix descriptionPrefix = new Prefix(" d/");
+    public static final Prefix startDatePrefix = new Prefix(" sd/", true);
+    public static final Prefix dueDatePrefix = new Prefix(" dd/", true);
+    public static final Prefix intervalPrefix = new Prefix(" i/", true);
+    public static final Prefix timeIntervalPrefix = new Prefix(" ti/", true);
+    public static final Prefix tagArgumentsPrefix = new Prefix(" t/");   
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT_ADD = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<title>[^/]+)"
-                    + " d/(?<description>[^/]+)"
-                    + " sd/(?<startDate>[^/]+)"
-                    + " dd/(?<dueDate>[^/]+)"
-                    + " i/(?<interval>[^/]+)"
-                    + " ti/(?<timeInterval>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     private static final Pattern TASK_DATA_ARGS_FORMAT_EDIT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[^/]+)"
                     + " t/(?<newTitle>[^/]+)");
+
 
 
     public Parser() {}
@@ -101,25 +102,37 @@ public class Parser {
      */
 
     private Command prepareAdd(String args) throws ParseException{
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT_ADD.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        try {
-        	return new AddCommand(
-        	        matcher.group("title"),
-                    matcher.group("description"),
-                    matcher.group("startDate"),
-                    matcher.group("dueDate"),
-                    matcher.group("interval"),
-                    matcher.group("timeInterval"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, startDatePrefix, dueDatePrefix,
+				intervalPrefix, timeIntervalPrefix, tagArgumentsPrefix);
+		argsTokenizer.tokenize(args);
+		try {
+			//For deadlines - if there is startDate, set dueDatePrefix as required
+			if (argsTokenizer.getValue(startDatePrefix)!=null) {
+				dueDatePrefix.SetIsOptional(false);
+			}
+			return new AddCommand(argsTokenizer.getPreamble(), 
+					isInputPresent(argsTokenizer.getValue(descriptionPrefix)),
+					isInputPresent(argsTokenizer.getValue(startDatePrefix)), 
+					isInputPresent(argsTokenizer.getValue(dueDatePrefix)),
+					isInputPresent(argsTokenizer.getValue(intervalPrefix)), 
+					isInputPresent(argsTokenizer.getValue(timeIntervalPrefix)),
+					toSet(argsTokenizer.getAllValues(tagArgumentsPrefix)));
+		} catch (NoSuchElementException nsee) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		} catch (IllegalValueException ive) {
+			return new IncorrectCommand(ive.getMessage());
+		} catch (NoValueForRequiredTagException nvfrt) {
+			return new IncorrectCommand(nvfrt.getMessage());
+		}
     }
+    /**
+     * Check if the input is present, hence having the attribute of task optional
+     * @param input of task's attribute
+     * @return specified null format or actual input
+     **/
+        private String isInputPresent(String input) {
+            return input == null ? "Not Set" : input;
+        }
     
     /**
      * Parses arguments in the context of the edit task command.
@@ -143,18 +156,9 @@ public class Parser {
 		}
     }
 
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
+    private Set<String> toSet(Optional<List<String>> tagsOptional) {
+    	List<String> tags = tagsOptional.orElse(Collections.emptyList());
+    	return new HashSet<>(tags);
     }
 
     /**

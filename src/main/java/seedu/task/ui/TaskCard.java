@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.task.model.task.ReadOnlyTask;
+import java.util.Date;
 import java.text.*;
 
 public class TaskCard extends UiPart{
@@ -48,16 +49,18 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM-yyyy");
     	title.setText(task.getTitle().fullTitle);
         id.setText(displayedIndex + ". ");
         description.setText(task.getDescription().fullDescription);
-        startDate.setText(task.getStartDate().toString());
-        dueDate.setText(task.getDueDate().toString());
-        interval.setText(task.getInterval().value);
-        timeInterval.setText(task.getTimeInterval().value);
+        startDate.setText("Start Date: " + isDateNull(task.getStartDate().startDate));
+        dueDate.setText("Due Date: " + isDateNull(task.getDueDate().dueDate));
         status.setText(task.getStatus().status.toString());
         tags.setText(task.tagsString());
+    }
+    
+    public String isDateNull(Date inputDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM-yyyy");
+        return inputDate == null ? "Not Set" : dateFormat.format(inputDate);
     }
 
     public HBox getLayout() {

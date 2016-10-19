@@ -153,18 +153,12 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
+    public void execute_add_noTitle() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Homework no arguments", expectedMessage);
-        assertCommandBehavior(
-                "add", expectedMessage);
-        assertCommandBehavior(
-                "add TITLE description", expectedMessage);
+                "add d/description", expectedMessage);
     }
-
+        
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         //TODO

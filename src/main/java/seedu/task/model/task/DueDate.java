@@ -1,5 +1,6 @@
 package seedu.task.model.task;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,11 +15,20 @@ public class DueDate {
   public final Date dueDate;
 
   public DueDate(String dateToValidate) throws IllegalValueException, ParseException {
-      if (!isValidDate(dateToValidate)) {
+      if (dateToValidate.equals("Not Set")) {
+          this.dueDate = null;
+      }
+      else if (!isValidDate(dateToValidate)) {
           throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
       }
-      this.dueDate = DATE_FORMAT.parse(dateToValidate);
+      else {
+          this.dueDate = DATE_FORMAT.parse(dateToValidate);
+      }
   }
+  
+	public DueDate(Date date) {
+		dueDate = date;
+	}
   
   public static boolean isValidDate(String inDate) {
       DATE_FORMAT.setLenient(false);
@@ -32,7 +42,7 @@ public class DueDate {
   
   @Override
   public String toString() {
-      return DATE_FORMAT.format(dueDate);
+      return dueDate == null ? "Not Set" : DATE_FORMAT.format(dueDate);
   }
 
   @Override
@@ -44,4 +54,5 @@ public class DueDate {
   public int hashCode() {
       return dueDate.hashCode();
   }
+
 }
