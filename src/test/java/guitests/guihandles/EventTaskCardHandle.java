@@ -44,8 +44,8 @@ public class EventTaskCardHandle extends GuiHandle {
     public boolean isSameTask(ReadOnlyTask task){
         return getTaskName().equals(task.getName().fullName)
                && getTaskType().equals(task.getTaskType().toString())
-               && getStartDate().equals(task.getStartDate().toString())
-               && getEndDate().equals(task.getEndDate().toString());
+               && getStartDate().equals(task.getStartDate().get().toString())
+               && getEndDate().equals(task.getEndDate().get().toString());
     }
 
     @Override

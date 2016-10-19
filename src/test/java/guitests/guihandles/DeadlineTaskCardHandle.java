@@ -39,7 +39,7 @@ public class DeadlineTaskCardHandle extends GuiHandle {
     public boolean isSameTask(ReadOnlyTask task){
         return getTaskName().equals(task.getName().fullName)
                && getTaskType().equals(task.getTaskType().toString())
-               && getDueDate().equals(task.getEndDate().toString());
+               && getDueDate().equals(task.getEndDate().get().toString());
     }
 
     @Override

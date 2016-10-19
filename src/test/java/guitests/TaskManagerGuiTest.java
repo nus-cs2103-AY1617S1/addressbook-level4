@@ -40,11 +40,11 @@ public abstract class TaskManagerGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
-    protected TodayTaskListTabPanelHandle todayTaskListTabPanel;
-    protected TomorrowTaskListTabPanelHandle tomorrowTaskListTabPanel;
-    protected In7DaysTaskListTabPanelHandle in7DaysTaskListTabPanel;
-    protected In30DaysTaskListTabPanelHandle in30DaysTaskListTabPanel;
-    protected SomedayTaskListTabPanelHandle somedayTaskListTabPanel;
+    protected TaskListPanelHandle todayTaskListTabPanel;
+    protected TaskListPanelHandle tomorrowTaskListTabPanel;
+    protected TaskListPanelHandle in7DaysTaskListTabPanel;
+    protected TaskListPanelHandle in30DaysTaskListTabPanel;
+    protected TaskListPanelHandle somedayTaskListTabPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
