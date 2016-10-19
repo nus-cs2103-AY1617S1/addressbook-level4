@@ -72,6 +72,20 @@ public class Interval {
         return true;
     }
     
+    public boolean isDeadlineWithTime() {
+        if (this.startDate == null && this.startTime == null && this.endDate != null && this.endTime != null) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean isDeadlineWithoutTime() {
+        if (this.startDate == null && this.startTime == null && this.endDate != null && this.endTime == null) {
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Returns true if a given interval is a deadline with time.
      */
