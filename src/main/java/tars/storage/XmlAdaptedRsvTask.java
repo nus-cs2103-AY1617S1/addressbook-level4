@@ -40,7 +40,7 @@ public class XmlAdaptedRsvTask {
     public XmlAdaptedRsvTask(RsvTask source) {
         name = source.getName().taskName;
         reservedDateTime = new ArrayList<>();
-        for (DateTime dt : source.getDateTimeSet()) {
+        for (DateTime dt : source.getDateTimeList()) {
             reservedDateTime.add(dt);
         }
     }
@@ -55,14 +55,14 @@ public class XmlAdaptedRsvTask {
      */
     public RsvTask toModelType() throws IllegalValueException {
 
-        Set<DateTime> dateTimeSet = new HashSet<>();
+        ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
         for (DateTime dt : this.reservedDateTime) {
-            dateTimeSet.add(new DateTime(dt.startDateString, dt.endDateString));
+            dateTimeList.add(new DateTime(dt.startDateString, dt.endDateString));
         }
         
         final Name name = new Name(this.name);
 
-        return new RsvTask(name, dateTimeSet);
+        return new RsvTask(name, dateTimeList);
     }
 
 }
