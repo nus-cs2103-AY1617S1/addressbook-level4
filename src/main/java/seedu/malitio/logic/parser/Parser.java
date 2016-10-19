@@ -292,8 +292,7 @@ public class Parser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-//TODO: fix the DeleteCommand to support e|f|d
-        return new DeleteCommand(taskNum);
+        return new DeleteCommand(taskType, taskNum);
     }
 
     /**
@@ -315,8 +314,7 @@ public class Parser {
     }
 
     /**
-     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+     * Returns the specified index as a String in the {@code command}
      */
     private String parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
