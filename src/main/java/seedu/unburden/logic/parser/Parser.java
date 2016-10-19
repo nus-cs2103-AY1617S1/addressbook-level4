@@ -36,6 +36,13 @@ public class Parser {
     private static final Pattern KEYWORDS_DATE_FORMAT = 
     		Pattern.compile("(?<dates>[0-9]{2}[-][0-9]{2}[-][0-9]{4}$)");
 
+    private static final Pattern ADD_FORMAT_0 = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)" + 
+            				"dd/(?<details>[^/]+)" +
+            				"(?<isDatePrivate>p?)d/(?<date>[^/]+)"+ 
+            				"(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"+
+            				"(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"+
+            				"(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern ADD_FORMAT_1 = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)" + 
@@ -135,14 +142,24 @@ public class Parser {
      */
     private Command prepareAdd(String args){
 		Calendar calendar = Calendar.getInstance();
+		final Matcher matcher0 = ADD_FORMAT_0.matcher(args.trim());
         final Matcher matcher1 = ADD_FORMAT_1.matcher(args.trim());
         final Matcher matcher2 = ADD_FORMAT_2.matcher(args.trim());
         final Matcher matcher3 = ADD_FORMAT_3.matcher(args.trim());
         // Validate arg string format
-        if (!matcher1.matches() & !matcher2.matches() & !matcher3.matches()) {
+        if (! matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
+        	if(matcher0.matches()){
+        		return new AddCommand(
+        				matcher0.group("name"),
+        				matcher0.group("details"),
+        				matcher0.group("startTimeArguments"),
+        				matcher0.group("endTimeArguments"),
+        				getTagsFromArgs(matcher0.group("tagArguments"))
+        	);
+        	}
         	if(matcher1.matches()){
             return new AddCommand(
                     matcher1.group("name"),
