@@ -201,6 +201,7 @@ public class CommandParser {
      */
     private String[] extractTaskDetailsNatty(String dataArguments) {
         dataArguments = convertToNattyDateFormat(dataArguments);
+        System.out.println(dataArguments);
         Parser dateTimeParser = new Parser();
         List<DateGroup> dateGroups = dateTimeParser.parse(dataArguments);
         
@@ -246,7 +247,7 @@ public class CommandParser {
     private String getDateSeparator(String localDateString) {
         // if 2nd char in string is an integer, then the 3rd char must be the separator
         // else 2nd char is the separator
-        if (StringUtil.isUnsignedInteger(localDateString.substring(1,2))) {
+        if (StringUtil.isInteger(localDateString.substring(1,2))) {
             return localDateString.substring(2, 3);
         } else {
             return localDateString.substring(1, 2);
