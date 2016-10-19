@@ -13,11 +13,19 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <Label fx:id="date" text="Label" VBox.vgrow="ALWAYS">
+      <Label fx:id="header" text="Label" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets bottom="4.0" left="4.0" right="4.0" />
          </VBox.margin>
       </Label>
+      <AnchorPane style="-fx-background-color: white;">
+         <children>
+            <Label fx:id="date" text="Label" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </AnchorPane>
         <ListView fx:id="eventListView" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>

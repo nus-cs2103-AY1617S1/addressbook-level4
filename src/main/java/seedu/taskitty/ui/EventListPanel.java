@@ -34,6 +34,9 @@ public class EventListPanel extends UiPart{
     private Label date;
     
     @FXML
+    private Label header;
+    
+    @FXML
     private ListView<ReadOnlyTask> eventListView;
     
     public EventListPanel() {
@@ -64,6 +67,8 @@ public class EventListPanel extends UiPart{
     }
 
     private void configure(ObservableList<ReadOnlyTask> eventList) {
+    	header.setText("EVENTS");
+    	header.setStyle("-fx-text-fill: white");
     	setDate();
         setConnections(eventList);
         addToPlaceholder();
@@ -73,7 +78,8 @@ public class EventListPanel extends UiPart{
     	DateFormat df = new SimpleDateFormat("dd MMM yyyy");
     	Date dateobj = new Date();
     	date.setText(df.format(dateobj) + " (Today)");
-    	date.setStyle("-fx-text-fill: white");
+    	date.setStyle("-fx-text-fill: black");
+    	date.setStyle("-fx-background-color: white");
     }
     
     private void setConnections(ObservableList<ReadOnlyTask> eventList) {
