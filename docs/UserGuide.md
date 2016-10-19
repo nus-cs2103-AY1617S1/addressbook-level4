@@ -79,6 +79,19 @@ Examples:<br>
 * **`find`**`Submission` <br> 
   **`select`**`1`<br>
   Selects the 1st task in the results of the `find` command.
+  
+#### Select a task : `setpath`
+Set path for saved data path.<br>
+
+Format: **`setpath`**`FILENAME`
+
+> FILENAME refers to the filename that you wants to save at.<br>
+
+Examples:<br> 
+* **`setpath`**`taskData`<br>
+  Filename taskData will be created at default location data/taskData .
+* **`setpath`**`backup/taskData`<br>
+  Filename taskData will be created at location data/backup/taskData .
 
 #### Deleting a task: `delete`
 Deletes a task from the MustDoList by index. <br>

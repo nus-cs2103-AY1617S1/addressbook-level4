@@ -7,10 +7,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
+
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskSchedulerChangedEvent;
+import seedu.address.commons.events.storage.FilePathChangedEvent;
+import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.FxViewUtil;
+import seedu.address.commons.util.StringUtil;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -48,7 +54,7 @@ public class StatusBarFooter extends UiPart {
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
     }
-
+    
     private void addMainPane() {
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);
@@ -94,5 +100,12 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+    @Subscribe
+    public void changeFilePathRequestEvent(FilePathChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setSyncStatus("Saved Data Path Changed");
+        setSaveLocation(event.toString());
     }
 }
