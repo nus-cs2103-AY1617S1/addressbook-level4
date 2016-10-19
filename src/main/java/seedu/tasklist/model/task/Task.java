@@ -41,6 +41,8 @@ public class Task implements ReadOnlyTask {
 		this.uniqueID = currentID++;
 		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
 		this.isComplete = false;
+
+		if (recurringFrequency==null) recurringFrequency = "";
 		
 		switch (recurringFrequency) {
 		    case "daily": case "weekly": case "monthly": case "yearly": 
