@@ -1,16 +1,12 @@
 package tars.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.xml.bind.annotation.XmlElement;
 
 import tars.commons.exceptions.IllegalValueException;
 import tars.model.task.DateTime;
 import tars.model.task.Name;
-import tars.model.task.Priority;
 import tars.model.task.rsv.RsvTask;
 
 /**
