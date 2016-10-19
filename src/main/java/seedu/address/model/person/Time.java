@@ -41,6 +41,12 @@ public class Time {
      * @throws IllegalValueException if given time string is invalid.
      */
     public Time(List<java.util.Date> dateList) throws IllegalValueException {
+    	if (dateList == null){
+    		this.value = "";
+            startTime = null;
+            endTime = null;
+            return;
+    	}
     	String [] timeStrings = new String [2];
     	for (int i = 0; i < dateList.size(); i++){
         	java.util.Date date = dateList.get(i);

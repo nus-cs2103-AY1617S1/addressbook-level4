@@ -3,13 +3,14 @@ package seedu.address.model.person;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
  * Represents a DatedTask in the to-do-list.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<Task> {
 
     private Name name;
     private Description description;
@@ -102,5 +103,25 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+    
+    @Override
+    public int compareTo(Task other) {
+        return Comparators.NAME.compare(this, other);
+    }
 
+    public static class Comparators {
+
+        public static Comparator<Task> NAME = new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                return t1.getName().toString().compareTo(t2.getName().toString());
+            }
+        };
+        public static Comparator<Task> DATE = new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                return t1.getDate().startDate.compareTo(t2.getDate().startDate);
+            }
+        };
+    }
 }

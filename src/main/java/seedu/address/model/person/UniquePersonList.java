@@ -95,4 +95,8 @@ public class UniquePersonList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+    
+    public void sort(Comparator<Task> c){
+    	internalList.sort(c);
+    }
 }
