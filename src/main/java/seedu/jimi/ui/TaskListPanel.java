@@ -89,31 +89,36 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList);
+            ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList,
+            ObservableList<ReadOnlyTask> eventList) {
+        TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+        taskListPanel.configure(taskList, deadlineTaskList, eventList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    private void configure(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList,
+            ObservableList<ReadOnlyTask> eventList) {
+        instantiateLists();
+        
+        updateFloatingTaskList(taskList);
+        updateCompletedAndIncompleteTaskList(taskList, deadlineTaskList);
+        updateTasksForDays(taskList, daysTaskList);
+        
         setConnections(taskList);
         addToPlaceholder();
         registerAsAnEventHandler(this); //to update labels
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    private void instantiateLists() {
         this.completedTaskList = FXCollections.observableArrayList();
         this.incompleteTaskList = FXCollections.observableArrayList();
         
         for(int i = 0; i < 7; i++){
             this.daysTaskList.add(i, FXCollections.observableArrayList());
         }
-        
-        updateFloatingTaskList(taskList);
-        updateCompletedAndIncompleteTaskList(taskList);
-        updateTasksForDays(taskList, daysTaskList);
-        
+    }
+
+    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         setupListViews(taskList, taskListView, 
                         completedTaskListView,
                         incompleteTaskListView);
@@ -180,7 +185,7 @@ public class TaskListPanel extends UiPart {
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
         updateFloatingTaskList(abce.data.getTaskList());
-        updateCompletedAndIncompleteTaskList(abce.data.getTaskList());
+        updateCompletedAndIncompleteTaskList(abce.data.getTaskList(), abce.data.getDeadlineTaskList());
         updateTasksForDays(abce.data.getTaskList(), daysTaskList);
         
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
@@ -205,12 +210,20 @@ public class TaskListPanel extends UiPart {
         titleFloatingTaskListSize.setText("Floating Tasks (" + floatingTaskListSize.toString() + ")");
     }
     
-    private void updateCompletedAndIncompleteTaskList(List<ReadOnlyTask> taskList) {
+    private void updateCompletedAndIncompleteTaskList(List<ReadOnlyTask> taskList, List<ReadOnlyTask> deadlineTaskList) {
         ObservableList<ReadOnlyTask> newCompletedTaskList = FXCollections.observableArrayList();
         ObservableList<ReadOnlyTask> newIncompleteTaskList = FXCollections.observableArrayList();
         
         //populate complete and incomplete task lists
         for(ReadOnlyTask t : taskList){
+            if(t.isCompleted()){
+                newCompletedTaskList.add(t);
+            }
+            else
+                newIncompleteTaskList.add(t);
+        }
+        
+        for(ReadOnlyTask t : deadlineTaskList){
             if(t.isCompleted()){
                 newCompletedTaskList.add(t);
             }
