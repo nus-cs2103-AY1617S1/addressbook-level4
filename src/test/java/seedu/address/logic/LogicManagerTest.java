@@ -413,7 +413,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Person " + seed),
                     new Description("" + Math.abs(seed)),
-                    new Date("11.11.201" + seed),
+                    new Date("11-11-201" + seed),
                     new Time("111" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
