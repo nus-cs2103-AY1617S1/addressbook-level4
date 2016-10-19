@@ -2,6 +2,8 @@
 package seedu.task.model.history;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Represents a state change for an indexed List
@@ -30,6 +32,30 @@ public class ListMutation<T> {
     }
     
     /**
+     * Adds a new Mutation for an element, treating it as a new mutation for the list
+     * 
+     * @param index the index of the element in the list
+     * @param mutation the Mutation of the element in the list 
+     */
+    public void addAsNewMutation(int index, Mutation<T> mutation) {
+        this.clear();
+        this.addMutation(index, mutation);
+    }
+    
+    /**
+     * Adds new Mutations for consecutive elements inserted into list. Method will create a new Mutation
+     * 
+     * @param startIndex the starting position (inclusive)
+     * @param newElements the array of elements that are added
+     */
+    public void addNewElements(int startIndex, T[] newElements) {
+        this.clear();
+        for (int i = startIndex; i < newElements.length; i++) {
+            this.mutationMap.put(i, new Mutation<T>(null, newElements[i - startIndex]));
+        }
+    }
+    
+    /**
      * Mutates an element in the specified index to the next state
      * 
      * @param index the index of the element in the list
@@ -45,6 +71,23 @@ public class ListMutation<T> {
             newMutation = new Mutation<T>(null, nextState);
         }
         this.mutationMap.put(index, newMutation);
+    }
+    
+    /**
+     * Retrieves a mapping of element mutations for the list
+     * @return set of element mutations entries for the list
+     */
+    public Set<Entry<Integer, Mutation<T>>> getMutations() {
+        return this.mutationMap.entrySet();
+    }
+    
+    /**
+     * Checks if there is any mutations that are recorded.
+     * 
+     * @return true if there is any mutation, else false
+     */
+    public boolean hasMutation() {
+        return !this.mutationMap.isEmpty();
     }
     
     /**

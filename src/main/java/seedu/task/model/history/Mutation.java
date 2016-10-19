@@ -32,7 +32,7 @@ public class Mutation<T> {
     }
     
     /**
-     * Get the state before mutation
+     * Get the state after mutation
      * @return state of object before mutation took place
      */
     public T getPresentState() {
@@ -47,5 +47,13 @@ public class Mutation<T> {
      */
     public Mutation<T> transitionToNextState(T state) {
         return new Mutation<T>(this.getPresentState(), state);
+    }
+    
+    /**
+     * Reverses the mutation (e.g. A->B becomes B->A)
+     * @return a reversed mutation
+     */
+    public Mutation<T> reverse() {
+        return new Mutation<T>(this.getPresentState(), this.getPreviousState());
     }
 }
