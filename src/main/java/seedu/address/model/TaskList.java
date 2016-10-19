@@ -45,7 +45,7 @@ public class TaskList implements ReadOnlyTaskList {
      * Tasks and Tags are copied into this task list
      */
     public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+        resetData(tasks.getInternalList(), tasks.getInternalComponentList(), tags.getInternalList());
     }
 
     public static ReadOnlyTaskList getEmptyTaskList() {
@@ -65,25 +65,24 @@ public class TaskList implements ReadOnlyTaskList {
 
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
-        List<TaskDateComponent> toBeSet = new ArrayList<TaskDateComponent>();
-        
-        for(Task t : tasks) {
-            toBeSet.addAll(t.getTaskDateComponent());
-        }
-        this.tasks.getInternalComponentList().setAll(toBeSet);
+    }
+    
+    public void setComponents(List<TaskDateComponent> components) {
+        this.tasks.getInternalComponentList().setAll(components);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskDateComponent> newComponents, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setComponents(newComponents.stream().map(TaskDateComponent::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskList newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTaskComponentList(), newData.getTagList());
     }
 
 //// task-level operations

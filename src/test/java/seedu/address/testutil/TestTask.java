@@ -27,7 +27,6 @@ public class TestTask extends Task implements ReadOnlyTask {
         endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         recurringType = RecurringType.NONE;
         recurringDates = new ArrayList<TaskDateComponent>();
-        recurringDates.add(new TaskDateComponent(this, startDate, endDate));
     }
 
     public void setName(Name name) {

@@ -75,6 +75,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTags(), source.getStartDate(), source.getEndDate(), source.getRecurringType());
+        this.recurringDates = source.getTaskDateComponent();
         if (source.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
             taskType = TaskType.FLOATING;
         }
@@ -172,7 +173,7 @@ public class Task implements ReadOnlyTask {
         for (TaskDateComponent c : recurringDates) {
             if (c.getIsArchived() == false || c.getTaskReference().getRecurringType() != RecurringType.NONE) {
                 if (c.getTaskReference().getRecurringType() != RecurringType.NONE) {
-                    RecurringTaskManager.getInstance().archiveRecurringTask(c.getTaskReference());
+//                    RecurringTaskManager.getInstance().archiveRecurringTask(c.getTaskReference());
                 }
                 return;
             }

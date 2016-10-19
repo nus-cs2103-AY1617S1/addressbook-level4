@@ -36,6 +36,9 @@ public class TaskDate {
         this.date = new com.joestelmach.natty.Parser().parse(inputDate).get(0).getDates().get(0).getTime();
     }
     
+    public void setDateInLong(long date) {
+        this.date = date;
+    }
     /**
      * Formats the date in (EEE, MMM d hh.mma) format which will give MON, Oct 20 10.00PM
      * If there is no date present return empty string

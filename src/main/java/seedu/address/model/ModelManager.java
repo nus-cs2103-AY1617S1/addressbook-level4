@@ -46,6 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskList = new TaskList(src);
+        RecurringTaskManager.getInstance().removeCompletedRecurringTasks(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         filteredTaskComponents = new FilteredList<>(taskList.getTaskComponentList());
         RecurringTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
@@ -58,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
         taskList = new TaskList(initialData);
+        RecurringTaskManager.getInstance().removeCompletedRecurringTasks(taskList);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         filteredTaskComponents = new FilteredList<>(taskList.getTaskComponentList());
         RecurringTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());

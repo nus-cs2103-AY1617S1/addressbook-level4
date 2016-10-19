@@ -50,7 +50,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
 			// TODO Auto-generated catch block
 			assert false : "impossible";
 		}
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskComponentList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
