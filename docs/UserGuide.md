@@ -103,12 +103,11 @@ Format: `Complete TASKID`
 
 Example: `Complete 0`
  
-#### Adding task details: `editdetails`
 Edit details to the existing task 
-Format: `editdetails TASKID d/description t/title dd/duedate [t/TAG]...` 
+Format: `edit TASKID t/TASK_NAME d/DESCRIPTION sd/START_DATE dd/DUE_DATE ts/TAGS`
 
 Examples: 
-* `editdetails 0 d/Programming t/SoftwareEngineering dd/10 October [t/TAG]...`
+* `edit 1 t/Homework d/Physics sd/11-11-2011 dd/12-12-2012 ts/school`
 
 #### Setting task priority: `setpriority`
 Set priority to a task
@@ -137,6 +136,7 @@ Examples:
 Command | Format  
 -------- | :-------- 
 Add | `add TASK d/DESCRIPTION dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL...`
+Edit | `edit TASKID t/TASK_NAME d/DESCRIPTION sd/START_DATE dd/DUE_DATE ts/TAGS`
 Clear | `clear`
 Delete | `delete TASKID`
 Find | `find KEYWORD [MORE_KEYWORDS]`
