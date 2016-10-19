@@ -298,6 +298,18 @@ Use case resumes at step 1
 4. TaskManager edits the TDE <br>
 Use case ends.
 
+#### Use case: List all tasks
+1.User requests to list all tasks
+2.TaskManager shows a list of tasks
+
+#### Use case: List all deadlines
+1.User requests to list all deadlines
+2.TaskManager shows a list of deadlines
+
+#### Use case: List all events
+1.User requests to list all events
+2.TaskManager shows a list of events
+
 **Extensions**
 
 >2a. The TDE list is empty <br>
