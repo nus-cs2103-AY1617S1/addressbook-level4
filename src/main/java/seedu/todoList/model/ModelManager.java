@@ -140,10 +140,10 @@ public class ModelManager extends ComponentManager implements Model {
     			indicateTodoListChanged();
     		case "event":
     			eventList.removeTask(target);
-    			indicateTodoListChanged();
+    			indicateEventListChanged();
     		case "deadline":
     			deadlineList.removeTask(target);
-    			indicateTodoListChanged();
+    			indicateDeadlineListChanged();
     	}
     }
 
