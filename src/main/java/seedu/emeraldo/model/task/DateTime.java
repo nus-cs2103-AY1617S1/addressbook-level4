@@ -20,7 +20,7 @@ public class DateTime {
                     + "(?<year>(([0-9][0-9])?[0-9][0-9]))"              //Year regex
                     + "( (?<hour>([01][0-9]|[2][0-3])))?"               //Hour regex
                     + "(:(?<minute>([0-5][0-9])))?"                     //Minute regex
-                    + "(?<aftKeyword>(to ))?"                           //2nd keyword regex
+                    + "( (?<aftKeyword>(to )))?"                           //2nd keyword regex
                     + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))?"               //Day regex
                     + "(/(?<monthEnd>(0?[1-9]|[1][0-2]))/)?"                  //Month regex
                     + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))?"              //Year regex
@@ -31,6 +31,8 @@ public class DateTime {
     public final String valueFormatted;
     public final LocalDate valueDate;
     public final LocalTime valueTime;
+    public final LocalDate valueDateEnd;
+    public final LocalTime valueTimeEnd;
 
     /**
      * Validates given date and time.
@@ -48,37 +50,70 @@ public class DateTime {
         if(dateTime.isEmpty()){
             this.valueDate = null;
             this.valueTime = null;
+            this.valueDateEnd = null;
+            this.valueTimeEnd = null;
             this.value = "";
             this.valueFormatted = "Not specified";
         } else {
-            final String preKeyword = matcher.group("preKeyword");
+            final String preKeyword = matcher.group("preKeyword").trim();
             final String day = matcher.group("day");
             final String month = matcher.group("month");
             final String year = matcher.group("year");
-            final String hour = matcher.group("hour");
-            final String minute = matcher.group("minute");
-        
+            
             int yearParsed = Integer.parseInt(year);
             int monthParsed = Integer.parseInt(month);
             int dayParsed = Integer.parseInt(day);
             this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
+            this.value = dateTime;
             
-            if(!dateTime.contains(":")){           //Constructing a DateTime object with Date only
+            if(preKeyword.equals("on")){
                 this.valueTime = null;
-                this.valueFormatted = preKeyword + day + " " + returnMonthInWords(monthParsed) + " " + year;
-                this.value = dateTime;
+                this.valueFormatted = preKeyword + " " + day + " "
+                                    + returnMonthInWords(monthParsed) + " " + year;
+                this.valueDateEnd = null;
+                this.valueTimeEnd = null;
+            
+            }else{
+                final String hour = matcher.group("hour");
+                final String minute = matcher.group("minute");
                 
-            } else {                                    //Constructing a DateTime object with Date and time        
                 int hourParsed = Integer.parseInt(hour);
                 int minuteParsed = Integer.parseInt(minute);
                 this.valueTime = LocalTime.of(hourParsed, minuteParsed);
-            
-                this.valueFormatted = preKeyword + day + " " + returnMonthInWords(monthParsed) +  " " 
-                    + year + ", " + hour + ":" + minute;
-                this.value = dateTime;
+                
+                if(preKeyword.equals("by")){
+                    this.valueFormatted = preKeyword + " " + day + " "
+                                    + returnMonthInWords(monthParsed) +  " " 
+                                    + year + ", " + hour + ":" + minute;
+                    this.valueDateEnd = null;
+                    this.valueTimeEnd = null;
+                   
+                }else{
+                    final String aftKeyword = matcher.group("aftKeyword");
+                    final String dayEnd = matcher.group("dayEnd");
+                    final String monthEnd = matcher.group("monthEnd");
+                    final String yearEnd = matcher.group("yearEnd");
+                    final String hourEnd = matcher.group("hourEnd");
+                    final String minuteEnd = matcher.group("minuteEnd");
+                    
+                    int yearEndParsed = Integer.parseInt(yearEnd);
+                    int monthEndParsed = Integer.parseInt(monthEnd);
+                    int dayEndParsed = Integer.parseInt(dayEnd);
+                    this.valueDateEnd = LocalDate.of(yearEndParsed, monthEndParsed, dayEndParsed);
+                    
+                    int hourEndParsed = Integer.parseInt(hourEnd);
+                    int minuteEndParsed = Integer.parseInt(minuteEnd);
+                    this.valueTimeEnd = LocalTime.of(hourEndParsed, minuteEndParsed);
+                    
+                    this.valueFormatted = preKeyword + " " + day + " "
+                                    + returnMonthInWords(monthParsed) +  " " 
+                                    + year + ", " + hour + ":" + minute + " "
+                                    + aftKeyword + dayEnd + " "
+                                    + returnMonthInWords(monthEndParsed) +  " " 
+                                    + yearEnd + ", " + hourEnd + ":" + minuteEnd + " ";
+                }
             }
         }
-        
     }
    
     @Override
