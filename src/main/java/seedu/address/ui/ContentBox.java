@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.address.logic.Logic;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.commons.core.LogsCenter;
 
@@ -27,6 +28,7 @@ public class ContentBox extends UiPart {
     private static final String FXML = "ContentBox.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private static ObservableList<ReadOnlyTask> list;
 
     
     @FXML
@@ -93,38 +95,48 @@ public class ContentBox extends UiPart {
 
     public static ContentBox load(Stage primaryStage, AnchorPane ContentBoxPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-        ContentBox contentbox =
+    	list = taskList;
+    	ContentBox contentbox =
                 UiPartLoader.loadUiPart(primaryStage, ContentBoxPlaceholder, new ContentBox());
         contentbox.configure(taskList);
         return contentbox;
     }
+    
+ 
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
 //        setConnections(taskList);
         addToPlaceholder();
+    
+        
+    }
+    
+    @FXML
+    public void initialize() {
+    	
+    	dummy1.setText(Integer.toString(list.size()));
+    	dummy2.setText("testtestest");
     }
 
-/*    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-*/
+//    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+//        setEventHandlerForSelectionChangeEvent();
+//    }
+
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
-/*
-    private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
+/*    private void setEventHandlerForSelectionChangeEvent() {
+        dummy1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
     }
-
-    public void scrollTo(int index) {
+*/
+/*    public void scrollTo(int index) {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);
             taskListView.getSelectionModel().clearAndSelect(index);
@@ -148,5 +160,6 @@ public class ContentBox extends UiPart {
             }
         }
     }
-*/
+    */
 }
+

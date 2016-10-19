@@ -33,7 +33,7 @@
             <Label fx:id="tomorrow" text="Tomorrow" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label fx:id="someday" text="Someday" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Label fx:id="upcoming" text="Upcoming" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Label fx:id="dummy1" prefHeight="21.0" prefWidth="9.0" text="1" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Label fx:id="dummy1" text="\$dummy1" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Label fx:id="dummy2" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label fx:id="dummy3" text="3" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label fx:id="dummy4" text="4" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
