@@ -34,8 +34,8 @@ public class Parser {
     private static final Pattern TASK_EDIT_ARGS_FORMAT = 
             Pattern.compile("(?<targetIndex>\\d+)" //index must be digits
             + "\\s+"                               //any number of whitespace
-            + "(\"(?<description>[^\"]+)\")?"      //quote marks are reserved for start and end of description field
-            + "((?<keyword>(( by ))?(?<dateTime>([^#]+)))"
+            + "(?<description>(\"[^\"]+\")?)"      //quote marks are reserved for start and end of description field
+            + "(?<dateTime>((( by )|( on )|( from ))[^#]+)?)"
             );
 
     public Parser() {}
@@ -151,7 +151,6 @@ public class Parser {
     private Command prepareEdit(String args) {
         
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
-        String completeDT = matcher.group("keyword") + matcher.group("dateTime");
         
         // Validate arg string format
         if (!matcher.matches()) {
@@ -165,8 +164,8 @@ public class Parser {
         try {
             return new EditCommand(
                     matcher.group("targetIndex"),
-                    matcher.group("description"),
-                    completeDT);
+                    matcher.group("description").split("\"")[1],
+                    "by 21/10/2016");
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }        
