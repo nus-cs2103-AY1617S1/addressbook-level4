@@ -44,7 +44,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(TaskDateComponent source) {
+    public XmlAdaptedTask(TaskComponent source) {
         name = source.getTaskReference().getName().fullName;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTaskReference().getTags()) {
@@ -57,10 +57,10 @@ public class XmlAdaptedTask {
             startDate = TaskDate.DATE_NOT_PRESENT;
             endDate = TaskDate.DATE_NOT_PRESENT;
         }
-        if (source.getTaskReference().getRecurringType() != RecurringType.NONE && source.tIsArchived()) {
+        if (source.getTaskReference().getRecurringType() != RecurringType.NONE && source.isArchived()) {
             TaskDate startCopy = new TaskDate(source.getStartDate());
             TaskDate endCopy = new TaskDate(source.getEndDate());
-            RecurringTaskManager.getInstance().handleRecurringTask(startCopy,
+            RecurringTaskManager.getInstance().handleRecurringTaskSaving(startCopy,
                     endCopy, 
                     source.getTaskReference().getRecurringType());
             startDate = startCopy.getDateInLong();

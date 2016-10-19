@@ -10,9 +10,9 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.TaskList;
+import seedu.address.model.TaskMaster;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
@@ -86,8 +86,8 @@ public abstract class TaskListGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      * @throws TimeslotOverlapException 
      */
-    protected TaskList getInitialData() throws TimeslotOverlapException {
-        TaskList ab = TestUtil.generateEmptyTaskList();
+    protected TaskMaster getInitialData() throws TimeslotOverlapException {
+        TaskMaster ab = TestUtil.generateEmptyTaskList();
         TypicalTestTasks.loadTaskListWithSampleData(ab);
         return ab;
     }
@@ -108,7 +108,7 @@ public abstract class TaskListGuiTest {
     /**
      * Asserts the floatingTask shown in the card is same as the given floatingTask
      */
-    public void assertMatching(TaskDateComponent task, TaskCardHandle card) {
+    public void assertMatching(TaskComponent task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 

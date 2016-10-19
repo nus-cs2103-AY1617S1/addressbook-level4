@@ -7,8 +7,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.TaskList;
-import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.TaskMaster;
+import seedu.address.model.ReadOnlyTaskMaster;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TypicalTestTasks;
 
@@ -32,7 +32,7 @@ public class XmlTaskListStorageTest {
         readTaskList(null);
     }
 
-    private java.util.Optional<ReadOnlyTaskList> readTaskList(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyTaskMaster> readTaskList(String filePath) throws Exception {
         return new XmlTaskListStorage(filePath).readTaskList(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -62,20 +62,20 @@ public class XmlTaskListStorageTest {
     public void readAndSaveTaskList_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempTaskList.xml";
         TypicalTestTasks td = new TypicalTestTasks();
-        TaskList original = td.getTypicalTaskList();
+        TaskMaster original = td.getTypicalTaskList();
         XmlTaskListStorage xmlTaskListStorage = new XmlTaskListStorage(filePath);
 
         //Save in new file and read back
         xmlTaskListStorage.saveTaskList(original, filePath);
-        ReadOnlyTaskList readBack = xmlTaskListStorage.readTaskList(filePath).get();
-        assertEquals(original, new TaskList(readBack));
+        ReadOnlyTaskMaster readBack = xmlTaskListStorage.readTaskList(filePath).get();
+        assertEquals(original, new TaskMaster(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.hoon));
         original.removeTask(new Task(TypicalTestTasks.trash));
         xmlTaskListStorage.saveTaskList(original, filePath);
         readBack = xmlTaskListStorage.readTaskList(filePath).get();
-        assertEquals(original, new TaskList(readBack));
+        assertEquals(original, new TaskMaster(readBack));
 
     }
 
@@ -85,14 +85,14 @@ public class XmlTaskListStorageTest {
         saveTaskList(null, "SomeFile.xml");
     }
 
-    private void saveTaskList(ReadOnlyTaskList taskList, String filePath) throws IOException {
+    private void saveTaskList(ReadOnlyTaskMaster taskList, String filePath) throws IOException {
         new XmlTaskListStorage(filePath).saveTaskList(taskList, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
     public void saveTaskList_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveTaskList(new TaskList(), null);
+        saveTaskList(new TaskMaster(), null);
     }
 
 

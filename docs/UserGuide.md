@@ -45,7 +45,7 @@ Example:
  
 #### Adding a floating task: `add`
 Adds a task to the todo list<br>
-Format:`add TASK_NAME [tag/TAG]...` 
+Format:`add TASK_NAME [t/TAG]...` 
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
@@ -57,28 +57,32 @@ Examples: <br>
 * `add Homework tag/CS1231`
 
 #### Adding a task with deadline: “add”
-Format: `add TASK_NAME end/DATE TIME [tag/TAG]...`
+Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
 >  
-> Tasks can have any number of tags (including 0)
+> `RECURRING_TYPE` consists of daily, weekly, monthly and yearly. 
+> Tasks can have only 1 `RECURRING_TYPE`.
+> Tasks can have any number of tags (including 0).
 
 Examples:
-* `add Homework end/2409 1800 tag/CS1231`
-* `add Homework end/24 sep 6pm tag/CS1231`
+* `add Homework by 24 sep 8pm tag/CS1231`
+* `add Homework by 24 sep 6pm daily tag/CS1231`
 
 #### Adding a task with start time and end time: “add”
-Format: `add TASK_NAME start/DATE TIME end/DATE TIME [tag/TAG]`
+Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [tag/TAG]`
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
 >  
-> Tasks can have any number of tags (including 0)
+> `RECURRING_TYPE` consists of daily, weekly, monthly and yearly. 
+> Tasks can have only 1 `RECURRING_TYPE`.
+> Tasks can have any number of tags (including 0).
 
 Examples:
-* `add Homework start/2409 2100 end/2509 1900 tag/CS1231`
-* `add Homework start/24 sep 9pm end/25 sep 7pm tag/CS1231`
+* `add Homework from 24 sep 8pm to 25 sep 9pm tag/CS1231`
+* `add Homework start/24 sep 9pm end/25 sep 7pm daily tag/CS1231`
 
 #### View floating task of the day : “view”
 Format: view /OPTION
@@ -189,8 +193,8 @@ Format: `exit`
 Command | Format  
 -------- | :-------- 
 Add | `add TASK_NAME [tag/TAG]`
-Add | `add TASK_NAME end/DATE TIME [tag/TAG]`
-Add | `add TASK_NAME start/DATE TIME end/DATE TIME [tag/TAG]`
+Add | `add TASK_NAME by DATE TIME [RECURRING_TYPE] [tag/TAG]`
+Add | `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [tag/TAG]`
 View | `view /OPTION`
 View | `view date/DATE`
 Edit | `edit TASK_ID [start/EDIT_START_DATE EDIT_START_TIME end/EDIT_END_DATE EDIT_END_TIME] [tag/EDIT_TAG]`

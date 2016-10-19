@@ -2,28 +2,26 @@ package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
 
-public class TaskDateComponent {
+/** 
+* This class served as the occurrence portion in an abstraction occurrence pattern.
+* The abstraction is the Task and the occurrence is the TaskDateComponent.
+*
+*/
+public class TaskComponent {
+
     private Task taskReference;
     private TaskDate startDate, endDate;
     private boolean isArchived;
     
-    public TaskDateComponent(Task taskReference) {
-        assert taskReference != null : "Reference must not be null";
-        this.taskReference = taskReference; 
-        this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
-        this.endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
-        isArchived = false;
-    }
-    
-    public TaskDateComponent(Task taskReference,TaskDate startDate, TaskDate endDate) {
+    public TaskComponent(Task taskReference, TaskDate startDate, TaskDate endDate) {
         assert !CollectionUtil.isAnyNull(startDate, endDate);
-        assert taskReference != null : "Reference must not be null";
-        this.taskReference = taskReference;
         this.startDate = new TaskDate(startDate);
         this.endDate = new TaskDate(endDate);
+        this.taskReference = taskReference;
     }
     
-    public TaskDateComponent(TaskDateComponent taskDateComponent) {
+    public TaskComponent(TaskComponent taskDateComponent) {
+        assert taskDateComponent != null : "Cannot pass in null values";
         this.taskReference = taskDateComponent.taskReference;
         this.startDate = taskDateComponent.startDate;
         this.endDate = taskDateComponent.endDate;
@@ -46,6 +44,11 @@ public class TaskDateComponent {
         return endDate;
     }
     
+    /**
+     * Checks if TaskDateComponent is in a valid time slot
+     * 
+     * @return True if it is in a valid time slot
+     */
     public boolean isValidTimeSlot(){
         if(startDate!=null && endDate!=null){
             return (endDate.getDate()).after(startDate.getDate());
@@ -54,6 +57,12 @@ public class TaskDateComponent {
         }
     }
     
+    /**
+     * Checks if the TaskDate has only end date
+     * 
+     * @return True if it has only an end date.
+     *          False if it also contains a start date.
+     */
     public boolean hasOnlyEndDate() {
         if (startDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT){
             return false;
@@ -61,19 +70,23 @@ public class TaskDateComponent {
         return true;
     }
     
+
     public ReadOnlyTask getTaskReference() {
         return taskReference;
     }
-    
+
+    /**
+     * Archive this task component
+     */
     public void archive() {
         isArchived = true;
     }
     
-    public boolean tIsArchived() {
+    public boolean isArchived() {
         return isArchived;
     }
     
-    private boolean isSameStateAs(TaskDateComponent other) {
+    private boolean isSameStateAs(TaskComponent other) {
         return other == this // short circuit if same object
             || (other != null // this is first to avoid NPE below
             && other.getTaskReference().getName().equals(this.getTaskReference().getName()) // state checks here onwards
@@ -86,8 +99,8 @@ public class TaskDateComponent {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskDateComponent // instanceof handles nulls
-                && this.isSameStateAs((TaskDateComponent) other));        
+                || (other instanceof TaskComponent // instanceof handles nulls
+                && this.isSameStateAs((TaskComponent) other));        
     }
     
 }

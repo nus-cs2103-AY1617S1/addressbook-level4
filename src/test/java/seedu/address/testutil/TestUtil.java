@@ -16,7 +16,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.TaskList;
+import seedu.address.model.TaskMaster;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -134,8 +134,8 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static TaskList generateEmptyTaskList() {
-        return new TaskList(new UniqueTaskList(), new UniqueTagList());
+    public static TaskMaster generateEmptyTaskList() {
+        return new TaskMaster(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableTaskList generateSampleStorageTaskList() {
@@ -326,16 +326,16 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, TaskDateComponent task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, TaskComponent task) {
         return card.isSameTask(task);
     }
 
-    public static TaskDateComponent[] convertTasksToDateComponents(final TestTask[] tasks) {
-        List<TaskDateComponent> componentList = new ArrayList<TaskDateComponent>();
+    public static TaskComponent[] convertTasksToDateComponents(final TestTask[] tasks) {
+        List<TaskComponent> componentList = new ArrayList<TaskComponent>();
         for(TestTask t : tasks) {
             componentList.addAll(t.getTaskDateComponent());
         }
-        TaskDateComponent[] taskComponents = new TaskDateComponent[componentList.size()];
+        TaskComponent[] taskComponents = new TaskComponent[componentList.size()];
         return componentList.toArray(taskComponents);
     }
     

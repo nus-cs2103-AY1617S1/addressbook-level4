@@ -1,30 +1,33 @@
 package seedu.address.model;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
-import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskDateComponent;
-import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskType;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskDate;
+import seedu.address.model.task.TaskType;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Wraps all data at the task-list level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskList implements ReadOnlyTaskList {
+public class TaskMaster implements ReadOnlyTaskMaster {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -34,42 +37,43 @@ public class TaskList implements ReadOnlyTaskList {
         tags = new UniqueTagList();
     }
 
-    public TaskList() {}
+    public TaskMaster() {}
 
     /**
      * Tasks and Tags are copied into this task list
      */
-    public TaskList(ReadOnlyTaskList toBeCopied) {
+    public TaskMaster(ReadOnlyTaskMaster toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Tasks and Tags are copied into this task list
      */
-    public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tasks.getInternalComponentList(), tags.getInternalList());
+    public TaskMaster(UniqueTaskList tasks, UniqueTagList tags) {
+        resetData(tasks.getInternalTaskList(), tasks.getInternalComponentList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskList getEmptyTaskList() {
-        return new TaskList();
+    public static ReadOnlyTaskMaster getEmptyTaskList() {
+        return new TaskMaster();
     }
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
-        return tasks.getInternalList();
+    public List<Task> getTasks() {
+        return tasks.getInternalTaskList();
     }
 
     @Override
-    public ObservableList<TaskDateComponent> getTaskComponentList() {
+    public ObservableList<TaskComponent> getTaskComponentList() {
         return tasks.getInternalComponentList();
     }
 
     public void setTasks(List<Task> tasks) {
-        this.tasks.getInternalList().setAll(tasks);
+        this.tasks.getInternalTaskList().clear();
+        this.tasks.getInternalTaskList().addAll(tasks);
     }
     
-    public void setComponents(List<TaskDateComponent> components) {
+    public void setComponents(List<TaskComponent> components) {
         this.tasks.getInternalComponentList().setAll(components);
     }
 
@@ -77,13 +81,13 @@ public class TaskList implements ReadOnlyTaskList {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskDateComponent> newComponents, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskComponent> newComponents, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-        setComponents(newComponents.stream().map(TaskDateComponent::new).collect(Collectors.toList()));
+        setComponents(newComponents.stream().map(TaskComponent::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyTaskList newData) {
+    public void resetData(ReadOnlyTaskMaster newData) {
         resetData(newData.getTaskList(), newData.getTaskComponentList(), newData.getTagList());
     }
 
@@ -143,13 +147,13 @@ public class TaskList implements ReadOnlyTaskList {
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalTaskList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
+        return Collections.unmodifiableList(tasks.getInternalTaskList());
     }
 
     @Override
@@ -171,9 +175,9 @@ public class TaskList implements ReadOnlyTaskList {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskList // instanceof handles nulls
-                && this.tasks.equals(((TaskList) other).tasks)
-                && this.tags.equals(((TaskList) other).tags));
+                || (other instanceof TaskMaster // instanceof handles nulls
+                && this.tasks.equals(((TaskMaster) other).tasks)
+                && this.tags.equals(((TaskMaster) other).tags));
     }
 
     @Override
@@ -183,18 +187,18 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
 	@Override
-	public ReadOnlyTaskList purify() throws TaskNotFoundException  {
-		TaskList newList = new TaskList(this); 
+	public ReadOnlyTaskMaster purify() throws TaskNotFoundException  {
+		TaskMaster newList = new TaskMaster(this); 
 		for(Task t : tasks){
 			if(t.getTaskType()==TaskType.COMPLETED) {
 				Task copyToRemove = new Task(t);
 				newList.removeTask(copyToRemove);					
 			}
 		}
-		return new TaskList(newList);
+		return new TaskMaster(newList);
 	}
 
-	public boolean archiveTask(TaskDateComponent target) throws TaskNotFoundException {
+	public boolean archiveTask(TaskComponent target) throws TaskNotFoundException {
 		// TODO Auto-generated method stub
 		if (tasks.archive(target)) {
             return true;

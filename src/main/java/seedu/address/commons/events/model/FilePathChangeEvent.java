@@ -1,7 +1,7 @@
 package seedu.address.commons.events.model;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyTaskMaster;
 
 /** Indicates the TaskList in the model has changed*/
 public class FilePathChangeEvent extends BaseEvent {

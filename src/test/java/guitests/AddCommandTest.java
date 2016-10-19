@@ -1,18 +1,16 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
-import org.junit.Test;
-import seedu.address.logic.commands.AddFloatingCommand;
-import seedu.address.logic.commands.AddNonFloatingCommand;
-import seedu.address.model.task.TaskDateComponent;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
-
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.junit.Test;
+
+import guitests.guihandles.TaskCardHandle;
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.AddFloatingCommand;
+import seedu.address.logic.commands.AddNonFloatingCommand;
+import seedu.address.model.task.TaskComponent;
+import seedu.address.testutil.TestTask;
+import seedu.address.testutil.TestUtil;
 
 public class AddCommandTest extends TaskListGuiTest {
 
@@ -70,7 +68,7 @@ public class AddCommandTest extends TaskListGuiTest {
 
         //confirm the list now contains all previous floatingTasks plus the new floatingTask
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
+        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
         
         assertTrue(taskListPanel.isListMatching(taskComponents));
     }
@@ -85,7 +83,7 @@ public class AddCommandTest extends TaskListGuiTest {
         //confirm the list now contains all previous floatingTasks plus the new floatingTask
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         
-        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
+        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
         assertTrue(taskListPanel.isListMatching(taskComponents));
     }
 

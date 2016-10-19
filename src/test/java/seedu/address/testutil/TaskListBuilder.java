@@ -5,7 +5,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
-import seedu.address.model.TaskList;
+import seedu.address.model.TaskMaster;
 
 /**
  * A utility class to help with building TaskList objects.
@@ -14,9 +14,9 @@ import seedu.address.model.TaskList;
  */
 public class TaskListBuilder {
 
-    private TaskList taskList;
+    private TaskMaster taskList;
 
-    public TaskListBuilder(TaskList taskList){
+    public TaskListBuilder(TaskMaster taskList){
         this.taskList = taskList;
     }
 
@@ -30,7 +30,7 @@ public class TaskListBuilder {
         return this;
     }
 
-    public TaskList build(){
+    public TaskMaster build(){
         return taskList;
     }
 }

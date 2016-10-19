@@ -18,9 +18,7 @@ public interface ReadOnlyTask {
      */
     UniqueTagList getTags();
 
-    TaskDate getStartDate();
-    TaskDate getEndDate();
-    List<TaskDateComponent> getTaskDateComponent();
+    List<TaskComponent> getTaskDateComponent();
     
     /**
      * Returns the type of the class, whether it is FLOATING or NON_FLOATING type
@@ -42,8 +40,6 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getTaskType().equals(this.getTaskType())
-                && other.getStartDate().equals(this.getStartDate())
-                && other.getEndDate().equals(this.getEndDate())
                 );
     }
 
@@ -53,14 +49,6 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        if(getStartDate().getDateInLong()!=-1){
-        	builder.append(" From: ");
-        	builder.append(getStartDate().getFormattedDate());
-        }
-        if(getEndDate().getDateInLong()!=-1){
-        	builder.append(" To: ");
-        	builder.append(getEndDate().getFormattedDate());
-        }
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
@@ -81,4 +69,6 @@ public interface ReadOnlyTask {
     }
 
     void completeTaskWhenAllComponentArchived();
+    
+    TaskComponent getComponentForNonRecurringType();
 }

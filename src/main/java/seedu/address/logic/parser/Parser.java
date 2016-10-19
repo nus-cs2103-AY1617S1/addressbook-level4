@@ -95,6 +95,8 @@ public class Parser {
     
     private static final int TIME_PERIOD = 2;
     
+    private static final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
+    
     public Parser() {}
 
     /**
@@ -210,13 +212,17 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
         }
         try {
-            RecurringType recurringType;
+            RecurringType recurringType = RecurringType.NONE;
             
             if (matcher.group("recurring").isEmpty()) {
                 recurringType = RecurringType.NONE;
             }
             else {
-                recurringType = extractRecurringInfo(matcher.group("recurring"));
+                try{
+                    recurringType = extractRecurringInfo(matcher.group("recurring"));
+                } catch (IllegalArgumentException iae) {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));                    
+                }
             }
             
             if(matcher.group("deadline") != null) {
@@ -582,13 +588,12 @@ public class Parser {
      * @return A single Date from the string
      */
     public static Date getDateFromString(String dateInput) {
-        final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
         
         return dateGroups.get(0).getDates().get(0);
     }
     
-    public static RecurringType extractRecurringInfo(String recurringInfo) {
+    public static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
         recurringInfo = recurringInfo.toUpperCase().trim();
         RecurringDateParser recurringParser = RecurringDateParser.getInstance();
         return recurringParser.getRecurringType(recurringInfo);

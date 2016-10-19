@@ -1,16 +1,15 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-import seedu.address.logic.commands.AddFloatingCommand;
-import seedu.address.logic.commands.AddNonFloatingCommand;
-import seedu.address.logic.commands.BlockCommand;
-import seedu.address.model.task.TaskDateComponent;
+
+import guitests.guihandles.TaskCardHandle;
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.BlockCommand;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
 
 public class BlockCommandTest extends TaskListGuiTest {
 
@@ -21,7 +20,7 @@ public class BlockCommandTest extends TaskListGuiTest {
         TestTask slotToBlock = td.block1;
         assertBlockSuccess(slotToBlock, currentList);
         currentList = TestUtil.addTasksToList(currentList, slotToBlock);
-        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(currentList);
+        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(currentList);
         
         //block slot is overlapped with tasks
         commandBox.runCommand(td.block2.getBlockCommand());
@@ -51,7 +50,7 @@ public class BlockCommandTest extends TaskListGuiTest {
 
         //confirm the list now contains all previous floatingTasks plus the new floatingTask
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, slotToBlock);
-        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
+        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
         assertTrue(taskListPanel.isListMatching(taskComponents));
     }
     

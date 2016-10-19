@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.TaskList;
+import seedu.address.model.TaskMaster;
 import seedu.address.model.task.*;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
@@ -54,7 +54,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadTaskListWithSampleData(TaskList ab) throws TimeslotOverlapException {
+    public static void loadTaskListWithSampleData(TaskMaster ab) throws TimeslotOverlapException {
 
         try {
             ab.addTask(new Task(trash));
@@ -76,18 +76,18 @@ public class TypicalTestTasks {
         return new TestTask[]{trash, book, homework, lecture, meeting, george, labDeadline, tutorialSlot, essayDeadline,concert};
     }
     
-    public TaskDateComponent[] getTypicalTaskComponents() {
-        List<TaskDateComponent> components = new ArrayList<TaskDateComponent>();
+    public TaskComponent[] getTypicalTaskComponents() {
+        List<TaskComponent> components = new ArrayList<TaskComponent>();
         TestTask[] tasks = getTypicalTasks();
         for(TestTask t : tasks) {
             components.addAll(t.getTaskDateComponent());
         }
-        TaskDateComponent[] taskComponents = new TaskDateComponent[components.size()];
+        TaskComponent[] taskComponents = new TaskComponent[components.size()];
         return components.toArray(taskComponents);
     }
 
-    public TaskList getTypicalTaskList() throws TimeslotOverlapException{
-        TaskList ab = new TaskList();
+    public TaskMaster getTypicalTaskList() throws TimeslotOverlapException{
+        TaskMaster ab = new TaskMaster();
         loadTaskListWithSampleData(ab);
         return ab;
     }

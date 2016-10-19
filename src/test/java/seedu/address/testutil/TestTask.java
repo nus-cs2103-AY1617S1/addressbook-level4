@@ -19,14 +19,14 @@ public class TestTask extends Task implements ReadOnlyTask {
     private TaskDate startDate;
     private TaskDate endDate;
     private RecurringType recurringType;
-    private List<TaskDateComponent> recurringDates;
+    private List<TaskComponent> recurringDates;
 
     public TestTask() {
         tags = new UniqueTagList();
         startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         recurringType = RecurringType.NONE;
-        recurringDates = new ArrayList<TaskDateComponent>();
+        recurringDates = new ArrayList<TaskComponent>();
     }
     
     public TestTask(TestTask copy) {
@@ -34,7 +34,7 @@ public class TestTask extends Task implements ReadOnlyTask {
         startDate = new TaskDate(copy.startDate);
         endDate = new TaskDate(copy.endDate);
         recurringType = RecurringType.NONE;
-        recurringDates = new ArrayList<TaskDateComponent>();
+        recurringDates = new ArrayList<TaskComponent>();
     }
 
     public void setName(Name name) {
@@ -77,7 +77,7 @@ public class TestTask extends Task implements ReadOnlyTask {
     }
     
     @Override
-    public List<TaskDateComponent> getTaskDateComponent() {
+    public List<TaskComponent> getTaskDateComponent() {
         return recurringDates;
     }
 
@@ -89,16 +89,6 @@ public class TestTask extends Task implements ReadOnlyTask {
     @Override
     public TaskType getTaskType(){
     	return type;
-    }
-    
-    @Override
-    public TaskDate getStartDate(){
-    	return startDate;
-    }
-    
-    @Override
-    public TaskDate getEndDate(){
-    	return endDate;
     }
 
     public String getAddFloatingCommand() {
@@ -113,11 +103,11 @@ public class TestTask extends Task implements ReadOnlyTask {
     	this.type = TaskType.NON_FLOATING;
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        if(this.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT){
-        	sb.append("by "+ this.getEndDate().getInputDate() + " ");
+        if(this.getComponentForNonRecurringType().getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT){
+        	sb.append("by "+ this.getComponentForNonRecurringType().getEndDate().getInputDate() + " ");
         }else{
-        	sb.append("from "+ this.getStartDate().getInputDate() + " ");
-        	sb.append("to "+ this.getEndDate().getInputDate() + " ");
+        	sb.append("from "+ this.getComponentForNonRecurringType().getStartDate().getInputDate() + " ");
+        	sb.append("to "+ this.getComponentForNonRecurringType().getEndDate().getInputDate() + " ");
         }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
@@ -127,8 +117,8 @@ public class TestTask extends Task implements ReadOnlyTask {
     	this.type = TaskType.NON_FLOATING;
         StringBuilder sb = new StringBuilder();
         sb.append("block ");
-        sb.append("from "+ this.getStartDate().getInputDate() + " ");
-        sb.append("to "+ this.getEndDate().getInputDate() + " ");
+        sb.append("from "+ this.getComponentForNonRecurringType().getStartDate().getInputDate() + " ");
+        sb.append("to "+ this.getComponentForNonRecurringType().getEndDate().getInputDate() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
