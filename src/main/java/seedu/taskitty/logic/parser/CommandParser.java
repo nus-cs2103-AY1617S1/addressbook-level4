@@ -90,9 +90,6 @@ public class CommandParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-            
-        case ViewCommand.COMMAND_WORD:
-            return new ViewCommand("");
         
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
@@ -414,26 +411,10 @@ public class CommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-        
-        //check if a date argument is given and return a view command instead if so
-        String[] checkDates = extractTaskDetailsNatty(args.trim());
-        if (containsOnlyOneDate(checkDates)) {            
-            return new ViewCommand(checkDates[1]);
-        }
-        
+
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
-    
-    /**
-     * Checks if only one date parameter was given for find command
-     * @param args the array obtained after parsing for the dates
-     * @return true if only one date parameter was given
-     */
-    private boolean containsOnlyOneDate(String[] args) {
-        return args.length == 3 && TaskDate.isValidDate(args[1]) && args[2] == null;
-    }
-    
 }

@@ -20,7 +20,7 @@ public class TaskTime {
             "Task time provided is invalid!";
     public static final String MESSAGE_TIME_MISSING =
             "Task time must be provided";
-    public static final String TIME_FORMAT_STRING = "HH:mm";
+    public static final String TIME_FORMAT_STRING = "kk:mm";
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT_STRING);
     
     //format: hh:mm
