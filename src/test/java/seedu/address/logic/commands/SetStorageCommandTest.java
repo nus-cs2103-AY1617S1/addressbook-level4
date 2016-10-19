@@ -13,7 +13,7 @@ public class SetStorageCommandTest {
 		SetStorageCommand command = new SetStorageCommand(null);
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(String.format(SetStorageCommand.MESSAGE_SET_STORAGE_FAILURE, null)));
+		assertTrue(feedback.equals(String.format(SetStorageCommand.MESSAGE_SET_STORAGE_FAILURE_PATH_INVALID, null)));
 	}
 	
 	@Test
@@ -21,7 +21,7 @@ public class SetStorageCommandTest {
 		SetStorageCommand command = new SetStorageCommand("");
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(String.format(SetStorageCommand.MESSAGE_SET_STORAGE_FAILURE, "")));
+		assertTrue(feedback.equals(String.format(SetStorageCommand.MESSAGE_SET_STORAGE_FAILURE_PATH_INVALID, "")));
 	}
 	
 	@Test
