@@ -6,7 +6,7 @@ public class ClashCommand extends Command {
 	
 	public static final String COMMAND_WORD = "clash";
 	
-	public static final String MESSAGE_SUCCESS = "Listed all clashing tasks in the current list.";
+	public static final String MESSAGE_CLASHING_TASKS_LIST_OVERVIEW = "There are %1$d tasks clashing!";
 	
 	public ClashCommand() {}
 	
@@ -18,7 +18,7 @@ public class ClashCommand extends Command {
 		catch (DuplicateTaskException dte){
 			
 		}
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+        return new CommandResult(String.format(MESSAGE_CLASHING_TASKS_LIST_OVERVIEW, model.getFilteredPersonList().size()));
     }
 	
 	
