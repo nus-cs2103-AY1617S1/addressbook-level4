@@ -6,8 +6,12 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
+import seedu.jimi.commons.events.storage.StoragePathChangedEvent;
+import seedu.jimi.commons.exceptions.DataConversionException;
+import seedu.jimi.commons.util.ConfigUtil;
 import seedu.jimi.commons.util.FxViewUtil;
 
 import org.controlsfx.control.StatusBar;
@@ -95,5 +99,19 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+
+    @Subscribe
+    public void handleStoragePathChangedEvent(StoragePathChangedEvent spce) {
+        try {
+            String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+            Config config = ConfigUtil.readConfig(configFilePathUsed).orElse(new Config());
+            setSaveLocation(config.getTaskBookFilePath());
+        } catch (DataConversionException e) {
+            logger.warning("Config file at " + Config.DEFAULT_CONFIG_FILE + " is not in the correct format. "
+                    + "Using default config properties");
+            Config config = new Config();
+            setSaveLocation(config.getTaskBookFilePath());
+        }
     }
 }

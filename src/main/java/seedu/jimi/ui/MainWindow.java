@@ -13,7 +13,6 @@ import seedu.jimi.commons.core.GuiSettings;
 import seedu.jimi.commons.events.ui.ExitAppRequestEvent;
 import seedu.jimi.logic.Logic;
 import seedu.jimi.model.UserPrefs;
-import seedu.jimi.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -79,7 +78,7 @@ public class MainWindow extends UiPart {
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getTaskBookName(), config, prefs, logic);
         return mainWindow;
     }
 
@@ -113,8 +112,8 @@ public class MainWindow extends UiPart {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(),
                 logic.getFilteredDeadlineTaskList(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
-                config.getAddressBookFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), 
+                config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 

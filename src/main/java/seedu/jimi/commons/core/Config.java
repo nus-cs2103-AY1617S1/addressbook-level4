@@ -9,17 +9,16 @@ import java.util.logging.Level;
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
-
+    public static final String DEFAULT_XML_FILE_PATH = "data/jimi.xml";
+    
     // Config values customizable through config file
     private String appTitle = "Jimi";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskBookFilePath = "data/jimi.xml";
+    private String taskBookFilePath = DEFAULT_XML_FILE_PATH;
     private String taskBookName = "Jimi";
 
-
-    public Config() {
-    }
+    public Config() {}
 
     public String getAppTitle() {
         return appTitle;
@@ -45,33 +44,33 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getAddressBookFilePath() {
+    public String getTaskBookFilePath() {
         return taskBookFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.taskBookFilePath = addressBookFilePath;
+    public void setTaskBookFilePath(String taskBookFilePath) {
+        this.taskBookFilePath = taskBookFilePath;
     }
 
-    public String getAddressBookName() {
+    public String getTaskBookName() {
         return taskBookName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.taskBookName = addressBookName;
+    public void setTaskBookName(String taskBookName) {
+        this.taskBookName = taskBookName;
     }
 
 
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof Config)){ //this handles null as well.
+        if (!(other instanceof Config)) { //this handles null as well.
             return false;
         }
-
-        Config o = (Config)other;
+        
+        Config o = (Config) other;
 
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
@@ -86,7 +85,7 @@ public class Config {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
@@ -95,5 +94,5 @@ public class Config {
         sb.append("\nTaskBook name : " + taskBookName);
         return sb.toString();
     }
-
+    
 }

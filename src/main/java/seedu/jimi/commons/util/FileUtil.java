@@ -3,6 +3,8 @@ package seedu.jimi.commons.util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
 
 /**
  * Writes and reads file
@@ -72,7 +74,20 @@ public class FileUtil {
     public static void writeToFile(File file, String content) throws IOException {
         Files.write(file.toPath(), content.getBytes(CHARSET));
     }
-
+    
+    /**
+     * Checks if a given string {@code path} is a valid file path
+     */
+    public static boolean isValidPath(String path) {
+        try {
+            Paths.get(path);
+        } catch (InvalidPathException | NullPointerException ex) {
+            return false;
+        }
+        
+        return true;
+    }
+    
     /**
      * Converts a string to a platform-specific file path
      * @param pathWithForwardSlash A String representing a file path but using '/' as the separator

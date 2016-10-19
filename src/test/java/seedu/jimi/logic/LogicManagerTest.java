@@ -2,10 +2,13 @@ package seedu.jimi.logic;
 
 import com.google.common.eventbus.Subscribe;
 
+import seedu.jimi.TestApp;
+import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.JumpToListRequestEvent;
 import seedu.jimi.commons.events.ui.ShowHelpRequestEvent;
+import seedu.jimi.commons.util.ConfigUtil;
 import seedu.jimi.logic.Logic;
 import seedu.jimi.logic.LogicManager;
 import seedu.jimi.logic.commands.*;
@@ -17,6 +20,7 @@ import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
 import seedu.jimi.storage.StorageManager;
+import seedu.jimi.testutil.TestUtil;
 
 import org.junit.After;
 import org.junit.Before;
@@ -541,13 +545,52 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_saveAs_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveAsCommand.MESSAGE_USAGE);
+        assertCommandBehavior("saveas ", expectedMessage);
+        assertCommandBehavior("saveas data/taskbook", expectedMessage);
+        assertCommandBehavior("saveas data/taskbook.txt", expectedMessage);
+    }
+    
+    @Test
+    public void execute_saveAs_successful() throws Exception {
+        SaveAsCommand.setConfigFilePath(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING); //Access config file used for testing only
+        TestDataHelper helper = new TestDataHelper();
+        String originalTaskBookFilePathName = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+        
+        String newTaskBookFilePathName = TestUtil.getFilePathInSandboxFolder("newSampleData.xml");
+        Config originalConfig = helper.generateConfigFile(originalTaskBookFilePathName);
+        Config expectedConfig = helper.generateConfigFile(newTaskBookFilePathName);
+        Config currentConfig = ConfigUtil.readConfig(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING).orElse(new Config());
+        
+        assertCommandBehavior(helper.generateSaveAsCommand(newTaskBookFilePathName),
+                String.format(SaveAsCommand.MESSAGE_SUCCESS, expectedConfig.getTaskBookFilePath()));
+        currentConfig = ConfigUtil.readConfig(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING).orElse(new Config());
+        assertEquals(expectedConfig, currentConfig);
+        
+        assertCommandBehavior(helper.generateSaveAsCommand(originalTaskBookFilePathName),
+                String.format(SaveAsCommand.MESSAGE_SUCCESS, originalConfig.getTaskBookFilePath()));
+        currentConfig = ConfigUtil.readConfig(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING).orElse(new Config());
+        assertEquals(originalConfig, currentConfig);
+    }
 
+    @Test
+    public void execute_saveAs_duplicateNotAllowed() throws Exception {
+        SaveAsCommand.setConfigFilePath(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING); //Access config file used for testing only
+        TestDataHelper helper = new TestDataHelper();
+        String originalTaskBookFilePathName = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+        
+        String expectedMessage = String.format(SaveAsCommand.MESSAGE_DUPLICATE_SAVE_DIRECTORY);
+        assertCommandBehavior(helper.generateSaveAsCommand(originalTaskBookFilePathName), expectedMessage);
+    }
 
     /**
      * A utility class to generate test data.
      */
-    class TestDataHelper{
-
+    class TestDataHelper {
+        
         FloatingTask adam() throws Exception {
             Name name = new Name("Adam Brown");
             Tag tag1 = new Tag("tag1");
@@ -592,7 +635,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append("\"");
             UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
             }
 
@@ -607,7 +650,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append("\"");
             UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
             }
 
@@ -622,7 +665,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append("\"");
             UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
             }
 
@@ -676,7 +719,7 @@ public class LogicManagerTest {
          * Adds the given list of Persons to the given model
          */
         void addToModel(Model model, List<FloatingTask> floatingTasksToAdd) throws Exception{
-            for(FloatingTask p: floatingTasksToAdd){
+            for (FloatingTask p : floatingTasksToAdd) {
                 model.addTask(p);
             }
         }
@@ -686,7 +729,7 @@ public class LogicManagerTest {
          */
         List<FloatingTask> generateFloatingTaskList(int numGenerated) throws Exception{
             List<FloatingTask> floatingTasks = new ArrayList<>();
-            for(int i = 1; i <= numGenerated; i++){
+            for (int i = 1; i <= numGenerated; i++) {
                 floatingTasks.add(generateFloatingTask(i));
             }
             return floatingTasks;
@@ -704,6 +747,29 @@ public class LogicManagerTest {
                     new Name(name),
                     new UniqueTagList(new Tag("tag"))
             );
+        }
+        
+        /** 
+         * Generates the correct saveAs command based on the filepath given 
+         **/
+        String generateSaveAsCommand(String taskBookFilePathName) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("saveas ");
+
+            cmd.append(taskBookFilePathName);
+
+            return cmd.toString();
+        }
+        
+        
+        /**
+         * Generates a config file with the given task book file path name. Other fields will have some dummy values.
+         */
+        Config generateConfigFile(String taskBookFilePathName) throws Exception {
+            Config config = new Config();
+            config.setTaskBookFilePath(taskBookFilePathName);
+            return config;
         }
     }
 }

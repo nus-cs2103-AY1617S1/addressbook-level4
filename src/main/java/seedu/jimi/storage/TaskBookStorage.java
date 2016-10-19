@@ -14,7 +14,7 @@ public interface TaskBookStorage {
     /**
      * Returns the file path of the data file.
      */
-    String getAddressBookFilePath();
+    String getTaskBookFilePath();
 
     /**
      * Returns TaskBook data as a {@link ReadOnlyTaskBook}.
@@ -25,7 +25,7 @@ public interface TaskBookStorage {
     Optional<ReadOnlyTaskBook> readTaskBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getTaskBookFilePath()
      */
     Optional<ReadOnlyTaskBook> readTaskBook(String filePath) throws DataConversionException, IOException;
 
