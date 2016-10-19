@@ -66,12 +66,6 @@ Being familiar with JavaFX will enable prospective developers to edit the user i
 
 In essence, having all of the skills above will definitely help to enhance the understanding of the code and hence allow future developers to add on to the existing code easily and efficiently.
 
-**Technical Jargon**
-
-Certain terms used within this developer guide may seem alien to some. Hence this section is dedicated to define those terms used here.
-
-(As of now, we&#39;ve not encountered any yet.)
-
 ## **Setting up**
 
 **Prerequisites**
