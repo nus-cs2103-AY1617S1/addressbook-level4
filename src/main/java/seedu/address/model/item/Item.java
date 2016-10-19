@@ -1,9 +1,8 @@
 package seedu.address.model.item;
 
-import java.util.Objects;
-
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.Objects;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
@@ -53,13 +52,14 @@ public class Item implements ReadOnlyItem {
         this.endDate = end;
     }
 
-    /**
-     * constructor for an item with a definite
-     * end time only (non-recurring)
-     * @param desc
-     * @param end
-     * @author darren
-     */
+
+	/**
+	 * constructor for an item with a definite end time only (non-recurring)
+	 * 
+	 * @param desc
+	 * @param end
+	 * @author darren
+	 */
     public Item(Description desc, LocalDateTime end) {
         assert !CollectionUtil.isAnyNull(desc, end);
         this.description = desc;
@@ -91,24 +91,14 @@ public class Item implements ReadOnlyItem {
         return endDate;
     }
 
-<<<<<<< HEAD
     public boolean isRecurring() {
         return isRecurring;
     }
 
     public Period getRecurInterval() {
         return recurInterval;
-=======
-	public Item(ReadOnlyItem item){
-	    this.description = item.getDescription();
-	    this.isDone = item.getIsDone();
-	}
-	
-    public Description getDescription() {
-		return description;
->>>>>>> ad2ed0392748424ae50a4caf241aa2906469bb43
-    }
 
+    }
     public LocalDateTime getRecurEndDate() {
         return recurEndDate;
     }
@@ -157,12 +147,6 @@ public class Item implements ReadOnlyItem {
         return description.toString();
     }
 
-
-    @Override
-    public UniqueTagList getTags() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public boolean equals(Object other) {
