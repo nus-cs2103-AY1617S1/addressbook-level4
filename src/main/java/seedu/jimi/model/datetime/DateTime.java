@@ -53,7 +53,7 @@ public class DateTime implements Comparable<DateTime> {
         return ChronoUnit.HOURS.between(dtInstance, other.getLocalDateTime());
     }
     
-    public long getDifferenctInDays(DateTime other) {
+    public long getDifferenceInDays(DateTime other) {
         return ChronoUnit.DAYS.between(dtInstance, other.getLocalDateTime());
     }
     
