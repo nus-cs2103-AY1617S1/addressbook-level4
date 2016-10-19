@@ -39,6 +39,7 @@ public class DoneCommand extends Command {
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
 
         try {
+            model.saveToHistory();
             model.doneTask(taskToMark);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";

@@ -11,6 +11,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIME;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import com.joestelmach.natty.generated.DateParser.relative_date_prefix_return;
 
@@ -78,6 +79,7 @@ public class AddCommand extends Command {
         try {
             model.saveToHistory();
             model.addTask(toAdd);
+            model.updateFilteredTaskListToShow(isNotDone());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
@@ -127,4 +129,8 @@ public class AddCommand extends Command {
     		return (end.endTime.compareTo(now.startTime) >= 0);
     	}
 	}
+    
+    public static Predicate<Task> isNotDone() {
+    	return t -> t.getDone().equals("false");
+    }
 }
