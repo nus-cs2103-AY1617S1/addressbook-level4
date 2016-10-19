@@ -1,4 +1,4 @@
-//package guitests;
+package guitests;
 //
 //import guitests.guihandles.TaskCardHandle;
 //import org.junit.Test;
@@ -15,7 +15,7 @@
 //
 //import static org.junit.Assert.assertTrue;
 //
-//public class EditCommandTest extends TaskMasterGuiTest {
+public class EditCommandTest extends TaskMasterGuiTest {
 //
 //    @Test
 //    public void edit() throws IllegalValueException {
@@ -80,4 +80,4 @@
 //    
 //
 //
-//}
+}
