@@ -68,5 +68,15 @@ public class DateTimeParserTest {
         
         assertEquals(answer, DateTimeParser.changeDateToLocalDateTime(date));
     }
+
+    @Test
+    public void extractRecurringEventDateTime() {
+        String input = "every monday at 9am until 25 december 2016";
+        DateTimeParser parser = new DateTimeParser(input);
+
+        LocalDateTime recurEndDateTime = LocalDateTime.of(LocalDate.of(2016, 12, 25), LocalTime.of(9, 0));
+        assertEquals(true, parser.isRecurring());
+        assertEquals(recurEndDateTime, parser.getRecurEnd());
+    }
     
 }
