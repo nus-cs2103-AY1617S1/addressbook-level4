@@ -12,25 +12,25 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private Interval interval;
-    private LocationParameter locationParameter;
-    private RemarksParameter remarksParameter;
+    private Location location;
+    private Remarks remarks;
 
     /**
-     * Only Name field must be present and not null. Other fields can be null.
+     * Only Name and Interval field must be present and not null. Other fields can be null.
      */
-    public Task(Name name, Interval interval, LocationParameter location, RemarksParameter remarks) {
-        assert !CollectionUtil.isAnyNull(name, interval, location, remarks);
+    public Task(Name name, Interval interval, Location location, Remarks remarks) {
+        assert !CollectionUtil.isAnyNull(name, interval);
         this.name = name;
         this.interval = interval;
-        this.locationParameter = location;
-        this.remarksParameter = remarks;
+        this.location = location;
+        this.remarks = remarks;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getInterval(), source.getLocationParameter(), source.getRemarksParameter());
+        this(source.getName(), source.getInterval(), source.getLocation(), source.getRemarks());
     }
 
     @Override
@@ -44,13 +44,13 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public LocationParameter getLocationParameter() {
-        return locationParameter;
+    public Location getLocation() {
+        return location;
     }
     
     @Override
-    public RemarksParameter getRemarksParameter() {
-    	return remarksParameter;
+    public Remarks getRemarks() {
+    	return remarks;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, locationParameter, remarksParameter);
+        return Objects.hash(name, interval, location, remarks);
     }
 
     @Override

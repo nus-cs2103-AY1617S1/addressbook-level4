@@ -364,8 +364,8 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Dinner");
             Interval interval = new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm");
-            LocationParameter location = new LocationParameter("home");
-            RemarksParameter remarks = new RemarksParameter("buy flowers");
+            Location location = new Location("home");
+            Remarks remarks = new Remarks("buy flowers");
             return new Task(name, interval, location, remarks);
         }
 
@@ -380,8 +380,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new Interval(seed + " oct 2016", seed + "pm", seed + " oct 2016", (seed + 1) + "pm"),
-                    new LocationParameter("at" + seed),
-                    new RemarksParameter("remarks" + seed)
+                    new Location("at" + seed),
+                    new Remarks("remarks" + seed)
             );
         }
 
@@ -392,13 +392,13 @@ public class LogicManagerTest {
             cmd.append("add ");
             cmd.append(p.getName().toString());
             cmd.append(" from ");
-            cmd.append(p.getInterval().startDate + " " + p.getInterval().startTime);
+            cmd.append(p.getInterval().getStartDate() + " " + p.getInterval().getStartTime());
             cmd.append(" to ");
-            cmd.append(p.getInterval().endDate + " " + p.getInterval().endTime);
+            cmd.append(p.getInterval().getEndDate() + " " + p.getInterval().getEndTime());
             cmd.append(" at ");
-            cmd.append(p.getLocationParameter().toString());
+            cmd.append(p.getLocation().toString());
             cmd.append(" remarks ");
-            cmd.append(p.getRemarksParameter().toString());
+            cmd.append(p.getRemarks().toString());
 
             return cmd.toString();
         }
@@ -477,8 +477,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Interval("21 oct 2016", "3pm", "21 oct 2016", "4pm"),
-                    new LocationParameter("location"),
-                    new RemarksParameter("remarks")
+                    new Location("location"),
+                    new Remarks("remarks")
             );
         }
     }

@@ -9,8 +9,8 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Interval interval;
-    private LocationParameter locationParameter;
-    private RemarksParameter remarksParameter;
+    private Location location;
+    private Remarks remarks;
 
     public void setName(Name name) {
         this.name = name;
@@ -20,12 +20,12 @@ public class TestTask implements ReadOnlyTask {
         this.interval = interval;
     }
     
-    public void setLocationParameter(LocationParameter locationParameter) {
-        this.locationParameter = locationParameter;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public void setRemarksParameter(RemarksParameter remarksParameter) {
-    	this.remarksParameter = remarksParameter;
+    public void setRemarks(Remarks remarks) {
+    	this.remarks = remarks;
     }
     
     @Override
@@ -39,13 +39,13 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public LocationParameter getLocationParameter() {
-        return locationParameter;
+    public Location getLocation() {
+        return location;
     }
     
     @Override
-    public RemarksParameter getRemarksParameter() {
-    	return remarksParameter;
+    public Remarks getRemarks() {
+    	return remarks;
     }
 
     @Override
@@ -56,10 +56,10 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("from " + this.getInterval().startDate + " " + this.getInterval().startTime 
-                + " to " + this.getInterval().endDate + " " + this.getInterval().endTime + " ");
-        sb.append("at " + this.getLocationParameter() + " ");
-        sb.append("remarks " + this.getRemarksParameter());
+        sb.append("from " + this.getInterval().getStartDate() + " " + this.getInterval().getStartTime() 
+                + " to " + this.getInterval().getEndDate()+ " " + this.getInterval().getEndTime() + " ");
+        sb.append("at " + this.getLocation() + " ");
+        sb.append("remarks " + this.getRemarks());
         return sb.toString();
     }
 }

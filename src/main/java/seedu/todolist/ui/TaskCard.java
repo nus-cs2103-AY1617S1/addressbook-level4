@@ -19,9 +19,9 @@ public class TaskCard extends UiPart{
     @FXML
     private Label interval;
     @FXML
-    private Label locationParameter;
+    private Label locationParam; //location is a keyword
     @FXML
-    private Label remarksParameter;
+    private Label remarks;
     
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -40,10 +40,9 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
-        interval.setText("Time: " + task.getInterval().startDate + " " + task.getInterval().startTime
-                + " to " + task.getInterval().endDate + " " + task.getInterval().endTime);
-        locationParameter.setText("Location: " +task.getLocationParameter().locationParameter);
-        remarksParameter.setText("Remarks: " +task.getRemarksParameter().remarksParameter);
+        interval.setText(task.getIntervalAsText());
+        locationParam.setText(task.getLocationAsText());
+        remarks.setText(task.getRemarksAsText());
         id.setText(displayedIndex + ". ");
     }
 

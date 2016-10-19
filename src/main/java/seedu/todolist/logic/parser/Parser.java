@@ -30,9 +30,9 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>(.)+)"
-                    + "from (?<interval>[\\p{Alnum}:/\\s]+)"
-                    + " at (?<locationParameter>[\\p{Alnum}:/\\s]+)" 
-                    + " remarks (?<remarksParameter>[\\p{Alnum}:/\\s]+)");
+                    + "((\\bfrom\\b|\\bby\\b)(?<interval>(.)+?)){1}"
+                    + "((\\bat\\b)(?<location>(.)+?))?" 
+                    + "((\\bremarks\\b)(?<remarks>(.)+?))?");
     
     public static final int INTERVAL_COMPONENT_TOTAL = 2;
     public static final int INTERVAL_COMPONENT_FROM = 0;
@@ -111,18 +111,18 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            return parseAddCommandWithInterval(
+            return parseAddCommand(
                     matcher.group("name"),
                     parseInterval(matcher.group("interval")),
-                    matcher.group("locationParameter"),
-                    matcher.group("remarksParameter")
+                    matcher.group("location"),
+                    matcher.group("remarks")
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
     
-    private AddCommand parseAddCommandWithInterval(String name, String[] interval, String location, String remarks) throws IllegalValueException {
+    private AddCommand parseAddCommand(String name, String[] interval, String location, String remarks) throws IllegalValueException {
         return new AddCommand(
                 name, 
                 interval[INTERVAL_COMPONENT_STARTDATE], 
@@ -139,19 +139,31 @@ public class Parser {
      */
     private String[] parseInterval(String interval) {
         String[] intervalComponents = interval.split("to");
-        String startDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_DATE];
-        String startTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_TIME];
-        String endDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_TO])[DATETIME_COMPONENT_DATE];
-        String endTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_TO])[DATETIME_COMPONENT_TIME];
-        
-        //if only one date is provided, both startDate and endDate will be the same
-        if (startDate == null) {
-            startDate = endDate;
+        String startDate;
+        String startTime;
+        String endDate;
+        String endTime;
+        if (intervalComponents.length < INTERVAL_COMPONENT_TOTAL) {
+            startDate = null;
+            startTime = null;
+            endDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_DATE];
+            endTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_TIME];
+        } 
+        else {
+            startDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_DATE];
+            startTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_TIME];
+            endDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_TO])[DATETIME_COMPONENT_DATE];
+            endTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_TO])[DATETIME_COMPONENT_TIME];
+            
+            //if only one date is provided, both startDate and endDate will be the same
+            if (startDate == null) {
+                startDate = endDate;
+            }
+            if (endDate == null) {
+                endDate = startDate;
+            }
         }
-        if (endDate == null) {
-            endDate = startDate;
-        }
-        
+            
         String[] detailedIntervalComponents = new String[DETAILED_INTERVAL_COMPONENT_TOTAL];
         detailedIntervalComponents[INTERVAL_COMPONENT_STARTDATE] = startDate;
         detailedIntervalComponents[INTERVAL_COMPONENT_STARTTIME] = startTime;
@@ -182,20 +194,6 @@ public class Parser {
             dateAndTime[DATETIME_COMPONENT_TIME] = timeMatcher.group();
         }
         return dateAndTime;
-    }
-
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
     }
 
     /**

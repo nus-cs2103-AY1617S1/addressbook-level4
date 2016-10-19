@@ -31,8 +31,8 @@ public class AddCommand extends Command {
         this.toAdd = new Task(
                 new Name(name),
                 new Interval(startDate, startTime, endDate, endTime),
-                new LocationParameter(location),
-                new RemarksParameter(remarks)
+                new Location(location),
+                new Remarks(remarks)
         );
     }
 
