@@ -284,29 +284,26 @@ Priority | As a ... | I want to ... | So that I can...
 Precondition: Parameters such as date, time and keywords entered should be valid.  
 
 Guarantees: 
-* Event or deadline or note added 
+* Event, deadline or floating task added 
 
-1. User enters task/deadline name with an optional start date and time and an optional end date and time.
-2. User enters event name, start date and time followed by end date and time.
-3. User enters floating task name. 
-4. Task is added into the storage file. 
-5. System displays message conveying that the input task has been added.
+1. User enters add command and task details with relevant parameters.
+2. System adds task into storage file and prints message showing the added task.
 
 **Extensions**
 
-2a. Clash of timeslots
+1a. Clash of timeslots
 > 2a1. System will identify the clash and will display to the user the list of actions to be taken.
 User can ignore collision or replace existing task with current task or reschedule task or cancel operation.
 
 
-#### Use case UC02 - Show events
+#### Use case UC02 - Show tasks
 
 **MSS**
 
-Precondition: Event/Task category entered should be valid
+Precondition: Task category entered should be valid
 
-1. User enters show command and event category.
-2. System shows list of events under the category entered.
+1. User enters show command and category.
+2. System shows list of tasks under the category entered.
 Use case ends.
 
 
@@ -337,44 +334,45 @@ Use case ends.
 > 3b1. System shows an error message.
 Use case resumes at step 2.
 
-#### Use case UC04 - Find events
+#### Use case UC04 - Find tasks
 
 **MSS**
 
 Precondition: Only events stored in the storage file can be searched.
 
-1. User enters find command and a keyword or the task index.
-2. If task index was entered, go to Step 4. Else the system returns the user a list of all matching tasks.
-3. If a keyword was entered, the user selects a task from the list of matching tasks.
-4. The system displays the details of that task to the user.
+1. User enters find command and a keyword.
+2. System displays a list of matching tasks.
+3. User enters the index of a task from the list.
+4. System displays the details of the particular task.
 
 **Extensions**
+1a. User enters find command and an index.
+> 1a1. Use case jumps to Step 4.
 
-2a. The given index is invalid
+2a. The given keyword is invalid
 > 2a1. The system shows an error message <br>
-  Use case resumes at Step 1
+  Use case resumes at Step 1.
 
 2b. The list is empty
-> Use case ends
+> Use case ends.
 
 4a. User selects invalid task from the list
 > 4a1. The system shows an error message <br>
-   Use case resumes at Step 3
+   Use case resumes at Step 3.
 
-#### Use case UC05 - Update event details
+#### Use case UC05 - Update task details
 
 **MSS**
 
-Precondition: Event has to exist in the storage file to update. 
+Precondition: Task has to exist in the storage file to update. 
 
 Guarantees:  
-* The corresponding event details will be updated to their new values. 
+* The corresponding task details will be updated to their new values. 
 
-1. The user searches for the event (UC04) to be updated. 
-2. System will display an indexed list of the event(s). 
-3. User enters index of event to be updated, field to be changed and the new value for the field.
-4. Updates get stored in the storage file. 
-5. System prints message showing the updated entry. 
+1. The user searches for the task (UC04) to be updated. 
+2. System displays an indexed list of the task(s). 
+3. User enters index of task to be updated, field to be changed and the new value for the field.
+4. System stores updates in the storage file and prints message showing the updated entry. 
 
 **Extensions**
 
@@ -397,6 +395,8 @@ Guarantees:
 8. There should be back up of documentations and code.
 9. Should store data in encrypted form as a form of data security.
 10. Should not require an installer to run the application.
+
+More NFRs and project constraints listed [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints).
 
 ## Appendix D : Glossary
 
@@ -477,7 +477,7 @@ Weaknesses:
 
 Strengths:
 
-1. Powerful natural language used for adding events with or without date.
+1. Uses powerful natural language for adding events with or without date.
 2. Keeps the calendar view and list of upcoming events active.
 3. Full calendar window with options to view by day, week, month or year while adding events
 4. Automatically shows public holidays in the calendar for easier scheduling.

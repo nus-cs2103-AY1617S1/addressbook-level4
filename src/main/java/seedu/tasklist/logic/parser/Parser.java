@@ -11,7 +11,6 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.*;
 import seedu.tasklist.model.tag.Tag;
 import seedu.tasklist.model.tag.UniqueTagList;
-import seedu.tasklist.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * Parses user input.
@@ -29,7 +28,6 @@ public class Parser {
 
 	private static final String[] UPDATE_TASK_KEYWORDS = {" at ", " by ", " from ", " to ", " r/"," p/", " t/"};
 
-	private static final String[] DELETE_TASK_KEYWORDS = {" foo "};
 	
 	public Parser() {
 	}
