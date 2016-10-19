@@ -28,16 +28,16 @@ public class PersonCard extends UiPart{
     @FXML
     private Label completion;
     
-    private ReadOnlyTask person;
+    private ReadOnlyActivity person;
     private int displayedIndex;
 
     public PersonCard(){
 
     }
 
-    public static PersonCard load(ReadOnlyTask person, int displayedIndex){
+    public static PersonCard load(ReadOnlyActivity person2, int displayedIndex){
         PersonCard card = new PersonCard();
-        card.person = person;
+        card.person = person2;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
