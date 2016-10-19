@@ -78,7 +78,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -104,7 +104,6 @@ public class Parser {
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(Name.MESSAGE_NAME_CONSTRAINTS, AddCommand.MESSAGE_USAGE));
-
         }
         try {
             String name = matcher.group("name");
@@ -321,7 +320,7 @@ public class Parser {
         if (!matcher.matches()) {
             return "";
         }
-        String index = command;
+        String index = command.trim();
         return index;
     }
 
@@ -349,4 +348,11 @@ public class Parser {
         return new FindCommand(typeOfTask, keywordSet);
     }
 
+    private Command prepareList(String args) {
+        if (args.isEmpty()) {
+            return new ListCommand();
+        }
+        args = args.trim().toLowerCase();
+        return new ListCommand(args);
+    }
 }
