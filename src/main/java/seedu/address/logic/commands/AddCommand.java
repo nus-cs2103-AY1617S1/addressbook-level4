@@ -17,9 +17,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book.\n"
-    		+ "Parameters: TASKNAME d/TASK_DESCRIPTION date/DD.MM.YY time/24HR [t/TAG]...\n"
+    		+ "Parameters: TASKNAME d/TASK_DESCRIPTION date/DD-MM-YYYY [24HR] [to 24HR] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Wash Clothes d/Wash with detergent date/27.9.16 time/2359 t/!!!";
+            + " Wash Clothes d/Wash with detergent date/27-9-2016 2359 t/!!!";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the address book";
