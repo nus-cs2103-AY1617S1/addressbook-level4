@@ -29,7 +29,6 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        
         if (listing.equals("all")) {
             model.updateFilteredListToShowAll();
         } else if (listing.equals("done")) {
