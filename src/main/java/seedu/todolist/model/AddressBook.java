@@ -75,6 +75,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         tasks.add(p);
     }
+    
+    public boolean editTask(ReadOnlyTask key, Task replacement) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.edit(key, replacement)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
