@@ -1,13 +1,13 @@
 package guitests;
 
 import jym.manager.commons.core.Messages;
+import jym.manager.testutil.TestTask;
 
 import org.junit.Test;
 
-import seedu.address.testutil.TestTask;
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_nonEmptyList() {

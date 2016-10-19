@@ -7,10 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import seedu.address.TestApp;
 
 import java.util.logging.Logger;
 
+import jym.manager.TestApp;
 import jym.manager.commons.core.LogsCenter;
 
 /**

@@ -21,6 +21,7 @@ public class Task implements ReadOnlyTask {
 	private Location loc;
 	private LocalDateTime dueDate;
 	private Priority pri;
+	private Complete compl;
 
     private UniqueTagList tags;
 
@@ -122,6 +123,11 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
+	@Override
+	public Complete getComplete() {
+		return this.compl;
+	}
 
 
 

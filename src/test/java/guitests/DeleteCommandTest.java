@@ -1,13 +1,14 @@
 package guitests;
 
+import jym.manager.testutil.TestTask;
+import jym.manager.testutil.TestUtil;
+
 import org.junit.Test;
 
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
 import static jym.manager.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static org.junit.Assert.assertTrue;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void delete() {
