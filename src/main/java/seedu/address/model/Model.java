@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -34,5 +35,8 @@ public interface Model {
 
     /** Adds the given task to a specific position*/
     void insertTask(int index, Task toAdd) throws UniqueTaskList.DuplicateTaskException;
+
+    /** Updates the filter of the filtered task list to filer by the given UniqueTagList     */
+    void updateFilteredTaskList(UniqueTagList uniqueTagList);
 
 }
