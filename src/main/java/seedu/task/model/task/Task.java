@@ -30,15 +30,15 @@ public class Task implements ReadOnlyTask {
         //this.openTime = openTime;
         //this.closeTime = closeTime;
         //this.isImportant = isImportant;
-        this.tags = new UniqueTagList(tags);
-        this.isCompleted=false;  // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted= isCompleted;  
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags(),source.getComplete());
+        this(source.getName(), source.getTags(), source.getComplete());
     }
 
     @Override
