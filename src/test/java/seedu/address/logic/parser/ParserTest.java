@@ -112,7 +112,7 @@ public class ParserTest {
 
 	@Test
 	public void parseCommand_addEventValidOrder_addCommandReturned() {
-		String userInput = "add event 'party' from 5:00 to 27:00 on 12/12/12";
+		String userInput = "add event 'party' from 5:00 to 27:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(addCommand.getClass(), command.getClass());
@@ -120,7 +120,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addEventValidOrder2_addCommandReturned() {
-		String userInput = "add event from 8:00 to 10:00 'party' on 12/190/12";
+		String userInput = "add event from 8:00 to 10:00 'party' on 12-190-12";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(addCommand.getClass(), command.getClass());
@@ -128,7 +128,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addEventValidOrder3_addCommandReturned() {
-		String userInput = "add event on 12/12/12 from 8:00 to 10:00 'party'";
+		String userInput = "add event on 12-12-12 from 8:00 to 10:00 'party'";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(addCommand.getClass(), command.getClass());
@@ -172,7 +172,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineValidOrder_addCommandReturned() {
-		String userInput = "add deadline 'submission' by 04:00 25/12/16";
+		String userInput = "add deadline 'submission' by 04:00 25-12-16";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(addCommand.getClass(), command.getClass());
@@ -180,7 +180,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineValidOrder2_addCommandReturned() {
-		String userInput = "add deadline 'submission' by 25/12/16 04:00";
+		String userInput = "add deadline 'submission' by 25-12-16 04:00";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(addCommand.getClass(), command.getClass());
@@ -188,7 +188,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineValidOrder3_addCommandReturned() {
-		String userInput = "add deadline by 25/12/16 04:00 'submission' ";
+		String userInput = "add deadline by 25-12-16 04:00 'submission' ";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(addCommand.getClass(), command.getClass());

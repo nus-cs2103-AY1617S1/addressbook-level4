@@ -71,12 +71,15 @@ public class DateParser {
 
 		if (dateTime == null) {
 			dateTime = parseAmPmFormat(dateString);
+			System.out.println("DateParser first try");
 		}
 		if (dateTime == null) {
 			dateTime = parseNoMinutesAmPmFormat(dateString);
+			System.out.println("DateParser second try");
 		}
 		if (dateTime == null) {
 			dateTime = parseNaturalLanguage(dateString);
+			System.out.println("DateParser third try");
 		}
 		if (dateTime == null) {
 			throw new ParseException("dateTime is null", -1);

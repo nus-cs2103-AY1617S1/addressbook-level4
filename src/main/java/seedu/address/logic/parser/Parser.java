@@ -232,6 +232,9 @@ public class Parser {
 				String startTime = matcher.group("startTime").trim();
 				String endTime = matcher.group("endTime").trim();
 				
+				System.out.println("date startTime: " + date + " " + startTime);
+				System.out.println("date endTime: " + date + " " + endTime);
+				
 				try {
 					startDateTime = DateParser.parse(date + " " + startTime);
 					endDateTime = DateParser.parse(date + " " + endTime);
