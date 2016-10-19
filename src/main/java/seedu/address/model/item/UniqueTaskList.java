@@ -81,6 +81,10 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.set(index, task);
     }
     
+    public void sort(){
+        Collections.sort(internalList);
+    }
+    
     /**
      * Index retrieval method for use by edit command
      * @return the index of the specified task object, or -1 if not found

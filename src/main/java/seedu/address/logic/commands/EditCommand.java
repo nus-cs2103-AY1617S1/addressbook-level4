@@ -130,37 +130,44 @@ public class EditCommand extends UndoableCommand {
         // Copy this task for history usage
         beforeEdit = new Task(taskToEdit);
         
-        if (taskName != null) {        
-            model.editName(taskToEdit, taskName);
+        Optional<Date> newStartDate;
+        Optional<Date> newEndDate;
+        Priority newPriority;
+        Optional<RecurrenceRate> newReccurence;
+
+        if (taskName == null) {        
+            taskName = toEdit.getName();
         }
         
-        if (startDate != null) {
-            model.editStartDate(taskToEdit, startDate);
+        if (startDate == null && toEdit.getStartDate().isPresent()) {
+            startDate = toEdit.getStartDate().get();
         }
+        
         if (removeStart){
         	startDate = null;
-            model.editStartDate(taskToEdit, startDate);
         }
 
-        if (endDate != null) {
-            model.editEndDate(taskToEdit, endDate);
+        if (endDate == null && toEdit.getEndDate().isPresent()) {
+        	endDate = toEdit.getEndDate().get();
         }
+        
         if (removeEnd){
         	endDate = null;
-            model.editEndDate(taskToEdit, endDate);
         }
 
-        if (priority != null){
-            model.editPriority(taskToEdit, priority);
+        if (priority == null){
+        	priority = toEdit.getPriorityValue();
         }
-
-        if (recurrenceRate != null && (toEdit.getEndDate().isPresent() || toEdit.getStartDate().isPresent())) {
-            model.editRecurrence(taskToEdit, recurrenceRate);
+                
+        if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
+        	recurrenceRate = toEdit.getRecurrenceRate().get();
         } 
+                
         if (removeRepeat){
         	recurrenceRate = null;
-            model.editRecurrence(taskToEdit, recurrenceRate);
         }
+        model.editTask(taskToEdit,taskName,startDate,endDate,priority,recurrenceRate);
+
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         

@@ -140,6 +140,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public synchronized void editTask(ReadOnlyTask floatingTask, Name name, Date startDate,
+    		Date endDate, Priority priority, RecurrenceRate recurrenceRate) {
+        taskManager.editFloatingTask(floatingTask, name, startDate, endDate, priority, recurrenceRate);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+
+    @Override
     public synchronized void editName(ReadOnlyTask floatingTask, Name name) {
         taskManager.editFloatingTaskName(floatingTask, name);
         updateFilteredListToShowAll();

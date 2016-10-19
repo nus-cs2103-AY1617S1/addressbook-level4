@@ -103,6 +103,19 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+	public void editFloatingTask(ReadOnlyTask floatingTask, Name name, Date startDate, Date endDate, Priority priority,
+			RecurrenceRate recurrenceRate) {
+		
+		Task currTask = undoneTasks.getTask(floatingTask);
+		currTask.setName(name);
+		currTask.setStartDate(startDate);
+		currTask.setEndDate(endDate);
+		currTask.setPriority(priority);
+		currTask.setRecurrence(recurrenceRate);
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);
+		undoneTasks.sort();
+	}
 
 	public void editFloatingTaskName(ReadOnlyTask floatTask, Name name) {
 		Task currTask = undoneTasks.getTask(floatTask);
