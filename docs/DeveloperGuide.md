@@ -341,9 +341,6 @@ public class MyArgument extends Argument<T> {
 }
 ```
 
-### User Interface
-lalalalalalala
-
 ### Logging
 
 We are using the [`java.util.logging`][jul] package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
