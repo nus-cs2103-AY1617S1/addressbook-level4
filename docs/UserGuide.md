@@ -155,6 +155,15 @@ Displays all the done tasks. <br>
 Format: `show done`
 
 
+#### Clearing the display: `clear`
+Clears all the tasks in the task manager <br>
+Format: `clear`
+
+##### Clearing only the done tasks: `clear done`
+Clears all the done tasks <br>
+Format: `clear done`
+
+
 #### Selecting a task: `select`
 Selects a task based on index. <br>
 Format: `select <index>`
@@ -196,5 +205,7 @@ Following is the list of all commands:
 | `undo`      | `undo`                                             | Undoes the most recent command                 |
 | `redo`      | `redo`                                             | Redoes the latest undo                         |
 | `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          |
+| `clear`     | `clear`                                            | Clears all the tasks in the task manager       |
+|             | `clear done`                                       | Clears all the done tasks from the done list   |
 | `select`    | `select` `<index>`                                 | Highlights the particular task at that index   |
 |`set storage`| `set storage` `<folder name>`                      | Set storage to a particular folder             |
