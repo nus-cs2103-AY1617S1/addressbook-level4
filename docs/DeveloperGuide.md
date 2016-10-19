@@ -109,8 +109,8 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `(Task)ListPanel`,
+`StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -147,8 +147,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the malitio data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
+* exposes a `UnmodifiableObservableList<ReadOnlyFloatingTask>`, `UnmodifiableObservableList<ReadOnlyDeadline>`, `UnmodifiableObservableList<ReadOnlyEvent>` that can be 'observed' e.g. the UI can be bound to this list
+  so that the UI automatically updates when the data in any of the list change.
 * does not depend on any of the other three components.
 
 ### Storage component
@@ -294,58 +294,36 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `Molitio` and the **Actor** is the `User`, unless specified otherwise)
+(For all use cases below, the **System** is `Malitio` and the **Actor** is the `User`, unless specified otherwise)
 
 #### Use case: Delete a floating task
 
 **MSS**
 
-1. User requests to list floating tasks
-2. Molitio shows a list of floating tasks
-3. User requests to delete a specific floating task in the list
-4. Molitio deletes the floating task <br>
+1. User requests to delete a specific floating task in the floating task list
+2. Malitio deletes the floating task <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. The given index is invalid
 
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. Molitio shows an error message <br>
-  Use case resumes at step 2
+> 1a1. Malitio shows an error message <br>
+  Use case restarts at step 1
 
 #### Use case: Edit a floating task
 
 **MSS**
 
-1. User requests to list floating tasks
-2. Molitio shows a list of floating tasks
-3. User requests to edit a specific floating task
-4. Molitio prompt user to confirm he wants to edit that specific task
-5. User confirmed and input data that he want to change
-6. Molitio shows the changes and prompt for confirmation
-7. User confirms the change <br>
+1. User requests to edit a specific floating task by its index and input changes
+2. Malitio implement the specified edit and reflect the change to user <br>
 Use case ends.
 
 **Extensions**
-2a. The list is empty
-> Use case ends.
+1a. The given index is invalid
 
-3a. The given index is invalid
-
-> 3a1. Molitio shows an error message <br>
-  Use case resumes at step 2
-  
-5a. User decline the confirmation
-
-> 5a1. Molitio prompt user whether to continue edit or exit
->>5a11. User choose to continue <br>
-    Use case resumes at step 2 <br><br>
->>5a12. User choose to exit <br>
-    Use case ends
+> 1a1. Malitio shows an error message <br>
+  Use case restarts at step 1
 
 ## Appendix C : Non Functional Requirements
 
