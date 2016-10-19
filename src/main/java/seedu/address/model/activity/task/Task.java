@@ -76,7 +76,9 @@ public class Task extends Activity implements ReadOnlyTask {
     }
     
     public boolean passedDueDate() {
-        if(duedate.value.after(Calendar.getInstance())) {
+        if(duedate.value == null) {
+        	return false;        	
+        } else if(duedate.value.after(Calendar.getInstance())) {
             return true;       
         }
         
