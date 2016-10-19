@@ -57,11 +57,11 @@ public class UpdateCommand extends Command {
 			Task taskToUpdate = lastShownList.get(targetIndex);
 
 			if(taskToUpdate.isFloating()){
-				Task.floatCounter--;
+				taskToUpdate.floatCounter--;
 			}
 			if (endTime != null){
 				if(taskToUpdate.getEndTime().endTime.before(endTime.endTime)){
-					Task.overdueCounter--;
+					taskToUpdate.overdueCounter--;
 				}
 			}
 			try {

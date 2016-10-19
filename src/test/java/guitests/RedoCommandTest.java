@@ -1,6 +1,16 @@
 package guitests;
 
+import guitests.guihandles.PersonCardHandle;
+
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
+import seedu.tasklist.commons.core.Messages;
+import seedu.tasklist.logic.commands.UndoCommand;
+import seedu.tasklist.testutil.TestTask;
+import seedu.tasklist.testutil.TestUtil;
+import seedu.tasklist.testutil.TypicalTestTasks;
 
 public class RedoCommandTest extends TaskListGuiTest {
     

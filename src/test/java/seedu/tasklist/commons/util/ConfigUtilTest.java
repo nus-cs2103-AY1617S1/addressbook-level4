@@ -86,8 +86,7 @@ public class ConfigUtilTest {
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        new ConfigUtil();
-		return ConfigUtil.readConfig(configFilePath);
+        return new ConfigUtil().readConfig(configFilePath);
     }
 
     @Test
@@ -110,22 +109,21 @@ public class ConfigUtilTest {
         ConfigUtil configStorage = new ConfigUtil();
 
         //Try writing when the file doesn't exist
-        ConfigUtil.saveConfig(original, configFilePath);
-        Config readBack = ConfigUtil.readConfig(configFilePath).get();
+        configStorage.saveConfig(original, configFilePath);
+        Config readBack = configStorage.readConfig(configFilePath).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setAppTitle("Updated Title");
         original.setLogLevel(Level.FINE);
-        ConfigUtil.saveConfig(original, configFilePath);
-        readBack = ConfigUtil.readConfig(configFilePath).get();
+        configStorage.saveConfig(original, configFilePath);
+        readBack = configStorage.readConfig(configFilePath).get();
         assertEquals(original, readBack);
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        new ConfigUtil();
-		ConfigUtil.saveConfig(config, configFilePath);
+        new ConfigUtil().saveConfig(config, configFilePath);
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {

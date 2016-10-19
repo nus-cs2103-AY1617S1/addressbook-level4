@@ -45,12 +45,12 @@ public class TaskList implements ReadOnlyTaskList{
 		while(itr.hasNext()){
 			Task task = (Task)itr.next();
 			if(!task.isComplete())
-				Task.IncompleteCounter++;
+				task.IncompleteCounter++;
 			if(task.isFloating())
-				Task.floatCounter++;
+				task.floatCounter++;
 
 			if(task.isOverDue())
-				Task.overdueCounter++;
+				task.overdueCounter++;
 		}
 	}
 

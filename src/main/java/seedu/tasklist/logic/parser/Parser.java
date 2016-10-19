@@ -11,6 +11,7 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.*;
 import seedu.tasklist.model.tag.Tag;
 import seedu.tasklist.model.tag.UniqueTagList;
+import seedu.tasklist.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * Parses user input.

@@ -1,4 +1,6 @@
 package seedu.tasklist.model;
+import seedu.tasklist.model.task.*;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
@@ -15,14 +17,6 @@ import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
-<<<<<<< HEAD
-=======
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
->>>>>>> 713f66232f44d402249e29113003b824f3e6136b
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -124,12 +118,12 @@ public class ModelManager extends ComponentManager implements Model {
 		if(target instanceof Task){
 			Task myTask = (Task) target;
 			if(!myTask.isComplete())
-				Task.IncompleteCounter--;
+				myTask.IncompleteCounter--;
 			if(myTask.isOverDue()&&!myTask.isComplete()){
-				Task.overdueCounter--;
+				myTask.overdueCounter--;
 			}
 			if(myTask.isFloating()&&!myTask.isComplete()){
-				Task.floatCounter--;
+				myTask.floatCounter--;
 			}	
 		}
 		taskList.removeTask(target);
@@ -143,12 +137,12 @@ public class ModelManager extends ComponentManager implements Model {
 	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
 		if(task instanceof Task){
 			Task myTask = (Task) task;
-			Task.IncompleteCounter++;
+			myTask.IncompleteCounter++;
 			if(myTask.isOverDue()){
-				Task.overdueCounter++;
+				myTask.overdueCounter++;
 			}
 			if(myTask.isFloating()){
-				Task.floatCounter++;
+				myTask.floatCounter++;
 			}	
 		}
 		taskList.addTask(task);
@@ -187,12 +181,12 @@ public class ModelManager extends ComponentManager implements Model {
 	public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
 		if(task instanceof Task){
 			Task myTask = (Task) task;
-			Task.IncompleteCounter--;
+			myTask.IncompleteCounter--;
 			if(myTask.isOverDue()){
-				Task.overdueCounter--;
+				myTask.overdueCounter--;
 			}
 			if(myTask.isFloating()){
-				Task.floatCounter--;
+				myTask.floatCounter--;
 			}
 		}
 		taskList.markTaskAsComplete(task);
