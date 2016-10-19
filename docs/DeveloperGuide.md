@@ -120,7 +120,7 @@ If you are intending to work on the UI, you will need to update the application'
 4.	BrowserPanel.java
 
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/developer-guide-ui.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/harmony/mastermind/ui/Ui.java)
 
@@ -137,7 +137,7 @@ The `UI` component,
 #### Logic component
 Logic is the brain of the application as it controls and manages the overall flow of the application. Upon receiving the user input from UI, it will process the input using the parser and return the result of executing the user input back to the UI. The inputs Logic take in are command words such as add, edit, delete, etc., and executes them accordingly based on their functionality. If you were to work on this execution of user input, you will need to access Storage through the EventsCenter to retrieve and update state of tasks. 
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/developer-guide-logic.png" width="800"><br>
 
 **API** : [`Logic.java`](../src/main/java/harmony/mastermind/logic/Logic.java)
 
@@ -214,20 +214,19 @@ The Mark command allows users to mark their tasks/deadlines/events as completed.
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/Model UML" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/harmony/mastermind/model/Model.java)
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
 * Stores the Mastermind's data
-* Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
+* Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<img src="images/Storage UML.png" width="800"><br>
 
 **API** : [`Storage.java`](../src/main/java/harmony/mastermind/storage/Storage.java)
 
@@ -356,8 +355,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | edit a task | update entries as needed
 `* * *` | user | find a task by name | locate details of the task without having to go through the entire list
 `* * *` | user | find a task by deadline | locate tasks that are due soon without having to go through the entire list
-`* * *` | user | undo a task entered | recover from my mistakes easily
-`* * *` | user | re-do a task entered | recover from my mistakes easily
+`* * *` | user | undo a task entered | undo a mistake easily
+`* * *` | user | re-do a task entered | redo a mistake easily
 `* * *` | user | sort list by alphabetical order and date | find my tasks easily
 `* * *` | user | mark tasks as done | archive my completed tasks
 `* * *` | user | specify the location of file storage | choose where to save the to do list
@@ -409,7 +408,9 @@ Display help when requested, or when user enter an invalid command.
 
 1a. User entered an invalid command.
 
-* 1a1. Use case resume at 2.
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 ---
 
