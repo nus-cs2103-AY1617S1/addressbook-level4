@@ -11,6 +11,7 @@ import tars.model.task.UniqueTaskList;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList;
+import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
@@ -282,6 +283,14 @@ public class Tars implements ReadOnlyTars {
 			throw new UniqueTaskList.TaskNotFoundException();
 		}
 	}
+	
+	public boolean removeRsvTask(RsvTask key) throws RsvTaskNotFoundException {
+        if (rsvTasks.remove(key)) {
+            return true;
+        } else {
+            throw new RsvTaskNotFoundException();
+        }
+    }
 
 	/** 
 	 * Sorts internal list by priority from low to high

@@ -6,11 +6,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import tars.commons.core.Messages;
+import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
+import tars.commons.exceptions.InvalidTaskDisplayedException;
 import tars.model.task.DateTime;
 import tars.model.task.Name;
 import tars.model.task.rsv.RsvTask;
+import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 /**
  * Adds a reserved task which has a list of reserved datetimes that can
@@ -34,6 +37,10 @@ public class RsvCommand extends UndoableCommand {
             + COMMAND_WORD_DEL + " 1..3";
 
     public static final String MESSAGE_DATETIME_NOTFOUND = "At least one DateTime is required!\n" + MESSAGE_USAGE;
+    
+    public static final String MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX = "The Reserved Task Index is invalid!";
+    
+    public static final String MESSAGE_RSV_TASK_NOT_FOUND = "The reserved task is not found!";
 
     public static final String MESSAGE_SUCCESS = "New task reserved: %1$s";
     public static final String MESSAGE_SUCCESS_DEL = "Deleted Reserved Tasks: %1$s";
@@ -42,6 +49,8 @@ public class RsvCommand extends UndoableCommand {
 
     private RsvTask toReserve = null;
     private String rangeIndexString = "";
+    
+    private ArrayList<RsvTask> deletedRsvTasks = new ArrayList<RsvTask>();
 
     /**
      * Convenience constructor using raw values.
@@ -52,8 +61,7 @@ public class RsvCommand extends UndoableCommand {
      *             if given dateTime string is invalid.
      */
 
-    public RsvCommand(String name, Set<String[]> dateTimeStringSet)
-            throws IllegalValueException {
+    public RsvCommand(String name, Set<String[]> dateTimeStringSet) throws IllegalValueException {
 
         Set<DateTime> dateTimeSet = new HashSet<>();
         for (String[] dateTimeStringArray : dateTimeStringSet) {
@@ -85,18 +93,65 @@ public class RsvCommand extends UndoableCommand {
         assert model != null;
 
         if (toReserve != null) {
-            try {
-                model.addRsvTask(toReserve);
-                model.getUndoableCmdHist().push(this);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, toReserve.toString()));
-            } catch (DuplicateTaskException e) {
-                return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
-            }
+            return addRsvTask();
         } else {
-            ArrayList<RsvTask> tasksToDelete = new ArrayList<RsvTask>();
-
-            return new CommandResult(String.format(MESSAGE_SUCCESS_DEL, tasksToDelete.toString()));
+            return delRsvTask();
         }
+            
 
+    }
+
+    private CommandResult addRsvTask() {
+        try {
+            model.addRsvTask(toReserve);
+            model.getUndoableCmdHist().push(this);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toReserve.toString()));
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
+        }
+    }
+
+    private CommandResult delRsvTask() {
+        ArrayList<RsvTask> rsvTasksToDelete = new ArrayList<RsvTask>();
+
+        try {
+            rsvTasksToDelete = getRsvTasksFromIndexes(this.rangeIndexString.split(" "));
+        } catch (InvalidTaskDisplayedException itde) {
+            return new CommandResult(itde.getMessage());
+        }
+        for (RsvTask t : rsvTasksToDelete) {
+            try {
+                model.deleteRsvTask(t);
+            } catch (RsvTaskNotFoundException rtnfe) {
+                return new CommandResult(MESSAGE_RSV_TASK_NOT_FOUND);
+            }
+            deletedRsvTasks.add(t);
+        }
+        model.getUndoableCmdHist().push(this);
+        String deletedRsvTasksList = CommandResult.formatRsvTasksList(deletedRsvTasks);
+        return new CommandResult(String.format(MESSAGE_SUCCESS_DEL, deletedRsvTasksList));
+    }
+
+    /**
+     * Gets Tasks to delete
+     * 
+     * @param indexes
+     * @return
+     * @throws InvalidTaskDisplayedException
+     */
+    private ArrayList<RsvTask> getRsvTasksFromIndexes(String[] indexes) throws InvalidTaskDisplayedException {
+        UnmodifiableObservableList<RsvTask> lastShownList = model.getFilteredRsvTaskList();
+        ArrayList<RsvTask> rsvTasksList = new ArrayList<RsvTask>();
+
+        for (int i = 0; i < indexes.length; i++) {
+            int targetIndex = Integer.parseInt(indexes[i]);
+            if (lastShownList.size() < targetIndex) {
+                indicateAttemptToExecuteIncorrectCommand();
+                throw new InvalidTaskDisplayedException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            RsvTask rsvTask = lastShownList.get(targetIndex - 1);
+            rsvTasksList.add(rsvTask);
+        }
+        return rsvTasksList;
     }
 }
