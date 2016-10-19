@@ -12,46 +12,56 @@ import java.util.regex.Pattern;
  */
 public class DateTime {
     
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date must follow this format DD/MM/YYYY"
-                    + "and time must follow this format HH:MM in 24 hours format";
-    public static final String ON_KEYWORD_VALIDATION_REGEX = "on "
-                    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
+    private static final String OPTIONAL_TIME_REGEX = "( (?<hour>([01][0-9]|[2][0-3])))?"
+                        + "(:(?<minute>([0-5][0-9])))?";
+
+    private static final String OPTIONAL_END_DATE_TIME_REGEX = "( (?<aftKeyword>(to )))?"
+                        + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))?"
+                        + "(/(?<monthEnd>(0?[1-9]|[1][0-2]))/)?"
+                        + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))?"
+                        + "( (?<hourEnd>([01][0-9]|[2][0-3])))?"
+                        + "(:(?<minuteEnd>([0-5][0-9])))?";
+
+    private static final String END_DATE_TIME_REGEX = "( (?<aftKeyword>(to )))"
+                        + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))"
+                        + "(/(?<monthEnd>(0?[1-9]|[1][0-2]))/)"
+                        + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))"
+                        + "( (?<hourEnd>([01][0-9]|[2][0-3])))"
+                        + "(:(?<minuteEnd>([0-5][0-9])))";
+
+    private static final String TIME_VALIDATION_REGEX = "( (?<hour>([01][0-9]|[2][0-3])))"
+                    + "(:(?<minute>([0-5][0-9])))";
+
+    private static final String DATE_VALIDATION_REGEX = "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
                     + "/(?<month>(0?[1-9]|[1][0-2]))/"
                     + "(?<year>(([0-9][0-9])?[0-9][0-9]))";
-    public static final String BY_KEYWORD_VALIDATION_REGEX = "by "
-                    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-                    + "/(?<month>(0?[1-9]|[1][0-2]))/"
-                    + "(?<year>(([0-9][0-9])?[0-9][0-9]))"
-                    + "( (?<hour>([01][0-9]|[2][0-3])))"               
-                    + "(:(?<minute>([0-5][0-9])))";  
-    public static final String FROM_KEYWORD_VALIDATION_REGEX = "from "
-                    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-                    + "/(?<month>(0?[1-9]|[1][0-2]))/"
-                    + "(?<year>(([0-9][0-9])?[0-9][0-9]))"
-                    + "( (?<hour>([01][0-9]|[2][0-3])))"
-                    + "(:(?<minute>([0-5][0-9])))"
-                    + "( (?<aftKeyword>(to )))"
-                    + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))"               
-                    + "(/(?<monthEnd>(0?[1-9]|[1][0-2]))/)"                  
-                    + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))"              
-                    + "( (?<hourEnd>([01][0-9]|[2][0-3])))"               
-                    + "(:(?<minuteEnd>([0-5][0-9])))";   
+
+    private static final String MESSAGE_KEYWORD_FROM_CONSTRAINTS = "Invalid format! It should be "
+                    + "'from DD/MM/YYYY HH:MM to DD/MM/YYYY HH:MM'";
+
+    private static final String MESSAGE_KEYWORD_BY_CONSTRAINTS = "Invalid format! It should be "
+                    + "'by DD/MM/YYYY HH:MM'";
+
+    private static final String MESSAGE_KEYWORD_ON_CONSTRAINTS = "Invalid format! It should be "
+                    + "'on DD/MM/YYYY'";
+
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date must follow this format DD/MM/YYYY"
+                    + "and time must follow this format HH:MM in 24 hours format";
+    
+    public static final String ON_KEYWORD_VALIDATION_REGEX = "on " + DATE_VALIDATION_REGEX;
+    
+    public static final String BY_KEYWORD_VALIDATION_REGEX = "by " + DATE_VALIDATION_REGEX
+                    + TIME_VALIDATION_REGEX;
+    
+    public static final String FROM_KEYWORD_VALIDATION_REGEX = "from " + DATE_VALIDATION_REGEX
+                    + TIME_VALIDATION_REGEX
+                    + END_DATE_TIME_REGEX;
     
     public static final Pattern DATETIME_VALIDATION_REGEX =
-            Pattern.compile("(?<preKeyword>((by )|(on )|(from )))"      //Preceeding keyword regex
-                    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"               //Day regex
-                    + "/(?<month>(0?[1-9]|[1][0-2]))/"                  //Month regex
-                    + "(?<year>(([0-9][0-9])?[0-9][0-9]))"              //Year regex
-                    + "( (?<hour>([01][0-9]|[2][0-3])))?"               //Hour regex
-                    + "(:(?<minute>([0-5][0-9])))?"                     //Minute regex
-                    + "( (?<aftKeyword>(to )))?"                           //2nd keyword regex
-                    + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))?"               //Day regex
-                    + "(/(?<monthEnd>(0?[1-9]|[1][0-2]))/)?"                  //Month regex
-                    + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))?"              //Year regex
-                    + "( (?<hourEnd>([01][0-9]|[2][0-3])))?"               //Hour regex
-                    + "(:(?<minuteEnd>([0-5][0-9])))?");                     //Minute regex
-    
-    
+            Pattern.compile("(?<preKeyword>((by )|(on )|(from )))"      //Preceding keyword regex
+                    + DATE_VALIDATION_REGEX
+                    + OPTIONAL_TIME_REGEX
+                    + OPTIONAL_END_DATE_TIME_REGEX);
     
     public final String value;
     public final String valueFormatted;
@@ -85,94 +95,40 @@ public class DateTime {
 
             if(preKeyword.equals("on")){
                 if(!isValidFormatFor_GivenKeyword(dateTime, preKeyword))
-                    throw new IllegalValueException("Invalid format! It should be "
-                            + "'on DD/MM/YYYY'");
+                    throw new IllegalValueException(MESSAGE_KEYWORD_ON_CONSTRAINTS);
                 
-                final String day = matcher.group("day");
-                final String month = matcher.group("month");
-                final String year = matcher.group("year");
-                
-                int yearParsed = Integer.parseInt(year);
-                int monthParsed = Integer.parseInt(month);
-                int dayParsed = Integer.parseInt(day);
-                this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
+                this.valueDate = valueDateFormatter(matcher, preKeyword);
+                this.valueFormatted = valueFormatter(matcher, preKeyword);
                 
                 this.valueTime = null;
-                this.valueFormatted = preKeyword + " " + day + " "
-                                    + returnMonthInWords(monthParsed) + " " + year;
                 this.valueDateEnd = null;
                 this.valueTimeEnd = null;
                 
             }else if(preKeyword.equals("by")){
                 if(!isValidFormatFor_GivenKeyword(dateTime, preKeyword))
-                    throw new IllegalValueException("Invalid format! It should be "
-                            + "'by DD/MM/YYYY HH:MM'");
+                    throw new IllegalValueException(MESSAGE_KEYWORD_BY_CONSTRAINTS);
                 
-                final String day = matcher.group("day");
-                final String month = matcher.group("month");
-                final String year = matcher.group("year");
+                this.valueDate = valueDateFormatter(matcher, preKeyword);                
+                this.valueTime = valueTimeFormatter(matcher, preKeyword);                
+                this.valueFormatted = valueFormatter(matcher, preKeyword);
                 
-                int yearParsed = Integer.parseInt(year);
-                int monthParsed = Integer.parseInt(month);
-                int dayParsed = Integer.parseInt(day);
-                this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
-                
-                final String hour = matcher.group("hour");
-                final String minute = matcher.group("minute");
-                
-                int hourParsed = Integer.parseInt(hour);
-                int minuteParsed = Integer.parseInt(minute);
-                this.valueTime = LocalTime.of(hourParsed, minuteParsed);
-                
-                this.valueFormatted = preKeyword + " " + day + " "
-                        + returnMonthInWords(monthParsed) +  " " 
-                        + year + ", " + hour + ":" + minute;
                 this.valueDateEnd = null;
                 this.valueTimeEnd = null;
                 
             }else{
                 if(!isValidFormatFor_GivenKeyword(dateTime, preKeyword))
-                    throw new IllegalValueException("Invalid format! It should be"
-                            + "'from DD/MM/YYYY HH:MM to DD/MM/YYYY HH:MM'");
+                    throw new IllegalValueException(MESSAGE_KEYWORD_FROM_CONSTRAINTS);
                 
-                final String day = matcher.group("day");
-                final String month = matcher.group("month");
-                final String year = matcher.group("year");
+                final String aftKeyword = matcher.group("aftKeyword").trim();
                 
-                int yearParsed = Integer.parseInt(year);
-                int monthParsed = Integer.parseInt(month);
-                int dayParsed = Integer.parseInt(day);
-                this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
+                this.valueDate = valueDateFormatter(matcher, preKeyword);                
+                this.valueTime = valueTimeFormatter(matcher, preKeyword);
                 
-                final String hour = matcher.group("hour");
-                final String minute = matcher.group("minute");
+                this.valueDateEnd = valueDateFormatter(matcher, aftKeyword);
+                this.valueTimeEnd = valueTimeFormatter(matcher, aftKeyword);
                 
-                int hourParsed = Integer.parseInt(hour);
-                int minuteParsed = Integer.parseInt(minute);
-                this.valueTime = LocalTime.of(hourParsed, minuteParsed);
-                
-                final String aftKeyword = matcher.group("aftKeyword");
-                final String dayEnd = matcher.group("dayEnd");
-                final String monthEnd = matcher.group("monthEnd");
-                final String yearEnd = matcher.group("yearEnd");
-                final String hourEnd = matcher.group("hourEnd");
-                final String minuteEnd = matcher.group("minuteEnd");
-                
-                int yearEndParsed = Integer.parseInt(yearEnd);
-                int monthEndParsed = Integer.parseInt(monthEnd);
-                int dayEndParsed = Integer.parseInt(dayEnd);
-                this.valueDateEnd = LocalDate.of(yearEndParsed, monthEndParsed, dayEndParsed);
-                
-                int hourEndParsed = Integer.parseInt(hourEnd);
-                int minuteEndParsed = Integer.parseInt(minuteEnd);
-                this.valueTimeEnd = LocalTime.of(hourEndParsed, minuteEndParsed);
-                
-                this.valueFormatted = preKeyword + " " + day + " "
-                                + returnMonthInWords(monthParsed) +  " " 
-                                + year + ", " + hour + ":" + minute + " "
-                                + aftKeyword + dayEnd + " "
-                                + returnMonthInWords(monthEndParsed) +  " " 
-                                + yearEnd + ", " + hourEnd + ":" + minuteEnd + " ";
+                this.valueFormatted = valueFormatter(matcher, preKeyword) + " "
+                                    + valueFormatter(matcher, aftKeyword);                     
             }
             this.value = dateTime;
         }
@@ -188,6 +144,67 @@ public class DateTime {
                 return dateTime.matches(FROM_KEYWORD_VALIDATION_REGEX);
             default:
                 return false;
+        }
+    }
+    
+    private LocalDate valueDateFormatter(Matcher matcher, String keyword){
+        
+        String day = matcher.group("day");
+        String month = matcher.group("month");
+        String year = matcher.group("year");
+        
+        if(keyword.equals("to")){
+            day = matcher.group("dayEnd");
+            month = matcher.group("monthEnd");
+            year = matcher.group("yearEnd");
+        }
+        
+        int yearParsed = Integer.parseInt(year);
+        int monthParsed = Integer.parseInt(month);
+        int dayParsed = Integer.parseInt(day);
+            
+        return LocalDate.of(yearParsed, monthParsed, dayParsed);
+    }
+    
+    private LocalTime valueTimeFormatter(Matcher matcher, String keyword){
+        
+        String hour = matcher.group("hour");
+        String minute = matcher.group("minute");
+        
+        if(keyword.equals("to")){
+            hour = matcher.group("hourEnd");
+            minute = matcher.group("minuteEnd");
+        }
+        
+        int hourParsed = Integer.parseInt(hour);
+        int minuteParsed = Integer.parseInt(minute);
+        
+        return LocalTime.of(hourParsed, minuteParsed);
+    }
+    
+    private String valueFormatter(Matcher matcher, String keyword){
+        
+        String day = matcher.group("day");
+        String month = matcher.group("month");
+        String year = matcher.group("year");
+        String hour = matcher.group("hour");
+        String minute = matcher.group("minute");
+        
+        if(keyword.equals("to")){
+            day = matcher.group("dayEnd");
+            month = matcher.group("monthEnd");
+            year = matcher.group("yearEnd");
+            hour = matcher.group("hourEnd");
+            minute = matcher.group("minuteEnd");
+        }
+        
+        int monthParsed = Integer.parseInt(month);
+        
+        if(keyword.equals("on"))
+            return keyword + " " + day + " " + returnMonthInWords(monthParsed) + " " + year;
+        else{
+            return keyword + " " + day + " " + returnMonthInWords(monthParsed) +  " " 
+                    + year + ", " + hour + ":" + minute;
         }
     }
     
