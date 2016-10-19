@@ -76,6 +76,7 @@ public class MainApp extends Application {
             addressBookOptional = storage.readAddressBook();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
+                System.out.println("dumbo");
             }
             initialData = addressBookOptional.orElse(new TaskBook());
         } catch (DataConversionException e) {
