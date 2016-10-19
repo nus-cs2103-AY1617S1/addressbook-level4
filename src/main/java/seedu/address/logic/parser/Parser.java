@@ -490,12 +490,23 @@ public class Parser {
 		LocalDateTime endDateTime = null;
 		
 		// DateParser not merged. Will have error
-		/*try {
-			startDateTime = DateParser.parse(newStartDate);
-			endDateTime = DateParser.parse(newEndDate);
-		} catch (ParseException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-		}*/
+		/*
+		if(!newStartDate.equals("")) {
+			try {
+				startDateTime = DateParser.parse(newStartDate);
+			} catch (ParseException e) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+			}
+		}
+		
+		if(!newEndDate.equals("")) {
+			try {
+				endDateTime = DateParser.parse(newEndDate);
+			} catch (ParseException e) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+			}
+		}
+		*/
 
 		try {
 			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);
