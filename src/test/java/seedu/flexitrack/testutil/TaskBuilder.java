@@ -2,6 +2,7 @@ package seedu.flexitrack.testutil;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.tag.Tag;
+import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.*;
 
 //TODO: change the whole class 
@@ -11,13 +12,18 @@ import seedu.flexitrack.model.task.*;
 public class TaskBuilder {
 
     private TestTask task;
+    private Name name;
+    private DateTimeInfo dueDate;
+    private DateTimeInfo startTime;
+    private DateTimeInfo endTime;
 
     public TaskBuilder() {
         this.task = new TestTask();
     }
 
     public TaskBuilder withName(String name) throws IllegalValueException {
-        this.task.setName(new Name(name));
+        //this.task.setName(new Name(name));
+        this.name = new Name(name);
         return this;
     }
 
@@ -28,23 +34,26 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withDueDate(String address) throws IllegalValueException {
-        this.task.setDueDate(new DateTimeInfo(address));
+    public TaskBuilder withDueDate(String dueDate) throws IllegalValueException {
+        //this.task.setDueDate(new DateTimeInfo(dueDate));
+        this.dueDate = new DateTimeInfo(dueDate);
         return this;
     }
 
-    public TaskBuilder withStartTime(String phone) throws IllegalValueException {
-        this.task.setStartTime(new DateTimeInfo(phone));
+    public TaskBuilder withStartTime(String startTime) throws IllegalValueException {
+        //this.task.setStartTime(new DateTimeInfo(startTime));
+        this.startTime = new DateTimeInfo(startTime);
         return this;
     }
 
-    public TaskBuilder withEndTime(String email) throws IllegalValueException {
-        this.task.setEndTime(new DateTimeInfo(email));
+    public TaskBuilder withEndTime(String endTime) throws IllegalValueException {
+        //this.task.setEndTime(new DateTimeInfo(endTime));
+        this.endTime = new DateTimeInfo(endTime);
         return this;
     }
 
     public TestTask build() {
-        return this.task;
+        return this.task=new TestTask(this.name,this.dueDate,this.startTime,this.endTime,new UniqueTagList());
     }
 
 }
