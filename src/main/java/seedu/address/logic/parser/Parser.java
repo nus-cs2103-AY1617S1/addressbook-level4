@@ -73,8 +73,10 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
+            //return new ListCommand();
+        	//System.out.println(arguments);
+             return prepareList(arguments);
+             
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -231,6 +233,11 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    private Command prepareList(String args){
+    	if(args.equals(""))
+    		return new ListCommand();
+    	return new ListCommand(args);
     }
 
 }

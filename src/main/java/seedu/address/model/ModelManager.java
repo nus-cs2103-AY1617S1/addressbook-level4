@@ -95,8 +95,14 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
     @Override
-    public void updateFilteredTaskList(String keyword){
-    	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keyword)));
+
+    public void updateFilteredTaskList(String event){
+    	if(event.equals("events")){
+    	updateFilteredTaskList(new PredicateExpression(new EventQualifier()));
+    	}else{
+    		updateFilteredTaskList(new PredicateExpression(new TaskQualifier()));
+    	}
+
     }
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
@@ -162,6 +168,30 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    private class EventQualifier implements Qualifier{
+        EventQualifier(){}
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			
+			return task.isEvent();
+		}
+		@Override
+		public String toString(){
+			return "name";
+		}
+    	
+    }
+    private class TaskQualifier implements Qualifier{
+    	TaskQualifier(){}
+    	@Override
+    	public boolean run(ReadOnlyTask task){
+    		return !task.isEvent();
+    	}
+    	@Override
+    	public String toString(){
+    		return "name";
+    	}
     }
 
 }
