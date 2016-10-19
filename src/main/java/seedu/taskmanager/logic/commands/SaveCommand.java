@@ -47,7 +47,7 @@ public class SaveCommand extends Command {
             String previousFilePath = currentConfig.getTaskManagerFilePath();
             
             currentConfig.setTaskManagerFilePath(newTaskManagerFilePath);
-            ConfigUtil.saveConfig(currentConfig, newTaskManagerFilePath);
+            ConfigUtil.saveConfig(currentConfig, defaultConfigFilePath);
             
             StorageManager previousStorage = new StorageManager(previousFilePath, currentConfig.getUserPrefsFilePath());
             StorageManager newStorage = new StorageManager(newTaskManagerFilePath, currentConfig.getUserPrefsFilePath());
