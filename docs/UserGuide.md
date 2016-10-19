@@ -109,24 +109,6 @@ Examples:
 <img src="images/addperiod1.PNG" width="600">
 <img src="images/addperiod2.PNG" width="600">
 
-#### View floating task of the day : `view`
-Format: view /OPTION
-
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> OPTION currently supports f : floating
-
-Examples: 
-* `view /f`
-
-#### View non-floating task of the day : `view`
-Format: view date/DATE
-
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
-
-Examples: 
-* `view date/2409`
-* `view date/24sep`
-
 #### Edit tasks : `edit`
 Format: `edit TASK_ID [start/EDIT_START_DATE EDIT_START_TIME end/EDIT_END_DATE EDIT_END_TIME] [tag/EDIT_TAG]...`
 
@@ -147,8 +129,8 @@ Format: delete TASK_ID
 Examples:
 * `Delete 212`
 
-   <img src="images/delete1png" width="600">
-   <img src="images/delete2.png" width="600">
+   <img src="images/delete1.PNG" width="600">
+   <img src="images/delete2.PNG" width="600">
 
 #### Archive completed tasks : `done`
 Format: done TASK_ID
