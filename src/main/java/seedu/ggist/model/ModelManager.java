@@ -11,6 +11,7 @@ import seedu.ggist.logic.commands.Command;
 import seedu.ggist.logic.commands.CommandResult;
 import seedu.ggist.logic.commands.EditCommand;
 import seedu.ggist.model.task.Task;
+import seedu.ggist.model.task.TaskDate;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
@@ -93,7 +94,9 @@ public class ModelManager extends ComponentManager implements Model {
     	    updateFilteredListToShowAllUndone();
     	} else if (lastListing.equals("done")) {
     	    updateFilteredListToShowAllDone();
-    	} else {
+    	} else if (TaskDate.isValidDateFormat(lastListing)){
+    	    updateFilteredListToShowDate(lastListing);
+    	} else if (lastListing.equals("all")){
     	    updateFilteredListToShowAll();
     	}
     	indicateTaskManagerChanged();
