@@ -20,14 +20,9 @@ public class XmlAdaptedRsvTask {
 
     @XmlElement(required = true)
     private String name;
-    @XmlElement
-    private String priority;
 
     @XmlElement
     private List<DateTime> reservedDateTime;
-
-    @XmlElement
-    private List<String> tempTags;
 
     /**
      * No-arg constructor for JAXB use.
@@ -44,14 +39,9 @@ public class XmlAdaptedRsvTask {
      */
     public XmlAdaptedRsvTask(RsvTask source) {
         name = source.getName().taskName;
-        priority = source.getPriority().priorityLevel;
         reservedDateTime = new ArrayList<>();
         for (DateTime dt : source.getDateTimeSet()) {
             reservedDateTime.add(dt);
-        }
-        tempTags = new ArrayList<>();
-        for (String tag : source.getTempTagSet()) {
-            tempTags.add(tag);
         }
     }
 
@@ -69,18 +59,10 @@ public class XmlAdaptedRsvTask {
         for (DateTime dt : this.reservedDateTime) {
             dateTimeSet.add(new DateTime(dt.startDateString, dt.endDateString));
         }
-
-        Set<String> tempTagSet = new HashSet<>();
-        if (tempTags != null) {
-            for (String tag : this.tempTags) {
-                tempTagSet.add(tag);
-            }
-        }
-
+        
         final Name name = new Name(this.name);
-        final Priority priority = new Priority(this.priority);
 
-        return new RsvTask(name, dateTimeSet, priority, tempTagSet);
+        return new RsvTask(name, dateTimeSet);
     }
 
 }
