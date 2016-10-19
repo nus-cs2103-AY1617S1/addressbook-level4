@@ -40,7 +40,11 @@ public class EditCommand extends Command {
     public EditCommand(int targetIndex, String name, LocalDateTime startDateTime, LocalDateTime endDateTime)
     		throws IllegalValueException {
         this.targetIndex = targetIndex;
-        this.newName = Optional.ofNullable(new Name(name));
+        if(name.equals("")) {
+        	this.newName = Optional.empty();
+        } else {
+        	this.newName = Optional.ofNullable(new Name(name));
+        }
         this.newStartDateTime = Optional.ofNullable(startDateTime);
         this.newEndDateTime = Optional.ofNullable(endDateTime);
     }

@@ -471,14 +471,14 @@ public class Parser {
 
 		for(int i=1; i<args.length; i++) {
 			System.out.println("args[i]: " + args[i]);
-			if(args[i].startsWith("'") && newName.equals("")) {		//only takes the first pair of ' '
+			if(args[i].startsWith("'") && newName.equals("")) {			//only takes the first pair of ' '
 				do {
 					newName += (args[i] + " ");
-				} while(i+1<args.length && !args[i++].endsWith("'"));		//continue adding until the next '
-				i--;		//to undo i++ in while loop when while condition fails
+				} while(i+1<args.length && !args[i++].endsWith("'"));	//continue adding until the next '
+				i--;													//to undo i++ in while loop when while condition fails
 				System.out.println("newName: " + newName);
 				
-			} else if(args[i].equals("from") && newStartDate.equals("")) {		//only takes the first from
+			} else if(args[i].equals("from") && newStartDate.equals("")) {	//only takes the first from
 				while(++i<args.length &&
 						!(args[i].equals("to") ||
 						args[i].equals("by") ||
@@ -526,8 +526,7 @@ public class Parser {
 		LocalDateTime startDateTime = null;
 		LocalDateTime endDateTime = null;
 		
-		// DateParser not merged. Will have error
-		/*
+		
 		if(!newStartDate.equals("")) {
 			try {
 				startDateTime = DateParser.parse(newStartDate);
@@ -543,7 +542,7 @@ public class Parser {
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 			}
 		}
-		*/
+		
 
 		try {
 			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);
