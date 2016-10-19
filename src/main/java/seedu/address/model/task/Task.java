@@ -57,6 +57,12 @@ public class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
     
+    /**
+     * Replaces this person's deadlines with the deadlines in the argument deadline list.
+     */
+    public void setDeadlines(UniqueDeadlineList replacement) {
+        deadlines.setDeadlines(replacement);
+    }
 
 
     /**
@@ -83,5 +89,6 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
 
 }

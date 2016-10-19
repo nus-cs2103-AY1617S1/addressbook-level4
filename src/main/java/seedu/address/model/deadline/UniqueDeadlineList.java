@@ -82,7 +82,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     /**
      * Replaces the  in this list with those in the argument Deadline list.
      */
-    public void set(UniqueDeadlineList replacement) {
+    public void setDeadlines(UniqueDeadlineList replacement) {
         this.internalList.clear();
         this.internalList.addAll(replacement.internalList);
     }
