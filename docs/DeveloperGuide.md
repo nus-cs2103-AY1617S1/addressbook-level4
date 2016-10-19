@@ -140,7 +140,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model` component,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Task Manager data.
 * exposes a `UnmodifiableObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -250,7 +250,7 @@ Here are the steps to create a new release.
 
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Task Manager depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
