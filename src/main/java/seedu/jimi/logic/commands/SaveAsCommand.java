@@ -24,12 +24,13 @@ public class SaveAsCommand extends Command {
             + " C:/dropbox/taskbook.xml";
 
     public static final String MESSAGE_SUCCESS = "Save directory changed: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This save directory is originally used in Jimi";
     public static final String MESSAGE_CONFIG_FILE_NOT_FOUND = "Config file is not found. ";
     public static final String MESSAGE_UPDATING_SAVE_DIR = "There is an error updating the new save directory.";
     public static final String MESSAGE_DUPLICATE_SAVE_DIRECTORY = "New save directory is the same as the old save directory.";
 
     private String taskBookFilePath;
+    
+    private static String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
     /**
      * Convenience constructor using raw values.
@@ -38,11 +39,14 @@ public class SaveAsCommand extends Command {
         this.taskBookFilePath = filePath.concat(".xml");
     }
     
+    public static void setConfigFilePath(String newConfigFilePathUsed) {
+        configFilePathUsed = newConfigFilePathUsed;
+    }
+    
     @Override
     public CommandResult execute() {
-        String defaultConfigFilePathUsed = Config.DEFAULT_CONFIG_FILE;
         try {
-            Config config = ConfigUtil.readConfig(defaultConfigFilePathUsed).orElse(new Config());
+            Config config = ConfigUtil.readConfig(configFilePathUsed).orElse(new Config());
             
             String oldTaskBookFilePath = config.getTaskBookFilePath();
             if (oldTaskBookFilePath.equals(taskBookFilePath))   {
@@ -51,7 +55,7 @@ public class SaveAsCommand extends Command {
             }
             config.setTaskBookFilePath(taskBookFilePath);
             
-            ConfigUtil.saveConfig(config, defaultConfigFilePathUsed);
+            ConfigUtil.saveConfig(config, configFilePathUsed);
             
             StorageManager oldStorage = new StorageManager(oldTaskBookFilePath, config.getUserPrefsFilePath());
             StorageManager newStorage = new StorageManager(taskBookFilePath, config.getUserPrefsFilePath());
@@ -67,5 +71,5 @@ public class SaveAsCommand extends Command {
         }
     }
     
-
+    
 }
