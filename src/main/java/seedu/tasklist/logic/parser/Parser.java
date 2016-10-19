@@ -250,6 +250,5 @@ public class Parser {
 		}
 		return new ShowCommand(input);
 	}
->>>>>>> 9b08093f2a0a0f0f1d636d28694f045fa0c364d1
 
 }
