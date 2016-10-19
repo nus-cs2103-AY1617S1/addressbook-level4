@@ -23,15 +23,19 @@ public class TaskFilter {
 	
 	public static Predicate<ReadOnlyTask> isIn7DaysTask() {
 		return p -> (p.getTaskType().value.equals(TaskType.Type.EVENT) 
+				&& p.getStartDate().get().toLocalDate().isAfter(LocalDateTime.now().minusDays(1).toLocalDate())
 				&& p.getStartDate().get().toLocalDate().isBefore(LocalDateTime.now().plusDays(7).toLocalDate())
 				|| (p.getTaskType().value.equals(TaskType.Type.DEADLINE)
+				&& p.getEndDate().get().toLocalDate().isAfter(LocalDateTime.now().minusDays(1).toLocalDate())
 				&& p.getEndDate().get().toLocalDate().isBefore(LocalDateTime.now().plusDays(7).toLocalDate())));
 	}
 	
 	public static Predicate<ReadOnlyTask> isIn30DaysTask() {
 		return p -> (p.getTaskType().value.equals(TaskType.Type.EVENT) 
+				&& p.getStartDate().get().toLocalDate().isAfter(LocalDateTime.now().minusDays(1).toLocalDate())
 				&& p.getStartDate().get().toLocalDate().isBefore(LocalDateTime.now().plusDays(30).toLocalDate())
 				|| (p.getTaskType().value.equals(TaskType.Type.DEADLINE)
+				&& p.getEndDate().get().toLocalDate().isAfter(LocalDateTime.now().minusDays(1).toLocalDate())
 				&& p.getEndDate().get().toLocalDate().isBefore(LocalDateTime.now().plusDays(30).toLocalDate())));
 	}
 	
