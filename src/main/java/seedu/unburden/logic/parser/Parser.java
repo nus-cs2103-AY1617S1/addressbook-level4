@@ -91,14 +91,6 @@ public class Parser {
 
 	private static final String tomorrow = "tomorrow";
 
-	public static final String add = "add";
-
-	public static final String delete = "delete";
-
-	public static final String edit = "edit";
-
-	public static final String find = "find";
-
 	private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 
 	public Parser() {
@@ -341,19 +333,23 @@ public class Parser {
 	private Command prepareHelp(String args) {
 		args = args.trim();
 
-		if (args.equals("")) {
-			return new HelpCommand(HelpCommand.COMMAND_WORD);
-		}
-
 		switch (args.toLowerCase()) {
-		case add:
-			return new HelpCommand(add);
-		case delete:
-			return new HelpCommand(delete);
-		case find:
-			return new HelpCommand(find);
-		case edit:
-			return new HelpCommand(edit);
+		case AddCommand.COMMAND_WORD:
+			return new HelpCommand(AddCommand.COMMAND_WORD);
+		case DeleteCommand.COMMAND_WORD:
+			return new HelpCommand(DeleteCommand.COMMAND_WORD);
+		case FindCommand.COMMAND_WORD:
+			return new HelpCommand(FindCommand.COMMAND_WORD);
+		case EditCommand.COMMAND_WORD:
+			return new HelpCommand(EditCommand.COMMAND_WORD);
+		case ClearCommand.COMMAND_WORD:
+			return new HelpCommand(ClearCommand.COMMAND_WORD);
+		case ListCommand.COMMAND_WORD:
+			return new HelpCommand(ListCommand.COMMAND_WORD);
+		case "":
+			return new HelpCommand(HelpCommand.COMMAND_WORD);
+		case ExitCommand.COMMAND_WORD:
+			return new HelpCommand(ExitCommand.COMMAND_WORD);
 		default:
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
