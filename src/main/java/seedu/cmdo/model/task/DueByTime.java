@@ -115,6 +115,9 @@ public class DueByTime {
 	
 	// @@author A0139661Y
 	public String getFriendlyEndString() {
+		if (!isRange) {
+			return "";
+		}
 		if (end.equals(LocalTime.MAX)) {
 			return "";
 		} else return end.format(DateTimeFormatter.ofPattern("kkmm")).toString();
