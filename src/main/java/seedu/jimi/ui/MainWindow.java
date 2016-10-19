@@ -29,7 +29,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private AgendaPanel agendaPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -41,10 +41,10 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String taskBookName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane agendaPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -53,7 +53,7 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane taskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -83,12 +83,12 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String taskBookName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.taskBookName = taskBookName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -108,8 +108,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
+        agendaPanel = AgendaPanel.load(primaryStage, getAgendaPlaceholder(), logic.getFilteredTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -127,8 +127,12 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+    public AnchorPane getTaskListPlaceholder() {
+        return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getAgendaPlaceholder() {
+        return agendaPlaceholder;
     }
 
     public void hide() {
@@ -184,13 +188,5 @@ public class MainWindow extends UiPart {
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
-    }
-
-    public void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
     }
 }

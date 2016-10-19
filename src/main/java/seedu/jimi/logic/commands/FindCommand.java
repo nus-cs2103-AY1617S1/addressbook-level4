@@ -17,6 +17,10 @@ public class FindCommand extends Command {
 
     private final Set<String> keywords;
 
+    public FindCommand() {
+        keywords = null;
+    }
+    
     public FindCommand(Set<String> keywords) {
         this.keywords = keywords;
     }
@@ -26,5 +30,14 @@ public class FindCommand extends Command {
         model.updateFilteredTaskList(keywords);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
-
+    
+    @Override
+    public boolean isValidCommandWord(String commandWord) {
+        for (int i = 1; i <= COMMAND_WORD.length(); i++) {
+            if (commandWord.equals(COMMAND_WORD.substring(0, i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

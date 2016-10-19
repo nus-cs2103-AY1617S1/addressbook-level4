@@ -21,7 +21,7 @@ import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
-import seedu.jimi.storage.XmlSerializableAddressBook;
+import seedu.jimi.storage.XmlSerializableTaskBook;
 
 import java.io.File;
 import java.io.IOException;
@@ -118,7 +118,7 @@ public class TestUtil {
     }
 
     public static void createDataFileWithSampleData(String filePath) {
-        createDataFileWithData(generateSampleStorageAddressBook(), filePath);
+        createDataFileWithData(generateSampleStorageTaskBook(), filePath);
     }
 
     public static <T> void createDataFileWithData(T data, String filePath) {
@@ -139,8 +139,8 @@ public class TestUtil {
         return new TaskBook(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyTaskBook());
+    public static XmlSerializableTaskBook generateSampleStorageTaskBook() {
+        return new XmlSerializableTaskBook(generateEmptyTaskBook());
     }
 
     /**
@@ -318,7 +318,18 @@ public class TestUtil {
         listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
     }
-
+    
+    /**
+     * @param list Array of all the tasks.
+     * @param targetIndexInOneIndexedFormat Index of task to be set to completed.
+     * @return Modified array of tasks.
+     */
+    public static TestFloatingTask[] completeTaskFromList(TestFloatingTask[] tasks, int index){
+        tasks[index].setCompleted(true);
+        
+        return tasks;
+    }
+    
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
         for(T obj : objs) {

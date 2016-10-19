@@ -70,6 +70,11 @@ public class SaveAsCommand extends Command {
             return new CommandResult(String.format(MESSAGE_UPDATING_SAVE_DIR));
         }
     }
+
+    @Override
+    public boolean isValidCommandWord(String commandWord) {
+        return commandWord.equals(COMMAND_WORD);
+    }
     
     
 }

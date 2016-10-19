@@ -6,7 +6,7 @@
 
 In our daily lives, we often find ourselves striving to be as successful as we can in whatever we do - be it in our academic pursuits or in our career choices. So naturally, this begs the question, how does one achieve success? Quite a tough question that many ask themselves. We can, however, attempt to answer a question like this by drawing parallels between our lives and the lives of successful individuals. Interestingly enough, all these success stories tend to share a common theme. They all seem to gravitate towards one key secret to success: **to always have a plan, be on track and be organized.**
 
-This provided the impetus for our team to develop a task managing app. Now, you're probably thinking to yourself, "Why would I need another task manager like this when I can pick from thousands of other competing products, in the process, entirely destroying your business model and extinguishing any pathetic desires you may have of making it in the field of software engineering?" 
+This provided the impetus for our team to develop a task managing app. Now, you're probably thinking to yourself, "Why would I need another task manager like this when I can pick from thousands of other competing products, in the process, entirely destroying your business model and extinguishing any pathetic desires you have of ever making it in the field of software engineering?" 
 <br><br><br>
 Well, you're right... you don't. **NOT UNLESS YOU'RE SOMEONE LIKE** [**JIM.**](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-product) <br><br>
 
@@ -27,7 +27,7 @@ Well, you're right... you don't. **NOT UNLESS YOU'RE SOMEONE LIKE** [**JIM.**](h
 
 #### Acknowledgements
 
-* Some parts of this application were inspired by the sample project created by SE-EDU initiative at https://github.com/se-edu/
+* Some parts of this application were inspired by the [sample project](https://github.com/se-edu/addressbook-level4) created by the [SE-EDU initiative](https://github.com/se-edu/).
 
 
 #### Licence : [MIT](LICENSE)

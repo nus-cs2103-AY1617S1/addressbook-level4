@@ -1,14 +1,24 @@
 package seedu.jimi.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
+import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Wraps all data at the address-book level
@@ -16,7 +26,7 @@ import java.util.stream.Collectors;
  */
 public class TaskBook implements ReadOnlyTaskBook {
 
-    private final UniqueTaskList tasks;
+    private final UniqueTaskList<ReadOnlyTask> tasks;
     private final UniqueTagList tags;
 
     {
@@ -46,12 +56,12 @@ public class TaskBook implements ReadOnlyTaskBook {
 
 //// list overwrite operations
 
-    public ObservableList<FloatingTask> getFloatingTasks() {
+    public ObservableList<ReadOnlyTask> getTasks() {
         return tasks.getInternalList();
     }
 
-    public void setFloatingTasks(List<FloatingTask> floatingTasks) {
-        this.tasks.getInternalList().setAll(floatingTasks);
+    public void setReadOnlyTasks(List<ReadOnlyTask> tasks) {
+        this.tasks.getInternalList().setAll(tasks);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -59,7 +69,17 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setFloatingTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
+        ArrayList<ReadOnlyTask> newList = new ArrayList<ReadOnlyTask>();
+        for (ReadOnlyTask t : newTasks) {
+            if (t instanceof DeadlineTask) {
+                newList.add(new DeadlineTask((DeadlineTask) t));
+            } else if (t instanceof Event) {
+                newList.add(new Event((Event) t));
+            } else {
+                newList.add(new FloatingTask((FloatingTask) t));
+            }
+        }
+        setReadOnlyTasks(newList);
         setTags(newTags);
     }
 
@@ -76,8 +96,8 @@ public class TaskBook implements ReadOnlyTaskBook {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addFloatingTask(FloatingTask p) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
+    public void addTask(ReadOnlyTask p) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList((ReadOnlyTask) p);
         tasks.add(p);
     }
 
@@ -86,8 +106,8 @@ public class TaskBook implements ReadOnlyTaskBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(FloatingTask floatingTask) {
-        final UniqueTagList taskTags = floatingTask.getTags();
+    private void syncTagsWithMasterList(ReadOnlyTask task) {
+        final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
@@ -101,7 +121,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         for (Tag tag : taskTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
-        floatingTask.setTags(new UniqueTagList(commonTagReferences));
+        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
@@ -112,10 +132,13 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
     
-    public void editTask(int targetIndex, FloatingTask newTask) {
+    public void editTask(int targetIndex, ReadOnlyTask newTask) {
         tasks.edit(targetIndex, newTask);
     }
 
+    public void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) {
+        tasks.complete(taskToComplete, isComplete);
+    }
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

@@ -4,12 +4,13 @@ import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable floating task object. For testing only.
  */
 public class TestFloatingTask implements ReadOnlyTask {
 
     private Name name;
     private UniqueTagList tags;
+    private boolean isCompleted;
 
     public TestFloatingTask() {
         tags = new UniqueTagList();
@@ -41,13 +42,36 @@ public class TestFloatingTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
+        sb.append("add " + "\"" + this.getName().fullName + "\"" + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+    
     @Override
     public boolean isCompleted() {
         return false;
+    }
+
+    @Override
+    public String getAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+               .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    @Override
+    public boolean isSameStateAs(ReadOnlyTask other) {
+        return other == this // short circuit if same object
+                || (other instanceof TestFloatingTask // instanceof handles nulls
+                && (other).getName().equals(this.getName()) // state checks here onwards
+                && (other).isCompleted() == this.isCompleted()
+                );
+
     }
 }

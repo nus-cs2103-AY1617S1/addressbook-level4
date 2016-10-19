@@ -23,4 +23,14 @@ public class HelpCommand extends Command {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
+    
+    @Override
+    public boolean isValidCommandWord(String commandWord) {
+        for (int i = 1; i <= COMMAND_WORD.length(); i++) {
+            if (commandWord.equals(COMMAND_WORD.substring(0, i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

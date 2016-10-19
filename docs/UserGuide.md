@@ -1,12 +1,18 @@
 # User Guide
 
+At this point, we know you are just as excited as we are [about Jimi](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/README.md). But before you start throwing your money at us (even though Jimi is entirely free), you should first learn **how to use Jimi properly**. What follows should guide you on how to setup, install and use Jimi easily. 
+
+<br>
+
+## Guide Map
+
 * [Quick Start](#quick-start)
 * [Command Summary](#command-summary)
 * [Features](#features)
 * [FAQ](#faq)
 
-
-----------
+<br>
+<br>
 
 ## Quick Start
 
@@ -23,13 +29,14 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try: 
    * **`list`** : lists all contacts
-   * **`add`**` do laundry `**`by`**` tomorrow` : 
+   * **`add`**` "do laundry" `**`by`**` tomorrow` : 
      adds a task named `do laundry` due `tomorrow` to Jimi.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-----------
+<br>
+<br>
 
 ## Command Summary
 
@@ -37,16 +44,15 @@
 > **Command Format**
 > * Replace words in `UPPER_CASE` with your input.
 > * Items in `[]` are optional.
-> * Items with `...` after them can have multiple instances.
 > * The order of your input text is fixed. For instance, `add [DATE/TIME] by [TASK DETAILS]` is invalid.
 
 
 Command | Format  
 -------- | :-------- 
 [Help](#help) | `help`
-[Add](#add) | `add TASK_DETAILS`
-&nbsp;| `add TASK_DETAILS by DATE [at TIME]`
-&nbsp;| `add EVENT_DETAILS on DATE [to END_DATE, START_TIME to END_TIME]`
+[Add](#add) | `add "TASK_DETAILS" [t/TAG]`
+&nbsp;| `add "TASK_DETAILS" by DATE/TIME [t/TAG]`
+&nbsp;| `add "EVENT_DETAILS" on START_DATE/TIME [to END_DATE/TIME] [t/TAG]`
 [Complete](#com)| `complete TASK_INDEX`
 [Delete](#del) | `delete TASK_INDEX`
 [Edit](#edit) | `edit INDEX DETAIL_MODIFIER EDITS`
@@ -56,52 +62,53 @@ Command | Format
 [Clear](#clear) | `clear`
 [Exit](#exit) | `exit`
 
-
-----------
+<br>
+<br>
 
 ## Features
 
 
-#### <a id="help"></a>Viewing help : `help`
+#### <a id="help"></a> Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 <br><br>
 
-#### <a id="add"></a>Adding a task: `add`
+#### <a id="add"></a> Adding a task: `add`
 Adds a floating task to Jimi.<br>
-Format: `add TASK_DETAILS` 
+Format: `add "TASK_DETAILS"` 
 
 > * Floating tasks are tasks without any deadlines.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add “Send Jimmy to school on the way to work from home”`
+> * Remember to put your `TASK_DETAILS` in quotation marks!
 
 Examples: 
-* `add Buy groceries`
+* `add "Buy groceries"`
 
 <br>
 Adds a task with a deadline to Jimi.<br>
-Format: `add TASK_DETAILS by DATE [at TIME]`
+Format: `add "TASK_DETAILS" by DATE/TIME`
 
 > * You can include time as an optional detail.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add “Send Jimmy to school on the way to work from home”`
+> * Remember to put your `TASK_DETAILS` in quotation marks!
+
 
 Examples:
-* `add Get a haircut by Tuesday`
-* `add Pick up Jimmy by Monday at 2pm`
+* `add "Get a haircut" by Tuesday`
+* `add "Pick up Jimmy" by Monday at 2pm`
 
 <br>
 Adds an event to Jimi.<br>
-Format: `add EVENT_DETAILS on DATE [to END_DATE, START TIME to END_TIME]`
+Format: `add "EVENT_DETAILS" on START_DATE/TIME [to END_DATE/TIME]`
 
-> * If the event is more than a day long, you may include the end date. <br>
+> * If the event is more than a day long, you may include the end date/time. <br>
 > * You may define the start and end time of the event if you wish.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add “Send Jimmy to school on the way to work from home”`
+> * Remember to put your `EVENT_DETAILS` in quotation marks!
 
 Examples:
-* `add Attend Timmy’s orchestra on 5th July`
-* `add Show up for dentist appointment on 8/7/2016, 5:00pm to 7:30pm`
-* `add Have school camp on 10 October to 18 October, 10am to 5pm`
+* `add "Attend Timmy's" orchestra on 5th July`
+* `add "Show up for dentist appointment" on 8/7/2016, 5:00pm to 7:30pm`
+* `add "Have school camp" on 10 October to 18 October, 10am to 5pm`
 
 <br><br>
 
@@ -112,7 +119,7 @@ Format: `complete TASK_INDEX`
 > * Jimi will note the task as completed at the specified `TASK_INDEX`. 
 > * If you want to revert the task back as incomplete, use the [`undo`](#undo) command.
 > * The index refers to the index number shown in the most recent listing.<br>
-> * The index **must be a positive integer** 1, 2, 3, …
+> * The index **must be a positive integer** e.g. 1, 2, 3.
 
 <br><br>
 
@@ -131,7 +138,7 @@ Examples:
   Deletes the 1st task in the results of the [`find`](#find) command.
 
 > * The index refers to the index number shown in the most recent listing.<br>
-> * The index **must be a positive integer** 1, 2, 3, …
+> * The index **must be a positive integer** 1, 2, 3.
 
 <br><br>
 
@@ -139,17 +146,16 @@ Examples:
 Edits the specified detail from the list of tasks. 
 Format: `edit TASK_INDEX DETAIL_MODIFIER EDITS` 
 
-> * Jimi edits the task specified by `TASK_INDEX`.
-> * `EDITS` are simply the edits you want to make. 
-> * `DETAIL_MODIFIER` is used to indicate which detail you want to edit. You may choose one of the following modifiers: 
+Jimi edits the task specified by `TASK_INDEX`.
+`EDITS` are simply the edits you want to make. 
+`DETAIL_MODIFIER` is used to indicate which detail you want to edit. You may choose one of the following modifiers: 
+* `/n` : name of task
+* `/sd` and `/ed`: start date-time and end date-time <br>
+<br>
 
->     * `/n` : name of task
->     * `/sd` and `/ed`: start date and end date
->     * `/st` and `/et` : start time and end time <br><br>
 > * If you want to undo your edit, use the [`undo`](#undo) command.
-> * If any part of your input includes a keyword e.g. `add`, `by`, `on` , `at`, `to`, do use quotation marks to define them. Eg. `add “Send Jimmy to school on the way to work from home”`
 > * The index refers to the index number shown in the most recent listing.
-> * The index **must be a positive integer** 1, 2, 3, …
+> * The index **must be a positive integer** 1, 2, 3.
 
 Examples:
 * `edit 2 /n buy food`
@@ -179,14 +185,14 @@ Examples:
 
 <br><br>
 
-#### <a id="set"></a>Setting save directory : `setdir`
+#### <a id="set"></a>Setting save directory : `saveas`
 Set a new save path for all your tasks.
-Format: `setdir NEW_DIRECTORY`
+Format: `saveas NEW_DIRECTORY`
 
-> * `NEW_DIRECTORY` should be in the format: `[desired_path]/[file_name].txt`
+> * `NEW_DIRECTORY` should be in the format: `[desired_path]/[file_name].xml`
 
 Example:
-* `setdir C:\Users\jimmy\Desktop\my_tasks.txt`
+* `saveas C:\Users\jimmy\Desktop\my_tasks.xml`
 
 <br><br>
 
@@ -194,7 +200,7 @@ Example:
 Clears all entries from the task manager.<br>
 Format: `clear`  
 
-> * You will also receive a confirmation notice to confirm that you are sure about this action.
+> * You will receive a confirmation notice before Jimi clears its database.
 > * This action is irreversible.
 
 <br><br>
@@ -219,8 +225,8 @@ There is no need to save manually.
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
 
-**Q**: Is there a way to be notified of upcoming tasks or events that are due soon?
-**A**: Jimi will display all overdue tasks, upcoming tasks and events at the top ‘Agenda’ box, so you will always be notified of the most important details first.
+**Q**: Is there a way to be notified of upcoming tasks or events that are due soon?<br>
+**A**: Jimi will display all overdue tasks, upcoming tasks and events at the top Agenda box, so you will always be notified of the most important details first.
        
 
 

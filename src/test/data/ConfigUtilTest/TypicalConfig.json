@@ -2,6 +2,6 @@
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
-  "addressBookFilePath" : "addressbook.xml",
-  "addressBookName" : "Jimi"
+  "taskBookFilePath" : "data/jimi.xml",
+  "taskBookName" : "Jimi"
 }

@@ -1,14 +1,19 @@
 package seedu.jimi.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.model.datetime.DateTime;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
-import seedu.jimi.model.task.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import seedu.jimi.model.task.DeadlineTask;
+import seedu.jimi.model.task.FloatingTask;
+import seedu.jimi.model.task.Name;
+import seedu.jimi.model.task.ReadOnlyTask;
 
 /**
  * JAXB-friendly version of the FloatingTask.
@@ -16,14 +21,17 @@ import java.util.List;
 public class XmlAdaptedTask {
 
     @XmlElement(required = true)
-    private String name;
+    private String name = "";
     @XmlElement(required = true)
-    private String phone;
+    private String isCompleted = "";
+    
     @XmlElement(required = true)
-    private String email;
+    private String taskDeadline = "";
     @XmlElement(required = true)
-    private String address;
-
+    private String eventStartDatetime = "";
+    @XmlElement(required = true)
+    private String eventEndDatetime = "";
+    
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -40,6 +48,18 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
+        isCompleted = Boolean.toString(source.isCompleted());
+        
+        if (source instanceof DeadlineTask) {
+            taskDeadline = ((DeadlineTask) source).getDeadline().toString();
+        } else if (source instanceof Event) {
+            eventStartDatetime = ((Event) source).getStart().toString();
+            DateTime endDate = ((Event) source).getEnd();
+            if (endDate != null) {
+                eventEndDatetime = endDate.toString();
+            }
+        }
+        
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -51,13 +71,30 @@ public class XmlAdaptedTask {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
-    public FloatingTask toModelType() throws IllegalValueException {
+    public ReadOnlyTask toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
+        
         final Name name = new Name(this.name);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new FloatingTask(name, tags);
+        final boolean isCompletedBoolean = Boolean.parseBoolean(isCompleted);
+        ReadOnlyTask toConvert;
+        
+        if (taskDeadline.isEmpty() && eventStartDatetime.isEmpty()) { // floating
+            toConvert = new FloatingTask(name, tags, isCompletedBoolean);
+        } else if (!taskDeadline.isEmpty()) { // deadline task
+            toConvert = new DeadlineTask(name, new DateTime(taskDeadline), tags, isCompletedBoolean);
+        } else {
+            toConvert = new Event(
+                    name, 
+                    new DateTime(eventStartDatetime), 
+                    new DateTime(eventEndDatetime), 
+                    tags, 
+                    isCompletedBoolean);
+        }
+        
+        return toConvert;
     }
 }

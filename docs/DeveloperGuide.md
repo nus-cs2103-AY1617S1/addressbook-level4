@@ -1,20 +1,30 @@
 # Developer Guide 
 
+Jimi is a simple task manager specifically catered for people like [Jim](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-product). It is a Java desktop application that has both a Text UI and a GUI. Jimi handles most, if not all, input via the command line interface (CLI).
+
+This guide describes the design and implementation of Jimi. It will help you understand how Jimi works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
+
+<br>
+
+## Guide Map
+
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix A: User Stories](#app-a)
+* [Appendix B: Use Cases](#app-b)
+* [Appendix C: Non Functional Requirements](#app-c)
+* [Appendix D: Glossary](#app-d)
+* [Appendix E : Product Survey](#app-e)
 
+<br>
+<br>
 
 ## Setting up
 
-#### Prerequisites
+### Prerequisites
 
 1. **JDK `1.8.0_60`**  or later<br>
 
@@ -26,8 +36,8 @@
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
-
-#### Importing the project into Eclipse
+<br>
+### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
 1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
@@ -41,39 +51,41 @@
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-  
-#### Troubleshooting project setup
+
+<br>
+### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
+<p>* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. </p>
 * Solution: Refresh the project in Eclipse:<br> 
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
-  
+<br>  
 **Problem: Eclipse reports some required libraries missing**
-* Reason: Required libraries may not have been downloaded during the project import. 
-* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
+<p>* Reason: Required libraries may not have been downloaded during the project import. </p>
+* Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
  
-
+<br>
+<br>
 ## Design
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/Architecture.png" width="600"><br><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/jimi/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+<br>* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
+<br>* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+<br><br>
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -84,39 +96,44 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<br>
+<img src="images/LogicClassDiagram.png" width="800"><br><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
-
-<img src="images\SDforDeletePerson.png" width="800">
-
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+<br>
+<img src="images\SDforDeleteTask.png" width="800">
+<br><br>
+>Note how the `Model` simply raises a `TaskBookChangedEvent` when Jimi's data changes,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
-
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
+<br>
+<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+<br><br>
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
 
 The sections below give more details of each component.
 
+<br><br>
+
 ### UI component
+<br>
+<img src="images/UiClassDiagram.png" width="800">
+<br><br>
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+**API** : [`Ui.java`](../src/main/java/seedu/jimi/ui/Ui.java)
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
-
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/jimi/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -124,48 +141,60 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+<br>
+
 ### Logic component
+<br>
+<img src="images/LogicClassDiagram.png" width="800"><br><br>
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
-
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/jimi/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a Task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br><br>
+
+<br>
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<br>
+<img src="images/ModelClassDiagram.png" width="800"><br><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/jimi/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* stores Jimi's data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+<br>
+
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<br>
+<img src="images/StorageClassDiagram.png" width="800">
+<br><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/jimi/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save Jimi's data in xml format and read it back.
+
+<br>
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.jimi.commons` package.
 
+<br><br>
 ## Implementation
 
 ### Logging
@@ -177,7 +206,8 @@ and logging destinations.
   (See [Configuration](#configuration))
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* Currently log messages are output through: `Console` and to a `.log` file.<br>
+<br>
 
 **Logging Levels**
 
@@ -186,12 +216,16 @@ and logging destinations.
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
+  
+<br>
 
 ### Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
-(default: `config.json`):
+(default: `config.json`).
 
+<br>
+<br>
 
 ## Testing
 
@@ -213,13 +247,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.jimi.commons.UrlUtilTest`
+      e.g. `seedu.jimi.commons.UrlUtilTest`<br>
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.jimi.storage.StorageManagerTest`
+      e.g. `seedu.jimi.storage.StorageManagerTest`<br>
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.jimi.logic.LogicManagerTest`
+      e.g. `seedu.jimi.logic.LogicManagerTest`<br>
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -228,24 +262,33 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
  
+ <br>
+ 
 #### Troubleshooting tests
- **Problem: Tests fail because NullPointException when AssertionError is expected**
- * Reason: Assertions are not enabled for JUnit tests. 
-   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described 
+ **Problem: Tests fail because NullPointerException when AssertionError is expected**
+ * **Reason**: Assertions are not enabled for JUnit tests. 
+   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)<br>
+ * **Solution**: Enable assertions in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
-   Delete run configurations created when you ran tests earlier.
-  
+ * Delete run configurations created when you ran tests earlier.
+
+<br>
+<br>
+
 ## Dev Ops
 
 ### Build Automation
 
 See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
+<br>
+
 ### Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
 See [UsingTravis.md](UsingTravis.md) for more details.
+
+<br>
 
 ### Making a Release
 
@@ -255,79 +298,385 @@ Here are the steps to create a new release.
  2. Tag the repo with the version number. e.g. `v0.1`
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
+    
+<br>
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Jimi depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-## Appendix A : User Stories
+<br>
+<br>
+
+<a id="app-a"></a>
+## Appendix A : User Stories 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | new user | list all commands | see all the functionalities of the application
+`* * *` | user | add a new task |
+`* * *` | user | add an event | be reminded of upcoming events to attend
+`* * *` | user | add a floating task | keep track of things I want to complete without a dateline
+`* * *` | user | edit an existing task | modify the details in case a task changes
+`* * *` | user | remove an existing task | delete a task I no longer care to track
+`* * *` | user | search for a particular task | view the description of the task and to check if the task is completed or not
+`* * *` | user | search for tasks with keywords | view all tasks relevant to the keyword easily
+`* * *` | user | view all incomplete tasks | see all tasks that I need to complete
+`* * *` | user | view all completed tasks | refer to all tasks that I have completed
+`* * *` | user | reminded of upcoming tasks | be reminded of incomplete tasks that are due soon
+`* * *` | user | specify a storage location for a file to save the tasks | access it from my own personal location within my system
+`* * *` | user | undo my previous action | easily undo an unwanted action
+`* *` | user | prioritize my tasks | see which tasks are of higher importance/urgency than others
+`* *` | user | set repeating tasks | be reminded of repeated tasks on a timely basis
+`* *` | user | view all tasks due within a specific period of time | know tasks that are required to be completed within set period of time
+`* *` | user | check if I am free at a certain time | know if I can add additional tasks/events to the timeslot
+`* *` | user | do a near-match search | find the tasks I require more conveniently
+`* *` | user | filter out tasks or events with certain characteristics | find all tasks that match the attributes I require
+`*` | user | let the software automatically predict my required command | do what I need more conveniently and quickly
+`*` | advanced user | assign custom command shortcuts | suit my preferences for better accessibility and convenience
+`*` | user | view current output of the input command in real time | check whether its the expected result of the command
 
-{More to be added}
+<br>
+<br>
 
-## Appendix B : Use Cases
+<a id="app-b"></a>
+## Appendix B : Use Cases 
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TaskBook` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: List all commands
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests a list of all commands.
+2. App shows list of all commands with guides on how to use the different commands. <br>
+Use case ends.
+
+<br>
+<br>
+
+#### Use case: Add task/event
+
+**MSS**
+
+1. User requests to add a task/event.
+2. App saves task/event and task/event details to the TaskBook, registers the task/event for future notification/reminders and shows confirmation of successful addition. <br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. User enters command in invalid format.
 
-> Use case ends
+> 1a1. App shows user an error message with correct format needed. <br>
+> Use case resumes at step 1.
 
-3a. The given index is invalid
+1b. User enters a event with overlapping time with another event.
+> 1b1. App shows user a notification and continues with the addition. <br>
+> Use case ends.
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+<br>
+<br>
 
-{More to be added}
+####Use case: Complete task 
 
-## Appendix C : Non Functional Requirements
+**MSS**
+
+1. App shows a list of days/categories. 
+2. User requests to list tasks/events from a selected day/category.
+3. App shows a list of tasks/events from that day/category.
+4. User requests to complete a specific task in the list.
+5. App marks the task as completed and shows confirmation to the user. <br>
+Use case ends.
+
+**Extensions**
+
+1a. App shows daily agenda and user requests to complete a specific task in the daily agenda.
+
+> Use case jumps to step 5. <br>
+
+3a. The list is empty.
+
+> Use case ends. <br>
+
+4a. The given index is invalid.
+
+> 4a1. App shows an error message.
+> Use case resumes at step 3. <br>
+
+<br>
+<br>
+
+####Use case: Delete task/event
+
+**MSS**
+
+1. App shows a list of days/categories. 
+2. User requests to list tasks/events from a selected day/category.
+3. App shows a list of tasks/events from that day/category.
+4. User requests to delete a specific task/event in the list.
+5. App deletes the task/event and shows confirmation to the user. <br>
+Use case ends.
+
+**Extensions**
+
+1a. App shows daily agenda and user requests to delete a specific task/event in the daily agenda.
+
+> Use case jumps to step 5.
+
+3a. The list is empty.
+
+> Use case ends.
+
+4a. The given index is invalid.
+
+> 4a1. App shows an error message to user. <br>
+> Use case resumes at step 3.
+
+<br>
+<br>
+
+####Use case: Edit task/event.
+
+**MSS** 
+
+1. App shows a list of days/categories. 
+2. User requests to list tasks/events from a selected day/category.
+3. App shows a list of tasks/events from that day/category.
+4. User requests to edit a specific task/event in the list.
+5. App edits the details of the task/event and shows confirmation to the user.  <br>
+Use case ends.
+
+**Extensions**
+
+1a. App shows daily agenda and user requests to edit a specific task/event in the daily agenda.
+
+> Use case jumps to step 5.
+
+3a. The list is empty.
+
+> Use case ends.
+
+4a. The given index is invalid.
+
+> 4a1. App shows an error message to user. <br>
+> Use case resumes at step 3.
+
+4b. User enters command in invalid format.
+
+> 4b1. App shows an error message to user with correct format needed. <br>
+> Use case resumes at step 3.
+
+4c. User enters new details that are the same as the original details. 
+
+> 4c1. App shows an error message to user. <br>
+> Use case resumes at step 3.
+
+4d. User enters new time details that overlap with another event's time details.
+
+> 4d1. App shows notification and continues the editing of the details. <br>
+> Use case ends.
+
+<br>
+<br>
+
+####Use case: Undo action
+
+**MSS** 
+
+1. User requests to undo previous action.
+2. App undoes the previous action and shows confirmation to user.  <br>
+Use case ends.
+
+**Extensions**
+
+1a. No previous action was done before.
+
+>1a1. App shows an error message to user. <br>
+> Use case ends.
+
+1b. Previous action is an invalid action to be undone.
+
+>1b1. App shows an error message to user. <br>
+> Use case ends.
+
+<br>
+<br>
+
+####Use case: Find task/event
+
+**MSS** 
+
+1. User requests to find a particular task/event using a particular keyword used in the details.
+2. App shows a list of tasks/events matching that keyword. <br>
+Use case ends.
+
+**Extensions**
+
+2a. No such keyword was used before in any task details.
+
+>2a1. App shows message to user and displays an empty list to user. <br>
+> Use case ends.
+
+<br>
+<br>
+
+####Use case: View all incomplete tasks
+
+**MSS** 
+
+1. User requests to view all incomplete tasks.
+2. App shows a list of all the incomplete tasks. <br>
+Use case ends.
+
+**Extensions**
+
+2a. There are no incomplete tasks.
+> 2a1. App shows message to user and displays an empty list to user. <br>
+> Use case ends.
+
+<br>
+<br>
+
+####Use case: View all completed tasks
+
+**MSS** 
+
+1. User requests to view all completed tasks.
+2. App shows a list of all the completed tasks. <br>
+Use case ends.
+
+**Extensions**
+
+2a. There are no completed tasks.
+> 2a1. App shows message to user and displays an empty list to user. <br>
+> Use case ends.
+
+<br>
+<br>
+
+####Use case: Set save directory
+
+**MSS**
+
+1. User requests to set a new save directory for all the tasks and events.
+2. App switches the save directory to the new save directory given and shows confirmation message to user. <br>
+Use case ends.
+
+**Extensions**
+
+1a. The input new save directory is invalid.
+
+>1a1. App shows error message to user. <br>
+> Use case ends.
+
+1b. The input new save directory is the same as the original save directory.
+
+>1b1. App shows error message to user. <br>
+> Use case ends.
+
+<br>
+<br>
+
+####Use case: Clear TaskBook
+
+**MSS**
+
+1. User requests to clear the TaskBook of all tasks and events.
+2. App requests for confirmation with user to clear the TaskBook.
+3. User confirms.
+4. App clears the TaskBook of all tasks and events and show a confirmation message to user. <br>
+Use case ends.
+
+**Extensions**
+
+1a. The TaskBook is already empty.
+
+>1a1. App shows error message to user. <br>
+> Use case ends.
+
+3a. User rejects the confirmation.
+
+>3a1. App shows message to user. <br>
+> Use case ends.
+
+<br>
+<br>
+
+####Use case: Exit application
+
+**MSS**
+
+1. User requests to exit the application.
+2. Application closes itself. <br>
+Use case ends.
+
+<br>
+<br>
+
+<a id="app-c"></a>
+## Appendix C : Non Functional Requirements 
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 Tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should support [natural language processing](#natural-language-processing) with [natural language commands](#natural-language-commands).
+6. Should be able to do all functions through the [command-line interface](command-line interface).
+7. Should ensure reminders for overlapping tasks do not overwrite each other.
+8. Should be able to be accessed offline.
+9. Should load within 1 second of opening the program.
+10. Should be able to display full list of tasks within 1 second.
+11. Should be able to save and backup tasks into a file for recovery or portability.
+12. Should not cause data corruption when program is closed abruptly.
+13. Should be able to hold tasks up to one year onwards.
+14. Should recover from major errors efficiently.
 
-{More to be added}
+<br>
+<br>
 
-## Appendix D : Glossary
-
-##### Mainstream OS
-
-> Windows, Linux, Unix, OS-X
+<a id="app-d"></a>
+## Appendix D : Glossary 
 
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
 
-## Appendix E : Product Survey
+<br>
 
-{TODO: Add a summary of competing products}
+##### Mainstream OS
+> Windows, Linux, OS-X
+
+<br>
+
+##### Natural Language Commands
+> Commands formatted in a language that has developed naturally in use and is intuitive for humans to understand. (as contrasted with an artificial language or computer code).
+
+<br>
+
+##### Natural Language Processing
+> A branch of artificial intelligence that deals with analyzing, understanding and generating the languages that humans use naturally in order to interface with computers in both written and spoken contexts using natural human languages instead of computer languages.
+
+<br>
+
+##### Command-line interface
+> User interface to a computer's operating system or an application in which the user responds to a visual prompt by typing in a command on a specified line, receives a response back from the system, and then enters another command, and so forth.
+
+<br>
+<br>
+
+<a id="app-e"></a>
+## Appendix E : Product Survey 
+
+| Task Managers | Strengths | Weaknesses |
+| :------------ | :-------- | :--------- |
+| Todoist |  Has a very simple design. <br>Offers a mobile app. <br>Has a feature where	users are encouraged to earn "Todoist Karma", to track their productivity trends as they finish their tasks.| Free version is limited in its capabilities and  is not well-encrypted. <br>Some of the mobile apps have design issues (like being unable to sort tasks). <br>Free version does not come up with some features like reminders, filters, labels, and templates. |
+| Trello |Can divide projects up by tasks, and then edit those tasks with descriptions, labels, checklists, and even attachments. <br>Is particularly helpful for teams working on separate tasks toward a greater project goal, where the tasks are in need of a pipeline. | Has no good way to use this system to prioritize tasks between projects. |
+| Google Keep | Easy on the eyes. <br>Easy to use. <br>Integrates with desktop/mobile very well. <br>As expected from google, it integrates well with other google products too. <br>Voice memos feature. <br>Images feature. <br>Able to retrieve deleted items in archive. <br>Has reminders. <br>Can share lists. | No chronological representation of reminders. |
 

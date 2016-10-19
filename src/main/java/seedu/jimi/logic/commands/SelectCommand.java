@@ -11,7 +11,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
  */
 public class SelectCommand extends Command {
 
-    public final int targetIndex;
+    private int targetIndex;
 
     public static final String COMMAND_WORD = "select";
 
@@ -21,24 +21,37 @@ public class SelectCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected FloatingTask: %1$s";
-
+    
+    public SelectCommand() {
+        this.targetIndex = 0;
+    }
+    
     public SelectCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-
+    
     @Override
     public CommandResult execute() {
-
+        
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
+        
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
+        
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
-
+        
     }
-
+    
+    @Override
+    public boolean isValidCommandWord(String commandWord) {
+        for (int i = 1; i <= COMMAND_WORD.length(); i++) {
+            if (commandWord.equals(COMMAND_WORD.substring(0, i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

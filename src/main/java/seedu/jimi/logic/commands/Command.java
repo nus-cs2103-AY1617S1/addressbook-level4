@@ -27,7 +27,15 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult execute();
-
+    
+    /**
+     * Checks if a given string is a command word of this command.
+     * Critical commands like "Exit" and "Clear" should have the user type the full command word for it to be valid.
+     * 
+     * @return true if given string is a valid command word of this command.
+     */
+    public abstract boolean isValidCommandWord(String commandWord);
+    
     /**
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain
@@ -43,4 +51,5 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
+
 }
