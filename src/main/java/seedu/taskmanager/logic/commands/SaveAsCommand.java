@@ -9,7 +9,10 @@ import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.exceptions.DataConversionException;
 import seedu.taskmanager.commons.util.ConfigUtil;
 import seedu.taskmanager.commons.util.StringUtil;
+import seedu.taskmanager.model.ReadOnlyTaskManager;
+import seedu.taskmanager.model.TaskManager;
 import seedu.taskmanager.model.item.ItemType;
+import seedu.taskmanager.storage.StorageManager;
 
 /**
  * Saves the program data file at the specified location
@@ -28,44 +31,39 @@ public class SaveAsCommand extends Command {
 //            + "Note: " + COMMAND_WORD + " can be replaced by " + SHORT_COMMAND_WORD + "\n"
     
     private static final Logger logger = LogsCenter.getLogger(SaveAsCommand.class);
-    
-    public final String defaultConfigFilePath = Config.DEFAULT_CONFIG_FILE;
 
-    private String newConfigFilePath;
+    private String newTaskManagerFilePath;
     
     // CONSTRUCTOR
-    public SaveAsCommand(String newConfigFilePath) {
-        this.newConfigFilePath = newConfigFilePath;
+    public SaveAsCommand(String newTaskManagerFilePath) {
+        this.newTaskManagerFilePath = newTaskManagerFilePath;
     }
     
     @Override
     public CommandResult execute() {
-    
+        String defaultConfigFilePath = Config.DEFAULT_CONFIG_FILE;
+        
         try {
             Config currentConfig = ConfigUtil.readConfig(defaultConfigFilePath).orElse(new Config());
 
-            if(newConfigFilePath.equals(currentConfig.getTaskManagerFilePath())) {
-                return new CommandResult(MESSAGE_SAME_FILE_PATH);
-            }
-
+            String previousFilePath = currentConfig.getTaskManagerFilePath();
             
-            currentConfig.setTaskManagerFilePath(newConfigFilePath);
-            ConfigUtil.saveConfig(currentConfig, newConfigFilePath);
+            currentConfig.setTaskManagerFilePath(newTaskManagerFilePath);
+            ConfigUtil.saveConfig(currentConfig, newTaskManagerFilePath);
+            
+            StorageManager previousStorage = new StorageManager(previousFilePath, currentConfig.getUserPrefsFilePath());
+            StorageManager newStorage = new StorageManager(newTaskManagerFilePath, currentConfig.getUserPrefsFilePath());
+            
+            ReadOnlyTaskManager previousTaskManager = previousStorage.readTaskManager().orElse(new TaskManager());
+            newStorage.saveTaskManager(previousTaskManager);
+            
+
             logger.info(currentConfig.toString());
-            return new CommandResult(String.format(MESSAGE_SUCCESS, newConfigFilePath));
-/*            logger.info("Using config file : " + configFilePathUsed);
+            logger.info(String.format("PRINT THIS", newTaskManagerFilePath));
 
-            //Update config file in case it was missing to begin with or there are new/unused fields
-            try {
-                ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
-            } catch (IOException e) {
-                logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-            }
-            return initializedConfig;
-
-            return new CommandResult(MESSAGE_SUCCESS);
             
-*/        
+            return new CommandResult(String.format(MESSAGE_SUCCESS, newStorage.getTaskManagerFilePath()));
+            
         } catch (DataConversionException e) {
             return new CommandResult(MESSAGE_ERROR_CONVERTING_FILE);
         } catch (IOException e) {

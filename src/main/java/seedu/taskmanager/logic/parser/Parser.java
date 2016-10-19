@@ -484,6 +484,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSaveAs(String args) {
+        args = args.trim();
         if(!args.equals("")) {
             return new SaveAsCommand(args);
         }
