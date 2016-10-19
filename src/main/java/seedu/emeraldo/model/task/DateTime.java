@@ -63,24 +63,69 @@ public class DateTime {
             int dayParsed = Integer.parseInt(day);
             this.valueDate = LocalDate.of(yearParsed, monthParsed, dayParsed);
             
+            
+            String context = getContext(valueDate);
+            
             if(!dateTime.contains(":")){           //Constructing a DateTime object with Date only
                 this.valueTime = null;
-                this.valueFormatted = preKeyword + day + " " + returnMonthInWords(monthParsed) + " " + year;
+                this.valueFormatted = preKeyword + day + " " + returnMonthInWords(monthParsed) + " " + year + context;
                 this.value = dateTime;
                 
-            } else {                                    //Constructing a DateTime object with Date and time        
+            } else {                               //Constructing a DateTime object with Date and time        
                 int hourParsed = Integer.parseInt(hour);
                 int minuteParsed = Integer.parseInt(minute);
                 this.valueTime = LocalTime.of(hourParsed, minuteParsed);
             
                 this.valueFormatted = preKeyword + day + " " + returnMonthInWords(monthParsed) +  " " 
-                    + year + ", " + hour + ":" + minute;
+                    + year + ", " + hour + ":" + minute + context;
                 this.value = dateTime;
             }
         }
         
     }
    
+    public String getContext(LocalDate valueDate) {
+    	String context = ""; 
+    	
+    	if(valueDate.isEqual(LocalDate.now())){
+        	context = " (Today)";
+        } 
+        
+        else if(valueDate.minusDays(1).isEqual(LocalDate.now())){
+        	context = " (Tomorrow)";
+        }
+        
+        else if (valueDate.isBefore(LocalDate.now())){
+        	int monthsDue = valueDate.until(LocalDate.now()).getMonths();
+        	int yearsDue = valueDate.until(LocalDate.now()).getYears();
+        	int daysDue = valueDate.until(LocalDate.now()).getDays();
+        	String stringDaysDue = Integer.toString(daysDue);
+        	String stringMonthsDue = Integer.toString(monthsDue);
+        	String stringYearsDue = Integer.toString(yearsDue);
+        	String periodDue = "";
+        	
+        	if (monthsDue > 0 && yearsDue > 0)
+        		periodDue = stringDaysDue + " Days " + stringMonthsDue + " Months " + stringYearsDue + " Years";
+        	
+        	else if (monthsDue > 0 && yearsDue == 0)
+        		periodDue = stringDaysDue + " Days " + stringMonthsDue + " Months";
+            
+        	else if (monthsDue == 0 && yearsDue == 0)
+        		periodDue = valueDate.until(LocalDate.now()).getDays() + " Days";
+        	
+        	else
+        		periodDue = "";
+        	
+        	context = " -- Overdue by " + periodDue + ".";
+        }
+    	
+        else {
+        	context = "";
+        }
+    	
+    	return context;
+    }
+
     @Override
     public String toString() {
         return valueFormatted;
