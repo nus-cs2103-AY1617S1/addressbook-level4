@@ -63,7 +63,8 @@ public class Parser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput
+     *            full user input string
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
@@ -112,7 +113,7 @@ public class Parser {
 
         case CdCommand.COMMAND_WORD:
             return prepareCd(arguments);
-            
+
         case TagCommand.COMMAND_WORD:
             return prepareTag(arguments);
 
@@ -131,7 +132,8 @@ public class Parser {
      * Parses arguments in the context of the add task command.
      *
      * @@author A0139924W
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
@@ -180,24 +182,43 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
         }
 
-        String name = "";
-
         Flag priorityFlag = new Flag(Flag.PRIORITY, false);
         Flag dateTimeFlag = new Flag(Flag.DATETIME, true);
         Flag tagFlag = new Flag(Flag.TAG, true);
+        Flag rsvDelFlag = new Flag(Flag.DELETE_RSVTASK, false);
+        Flag rsvEditFlag = new Flag(Flag.EDIT_RSVTASK, false);
 
-        Flag[] flags = { priorityFlag, dateTimeFlag, tagFlag };
+        Flag[] flags = { priorityFlag, dateTimeFlag, tagFlag, rsvDelFlag, rsvEditFlag };
 
         TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
         HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
 
+        if (flagsPosMap.containsValue(rsvEditFlag) && flagsPosMap.containsValue(rsvDelFlag)) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_DEL_AND_EDIT_FLAG_DETECTED));
+        }
+        if (flagsPosMap.containsValue(rsvDelFlag)) {
+            return prepareRsvDel(flagsPosMap, argumentMap, rsvDelFlag);
+        } else if (flagsPosMap.containsValue(rsvEditFlag)) {
+            return prepareRsvEdit(flagsPosMap, argumentMap, rsvEditFlag);
+        } else {
+            return prepareRsvAdd(args, flagsPosMap, argumentMap, priorityFlag, dateTimeFlag, tagFlag);
+        }
+
+    }
+
+    // Parses arguments for adding a reserved task
+    private Command prepareRsvAdd(String args, TreeMap<Integer, Flag> flagsPosMap, HashMap<Flag, String> argumentMap,
+            Flag priorityFlag, Flag dateTimeFlag, Flag tagFlag) {
+        String name = "";
         if (!flagsPosMap.containsValue(dateTimeFlag)) {
-            // there are arguments but arguments must contain at least one DateTime
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_DATETIME_NOTFOUND));
+            // there are arguments but arguments must contain at least one
+            // DateTime
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_DATETIME_NOTFOUND));
         } else if (flagsPosMap.size() == 0) {
             name = args;
         } else if (flagsPosMap.firstKey() == 0) {
-            // there are arguments but name should be the first argument 
+            // there are arguments but name should be the first argument
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
         } else {
             name = args.substring(0, flagsPosMap.firstKey()).trim();
@@ -224,11 +245,52 @@ public class Parser {
         }
     }
 
+    // Parses arguments for deleting one or more reserved tasks
+    private Command prepareRsvDel(TreeMap<Integer, Flag> flagsPosMap, HashMap<Flag, String> argumentMap,
+            Flag rsvDelFlag) {
+
+        if (flagsPosMap.size() > 1 || flagsPosMap.firstKey() != 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL));
+        } else {
+            String rangeIndex;
+            try {
+                rangeIndex = StringUtil
+                        .indexString(argumentMap.get(rsvDelFlag).replace(Flag.DELETE_RSVTASK, "").trim());
+                return new RsvCommand(rangeIndex);
+            } catch (InvalidRangeException | IllegalValueException ie) {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL));
+            }
+
+        }
+    }
+
+    // Parses arguments for editing a reserved task
+    private Command prepareRsvEdit(TreeMap<Integer, Flag> flagsPosMap, HashMap<Flag, String> argumentMap,
+            Flag rsvEditFlag) {
+
+        if (flagsPosMap.size() > 1 || flagsPosMap.firstKey() != 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL));
+        } else {
+            String rangeIndex;
+            try {
+                rangeIndex = StringUtil
+                        .indexString(argumentMap.get(rsvEditFlag).replace(Flag.DELETE_RSVTASK, "").trim());
+                return new RsvCommand(rangeIndex);
+            } catch (InvalidRangeException | IllegalValueException ie) {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL));
+            }
+
+        }
+    }
+
     /**
      * Parses arguments in the context of the edit task command.
      * 
      * @@author A0121533W
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
@@ -271,7 +333,8 @@ public class Parser {
     /**
      * Parses arguments in the context of the delete task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
@@ -285,7 +348,7 @@ public class Parser {
         } catch (InvalidRangeException ire) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE)); 
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         return new DeleteCommand(args);
     }
@@ -294,7 +357,8 @@ public class Parser {
      * Parses arguments in the context of the mark task command.
      *
      * @@author A0121533W
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareMark(String args) {
@@ -313,7 +377,7 @@ public class Parser {
 
         String markDone = argumentMap.get(doneFlag).replace(Flag.DONE + " ", "").trim();
         String markUndone = argumentMap.get(undoneFlag).replace(Flag.UNDONE + " ", "").trim();
-        
+
         try {
             String indexesToMarkDone = StringUtil.indexString(markDone);
             String indexesToMarkUndone = StringUtil.indexString(markUndone);
@@ -348,7 +412,8 @@ public class Parser {
     /**
      * Parses arguments in the context of the find task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareFind(String args) {
@@ -384,10 +449,9 @@ public class Parser {
         Boolean statusDone = true;
         Boolean statusUndone = false;
 
-        taskQuery.createNameQuery(
-                argumentMap.get(flags[0]).replace(Flag.NAME, "").trim().replaceAll("( )+", " "));
-        taskQuery.createDateTimeQuery(DateTimeUtil
-                .getDateTimeFromArgs(argumentMap.get(flags[1]).replace(Flag.DATETIME, "").trim()));
+        taskQuery.createNameQuery(argumentMap.get(flags[0]).replace(Flag.NAME, "").trim().replaceAll("( )+", " "));
+        taskQuery.createDateTimeQuery(
+                DateTimeUtil.getDateTimeFromArgs(argumentMap.get(flags[1]).replace(Flag.DATETIME, "").trim()));
         taskQuery.createPriorityQuery(argumentMap.get(flags[2]).replace(Flag.PRIORITY, "").trim());
         if (!argumentMap.get(flags[3]).isEmpty() && !argumentMap.get(flags[4]).isEmpty()) {
             throw new IllegalValueException(TaskQuery.MESSAGE_BOTH_STATUS_SEARCHED_ERROR);
@@ -399,8 +463,7 @@ public class Parser {
                 taskQuery.createStatusQuery(statusUndone);
             }
         }
-        taskQuery.createTagsQuery(
-                argumentMap.get(flags[5]).replace(Flag.TAG, "").trim().replaceAll("( )+", " "));
+        taskQuery.createTagsQuery(argumentMap.get(flags[5]).replace(Flag.TAG, "").trim().replaceAll("( )+", " "));
 
         return taskQuery;
     }
@@ -427,7 +490,8 @@ public class Parser {
      * Parses arguments in the context of the list task command.
      *
      * @@author @A0140022H
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareList(String args) {
@@ -447,7 +511,8 @@ public class Parser {
      * command.
      * 
      * @@author A0124333U
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareCd(String args) {
@@ -462,12 +527,13 @@ public class Parser {
 
         return new CdCommand(args.trim());
     }
-    
+
     /**
      * Parses arguments in the context of the tag command.
      * 
      * @@author A0139924W
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareTag(String args) {
@@ -482,10 +548,9 @@ public class Parser {
             }
         }
 
-        return new IncorrectCommand(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
-    
+
     /**
      * Checks if new file type is a valid file type
      * 
