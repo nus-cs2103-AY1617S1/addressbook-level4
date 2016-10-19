@@ -2,6 +2,7 @@ package seedu.jimi.logic.commands;
 
 import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.commons.core.Messages;
+import seedu.jimi.commons.events.storage.StoragePathChangedEvent;
 import seedu.jimi.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.jimi.model.Model;
 
@@ -50,6 +51,11 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+    
+    /** Raises an event to indicate the storage has changed */
+    protected void indicateStoragePathChanged(String oldPath, String newPath) {
+        EventsCenter.getInstance().post(new StoragePathChangedEvent(oldPath, newPath));
     }
 
 }
