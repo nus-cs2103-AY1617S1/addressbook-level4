@@ -66,7 +66,6 @@ Exit | `exit`
 If you wish to know what kinds of commands the software have and what 
 are the formats. <br>
 ### Format: `help`
-  <!-- > <img src="UserGuideImages/UG_23.JPG" width="150"> -->
    
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
@@ -75,9 +74,8 @@ are the formats. <br>
 
 #### 2. Add Command: `add`
 
-2.1  Adding a task with a deadline, start time and end time <br>
-### Format: `add <Task Name> d/<Deadline> s/<Start Time> e/<End Time>`
-   <!--> <img src="UserGuideImages/UG_2.JPG" width="600"> -->
+### 2.1  Adding a task with a deadline, start time and end time <br>
+## Format: `add <Task Name> d/<Deadline> s/<Start Time> e/<End Time>`
    
    Examples : <br>
    add CS2103 project d/09-07-2016 s/1700 e/1900 t/CS2103 <br>
@@ -92,9 +90,8 @@ Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown be
 
 <br>
 
-2.2  Adding a task with only a deadline <br>
-### Format: `add <Task Name> d/<Deadline>`
-   <!--> <img src="UserGuideImages/UG_5.JPG" width="400">-->
+### 2.2  Adding a task with only a deadline <br>
+## Format: `add <Task Name> d/<Deadline>`
    
    Examples : <br>
    add Orbital Splashdown d/18-06-2016 t/Orbital <br>
@@ -106,9 +103,8 @@ Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown be
 
 <br>
 
-2.3 Adding a task without a deadline<br>
-### Format: `add <Task Name>`
-   <!--> <img src="UserGuideImages/UG_7.JPG" width="400">-->
+### 2.3 Adding a task without a deadline<br>
+## Format: `add <Task Name>`
    
    Examples : <br>
    add Complete Joke book t/Jokes <br>
@@ -124,8 +120,7 @@ Upon pressing <kbd>Enter</kbd>, you will see the task you have added as shown be
 #### 3. Delete Command : `delete`
 
 Deletes the specific task from the address book. Irreversible.<br>
-### Format: `delete <Task Index>`
-   <!--> <img src="UserGuideImages/UG_9.JPG" width="250">-->
+## Format: `delete <Task Index>`
    
    Examples : <br>
    delete Dance Rehearsal <br>
@@ -140,20 +135,18 @@ Once done, the updated list of tasks will be displayed as shown below
 #### 4. List Command
 
 Shows a list of all tasks in the list of tasks.<br>
-### Format: `list`
-  <!-- > <img src="UserGuideImages/UG_11.JPG" width="150">-->
+## Format: `list`
 
 You can then see all of the tasks in the application in the display as shown below.
    > <img src="UserGuideImages/UG_12.JPG" width="500">
 
-<br
+<br>
 <br>
 
 #### 5. Find Command
 
-5.1 If you wish to find certain tasks, enter the keywords in the task or the task name<br>
-### Format: `find`
-  <!-- > <img src="UserGuideImages/UG_13.JPG" width="200">-->
+### 5.1 If you wish to find certain tasks, enter the keywords in the task or the task name<br>
+## Format: `find`
    
    Examples : <br>
    find workout <br>
@@ -164,8 +157,8 @@ For example, i keyed in “find workout” in the command line and the task with
    > <img src="UserGuideImages/UG_14.JPG" width="500">
 
 
-5.2 If you wish to find the tasks with a specific date, enter the date in the format DD-MM-YYYY or you can use words limited to "today" and "tomorrow." <br>
-### Format: `find <Date>`
+### 5.2 If you wish to find the tasks with a specific date, enter the date in the format DD-MM-YYYY or you can use words limited to "today" and "tomorrow." <br>
+## Format: `find <Date>`
 
    Examples : <br>
    find 07-09-2008 <br>
@@ -179,8 +172,7 @@ You can then see all of the tasks with that date in the application’s display 
 
 If you wish to clear all the tasks in the task manager in one go, without having to delete each one by one, you can make use of the “clear” command. 
 <br>
-### Format: `clear`
-   <!--> <img src="UserGuideImages/UG_15.JPG" width="150">-->
+## Format: `clear`
 				
 Simple type the command “clear” as shown above and all tasks will be automatically deleted and the message that “Unburden has been cleared!” would appear as shown below. 
    > <img src="UserGuideImages/UG_16.JPG" width="500">
@@ -190,10 +182,9 @@ Simple type the command “clear” as shown above and all tasks will be automat
 
 #### 7. Edit Command
 
-7.1 If you wish to edit the deadline, start time and end time of certain tasks
+### 7.1 If you wish to edit the deadline, start time and end time of certain tasks
 <br>
-### Format: `edit <Task Index> d/<Deadline> s/<start Time> e/<End Time>`
-  <!-- > <img src="UserGuideImages/UG_17.JPG" width="400">-->
+## Format: `edit <Task Index> d/<Deadline> s/<start Time> e/<End Time>`
    
    Examples : <br>	
    edit 1 d/09-07-2016 s/1700 e/1900 t/CS2103 <br>
@@ -204,10 +195,9 @@ By doing so, the date, start time and end time will be updated and the updated l
    
 <br>
 
-7.2 If you wish to edit the deadline certain tasks
+### 7.2 If you wish to edit the deadline certain tasks
 <br>
-### Format: `edit <Task Index> d/<Deadline>`
-  <!-- > <img src="UserGuideImages/UG_19.JPG" width="300">-->
+## Format: `edit <Task Index> d/<Deadline>`
    
    Examples : <br>
    edit 3  d/09-07-2016 <br>
@@ -218,10 +208,9 @@ By doing so, the date, start time and end time will be updated and the updated l
 
 <br>
 
-7.3 If you wish to edit the start time and end time of certain tasks
+### 7.3 If you wish to edit the start time and end time of certain tasks
 <br>
-### Format: `edit <Task Index> s/<Start Time> e/<End time>`
-  <!-- > <img src="UserGuideImages/UG_21.JPG" width="400">-->
+## Format: `edit <Task Index> s/<Start Time> e/<End time>`
    
    Examples : <br>
    edit 2  s/1700 e/1900 t/CS2103 <br>
@@ -235,9 +224,7 @@ By doing so, the date, start time and end time will be updated and the updated l
 
 #### 8. Exiting the program : `exit`
 Exits the program.<br>
-### Format: `exit`
-   <!--> <img src="UserGuideImages/UG_25.JPG" width="150">-->
-
+## Format: `exit`
 Simply type `exit` in the command line as shown below
    > <img src="UserGuideImages/UG_26.JPG" width="400">
 
