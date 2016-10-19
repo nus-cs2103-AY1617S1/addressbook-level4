@@ -38,7 +38,7 @@ public class ViewCommand extends Command {
     }
 
     private LocalDate createTaskDate() {
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
     	Date dateobj = new Date();
     	String date = df.format(dateobj);
     	return LocalDate.parse(date, TaskDate.DATE_FORMATTER);
