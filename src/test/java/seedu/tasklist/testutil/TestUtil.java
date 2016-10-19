@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new TaskDetails("Ali Muster"), new StartTime("5pm"), new EndTime("10pm"), new Priority("high"),new UniqueTagList()),
-                    new Task(new TaskDetails("Boris Mueller"), new StartTime("3pm"), new EndTime("11pm"), new Priority("low"), new UniqueTagList()),
-                    new Task(new TaskDetails("Carl Kurz"), new StartTime("2pm"), new EndTime("12pm"), new Priority("med"), new UniqueTagList()),
-                    new Task(new TaskDetails("Daniel Meier"), new StartTime("6pm"), new EndTime("12pm"), new Priority("low"), new UniqueTagList()),
-                    new Task(new TaskDetails("Elle Meyer"), new StartTime("2pm"), new EndTime("11pm"), new Priority("med"), new UniqueTagList()),
-                    new Task(new TaskDetails("Fiona Kunz"), new StartTime("7pm"), new EndTime("10pm"), new Priority("low"), new UniqueTagList()),
-                    new Task(new TaskDetails("George Best"), new StartTime("2pm"), new EndTime("11pm"), new Priority("high"), new UniqueTagList()),
-                    new Task(new TaskDetails("Hoon Meier"), new StartTime("6pm"), new EndTime("12pm"), new Priority("med"), new UniqueTagList()),
-                    new Task(new TaskDetails("Ida Mueller"), new StartTime("5pm"), new EndTime("10pm"), new Priority("low"), new UniqueTagList())
+                    new Task(new TaskDetails("Ali Muster"), new StartTime("5pm"), new EndTime("10pm"), new Priority("high"),new UniqueTagList(), "daily"),
+                    new Task(new TaskDetails("Boris Mueller"), new StartTime("3pm"), new EndTime("11pm"), new Priority("low"), new UniqueTagList(), "weekly"),
+                    new Task(new TaskDetails("Carl Kurz"), new StartTime("2pm"), new EndTime("12pm"), new Priority("med"), new UniqueTagList(), "monthly"),
+                    new Task(new TaskDetails("Daniel Meier"), new StartTime("6pm"), new EndTime("12pm"), new Priority("low"), new UniqueTagList(), "yearly"),
+                    new Task(new TaskDetails("Elle Meyer"), new StartTime("2pm"), new EndTime("11pm"), new Priority("med"), new UniqueTagList(), ""),
+                    new Task(new TaskDetails("Fiona Kunz"), new StartTime("7pm"), new EndTime("10pm"), new Priority("low"), new UniqueTagList(), ""),
+                    new Task(new TaskDetails("George Best"), new StartTime("2pm"), new EndTime("11pm"), new Priority("high"), new UniqueTagList(), ""),
+                    new Task(new TaskDetails("Hoon Meier"), new StartTime("6pm"), new EndTime("12pm"), new Priority("med"), new UniqueTagList(), ""),
+                    new Task(new TaskDetails("Ida Mueller"), new StartTime("5pm"), new EndTime("10pm"), new Priority("low"), new UniqueTagList(), "")
             };
         } catch (IllegalValueException e) {
         	System.out.println(e.getMessage());
