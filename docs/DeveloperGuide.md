@@ -417,7 +417,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 ##### MSS
 
-> 
+> Main Success Scenario 
 
 ## Appendix E : Product Survey's
 
