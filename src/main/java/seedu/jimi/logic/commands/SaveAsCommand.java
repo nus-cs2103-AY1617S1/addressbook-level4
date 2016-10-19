@@ -18,10 +18,10 @@ public class SaveAsCommand extends Command {
 
     public static final String COMMAND_WORD = "saveas";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set a new save directory for all your tasks and events in Jimi.\n"
+    public static final String MESSAGE_USAGE = 
+            COMMAND_WORD + ": Set a new save directory for all your tasks and events in Jimi.\n"
             + "Parameters: FILEPATH/FILENAME.xml \n"
-            + "Example: " + COMMAND_WORD
-            + " C:/dropbox/taskbook.xml";
+            + "Example: " + COMMAND_WORD + " C:/dropbox/taskbook.xml";
 
     public static final String MESSAGE_SUCCESS = "Save directory changed: %1$s";
     public static final String MESSAGE_CONFIG_FILE_NOT_FOUND = "Config file is not found. ";
@@ -32,6 +32,11 @@ public class SaveAsCommand extends Command {
     
     private static String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
+    /**
+     * Empty constructor for stub usage
+     */
+    public SaveAsCommand() {}
+    
     /**
      * Convenience constructor using raw values.
      */
@@ -49,7 +54,7 @@ public class SaveAsCommand extends Command {
             Config config = ConfigUtil.readConfig(configFilePathUsed).orElse(new Config());
             
             String oldTaskBookFilePath = config.getTaskBookFilePath();
-            if (oldTaskBookFilePath.equals(taskBookFilePath))   {
+            if (oldTaskBookFilePath.equals(taskBookFilePath)) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(String.format(MESSAGE_DUPLICATE_SAVE_DIRECTORY));
             }
@@ -61,6 +66,7 @@ public class SaveAsCommand extends Command {
             StorageManager newStorage = new StorageManager(taskBookFilePath, config.getUserPrefsFilePath());
             
             ReadOnlyTaskBook oldTaskBook = oldStorage.readTaskBook(oldTaskBookFilePath).orElse(new TaskBook());
+            
             newStorage.saveTaskBook(oldTaskBook);
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, config.getTaskBookFilePath()));
@@ -75,6 +81,4 @@ public class SaveAsCommand extends Command {
     public boolean isValidCommandWord(String commandWord) {
         return commandWord.equals(COMMAND_WORD);
     }
-    
-    
 }

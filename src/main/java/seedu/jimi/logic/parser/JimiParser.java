@@ -67,8 +67,19 @@ public class JimiParser {
             Pattern.compile("(?<filePath>\\S.+).xml");
     
     private static final List<Command> COMMAND_STUB_LIST =
-            Arrays.asList(new AddCommand(), new EditCommand(), new CompleteCommand(), new SelectCommand(), new DeleteCommand(),
-                    new ClearCommand(), new FindCommand(), new ListCommand(), new ExitCommand(), new HelpCommand());
+            Arrays.asList(
+                    new AddCommand(), 
+                    new EditCommand(), 
+                    new CompleteCommand(), 
+                    new SelectCommand(), 
+                    new DeleteCommand(),
+                    new ClearCommand(), 
+                    new FindCommand(), 
+                    new ListCommand(), 
+                    new ExitCommand(), 
+                    new HelpCommand(), 
+                    new SaveAsCommand()
+            );
     
     public JimiParser() {}
 
@@ -115,7 +126,7 @@ public class JimiParser {
                 } else if (command instanceof FindCommand) {
                     return prepareFind(arguments);
                 } else if (command instanceof SaveAsCommand) {
-                    
+                    return prepareSaveAs(arguments);
                 } else { // commands that do not require arguments e.g. exit
                     return command;
                 }
