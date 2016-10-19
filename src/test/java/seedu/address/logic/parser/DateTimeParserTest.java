@@ -29,12 +29,32 @@ public class DateTimeParserTest {
     }
     
     @Test
+    public void extractImplicitStartDateTimeTest() {
+        String input = "2213 fifth january";
+        DateTimeParser parser = new DateTimeParser(input);
+        
+        LocalDateTime start = LocalDateTime.of(LocalDate.of(2016, 1, 5), LocalTime.of(22, 13));
+        
+        assertEquals(start, parser.extractStartDate());
+    }
+    
+    @Test
     public void extractExplicitEndDateTimeTest() {
-        String input = "16 september 2016 5pm to 17 september 2016 6pm";
+        String input = "16 september 2016 5pm to 17 september 2016 6:30pm";
         DateTimeParser parser = new DateTimeParser(input);
 
-        LocalDateTime end = LocalDateTime.of(LocalDate.of(2016, 9, 17), LocalTime.of(18, 0));
+        LocalDateTime end = LocalDateTime.of(LocalDate.of(2016, 9, 17), LocalTime.of(18, 30));
 
+        assertEquals(end, parser.extractEndDate());
+    }
+
+    @Test
+    public void extractImplicitEndDateTimeTest() {
+        String input = "1800 fifth january till the sixth october at 9:30pm";
+        DateTimeParser parser = new DateTimeParser(input);
+        
+        LocalDateTime end = LocalDateTime.of(LocalDate.of(2016, 10, 6), LocalTime.of(21, 30));
+        
         assertEquals(end, parser.extractEndDate());
     }
 
