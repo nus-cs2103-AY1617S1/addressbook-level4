@@ -1,11 +1,13 @@
-package guitests;
+/** package guitests;
 
 import org.junit.Test;
+
+import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.model.person.ReadOnlyPerson;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends TaskBookGuiTest {
 
 
     @Test
@@ -15,7 +17,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertNoPersonSelected();
 
         assertSelectionSuccess(1); //first person in the list
-        int personCount = td.getTypicalPersons().length;
+        int personCount = td.getTypicalItems().length;
         assertSelectionSuccess(personCount); //last person in the list
         int middleIndex = personCount / 2;
         assertSelectionSuccess(middleIndex); //a person in the middle of the list
@@ -23,7 +25,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertSelectionInvalid(personCount + 1); //invalid index
         assertPersonSelected(middleIndex); //assert previous selection remains
 
-        /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
+        /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand
     }
 
     @Test
@@ -35,24 +37,25 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("The person index provided is invalid");
+        assertResultMessage("The item index provided is invalid");
     }
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("Selected Person: "+index);
+        assertResultMessage("Selected Item: "+index);
         assertPersonSelected(index);
     }
 
     private void assertPersonSelected(int index) {
-        assertEquals(personListPanel.getSelectedPersons().size(), 1);
-        ReadOnlyPerson selectedPerson = personListPanel.getSelectedPersons().get(0);
-        assertEquals(personListPanel.getPerson(index-1), selectedPerson);
+        assertEquals(itemListPanel.getSelectedItems().size(), 1);
+        ReadOnlyItem selectedPerson = itemListPanel.getSelectedItems().get(0);
+        assertEquals(itemListPanel.getItem(index-1), selectedPerson);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
     private void assertNoPersonSelected() {
-        assertEquals(personListPanel.getSelectedPersons().size(), 0);
+        assertEquals(itemListPanel.getSelectedItems().size(), 0);
     }
 
 }
+**/

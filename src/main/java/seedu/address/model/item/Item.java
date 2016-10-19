@@ -8,7 +8,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Represents a Item in the address book. Guarantees: details are present and
  * not null, field values are validated.
  */
-public abstract class Item implements ReadOnlyItem{
+public class Item implements ReadOnlyItem{
 
 
     private UniqueTagList tags;
@@ -26,8 +26,12 @@ public abstract class Item implements ReadOnlyItem{
 		// changes in the arg list
     }
 
-
-	public Description getDescription() {
+	public Item(ReadOnlyItem item){
+	    this.description = item.getDescription();
+	    this.isDone = item.getIsDone();
+	}
+	
+    public Description getDescription() {
 		return description;
     }
 	
@@ -60,6 +64,20 @@ public abstract class Item implements ReadOnlyItem{
     @Override
     public String toString() {
 		return description.toString();
+    }
+
+
+    @Override
+    public UniqueTagList getTags() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReadOnlyItem // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyItem) other));
     }
 
 }
