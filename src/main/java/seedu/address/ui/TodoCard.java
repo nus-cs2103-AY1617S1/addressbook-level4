@@ -17,11 +17,11 @@ public class TodoCard extends UiPart {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label date;
     @FXML
-    private Label address;
+    private Label start;
     @FXML
-    private Label email;
+    private Label end;
     @FXML
     private Label tags;
     
@@ -43,9 +43,9 @@ public class TodoCard extends UiPart {
     public void initialize() {
         name.setText(todo.getName().taskDetails);
         id.setText("T" + displayedIndex + ". ");
-        phone.setText(todo.getDate().value);
-        address.setText(todo.getStart().value);
-        email.setText(todo.getEnd().value);
+        date.setText(todo.getDate().value);
+        start.setText(todo.getStart().value);
+        end.setText(todo.getEnd().value);
         tags.setText(todo.tagsString());
     }
 
