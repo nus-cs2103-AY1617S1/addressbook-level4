@@ -31,7 +31,7 @@ public class StringUtil {
      * @param s Should be trimmed.
      */
     public static boolean isUnsignedInteger(String s){
-        return s != null && s.matches("^0*[1-9]\\d*$");
+        return s != null && s.matches("^\\d+$");
     }
     
     /**

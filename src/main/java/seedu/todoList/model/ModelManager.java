@@ -7,6 +7,7 @@ import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.commons.events.model.*;
 import seedu.todoList.commons.util.StringUtil;
 import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.UniqueTaskList.DuplicatetaskException;
 import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todoList.commons.exceptions.*;
 
@@ -50,10 +51,11 @@ public class ModelManager extends ComponentManager implements Model {
         this(new TaskList(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
-    	todoList = new TaskList(initialData);
-        eventList = new TaskList(initialData);
-        deadlineList = new TaskList(initialData);
+    public ModelManager(ReadOnlyTaskList initialTodoListData, ReadOnlyTaskList initialEventListData,
+    					ReadOnlyTaskList initialDeadlineListData, UserPrefs userPrefs) {
+    	todoList = new TaskList(initialTodoListData);
+        eventList = new TaskList(initialEventListData);
+        deadlineList = new TaskList(initialDeadlineListData);
         filteredTodos = new FilteredList<>(todoList.getTasks());
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());

@@ -14,13 +14,13 @@ import seedu.todoList.model.ReadOnlyTaskList;
 /**
  * A class to access TodoList data stored as an xml file on the hard disk.
  */
-public class XmlTaskListStorage implements TaskListStorage {
+public class XmlDeadlineListStorage implements TaskListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlTaskListStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlDeadlineListStorage.class);
 
     private String filePath;
 
-    public XmlTaskListStorage(String filePath){
+    public XmlDeadlineListStorage(String filePath){
         this.filePath = filePath;
     }
 
@@ -58,15 +58,7 @@ public class XmlTaskListStorage implements TaskListStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        if(filePath.equals("data/TodoList.xml")) {
-        	XmlFileStorage.saveDataToFile(file, new XmlSerializableTodoList(taskList));
-        }
-        else if(filePath.equals("data/EventList.xml")) {
-        	XmlFileStorage.saveDataToFile(file, new XmlSerializableEventList(taskList));
-        }
-        else if(filePath.equals("data/DeadlineList.xml")) {
-        	XmlFileStorage.saveDataToFile(file, new XmlSerializableDeadlineList(taskList));
-        }
+       	XmlFileStorage.saveDataToFile(file, new XmlSerializableDeadlineList(taskList));
     }
 
     @Override

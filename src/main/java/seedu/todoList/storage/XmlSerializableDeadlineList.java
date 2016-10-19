@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * An Immutable TaskList that is serializable to XML format
  */
 @XmlRootElement(name = "DeadlineList")
-public class XmlSerializableDeadlineList extends XmlSerializableTaskList implements ReadOnlyTaskList {
+public class XmlSerializableDeadlineList implements XmlSerializableTaskList {
 
     @XmlElement
     private List<XmlAdaptedDeadline> tasks;

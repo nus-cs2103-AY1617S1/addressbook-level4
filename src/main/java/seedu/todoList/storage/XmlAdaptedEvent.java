@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the task.
  */
-public class XmlAdaptedEvent extends XmlAdaptedTask {
+public class XmlAdaptedEvent implements XmlAdaptedTask {
     
 	@XmlElement(required = true)
 	private String name;

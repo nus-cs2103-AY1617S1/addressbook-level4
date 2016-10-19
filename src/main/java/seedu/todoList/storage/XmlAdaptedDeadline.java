@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the task.
  */
-public class XmlAdaptedDeadline extends XmlAdaptedTask {
+public class XmlAdaptedDeadline implements XmlAdaptedTask {
     
 	@XmlElement(required = true)
 	private String name;

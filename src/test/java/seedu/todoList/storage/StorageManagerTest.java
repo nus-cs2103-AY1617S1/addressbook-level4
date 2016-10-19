@@ -17,7 +17,7 @@ import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.storage.JsonUserPrefsStorage;
 import seedu.todoList.storage.Storage;
 import seedu.todoList.storage.StorageManager;
-import seedu.todoList.storage.XmlTaskListStorage;
+import seedu.todoList.storage.XmlTodoListStorage;
 import seedu.todoList.testutil.EventsCollector;
 import seedu.todoList.testutil.TypicalTestEvent;
 import seedu.todoList.testutil.TypicalTestTask;
@@ -113,7 +113,7 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlTodoListStorageExceptionThrowingStub extends XmlTaskListStorage{
+    class XmlTodoListStorageExceptionThrowingStub extends XmlTodoListStorage{
 
         public XmlTodoListStorageExceptionThrowingStub(String filePath) {
             super(filePath);
