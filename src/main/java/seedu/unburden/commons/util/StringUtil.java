@@ -20,7 +20,7 @@ public class StringUtil {
         return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
     }
     
-    public static boolean tagsContainsIgnoreCase(UniqueTagList source, String query) {
+    /*public static boolean tagsContainsIgnoreCase(UniqueTagList source, String query) {
     	boolean truefalse = false;
     	ObservableList<Tag> list = source.getInternalList();
     	String[] split;
@@ -31,7 +31,7 @@ public class StringUtil {
     		truefalse = truefalse || strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
     	}
         return truefalse;
-    }
+    }*/
     
     
     public static boolean containsDate(String source, String query){
