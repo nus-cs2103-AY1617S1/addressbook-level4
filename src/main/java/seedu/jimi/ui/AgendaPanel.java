@@ -98,16 +98,17 @@ public class AgendaPanel extends UiPart{
     }
     
     
-    public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder, ObservableList<ReadOnlyTask> taskList) {
+    public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder, ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList, ObservableList<ReadOnlyTask> eventList) {
         AgendaPanel agendaPanel = 
                 UiPartLoader.loadUiPart(primaryStage, agendaPlaceholder, new AgendaPanel());
-        agendaPanel.configure(taskList);
+        agendaPanel.configure(taskList, deadlineTaskList, eventList);
         return agendaPanel;
     }
     
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    private void configure(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList, ObservableList<ReadOnlyTask> eventList) {
         instantiateObjectLists();
-        updateTasksList(taskList);
+        updateTasksList(taskList, deadlineTaskList);
+        updateEventsList(eventList);
         
         configureTaskColumnsCellFactories();
         configureEventsColumnsCellFactories();
@@ -241,18 +242,24 @@ public class AgendaPanel extends UiPart{
     
     /**
      * Runs every time the task list need to be re-populated.
+     * 
      * @param taskList
      */
-    private void updateTasksList(List<ReadOnlyTask> taskList) {
+    private void updateTasksList(List<ReadOnlyTask> taskList, List<ReadOnlyTask> deadlineTaskList) {
         ObservableList<ReadOnlyTask> newTasksList = FXCollections.observableArrayList();
-        
-        for(ReadOnlyTask t : taskList){
-            if(t instanceof FloatingTask
-                    && !t.isCompleted()) {//TODO: add checks for due dates
+
+        for (ReadOnlyTask t : taskList) {
+            if (!(t instanceof Event) && !t.isCompleted()) {// TODO: add checks for due dates                    
                 newTasksList.add(t);
             }
         }
         
+        for(ReadOnlyTask t : deadlineTaskList) {
+            if(t instanceof DeadlineTask) {
+                newTasksList.add(t);
+            }
+        }
+
         this.tasksList.setAll(newTasksList);
     }
     
@@ -278,9 +285,9 @@ public class AgendaPanel extends UiPart{
      */
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        updateTasksList(abce.data.getTaskList());
-        updateEventsList(abce.data.getTaskList());
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Reloading lists : " + ""+abce.data.getTaskList().size()));
+        updateTasksList(abce.data.getTaskList(), abce.data.getDeadlineTaskList());
+        updateEventsList(abce.data.getEventList());
+        //TODO: update THIS - logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Reloading lists : " + ""+abce.data.getTaskList().size()));
     }
 }
    
