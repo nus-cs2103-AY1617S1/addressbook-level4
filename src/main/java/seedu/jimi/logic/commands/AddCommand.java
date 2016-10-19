@@ -89,7 +89,14 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addTask(toAdd);
+            if(toAdd instanceof Event) {
+                model.addEvent(toAdd);
+            } else if(toAdd instanceof DeadlineTask) {
+                model.addDeadlineTask(toAdd);
+            } else {
+                model.addTask(toAdd);
+            }
+            
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

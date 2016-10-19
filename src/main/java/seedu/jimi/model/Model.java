@@ -21,9 +21,21 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(ReadOnlyTask floatingTask) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Adds the given deadlineTask */
+    void addDeadlineTask(ReadOnlyTask deadlineTask) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Adds the given event */
+    void addEvent(ReadOnlyTask event) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered deadlineTask list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineTaskList();
+    
+    /** Returns the filtered event list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList();
 
     /** Updates the filter of the filtered task list to show all task */
     void updateFilteredListToShowAll();

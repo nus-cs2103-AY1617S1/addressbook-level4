@@ -17,5 +17,11 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered list of deadlineTasks */
+    ObservableList<ReadOnlyTask> getFilteredDeadlineTaskList();
+    
+    /** Returns the filtered list of events */
+    ObservableList<ReadOnlyTask> getFilteredEventList();
 
 }

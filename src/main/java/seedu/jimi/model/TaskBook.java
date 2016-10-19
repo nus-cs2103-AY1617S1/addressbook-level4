@@ -27,10 +27,14 @@ import seedu.jimi.model.task.UniqueTaskList;
 public class TaskBook implements ReadOnlyTaskBook {
 
     private final UniqueTaskList<ReadOnlyTask> tasks;
+    private final UniqueTaskList<ReadOnlyTask> deadlineTasks;
+    private final UniqueTaskList<ReadOnlyTask> events;
     private final UniqueTagList tags;
 
     {
         tasks = new UniqueTaskList();
+        deadlineTasks = new UniqueTaskList();
+        events = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
@@ -40,14 +44,16 @@ public class TaskBook implements ReadOnlyTaskBook {
      * Tasks and Tags are copied into this addressbook
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueDeadlineTaskList(), toBeCopied.getUniqueEventList(),
+                toBeCopied.getUniqueTagList());
     }
 
     /**
      * Tasks and Tags are copied into this addressbook
      */
-    public TaskBook(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+    public TaskBook(UniqueTaskList tasks, UniqueTaskList deadlineTasks, UniqueTaskList events, UniqueTagList tags) {
+        resetData(tasks.getInternalList(), deadlineTasks.getInternalList(), events.getInternalList(),
+                tags.getInternalList());
     }
 
     public static ReadOnlyTaskBook getEmptyTaskBook() {
@@ -59,32 +65,63 @@ public class TaskBook implements ReadOnlyTaskBook {
     public ObservableList<ReadOnlyTask> getTasks() {
         return tasks.getInternalList();
     }
+    
+    public ObservableList<ReadOnlyTask> getDeadlineTasks() {
+        return deadlineTasks.getInternalList();
+    }
+    
+    public ObservableList<ReadOnlyTask> getEvents() {
+        return events.getInternalList();
+    }
 
     public void setReadOnlyTasks(List<ReadOnlyTask> tasks) {
         this.tasks.getInternalList().setAll(tasks);
+    }
+    
+    public void setDeadlineTasks(List<ReadOnlyTask> deadlineTasks) {
+        this.deadlineTasks.getInternalList().setAll(deadlineTasks);
+    }
+    
+    public void setEvents(List<ReadOnlyTask> events) {
+        this.events.getInternalList().setAll(events);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        ArrayList<ReadOnlyTask> newList = new ArrayList<ReadOnlyTask>();
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends ReadOnlyTask> newDeadlineTasks,
+            Collection<? extends ReadOnlyTask> newEvents, Collection<Tag> newTags) {
+        ArrayList<ReadOnlyTask> newTaskList = new ArrayList<ReadOnlyTask>();
+        ArrayList<ReadOnlyTask> newDeadlineTaskList = new ArrayList<ReadOnlyTask>();
+        ArrayList<ReadOnlyTask> newEventList = new ArrayList<ReadOnlyTask>();
+
         for (ReadOnlyTask t : newTasks) {
-            if (t instanceof DeadlineTask) {
-                newList.add(new DeadlineTask((DeadlineTask) t));
-            } else if (t instanceof Event) {
-                newList.add(new Event((Event) t));
-            } else {
-                newList.add(new FloatingTask((FloatingTask) t));
+            if(t instanceof FloatingTask) {
+                newTaskList.add(new FloatingTask((FloatingTask) t));
             }
         }
-        setReadOnlyTasks(newList);
+        
+        for (ReadOnlyTask t : newDeadlineTasks) {
+            if(t instanceof DeadlineTask) {
+                newDeadlineTaskList.add(new DeadlineTask((DeadlineTask) t));
+            }
+        }
+        
+        for (ReadOnlyTask t : newEvents) {
+            if(t instanceof Event) {
+                newEventList.add(new Event((Event) t));
+            }
+        }
+        
+        setReadOnlyTasks(newTaskList);
+        setDeadlineTasks(newDeadlineTaskList);
+        setEvents(newEventList);
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskBook newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getDeadlineTaskList(), newData.getEventList(), newData.getTagList());
     }
 
 //// task-level operations
@@ -99,6 +136,30 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void addTask(ReadOnlyTask p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList((ReadOnlyTask) p);
         tasks.add(p);
+    }
+    
+    /**
+     * Adds a deadlineTask to the address book.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     */
+    public void addDeadlineTask(ReadOnlyTask p) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList((ReadOnlyTask) p);
+        deadlineTasks.add(p);
+    }
+    
+    /**
+     * Adds an event to the address book.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     */
+    public void addEvent(ReadOnlyTask p) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList((ReadOnlyTask) p);
+        events.add(p);
     }
 
     /**
@@ -159,6 +220,16 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
+    public List<ReadOnlyTask> getDeadlineTaskList() {
+        return Collections.unmodifiableList(deadlineTasks.getInternalList());
+    }
+
+    @Override
+    public List<ReadOnlyTask> getEventList() {
+        return Collections.unmodifiableList(events.getInternalList());
+    }
+    
+    @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());
     }
@@ -168,6 +239,16 @@ public class TaskBook implements ReadOnlyTaskBook {
         return this.tasks;
     }
 
+    @Override
+    public UniqueTaskList getUniqueDeadlineTaskList() {
+        return this.deadlineTasks;
+    }
+
+    @Override
+    public UniqueTaskList getUniqueEventList() {
+        return this.events;
+    }
+    
     @Override
     public UniqueTagList getUniqueTagList() {
         return this.tags;
@@ -187,4 +268,6 @@ public class TaskBook implements ReadOnlyTaskBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
+
 }
