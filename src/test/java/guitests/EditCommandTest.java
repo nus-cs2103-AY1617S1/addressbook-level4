@@ -71,13 +71,13 @@ public class EditCommandTest extends TaskManagerGuiTest{
         
         //edit an in-7-days task from the list
         TestTask[] in7DaysList = td.getIn7DaysTasks();
-        postEdit = TypicalTestTasks.deadLineIn7DaysAdd;
+        postEdit = TypicalTestTasks.deadlineIn7DaysAdd;
         targetIndex = 4;
         assertEditSuccess(targetIndex, postEdit, "in 7 days", currentList, in7DaysList);
         
         //edit an in-30-days task from the list
         TestTask[] in30DaysList = td.getIn30DaysTasks();
-        postEdit = TypicalTestTasks.deadLineIn30DaysAdd;
+        postEdit = TypicalTestTasks.deadlineIn30DaysAdd;
         targetIndex = 5;
         assertEditSuccess(targetIndex, postEdit, "in 30 days", currentList, in30DaysList);
 
