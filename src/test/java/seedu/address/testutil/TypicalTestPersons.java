@@ -13,21 +13,21 @@ public class TypicalTestPersons {
 
     public TypicalTestPersons() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
+            alice =  new PersonBuilder().withName("Alice Pauline").withEnd("2359")
+                    .withStart("1100").withDate("12.12.12")
                     .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
+            benson = new PersonBuilder().withName("Benson Meier").withEnd("6pm")
+                    .withStart("2am").withDate("1.5.13")
                     .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withAddress("little tokyo").build();
-            george = new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
+            carl = new PersonBuilder().withName("Carl Kurz").withDate("30-2-14").withStart("1000").withEnd("1300").build();
+            daniel = new PersonBuilder().withName("Daniel Meier").withDate("15.11.13").withStart("7am").withEnd("1100").build();
+            elle = new PersonBuilder().withName("Elle Meyer").withDate("290516").withStart("0000").withEnd("1212").build();
+            fiona = new PersonBuilder().withName("Fiona Kunz").withDate("120212").withStart("1111").withEnd("1212").build();
+            george = new PersonBuilder().withName("George Best").withDate("210222").withStart("1111").withEnd("1212").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
+            hoon = new PersonBuilder().withName("Hoon Meier").withDate("010101").withStart("1212").withEnd("1500").build();
+            ida = new PersonBuilder().withName("Ida Mueller").withDate("101016").withStart("1212").withEnd("1700").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

@@ -150,25 +150,19 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoDatePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add [events;]", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Date.MESSAGE_DATE_CONSTRAINTS);
+                "add deadline; 123123", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnStart a/valid, address", Start.MESSAGE_START_CONSTRAINTS);
-        //assertCommandBehavior(
-          //      "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add [events; 121212; 5555]", Start.MESSAGE_START_CONSTRAINTS);
+        assertCommandBehavior(
+                "add deadlines; 121212; 12.30am #..", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -213,11 +207,11 @@ public class LogicManagerTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateAddressBook(2);
+        TaskBook expectedAB = helper.generateAddressBook(2, 2, 2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getPersonList();
 
         // prepare address book state
-        helper.addToModel(model, 2);
+        helper.addToModel(model, 2, 2, 2);
 
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
@@ -236,6 +230,7 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
         assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
         assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
+        assertCommandBehavior(commandWord + " 1", expectedMessage); //index cannot just be a number (must have E/D/T in front)
         assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
     }
 
@@ -258,7 +253,7 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
     }
 
-    @Test
+   /* @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
@@ -284,7 +279,7 @@ public class LogicManagerTest {
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
     }
-
+*/
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -294,19 +289,25 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("delete");
+        assertIndexNotFoundBehaviorForCommand("delete E5");
     }
 
     @Test
     public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generatePersonList(3);
-
-        TaskBook expectedAB = helper.generateAddressBook(threePersons);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removePerson(threePersons.get(1));
-        helper.addToModel(model, threePersons);
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
+<<<<<<< HEAD
         assertCommandBehavior("delete 2",
+=======
+        assertCommandBehavior("delete E2",
+>>>>>>> new_add_branch
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -320,20 +321,37 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void execute_find_onlyMatchesPartialWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
+        Task pTarget2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
         Task p1 = helper.generatePersonWithName("KE Y");
-        Task p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
-
-        List<Task> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        TaskBook expectedAB = helper.generateAddressBook(fourPersons);
+        Task p2 = helper.generatePersonWithName("blaK EY bla bceofeia");
+        
+        List<Task> fourPersons = helper.generatePersonList(p1, p2, pTarget1, pTarget2);
         List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToModel(model, fourPersons);
+        
+        Task DTarget1 = helper.generateDeadlineWithName("bla KEY bla");
+        Task DTarget2 = helper.generateDeadlineWithName("KEYKEY sduauo");
+        Task D1 = helper.generateDeadlineWithName("K EY");
+        Task D2 = helper.generateDeadlineWithName("blaK EY bla bcfeia");
+        
+        List<Task> fourDeadlines = helper.generateDeadlineList(D1, D2, DTarget1, DTarget2);
+        List<Task> expectedDeadlineList = helper.generateDeadlineList(DTarget1, DTarget2);
 
+        Task TTarget1 = helper.generateTodoWithName("bla bla KEY");
+        Task TTarget2 = helper.generateTodoWithName("KEYKEYKEY sduo");
+        Task T1 = helper.generateTodoWithName("KE Y dfd");
+        Task T2 = helper.generateTodoWithName("blaK EYceofeia");
+        
+        List<Task> fourTodos = helper.generateTodoList(T1, T2, TTarget1, TTarget2);
+        List<Task> expectedTodoList = helper.generateTodoList(TTarget1, TTarget2);
+        helper.addToModel(model, fourPersons, fourDeadlines, fourTodos);
+        
+        TaskBook expectedAB = helper.generateAddressBook(fourPersons, fourDeadlines, fourTodos);
+        
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForPersonListShownSummary(expectedList.size(), expectedDeadlineList.size(), expectedTodoList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -346,36 +364,30 @@ public class LogicManagerTest {
         Task p3 = helper.generatePersonWithName("key key");
         Task p4 = helper.generatePersonWithName("KEy sduauo");
 
-        List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        TaskBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Task> expectedList = fourPersons;
-        helper.addToModel(model, fourPersons);
+        Task d1 = helper.generateDeadlineWithName("bla KEY bla");
+        Task d2 = helper.generateDeadlineWithName("bla KEY bceofeia");
+        Task d3 = helper.generateDeadlineWithName("ke key");
+        Task d4 = helper.generateDeadlineWithName("KEy uauo");
+
+        Task t1 = helper.generateTodoWithName("blla KEY bla");
+        Task t2 = helper.generateTodoWithName("bla KEYofeia");
+        Task t3 = helper.generateTodoWithName("key");
+        Task t4 = helper.generateTodoWithName("KEy skeyduauo");
+
+        List<Task> fourEvents = helper.generatePersonList(p3, p1, p4, p2);
+        List<Task> fourDeadlines = helper.generateDeadlineList(d3, d1, d4, d2);
+        List<Task> fourTodos = helper.generateTodoList(t3, t1, t4, t2);
+        TaskBook expectedAB = helper.generateAddressBook(fourEvents, fourDeadlines, fourTodos);
+        List<Task> expectedList = fourEvents;
+        List<Task> expectedDeadlineList = fourDeadlines;
+        List<Task> expectedTodoList = fourTodos;
+        helper.addToModel(model, fourEvents, fourDeadlines, fourTodos);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForPersonListShownSummary(expectedList.size(), expectedDeadlineList.size(), expectedTodoList.size()),
                 expectedAB,
                 expectedList);
     }
-
-    @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generatePersonWithName("key key");
-        Task p1 = helper.generatePersonWithName("sduauo");
-
-        List<Task> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
-        TaskBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourPersons);
-
-        assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
 
     /**
      * A utility class to generate test data.
@@ -383,14 +395,15 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Date privateDate = new Date("111111");
-            Start email = new Start("adam@gmail.com");
-            End privateAddress = new End("111, alpha street");
+            Name name = new Name("Events");
+            Date date = new Date("12.12.16");
+            Start start = new Start("2am");
+            End end = new End("3pm");
+            int task_cat = 1;
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privateDate, email, privateAddress, tags);
+            return new Task(name, date, start, end, task_cat, tags);
         }
 
         /**
@@ -403,27 +416,63 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Date("" + Math.abs(seed)),
-                    new Start(seed + "@email"),
-                    new End("House of " + seed),
+                    new Date("12121" + Math.abs(seed)),
+                    new Start("125" + seed),
+                    new End("235" + seed),
+                    1,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
+
+        /**
+         * Generates a valid deadline using the given seed.
+         * Running this function with the same parameter values guarantees the returned deadline will have the same state.
+         * Each unique seed will generate a unique Task object.
+         *
+         * @param seed used to generate the deadline data field values
+         */
+        Task generateDeadline(int seed) throws Exception {
+            return new Task(
+                    new Name("DTask " + seed),
+                    new Date("12121" + Math.abs(seed)),
+                    new Start("no start"),
+                    new End("235" + seed),
+                    2,
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+            );
+        }
+        /**
+         * Generates a valid deadline using the given seed.
+         * Running this function with the same parameter values guarantees the returned deadline will have the same state.
+         * Each unique seed will generate a unique Task object.
+         *
+         * @param seed used to generate the deadline data field values
+         */
+        Task generateTodo(int seed) throws Exception {
+            return new Task(
+                    new Name("TTask " + seed),
+                    new Date("no date"),
+                    new Start("no start"),
+                    new End("no end"),
+                    3,
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+            );
+        }
+
 
         /** Generates the correct add command based on the person given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
-
-            cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getDate());
-            cmd.append(" e/").append(p.getStart());
-            cmd.append(" a/").append(p.getEnd());
-
+            cmd.append("[").append(p.getName().toString());
+            cmd.append("; ").append(p.getDate());
+            cmd.append("; ").append(p.getStart());
+            cmd.append("; ").append(p.getEnd());
+            cmd.append("]");
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" #").append(t.tagName);
             }
 
             return cmd.toString();
@@ -432,18 +481,18 @@ public class LogicManagerTest {
         /**
          * Generates an AddressBook with auto-generated persons.
          */
-        TaskBook generateAddressBook(int numGenerated) throws Exception{
+        TaskBook generateAddressBook(int numGenerated, int numGenerated2, int numGenerated3) throws Exception{
             TaskBook addressBook = new TaskBook();
-            addToAddressBook(addressBook, numGenerated);
+            addToAddressBook(addressBook, numGenerated, numGenerated2, numGenerated3);
             return addressBook;
         }
 
         /**
          * Generates an AddressBook based on the list of Persons given.
          */
-        TaskBook generateAddressBook(List<Task> persons) throws Exception{
+        TaskBook generateAddressBook(List<Task> persons, List<Task> deadlines, List<Task> todos) throws Exception{
             TaskBook addressBook = new TaskBook();
-            addToAddressBook(addressBook, persons);
+            addToAddressBook(addressBook, persons, deadlines, todos);
             return addressBook;
         }
 
@@ -451,15 +500,21 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given AddressBook
          * @param addressBook The AddressBook to which the Persons will be added
          */
-        void addToAddressBook(TaskBook addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generatePersonList(numGenerated));
+        void addToAddressBook(TaskBook addressBook, int numGenerated, int numGenerated2, int numGenerated3) throws Exception{
+            addToAddressBook(addressBook, generatePersonList(numGenerated), generateDeadlineList(numGenerated2), generateTodoList(numGenerated3));
         }
 
         /**
          * Adds the given list of Persons to the given AddressBook
          */
-        void addToAddressBook(TaskBook addressBook, List<Task> personsToAdd) throws Exception{
+        void addToAddressBook(TaskBook addressBook, List<Task> personsToAdd, List<Task> deadlinesToAdd, List<Task> todoToAdd) throws Exception{
             for(Task p: personsToAdd){
+                addressBook.addPerson(p);
+            }
+            for(Task p: deadlinesToAdd){
+                addressBook.addPerson(p);
+            }
+            for(Task p: todoToAdd){
                 addressBook.addPerson(p);
             }
         }
@@ -468,17 +523,24 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given model
          * @param model The model to which the Persons will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
-            addToModel(model, generatePersonList(numGenerated));
+        void addToModel(Model model, int numGenerated, int numGenerated2, int numGenerated3) throws Exception{
+            addToModel(model, generatePersonList(numGenerated), generateDeadlineList(numGenerated2), generateTodoList(numGenerated3));
         }
 
         /**
          * Adds the given list of Persons to the given model
          */
-        void addToModel(Model model, List<Task> personsToAdd) throws Exception{
+        void addToModel(Model model, List<Task> personsToAdd, List<Task> deadlinesToAdd, List<Task> todosToAdd) throws Exception{
             for(Task p: personsToAdd){
                 model.addTask(p);
             }
+            for(Task p: deadlinesToAdd){
+                model.addTask(p);
+            }
+            for(Task p: todosToAdd){
+                model.addTask(p);
+            }
+
         }
 
         /**
@@ -495,16 +557,75 @@ public class LogicManagerTest {
         List<Task> generatePersonList(Task... persons) {
             return Arrays.asList(persons);
         }
+        
+        /*
+         * Generates a list of deadlines based on flags.
+         */
+        List<Task> generateDeadlineList(int numGenerated) throws Exception{
+            List<Task> deadlines = new ArrayList<>();
+            for(int i = 1; i <= numGenerated; i++){
+                deadlines.add(generateDeadline(i));
+            }
+            return deadlines;
+        }
+
+        List<Task> generateDeadlineList(Task... deadlines) {
+            return Arrays.asList(deadlines);
+        }
+
+        /*
+         * Generates a list of todos based on flags.
+         */
+        List<Task> generateTodoList(int numGenerated) throws Exception{
+            List<Task> todos = new ArrayList<>();
+            for(int i = 1; i <= numGenerated; i++){
+                todos.add(generateTodo(i));
+            }
+            return todos;
+        }
+
+        List<Task> generateTodoList(Task... todo) {
+            return Arrays.asList(todo);
+        }
 
         /**
-         * Generates a Task object with given name. Other fields will have some dummy values.
+         * Generates a Task event object with given name. Other fields will have some dummy values.
          */
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Date("1"),
-                    new Start("1@email"),
-                    new End("House of 1"),
+                    new Date("31/12/16"),
+                    new Start("12.21am"),
+                    new End("1300"),
+                    1,
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+        
+        /**
+         * Generates a Task deadline object with given name. Other fields will have some dummy values.
+         */
+        Task generateDeadlineWithName(String name) throws Exception {
+            return new Task(
+                    new Name(name),
+                    new Date("31/12/16"),
+                    new Start("no start"),
+                    new End("1300"),
+                    2,
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+        
+        /**
+         * Generates a Task todo object with given name. Other fields will have some dummy values.
+         */
+        Task generateTodoWithName(String name) throws Exception {
+            return new Task(
+                    new Name(name),
+                    new Date("no date"),
+                    new Start("no start"),
+                    new End("no end"),
+                    3,
                     new UniqueTagList(new Tag("tag"))
             );
         }

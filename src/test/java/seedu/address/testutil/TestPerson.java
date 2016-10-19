@@ -12,6 +12,7 @@ public class TestPerson implements ReadOnlyTask {
     private End end;
     private Start start;
     private Date date;
+    private int task_cat;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -22,15 +23,15 @@ public class TestPerson implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(End address) {
+    public void setEnd(End address) {
         this.end = address;
     }
 
-    public void setEmail(Start email) {
+    public void setStart(Start email) {
         this.start = email;
     }
 
-    public void setPhone(Date phone) {
+    public void setDate(Date phone) {
         this.date = phone;
     }
 
@@ -52,6 +53,11 @@ public class TestPerson implements ReadOnlyTask {
     @Override
     public End getEnd() {
         return end;
+    }
+    
+    @Override
+    public int getTaskCategory() {
+    	return task_cat;
     }
 
     @Override
