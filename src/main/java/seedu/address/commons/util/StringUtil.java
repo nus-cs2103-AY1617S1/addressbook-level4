@@ -9,8 +9,18 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
-    public static boolean isSubstring(String source, String query) {
-        return source.indexOf(query) != -1;
+    
+    /**
+     * Returns true if query is a valid substring of source (beginning at the first character of source)
+     * Will return false if either source or query is null
+     * Will also return false if the substring of query found in source is different capitalization
+     * 
+     * @param source the base/source string to check on
+     * @param query the query string that you want to check if is substring and begins in source
+     * @return
+     */
+    public static boolean isSubstringFromStart(String source, String query) {
+        return source != null & query != null && source.indexOf(query) == 0;
     }
     
     public static boolean containsIgnoreCase(String source, String query) {

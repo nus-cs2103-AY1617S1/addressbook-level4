@@ -6,7 +6,6 @@ import java.util.List;
 import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.history.ReversibleEffect;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
@@ -14,7 +13,7 @@ import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -23,9 +22,15 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     
-    public static final String TOOL_TIP = "delete INDEX";
+    public static final String TOOL_TIP = "delete INDEX [ANOTHER_INDEX ...]";
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
+    
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid delete on tasks! %1$s Tasks restored!";
+    
+    private List<Task> deletedTasks;
+    
+    private List<String> displayDeletedTasks;
 
     public final List<Integer> targetIndexes;
 
@@ -38,12 +43,10 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        List<String> displayDeletedTasks = new ArrayList<String>();
+        displayDeletedTasks = new ArrayList<String>();
         Collections.sort(targetIndexes);
         int adjustmentForRemovedTask = 0;
-        
-        // update history
-        List<Task> affectedTasks = new ArrayList<Task>();
+        deletedTasks = new ArrayList<Task>();
 
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
@@ -57,8 +60,7 @@ public class DeleteCommand extends Command {
     
             try {
                 model.deleteTask(taskToDelete);
-                Task affectedTaskToDelete = new Task(taskToDelete);
-                affectedTasks.add(affectedTaskToDelete);
+                deletedTasks.add((Task) taskToDelete);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
             }
@@ -67,11 +69,17 @@ public class DeleteCommand extends Command {
         }
         
        
-        history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
-        history.resetRedo();
+        updateHistory();
 
         String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay));
+    }
+
+
+    @Override
+    public CommandResult undo() {
+        model.addTasks(deletedTasks);
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, displayDeletedTasks));
     }
 
 }

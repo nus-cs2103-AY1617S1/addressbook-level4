@@ -12,6 +12,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.history.History;
+import seedu.address.history.InputHistory;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.item.ReadOnlyTask;
@@ -28,7 +29,7 @@ public class MainWindow extends UiPart {
     public static final int MIN_WIDTH = 450;
 
     private Logic logic;
-    private History history;
+    private InputHistory history;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -78,7 +79,7 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, History history) {
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, InputHistory history) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
         mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic, history);
@@ -86,7 +87,7 @@ public class MainWindow extends UiPart {
     }
 
     private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           Logic logic, History history) {
+                           Logic logic, InputHistory history) {
 
         //Set dependencies
         this.logic = logic;

@@ -1,15 +1,13 @@
 package seedu.address.logic.commands;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.history.ReversibleEffect;
-import seedu.address.model.item.DateTime;
 import seedu.address.model.item.Task;
+import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.item.DateTime;
 import seedu.address.model.item.TimePeriod;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
@@ -18,7 +16,7 @@ import seedu.address.model.item.RecurrenceRate;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends UndoableCommand {
 
     private final Logger logger = LogsCenter.getLogger(AddCommand.class);
     
@@ -30,12 +28,13 @@ public class AddCommand extends Command {
             + "Parameters: [add] NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
             + " feed cat by today 11:30am repeat every day -high";
-    
-    public static final String TOOL_TIP = "add NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n";
-    
+
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     
-    //TODO: Design decision
+    public static final String TOOL_TIP = "[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
+
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid add item: %1$s";
+
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided";
     
@@ -102,11 +101,22 @@ public class AddCommand extends Command {
         assert model != null;
         model.addTask(toAdd);
         
-        List<Task> affectedTasks = new ArrayList<Task>();
-        affectedTasks.add(toAdd);
-        history.update(new ReversibleEffect(COMMAND_WORD, affectedTasks));
-        history.resetRedo();
+        // TODO: i don't like updating the history here, to refactor further
+        // not sure if EVERY command should access history, or i pass history to parser then parser prepareUndoCmd together with the history
+        updateHistory();
+        
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    @Override
+    public CommandResult undo() {
+        assert model != null;
+        try {
+            model.deleteTask(toAdd);
+        } catch (TaskNotFoundException e) {
+            return new CommandResult("Failed to undo last add command: add " + toAdd);
+        }
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
     }
 
 }

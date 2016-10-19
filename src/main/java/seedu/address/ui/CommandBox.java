@@ -14,6 +14,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.history.History;
+import seedu.address.history.InputHistory;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -28,21 +29,21 @@ public class CommandBox extends UiPart {
     String previousCommandTest;
 
     private Logic logic;
-    private History history;
+    private InputHistory history;
 
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic, History history) {
+            ResultDisplay resultDisplay, Logic logic, InputHistory history) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic, history);
         commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    public void configure(ResultDisplay resultDisplay, Logic logic, History history) {
+    public void configure(ResultDisplay resultDisplay, Logic logic, InputHistory history) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
         this.history = history;
@@ -79,7 +80,7 @@ public class CommandBox extends UiPart {
         KeyCode keyCode = event.getCode();
         
         // handle event for arrow keys
-        if (keyCode.isArrowKey()){
+        if (keyCode == KeyCode.UP || keyCode == KeyCode.DOWN){
             handleArrowKeyEvent(keyCode);
         }
         
@@ -89,44 +90,42 @@ public class CommandBox extends UiPart {
         // only update if user uses a backspace or enters a valid character
         if (keyCode != KeyCode.BACK_SPACE && !keyCode.isDigitKey() && !keyCode.isLetterKey()) return;
         
-        String toDisplay = logic.decideToolTip(commandTextField.getText());
+        String toDisplay = logic.generateToolTip(commandTextField.getText());
         resultDisplay.postMessage(toDisplay);
     }
 
     
     private void handleArrowKeyEvent(KeyCode keyCode) {
-        boolean wantPrevious = keyCode == KeyCode.UP || keyCode == KeyCode.KP_UP || keyCode == KeyCode.LEFT || keyCode == KeyCode.KP_LEFT;
+        boolean wantPrevious = keyCode == KeyCode.UP;
         boolean wantNext = !wantPrevious;
         
         // if attempt to get next command while at latest command input or prev while at earliest, return
-        if ((history.isLatestCommand() && wantNext) || (history.isEarliestCommand() && wantPrevious)) {
+        if ((history.isLatestInput() && wantNext) || (history.isEarliestInput() && wantPrevious)) {
             return;
         }
-        
-        String currentInput = commandTextField.getText();
-        
-        // handle differently depending on up or left arrow
+                
+        // handle differently depending on up arrow
         if (wantPrevious){
             // store the current input into the next first
-            if (history.isLatestCommand()) {
-                history.pushNextCommandInput(commandTextField.getText());
+            if (history.isLatestInput()) {
+                history.pushNextInput(commandTextField.getText());
             }
                 
             else {
-                history.pushNextCommandInput(history.getStoredCurrentShownCommand());
+                history.pushNextInput(history.getStoredCurrentShownInput());
             }
                 
             // get a previous command input and replace current input
-            commandTextField.setText(history.popPrevCommandInput());
+            commandTextField.setText(history.popPrevInput());
         }
         
-        // or down or right arrow
+        // or down arrow
         else {
             // store the current input into the prev first
-            history.pushPrevCommandInput(history.getStoredCurrentShownCommand());
+            history.pushPrevInput(history.getStoredCurrentShownInput());
             
             // get a next command input and replace current input
-            commandTextField.setText(history.popNextCommandInput());
+            commandTextField.setText(history.popNextInput());
         }
         
         String currentInputShown = commandTextField.getText();

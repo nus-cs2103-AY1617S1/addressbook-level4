@@ -21,6 +21,7 @@ public interface Logic {
     /** Returns the filtered list of done tasks **/
     ObservableList<ReadOnlyTask> getFilteredDoneTaskList();
 
-    String decideToolTip(String commandText);
+    /** Generates the tool tip for the current user input **/
+    String generateToolTip(String commandText);
 
 }

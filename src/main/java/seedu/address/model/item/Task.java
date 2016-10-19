@@ -9,7 +9,6 @@ import seedu.address.commons.util.CollectionUtil;
 
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
-    private static final int FIELD_IS_ABSENT = -2;
     public static final String VARIABLE_CONNECTOR = ", Priority: ";
 
     protected Name taskName;
@@ -60,6 +59,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      */
     public Task(Name taskName, Date startDate, Date endDate, RecurrenceRate recurrenceRate, Priority priorityValue) {
         assert !CollectionUtil.isAnyNull(taskName);
+        assert taskName != null;
+        assert priorityValue != null;
         this.taskName = taskName;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -106,6 +107,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public boolean equals(Object other) {
+        
+        //TODO: extract method similar to compareto method
         // same object       
         if (other == this) {
             return true;
@@ -164,37 +167,93 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     @Override
     public int compareTo(Task other) {
-
-        int startDateComparison = compareByStartDate(other);
-        int endDateComparison = compareByEndDate(other);
-        int priorityValueComparison = compareByPriorityValue(other);
-        int taskNameComparison = compareByTaskName(other);
-
-        if (startDateComparison != FIELD_IS_ABSENT) {
-            return startDateComparison;
-        } else if (endDateComparison != FIELD_IS_ABSENT) {
-            return endDateComparison;
-        } else if (priorityValueComparison != 0) {
-            return priorityValueComparison;
-        } else {
-            return taskNameComparison;
+        int comparedVal = 0;
+                
+        comparedVal = compareByDate(other);
+        if (comparedVal != 0) {
+            return comparedVal;
         }
+        
+        if (haveDifferentPriority(other)) {
+            return compareByPriorityValue(other);
+        }
+        /* don't think recurrence rate should be considered in sorting 
+        else if (bothHaveRecurrenceRate(other)) {
+            return compareByReccurenceRate(other);
+        }
+        */
+        else {
+           return compareByTaskName(other);
+        }
+
+
     }
 
-    private int compareByStartDate(Task other) {
-        if (this.startDate != null && other.startDate != null) {
-            return this.startDate.compareTo(other.startDate);
-        } else {
-            return FIELD_IS_ABSENT;
+    private int compareByDate(Task other) {
+        // 1. those with start date
+        // 2. those with start date and end date
+        // 3. those with end date
+        // 4. those with nothing
+        
+        boolean hasStart = this.startDate != null, hasEnd = this.endDate != null;
+        boolean otherHasStart = other.startDate != null, otherHasEnd = other.endDate != null;
+        int comparedVal = 0;
+        
+        if (hasStart && otherHasStart) {
+            comparedVal = this.startDate.compareTo(other.startDate);
+            if (comparedVal != 0){
+                return comparedVal;
+            }
         }
+        
+        if (hasStart && otherHasEnd) {
+            comparedVal = this.startDate.compareTo(other.endDate);
+            if (comparedVal != 0){
+                return comparedVal;
+            }
+            else {
+                // if equal,  always put the one with start first
+                return -1;
+            }
+        }
+        
+        if (otherHasStart && hasEnd){
+            comparedVal = this.endDate.compareTo(other.startDate);
+            if (comparedVal != 0){
+                return comparedVal;
+            }
+            else {
+             // if equal,  always put the one with start first
+                return 1;
+            }
+        }
+        
+        if (hasEnd && otherHasEnd) {
+            comparedVal = this.endDate.compareTo(other.endDate);
+            if (comparedVal != 0){
+                return comparedVal;
+            }
+        }
+        
+        if (hasStart || hasEnd)
+            return -1;
+        
+        if (otherHasStart || otherHasEnd)
+            return 1;
+        
+        return 0;
+        
+
+        
     }
 
-    private int compareByEndDate(Task other) {
-        if (this.endDate != null && other.endDate != null) {
-            return this.endDate.compareTo(other.endDate);
-        } else {
-            return FIELD_IS_ABSENT;
-        }
+    /*
+    private boolean bothHaveRecurrenceRate(Task other) {
+        return this.recurrenceRate != null && other.recurrenceRate != null;
+    }
+     */
+    private boolean haveDifferentPriority(Task other) {
+        return !this.priority.equals(other.priority);
     }
 
     private int compareByPriorityValue(Task other) {
@@ -204,7 +263,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private int compareByTaskName(Task other) {
         return this.taskName.name.compareTo(other.taskName.name);
     }
-
+    /*
+    private int compareByReccurenceRate(Task other) {
+        return this.recurrenceRate.compareTo(other.recurrenceRate);
+    }
+     */
     public void setName(Name name) {
         this.taskName = name;
     }

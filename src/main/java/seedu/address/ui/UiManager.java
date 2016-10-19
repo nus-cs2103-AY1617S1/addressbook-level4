@@ -18,6 +18,7 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.history.History;
+import seedu.address.history.InputHistory;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -33,10 +34,10 @@ public class UiManager extends ComponentManager implements Ui {
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
-    private History history;
+    private InputHistory history;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs, History history) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs, InputHistory history) {
         super();
         this.logic = logic;
         this.config = config;

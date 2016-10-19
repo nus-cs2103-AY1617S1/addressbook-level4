@@ -23,30 +23,26 @@ public class TaskCardHandle extends GuiHandle {
     protected String getTextFromLabel(String fieldId) {
         return getTextFromLabel(fieldId, node);
     }
+    
+    protected String getTextFromPriorityRectangle(String fieldId){
+        return getTextFromPriorityRectangle(fieldId, node);
+    }
 
     public String getName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
     public String getPriority() {
-        return getTextFromLabel(PRIORITY_FIELD_ID);
+        // Priority is no longer a Label
+        // return getTextFromLabel(PRIORITY_FIELD_ID);
+        
+        
+        return getTextFromPriorityRectangle(PRIORITY_FIELD_ID);
+        
     }
 
 
     public boolean isSameFloatingTask(ReadOnlyTask task){
-        /*
-        System.out.println("===================================================================");
-        System.out.println("this.name = " + this.getName() + ", task.name = " + task.getName());
-        System.out.println("this.name.compareTo(task.name) = " + this.getName().compareTo(task.getName().toString()));
-        System.out.println("this.name = task.name? " + (this.getName().equals(task.getName().name)));
-        System.out.println("this.name.hashCode() = " + this.getName().hashCode() + ", task.name.hashCode() = " + task.getName().hashCode());
-        System.out.println("-------------------------------------------------------------------");
-        System.out.println("this.priority = " + this.getPriority() + ", task.priority = " + task.getPriorityValue());
-        System.out.println("this.priority.compareTo(task.priority) = " + this.getPriority().compareTo(task.getPriorityValue().toString()));
-        System.out.println("this.priority = task.priority? " + (this.getPriority().equals(task.getPriorityValue().toString())));
-        System.out.println("this.priority.hashCode() = " + this.getPriority().hashCode() + ", task.priority.hashCode() = " + task.getPriorityValue().toString().hashCode());
-        System.out.println("===================================================================");
-        */
         return getName().equals(task.getName().name) && getPriority().equals(task.getPriorityValue().toString());
     }
 

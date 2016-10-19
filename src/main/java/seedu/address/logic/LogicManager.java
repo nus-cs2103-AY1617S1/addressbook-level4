@@ -8,6 +8,7 @@ import seedu.address.history.History;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.parser.CommandParser;
 import seedu.address.model.Model;
 import seedu.address.model.item.ReadOnlyTask;
@@ -37,8 +38,8 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = parser.parseCommand(commandText);
-        command.setData(model, history);
+        Command command = parser.parseCommand(commandText);    
+        command.setData(model, history); 
         return command.execute();
     }
 
@@ -52,13 +53,22 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredDoneTaskList();
     }
     
+    /**
+     * Generates the tool tip for the current user input.
+     * 
+     * @param commandText the user input string
+     * @return the tooltip that fits the user input string
+     */
     @Override
-    public String decideToolTip(String commandText){
+    public String generateToolTip(String commandText){
+        assert commandText != null;
+        
         //logger.info("----------------[INCOMPLETE USER COMMAND][" + commandText + "]");
         List<String> toolTips = parser.parseIncompleteCommand(commandText);
         
-        // toolTips should at least have 1 item
-        assert toolTips.size() > 0;
+        // toolTips should have at least one string in it
+        // as there is a default case (add command)
+        assert toolTips != null && toolTips.size() > 0;        
         
         // check if invalid command format
         if (toolTips.contains(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE))){
@@ -81,5 +91,6 @@ public class LogicManager extends ComponentManager implements Logic {
         
         // return the tooltip as a single string separated by \n
         return stringBuilder.toString();
+        
     }
 }
