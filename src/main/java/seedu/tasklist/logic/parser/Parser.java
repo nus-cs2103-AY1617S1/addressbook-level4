@@ -66,6 +66,9 @@ public class Parser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
+        case SetStorageCommand.COMMAND_WORD:
+        	return prepareFilePath(arguments);
+        	
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
 
@@ -102,6 +105,15 @@ public class Parser {
         return new UndoCommand();
     }
 
+    private Command prepareFilePath(String args){
+    	if(args!=null){
+    		args= args.trim();
+    		return new SetStorageCommand(args);
+    	}
+    	else
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
+    }
+    
     private Command prepareUpdate(String args) {
         args = args.trim();
         final Matcher matcher = TASK_UPDATE_ARGS_FORMAT.matcher(args);
