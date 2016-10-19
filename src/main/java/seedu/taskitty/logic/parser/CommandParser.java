@@ -88,6 +88,9 @@ public class CommandParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommand("");
         
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
@@ -352,7 +355,13 @@ public class CommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-
+        
+        //check if a date argument is given and return a view command instead if so
+        String[] checkDates = extractTaskDetailsNatty(args);
+        if (checkDates.length == 1 && TaskDate.isValidDate(checkDates[0])) {
+            return new ViewCommand(checkDates[0]);
+        }
+        
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
