@@ -302,14 +302,14 @@ public class TaskListPanel extends UiPart {
     }
     
     private void updateDaysTitles(TitledPane... panes) {
-        int i = 1;
+        int i = 0;
         for(TitledPane t : panes) {
-            if(i == 1) {
+            if(i == 0) {
                 t.setText("Today (" + this.daysTaskList.get(i++).size() + ")");
-            } else if(i == 2) {
+            } else if(i == 1) {
                 t.setText("Tomorrow (" + this.daysTaskList.get(i++).size() + ")");
             } else {
-                String dayOfWeek = LocalDateTime.now().getDayOfWeek().plus(i).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+                String dayOfWeek = LocalDateTime.now().getDayOfWeek().plus(i + 1).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
                 t.setText(dayOfWeek + " (" + this.daysTaskList.get(i++).size() + ")");
             }
         }
