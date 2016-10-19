@@ -145,7 +145,7 @@ Example: Edit T1 pri !
 
 >Note: High priority tasks are color coded blue.
  
-###3 Find Task by Partial Keyword
+###3 Find Task by Keyword
 
 The find by partial keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task is not found, an error message will be shown.
 

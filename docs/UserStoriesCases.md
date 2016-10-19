@@ -4,14 +4,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
  -------- | :-------- | :--------- | :-----------
-***  |  user  |  add events with a start time and an end time  |
+***  |  user  |  add tasks with a start time and an end time  |
 ***  |  user  |  add tasks without a specified time  | 
 ***  |  user  |  add tasks without a deadline | 
-***  |  user  |  edit existing events  |  update deadlines or venues  
-***  |  user  |  delete existing events  |  remove entries that is no longer needed
-***  |  user  |  complete events  |  acknowledge the completion of event
+***  |  user  |  edit existing tasks  |  update deadlines or venues  
+***  |  user  |  delete existing tasks  |  remove entries that is no longer needed
+***  |  user  |  complete tasks  |  acknowledge the completion of event
 ***  |  user  |  undo the most recent operations  | undo wrong commands 
-***  |  user  |  search by partial keyword  |  find related events containing the keyword
+***  |  user  |  search by keyword  |  find related events containing the keyword
 ***  |  user  | be able to specify my storage folder | use cloud syncing services on it
 **  |  user  |  add tasks that is recurring  |  
 **  |  user  |  some variations in command keywords
@@ -106,7 +106,7 @@ Use case ends
   Use case ends
 
 
-#### Use case: search by partial keyword
+#### Use case: search by keyword
 
 **MSS**
 
