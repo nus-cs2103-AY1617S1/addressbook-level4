@@ -68,6 +68,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -196,6 +199,38 @@ public class Parser {
         return dateAndTime;
     }
 
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+
+        int index = Character.getNumericValue(args.charAt(1));
+        if(!(index>=0)){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.substring(2));
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        String name = matcher.group("name");
+        String[] interval = parseInterval(matcher.group("interval"));
+        String location = matcher.group("location");
+        String remarks = matcher.group("remarks");
+
+        try {
+			return new EditCommand(index, name, interval[0], interval[1], interval[2], interval[3], location, remarks);
+		} catch (IllegalValueException ive) {
+			return new IncorrectCommand(ive.getMessage());
+		}
+    }
+    
     /**
      * Parses arguments in the context of the delete task command.
      *
