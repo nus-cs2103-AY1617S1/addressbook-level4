@@ -92,13 +92,13 @@ public class DateTime {
             this.valueFormatted = "Not specified";
         } else {
             final String preKeyword = matcher.group("preKeyword").trim();
-
+            
             if(preKeyword.equals("on")){
                 if(!isValidFormatFor_GivenKeyword(dateTime, preKeyword))
                     throw new IllegalValueException(MESSAGE_KEYWORD_ON_CONSTRAINTS);
                 
                 this.valueDate = valueDateFormatter(matcher, preKeyword);
-                this.valueFormatted = valueFormatter(matcher, preKeyword);
+                this.valueFormatted = valueFormatter(matcher, preKeyword) + getContext(valueDate);
                 
                 this.valueTime = null;
                 this.valueDateEnd = null;
@@ -110,7 +110,8 @@ public class DateTime {
                 
                 this.valueDate = valueDateFormatter(matcher, preKeyword);                
                 this.valueTime = valueTimeFormatter(matcher, preKeyword);                
-                this.valueFormatted = valueFormatter(matcher, preKeyword);
+                this.valueFormatted = valueFormatter(matcher, preKeyword) + getContext(valueDate);
+
                 
                 this.valueDateEnd = null;
                 this.valueTimeEnd = null;
@@ -128,7 +129,7 @@ public class DateTime {
                 this.valueTimeEnd = valueTimeFormatter(matcher, aftKeyword);
                 
                 this.valueFormatted = valueFormatter(matcher, preKeyword) + " "
-                                    + valueFormatter(matcher, aftKeyword);                     
+                                    + valueFormatter(matcher, aftKeyword) + getContext(valueDate);                     
             }
             this.value = dateTime;
         }
@@ -207,7 +208,49 @@ public class DateTime {
                     + year + ", " + hour + ":" + minute;
         }
     }
-    
+   
+    public String getContext(LocalDate valueDate) {
+    	String context = ""; 
+    	
+    	if(valueDate.isEqual(LocalDate.now())){
+        	context = " (Today)";
+        } 
+        
+        else if(valueDate.minusDays(1).isEqual(LocalDate.now())){
+        	context = " (Tomorrow)";
+        }
+        
+        else if (valueDate.isBefore(LocalDate.now())){
+        	int monthsDue = valueDate.until(LocalDate.now()).getMonths();
+        	int yearsDue = valueDate.until(LocalDate.now()).getYears();
+        	int daysDue = valueDate.until(LocalDate.now()).getDays();
+        	String stringDaysDue = Integer.toString(daysDue);
+        	String stringMonthsDue = Integer.toString(monthsDue);
+        	String stringYearsDue = Integer.toString(yearsDue);
+        	String periodDue = "";
+        	
+        	if (monthsDue > 0 && yearsDue > 0)
+        		periodDue = stringDaysDue + " Days " + stringMonthsDue + " Months " + stringYearsDue + " Years";
+        	
+        	else if (monthsDue > 0 && yearsDue == 0)
+        		periodDue = stringDaysDue + " Days " + stringMonthsDue + " Months";
+            
+        	else if (monthsDue == 0 && yearsDue == 0)
+        		periodDue = valueDate.until(LocalDate.now()).getDays() + " Days";
+        	
+        	else
+        		periodDue = "";
+        	
+        	context = " -- Overdue by " + periodDue + ".";
+        }
+    	
+        else {
+        	context = "";
+        }
+    	
+    	return context;
+    }
+
     @Override
     public String toString() {
         return valueFormatted;
