@@ -3,7 +3,7 @@ package seedu.unburden.model.task;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's date in the address book.
+ * Represents a Task's date in the task manager
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
