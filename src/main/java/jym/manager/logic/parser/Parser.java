@@ -1,6 +1,8 @@
 package jym.manager.logic.parser;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.DayOfWeek;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -13,6 +15,7 @@ import jym.manager.logic.commands.*;
 import static jym.manager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static jym.manager.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import com.joestelmach.natty.*;
 /**
  * Parses user input.
  */
@@ -51,20 +54,28 @@ public class Parser {
     public Parser() {}
 
     public static LocalDateTime parseDate(String date){
-    	if(date == null) return null;
-    		
+    	//this date parsing needs to be made neater and less all shoved into one method
+    	//TODO : CLEAN DIS SH*T UP
+    	if(date == null || date.equals("no deadline")) return null;
+    
+    	com.joestelmach.natty.Parser p = new com.joestelmach.natty.Parser();
+    	List<DateGroup> dg = p.parse(date);
+    	
+    	dg.forEach(g -> System.out.println("group: "+ g.getFullText()));
+    	if(date.contains(DayOfWeek.FRIDAY.toString()));
+    	
     	LocalDateTime ldt = null;
-    	 if(date.contains("T")){
-	    	 try{
+    	if(date.contains("T")){
+	    	try{
 	 			ldt = LocalDateTime.parse(date);
-	 		} catch(DateTimeParseException dtpe){
+	 		} catch(DateTimeParseException dtpe) {
 	 			dtpe.printStackTrace();
 	 		}
-	     } else {
+	    } else {
 	     	try{
 		     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
 		     	ldt = LocalDateTime.parse(date, formatter);
-	    	}catch(DateTimeParseException dtpe){
+	    	} catch(DateTimeParseException dtpe) {
 	    		dtpe.printStackTrace();
 	    	}
 	     }
@@ -132,40 +143,65 @@ public class Parser {
 //            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 //        }
         System.out.println(matcher.groupCount());
+
+        com.joestelmach.natty.Parser p = new com.joestelmach.natty.Parser();
+    	List<DateGroup> dg = p.parse(args);
+    	
+    	
+        String[] sections = args.split(dg.get(0).getText()); //split around the time
         
-        String[] sections = args.split("\\sby\\s|\\sat\\s");
         String date = null;
         String description = sections[0];
         String location = null;
+        
+        if(sections.length > 1){
+        	location = sections[1];
+        } else {
+        	String[] furtherSects = sections[0].split("\\sat\\s");//for location
+        	location = (furtherSects.length > 1)? furtherSects[1] : null;
+        	description = furtherSects[0];
+        }
         List<String> list = Arrays.asList(sections);
         System.out.println("Section groups: ");
         list.forEach(n-> System.out.println(n));
+        System.out.println(LocalDateTime.now().toString());
         
-        if(sections.length > 1){
-        	Pattern dateRegex = Pattern.compile("(\\d\\d[- /.]\\d\\d[- /.]\\d\\d\\d\\d)(.*)");
-        	Pattern timeRegex = Pattern.compile("(.*)(\\d\\d[: /.]\\d\\d)(.*)");
-        	try {
-        		Matcher m = dateRegex.matcher(sections[1]);
-        		Matcher t = timeRegex.matcher(sections[1]);
-        		if(m.matches() || t.matches()){
-        			date = sections[1];
-        			System.out.println("date: " + date);
-        			if(sections.length > 2) location = sections[2];
-        		} else {
-        			location = sections[1];
-        			System.out.println("location " + location);
-        			if(sections.length > 2) date = sections[2];
-        		}
-        	} catch (Exception e){
-        		e.printStackTrace();
-        	}
-        	
+    	
+    	dg.forEach(g -> System.out.println("group: "+ g.getText()));
+    	dg.get(0).getDates().forEach(d -> System.out.println("date: " + d.toString()));
+    	
+    	
+    	if(location.contains("at")){
+    		location = location.substring(4);
+    	}
+    	if(description.endsWith("by ")){
+    		description = description.split("\\sby\\s")[0];
+    	}
+//        if(sections.length > 1){
+//        	Pattern dateRegex = Pattern.compile("(\\d\\d[- /.]\\d\\d[- /.]\\d\\d\\d\\d)(.*)");
+//        	Pattern timeRegex = Pattern.compile("(.*)(\\d\\d[: /.]\\d\\d)(.*)");
+//        	try {
+//        		Matcher m = dateRegex.matcher(sections[1]);
+//        		Matcher t = timeRegex.matcher(sections[1]);
+//        		if(m.matches() || t.matches()){
+//        			date = sections[1];
+//        			System.out.println("date: " + date);
+//        			if(sections.length > 2) location = sections[2];
+//        		} else {
+//        			location = sections[1];
+//        			System.out.println("location " + location);
+//        			if(sections.length > 2) date = sections[2];
+//        		}
+//        	} catch (Exception e){
+//        		e.printStackTrace();
+//        	}
+//        	
         //	if(sections[1])
         //	date = sections[1];
-        }
+ //       }
      
     
-        LocalDateTime ldt = parseDate(date);
+        LocalDateTime ldt = LocalDateTime.ofInstant(dg.get(0).getDates().get(0).toInstant(), ZoneId.systemDefault());
         try {
             return new AddCommand(
                     description,

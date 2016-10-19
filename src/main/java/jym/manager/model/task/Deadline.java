@@ -57,6 +57,7 @@ public class Deadline {
      */
     public boolean isValidDeadline(String test) {
     	if(test == null) return false;
+    	if(test.equals("no deadline")) return true;
 		 LocalDateTime ldt = null;
 	     test.replaceAll("\\n", "");
 	     if(test.contains("T")){
