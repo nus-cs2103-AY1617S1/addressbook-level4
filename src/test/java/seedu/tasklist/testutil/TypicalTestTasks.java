@@ -30,6 +30,7 @@ public class TypicalTestTasks {
             task9 = new TaskBuilder().withTaskDetails("Buy groceries").withStartTime("5pm").withEndTime("").withUniqueID(9).withPriority("med").withRecurringFrequency("").build();
             task10 = new TaskBuilder().withTaskDetails("Study for EE2021").withStartTime("").withEndTime("").withUniqueID(10).withPriority("med").withRecurringFrequency("").build();
             task11 = new TaskBuilder().withTaskDetails("Work on CS2101 Project").withStartTime("10/10/15 5pm").withEndTime("21/09/2016").withUniqueID(8).withPriority("high").withRecurringFrequency("").build();
+
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -54,7 +55,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{task1, task2, task3, task4, task5, task6, task7};
+        return new TestTask[]{task1, task2, task3, task4, task5, task6, task7, task10, task11};
     }
 
     public TaskList getTypicalTaskList(){

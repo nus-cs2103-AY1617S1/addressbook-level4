@@ -22,7 +22,7 @@ public class EndTime {
             "End time should only be entered in 24 hrs format or 12 hrs format.";
     public static final String END_TIME_VALIDATION_REGEX = ".*";
 
-    public final Calendar endtime;
+    public final Calendar endTime;
 
     /**
      * Validates given end time.
@@ -30,11 +30,13 @@ public class EndTime {
      * @throws IllegalValueException if given end time is invalid.
      */
     public EndTime(String input) throws IllegalValueException {
-    	endtime = Calendar.getInstance();
-    //	String endTime = input.trim();
-    	String endTime = TimePreparser.preparse(input);
-    	if(!endTime.isEmpty() && !endTime.equals(new Date(0).toString())){
-    		List<DateGroup> dates = new Parser().parse(endTime);
+    	endTime = Calendar.getInstance();
+    	if(input == null || input == ""){
+    		endTime.setTime(new Date(0));
+    	}
+    	else{
+    		String preparsedTime = TimePreparser.preparse(input);
+    		List<DateGroup> dates = new Parser().parse(preparsedTime);
     		if(dates.isEmpty()){
     			throw new IllegalValueException("End time is invalid!");
     		}
@@ -42,31 +44,35 @@ public class EndTime {
     			throw new IllegalValueException("End time is invalid!");
     		}
     		else{
-    			endtime.setTime(dates.get(0).getDates().get(0));
+    			endTime.setTime(dates.get(0).getDates().get(0));
     		}
     	}
-    	else{
-    	      endtime.setTime(new Date(0));
-    	}
+    	endTime.clear(Calendar.SECOND);
+    	endTime.clear(Calendar.MILLISECOND);
+    }
+    
+    public EndTime(Long unixTime) {
+    	endTime = Calendar.getInstance();
+    	endTime.setTimeInMillis(unixTime);
     }
 
     @Override
     public String toString() {
-    	if(endtime.getTime().equals(new Date(0))){
+    	if(endTime.getTime().equals(new Date(0))){
     		return (new Date(0)).toString();
     	}
     	else{
-    		return endtime.getTime().toString();
+    		return endTime.getTime().toString();
     	}
     }
     
     public String toCardString() {
-    	if(endtime.getTime().equals(new Date(0))){
+    	if(endTime.getTime().equals(new Date(0))){
     		return "-";
     	}
     	else{
     		DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
-    		Date endTimeString = endtime.getTime();
+    		Date endTimeString = endTime.getTime();
     		String finalEndString = df.format(endTimeString );
     		
     		return finalEndString;
@@ -74,7 +80,7 @@ public class EndTime {
     }
     
     public boolean isMissing(){
-        if(endtime.getTime().equals(new Date(0)))
+        if(endTime.getTime().equals(new Date(0)))
         return true;
         else return false;
         } 
@@ -83,12 +89,12 @@ public class EndTime {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EndTime // instanceof handles nulls
-                && this.endtime.equals(((EndTime) other).endtime)); // state check
+                && this.endTime.getTimeInMillis()==((EndTime) other).endTime.getTimeInMillis()); // state check
     }
 
     @Override
     public int hashCode() {
-        return endtime.hashCode();
+        return endTime.hashCode();
     }
 
 }
