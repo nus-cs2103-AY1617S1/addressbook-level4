@@ -113,6 +113,9 @@ public class Parser {
         case CollapseCommand.COMMAND_WORD:
             return new CollapseCommand();
 
+        case ExpandCommand.COMMAND_WORD:
+            return new ExpandCommand();
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
