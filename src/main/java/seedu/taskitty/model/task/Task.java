@@ -170,4 +170,19 @@ public class Task implements ReadOnlyTask {
 	public boolean getIsDone() {
 		return isDone;
 	}
+	
+	@Override
+	public boolean isTodo() {
+		return numArgs == 1;
+	}
+	
+	@Override
+	public boolean isDeadline() {
+		return numArgs == 3;
+	}
+	
+	@Override
+	public boolean isEvent() {
+		return numArgs == 5;
+	}
 }
