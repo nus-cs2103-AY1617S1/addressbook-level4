@@ -12,7 +12,6 @@ import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
-import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
