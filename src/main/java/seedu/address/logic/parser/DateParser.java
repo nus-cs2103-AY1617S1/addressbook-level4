@@ -271,11 +271,11 @@ public class DateParser {
 		}
 	}
 
-	private static int parseHour(String hour12, String meridien) throws ParseException {
-		meridien = meridien.toLowerCase();
+	private static int parseHour(String hour12, String meridiem) throws ParseException {
+		meridiem = meridiem.toLowerCase();
 		int hour;
 
-		if (meridien.equals("pm")) {
+		if (meridiem.equals("pm")) {
 			hour = 12 +Integer.parseInt(hour12);
 		}
 		else {
