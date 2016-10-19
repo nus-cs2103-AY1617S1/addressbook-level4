@@ -126,7 +126,7 @@ You can specify a recurring task/event by using the `repeat` keywords:
 Finally, tags can be added to tasks for you to categorize them. For example,
 you may choose to use tags as a way to prioritize or to classify tasks.
 
-`add "CS2101 Submission" by 5 Nov tag "Very Important" tag "CS2101"`
+`add CS2101 Submission by 5 Nov tag "Very Important" tag "CS2101"`
 
 <img src="images/Ui-Add.png" width="600"><br>
 *Figure 3: The `add` command allows you to add a new task easily*
