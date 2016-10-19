@@ -129,11 +129,6 @@ public class EditCommand extends UndoableCommand {
         
         // Copy this task for history usage
         beforeEdit = new Task(taskToEdit);
-        
-        Optional<Date> newStartDate;
-        Optional<Date> newEndDate;
-        Priority newPriority;
-        Optional<RecurrenceRate> newReccurence;
 
         if (taskName == null) {        
             taskName = toEdit.getName();
@@ -189,35 +184,48 @@ public class EditCommand extends UndoableCommand {
         Optional<Date> oldEndDate = beforeEdit.getEndDate();
         Priority oldPriority = beforeEdit.getPriorityValue();
         Optional<RecurrenceRate> oldReccurence = beforeEdit.getRecurrenceRate();
-                
-        model.editName(toUndo, oldTaskName);
+             
+    	Date undoStartDate;
+        Date undoEndDate;
+        RecurrenceRate undoRecurrenceRate;
+
+        //model.editName(toUndo, oldTaskName);
         
-        model.editPriority(toUndo, oldPriority);
+        //model.editPriority(toUndo, oldPriority);
  
         
         // edit back the start date
-        if (oldStartDate.isPresent()) {
-            model.editStartDate(toUndo, oldStartDate.get());
+        if (!oldStartDate.isPresent()) {
+            //model.editStartDate(toUndo, oldStartDate.get());
+        	undoStartDate = null;
         }
         else {
-            model.editStartDate(toUndo, null);
+            //model.editStartDate(toUndo, null);
+        	undoStartDate = oldStartDate.get();
         }
         
         // edit back the end date
-        if (oldEndDate.isPresent()) {
-            model.editEndDate(toUndo, oldEndDate.get());
+        if (!oldEndDate.isPresent()) {
+            //model.editEndDate(toUndo, oldEndDate.get());
+        	undoEndDate = null;
         }
         else {
-            model.editEndDate(toUndo, null);
+            //model.editEndDate(toUndo, null);
+        	undoEndDate = oldEndDate.get();
         }
         
         // edit back the recurrence rate
-        if (oldReccurence.isPresent()) {
-            model.editRecurrence(toUndo, oldReccurence.get());
+        if (!oldReccurence.isPresent()) {
+            //model.editRecurrence(toUndo, oldReccurence.get());
+        	undoRecurrenceRate = null;
         }
         else {
-            model.editRecurrence(toUndo, null);
+            //model.editRecurrence(toUndo, null);
+        	undoRecurrenceRate =  oldReccurence.get();
         }
+        
+        model.editTask(toUndo,oldTaskName,undoStartDate,undoEndDate,oldPriority,undoRecurrenceRate);
+
         
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toUndoForPrint, toUndo));
     }
