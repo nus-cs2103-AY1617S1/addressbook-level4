@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.*;
 
@@ -28,8 +29,10 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withDeadline(String deadline) throws IllegalValueException {
-        this.task.setDeadline(new Deadline(deadline));
+    public TaskBuilder withDeadline(String... deadlines) throws IllegalValueException {
+    	for (String deadline: deadlines) {
+            task.getDeadlines().add(new Deadline(deadline));
+        }
         return this;
     }
 

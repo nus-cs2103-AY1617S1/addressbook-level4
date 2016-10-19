@@ -1,4 +1,4 @@
-package seedu.address.model.task;
+package seedu.address.model.deadline;
 
 
 import java.text.DateFormat;
@@ -19,6 +19,7 @@ public class Deadline {
     public static final String DEADLINE_DASH_VALIDATION_REGEX = "[\\d]+-[\\d]+-[\\d]+";
 
     public final String value;
+	public String deadlineDate;
 
     /**
      * Validates given deadline.

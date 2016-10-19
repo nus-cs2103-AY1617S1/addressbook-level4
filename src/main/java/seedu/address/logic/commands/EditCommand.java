@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.deadline.Deadline;
+import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -16,7 +18,7 @@ public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 	
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the task manager. "
-            + "Parameters: NAME d/DEADLINE p/PRIORITY" 
+            + "Parameters: NAME p/PRIORITY" 
             + " Example: " + COMMAND_WORD
             + " 1 Task Name to be Changed d/121016 p/3";
 	
@@ -25,21 +27,27 @@ public class EditCommand extends Command {
 
     public final int targetIndex;
     public final Name name;
-    public final Deadline deadline;
+    public final UniqueDeadlineList deadlineSet;
     public final Priority priority;
     public final UniqueTagList tagSet;
     private Task toAdd;
     
     
-    public EditCommand(String targetIndex, String name, String deadline, String priority, Set<String> tags) 
+    public EditCommand(String targetIndex, String name, Set<String> deadlines, String priority, Set<String> tags) 
     		throws IllegalValueException{
     	final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        
+        final Set<Deadline> deadlineSet = new HashSet<>();
+        for (String deadlineDate : tags) {
+            deadlineSet.add(new Deadline(deadlineDate));
+        }
+        
     	this.targetIndex = Integer.parseInt(targetIndex);
     	this.name = new Name(name);
-    	this.deadline = new Deadline(deadline);
+    	this.deadlineSet = new UniqueDeadlineList(deadlineSet);
     	this.priority = new Priority (priority);
     	this.tagSet = new UniqueTagList(tagSet);
     }
@@ -61,7 +69,7 @@ public class EditCommand extends Command {
             assert false : "The target task cannot be missing";
         }
         
-        toAdd = new Task(this.name, this.deadline, this.priority, this.tagSet); //null for now
+        toAdd = new Task(this.name, this.deadlineSet, this.priority, this.tagSet); //null for now
 
         assert model != null;
         try {

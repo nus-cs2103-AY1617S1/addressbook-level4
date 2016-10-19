@@ -29,14 +29,14 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isDeadlinePrivate>p?)d/(?<deadline>[^/]+)"
+                    + "(?<deadlineArguments>(?: d/[^/]+)*)"
                     + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>.+)"
             		+ " (?<name>[^/]+)"
-                    + " (?<isDeadlinePrivate>p?)d/(?<deadline>[^/]+)"
+            		+ "(?<deadlineArguments>(?: d/[^/]+)*)"
                     + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
@@ -107,7 +107,7 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
-                    matcher.group("deadline"),
+                    getDeadlinesFromArgs(matcher.group("deadlineArguments")),
                     matcher.group("priority"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
@@ -116,7 +116,17 @@ public class Parser {
         }
     }
 
-    /**
+    private Set<String> getDeadlinesFromArgs(String deadlineArguments) {
+    	 // no tags
+        if (deadlineArguments.isEmpty()) {
+            return Collections.emptySet();
+        }
+        // replace first delimiter prefix, then split
+        final Collection<String> deadlineStrings = Arrays.asList(deadlineArguments.replaceFirst(" d/", "").split(" t/"));
+        return new HashSet<>(deadlineStrings);
+	}
+
+	/**
      * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
@@ -217,7 +227,7 @@ public class Parser {
             return new EditCommand(
             		matcher.group("targetIndex"),
                     matcher.group("name"),
-                    matcher.group("deadline"),
+                    getDeadlinesFromArgs(matcher.group("deadlineArguments")),
                     matcher.group("priority"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );

@@ -1,6 +1,8 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.deadline.Deadline;
+import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -15,8 +17,10 @@ public class XmlAdaptedPerson {
 
     @XmlElement(required = true)
     private String name;
-    @XmlElement(required = true)
-    private String deadline;
+    
+    @XmlElement
+    private List<XmlAdaptedDeadline> deadlined = new ArrayList<>();
+    
     @XmlElement(required = true)
     private String priority;
 
@@ -36,7 +40,10 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
         name = source.getName().fullName;
-        deadline = source.getDeadline().value;
+       deadlined = new ArrayList<>();
+        for (Deadline deadline : source.getDeadlines()) {
+            deadlined.add(new XmlAdaptedDeadline(deadline));
+        }
         priority = source.getPriority().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -50,14 +57,18 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+    	final List<Deadline> taskDeadlines = new ArrayList<>();
+        for (XmlAdaptedDeadline deadline : deadlined) {
+            taskDeadlines.add(deadline.toModelType());
+        }
+    	final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Deadline deadline = new Deadline(this.deadline);
+        final UniqueDeadlineList deadlines = new UniqueDeadlineList(taskDeadlines);
         final Priority priority = new Priority(this.priority);
-        final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, deadline, priority, tags);
+        final UniqueTagList tags = new UniqueTagList(taskTags);
+        return new Task(name, deadlines, priority, tags);
     }
 }
