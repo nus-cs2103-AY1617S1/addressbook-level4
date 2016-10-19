@@ -24,7 +24,7 @@
 
 #### Acknowledgements
 
-* The application is based on a desktop address book application available on Github\n
+* The application is based on a desktop address book application available on Github
   [Original source of the base code: https://github.com/se-edu/]
 
 
