@@ -10,15 +10,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" minHeight="125.0" minWidth="400.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane prefHeight="125.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="10.0" prefWidth="169.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="81.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="328.0" minWidth="10.0" prefWidth="326.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="53.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="68.0" prefHeight="68.0" prefWidth="169.0" translateY="-18.0" GridPane.rowIndex="1">
+                <VBox alignment="CENTER_LEFT" translateY="-18.0" GridPane.rowIndex="1">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -28,10 +28,10 @@
                     </padding>
 
                           <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5.0" translateY="-14.0">
+                        <HBox alignment="CENTER_LEFT" minWidth="310.0" spacing="5.0" translateY="-14.0">
                             <children>
-                                 <Label fx:id="id" styleClass="cell_big_label" />
-                                 <Label fx:id="taskName" styleClass="cell_big_label" text="\$taskName">
+                                 <Label fx:id="id" minWidth="10.0" styleClass="cell_big_label" />
+                                 <Label fx:id="taskName" styleClass="cell_big_label" text="\$taskName" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
