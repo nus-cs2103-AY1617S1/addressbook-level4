@@ -321,7 +321,7 @@ public class Parser {
         if (!matcher.matches()) {
             return "";
         }
-        String index = command;
+        String index = command.trim();
         return index;
     }
 

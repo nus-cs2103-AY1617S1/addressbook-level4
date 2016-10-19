@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
-    private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e"));
+//    private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e"));
 
     private final int targetIndex;
     private final char taskType;
@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        if (!TYPES_OF_TASKS.contains(taskType)) {
+        if (!(taskType == 'f' || taskType == 'd' ||taskType == 'e')) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
