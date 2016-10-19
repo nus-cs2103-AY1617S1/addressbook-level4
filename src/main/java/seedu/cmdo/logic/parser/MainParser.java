@@ -76,6 +76,9 @@ public class MainParser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+       
+        case BlockCommand.COMMAND_WORD:
+            return prepareBlock(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -165,7 +168,49 @@ public class MainParser {
     		return new IncorrectCommand(ive.getMessage());
     	}
     }
-    
+    /**
+     * Parses arguments in the context of the block task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareBlock(String args){
+        try {
+        	args = extractDetail(args);	// Saves to detailToBlock
+        	args = extractDueByDateAndTime(args);
+        	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
+        		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
+        	LocalDateTime dt = LocalDateTime.MIN;
+        	LocalDateTime dtStart = LocalDateTime.MIN;
+        	LocalDateTime dtEnd = LocalDateTime.MIN;
+        	String[] splittedArgs = getCleanString(args).split(" ");
+        	// used as flag for task type. 0 for floating, 1 for non-range, 2 for range
+        	int dataMode;
+        	if (datesAndTimes.size() == 1) {
+        		dtStart = datesAndTimes.get(0);
+        		dtEnd = datesAndTimes.get(0);//one hr later by default
+        	} else if (datesAndTimes.size() == 2) {
+        		dtStart = datesAndTimes.get(0);
+        		dtEnd = datesAndTimes.get(1);
+        	} else {
+        		throw new IllegalValueException(Messages.MESSAGE_INVALID_TIME_SPACE);
+        	}
+        	// For testing purposes
+        	datesAndTimes.clear();
+    		
+    			return new BlockCommand(
+    					detailToAdd,
+    					dtStart.toLocalDate(),
+    					dtStart.toLocalTime(),
+    					dtEnd.toLocalDate(),
+    					dtEnd.toLocalTime(),
+    					extractPriority(splittedArgs),
+    					getTagsFromArgs(splittedArgs));
+        }
+    	 catch (IllegalValueException ive) {
+    		return new IncorrectCommand(ive.getMessage());
+    	}
+    }
     /**
      * Parses arguments in the context of the edit task command.
      *
