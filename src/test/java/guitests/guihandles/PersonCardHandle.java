@@ -52,13 +52,13 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyTask person){
+    public boolean isSameTask(ReadOnlyTask task){
 
 		String start = getStartTime().equals("-")?"":getStartTime();
 		String end = getEndTime().equals("-")?"":getEndTime();
         try {
-			return getFullName().equals(person.getTaskDetails().toString()) && person.getStartTime().equals(new StartTime(start))
-			        && person.getEndTime().equals(new EndTime(end)) && person.getPriority().equals(new Priority(getPriority()));
+			return getFullName().equals(task.getTaskDetails().toString()) && task.getStartTime().equals(new StartTime(start))
+			        && task.getEndTime().equals(new EndTime(end)) && task.getPriority().equals(new Priority(getPriority()));
 		} catch (IllegalValueException e) {
 			assert false;
 			return false;
