@@ -58,6 +58,9 @@ public interface Model {
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<RsvTask>} */
+    UnmodifiableObservableList<RsvTask> getFilteredRsvTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
@@ -88,7 +91,6 @@ public interface Model {
      * @@author A0140022H
      */
 	void sortFilteredTaskList(Set<String> keywords);
-
-   
+  
 
 }

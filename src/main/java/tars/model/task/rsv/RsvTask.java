@@ -1,13 +1,10 @@
 package tars.model.task.rsv;
 
+import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Set;
-
 import tars.commons.util.CollectionUtil;
 import tars.model.task.DateTime;
 import tars.model.task.Name;
-import tars.model.task.Priority;
-import tars.model.task.Task;
 
 /**
  * A task that has unconfirmed, reserved dates.
@@ -15,49 +12,49 @@ import tars.model.task.Task;
  * @@author A0124333U
  */
 
-public class RsvTask extends Task {
-    private Set<DateTime> dateTimeSet;
-    private Set<String> tempTagSet;
+public class RsvTask{
     
-    public RsvTask(Name name, Set<DateTime> dateTimeSet, Priority priority, Set<String> tempTagSet) {
-        assert !CollectionUtil.isAnyNull(name, dateTimeSet, priority, tempTagSet);
+    private Name name;
+    private ArrayList<DateTime> dateTimeList;
+    
+    public RsvTask(Name name, ArrayList<DateTime> dateTimeList) {
+        assert !CollectionUtil.isAnyNull(name, dateTimeList);
         
         this.name = name;
-        this.dateTimeSet = dateTimeSet;
-        this.priority = priority;
-        this.tempTagSet = tempTagSet;
+        this.dateTimeList = dateTimeList;
+
     }
     
     /*
      * Accessors
-     * Note: Accessor methods for the other attributes can be found in parent class, Task.java
      */
-
-    public Set<DateTime> getDateTimeSet() {
-        return dateTimeSet;
+    
+    public Name getName() {
+        return name;
     }
     
-    public Set<String> getTempTagSet() {
-        return tempTagSet;
+    public ArrayList<DateTime> getDateTimeList() {
+        return dateTimeList;
     }
+    
     
     /*
      * Mutators
-     * Note: Mutators methods for the other attributes can be found in parent class, Task.java
      */
       
-    public void setDateTimeSet(Set<DateTime> dateTimeSet) {
-        this.dateTimeSet = dateTimeSet;
+    public void setName(Name name) {
+        this.name = name;
     }
     
-    public void setTempTagSet(Set<String> tempTagSet) {
-        this.tempTagSet = tempTagSet;
+    public void setDateTimeList(ArrayList<DateTime> dateTimeList) {
+        this.dateTimeList = dateTimeList;
     }
+    
     
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, dateTimeSet);
+        return Objects.hash(name, dateTimeList);
     }   
     
     @Override
@@ -65,14 +62,9 @@ public class RsvTask extends Task {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" DateTime: ")
-                .append(getDateTimeSet().toString())
-                .append(" Priority: ")
-                .append(priorityString())
-                .append(" Tags: ")
-                .append(getTempTagSet().toString());
+                .append(getDateTimeList().toString());
         
         return builder.toString();
     }
 
 }
-

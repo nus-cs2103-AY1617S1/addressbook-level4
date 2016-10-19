@@ -39,11 +39,14 @@
                   <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <AnchorPane fx:id="reservedTaskListPlaceholder">
+            <VBox fx:id="rsvTaskList" prefHeight="0.0">
                 <padding>
                     <Insets bottom="10" left="5" right="10" top="10" />
                 </padding>
-            </AnchorPane>
+               <children>
+                  <AnchorPane fx:id="rsvTaskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
          </items>
       </SplitPane>
        <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="83.0" prefHeight="100.0" prefWidth="692.0" styleClass="anchor-pane" VBox.vgrow="NEVER">

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane HBox.hgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="0.0" />
+            </columnConstraints>
+            <children>
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" prefWidth="186.0" GridPane.columnIndex="0">
+                    <stylesheets>
+                        <URL value="@TarsTheme.css" />
+                        <URL value="@Extensions.css" />
+                    </stylesheets>
+                    <padding>
+                        <Insets bottom="5" left="15" right="5" top="5" />
+                    </padding>
+
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <children>
+                                <HBox>
+                                    <Label fx:id="id" styleClass="cell_index_label" />
+                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first">
+                              <HBox.margin>
+                                 <Insets bottom="5.0" />
+                              </HBox.margin></Label>
+                                </HBox>
+                            </children>
+                        </HBox>
+		                <HBox alignment="CENTER_LEFT" spacing="5" HBox.hgrow="ALWAYS">
+		                   <children>
+		                      <TextArea fx:id="dateTimeList" editable="false" text="\$dateTimeList"/>
+		                   </children>
+		                </HBox>
+                    </children>
+                </VBox>
+            </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+    </children>
+</HBox>
