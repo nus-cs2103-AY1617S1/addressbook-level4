@@ -24,7 +24,7 @@ import seedu.malitio.model.task.UniqueFloatingTaskList;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 /**
- * Edits a task identified using it's last displayed index from Malitio.
+ * Edits a floating task/ deadline/ event identified using it's last displayed index from Malitio.
  * Only the attribute(s) that require changes is(are) entered.
  * @author Bel
  *
@@ -72,6 +72,8 @@ public class EditCommand extends Command{
   
     public EditCommand(char taskType, int targetIndex, String name, Set<String> newTags) 
             throws IllegalValueException {
+        assert taskType == 'd';
+        assert !name.equals("") || !newTags.isEmpty() ;
         this.taskType = taskType;
         this.targetIndex = targetIndex;
         if (!name.equals("")) {
@@ -82,6 +84,8 @@ public class EditCommand extends Command{
     
     public EditCommand(char taskType, int targetIndex, String name, String due, Set<String> newTags)
             throws IllegalValueException {
+        assert taskType == 'd';
+        assert !name.equals("") || !due.equals("") || !newTags.isEmpty();
         this.taskType = taskType;
         this.targetIndex = targetIndex;
         if (!name.equals("")) {
@@ -95,6 +99,8 @@ public class EditCommand extends Command{
     
     public EditCommand(char taskType, int targetIndex, String name, String start, String end, Set<String> newTags)
             throws IllegalValueException {
+        assert taskType == 'e';
+        assert !name.equals("") || !start.equals("") || !end.equals("") || !newTags.isEmpty();
         this.taskType = taskType;
         this.targetIndex = targetIndex;
         if (!name.equals("")) {
@@ -129,7 +135,11 @@ public class EditCommand extends Command{
         }
     }
     
-    private void fillInTheGapsFloatingTask(ReadOnlyFloatingTask taskToEdit) {
+    /**
+     * fillInTheGaps will replace the task's attributes not entered by the user by extracting from the task to be edited .
+     * @param ReadOnly<TaskType>
+     */
+    private void fillInTheGaps(ReadOnlyFloatingTask taskToEdit) {
         if (this.name==null) {
             this.name = taskToEdit.getName();
         }
@@ -138,7 +148,7 @@ public class EditCommand extends Command{
         }
     }
     
-    private void fillInTheGapsDeadline(ReadOnlyDeadline deadlineToEdit) {
+    private void fillInTheGaps(ReadOnlyDeadline deadlineToEdit) {
         if (this.name==null) {
             this.name = deadlineToEdit.getName();
         }
@@ -150,7 +160,7 @@ public class EditCommand extends Command{
         }
     }
 
-    private void fillInTheGapsEvent(ReadOnlyEvent eventToEdit) {
+    private void fillInTheGaps(ReadOnlyEvent eventToEdit) {
         if (this.name==null) {
             this.name = eventToEdit.getName();
         }
@@ -193,7 +203,7 @@ public class EditCommand extends Command{
                 
         try {
             assert model != null;
-            fillInTheGapsFloatingTask(taskToEdit);
+            fillInTheGaps(taskToEdit);
             editedTask = new FloatingTask(name,tags);
             model.editFloatingTask(editedTask, taskToEdit);
         } catch (FloatingTaskNotFoundException pnfe) {
@@ -215,7 +225,7 @@ public class EditCommand extends Command{
                 
         try {
             assert model != null;
-            fillInTheGapsDeadline(deadlineToEdit);
+            fillInTheGaps(deadlineToEdit);
             editedDeadline = new Deadline(name,due,tags);
             model.editDeadline(editedDeadline, deadlineToEdit);
         } catch (DeadlineNotFoundException pnfe) {
@@ -237,7 +247,7 @@ public class EditCommand extends Command{
                 
         try {
             assert model != null;
-            fillInTheGapsEvent(eventToEdit);
+            fillInTheGaps(eventToEdit);
             editedEvent = new Event(name, start, end, tags);
             model.editEvent(editedEvent, eventToEdit);
         } catch (EventNotFoundException pnfe) {

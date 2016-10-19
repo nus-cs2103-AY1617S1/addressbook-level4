@@ -40,7 +40,7 @@ public class EventCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(event.getName().fullName);
-        id.setText(displayedIndex + ". ");
+        id.setText("E"+displayedIndex + ". ");
         start.setText("Start: "+ event.getStart().toString());
         end.setText("End: " + event.getEnd().toString());
         tags.setText(event.tagsString());

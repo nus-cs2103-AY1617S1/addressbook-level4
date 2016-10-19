@@ -39,7 +39,7 @@ public class DeadlineCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(deadline.getName().fullName);
-        id.setText(displayedIndex + ". ");
+        id.setText("D"+displayedIndex + ". ");
         due.setText("Due: "+ deadline.getDue().toString());
         tags.setText(deadline.tagsString());
     }
