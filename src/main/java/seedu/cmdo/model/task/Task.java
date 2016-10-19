@@ -18,6 +18,7 @@ public class Task implements ReadOnlyTask {
     private DueByTime dueByTime; 
     private Priority priority;
     private UniqueTagList tags;
+    private Boolean block = false;
 
     /**
      * Every field must be present and not null.
@@ -131,4 +132,15 @@ public class Task implements ReadOnlyTask {
     public String getFriendlyTime() {
     	return dueByTime.getFriendlyString();
     }
+    /*
+     * @@author A0141128R
+     * To set task to blocked time slot
+     */
+    public void setBlock(){
+    	block = true;
+    }
+    public boolean getBlock(){
+    	return block;
+    }
+    
 }
