@@ -68,6 +68,9 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to only overdue tasks */
     public void updateFilteredListToShowOverDue();
+    
+    /** Updates the filter of the filtered task list to only recurring tasks */
+    public void updateFilteredListToShowRecurring();
 
     void markTaskAsIncomplete(ReadOnlyTask task) throws TaskNotFoundException;
 

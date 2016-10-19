@@ -288,6 +288,12 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredListToShowAll();
 		updateFilteredTaskList(new PredicateExpression(new OverDueQualifier()));
 	}
+	
+	@Override
+	public void updateFilteredListToShowRecurring(){
+		updateFilteredListToShowAll();
+		updateFilteredTaskList(new PredicateExpression(new RecurringQualifier()));
+	}
 
 	private void sortByDateAndPriority() {
 	    //Collections.sort(taskList.getListOfTasks(), Comparators.DATE_TIME);
@@ -404,6 +410,13 @@ public class ModelManager extends ComponentManager implements Model {
 		@Override
 		public boolean run(ReadOnlyTask person) {
 			return person.isOverDue();
+		}
+	}
+	
+	private class RecurringQualifier implements Qualifier {
+		@Override
+		public boolean run(ReadOnlyTask person) {
+			return person.isRecurring();
 		}
 	}
 

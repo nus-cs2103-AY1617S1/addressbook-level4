@@ -51,6 +51,9 @@ public class ShowCommand extends Command {
 
 		case "overdue":
 			model.updateFilteredListToShowOverDue(); break;
+			
+		case "recurring":
+			model.updateFilteredListToShowRecurring(); break;
 
 		default:
 			List<DateGroup> dates = new Parser().parse(keyword);
