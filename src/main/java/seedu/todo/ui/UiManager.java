@@ -111,12 +111,19 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleCommandInputEnterEvent(CommandInputEnterEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getHelpPanel().hideHelpPanel();
+        mainWindow.getCommandFeedbackView().clearMessage();
     }
 
     @Subscribe
     private void handleHighlightTaskEvent(HighlightTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getTodoListPanel().scrollAndSelect(event.getTask());
+    }
+
+    @Subscribe
+    private void handleViewChangedEvent(ChangeViewRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getTaskViewFilterView().selectOneViewFilter(event.getNewView());
     }
 
     @Subscribe

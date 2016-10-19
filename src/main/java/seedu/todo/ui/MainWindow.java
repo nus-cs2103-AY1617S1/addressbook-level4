@@ -12,10 +12,7 @@ import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
 import seedu.todo.ui.controller.CommandController;
-import seedu.todo.ui.view.CommandErrorView;
-import seedu.todo.ui.view.CommandFeedbackView;
-import seedu.todo.ui.view.CommandInputView;
-import seedu.todo.ui.view.HelpPanel;
+import seedu.todo.ui.view.*;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,6 +31,7 @@ public class MainWindow extends UiPart {
     private CommandInputView commandInputView;
     private CommandFeedbackView commandFeedbackView;
     private CommandErrorView commandErrorView;
+    private TaskViewFilterView taskViewFilterView;
 
     private TodoListPanel todoListPanel;
     private HelpPanel helpPanel;
@@ -62,6 +60,8 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane helpPanelPlaceholder;
 
+    @FXML
+    private AnchorPane taskViewFilterPanel;
 
     public MainWindow() {
         super();
@@ -104,6 +104,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         todoListPanel = TodoListPanel.load(primaryStage, todoListPanelPlaceholder, logic.getObservableTaskList());
         helpPanel = HelpPanel.load(primaryStage, helpPanelPlaceholder);
+        taskViewFilterView = TaskViewFilterView.load(primaryStage, taskViewFilterPanel);
         commandFeedbackView = CommandFeedbackView.load(primaryStage, resultDisplayPlaceholder);
         commandInputView = CommandInputView.load(primaryStage, commandBoxPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, errorViewPlaceholder);
@@ -162,5 +163,13 @@ public class MainWindow extends UiPart {
 
     HelpPanel getHelpPanel() {
         return this.helpPanel;
+    }
+
+    TaskViewFilterView getTaskViewFilterView() {
+        return taskViewFilterView;
+    }
+
+    CommandFeedbackView getCommandFeedbackView() {
+        return commandFeedbackView;
     }
 }

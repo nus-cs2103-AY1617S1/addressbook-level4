@@ -122,9 +122,9 @@ public class TaskCard extends UiPart{
         boolean isOverdue = task.getEndTime().isPresent() && timeUtil.isOverdue(task.getEndTime().get());
         
         if (isCompleted) {
-            ViewStyleUtil.addClassStyle(taskCard, ViewStyleUtil.STYLE_COMPLETED);
+            ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_COMPLETED);
         } else if (isOverdue) {
-            ViewStyleUtil.addClassStyle(taskCard, ViewStyleUtil.STYLE_OVERDUE);
+            ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_OVERDUE);
         }
     }
 
@@ -133,7 +133,7 @@ public class TaskCard extends UiPart{
      * else hide the {@link #moreInfoLabel} otherwise.
      */
     private void initialiseCollapsibleView() {
-        ViewStyleUtil.addRemoveClassStyle(taskCard, ViewStyleUtil.STYLE_COLLAPSED, true);
+        ViewStyleUtil.addRemoveClassStyles(true, taskCard, ViewStyleUtil.STYLE_COLLAPSED);
         FxViewUtil.setCollapsed(moreInfoLabel, !isTaskCollapsible());
     }
     
@@ -186,7 +186,7 @@ public class TaskCard extends UiPart{
      * @param isSelected true when the card is selected
      */
     public void markAsSelected(boolean isSelected) {
-        ViewStyleUtil.addRemoveClassStyle(taskCard, ViewStyleUtil.STYLE_SELECTED, isSelected);
+        ViewStyleUtil.addRemoveClassStyles(isSelected, taskCard, ViewStyleUtil.STYLE_SELECTED);
     }
 
     /* Helper Methods */

@@ -42,4 +42,27 @@ public class StringUtil {
     public static boolean isEmpty(String s) {
         return s == null || s.length() == 0 || CharMatcher.whitespace().matchesAllOf(s);
     }
+
+    //@@author A0135805H
+    /**
+     * Partitions the string into three parts:
+     *      string[0 .. position - 1], string[position], string[position + 1 .. length - 1], all index inclusive
+     * @param string to be partitioned
+     * @param position location where the string should be partitioned
+     * @return a String array containing the three elements stated above,
+     *         where each element must not be null, but can have empty string.
+     */
+    public static String[] partitionStringAtPosition(String string, int position) {
+        String[] stringArray = new String[3];
+        if (string == null || string.isEmpty() || position < 0 || position >= string.length()) {
+            stringArray[0] = "";
+            stringArray[1] = "";
+            stringArray[2] = "";
+        } else {
+            stringArray[0] = string.substring(0, position);
+            stringArray[1] = string.substring(position, position + 1);
+            stringArray[2] = string.substring(position + 1, string.length());
+        }
+        return stringArray;
+    }
 }

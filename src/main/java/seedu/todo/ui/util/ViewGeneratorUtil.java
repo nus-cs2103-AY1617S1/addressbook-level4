@@ -18,7 +18,7 @@ public class ViewGeneratorUtil {
      */
     public static Text constructText(String string, String classStyle) {
         Text text = new Text(string);
-        ViewStyleUtil.addClassStyle(text, classStyle);
+        ViewStyleUtil.addClassStyles(text, classStyle);
         return text;
     }
 
@@ -39,7 +39,7 @@ public class ViewGeneratorUtil {
      */
     public static Label constructLabel(String string, String classStyle) {
         Label label = new Label(string);
-        ViewStyleUtil.addClassStyle(label, classStyle);
+        ViewStyleUtil.addClassStyles(label, classStyle);
         return label;
     }
 

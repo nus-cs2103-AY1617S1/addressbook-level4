@@ -1,10 +1,10 @@
 package seedu.todo.commons.enumerations;
 
+import seedu.todo.commons.util.TimeUtil;
+import seedu.todo.model.task.ImmutableTask;
+
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
-import seedu.todo.commons.util.TimeUtil;
-
-import seedu.todo.model.task.ImmutableTask;
 
 //@@author A0092382A
 public enum TaskViewFilter {

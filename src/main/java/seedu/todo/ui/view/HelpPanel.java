@@ -71,7 +71,6 @@ public class HelpPanel extends UiPart {
         helpGrid.getChildren().clear();
         int rowIndex = 0;
         for (CommandSummary commandSummary : commandSummaries) {
-            System.out.println(rowIndex);
             appendCommandSummary(rowIndex++, commandSummary);
         }
     }
@@ -86,9 +85,8 @@ public class HelpPanel extends UiPart {
         Text commandName = ViewGeneratorUtil.constructText(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
         Text commandArgument = ViewGeneratorUtil.constructText(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
 
-        ViewStyleUtil.addClassStyle(commandArgument, ViewStyleUtil.STYLE_CODE);
-        ViewStyleUtil.addClassStyle(commandName, ViewStyleUtil.STYLE_CODE);
-        ViewStyleUtil.addClassStyle(commandName, ViewStyleUtil.STYLE_BOLDER);
+        ViewStyleUtil.addClassStyles(commandArgument, ViewStyleUtil.STYLE_CODE);
+        ViewStyleUtil.addClassStyles(commandName, ViewStyleUtil.STYLE_CODE, ViewStyleUtil.STYLE_BOLDER);
 
         TextFlow combinedCommand = ViewGeneratorUtil.placeIntoTextFlow(commandName, commandArgument);
         helpGrid.addRow(rowIndex, commandScenario, combinedCommand);
