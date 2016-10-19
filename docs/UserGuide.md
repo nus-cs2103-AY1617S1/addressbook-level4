@@ -52,7 +52,7 @@ To get started, proceed to the Quick Start section below.
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
-> * `DATE_TIME` parameter can accept different formats. 2 Jan 2015 3pm, 15:00 1/2/2015 are acceptable formats to represent 2 Jan 2015, 15:00.
+> * `DATE_TIME` parameter can accept different formats. 2 Jan 2015 3pm, 15:00 2/1/2015 are acceptable formats to represent 2 Jan 2015, 15:00.
 > * `DATE_TIME` parameter can also accept relative date formats such as tomorrow and next friday.
 > * The order of parameters is fixed.
 
