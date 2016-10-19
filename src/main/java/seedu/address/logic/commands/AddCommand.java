@@ -63,6 +63,13 @@ if(type == "task"){
             new UniqueTagList(tagSet)
     );
     
+} else if(type == "float") {
+    
+    this.toAdd = new Activity(
+            new Name (name),
+            new Reminder(reminder),
+            new UniqueTagList(tagSet)
+            );
 }
 
 
