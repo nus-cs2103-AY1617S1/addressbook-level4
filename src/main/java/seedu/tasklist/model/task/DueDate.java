@@ -1,6 +1,6 @@
 package seedu.tasklist.model.task;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
@@ -12,9 +12,9 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 public class DueDate {
     
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "DueDate should be numeric only";
-    public static final String DATE_VALIDATION_REGEX = "^(?:\\d+|)$";
+    public static final String DATE_VALIDATION_REGEX = "^(?:[0-9 ]+|)$";
 
-    public LocalDate dueDate;
+    public LocalDateTime dueDate;
 
     /**
      * Validates given due date.
@@ -28,8 +28,9 @@ public class DueDate {
         }
         
         if(!dueDate.isEmpty()){
-        	this.dueDate = LocalDate.of(Integer.parseInt(dueDate.substring(4, 8)), Integer.parseInt(dueDate.substring(0, 2))
-            		, Integer.parseInt(dueDate.substring(2, 4)));
+        	this.dueDate = LocalDateTime.of(Integer.parseInt(dueDate.substring(4, 8)), Integer.parseInt(dueDate.substring(0, 2))
+            		, Integer.parseInt(dueDate.substring(2, 4)), Integer.parseInt(dueDate.substring(9, 11)),
+            			Integer.parseInt(dueDate.substring(11, 13)));
         }
     }
 
@@ -43,7 +44,7 @@ public class DueDate {
     @Override
     public String toString() {
     		if(dueDate !=null){
-    		DateTimeFormatter df = DateTimeFormatter.ofPattern("LLddyyyy");
+    		DateTimeFormatter df = DateTimeFormatter.ofPattern("MMddyyyy HHmm");
     		return df.format(dueDate);
     	} else{
     		return "";
