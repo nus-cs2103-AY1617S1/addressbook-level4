@@ -1,0 +1,7 @@
+{
+  "appTitle" : "Ivory Tasks",
+  "logLevel" : "FINE",
+  "userPrefsFilePath" : "preferences.json",
+  "taskManagerFilePath" : "data/todo.xml",
+  "taskManagerName" : "MyTaskManager"
+}
