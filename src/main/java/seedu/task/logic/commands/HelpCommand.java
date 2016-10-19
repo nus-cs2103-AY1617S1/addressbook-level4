@@ -19,8 +19,14 @@ public class HelpCommand extends Command {
     public HelpCommand() {}
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(boolean isUndo) {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
+    }
+
+    @Override
+    public CommandResult execute(int index) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-package seedu.task.model.person;
+package seedu.task.model.task;
 
 
 import seedu.task.commons.exceptions.IllegalValueException;
@@ -10,8 +10,9 @@ import seedu.task.commons.exceptions.IllegalValueException;
 public class EndTime {
 
     public static final String MESSAGE_ENDTIME_CONSTRAINTS =
-            "Task start times should be in hhmm hrs format";
-    public static final String ENDTIME_VALIDATION_REGEX = "^([0-9]{4})+(hrs)";
+            "Task end times should be in h:mmam or h:mmpm format";
+    public static final String ENDTIME_VALIDATION_REGEX = "(^([0-9]{1}:[0-9]{2})([a|p]m))|(^.+)";
+    public static final String NO_ENDTIME = "no endtime";
 
     public final String value;
 
@@ -23,6 +24,10 @@ public class EndTime {
     public EndTime(String endTime) throws IllegalValueException {
         assert endTime != null;
         endTime = endTime.trim();
+        if(endTime.equals(NO_ENDTIME)) {
+            this.value = endTime;
+            return;
+        }
         if (!isValidEndTime(endTime)) {
             throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
         }

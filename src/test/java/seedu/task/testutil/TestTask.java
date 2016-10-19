@@ -1,7 +1,7 @@
 package seedu.task.testutil;
 
-import seedu.task.model.person.*;
 import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.*;
 
 /**
  * A mutable task object. For testing only.
@@ -9,7 +9,7 @@ import seedu.task.model.tag.UniqueTagList;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Location location;
+    private Deadline location;
     private EndTime endTime;
     private StartTime startTime;
     private UniqueTagList tags;
@@ -22,7 +22,7 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setTask(Location location) {
+    public void setTask(Deadline location) {
         this.location = location;
     }
 
@@ -50,7 +50,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Location getLocation() {
+    public Deadline getDeadline() {
         return location;
     }
 
@@ -69,7 +69,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add " + this.getName().fullName + " ");
         sb.append("s/" + this.getStartTime().value + " ");
         sb.append("e/" + this.getEndTime().value + " ");
-        sb.append("l/" + this.getLocation().value + " ");
+        sb.append("l/" + this.getDeadline().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("#/" + s.tagName + " "));
         return sb.toString();
     }

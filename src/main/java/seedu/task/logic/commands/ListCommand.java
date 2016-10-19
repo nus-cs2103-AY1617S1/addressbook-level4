@@ -13,8 +13,14 @@ public class ListCommand extends Command {
     public ListCommand() {}
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(boolean isUndo) {
         model.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public CommandResult execute(int index) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

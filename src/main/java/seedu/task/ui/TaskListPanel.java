@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.task.model.person.ReadOnlyTask;
+import seedu.task.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 
