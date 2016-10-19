@@ -24,5 +24,6 @@
 	<natures>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>com.boothen.jsonedit.validation.nature</nature>
 	</natures>
 </projectDescription>
