@@ -168,28 +168,6 @@ public class ModelManager extends ComponentManager implements Model {
     		throw new IllegalValueException("Invalid data type for add");
     	}
     }
-    
-    @Override
-    public synchronized void editTask(Task task) throws IllegalValueException, UniqueTaskList.DuplicatetaskException {
-        if(task instanceof Todo) {
-            todoList.editTask(task);
-            updateFilteredTodoListToShowAll();
-            indicateTodoListChanged();
-        }
-        else if(task instanceof Event) {
-            eventList.editTask(task);
-            updateFilteredEventListToShowAll();
-            indicateEventListChanged();
-        }
-        else if(task instanceof Deadline) {
-            deadlineList.editTask(task);
-            updateFilteredDeadlineListToShowAll();
-            indicateDeadlineListChanged();
-        }
-        else {
-            throw new IllegalValueException("Invalid data type for add");
-        }
-    }
 
     //=========== Filtered TodoList Accessors ===============================================================
 

@@ -103,11 +103,8 @@ public class EditCommand extends Command {
         
         assert model != null;
         try {
-<<<<<<< HEAD
             model.editTask(toEdit);
-=======
             model.editTask(taskToEdit, dataType, toEdit);
->>>>>>> 351a43689aa72e6343c390edd1fbe14d65958e80
             return new CommandResult(String.format(MESSAGE_EDIT_task_SUCCESS, toEdit));
         } catch (IllegalValueException ive) {
         	return new CommandResult(INVALID_VALUE);
