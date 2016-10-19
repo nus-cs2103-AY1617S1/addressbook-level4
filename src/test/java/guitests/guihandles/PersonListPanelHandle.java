@@ -66,14 +66,15 @@ public class PersonListPanelHandle extends GuiHandle {
         if (startPosition + persons.length > personsInList.size()){
             return false;
         }
-
+        
         // Return false if any of the persons doesn't match
         for (int i = 0; i < persons.length; i++) {
+        	System.out.println(personsInList.get(startPosition + i).getTaskDetails().taskDetails);
+        	System.out.println(persons[i].getTaskDetails().taskDetails);
             if (!personsInList.get(startPosition + i).getTaskDetails().taskDetails.equals(persons[i].getTaskDetails().taskDetails)){
                 return false;
             }
         }
-
         return true;
     }
 
@@ -84,8 +85,6 @@ public class PersonListPanelHandle extends GuiHandle {
      */
     public boolean isListMatching(int startPosition, ReadOnlyTask... persons) throws IllegalArgumentException {
     	if (persons.length + startPosition != getListView().getItems().size()) {
-        	System.out.println(persons.length + startPosition);
-        	System.out.println(getListView().getItems().size());
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " persons");
         }
