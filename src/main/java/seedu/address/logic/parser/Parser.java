@@ -28,9 +28,11 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<task>[^/]+)"
-                    + "(?<isDuedatePrivate>p?)(?<duedate>(?: d/[^/]+)?)"
-                    + "(?<isPriorityPrivate>p?)(?<priority>(?: p/[^/]+)?)"
-                    + "(?<isReminderPrivate>p?)(?<reminder>(?: r/[^/]+)?)"
+                    + "(?<duedate>(?: d/[^/]+)?)"
+                    + "(?<priority>(?: p/[^/]+)?)"
+                    + "(?<start>(?: s/[^/]+)?)"
+                    + "(?<end>(?: e/[^/]+)?)"
+                    + "(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern PERSON_EDIT_ARGS_FORMAT =
@@ -38,9 +40,9 @@ public class Parser {
     
     private static final Pattern PERSON_EDIT_PARAMETERS_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<task>(?: n/[^/]+)?)"
-                    + "(?<isDuedatePrivate>p?)(?<duedate>(?: d/[^/]+)?)"
-                    + "(?<isPriorityPrivate>p?)(?<priority>(?: p/[^/]+)?)"
-                    + "(?<isReminderPrivate>p?)(?<reminder>(?: r/[^/]+)?)"
+                    + "(?<duedate>(?: d/[^/]+)?)"
+                    + "(?<priority>(?: p/[^/]+)?)"
+                    + "(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -118,6 +120,8 @@ public class Parser {
                     matcher.group("task"),
                     getElement(matcher.group("duedate")," d/"),
                     getElement(matcher.group("priority")," p/"),
+                    getElement(matcher.group("start")," s/"),
+                    getElement(matcher.group("end")," e/"),
                     getElement(matcher.group("reminder")," r/"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
