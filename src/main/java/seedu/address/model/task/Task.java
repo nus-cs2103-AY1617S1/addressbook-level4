@@ -1,12 +1,11 @@
 package seedu.address.model.task;
 
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.RecurringTaskManager;
-import seedu.address.model.tag.UniqueTagList;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Represents a Task in the task list.
@@ -24,12 +23,10 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private UniqueTagList tags;
-    
-    private List<TaskComponent> recurringDates;
     private TaskType taskType;
-    
     private RecurringType recurringType;
     
+    private List<TaskComponent> recurringDates;
     /**
      * Every field must be present and not null.
      */
@@ -155,28 +152,33 @@ public class Task implements ReadOnlyTask {
 		if(tags != null)		
 			this.tags = tags;
 
-		/*
-		if(this.startDate.equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
-				&& this.endDate.equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+		
+		if(this.getComponentForNonRecurringType().getStartDate().equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+				&& this.getComponentForNonRecurringType().getStartDate().equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
 				&& endDate != null) {
 			this.taskType = TaskType.NON_FLOATING;
 		}
 		
+		assert this.recurringType == RecurringType.NONE : "Update does not support recurring task";
 		if(startDate != null) {
-			this.startDate = startDate;
+			//this.startDate = startDate;
+		    getComponentForNonRecurringType().setStartDate(startDate);
 		} else if(endDate != null) {
-			this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+			//this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
+	        getComponentForNonRecurringType().setStartDate(new TaskDate(TaskDate.DATE_NOT_PRESENT));
 		}
 		
-		if(endDate != null)
-			this.endDate = endDate;
+		if(endDate != null) {
+			//this.endDate = endDate;
+		    getComponentForNonRecurringType().setEndDate(new TaskDate(TaskDate.DATE_NOT_PRESENT));
+		}
 		
 		// needs to be changed just a stop gap measure
 		if (recurringType.equals(RecurringType.NONE)) {
-		    recurringDates.get(0).setStartDate(this.startDate);
-            recurringDates.get(0).setEndDate(this.endDate);
+		    recurringDates.get(0).setStartDate(startDate);
+            recurringDates.get(0).setEndDate(endDate);
 		}
-		*/
+		
 	}
 	
 	@Override
