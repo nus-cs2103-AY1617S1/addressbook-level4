@@ -43,7 +43,7 @@ public class TodoModel implements Model {
     
     private Deque<List<ImmutableTask>> undoStack = new ArrayDeque<>();
     private Deque<List<ImmutableTask>> redoStack = new ArrayDeque<>();
-    
+
     public TodoModel(Config config) {
         this(new TodoListStorage(config.getTodoListFilePath()));
     }
