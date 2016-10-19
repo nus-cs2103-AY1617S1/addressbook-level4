@@ -44,6 +44,10 @@ public class Tag {
                 || (other instanceof Tag // instanceof handles nulls
                 && this.tagName.equals(((Tag) other).tagName)); // state check
     }
+    
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
+    }
 
     @Override
     public int hashCode() {
