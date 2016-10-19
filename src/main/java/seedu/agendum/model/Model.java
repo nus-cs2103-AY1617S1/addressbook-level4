@@ -4,7 +4,6 @@ import seedu.agendum.commons.core.UnmodifiableObservableList;
 import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.Task;
 import seedu.agendum.model.task.UniqueTaskList;
-import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -43,5 +42,8 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    /** Change the storage location of the todolist.xml */
+    void changeSaveLocation(String location);
 
 }

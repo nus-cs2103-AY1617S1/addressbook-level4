@@ -100,6 +100,29 @@ public class XmlToDoListStorageTest {
         thrown.expect(AssertionError.class);
         saveToDoList(new ToDoList(), null);
     }
+    
+    @Test
+    public void setToDoListFilePath() {
+        String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
+        XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
+
+        // null
+        thrown.expect(AssertionError.class);
+        xmlToDoListStorage.setToDoListFilePath(null);
+
+        // empty string
+        thrown.expect(AssertionError.class);
+        xmlToDoListStorage.setToDoListFilePath("");
+
+        // invalid file path
+        thrown.expect(AssertionError.class);
+        xmlToDoListStorage.setToDoListFilePath("1:/.xml");
+        
+        // valid file path
+        String validPath = "test/test.xml";
+        xmlToDoListStorage.setToDoListFilePath(validPath);
+        assertEquals(validPath, xmlToDoListStorage.getToDoListFilePath());
+    }
 
 
 }

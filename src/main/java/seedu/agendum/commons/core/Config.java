@@ -9,12 +9,13 @@ import java.util.logging.Level;
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
+    public static final String DEFAULT_SAVE_LOCATION = "data/todolist.xml";
 
     // Config values customizable through config file
     private String appTitle = "Agendum";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String toDoListFilePath = "data/todolist.xml";
+    private String toDoListFilePath = DEFAULT_SAVE_LOCATION;
     private String toDoListName = "MyToDoList";
 
 

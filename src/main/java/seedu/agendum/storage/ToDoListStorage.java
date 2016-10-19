@@ -1,10 +1,10 @@
 package seedu.agendum.storage;
 
-import seedu.agendum.commons.exceptions.DataConversionException;
-import seedu.agendum.model.ReadOnlyToDoList;
-
 import java.io.IOException;
 import java.util.Optional;
+
+import seedu.agendum.commons.exceptions.DataConversionException;
+import seedu.agendum.model.ReadOnlyToDoList;
 
 /**
  * Represents a storage for {@link seedu.agendum.model.ToDoList}.
@@ -15,6 +15,8 @@ public interface ToDoListStorage {
      * Returns the file path of the data file.
      */
     String getToDoListFilePath();
+    
+    public void setToDoListFilePath(String filePath);
 
     /**
      * Returns ToDoList data as a {@link ReadOnlyToDoList}.
@@ -40,5 +42,6 @@ public interface ToDoListStorage {
      * @see #saveToDoList(ReadOnlyToDoList)
      */
     void saveToDoList(ReadOnlyToDoList toDoList, String filePath) throws IOException;
+    
 
 }

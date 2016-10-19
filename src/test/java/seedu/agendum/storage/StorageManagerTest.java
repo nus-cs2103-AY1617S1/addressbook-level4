@@ -4,7 +4,10 @@ package seedu.agendum.storage;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+
+import seedu.agendum.commons.events.model.SaveLocationChangedEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.events.storage.DataSavingExceptionEvent;
 import seedu.agendum.model.ToDoList;
@@ -25,7 +28,9 @@ public class StorageManagerTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
-
+    
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setup() {
@@ -74,6 +79,32 @@ public class StorageManagerTest {
         EventsCollector eventCollector = new EventsCollector();
         storage.handleToDoListChangedEvent(new ToDoListChangedEvent(new ToDoList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
+    }
+    
+    @Test
+    public void handleSaveLocationChangedEvent_validFilePath() {
+        String validPath = "data/test.xml";
+        storageManager.handleSaveLocationChangedEvent(new SaveLocationChangedEvent(validPath));
+        assertEquals(storageManager.getToDoListFilePath(), validPath);
+    }
+    
+    public void setToDoListFilePath() {
+        // null
+        thrown.expect(AssertionError.class);
+        storageManager.setToDoListFilePath(null);
+
+        // empty string
+        thrown.expect(AssertionError.class);
+        storageManager.setToDoListFilePath("");
+
+        // invalid file path
+        thrown.expect(AssertionError.class);
+        storageManager.setToDoListFilePath("1:/.xml");
+        
+        // valid file path
+        String validPath = "test/test.xml";
+        storageManager.setToDoListFilePath(validPath);
+        assertEquals(validPath, storageManager.getToDoListFilePath());
     }
 
 

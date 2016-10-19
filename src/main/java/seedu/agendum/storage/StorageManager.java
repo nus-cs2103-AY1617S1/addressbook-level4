@@ -1,18 +1,20 @@
 package seedu.agendum.storage;
 
-import com.google.common.eventbus.Subscribe;
-import seedu.agendum.commons.core.ComponentManager;
-import seedu.agendum.commons.core.LogsCenter;
-import seedu.agendum.commons.events.model.ToDoListChangedEvent;
-import seedu.agendum.commons.events.storage.DataSavingExceptionEvent;
-import seedu.agendum.commons.exceptions.DataConversionException;
-import seedu.agendum.model.ReadOnlyToDoList;
-import seedu.agendum.model.UserPrefs;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.agendum.commons.core.ComponentManager;
+import seedu.agendum.commons.core.LogsCenter;
+import seedu.agendum.commons.events.model.SaveLocationChangedEvent;
+import seedu.agendum.commons.events.model.ToDoListChangedEvent;
+import seedu.agendum.commons.events.storage.DataSavingExceptionEvent;
+import seedu.agendum.commons.exceptions.DataConversionException;
+import seedu.agendum.commons.util.StringUtil;
+import seedu.agendum.model.ReadOnlyToDoList;
+import seedu.agendum.model.UserPrefs;
 
 /**
  * Manages storage of ToDoList data in local storage.
@@ -22,7 +24,6 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ToDoListStorage toDoListStorage;
     private UserPrefsStorage userPrefsStorage;
-
 
     public StorageManager(ToDoListStorage toDoListStorage, UserPrefsStorage userPrefsStorage) {
         super();
@@ -45,7 +46,6 @@ public class StorageManager extends ComponentManager implements Storage {
     public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
-
 
     // ================ ToDoList methods ==============================
 
@@ -76,6 +76,11 @@ public class StorageManager extends ComponentManager implements Storage {
         toDoListStorage.saveToDoList(toDoList, filePath);
     }
 
+    @Override
+    public void setToDoListFilePath(String filePath){
+        assert StringUtil.isValidPathToFile(filePath);
+        toDoListStorage.setToDoListFilePath(filePath);
+    }
 
     @Override
     @Subscribe
@@ -88,4 +93,11 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    @Override
+    @Subscribe
+    public void handleSaveLocationChangedEvent(SaveLocationChangedEvent event) {
+        String saveLocation = event.saveLocation;
+        setToDoListFilePath(saveLocation);
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Setting save location to: " + saveLocation));
+    }
 }

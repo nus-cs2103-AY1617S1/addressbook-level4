@@ -3,6 +3,7 @@ package seedu.agendum.storage;
 import seedu.agendum.commons.core.LogsCenter;
 import seedu.agendum.commons.exceptions.DataConversionException;
 import seedu.agendum.commons.util.FileUtil;
+import seedu.agendum.commons.util.StringUtil;
 import seedu.agendum.model.ReadOnlyToDoList;
 
 import java.io.File;
@@ -69,5 +70,11 @@ public class XmlToDoListStorage implements ToDoListStorage {
     @Override
     public void saveToDoList(ReadOnlyToDoList toDoList) throws IOException {
         saveToDoList(toDoList, filePath);
+    }
+
+    @Override
+    public void setToDoListFilePath(String filePath) {
+        assert StringUtil.isValidPathToFile(filePath);        
+        this.filePath = filePath;
     }
 }

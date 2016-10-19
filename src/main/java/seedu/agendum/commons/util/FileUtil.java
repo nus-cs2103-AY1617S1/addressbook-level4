@@ -4,12 +4,56 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import seedu.agendum.commons.exceptions.FileDeletionException;
+
 /**
- * Writes and reads file
+ * Writes, reads and deletes file
  */
 public class FileUtil {
     private static final String CHARSET = "UTF-8";
-
+    
+    public static void deleteFile(String filePath) throws FileDeletionException {
+        assert StringUtil.isValidPathToFile(filePath);
+        
+        File file = new File(filePath);
+        if (!file.delete()) {
+            throw new FileDeletionException("Unable to delete file at: " + filePath);
+        }
+    }
+    
+    /** Even though a path is valid, it might not exist or the user has insufficient privileges.<br>
+     * i.e. J drive is a valid location, but it does not exist.
+     * 
+     * Creates and deletes an empty file at the path.
+     * 
+     * @param path must be a valid file path
+     * @return true if the path is exists and user has sufficient privileges.
+     */
+    public static boolean isPathAvailable(String path) {
+        assert StringUtil.isValidPathToFile(path);
+        
+        File file = new File(path);
+        boolean exists = file.exists();
+        
+        try {
+            createParentDirsOfFile(file);
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        
+        if(!exists) { // prevent deleting an existing file
+            file.delete();
+        }
+        return true;
+    }
+    
+    public static boolean isFileExists(String filePath) {
+        File file = new File(filePath);
+        return isFileExists(file);
+    }
+    
     public static boolean isFileExists(File file) {
         return file.exists() && file.isFile();
     }

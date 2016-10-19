@@ -1,12 +1,12 @@
 package seedu.agendum.storage;
 
+import seedu.agendum.commons.events.model.SaveLocationChangedEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.events.storage.DataSavingExceptionEvent;
 import seedu.agendum.commons.exceptions.DataConversionException;
 import seedu.agendum.model.ReadOnlyToDoList;
 import seedu.agendum.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -23,6 +23,9 @@ public interface Storage extends ToDoListStorage, UserPrefsStorage {
 
     @Override
     String getToDoListFilePath();
+    
+    @Override
+    public void setToDoListFilePath(String filePath);
 
     @Override
     Optional<ReadOnlyToDoList> readToDoList() throws DataConversionException, IOException;
@@ -35,5 +38,10 @@ public interface Storage extends ToDoListStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleToDoListChangedEvent(ToDoListChangedEvent abce);
+    void handleToDoListChangedEvent(ToDoListChangedEvent event);
+    
+    /**
+     * Sets the save location 
+     */
+    public void handleSaveLocationChangedEvent(SaveLocationChangedEvent event);
 }

@@ -33,4 +33,26 @@ public class StringUtil {
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
+    
+    /**
+     * Checks whether the string matches an approved file path.
+     * <p>
+     * Examples of valid file paths: <br>
+     * - C:/Program Files (x86)/some-folder/data.xml <br>
+     * - data/todolist.xml <br>
+     * - list.xml <br>
+     * </p>
+     * <p>
+     * Examples of invalid file paths: <br>
+     * - data/.xml <br>
+     * - data/user <br>
+     * - C:/Program /data.xml <br>
+     * - C:/ Files/data.xml <br>
+     * </p>
+     * @param s should be trimmed
+     * @return true if it is a valid file path
+     */
+    public static boolean isValidPathToFile(String s) {
+        return s != null && !s.isEmpty() && s.matches("([A-z]\\:)?(\\/?[\\w-_()]+(\\s[\\w-_()])?)+(\\.[\\w]+)");
+    }
 }
