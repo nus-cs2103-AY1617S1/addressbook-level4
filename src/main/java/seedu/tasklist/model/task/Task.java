@@ -3,6 +3,7 @@ package seedu.tasklist.model.task;
 import java.sql.Date;
 import java.util.Objects;
 
+import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.CollectionUtil;
 import seedu.tasklist.commons.util.RecurringUtil;
 import seedu.tasklist.model.tag.UniqueTagList;
@@ -176,6 +177,16 @@ public class Task implements ReadOnlyTask {
 
 	public boolean isOverDue(){
 		if(!isFloating()){
+		    /*
+		    if (endTime.endTime.getTime().equals(new Date(0))) {
+                try {
+                    return new EndTime("11:59 pm").endTime.getTimeInMillis() < System.currentTimeMillis();
+                } 
+		        catch (IllegalValueException e) {
+                    e.printStackTrace();
+                }
+		    }
+		    */
 			if(!endTime.endTime.getTime().equals(new Date(0))){
 				return endTime.endTime.getTimeInMillis() < System.currentTimeMillis();
 			}

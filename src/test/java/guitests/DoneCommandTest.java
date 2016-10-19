@@ -7,6 +7,10 @@ import seedu.tasklist.logic.commands.DoneCommand;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -50,7 +54,7 @@ public class DoneCommandTest {
     }
     
     @Test
-    public void doneTest1_by_index() throws DuplicateTaskException, IllegalValueException{
+    public void doneTest1_by_index() throws DuplicateTaskException, IllegalValueException, IOException, JSONException, ParseException{
     	setup();
     	Command doneCommand = new DoneCommand(1);
     	doneCommand.setData(model);
@@ -60,7 +64,7 @@ public class DoneCommandTest {
     }
 
     @Test
-    public void doneTest2_by_name() throws DuplicateTaskException, IllegalValueException{
+    public void doneTest2_by_name() throws DuplicateTaskException, IllegalValueException, IOException, JSONException, ParseException{
     	setup();
     	Command doneCommand = new DoneCommand("test2");
     	doneCommand.setData(model);
@@ -70,7 +74,7 @@ public class DoneCommandTest {
     }
     
     @Test
-    public void doneTest3_throws_invalid_index() throws DuplicateTaskException, IllegalValueException{
+    public void doneTest3_throws_invalid_index() throws DuplicateTaskException, IllegalValueException, IOException, JSONException, ParseException{
     	setup();
     	Command doneCommand = new DoneCommand(3);
     	doneCommand.setData(model);
