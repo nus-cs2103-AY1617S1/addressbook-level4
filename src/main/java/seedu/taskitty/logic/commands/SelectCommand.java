@@ -41,6 +41,6 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public void saveStateIfNeeded() {}
+    public void saveStateIfNeeded(String commandText) {}
 
 }

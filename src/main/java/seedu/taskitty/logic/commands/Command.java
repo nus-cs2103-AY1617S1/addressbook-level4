@@ -33,7 +33,7 @@ public abstract class Command {
      * allow for undoing of previous commands if command has mutated
      * the TaskManager or filteredList.
      */
-    public abstract void saveStateIfNeeded();
+    public abstract void saveStateIfNeeded(String commandText);
     
     /**
      * Provides any needed dependencies to the command.

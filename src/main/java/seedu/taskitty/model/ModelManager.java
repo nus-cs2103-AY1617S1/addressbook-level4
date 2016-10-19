@@ -29,8 +29,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTodos;
     private final FilteredList<Task> filteredDeadlines;
     private final FilteredList<Task> filteredEvents;
-    //private final FilteredList<Task> filteredDones;
-    private final Stack<ReadOnlyTaskManager> historyCommands;
+
+    private final Stack<ReadOnlyTaskManager> historyTaskManagers;
+    private final Stack<String> historyCommands;
+
     private final Stack<Predicate> historyPredicates;
 
     /**
@@ -48,8 +50,9 @@ public class ModelManager extends ComponentManager implements Model {
         allTasks = new FilteredList<>(taskManager.getAllTasks());
         filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
-        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents()); 
-        historyCommands = new Stack<ReadOnlyTaskManager>();
+        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());
+        historyTaskManagers = new Stack<ReadOnlyTaskManager>();
+        historyCommands = new Stack<String>();
         historyPredicates = new Stack<Predicate>();
     }
 
@@ -63,7 +66,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());
-        historyCommands = new Stack<ReadOnlyTaskManager>();
+        historyTaskManagers = new Stack<ReadOnlyTaskManager>();
+        historyCommands = new Stack<String>();
         historyPredicates = new Stack<Predicate>();
     }
 
@@ -96,18 +100,20 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    public synchronized void undo() {
-        resetData(historyCommands.pop());
+    public synchronized String undo() {
+        resetData(historyTaskManagers.pop());        
         updateFilteredTaskList(historyPredicates.pop());
+        return historyCommands.pop();
     }
     
-    public synchronized void saveState() {
-        historyCommands.push(new TaskManager(taskManager));
+    public synchronized void saveState(String command) {
+        historyTaskManagers.push(new TaskManager(taskManager));
+        historyCommands.push(command);
         historyPredicates.push(filteredTodos.getPredicate());
     }
     
     public synchronized void removeUnchangedState() {
-        historyCommands.pop();
+        historyTaskManagers.pop();
         historyPredicates.pop();
     }
     
