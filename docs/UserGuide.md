@@ -174,7 +174,7 @@ Format:
 
 You can use this command to mark a task as completed. Completed task appear struckthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
 
-<img src="images/sketch_task_completed_small.png" width="700" alt="Example of a Completed Task">
+<img src="images/app_screenshot_completed.png" width="700" alt="Example of a Completed Task">
 
 <figcaption>Enjoy the satisfaction of marking completed tasks</figcaption>
 
