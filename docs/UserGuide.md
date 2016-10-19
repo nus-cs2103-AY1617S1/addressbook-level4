@@ -118,8 +118,10 @@ Examples:
    add a tag family to the second task and remove the tag named friends
 
 #### Undo action : `undo`
-Undo the previous one action.<br>
+Undo the previous action.<br>
 Format: `undo`
+
+> * Will only undo `add`, `delete` and `update` actions.
 
 #### Viewing help : `help`
 Show the help menu. Format: `help`
