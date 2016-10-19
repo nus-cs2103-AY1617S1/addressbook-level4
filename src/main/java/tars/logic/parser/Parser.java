@@ -53,8 +53,11 @@ public class Parser {
 
     private static final Pattern FILEPATH_ARGS_FORMAT = Pattern.compile("(?<filepath>\\S+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more whitespace
-    
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
+                                                                                                           // or
+                                                                                                           // more
+                                                                                                           // whitespace
+
     private static final Pattern TAG_EDIT_COMMAND_FORMAT = Pattern.compile("\\d+ \\w+$");
 
     public Parser() {
@@ -182,12 +185,10 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
         }
 
-        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
         Flag dateTimeFlag = new Flag(Flag.DATETIME, true);
-        Flag tagFlag = new Flag(Flag.TAG, true);
         Flag rsvDelFlag = new Flag(Flag.DELETE_RSVTASK, false);
 
-        Flag[] flags = { priorityFlag, dateTimeFlag, tagFlag, rsvDelFlag };
+        Flag[] flags = { dateTimeFlag, rsvDelFlag };
 
         TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
         HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
@@ -195,14 +196,14 @@ public class Parser {
         if (flagsPosMap.containsValue(rsvDelFlag)) {
             return prepareRsvDel(flagsPosMap, argumentMap, rsvDelFlag);
         } else {
-            return prepareRsvAdd(args, flagsPosMap, argumentMap, priorityFlag, dateTimeFlag, tagFlag);
+            return prepareRsvAdd(args, flagsPosMap, argumentMap, dateTimeFlag);
         }
 
     }
 
     // Parses arguments for adding a reserved task
     private Command prepareRsvAdd(String args, TreeMap<Integer, Flag> flagsPosMap, HashMap<Flag, String> argumentMap,
-            Flag priorityFlag, Flag dateTimeFlag, Flag tagFlag) {
+            Flag dateTimeFlag) {
         String name = "";
         if (!flagsPosMap.containsValue(dateTimeFlag)) {
             // there are arguments but arguments must contain at least one
