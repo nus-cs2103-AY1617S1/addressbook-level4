@@ -42,8 +42,8 @@ public class EventTaskCard extends UiPart{
         taskName.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         taskType.setText(task.getTaskType().toString());
-        startDateAndTime.setText(task.getEndDate().toString());
-        endDateAndTime.setText(task.getEndDate().toString());
+        startDateAndTime.setText(task.getEndDate().get().toString());
+        endDateAndTime.setText(task.getEndDate().get().toString());
     }
 
     public HBox getLayout() {

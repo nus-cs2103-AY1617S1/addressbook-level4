@@ -1,6 +1,10 @@
 package seedu.address.testutil;
 
 import com.google.common.io.Files;
+
+import guitests.guihandles.DeadlineTaskCardHandle;
+import guitests.guihandles.EventTaskCardHandle;
+import guitests.guihandles.SomedayTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -328,7 +332,15 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
+    public static boolean compareSomedayCardAndTask(SomedayTaskCardHandle card, ReadOnlyTask task) {
+        return card.isSameTask(task);
+    }
+    
+    public static boolean compareDeadlineCardAndTask(DeadlineTaskCardHandle card, ReadOnlyTask task) {
+        return card.isSameTask(task);
+    }
+    
+    public static boolean compareEventCardAndTask(EventTaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
     }
 

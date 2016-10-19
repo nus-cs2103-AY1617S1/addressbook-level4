@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
+
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -35,7 +37,7 @@ public class ParserTest {
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
 		doneCommand = new DoneCommand(new int[]{1});
-		editCommand = new EditCommand(1, "editing");
+		editCommand = new EditCommand(1, "editing", LocalDateTime.now(), LocalDateTime.now());
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
 	}

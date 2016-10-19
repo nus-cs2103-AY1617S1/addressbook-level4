@@ -16,6 +16,26 @@ public class MainGuiHandle extends GuiHandle {
     public TaskListPanelHandle getTaskListPanel() {
         return new TaskListPanelHandle(guiRobot, primaryStage);
     }
+    
+    public TaskListPanelHandle getTodayTaskListTabPanel() {
+        return new TaskListPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public TaskListPanelHandle getTomorrowTaskListTabPanel() {
+        return new TaskListPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public TaskListPanelHandle getIn7DaysTaskListTabPanel() {
+        return new TaskListPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public TaskListPanelHandle getIn30DaysTaskListTabPanel() {
+        return new TaskListPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public TaskListPanelHandle getSomedayTaskListTabPanel() {
+        return new TaskListPanelHandle(guiRobot, primaryStage);
+    }
 
     public ResultDisplayHandle getResultDisplay() {
         return new ResultDisplayHandle(guiRobot, primaryStage);
@@ -28,5 +48,7 @@ public class MainGuiHandle extends GuiHandle {
     public MainMenuHandle getMainMenu() {
         return new MainMenuHandle(guiRobot, primaryStage);
     }
+    
+    
 
 }

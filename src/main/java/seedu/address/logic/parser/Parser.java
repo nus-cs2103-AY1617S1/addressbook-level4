@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.IncorrectCommandException;
 import seedu.address.commons.util.StringUtil;
@@ -428,20 +429,110 @@ public class Parser {
 		return new DeleteCommand(indices);
 	}
 
+	//@@author A0139339W
+	/**
+	 * Parses arguments in the context of the edit task command.
+	 * Supports editing of task name, start date and time, end date and time.
+	 *
+	 * @param args
+	 *            full command args string
+	 *            at least one of the three values are to be edited
+	 * @return the prepared EditCommand
+	 */
 	private Command prepareEdit(String arguments) {
-		final Matcher matcher = EDIT_ARGS_FORMAT_1.matcher(arguments.trim());
-		if (!matcher.matches()) {
+		String index = "";
+		String newName = "";
+		String newStartDate = "";
+		String newEndDate = "";
+		
+		String[] args = arguments.split(" ");
+		System.out.println(arguments);
+				
+		//if the args[0] is not the index, return IncorrectCommand
+		if(!StringUtil.isUnsignedInteger(args[0])) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
+		
+		index = args[0];
 
-		final String index = matcher.group("index").trim();
-		final String newName = matcher.group("newName").trim();
-
-		System.out.println("index: " + index);
-		System.out.println("new name: " + newName);
+		for(int i=1; i<args.length; i++) {
+			System.out.println("args[i]: " + args[i]);
+			if(args[i].startsWith("'") && newName.equals("")) {		//only takes the first pair of ' '
+				do {
+					newName += (args[i] + " ");
+				} while(i+1<args.length && !args[i++].endsWith("'"));		//continue adding until the next '
+				i--;		//to undo i++ in while loop when while condition fails
+				System.out.println("newName: " + newName);
+				
+			} else if(args[i].equals("from") && newStartDate.equals("")) {		//only takes the first from
+				while(++i<args.length &&
+						!(args[i].equals("to") ||
+						args[i].equals("by") ||
+						args[i].equals("from") ||
+						args[i].startsWith("'"))) {
+					
+					newStartDate += (args[i] + " ");
+					System.out.println("i is: " + args[i]);
+				}
+				i--;
+				System.out.println("newStartDate: " + newStartDate);
+			
+			} else if((args[i].equals("to") || args[i].equals("by")) && newEndDate.equals("")) {
+				while(++i<args.length &&
+						!(args[i].equals("from") ||
+						args[i].equals("by") ||
+						args[i].equals("to") ||
+						args[i].startsWith("'"))) {
+					
+					newEndDate += (args[i] + " ");
+					System.out.println("i is: " + args[i]);
+				}
+				i--;
+				System.out.println("newEndDate: " + newEndDate);
+			}
+					
+		}
+		
+		// newName while loop might have end at end of array and not '
+		newName = newName.trim();
+		if(!newName.endsWith("'")) {
+			newName = "";
+		} else {
+			newName = newName.substring(1, newName.length()-1);		//remove the ' '
+			newName = newName.trim();
+		}
+		
+		// No values are to be edited
+		if(newName.equals("") && newStartDate.equals("") && newEndDate.equals("")) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		}
+		
+		
+		System.out.println("newName post trim: " + newName);
+		LocalDateTime startDateTime = null;
+		LocalDateTime endDateTime = null;
+		
+		// DateParser not merged. Will have error
+		/*
+		if(!newStartDate.equals("")) {
+			try {
+				startDateTime = DateParser.parse(newStartDate);
+			} catch (ParseException e) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+			}
+		}
+		
+		if(!newEndDate.equals("")) {
+			try {
+				endDateTime = DateParser.parse(newEndDate);
+			} catch (ParseException e) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+			}
+		}
+		*/
 
 		try {
-			return new EditCommand(Integer.parseInt(index), newName);
+			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);
 		} catch (NumberFormatException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		} catch (IllegalValueException e) {
