@@ -34,21 +34,46 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
-#### Viewing help : `help`
+### Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a task: `add`
+### Adding a task: `add`
 Adds a task to the task management<br>
-Format: `add TASK d/DESCRIPTION sd/START_DATE dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL ...` 
+Format: `add TITLE d/DESCRIPTION [sd/START_DATE] [dd/DUE_DATE] [i/INTERVAL] [ti/TIME_INTERVAL] [-t TAG 1, TAG 2...] ...` 
 
 > Tasks can have any number of tags (including 0)
 
 Examples: 
-* `add Homework d/ProgrammingEx1 dd/06102016 i/7`
+* `add Homework d/ProgrammingEx1`
 
-#### List task : `list`
+#### Adding an event
+Adds a task which has a start time and end time. 
+User has to specify TITLE, DESCRIPTION, START_DATE and DUE_DATE.
+* `add Homework d/ProgrammingEx1 sd/08-01-2012 dd/10-01-2012`
+* `add Homework d/ProgrammingEx1 sd/08-01-2012 dd/10-01-2012 i/2 ti/10`
+
+#### Adding a deadline
+Adds a task that have to be done before a specific deadline. 
+User has to specify TITLE, DESCRIPTION and DUE_DATE.
+* `add Homework d/ProgrammingEx1 dd/10-01-2012`
+* `add Homework d/ProgrammingEx1 dd/10-01-2012 i/2 ti/10`
+
+#### Adding a floating task
+Adds a task without specific times. 
+User has to specify TITLE, DESCRIPTION.
+* `add Homework d/ProgrammingEx1`
+* `add Homework d/ProgrammingEx1 i/2 ti/10`
+
+#### Adding duplicated tasks
+Adds a task with specific interval. START_DATE and DUE_DATE(if specified) will by adjusted accordingly to interval. 
+User has to specify INTERVAL or TIME_INTERVAL.
+* `add Homework d/ProgrammingEx1 i/2 dd/10-01-2012`
+* `add Homework d/ProgrammingEx1 i/2 ti/10 dd/10-01-2012`
+
+
+### List task : `list`
 Shows a list of upcoming task in the task management tool.<br>
 Format: `list`
 Examples: 
@@ -56,16 +81,14 @@ Examples:
   Returns `Homework` but not `homework`
 
 
-#### Deleting a task : `delete`
+### Deleting a task : `delete`
 Deletes the specified task from the task management tool. Irreversible.<br>
 Format: `delete TASKID`
 
 > Deletes the task at the specified `KEYWORD`. 
-  
-
+ 
 Examples: 
 * `delete 1`<br> 
-
 
 #### Add Category: `Assign`
 Assign Task to a category
@@ -80,7 +103,6 @@ Format: `Complete TASKID`
 
 Example: `Complete 0`
  
-
 #### Adding task details: `editdetails`
 Edit details to the existing task 
 Format: `editdetails TASKID d/description t/title dd/duedate [t/TAG]...` 
@@ -94,13 +116,6 @@ Format: `setpriority TASKID p/PRIORITY_VALUE`
 
 Examples: 
 * `setpriority 0 p/10` 
-
-#### Adding duplicate tasks for specific period of time: `addduplicate`
-Set priority to a task
-Format: `addduplicate INTERVAL TIMES d/description t/title dd/duedate [t/TAG]...` 
-
-Examples: 
-* `addduplicate 7 10 d/Programming t/SoftwareEngineering dd/10 October [t/TAG]...` 
 
 #### Coloring task: `color`
 Set color for a code of task
@@ -116,7 +131,7 @@ Examples:
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
-       
+      
 ## Command Summary
 
 Command | Format  
@@ -128,3 +143,13 @@ Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
 Color | `color`
+
+## Parameters 
+Parameter     | Flag  |  Format           | Required                          | Meaning
+TITLE         |       |  Text             |   Yes                             | Title of a task 
+DESCRIPTION   |  /d   |  Text             |   Yes                             | Description of a task
+START_DATE    |  /sd  |  Date(DD-MM-YYYY) |   NO                              | Start date of a task
+DUE_DATE      |  /dd  |  Date(DD-MM-YYYY) |   YES(if START_DATE is specified) | Due Date of a task
+INTERVAL      |  /i   |  Integer Number   |   NO                              | Interval of a task specifies how many times should be duplicated
+TIME_INTERVAL |  /ti  |  Integer Number   |   NO                              | Time interval of a task specifies how many days are between duplicated tasks
+

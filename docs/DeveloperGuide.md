@@ -272,19 +272,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *`| user | add a task | record tasks that need to be done 'some day'. 
-`* * *`| user |view upcoming tasks | decide what needs to be done soon. 
-`* * *`| user | delete a task | get rid of tasks that I no longer care to track. 
 `* * *`| new user | view more information about a particular command | learn how to use various commands 
+`* * *`| user | add an event | record tasks that need to be started and ended at the specific time 
+`* * *`| user | add a deadline | record tasks that should be ended at the specific time
+`* * *`| user | add a floating task | record tasks without specific start and end date
+`* * *`| user | view upcoming tasks | decide what needs to be done soon. 
+`* * *`| user | delete a task | get rid of tasks that I no longer care to track. 
+`* *` | user | edit my task details, if some changes is needed | So that I can update the latest details.
+`* *`| user | add duplicated tasks for specific period of time | see a duplicate appears on regular intervals, e.g. once per week. 
+`* *`| user | specify which folder path to save my file | organize my task manager easily
+
+//to do
 `* * *`| user | keep track my task | check which task have completed or on going
-`* * *`| user | specify which folder path to save my file | organise my task manager easily
 `* *`| advanced user |  use shorter versions of a command | that can type a command faster.
 `* *`|user | set reminder for my task | can complete the task on time. 
 `* *` |user | view task that is due today when I launch the application | verify what is done and what is to be done. 
-`* *` |user |add category to a task | view task in a more organise manner. 
-`* *` | user | edit my task details, if some changes is needed | So that I can update the latest details.
-`* *`| user | set priority to each of my task | prioritise which task to focus on. 
-`* *`| user | add duplicate tasks for specfic period of time | see a duplicate appears on regular intervals, e.g. once per week. 
+`* *` |user |add category to a task | view task in a more organize manner. 
+`* *`| user | set priority to each of my task | prioritize which task to focus on. 
 `*`| user | color code a task | group my task easily
 
 
@@ -295,26 +299,87 @@ Priority | As a ... | I want to ... | So that I can...
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
 
-#### Use case: UC01 add task.
-   Actor: User<br>
-   Preconditions: User is logged in
+#### Use case: UC01 View more information about a particular command
+Actor: User<br>
 
 **MSS**
 
-1. User requests to add new task description.
-2. System will update the database of the newly created task.<br>
-   Use Case end.
+1.User enter help for a particular command
+2.System show the user guide of the particular command
+Use Case ends
+
+**Extension**
+ 
+       1a.User enter an invalid command
+       >1a1. System show error message
+       Use case ends.
+              
+#### Use case: UC02 Add an event 
+Actor: User<br>
+
+**MSS**
+1.User requests to add new event by specifying title, description, start and end date.
+2.System will update the database of the newly created event.
+Use Case end.
 
 **Extension**
 
-    1a. User enter invalid text.
+    1a. Event has no title
     >1a1. System shows an error message
     Use case resume at step 1.
 
-#### Use case: UC02 view upcoming task.
+    1b. Event has no description
+    >1b1. System shows an error message
+    Use case resume at step 1.
+
+    1c. Start date is later than end date
+    >1c1. System shows an error message
+    Use case resume at step 1.
+
+#### Use case: UC03  Add a deadline 
+Actor: User<br>
+
+**MSS**
+1.User requests to add new event by specifying title, description and end date.
+2.System will update the database of the newly created deadline.
+Use Case end.
+
+**Extension**
+
+    1a. Deadline has no title
+    >1a1. System shows an error message
+    Use case resume at step 1.
+
+    1b. Deadline has no description
+    >1b1. System shows an error message
+    Use case resume at step 1.
+
+    1c. Deadline has no end date
+    >1c1. System shows an error message
+    Use case resume at step 1.
+    
+#### Use case: UC04  Add a floating task 
+Actor: User<br>
+
+**MSS**
+1.User requests to add new event by specifying title, description
+2.System will update the database of the newly created floating task.
+Use Case end.
+
+**Extension**
+
+    1a. Deadline has no title
+    >1a1. System shows an error message
+    Use case resume at step 1.
+
+    1b. Deadline has no description
+    >1b1. System shows an error message
+    Use case resume at step 1.
+
+
+#### Use case: UC05 view upcoming task.
 
    Actor: User<br>
-   Preconditions: User is logged in
 
 **MSS**
 
@@ -329,9 +394,8 @@ Priority | As a ... | I want to ... | So that I can...
     >2a1. System shows a message no upcoming task are found.
     Use case ends
 
-#### Use case: UC03 Delete task
+#### Use case: UC06 Delete task
    Actor: User<br>
-   Precondition: User is logged in
 
 **MSS**
 
@@ -349,104 +413,8 @@ Priority | As a ... | I want to ... | So that I can...
        >4a1. System shows connection has failed message.
        Use case resume at step 1.
 
-#### Use case: UC04 Information of the a particular command.
+#### Use case: UC07 edit task details
    Actor: User<br>
-   Precondition: User is logged in
-
-**MSS**
-
-1. User enter help a particular command
-2. System show the user guide of the particular command<br>
-   Use Case ends
-
-**Extension**
- 
-       1a.User enter an invalid command
-       >1a1. System show error message
-       Use case ends.
-
-#### Use case: UC05 use shorter version of a command
-Actor: Advance user<br>
-Preconditions: User is familiar with the available command
-
-**MSS**
-
-1. User enter a shorter version of a command
-2. System identify which command to execute based on user input<br>
-   Use case ends.
-
-**Extension** 
-
-    1a. User enter invalid command
-    > 1a1. System shows an error message
-    Use case ends
-
-    2a. System could not connect with the database
-    > 2a1. System shows connection failed message.
-    Use case ends
-
-#### Use case UC06 set reminder for tasks
-   Actor: User<br>
-   Preconditions: User is logged in, tasks is created.
-
-**MSS**
-
-1. User requests to list all tasks
-2. System shows a list of tasks
-3. User request to set reminder for specific task in the list
-4. System set reminder for the selected task and display action successful message<br>
-Use case ends
-
-**Extension**
-
-    2a. The task list is empty
-    > Use case ends
-
-    3a. User enter invalid index
-    > 3a1. System shows an error message
-    Use case resume at step 2
-
-#### Use case UC07 view task that is due on the day after launching application
-   Actor: User<br>
-   Preconditions: User have not launch application
-
-**MSS**
-
-1. User launch application
-2. System display a list of task that is due on the day<br>
-Use case ends
-
-**Extension**
-
-    2a. The task list is empty
-    > Use case ends
-
-#### Use case UC08 add category to task
-   Actor: User<br>
-   Preconditions: User is logged in, task is created.
-
-**MSS**
-
-1. User requests to list all tasks
-2. System shows a list of tasks
-3. User request to add category for specific task in the list
-4. System prompt for category to set with
-5. User enter category
-6. System set category for the selected task and display action successful message<br>
-Use case ends
-
-**Extension**
-
-    2a. The task list is empty
-    > Use case ends
-
-    3a. User enter invalid index
-    > 3a1. System shows an error message
-    Use case resume at step 2
-
-#### Use case: UC09 edit task details
-   Actor: User<br>
-   Preconditions: User is logged in.
 
 **MSS**
 
@@ -482,110 +450,33 @@ Use Case ends
     *a1. System requests for confirmation
     *a2. User confirms the cancellation 
     Use Case ends. 
-
-#### Use case: UC10 set priority to tasks
-   Actor: User<br>
-   Preconditions: User is logged in.
-
-**MSS**
-
-1. User requests to list all tasks
-2. System shows a list of tasks
-3. User chooses to set priority of tasks 
-4. System shows the view for setting priority of tasks 
-5. User set priority to tasks 
-6. System requests for confirmation
-7. User confirms changes 
-8. System updates prioritizing for tasks in database and displays current prioritizing for tasks<br>
-   Use Case ends
-
-**Extensions**
-
-    2a. System detects an error with retrieving data from file
-    > 2a1. System displays the information about the problem with a file
-    Use Case ends
-
-    7a. User does not confirm changes 
-    5a1. System displays the information about not saved changes
-    Use case resumes from step 5.
-
-    8a. System detects an error with retrieving data from file
-    6a1. System displays the information about the problem with a file
-    Use Case ends
-
-    *a. At any time, User can cancel setting priority for tasks
-    *a1. System requests for confirmation
-    *a2. User confirms the cancellation 
-    Use Case ends. 
-
-#### Use case: UC11 create a task that happens repeatedly by specifying an interval
+    
+#### Use case: UC08 Create duplicated tasks
    Actor: User
-   Preconditions: User is logged in.
 
 **MSS**
+1.User requests to add duplicated tasks by specifying title, description, interval and start date
+2.System will update the database of the newly created duplicated tasks.
+Use Case end.
 
-1. User requests to add task with specified start date and interval
-2. System updates the database with information.<br>
-   Use Case ends
+**Extension**
 
-**Extensions**
+    1a. Task has no title
+    >1a1. System shows an error message
+    Use case resume at step 1.
 
-    1a. User enters invalid command
-    > 1a1. System displays the error message.
-    Use Case resumes at step 1.
+    1b. Task has no description
+    >1b1. System shows an error message
+    Use case resume at step 1.
     
-    2a. System detects an error in the connection with database
-    > 2a1. System displays the information about the connection problem with database
-    Use Case ends
+    1c. Task has no interval
+    >1c1. System shows an error message
+    Use case resume at step 1.
 
-#### Use case: UC12 Color coding a task
-Actor: User<br>
-Preconditions: User is logged in, tasks are created.
+    1d. Task has no start date
+    >1d1. System shows an error message
+    Use case resume at step 1.
 
-**MSS**
-
-1. User requests to list all tasks.
-2. System displays a list of all created tasks.
-3. User selects a task to edit
-4. User changes the color of the task.
-5. System updates the database with the changed details.<br>
-Use Case ends
-
-**Extensions**
-
-    2a. System detects an error in the connection with database
-    > 2a1. System displays the information about the connection problem with database
-    Use Case ends
-        
-    4a. User does not confirm the color change
-    > 4a1. System displays message about cancellation 
-    Use Case resumes from step 1.
-    
-    *a. At any time, User can cancel color coding
-    *a1. System requests for confirmation 
-    *a2. User cancels color coding
-    Use Case ends. 
-
-#### Use case: Delete task
-
-**MSS**
-
-1. User requests to list tasks
-2. TaskManager shows a list of tasks
-3. User requests to delete a specific task in the list
-4. TaskManager deletes the task<br>
-   Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-
-> Use case ends
-
-3a. The given index is invalid
-
-> 3a1. TaskManager shows an error message <br>
-  Use case resumes at step 2
 
 {More to be added}
 
