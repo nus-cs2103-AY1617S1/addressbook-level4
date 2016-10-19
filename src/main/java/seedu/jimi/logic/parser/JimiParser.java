@@ -64,7 +64,7 @@ public class JimiParser {
             Pattern.compile("(\"(?<taskDetails>.+)\") on (?<startDateTime>((?! to ).)*)( to (?<endDateTime>.+))?");
     
     private static final Pattern SAVE_DIRECTORY_ARGS_FORMAT = 
-            Pattern.compile("(?<filePath>[^*&%?:\\s\"<>]+)(?<fileName>[^/:*\"<>?|\\\\]+).xml");
+            Pattern.compile("(?<filePath>[^*&%?:\"<>]+)(?<fileName>[^/:*\"<>?|\\\\]+).xml");
     
     private static final List<Command> COMMAND_STUB_LIST =
             Arrays.asList(

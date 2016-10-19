@@ -19,22 +19,26 @@ public class SaveAsCommand extends Command {
 
     public static final String COMMAND_WORD = "saveas";
 
+    private static final String DEFAULT_FILE_PATH = new Config().getTaskBookFilePath();
+    
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Set a new save directory for all your tasks and events in Jimi.\n"
             + "Parameters: FILEPATH/FILENAME.xml or FILEPATH\\FILENAME.xml \n"
-            + "Jimi rejects these characters in file paths: * & % ? : <space> \" < > \n"
+            + "Jimi rejects these characters in file paths: * & % ? : \" < > \n"
             + "and these characters in file names: / : * \" < > ? | \\ \n"
             + "Example: " + COMMAND_WORD + " C:/dropbox/taskbook.xml";
 
     public static final String MESSAGE_SUCCESS = "Save directory changed: %1$s";
-    public static final String MESSAGE_CONFIG_FILE_NOT_FOUND = "Config file is not found. ";
+    public static final String MESSAGE_CONFIG_FILE_NOT_FOUND = "Config file not found. ";
     public static final String MESSAGE_DUPLICATE_SAVE_DIRECTORY = "New save directory is the same as the old save directory.";
+    public static final String MESSAGE_ERROR_SAVING = 
+            "Error: %1$s \n"
+            + "Reverting back to default save file path: " + DEFAULT_FILE_PATH;
     
+    private static String configFilePath = Config.DEFAULT_CONFIG_FILE;
     
     private String taskBookFilePath;
     
-    private static String configFilePath = Config.DEFAULT_CONFIG_FILE;
-
     /**
      * Empty constructor for stub usage
      */
@@ -76,8 +80,20 @@ public class SaveAsCommand extends Command {
         } catch (DataConversionException e) {
             return new CommandResult(String.format(MESSAGE_CONFIG_FILE_NOT_FOUND));
         } catch (IOException e) {
-            return new CommandResult(String.format(e.getMessage()));
+            saveAsDefaultConfig();
+            return new CommandResult(String.format(MESSAGE_ERROR_SAVING, e.getMessage()));
         }
+    }
+
+    /**
+     * Reverts current config to default config specified in Config Class.
+     */
+    private static void saveAsDefaultConfig() {
+        try {
+            ConfigUtil.saveConfig(new Config(), configFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }        
     }
 
     @Override
