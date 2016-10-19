@@ -141,9 +141,11 @@ public class Task implements ReadOnlyTask {
 
 	public void setRecurringTime() {
 	    if (isRecurring && isComplete && !this.recurringFrequency.equals("")) {
-	        RecurringUtil.updateRecurringDate(endTime.endtime, recurringFrequency);
-	        isComplete = false;
-	        
+	        RecurringUtil.updateRecurringDate(startTime.starttime, recurringFrequency);
+	    	RecurringUtil.updateRecurringDate(endTime.endtime, recurringFrequency);
+	        if (!startTime.starttime.getTime().equals(new Date(0)) || !endTime.endtime.getTime().equals(new Date(0))) {
+	            isComplete = false;
+	        }
 	    }
 	}
 	
