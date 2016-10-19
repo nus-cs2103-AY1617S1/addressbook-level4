@@ -214,7 +214,7 @@ The Mark command allows users to mark their tasks/deadlines/events as completed.
 
 ### Model component
 
-<img src="images/Model UML" width="800"><br>
+<img src="images/Model UML.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/harmony/mastermind/model/Model.java)
 
@@ -826,91 +826,91 @@ Quit the application.
 ##### Google Calendar
 
 > Pros:
->1.  Able to sync calendars from other people
->2.  Chrome extension for offline connectivity
->3.  Multiple viewing options (Calendar/To do list view)
->4.  Has a Command Line Interface (CLI)
+> *  Able to sync calendars from other people
+> *  Chrome extension for offline connectivity
+> *  Multiple viewing options (Calendar/To do list view)
+> *  Has a Command Line Interface (CLI)
 
 > Cons:
->1.  Unable to support floating task
->2.  Unable to mark tasks as done
->3.  Unable to block out and free up timings
->4.  CLI commands only for addition of tasks
->5.  Bad interface
+> *  Unable to support floating task
+> *  Unable to mark tasks as done
+> *  Unable to block out and free up timings
+> *  CLI commands only for addition of tasks
+> *  Bad interface
 
 ##### Wunderlist
 
 > Pros:
->1.  Able to set categories
->2.  Able to mark tasks as done
->3.  Able to read tasks from e-mails
->4.  Able to assign tasks to someone
->5.  Able to search for tasks easily
->6.  Able to migrate tasks from one category to another easily
->7.  Web and offline desktop version available
+> *  Able to set categories
+> *  Able to mark tasks as done
+> *  Able to read tasks from e-mails
+> *  Able to assign tasks to someone
+> *  Able to search for tasks easily
+> *  Able to migrate tasks from one category to another easily
+> *  Web and offline desktop version available
 
 > Cons:
->1.  Unable to create subtask
->2.  Unable to support recurring tasks
->3.  Unable to block out time slots
->4.  Unable to set start date for tasks
->5.  Only has a list view
+> *  Unable to create subtask
+> *  Unable to support recurring tasks
+> *  Unable to block out time slots
+> *  Unable to set start date for tasks
+> *  Only has a list view
 
 ##### Todoist
 
 > Pros:
->1.  Able to set categories
->2.  Able to collaborate with others
->3.  Able to have sub-projects and sub-tasks
->4.  Able to support recurring tasks
->5.  Able to sort tasks by priority level
->6.  Able to integrate from e-mail
->7.  Able to backup automatically
+> *  Able to set categories
+> *  Able to collaborate with others
+> *  Able to have sub-projects and sub-tasks
+> *  Able to support recurring tasks
+> *  Able to sort tasks by priority level
+> *  Able to integrate from e-mail
+> *  Able to backup automatically
 
 > Cons:
->1.  Unable to block out timings
->2.  Unable to export out To-do list
->3.  Minimal CLI
->4.  Have to do a lot of clicking
+> *  Unable to block out timings
+> *  Unable to export out To-do list
+> *  Minimal CLI
+> *  Have to do a lot of clicking
 
 ##### Any.Do
 
 > Pros:
->1.  Able to set categories by type and day
->2.  Able to show completed tasks
->3.  Able to collaborate with others
->4.  Able to support sub-tasks
->5.  Able to add attachments
->6.  Able to support recurring tasks
->7.  Able to mark task as done
->8.  Able to notify and remind user
->9.  Able to have action shortcuts
->10.  Able to have different types of views
+> *  Able to set categories by type and day
+> *  Able to show completed tasks
+> *  Able to collaborate with others
+> *  Able to support sub-tasks
+> *  Able to add attachments
+> *  Able to support recurring tasks
+> *  Able to mark task as done
+> *  Able to notify and remind user
+> *  Able to have action shortcuts
+> *  Able to have different types of views
 
 > Cons:
->1.  Unable to support floating tasks
->2.  No CLI
+> *  Unable to support floating tasks
+> *  No CLI
 
 ##### Evernote
 
 > Pros:
->1.  Able to quick search
->2.  Able to support handwriting, embedded images/audio and links
->3.  Able to work with camera
+> *  Able to quick search
+> *  Able to support handwriting, embedded images/audio and links
+> *  Able to work with camera
 
 > Cons:
->1.  No CLI
->2.  No Calendar view
+> *  No CLI
+> *  No Calendar view
 
 ##### Trello
 
 > Pros:
->1.  Able to mark tasks as "in-progress"
->2.  Able to view as calendar
+> *  Able to mark tasks as "in-progress"
+> *  Able to view as calendar
 
 > Cons:
->1.  Unable to import or export
->2.  Relies on UI interaction
->3.  No CLI
->4.  Need to pay for premium use to access 3rd party features
->5.  No desktop version
+> *  Unable to import or export
+> *  Relies on UI interaction
+> *  No CLI
+> *  Need to pay for premium use to access 3rd party features
+> *  No desktop version
