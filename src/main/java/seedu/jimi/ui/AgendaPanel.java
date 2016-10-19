@@ -91,7 +91,7 @@ public class AgendaPanel extends UiPart{
     }
     
     private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
+        SplitPane.setResizableWithParent(placeHolderPane, true);
         FxViewUtil.applyAnchorBoundaryParameters(placeHolderPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(panel, 0.0, 0.0, 0.0, 0.0);
         placeHolderPane.getChildren().add(panel);
