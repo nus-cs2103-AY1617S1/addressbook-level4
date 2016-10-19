@@ -32,8 +32,8 @@ public class TestTask implements ReadOnlyTask {
         this.startTime = startTime;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        this.isTask = dueDate==null?false:true;
-        this.isEvent = startTime==null?false:true;
+        this.isTask = dueDate.isDateNull()?false:true;
+        this.isEvent = startTime.isDateNull()?false:true;
     }
     public TestTask() {
         
@@ -126,9 +126,9 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getDueDate().setTime + " ");
-        sb.append("e/" + this.getStartTime().setTime + " ");
-        sb.append("a/" + this.getEndTime().setTime + " ");
+        sb.append("by/" + this.getDueDate().setTime + " ");
+        sb.append("from/" + this.getStartTime().setTime + " ");
+        sb.append("to/" + this.getEndTime().setTime + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
