@@ -538,3 +538,11 @@ Day:
 3i. It allows to repeat reminders on a periodic basis.<br>
 3j. It can show all previous events which are marked done.<br>
 
+4. **Reminders**
+
+4a. It has CRUD features. <br>
+4b. It has a search function. <br>
+4c. It has different tabs for today, tomorrow and date-wise events. <br>
+4d. It allows to set priorities for different tasks. <br>
+4e. It allows to repeat reminders on a periodic basis. <br>
+4f. It can show all previous events which are marked ‘done’. <br>
