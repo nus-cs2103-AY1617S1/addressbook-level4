@@ -103,8 +103,9 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(historyPredicates.pop());
     }
     
-    public synchronized void saveState() {
+    public synchronized void saveState(String command) {
         historyTaskManagers.push(new TaskManager(taskManager));
+        historyCommands.push(command);
         historyPredicates.push(filteredTodos.getPredicate());
     }
     

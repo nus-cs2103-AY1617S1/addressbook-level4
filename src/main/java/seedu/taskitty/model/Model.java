@@ -35,7 +35,7 @@ public interface Model {
     void undo();
     
     /** Saves the current state of the TaskManager andfilteredTasks to allow for undoing */
-    void saveState();
+    void saveState(String command);
     
     /** Removes the current state saved when an invalid command is given */
     void removeUnchangedState();

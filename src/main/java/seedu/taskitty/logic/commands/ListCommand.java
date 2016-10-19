@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void saveStateIfNeeded() {
-        model.saveState();
+    public void saveStateIfNeeded(String commandText) {
+        model.saveState(commandText);
     }
 }
