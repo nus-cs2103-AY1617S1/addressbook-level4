@@ -114,15 +114,15 @@ Examples:
 Edits the specified task from Emeraldo.<br>
 Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
 
-> Task will be edited given the new parameter(s), and updated instantly
+> Task will be edited given the new parameter(s), and updated instantly<br>
 > Requires at least 1 type of parameter to be passed in
 
 Examples:
 * `list`<br>
-* `edit 3 "Order pizza, netflix & chill"`<br>
+  `edit 3 "Order pizza, netflix & chill"`<br>
   Edits task description with index 3 in the list
-* `find homework`<br>
-* `edit 1 by 10/11/2016` <br>
+* `find KEYWORDS`<br>
+  `edit 1 by 10/11/2016` <br>
   Edits task dateline with index 1 in the list
 
 <br> 
