@@ -56,7 +56,6 @@
 <li><a href="#arguments">Arguments</a></li>
 </ul>
 </li>
-<li><a href="#user-interface">User Interface</a></li>
 <li><a href="#logging">Logging</a><ul>
 <li><a href="#logging-levels">Logging Levels</a></li>
 </ul>
@@ -362,9 +361,7 @@ the command the user called</li>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
-<div class="no-page-break"><h3 id="user-interface"><span>4.2 </span>User Interface<a class="headerlink" href="#user-interface" title="Permanent link">#</a></h3><p>lalalalalalala</p></div>
-
-<div class="no-page-break"><h3 id="logging"><span>4.3 </span>Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3><p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p></div>
+<div class="no-page-break"><h3 id="logging"><span>4.2 </span>Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3><p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p></div>
 
 <ul>
 <li>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#configuration">Configuration</a>)</li>
@@ -376,7 +373,7 @@ the command the user called</li>
 <div class="codehilite"><pre><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LogsCenter</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(&lt;</span><span class="n">YOUR</span> <span class="n">CLASS</span><span class="o">&gt;.</span><span class="na">class</span><span class="o">);</span>
 </pre></div>
 <p>at the top of your class, and replace <code>&lt;YOUR CLASS&gt;</code> with the class the logger is used in.</p>
-<div class="no-page-break"><h4 id="logging-levels"><span>4.3.1 </span>Logging Levels<a class="headerlink" href="#logging-levels" title="Permanent link">#</a></h4><table>
+<div class="no-page-break"><h4 id="logging-levels"><span>4.2.1 </span>Logging Levels<a class="headerlink" href="#logging-levels" title="Permanent link">#</a></h4><table>
 <thead>
 <tr>
 <th>Level</th>
@@ -403,7 +400,7 @@ the command the user called</li>
 </tbody>
 </table></div>
 
-<div class="no-page-break"><h3 id="configuration"><span>4.4 </span>Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h3><p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>)</p></div>
+<div class="no-page-break"><h3 id="configuration"><span>4.3 </span>Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h3><p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>)</p></div>
 
 <div class="no-page-break"><h2 id="testing"><span>5 </span>Testing<a class="headerlink" href="#testing" title="Permanent link">#</a></h2><p>Tests can be found in the <code>./src/test/java</code> folder.</p></div>
 
