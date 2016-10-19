@@ -75,22 +75,44 @@ public class MainApp extends Application {
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyTaskList> TodoListOptional;
-        ReadOnlyTaskList initialData;
+        ReadOnlyTaskList initialTodoListData;
+        Optional<ReadOnlyTaskList> EventListOptional;
+        ReadOnlyTaskList initialEventListData;
+        Optional<ReadOnlyTaskList> DeadlineListOptional;
+        ReadOnlyTaskList initialDeadlineListData;
+        
         try {
             TodoListOptional = storage.readTodoList();
             if(!TodoListOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty TodoList");
             }
-            initialData = TodoListOptional.orElse(new TaskList());
+            initialTodoListData = TodoListOptional.orElse(new TaskList());
+            
+            EventListOptional = storage.readEventList();
+            if(!EventListOptional.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty EventList");
+            }
+            initialEventListData = EventListOptional.orElse(new TaskList());
+            
+            DeadlineListOptional = storage.readDeadlineList();
+            if(!DeadlineListOptional.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty DeadlineList");
+            }
+            initialDeadlineListData = DeadlineListOptional.orElse(new TaskList());
+            
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TodoList");
-            initialData = new TaskList();
+            initialTodoListData = new TaskList();
+            initialEventListData = new TaskList();
+            initialDeadlineListData = new TaskList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty TodoList");
-            initialData = new TaskList();
+            initialTodoListData = new TaskList();
+            initialEventListData = new TaskList();
+            initialDeadlineListData = new TaskList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialTodoListData, initialEventListData, initialDeadlineListData, userPrefs);
     }
 
     private void initLogging(Config config) {
