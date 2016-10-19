@@ -97,9 +97,10 @@ public class TestTask implements ReadOnlyTask {
         done = true;
     }
 
-	@Override
-	public void setUnDone() {
-		undo =  true;
-		
-	}
+    @Override
+    public void setUnDone() {
+        done = false;
+        undo = true;
+    }
+
 }

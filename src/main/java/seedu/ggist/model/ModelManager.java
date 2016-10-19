@@ -29,9 +29,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
+
     private String lastListing;
-    
-    //public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -91,14 +90,14 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
     	taskManager.editTask(target, field, value);
     	if (lastListing == null || lastListing.equals("")) {
-    	    updateFilteredListToShowAllUndone();
-    	} else if (lastListing.equals("done")) {
-    	    updateFilteredListToShowAllDone();
-    	} else if (TaskDate.isValidDateFormat(lastListing)){
-    	    updateFilteredListToShowDate(lastListing);
-    	} else if (lastListing.equals("all")){
-    	    updateFilteredListToShowAll();
-    	}
+            updateFilteredListToShowAllUndone();
+        } else if (lastListing.equals("done")) {
+            updateFilteredListToShowAllDone();
+        } else if (TaskDate.isValidDateFormat(lastListing)){
+            updateFilteredListToShowDate(lastListing);
+        } else if (lastListing.equals("all")){
+            updateFilteredListToShowAll();
+        }
     	indicateTaskManagerChanged();
     }
 
@@ -115,11 +114,18 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-
-    @Override
+    
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
+
+    /*@Override
+    public void updateFilteredListToShowAll() {
+        updateFilteredListToShowAll(new PredicateExpression(new AllQualifier()));
+    }
+    public void updateFilteredListToShowAll(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }*/
     
     @Override
     public void updateFilteredListToShowAllDone() {
@@ -192,6 +198,14 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask task);
         String toString();
     }
+    
+    /*private class AllQualifier implements Qualifier {
+        AllQualifier() {}
+        
+        public boolean run(ReadOnlyTask task) {
+            return (task != null);
+        }
+    }*/
     
     private class NotDoneQualifier implements Qualifier {
         
