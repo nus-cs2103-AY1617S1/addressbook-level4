@@ -5,6 +5,7 @@ import seedu.jimi.commons.core.ComponentManager;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
+import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
@@ -75,6 +76,11 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(taskBook));
+    }
+    
+    /** Raises and event to indicate user request to show task panel sections. */
+    public void showTaskPanelSection(String sectionToShow) {
+        raise(new ShowTaskPanelSectionEvent(sectionToShow));
     }
 
     @Override
