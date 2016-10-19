@@ -57,6 +57,7 @@ public class ModelManager extends ComponentManager implements Model {
         undoHistory = new Stack<>();
     }
     
+  //@@author A0141019U
     public void saveState() {
     	stateHistory.push(new TaskManager(taskManager));
     	// Allow redos only if the previous action is an undo
@@ -85,7 +86,7 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskManagerChanged();
     }
     
-
+    //@@author
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
