@@ -59,6 +59,22 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         }
         internalList.add(toAdd);
     }
+    
+    public void edit(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
+        assert edited!=null;
+        assert beforeEdit!=null;
+        if (contains(edited)) {
+            throw new DuplicateFloatingTaskException();
+        }
+        
+        if (!contains(beforeEdit)) {
+            throw new FloatingTaskNotFoundException();
+        }
+        
+        int indexToReplace = internalList.indexOf(beforeEdit);
+        internalList.add(indexToReplace, edited);
+        internalList.remove(beforeEdit);
+    }
 
     /**
      * Removes the equivalent task from the list.

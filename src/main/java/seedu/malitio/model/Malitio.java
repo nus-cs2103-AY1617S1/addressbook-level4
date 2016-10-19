@@ -11,7 +11,13 @@ import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList;
 import seedu.malitio.model.task.UniqueEventList;
+import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
+import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -208,6 +214,22 @@ public class Malitio implements ReadOnlyMalitio {
         } else {
             throw new UniqueDeadlineList.DeadlineNotFoundException();
         }
+    }
+    
+    
+    public void editFloatingTask(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
+        syncTagsWithMasterList(edited);
+        tasks.edit(edited, beforeEdit);
+    }
+    
+    public void editDeadline(Deadline edited, ReadOnlyDeadline beforeEdit) throws DuplicateDeadlineException, DeadlineNotFoundException {
+        syncTagsWithMasterList(edited);
+        deadlines.edit(edited, beforeEdit);
+    }
+    
+    public void editEvent(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
+        syncTagsWithMasterList(edited);
+        events.edit(edited, beforeEdit);
     }
 
 //// tag-level operations

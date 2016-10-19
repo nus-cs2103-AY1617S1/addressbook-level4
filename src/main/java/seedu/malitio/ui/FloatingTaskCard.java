@@ -36,7 +36,7 @@ public class FloatingTaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
-        id.setText(displayedIndex + ". ");
+        id.setText("F"+displayedIndex + ". ");
         tags.setText(task.tagsString());
     }
 

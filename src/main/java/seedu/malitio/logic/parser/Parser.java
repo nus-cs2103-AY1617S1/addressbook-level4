@@ -25,7 +25,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>)[e|d|f]\\d+");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -35,7 +35,7 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<targetIndex>[0-9]+)"
+            Pattern.compile("(?<targetIndex>[e|d|f]\\d+)"
                     + "(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
 
@@ -228,10 +228,47 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         try {
-            Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+            String index = parseIndex(matcher.group("targetIndex"));
+            if (index.isEmpty()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
+            char taskType = index.charAt(0);
+            int taskNum = Integer.parseInt(index.substring(1));
+            String name = matcher.group("name");
+            String deadline = getDeadlineFromArgs(name);
+            if (!deadline.isEmpty()) {
+                name = name.replaceAll(" by " + deadline, "");
+            }
+            String start = getStartFromArgs(name);
+            if (!start.isEmpty()) {
+                name = name.replaceAll(" start " + start, "");
+            }
+            String end = getEndFromArgs(name);
+            if (!end.isEmpty()) {
+                name = name.replaceAll(" end " + end, "");
+            }
+            if (!deadline.isEmpty()) {
+                return new EditCommand(
+                        taskType,
+                        taskNum,
+                        name,
+                        deadline,
+                        getTagsFromArgs(matcher.group("tagArguments"))
+                        );
+            } else if (!start.isEmpty() || !end.isEmpty()) {
+                return new EditCommand(
+                        taskType,
+                        taskNum,
+                        name,
+                        start,
+                        end,
+                        getTagsFromArgs(matcher.group("tagArguments"))
+                        );
+            }
             return new EditCommand(
-                    index.get(),
-                    matcher.group("name"),
+                    taskType,
+                    taskNum,
+                    name,
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
@@ -246,14 +283,15 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        String index = parseIndex(args);
+        char taskType = index.charAt(0);
+        int taskNum = Integer.parseInt(index.substring(1));
+        if(index.isEmpty()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
-        return new DeleteCommand(index.get());
+//TODO: fix the DeleteCommand to support e|f|d
+        return new DeleteCommand(taskNum);
     }
 
     /**
@@ -263,31 +301,28 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        String index = parseIndex(args);
+        char taskType = index.charAt(0);
+        int taskNum = Integer.parseInt(index.substring(1));
+        if(index.isEmpty()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
-
-        return new SelectCommand(index.get());
+//TODO: fix the Select Command to support e|f|d
+        return new SelectCommand(taskNum);
     }
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
-    private Optional<Integer> parseIndex(String command) {
+    private String parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
-            return Optional.empty();
+            return "";
         }
-
-        String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
-            return Optional.empty();
-        }
-        return Optional.of(Integer.parseInt(index));
-
+        String index = command;
+        return index;
     }
 
     /**
