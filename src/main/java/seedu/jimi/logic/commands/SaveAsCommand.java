@@ -1,6 +1,7 @@
 package seedu.jimi.logic.commands;
 
 import java.io.IOException;
+
 import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.exceptions.DataConversionException;
 import seedu.jimi.commons.util.ConfigUtil;
@@ -27,10 +28,11 @@ public class SaveAsCommand extends Command {
     public static final String MESSAGE_CONFIG_FILE_NOT_FOUND = "Config file is not found. ";
     public static final String MESSAGE_UPDATING_SAVE_DIR = "There is an error updating the new save directory.";
     public static final String MESSAGE_DUPLICATE_SAVE_DIRECTORY = "New save directory is the same as the old save directory.";
-
+    
+    
     private String taskBookFilePath;
     
-    private static String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+    private static String configFilePath = Config.DEFAULT_CONFIG_FILE;
 
     /**
      * Empty constructor for stub usage
@@ -41,17 +43,17 @@ public class SaveAsCommand extends Command {
      * Convenience constructor using raw values.
      */
     public SaveAsCommand(String filePath)  {
-        this.taskBookFilePath = filePath.concat(".xml");
+        this.taskBookFilePath = filePath;
     }
     
-    public static void setConfigFilePath(String newConfigFilePathUsed) {
-        configFilePathUsed = newConfigFilePathUsed;
+    public static void setConfigFilePath(String newConfigFilePath) {
+        configFilePath = newConfigFilePath;
     }
     
     @Override
     public CommandResult execute() {
         try {
-            Config config = ConfigUtil.readConfig(configFilePathUsed).orElse(new Config());
+            Config config = ConfigUtil.readConfig(configFilePath).orElse(new Config());
             
             String oldTaskBookFilePath = config.getTaskBookFilePath();
             if (oldTaskBookFilePath.equals(taskBookFilePath)) {
@@ -60,7 +62,7 @@ public class SaveAsCommand extends Command {
             }
             config.setTaskBookFilePath(taskBookFilePath);
             
-            ConfigUtil.saveConfig(config, configFilePathUsed);
+            ConfigUtil.saveConfig(config, configFilePath);
             
             StorageManager oldStorage = new StorageManager(oldTaskBookFilePath, config.getUserPrefsFilePath());
             StorageManager newStorage = new StorageManager(taskBookFilePath, config.getUserPrefsFilePath());
