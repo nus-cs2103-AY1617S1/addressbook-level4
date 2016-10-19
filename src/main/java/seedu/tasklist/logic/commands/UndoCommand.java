@@ -1,6 +1,10 @@
 package seedu.tasklist.logic.commands;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
 
 import seedu.tasklist.model.UndoInfo;
 import seedu.tasklist.model.task.ReadOnlyTask;
@@ -56,11 +60,21 @@ public class UndoCommand extends Command {
                 undoClear(undoInfo.getTasks());
                 return new CommandResult(MESSAGE_SUCCESS);
             case STR_CMD_ID:
-                //undoSetStorage();
+                undoSetStorage();
                 return new CommandResult(MESSAGE_SUCCESS);
             default:
                 return new CommandResult(MESSAGE_FAILURE);
         }
+    }
+    
+    private void undoSetStorage() {
+        try {
+            String filePath = model.changeFileStorageUndo(undoInfo.getFilePath());
+            undoInfo.setFilePath(filePath);
+    	} 
+    	catch (IOException | ParseException | JSONException e) {
+    	    e.printStackTrace();
+    	}
     }
     
     private void undoClear(ArrayList<Task> tasks) {
