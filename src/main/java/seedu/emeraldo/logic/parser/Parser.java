@@ -35,7 +35,7 @@ public class Parser {
             Pattern.compile("(?<targetIndex>\\d+)" //index must be digits
             + "\\s+"                               //any number of whitespace
             + "(?<description>(\"[^\"]+\")?)"      //quote marks are reserved for start and end of description field
-            + "(?<dateTime>((( by )|( on )|( from ))[^#]+)?)"
+            + "( )?(?<dateTime>(((by )|(on )|(from ))[^#]+)?)"
             );
 
     public Parser() {}
@@ -154,18 +154,32 @@ public class Parser {
         
         // Validate arg string format
         if (!matcher.matches()) {
+            System.out.println("yoooo");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        
         Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        
         try {
+            String description = matcher.group("description");
+            if(!description.isEmpty()){
+                description = description.split("\"")[1];
+            }
+            
+            String dateTime = matcher.group("dateTime").trim();
+            if(dateTime.isEmpty()){
+                dateTime = "";
+            }
+            
             return new EditCommand(
                     matcher.group("targetIndex"),
-                    matcher.group("description").split("\"")[1],
-                    matcher.group("dateTime").trim());
+                    description,
+                    dateTime);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }        
