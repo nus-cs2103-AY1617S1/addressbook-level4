@@ -184,25 +184,25 @@ public class LogicManagerTest {
 
     }
 
-    //@Test
-   // public void execute_addDuplicate_notAllowed() throws Exception {
+    @Test
+    public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
-     //   TestDataHelper helper = new TestDataHelper();
-       // Task toBeAdded = helper.adam();
-        //TaskManager expectedAB = new TaskManager();
-        //expectedAB.addTask(toBeAdded);
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.adam();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        //model.addTask(toBeAdded); // task already in internal address book
+        model.addTask(toBeAdded); // task already in internal address book
 
         // execute command and verify result
-        //assertCommandBehavior(
-          //      helper.generateAddCommand(toBeAdded),
-            //    AddCommand.MESSAGE_DUPLICATE_TASK,
-              //  expectedAB,
-                //expectedAB.getTaskList());
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAdded),
+                AddCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB,
+                expectedAB.getTaskList());
 
-    //}
+    }
 
 
     @Test

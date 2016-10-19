@@ -6,15 +6,11 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_SAME_NAME;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_NAME;
-
-import java.util.ArrayList;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void delete_by_index() {
+    public void delete() {
 
         //delete the first in the list
 
@@ -38,21 +34,6 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertResultMessage("The task index provided is invalid");
 
     }
-    @Test
-    public void delete_by_name(){
-    	TestTask[] currentList=td.getTypicalTasks();
-    	
-    	//delete task with an unique name
-    	assertDeleteSuccess("Benson Meier",currentList);
-    	
-    	//delete task duplicated name
-    	assertDeleteSuccess("Alice Pauline",currentList);
-    	
-    	//delete a non-existant task 
-    	assertDeleteSuccess("bason",currentList);
-    	
-    	
-    }
 
     /**
      * Runs the delete command to delete the person at specified index and confirms the result is correct.
@@ -70,29 +51,6 @@ public class DeleteCommandTest extends AddressBookGuiTest {
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
-    }
-    
-    private void assertDeleteSuccess(String taskName,final TestTask[] currentList){
-    	ArrayList<TestTask> tasksToDelete=new ArrayList<TestTask>();
-    	for(TestTask e:currentList){
-    		if(taskName.equals(e.getName().taskName))
-    			tasksToDelete.add(e);
-    	}
-    	if(tasksToDelete.size()==1){
-    		TestTask[] expectedRemainder=TestUtil.removeTasksFromList(currentList, tasksToDelete.get(0));
-    		commandBox.runCommand("delete "+taskName);
-    		assertTrue(personListPanel.isListMatching(expectedRemainder));
-    		assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete.get(0)));
-    	}
-    	else if(tasksToDelete.size()==0){
-    		commandBox.runCommand("delete "+taskName);
-    		assertResultMessage(String.format(MESSAGE_INVALID_TASK_NAME));
-    	}
-    	else{
-    		commandBox.runCommand("delete "+taskName);
-    		assertResultMessage(String.format(MESSAGE_DELETE_SAME_NAME));
-    	}
-   
     }
 
 }

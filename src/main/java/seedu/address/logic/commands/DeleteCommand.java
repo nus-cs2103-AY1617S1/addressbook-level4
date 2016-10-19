@@ -53,7 +53,7 @@ public class DeleteCommand extends Command {
             assert this.name != null;
             ArrayList<ReadOnlyTask> shownList=new ArrayList<ReadOnlyTask>();
             for (ReadOnlyTask e : lastShownList) {
-                if (name.trim().equals(e.getName().taskName)) {
+                if (name.trim().equals(e.getName().toString())) {
                     shownList.add(e);
                 }
             }

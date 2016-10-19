@@ -9,14 +9,12 @@ import seedu.address.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, aliceEvent,benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
     public TypicalTestTasks() {
         try {
             alice =  new TaskBuilder().withName("Alice Pauline").withDeadline("11.10.2016")
-                    .withTags("friends").build();//this is a task
-            aliceEvent=new TaskBuilder().withName("Alice Pauline").withDeadline("11.10.2016-16")
-            		.withTags("friends").build();//this is an event with the same name as task
+                    .withTags("friends").build();
             benson = new TaskBuilder().withName("Benson Meier").withDeadline("11.10.2016")
                     .withTags("owesMoney", "friends").build();
             carl = new TaskBuilder().withName("Carl Kurz").withDeadline("11.10.2016").build();
@@ -36,20 +34,21 @@ public class TypicalTestTasks {
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
-        
+        try {
             ab.addTask(new Task(alice));
-            ab.addTask(new Task(aliceEvent));
             ab.addTask(new Task(benson));
             ab.addTask(new Task(carl));
             ab.addTask(new Task(daniel));
             ab.addTask(new Task(elle));
             ab.addTask(new Task(fiona));
             ab.addTask(new Task(george));
-        
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            assert false : "not possible";
+        }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, aliceEvent,benson, carl, daniel, elle, fiona, george};
+        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public TaskManager getTypicalTaskManager(){
