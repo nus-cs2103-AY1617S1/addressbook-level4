@@ -424,7 +424,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. User undo a task
+1. User undoes a task
 2. ForgetMeNot undo the most recent command executed
       Use case ends
       
@@ -434,9 +434,27 @@ Priority | As a ... | I want to ... | So that I can...
 	
 > 1a1. ForgetMeNot shows error message
 
-	1b. User input an invalid input
+	1b. User inputs an invalid input
 	
 > 1b1.ForgetMeNot shows help message
+
+#### Use Case: Redo a task
+
+**MSS**
+
+1. User redoes a task
+2. ForgetMeNot redoes the most recent undo command executed
+	Use case ends
+
+**Extension**
+	
+	1a. No command to be redone
+	
+> 1a1. ForgetMeNot shows error message
+	
+	1b. User inputs an invalid input
+	
+> 1b1. ForgetMeNot shows help message
 
 #### User Case: Set priority while creating a task
 

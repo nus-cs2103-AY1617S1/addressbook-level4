@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -19,15 +20,18 @@ public class EditCommand extends Command {
             + " 1 name oranges";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "You've successfully editted the task!\n"
             + "Editted Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_NOT_SUCCESSFUL = "Invalid edit details";
     
     private int targetIndex;
-    private String targetProperty;
-    private String newInfo;
+    private String newName;
+    private String newStart;
+    private String newEnd;
     
-    public EditCommand(String targetIndex, String targetProperty, String newInfo) {
+    public EditCommand(String targetIndex, String name, String start, String end) {
         this.targetIndex = Integer.parseInt(targetIndex);
-        this.targetProperty = targetProperty;
-        this.newInfo = newInfo;
+        this.newName = name;
+        this.newStart = start;
+        this.newEnd = end;
     }
 
     @Override
@@ -42,9 +46,12 @@ public class EditCommand extends Command {
         
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
        try{ 
-           model.editTask(taskToEdit, targetProperty, newInfo);
+           model.saveToHistory();
+           model.editTask(taskToEdit, newName, newStart, newEnd);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
+        } catch (IllegalValueException e) {
+            return new CommandResult(MESSAGE_EDIT_TASK_NOT_SUCCESSFUL);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }

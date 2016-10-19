@@ -2,61 +2,82 @@ package seedu.address.model.task;
 
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.DatePreParse;
+
+import java.util.List;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import com.joestelmach.natty.*;
+
 
 /**
- * Represents a Person's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEndTime(String)}
+ * Represents a Task's end time in the task manager.
+ * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
  */
 public class EndTime {
     
-    public static final String MESSAGE_TIME_CONSTRAINTS = "End Time should follow the format hh:mm am/pm(or h:mm am/pm)";
-    public static final String TIME_VALIDATION_REGEX = "((1[012]|0[1-9]|[1-9]):[0-5][0-9](?i)(am|pm)\\sto\\s)?(1[012]|[1-9]|0[1-9]):[0-5][0-9](?i)(am|pm)";
-    
-    public String value;
+    public static final String MESSAGE_END_TIME_CONSTRAINTS = "Invalid End Time!";
+
+    public Calendar endTime;
 
     /**
-     * Validates given address.
+     * Validates given end.
      *
-     * @throws IllegalValueException if given address string is invalid.
+     * @throws IllegalValueException if given end timing string is invalid.
      */
-    public EndTime(String address) throws IllegalValueException {
-        assert address != null;
-
-        if (!isValidEndTime(address) && !address.equals("")) {
-            throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
-
-        }
-        this.value = address;
+    public EndTime(String input) throws IllegalValueException {
+        input = input.trim();
+        
+        endTime = Calendar.getInstance();
+    	String end = DatePreParse.preparse(input);
+    	
+    	if(!end.isEmpty() && !end.equals(new Date(0).toString())){
+    		List<DateGroup> dates = new Parser().parse(end);
+    		if(dates.isEmpty()){
+    			throw new IllegalValueException(MESSAGE_END_TIME_CONSTRAINTS);
+    		}
+    		else if(dates.get(0).getDates().isEmpty()){
+    			throw new IllegalValueException(MESSAGE_END_TIME_CONSTRAINTS);
+    		}
+    		else{
+    			endTime.setTime(dates.get(0).getDates().get(0));
+    		}
+    	}
+    	
+    	else{
+    		endTime.setTime(new Date(0));
+    	}
     }
 
-    /**
-     * Returns true if a given string is a valid person start.
-     */
-    public static boolean isValidEndTime(String test) {
-
-        return test.matches(TIME_VALIDATION_REGEX);
-
+    public String appearOnUIFormat() {
+    	if(endTime.getTime().equals(new Date(0))) {
+    		return "-";
+    	}
+    	else {
+    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy h:mm a");
+    		return dateFormat.format(endTime.getTime());
+    	}
     }
 
     @Override
     public String toString() {
-        return value;
+        if(endTime.getTime().equals(new Date(0)))
+        	return (new Date(0)).toString();
+        else
+        	return endTime.getTime().toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EndTime // instanceof handles nulls
-                && this.value.equals(((EndTime) other).value)); // state check
+                || (this.endTime != null && ((EndTime)other).endTime != null) && (other instanceof EndTime // instanceOf handles nulls
+                && this.endTime.equals(((EndTime) other).endTime)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return endTime.hashCode();
     }
-    
-    public void setEndTime(String time) {
-        this.value = time;
-    }
-
 }
