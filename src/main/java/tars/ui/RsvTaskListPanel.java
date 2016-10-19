@@ -10,21 +10,21 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import tars.model.task.ReadOnlyTask;
+import tars.model.task.ReadOnlyRsvTask;
 
 
 /**
  * Panel containing the list of tasks.
  */
-public class TaskListPanel extends UiPart {
+public class RsvTaskListPanel extends UiPart {
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private ListView<ReadOnlyRsvTask> rsvTaskListView;
 
-    public TaskListPanel() {
+    public RsvTaskListPanel() {
         super();
     }
 
@@ -43,22 +43,22 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList);
-        return taskListPanel;
+    public static RsvTaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+                                       ObservableList<ReadOnlyRsvTask> rsvTaskList) {
+        RsvTaskListPanel taskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new RsvTaskListPanel());
+        rsvTaskListPanel.configure(rsvTaskList);
+        return rsvTaskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
-        setConnections(taskList);
+    private void configure(ObservableList<ReadOnlyRsvTask> rsvTaskList) {
+        setConnections(rsvTaskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
+    private void setConnections(ObservableList<ReadOnlyRsvTask> rsvTaskList) {
+        rsvTaskListView.setItems(rsvTaskList);
+        rsvTaskListView.setCellFactory(listView -> new RsvTaskListViewCell());
     }
 
     private void addToPlaceholder() {
@@ -68,25 +68,25 @@ public class TaskListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
+            rsvTaskListView.scrollTo(index);
+            rsvTaskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    class TaskListViewCell extends ListCell<ReadOnlyTask> {
+    class RsvTaskListViewCell extends ListCell<ReadOnlyRsvTask> {
 
-        public TaskListViewCell() {
+        public RsvTaskListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
+        protected void updateItem(ReadOnlyRsvTask task, boolean empty) {
             super.updateItem(task, empty);
 
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(RsvTaskCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }

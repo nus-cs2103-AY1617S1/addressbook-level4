@@ -108,7 +108,18 @@ public class ExtractorUtil {
                 flagsValueMap.put(prefix, flagsValueMap.get(prefix).concat(" ").concat(arg));
             }
         }
-
         return flagsValueMap;
+    }
+    
+    /**
+     * Extracts the new task's recurring args from add command.
+     * 
+     * @@author A0140022H
+     */
+    public static String[] getRecurringFromArgs(String recurringArguments, Flag prefix) throws IllegalValueException{   	
+    	recurringArguments = recurringArguments.replaceFirst(prefix.prefix, "").trim();
+    	String[] recurringString = recurringArguments.split(" ");
+    	
+    	return recurringString;
     }
 }

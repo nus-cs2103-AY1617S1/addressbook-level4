@@ -122,20 +122,6 @@ Format: `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRI
 Examples:
 * `edit 3 -n Meet John Tan -dt 08/10/2016 1000 to 1200 -p H -t friend`
 
-#### Editing a task by appending details to a task : `edit -ap`
-*[Under Development]* <br>
-Edits a task by appending details to a particular task name <br>
-Format: `edit <INDEX> -ap <DETAILS_TO_APPEND_TO_TASK>`
-
-> Appends details to the task at the specific `<INDEX>`. 
-> The index refers to the index number shown in the task list.
-> The index **must be a positive integer** 1, 2, 3, ... 
->
-> `<DETAILS_TO_APPEND_TO_TASK>` are words that the user wants to append to the back of the task.
-
-Examples:
-* `edit 3 -ap At UTown` edits `3. Meet John Doe` to `3. Meet John Doe At UTown`
-
 #### Editing a tag's name : `tag -e`
 *[Under Development]* <br>
 Edits a tag’s name <br>
@@ -177,7 +163,7 @@ Examples:
 
 #### Marking tasks : `mark`
 Marks a particular task(s) with the status `done` or `undone` <br>
-Format: `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...] -ud <INDEX>[, <INDEX>, <INDEX>, …]` <br>
+Format: `mark -do <INDEX>[<INDEX> <INDEX> ...] -ud <INDEX>[<INDEX> <INDEX> ...]` <br>
 Format: `mark -do <START_INDEX>..<END_INDEX> -ud <START_INDEX>..<END_INDEX>`
 
 > Marks the task at the specific `<INDEX>`
@@ -196,48 +182,36 @@ Examples:
 #### Deleting a task : `del`
 Deletes a particular task, or a list of task based on a specific criteria (i.e. INDEX, done/undone status, date, tags, priority) <br>
 Formats: 
-* `del <INDEX> [, <INDEX>, <INDEX>, …]`
-* `del -all <INDEX> [, <INDEX>, <INDEX>, …]` *[Under Development]*
-* `del -dt [<START_DATE> to <END_DATE>] <INDEX>[, <INDEX>, <INDEX>,...]` *[Under Development]* 
-* `del -t <TAG>[ , <TAG>, <TAG>] <INDEX>[, <INDEX>, <INDEX>,...]` *[Under Development]* 
-* `del -p [PRIORITY] <INDEX> [, <INDEX>, <INDEX>, …]` *[Under Development]* 
+* `del <INDEX> [<INDEX> <INDEX> ...]` <br>
+* `del <START_INDEX>..<END_INDEX>`
 
-> use -all to delete selected undone and done tasks <br>
-> use -dt to delete selected undone tasks in that date range <br>
-> use -t to delete selected undone tasks with a searched tag(s) <br>
-> use -p to delete selected undone tasks with that particular priority level
+> Deletes the task at the specific `<INDEX>`
+> The index refers to the index number shown in the tag list.
+> The index **must be a positive integer** 1, 2, 3, ..
+> Start index of range must be before end index
 
 Examples:
-* `del 3, 6`
-* `del -all 3, 23`
-* `del -dt 23/09/16 to 24/09/16 9, 10`
-* `del -t friend, family 9, 15`
-* `del -p high 3, 5, 6`
+* `del 3 6`
+* `del 1..3`
 
 #### Listing tasks : `ls`
 Lists all tasks in TARS with available list filters.<br>
 Format: 
 * `ls`
-* `ls -do` 
-* `ls -all`
-* `ls -dt [START_DATE] to [START_TIME]` *[Under Development]*
-* `ls -t <TAG>[ , <TAG>, <TAG>]` *[Under Development]*
-* `ls -p [PRIORITY]` *[Under Development]*
+* `ls -dt [dsc]`
+* `ls -p [dsc]`
 
-> default is to list all undone task <br>
-> use -do to list all done task <br>
-> use -all to list all done and undone tasks <br>
-> use -dt to list all undone tasks in that date range <br>
-> use -t to list all undone tasks with a searched tag(s) <br>
-> use -p to list all undone tasks with that particular priority level
+> default is to list all tasks <br>
+> use -dt to list all tasks by earliest end dateTime s<br>
+> use -p to list all task by priority from low to high <br>
+> use dsc to list task in reverse order
 
 Examples:
 * `ls`
-* `ls -do`
-* `ls -all`
-* `ls -dt 23/09/16 to 24/09/16`
-* `ls -t assignments, projects`
-* `ls -p high`
+* `ls -dt`
+* `ls -dt dsc`
+* `ls -p`
+* `ls -p dsc`
 
 
 #### Finding tasks : `find`
@@ -314,11 +288,8 @@ Command | Format
 [Find [Filter Serach]](#finding-tasks--find) | `find -n <NAME_KEYWORD> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITYLEVEL> -do [or -ud] -t <TAG_KEYWORD>`
 [Help](#displaying-a-list-of-available-commands--help) | `help`
 [List](#listing-tasks--ls) | `ls`
-[List [Done]](#listing-tasks--ls) | `ls -do`
-[List [All]](#listing-tasks--ls) | `ls -all`
-[List [Date]](#listing-tasks--ls) | `ls -dt [<START_DATE> to <END_DATE>]`
-[List [Priority]](#listing-tasks--ls) | `ls -p [PRIORITY]`
-[List [Tags]](#listing-tasks--ls) | `ls -t <TAG>[ , <TAG>, <TAG>]`
+[List [Date]](#listing-tasks--ls) | `ls -dt`
+[List [Priority]](#listing-tasks--ls) | `ls -p`
 [Mark Done](#marking-tasks--mark) | `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Mark Undone](#marking-tasks--mark) | `mark -ud <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Reserve](#reserving-timeslots-for-a-task--rsv) | `rsv -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`

@@ -11,7 +11,7 @@ import tars.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's dateTime in tars.
  */
-public class DateTime {
+public class DateTime implements Comparable<DateTime>{
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task datetime should be spaces or alphanumeric characters";
 
     private LocalDateTime startDate;
@@ -89,4 +89,11 @@ public class DateTime {
         }
     }
 
+	@Override
+	public int compareTo(DateTime o) {
+		return this.endDate.compareTo(o.endDate);
+	}
+    
+    
+    
 }
