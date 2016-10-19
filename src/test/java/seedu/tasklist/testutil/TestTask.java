@@ -18,8 +18,6 @@ public class TestTask implements ReadOnlyTask {
     private Priority priority;
     private UniqueTagList tags;
     private boolean isComplete;
-    private boolean isRecurring;
-    private String recurringFrequency;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -41,20 +39,6 @@ public class TestTask implements ReadOnlyTask {
         this.startTime = startTime;
     }
     
-    public void setRecurringFrequency(String frequency) {
-        this.recurringFrequency = frequency;
-    }
-    
-    public void setRecurringTime() {
-	    if (isRecurring && isComplete && !this.recurringFrequency.equals("")) {
-	        RecurringUtil.updateRecurringDate(startTime.startTime, recurringFrequency);
-	    	RecurringUtil.updateRecurringDate(endTime.endTime, recurringFrequency);
-	        if (!startTime.isMissing() || !endTime.isMissing()) {
-	            isComplete = false;
-	        }
-	    }
-	}
-    
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
@@ -73,11 +57,6 @@ public class TestTask implements ReadOnlyTask {
     public EndTime getEndTime() {
         return endTime;
     }
-    
-    @Override
-	public String getRecurringFrequency() {
-	    return recurringFrequency;
-	}
 
     @Override
     public int getUniqueID() {
@@ -121,10 +100,6 @@ public class TestTask implements ReadOnlyTask {
 	@Override
 	public boolean isFloating() {
 		return endTime.isMissing()&&startTime.isMissing();
-	}
-	
-	public boolean isRecurring() {
-	    return this.isRecurring;
 	}
 
 	@Override

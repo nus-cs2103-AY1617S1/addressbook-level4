@@ -52,6 +52,10 @@ public class Task implements ReadOnlyTask {
                 this.recurringFrequency = "";
 		}
 	}
+	
+	public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) {
+		this(taskDetails, startTime, endTime, priority, tags, "");
+	}
 
 	/**
 	 * Copy constructor.

@@ -45,6 +45,10 @@ public class AddCommand extends Command {
         );
     }
     
+    public AddCommand(String name, String startTime, String endTime, String priority, Set<String> tags) throws IllegalValueException {
+        this(name, startTime, endTime, priority, tags, "");
+    }
+    
     /**
      * Constructor for floating tasks.
      * 
