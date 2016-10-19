@@ -4,7 +4,7 @@
 
 <img src="docs/images/UiMockup.png" width="600"><br>
 
-* This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* _Tusk_  a desktop Task Manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 
 #### Site Map
 * [User Guide](docs/UserGuide.md)
