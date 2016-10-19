@@ -414,20 +414,11 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the person given */
-        String generateAddCommand(Item p) {
+        String generateAddCommand(Item item) {
             StringBuffer cmd = new StringBuffer();
-
             cmd.append("add ");
-
-            cmd.append("\"" + p.getDescription().toString() + "\"");
-
-            /**
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
-            **/
-
+            cmd.append("\"" + item.getDescription().toString() + "\"");
+            cmd.append("from " + item.getStartDate().toString() + " to " + item.getEndDate().toString());
             return cmd.toString();
         }
 
