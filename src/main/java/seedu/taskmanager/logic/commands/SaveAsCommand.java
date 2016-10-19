@@ -33,8 +33,7 @@ public class SaveAsCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(SaveAsCommand.class);
 
     private String newTaskManagerFilePath;
-    
-    // CONSTRUCTOR
+
     public SaveAsCommand(String newTaskManagerFilePath) {
         this.newTaskManagerFilePath = newTaskManagerFilePath;
     }
@@ -57,11 +56,6 @@ public class SaveAsCommand extends Command {
             ReadOnlyTaskManager previousTaskManager = previousStorage.readTaskManager().orElse(new TaskManager());
             newStorage.saveTaskManager(previousTaskManager);
             
-
-            logger.info(currentConfig.toString());
-            logger.info(String.format("PRINT THIS", newTaskManagerFilePath));
-
-            
             return new CommandResult(String.format(MESSAGE_SUCCESS, newStorage.getTaskManagerFilePath()));
             
         } catch (DataConversionException e) {
@@ -70,18 +64,4 @@ public class SaveAsCommand extends Command {
             return new CommandResult(MESSAGE_ERROR_SAVING_FILE);
         }
     }
-    
-// need to use Config class to access config.json file and edit accordingly
-// test to check where the file is going to be saved by using Logger.info(<configobject>.toString());
-// need to edit Storage.saveUserPrefs()
-// probably need to use storage manager
-// Model raises a TaskManagerChangedEvent when the Address Book data are changed, instead of asking
-// *  Storage to save the updates to the hard disk.
-// *  EventsCenter calls handleTaskManagerChangedEvent() to save the file using Storage class
-// Model stores the TaskManager data
-// * 
-// Storage component can save UserPref objects in json format and read it back
-// * can save TaskManager data in xml format and read it back
-// Certain properties of the application can be controlled (e.g App name, logging level)
-// * through the configuration file (default: config.json)
 }
