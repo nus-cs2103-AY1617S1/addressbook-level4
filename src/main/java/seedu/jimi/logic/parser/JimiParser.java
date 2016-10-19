@@ -80,6 +80,8 @@ public class JimiParser {
                     new HelpCommand(), 
                     new SaveAsCommand()
             );
+
+    private static final String SAVE_FILE_EXTENSION = ".xml";
     
     public JimiParser() {}
 
@@ -370,7 +372,7 @@ public class JimiParser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveAsCommand.MESSAGE_USAGE));
         }
-        return new SaveAsCommand(matcher.group("filePath"));
+        return new SaveAsCommand(matcher.group("filePath") + SAVE_FILE_EXTENSION);
     }
 
 }
