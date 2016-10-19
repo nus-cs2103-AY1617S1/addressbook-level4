@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("home"), new Remarks("buy flowers")),
-                    new Task(new Name("Boris Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Trinity Church"), new Remarks("bring umbrella")),
-                    new Task(new Name("Carl Kurz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("school"), new Remarks("ask Toms opinion")),
-                    new Task(new Name("Daniel Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("NUS"), new Remarks("buy drinks")),
-                    new Task(new Name("Elle Meyer"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Kent Ridge MRT Station"), new Remarks("prepare presents")),
-                    new Task(new Name("Fiona Kunz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("96 Bus Stop"), new Remarks("do rehearsal")),
-                    new Task(new Name("George Best"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("canteen"), new Remarks("check with mum")),
-                    new Task(new Name("Hoon Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Utown"), new Remarks("compare the price")),
-                    new Task(new Name("Ida Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("university"), new Remarks("bring jacket"))
+                    new Task(new Name("Ali Muster"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("home"), new Remarks("buy flowers"), new Status(null)),
+                    new Task(new Name("Boris Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Trinity Church"), new Remarks("bring umbrella"), new Status(null)),
+                    new Task(new Name("Carl Kurz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("school"), new Remarks("ask Toms opinion"), new Status(null)),
+                    new Task(new Name("Daniel Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("NUS"), new Remarks("buy drinks"), new Status(null)),
+                    new Task(new Name("Elle Meyer"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Kent Ridge MRT Station"), new Remarks("prepare presents"), new Status(null)),
+                    new Task(new Name("Fiona Kunz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("96 Bus Stop"), new Remarks("do rehearsal"), new Status(null)),
+                    new Task(new Name("George Best"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("canteen"), new Remarks("check with mum"), new Status(null)),
+                    new Task(new Name("Hoon Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Utown"), new Remarks("compare the price"), new Status(null)),
+                    new Task(new Name("Ida Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("university"), new Remarks("bring jacket"), new Status(null))
             };
         } catch (IllegalValueException e) {
             assert false;
