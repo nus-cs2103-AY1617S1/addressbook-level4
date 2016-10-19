@@ -323,7 +323,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | new user | list all commands | see all the functionalities of the application
 `* * *` | user | add a new task |
 `* * *` | user | add an event | be reminded of upcoming events to attend
-`* * *` | user | add a floating task | keep track of things I want to complete without a dateline
+`* * *` | user | add a floating task | keep track of things I want to complete without a deadline
 `* * *` | user | edit an existing task | modify the details in case a task changes
 `* * *` | user | remove an existing task | delete a task I no longer care to track
 `* * *` | user | search for tasks with keywords | view all tasks relevant to the keyword easily
@@ -335,7 +335,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | prioritize my tasks | see which tasks are of higher importance/urgency than others
 `* *` | user | set repeating tasks | be reminded of repeated tasks on a timely basis
 `* *` | user | view all tasks due within a specific period of time | know tasks that are required to be completed within set period of time
-`* *` | user | check if I am free at a certain time | know if I can add additional tasks/events to the timeslot
+`* *` | user | check if I am free at a certain time | know if I can add additional tasks/events to the time-slot
 `* *` | user | do a near-match search | find the tasks I require more conveniently
 `* *` | user | filter out tasks or events with certain characteristics | find all tasks that match the attributes I require
 `*` | user | let the software automatically predict my required command | do what I need more conveniently and quickly
@@ -642,12 +642,6 @@ Other requirements can be found in the project constraints section of our team's
 
 <a id="app-d"></a>
 ## Appendix D : Glossary 
-
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
-<br>
 
 ##### Mainstream OS
 > Windows, Linux, OS-X
