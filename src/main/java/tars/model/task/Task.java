@@ -11,10 +11,10 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
-    private Name name;
-    private DateTime dateTime;
-    private Status status;
-    private Priority priority;
+    protected Name name;
+    protected DateTime dateTime;
+    protected Status status;
+    protected Priority priority;
 
     private UniqueTagList tags;
 
