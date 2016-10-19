@@ -32,6 +32,7 @@ public class Task implements ReadOnlyTask {
     private TaskTime startTime;
     private TaskDate endDate;
     private TaskTime endTime;
+    private int numArgs;
     private boolean isDone;
 
     private UniqueTagList tags;
@@ -46,6 +47,7 @@ public class Task implements ReadOnlyTask {
         
         this.name = name;
         this.tags = new UniqueTagList(tags);
+        this.numArgs = TASK_COMPONENT_COUNT;
     }
     
     /**
@@ -60,6 +62,7 @@ public class Task implements ReadOnlyTask {
         this.endDate = endDate;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags);
+        this.numArgs = DEADLINE_COMPONENT_COUNT;
     }
     
     /**
@@ -75,6 +78,14 @@ public class Task implements ReadOnlyTask {
         this.endDate = endDate;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        
+        if (this.startDate != null && this.startTime != null) {
+            numArgs = EVENT_COMPONENT_COUNT;
+        } else if (this.endDate != null && this.endTime != null) {
+            numArgs = DEADLINE_COMPONENT_COUNT;
+        } else {
+            numArgs = TASK_COMPONENT_COUNT;
+        }
     }
 
     /**
@@ -109,6 +120,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public TaskTime getEndTime() {
         return endTime;
+    }
+    
+    @Override
+    public int getNumArgs() {
+        return numArgs;
     }
 
     @Override

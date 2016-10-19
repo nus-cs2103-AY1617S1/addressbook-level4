@@ -25,7 +25,10 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> allTasks;
+    private final FilteredList<Task> filteredTodos;
+    private final FilteredList<Task> filteredDeadlines;
+    private final FilteredList<Task> filteredEvents;
     private final Stack<ReadOnlyTaskManager> historyCommands;
     private final Stack<Predicate> historyPredicates;
 
@@ -41,7 +44,10 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        allTasks = new FilteredList<>(taskManager.getAllTasks());
+        filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
+        filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
+        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());
         historyCommands = new Stack<ReadOnlyTaskManager>();
         historyPredicates = new Stack<Predicate>();
     }
@@ -52,7 +58,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        allTasks = new FilteredList<>(taskManager.getAllTasks());
+        filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
+        filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
+        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());
         historyCommands = new Stack<ReadOnlyTaskManager>();
         historyPredicates = new Stack<Predicate>();
     }
@@ -93,7 +102,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     public synchronized void saveState() {
         historyCommands.push(new TaskManager(taskManager));
-        historyPredicates.push(filteredTasks.getPredicate());
+        historyPredicates.push(filteredTodos.getPredicate());
     }
     
     public synchronized void removeUnchangedState() {
@@ -119,13 +128,31 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+    public UnmodifiableObservableList<ReadOnlyTask> getTaskList() {
+        return new UnmodifiableObservableList<>(allTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList() {
+        return new UnmodifiableObservableList<>(filteredTodos);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
+        return new UnmodifiableObservableList<>(filteredDeadlines);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
+        return new UnmodifiableObservableList<>(filteredEvents);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        allTasks.setPredicate(null);
+        filteredTodos.setPredicate(null);
+        filteredDeadlines.setPredicate(null);
+        filteredEvents.setPredicate(null);
     }
 
     @Override
@@ -134,11 +161,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+        allTasks.setPredicate(expression::satisfies);
+        filteredTodos.setPredicate(expression::satisfies);
+        filteredDeadlines.setPredicate(expression::satisfies);
+        filteredEvents.setPredicate(expression::satisfies);
     }
     
     private void updateFilteredTaskList(Predicate previousPredicate) {
-        filteredTasks.setPredicate(previousPredicate);
+        allTasks.setPredicate(previousPredicate);
+        filteredTodos.setPredicate(previousPredicate);
+        filteredDeadlines.setPredicate(previousPredicate);
+        filteredEvents.setPredicate(previousPredicate);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

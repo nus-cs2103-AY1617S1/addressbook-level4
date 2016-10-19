@@ -13,6 +13,7 @@ public class TestTask implements ReadOnlyTask {
     private TaskTime startTime;
     private TaskDate endDate;
     private TaskTime endTime;
+    private int numArgs;
     private boolean isDone;
     private UniqueTagList tags;
 
@@ -64,6 +65,16 @@ public class TestTask implements ReadOnlyTask {
     public TaskTime getEndTime() {
         return endTime;
     }
+    
+    @Override
+    public int getNumArgs() {
+        return numArgs;
+    }
+    
+    @Override
+    public boolean getIsDone() {
+        return isDone;
+    }
 
     @Override
     public UniqueTagList getTags() {
@@ -93,9 +104,4 @@ public class TestTask implements ReadOnlyTask {
         sb.append("edit " + index + " " + this.getName().fullName);        
         return sb.toString();
     }
-    
-	@Override
-	public boolean getIsDone() {
-		return isDone;
-	}
 }

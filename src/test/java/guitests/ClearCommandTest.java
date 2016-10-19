@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends TaskManagerGuiTest {
-
+/*
     @Test
     public void clear() {
 
@@ -27,5 +27,5 @@ public class ClearCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("clear");
         assertListSize(0);
         assertResultMessage("Task manager has been cleared!");
-    }
+    }*/
 }

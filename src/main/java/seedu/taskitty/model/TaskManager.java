@@ -1,5 +1,6 @@
 package seedu.taskitty.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.tag.UniqueTagList;
@@ -47,8 +48,20 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
+    public ObservableList<Task> getAllTasks() {
         return tasks.getInternalList();
+    }
+    
+    public ObservableList<Task> getFilteredTodos() {
+        return tasks.getFilteredTaskList(Task.TASK_COMPONENT_COUNT);
+    }
+    
+    public ObservableList<Task> getFilteredDeadlines() {
+        return tasks.getFilteredTaskList(Task.DEADLINE_COMPONENT_COUNT);
+    }
+    
+    public ObservableList<Task> getFilteredEvents() {
+        return tasks.getFilteredTaskList(Task.EVENT_COMPONENT_COUNT);
     }
 
     public void setTasks(List<Task> tasks) {
