@@ -95,4 +95,8 @@ public class StartTime {
         return startTime;
     }
 
+    public int compareTo(StartTime startTime) {
+        return this.getAsCalendar().compareTo(startTime.getAsCalendar());
+    }
+
 }
