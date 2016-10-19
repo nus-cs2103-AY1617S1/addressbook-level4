@@ -38,6 +38,14 @@ public class Item implements ReadOnlyItem {
         // changes in the arg list
     }
 
+    /**
+     * constructor for an event with a definite
+     * start and end time (non-recurring)
+     * @param desc
+     * @param start
+     * @param end
+     * @author darren
+     */
     public Item(Description desc, LocalDateTime start, LocalDateTime end) {
         assert !CollectionUtil.isAnyNull(desc, start, end);
         this.description = desc;
@@ -45,6 +53,13 @@ public class Item implements ReadOnlyItem {
         this.endDate = end;
     }
 
+    /**
+     * constructor for an event with a definite
+     * end time only (non-recurring)
+     * @param desc
+     * @param end
+     * @author darren
+     */
     public Item(Description desc, LocalDateTime end) {
         assert !CollectionUtil.isAnyNull(desc, end);
         this.description = desc;
