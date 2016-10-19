@@ -48,7 +48,7 @@ public class XmlTaskListStorageTest {
     public void read_missingFile_emptyResult() throws Exception {
         assertFalse(readTaskList("NonExistentFile.xml").isPresent());
     }
-
+/*
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
@@ -58,7 +58,7 @@ public class XmlTaskListStorageTest {
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
          */
-    }
+/*    }
 
     @Test
     public void readAndSaveTaskList_allInOrder_success() throws Exception {
@@ -80,7 +80,7 @@ public class XmlTaskListStorageTest {
         assertEquals(original, new TaskList(readBack));
 
     }
-
+*/
     @Test
     public void saveTaskList_nullTaskList_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);

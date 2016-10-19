@@ -47,7 +47,7 @@ public class StorageManagerTest {
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
     }
-
+/**
     @Test
     public void taskListReadSave() throws Exception {
         TaskList original = new TypicalTestTasks().getTypicalTaskList();
@@ -56,6 +56,6 @@ public class StorageManagerTest {
         assertEquals(original, new TaskList(retrieved));
         //More extensive testing of TaskList saving/reading is done in XmlTaskListStorageTest
     }
-
+*/
 
 }

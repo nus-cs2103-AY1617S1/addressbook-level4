@@ -12,7 +12,7 @@ import seedu.tasklist.testutil.TypicalTestTasks;
 import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends TaskListGuiTest {
-
+/*
     @Test
     public void add() {
         //add one person
@@ -41,7 +41,7 @@ public class AddCommandTest extends TaskListGuiTest {
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
-
+*/
     private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) {
         commandBox.runCommand(personToAdd.getAddCommand());
 

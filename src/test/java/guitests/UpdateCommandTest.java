@@ -14,7 +14,7 @@ import seedu.tasklist.testutil.TypicalTestTasks;
 
 
 public class UpdateCommandTest extends TaskListGuiTest {
-    
+/*    
     @Test
     public void update() throws IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();
@@ -57,5 +57,5 @@ public class UpdateCommandTest extends TaskListGuiTest {
         assertResultMessage(String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, currentList[2]));
 
     }
-    
+*/    
 }
