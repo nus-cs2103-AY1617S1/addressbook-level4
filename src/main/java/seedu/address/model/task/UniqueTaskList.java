@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -30,7 +31,10 @@ public class UniqueTaskList implements Iterable<Task> {
             super("Operation would result in duplicate tasks");
         }
     }
-
+    /**
+     * Signals that an operation would have violated the 'no duplicates' property of the list.
+     */
+    
     /**
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
@@ -139,7 +143,17 @@ public class UniqueTaskList implements Iterable<Task> {
         } else if (keyword.equals(EditCommand.TAG_WORD)) {
             //internalList.get(editIndex).setTags(new UniqueTagList(new Tag(args)));
             //Task toEdit = new Task(internalList.get(editIndex));
+            
+            if (args.contains(">")){
+                String[] beforeAndAfter = args.replaceAll(" ","").split(">");
+                if (!toEdit.setTags(beforeAndAfter[0], beforeAndAfter[beforeAndAfter.length-1])){
+                    assert false: "The target tag cannot be missing";
+                }
+            }
+            else{
             toEdit.setTags(new UniqueTagList(new Tag(args)));;
+            }
+            
             internalList.set(editIndex, toEdit);
         	return true;
         }
@@ -147,5 +161,4 @@ public class UniqueTaskList implements Iterable<Task> {
             return false;
         }
     }
-
 }
