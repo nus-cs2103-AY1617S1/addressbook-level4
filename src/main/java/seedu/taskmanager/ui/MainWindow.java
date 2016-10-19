@@ -1,6 +1,5 @@
 package seedu.taskmanager.ui;
 
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import seedu.taskmanager.commons.core.GuiSettings;
 import seedu.taskmanager.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskmanager.logic.Logic;
 import seedu.taskmanager.model.UserPrefs;
-import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 
 /**
@@ -31,8 +29,8 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ShortItemListPanel shortItemListPanel;
-    private ItemDetailsPanel itemListPanel;
+    private BrowserPanel browserPanel;
+    private ItemListPanel itemListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -46,16 +44,16 @@ public class MainWindow extends UiPart {
     private String taskManagerName;
 
     @FXML
+    private AnchorPane browserPlaceholder;
+
+    @FXML
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane itemDetailsPanelPlaceholder;
-    
-    @FXML
-    private AnchorPane shortItemListPanelPlaceholder;
+    private AnchorPane itemListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -110,8 +108,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        shortItemListPanel = ShortItemListPanel.load(primaryStage, getShortItemListPlaceholder(), logic.getFilteredItemList(), logic);
-        itemListPanel = ItemDetailsPanel.load(primaryStage, getItemListPlaceholder(), logic);
+        browserPanel = BrowserPanel.load(browserPlaceholder);
+        itemListPanel = ItemListPanel.load(primaryStage, getItemListPlaceholder(), logic.getFilteredItemList(), logic);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -130,11 +128,7 @@ public class MainWindow extends UiPart {
     }
 
     public AnchorPane getItemListPlaceholder() {
-        return itemDetailsPanelPlaceholder;
-    }
-    
-    public AnchorPane getShortItemListPlaceholder() {
-        return shortItemListPanelPlaceholder;
+        return itemListPanelPlaceholder;
     }
 
     public void hide() {
@@ -188,23 +182,15 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public ItemDetailsPanel getItemListPanel() {
+    public ItemListPanel getItemListPanel() {
         return this.itemListPanel;
     }
-    
-    public ShortItemListPanel getShortItemListPanel() {
-        return this.shortItemListPanel;
-    }
 
-    public void loadItem(ReadOnlyItem item, int newIdx) {
-        itemListPanel.loadItem(item, newIdx);
-    }
-    
-    public void filterItems(FilteredList<Item> filteredItems) {
-        itemListPanel.filterItems(filteredItems);
+    public void loadItemPage(ReadOnlyItem item) {
+        browserPanel.loadItemPage(item);
     }
 
     public void releaseResources() {
-        itemListPanel.freeResources();
+        browserPanel.freeResources();
     }
 }
