@@ -280,14 +280,14 @@ Priority | As a ... | I want to ...           | So that I can...
 #### Use case: Add a task/deadline/event
 **Main Success Scenario (MSS)**
 
-1. User requests to add task/deadline/event (TDE)
-2. TaskManager adds TDE and displays result <br>
+1. User requests to add task/deadline/event (TDE).
+2. TaskManager adds TDE and displays result. <br>
 Use case ends.
 
 **Extensions**
->1a. Some or all required parameters are missing <br>
-1a1. TaskManager shows an error message <br>
-Use case resumes at step 1
+>1a. Some or all required parameters are missing.
+>1a1. TaskManager shows an error message. <br>
+>Use case resumes at step 1.
 
 #### Use case: Find an item
 1. User requests to find an item by searching for a keyword
@@ -296,10 +296,10 @@ Use case resumes at step 1
 #### Use case: Edit a task/deadline/event
 **MSS**
 
-1. User requests to list task/deadline/event (TDE)
-2. TaskManager shows a list of TDEs
-3. User requests to edit specific details of a specific TDE in the list
-4. TaskManager edits the TDE <br>
+1. User requests to list task/deadline/event (TDE).
+2. TaskManager shows a list of TDEs.
+3. User requests to edit specific details of a specific TDE in the list.
+4. TaskManager edits the TDE. <br>
 Use case ends.
 
 #### Use case: List all tasks
@@ -316,39 +316,57 @@ Use case ends.
 
 **Extensions**
 
->2a. The TDE list is empty <br>
->Use case ends
+>2a. The TDE list is empty. <br>
+>Use case ends.
 
->3a. The given index is invalid <br>
-3a1. TaskManager shows an error message <br>
-Use case resumes at step 2 <br>
 
->3b The given parameter is invalid <br>
-> 3b1 TaskManager shows an error message <br>
-Use case resumes at step 2
+>3a. The given index is invalid.
+>3a1. TaskManager shows an error message. <br>
+>Use case resumes at step 2.
+
+
+>3b The given parameter is invalid.
+>3b1 TaskManager shows an error message. <br>
+>Use case resumes at step 2.
 
 #### Use case: Delete an task/deadline/event
 
 **MSS**
 
-1. User requests to list task/deadline/event (TDE)
-2. TaskManager shows a list of TDEs
-3. User requests to delete a specific TDE in the list
-4. TaskManager deletes the TDE <br>
+1. User requests to list task/deadline/event (TDE).
+2. TaskManager shows a list of TDEs.
+3. User requests to delete a specific TDE in the list.
+4. TaskManager deletes the TDE. <br>
 Use case ends.
 
 **Extensions**
 
->2a. The TDE list is empty <br>
->Use case ends
+>2a. The TDE list is empty. <br>
+>Use case ends.
 
->3a. The given index is invalid <br>
-3a1. TaskManager shows an error message <br>
-Use case resumes at step 2
 
->3b. User requests to delete two TDEs <br>
->3b1. TaskManager deletes the TDEs.<br>
+>3a. The given index is invalid.
+>3a1. TaskManager shows an error message. <br>
+>Use case resumes at step 2.
+
+
+>3b. User requests to delete two TDEs.
+>3b1. TaskManager deletes the TDEs. <br>
+>Use case ends.
+
+#### Use case: Save data to a specific location
+
+**MSS**
+
+1. User requests to save data in a specified location.
+2. TaskManager saves data to file in the specified location. <br>
 Use case ends.
+
+**Extensions**
+
+>2a. The file path specified is invalid.
+>2a1. TaskManager shows an error message. <br>
+>Use case ends.>
 
 ## Appendix C : Non Functional Requirements
 
