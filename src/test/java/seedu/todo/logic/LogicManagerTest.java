@@ -250,8 +250,9 @@ public class LogicManagerTest {
         
         Task toBeMarked2 = helper.generateTask(0);
         toBeMarked2.setIsDone(true);
+        toBeMarked2.addTag(new Tag("done"));
         model.addTask(toBeMarked2);        
-        
+       
         // execute command and verify result
         assertCommandBehavior("unmark 1",
                 String.format(UnmarkCommand.MESSAGE_SUCCESS, toBeMarked.getName()),

@@ -50,7 +50,7 @@ public class UnmarkCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
         } catch (TagNotFoundException e) {
-            assert false : "The tag is already added";
+            assert false : "The tag cannot be found";
         } catch (IllegalValueException e) {
             assert false : "The tag name is not valid";
         }
