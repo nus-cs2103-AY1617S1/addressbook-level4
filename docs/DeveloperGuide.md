@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -304,7 +304,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ### Managing Dependencies
@@ -604,6 +604,9 @@ Use case ends
 8. Should not contain any database
 9. Should be able to tell whether the day is valid. Eg. 30 feb is invalid.
 10. Should be able to handle cross-year tasks.
+11. Should have command line as the primary mode of input.
+12. Should be easy for a user with no command line experience to use.
+13. Should be stored in a file that is easy to edit.
 
 ## Appendix D : Glossary
 
@@ -637,31 +640,9 @@ Use case ends
 
 ## Appendix E : Product Survey
 
-Remember the Milk:<br>
-Strengths:<br>
-* Generally suitable for his requirements regarding scheduling events.<br>
-* And probably a database.<br>
-Weakness:<br>
-* The problem is this Google calendar prefer users to use mouse rather than keyboard.<br>
-* Also it requires online connection.<br>
-Any.do:<br>
-Strengths:<br>
-* Can sync across platforms.<br> 
-* Provide convenience service for scheduling.<br> 
-Weaknesses:<br>
-* Also prefers mouse.<br> 
-* Need an account.<br> 
-* Requires Internet connection.<br>
-
-Calendar<br>
-Strengths:<br>
-* Separate tasks and calendar in one app<br>
-* Able to add task and tag them<br>
-* Able to add recurring tasks<br>
-* Able to add in tasks to calendar in one line using auto detect<br>
-* Able to view completed tasks<br>
-Weaknesses:<br>
-* Prefers touch input<br>
-
-
-
+Product Name | Strengths | Weaknesses
+---|---|---
+**Remember the Milk**|<li>Allows for recurring tasks</li><li>Allows floating tasks</li><li>Allows for location</li><li>Allows for estimate</li><li>Allows priority</li> | <li>Requires an accounr</li><li>Not really command line input friendly</li><li>Requires internet connection</li>
+**Google Calendar**|<li>Generally suitable for target audience's requirements</li><li>Has a database to store tasks that can be synced</li>|	<li>Not command line input friendly</li><li>Requires internet connection</li>
+**Any.do**|	<li>Can sync across platforms</li><li>Provide convenience service for scheduling</li>|	<li>Not command line input friendly</li><li>Requires an account</li><li>Requires internet connection`</li>
+**Calendar Iphone App**|	<li>Separates tasks and calendar into one app</li><li>Able to add task and tag them</li><li>Able to add recurring task</li><li>Able to add in tasks to calendar in one line using auto detect</li><li>Able to view completed tasks</li>| 	<li>Not really command line input friendly, use touch input heavily</li>
