@@ -8,6 +8,7 @@ import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
+import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -85,6 +86,20 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+    
+    @Override
+    public void addDeadlineTask(ReadOnlyTask deadlineTask) throws DuplicateTaskException {
+        taskBook.addDeadlineTask(deadlineTask);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addEvent(ReadOnlyTask event) throws DuplicateTaskException {
+        taskBook.addEvent(event);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -208,5 +223,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
 }
