@@ -275,7 +275,7 @@ public class Parser {
         //pass.add(index.get());
         
         Integer pass = index.get();
-        
+        System.out.println(pass+" "+ args +" "+ category);
         return new EditCommand(pass, args, category);
     }
 
@@ -348,7 +348,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-
+        
         // keywords delimited by whitespace
       //  final String[] keywords = matcher.group("keywords").split("\\s+");
         final String[] keywords = {args.trim()};
