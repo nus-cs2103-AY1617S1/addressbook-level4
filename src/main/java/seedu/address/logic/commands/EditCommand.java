@@ -41,7 +41,7 @@ public class EditCommand extends Command {
         }
         
         final Set<Deadline> deadlineSet = new HashSet<>();
-        for (String deadlineDate : tags) {
+        for (String deadlineDate : deadlines) {
             deadlineSet.add(new Deadline(deadlineDate));
         }
         

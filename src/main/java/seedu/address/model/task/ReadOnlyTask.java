@@ -66,7 +66,7 @@ public interface ReadOnlyTask {
     default String deadlinesString() {
         final StringBuffer buffer = new StringBuffer();
         final String separator = ", ";
-        getTags().forEach(deadline -> buffer.append(deadline).append(separator));
+        getDeadlines().forEach(deadline -> buffer.append(deadline).append(separator));
         if (buffer.length() == 0) {
             return "";
         } else {
