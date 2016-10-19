@@ -125,11 +125,11 @@ public class NewMainWindow extends UiPart {
 
     void fillInnerParts() {
         taskListLeftPanel = TaskListPanel.load(primaryStage, getTaskListLeftPlaceholder(), logic.getFilteredTaskList());
-        todayTaskListTabPanel = TodayTaskListTabPanel.load(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
-        tomorrowTaskListTabPanel = TomorrowTaskListTabPanel.load(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
-        in7DaysTaskListTabPanel = In7DaysTaskListTabPanel.load(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
-        in30DaysTaskListTabPanel = In30DaysTaskListTabPanel.load(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());   
-        somedayTaskListTabPanel = SomedayTaskListTabPanel.load(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
+        todayTaskListTabPanel = TodayTaskListTabPanel.load(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getFullTaskList());
+        tomorrowTaskListTabPanel = TomorrowTaskListTabPanel.load(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getFullTaskList());
+        in7DaysTaskListTabPanel = In7DaysTaskListTabPanel.load(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getFullTaskList());
+        in30DaysTaskListTabPanel = In30DaysTaskListTabPanel.load(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getFullTaskList());   
+        somedayTaskListTabPanel = SomedayTaskListTabPanel.load(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getFullTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);    
