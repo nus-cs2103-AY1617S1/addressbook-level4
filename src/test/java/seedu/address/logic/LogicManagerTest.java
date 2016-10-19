@@ -389,8 +389,14 @@ public class LogicManagerTest {
         }
         
         Item aFloatingTask() throws Exception {
-            Description description = new Description("Floating task");
+            Description description = new Description("A floating task");
             return new Item(description, null, null);
+        }
+        
+        Item aDeadLine() throws Exception {
+            Description description = new Description("A deadline");
+            LocalDateTime endDate = LocalDateTime.of(2016, 12, 12, 12, 12);
+            return new Item(description, null, endDate);
         }
 
         /**
