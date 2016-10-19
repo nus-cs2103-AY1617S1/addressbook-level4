@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedActivity> activities;
     @XmlElement
     private List<Tag> tags;
 
     {
-        persons = new ArrayList<>();
+        activities = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -39,7 +39,7 @@ public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
      * Conversion
      */
     public XmlSerializableAddressBook(ReadOnlyLifeKeeper src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        activities.addAll(src.getPersonList().stream().map(XmlAdaptedActivity::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -57,7 +57,7 @@ public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
     @Override
     public UniqueTaskList getUniquePersonList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedActivity p : activities) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -69,7 +69,7 @@ public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
 
     @Override
     public List<ReadOnlyActivity> getPersonList() {
-        return persons.stream().map(p -> {
+        return activities.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {

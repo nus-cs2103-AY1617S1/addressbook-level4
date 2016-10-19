@@ -51,7 +51,29 @@ public class EndTime extends DateTime {
         this.value.set(Calendar.SECOND, 0);
     }
 
-    public String forDisplay() {
+    public EndTime(String date) throws IllegalValueException {
+        super(date);
+        Date taskDate;
+
+        if (date != "") {
+            taskDate = DATE_PARSER.EventDateConvert(date);
+
+            if (taskDate == null) {
+                assert false : "Date should not be null";
+            } else if (DateUtil.hasPassed(taskDate)) {
+                throw new IllegalValueException(MESSAGE_ENDTIME_INVALID);
+            }
+
+            if (!isValidDate(date)) {
+                throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
+            }
+            this.value.setTime(taskDate);
+            this.value.set(Calendar.MILLISECOND, 0);
+            this.value.set(Calendar.SECOND, 0);
+        }
+    }
+
+	public String forDisplay() {
         if (this.value == null) {
             return "End:\t\t\t-";
         } else {
