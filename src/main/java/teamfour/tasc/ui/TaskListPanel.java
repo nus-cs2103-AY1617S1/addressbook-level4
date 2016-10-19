@@ -28,6 +28,7 @@ public class TaskListPanel extends UiPart {
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private boolean isCollapsed = false;
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
@@ -84,7 +85,7 @@ public class TaskListPanel extends UiPart {
             }
         });
     }
-    
+
     private void setEventHandlerForListChangeEvent() {
         taskListView.getItems().addListener(new ListChangeListener<ReadOnlyTask>() {
 
@@ -93,7 +94,7 @@ public class TaskListPanel extends UiPart {
                 logger.fine("List has changed!");
                 raise(new TaskPanelListChangedEvent(taskListView.getItems()));
             }
-            
+
         });
     }
 
@@ -117,7 +118,12 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                if (isCollapsed){
+                    setGraphic(TaskCardCollapsed.load(task, getIndex() + 1).getLayout());
+                }
+                else{
+                    setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                }
             }
         }
     }
