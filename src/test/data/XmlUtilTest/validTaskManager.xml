@@ -1,60 +1,67 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<taskManager>
+<taskmanager>
     <tasks>
-        <taskName>Buy milk</taskName>
-        <startDate isPrivate="false"></startDate>
-        <startTime isPrivate = "false"></startTime>
-        <endDate isPrivate="false"></endDate>
-        <endTime isPrivate="false"></endTime>
-    </tasks>
-    <!--
-    <tasks>
-        <taskName>Dance</taskName>
-        <TaskDate isPrivate="false">16 October</TaskDate>
-        <TaskTime isPrivate="false">1100</TaskTime>
-        <TaskTime isPrivate="false">1200</TaskTime>
+        <taskName>test1</taskName>
+        <startDate>Mon, 24 Oct 16</startDate>
+        <startTime>5:00 PM</startTime>
+        <endDate>Mon, 24 Oct 16</endDate>
+        <endTime>6:00 PM</endTime>
+        <done>false</done>
     </tasks>
     <tasks>
-        <taskName>Tutorial</taskName>
-        <TaskDate isPrivate="false">13 October</TaskDate>
-        <TaskTime isPrivate="false">1200</TaskTime>
-        <TaskTime isPrivate="false">1300</TaskTime>
+        <taskName>hello</taskName>
+        <startDate>Sat, 22 Oct 16</startDate>
+        <startTime>6:00 PM</startTime>
+        <endDate>Sun, 23 Oct 16</endDate>
+        <endTime>7:00 PM</endTime>
+        <done>false</done>
     </tasks>
     <tasks>
-        <taskName>Buy potatoes</taskName>
-        <TaskDate isPrivate="false">20 October</TaskDate>
-        <TaskTime isPrivate="false"></TaskTime>
-        <TaskTime isPrivate="false">10th street</TaskTime>
+        <taskName>test2</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Thu, 20 Oct 16</endDate>
+        <endTime>9:00 PM</endTime>
+        <done>false</done>
     </tasks>
     <tasks>
-        <taskName>FATEHR'S BIRTHDAY</taskName>
-        <TaskDate isPrivate="false">11 November</TaskDate>
-        <TaskTime isPrivate="false">0800</TaskTime>
-        <TaskTime isPrivate="false">2100</TaskTime>
+        <taskName>test3</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Tue, 25 Oct 16</endDate>
+        <endTime>7:00 PM</endTime>
+        <done>false</done>
     </tasks>
     <tasks>
-        <taskName>Tut</taskName>
-        <TaskDate isPrivate="false">12 November</TaskDate>
-        <TaskTime isPrivate="false">1200</TaskTime>
-        <TaskTime isPrivate="false">1300</TaskTime>
+        <taskName>test3</taskName>
+        <startDate>Mon, 24 Oct 16</startDate>
+        <startTime>5:00 PM</startTime>
+        <endDate>Tue, 25 Oct 16</endDate>
+        <endTime>8:00 PM</endTime>
+        <done>false</done>
     </tasks>
     <tasks>
-        <taskName>Lecture</taskName>
-        <TaskDate isPrivate="false">17 November</TaskDate>
-        <TaskTime isPrivate="false">1400</TaskTime>
-        <TaskTime isPrivate="false">1600</TaskTime>
+        <taskName>test4</taskName>
+        <startDate>Mon, 24 Oct 16</startDate>
+        <startTime>1:00 PM</startTime>
+        <endDate>Mon, 24 Oct 16</endDate>
+        <endTime>2:00 PM</endTime>
+        <done>false</done>
     </tasks>
     <tasks>
-        <taskName>CCA</taskName>
-        <TaskDate isPrivate="false">20 November</TaskDate>
-        <TaskTime isPrivate="false">2100</TaskTime>
-        <TaskTime isPrivate="false">2300</TaskTime>
+        <taskName>hello</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>No end date specified</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
     </tasks>
     <tasks>
-        <taskName>Revise</taskName>
-        <TaskDate isPrivate="false">10 December</TaskDate>
-        <TaskTime isPrivate="false">1000</TaskTime>
-        <TaskTime isPrivate="false">2100</TaskTime>
+        <taskName>test 100000</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>No end date specified</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
     </tasks>
-    -->
-</taskManager>
+</taskmanager>

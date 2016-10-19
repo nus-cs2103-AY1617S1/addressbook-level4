@@ -27,13 +27,13 @@ public class JsonUserPrefsStorageTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
-/*
+
     @Test
     public void readUserPrefs_nullFilePath_assertionFailure() throws DataConversionException {
         thrown.expect(AssertionError.class);
         readUserPrefs(null);
     }
-    */
+    
 
     private Optional<UserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
         String prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
@@ -84,7 +84,7 @@ public class JsonUserPrefsStorageTest {
 
         assertEquals(expected, actual);
     }
-/*
+
     @Test
     public void savePrefs_nullPrefs_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
@@ -96,7 +96,7 @@ public class JsonUserPrefsStorageTest {
         thrown.expect(AssertionError.class);
         saveUserPrefs(new UserPrefs(), null);
     }
-*/
+
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) throws IOException {
         new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder)).saveUserPrefs(userPrefs);
     }
