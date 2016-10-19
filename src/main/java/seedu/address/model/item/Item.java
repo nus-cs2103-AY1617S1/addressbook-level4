@@ -71,28 +71,42 @@ public class Item implements ReadOnlyItem {
         return this.tags;
     }
 
-    public Description getDescription() {
+    @Override
+	public Description getDescription() {
         return description;
     }
 
-    public boolean getIsDone() {
+    @Override
+	public boolean getIsDone() {
         return isDone;
     }
 
-    public LocalDateTime getStartDate() {
+    @Override
+	public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    @Override
+	public LocalDateTime getEndDate() {
         return endDate;
     }
 
+<<<<<<< HEAD
     public boolean isRecurring() {
         return isRecurring;
     }
 
     public Period getRecurInterval() {
         return recurInterval;
+=======
+	public Item(ReadOnlyItem item){
+	    this.description = item.getDescription();
+	    this.isDone = item.getIsDone();
+	}
+	
+    public Description getDescription() {
+		return description;
+>>>>>>> ad2ed0392748424ae50a4caf241aa2906469bb43
     }
 
     public LocalDateTime getRecurEndDate() {
@@ -106,7 +120,8 @@ public class Item implements ReadOnlyItem {
         tags.setTags(replacement);
     }
 
-    public void setIsDone(boolean doneness) {
+    @Override
+	public void setIsDone(boolean doneness) {
         this.isDone = doneness;
     }
 
@@ -140,6 +155,20 @@ public class Item implements ReadOnlyItem {
     @Override
     public String toString() {
         return description.toString();
+    }
+
+
+    @Override
+    public UniqueTagList getTags() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReadOnlyItem // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyItem) other));
     }
 
 }

@@ -1,7 +1,6 @@
 package seedu.address.model.item;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import seedu.address.model.tag.UniqueTagList;
 
