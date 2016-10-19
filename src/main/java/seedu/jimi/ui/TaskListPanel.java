@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -42,6 +43,9 @@ public class TaskListPanel extends UiPart {
     private ObservableList<ReadOnlyTask> completedTaskList;
     private ObservableList<ReadOnlyTask> incompleteTaskList;
     private ArrayList<ObservableList<ReadOnlyTask>> daysTaskList = new ArrayList<>(7);
+    
+    @FXML
+    Accordion tasksAccordion;
     
     //all list views
     @FXML private ListView<ReadOnlyTask> taskListView;
@@ -130,6 +134,8 @@ public class TaskListPanel extends UiPart {
                         taskListViewDay5,
                         taskListViewDay6,
                         taskListViewDay7);
+
+        tasksAccordion.setExpandedPane(titleFloatingTaskListSize); //expands floating task list when Jimi starts
 
         setEventHandlerForSelectionChangeEvent();
     }
