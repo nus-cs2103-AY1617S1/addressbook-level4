@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
+import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.task.DeadlineTask;
@@ -321,8 +322,57 @@ public class TaskListPanel extends UiPart {
     /**
      * Expands the relevant task panels according to user input.
      */
-    
-    
+    @Subscribe
+    public void handleShowTaskPanelSelectionEvent(ShowTaskPanelSectionEvent event) {
+        switch (event.sectionToDisplay) {
+        case "floating tasks":
+            showFloatingTasks();
+            break;
+        case "incomplete tasks":
+            showIncompleteTasks();
+            break;
+        case "complete tasks":
+            showCompleteTasks();
+            break;
+        case "today":
+            showDay1();
+            break;
+        case "tomorrow":
+            showDay2();
+            break;
+        case "monday":
+        case "tuesday":
+        case "wednesday":
+        case "thursday":
+        case "friday":
+        case "saturday":
+        case "sunday":
+        default:
+            showRequiredDay(event.sectionToDisplay);
+        }
+    }
+    /**
+     * Finds the title to be displayed and calls its respective method to expand it.
+     * @param sectionToDisplay
+     */
+    private void showRequiredDay(String sectionToDisplay) {
+        if(titleTaskDay1.getText().contains(sectionToDisplay)) {
+            showDay1();
+        } else if(titleTaskDay2.getText().contains(sectionToDisplay)) {
+            showDay2();
+        } else if(titleTaskDay3.getText().contains(sectionToDisplay)) {
+            showDay3();
+        }else if(titleTaskDay4.getText().contains(sectionToDisplay)) {
+            showDay4();
+        }else if(titleTaskDay5.getText().contains(sectionToDisplay)) {
+            showDay5();
+        }else if(titleTaskDay6.getText().contains(sectionToDisplay)) {
+            showDay6();
+        }else if(titleTaskDay7.getText().contains(sectionToDisplay)) {
+            showDay7();
+        }
+    }
+
     //========== Method calls to expand relevant listviews in panel. ===========================================
     
     public void showFloatingTasks() {
