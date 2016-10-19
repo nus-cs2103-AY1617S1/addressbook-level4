@@ -27,7 +27,6 @@
 <li><a href="#adding-a-task">Adding a task</a></li>
 <li><a href="#adding-an-event">Adding an event</a></li>
 <li><a href="#adding-a-deadline">Adding a deadline</a></li>
-<li><a href="#adding-a-recurring-task">Adding a recurring task</a></li>
 <li><a href="#adding-descriptions-to-a-task">Adding descriptions to a task</a></li>
 <li><a href="#pinning-a-task">Pinning a task</a></li>
 <li><a href="#organizing-tasks-using-tags">Organizing tasks using tags</a></li>
@@ -59,21 +58,21 @@
 <li><a href="#command-summary">Command Summary</a></li>
 </ul>
 </div>
-<div class="no-page-break"><h2 id="introduction"><span>1 </span>Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2><p>In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many todo list apps have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.</p></div>
+<div class="no-page-break"><h2 id="introduction"><span>1 </span>Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2><p>In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many task management applications today have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.</p></div>
 
 <p>Ever wished for a tool that can manage all your daily activities in distinct categories, and suggest to you which one you want to complete first? Well, look no further as Uncle Jim's Discount To-do List is here to save your day.</p>
-<p>Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days where you had to click through several pages of menus, navigating through unintuitive interface just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type out the command hit enter!</p>
-<p>Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. At the same time, Uncle Jum is capable of managing both tasks <em>and</em> event so you don't have to use two different apps to be productive. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.</p>
+<p>Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days where you had to click through several pages of menus just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type out the command and hit enter!</p>
+<p>Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. At the same time, Uncle Jim is capable of managing both tasks <em>and</em> event so you don't have to use two different applications to be productive. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.</p>
 <p>Sounds exciting? Then let's get started!</p>
 <div class="no-page-break"><h2 id="quick-start"><span>2 </span>Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">#</a></h2><ol>
 <li>
-<p>Ensure you have <a href="https://www.java.com/en/download/"><strong>Java version 8 update 60</strong></a> or later installed on your computer.</p>
+<p>Ensure you have <a class="print-url" href="https://www.java.com/en/download/"><strong>Java version 8 update 60</strong></a> or later installed on your computer.</p>
 <div class="admonition warning">
 <p class="admonition-title">This application will not work with earlier versions of Java 8</p>
 </div>
 </li>
 <li>
-<p>Download the latest copy of <code>UJDTDL.jar</code> from our <a href="../../../releases">releases</a> page.</p>
+<p>Download the latest copy of <code>UJDTDL.jar</code> from our <a class="print-url" href="../../../releases">releases</a> page.</p>
 </li>
 <li>Save the file to the folder you want to use for this application.</li>
 <li>
@@ -135,7 +134,7 @@
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p>next Thursday<br/>
-tomorrow evening  <br/>
+tomorrow evening<br/>
 in two days</p>
 </div>
 </li>
@@ -145,7 +144,7 @@ in two days</p>
 <p>Shows a quick reference of common actions and commands. </p>
 <div class="no-page-break"><h3 id="adding-a-task-or-event-add"><span>3.4 </span>Adding a task or event: <strong><code>add</code></strong><a class="headerlink" href="#adding-a-task-or-event-add" title="Permanent link">#</a></h3><p>Adds a new task or event.<br/>
 Format:<br/>
-<strong><code>add</code></strong><code>TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]</code><br/>
+<strong><code>add</code></strong><code>TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]</code><br/>
 <strong><code>add</code></strong><code>EVENT NAME /d START END [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]</code></p></div>
 
 <p>Although there are many parameters, all of them except name are optional. Tasks will be turned into events automatically if there are two dates specified under the <code>/d</code> flag. Here are some common scenarios:</p>
@@ -159,7 +158,7 @@ Format:<br/>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><strong><code>add</code></strong><code>Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens  /p</code></p>
+<p><strong><code>add</code></strong><code>Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens /p</code></p>
 </div>
 <div class="no-page-break"><h4 id="adding-a-deadline"><span>3.4.3 </span>Adding a deadline<a class="headerlink" href="#adding-a-deadline" title="Permanent link">#</a></h4><p>If you need something done by a specific time, add a deadline to your task.</p></div>
 
@@ -167,32 +166,26 @@ Format:<br/>
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Submit V.0.0 /d 5 Oct 2359</code></p>
 </div>
-<div class="no-page-break"><h4 id="adding-a-recurring-task"><span>3.4.4 </span>Adding a recurring task<a class="headerlink" href="#adding-a-recurring-task" title="Permanent link">#</a></h4><p>Recurring tasks only require the recurring time period. The task will be appear from the first occurrence of the specified day, and again at the start of the time period. </p></div>
-
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<p><strong><code>add</code></strong><code>CS2103T Tutorial /d 10am to 2pm /r every Wednesday</code></p>
-</div>
-<div class="no-page-break"><h4 id="adding-descriptions-to-a-task"><span>3.4.5 </span>Adding descriptions to a task<a class="headerlink" href="#adding-descriptions-to-a-task" title="Permanent link">#</a></h4><p>More details can be added to the task using the <code>/m</code> flag</p></div>
+<div class="no-page-break"><h4 id="adding-descriptions-to-a-task"><span>3.4.4 </span>Adding descriptions to a task<a class="headerlink" href="#adding-descriptions-to-a-task" title="Permanent link">#</a></h4><p>More details can be added to the task using the <code>/m</code> flag</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Destroy the Earth /m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!</code></p>
 </div>
-<div class="no-page-break"><h4 id="pinning-a-task"><span>3.4.6 </span>Pinning a task<a class="headerlink" href="#pinning-a-task" title="Permanent link">#</a></h4><p>Important tasks can be pinned to the top of the list using the <code>/p</code> flag. See <a href="#pinning-a-task-pin">the <code>pin</code> command</a> 
+<div class="no-page-break"><h4 id="pinning-a-task"><span>3.4.5 </span>Pinning a task<a class="headerlink" href="#pinning-a-task" title="Permanent link">#</a></h4><p>Important tasks can be pinned to the top of the list using the <code>/p</code> flag. See <a href="#pinning-a-task-pin">the <code>pin</code> command</a> 
 for more detail.</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Meet Li Kai at Friday Hacks! /d 21 Oct 6pm to 8pm /p</code></p>
 </div>
-<div class="no-page-break"><h4 id="organizing-tasks-using-tags"><span>3.4.7 </span>Organizing tasks using tags<a class="headerlink" href="#organizing-tasks-using-tags" title="Permanent link">#</a></h4><p>If you have a lot of tasks you can use tags to organize them. See <a href="#managing-tags-tag">the <code>tag</code> command</a> for more detail.</p></div>
+<div class="no-page-break"><h4 id="organizing-tasks-using-tags"><span>3.4.6 </span>Organizing tasks using tags<a class="headerlink" href="#organizing-tasks-using-tags" title="Permanent link">#</a></h4><p>If you have a lot of tasks you can use tags to organize them. See <a href="#manage-tags-tag">the <code>tag</code> command</a> for more detail.</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Finish tutorial 6 /d 10 Oct /t CS2106, School</code></p>
 </div>
-<div class="no-page-break"><h4 id="parameter-reference"><span>3.4.8 </span>Parameter reference<a class="headerlink" href="#parameter-reference" title="Permanent link">#</a></h4><table>
+<div class="no-page-break"><h4 id="parameter-reference"><span>3.4.7 </span>Parameter reference<a class="headerlink" href="#parameter-reference" title="Permanent link">#</a></h4><table>
 <thead>
 <tr>
 <th>Flag</th>
@@ -222,11 +215,6 @@ for more detail.</p></div>
 <td>Add a location to the event</td>
 </tr>
 <tr>
-<td><code>/r</code></td>
-<td><code>PERIOD</code></td>
-<td>Create a recurring task</td>
-</tr>
-<tr>
 <td><code>/p</code></td>
 <td>-</td>
 <td>Pins the task to the top of the list</td>
@@ -239,7 +227,7 @@ for more detail.</p></div>
 </tbody>
 </table></div>
 
-<div class="no-page-break"><h3 id="deleting-a-task-delete"><span>3.5 </span>Deleting a task: <strong><code>delete</code></strong><a class="headerlink" href="#deleting-a-task-delete" title="Permanent link">#</a></h3><p>Deletes the specified task from todo list.<br/>
+<div class="no-page-break"><h3 id="deleting-a-task-delete"><span>3.5 </span>Deleting a task: <strong><code>delete</code></strong><a class="headerlink" href="#deleting-a-task-delete" title="Permanent link">#</a></h3><p>Deletes the specified task from Todo list.<br/>
 Format: <strong><code>delete</code></strong><code>INDEX</code></p></div>
 
 <p>Deletes the task at the specified <code>INDEX</code>. The index refers to the index number shown in the most recent listing.</p>
@@ -332,7 +320,7 @@ Format: <strong><code>show</code></strong><code>INDEX</code></p></div>
 <div class="no-page-break"><h3 id="switch-views-view"><span>3.11 </span>Switch views : <strong><code>view</code></strong><a class="headerlink" href="#switch-views-view" title="Permanent link">#</a></h3><p>Switch between different views.<br/>
 Format: <strong><code>view</code></strong><code>VIEW</code></p></div>
 
-<p>To drill down into your todo list and see specific tasks, use the <code>view</code> command.</p>
+<p>To drill down into your Todo list and see specific tasks, use the <code>view</code> command.</p>
 <figure><img alt="View of completed tasks" src="images/app_screenshot_completed.png" width="700"/><figcaption><strong>Figure 5. </strong>Find important and soon overdue tasks</figcaption></figure>
 
 <p>You can also use the underlined character in the view's name as the shortcut when switching views. </p>
@@ -354,7 +342,7 @@ Format: <strong><code>find</code></strong><code>KEYWORD [MORE KEYWORDS]</code></
 <dd>Returns <strong>Meet John for lunch</strong></dd>
 <dt><strong><code>find</code></strong><code>Jo</code></dt>
 <dd>Returns any task with <strong>Jo</strong> in the title, such as <strong>Meet John for lunch</strong>, 
- <strong>Jogging at the park</strong>, or <strong>Josting fights at the gym</strong></dd>
+ <strong>Jogging at the park</strong>, or <strong>Jousting fights at the gym</strong></dd>
 <dt><strong><code>find</code></strong><code>Jo Ja</code></dt>
 <dd>Returns any task with either <strong>Jo</strong> or <strong>Ja</strong> in the title, such as 
  <strong>Meet John for lunch</strong>, <strong>Meet Jane for lunch</strong>, or <strong>Jack and Jane's wedding</strong></dd>
@@ -368,7 +356,7 @@ Format: <strong><code>undo</code></strong></p></div>
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only applies to commands which have made changes to the todo list like <code>add</code>, <code>edit</code> and <code>delete</code> </p>
+<p>Only applies to commands which have made changes to the Todo list like <code>add</code>, <code>edit</code> and <code>delete</code> </p>
 </div>
 <div class="no-page-break"><h3 id="redoing-an-action-redo"><span>3.15 </span>Redoing an action: <strong><code>redo</code></strong><a class="headerlink" href="#redoing-an-action-redo" title="Permanent link">#</a></h3><p>Redo the most recent action which was undone.<br/>
 Format: <strong><code>redo</code></strong></p></div>
@@ -383,11 +371,11 @@ Format: <strong><code>redo</code></strong></p></div>
 </div>
 <div class="no-page-break"><h3 id="changing-the-save-location-save"><span>3.17 </span>Changing the save location: <strong><code>save</code></strong><a class="headerlink" href="#changing-the-save-location-save" title="Permanent link">#</a></h3><p>Format: <strong><code>save</code></strong><code>[FILENAME]</code></p></div>
 
-<p>By default, todo list data are saved in a file called <code>discountTodo.xml</code> in the <code>data</code> folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the <code>save</code> command.</p>
+<p>By default, Todo list data are saved in a file called <code>discountTodo.xml</code> in the <code>data</code> folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the <code>save</code> command.</p>
 <p>The <code>save</code> command will show you the location of the current save file if you use it without specifying a <code>FILENAME</code>. </p>
 <div class="admonition note">
 <p class="admonition-title">Autosave</p>
-<p>Your todo list is saved automatically every time it is updated. There is no need to save manually.</p>
+<p>Your Todo list is saved automatically every time it is updated. There is no need to save manually.</p>
 </div>
 <div class="no-page-break"><h2 id="faq"><span>4 </span>FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2><p><strong>Q</strong>: Is my data secure?<br/>
 <strong>A</strong>: Your data is stored locally on your hard drive. So, your data is as secure as your hard drive. We do not have access to your to-do list. </p></div>
@@ -412,7 +400,7 @@ Format: <strong><code>redo</code></strong></p></div>
 </tr>
 <tr>
 <td>Add</td>
-<td align="left"><strong><code>add</code></strong><code>NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]</code></td>
+<td align="left"><strong><code>add</code></strong><code>NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]</code></td>
 </tr>
 <tr>
 <td>Delete</td>
