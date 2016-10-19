@@ -19,7 +19,7 @@ public class AddCommand extends Command {
 			+ "\"Be awesome\" from 1300 to 2359 on 07/10/2016";
 
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-	public static final String MESSAGE_SUCCESS_TIME_NULL = "No time given! New task added: %1$s ";
+	public static final String MESSAGE_SUCCESS_TIME_NULL = "START or END time not found but new task added: %1$s ";
 	public static final String MESSAGE_DUPLICATE_ITEM = "This task already exists in the to-do list";
 
 	private final Item toAdd;
@@ -45,6 +45,7 @@ public class AddCommand extends Command {
 		assert model != null;
 		try {
 			model.addItem(toAdd);
+			if ()
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		} catch (UniqueItemList.DuplicateItemException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_ITEM);
