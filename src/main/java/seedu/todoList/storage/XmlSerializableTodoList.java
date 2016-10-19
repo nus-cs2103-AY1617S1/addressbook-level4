@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * An Immutable TaskList that is serializable to XML format
  */
 @XmlRootElement(name = "TodoList")
-public class XmlSerializableTodoList extends XmlSerializableTaskList implements ReadOnlyTaskList {
+public class XmlSerializableTodoList implements XmlSerializableTaskList {
 
     @XmlElement
     private List<XmlAdaptedTodo> tasks;

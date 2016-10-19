@@ -11,7 +11,7 @@ import seedu.todoList.commons.util.FileUtil;
 import seedu.todoList.model.ReadOnlyTodoList;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.Task;
-import seedu.todoList.storage.XmlTaskListStorage;
+import seedu.todoList.storage.XmlTodoListStorage;
 import seedu.todoList.testutil.TypicalTestTask;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class XmlTodoListStorageTest {
     }
 
     private java.util.Optional<ReadOnlyTodoList> readTodoList(String filePath) throws Exception {
-        return new XmlTaskListStorage(filePath).readTodoList(addToTestDataPathIfNotNull(filePath));
+        return new XmlTodoListStorage(filePath).readTodoList(addToTestDataPathIfNotNull(filePath));
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -95,7 +95,7 @@ public class XmlTodoListStorageTest {
     }
 
     private void saveTodoList(ReadOnlyTodoList TodoList, String filePath) throws IOException {
-        new XmlTaskListStorage(filePath).saveTodoList(TodoList, addToTestDataPathIfNotNull(filePath));
+        new XmlTodoListStorage(filePath).saveTodoList(TodoList, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

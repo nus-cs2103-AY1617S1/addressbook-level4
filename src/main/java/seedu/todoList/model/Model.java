@@ -35,9 +35,6 @@ public interface Model {
     void addTask(Task task) throws IllegalValueException, UniqueTaskList.DuplicatetaskException;
 
     /** Edit the given task */
-
-    void editTask(Task task) throws IllegalValueException, UniqueTaskList.DuplicatetaskException;
-
     void editTask(ReadOnlyTask target, String dataType, Task task) throws IllegalValueException, UniqueTaskList.TaskNotFoundException;
 
     
