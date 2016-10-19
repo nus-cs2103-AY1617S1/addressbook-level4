@@ -67,17 +67,17 @@ public class TestUtil {
         try {
             return new Task[]{
                     new Task(new Name("todo task"), new UniqueTagList()),
-                    new Task(new Name("deadline task"), new TaskDate("12/23/2016"), new TaskTime("08:00"),
+                    new Task(new Name("deadline task"), new TaskDate("23/12/2016"), new TaskTime("08:00"),
                             new UniqueTagList()),
-                    new Task(new Name("event task"), new TaskDate("12/13/2016"), new TaskTime("13:00"),
-                            new TaskDate("12/15/2016"), new TaskTime("10:00"), new UniqueTagList()),
+                    new Task(new Name("event task"), new TaskDate("13/12/2016"), new TaskTime("13:00"),
+                            new TaskDate("15/12/2016"), new TaskTime("10:00"), new UniqueTagList()),
                     new Task(new Name("read clean code task"), new UniqueTagList()),
-                    new Task(new Name("spring cleaning task"), new TaskDate("12/31/2016"), new TaskTime("15:00"),
+                    new Task(new Name("spring cleaning task"), new TaskDate("31/12/2016"), new TaskTime("15:00"),
                             new UniqueTagList()),
                     new Task(new Name("shop for xmas task"), new TaskDate("12/12/2016"), new TaskTime("10:00"),
                             new TaskDate("12/12/2016"), new TaskTime("19:00"), new UniqueTagList()),
-                    new Task(new Name("xmas dinner task"), new TaskDate("12/25/2016"), new TaskTime("18:30"),
-                            new TaskDate("12/26/2016"), new TaskTime("02:00"), new UniqueTagList())
+                    new Task(new Name("xmas dinner task"), new TaskDate("25/12/2016"), new TaskTime("18:30"),
+                            new TaskDate("26/12/2016"), new TaskTime("02:00"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

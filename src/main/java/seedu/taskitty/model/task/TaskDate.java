@@ -19,7 +19,7 @@ public class TaskDate {
             "Task date provided is invalid!";
     public static final String MESSAGE_DATE_MISSING =
             "Task date must be provided";
-    public static final String DATE_FORMAT_STRING = "MM/dd/yyyy";
+    public static final String DATE_FORMAT_STRING = "dd/MM/yyyy";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT_STRING);
     
     //format: mm/dd/yyyy

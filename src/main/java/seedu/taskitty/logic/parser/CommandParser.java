@@ -4,16 +4,14 @@ import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.logic.commands.*;
 import seedu.taskitty.model.tag.Tag;
-import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,7 +30,11 @@ public class CommandParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
+    
+      
+    //Used for checking for number date formats in arguments
+    private static final Pattern LOCAL_DATE_FORMAT =  Pattern.compile(".* (?<arguments>\\d(\\d)?[/-]\\d(\\d)?).*");
+    
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
@@ -168,6 +170,7 @@ public class CommandParser {
      * @param dataArguments command args string with only name, date, time arguments
      */
     private String[] extractTaskDetailsNatty(String dataArguments) {
+        dataArguments = convertToNattyDateFormat(dataArguments);
         Parser dateTimeParser = new Parser();
         List<DateGroup> dateGroups = dateTimeParser.parse(dataArguments);
         
@@ -187,6 +190,59 @@ public class CommandParser {
         details.toArray(returnDetails);
         return returnDetails;
         
+    }
+    
+    /**
+     * Converts any number formats of date from the local format to one which can be parsed by natty
+     * @param arguments
+     * @return arguments with converted dates if any
+     */
+    private String convertToNattyDateFormat(String arguments) {
+        Matcher matchDate = LOCAL_DATE_FORMAT.matcher(arguments);
+        if (matchDate.matches()) {
+            String localDateString = matchDate.group("arguments");
+            String dateSeparator = getDateSeparator(localDateString);
+            return convertToNattyFormat(arguments, localDateString, dateSeparator);
+        } else {
+            return arguments;
+        }       
+    }
+    
+    /**
+     * Helper method to get the separator between day month and year in a date
+     * @param localDateString the string representing the date
+     * @return the separator character used in localDateString
+     */
+    private String getDateSeparator(String localDateString) {
+        // if 2nd char in string is an integer, then the 3rd char must be the separator
+        // else 2nd char is the separator
+        if (StringUtil.isUnsignedInteger(localDateString.substring(1,2))) {
+            return localDateString.substring(2, 3);
+        } else {
+            return localDateString.substring(1, 2);
+        }
+    }
+    
+    /**
+     * Helper method to convert the local date format inside arguments into a format
+     * which can be parsed by natty
+     * @param arguments the full argument string
+     * @param localDateString the localDate extracted out from arguments
+     * @param dateSeparator the separator for the date extracted out
+     * @return converted string where the date format has been converted from local to natty format
+     */
+    private String convertToNattyFormat(String arguments, String localDateString, String dateSeparator) {
+        String[] dateComponents = localDateString.split(dateSeparator);
+        int indexOfDate = arguments.indexOf(localDateString);
+        StringBuilder nattyDateStringBuilder =  new StringBuilder();
+        nattyDateStringBuilder.append(dateComponents[1]);
+        nattyDateStringBuilder.append(dateSeparator);
+        nattyDateStringBuilder.append(dateComponents[0]);
+        StringBuilder convertDateStringBuilder = new StringBuilder(arguments);
+        convertDateStringBuilder.replace(indexOfDate, indexOfDate + localDateString.length(), nattyDateStringBuilder.toString());
+        String stringFromConvertedDate = convertDateStringBuilder.substring(indexOfDate);
+        String stringUpToConvertedDate = convertDateStringBuilder.substring(0, indexOfDate);
+        return convertToNattyDateFormat(stringUpToConvertedDate) + stringFromConvertedDate;
     }
     
     /**
