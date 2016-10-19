@@ -96,7 +96,7 @@ public class Parser {
     private static final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
     
     public Parser() {
-        nattyParser.notifyAll();
+        
     }
 
     /**
