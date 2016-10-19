@@ -13,6 +13,29 @@ import java.util.regex.Pattern;
 public class DateTime {
     
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task date and time must follow this format DD/MM/YYYY HH:MM in 24 hours format";
+    public static final String ON_KEYWORD_VALIDATION_REGEX = " on "
+                    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
+                    + "/(?<month>(0?[1-9]|[1][0-2]))/"
+                    + "(?<year>(([0-9][0-9])?[0-9][0-9]))";
+    public static final String BY_KEYWORD_VALIDATION_REGEX = "by "
+                    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
+                    + "/(?<month>(0?[1-9]|[1][0-2]))/"
+                    + "(?<year>(([0-9][0-9])?[0-9][0-9]))"
+                    + "( (?<hour>([01][0-9]|[2][0-3])))?"               
+                    + "(:(?<minute>([0-5][0-9])))?";  
+    public static final String FROM_KEYWORD_VALIDATION_REGEX = "from "
+                    + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
+                    + "/(?<month>(0?[1-9]|[1][0-2]))/"
+                    + "(?<year>(([0-9][0-9])?[0-9][0-9]))"
+                    + "( (?<hour>([01][0-9]|[2][0-3])))?"
+                    + "(:(?<minute>([0-5][0-9])))?"
+                    + "( (?<aftKeyword>(to )))?"
+                    + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))?"               
+                    + "(/(?<monthEnd>(0?[1-9]|[1][0-2]))/)?"                  
+                    + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))?"              
+                    + "( (?<hourEnd>([01][0-9]|[2][0-3])))?"               
+                    + "(:(?<minuteEnd>([0-5][0-9])))?";   
+    
     public static final Pattern DATETIME_VALIDATION_REGEX =
             Pattern.compile("(?<preKeyword>((by )|(on )|(from )))"      //Preceeding keyword regex
                     + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"               //Day regex
@@ -26,6 +49,8 @@ public class DateTime {
                     + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))?"              //Year regex
                     + "( (?<hourEnd>([01][0-9]|[2][0-3])))?"               //Hour regex
                     + "(:(?<minuteEnd>([0-5][0-9])))?");                     //Minute regex
+    
+    
     
     public final String value;
     public final String valueFormatted;
@@ -67,6 +92,9 @@ public class DateTime {
             this.value = dateTime;
             
             if(preKeyword.equals("on")){
+                if (dateTime.matches(ON_KEYWORD_VALIDATION_REGEX)) {
+                    throw new IllegalValueException("Invalid format for on command");
+                }
                 this.valueTime = null;
                 this.valueFormatted = preKeyword + " " + day + " "
                                     + returnMonthInWords(monthParsed) + " " + year;
