@@ -12,7 +12,7 @@ import seedu.taskitty.testutil.TestTaskList;
 import seedu.taskitty.testutil.TestUtil;
 
 public class UndoCommandTest extends TaskManagerGuiTest {
-    
+    /*
     Stack<TestTaskList> testTaskList;
     
     @Test
@@ -60,13 +60,13 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(taskToEdit.getEditCommand(index));
         return resultList;
     }
-    /*
+    
     private TestTaskList deleteTask(int targetIndex, TestTaskList list) {
         TestTaskList resultList = list.copy();
         //TODO remove
         commandBox.runCommand("delete " + targetIndex);
         return resultList;
-    }*/
+    }
     
     private void assertUndoSuccess(TestTaskList expectedList) {
         commandBox.runCommand("undo");
@@ -79,5 +79,5 @@ public class UndoCommandTest extends TaskManagerGuiTest {
     private void assertNoMoreUndos() {
         commandBox.runCommand("undo");        
         assertResultMessage(UndoCommand.MESSAGE_NO_PREVIOUS_COMMANDS);
-    }
+    }*/
 }
