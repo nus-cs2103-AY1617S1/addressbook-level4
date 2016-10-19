@@ -28,8 +28,8 @@ public class DueByDate {
      */
     public DueByDate(LocalDate dueByDate) throws IllegalValueException {
         assert dueByDate != null;
-        this.start = LocalDate.MIN;
-        this.end = dueByDate;
+        this.end = LocalDate.MIN;
+        this.start = dueByDate;
         this.isRange = false;
     }
     
@@ -52,7 +52,7 @@ public class DueByDate {
         if (isRange)
         	return new StringBuilder(start.toString() + "/to/" + end.toString()).toString();
         else 
-        	return end.toString();
+        	return start.toString();
     }
     
     public boolean isRange() {
@@ -82,12 +82,26 @@ public class DueByDate {
 		if (start.equals(LocalDate.MIN) && end.equals(LocalDate.MIN))
 			return "";
 		if (!isRange) {
-			return new StringBuilder(end.format(DateTimeFormatter.ofPattern("MM/dd/uuuu"))).toString();
+			return new StringBuilder(start.format(DateTimeFormatter.ofPattern("MM/dd/uuuu"))).toString();
 		}
 		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("MM/dd/uuuu")) 
 								+ " - " 
 								+ end.format(DateTimeFormatter.ofPattern("MM/dd/uuuu")))
 								.toString();
 	}
-
+	
+	// Operates on the premise that the start date is always specified.
+	// @@author A0139661Y
+	public String getFriendlyStartString() {
+		if (!isRange)
+			return "";
+		return start.format(DateTimeFormatter.ofPattern("MM/dd/uuuu")).toString(); 
+	}
+	
+	// @@author A0139661Y
+	public String getFriendlyEndString() {
+		if (end.equals(LocalDate.MIN)) {
+			return "";
+		} else return end.format(DateTimeFormatter.ofPattern("MM/dd/uuuu")).toString();
+	}
 }

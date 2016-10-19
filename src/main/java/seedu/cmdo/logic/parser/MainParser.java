@@ -27,6 +27,8 @@ public class MainParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    
+    private static final Pattern LIST_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+(?:\\s+\\S+)*)(?<arguments>.*)"); 
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     
@@ -64,14 +66,26 @@ public class MainParser {
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
-
-        final String commandWord = matcher.group("commandWord");
-        String arguments = matcher.group("arguments");
-//        arguments = getCleanString(arguments);
+    	String[] splitedInput = userInput.split("\\s+");
+    	String commandWord, arguments; 
+    	if(splitedInput.length == 2 && ((splitedInput[1].equals("done")) || (splitedInput[1].equals("all")))){
+    		Matcher matcher = LIST_COMMAND_FORMAT.matcher(userInput.trim());
+            if (!matcher.matches()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
+            commandWord = matcher.group("commandWord");
+            arguments = matcher.group("arguments");
+    	}
+    	else{
+    		Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+            if (!matcher.matches()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
+            commandWord = matcher.group("commandWord");
+            arguments = matcher.group("arguments");
+            
+    	}
+    	arguments = getCleanString(arguments);
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -94,10 +108,12 @@ public class MainParser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
-
-        case ListCommand.COMMAND_WORD:        	
+            
+        case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD_ALL:        	
         case ListCommand.COMMAND_WORD_SHORT_ALL:
         	return prepareList(arguments);
+        case ListCommand.COMMAND_WORD_DONE:	
         case ListCommand.COMMAND_WORD_SHORT_DONE:
             return prepareList("--done");
             
@@ -176,6 +192,7 @@ public class MainParser {
     	try {
     	// Determine if edit command is input correctly
     	Optional<Integer> checkForIndex = parseLooseIndex(args);
+    	
         if(!checkForIndex.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -183,6 +200,12 @@ public class MainParser {
     	
         // Determine if the edit command is used correctly
     	String[] splittedArgs = getCleanString(args).split(" ");
+        boolean validTime = false;
+        for(String sArg : splittedArgs){
+        	if(sArg.equals("at"))
+        		validTime = true;
+        }
+        
     	Integer index = Integer.valueOf(splittedArgs[0]);
         if(index == null){
             return new IncorrectCommand(
@@ -197,6 +220,13 @@ public class MainParser {
         // Parse date and time
         reducedArgs = extractDueByDateAndTime(args);
         LocalDateTime dt;
+        
+        // empty details
+        if(extractDetail(reducedArgs).isEmpty()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }        
+        
         if (datesAndTimes.size() != 0)
         	dt = datesAndTimes.get(0);
         else
@@ -351,7 +381,7 @@ public class MainParser {
     		throw new IllegalValueException(MESSAGE_BLANK_DETAIL_WARNING);
     	}
     	// Split into '  ...  '
-    	String[] details = args.split("^'(.+)'$");
+    	String[] details = args.split("^ '(.+)'$");
     	// Details only, get rid of anything after the '
     	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'"), 
     													details[0].length(), 
@@ -406,6 +436,8 @@ public class MainParser {
     	Parser parser = new Parser();
     	List<DateGroup> groups = parser.parse(dirtyArgs);
     	String cleanArgs = dirtyArgs;
+    	
+    	
     	
     	try {
     		// This retrieves either the start date/time, or the only date/time.
