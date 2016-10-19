@@ -27,7 +27,7 @@ public class StartTime {
      */
     public StartTime(String input) throws IllegalValueException {
     	startTime = Calendar.getInstance();
-    	if(input == null){
+    	if(input == null || input==""){
     		startTime.setTime(new Date(0));
     	}
     	else{
