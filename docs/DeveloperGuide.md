@@ -170,6 +170,7 @@ Classes used by multiple components are in the `seedu.taskmanager.commons` packa
 
 ### Logging
 
+
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
@@ -294,14 +295,15 @@ Priority | As a ... | I want to ... | So that I can...
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
 
-Use case: UC01 add task.
-Actor: User
-Preconditions: User is logged in
+#### Use case: UC01 add task.
+   Actor: User<br>
+   Preconditions: User is logged in
 
 **MSS**
-1.User requests to add new task description.
-2.System will update the database of the newly created task.
-Use Case end.
+
+1. User requests to add new task description.
+2. System will update the database of the newly created task.<br>
+   Use Case end.
 
 **Extension**
 
@@ -309,15 +311,16 @@ Use Case end.
     >1a1. System shows an error message
     Use case resume at step 1.
 
-Use case: UC02 view upcoming task
-Actor: User
-Preconditions: User is logged in
+#### Use case: UC02 view upcoming task.
+
+   Actor: User<br>
+   Preconditions: User is logged in
 
 **MSS**
 
-1.User requests to view upcoming task
-2.System will show the list of upcoming task
-Use Case end.
+1. User requests to view upcoming task
+2. System will show the list of upcoming task<br>
+   Use Case end.
 
 
 **Extension**
@@ -326,17 +329,17 @@ Use Case end.
     >2a1. System shows a message no upcoming task are found.
     Use case ends
 
-Use case: UC03 Delete task
-Actor: User
-Precondition: User is logged in
+#### Use case: UC03 Delete task
+   Actor: User<br>
+   Precondition: User is logged in
 
 **MSS**
 
-1.User request to delete a specific task
-2.System request confirmation of deletion of task
-3.User confirm to delete task
-4.System will delete the specific task.
-Use Case ends
+1. User request to delete a specific task
+2. System request confirmation of deletion of task
+3. User confirm to delete task
+4. System will delete the specific task.<br>
+   Use Case ends
 
 **Extension**
  
@@ -346,15 +349,15 @@ Use Case ends
        >4a1. System shows connection has failed message.
        Use case resume at step 1.
 
-Use case: UC04 Information of the a particular command.
-Actor: User
-Precondition: User is logged in
+#### Use case: UC04 Information of the a particular command.
+   Actor: User<br>
+   Precondition: User is logged in
 
 **MSS**
 
-1.User enter help a particular command
-2.System show the user guide of the particular command
-3.Use Case ends
+1. User enter help a particular command
+2. System show the user guide of the particular command<br>
+   Use Case ends
 
 **Extension**
  
@@ -362,15 +365,15 @@ Precondition: User is logged in
        >1a1. System show error message
        Use case ends.
 
-Use case: UC05 use shorter version of a command
-Actor: Advance user
+#### Use case: UC05 use shorter version of a command
+Actor: Advance user<br>
 Preconditions: User is familiar with the available command
 
 **MSS**
 
-1.User enter a shorter version of a command
-2.System identify which command to execute based on user input
-Use case ends.
+1. User enter a shorter version of a command
+2. System identify which command to execute based on user input<br>
+   Use case ends.
 
 **Extension** 
 
@@ -382,16 +385,16 @@ Use case ends.
     > 2a1. System shows connection failed message.
     Use case ends
 
-Use case UC06 set reminder for tasks
-Actor: User
-Preconditions: User is logged in, tasks is created.
+#### Use case UC06 set reminder for tasks
+   Actor: User<br>
+   Preconditions: User is logged in, tasks is created.
 
 **MSS**
 
-1.User requests to list all tasks
-2.System shows a list of tasks
-3.User request to set reminder for specific task in the list
-4.System set reminder for the selected task and display action successful message
+1. User requests to list all tasks
+2. System shows a list of tasks
+3. User request to set reminder for specific task in the list
+4. System set reminder for the selected task and display action successful message<br>
 Use case ends
 
 **Extension**
@@ -403,33 +406,33 @@ Use case ends
     > 3a1. System shows an error message
     Use case resume at step 2
 
-Use case UC07 view task that is due on the day after launching application
-Actor: User
-Preconditions: User have not launch application
+#### Use case UC07 view task that is due on the day after launching application
+   Actor: User<br>
+   Preconditions: User have not launch application
 
 **MSS**
 
-1.User launch application
-2.System display a list of task that is due on the day
-3.Use case ends
+1. User launch application
+2. System display a list of task that is due on the day<br>
+Use case ends
 
 **Extension**
 
     2a. The task list is empty
     > Use case ends
 
-1.Use case UC08 add category to task
-2.Actor: User
-3.Preconditions: User is logged in, task is created.
+#### Use case UC08 add category to task
+   Actor: User<br>
+   Preconditions: User is logged in, task is created.
 
 **MSS**
 
-1.User requests to list all tasks
-2.System shows a list of tasks
-3.User request to add category for specific task in the list
-4.System prompt for category to set with
-5.User enter category
-6.System set category for the selected task and display action successful message
+1. User requests to list all tasks
+2. System shows a list of tasks
+3. User request to add category for specific task in the list
+4. System prompt for category to set with
+5. User enter category
+6. System set category for the selected task and display action successful message<br>
 Use case ends
 
 **Extension**
@@ -441,20 +444,20 @@ Use case ends
     > 3a1. System shows an error message
     Use case resume at step 2
 
-Use case: UC09 edit task details
-Actor: User
-Preconditions: User is logged in.
+#### Use case: UC09 edit task details
+   Actor: User<br>
+   Preconditions: User is logged in.
 
 **MSS**
 
-1.User requests to list all tasks
-2.System shows a list of tasks
-3.User chooses one task to edit its details
-4.System retrieves details of chosen task from file
-5.User edits details of the task
-6.System requests for confirmation
-7.User confirms changes 
-8.System updates the details of the task in file and displays the changed task
+1. User requests to list all tasks
+2. System shows a list of tasks
+3. User chooses one task to edit its details
+4. System retrieves details of chosen task from file
+5. User edits details of the task
+6. System requests for confirmation
+7. User confirms changes 
+8. System updates the details of the task in file and displays the changed task<br>
 Use Case ends
 
 **Extension**
@@ -480,21 +483,21 @@ Use Case ends
     *a2. User confirms the cancellation 
     Use Case ends. 
 
-Use case: UC10 set priority to tasks
-Actor: User
-Preconditions: User is logged in.
+#### Use case: UC10 set priority to tasks
+   Actor: User<br>
+   Preconditions: User is logged in.
 
 **MSS**
 
-1.User requests to list all tasks
-2.System shows a list of tasks
-3.User chooses to set priority of tasks 
-4.System shows the view for setting priority of tasks 
-5.User set priority to tasks 
-6.System requests for confirmation
-7.User confirms changes 
-8.System updates prioritizing for tasks in database and displays current prioritizing for tasks
-    Use Case ends
+1. User requests to list all tasks
+2. System shows a list of tasks
+3. User chooses to set priority of tasks 
+4. System shows the view for setting priority of tasks 
+5. User set priority to tasks 
+6. System requests for confirmation
+7. User confirms changes 
+8. System updates prioritizing for tasks in database and displays current prioritizing for tasks<br>
+   Use Case ends
 
 **Extensions**
 
@@ -515,15 +518,15 @@ Preconditions: User is logged in.
     *a2. User confirms the cancellation 
     Use Case ends. 
 
-Use case: UC11 create a task that happens repeatedly by specifying an interval
-Actor: User
-Preconditions: User is logged in.
+#### Use case: UC11 create a task that happens repeatedly by specifying an interval
+   Actor: User
+   Preconditions: User is logged in.
 
 **MSS**
 
-1.User requests to add task with specified start date and interval
-2.System updates the database with information.
-Use Case ends
+1. User requests to add task with specified start date and interval
+2. System updates the database with information.<br>
+   Use Case ends
 
 **Extensions**
 
@@ -535,17 +538,17 @@ Use Case ends
     > 2a1. System displays the information about the connection problem with database
     Use Case ends
 
-Use case: UC12 Color coding a task
-Actor: User
+#### Use case: UC12 Color coding a task
+Actor: User<br>
 Preconditions: User is logged in, tasks are created.
 
 **MSS**
 
-1.User requests to list all tasks.
-2.System displays a list of all created tasks.
-3.User selects a task to edit
-4.User changes the color of the task.
-5.System updates the database with the changed details.
+1. User requests to list all tasks.
+2. System displays a list of all created tasks.
+3. User selects a task to edit
+4. User changes the color of the task.
+5. System updates the database with the changed details.<br>
 Use Case ends
 
 **Extensions**
@@ -570,8 +573,8 @@ Use Case ends
 1. User requests to list tasks
 2. TaskManager shows a list of tasks
 3. User requests to delete a specific task in the list
-4. TaskManager deletes the task <br>
-Use case ends.
+4. TaskManager deletes the task<br>
+   Use case ends.
 
 **Extensions**
 
@@ -588,18 +591,18 @@ Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
-1.System should work on any mainstream OS as long as it has Java 8 or higher installed. 
-2.System should come with automated unit tests 
-3.Should be free and come with open source code. 
-4.Interface should be user friendly and intuitive
-5.System should be able to hold up to 1000 tasks.
-6.System should be able to run system within 5 seconds after launching
-7.System should be able to export task details
-8.System should have backup option
-9.Exported task details should be intuitive and easily readable
-10.System should not allow information to be accessed outside of the program
-11.System should be able to recover from errors quickly
-12.System should be able to report errors
+   1. System should work on any mainstream OS as long as it has Java 8 or higher installed.<br> 
+   2. System should come with automated unit tests 
+   3. Should be free and come with open source code. 
+   4. Interface should be user friendly and intuitive.
+   5. System should be able to hold up to 1000 tasks.
+   6. System should be able to run system within 5 seconds after launching
+   7. System should be able to export task details
+   8. System should have backup option
+   9. Exported task details should be intuitive and easily readable
+   10. System should not allow information to be accessed outside of the program
+   11. System should be able to recover from errors quickly
+   12. System should be able to report errors
 
 
 {More to be added}

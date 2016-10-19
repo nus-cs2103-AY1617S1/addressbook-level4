@@ -39,6 +39,8 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT_EDIT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[^/]+)"
                     + " t/(?<newTitle>[^/]+)");
+    
+    private static final Pattern SAVE_COMMAND_FORMAT = Pattern.compile("(?<path>[^/]+)");
 
 
 
@@ -87,6 +89,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -228,6 +233,23 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the save task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSave(String args) {
+        // Validate arg string format
+        final Matcher matcher = SAVE_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+        }
+        //String storagePath = args.trim().concat(".xml");
+        return new SaveCommand(args.trim());
+        
     }
 
 }
