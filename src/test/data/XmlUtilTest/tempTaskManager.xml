@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <tasks>
-        <id>1</id>
-        <firstName>John</firstName>
-        <lastName>Doe</lastName>
-        <githubUsername></githubUsername>
-        <street></street>
-        <postalCode></postalCode>
-        <city></city>
+        <name>Skydiving practice</name>
+        <taskType>Event</taskType>
+        <status>Not done</status>
+        <startDate>2016-10-26T16:00:00.000</startDate>
+        <endDate>2016-10-26T18:00:00.000</endDate>
     </tasks>
     <tags>
         <name>Friends</name>

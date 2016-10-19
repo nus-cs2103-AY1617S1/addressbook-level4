@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -44,33 +45,33 @@ public class Parser {
 	
 	// Start and end on same day
 	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile(
-			"(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+on\\s+(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
+			"(?i)'(?<taskName>.*\\S+.*)'\\s+(on\\s+)*(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
 	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile(
-			"(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)");
+			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(on\\s+)*(?<date>\\S+)");
 	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile(
-			"(?i)on\\s+(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
+			"(?i)(on\\s+)*(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
 	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile(
-			"(?i)on\\s+(?<date>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
+			"(?i)(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*\\S+.+)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
 	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
+			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
 	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'\\s+on\\s+(?<date>\\S+)");
+			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>.*\\S+.*)'\\s+(on\\s+)*(?<date>\\S+)");
 	// Start and end on different days
 	private static final Pattern EVENT_ARGS_FORMAT_7 = Pattern.compile(
-			"(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)");
+			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)");
 	private static final Pattern EVENT_ARGS_FORMAT_8 = Pattern.compile(
-			"(?i)from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
+			"(?i)from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
 
-	
+
 	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern
-			.compile("(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+by\\s+(?<dateTime>.+)");
+			.compile("(?i)'(?<taskName>.*\\S+.*)'\\s+by\\s+(?<dateTime>.+)");
 	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern
-			.compile("(?i)by\\s+(?<dateTime>.+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
-	
-	
-	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>(\\s*[^\\s+])+)'");
+			.compile("(?i)by\\s+(?<dateTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
 
-	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
+
+	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>.*\\S+.*)'");
+
+	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>.+)'");
 
 	
 	public Command parseCommand(String userInput) {
@@ -222,9 +223,14 @@ public class Parser {
 		LocalDateTime endDateTime = null;
 		
 		boolean isAnyMatch = false;
-
+		
+		int i = -1;
 		for (Matcher matcher : matchers) {
+			i++;
 			if (matcher.matches()) {
+				System.out.println("i: " + i);
+				
+				
 				isAnyMatch = true;
 
 				taskName = matcher.group("taskName").trim();
@@ -233,17 +239,28 @@ public class Parser {
 				String endTime = matcher.group("endTime").trim();
 				
 				try {
+					
+					System.out.println("start: " + date + " " + startTime);
+					System.out.println("end: " + date + " " + endTime);
+					
 					startDateTime = DateParser.parse(date + " " + startTime);
 					endDateTime = DateParser.parse(date + " " + endTime);
+					
+					System.out.println("startDateTime: " + startDateTime.toString());
 				} catch (ParseException e) {
 					// TODO better command
 					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 				}				
 
-				break;
+				try {
+					return new AddCommand(taskName, startDateTime, endDateTime);
+				} catch (IllegalValueException e) {
+					// TODO Auto-generated catch block
+					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+				}
 			}
 		}
-		
+
 		ArrayList<Matcher> diffDayMatchers = new ArrayList<>();
 		diffDayMatchers.add(EVENT_ARGS_FORMAT_7.matcher(arguments));
 		diffDayMatchers.add(EVENT_ARGS_FORMAT_8.matcher(arguments));
@@ -251,6 +268,7 @@ public class Parser {
 		for (Matcher matcher : diffDayMatchers) {
 			if (matcher.matches()) {
 				isAnyMatch = true;
+				
 
 				taskName = matcher.group("taskName").trim();
 				String startDayAndTime = matcher.group("startDateTime").trim();
@@ -268,9 +286,9 @@ public class Parser {
 			}
 		}
 
-		System.out.println("task name: " + taskName);
-		System.out.println("start date: " + startDateTime.toString());
-		System.out.println("end date: " + endDateTime.toString());
+		//System.out.println("task name: " + taskName);
+		//System.out.println("start date: " + startDateTime.toString());
+		//System.out.println("end date: " + endDateTime.toString());
 		
 		if (!isAnyMatch) {
 			System.out.println("no match");
@@ -303,6 +321,7 @@ public class Parser {
 
 				taskName = matcher.group("taskName").trim();
 				String dateTimeString = matcher.group("dateTime").trim();
+				System.out.println("dateTimeString: " + dateTimeString);
 				try {
 					dateTime = DateParser.parse(dateTimeString);
 				} catch (ParseException e) {

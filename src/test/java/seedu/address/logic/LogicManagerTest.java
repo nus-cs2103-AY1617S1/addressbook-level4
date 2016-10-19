@@ -162,18 +162,17 @@ public class LogicManagerTest {
                 "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
-    @Test
-    public void execute_add_invalidTaskData() throws Exception {
-        assertCommandBehavior(
-                "add someday '[]\\[;]'", Name.MESSAGE_NAME_CONSTRAINTS);
-        /*assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-*/
-    }
+//    @Test
+//    public void execute_add_invalidTaskData() throws Exception {
+//        assertCommandBehavior(
+//                "add someday '[]\\[;]'", Name.MESSAGE_NAME_CONSTRAINTS);
+//        assertCommandBehavior(
+//                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
+//        assertCommandBehavior(
+//                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+//        assertCommandBehavior(
+//                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+//    }
 
     @Test
     public void execute_add_successful() throws Exception {
@@ -395,9 +394,10 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             TaskType publicType = new TaskType("someday");
             Status status = new Status("not done");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            //Tag tag1 = new Tag("tag1");
+            //Tag tag2 = new Tag("tag2");
+            //UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            UniqueTagList tags = new UniqueTagList();
             return new Task(name, publicType, status, Optional.empty(), Optional.empty(), tags);
         }
 
