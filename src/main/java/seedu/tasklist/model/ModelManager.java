@@ -3,6 +3,7 @@ import seedu.tasklist.model.task.*;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.tasklist.commons.core.ComponentManager;
+import seedu.tasklist.commons.core.Config;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
@@ -17,6 +18,11 @@ import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -31,6 +37,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.json.JSONException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
@@ -78,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
 	public void resetData(ReadOnlyTaskList newData) {
 		if (newData.isEmpty()){ //clear or redo clear was executed
 		    List<Task> listOfTasks = (List<Task>)(List<?>)taskList.getTaskList();
-     		addToUndoStack(UndoCommand.CLR_CMD_ID, listOfTasks.toArray(new Task [listOfTasks.size()]));
+     		addToUndoStack(UndoCommand.CLR_CMD_ID, null, listOfTasks.toArray(new Task [listOfTasks.size()]));
 		}
      	taskList.resetData(newData);
         indicateTaskListChanged();
@@ -192,7 +202,7 @@ public class ModelManager extends ComponentManager implements Model {
 		taskList.markTaskAsComplete(task);
 		updateFilteredListToShowIncomplete();
 		indicateTaskListChanged();
-		addToUndoStack(UndoCommand.DONE_CMD_ID, (Task) task);
+		addToUndoStack(UndoCommand.DONE_CMD_ID, null, (Task) task);
         clearRedoStack();
 	}
 
@@ -205,7 +215,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
 
-    private void addToUndoStack(int undoID, Task... tasks) {
+    @Override
+    public void addToUndoStack(int undoID, String filePath, Task... tasks) {
         if (undoStack.size() == MAXIMUM_UNDO_REDO_SIZE) {
             undoStack.remove(undoStack.size() - 1);
         }
@@ -449,7 +460,7 @@ public class ModelManager extends ComponentManager implements Model {
 		@Override
 		public boolean run(ReadOnlyTask person) {
 			Matcher matcher = NAME_QUERY.matcher(person.getTaskDetails().taskDetails);
-			return matcher.matches();
+			return matcher.matches() && !person.isComplete();
 		}
 
 		@Override
@@ -465,8 +476,47 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public LinkedList<UndoInfo> getRedoStack() {
-        // TODO Auto-generated method stub
         return redoStack;
+    }
+
+    @Override
+    public void changeFileStorage(String filePath) throws IOException, ParseException, JSONException {
+        if (filePath.equals("default")) {
+            filePath = "/data/tasklist.xml";
+        }
+        File targetListFile = new File(filePath);
+        FileReader read = new FileReader("config.json");
+        JSONObject obj = (JSONObject) new JSONParser().parse(read);
+        String currentFilePath = (String) obj.get("taskListFilePath");
+        File currentTaskListPath = new File(currentFilePath);
+        Config config = new Config();
+        try {
+            Files.move(currentTaskListPath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        config.setTaskListFilePath(filePath);
+        addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
+    }
+    
+    @Override
+    public String changeFileStorageUndo(String filePath) throws IOException, ParseException, JSONException {
+        if (filePath.equals("default")) {
+            filePath = "/data/tasklist.xml";
+        }
+        File targetListFile = new File(filePath);
+        FileReader read = new FileReader("config.json");
+        JSONObject obj = (JSONObject) new JSONParser().parse(read);
+        String currentFilePath = (String) obj.get("taskListFilePath");
+        File currentTaskListPath = new File(currentFilePath);
+        Config config = new Config();
+        try {
+            Files.move(currentTaskListPath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        config.setTaskListFilePath(filePath);
+        return currentFilePath;
     }
 
 }

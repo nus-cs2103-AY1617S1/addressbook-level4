@@ -26,6 +26,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
+
 /**
  * The main entry point to the application.
  */
@@ -89,7 +92,7 @@ public class MainApp extends Application {
         return new ModelManager(initialData, userPrefs);
     }
 
-    private void initLogging(Config config) {
+    private void initLogging(Config config) throws JSONException, IOException, ParseException {
         LogsCenter.init(config);
     }
 

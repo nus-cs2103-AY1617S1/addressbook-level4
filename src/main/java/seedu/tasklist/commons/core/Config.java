@@ -1,7 +1,12 @@
 package seedu.tasklist.commons.core;
-
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Level;
+
+import org.json.JSONException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
 
 /**
  * Config values used by the app
@@ -14,7 +19,7 @@ public class Config {
     private String appTitle = "Smart Scheduler";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskListFilePath = "/tasklist.xml";
+    private String taskListFilePath = "data/tasklist.xml";
     private String taskListName = "MyTaskList";
 
 
@@ -49,7 +54,23 @@ public class Config {
         return taskListFilePath;
     }
 
-    public void setTaskListFilePath(String taskListFilePath) {
+    public void setTaskListFilePath(String taskListFilePath) throws JSONException, IOException, ParseException {
+        //JSONObject obj = (JSONObject) new JSONParser().parse(read);
+        //String result = (String) obj.get("taskListFilePath");
+        //JSONObject tasklist = (JSONObject) obj.get("taskListFilePath");
+        //System.out.println("Result: "+ result);
+        JSONObject obj = new JSONObject();
+        obj.put("taskListFilePath", taskListFilePath);
+        obj.put("userPrefsFilePath", "preferences.json");
+        obj.put("appTitle", "Smart Scheduler");
+        obj.put("logLevel", "INFO");
+        obj.put("taskListName", "MyTaskList");
+        try (FileWriter file = new FileWriter("config.json")) {
+            file.write(obj.toJSONString());
+            System.out.println("Successfully Copied JSON Object to File...");
+            System.out.println("\nJSON Object: " + obj);
+        }
+        
         this.taskListFilePath = taskListFilePath;
     }
 

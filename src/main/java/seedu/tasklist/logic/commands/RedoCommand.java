@@ -1,5 +1,10 @@
 package seedu.tasklist.logic.commands;
 
+import java.io.IOException;
+
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
+
 import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.UndoInfo;
 import seedu.tasklist.model.task.Task;
@@ -52,10 +57,20 @@ public class RedoCommand extends Command {
                 redoClear();
                 return new CommandResult(MESSAGE_SUCCESS);
             case STR_CMD_ID:
-                //redoSetStorage();
+                redoSetStorage();
                 return new CommandResult(MESSAGE_SUCCESS);
             default:
                 return new CommandResult(MESSAGE_FAILURE);
+        }
+    }
+
+    private void redoSetStorage() {
+        assert model != null;
+        try{
+            model.changeFileStorage(undoInfo.getFilePath());
+        }
+        catch (IOException | ParseException | JSONException e) {
+            e.printStackTrace();
         }
     }
 

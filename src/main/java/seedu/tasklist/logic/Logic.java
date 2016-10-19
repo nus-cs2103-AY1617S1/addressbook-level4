@@ -1,5 +1,10 @@
 package seedu.tasklist.logic;
 
+import java.io.IOException;
+
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
+
 import javafx.collections.ObservableList;
 import seedu.tasklist.logic.commands.CommandResult;
 import seedu.tasklist.model.ReadOnlyTaskList;
@@ -13,8 +18,11 @@ public interface Logic {
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
+     * @throws IOException 
+     * @throws JSONException 
+     * @throws ParseException 
      */
-    CommandResult execute(String commandText);
+    CommandResult execute(String commandText) throws IOException, JSONException, ParseException;
 
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
