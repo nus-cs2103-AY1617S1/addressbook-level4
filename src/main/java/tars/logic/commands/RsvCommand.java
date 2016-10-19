@@ -99,5 +99,4 @@ public class RsvCommand extends UndoableCommand {
         }
 
     }
-
 }
