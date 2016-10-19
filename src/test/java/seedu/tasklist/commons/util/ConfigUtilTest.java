@@ -1,6 +1,8 @@
 package seedu.tasklist.commons.util;
 
 
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -52,7 +54,7 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_fileInOrder_successfullyRead() throws DataConversionException {
+    public void read_fileInOrder_successfullyRead() throws DataConversionException, JSONException, IOException, ParseException {
 
         Config expected = getTypicalConfig();
 
@@ -67,14 +69,14 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
+    public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException, JSONException, IOException, ParseException {
         Config expected = getTypicalConfig();
         Config actual = read("ExtraValuesConfig.json").get();
 
         assertEquals(expected, actual);
     }
 
-    private Config getTypicalConfig() {
+    private Config getTypicalConfig() throws JSONException, IOException, ParseException {
         Config config = new Config();
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
@@ -86,7 +88,8 @@ public class ConfigUtilTest {
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        return new ConfigUtil().readConfig(configFilePath);
+        new ConfigUtil();
+        return ConfigUtil.readConfig(configFilePath);
     }
 
     @Test
@@ -102,28 +105,29 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
+    public void saveConfig_allInOrder_success() throws DataConversionException, IOException, JSONException, ParseException {
         Config original = getTypicalConfig();
 
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";
         ConfigUtil configStorage = new ConfigUtil();
 
         //Try writing when the file doesn't exist
-        configStorage.saveConfig(original, configFilePath);
-        Config readBack = configStorage.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath);
+        Config readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setAppTitle("Updated Title");
         original.setLogLevel(Level.FINE);
-        configStorage.saveConfig(original, configFilePath);
-        readBack = configStorage.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath);
+        readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        new ConfigUtil().saveConfig(config, configFilePath);
+        new ConfigUtil();
+        ConfigUtil.saveConfig(config, configFilePath);
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {

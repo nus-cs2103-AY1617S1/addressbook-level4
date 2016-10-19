@@ -34,7 +34,8 @@ public class XmlTaskListStorage implements TaskListStorage {
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<ReadOnlyTaskList> readTaskList(String filePath) throws DataConversionException, FileNotFoundException {
-        assert filePath != null;
+    	assert filePath != null;
+    	if(filePath!=null){
 
         File taskListFile = new File(filePath);
 
@@ -46,6 +47,8 @@ public class XmlTaskListStorage implements TaskListStorage {
         ReadOnlyTaskList taskListOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
         return Optional.of(taskListOptional);
+    	}
+    	else return Optional.empty();
     }
 
     /**
