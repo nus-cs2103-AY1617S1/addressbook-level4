@@ -19,7 +19,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
 
         //delete the last in the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
-        targetIndex = currentList.length;
+        targetIndex = currentList.length; // Boundary value
         assertDeleteSuccess(targetIndex, "typical", currentList);
 
         //delete from the middle of the list
@@ -69,7 +69,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertDeleteSuccess(targetIndex, "in 30 days", in30DaysList);
         
         //invalid index
-        commandBox.runCommand("del " + currentList.length + 1);
+        commandBox.runCommand("del " + currentList.length + 1); // Boundary value
         assertResultMessage("The task index provided is invalid");
 
     }
