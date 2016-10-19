@@ -28,12 +28,13 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
-            "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
-                    + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
-            		+ "(?<frequency>(daily|weekly|monthly|yearly))?"
-                    + "((?: p/)(?<priority>[^/]+))?"
-                    + "(?<tagArguments>(?: t/[^;]+)*)"
-                    );
+    		"(?<name>([^/](?<! (at|from|to|by) ))*)"
+            + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
+            + "((?: (to|by) )(?<end>(([^;](?<! r/))|(\\[^/]))+))?"
+            + "((?: r/)(?<frequency>[^/]+))?"
+            + "((?: p/)(?<priority>[^/]+))?"
+            + "(?<tagArguments>(?: t/[^;]+)*)"
+            );
     
     private static final Pattern TASK_UPDATE_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
     		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
