@@ -276,6 +276,40 @@ Priority | As a ... | I want to ...           | So that I can...
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
+#### Use case: Add a task/deadline/event
+**Main Success Scenario (MSS)**
+
+1. User requests to add task/deadline/event (TDE)
+2. TaskManager adds TDE and displays result <br>
+Use case ends.
+
+**Extensions**
+>1a. Some or all required parameters are missing <br>
+1a1. TaskManager shows an error message <br>
+Use case resumes at step 1
+
+#### Use case: Edit a task/deadline/event
+**MSS**
+
+1. User requests to list task/deadline/event (TDE)
+2. TaskManager shows a list of TDEs
+3. User requests to edit specific details of a specific TDE in the list
+4. TaskManager edits the TDE <br>
+Use case ends.
+
+**Extensions**
+
+>2a. The TDE list is empty <br>
+>Use case ends
+
+>3a. The given index is invalid <br>
+3a1. TaskManager shows an error message <br>
+Use case resumes at step 2 <br>
+
+>3b The given parameter is invalid <br>
+> 3b1 TaskManager shows an error message <br>
+Use case resumes at step 2
+
 #### Use case: Delete an task/deadline/event
 
 **MSS**
@@ -295,35 +329,9 @@ Use case ends.
 3a1. TaskManager shows an error message <br>
 Use case resumes at step 2
 
-#### Use case: Add a task/deadline/event
-1. User requests to add task/deadline/event (TDE)
-2. TaskManager adds TDE and displays result <br>
+>3b. User requests to delete two TDEs <br>
+>3b1. TaskManager deletes the TDEs.<br>
 Use case ends.
-
-**Extensions**
->1a. Some or all required parameters are missing <br>
-1a1. TaskManager shows an error message <br>
-Use case resumes at step 1
-
-#### Use case: Edit a task/deadline/event
-1. User requests to list task/deadline/event (TDE)
-2. TaskManager shows a list of TDEs
-3. User requests to edit specific details of a specific TDE in the list
-4. TaskManager edits the TDE <br>
-Use case ends.
-
-**Extensions**
-
->2a. The TDE list is empty <br>
->Use case ends
-
->3a. The given index is invalid <br>
-3a1. TaskManager shows an error message <br>
-Use case resumes at step 2 <br>
-
->3b The given parameter is invalid <br>
-> 3b1 TaskManager shows an error message <br>
-Use case resumes at step 2
 
 ## Appendix C : Non Functional Requirements
 
