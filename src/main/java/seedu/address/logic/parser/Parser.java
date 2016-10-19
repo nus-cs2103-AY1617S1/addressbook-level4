@@ -129,11 +129,14 @@ public class Parser {
         TimeZone tz = TimeZone.getDefault();	
         com.joestelmach.natty.Parser natty = new com.joestelmach.natty.Parser(tz);
         List<java.util.Date> dateList;
-
-        // NPE could be thrown here -> floating task no date no time
-        // natty.parse() can return null too
+        
+        // user does not input 'date/' 
         if (matcher.group("date") == null){
-            // return empty list
+            dateList = null;
+        }
+        // user inputs "date/" preceding empty <?date> group
+        else if (matcher.group("date").equals("")){
+        	// return empty list
             dateList = new ArrayList <java.util.Date> ();
         }
         // natty cannot parse the input and returns empty List<DateGroup>
@@ -141,6 +144,7 @@ public class Parser {
             throw new IllegalValueException(seedu.address.model.person.Date.MESSAGE_DATE_CONSTRAINTS);
         	//throw new IllegalValueException(matcher.group("date"));
         }
+        // let natty parse the input 
         else {
             dateList = natty.parse(matcher.group("date")).get(0).getDates();
         }
