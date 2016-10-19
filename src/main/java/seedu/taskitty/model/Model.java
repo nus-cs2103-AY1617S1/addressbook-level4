@@ -6,6 +6,7 @@ import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
 import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 /**
@@ -60,5 +61,7 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to filter out tasks that are done*/
 	void updateFilteredDoneList();
+
+	void updateFilteredDateTaskList(LocalDate date, boolean hasDate);
 
 }
