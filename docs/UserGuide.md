@@ -147,10 +147,33 @@ Examples:<br>
   **`mark`**`1`<br>
   Marks the 1st task in the results of the `find` command as completed.  
 
+#### Set storage path : `setpath`
+Change the default storage path to a preferred path<br>
+
+Format: **`setpath`**`FILENAME`<br>
+
+> FILENAME refers to the address of the preferred path.<br>
+
+Examples:<br>
+* **`setpath`**`TaskSchedulerData`<br>
+
 #### Exiting the program : `exit`
 Exits the program.<br>
+
 Format: `exit` 
 
+#### Reuse previous command : `up down arrow`
+Select and display previously typed command using up or down arrow.<br>
+
+#### Indicate overdue and completed task : `color code`
+Indicate overdue and completed task with color code<br>
+
+Overdue Task: Red Color Code<br>
+Completed Task: Green Color Code<br>
+
+> Overdue Task refers to task that has date and time that passes the current date and time.<br>
+Completed Task refers to task that are marked as "completed".
+ 
 ####Saving the data 
 MustDoList data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
