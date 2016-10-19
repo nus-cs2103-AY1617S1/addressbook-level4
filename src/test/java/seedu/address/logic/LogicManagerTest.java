@@ -395,9 +395,10 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             TaskType publicType = new TaskType("someday");
             Status status = new Status("not done");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            //Tag tag1 = new Tag("tag1");
+            //Tag tag2 = new Tag("tag2");
+            //UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            UniqueTagList tags = new UniqueTagList();
             return new Task(name, publicType, status, Optional.empty(), Optional.empty(), tags);
         }
 

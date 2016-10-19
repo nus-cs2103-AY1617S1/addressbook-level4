@@ -303,6 +303,7 @@ public class Parser {
 
 				taskName = matcher.group("taskName").trim();
 				String dateTimeString = matcher.group("dateTime").trim();
+				System.out.println("dateTimeString: " + dateTimeString);
 				try {
 					dateTime = DateParser.parse(dateTimeString);
 				} catch (ParseException e) {
