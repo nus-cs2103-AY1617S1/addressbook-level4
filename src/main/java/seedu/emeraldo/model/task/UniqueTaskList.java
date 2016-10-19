@@ -81,7 +81,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if(!description.toString().isEmpty()){
             toEditObj.setDescription(description);
         }
-        if(!dateTime.toString().isEmpty()){
+        if(!dateTime.value.isEmpty()){
             toEditObj.setDateTime(dateTime);
         }
         internalList.set(index, toEditObj);

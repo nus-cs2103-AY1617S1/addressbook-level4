@@ -171,15 +171,10 @@ public class Parser {
                 description = description.split("\"")[1];
             }
             
-            String dateTime = matcher.group("dateTime").trim();
-            if(dateTime.isEmpty()){
-                dateTime = "";
-            }
-            
             return new EditCommand(
                     matcher.group("targetIndex"),
                     description,
-                    dateTime);
+                    matcher.group("dateTime").trim());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }        
