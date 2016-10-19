@@ -66,7 +66,7 @@ public class XmlAdaptedTask {
 //        final DateTime closeTime = new DateTime(this.closeTime);
 //        final boolean isImportant = this.isImportant;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        final boolean isComplete= this.isComplete;
+        final boolean isComplete = this.isComplete;
         return new Task(name, tags, isComplete); //(name, openTime, closeTime, isImportant, tags)
     }
 }

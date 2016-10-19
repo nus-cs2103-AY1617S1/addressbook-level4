@@ -24,7 +24,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public void setIsCompleted(boolean isCompleted){
-    	this.isCompleted=isCompleted;
+        this.isCompleted = isCompleted;
     }
 //    public void setAddress(Address address) {
 //        this.address = address;

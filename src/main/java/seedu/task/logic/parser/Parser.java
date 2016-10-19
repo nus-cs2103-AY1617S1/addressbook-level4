@@ -235,11 +235,10 @@ public class Parser {
     }
     /**
      * Parses arguments in the context of the complete task command.
-     * @param args
-     * @return
+     * @param args full command args string
+     * @return the prepared command
      */
     private Command prepareComplete(String args) {
-
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));

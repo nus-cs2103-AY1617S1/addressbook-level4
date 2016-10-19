@@ -22,7 +22,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags,boolean isCompleted) {
+    public Task(Name name, UniqueTagList tags, boolean isCompleted) {
         // open time, urgent, and close time can be null
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
@@ -31,7 +31,7 @@ public class Task implements ReadOnlyTask {
         //this.closeTime = closeTime;
         //this.isImportant = isImportant;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        this.isCompleted= isCompleted;  
+        this.isCompleted = isCompleted;  
     }
 
     /**
@@ -74,10 +74,10 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Set isCompleted to be true for the selected task
+     * Sets the task's completion flag
      */
     public void setIsCompleted(boolean isCompleted) {
-        this.isCompleted=isCompleted;
+        this.isCompleted = isCompleted;
     }
     
     
