@@ -275,7 +275,9 @@ Priorities: High - `* * *` Medium - `* *`  Low - `*`
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add tasks to the todo list | remember what I have to do / what I have to attend to
+`* * *` | user | add tasks to the todo list | be reminded of what to do
+`* * *` | user | add tasks with dealine | remember by what time I have to complete a task
+`* * *` | user | add tasks with timeframe | know what I have to attend an event
 `* * *` | user | view upcoming tasks | check what I need to do / have to do soon
 `* * *` | user | search for details on a task or event | view what needs to be done
 `* * *` | user | delete task that has been completed | completely remove it from my task manager	
@@ -284,8 +286,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | call up the todo list with a simple keystroke | start the application anytime during my workflow
 `* * *` | user | undo my actions | reverse any mistakes that I have made
 `* * *` | user | redo my undo | correct any accidental undo
-`* *` | user | edit tasks | keep them up to date
-`*` | user | enter synonyms for the commands | use natural language to accomplish what I want
+`* * *` | user | edit tasks | keep them up to date
+`* *` | user | enter synonyms for the commands | use natural language to accomplish what I want
 `*` | user | tag tasks | classify them and search for them according to these tags
 
 ## Appendix B : Use Cases
