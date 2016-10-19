@@ -49,8 +49,27 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_FIELD);
         }
+        
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         try {
+            if (field.equals("task")){
+               editTaskValue.push(taskToEdit.getTaskName().toString()); 
+            }
+            else if (field.equals("start date")){
+                editTaskValue.push(taskToEdit.getStartDate().toString()); 
+             }
+            else if (field.equals("end date")){
+                editTaskValue.push(taskToEdit.getEndDate().toString()); 
+             }
+            else if (field.equals("start time")){
+                editTaskValue.push(taskToEdit.getStartTime().toString()); 
+             }
+            else if (field.equals("end time")){
+                editTaskValue.push(taskToEdit.getEndTime().toString()); 
+             }
+            
+            editTaskField.push(field);
+            
             model.editTask(taskToEdit, field, value);
             listOfCommands.push(COMMAND_WORD);
             listOfTasks.push(taskToEdit);
