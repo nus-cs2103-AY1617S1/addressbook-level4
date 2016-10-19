@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
-import org.ocpsoft.prettytime.nlp.*;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import org.ocpsoft.prettytime.nlp.parse.DateGroup;
 
 /**
@@ -19,9 +19,10 @@ public class DateTimeParser {
     // the part of the command that contains the temporal part of the command
     private String datetime;
 
-    // natty parser object
+	// natty parser object
     // careful of name collision with our own Parser object
-    private PrettyTimeParser parser;
+	// static so we only need to initialize it once
+	private static PrettyTimeParser parser;
 
     // result from parser
     private List<DateGroup> dategroups;
@@ -32,11 +33,13 @@ public class DateTimeParser {
         assert input.isEmpty() != true;
 
         this.datetime = input;
-        this.parser = new PrettyTimeParser();
+		if (DateTimeParser.parser == null) {
+			DateTimeParser.parser = new PrettyTimeParser();
+		}
 
         // perform natty parsing
-        this.dategroups = this.parser.parseSyntax(input);
-        this.dates = this.parser.parse(input);
+		this.dategroups = DateTimeParser.parser.parseSyntax(input);
+		this.dates = DateTimeParser.parser.parse(input);
     }
 
     public LocalDateTime extractStartDate() {
