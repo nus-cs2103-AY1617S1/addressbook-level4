@@ -47,6 +47,8 @@ public class EndTime {
     			endTime.setTime(dates.get(0).getDates().get(0));
     		}
     	}
+    	endTime.clear(Calendar.SECOND);
+    	endTime.clear(Calendar.MILLISECOND);
     }
     
     public EndTime(Long unixTime) {
@@ -87,7 +89,7 @@ public class EndTime {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EndTime // instanceof handles nulls
-                && this.endTime.equals(((EndTime) other).endTime)); // state check
+                && this.endTime.getTimeInMillis()==((EndTime) other).endTime.getTimeInMillis()); // state check
     }
 
     @Override
