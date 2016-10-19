@@ -125,6 +125,10 @@ public class TestUtil {
         }
         return SANDBOX_FOLDER + fileName;
     }
+    
+    public static boolean changedFilePathInSandboxFolder(String oldFilePath, String newFilePath) { 
+        return !oldFilePath.equals(newFilePath);
+    }
 
     public static void createDataFileWithSampleData(String filePath) {
         createDataFileWithData(generateSampleStorageTaskManager(), filePath);

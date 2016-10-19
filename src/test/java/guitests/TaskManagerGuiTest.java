@@ -90,6 +90,11 @@ public abstract class TaskManagerGuiTest {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
+    protected void assertDataFilePathChanged(String currentFilePath) {
+        String newSaveLocationForTesting = TestUtil.getFilePathInSandboxFolder(currentFilePath);
+        assertTrue(TestUtil.changedFilePathInSandboxFolder(TestApp.SAVE_LOCATION_FOR_TESTING, newSaveLocationForTesting));
+    }
+    
     @After
     public void cleanup() throws TimeoutException {
         FxToolkit.cleanupStages();
