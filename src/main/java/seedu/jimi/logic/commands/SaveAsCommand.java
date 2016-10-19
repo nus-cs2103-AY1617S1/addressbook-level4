@@ -63,7 +63,7 @@ public class SaveAsCommand extends Command {
             ReadOnlyTaskBook oldTaskBook = oldStorage.readTaskBook(oldTaskBookFilePath).orElse(new TaskBook());
             newStorage.saveTaskBook(oldTaskBook);
             
-            return new CommandResult(String.format(MESSAGE_SUCCESS, newStorage.getAddressBookFilePath()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, config.getTaskBookFilePath()));
         } catch (DataConversionException e) {
             return new CommandResult(String.format(MESSAGE_CONFIG_FILE_NOT_FOUND));
         } catch (IOException e) {
