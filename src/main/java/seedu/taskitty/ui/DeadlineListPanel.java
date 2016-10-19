@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -25,6 +26,9 @@ public class DeadlineListPanel extends UiPart{
     private static final String FXML = "DeadlineListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    
+    @FXML
+    private Label header;
     
     @FXML
     private ListView<ReadOnlyTask> deadlineListView;
@@ -57,6 +61,8 @@ public class DeadlineListPanel extends UiPart{
     }
 
     private void configure(ObservableList<ReadOnlyTask> deadlineList) {
+    	header.setText("DEADLINES");
+    	header.setStyle("-fx-text-fill: white");
         setConnections(deadlineList);
         addToPlaceholder();
     }

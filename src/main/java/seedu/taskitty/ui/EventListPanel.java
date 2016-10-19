@@ -1,11 +1,15 @@
 package seedu.taskitty.ui;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -17,7 +21,7 @@ import seedu.taskitty.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.taskitty.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskitty.model.task.ReadOnlyTask;
 
-// Dummy Placeholder for Deadline List Panel
+// Dummy Placeholder for Event List Panel
 // TO BE UPDATED
 
 public class EventListPanel extends UiPart{
@@ -25,6 +29,9 @@ public class EventListPanel extends UiPart{
     private static final String FXML = "EventListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    
+    @FXML
+    private Label date;
     
     @FXML
     private ListView<ReadOnlyTask> eventListView;
@@ -57,8 +64,16 @@ public class EventListPanel extends UiPart{
     }
 
     private void configure(ObservableList<ReadOnlyTask> eventList) {
+    	setDate();
         setConnections(eventList);
         addToPlaceholder();
+    }
+    
+    private void setDate() {
+    	DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+    	Date dateobj = new Date();
+    	date.setText(df.format(dateobj) + " (Today)");
+    	date.setStyle("-fx-text-fill: white");
     }
     
     private void setConnections(ObservableList<ReadOnlyTask> eventList) {

@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -25,6 +26,8 @@ public class TaskListPanel extends UiPart {
     private VBox panel;
     private AnchorPane placeHolderPane;
 
+    @FXML
+    private Label header;
     @FXML
     private ListView<ReadOnlyTask> taskListView;
 
@@ -56,6 +59,8 @@ public class TaskListPanel extends UiPart {
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
+    	header.setText("TODOS");
+    	header.setStyle("-fx-text-fill: white");
         setConnections(taskList);
         addToPlaceholder();
     }

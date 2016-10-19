@@ -9,6 +9,14 @@
     -fx-opacity: 0.9;
 }
 
+.label-date {
+	-fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-opacity: 0.9;
+	-fx-text-fill: white;
+	-fx-padding: 0 0 0 1;
+}
+
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
