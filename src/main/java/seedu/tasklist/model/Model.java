@@ -1,9 +1,14 @@
 package seedu.tasklist.model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
 
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.model.tag.UniqueTagList;
@@ -86,5 +91,11 @@ public interface Model {
     LinkedList<UndoInfo> getUndoStack();
 
     LinkedList<UndoInfo> getRedoStack();
+
+    void addToUndoStack(int strCmdId, String currentFilePath, Task... tasks);
+
+    void changeFileStorage(String filePath) throws FileNotFoundException, IOException, ParseException, JSONException;
+
+    String changeFileStorageUndo(String filePath) throws IOException, ParseException, JSONException;
 
 }
