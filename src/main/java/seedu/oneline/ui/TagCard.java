@@ -13,7 +13,7 @@ public class TagCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label name;    
 
     private Tag tag;
 

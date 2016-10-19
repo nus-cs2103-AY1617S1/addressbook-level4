@@ -10,6 +10,7 @@ import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
 import seedu.oneline.model.task.UniqueTaskList;
+import seedu.oneline.model.tag.Tag; 
 
 /**
  * The API of the Model component.
@@ -36,6 +37,9 @@ public interface Model {
     /** Marks a given task as not done */
     void undoneTask(int index) throws UniqueTaskList.TaskNotFoundException;
 
+    /** Returns the tag list as an {@code UnmodifiableObservableList<Tag>} */
+    UnmodifiableObservableList<Tag> getTagList(); 
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     

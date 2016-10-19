@@ -13,6 +13,7 @@ import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.oneline.model.tag.Tag; 
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -129,6 +130,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
+    //=========== Filtered Task List Accessors ===============================================================
+    
+    @Override
+    public UnmodifiableObservableList<Tag> getTagList() {
+        return new UnmodifiableObservableList<>(new FilteredList<>(taskBook.getTags()));
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
     //@@author: A0138848M
     @Override

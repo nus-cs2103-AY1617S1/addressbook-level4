@@ -109,7 +109,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         taskPane = TaskPane.load(primaryStage, browserPlaceholder, logic.getFilteredTaskList());
-        tagListPanel = TagListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        tagListPanel = TagListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getTagList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
