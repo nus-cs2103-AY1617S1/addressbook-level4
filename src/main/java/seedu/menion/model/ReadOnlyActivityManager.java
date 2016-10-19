@@ -13,18 +13,27 @@ import java.util.List;
  */
 public interface ReadOnlyActivityManager {
 
-    UniqueTagList getUniqueTagList();
 
     UniqueActivityList getUniqueTaskList();
+    
+    UniqueActivityList getUniqueFloatingTaskList();
+    
+    UniqueActivityList getUniqueEventList();
 
     /**
      * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyActivity> getTaskList();
-
+    
+    
     /**
-     * Returns an unmodifiable view of tags list
+     * Returns an unmodifiable view of floating tasks list
      */
-    List<Tag> getTagList();
+    List<ReadOnlyActivity> getFloatingTaskList();
+    
+    /**
+     * Returns an unmodifiable view of events list
+     */
+    List<ReadOnlyActivity> getEventList();
 
 }

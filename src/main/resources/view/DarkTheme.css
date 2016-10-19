@@ -75,22 +75,24 @@
     -fx-background-color: -fx-focus-color;
 }
 
-.split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+.split-pane:horizontal > .split-pane-divider {
+   -fx-background-color: white;
+}
+.split-pane:vertical > .split-pane-divider {
+   -fx-background-color: white;
 }
 
 .split-pane {
-    -fx-border-radius: 1;
-    -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: gray;
 }
 
 .list-cell {
+	-fx-background-color: white;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
 }
+
 
 .list-cell .label {
     -fx-text-fill: #010504;
@@ -122,7 +124,7 @@
 }
 
 .result-display {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white;
 }
 
 .result-display .label {
@@ -154,21 +156,21 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: white;
 }
 
 .context-menu .label {
-    -fx-text-fill: white;
+    -fx-text-fill: derive(#1d1d1d, 20%);
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: white;
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: derive(#1d1d1d, 20%);
     -fx-opacity: 0.9;
 }
 
@@ -251,7 +253,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: white;
     -fx-background-insets: 3;
 }
 
@@ -265,24 +267,44 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+	-fx-background-color: white;
     -fx-padding: 1 8 1 8;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+	-fx-background-color: white;
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
-    -fx-background-color: transparent;
-    -fx-border-color: #d6d6d6;
+#eventCardPane {
+    -fx-background-color: #ffa07a;
+    -fx-border-color: #ffa07a;
     -fx-border-width: 1 1 1 1;
 }
+
+#taskCardPane {
+    -fx-background-color: #87cefa;
+    -fx-border-color: #87cefa;
+    -fx-border-width: 1 1 1 1;
+}
+
+#floatingTaskCardPane {
+    -fx-background-color: #fafad2;
+    -fx-border-color: #fafad2;
+    -fx-border-width: 1 1 1 1;
+}
+
 
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+
+}
+
+#taskList {
+     -fx-background-color: white;
 }

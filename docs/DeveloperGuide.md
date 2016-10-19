@@ -8,6 +8,9 @@ This guide will bring you through the design and implementation of Menion. It's 
 # Table of Contents
 * [Setting Up](#setting-up)
 * [Design](#design)
+* [Implementation](#implementation)
+* [Testing](#testing)
+* [Dev Ops](#dev-ops)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
@@ -25,7 +28,7 @@ This guide will bring you through the design and implementation of Menion. It's 
     > * Having any Java 8 version is not enough. 
     > * This app will not work with earlier versions of Java 8.
 2. Eclipse IDE
-3. e(fx)clipse plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+3. e(fx)clipse plugin for Eclipse 
 4. Buildship Gradle Integration plugin from the Eclipse Marketplace
 
 
@@ -50,14 +53,16 @@ This guide will bring you through the design and implementation of Menion. It's 
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600"><br> Diagram 1: Layout for architecture<br>
+<img src="images/Architecture.png" width="600"><br> 
+> Diagram 1: Layout for architecture<br>
+
 The Architecture Diagram given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-[*Main*]() has only one class called [`MainApp`](../src/main/java/seedu/menion/MainApp.java). It is responsible for,
+[*Main*]() has only one class called [`MainApp`](../src/main/java/seedu/menion/MainApp.java).
 
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+* On app launch: Initializes the components in the correct sequence, and connect them up with each other.
+* On exit: Shuts down the components and saves the activity manager.
 
 
 [*Commons*](#common-classes) represents a collection of classes used by multiple other components.
@@ -68,7 +73,8 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 <br><br>
 
-<img src="images/LogicClassDiagram.png" width="800"><br>Diagram 2: Sequence diagam<br>
+<img src="images/LogicClassDiagram.png" width="800"><br>
+> Diagram 2: Model diagam<br>
 
 The rest of the App consists four components.
 
@@ -87,26 +93,29 @@ interface and exposes its functionality using the `LogicManager.java` class.
 <br><br>
 
 
-<img src="images\SDforDeletePerson.png" width="800"><br>Diagram 3: Model diagram
+<img src="images\SDforDeletePerson.png" width="800"><br>
+> Diagram 3: Sequence diagram
 
 The Sequence Diagram above shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-> Notice how the `Model` simply raises a `ActivityManagerChangedEvent` when the Activity Manager data are changed,
+> Notice how the `Model` simply raises a `ActivityManagerChangedEvent` when the Activity Manager data is changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 
-<br><br><img src="images\SDforDeletePersonEventHandling.png" width="800"><br>Diagram 4: Event diagram
+<br><br><img src="images\SDforDeletePersonEventHandling.png" width="800"><br>
+> Diagram 4: Sequence diagram
 
 The diagram above shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-> * Notice how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+> * Notice how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` being coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
-<br>
+<br><br><br>
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>Diagram 5: UI component<br>
+<img src="images/UiClassDiagram.png" width="800"><br>
+> Diagram 5: UI component<br>
 
 API : [`Ui.java`](../src/main/java/seedu/menion/ui/Ui.java)
 
@@ -116,7 +125,7 @@ For example, `CommandBox`, `ResultDisplay`, `AcitivtyListPanel`, `StatusBarFoote
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/menion/ui/MainWindow.java) is specified in [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
+The `UI` component
 
 * executes user commands using the `Logic` component.
 * binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
@@ -125,52 +134,49 @@ The `UI` component,
 <br>
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>Diagram 6: Storage component<br>
+<img src="images/StorageClassDiagram.png" width="800"><br>
+> Diagram 6: Storage component<br>
 
 API : [`Storage.java`](../src/main/java/seedu/menion/storage/Storage.java)
 
-The `Storage` component,
+The `Storage` component
 
-* saves `UserPref` objects in json format and read it back.
-* saves the Activity Manager data in xml format and read it back.
+* saves `UserPref` objects in json format and feeds it back.
+* saves the Activity Manager data in xml format and feeds it back.
 <br>
 
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800"><br>Diagram 7: Logic component <br>
+<img src="images/LogicClassDiagram.png" width="800"><br>
+> Diagram 7: Logic component <br>
 
 API : [`Logic.java`](../src/main/java/seedu/menion/logic/Logic.java)
 
- [`Logic`](../src/main/java/seedu/menion/logic/Logic.java) uses the `ActivityParser` class to parse the user's command.For example, `ActivityParser` uses `AddParser` to parse argument for `AddCommand`. This results in a `Command` object which is executed by the `LogicManager`.<br>
+ [`Logic`](../src/main/java/seedu/menion/logic/Logic.java) uses the `ActivityParser` class to parse the user's command.For example, `ActivityParser` uses `AddParser` to parse argument for `AddCommand`. This results in a `Command` object, which is executed by the `LogicManager`.<br>
 The command execution can affect the `Model` (e.g. adding an Activity) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 <br><br>
 
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>Diagram 8: Logic interation<br>
+<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+> Diagram 8: Sequence Diagram<br>
+
 Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`API call.<br><br>
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>Diagram 9: Model component<br>
+<img src="images/ModelClassDiagram.png" width="800"><br>
+> Diagram 9: Model component<br>
 
 *API* : [`Model.java`](../src/main/java/seedu/menion/model/Model.java)
-The model class is not coupled to the other three components.
 
-The `Model` component,
+> The model class is not coupled to the other three components.
+
+<br><br><br><br><br>
+
+The `Model` component
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Activity Manager data.
 * exposes a `UnmodifiableObservableList<ReadOnlyActivity>` that can be 'observed' For example, the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 <br><br>
-
-### Storage component
-
-<img src="images/StorageClassDiagram.png" width="800"><br>Diagram 10: Storage component<br>
-
-API : [`Storage.java`](../src/main/java/seedu/menion/storage/Storage.java)
-
-The `Storage` component,
-
-* saves `UserPref` objects in json format and read it back
-* saves the Activity Manager data in xml format and read it back
 
 ### Common classes
 
@@ -186,21 +192,20 @@ and logging destinations.
 * The logging level can be controlled using the `logLevel` setting in the configuration file
   (See [Configuration](#configuration))
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* Currently log messages are output through: `Console` and to a `.log` file
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `SEVERE`: Critical problems may cause the termination of the application
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
-  For example, print the actual list instead of just its size
 
 ### Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
-(default: `config.json`):
-
+(default: `config.json`)
+<br><br><br><br><br>
 ## Testing
 
 Tests can be found in the `./src/test/java` folder. There are two available options for tesing.
@@ -209,10 +214,10 @@ Tests can be found in the `./src/test/java` folder. There are two available opti
 	* To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
 	* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
-  to run as a JUnit test.
+  to run as a JUnit test
 
 2. Gradle
-	* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+	* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle
 
 
 
@@ -277,7 +282,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new activity |
+`* * *` | user | add a new activity | track my activities
 `* * *` | user | delete an activity | remove activities that I no longer need
 `* * *` | user | edit a command | modify the details of an activity
 `* * *` | user | undo a command | revert back to the state before I made a wrong command
@@ -300,20 +305,20 @@ Priority | As a ... | I want to ... | So that I can...
 
 <br>
 
-#### Use Case : Add Task
+#### Use Case : Add Activity
 **MSS**
 
-1. User enters add command followed by the details of the task.
-2. Menion creates the Task based on the details of the task and puts it in the database.
-3. Menion displays the Task added.
+1. User enters add command followed by the details of the Activity.
+2. Menion creates the Activity based on the details of the Activity and puts it in the database.
+3. Menion displays the Activity added.
 
 Use case ends.
 
 **Extensions**
 
-1a. Details of the Task do not match format.
+1a. Details of the Activity do not match format.
 
-> 1a1. Menion prompts user to reenter Task.<br>
+> 1a1. Menion prompts user to re-enter Activity.<br>
 > 1a2. User inputs a new task.<br>
 > Repeat 1a1 - 1a2 until user inputs the correct format.<br>
 > Use case resumes at step 2.
@@ -321,13 +326,13 @@ Use case ends.
 <br>
 
 
-#### Use Case : Delete Task
+#### Use Case : Delete Activity
 
 **MSS**
 
-1. User enters command followed by the index of the Task to be deleted.
-2. Menion does a search through the database and deletes the task.
-3. Menion displays the list of Tasks left in the database.
+1. User enters command followed by the index of the Activity to be deleted.
+2. Menion does a search through the database and deletes the Activity.
+3. Menion displays the list of Activity left in the database.
 
 Use case ends.
 
@@ -335,37 +340,37 @@ Use case ends.
 
 1a. The index input by the user is not in the range of indices available.
 
-> 1a1. Menion prompts user to reinput the index of the Task.<br>
-> 1a2. User reinputs the name of the Task.<br>
-> Repeat 1a1 - 1ab until user inputs valid index of the Task.<br>
+> 1a1. Menion prompts user to re-input the index of the Activity.<br>
+> 1a2. User reinputs the name of the Activity.<br>
+> Repeat 1a1 - 1ab until user inputs valid index of the Activity.<br>
 > Use case resumes at step 2.
 
 <br>
 
-#### Use Case : Edit Task
+#### Use Case : Edit Activity
 
 **MSS**
 
-1. User enters edit command followed by the name of the Task to be edited and the information that is to be edited.
-2. Menion does a search for the name of the Task in the database and updates the entry.
-3. Menion displays the updated information of the Task.
+1. User enters edit command followed by the name of the Activity to be edited and the information that is to be edited.
+2. Menion does a search for the name of the Activity in the database and updates the entry.
+3. Menion displays the updated information of the Activity.
 
 Use case ends.
 
 **Extensions**
 
-1a. The name of the Task entered by the user does not exist.
+1a. The name of the Activity entered by the user does not exist.
 
-> 1a1. Menion prompts user to reinput name of the Task.<br>
-> 1a2. User reinputs name of Task.<br>
-> Repeat 1a1 - 1a2 until the user inputs a valid name of Task.<br>
+> 1a1. Menion prompts user to re-input name of the Activity.<br>
+> 1a2. User re-inputs name of Activity.<br>
+> Repeat 1a1 - 1a2 until the user inputs a valid name of Activity.<br>
 > Use case resumes at step 2.
 
 1b. The information entered by the user does not follow the format.
 
-> 1b1. Menion prompts user to reinput details of the Task in the given format.<br>
-> 1b2. User reinputs details of the Task.<br>
-> Repeat 1b1 - 1b2 until the user inputs a valid format for the Task.<br>
+> 1b1. Menion prompts user to re-input details of the Activity in the given format.<br>
+> 1b2. User re-inputs details of the Activity.<br>
+> Repeat 1b1 - 1b2 until the user inputs a valid format for the Activity.<br>
 > Use case resumes at step 2.
 
 <br>
@@ -373,16 +378,19 @@ Use case ends.
 #### Use Case : Undo
 
 **MSS**
+
 1. User enters undo command.
+2. System reverts back to the state of the previous command.
 
 Use case ends.
 
 **Extensions**
+
 1a. There is no previous command available to undo.
 
-> 1b1. Menion displays error message.
+> 1a1. System prompts user to enter another command.<br>
+> 1a2. Use case ends.
 
-Use Case Ends
 
 <br>
 
@@ -391,6 +399,7 @@ Use Case Ends
 **MSS**
 
 1. User enters list command followed by the addition filters of the listing.
+2. System displays the list of activities according to the filters input by the user.
 
 Use case ends.
 
@@ -398,22 +407,15 @@ Use case ends.
 
 1a. The filter input by the User is not valid.
 > 1a1. System prints out error message and requests for another input.<br>
-> Repeat step 1a1 until user inputs a valid filter for the list command.
+> 1a2.  Repeat step 1a1 until user inputs a valid filter for the list command.
 
-1b. User wishes the Menion to list all the tasks.
-> 1b1. Menion shows a list of all the Tasks in the Menion.
+1b. User requests for Menion to list all the Activity.
+> 1b1. Menion shows a list of all the Activities in the Menion.<br>
+> 1b2. Resume to step 2 in MSS.
 
-1c. User wishes the Menion to list only Tasks which has a time interval.
-> 1c1. Menion shows a list of all the Tasks in the Menion with a time interval.
-
-1d. User wishes the Menion to list only Tasks which does not have a time interval.
-> 1d1. Menion shows a list of all the Tasks in the Menion without a time interval.
-
-1e. User wishes the Menion to list all Tasks of a specified date.
-> 1e1. Menion shows a list of all the Tasks in the Menion which has a deadline of the specified date.
-
-1f. User wishes the Menion to list all Tasks within a specified range of dates.
-> 1f1. Menion shows a list of all the Tasks in the Menion which has deadlines that fall between the specified range of dates.
+1c. User requests for Menion to list all Activity of a specified date / week / month.
+> 1c1. Menion shows a list of all the Activities in the Menion which has a deadline of the specified date.<br>
+> 1c2. Resume to step 3 in MSS.
 
 <br>
 
@@ -423,14 +425,14 @@ Use case ends.
 
 1. User enters find command followed by the keywords of the search.
 2. Menion performs the find command.
-3. Menion displays the details of the Task.
+3. Menion displays the details of the Activity.
 
 Use case ends.
 
 **Extensions**
 
-3a. There are no Tasks with the keyword stated.
-> 3a1. Menion displays 'No particular Task' message.<br>
+3a. There is no Activity with the keyword stated.
+> 3a1. Menion displays 'No particular Activity' message.<br>
 > Use case ends.
 
 <br>
@@ -459,8 +461,8 @@ Use case ends.
 2. Should be able to hold up to 1000 Tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-5. Should be able to save activities offline, so that I can use the application when the user does not have internet access.
-6. Should be able to use the application without much instructions.
+5. Should be able to save activities offline, so that the user can use the application when the user does not have internet access.
+6. Should be able to use the application without constantly refering to instructions.
 
 ## Appendix D : Glossary
 

@@ -41,4 +41,13 @@ public class SelectCommand extends Command {
 
     }
 
+    /*
+     * select command does not support undo
+     */
+	@Override
+	public boolean undo() {
+		
+		return false;
+	}
+
 }

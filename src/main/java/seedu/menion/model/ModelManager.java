@@ -23,6 +23,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final ActivityManager activityManager;
     private final FilteredList<Activity> filteredTasks;
+    private final FilteredList<Activity> filteredFloatingTasks;
+    private final FilteredList<Activity> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given Activity Manager
@@ -37,6 +39,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         activityManager = new ActivityManager(src);
         filteredTasks = new FilteredList<>(activityManager.getTasks());
+        filteredFloatingTasks = new FilteredList<>(activityManager.getFloatingTasks());
+        filteredEvents = new FilteredList<>(activityManager.getEvents());
     }
 
     public ModelManager() {
@@ -46,6 +50,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyActivityManager initialData, UserPrefs userPrefs) {
         activityManager = new ActivityManager(initialData);
         filteredTasks = new FilteredList<>(activityManager.getTasks());
+        filteredFloatingTasks = new FilteredList<>(activityManager.getFloatingTasks());
+        filteredEvents = new FilteredList<>(activityManager.getEvents());
     }
 
     @Override
@@ -64,6 +70,53 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ActivityManagerChangedEvent(activityManager));
     }
 
+    /**
+     * Methods for Completing an activity
+     */
+    @Override
+    public void completeFloatingTask(int index) {
+        activityManager.completeFloatingTask(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    @Override
+    public void completeTask(int index) {
+        activityManager.completeTask(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override
+    public void completeEvent(int index) {
+        activityManager.completeEvent(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    /**
+     * Methods for Un-completing an activity
+     */
+    @Override
+    public void UncompleteFloatingTask(int index) {
+        activityManager.unCompleteFloatingTask(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public void UncompleteTask(int index) {
+        activityManager.unCompleteTask(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public void UncompleteEvent(int index) {
+        activityManager.unCompleteEvent(index);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
     @Override
     public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
         activityManager.removeTask(target);
@@ -76,6 +129,32 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
+    
+    @Override
+    public synchronized void deleteFloatingTask(ReadOnlyActivity target) throws TaskNotFoundException {
+        activityManager.removeFloatingTask(target);
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public synchronized void addFloatingTask(Activity activity) throws UniqueActivityList.DuplicateTaskException {
+        activityManager.addFloatingTask(activity);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override
+    public synchronized void deleteEvent(ReadOnlyActivity target) throws TaskNotFoundException {
+        activityManager.removeEvent(target);
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public synchronized void addEvent(Activity activity) throws UniqueActivityList.DuplicateTaskException {
+        activityManager.addEvent(activity);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
 
     // =========== Filtered activity List Accessors
     // ===============================================================
@@ -84,10 +163,22 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyActivity> getFilteredFloatingTaskList() {
+        return new UnmodifiableObservableList<>(filteredFloatingTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyActivity> getFilteredEventList() {
+        return new UnmodifiableObservableList<>(filteredEvents);
+    }
 
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+        filteredFloatingTasks.setPredicate(null);
+        filteredEvents.setPredicate(null);
     }
 
     @Override
@@ -97,6 +188,24 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredFloatingTaskList(Set<String> keywords) {
+        updateFilteredFloatingTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredFloatingTaskList(Expression expression) {
+        filteredFloatingTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredEventList(Set<String> keywords) {
+        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredEventList(Expression expression) {
+        filteredEvents.setPredicate(expression::satisfies);
     }
 
     // ========== Inner classes/interfaces used for filtering
@@ -152,5 +261,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
 }
