@@ -71,12 +71,12 @@ Double-click on `TaSc.jar` to start the application. The application window *(fi
 
 ### Using the Interface
 
-Type your command in the command box and press <kbd>Enter</kbd> to execute it.<br> 
+Type your command in the command box and press <kbd>Enter</kbd> to execute it.<br>
 
 You can try some of these example commands:
-   * **`list`** : lists all uncompleted tasks and upcoming events
    * **`add`**` "Do Research" by 21 Sep 5pm` :
-     adds a new task named "Do Research" with the deadline on 21 September, 5pm
+	adds a new task named "Do Research" with the deadline on 21 September, 5pm
+   * **`list`** : lists all uncompleted tasks and upcoming events
    * **`complete`**` 1` : marks the 1st task shown in the current task list as complete
    * **`exit`** : exits the application
 
@@ -124,9 +124,9 @@ You can specify a recurring task/event by using the `repeat` keywords:
 
 <br>
 Finally, tags can be added to tasks for you to categorize them. For example,
-you may choose to use tags as a way to prioritize tasks.
+you may choose to use tags as a way to prioritize or to classify tasks.
 
-`add "CS2101 Submission" by 5 Nov tag "Very Important"`
+`add "CS2101 Submission" by 5 Nov tag "Very Important" tag "CS2101"`
 
 <img src="images/Ui-Add.png" width="600"><br>
 *Figure 3: The `add` command allows you to add a new task easily*
@@ -154,17 +154,27 @@ You may want to view tasks that happen during certain periods:
 You may also want to view tasks that need to be done by a certain time
 and require your attention:
 
-`list by 20 Sep tag "Submissions"`
+`list by 20 Sep`
+
+<br>
+You may also list category of tasks:
+
+`list tag "Submissions"`
 
 <br>
 What about tasks with no deadlines and periods? They are known as
 *floating* tasks, and you can list them using:
 
-`list floating`
+`list floating tasks`
 
 > **Tip:**<br>
-> You can even combine these types:
+> The available types are:
 > `all`, `uncompleted`, `completed`, `period`, `deadline`, `overdue`, `floating`, `recurring`, `events`, `tasks`, and `free time`.
+<br>
+
+You can use a combination of the types:
+
+`list floating tasks completed`
 
 <br>
 Finally, if you need to sort your tasks, enter the following:
@@ -238,23 +248,25 @@ To show your task named "**V0.0 Deliverables**" in **Sep**tember:
 
 ### Changing the details of a task/event: `update`
 
-You have a list of tasks, and you realised that the deadline for 1st task in the list was entered incorrectly (it should have been 20 Sep). You can do an update by using:
+You have a list of tasks, and you realised that there is a typo in the name of the first task. You can correct the typo by typing:
 
-`update 1 by 20 Sep`
+`update 1 name "New Task Name"`
 
 > **Note:**<br>
 > The number used is relative to the position of the task in the list.
 
 <br>
+What if the deadline is wrong? You can change the deadline to 20 Sep by entering this:
+
+`update 3 by 20 Sep`
+
 Any other details of the tasks that you have added can be updated easily (see
-the `add` command section to see the details that tasks can have). For example,
-we can change the name of the 3rd task:
+the `add` command section to see the details that tasks can have).
 
-`update 3 name "New Task Name"`
+<br>
+Or you can add more tags to the task:
 
-Or change the tags of the 4th task:
-
-`update 4 removetag "Important" tag "Low Priority"`
+`update 4 tag "Low Priority"`
 
 Or if the deadline is no longer valid, remove it by adding `remove` before the keyword `by`:
 
@@ -262,7 +274,7 @@ Or if the deadline is no longer valid, remove it by adding `remove` before the k
 
 > **Tip:**<br>
 > This works for any other keywords you may have used in your `add` command,
-> like `removefrom`, `removeto`, `removerepeat`, etc.
+> like `removefrom`, `removeto`, `removerepeat`, `removetag` etc.
 
 <br>
 
@@ -344,7 +356,7 @@ currently named `life.xml` and you would like to rename it to `family.xml`, ente
 ### Relocating the data storage location: `relocate`
 
 For convenience, you may want to move the entire folder, where all your task lists
-are stored, to another location. For example, you want to move your task list into 
+are stored, to another location. For example, you want to move your task list into
 your Dropbox folder so that you can access it on another computer. Presuming your Dropbox
 folder is at `/dropbox/`, you may do so by typing:
 
@@ -354,24 +366,14 @@ folder is at `/dropbox/`, you may do so by typing:
 
 ### Viewing help: `help`
 
-There are so many commands in TaSc, but you don't have to memorise them. 
+There are so many commands in TaSc, but you don't have to memorise them.
 Just open this document anytime again by typing the `help` command:
 
 `help`
 
-> **Tip:**<br>
-> If an invalid command (e.g `abcd`) or parameter is entered,
-> help messages will also be shown in the output box of the
-> program.
-
 <br>
 
 ## Other Features
-### Calendar
-TaSc provides a calendar view for you to visualise your tasks.
-
-<img src="images/Ui-Calendar.png" width="200">
-<br><br>
 
 ### Autocomplete and suggestions
 Shows suggested command keywords, dates, sorting order, and tags as you type.
@@ -387,18 +389,10 @@ and the <kbd>tab</kbd> key to autocomplete with the highlighted keyword.
 TaSc saves automatically after every command that changes the data.
 Don't worry about your data getting lost.
 
-<br>
-
-### Multiple Storage Files
-You can store different schedules on different storage files. Just pass the file name into the program arguments
-when running the program.
-
-<br>
-
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Backup the contents of your current TaSc folder. Install and run `TaSc.jar` on the other computer, 
+**A**: Backup the contents of your current TaSc folder. Install and run `TaSc.jar` on the other computer,
 and a new data file will be created. Overwrite the new data file with the backup you made.
 
 <br>
