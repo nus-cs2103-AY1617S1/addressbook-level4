@@ -92,7 +92,7 @@ public class AddCommand extends Command {
      * @return true only if startTime < endTime
      * @throws IllegalValueException
      */
-    private boolean checkOrderOfDates(String startTime, String endTime) throws IllegalValueException {
+    public static boolean checkOrderOfDates(String startTime, String endTime) throws IllegalValueException {
     	StartTime start = new StartTime(startTime);
     	EndTime end = new EndTime(endTime);
     	
@@ -107,7 +107,7 @@ public class AddCommand extends Command {
      * @return true if both start and end are after the current time
      * @throws IllegalValueException 
      */
-    private boolean taskTimeisAfterCurrentTime(String startTime, String endTime) throws IllegalValueException { 
+    public static boolean taskTimeisAfterCurrentTime(String startTime, String endTime) throws IllegalValueException { 
     	
     	StartTime now = new StartTime("today");
     	
