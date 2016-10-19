@@ -38,8 +38,8 @@ public class StorageManager extends ComponentManager implements Storage {
 
     public StorageManager(String todoListFilePath, String eventListFilePath,
     						String deadlineListFilePath, String userPrefsFilePath) {
-        this(new XmlTodoListStorage(todoListFilePath), new XmlTodoListStorage(eventListFilePath),
-        		new XmlTodoListStorage(deadlineListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+        this(new XmlTodoListStorage(todoListFilePath), new XmlEventListStorage(eventListFilePath),
+        		new XmlDeadlineListStorage(deadlineListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -157,7 +157,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void saveDeadlineList(ReadOnlyTaskList taskList) throws IOException {
-        saveTodoList(taskList, deadlineListStorage.getTaskListFilePath());
+        saveDeadlineList(taskList, deadlineListStorage.getTaskListFilePath());
     }
 
     @Override
