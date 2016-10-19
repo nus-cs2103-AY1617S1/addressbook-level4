@@ -14,7 +14,8 @@ public class Config {
     private String appTitle = "Simply";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/addressbook.xml";
+    //private String addressBookFilePath = "data/addressbook.xml";
+    private String addressBookFilePath = "C:/Users/Ronald/Documents/main/data/addressbook.xml";
     private String addressBookName = "MyAddressBook";
 
 
