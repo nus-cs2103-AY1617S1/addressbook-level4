@@ -38,8 +38,6 @@ public class EditCommand extends Command {
     
     private final String newParamsType;
     
-    private final Activity taskToEdit;
-
     public final Activity newParams;
 
     /**
@@ -50,9 +48,6 @@ public class EditCommand extends Command {
     public EditCommand(int targetIndex, String name, String duedate, String priority, String start, String end, String reminder, Set<String> tags)
             throws IllegalValueException {
         this.targetIndex = targetIndex;
-        
-        UnmodifiableObservableList<Activity> lastShownList = model.getFilteredTaskListForEditing();
-        this.taskToEdit = lastShownList.get(targetIndex - 1);
         
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -88,26 +83,28 @@ public class EditCommand extends Command {
             throw new IllegalValueException(MESSAGE_INVALID_ACTIVITY_TYPE);
         }
         
-        String taskToEditType = taskToEdit.getClass().getSimpleName();
-        
-        if (taskToEditType.equalsIgnoreCase("task") && newParamsType.equalsIgnoreCase("event")
-                || taskToEditType.equalsIgnoreCase("event") && newParamsType.equalsIgnoreCase("task")) {
-            throw new IllegalValueException(MESSAGE_ACTIVITY_MISMATCH);
-        }
     }
 
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<Activity> lastShownList = model.getFilteredTaskListForEditing();
 
+        Activity taskToEdit = lastShownList.get(targetIndex - 1);
+        String taskToEditType = taskToEdit.getClass().getSimpleName();
+
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+        
+        if (taskToEditType.equalsIgnoreCase("task") && newParamsType.equalsIgnoreCase("event")
+                || taskToEditType.equalsIgnoreCase("event") && newParamsType.equalsIgnoreCase("task")) {
+            return new CommandResult(MESSAGE_ACTIVITY_MISMATCH);
+        }
 
         try {
             Activity oldTask = new Activity(taskToEdit);
-            Activity editedTask = new Activity(model.editTask(taskToEdit, newParams));
+            Activity editedTask = model.editTask(taskToEdit, newParams);
 
             PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD, oldTask, editedTask);
             PreviousCommandsStack.push(editCommand);

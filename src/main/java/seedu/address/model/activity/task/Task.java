@@ -73,9 +73,16 @@ public class Task extends Activity implements ReadOnlyTask {
     
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyActivity // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyActivity) other));
+        if (this.getClass() != other.getClass()) {
+            return false;
+        } else {
+            return other == this // short circuit if same object
+                    || (other instanceof ReadOnlyActivity // instanceof handles nulls
+                    && ((Task) other).getName().equals(this.getName()) // state checks here onwards
+                    && ((Task) other).getDueDate().equals(this.getDueDate())
+                    && ((Task) other).getPriority().equals(this.getPriority())
+                    && ((Task) other).getReminder().equals(this.getReminder()));
+        }
     }
     
     @Override

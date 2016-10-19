@@ -1,5 +1,7 @@
 package seedu.address.model.activity;
 
+import java.util.Calendar;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.task.DueDate;
 import seedu.address.model.activity.task.Priority;
@@ -24,16 +26,16 @@ public class ActivityManager {
                 if (newParamsType.equals("task")) {
                     newTask = new Task(
                             updateTaskName(oldTask, newParams, type),
-                            updateDueDate((Task) oldTask, newParams, type),
-                            updatePriority((Task) oldTask, newParams, type),
+                            updateDueDate(oldTask, newParams, type),
+                            updatePriority(oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),
                             updateTags(oldTask, newParams)
                             );
                 } else if (newParamsType.equals("event")) {
                     newTask = new Event(
                             updateTaskName(oldTask, newParams, type),
-                            updateStartTime((Event) oldTask, newParams, type),
-                            updateEndTime((Event) oldTask, newParams, type),
+                            updateStartTime(oldTask, newParams, type),
+                            updateEndTime(oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),
                             updateTags(oldTask, newParams)
                             );
@@ -85,15 +87,19 @@ public class ActivityManager {
         return newTaskName;
     }
 
-    private static DueDate updateDueDate(Task oldTask, Activity newParams, String type) throws IllegalValueException {
+    private static DueDate updateDueDate(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         DueDate newDueDate;
         
         if (!newParams.getClass().getSimpleName().equalsIgnoreCase("task")) {
-            return new DueDate(oldTask.getDueDate().getCalendarValue());
+            return new DueDate(((Task) oldTask).getDueDate().getCalendarValue());
         }
 
         if (((Task) newParams).getDueDate().toString().equals(NULL_ENTRY)&& type == "edit") {
-            newDueDate = new DueDate(oldTask.getDueDate().getCalendarValue());
+            if (oldTask.getClass().getSimpleName().equalsIgnoreCase("activity")) {
+                newDueDate = new DueDate("");
+            } else {
+                newDueDate = new DueDate(((Task) oldTask).getDueDate().getCalendarValue());
+            }
         } else {
             newDueDate = new DueDate(((Task) newParams).getDueDate().getCalendarValue());
         }
@@ -101,15 +107,19 @@ public class ActivityManager {
         return newDueDate;
     }
 
-    private static Priority updatePriority(Task oldTask, Activity newParams, String type) throws IllegalValueException {
+    private static Priority updatePriority(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         Priority newPriority;
         
         if (!newParams.getClass().getSimpleName().equalsIgnoreCase("task")) {
-            return new Priority(oldTask.getPriority().toString());
+            return new Priority(((Task) oldTask).getPriority().toString());
         }
 
         if (((Task) newParams).getPriority().toString().equals(NULL_ENTRY)&& type == "edit") {
-            newPriority = new Priority(oldTask.getPriority().toString());
+            if (oldTask.getClass().getSimpleName().equalsIgnoreCase("activity")) {
+                newPriority = new Priority("0");
+            } else {
+                newPriority = new Priority(((Task) oldTask).getPriority().toString());
+            }
         } else {
             newPriority = new Priority(((Task) newParams).getPriority().toString());
         }
@@ -128,16 +138,22 @@ public class ActivityManager {
 
         return newReminder;
     }
+    
+    //Handle wrong time format in event instead of here?
 
-    private static StartTime updateStartTime(Event oldTask, Activity newParams, String type) {
+    private static StartTime updateStartTime(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         StartTime newStartTime;
         
         if (!newParams.getClass().getSimpleName().equalsIgnoreCase("event")) {
-            return new StartTime(oldTask.getStartTime().getCalendarValue());
+            return new StartTime(((Event) oldTask).getStartTime().getCalendarValue());
         }
 
         if (((Event) newParams).getStartTime().toString().equals(NULL_ENTRY)&& type == "edit") {
-            newStartTime = new StartTime(oldTask.getStartTime().getCalendarValue());
+            if (oldTask.getClass().getSimpleName().equalsIgnoreCase("activity")) {
+                newStartTime = new StartTime("");
+            } else {
+                newStartTime = new StartTime(((Event) oldTask).getStartTime().getCalendarValue());
+            }
         } else {
             newStartTime = new StartTime(((Event) newParams).getStartTime().getCalendarValue());
         }
@@ -145,15 +161,19 @@ public class ActivityManager {
         return newStartTime;
     }
 
-    private static EndTime updateEndTime(Event oldTask, Activity newParams, String type) {
+    private static EndTime updateEndTime(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         EndTime newEndTime;
         
         if (!newParams.getClass().getSimpleName().equalsIgnoreCase("event")) {
-            return new EndTime(oldTask.getEndTime().getCalendarValue());
+            return new EndTime(((Event) oldTask).getEndTime().getCalendarValue());
         }
 
         if (((Event) newParams).getEndTime().toString().equals(NULL_ENTRY)&& type == "edit") {
-            newEndTime = new EndTime(oldTask.getEndTime().getCalendarValue());
+            if (oldTask.getClass().getSimpleName().equalsIgnoreCase("activity")) {
+                newEndTime = new EndTime("20-10-2016 1200", ""); //what to put as starttime?
+            } else {
+                newEndTime = new EndTime(((Event) oldTask).getEndTime().getCalendarValue());
+            }
         } else {
             newEndTime = new EndTime(((Event) newParams).getEndTime().getCalendarValue());
         }

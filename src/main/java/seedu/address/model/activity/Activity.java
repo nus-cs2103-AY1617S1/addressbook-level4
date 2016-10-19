@@ -72,9 +72,13 @@ public class Activity implements ReadOnlyActivity {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyActivity // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyActivity) other));
+        if (this.getClass() != other.getClass()) {
+            return false;
+        } else {
+            return other == this // short circuit if same object
+                    || (other instanceof ReadOnlyActivity // instanceof handles nulls
+                    && this.isSameStateAs((ReadOnlyActivity) other));
+        }
     }
 
     @Override

@@ -10,6 +10,7 @@ import seedu.address.model.activity.Reminder;
 import seedu.address.model.activity.task.DueDate;
 import seedu.address.model.activity.task.Priority;
 import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.UniqueTagList;
 
 public class Event extends Activity implements ReadOnlyEvent{
@@ -77,9 +78,16 @@ public class Event extends Activity implements ReadOnlyEvent{
     
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyActivity // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyActivity) other));
+        if (this.getClass() != other.getClass()) {
+            return false;
+        } else {
+            return other == this // short circuit if same object
+                    || (other instanceof ReadOnlyActivity // instanceof handles nulls
+                    && ((Event) other).getName().equals(this.getName()) // state checks here onwards
+                    && ((Event) other).getStartTime().equals(this.getStartTime())
+                    && ((Event) other).getEndTime().equals(this.getEndTime())
+                    && ((Event) other).getReminder().equals(this.getReminder()));
+        }
     }
     
     @Override

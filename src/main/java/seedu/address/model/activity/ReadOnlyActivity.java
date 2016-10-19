@@ -30,10 +30,16 @@ public interface ReadOnlyActivity {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyActivity other) {
-        return other == this // short circuit if same object
-                || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getReminder().equals(this.getReminder()));
+        if (this.getClass() != other.getClass()) {
+            return false;
+        } else if (!(this.getClass().getSimpleName().equalsIgnoreCase("activity") && other.getClass().getSimpleName().equalsIgnoreCase("activity"))) {
+            return this.equals(other);
+        } else {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName()) // state checks here onwards
+                    && other.getReminder().equals(this.getReminder()));
+        }
     }
 
     /**

@@ -42,6 +42,8 @@ public class Parser {
             Pattern.compile("(?<task>(?: n/[^/]+)?)"
                     + "(?<duedate>(?: d/[^/]+)?)"
                     + "(?<priority>(?: p/[^/]+)?)"
+                    + "(?<start>(?: s/[^/]+)?)"
+                    + "(?<end>(?: e/[^/]+)?)"
                     + "(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
