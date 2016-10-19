@@ -107,15 +107,18 @@ Format: `redo`
 
 #### Change working directory : `directory`
 Change data file being accessed, effectively using another TaskManager list.<br>
+A manual restart of the application is required, thus TaskManager will close itself.
 Format: `directory PATH`  
 Examples: 
 * `directory C:/Documents and Settings/User/Desktop/TaskManager2`
+* `directory data/olddata`
 
 #### Backup : `backup`
 Save a copy of the current TaskManager data file into the specified directory.<br>
 Format: `backup PATH`  
 Examples: 
 * `backup C:/Documents and Settings/User/Desktop/TaskManagerBackup`
+* `backup data/backup/backup1`
 
 #### Clearing all entries : `clear`
 Clears all entries from the TaskManager.<br>
@@ -135,7 +138,8 @@ There is no need to save manually.
 
 ## FAQ
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TaskManager folder.
+**A**: Install the app in the other computer and replace the new data file it creates with the file that contains the data of your previous TaskManager folder.
+Default: data/taskmanager.xml
        
 ## Command Summary
 Command | Format  
