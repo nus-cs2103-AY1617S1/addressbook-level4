@@ -13,8 +13,13 @@ import com.joestelmach.natty.*;
 
 
 /**
+<<<<<<< HEAD
+ * Represents a task's address in the task manager.
+ * Guarantees: immutable; is valid as declared in {@link #isValidEndTime(String)}
+=======
  * Represents a Task's end time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
+>>>>>>> 6979c6e09aa589b563edc008506e7fc11f772466
  */
 public class EndTime {
     

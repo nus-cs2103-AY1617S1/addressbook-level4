@@ -8,6 +8,7 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -27,6 +28,12 @@ public interface Model {
     
     /** Edits the given task */
     void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd) throws TaskNotFoundException, IllegalValueException;
+    
+    /** Marks the given task as done */
+    void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Marks the given task as undone */
+    void undoneTask (ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
     /** Saves the current task manager*/
     void saveToHistory();
@@ -48,5 +55,7 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    void updateFilteredTaskListToShow(Predicate<Task> predicate);
 
 }

@@ -14,6 +14,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.*;
+import seedu.address.model.task.Task;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -24,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -62,9 +64,12 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+        
+        model.updateFilteredTaskListToShow(isNotDone());
     }
 
-    private String getApplicationParameter(String parameterName){
+
+	private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
     }
@@ -184,5 +189,9 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    public static Predicate<Task> isNotDone() {
+    	return t -> t.getDone().equals("false");
     }
 }

@@ -73,8 +73,9 @@ public class Parser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ShowCommand.COMMAND_WORD:
+        	return prepareShow(arguments);
+
             
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
@@ -87,12 +88,34 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+        
+        case DoneCommand.COMMAND_WORD:
+        	return prepareDone(arguments);
+            
+        case UndoneCommand.COMMAND_WORD:
+        	return prepareUndone(arguments);
+        	
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
+    
+    private Command prepareShow(String args){
+    	args = args.trim();
+    	if(args.equals("done")) {
+    		return new ShowDoneCommand();
+    	}
+    	
+    	else if(args.equals("all")) {
+    		return new ShowAllCommand();
+    	}
+    	else if (args.equals("")) {
+    		return new ShowCommand();
+    	}
+    	else
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+    }
+    
     private Command prepareEdit(String args) {
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
         String name, startTime, endTime;
@@ -132,7 +155,7 @@ public class Parser {
         		System.out.println(endTime);
 	            return new AddCommand(
 	                    matcher.group("name").replace('\\', '\0'),
-	                    "",
+	                    "false",
 	                    startTime,
 	                    endTime,
 	                    getTagsFromArgs(matcher.group("tagArguments"))
@@ -171,6 +194,35 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the done command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    
+    private Command prepareDone(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(index.get());
+    }
+    
+    private Command prepareUndone(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoneCommand.MESSAGE_USAGE));
+        }
+
+        return new UndoneCommand(index.get());
     }
 
     /**

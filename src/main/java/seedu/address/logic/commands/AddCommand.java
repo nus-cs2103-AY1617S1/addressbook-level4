@@ -23,10 +23,10 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME d/DATE s/START e/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
+            + "Parameters: TASKNAME d/DATE s/START e/END  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe d/98765432 s/johnd@gmail.com e/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " Homework d/98765432 s/10:00pm e/11:00pm";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";

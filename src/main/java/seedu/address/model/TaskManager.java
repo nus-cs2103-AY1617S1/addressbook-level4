@@ -115,6 +115,14 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public void doneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
+    	tasks.done(task);
+    }
+    
+    public void undoneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
+    	tasks.undone(task);
+    }
 
     public void editTaskName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.setTaskName(task, new Name(newInfo));
