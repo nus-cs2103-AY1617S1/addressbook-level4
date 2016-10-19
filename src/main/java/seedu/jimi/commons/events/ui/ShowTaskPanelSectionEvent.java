@@ -9,7 +9,7 @@ import seedu.jimi.commons.events.BaseEvent;
  */
 public class ShowTaskPanelSectionEvent extends BaseEvent{
 
-    String sectionToDisplay;
+    public final String sectionToDisplay;
     
     public ShowTaskPanelSectionEvent(String sectionToDisplay) {
         this.sectionToDisplay = sectionToDisplay;
