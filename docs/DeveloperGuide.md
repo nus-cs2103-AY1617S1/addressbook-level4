@@ -44,7 +44,7 @@
 
 ## Introduction
 
-TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events with options like deadline, recurrence, and tags. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
+TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events. Users can schedule their tasks with deadlines and periods, and use tags to categorize them. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
 
 This guide contains all necessary information for both new and experienced contributors to continue the development of TaSc. Each section provides an overview on a topic, which will then be explained in greater detail in the subsections. Each subsection is mostly self contained for ease of reference. Throughout your development of TaSc you may freely revisit the topics as and when you need to.
 <br><br>
@@ -55,44 +55,43 @@ This guide contains all necessary information for both new and experienced contr
 
 a. **JDK `1.8.0_60`**  or later<br>
 
-    > **Note:**<br>
-    > Having any Java 8 version is not enough. <br>
-    > This app will not work with earlier versions of Java 8.
+> **Note:**<br>
+> Having any Java 8 version is not enough. <br>
+> This app will not work with earlier versions of Java 8.
 
-b. **Eclipse** IDE
-c. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+b. **Eclipse** IDE<br>
+c. **e(fx)clipse** plugin from the Eclipse Marketplace<br>
 d. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 <br>
 
 #### Importing the project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
+0. Fork this repo, and clone the fork to your computer.
 1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
-   in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+   in the prerequisites above).
+2. Click `File` > `Import`.
+3. Click `Gradle` > `Gradle Project` > `Next` > `Next`.
+4. Click `Browse`, then locate the project's directory.
+5. Click `Finish`.
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+> **Note:**
+> * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+> * Depending on your connection speed and server load, it can take up to 30 minutes for the set up to finish (This is because Gradle downloads library files from servers during the project set up process)
+> * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 <br>
 
 #### Troubleshooting
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull.
-* Solution: Refresh the project in Eclipse:<br>
+* **Reason:** Eclipse fails to recognize new files that appeared due to the Git pull.
+* **Solution:** Refresh the project in Eclipse:<br>
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
 
 **Problem: Eclipse reports some required libraries missing**
-* Reason: Required libraries may have not been downloaded during the project import.
-* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
+* **Reason:** Required libraries may have not been downloaded during the project import.
+* **Solution:** [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
 
 <br>
 
@@ -113,19 +112,19 @@ A quick overview of each component is given below:
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design).
+* `LogsCenter` : This class is used by many classes to write log messages to the App's log file.
 <br><br>
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : Allows users to interact with the program
-* [**`Logic`**](#logic-component) : Executes commands
+* [**`UI`**](#ui-component) : Allows users to interact with the program.
+* [**`Logic`**](#logic-component) : Executes commands.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from and writes data to the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* defines its _API_ in an `interface` with the same name.
+* exposes its functionality using a `{Component Name}Manager` class.
 <br><br>
 
 For example, the **`Logic`** component (see the class diagram in *figure 2* below) defines its API in the `Logic.java`
@@ -138,7 +137,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact when the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeleteTask.png" width="800">
+<img src="images\SDforDeleteTask.png" width="800"><br>
 *Figure 3: Sequence Diagram of user interaction*
 
 >Notice how the **`Model`** simply raises a `TaskListChangedEvent` when the TaSc data are changed,
@@ -148,7 +147,7 @@ command `delete 3`.
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+<img src="images\SDforDeleteTaskEventHandling.png" width="800"><br>
 *Figure 4: Sequence Diagram of EventsCenter*
 
 > Note how the event is propagated through the `EventsCenter` to the **`Storage`** and **`UI`** without **`Model`** having
@@ -206,10 +205,8 @@ The `HelpWindow` is a window separate from the `MainWindow`. It shows our produc
 
 **API** : [`Logic.java`](../src/main/java/teamfour/tasc/logic/Logic.java)
 
-1. **`Logic`** uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the **`Model`** (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+ **`Logic`** uses the `Parser` class to parse the user command. This results in a `Command` object which is executed by the `LogicManager`. The command execution can affect the **`Model`** (e.g. adding a task) and/or raise events.
+ The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 <br><br>
 
 Given below *(figure 8)* is the Sequence Diagram for interactions within the **`Logic`** component for the `execute("delete 1")`
@@ -258,11 +255,11 @@ The `Command` class takes input arguments from the `Parser`class, and produces a
 **API** : [`Model.java`](../src/main/java/teamfour/tasc/model/Model.java)
 
 The **`Model`**
-* Stores a `UserPref` object that contains the user's preferences.
-* Stores task list's data.
-* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
+* stores a `UserPref` object that contains the user's preferences.
+* stores task list's data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
-* Does not depend on any of the other three components.
+* does not depend on any of the other three components.
     * However, other components are heavily dependent on this component.
 <br><br>
 
@@ -360,9 +357,9 @@ The `UniqueTaskList` class provides a task list with no duplicate tasks.
 **API** : [`Storage.java`](../src/main/java/teamfour/tasc/storage/Storage.java)
 
 The **`Storage`** component
-* Saves `UserPref` objects in json format and read it back.
-* Saves the task list data in xml format and read it back.
-* Depends on the **`Model`** component, but the **`Logic`** and **`UI`** components depend on it.
+* saves `UserPref` objects in json format and reads it back.
+* saves `TaskList` in xml format and reads it back.
+* depends on the **`Model`** component, but the **`Logic`** and **`UI`** components depend on it.
 <br><br>
 
 **`Storage` Interface:**
@@ -418,23 +415,23 @@ We are using the `java.util.logging` package for logging. The `LogsCenter` class
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
+  (See [Configuration](#configuration)).
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level
+  the specified logging level.
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
 
-* `SEVERE` : Critical problems detected, which may cause the application to terminate
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing noteworthy actions by the App
+* `SEVERE` : Critical problems which may cause the application to terminate
+* `WARNING` : Advice of errors in the application that does not cause the application to terminate
+* `INFO` : Information showing noteworthy actions by the application
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 <br><br>
 
 ### Configuration
 
-You can control certain properties of the application (e.g App name, logging level) through the configuration file
+You can control certain properties of the application (e.g Application name, logging level) through the configuration file
 (default: `config.json`):
 
 <br>
@@ -487,7 +484,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
 
 ### Build Automation
 
-See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+We use Gradle to perform *Build Automation*. See [UsingGradle.md](UsingGradle.md) for more details.
 
 ### Continuous Integration
 
@@ -499,7 +496,7 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 Here are the steps to create a new release.
 
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
- 2. Tag the repo with the version number. e.g. `v0.1`
+ 2. Tag the repo with the version number. e.g. `v0.1`.
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
 
@@ -508,9 +505,7 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. For example, TaSc depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives:<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+is better than including libraries in our project repository (which will bloat the repository size), or requiring developers to download the libraries manually.
 
 <br>
 
@@ -796,7 +791,7 @@ Weaknesses:
 Summary:
 
 The calendar view is a useful feature to help users visualize their schedules. On the other hand,
-the lack of ability to add floating tasks may cause inconvenience to users. 
+the lack of ability to add floating tasks may cause inconvenience to users.
 
 Our Program:
 
