@@ -79,4 +79,12 @@ public class DateTimeParserTest {
         assertEquals(recurEndDateTime, parser.getRecurEnd());
     }
     
+    @Test
+    public void extractNonRecurringEventDetails() {
+        String input = "on fifth of november at 5pm";
+        DateTimeParser parser = new DateTimeParser(input);
+
+        assertEquals(false, parser.isRecurring());
+    }
+    
 }
