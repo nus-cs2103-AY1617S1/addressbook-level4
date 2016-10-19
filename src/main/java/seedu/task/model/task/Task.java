@@ -1,65 +1,67 @@
 package seedu.task.model.task;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Objects;
 
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.model.tag.UniqueTagList;
 
 /**
  * Represents a Task in the task list.
- * Guarantees: details are present and not null, field values are validated.
+ * Guarantees: field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    //private DateTime openTime;
-    //private DateTime closeTime;
-    //private boolean isImportant;
+    private DateTime openTime;
+    private DateTime closeTime;
 
     private UniqueTagList tags;
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
+
 
     /**
-     * Every field must be present and not null.
+     * Assigns instance variables
+     * @throws IllegalValueException if DateTime pair is invalid
      */
-    public Task(Name name, UniqueTagList tags) {
-        // open time, urgent, and close time can be null
+    public Task(Name name, DateTime openTime, DateTime closeTime, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
-        //TODO: set default values
-        //this.openTime = openTime;
-        //this.closeTime = closeTime;
-        //this.isImportant = isImportant;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        if (!isValidDateTimePair()) {
+            throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
+        }
+    }
+    /**
+     * Checks if openTime is before closeTime
+     * @return
+     */
+    private boolean isValidDateTimePair() {
+        if( openTime.getDateTimeValue().isPresent() && closeTime.getDateTimeValue().isPresent()) {
+            Instant openTimeValue = openTime.getDateTimeValue().get();
+            Instant closeTimeValue = closeTime.getDateTimeValue().get();
+            return openTimeValue.isBefore(closeTimeValue);
+        } else {
+            return true;
+        }
     }
 
     /**
      * Copy constructor.
+     * @throws IllegalValueException 
      */
-    public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+    public Task(ReadOnlyTask source) throws IllegalValueException {
+        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
     }
-    /**
-    @Override
-    public DateTime getOpenTime() {
-        return openTime;
-    }
 
-    @Override
-    public DateTime getCloseTime() {
-        return closeTime;
-    }
-
-    @Override
-    public boolean getImportance() {
-        return isImportant;
-    }
-    **/
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -89,6 +91,16 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public DateTime getOpenTime() {
+        return this.openTime;
+    }
+
+    @Override
+    public DateTime getCloseTime() {
+         return this.closeTime;
     }
 
 }
