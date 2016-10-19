@@ -50,14 +50,14 @@ public class Parser {
      */
     private static final Pattern task_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)"
-                    + "(?<targetIndex>.+)"
+                    + " (?<targetIndex>.+)"
                     + " n/(?<name>.+)"
                     + " d/(?<date>[^/]+)"
                     + " p/(?<priority>[^/]+)");
     
     private static final Pattern event_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)"
-                    + "(?<targetIndex>.+)"
+                    + " (?<targetIndex>.+)"
                     + " n/(?<name>.+)"
                     + " d/(?<date>[^/]+)"
                     + " s/(?<startTime>[^/]+)"
@@ -65,7 +65,7 @@ public class Parser {
     
     private static final Pattern deadline_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)"
-                    + "(?<targetIndex>.+)"
+                    + " (?<targetIndex>.+)"
                     + " n/(?<name>.+)"
                     + " d/(?<date>[^/]+)"
                     + " e/(?<endTime>[^/]+)");
@@ -265,12 +265,11 @@ public class Parser {
         final Matcher matcher_task = task_EDIT_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher_event = event_EDIT_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher_deadline = deadline_EDIT_ARGS_FORMAT.matcher(args.trim());
-        Optional<Integer> index = parseIndex(args);
         Optional<String> dataType = parseDataType(args);
-//        if (!dataType.isPresent()) {
-//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-//                    EditCommand.MESSAGE_USAGE));
-//        }
+        if (!dataType.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE));
+        }
 
         if(dataType.get() == "todo") {
            try {
@@ -278,7 +277,7 @@ public class Parser {
                         matcher_task.group("name"),
                         matcher_task.group("date"),
                         Integer.parseInt(matcher_task.group("priority")),
-                        index.get()
+                        Integer.parseInt(matcher_task.group("targetIndex"))
                 );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -290,7 +289,7 @@ public class Parser {
                         matcher_event.group("date"),
                         matcher_event.group("startTime"),
                         matcher_event.group("endTime"),
-                        index.get()
+                        Integer.parseInt(matcher_event.group("targetIndex"))
                 );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -301,7 +300,7 @@ public class Parser {
                         matcher_deadline.group("name"),
                         matcher_deadline.group("date"),
                         matcher_deadline.group("endTime"),
-                        index.get()
+                        Integer.parseInt(matcher_deadline.group("targetIndex"))
                 );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
