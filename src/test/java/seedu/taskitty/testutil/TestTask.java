@@ -40,6 +40,10 @@ public class TestTask implements ReadOnlyTask {
     public void setEndTime(TaskTime endTime) {
         this.endTime = endTime;
     }
+    
+    public void setNumArgs(int numArgs) {
+        this.numArgs = numArgs;
+    }
 
     @Override
     public Name getName() {

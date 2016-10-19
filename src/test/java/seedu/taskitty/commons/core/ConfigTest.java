@@ -13,8 +13,8 @@ import static org.junit.Assert.assertTrue;
 public class ConfigTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    /*@Test
+/*
+    @Test
     public void toString_defaultObject_stringReturned() {
         String defaultConfigAsString = "App title : TasKitty\n" +
                 "Current log level : INFO\n" +

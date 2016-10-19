@@ -25,12 +25,14 @@ public class SelectCommandTest extends TaskManagerGuiTest {
         assertPersonSelected(middleIndex); //assert previous selection remains
         
         /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
-   /* }
+    /*}
 
     @Test
     public void selectPerson_emptyList(){
         commandBox.runCommand("clear");
-        assertListSize(0);
+        assertTodoListSize(0);
+        assertDeadlineListSize(0);
+        assertEventListSize(0);
         assertSelectionInvalid(1); //invalid index
     }
 

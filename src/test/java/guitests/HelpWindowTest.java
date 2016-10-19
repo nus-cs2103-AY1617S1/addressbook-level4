@@ -1,16 +1,19 @@
 package guitests;
 
 import guitests.guihandles.HelpWindowHandle;
+import seedu.taskitty.model.task.Task;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
 public class HelpWindowTest extends TaskManagerGuiTest {
-/*
+
     @Test
     public void openHelpWindow() {
 
-        taskListPanel.clickOnListView();
+        //click anywhere on the app
+        taskListPanel.clickOnListView(Task.TASK_COMPONENT_COUNT);
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
@@ -23,5 +26,5 @@ public class HelpWindowTest extends TaskManagerGuiTest {
     private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
         assertTrue(helpWindowHandle.isWindowOpen());
         helpWindowHandle.closeWindow();
-    }*/
+    }
 }

@@ -6,24 +6,24 @@
     <tasks>
 	<name>Submit Proposal</name>
 	<date>08/10/2016</date>
-	<endTime>1730</endTime>
+	<endTime>17:30</endTime>
     </tasks>
     <tasks>
        	<name>Presentation</name>
       	<date>11/10/2016</date>
-	<startTime>1400</startTime>
-	<endTime>1700</endTime>
+	<startTime>14:00</startTime>
+	<endTime>17:00</endTime>
     </tasks>
     <tasks>
         <name>Meeting on with sales dept</name>
       	<date>16/10/2016</date>
-	<startTime>0800</startTime>
-	<endTime>1100</endTime>
+	<startTime>08:00</startTime>
+	<endTime>11:00</endTime>
     </tasks>
     <tasks>
        	<name>Buy new suit for work</name>
 	<date>01/11/2016</date>
-	<endTime>2200</endTime>
+	<endTime>22:00</endTime>
     </tasks>
     <tasks>
         <name>Read Clean Code</name>
@@ -31,17 +31,17 @@
     <tasks>
        	<name>Date with Mary</name>
       	<date>15/10/2016</date>
-	<startTime>1800</startTime>
-	<endTime>2200</endTime>
+	<startTime>18:00</startTime>
+	<endTime>22:00</endTime>
     </tasks>
     <tasks>
        	<name>Finalise product design</name>
       	<date>25/10/2016</date>
-	<endTime>1300</endTime>
+	<endTime>13:00</endTime>
     </tasks>
     <tasks>
        	<name>Product release</name>
       	<date>18/11/2016</date>
-	<endTime>0000</endTime>
+	<endTime>00:00</endTime>
     </tasks>
 </taskmanager>

@@ -2,30 +2,38 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.taskitty.testutil.TestTaskList;
+
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends TaskManagerGuiTest {
-/*
+
     @Test
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
+        TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
+        assertTrue(currentList.isListMatching(taskListPanel));
         assertClearCommandSuccess();
+        currentList.clear();
 
         //verify other commands can work after a clear command
         commandBox.runCommand(td.todo.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.todo));
+        currentList.addTaskToList(td.todo);
+        assertTrue(currentList.isListMatching(taskListPanel));
         commandBox.runCommand("delete 1");
-        assertListSize(0);
+        assertTodoListSize(0);
 
         //verify clear command works when the list is empty
         assertClearCommandSuccess();
+        currentList.clear();
     }
 
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
-        assertListSize(0);
+        assertTodoListSize(0);
+        assertDeadlineListSize(0);
+        assertEventListSize(0);
         assertResultMessage("Task manager has been cleared!");
-    }*/
+    }
 }

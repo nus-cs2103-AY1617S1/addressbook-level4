@@ -8,31 +8,33 @@ import org.junit.Test;
 
 import seedu.taskitty.logic.commands.UndoCommand;
 import seedu.taskitty.testutil.TestTask;
+import seedu.taskitty.testutil.TestTaskList;
 import seedu.taskitty.testutil.TestUtil;
 
 public class UndoCommandTest extends TaskManagerGuiTest {
     /*
-    Stack<TestTask[]> testTaskList;
+    Stack<TestTaskList> testTaskList;
     
     @Test
     public void undo() {
-        testTaskList = new Stack<TestTask[]>();
-        testTaskList.push(td.getTypicalTasks());
+        testTaskList = new Stack<TestTaskList>();
+        testTaskList.push(new TestTaskList(td.getTypicalTasks()));
         TestTask taskToAdd = td.todo;
         testTaskList.push(addTask(taskToAdd, testTaskList.peek()));
-        testTaskList.push(deleteTask(testTaskList.get(1).length / 2, testTaskList.peek()));
+        //testTaskList.push(deleteTask(testTaskList.get(1).length / 2, testTaskList.peek()));
         commandBox.runCommand("clear");
         assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        testTaskList.push(TestUtil.addPersonsToList(testTaskList.peek(), taskToAdd));
-        commandBox.runCommand("find xmas");
-        testTaskList.push(new TestTask[]{td.shop, td.dinner});
-        TestTask taskToEdit = td.event;
-        editTask(1, taskToEdit, testTaskList.peek());                   
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertUndoSuccess(testTaskList.pop());
-        assertNoMoreUndos();        
+        //assertUndoSuccess(testTaskList.pop());
+        //testTaskList.push(TestUtil.addPersonsToList(testTaskList.peek(), taskToAdd));
+        //commandBox.runCommand("find xmas");
+        //TestTask[] expectedList = { td.shop, td.dinner };
+        //testTaskList.push(new TestTaskList(expectedList));
+        //TestTask taskToEdit = td.event;
+        //editTask(1, taskToEdit, testTaskList.peek());                   
+        //assertUndoSuccess(testTaskList.pop());
+        //assertUndoSuccess(testTaskList.pop());
+        //assertUndoSuccess(testTaskList.pop());
+        //assertNoMoreUndos();        
     }
     
     @Test
@@ -46,9 +48,10 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         assertNoMoreUndos(); 
     }
     
-    private TestTask[] addTask(TestTask taskToAdd, TestTask[] list) {
-        TestTask[] resultList = TestUtil.addPersonsToList(list, taskToAdd);
+    private TestTaskList addTask(TestTask taskToAdd, TestTaskList list) {
+        TestTaskList resultList = list.copy();
         commandBox.runCommand(taskToAdd.getAddCommand());
+        resultList.addTaskToList(taskToAdd);
         return resultList;
     }
     
@@ -58,16 +61,17 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         return resultList;
     }
     
-    private TestTask[] deleteTask(int targetIndex, TestTask[] list) {
-        TestTask[] resultList = TestUtil.removePersonFromList(list, targetIndex);
+    private TestTaskList deleteTask(int targetIndex, TestTaskList list) {
+        TestTaskList resultList = list.copy();
+        //TODO remove
         commandBox.runCommand("delete " + targetIndex);
         return resultList;
     }
     
-    private void assertUndoSuccess(TestTask... expectedList) {
+    private void assertUndoSuccess(TestTaskList expectedList) {
         commandBox.runCommand("undo");
 
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        assertTrue(expectedList.isListMatching(taskListPanel));
         
         assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS);
     }
