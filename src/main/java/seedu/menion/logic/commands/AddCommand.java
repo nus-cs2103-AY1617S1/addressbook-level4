@@ -63,7 +63,6 @@ public class AddCommand extends Command {
             endTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_ENDTIME));
             this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status);
         }
-      //  this.eventStub = new EventStub(activityDetails);
     }
 
     @Override

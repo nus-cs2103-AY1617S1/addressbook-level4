@@ -2,6 +2,7 @@ package seedu.menion.model.activity;
 
 import java.util.ArrayList;
 
+
 /**
  * A read-only immutable interface for a Task in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
@@ -15,7 +16,7 @@ public interface ReadOnlyActivity {
     // Floating Task parameters
     ActivityName getActivityName();   
     Note getNote();
-    
+
     // Task additional parameters, on top of Floating Task
     ActivityDate getActivityStartDate();
     ActivityTime getActivityStartTime();
@@ -26,6 +27,7 @@ public interface ReadOnlyActivity {
     
     // Finding Activity Type; Can be a Floating Task, Task, or Event
     String getActivityType();
+
     
     // Gets the state of completion of an activity.
     Completed getActivityStatus();
@@ -38,6 +40,15 @@ public interface ReadOnlyActivity {
     void setUncompleted();
 
     void setActivityDetails();
+    
+
+    /**
+     * @author Marx Low A0139164A
+     * Methods to set the Activity's Param 
+     * @param the String of the new change to make.
+     */
+    void setActivityName(String newName);
+    void setActivityNote(String newNote);
     
     
     /**
@@ -136,4 +147,5 @@ public interface ReadOnlyActivity {
                 .append(getActivityStatus().toString());
         return builder.toString();
     }
+
 }

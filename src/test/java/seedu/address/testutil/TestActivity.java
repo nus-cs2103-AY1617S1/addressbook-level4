@@ -224,4 +224,16 @@ public class TestActivity implements ReadOnlyActivity {
     public Activity get() {
         return null;
     }
+
+	@Override
+	public void setActivityName(String newName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setActivityNote(String newNote) {
+		// TODO Auto-generated method stub
+		
+	}
 }
