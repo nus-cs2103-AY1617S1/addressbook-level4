@@ -19,7 +19,7 @@ import seedu.cmdo.model.task.Task;
 import seedu.cmdo.model.task.UniqueTaskList;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to CMDo.
  */
 public class AddCommand extends Command {
 
@@ -31,7 +31,7 @@ public class AddCommand extends Command {
             + " bring dog to the vet on Thursday at noon /high -dog";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in CMDo";
 
     private final Task toAdd;
 
