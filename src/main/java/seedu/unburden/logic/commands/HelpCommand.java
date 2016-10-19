@@ -11,14 +11,6 @@ public class HelpCommand extends Command {
 
 	public static final String COMMAND_WORD = "help";
 
-	public static final String add = "add";
-
-	public static final String delete = "delete";
-
-	public static final String edit = "edit";
-
-	public static final String find = "find";
-
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n" + "Example: "
 			+ COMMAND_WORD;
 
@@ -27,14 +19,20 @@ public class HelpCommand extends Command {
 			+ "e/ \"your end time (optional)\" \n" + "t/ \"your tags (optional)\" \n";
 
 	public static final String HELP_MESSAGE_DELETE = "To delete a task, type: \n"+"\"list\" to list out all tasks \n"
-			+ "\"delete\" \'index of the task to be delete\'\" \n";
+			+ "\"delete\" \'index of the task to be delete\' \" \n";
 
-	public static final String HELP_MESSAGE_FIND = "To find a task, type: \"find \'name of task\'\" \n"
+	public static final String HELP_MESSAGE_FIND = "To find a task, type: \"find \'name of task\' \" \n"
 			+ "OR type: \"find \'deadline of task\' \" \n" + "OR type: \"find today\" to find tasks due today \n"
 			+ "OR type: \"find tomorrow\" to find tasks due tomorrow\n";
 
-	public static final String HELP_MESSAGE_EDIT = "To find a task, type: \n"+"\"edit \'index of task\'\" \n"
+	public static final String HELP_MESSAGE_EDIT = "To find a task, type: \n"+"\"edit \'index of task\' \" \n"
 			+ "d/ \"your new deadline(optional)\" \n" + "s/ \"your new start time\" \n" + "e/ \"your new end time\" \n";
+	
+	public static final String HELP_MESSAGE_CLEAR = "To delete all tasks from Unburden, type \"clear\" ";
+	
+	public static final String HELP_MESSAGE_EXIT = "To exit Unburden, type \"exit\" ";
+	
+	public static final String HELP_MESSAGE_LIST = "To list out all exisiting tasks in address in Unburden, type \"list\" ";
 
 	public static final String HELP_MESSAGE_HELP = "List of commands: \n"
 			+ "1) Add : Allows you to add a task to Unburden \n"
@@ -56,14 +54,20 @@ public class HelpCommand extends Command {
 	public CommandResult execute() {
 		EventsCenter.getInstance().post(new ShowHelpRequestEvent());
 		switch (whichCommand) {
-		case add:
+		case AddCommand.COMMAND_WORD:
 			return new CommandResult(HELP_MESSAGE_ADD);
-		case delete:
+		case DeleteCommand.COMMAND_WORD:
 			return new CommandResult(HELP_MESSAGE_DELETE);
-		case find:
+		case FindCommand.COMMAND_WORD:
 			return new CommandResult(HELP_MESSAGE_FIND);
-		case edit:
+		case EditCommand.COMMAND_WORD:
 			return new CommandResult(HELP_MESSAGE_EDIT);
+		case ListCommand.COMMAND_WORD:
+			return new CommandResult(HELP_MESSAGE_LIST);
+		case ClearCommand.COMMAND_WORD:
+			return new CommandResult(HELP_MESSAGE_CLEAR);
+		case ExitCommand.COMMAND_WORD:
+			return new CommandResult(HELP_MESSAGE_EXIT);
 		default:
 			return new CommandResult(HELP_MESSAGE_HELP);
 		}
