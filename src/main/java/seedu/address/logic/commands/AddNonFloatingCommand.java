@@ -61,8 +61,10 @@ public class AddNonFloatingCommand extends AddCommand {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
+        	indicateAttemptToExecuteFailedCommand();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TimeslotOverlapException e) {
+        	indicateAttemptToExecuteFailedCommand();
         	return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
 

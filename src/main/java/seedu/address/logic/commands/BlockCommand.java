@@ -11,6 +11,7 @@ import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 public class BlockCommand extends Command {
@@ -61,12 +62,14 @@ public class BlockCommand extends Command {
         try {
             model.addTask(toBlock);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-        	System.out.println("enough");
-            return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
         } catch (TimeslotOverlapException e) {
 			// TODO Auto-generated catch block
+        	indicateAttemptToExecuteFailedCommand();
         	return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
+		} catch (DuplicateTaskException e) {
+			// TODO Auto-generated catch block
+			assert false: "not applicable for block command";
+			return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
 
     }

@@ -46,6 +46,7 @@ public class AddFloatingCommand extends AddCommand {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
+        	indicateAttemptToExecuteFailedCommand();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TimeslotOverlapException e) {
 			// TODO Auto-generated catch block

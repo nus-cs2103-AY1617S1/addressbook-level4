@@ -6,6 +6,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.commons.core.UnmodifiableObservableList;
 
 /**
@@ -30,10 +31,10 @@ public class SelectCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
-        //UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        assert false : "Select does not support recurring tasks"; // Should use TaskComponent instead of task
-        List lastShownList = model.getTaskList();
+    	
+    	//assert false : "Select does not support recurring tasks"; // Should use TaskComponent instead of task
+        UnmodifiableObservableList<TaskComponent> lastShownList = model.getFilteredTaskComponentList();
+        
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

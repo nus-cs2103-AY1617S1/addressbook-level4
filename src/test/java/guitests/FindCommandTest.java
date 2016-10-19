@@ -6,7 +6,7 @@ import seedu.address.model.task.TaskComponent;
 import seedu.address.testutil.TestTask;
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends TaskListGuiTest {
+public class FindCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void find_nonEmptyList() {
@@ -36,7 +36,7 @@ public class FindCommandTest extends TaskListGuiTest {
     		//By time-after and sharp
     		assertFindResult("find by 18 oct 5pm", td.labDeadline.getTaskDateComponent().get(0));
     		//By time-before
-    		assertFindResult("find by 18 oct 4pm");
+    		assertFindResult("find by 18 oct 4.59pm");
     	}catch(Exception e){}
     }
     

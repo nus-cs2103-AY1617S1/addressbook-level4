@@ -45,7 +45,6 @@ public class TaskBuilder {
     }
 
     public TestTask build() {
-        Task copyTask = new Task(this.task);
         return this.task;
     }
 

@@ -78,6 +78,16 @@ public class UniqueTaskList implements Iterable<Task> {
         	        	return true;        		
         	}
         }
+        //Or if it is block command, check with existing tasks
+        if(toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME)){
+        	for(Task t: internalList){
+        	if(t.getTaskType() == TaskType.NON_FLOATING && t.getComponentForNonRecurringType().getStartDate().getDateInLong() != TaskDate.DATE_NOT_PRESENT){
+        		if(!(t.getComponentForNonRecurringType().getEndDate().getDate().before(toCheck.getComponentForNonRecurringType().getStartDate().getDate())||
+        	        t.getComponentForNonRecurringType().getStartDate().getDate().after(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
+        	        	return true;        		
+        	}
+        	}
+        }
         return false;
     }
 

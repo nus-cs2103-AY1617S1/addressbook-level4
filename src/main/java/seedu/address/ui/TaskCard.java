@@ -97,8 +97,10 @@ public class TaskCard extends UiPart{
 
 
     public HBox getLayout() {
+    	
         return cardPane;
     }
+
 
     @Override
     public void setNode(Node node) {

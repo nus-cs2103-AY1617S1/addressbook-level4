@@ -84,7 +84,6 @@ public class LogicManagerTest {
 
     @After
     public void teardown() throws DataConversionException, IOException {
-    	//logic.execute("clear");
     	Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
 		config.setTaskListFilePath("data\\tasklist.xml");
 		ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
@@ -127,7 +126,7 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, componentList);
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedTaskList, model.getTaskList());
+        assertEquals(expectedTaskList, model.getTaskMaster());
         assertEquals(expectedTaskList, latestSavedTaskList);
     }
 
@@ -243,7 +242,7 @@ public class LogicManagerTest {
     
      
     @Test
-    public void execute_addOverlapSlot_notAllowed() throws Exception {
+    public void execute_addOverlapSlot_allowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(),
@@ -254,6 +253,7 @@ public class LogicManagerTest {
 				  RecurringType.NONE);
         TaskMaster expectedAB = new TaskMaster();
         expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(toBeAddedAfter);
 
         // setup starting state
         model.addTask(toBeAdded); // task already in internal task list
@@ -261,7 +261,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAddedAfter),
-                AddNonFloatingCommand.MESSAGE_TIMESLOT_OCCUPIED,
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter),
                 expectedAB,
                 expectedAB.getTaskComponentList());
 
@@ -527,7 +527,7 @@ public class LogicManagerTest {
         ReadOnlyTaskMaster retrieved = new StorageManager(saveFolder.getRoot().getPath()+"cdtest.xml", 
         		                                        saveFolder.getRoot().getPath() + "TempPreferences.json").readTaskList().get();
         assertEquals(expectedAB, new TaskMaster(retrieved));
-        assertEquals(model.getTaskList(), new TaskMaster(retrieved));
+        assertEquals(model.getTaskMaster(), new TaskMaster(retrieved));
         
     }
 
@@ -643,9 +643,7 @@ public class LogicManagerTest {
         		String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete),
         	    expectedAB,
         	    new TaskMaster().getTaskComponentList());
-        		
-        assertEquals(expectedAB, model.getTaskList());
-        assertEquals(expectedAB, latestSavedTaskList);
+
     }
 
 
@@ -740,12 +738,12 @@ public class LogicManagerTest {
                 expectedAB,
                 componentList);
         //find by earlier time boundary lists nothing
-        assertCommandBehavior("find by 20 oct 10am",
+        assertCommandBehavior("find by 20 oct 10.59am",
                 Command.getMessageForTaskListShownSummary(0),
                 expectedAB,
                 new TaskMaster().getTaskComponentList());
         //find by later time boundary successful
-        assertCommandBehavior("find by 20 oct 12pm",
+        assertCommandBehavior("find by 20 oct 11.01pm",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 componentList);

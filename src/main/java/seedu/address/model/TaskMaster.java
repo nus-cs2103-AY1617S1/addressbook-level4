@@ -74,7 +74,8 @@ public class TaskMaster implements ReadOnlyTaskMaster {
     }
     
     public void setComponents(List<TaskComponent> components) {
-        this.tasks.getInternalComponentList().setAll(components);
+    	this.tasks.getInternalComponentList().clear();
+    	this.tasks.getInternalComponentList().addAll(components);
     }
 
     public void setTags(Collection<Tag> tags) {

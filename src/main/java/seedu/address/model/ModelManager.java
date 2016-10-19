@@ -21,11 +21,14 @@ import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.core.ComponentManager;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -136,7 +139,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTaskComponents.setPredicate(new PredicateExpression(new ArchiveQualifier(true))::unsatisfies);
+        filteredTaskComponents.setPredicate(new PredicateExpression(new ArchiveQualifier(true))::unsatisfies);       
     }
 
     @Override

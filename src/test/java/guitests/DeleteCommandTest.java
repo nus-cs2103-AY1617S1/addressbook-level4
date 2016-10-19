@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUC
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteCommandTest extends TaskListGuiTest {
+public class DeleteCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void delete() {

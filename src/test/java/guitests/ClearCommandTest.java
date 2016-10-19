@@ -7,7 +7,7 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-public class ClearCommandTest extends TaskListGuiTest {
+public class ClearCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void clear() {

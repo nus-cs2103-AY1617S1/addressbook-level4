@@ -11,7 +11,7 @@ import seedu.address.model.task.TaskComponent;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
-public class BlockCommandTest extends TaskListGuiTest {
+public class BlockCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void block() {

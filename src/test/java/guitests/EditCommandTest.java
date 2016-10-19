@@ -15,7 +15,7 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-public class EditCommandTest extends TaskListGuiTest {
+public class EditCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void edit() throws IllegalValueException {

@@ -1,22 +1,21 @@
 package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import seedu.address.commons.events.ui.FailedCommandAttemptedEvent;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
 
-import java.util.HashSet;
 import java.util.logging.Logger;
-
-import org.controlsfx.control.textfield.TextFields;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -104,6 +103,7 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateCorrectCommand() {
         commandTextField.getStyleClass().remove("error");
+        commandTextField.getStyleClass().remove("fail");
         commandTextField.setText("");
     }
 
@@ -111,6 +111,13 @@ public class CommandBox extends UiPart {
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
         setStyleToIndicateIncorrectCommand();
+        restoreCommandText();
+    }
+    
+    @Subscribe
+    private void handleFailedCommandAttempted(FailedCommandAttemptedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Failed command: " + previousCommandTest +"\n"));
+        setStyleToIndicateFailedCommand();
         restoreCommandText();
     }
 
@@ -128,24 +135,20 @@ public class CommandBox extends UiPart {
         commandTextField.getStyleClass().add("error");
     }
     
-    private HashSet<String> setDictionary(){
-    	HashSet<String> dictionary = new HashSet<String>();  	
-		//syntax words
-		dictionary.add("from");
-		dictionary.add("to");
-		dictionary.add("by");
-		dictionary.add("t/");
-		dictionary.add("am");
-		dictionary.add("pm");
-		//command word
-		String[] commandWords = {"add", "block","cd","delete","done","help","u","r","find","list","select","exit"};
-		for(String s: commandWords) dictionary.add(s);
-		//date
-		String[] dateWords = {"jan","feb","mar","apr","may","jun","jul",
-							  "aug","sep","oct","nov","dec","today","tomorrow",
-							  "mon","tue","wed","thur","fri","sat","sun"};
-		for(String s: dateWords) dictionary.add(s);
-		return dictionary;
-	}
+    /**
+     * Sets the command box style to indicate a failed attempt
+     */
+    private void setStyleToIndicateFailedCommand() {
+        commandTextField.getStyleClass().add("fail");
+    }
+    
+    /**
+     * Returns the current style class the command box used for testing purpose.
+     * @return 
+     */
+    public ObservableList<String> getStyleClass(){
+    	return commandTextField.getStyleClass();
+    }
+    
 
 }
