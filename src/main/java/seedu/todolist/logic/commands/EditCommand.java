@@ -4,10 +4,10 @@ import seedu.todolist.commons.core.Messages;
 import seedu.todolist.commons.core.UnmodifiableObservableList;
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.model.task.Interval;
-import seedu.todolist.model.task.LocationParameter;
+import seedu.todolist.model.task.Location;
 import seedu.todolist.model.task.Name;
 import seedu.todolist.model.task.ReadOnlyTask;
-import seedu.todolist.model.task.RemarksParameter;
+import seedu.todolist.model.task.Remarks;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -36,8 +36,8 @@ public class EditCommand extends Command {
         this.replacement = new Task(
                 new Name(name),
                 new Interval(startDate, startTime, endDate, endTime),
-                new LocationParameter(location),
-                new RemarksParameter(remarks)
+                new Location(location),
+                new Remarks(remarks)
         );
     }
     
