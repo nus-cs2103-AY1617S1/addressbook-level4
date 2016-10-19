@@ -383,7 +383,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Date privateDate = new Date("");
+            Date privateDate = new Date("false");
             StartTime start = new StartTime("1/1/17 5pm");
             EndTime privateEndTime = new EndTime("2/1/17 5:00am");
 //            Tag tag1 = new Tag("tag1");
@@ -403,7 +403,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Date(""),
+                    new Date("false"),
                     new StartTime("1/1/17 5:00pm"),
                     new EndTime("2/1/17 5:00am"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -417,7 +417,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(p.getDate());
+            cmd.append("");
             cmd.append(" from ");
             cmd.append(p.getStartTime().appearOnUIFormat());
             cmd.append(" to ");
@@ -504,7 +504,7 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Date(""),
+                    new Date("false"),
                     new StartTime("1/1/17 5:00pm"),
                     new EndTime("2/1/17 5:00am"),
                     new UniqueTagList(new Tag("tag"))
