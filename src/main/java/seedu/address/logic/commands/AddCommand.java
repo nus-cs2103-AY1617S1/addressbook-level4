@@ -45,8 +45,11 @@ public class AddCommand extends Command {
 		assert model != null;
 		try {
 			model.addItem(toAdd);
-			if ()
-			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+			if (this.toAdd.getStartDate() == null || this.toAdd.getEndDate() == null) {
+				return new CommandResult(String.format(MESSAGE_SUCCESS_TIME_NULL, toAdd));
+			} else {
+				return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+			}
 		} catch (UniqueItemList.DuplicateItemException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_ITEM);
 		}
