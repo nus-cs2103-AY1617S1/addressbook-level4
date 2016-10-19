@@ -5,7 +5,9 @@ import seedu.emeraldo.commons.core.ComponentManager;
 import seedu.emeraldo.commons.core.LogsCenter;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
+import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.StringUtil;
+import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList;
@@ -22,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Emeraldo emeraldo;
+
     private final FilteredList<Task> filteredTasks;
 
     /**
@@ -36,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with Emeraldo: " + src + " and user prefs " + userPrefs);
 
         emeraldo = new Emeraldo(src);
+
         filteredTasks = new FilteredList<>(emeraldo.getTasks());
     }
 
@@ -45,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyEmeraldo initialData, UserPrefs userPrefs) {
         emeraldo = new Emeraldo(initialData);
+
         filteredTasks = new FilteredList<>(emeraldo.getTasks());
     }
 
@@ -74,6 +79,16 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         emeraldo.addTask(task);
         updateFilteredListToShowAll();
+        indicateEmeraldoChanged();
+    }
+
+    @Override
+    public synchronized void editTask(Task target, int index, Description description) throws TaskNotFoundException {
+        try {
+            emeraldo.editTask(target, index, description);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
         indicateEmeraldoChanged();
     }
 

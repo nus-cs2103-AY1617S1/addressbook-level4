@@ -30,6 +30,11 @@ public class Parser {
             Pattern.compile("\"(?<description>.+)\""
                     + "(?<dateTime>( by [^#]+)?)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
+    
+    private static final Pattern TASK_EDIT_ARGS_FORMAT = 
+            Pattern.compile("(?<targetIndex>\\d+)" //index must be digits
+            + "\\s+"                               //any number of whitespace
+            + "\"(?<description>[^\"]+)\"");       //quote marks are reserved for start and end of description field
 
     public Parser() {}
 
@@ -57,6 +62,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -130,6 +138,33 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the edit person command.
+     * 
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        
+        final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new EditCommand(
+                    matcher.group("targetIndex"),
+                    matcher.group("description"));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }        
     }
 
     /**
