@@ -17,9 +17,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Musa/Documents/CS2103/main-master/ArchPlanner/externalJar/natty-0.12.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Musa/Documents/CS2103/main-master/ArchPlanner/externalJar/antlr-runtime-3.5.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Musa/Documents/CS2103/main-master/ArchPlanner/externalJar/slf4j-api-1.7.19.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Musa/Documents/jar_files/commons-io-2.4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

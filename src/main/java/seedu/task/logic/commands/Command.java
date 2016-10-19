@@ -26,8 +26,7 @@ public abstract class Command {
      *
      * @return feedback message of the operation result for display
      */
-    public abstract CommandResult execute(boolean isUndo);
-    public abstract CommandResult execute(int index);
+    public abstract CommandResult execute();
 
     /**
      * Provides any needed dependencies to the command.

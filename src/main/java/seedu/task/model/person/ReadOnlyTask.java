@@ -1,4 +1,4 @@
-package seedu.task.model.task;
+package seedu.task.model.person;
 
 import seedu.task.model.tag.UniqueTagList;
 
@@ -11,7 +11,7 @@ public interface ReadOnlyTask {
     Name getName();
     StartTime getStartTime();
     EndTime getEndTime();
-    Deadline getDeadline();
+    Location getLocation();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -28,7 +28,7 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
-                && other.getDeadline().equals(this.getDeadline()));
+                && other.getLocation().equals(this.getLocation()));
     }
 
     /**
@@ -41,8 +41,8 @@ public interface ReadOnlyTask {
                 .append(getStartTime())
                 .append(" End time: ")
                 .append(getEndTime())
-                .append(" Deadline: ")
-                .append(getDeadline())
+                .append(" Location: ")
+                .append(getLocation())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

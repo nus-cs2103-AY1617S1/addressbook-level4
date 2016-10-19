@@ -1,11 +1,11 @@
 package seedu.task.model;
 
 import javafx.collections.ObservableList;
+import seedu.task.model.person.ReadOnlyTask;
+import seedu.task.model.person.Task;
+import seedu.task.model.person.UniqueTaskList;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -81,10 +81,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.add(p);
     }
 
-    public void addTask(int index, Task p) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
-        tasks.add(index, p);
-    }
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}

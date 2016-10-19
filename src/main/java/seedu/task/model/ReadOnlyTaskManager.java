@@ -1,10 +1,10 @@
 package seedu.task.model;
 
 
+import seedu.task.model.person.ReadOnlyTask;
+import seedu.task.model.person.UniqueTaskList;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList;
 
 import java.util.List;
 

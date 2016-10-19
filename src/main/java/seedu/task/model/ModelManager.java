@@ -6,10 +6,10 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.util.StringUtil;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.UniqueTaskList;
-import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.task.model.person.ReadOnlyTask;
+import seedu.task.model.person.Task;
+import seedu.task.model.person.UniqueTaskList;
+import seedu.task.model.person.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -77,13 +77,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    @Override
-    public synchronized void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskManager.addTask(index, task);
-        updateFilteredListToShowAll();
-        indicateTaskManagerChanged();
-    }
-    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -145,9 +138,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            String name = task.getName().fullName.toLowerCase();
             return nameKeyWords.stream()
-                    .filter(keyword -> name.indexOf(keyword.toLowerCase())>=0)
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()
                     .isPresent();
         }

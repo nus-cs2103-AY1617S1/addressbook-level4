@@ -13,15 +13,9 @@ public class IncorrectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(boolean isUndo) {
+    public CommandResult execute() {
         indicateAttemptToExecuteIncorrectCommand();
         return new CommandResult(feedbackToUser);
-    }
-
-    @Override
-    public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }

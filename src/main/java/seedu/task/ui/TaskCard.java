@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.person.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 
@@ -21,7 +21,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label endTimeLabel;
     @FXML
-    private Label deadlineLabel;
+    private Label locationLabel;
     @FXML
     private Label tags;
 
@@ -45,7 +45,7 @@ public class TaskCard extends UiPart{
         id.setText(displayedIndex + ". ");
         startTimeLabel.setText(" from " + task.getStartTime().value);
         endTimeLabel.setText(" to " + task.getEndTime().value);
-        deadlineLabel.setText(" by " + task.getDeadline().value);
+        locationLabel.setText(" at " + task.getLocation().value);
         tags.setText(task.tagsString());
     }
 

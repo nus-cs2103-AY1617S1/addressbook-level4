@@ -1,11 +1,9 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.HistoryList;
-import seedu.task.logic.RollBackCommand;
+import seedu.task.model.person.*;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.task.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +18,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
             + "Parameters: NAME s/START TIME e/END TIME l/location  [#/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + "do homework from 12:00pm to 13:00pm";
+            + " John Doe s/9876hrs e/1111hrs l/311, Clementi Ave 2, #02-25 #/friends #/owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
@@ -32,7 +30,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String startTime, String endTime, String deadline, Set<String> tags)
+    public AddCommand(String name, String startTime, String endTime, String location, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -42,33 +40,16 @@ public class AddCommand extends Command {
                 new Name(name),
                 new StartTime(startTime),
                 new EndTime(endTime),
-                new Deadline(deadline),
+                new Location(location),
                 new UniqueTagList(tagSet)
         );
-        //
     }
 
     @Override
-    public CommandResult execute(boolean isUndo) {
-        
+    public CommandResult execute() {
         assert model != null;
         try {
             model.addTask(toAdd);
-            if(isUndo == false){
-                HistoryList.getUndoList().add(new RollBackCommand("add" , this.toAdd, null, 1));
-            }
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
-
-    }
-    
-    
-    public CommandResult execute(int index) {
-        assert model != null;
-        try {
-            model.addTask(index, toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

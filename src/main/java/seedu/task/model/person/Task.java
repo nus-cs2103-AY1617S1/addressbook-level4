@@ -1,4 +1,4 @@
-package seedu.task.model.task;
+package seedu.task.model.person;
 
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.model.tag.UniqueTagList;
@@ -14,19 +14,19 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private StartTime startTime;
     private EndTime endTime;
-    private Deadline deadline;
+    private Location location;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, StartTime startTime, EndTime endTime, Deadline deadline, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, tags);
+    public Task(Name name, StartTime startTime, EndTime endTime, Location location, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startTime, endTime, location, tags);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.deadline = deadline;
+        this.location = location;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getTags());
+        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getLocation(), source.getTags());
     }
 
     @Override
@@ -53,8 +53,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Deadline getDeadline() {
-        return deadline;
+    public Location getLocation() {
+        return location;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startTime, endTime, deadline, tags);
+        return Objects.hash(name, startTime, endTime, location, tags);
     }
 
     @Override

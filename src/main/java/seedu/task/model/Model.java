@@ -1,9 +1,9 @@
 package seedu.task.model;
 
 import seedu.task.commons.core.UnmodifiableObservableList;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.UniqueTaskList;
+import seedu.task.model.person.ReadOnlyTask;
+import seedu.task.model.person.Task;
+import seedu.task.model.person.UniqueTaskList;
 
 import java.util.Set;
 
@@ -22,8 +22,6 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-    
-    void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

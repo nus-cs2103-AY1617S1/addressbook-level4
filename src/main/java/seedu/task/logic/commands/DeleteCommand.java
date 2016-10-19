@@ -2,11 +2,8 @@ package seedu.task.logic.commands;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
-import seedu.task.logic.HistoryList;
-import seedu.task.logic.RollBackCommand;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.task.model.person.ReadOnlyTask;
+import seedu.task.model.person.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
@@ -30,7 +27,7 @@ public class DeleteCommand extends Command {
 
 
     @Override
-    public CommandResult execute(boolean isUndo) {
+    public CommandResult execute() {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
@@ -40,10 +37,7 @@ public class DeleteCommand extends Command {
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-        if(isUndo == false){
-            Task task = new Task(taskToDelete.getName(),taskToDelete.getStartTime(),taskToDelete.getEndTime(),taskToDelete.getDeadline(),taskToDelete.getTags());
-            HistoryList.getUndoList().add(new RollBackCommand("delete" , task, null, 1));
-        }
+
         try {
             model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException tnfe) {
@@ -51,13 +45,6 @@ public class DeleteCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
-    }
-
-
-    @Override
-    public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }

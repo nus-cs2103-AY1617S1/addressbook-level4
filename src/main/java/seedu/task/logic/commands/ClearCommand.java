@@ -14,16 +14,9 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public CommandResult execute(boolean isUndo) {
+    public CommandResult execute() {
         assert model != null;
         model.resetData(TaskManager.getEmptyTaskManager());
         return new CommandResult(MESSAGE_SUCCESS);
-    }
-
-
-    @Override
-    public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
-        return null;
     }
 }
