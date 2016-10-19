@@ -24,27 +24,27 @@ public class HelpCommand extends Command {
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n" + "Example: "
 			+ COMMAND_WORD;
 
-	public static final String HELP_MESSAGE_ALL = "To add, type: add \"your own task name\" \n"
+	public static final String HELP_MESSAGE_ALL = "To add, type: \n" + "add \"your own task name\" \n"
 			+ "To delete, type: delete \"the specified index\" \n" + "To list, type: list \n";
 
-	public static final String HELP_MESSAGE_ADD = "To add a task: type add \"your own task name\" "
-			+ "d/ \"your deadline (optional)\" " + "s/ \"your start time (optional)\" "
-			+ "e/ \"your end time (optional)\" " + "t/ \"your tags (optional)\" ";
+	public static final String HELP_MESSAGE_ADD = "To add a task, type: \n"+"add \"your own task name\" \n"
+			+ "d/ \"your deadline (optional)\" \n" + "s/ \"your start time (optional)\" \n"
+			+ "e/ \"your end time (optional)\" \n" + "t/ \"your tags (optional)\" \n";
 
-	public static final String HELP_MESSAGE_DELETE = "To delete a task: type \"list\" to list out all tasks"
-			+ "type \"delete \'index of the task to be delete\'\" ";
+	public static final String HELP_MESSAGE_DELETE = "To delete a task, type: \n"+"\"list\" to list out all tasks \n"
+			+ "\"delete\" \'index of the task to be delete\'\" \n";
 
-	public static final String HELP_MESSAGE_FIND = "To find a task: type \"find \'name of task\'\" "
-			+ "OR type: \"find \'deadline of task\' \" " + "OR type: \"find today\" to find tasks due today "
-			+ "OR type: \"find tomorrow\" to find tasks due tomorrow";
+	public static final String HELP_MESSAGE_FIND = "To find a task, type: \"find \'name of task\'\" \n"
+			+ "OR type: \"find \'deadline of task\' \" \n" + "OR type: \"find today\" to find tasks due today \n"
+			+ "OR type: \"find tomorrow\" to find tasks due tomorrow\n";
 
-	public static final String HELP_MESSAGE_EDIT = "To find a task: type \"edit \'index of task\'\" "
-			+ "d/ \"your new deadline(optional)\" " + "s/ \"your new start time\" " + "e/ \"your new end time\" ";
-	
-	public static final String HELP_MESSAGE_HELP = "To find out how to add a task, type: \"help add\" "
-			+"To find out how to delete a task, type: \"help delete\" "
-			+"To find out how to find a task, type: \"help find\" "
-			+"To find out how to edit a task, type: \"help edit\" ";
+	public static final String HELP_MESSAGE_EDIT = "To find a task, type: \n"+"\"edit \'index of task\'\" \n"
+			+ "d/ \"your new deadline(optional)\" \n" + "s/ \"your new start time\" \n" + "e/ \"your new end time\" \n";
+
+	public static final String HELP_MESSAGE_HELP = "To find out how to add a task, type: \"help add\" \n"
+			+ "To find out how to delete a task, type: \"help delete\" \n"
+			+ "To find out how to find a task, type: \"help find\" \n"
+			+ "To find out how to edit a task, type: \"help edit\" \n";
 
 	private final String whichCommand;
 

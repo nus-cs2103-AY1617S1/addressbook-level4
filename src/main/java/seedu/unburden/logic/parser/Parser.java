@@ -35,11 +35,11 @@ public class Parser {
 																											// whitespace
 
 	private static final Pattern HELP_FORMAT = Pattern.compile("(?<help>\\S+(?:\\s+\\S+)*)"); // one
-																					// or
-																					// more
-																					// characters
-																					// without
-																					// whitespace
+	// or
+	// more
+	// characters
+	// separated by
+	// whitespace
 
 	/*
 	 * private static final Pattern KEYWORDS_DATE_FORMAT =
@@ -332,13 +332,13 @@ public class Parser {
 	}
 
 	private Command prepareHelp(String args) {
-		final Matcher matcherHelp = HELP_FORMAT.matcher(args.trim());
+		args = args.trim();
 
-		/*if (matcherHelp.group("help").equals("")) {
+		if (args.equals("")) {
 			return new HelpCommand(HelpCommand.COMMAND_WORD);
-		}*/
+		}
 
-		switch (matcherHelp.group("help").toLowerCase()) {
+		switch (args.toLowerCase()) {
 		case add:
 			return new HelpCommand(add);
 		case delete:
