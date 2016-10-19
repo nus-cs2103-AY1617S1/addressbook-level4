@@ -29,20 +29,22 @@ public class FindCommand extends Command {
         switch (type) {
         case "f": 
             model.updateFilteredTaskList(keywords);
-            break;
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredFloatingTaskList().size()));
         case "d":
             model.updateFilteredDeadlineList(keywords);
-            break;
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredDeadlineList().size()));
         case "e":
             model.updateFilteredEventList(keywords);
-            break;
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredEventList().size()));
         default:
             model.updateFilteredTaskList(keywords);
             model.updateFilteredDeadlineList(keywords);
             model.updateFilteredEventList(keywords);    
+            return new CommandResult(getMessageForTaskListShownSummary(
+                    model.getFilteredFloatingTaskList().size() +
+                    model.getFilteredDeadlineList().size() + 
+                    model.getFilteredEventList().size()));
         }
- 
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredFloatingTaskList().size()));
     }
 
 }
