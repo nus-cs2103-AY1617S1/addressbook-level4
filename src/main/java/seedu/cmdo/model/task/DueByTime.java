@@ -63,5 +63,21 @@ public class DueByTime {
     	}
 		return new StringBuilder(value.format(DateTimeFormatter.ofPattern("kkmm"))).toString();
 	}
-
+    
+	// @@author A0139661Y
+	public String getFriendlyStartString() {
+		if (start.equals(LocalTime.MAX)) {
+			return "";
+		} return start.format(DateTimeFormatter.ofPattern("kkmm")).toString(); 
+	}
+	
+	// @@author A0139661Y
+	public String getFriendlyEndString() {
+		if (!isRange) {
+			return "";
+		}
+		if (end.equals(LocalTime.MAX)) {
+			return "";
+		} else return end.format(DateTimeFormatter.ofPattern("kkmm")).toString();
+	}
 }
