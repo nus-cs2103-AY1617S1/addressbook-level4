@@ -76,6 +76,11 @@ public class Task implements ReadOnlyTask {
     public Status getStatus() {
         return status;
     }
+    
+    @Override
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     @Override
     public UniqueTagList getTags() {

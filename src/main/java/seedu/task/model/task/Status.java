@@ -2,7 +2,7 @@ package seedu.task.model.task;
 
 public class Status {
 
-    public final String status;
+    public String status;
     
     public Status(String status) {
         this.status = status;

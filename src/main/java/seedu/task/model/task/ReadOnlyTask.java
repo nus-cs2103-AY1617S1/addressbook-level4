@@ -15,7 +15,7 @@ public interface ReadOnlyTask {
     Interval getInterval();
     TimeInterval getTimeInterval();
     Status getStatus();
-    
+    void setStatus(Status status);
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
