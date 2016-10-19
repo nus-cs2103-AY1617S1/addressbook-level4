@@ -1,10 +1,15 @@
 package seedu.task.model.task;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.task.commons.exceptions.IllegalValueException;
@@ -18,6 +23,7 @@ public class DateTime {
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "You have entered an invalid Date/Time format. For a complete list of all acceptable formats, please view our user guide.";
 
     public final Optional<Instant> value;
+    private static PrettyTime p = new PrettyTime();
 
     /**
      * Validates given Date and Time entered by the user.
@@ -43,16 +49,33 @@ public class DateTime {
      * @param test output from date/time parser
      */
     public static boolean isValidDateTime(String dateTime) {
+        Instant now = Instant.now();
         List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
-        //TODO: check if date is before today
-        Instant date = possibleDates.get(0).toInstant();
-        return !possibleDates.isEmpty() && (possibleDates.size() == 1);
+        if(!possibleDates.isEmpty() && (possibleDates.size() == 1)) {
+            Instant date = possibleDates.get(0).toInstant();
+            return !date.isBefore(now);
+        } else {
+            return false;
+        }
     }
 
     @Override
     public String toString() {
+
         if(value.isPresent()) {
-            return value.get().toString();
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.FULL )
+                                     .withLocale( Locale.UK )
+                                     .withZone( ZoneId.systemDefault() );
+            return formatter.format( value.get() );
+        } else {
+            return "";
+        }
+    }
+    
+    public String toPrettyString() {
+        if(value.isPresent()) {
+            return p.format(Date.from(this.value.get()));
         } else {
             return "";
         }
@@ -69,7 +92,10 @@ public class DateTime {
     public int hashCode() {
         return value.hashCode();
     }
-    
+    /**
+     * Returns an optional corresponding to the value of the DateTime object
+     * @return value of DateTime object
+     */
     public Optional<Instant> getDateTimeValue() {
         return this.value;
     }

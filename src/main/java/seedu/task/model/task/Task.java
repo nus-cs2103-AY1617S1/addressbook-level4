@@ -31,21 +31,18 @@ public class Task implements ReadOnlyTask {
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        if (!isValidDateTimePair(openTime, closeTime)) {
+        if (!isValidDateTimePair()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
     }
     /**
-     * Checks is openTime is before closeTime
-     * @param openTime Open Time DateTime object
-     * @param closeTime Close Time DateTime object
+     * Checks if openTime is before closeTime
      * @return
      */
-    private boolean isValidDateTimePair(DateTime openTime,
-            DateTime closeTime) {
-        if( openTime.getDateTimeValue().isPresent() && openTime.getDateTimeValue().isPresent()) {
+    private boolean isValidDateTimePair() {
+        if( openTime.getDateTimeValue().isPresent() && closeTime.getDateTimeValue().isPresent()) {
             Instant openTimeValue = openTime.getDateTimeValue().get();
-            Instant closeTimeValue = openTime.getDateTimeValue().get();
+            Instant closeTimeValue = closeTime.getDateTimeValue().get();
             return openTimeValue.isBefore(closeTimeValue);
         } else {
             return true;

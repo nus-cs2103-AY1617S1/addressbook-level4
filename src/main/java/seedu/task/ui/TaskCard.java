@@ -42,8 +42,8 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
-        openTime.setText(task.getOpenTime().toString());
-        closeTime.setText(task.getCloseTime().toString());
+        openTime.setText("Start: "+task.getOpenTime().toPrettyString());
+        closeTime.setText("End: "+task.getCloseTime().toPrettyString());
         tags.setText(task.tagsString());
     }
 
