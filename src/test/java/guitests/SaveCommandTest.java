@@ -25,9 +25,6 @@ public class SaveCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("clear");
         commandBox.runCommand(SaveCommand.COMMAND_WORD + " data/new2.xml");
         assertSaveCommandSuccess("data/new2.xml");
-        
-
-
     }
 
     private void assertSaveCommandSuccess(String saveToFilePath) {
