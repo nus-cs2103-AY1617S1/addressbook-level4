@@ -380,7 +380,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | predict and auto correct my typos | be lazy and not retype everything again
 
 
-|   | **Priority** | **As a...** | **I want to...** | **So that I can...** | 
+| **Priority** | **As a...** | **I want to...** | **So that I can...** | 
 | --- | --- | --- | --- | --- |
 | `* * *` | new user | list all the commands | know how to use the program |
 |`* * *` | new user | view a command | know how to use that particular command |
