@@ -27,14 +27,15 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List. "
-            + "Parameters: [add] NAME, [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
+            + "Parameters: [add] NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
-            + " feed cat, by today 11:30am repeat every day -high";
+            + " feed cat by today 11:30am repeat every day -high";
     
-    public static final String TOOL_TIP = "add NAME, [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n";
+    public static final String TOOL_TIP = "add NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n";
     
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     
+    //TODO: Design decision
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided";
     
@@ -62,12 +63,15 @@ public class AddCommand extends Command {
 
         if (startDateString != null) {
             assert DateTime.isValidDate(startDateString);
-            startDate = DateTime.convertStringToStartDate(startDateString);
+            startDate = DateTime.convertStringToDate(startDateString);
         }
 
         if (endDateString != null) {
             assert DateTime.isValidDate(endDateString);
-            endDate = DateTime.convertStringToEndDate(endDateString, startDate);
+            endDate = DateTime.convertStringToDate(endDateString);
+            if (startDate != null && !DateTime.hasDateValue(endDateString)) {
+                endDate = DateTime.setDateToStartDate(startDate, endDate);
+            }
         }
 
         if (rateString != null && timePeriodString != null) {
@@ -88,33 +92,9 @@ public class AddCommand extends Command {
             throw new IllegalValueException(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
         }
 
-        priority = stringToPriority(priorityString);
+        priority = Priority.stringToPriority(priorityString);
             
         this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
-    }
-
-    //TODO: Comments suck
-    /**
-     * Converts given String into Priority
-     */
-    private Priority stringToPriority(String priorityString) {
-        Priority priority;
-        switch (priorityString) {
-        case ("low"):
-        case ("l"):
-            priority = Priority.LOW;
-            break;
-        case ("high"):
-        case ("h"):
-            priority = Priority.HIGH;
-            break;
-        case ("medium"):
-        case ("med"):
-        case ("m"):
-        default:
-            priority = Priority.MEDIUM;
-        }
-        return priority;
     }
 
     @Override

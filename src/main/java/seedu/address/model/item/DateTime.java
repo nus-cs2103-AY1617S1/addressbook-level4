@@ -8,15 +8,16 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 public abstract class DateTime {
-    
-    private static final String DATE_FORMAT_TWO = "RELATIVE_DATE";
+
+    public static final String TIME = "EXPLICIT_TIME";
     private static final String DATE_FORMAT_ONE = "EXPLICIT_DATE";
+    private static final String DATE_FORMAT_TWO = "RELATIVE_DATE";
+
     private static final int BASE_INDEX = 0;
     private static final int INTEGER_CONSTANT_ONE = 1;
 
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
     
-    public static final String TIME = "EXPLICIT_TIME";
     public static final String MESSAGE_VALUE_CONSTRAINTS = "DATE_TIME format: "
             + "DATE must be in one of the formats: "
             + "\"13th Sep 2015\", \"02-08-2015\" (mm/dd/yyyy) \n"
@@ -28,7 +29,7 @@ public abstract class DateTime {
      * 
      * @return Date object converted from given String
      */
-    public static Date convertStringToStartDate(String dateString) {
+    public static Date convertStringToDate(String dateString) {
         Date date;
         List<DateGroup> dates = new Parser().parse(dateString);
         
@@ -43,32 +44,21 @@ public abstract class DateTime {
         return date;
     }
     
-    /**
-     * Converts given String into a valid Date object
-     * 
-     * @return Date object converted from given String
-     */
-    public static Date convertStringToEndDate(String endDateString, Date startDate) {
-        Date endDate;
-        List<DateGroup> dates = new Parser().parse(endDateString);
+    public static boolean hasDateValue(String dateString) {
+        List<DateGroup> dates = new Parser().parse(dateString);
         
-        assert dates.get(BASE_INDEX) != null && dates.get(BASE_INDEX).getDates().get(BASE_INDEX) != null;
+        assert dates.get(BASE_INDEX) != null;
         
-        endDate = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
         String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
 
-        if (!syntaxTree.contains(TIME)) {
-            endDate = setTimeToEndOfDay(endDate);
+        if (syntaxTree.contains(DATE_FORMAT_ONE) || syntaxTree.contains(DATE_FORMAT_TWO)) {
+            return true;
+        } else {
+            return false;
         }
-        
-        if (startDate != null && !syntaxTree.contains(DATE_FORMAT_ONE) && !syntaxTree.contains(DATE_FORMAT_TWO)) {
-            endDate = setDateToStartDate(endDate, startDate);
-        }
-        
-        return endDate;
     }
     
-    private static Date setDateToStartDate(Date endDate, Date startDate) {
+    public static Date setDateToStartDate(Date startDate, Date endDate) {
         Calendar calendarStartDate = Calendar.getInstance();
         calendarStartDate.setTime(startDate);
         int date = calendarStartDate.get(Calendar.DATE);
@@ -94,10 +84,10 @@ public abstract class DateTime {
         List<DateGroup> dates = new Parser().parse(dateString.trim());
         try {
             dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
-            int parsePosition = dates.get(BASE_INDEX).getPosition();
+            int positionOfMatchingValue = dates.get(BASE_INDEX).getPosition();
             String matchingValue = dates.get(BASE_INDEX).getText();
             
-            if (parsePosition > INTEGER_CONSTANT_ONE || !matchingValue.equals(dateString)) {
+            if (positionOfMatchingValue > INTEGER_CONSTANT_ONE || !matchingValue.equals(dateString)) {
                 return false;
             }
         } catch (IndexOutOfBoundsException ioobe) {
