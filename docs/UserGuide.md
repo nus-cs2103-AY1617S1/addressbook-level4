@@ -91,7 +91,7 @@ Examples:
 * `add tennis, 21 nov, 1pm, 3pm, high`
 * `add lunch with parents on friday from 12pm-1pm`
 
-> * The comma after `[DATE]` can be replaced with a `from`. <br>
+> * The comma after `[DATE]` can be replaced with a space. <br>
 > * The comma after `[START TIME]` can be replaced with a `-`. <br>
 
 
@@ -210,14 +210,19 @@ Format: `exit`
 
 #### Saving the data to a specified location : `save` 
 All GGist data is saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually. The save file is `./data/ggist.xml` by default.<br>
+There is no need to save manually. The save file is `./data` by default.<br>
 You can switch the save file location easily if you wish.<br>
-Format: `save FILE_LOCATION.xml`
-
-> Filename has to be in .xml format.
+Format: `save FILE_LOCATION`
 
 Example:<br>
-* `save OneDrive/data/ggist.xml`
+* `save /Users/Documents/OneDrive/data`
+
+> By default, filename will be  ggist.xml
+
+You can change the file name to your preference too.<br>
+Format: `save FILE_NAME.xml`
+
+> The file format has to be .xml
        
 ## Command Cheatsheet
 
@@ -232,5 +237,5 @@ Redo    | `redo`
 Edit    | `edit INDEX FIELD NEW_INFORMATION`
 Done    | `done INDEX`
 Help    | `help`
-Save    | `save FILE_LOCATION.xml`
+Save    | `save FILE_LOCATION`
 Exit    | `exit`

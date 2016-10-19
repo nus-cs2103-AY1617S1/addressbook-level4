@@ -355,7 +355,11 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SaveCommand.MESSAGE_USAGE));
         }
-        return new SaveCommand(args.trim());
+        try {
+            return new SaveCommand(args.trim());
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
     }
 
 }
