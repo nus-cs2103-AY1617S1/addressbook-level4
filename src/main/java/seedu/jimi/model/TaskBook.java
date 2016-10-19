@@ -90,7 +90,8 @@ public class TaskBook implements ReadOnlyTaskBook {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends ReadOnlyTask> newDeadlineTasks,
+            Collection<? extends ReadOnlyTask> newEvents, Collection<Tag> newTags) {
         ArrayList<ReadOnlyTask> newTaskList = new ArrayList<ReadOnlyTask>();
         ArrayList<ReadOnlyTask> newDeadlineTaskList = new ArrayList<ReadOnlyTask>();
         ArrayList<ReadOnlyTask> newEventList = new ArrayList<ReadOnlyTask>();
@@ -104,6 +105,7 @@ public class TaskBook implements ReadOnlyTaskBook {
                 newTaskList.add(new FloatingTask((FloatingTask) t));
             }
         }
+        
         setReadOnlyTasks(newTaskList);
         setDeadlineTasks(newDeadlineTaskList);
         setEvents(newEventList);
@@ -186,6 +188,16 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
+    public List<ReadOnlyTask> getDeadlineTaskList() {
+        return Collections.unmodifiableList(deadlineTasks.getInternalList());
+    }
+
+    @Override
+    public List<ReadOnlyTask> getEventList() {
+        return Collections.unmodifiableList(events.getInternalList());
+    }
+    
+    @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());
     }
@@ -195,6 +207,16 @@ public class TaskBook implements ReadOnlyTaskBook {
         return this.tasks;
     }
 
+    @Override
+    public UniqueTaskList getUniqueDeadlineTaskList() {
+        return this.deadlineTasks;
+    }
+
+    @Override
+    public UniqueTaskList getUniqueEventList() {
+        return this.events;
+    }
+    
     @Override
     public UniqueTagList getUniqueTagList() {
         return this.tags;
@@ -214,4 +236,6 @@ public class TaskBook implements ReadOnlyTaskBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
+
 }
