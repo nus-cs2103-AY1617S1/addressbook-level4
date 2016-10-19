@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+<?import javafx.scene.shape.SVGPath?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS" >
@@ -32,6 +33,11 @@
                         </HBox>
                         <AnchorPane fx:id="tagsListPlaceholder" />
                     </children>
+                </VBox>
+                <VBox alignment="CENTER" GridPane.columnIndex="1">
+                	<children>
+                		<SVGPath fx:id="star" scaleX="0.6" scaleY="0.6" content="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z" styleClass="invisible-star" />
+                	</children>
                 </VBox>
             </children>
         </GridPane>

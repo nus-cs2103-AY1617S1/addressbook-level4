@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.SVGPath;
 import seedu.task.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -18,6 +19,8 @@ public class TaskCard extends UiPart{
     private Label name;
     @FXML
     private Label id;
+    @FXML
+    private SVGPath star;
     @FXML
     private AnchorPane tagsListPlaceholder;
 
@@ -41,6 +44,13 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
         tagListPanel = TagListPanel.load(getPrimaryStage(), tagsListPlaceholder, task.getTags().getInternalList());
+        setImportant();
+    }
+    
+    private void setImportant() {
+        if (!task.getImportance()) {
+            star.setOpacity(0.0);
+        }
     }
 
     public HBox getLayout() {
@@ -48,7 +58,8 @@ public class TaskCard extends UiPart{
     }
 
     @Override
-    public void setNode(Node node) {
+    public void setNode(Node node) 
+    {
         cardPane = (HBox)node;
     }
 

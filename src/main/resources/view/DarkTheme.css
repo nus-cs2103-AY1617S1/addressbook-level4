@@ -272,6 +272,10 @@
     -fx-padding: 8 1 8 1;
 }
 
+.invisible-star {
+	-fx-fill: gold;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-color: #d6d6d6;
