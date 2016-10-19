@@ -170,8 +170,8 @@ public class RecurringTaskManager {
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskComponent newRepeatingTaskToAdd = new TaskComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
-        repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
+        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedStartDate);
+        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedEndDate);
     }
 
     /**
@@ -202,8 +202,8 @@ public class RecurringTaskManager {
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskComponent newRepeatingTaskToAdd = new TaskComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
-        repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
+        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedStartDate);
+        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedEndDate);
     }
 
     /**
@@ -233,8 +233,8 @@ public class RecurringTaskManager {
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskComponent newRepeatingTaskToAdd = new TaskComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
-        repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
+        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedStartDate);
+        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedEndDate);
     }
 
     /**
@@ -264,8 +264,8 @@ public class RecurringTaskManager {
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskComponent newRepeatingTaskToAdd = new TaskComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
-        repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
+        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedStartDate);
+        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedEndDate);
     }
     
 

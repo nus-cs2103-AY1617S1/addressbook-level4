@@ -37,7 +37,7 @@ public class Task implements ReadOnlyTask {
         this.taskType = TaskType.FLOATING;
         this.recurringType = RecurringType.NONE;
         this.recurringDates = new ArrayList<TaskComponent>();
-        this.recurringDates.add(new TaskComponent(this,new TaskDate(), new TaskDate()));
+        this.recurringDates.add(new TaskComponent(this ,new TaskDate(), new TaskDate()));
     }
 
     /**
@@ -47,9 +47,8 @@ public class Task implements ReadOnlyTask {
         this(name, tags);
         assert !CollectionUtil.isAnyNull(name, tags);
         this.taskType = TaskType.NON_FLOATING;
-        this.recurringType = recurringType;
         getComponentForNonRecurringType().setStartDate(startDate);
-        getComponentForNonRecurringType().setStartDate(endDate);
+        getComponentForNonRecurringType().setEndDate(endDate);
     }
     
     public Task(){}

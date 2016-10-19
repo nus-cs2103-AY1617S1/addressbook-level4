@@ -1,18 +1,16 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
+import guitests.guihandles.TaskCardHandle;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddFloatingCommand;
 import seedu.address.logic.commands.AddNonFloatingCommand;
 import seedu.address.model.task.TaskComponent;
-import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AddCommandTest extends TaskListGuiTest {
 

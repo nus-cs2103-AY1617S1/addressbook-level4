@@ -12,23 +12,15 @@ public class TaskComponent {
     private TaskDate startDate, endDate;
     private boolean isArchived;
     
-    public TaskComponent(Task taskReference) {
-        assert taskReference != null : "Reference must not be null";
-        this.taskReference = taskReference; 
-        this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
-        this.endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
-        isArchived = false;
-    }
-    
-    public TaskComponent(Task taskReference,TaskDate startDate, TaskDate endDate) {
+    public TaskComponent(Task taskReference, TaskDate startDate, TaskDate endDate) {
         assert !CollectionUtil.isAnyNull(startDate, endDate);
-        assert taskReference != null : "Reference must not be null";
-        this.taskReference = taskReference;
         this.startDate = new TaskDate(startDate);
         this.endDate = new TaskDate(endDate);
+        this.taskReference = taskReference;
     }
     
     public TaskComponent(TaskComponent taskDateComponent) {
+        assert taskDateComponent != null : "Cannot pass in null values";
         this.taskReference = taskDateComponent.taskReference;
         this.startDate = taskDateComponent.startDate;
         this.endDate = taskDateComponent.endDate;

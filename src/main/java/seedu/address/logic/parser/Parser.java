@@ -95,6 +95,8 @@ public class Parser {
     
     private static final int TIME_PERIOD = 2;
     
+    private static final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
+    
     public Parser() {}
 
     /**
@@ -586,7 +588,6 @@ public class Parser {
      * @return A single Date from the string
      */
     public static Date getDateFromString(String dateInput) {
-        final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
         
         return dateGroups.get(0).getDates().get(0);
