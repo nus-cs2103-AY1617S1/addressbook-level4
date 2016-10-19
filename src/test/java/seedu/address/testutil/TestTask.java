@@ -68,8 +68,8 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
         sb.append("d/" + this.getDate().value + " ");
-        sb.append("s/" + this.getStartTime().value + " ");
-        sb.append("e/" + this.getEndTime().value + " ");
+        sb.append("s/" + this.getStartTime().startTime + " ");
+        sb.append("e/" + this.getEndTime().endTime + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

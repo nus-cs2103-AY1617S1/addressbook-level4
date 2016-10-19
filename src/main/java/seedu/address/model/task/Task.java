@@ -68,6 +68,18 @@ public class Task implements ReadOnlyTask {
     	return done;
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+    
+    public void setStartTime(StartTime start) {
+        this.start = start;
+    }
+    
+    public void setEndTime(EndTime end) {
+        this.end = end;
+    }
+    
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */

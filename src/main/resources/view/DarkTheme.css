@@ -1,11 +1,11 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#bb1d1d, 20%);
 }
 
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
+    -fx-text-fill: red;
     -fx-opacity: 0.9;
 }
 
@@ -39,9 +39,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: #3bcfc8;
+    -fx-control-inner-background: #ee9882;
+    -fx-background-color: #ffa500;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -76,7 +76,7 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-border-color: transparent #ef8cf8 transparent #ef8cf8;
     -fx-background-color: transparent, derive(#1d1d1d, 10%);
 }
 

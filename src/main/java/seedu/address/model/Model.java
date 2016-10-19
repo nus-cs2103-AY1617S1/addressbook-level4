@@ -1,9 +1,11 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.function.Predicate;
@@ -25,7 +27,7 @@ public interface Model {
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
     /** Edits the given task */
-    void editTask(ReadOnlyTask target, String targetProperty, String newInfo) throws UniqueTaskList.TaskNotFoundException;
+    void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd) throws TaskNotFoundException, IllegalValueException;
     
     /** Marks the given task as done */
     void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
@@ -33,6 +35,18 @@ public interface Model {
     /** Marks the given task as undone */
     void undoneTask (ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Saves the current task manager*/
+    void saveToHistory();
+    
+    /** Loads the previous task manager from the stored stack of task managers*/
+    void loadFromHistory();
+    
+    /** Loads the previous task manager from the stored stack of undone task managers*/
+    void loadFromUndoHistory();    
+    
+    /** Clears the contents of the undo and redo collections from the task manager*/
+    void clearHistory();
+
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
