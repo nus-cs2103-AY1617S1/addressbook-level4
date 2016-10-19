@@ -28,17 +28,24 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " d/(?<description>[^/]+)"
-                    + "( date/(?<date>[^/]+) time/(?<time>[^/]+)){0,2}"
+                    + "( d/(?<description>[^/]+)){0,1}"
+                    + "( date/(?<date>[^/\\.]+)){0,1}"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
+
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[\\d]+)"
                     + "( (?<name>[^/]+)){0,1}"
                     + "( d/(?<description>[^/]+)){0,1}"
-                    + "( date/(?<date>[^/]+) time/(?<time>[^/]+)){0,2}"
+                    + "( date/(?<date>[^/\\.]*)){0,1}" // group <date> can be blank to edit DatedTask -> UndatedTask
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
+
+    //    private static final Pattern USA_DATE_FORMAT = 
+    //            Pattern.compile("(?<MM>(0?[1-9]|1[012]))"
+    //                            	+ "\\."
+    //                            	+ "(?<DD>(0?[1-9]|[12][0-9]|3[01]))"
+    //                            	+ "\\."
+    //                            	+ "(?<YY>\\d{2})");
+
     public Parser() {}
 
     /**
@@ -65,10 +72,10 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
-            
+
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
-            
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -97,21 +104,52 @@ public class Parser {
      */
     private Command prepareAdd(String args){
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+        }	
+
         try {
+            List<java.util.Date> dateList = nattyParse(matcher);
+
             return new AddCommand(
                     matcher.group("name"),
                     matcher.group("description"),
-                    matcher.group("date"),
-                    matcher.group("time"),
+                    dateList,
                     getTagsFromArgs(matcher.group("tagArguments"))
-            );
+                    );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+
+    private List<java.util.Date> nattyParse(final Matcher matcher) throws IllegalValueException {
+
+        TimeZone tz = TimeZone.getDefault();	
+        com.joestelmach.natty.Parser natty = new com.joestelmach.natty.Parser(tz);
+        List<java.util.Date> dateList;
+        
+        // user does not input 'date/' 
+        if (matcher.group("date") == null){
+            dateList = null;
+        }
+        // user inputs "date/" preceding empty <?date> group
+        else if (matcher.group("date").equals("")){
+        	// return empty list
+            dateList = new ArrayList <java.util.Date> ();
+        }
+        // natty cannot parse the input and returns empty List<DateGroup>
+        else if (natty.parse(matcher.group("date")).isEmpty()){
+            throw new IllegalValueException(seedu.address.model.person.Date.MESSAGE_DATE_CONSTRAINTS);
+        	//throw new IllegalValueException(matcher.group("date"));
+        }
+        // let natty parse the input 
+        else {
+            dateList = natty.parse(matcher.group("date")).get(0).getDates();
+        }
+
+        return dateList;
     }
 
     /**
@@ -144,7 +182,7 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
-    
+
     /**
      * Parses arguments in the context of the edit person command.
      *
@@ -152,22 +190,23 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
-        
+
         final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        
+
         try {
+            List<java.util.Date> dateList = nattyParse(matcher);
+
             return new EditCommand(
                     Integer.parseInt(matcher.group("index")),
                     matcher.group("name"),
                     matcher.group("description"),
-                    matcher.group("date"),
-                    matcher.group("time"),
+                    dateList,
                     getTagsFromArgs(matcher.group("tagArguments"))
-            );
+                    );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

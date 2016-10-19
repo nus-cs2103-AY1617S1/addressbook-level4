@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -42,14 +43,12 @@ public class EditCommand extends Command {
     private Time time;
     private UniqueTagList tags;
 
-    public EditCommand(int targetIndex, String name, String description, String date, String time, Set<String> tags)
+    public EditCommand(int targetIndex, String name, String description, List<java.util.Date> dateList, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }    
-        
-        System.out.print(targetIndex + "\n" + name + "\n" + description + "\n" + date + "\n" + time );
         
         if (name != null){
             this.name = new Name(name);       
@@ -57,11 +56,18 @@ public class EditCommand extends Command {
         if (description != null){
             this.description = new Description(description);
         }
-        if (date != null){
-            this.date = new Date(date);
-        }
-        if (time != null){
-            this.time = new Time(time);
+        
+        if (dateList != null){
+        	// user inputs "date/" preceding empty <?date> group: converts Dated Task -> Undated Task
+        	if (dateList.isEmpty()){
+        		this.date = new Date((String)null);
+        		this.time = new Time((String)null);
+        	}
+        	// user inputs edited Date which replaces Task Date
+        	else {
+        		this.date = new Date(dateList);
+        		this.time = new Time(dateList);
+        	}
         }
         
         this.tags = new UniqueTagList(tagSet);
@@ -73,8 +79,6 @@ public class EditCommand extends Command {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
-        
-        System.out.print(lastShownList.size());
 
         if (targetIndex <= PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
                 && lastUndatedTaskList.size() >= targetIndex){
@@ -104,6 +108,7 @@ public class EditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, toAdd));
     }
 
+    // use original task as base, insert fields that have been input in edit
     private void populateTaskFields() {
 
         toAdd  = new Task (toEdit.getName(), toEdit.getDescription(), toEdit.getDate(),
