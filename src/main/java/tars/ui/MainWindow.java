@@ -13,7 +13,6 @@ import tars.commons.core.GuiSettings;
 import tars.commons.events.ui.ExitAppRequestEvent;
 import tars.logic.Logic;
 import tars.model.UserPrefs;
-import tars.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,7 +29,6 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private InformationHeader infoHeader;
-    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -45,7 +43,7 @@ public class MainWindow extends UiPart {
     private String tarsName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane reservedTaskListPlaceHolder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -113,7 +111,6 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder, logic.getFilteredTaskList());
-        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTarsFilePath());
@@ -198,11 +195,4 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
 }

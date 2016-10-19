@@ -11,7 +11,7 @@
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tars.ui.MainWindow">
    <children>
-      <MenuBar minHeight="37.0" maxHeight="37.0" prefWidth="692.0" VBox.vgrow="NEVER">
+      <MenuBar maxHeight="37.0" minHeight="37.0" prefWidth="692.0" VBox.vgrow="NEVER">
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
@@ -39,7 +39,7 @@
                   <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <AnchorPane fx:id="browserPlaceholder">
+            <AnchorPane fx:id="reservedTaskListPlaceholder">
                 <padding>
                     <Insets bottom="10" left="5" right="10" top="10" />
                 </padding>

@@ -34,7 +34,6 @@ import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.MarkCommand;
 import tars.logic.commands.RedoCommand;
-import tars.logic.commands.SelectCommand;
 import tars.logic.commands.TagCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.task.TaskQuery;
@@ -78,9 +77,6 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
@@ -274,21 +270,6 @@ public class Parser {
         }
 
         return new MarkCommand(markDone, markUndone);
-    }
-
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
     }
 
     /**
