@@ -80,6 +80,9 @@ public class ActivityParser {
             
         case UnCompleteCommand.COMMAND_WORD:
             return prepareUnComplete(arguments);
+        
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
             
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -142,6 +145,39 @@ public class ActivityParser {
         
         previousCommand = new UnCompleteCommand(splited);
         return previousCommand;
+    }
+    
+    /**
+     * @author Marx Low A0139164A
+     * @param args
+     * @return
+     */
+    private Command prepareEdit(String args) {
+
+        String[] splited = args.split("\\s+");
+        assert(splited.length == 5); // Should only contain a space, Activity Type and Index
+        boolean isValidType = false; // Checks that the activity type is of valid type
+        String activityType = splited[1];
+        
+        // Checks for valid activtiyType
+        if (activityType.equals(Activity.FLOATING_TASK_TYPE) || activityType.equals(Activity.TASK_TYPE) || activityType.equals(Activity.EVENT_TYPE)) {
+            isValidType = true;
+        }
+        if (!isValidType) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        // Checks for valid index 
+        Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        // Checks for valid parameters.
+        // Assumes they are valid
+        
+        return new EditCommand(splited);
     }
     /**
      * Parses arguments in the context of the add task command.
