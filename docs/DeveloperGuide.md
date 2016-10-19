@@ -5,11 +5,11 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E: Product Survey](#appendix-e--product-survey)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
+* [Appendix E: Product Survey](#appendix-e-product-survey)
 
 
 ## Setting up
@@ -248,7 +248,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-## Appendix A : User Stories
+##Appendix A: User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -273,7 +273,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | look for empty slots | check my available time slots before adding a new task
 `*` | user | have auto-fill search | quickly search for relevant tasks 
 
-## Appendix B : Use Cases
+##Appendix B: Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -292,7 +292,7 @@ Guarantees:
 **Extensions**
 
 1a. Clash of timeslots
-> 2a1. System will identify the clash and will display to the user the list of actions to be taken.
+> 1a1. System will identify the clash and will display to the user the list of actions to be taken.
 User can ignore collision or replace existing task with current task or reschedule task or cancel operation.
 
 
@@ -383,7 +383,7 @@ Guarantees:
 > 3a1. The system shows an error message <br>
   Use case resumes at Step 2
 
-## Appendix C : Non Functional Requirements
+##Appendix C: Non Functional Requirements
 
 1. Should work on any [Mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
 2. Should be able to hold up to 1000 tasks.
@@ -398,7 +398,7 @@ Guarantees:
 
 More NFRs and project constraints listed [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints).
 
-## Appendix D : Glossary
+##Appendix D: Glossary
 
 #### Mainstream OS
 
@@ -412,7 +412,7 @@ More NFRs and project constraints listed [here](http://www.comp.nus.edu.sg/~cs21
 
 > Denotes software for which the original source code is made freely available, which may be redistributed and modified.
 
-## Appendix E : Product Survey
+##Appendix E: Product Survey
 
 #### Google Calendar (studied by Pankaj Bhootra)
 
