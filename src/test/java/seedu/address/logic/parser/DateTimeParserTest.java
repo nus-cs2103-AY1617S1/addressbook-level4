@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Test;
 
@@ -23,7 +25,7 @@ public class DateTimeParserTest {
 
         LocalDateTime start = LocalDateTime.of(LocalDate.of(2016, 9, 16), LocalTime.of(17, 0));
 
-        assertEquals(parser.extractStartDate(), start);
+        assertEquals(start, parser.extractStartDate());
     }
     
     @Test
@@ -33,7 +35,7 @@ public class DateTimeParserTest {
 
         LocalDateTime end = LocalDateTime.of(LocalDate.of(2016, 9, 17), LocalTime.of(18, 0));
 
-        assertEquals(parser.extractEndDate(), end);
+        assertEquals(end, parser.extractEndDate());
     }
 
     @Test
@@ -45,7 +47,26 @@ public class DateTimeParserTest {
 
         // extractStartDate and extractEndDate return the same thing if there's only
         // one date token inside the input string
-        assertEquals(parser.extractStartDate(), deadline);
-        assertEquals(parser.extractEndDate(), deadline);
+        assertEquals(deadline, parser.extractStartDate());
+        assertEquals(deadline, parser.extractEndDate());
     }
+    
+    @Test
+    public void changeDateToLocalDateTimeTest() {
+        int year = 1996;
+        int month = 11;
+        int day = 12;
+        int hour = 17;
+        int minute = 0;
+
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set(year, month-1, day, hour, minute); //month-1 because Calendar treats JANUARY as 0
+        Date date = cal.getTime();
+
+        LocalDateTime answer = LocalDateTime.of(LocalDate.of(year, month, day), LocalTime.of(hour, minute));
+        
+        assertEquals(answer, DateTimeParser.changeDateToLocalDateTime(date));
+    }
+    
 }
