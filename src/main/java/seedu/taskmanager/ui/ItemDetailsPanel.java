@@ -101,14 +101,19 @@ public class ItemDetailsPanel extends UiPart {
     }
     
 	public void loadItem(ReadOnlyItem item, int newIdx) {
-	    if (itemList.contains(item)) {
-	        int requiredIdx = itemList.indexOf(item);
-	        itemList.remove(requiredIdx);
-	        itemIndex.remove(requiredIdx);
-	    } else {
-	        itemList.add(item);
-	        itemIndex.add(newIdx+1);
-	    }
+	    // Uncomment to add more than one item
+		//if (itemList.contains(item)) {
+	    //    int requiredIdx = itemList.indexOf(item);
+	    //    itemList.remove(requiredIdx);
+	    //    itemIndex.remove(requiredIdx);
+	    //} else {
+	    //    itemList.add(item);
+	    //    itemIndex.add(newIdx+1);
+	    //}
+		itemList.clear();
+		itemIndex.clear();
+		itemList.add(item);
+		itemIndex.add(newIdx+1);
 	    itemListView.setItems(itemList);
         itemListView.setCellFactory(listView -> new ItemListViewCell(itemIndex));
 	}
