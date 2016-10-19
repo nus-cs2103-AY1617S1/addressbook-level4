@@ -12,9 +12,11 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +35,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -79,6 +82,7 @@ public class Parser {
 
 	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
 
+
 	private com.joestelmach.natty.Parser nattyParser;
 
 	public Parser() {
@@ -116,8 +120,8 @@ public class Parser {
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
 
-		// case FindCommand.COMMAND_WORD:
-		// return prepareFind(arguments);
+		case FindCommand.COMMAND_WORD:
+			return prepareFind(arguments);
 
 		case HelpCommand.COMMAND_WORD:
 			return new HelpCommand();
@@ -321,6 +325,27 @@ public class Parser {
 			return new IncorrectCommand(e.getMessage());
 		}
 	}
+	
+	//@@author A0141019U
+	/**
+     * Parses arguments in the context of the find task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareFind(String args) {
+        if (args.equals("")) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+    	
+    	// keyphrases delimited by commas
+        final String[] keyphrases = args.split(",");
+        final Set<String> keyphraseSet = new HashSet<>(Arrays.asList(keyphrases));
+        
+        System.out.println("keyphrase set: " + keyphraseSet.toString());
+        
+        return new FindCommand(keyphraseSet);
+    }
 
 	/**
 	 * Uses Natty to parse the date/time contained in the input string. If no
@@ -449,8 +474,8 @@ public class Parser {
 	}
 
 	public static void main(String[] args) {
-//		Parser p = new Parser();
-//		p.parseCommand("add deadline 'eat' by 2012-12-25");
+		Parser p = new Parser();
+		p.parseCommand("find bob, oh my darling, clementine");
 	}
 	
 }
