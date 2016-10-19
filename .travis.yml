@@ -3,7 +3,9 @@ matrix:
   include:
     - jdk: oraclejdk8
 script: travis_retry ./gradlew clean headless allTests coverage coveralls -i
+sudo: required
 before_install:
+          - chmod +x gradlew
           - "export DISPLAY=:99.0"
           - "sh -e /etc/init.d/xvfb start"
 
