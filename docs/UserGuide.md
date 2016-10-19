@@ -124,12 +124,12 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME d/duedate l/location [t/TAG]...`
-Edit | `edit INDEX [Detail Type] x/detail change` where x is either d or l
+Add | `add NAME [m/description d/duedate l/location p/priorityrank(1- highest,5-lowest) s/startdate e/enddate t/TAG]...`
+Edit | `edit INDEX [Detail Type] x/detail change` where x is either d, l, p, s, e or t
 Clear | `clear`
 Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
+Find | `find FILTER KEYWORD` FILTER options: tags, title, date
 List | `list`
 Help | `help`
-Select | `select INDEX`
+Select | `select INDEX WIDGET` WIDGET options: location, search, description, calendar
 Exit | `exit`
