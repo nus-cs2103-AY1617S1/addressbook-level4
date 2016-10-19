@@ -18,10 +18,6 @@ public class Event extends Activity implements ReadOnlyEvent{
     private StartTime startTime;
     private EndTime endTime;
     
-    public Event(ReadOnlyActivity source) {
-        super(source);
-    }
-
     public Event(Name name, StartTime start, EndTime end, Reminder reminder, UniqueTagList tags) {
         super(name, reminder, tags);
         

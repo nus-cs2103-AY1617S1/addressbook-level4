@@ -342,15 +342,15 @@ public class DateUtil {
     }
     
     public static Date EndDateTime(Date date) throws IllegalValueException {
-        String strDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(date.getTime() + TimeUnit.HOURS.toMillis(1));
+        String strDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(date.getTime() + TimeUnit.MILLISECONDS.toHours(1)); 
         Date dateformat = null;
-        try {
-            dateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(strDate);
-        } catch (ParseException e) {
-            throw new IllegalValueException(INVALID_FORMAT);
-        }
-        if(dateformat == null)
-            throw new IllegalValueException(INVALID_FORMAT);
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.HOUR_OF_DAY, 1);
+        dateformat = cal.getTime();
+
+  
         return dateformat;
 
     }

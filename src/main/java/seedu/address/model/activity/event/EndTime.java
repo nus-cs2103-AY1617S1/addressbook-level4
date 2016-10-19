@@ -26,25 +26,27 @@ public class EndTime extends DateTime {
      */
     public EndTime(String starttime, String date) throws IllegalValueException {
         super(Calendar.getInstance());
-        Date taskDate = null;
+        Date eventDate = null;
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
         }
         Date startdate = DATE_PARSER.EventDateConvert(starttime);
         if (date != "")
-            taskDate = DATE_PARSER.EventDateConvert(date);
-        else
-            taskDate = DATE_PARSER.EndDateTime(startdate);
-        if (taskDate.before(startdate))
+            eventDate = DATE_PARSER.EventDateConvert(date);
+        else {
+            eventDate = DATE_PARSER.EndDateTime(startdate);
+        }
+            
+        if (eventDate.before(startdate))
             throw new IllegalValueException(MESSAGE_ENDTIME_NOTVALID);
-        if (DateUtil.hasPassed(taskDate)) {
+        if (DateUtil.hasPassed(eventDate)) {
             throw new IllegalValueException(MESSAGE_ENDTIME_INVALID);
         }
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
         }
 
-        this.value.setTime(taskDate);
+        this.value.setTime(eventDate);
         this.value.set(Calendar.MILLISECOND, 0);
         this.value.set(Calendar.SECOND, 0);
     }
