@@ -289,6 +289,10 @@ Use case ends.
 1a1. TaskManager shows an error message <br>
 Use case resumes at step 1
 
+#### Use case: Find an item
+1. User requests to find an item by searching for a keyword
+2. TaskManager lists the specific item
+
 #### Use case: Edit a task/deadline/event
 **MSS**
 
@@ -297,6 +301,18 @@ Use case resumes at step 1
 3. User requests to edit specific details of a specific TDE in the list
 4. TaskManager edits the TDE <br>
 Use case ends.
+
+#### Use case: List all tasks
+1.User requests to list all tasks
+2.TaskManager shows a list of tasks
+
+#### Use case: List all deadlines
+1.User requests to list all deadlines
+2.TaskManager shows a list of deadlines
+
+#### Use case: List all events
+1.User requests to list all events
+2.TaskManager shows a list of events
 
 **Extensions**
 
