@@ -57,7 +57,7 @@ Format: `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVE
 > TASK_NAME | `Mandatory` Specifies the name of the task.
 > START_DATE **(See DATE)** | `Optional` Specifies the starting date and time of the task.
 > END_DATE **(See DATE)** | `Optional` Specifies the ending date and time of the task.
-> **DATE** | If only the DATE is specified, the TIME defaults to starting at 12am or ending at 11:59pm.<br>If only the TIME is specified, the DATE defaults to today.<br><br>If only START_DATE is supplied, the task will be a 1-day event starting from the specified START_DATE and ending on the same day at 11:59pm.<br>If only END_DATE is supplied, the task will start today at 12am.<br>The date and time can be entered in a formal format like <i>17-03-2016</i>, or a natural format like <i>next wednesday, 2pm</i>. The formal format follows the system's settings for whether mm-dd-yyyy or dd-mm-yyyy is used.
+> **DATE** | If only the DATE is specified, the TIME defaults to starting at 12am or ending at 11:59pm.<br>If only the TIME is specified, the DATE defaults to today.<br><br>If only START_DATE is supplied, the task will be a 1-day event starting from the specified START_DATE and ending on the same day at 11:59pm.<br>If only END_DATE is supplied, the task will start today at 12am.<br><br>The date and time can be entered in a formal format like <i>17-03-2016</i>, or a natural format like <i>next wednesday, 2pm</i>. The formal format follows the system's settings for whether <i>mm-dd-yyyy</i> or <i>dd-mm-yyyy</i> is used.
 > LOCATION | `Optional` Specifies the location where the task happens.
 > PRIORITY_LEVEL | `Optional` Specifies the priority level of the task.<br>`Accepts` values `low`, `medium`, `high`<br>`Defaults` to `???`
 > RECURRING_TYPE | `Optional` Specifies the recurring type of the task.<br>`Accepts` values `none`, `daily`, `weekly`, `monthly`, `yearly`<br>`Defaults` to `none`
@@ -134,23 +134,6 @@ Examples:
 * `find CS1010`<br> 
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` command.
-
-#### Select a task : `select`
-Selects the task identified by the index number used in the last task listing.<br>
-Format: `select INDEX [MORE_INDEX]`
-
-> Selects the task and loads the details of the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-> Allow multiple selection
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd task in the task book.
-* `find CS2103` <br> 
-  `select 1`<br>
-  Selects the 1st task in the results of the `find` command.
 
 #### Modifies a task : `modify`
 Modifies the task identified by the index number used in the last task listing.<br>
@@ -239,7 +222,7 @@ Add task named "pjm" to task list
 
 Command | Format  
 -------- | :-------- 
-[Add](#adding-a-task-add) | `add TASK_NAME [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
+[Add](#adding-a-task-add) | `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
 [Alias](#alias-a-keyword--alias) | `alias k/KEYWORD s/SHORT_KEYWORD`
 [Clear](#clearing-all-entries--clear) | `clear`
 [Delete](#deleting-a-task--delete) | `delete INDEX [MORE_INDEX]`
@@ -247,8 +230,7 @@ Command | Format
 [Find](#finding-all-task-containing-any-keyword-in-its-name-find) | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
 [List](#listing-all-tasks-list) | `list [t/LIST_TYPE]`
 [Help](#viewing-help--help) | `help`
-[Select](#select-a-task--select) | `select INDEX [MORE_INDEX]`
-[Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
+[Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
 [Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`
 [Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`
 [Undo](#undo-the-most-recent-operation--undo) | `undo`
