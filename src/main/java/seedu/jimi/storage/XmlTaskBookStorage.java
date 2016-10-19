@@ -15,19 +15,19 @@ import seedu.jimi.model.ReadOnlyTaskBook;
  * A class to access TaskBook data stored as an xml file on the hard disk.
  */
 public class XmlTaskBookStorage implements TaskBookStorage {
-
+    
     private static final Logger logger = LogsCenter.getLogger(XmlTaskBookStorage.class);
-
+    
     private String filePath;
-
-    public XmlTaskBookStorage(String filePath){
+    
+    public XmlTaskBookStorage(String filePath) {
         this.filePath = filePath;
     }
-
-    public String getAddressBookFilePath(){
+    
+    public String getAddressBookFilePath() {
         return filePath;
     }
-
+    
     /**
      * Similar to {@link #readTaskBook()}
      * @param filePath location of the data. Cannot be null
