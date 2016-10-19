@@ -140,4 +140,16 @@ public class UniqueTagList implements Iterable<Tag> {
     public int hashCode() {
         return internalList.hashCode();
     }
+    
+    @Override
+    public String toString() {
+    	final StringBuffer buffer = new StringBuffer();
+        final String separator = " ";
+        internalList.forEach(tag -> buffer.append(tag.toString().substring(1, tag.toString().length()-1)).append(separator));
+        if (buffer.length() == 0) {
+            return "";
+        } else {
+            return buffer.substring(0, buffer.length() - separator.length());
+        }
+    }
 }
