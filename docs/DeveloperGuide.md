@@ -149,6 +149,7 @@ The `Model`,
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Taskmanager data in xml format and read it back.
+* can save the Taskmanager data at specified location and read from it.
 
 ### Common classes
 
