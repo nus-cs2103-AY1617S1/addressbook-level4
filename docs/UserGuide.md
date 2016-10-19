@@ -30,33 +30,57 @@
 Displays the list of commands(along with their formats) for the user to help him use those commands.<br>
 Format: `help`
 
-The user can also view more information and examples of using a particular command.
-Format: `help <Command Name>`
-
-Example:
-* `help add`
-Displays more ways(eg: shortcuts) to use the add command 
-
 #### Adding a Task: `add`
 Adds a task to the task manager<br>
-Format : `add <task name>`<br>
-   `add <task name> d/<date/day>` <br>
-   `add <task name> d/<date/day> t/<time>`<br>
-
 Date Format: dd/mm/yy
-Time Format: 12-hour clock ( Eg: 10am, 5pm, etc)
+Time Format: 12-hour clock(Eg:10am, 5:30pm, etc).Users can also use natural language commands like today, tmr, 3 days later, next mon.<br>
+             It also recognises holidays like christmas and new year. <br>
 
-> If the date and time are not mentioned, the task is passed as a Floating Task.
-> For the date/day, the user can type either the date, which would add the task to that specific day or type the day, which would add the task to the nearest day of the week which matches day.
+##### Adding a floating task
+Adds a task without any start time or end time <br>
+Format : `add <task name>`<br>
 
 Examples:
 * `add Read Harry Potter`
-* `add CS2103T Tutorial d/01/10/16`
-* `add CS2101 reflection d/Friday` 
-  (if you type this on a Wednesday, it marks the slot for the coming Friday, that is, day after tomorrow)
-* `add EE2021 assignment d/next Thursday`
-  (if you type this on a Wednesday, it marks the slot not for the next day, but for the Thursday after that, that is, 8 days later)
-* `add EE2020 project d/30/10/16 t/6pm`
+
+##### Adding a task with a Start Time only
+Adds a task with only the start time <br>
+Format : `add <task name> at/from <Start Time>`
+
+Examples:
+* `add Homewok at 2pm` (This add a task to 2pm of the current day)
+* `add project meeting at 21/11/16` (This gives it the current time when you add the task)
+* `add tutorial at 12/12/16 7pm`
+* `add buy gift at 3 days later`
+* `add buy presents at christmas`
+
+##### Adding a deadline task
+Adds a task with only the end time <br>
+Format : `add <task name> by/to <End Time>`
+
+Examples:
+* `add Homewok by 2pm` (This add a task to 2pm of the current day)
+* `add project meeting at 21/11/16` (This gives it the current time when you add the task)
+* `add tutorial by 12/12/16 7pm`
+* `add buy gift by 3 days later`
+* `add buy presents by new year`
+
+##### Adding an event task
+Adds a task with a start time and an end time <br>
+Format : `add <task name> at/from <start time> by/to <end time>`
+
+Examples:
+* `add exam from tmr 7pm to tmr 8pm`
+* `add event from today 5pm to next fri 10pm`
+
+### Editing a Task: `edit`
+Allows the user to edit a particular task<br>
+Format: `edit <task index> <detail to edit> <new value>`
+
+Example:
+* `edit 2 from 11am to 2pm` (Edits the start time to 11am and end time to 2pm)
+* `edit 1 CS2103T Tutorial` (Edits the name to CS2103 Tutorial)
+* `edit 2 at today 3pm` (Edits the start time at today 3pm)
 
 #### Priority tasks: `priority`
 Allows the user to set the priority of a task when creating it. If the task is of importance, the user can assign it with a high priority. <br>
@@ -69,12 +93,16 @@ Example:
 Undo the most recent task entered in the command line<br>
 Format: `undo`
 
+#### Redo a Task: `redo`
+Redo the most recent undo in the command line<br>
+Format: `redo`
+
 #### Deleting a Task: `delete`
 Deletes a particular task in the task manager<br>
 Format: `delete <task index>`
 
 Example:
-* `delete s1`
+* `delete 1`
 
 #### Finding a Task: `Find`
 Finds tasks in the task manager. Task manager will display all task with the input keywords<br>
@@ -106,22 +134,9 @@ Format: `show <date>`
 Example:
 * `show 10/10/16`
 
-#### View: `done`
-Displays all the completed task on that day for the user to view.<br>
+#### Show all the done tasks: `show done`
+Displays all the done tasks. <br>
 Format: `show done`
-
-#### Editing a Task: `edit`
-Allows the user to edit a particular task<br>
-Format: `edit <task index> <detail to edit> <new value>`
-
-Example:
-* `edit 2 from 11am to 2pm`
-* `edit 1 CS2103T Tutorial`
-* `edit 2 from today 3pm to tomorrow 10am`
-
-#### View all task: `home`
-Returns to the default view of the application when it is opened.<br>
-Format: `home`
 
 #### Mark as done: `done`
 Marks a task as done. <br>
@@ -130,6 +145,19 @@ Format: `done <task index>`
 Example:
 * `done 1`
 
+#### Selecting a task: `select`
+Selects a task based on index. <br>
+Format: `select <index>`
+
+Example:
+* `select 2`
+
+#### Set storage: `set storage`
+Allows the user to change the storage location to a different folder
+Format: `set storage <folder name>`
+
+Example:
+* `set storage task manager`
 
 #### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
@@ -139,23 +167,23 @@ There is no need to save manually.
 
 Following is the list of all commands:
 
-| Command  | Format                                       | Description                                    |
-|----------|----------------------------------------------|------------------------------------------------|
-| `help`   | `help`                                             | Opens a help page                              |
-|          | `help` `<command>`                                 | Shows a help page for that particular command  |
-| `add`    | `add` `<name>`                                     | Adds a floating task                           |
-|          | `add` `<name>` at `<Start Time>`                   | Adds a task only with a start time             |
-|          | `add` `<name>` by `<End Time>`                     | Adds a deadline task                           |
-|          | `add` `<name>` from `<Start Time>` to `<End_Time>` | Adds an event task from start time to end time |
-| `edit`   | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           |
-| `done`   | `done` `<index>`                                   | Marks a task as done                           |
-| `delete` | `delete` `<index>`                                 | Removes a task from the task manager           |
-| `show`   | `show`                                             | Shows all tasks                                |
-|          | `show` done                                        | Shows the done tasks                           |
-|          | `show` today                                       | Shows all tasks for today                      |
-|          | `show` tmr                                         | Shows all tasks for tomorrow                   |
-|          | `show` `<date>`                                    | Shows all tasks for that particular date       |
-| `undo`   | `undo`                                             | Undoes the most recent command                 |
-| `redo`   | `redo`                                             | Redoes the latest undo                         |
-| `find`   | `find` `<name>`                                    | Finds a task with task name as <name>          |
-| `select` | `select` `<index>`                                 | Highlights the particular task at that index   |
+| Command     | Format                                             | Description                                    |
+|-------------|----------------------------------------------------|------------------------------------------------|
+| `help`      | `help`                                             | Opens a help page                              |
+| `add`       | `add` `<name>`                                     | Adds a floating task                           |
+|             | `add` `<name>` at `<Start Time>`                   | Adds a task only with a start time             |
+|             | `add` `<name>` by `<End Time>`                     | Adds a deadline task                           |
+|             | `add` `<name>` from `<Start Time>` to `<End_Time>` | Adds an event task from start time to end time |
+| `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           |
+| `done`      | `done` `<index>`                                   | Marks a task as done                           |
+| `delete`    | `delete` `<index>`                                 | Removes a task from the task manager           |
+| `show`      | `show`                                             | Shows all tasks                                |
+|             | `show` done                                        | Shows the done tasks                           |
+|             | `show` today                                       | Shows all tasks for today                      |
+|             | `show` tmr                                         | Shows all tasks for tomorrow                   |
+|             | `show` `<date>`                                    | Shows all tasks for that particular date       |
+| `undo`      | `undo`                                             | Undoes the most recent command                 |
+| `redo`      | `redo`                                             | Redoes the latest undo                         |
+| `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          |
+| `select`    | `select` `<index>`                                 | Highlights the particular task at that index   |
+|`set storage`| `set storage` `<folder name>`                      | Set storage to a particular folder             |
