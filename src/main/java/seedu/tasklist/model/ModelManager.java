@@ -518,4 +518,23 @@ public class ModelManager extends ComponentManager implements Model {
     config.setTaskListFilePath(filePath);
         return currentFilePath;
     }
+
+    @Override
+    public void deleteTaskRedo(Task target) throws TaskNotFoundException {
+        if(target instanceof Task){
+            Task myTask = (Task) target;
+            if(!myTask.isComplete())
+                myTask.IncompleteCounter--;
+            if(myTask.isOverDue()&&!myTask.isComplete()){
+                myTask.overdueCounter--;
+            }
+            if(myTask.isFloating()&&!myTask.isComplete()){
+                myTask.floatCounter--;
+            }   
+        }
+        taskList.removeTask(target);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+        addToUndoStack(UndoCommand.DEL_CMD_ID, null, (Task) target);
+    }
 }

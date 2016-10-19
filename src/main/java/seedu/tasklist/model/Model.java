@@ -102,4 +102,6 @@ public interface Model {
 
     String changeFileStorageUndo(String filePath) throws IOException, ParseException, JSONException;
 
+    void deleteTaskRedo(Task task) throws TaskNotFoundException;
+
 }

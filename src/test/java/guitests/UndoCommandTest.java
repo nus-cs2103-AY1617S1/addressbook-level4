@@ -15,7 +15,6 @@ public class UndoCommandTest extends TaskListGuiTest {
     
     @Test
     public void undoOneChange() throws IllegalValueException {
-        TestTask[] currentList = td.getTypicalTasks();
         //undo a change that was never made
         commandBox.runCommand("update 20 Buy eggs");
         commandBox.runCommand("undo");
@@ -36,7 +35,6 @@ public class UndoCommandTest extends TaskListGuiTest {
     
     @Test
     public void undoTwoChanges() throws IllegalValueException {
-        TestTask[] currentList = td.getTypicalTasks();
         //undo a change that was never made
         commandBox.runCommand("update 20 Buy eggs");
         commandBox.runCommand("undo");

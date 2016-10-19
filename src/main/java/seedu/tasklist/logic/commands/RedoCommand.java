@@ -85,7 +85,7 @@ public class RedoCommand extends Command {
 
     private void redoDelete(Task task) {
         try{
-            model.deleteTask(task);
+            model.deleteTaskRedo(task);
         }
         catch (TaskNotFoundException e){
             assert false: "The target task cannot be missing";
