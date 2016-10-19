@@ -91,7 +91,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
     }
 
     /**
@@ -103,15 +103,19 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskBook expectedAddressBook,
-                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+                                       List<? extends ReadOnlyTask> expectedShownList,
+                                       List<? extends ReadOnlyTask> expectedDeadlineShownList,
+                                       List<? extends ReadOnlyTask> expectedTodoShownList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredPersonList());
-
+        assertEquals(expectedShownList, model.getFilteredEventList());
+        assertEquals(expectedDeadlineShownList, model.getFilteredDeadlineList());
+        assertEquals(expectedTodoShownList, model.getFilteredTodoList());
+        
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getAddressBook());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
@@ -142,7 +146,7 @@ public class LogicManagerTest {
         model.addTask(helper.generatePerson(2));
         model.addTask(helper.generatePerson(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
     }
 
 
@@ -172,13 +176,15 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.EVENT_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getEventList(),
+                Collections.emptyList(),
+                Collections.emptyList());
 
     }
 
@@ -188,7 +194,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
         model.addTask(toBeAdded); // person already in internal address book
@@ -198,7 +204,9 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getEventList(),
+                Collections.emptyList(),
+                Collections.emptyList());
 
     }
 
@@ -208,15 +216,18 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskBook expectedAB = helper.generateAddressBook(2, 2, 2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getPersonList();
-
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getEventList();
+        List<? extends ReadOnlyTask> expectedDeadlineList = expectedAB.getDeadlineList();
+        List<? extends ReadOnlyTask> expectedTodoList = expectedAB.getTodoList();
         // prepare address book state
         helper.addToModel(model, 2, 2, 2);
 
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
-                expectedList);
+                expectedList,
+                expectedDeadlineList,
+                expectedTodoList);
     }
 
 
@@ -250,7 +261,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList, Collections.emptyList(), Collections.emptyList());
     }
 
    /* @Test
@@ -300,17 +311,15 @@ public class LogicManagerTest {
         List<Task> threeTodos = helper.generateTodoList(3);
         
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
-        expectedAB.removePerson(threePersons.get(1));
+        expectedAB.removeTask(threePersons.get(1));
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
-<<<<<<< HEAD
-        assertCommandBehavior("delete 2",
-=======
         assertCommandBehavior("delete E2",
->>>>>>> new_add_branch
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
     }
 
 
@@ -351,9 +360,11 @@ public class LogicManagerTest {
         TaskBook expectedAB = helper.generateAddressBook(fourPersons, fourDeadlines, fourTodos);
         
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size(), expectedDeadlineList.size(), expectedTodoList.size()),
+                Command.getMessageForTaskListShownSummary(expectedList.size(), expectedDeadlineList.size(), expectedTodoList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                expectedDeadlineList,
+                expectedTodoList);
     }
 
     @Test
@@ -384,9 +395,11 @@ public class LogicManagerTest {
         helper.addToModel(model, fourEvents, fourDeadlines, fourTodos);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size(), expectedDeadlineList.size(), expectedTodoList.size()),
+                Command.getMessageForTaskListShownSummary(expectedList.size(), expectedDeadlineList.size(), expectedTodoList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                expectedDeadlineList,
+                expectedTodoList);
     }
 
     /**
@@ -509,13 +522,13 @@ public class LogicManagerTest {
          */
         void addToAddressBook(TaskBook addressBook, List<Task> personsToAdd, List<Task> deadlinesToAdd, List<Task> todoToAdd) throws Exception{
             for(Task p: personsToAdd){
-                addressBook.addPerson(p);
+                addressBook.addTask(p);
             }
             for(Task p: deadlinesToAdd){
-                addressBook.addPerson(p);
+                addressBook.addTask(p);
             }
             for(Task p: todoToAdd){
-                addressBook.addPerson(p);
+                addressBook.addTask(p);
             }
         }
 
