@@ -48,7 +48,7 @@ Format: `add TASKNAME [at/from START_TIMEDATE] [by/to END_TIMEDATE] [r/RECURRING
 > * If START_TIMEDATE exceeds END_TIMEDATE, the addition of task will not be successful.
 
 Examples: 
-* `add Buy eggs at 5pm 13/09/2016 p/high`
+* `add Buy eggs at 5pm 13/09/2016 r/weekly p/high`
 * `add Meeting from 13/09/2016 5pm to 13/09/2016 7pm p/med`
 * `add Pay bills by 13/09/2016 5pm`
 * `add Do laundry p/low`
