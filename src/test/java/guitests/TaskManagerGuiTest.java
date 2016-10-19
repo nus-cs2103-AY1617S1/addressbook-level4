@@ -82,7 +82,6 @@ public abstract class TaskManagerGuiTest {
         try {
             TypicalTestTasks.loadTaskManagerWithSampleData(ab);
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return ab;

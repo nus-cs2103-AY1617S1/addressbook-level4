@@ -84,7 +84,6 @@ public class UpdateCommand extends Command {
                     newTaskTags
             );
         } catch (IllegalValueException e1) {
-            e1.printStackTrace();
             return new CommandResult(e1.getMessage()); 
         }
         

@@ -95,13 +95,11 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public DateTime getOpenTime() {
-        // TODO Auto-generated method stub
         return this.openTime;
     }
 
     @Override
     public DateTime getCloseTime() {
-        // TODO Auto-generated method stub
          return this.closeTime;
     }
 

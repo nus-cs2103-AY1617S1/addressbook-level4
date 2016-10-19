@@ -157,7 +157,6 @@ public class TaskListPanelHandle extends GuiHandle {
         try {
             return getTaskCardHandle(new Task(getListView().getItems().get(index)));
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;

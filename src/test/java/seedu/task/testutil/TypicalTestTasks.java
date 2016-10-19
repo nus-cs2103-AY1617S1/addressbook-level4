@@ -63,8 +63,8 @@ public class TypicalTestTasks {
         try {
             loadTaskManagerWithSampleData(ab);
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            assert false: "Invalid sample task data";
         }
         return ab;
     }
