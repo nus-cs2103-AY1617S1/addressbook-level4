@@ -59,8 +59,9 @@ Type `help` and press `Enter` to view a list of all commands and their correspon
 Refer to the table below to help you understand the conventions used in this guide. 
 
 <br>
-|Convention|Description    |
-|:---------|:--------------|
+
+|Convention|Description|
+|:---------|:----------|
 |`highlight`|Words/phrases that can be entered into the command line are in `highlight`.|
 |UPPER_CASE|Arguments for which you key in input are in UPPER CASE. Each word in a phrase is separated by an underscore.|
 |[ ]|Arguments in square brackets are optional.|
@@ -81,6 +82,7 @@ You may refer to the following to see how the command format for the `delete-ali
 For `add (deadline | dl)`, `add (someday |sd)` and `list` commands, which would be mentioned in following segments, you will need to input a date and a time/time period. The table below lists the alternative date and time formats that you could use when entering these commands.
 
 <br>
+
 |Format|Example   |
 |:-----|:---------|
 |dd-mm-yy|25-12-16|
@@ -181,9 +183,9 @@ Format: `find KEYPHRASE_WORD_ONE KEYPHRASE_WORD_TWO [KEYPHRASE_MORE_WORDS] ..., 
 
 Examples:
 - `find meeting` <br>
-  Returns `Meeting with John` and `Skytok project meeting`.
+  Returns `Meeting with John` and `Skytok project meeting` tasks.
 - `find Physics test, chemistry, biology` <br>
-  Returns any task containing any of `Physics test`, `chemistry`, or `biology`.
+  Returns all tasks containing any of the keywords/keyphrases `Physics test`, `chemistry`, or `biology`.
 
 
 <br>
