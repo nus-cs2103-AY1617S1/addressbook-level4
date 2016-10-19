@@ -140,7 +140,7 @@ for more detail.
 
 #### Organizing tasks using tags
 
-If you have a lot of tasks you can use tags to organize them. See [the `tag` command](#managing-tags-tag) for more detail.
+If you have a lot of tasks you can use tags to organize them. See [the `tag` command](#manage-tags-tag) for more detail.
 
 !!! example
     **`add`**` Finish tutorial 6 /d 10 Oct /t CS2106, School`
