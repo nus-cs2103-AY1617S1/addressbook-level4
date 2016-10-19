@@ -44,12 +44,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
      * Conversion
      */
     public XmlSerializableTaskList(ReadOnlyTaskMaster src) {
-    	try {
-			src = src.purify();
-		} catch (TaskNotFoundException e) {
-			// TODO Auto-generated catch block
-			assert false : "impossible";
-		}
+
         tasks.addAll(src.getTaskComponentList().stream().map(XmlAdaptedTaskComponent::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
@@ -94,11 +89,6 @@ public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
         return Collections.unmodifiableList(tags);
     }
 
-	@Override
-	public ReadOnlyTaskMaster purify() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
     @Override
     public List<TaskComponent> getTaskComponentList() {

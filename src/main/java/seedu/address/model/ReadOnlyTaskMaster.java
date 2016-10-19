@@ -33,7 +33,6 @@ public interface ReadOnlyTaskMaster {
      * Returns an unmodifiable view of tags list
      */
     List<Tag> getTagList();
-    
-    ReadOnlyTaskMaster purify() throws TaskNotFoundException;
+
 
 }

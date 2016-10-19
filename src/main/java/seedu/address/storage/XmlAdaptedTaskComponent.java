@@ -57,6 +57,9 @@ public class XmlAdaptedTaskComponent {
         } else if (source.getTaskReference().getTaskType() == TaskType.FLOATING) {
             startDate = TaskDate.DATE_NOT_PRESENT;
             endDate = TaskDate.DATE_NOT_PRESENT;
+        } else if(source.getTaskReference().getTaskType() == TaskType.COMPLETED){
+        	startDate = source.getStartDate().getDateInLong();
+            endDate = source.getEndDate().getDateInLong();
         }
         if (source.getTaskReference().getRecurringType() != RecurringType.NONE && source.isArchived()) {
             TaskDate startCopy = new TaskDate(source.getStartDate());
@@ -68,6 +71,7 @@ public class XmlAdaptedTaskComponent {
             endDate = endCopy.getDateInLong();
         }
         recurringType = source.getTaskReference().getRecurringType().name();
+        isArchived = source.isArchived();
     }
 
     /**
@@ -90,7 +94,16 @@ public class XmlAdaptedTaskComponent {
 
 
     private Task toModelTypeFloating(final Name name, final UniqueTagList tags) {
-        return new Task(name, tags);
+    	Task task = new Task(name, tags);
+    	
+    	if(isArchived){
+    		task.setType(TaskType.COMPLETED);
+        	for(TaskComponent t: task.getTaskDateComponent()){
+        		t.archive();
+        	}
+        }
+    	
+        return task;
     }
 
     private Task toModelTypeNonFloating(final Name name, final UniqueTagList tags) {
@@ -100,7 +113,15 @@ public class XmlAdaptedTaskComponent {
         if (recurringType != null ) {
             toBeAdded = RecurringType.valueOf(recurringType);
         }
+        
+        Task task = new Task(name, tags, taskStartDate, taskEndDate, toBeAdded);
+        if(isArchived){
+        	task.setType(TaskType.COMPLETED);
+        	for(TaskComponent t: task.getTaskDateComponent()){
+        		t.archive();
+        	}
+        }
 
-        return new Task(name, tags, taskStartDate, taskEndDate, toBeAdded);
+        return task;
     }
 }

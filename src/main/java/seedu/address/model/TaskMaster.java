@@ -187,17 +187,6 @@ public class TaskMaster implements ReadOnlyTaskMaster {
         return Objects.hash(tasks, tags);
     }
 
-	@Override
-	public ReadOnlyTaskMaster purify() throws TaskNotFoundException  {
-		TaskMaster newList = new TaskMaster(this); 
-		for(Task t : tasks){
-			if(t.getTaskType()==TaskType.COMPLETED) {
-				Task copyToRemove = new Task(t);
-				newList.removeTask(copyToRemove);					
-			}
-		}
-		return new TaskMaster(newList);
-	}
 
 	public boolean archiveTask(TaskComponent target) throws TaskNotFoundException {
 		// TODO Auto-generated method stub
