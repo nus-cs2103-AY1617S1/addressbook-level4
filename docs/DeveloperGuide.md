@@ -64,6 +64,8 @@ We use the Java coding standard found at <https://oss-generic.github.io/process/
 
 <img src="images/Architecture.png" width="600">
 
+<figcaption>Simplistic overview of the application</figcaption>
+
 The Architecture Diagram above explains the high-level design of the App. Here is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/todo/MainApp.java). It is responsible for,
@@ -78,10 +80,6 @@ The Architecture Diagram above explains the high-level design of the App. Here i
 
 [**`Commons`**](#common-modules) represents a collection of modules used by multiple other components. A few of these modules play important roles at the architecture level.
 
-* `Events` : This module is used by components to marshal information around and inform other components that things have happened. (i.e. a form of _Event Driven_ design)
-* `Util` : Used by many classes to write log messages to the App's log file.
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
-
 The rest of the App consists three components.
 
 * [**`UI`**](#ui-component): The user facing elements of tha App, representing the view layer. 
@@ -90,17 +88,23 @@ The rest of the App consists three components.
 
 Each of the three components defines its API in an `interface` with the same name and are bootstrapped at launch by `MainApp`.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `TodoLogic.java` class.
 
-<img src="images/LogicClassDiagram.png" width="800">
+<img src="diagrams/Logic Component.svg" class="u-max-full-width">
 
-The Sequence Diagram below shows how the components interact for the scenario where the user issues the command `delete 3`.
+<figcaption>Example of a Logic class diagram exposing its API to other components</figcaption>
 
-<img src="images/SDforDeletePerson.png" width="800">
+The Sequence Diagram below shows how the components interact when the user issues a generic command.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
+<img src="diagrams/Sequence Diagram.svg" class="u-max-full-width">
 
-<img src="images/SDforDeletePersonEventHandling.png" width="800">
+<figcaption>The interaction of major components in the application through a sequence diagram</figcaption>
+
+The diagram below shows how the `EventsCenter` reacts to a `help` command event, where the UI does not know or contain any business side logic.
+
+<img src="diagrams/Events Center Diagram.svg" class="container u-max-full-width">
+
+<figcaption>A sequence diagram showing how EventsCenter work</figcaption>
 
 !!! note "Event Driven Design" 
 
@@ -114,9 +118,13 @@ The sections below give more details of each component.
 
 <img src="diagrams/Ui Component.svg" class="u-max-full-width">
 
+<figcaption>The relation between the UI subcomponents</figcaption>
+
 **API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
+<img src="diagrams/Ui Image.svg" class="u-max-full-width">
 
+<figcaption>Visual identification of view elements in the UI</figcaption>
 
 The UI consists of a `MainWindow` that contains several view elements. They are `TodoListView`, `CommandInputView`, `CommandFeedbackView`, `FilterBarView`, and so on. All these classes, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
 
@@ -131,9 +139,12 @@ The `UI` component,
 
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800">
+<img src="diagrams/Logic Component.svg" class="u-max-full-width">
 
 <figcaption>The relation between the Logic subcomponents</figcaption>
+<img src="diagrams/Logic Component 1.svg" class="u-max-full-width">
+
+<figcaption>Continuation of the relation between the Logic subcomponents</figcaption>
 
 **API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
@@ -155,11 +166,15 @@ the command the user called
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call. See [the implementation section](#logic) below for the implementation details of the logic component.  
  
-<img src="images/DeletePersonSdForLogic.png" width="800">
+<img src="images/DeletePersonSdForLogic.png" class="u-max-full-width">
+
+<figcaption>The process of deleting a person within the Logic component</figcaption>
 
 ### Model component
 
 <img src="diagrams/Model Component.svg" class="container u-max-full-width">
+
+<figcaption>The relation between the Model subcomponents</figcaption>
 
 **API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
@@ -168,7 +183,7 @@ The model component represents the application's state and data layer. It is imp
 - `TodoModel` - represents the todolist tasks
 - `UserPrefs` - represents saved user preferences 
 
-Each individual data model handles their own CRUD operations, with the `Model` acting as a facade to present a simplified and uniform interface for external components to work with. Each of the data model holds a `Storage` object that is initalized by the `Model` and injected into them. The storage interfaces exposes a simple interface for reading and writing to the appropriate storage mechanism. 
+Each individual data model handles their own CRUD operations, with the `Model` acting as a facade to present a simplified and uniform interface for external components to work with. Each of the data model holds a `Storage` object that is initalized by the `Model` and injected into them. The storage interfaces exposes a simple interface for reading and writing to the appropriate storage mechanism (read more below).
 
 To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The UI component binds to the  the model through the `getObservableList` function which returns an `UnmodifiableObseravbleList` object that the UI can bind to.
 
@@ -176,8 +191,15 @@ The model ensure safety by exposing as much of its internal state as possible as
 
 <img src="diagrams/Storage Component.svg" class="container u-max-full-width">
 
+<figcaption>The relation between the Storage subcomponents</figcaption>
+
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
+The storage component represents the persistence layer of the data. It is implemented by `TodoListStorage` which holds and contains `ImmutableTodoList`. Similarly, `JsonUserPrefsStorage` stores the user preferences. 
+
+Both classes implement `FixedStorage`, which exposes methods to read and save data from storage. Users can choose to move their storage file, hence `MovableStorage` is exposed to allow them to do so. User preferences cannot be exported.
+
+The file extension currently chosen is XML. Hence, classes have been written to serialize and parse the data to and fro XML.
 
 ### Common modules
 
@@ -187,12 +209,19 @@ Modules used by multiple components are in the `seedu.todo.commons` package.
 
 The core module contains many important classes used throughout the application.
 
-The important classes would be `UnmodifiableObservableList` where it applies the Observer pattern to allow the UI component to be listen to changes to the data.
-
+* `UnmodifiableObservableList` :  Apply the Observer pattern to allow the UI component to be listen to changes to the data.
 * `Events` : This module is used by components to marshal information around and inform other components that things have happened. (i.e. a form of _Event Driven_ design)
-* `Util` : Used by many classes to write log messages to the App's log file.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
+#### Util
+
+The util module contains many different helper methods and classes used throughout the application. The things that can, and should be reused can be found in here.
+
+#### Exceptions
+
+The exceptions module contains all common exceptions that will be used and thrown throughout the application.
+
+* `ValidationException` : Used by many classes to signal that the command or model parsed is not valid and something should be done.
 
 ## Implementation
 
