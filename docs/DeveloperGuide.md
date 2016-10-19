@@ -26,7 +26,7 @@ This developer guide is for both existing and new developers of the team who are
 
 This guide will be showing you the Product Architecture, APIs and the details regarding the different components. <br>
 
-The next page will be showing you the introduction and set-up to make sure that you have the necessary tools before getting started, so do remember to read them! Feel free to approach our team for any clarifications that you may face during the process. Good luck and have fun coding! 
+The next segment will show you how to set-up to make sure that you have the necessary tools before getting started, so do remember to read them! Feel free to approach our team for any clarifications that you may face during the process. Good luck and have fun coding! 
 
 
 ## Setting up
@@ -62,14 +62,14 @@ The next page will be showing you the introduction and set-up to make sure that 
 ### Troubleshooting Project Setup
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**<br>
 
-•	Reason: Eclipse fails to recognize new files that appeared due to the Git pull. <br>
-•	Solution Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose Gradle -> Refresh Gradle Project
+ï¿½	Reason: Eclipse fails to recognize new files that appeared due to the Git pull. <br>
+ï¿½	Solution Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose Gradle -> Refresh Gradle Project
 <br>
 
 **Problem: Eclipse reports some required libraries missing**<br>
 
-•	Reason: Required libraries may not have been downloaded during the project import.<br>
-•	Solution: Run tests using Gradle once (to refresh the libraries).
+ï¿½	Reason: Required libraries may not have been downloaded during the project import.<br>
+ï¿½	Solution: Run tests using Gradle once (to refresh the libraries).
 
 
 
@@ -77,12 +77,12 @@ The next page will be showing you the introduction and set-up to make sure that 
 
 ### Software Architecture
 
-To start off, let us introduce you to the overall structure of Mastermind.DO have a basic understanding of Mastermind’s each different component before focusing on them individually. <br>
+To start off, let us introduce you to the overall structure of Mastermind. Do have a basic understanding of Mastermindï¿½s different components before focusing on them individually. <br>
 
-Mastermind is split up into 5 main components, namely the UI, Logic, Model, Storage and Commons, as shown below, in Figure 1. 
+Mastermind is split up into 5 main components, namely the `UI`, `Logic`, `Model`, `Storage` and `Commons`, as shown below, in Figure 1. 
 
 
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/Mastermind_Software_Architecture.jpg" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -113,7 +113,7 @@ The sections below give more details of each component.
 
 UI is implemented by JavaFX 8 and consists of the main panel Main Window. This component primarily handles user input such as text input which will be entered via Command Line Input (CLI) as shown in Figure 2. On top of text input, users are also allowed to use keypress or mouse click and pass on to the Logic component. <br>
 
-If you are intending to work on the UI, you will need to update the application’s internal state, which also includes: <br>
+If you are intending to work on the UI, you will need to update the applicationï¿½s internal state, which also includes: <br>
 1.	UiManager.java <br>
 2.	UiPartLoader.java <br>
 3.	UiPart.java <br>
@@ -177,7 +177,7 @@ This exit command runs when the user tries to exit the program, allowing the pro
 
 
 ##### Find
-To find an item, the user will search through the Storage by calling “find <task>”, “find <date>” or “find <tag>”. It calls FindTagCommand to find the exact terms of the keywords entered by the user.
+To find an item, the user will search through the Storage by calling ï¿½find <task>ï¿½, ï¿½find <date>ï¿½ or ï¿½find <tag>ï¿½. It calls FindTagCommand to find the exact terms of the keywords entered by the user.
 
 
 ##### Mark
