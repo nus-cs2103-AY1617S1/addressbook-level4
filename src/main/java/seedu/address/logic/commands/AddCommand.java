@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import java.util.Date;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -50,8 +51,8 @@ public class AddCommand extends UndoableCommand {
         this.toAdd = new Task(new Name(taskName));
     }
 
-    public AddCommand(String taskNameString, String startDateString, String endDateString, String rateString,
-            String timePeriodString, String priorityString) throws IllegalValueException {
+    public AddCommand(String taskNameString, Optional<String> startDateString, Optional<String> endDateString, 
+            Optional<String> rateString, Optional<String> timePeriodString, String priorityString) throws IllegalValueException {
         assert taskNameString != null;
         
     	Name taskName = new Name(taskNameString);
@@ -60,24 +61,24 @@ public class AddCommand extends UndoableCommand {
         RecurrenceRate recurrenceRate = null;
         Priority priority;
 
-        if (startDateString != null) {
-            assert DateTime.isValidDate(startDateString);
-            startDate = DateTime.convertStringToDate(startDateString);
+        if (startDateString.isPresent()) {
+            assert DateTime.isValidDate(startDateString.get());
+            startDate = DateTime.convertStringToDate(startDateString.get());
         }
 
-        if (endDateString != null) {
-            assert DateTime.isValidDate(endDateString);
-            endDate = DateTime.convertStringToDate(endDateString);
-            if (startDate != null && !DateTime.hasDateValue(endDateString)) {
+        if (endDateString.isPresent()) {
+            assert DateTime.isValidDate(endDateString.get());
+            endDate = DateTime.convertStringToDate(endDateString.get());
+            if (startDate != null && !DateTime.hasDateValue(endDateString.get())) {
                 endDate = DateTime.setDateToStartDate(startDate, endDate);
             }
         }
 
-        if (rateString != null && timePeriodString != null) {
-            recurrenceRate = new RecurrenceRate(rateString, timePeriodString);
-        } else if (rateString == null && timePeriodString != null) {
-            recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString);
-        } else if (rateString != null && timePeriodString == null) {
+        if (rateString.isPresent() && timePeriodString.isPresent()) {
+            recurrenceRate = new RecurrenceRate(rateString.get(), timePeriodString.get());
+        } else if (rateString.isPresent() && timePeriodString.isPresent()) {
+            recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString.get());
+        } else if (rateString.isPresent() && timePeriodString.isPresent()) {
             throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
         } 
         
