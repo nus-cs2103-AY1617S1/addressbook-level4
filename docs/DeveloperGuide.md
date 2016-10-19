@@ -486,6 +486,39 @@ Use case ends.
 <br>
 <br>
 
+####Use case: Shows today's agenda
+
+**MSS**
+
+1. User requests to list the agenda of the day
+2. App shows a list of tasks due on that day and events held on that day.
+Use case ends
+
+**Extension**
+
+2a. There is no tasks due on that day or events hald on that day.
+
+>2a1. App shows an empty list. <br>
+> Use case ends.
+
+<br>
+<br>
+
+####Use case: Shows list of tasks & events in a category
+
+**MSS** 
+
+1. User requests to list out the tasks & events in a particular category
+2. App shows a list of tasks and/or events that matches that category
+
+2a. There is no tasks or events that matches that category.
+
+>2a1. App shows an empty list. <br>
+> Use case ends.
+
+<br>
+<br>
+
 ####Use case: Undo action
 
 **MSS** 
@@ -522,40 +555,6 @@ Use case ends.
 2a. No such keyword was used before in any task details.
 
 >2a1. App shows message to user and displays an empty list to user. <br>
-> Use case ends.
-
-<br>
-<br>
-
-####Use case: View all incomplete tasks
-
-**MSS** 
-
-1. User requests to view all incomplete tasks.
-2. App shows a list of all the incomplete tasks. <br>
-Use case ends.
-
-**Extensions**
-
-2a. There are no incomplete tasks.
-> 2a1. App shows message to user and displays an empty list to user. <br>
-> Use case ends.
-
-<br>
-<br>
-
-####Use case: View all completed tasks
-
-**MSS** 
-
-1. User requests to view all completed tasks.
-2. App shows a list of all the completed tasks. <br>
-Use case ends.
-
-**Extensions**
-
-2a. There are no completed tasks.
-> 2a1. App shows message to user and displays an empty list to user. <br>
 > Use case ends.
 
 <br>
@@ -629,14 +628,15 @@ Use case ends.
 4. Should favor DOS style commands over Unix-style commands.
 5. Should support [natural language processing](#natural-language-processing) with [natural language commands](#natural-language-commands).
 6. Should be able to do all functions through the [command-line interface](command-line interface).
-7. Should ensure reminders for overlapping tasks do not overwrite each other.
-8. Should be able to be accessed offline.
-9. Should load within 1 second of opening the program.
-10. Should be able to display full list of tasks within 1 second.
-11. Should be able to save and backup tasks into a file for recovery or portability.
-12. Should not cause data corruption when program is closed abruptly.
-13. Should be able to hold tasks up to one year onwards.
-14. Should recover from major errors efficiently.
+7. Should be able to be accessed offline.
+8. Should load within 1 second of opening the program.
+9. Should be able to display full list of tasks within 1 second.
+10. Should be able to save and backup tasks into a file for recovery or portability.
+11. Should not cause data corruption when program is closed abruptly.
+12. Should be able to hold tasks up to one year onwards.
+13. Should recover from major errors within 1 second.
+
+Other requirements can be found in the project constraints section of our team's [module handbook](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/).
 
 <br>
 <br>
@@ -676,7 +676,13 @@ Use case ends.
 
 | Task Managers | Strengths | Weaknesses |
 | :------------ | :-------- | :--------- |
-| Todoist |  Has a very simple design. <br>Offers a mobile app. <br>Has a feature where	users are encouraged to earn "Todoist Karma", to track their productivity trends as they finish their tasks.| Free version is limited in its capabilities and  is not well-encrypted. <br>Some of the mobile apps have design issues (like being unable to sort tasks). <br>Free version does not come up with some features like reminders, filters, labels, and templates. |
-| Trello |Can divide projects up by tasks, and then edit those tasks with descriptions, labels, checklists, and even attachments. <br>Is particularly helpful for teams working on separate tasks toward a greater project goal, where the tasks are in need of a pipeline. | Has no good way to use this system to prioritize tasks between projects. |
-| Google Keep | Easy on the eyes. <br>Easy to use. <br>Integrates with desktop/mobile very well. <br>As expected from google, it integrates well with other google products too. <br>Voice memos feature. <br>Images feature. <br>Able to retrieve deleted items in archive. <br>Has reminders. <br>Can share lists. | No chronological representation of reminders. |
-
+| Todoist |  Has a very simple design. <br>Offers a mobile app. <br>Has a feature where users are encouraged to earn "Todoist Karma", to track their productivity trends as they finish their tasks.| Free version is limited in its capabilities and  is not well-encrypted. <br>Some of the mobile apps have design issues (like being unable to sort tasks). <br>Free version does not come up with some features like reminders, filters, labels, and templates. |
+| Trello | Can divide projects up by tasks, and then edit those tasks with descriptions, labels, checklists, and even attachments. <br>Is particularly helpful for teams working on separate tasks toward a greater project goal, where the tasks are in need of a pipeline. | Has no good way to use this system to prioritize tasks between projects. |
+| Google Keep | Easy on the eyes. <br>Easy to use. <br>Integrates with desktop/mobile very well. <br>As expected from google, it integrates well with other google products too. <br>Voice memos feature. <br>Images feature. <br>Able to retrieve deleted items in archive. <br>Has reminders. <br>Reminders can be set location-based. <br>Can share lists. | No chronological representation of reminders. |
+| Google Calendar | Events are shown clearly on a calendar interface. <br>Integrated with Google reminders to give user reminders. <br>Allows addition of tasks with deadlines unlike most to-do apps. <br>Puts floating tasks and tasks with deadlines together for easy reviewing and reassessing of what to do next. | No other way to prioritise tasks other than setting a deadline for it. <br> |
+| Wunderlist | Easy to use for beginners. <br>Has reminder features. <br>Allows creation and sharing of lists and setting up deadlines to get them done. <br>Is useful for collaboration on these lists with other people. <br> Comes with a mobile and a smartwatch app. | Advanced users have to pay if they want access to better features that beginners might not want to use as much. <br> More of a power list making tool than a true GTD app. | 
+| Any.do | Can sync lists across all devices. <br>Can share lists with other people. <br>Allows creation of recurring tasks. <br>Comes with a voice-entry feature, which allows you to create a list using voice commands. <br>Comes with a feature "Any.do Moment" which focuses on just the tasks due on the day itself. | Comes with limited themes. <br> Users have to pay to use their more advanced features. |
+| Remember the Milk | Allows syncing across devices. <br> Tasks can be set with deadlines and priorities. <br>Works well with serveices like Google Calendar and Evernote. <br>Allows easy sharing of lists and tasks with friends and colleagues. <br> Advanced feature to break jobs into sub-tasks.<br> Advanced feature to use colour tags to separate different kinds of lists. | Users have to pay to use their advanced features.<br> Users have to pay for the ability to set reminders. |
+| Clear| Comes with a mobile app. <br>Differs from other task managers, as you can use gestures, such as swiping, to create, rearrange and mark tasks as complete on the mobile version, instead of tapping on the mobile.<br> Allows creation of separate lists.<br> Built-in reminder feature. <br> | Users have to pay to use this app. <br> |
+| Habitica | Comes with a mobile app. <br>Comes as an RPG-style game to motivate users to complete tasks that are tracked in the app. | May be too quirky for more serious users or users who do not play RPGs. |
+| OmniFocus | Flexible in that it can be as simple or as complex as what the user wants it. <br>Allows viewing and organising tasks in different ways to suit the wants of the user. <br> Allows user to just use a keyboard shortcut to add a task anytime while on the desktop. <br>Desktop version syncs with some email clients to turn emails into tasks. <br>iOS 8 devices allows addition of tasks into OmniFocus from other iOS apps. <br>iOs 8 devices has a quick-entry button into the OmniFocus App. <br>Syncs across all iOS devices and Mac. | Only available for iOS devices and Mac. <br> Users have to pay to use this app. |

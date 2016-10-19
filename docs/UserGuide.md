@@ -56,9 +56,11 @@ Command | Format
 [Complete](#com)| `complete TASK_INDEX`
 [Delete](#del) | `delete TASK_INDEX`
 [Edit](#edit) | `edit INDEX DETAIL_MODIFIER EDITS`
+[Today](#today) | `today`
+[Show](#show) | `show CATEGORY`
 [Undo](#undo) | `undo`
 [Find](#find) | `find KEYWORD [MORE_KEYWORDS]`
-[Setdir](#set) | `setdir NEW_DIRECTORY`
+[SaveAs](#saveas) | `saveas NEW_DIRECTORY`
 [Clear](#clear) | `clear`
 [Exit](#exit) | `exit`
 
@@ -163,6 +165,24 @@ Examples:
 
 <br><br>
 
+#### <a id="today"></a>List today's agenda: `today`
+List tasks due today and events on today. <br>
+Format: `today`
+
+<br><br>
+
+#### <a id="show"></a>Show list of tasks and events in a category: `show`
+Shows a list of task and events that belong to a category <br>
+Format: `show CATEGORY`
+
+> * The category you type in can be an index on the list, or days.
+
+Examples:
+* `show Monday`
+* `show 1`
+
+<br><br>
+
 #### <a id="undo"></a>Undo previous action: `undo`
 Undos the previous action done in the task manager. <br>
 Format: `undo`
@@ -185,7 +205,7 @@ Examples:
 
 <br><br>
 
-#### <a id="set"></a>Setting save directory : `saveas`
+#### <a id="saveas"></a>Setting save directory : `saveas`
 Set a new save path for all your tasks.
 Format: `saveas NEW_DIRECTORY`
 
