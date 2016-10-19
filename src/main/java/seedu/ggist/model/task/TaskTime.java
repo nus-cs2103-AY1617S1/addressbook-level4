@@ -37,8 +37,7 @@ public class TaskTime {
     public void editTime(String newTime) throws IllegalValueException {
         assert newTime != null;
         newTime = newTime.trim();
-        if (!newTime.equals(Messages.MESSAGE_NO_START_TIME_SET) || !newTime.equals(Messages.MESSAGE_NO_END_TIME_SET)
-             && !isValidTime(newTime)) {
+        if (!isValidTime(newTime)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         this.value = newTime;

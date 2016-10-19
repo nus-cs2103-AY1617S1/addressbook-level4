@@ -38,14 +38,10 @@ public class TaskDate {
     public void editDate(String newDate) throws IllegalValueException {
         assert newDate != null;
         newDate = newDate.trim();
-        if(newDate.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || newDate.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) {
-            this.value = newDate;
-        } else if (!isValidDateFormat(newDate)) {
+        if(!isValidDateFormat(newDate)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy");
-            this.value = sdf.format(new PrettyTimeParser().parse(newDate).get(0)).toString();
         }
+        this.value = newDate;
     }
     /**
      * Returns if a given string is a valid taskDate.
