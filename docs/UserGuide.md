@@ -130,7 +130,16 @@ you may choose to use tags as a way to prioritize tasks.
 
 <img src="images/Ui-Add.png" width="600"><br>
 *Figure 3: The `add` command allows you to add a new task easily*
-<br><br>
+<br>
+
+In general, you may use this format to add tasks with various parameters.<br>
+`add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag TAG...]`
+
+ * Words in lower case are the keywords for setting the task parameters (e.g. use "by" to set deadline for task)
+ * Words in UPPER CASE are the parameters associated with the keyword. Replace the parameters with the information you want to set. (e.g. replace "DEADLINE" with "1 April" to set task deadline as 1 April)
+ * Keywords and parameters surrounded by '[' and ']' are optional. (e.g. both "add project" and "add project by tomorrow" are valid commands)
+
+<br>
 
 ### Listing all tasks/events with specified conditions: `list`
 
