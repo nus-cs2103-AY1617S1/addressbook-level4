@@ -330,15 +330,15 @@ public class JimiParser {
         if (!matcher.matches()) {
             return Optional.empty();
         }
-
+        
         String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
+        if (!StringUtil.isUnsignedInteger(index)) {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
-
+        
     }
-
+    
     /**
      * Parses arguments in the context of the find task command.
      *
