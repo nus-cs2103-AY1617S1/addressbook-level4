@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     Description getDescription();
     Date getDate();
     Time getTime();
+    Status getStatus();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -28,7 +29,8 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getDescription().equals(this.getDescription())
                 && other.getDate().equals(this.getDate())
-                && other.getTime().equals(this.getTime()));
+                && other.getTime().equals(this.getTime())
+                && other.getStatus().equals(this.getStatus()));
     }
 
     /**
@@ -61,5 +63,5 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
+    
 }

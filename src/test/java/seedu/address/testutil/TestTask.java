@@ -12,6 +12,7 @@ public class TestTask implements ReadOnlyTask {
     private Time time;
     private Date date;
     private Description description;
+    private Status status;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -34,6 +35,9 @@ public class TestTask implements ReadOnlyTask {
         this.description = description;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
     @Override
     public Name getName() {
         return name;
@@ -55,6 +59,11 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
+    public Status getStatus() {
+        return status;
+    }
+    
+    @Override
     public UniqueTagList getTags() {
         return tags;
     }
@@ -69,7 +78,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add " + this.getName().fullName + " ");
         sb.append("d/" + this.getDescription().value + " ");
         sb.append("date/" + this.getDate().value + " ");
-        sb.append("time/" + this.getTime().value + " ");
+        sb.append(" " + this.getTime().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

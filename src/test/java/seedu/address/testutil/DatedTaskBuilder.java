@@ -32,6 +32,11 @@ public class DatedTaskBuilder {
         return this;
     }
 
+    public DatedTaskBuilder withStatus(String statusStr) throws IllegalValueException {
+        this.person.setStatus(new Status(statusStr));
+        return this;
+    }
+    
     public DatedTaskBuilder withDescription(String description) throws IllegalValueException {
         this.person.setDescription(new Description(description));
         return this;

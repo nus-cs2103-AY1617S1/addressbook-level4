@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.*;
+import seedu.address.model.person.Status.State;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -17,7 +18,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book.\n"
-    		+ "Parameters: TASKNAME d/TASK_DESCRIPTION date/DD-MM-YYYY [24HR] [to 24HR] [t/TAG]...\n"
+            + "Parameters: TASKNAME d/TASK_DESCRIPTION date/DD-MM-YYYY [24HR] [to 24HR] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " Wash Clothes d/Wash with detergent date/27-9-2016 2359 t/!!!";
 
@@ -37,15 +38,16 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
-        
+
+
         this.toAdd = new Task(
                 new Name(name),
                 new Description(phone),
                 new Date(dateList),
                 new Time(dateList),
+                new Status(State.NONE),
                 new UniqueTagList(tagSet)
-        );
+                );
     }
 
     @Override

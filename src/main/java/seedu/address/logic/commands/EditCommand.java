@@ -28,8 +28,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the task identified by the index number given in the most recent listing.\n"
-            + "Parameters: INDEX (must be a positive integer) FIELD_TO_EDIT(include delimiter d/, date/, time/ etc)\n"
-            + "Example: " + COMMAND_WORD + " 1 do that instead date/13.10.16";
+            + "Parameters: INDEX (must be a positive integer) FIELD_TO_EDIT(include delimiter d/, date/, t/ etc)\n"
+            + "Example: " + COMMAND_WORD + " 1 do that instead date/13-10-16";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
 
@@ -112,7 +112,7 @@ public class EditCommand extends Command {
     private void populateTaskFields() {
 
         toAdd  = new Task (toEdit.getName(), toEdit.getDescription(), toEdit.getDate(),
-                toEdit.getTime(), toEdit.getTags());
+                toEdit.getTime(), toEdit.getStatus(), toEdit.getTags());
         
         if (name != null){
             toAdd.setName(name);     

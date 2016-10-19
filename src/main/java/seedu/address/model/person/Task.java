@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.person.Status.State;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
@@ -15,18 +16,20 @@ public class Task implements ReadOnlyTask {
     private Description description;
     private Date date;
     private Time time;
+    private Status status;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Description phone, Date email, Time address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+    public Task(Name name, Description phone, Date email, Time address, Status status, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, phone, email, address, status, tags);
         this.name = name;
         this.description = phone;
         this.date = email;
         this.time = address;
+        this.status = status;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,7 +37,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDescription(), source.getDate(), source.getTime(), source.getTags());
+        this(source.getName(), source.getDescription(), source.getDate(), source.getTime(), source.getStatus(), source.getTags());
     }
 
     @Override
@@ -57,6 +60,11 @@ public class Task implements ReadOnlyTask {
         return time;
     }
 
+    @Override
+    public Status getStatus() {
+        return status;
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -91,11 +99,27 @@ public class Task implements ReadOnlyTask {
     public void setTime(Time time) {
         this.time = time;
     }
+    
+    public void setAsDone(){
+        this.setStatus(new Status(State.DONE));
+    }
+    
+    public void setAsOverdue(){
+        this.setStatus(new Status(State.OVERDUE));
+    }
+    
+    public void setAsNorm(){
+        this.setStatus(new Status(State.NONE));
+    }
+    
+    private void setStatus(Status status) {
+        this.status = status;
+    }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, date, time, tags);
+        return Objects.hash(name, description, date, time, status, tags);
     }
 
     @Override

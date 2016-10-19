@@ -48,7 +48,14 @@ public class Date {
      * @throws IllegalValueException if given date(s) are invalid.
      */
     public Date(List<java.util.Date> dateList) throws IllegalValueException {
-    	String [] dateStrings = new String [2];
+    	if (dateList == null) {
+            this.value = "";
+            startDate = null;
+            endDate = null;
+            return;
+    	}
+        
+        String [] dateStrings = new String [2];
     	for (int i = 0; i < dateList.size(); i++){
         	java.util.Date date = dateList.get(i);
         	dateStrings[i] = date.getDate() + "-" + (date.getMonth() + 1) + "-" + (date.getYear() + 1900);
