@@ -1,9 +1,5 @@
 .background {
-<<<<<<< HEAD
-    -fx-background-color: derive(#3B170B, 20%);
-=======
-    -fx-background-color: derive(#0B0B3B, 20%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .label {
@@ -43,15 +39,9 @@
 }
 
 .table-view {
-<<<<<<< HEAD
-    -fx-base: #3B170B;
-    -fx-control-inner-background: #3B170B;
-    -fx-background-color: #3B170B;
-=======
-    -fx-base: #0B0B3B;
-    -fx-control-inner-background: #0B0B3B;
-    -fx-background-color: #0B0B3B;
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: #1d1d1d;
+    -fx-background-color: #1d1d1d;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -86,23 +76,14 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-<<<<<<< HEAD
-    -fx-border-color: transparent #3B170B transparent #3B170B;
-    -fx-background-color: transparent, derive(#3B170B, 10%);
-=======
-    -fx-border-color: transparent #0B0B3B transparent #0B0B3B;
-    -fx-background-color: transparent, derive(#0B0B3B, 10%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-background-color: transparent, derive(#1d1d1d, 10%);
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-<<<<<<< HEAD
-    -fx-background-color: derive(#3B170B, 20%);
-=======
-    -fx-background-color: derive(#0B0B3B, 20%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .list-cell {
@@ -126,35 +107,22 @@
 }
 
 .anchor-pane {
-<<<<<<< HEAD
-     -fx-background-color: derive(#3B170B, 20%);
+     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: derive(#3B170B, 20%);
-     -fx-border-color: derive(#3B170B, 10%);
-=======
-     -fx-background-color: derive(#0B0B3B, 20%);
-}
-
-.anchor-pane-with-border {
-     -fx-background-color: derive(#0B0B3B, 20%);
-     -fx-border-color: derive(#0B0B3B, 10%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-<<<<<<< HEAD
-    -fx-background-color: derive(#3B170B, 20%);
-=======
-    -fx-background-color: derive(#0B0B3B, 20%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: derive(#1d1d1d, 20%);
     -fx-text-fill: black;
 }
 
 .result-display {
-    -fx-background-color: #3B170B;
+    -fx-background-color: #ffffff;
 }
 
 .result-display .label {
@@ -166,13 +134,8 @@
 }
 
 .status-bar-with-border {
-<<<<<<< HEAD
-    -fx-background-color: derive(#3B170B, 30%);
-    -fx-border-color: derive(#3B170B, 25%);
-=======
-    -fx-background-color: derive(#0B0B3B, 30%);
-    -fx-border-color: derive(#0B0B3B, 25%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 25%);
     -fx-border-width: 1px;
 }
 
@@ -181,30 +144,17 @@
 }
 
 .grid-pane {
-<<<<<<< HEAD
-    -fx-background-color: derive(#3B170B, 30%);
-    -fx-border-color: derive(#3B170B, 30%);
-=======
-    -fx-background-color: derive(#0B0B3B, 30%);
-    -fx-border-color: derive(#0B0B3B, 30%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 30%);
     -fx-border-width: 1px;
 }
 
 .grid-pane .anchor-pane {
-<<<<<<< HEAD
-    -fx-background-color: derive(#3B170B, 30%);
+    -fx-background-color: derive(#1d1d1d, 30%);
 }
 
 .context-menu {
-    -fx-background-color: derive(#3B170B, 50%);
-=======
-    -fx-background-color: derive(#0B0B3B, 30%);
-}
-
-.context-menu {
-    -fx-background-color: derive(#0B0B3B, 50%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: derive(#1d1d1d, 50%);
 }
 
 .context-menu .label {
@@ -212,11 +162,7 @@
 }
 
 .menu-bar {
-<<<<<<< HEAD
-    -fx-background-color: derive(#3B170B, 20%);
-=======
-    -fx-background-color: derive(#0B0B3B, 20%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .menu-bar .label {
@@ -240,11 +186,7 @@
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-<<<<<<< HEAD
-    -fx-background-color: #3B170B;
-=======
-    -fx-background-color: #0B0B3B;
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: #1d1d1d;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -257,11 +199,7 @@
 
 .button:pressed, .button:default:hover:pressed {
   -fx-background-color: white;
-<<<<<<< HEAD
-  -fx-text-fill: #3B170B;
-=======
-  -fx-text-fill: #0B0B3B;
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+  -fx-text-fill: #1d1d1d;
 }
 
 .button:focused {
@@ -274,17 +212,13 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-<<<<<<< HEAD
-    -fx-background-color: #3B170B;
-=======
-    -fx-background-color: #0B0B3B;
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: #1d1d1d;
     -fx-text-fill: white;
 }
 
 .button:default {
     -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #3B170B;
+    -fx-text-fill: #ffffff;
 }
 
 .button:default:hover {
@@ -292,19 +226,11 @@
 }
 
 .dialog-pane {
-<<<<<<< HEAD
-    -fx-background-color: #3B170B;
+    -fx-background-color: #1d1d1d;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #3B170B;
-=======
-    -fx-background-color: #0B0B3B;
-}
-
-.dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #0B0B3B;
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: #1d1d1d;
 }
 
 .dialog-pane > *.label.content {
@@ -314,11 +240,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-<<<<<<< HEAD
-    -fx-background-color: derive(#3B170B, 25%);
-=======
-    -fx-background-color: derive(#0B0B3B, 25%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: derive(#1d1d1d, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -329,11 +251,7 @@
 }
 
 .scroll-bar .thumb {
-<<<<<<< HEAD
-    -fx-background-color: derive(#3B170B, 50%);
-=======
-    -fx-background-color: derive(#0B0B3B, 50%);
->>>>>>> e2ccb4c6697989753aec5f9a44556cbdca5d5a64
+    -fx-background-color: derive(#1d1d1d, 50%);
     -fx-background-insets: 3;
 }
 
