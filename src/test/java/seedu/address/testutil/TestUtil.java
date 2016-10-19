@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Date("948824"), new Start("3333"), new End("1234"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Date("879245"), new Start("1212"), new End("1111"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Date("953525"), new Start("1212"), new End("2345"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Date("876553"), new Start("2222"), new End("7521"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Date("948222"), new Start("2354"), new End("8542"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Date("948242"), new Start("1500"), new End("8532"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Date("948244"), new Start("1235"), new End("1234"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Date("848242"), new Start("1245"), new End("1212"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Date("848218"), new Start("0000"), new End("1212"), new UniqueTagList())
+                    new Task(new Name("Event1"), new Date("121212"), new Start("1212"), new End("1234"), 1, new UniqueTagList()),
+                    new Task(new Name("Event2"), new Date("12.12.16"), new Start("2312"), new End("1111"), 1, new UniqueTagList()),
+                    new Task(new Name("Event3"), new Date("31-2-15"), new Start("1242"), new End("2345"), 1, new UniqueTagList()),
+                    new Task(new Name("Event4"), new Date("300512"), new Start("2222"), new End("2021"), 1, new UniqueTagList()),
+                    new Task(new Name("Event5"), new Date("12/12/12"), new Start("2354"), new End("1242"), 1, new UniqueTagList()),
+                    new Task(new Name("Event6"), new Date("17-05-14"), new Start("1500"), new End("1132"), 1, new UniqueTagList()),
+                    new Task(new Name("Event7"), new Date("300111"), new Start("1235"), new End("1234"), 1, new UniqueTagList()),
+                    new Task(new Name("Event8"), new Date("13-12-15"), new Start("1245"), new End("0212"), 1, new UniqueTagList()),
+                    new Task(new Name("Event9"), new Date("120109"), new Start("0000"), new End("1212"), 1, new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -135,7 +135,7 @@ public class TestUtil {
     }
 
     public static TaskBook generateEmptyAddressBook() {
-        return new TaskBook(new UniqueTaskList(), new UniqueTagList());
+        return new TaskBook(new UniqueTaskList(), new UniqueTaskList(), new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
@@ -330,7 +330,7 @@ public class TestUtil {
         return card.isSamePerson(person);
     }
 
- /*   public static Tag[] getTagList(String tags) {
+    public static Tag[] getTagList(String tags) {
 
         if (tags.equals("")) {
             return new Tag[]{};
@@ -350,5 +350,5 @@ public class TestUtil {
 
         return collect.toArray(new Tag[split.length]);
     }
-*/
+
 }
