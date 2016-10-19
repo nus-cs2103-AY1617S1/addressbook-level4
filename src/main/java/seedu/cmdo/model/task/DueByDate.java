@@ -93,6 +93,8 @@ public class DueByDate {
 	// Operates on the premise that the start date is always specified.
 	// @@author A0139661Y
 	public String getFriendlyStartString() {
+		if (!isRange)
+			return "";
 		return start.format(DateTimeFormatter.ofPattern("MM/dd/uuuu")).toString(); 
 	}
 	
