@@ -7,22 +7,22 @@ import javafx.collections.ObservableList;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.person.EndTime;
-import seedu.task.model.person.Location;
-import seedu.task.model.person.Name;
-import seedu.task.model.person.ReadOnlyTask;
-import seedu.task.model.person.StartTime;
-import seedu.task.model.person.Task;
-import seedu.task.model.person.UniqueTaskList;
-import seedu.task.model.person.UniqueTaskList.TaskNotFoundException;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.EndTime;
+import seedu.task.model.task.Deadline;
+import seedu.task.model.task.Name;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.StartTime;
+import seedu.task.model.task.Task;
+import seedu.task.model.task.UniqueTaskList;
+import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 	 
 	 public static final String MESSAGE_USAGE = COMMAND_WORD
-	            + ": Deletes the task identified by the index number used in the last task listing.\n"
+	            + ": Edit the task identified by the index number used in the last task listing.\n"
 	            + "Parameters: INDEX (must be a positive integer)\n"
 	            + "Example: " + COMMAND_WORD + " 1";
 	 
@@ -42,7 +42,7 @@ public class EditCommand extends Command {
 	        		new Name(name),
 	                new StartTime(startTime),
 	                new EndTime(endTime),
-	                new Location(location),
+	                new Deadline(location),
 	                new UniqueTagList(tagSet)
 	                
 	        );
@@ -52,7 +52,7 @@ public class EditCommand extends Command {
 	 
 	 
 	 //@Override
-	 public CommandResult execute() {
+	 public CommandResult execute(boolean isUndo) {
 		 UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 		 
 	        if (lastShownList.size() < targetIndex) {
@@ -74,7 +74,7 @@ public class EditCommand extends Command {
 	        
 	        assert model != null;
 	        try {
-	            model.addTask(toAdd);
+	            model.addTask(targetIndex - 1, toAdd);
 	            
 	        } catch (UniqueTaskList.DuplicateTaskException e) {
 	           // return new CommandResult(MESSAGE_DUPLICATE_PERSON);
@@ -84,6 +84,14 @@ public class EditCommand extends Command {
 		 
 		 
 	 }
+
+
+
+    @Override
+    public CommandResult execute(int index) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 	 
 	 
 	 

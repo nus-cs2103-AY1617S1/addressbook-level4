@@ -1,4 +1,4 @@
-package seedu.task.model.person;
+package seedu.task.model.task;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 
@@ -8,8 +8,9 @@ import seedu.task.commons.exceptions.IllegalValueException;
  */
 public class StartTime {
 
-    public static final String MESSAGE_STARTTIME_CONSTRAINTS = "Task start times should be in hhmm hrs format";
-    public static final String STARTTIME_VALIDATION_REGEX = "^([0-9]{4})+(hrs)";
+    public static final String MESSAGE_STARTTIME_CONSTRAINTS = "Task start times should be in hh.mmam or hh.mmpm format";
+    public static final String STARTTIME_VALIDATION_REGEX = "((1[012]|[1-9]).[0-5][0-9](\\s)?(?i)(am|pm)|(1[012]|[1-9])(\\s)?(?i)(am|pm))|(^.+)";
+    public static final String NO_STARTTIME = "no start time";
 
     public final String value;
 
@@ -21,7 +22,11 @@ public class StartTime {
     public StartTime(String startTime) throws IllegalValueException {
         assert startTime != null;
         startTime = startTime.trim();
-        if (!isValidStartTime(startTime)) {
+        if(startTime.equals(NO_STARTTIME)){
+             this.value = startTime;
+            return;
+            }
+        else if (!isValidStartTime(startTime)) {
             throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
         }
         this.value = startTime;

@@ -4,7 +4,7 @@ import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
-import seedu.task.model.person.ReadOnlyTask;
+import seedu.task.model.task.ReadOnlyTask;
 
 /**
  * Selects a task identified using it's last displayed index from the task manager.
@@ -27,7 +27,7 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(boolean isUndo) {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
@@ -39,6 +39,12 @@ public class SelectCommand extends Command {
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
 
+    }
+
+    @Override
+    public CommandResult execute(int index) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

@@ -1,8 +1,8 @@
 package seedu.task.testutil;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.person.*;
 import seedu.task.model.tag.Tag;
+import seedu.task.model.task.*;
 
 /**
  *
@@ -28,7 +28,7 @@ public class TaskBuilder {
     }
 
     public TaskBuilder withTask(String location) throws IllegalValueException {
-        this.task.setTask(new Location(location));
+        this.task.setTask(new Deadline(location));
         return this;
     }
 

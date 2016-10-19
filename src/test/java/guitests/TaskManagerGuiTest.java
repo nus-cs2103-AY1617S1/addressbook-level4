@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 import seedu.task.TestApp;
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.model.TaskManager;
-import seedu.task.model.person.ReadOnlyTask;
+import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
 

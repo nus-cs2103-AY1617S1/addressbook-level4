@@ -18,9 +18,9 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.FileUtil;
 import seedu.task.commons.util.XmlUtil;
 import seedu.task.model.TaskManager;
-import seedu.task.model.person.*;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.*;
 import seedu.task.storage.XmlSerializableTaskManager;
 
 import java.io.File;
@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Accompany mom to the doctor"), new StartTime("1000hrs"), new EndTime("1200hrs"), new Location("Khoo Teck Puat Hospital"), new UniqueTagList()),
-                    new Task(new Name("Borrow software engineering book"), new StartTime("1300hrs"), new EndTime("1400hrs"), new Location("81th street"), new UniqueTagList()),
-                    new Task(new Name("Call Jim"), new StartTime("1200hrs"), new EndTime("1300hrs"), new Location("wall street"), new UniqueTagList()),
-                    new Task(new Name("Do homework"), new StartTime("1400hrs"), new EndTime("1500hrs"), new Location("10th street"), new UniqueTagList()),
-                    new Task(new Name("Edit AddressBook file"), new StartTime("1500hrs"), new EndTime("1600hrs"), new Location("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Finish up the project"), new StartTime("1600hrs"), new EndTime("1700hrs"), new Location("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("Go for a jog"), new StartTime("1700hrs"), new EndTime("1800hrs"), new Location("4th street"), new UniqueTagList()),
-                    new Task(new Name("Help Jim with his task"), new StartTime("1800hrs"), new EndTime("1900hrs"), new Location("little india"), new UniqueTagList()),
-                    new Task(new Name("Iron new clothes"), new StartTime("1900hrs"), new EndTime("2000hrs"), new Location("chicago ave"), new UniqueTagList())
+                    new Task(new Name("Accompany mom to the doctor"), new StartTime("1000hrs"), new EndTime("1200hrs"), new Deadline("Khoo Teck Puat Hospital"), new UniqueTagList()),
+                    new Task(new Name("Borrow software engineering book"), new StartTime("1300hrs"), new EndTime("1400hrs"), new Deadline("81th street"), new UniqueTagList()),
+                    new Task(new Name("Call Jim"), new StartTime("1200hrs"), new EndTime("1300hrs"), new Deadline("wall street"), new UniqueTagList()),
+                    new Task(new Name("Do homework"), new StartTime("1400hrs"), new EndTime("1500hrs"), new Deadline("10th street"), new UniqueTagList()),
+                    new Task(new Name("Edit AddressBook file"), new StartTime("1500hrs"), new EndTime("1600hrs"), new Deadline("michegan ave"), new UniqueTagList()),
+                    new Task(new Name("Finish up the project"), new StartTime("1600hrs"), new EndTime("1700hrs"), new Deadline("little tokyo"), new UniqueTagList()),
+                    new Task(new Name("Go for a jog"), new StartTime("1700hrs"), new EndTime("1800hrs"), new Deadline("4th street"), new UniqueTagList()),
+                    new Task(new Name("Help Jim with his task"), new StartTime("1800hrs"), new EndTime("1900hrs"), new Deadline("little india"), new UniqueTagList()),
+                    new Task(new Name("Iron new clothes"), new StartTime("1900hrs"), new EndTime("2000hrs"), new Deadline("chicago ave"), new UniqueTagList())
             };
             
             

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <name>taskB</name>
+        <startTime>now</startTime>
+        <endTime>no endtime</endTime>
+        <location>no deadline</location>
+    </tasks>
+    <tasks>
+        <name>task B</name>
+        <startTime>now</startTime>
+        <endTime>no endtime</endTime>
+        <location>no deadline</location>
+    </tasks>
+    <tasks>
+        <name>task C</name>
+        <startTime>3:00pm</startTime>
+        <endTime>8:00am</endTime>
+        <location>no deadline</location>
+    </tasks>
+    <tasks>
+        <name>do hw</name>
+        <startTime>3:00pm</startTime>
+        <endTime>4:00pm</endTime>
+        <location>no deadline</location>
+    </tasks>
+    <tasks>
+        <name>do hw</name>
+        <startTime>3:00pm</startTime>
+        <endTime>no endtime</endTime>
+        <location>4:00pm</location>
+    </tasks>
+    <tasks>
+        <name>do hws</name>
+        <startTime>now</startTime>
+        <endTime>no endtime</endTime>
+        <location>no deadline</location>
+    </tasks>
+    <tasks>
+        <name>do hws</name>
+        <startTime>3:00pm</startTime>
+        <endTime>no endtime</endTime>
+        <location>4:00pm</location>
+    </tasks>
+    <tasks>
+        <name>do hw</name>
+        <startTime>3:00pm</startTime>
+        <endTime>4:00pm</endTime>
+        <location>5:00pm</location>
+    </tasks>
+</taskmanager>
