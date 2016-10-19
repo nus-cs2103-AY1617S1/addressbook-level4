@@ -14,6 +14,7 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskComponent;
 
 /**
  * The Main Window. Provides the basic application layout containing

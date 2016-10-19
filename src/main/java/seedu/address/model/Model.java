@@ -46,7 +46,8 @@ public interface Model {
     
     /** Updates the file path for current storage manager of the model.*/
 	void changeDirectory(String filePath);
-
+	
+	/** Archives the given task component. */
 	void archiveTask(TaskComponent target) throws TaskNotFoundException;
 
 	void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException;

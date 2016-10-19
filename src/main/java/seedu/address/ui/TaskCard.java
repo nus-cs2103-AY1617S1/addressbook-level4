@@ -91,14 +91,22 @@ public class TaskCard extends UiPart{
     	//Blocked Slot
     	if(task.getName().fullName.equals("BLOCKED SLOT"))
     		cardPane.setStyle("-fx-background-color : derive(#ff00dd, 20%);");
+    	//Completed
+    	if(task.getTaskType() == TaskType.COMPLETED){
+    		cardPane.setStyle("-fx-background-color : derive(#223322, 20%);");
+    		name.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
+    	}
+    	
     	
     }
 
 
 
     public HBox getLayout() {
+    	
         return cardPane;
     }
+
 
     @Override
     public void setNode(Node node) {

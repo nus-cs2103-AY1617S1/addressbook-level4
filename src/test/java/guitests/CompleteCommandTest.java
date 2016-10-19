@@ -8,7 +8,7 @@ import seedu.address.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS;;
 
-public class CompleteCommandTest extends TaskListGuiTest {
+public class CompleteCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void complete() {

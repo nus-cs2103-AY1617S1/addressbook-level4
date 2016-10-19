@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class HelpWindowTest extends TaskListGuiTest {
+public class HelpWindowTest extends TaskMasterGuiTest {
 
     @Test
     public void openHelpWindow() {

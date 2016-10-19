@@ -7,7 +7,7 @@ import seedu.address.model.task.TaskComponent;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectCommandTest extends TaskListGuiTest {
+public class SelectCommandTest extends TaskMasterGuiTest {
 
 
     @Test

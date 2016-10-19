@@ -12,7 +12,7 @@ import seedu.address.model.task.TaskComponent;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
-public class AddCommandTest extends TaskListGuiTest {
+public class AddCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void add() {
@@ -40,10 +40,10 @@ public class AddCommandTest extends TaskListGuiTest {
         assertAddNonFloatingSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
-        //add task with overlapping slot
-        commandBox.runCommand(td.movie.getAddNonFloatingCommand());
-        assertResultMessage(AddNonFloatingCommand.MESSAGE_TIMESLOT_OCCUPIED);
-        assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(currentList)));
+        //add task with overlapping slot allowed
+        taskToAdd = td.movie;
+        assertAddNonFloatingSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add task with illegal time slot
         commandBox.runCommand("add illegal timeslot from 2 oct 2pm to 2 oct 1pm");

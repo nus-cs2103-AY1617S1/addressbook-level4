@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A GUI Test class for TaskList.
  */
-public abstract class TaskListGuiTest {
+public abstract class TaskMasterGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule

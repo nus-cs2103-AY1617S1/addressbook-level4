@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.FailedCommandAttemptedEvent;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.URManager;
 import seedu.address.model.Model;
@@ -50,4 +51,10 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    /**
+     * Raises an event to indicate an attempt to execute an incorrect command
+     */
+    protected void indicateAttemptToExecuteFailedCommand() {
+        EventsCenter.getInstance().post(new FailedCommandAttemptedEvent(this));
+    }
 }

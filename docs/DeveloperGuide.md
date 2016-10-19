@@ -97,7 +97,7 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
@@ -134,8 +134,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
+* stores the Task Master data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTaskComponent>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -147,11 +147,11 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Task Master data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.taskmaster.commons` package.
 
 ## Implementation
 
@@ -210,9 +210,9 @@ We have two types of tests:
    | Case# | Event | Basis Path | Output |
    | :---:   | ---  | --- | ---  |
    | 1 | add floating task to existing task list `add eat with Hoon Meier` | 1 -> 2 | `New floating task added: eat with Hoon Meier Tags: ` |
-   | 2 | add floating task to existing task list `add play with Ida Mueller` | 1 -> 2 | `New floating task added: play with Ida Mueller Tags: ` |
-   | 3 | add duplicate floating task to existing task list `add eat with Hoon Meier` | 1 | `This task already exists in the task list` |
-   | 4 | clear existing task list `clear` | 1 -> 2 | `Task list has been cleared!` |
+   | 2 | add floating task to existing task list  `add play with Ida Mueller` | 1 -> 2 | `New floating task added: play with Ida Mueller Tags: ` |
+   | 3 | add duplicate floating task to existing task master `add eat with Hoon Meier` | 1 | `This task already exists in the task list` |
+   | 4 | clear existing task list `clear` | 1 -> 2 | `Task list  has been cleared!` |
    | 5 | add to empty task list `add take trash t/notUrgent` | 1 -> 2 | `New floating task added: take trash Tags: [notUrgent]` |
    | 6 | invalid add command `adds Johnny` | 1 | `Unknown command` |
    
@@ -259,24 +259,24 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. This includes, <br>
-      1. `seedu.address.commons.AppUtilTest`
-      2. `seedu.address.commons.ConfigUtilTest`
-      3. `seedu.address.commons.FileUtilTest`
-      4. `seedu.address.commons.JsonUtilTest`
-      5. `seedu.address.commons.StringUtilTest`
-      6. `seedu.address.commons.UrlUtilTest`
-      7. `seedu.address.commons.XmlUtilTest`
-      8. `seedu.address.model.UnmodifiableObservableListTest`
-      9. `seedu.address.commons.core.ConfigTest`
-      10. `seedu.address.commons.core.VersionTest`
+      1. `seedu.taskmaster.commons.AppUtilTest`
+      2. `seedu.taskmaster.commons.ConfigUtilTest`
+      3. `seedu.taskmaster.commons.FileUtilTest`
+      4. `seedu.taskmaster.commons.JsonUtilTest`
+      5. `seedu.taskmaster.commons.StringUtilTest`
+      6. `seedu.taskmaster.commons.UrlUtilTest`
+      7. `seedu.taskmaster.commons.XmlUtilTest`
+      8. `seedu.taskmaster.model.UnmodifiableObservableListTest`
+      9. `seedu.taskmaster.commons.core.ConfigTest`
+      10. `seedu.taskmaster.commons.core.VersionTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working). This includes, <br>
-      1.  `seedu.address.storage.StorageManagerTest`
-      2. `seedu.address.storage.XmlTaskListStorageTest`
-      3. `seedu.address.storage.JsonUserPrefStorageTest`
+      1.  `seedu.taskmaster.storage.StorageManagerTest`
+      2. `seedu.taskmaster.storage.XmlTaskListStorageTest`
+      3. `seedu.taskmaster.storage.JsonUserPrefStorageTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.taskmaster.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -307,7 +307,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Task Master depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -333,6 +333,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *`	| user | block out time slots | reserve slots for tasks that are not confirmed yet
 `* * *`	| user | add tasks (include floating tasks)
 `* * *`	| user | delete the tasks | to remove existing tasks
+`* * *` | user | undo my operations | correct my mistakes
 `* * *`	| user | redo my operations | correct my mistakes 
 `* *` | user | tag my tasks | know what is the type of tasks
 `* *` | user | have recurring tasks | do weekly tasks easily
@@ -466,7 +467,11 @@ Use case ends.
 > 3a1. Happy Jim Task Manager shows an error message <br>
   Use case resumes at step 2
   
+<<<<<<< HEAD
 #### Use case: UC06 - Arichive Completed Task
+=======
+#### Use case: UC07 - Archive Completed Task
+>>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 
 **MSS**
 
@@ -555,7 +560,7 @@ Use case ends
 
 > Use case ends
 
-#### Use case: UC12 - Change directory
+#### Use case: UC12 - Change Directory
 
 **MSS**
 
@@ -578,10 +583,14 @@ Use case ends
 
 3a. Not enough file space
 
+<<<<<<< HEAD
 > 3a1. Happy Jim Task Manager shows i/o error message<br>
+=======
+> 3a1. Happy Jim Task Manager shows i/o message<br>
+>>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Use case ends
 
-#### Use case: UC13 - Exit
+#### Use case: UC13 - Exit
 
 **MSS**
 
@@ -630,7 +639,7 @@ Use case ends
 
 ##### TIME
 
-> Time is in 12 hours’ format 12pm, 7am
+> Time is in 12 hours format 12pm, 7am
 
 ## Appendix E : Product Survey
 
