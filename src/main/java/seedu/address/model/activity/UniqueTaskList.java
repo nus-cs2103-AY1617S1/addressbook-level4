@@ -96,7 +96,7 @@ public class UniqueTaskList implements Iterable<Activity> {
         internalList.set(index, newTask);
     }
     
-    public void mark(Task task, boolean isComplete) throws TaskNotFoundException {
+    public void mark(Activity task, boolean isComplete) throws TaskNotFoundException {
         int index = internalList.indexOf(task);
         
         if (index == -1) {

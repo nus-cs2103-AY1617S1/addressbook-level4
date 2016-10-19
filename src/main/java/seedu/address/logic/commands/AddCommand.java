@@ -5,6 +5,7 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.Reminder;
 import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.event.*;
 import seedu.address.model.activity.task.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -34,62 +35,53 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String duedate, String priority, String start, String end, String reminder, Set<String> tags)
-            throws IllegalValueException {
+    public AddCommand(String name, String duedate, String priority, String start, String end, String reminder,
+            Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
-String type = identifyActivityType(duedate,priority,start,end);
-        
-if(type == "task"){
-    
-        this.toAdd = new Task(
-                new Name(name),
-                new DueDate(duedate),
-                new Priority(priority),
-                new Reminder(reminder),
-                new UniqueTagList(tagSet)
-        );
-} else if(type == "event") {
-    
-    this.toAdd = new Event(
-            new Name(name),
-            new StartTime(start),
-            new EndTime(start,end),
-            new Reminder(reminder),
-            new UniqueTagList(tagSet)
-    );
-    
-} else if(type == "float") {
-    
-    this.toAdd = new Activity(
-            new Name (name),
-            new Reminder(reminder),
-            new UniqueTagList(tagSet)
-            );
-}
 
+        String type = identifyActivityType(duedate, priority, start, end);
 
-}
+        if (type == "task") {
+
+            this.toAdd = new Task(
+                    new Name(name), 
+                    new DueDate(duedate), 
+                    new Priority(priority), 
+                    new Reminder(reminder),
+                    new UniqueTagList(tagSet));
+        } else if (type == "event") {
+
+            this.toAdd = new Event(new Name(name), new StartTime(start), new EndTime(start, end),
+                    new Reminder(reminder), new UniqueTagList(tagSet));
+
+        } else if (type == "float") {
+
+            this.toAdd = new Activity(new Name(name), new Reminder(reminder), new UniqueTagList(tagSet));
+        } else {
+            assert false;
+            throw new IllegalValueException(MESSAGE_INVALID_ACTIVITY_TYPE);
+        }
+
+    }
 
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
             model.addTask(toAdd);
-            
-            PreviousCommand addCommand = new PreviousCommand(COMMAND_WORD,toAdd);
+
+            PreviousCommand addCommand = new PreviousCommand(COMMAND_WORD, toAdd);
             PreviousCommandsStack.push(addCommand);
-            
+
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }
-
 
     
 }
