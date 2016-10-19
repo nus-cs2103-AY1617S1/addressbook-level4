@@ -120,22 +120,45 @@ The sections below give more details of each component.
 
 <figcaption>The relation between the UI subcomponents</figcaption>
 
-**API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
+The UI component handles the interaction between the user and application. In particular, the UI is responsible for passing the textual command input from the user to the `Logic` for execution, and then display the outcome of the execution to the user via the GUI.
 
 <img src="diagrams/Ui Image.svg" class="u-max-full-width">
 
 <figcaption>Visual identification of view elements in the UI</figcaption>
 
-The UI consists of a `MainWindow` that contains several view elements. They are `TodoListView`, `CommandInputView`, `CommandFeedbackView`, `FilterBarView`, and so on. All these classes, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
+**API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](../src/main/java/seedu/todo/ui/MainWindow.java) is specified in
- [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+The UI mainly consists of a `MainWindow`, as shown in the diagram above. This is where most of the interactions between the user and the application happen here. The `MainWindow` contains several major view elements that are discussed in greater detail below:
 
-The `UI` component,
+#### Command Line Interface
+The UI aims to imitate the Command Line Interface (CLI) closely by accepting textual commands from users, and displaying textual feedback back to the users. The CLI consists of:
 
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+- `CommandInputView` - a text box for users to key in their commands
+- `CommandFeedbackView` - a single line text that provides a response to their commands
+- `CommandErrorView` - a detailed breakdown of any erroneous commands presented with a table
+
+These view classes are represented by the `CommandXView` class in the UML diagram above. 
+
+The `CommandController` class is introduced to link the three classes together, so they can work and communicate with each other. The `CommandController`:
+1. Obtains a user-supplied command string from the `CommandInputView`
+2. Submits the command string to `Logic` for execution
+3. Receives a `CommandResult` from `Logic` after the execution
+4. Displays the execution outcome via the `CommandResult` to the `CommandFeedbackView` and `CommandErrorView`
+
+#### To-do List Display
+A to-do list provides a richer representation of the tasks than the CLI to the users. The To-do List Display consists of: 
+
+- `TodoListView` - a [`ListView`](http://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ListView.html) that displays a list of `TaskCard`.
+- `TaskCard` - an item in the `TodoListView` that displays details of a specific task.
+
+Specifically, the `TodoListView` attaches an `ObservableList` of `ImmutableTask` from the `Model` and listens to any changes that are made to the `ObservableList`. If there are any modifications made, the `TaskCard` and `TodoListView` are updated automatically.
+
+#### Additional Information
+All these view classes, including the `MainWindow`, inherit from the abstract `UiPart` class. They can be loaded using the utility class `UiPartLoader`.
+
+The UI component uses [JavaFX](http://docs.oracle.com/javase/8/javafx/get-started-tutorial/jfx-overview.htm#JFXST784) UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`CommandInputView`](../src/main/java/seedu/todo/ui/view/CommandInputView.java) is specified in [`CommandInputView.fxml`](../src/main/resources/view/CommandInputView.fxml)
+
+Other than through `CommandResult` and `ObservableList`, you may also invoke changes to the GUI outside the scope of UI components by raising an event. `UiManager` will then call specific view elements to update the GUI accordingly. For example, you may show the `HelpView` by raising a `ShowHelpPanel` via the `EventsCentre`.
 
 ### Logic component
 
