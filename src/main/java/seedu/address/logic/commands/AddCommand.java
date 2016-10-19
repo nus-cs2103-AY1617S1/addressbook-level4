@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
+import java.time.LocalDateTime;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.DateTimeParser;
 import seedu.address.model.item.Description;
-import seedu.address.model.item.FloatingTask;
+import seedu.address.model.item.Item;
 import seedu.address.model.item.UniqueItemList;
 
 /**
@@ -19,16 +21,22 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_DUPLICATE_ITEM = "This task already exists in the to-do list";
 
-	private final FloatingTask toAdd;
+	private final Item toAdd;
 
+	
 	/**
-	 * Convenience constructor using raw values.
-	 *
+	 * Constructor using raw strings
+	 * @param description: string containing description - required
+	 * @param timeStr: the whole string containing start time and end time to be parsed. Not required
 	 * @throws IllegalValueException
-	 *             if any of the raw values are invalid
 	 */
-	public AddCommand(String description) throws IllegalValueException {
-		this.toAdd = new FloatingTask(new Description(description));
+	public AddCommand(String descriptionStr, String timeStr) throws IllegalValueException {
+		assert descriptionStr != null;
+		Description descriptionObj = new Description(descriptionStr);
+		DateTimeParser parser = new DateTimeParser(timeStr);
+		LocalDateTime startTimeObj = parser.extractStartDate();
+		LocalDateTime endTimeObj = parser.extractEndDate();
+		this.toAdd = new Item(descriptionObj, startTimeObj, endTimeObj);
 	}
 
 	@Override
