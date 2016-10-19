@@ -13,21 +13,19 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            alice =  new TaskBuilder().withName("Do CS2103 Pretut").withAddress("At Home")
-                    .withEndDate("071016").withStartDate("011016").withTags("Event").build();
-            benson = new TaskBuilder().withName("Do CS2103 Project").withAddress("At School")
-                    .withEndDate("14 Oct 2016").withStartDate("071016").withTags("Event").build();
-            carl = new TaskBuilder().withName("Eat Mcdonalds").withAddress("At Technoedge")
-                    .withEndDate("211016").withStartDate("14 Oct 2016").withTags("Event").build();
-            daniel = new TaskBuilder().withName("Flunk CS2103").withAddress("In the exam hall")
-                    .withEndDate("211116").withStartDate("211116").withTags("Event").build();
-            elle = new TaskBuilder().withName("Working at Mcdonalds").withAddress("At Mcdonalds")
+            alice =  new TaskBuilder().withName("Career Fair").withAddress("NUS COM1")
+                    .withEndDate("11 Oct 2016").withStartDate("07 Oct 2016").withTags("Event").build();
+            benson = new TaskBuilder().withName("Do CS2103 Project").withAddress("")
+                    .withEndDate("14 Oct 2016").withStartDate("").withTags("Deadline").build();
+            carl = new TaskBuilder().withName("Project Discussion").withAddress("At Technoedge")
+                    .withEndDate("21 Oct 2016").withStartDate("14 Oct 2016").withTags("Event").build();
+            daniel = new TaskBuilder().withName("Grocery Shopping").withAddress("")
+                    .withEndDate("").withStartDate("").withTags().build();
+            elle = new TaskBuilder().withName("CS2103 Lecture").withAddress("At ICube Lecture Hall")
                     .withEndDate("311247").withStartDate("010417").withTags("Event").build();
             fiona = new TaskBuilder().withName("Send kids to NUS").withAddress("At NUS")
                     .withEndDate("010451").withStartDate("010847").withTags("Event").build();
-            elle = new TaskBuilder().withName("Make kids study CS2103").withAddress("At ICube Lecture Hall")
-                    .withEndDate("011250").withStartDate("010849").withTags("Event").build();
-            george = new TaskBuilder().withName("Make kids work at Mcdonalds").withAddress("At the same workplace")
+            george = new TaskBuilder().withName("Project Briefing").withAddress("At ICube Lecture Hall")
                     .withEndDate("020491").withStartDate("020451").withTags("Event").build();
             //Manually added
             hoon = new TaskBuilder().withName("Regret working at Mcdonalds").withAddress("At the hospital")
@@ -45,10 +43,10 @@ public class TypicalTestTasks {
     public static void loadTaskSchedulerWithSampleData(TaskScheduler ab) {
 
         try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
+            ab.addTask(new EventTask(alice));
+            ab.addTask(new DeadlineTask(benson));
             ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
+            ab.addTask(new FloatingTask(daniel));
             ab.addTask(new Task(elle));
             ab.addTask(new Task(fiona));
             ab.addTask(new Task(george));
