@@ -64,7 +64,7 @@ public class JimiParser {
             Pattern.compile("(\"(?<taskDetails>.+)\") on (?<startDateTime>((?! to ).)*)( to (?<endDateTime>.+))?");
     
     private static final Pattern SAVE_DIRECTORY_ARGS_FORMAT = 
-            Pattern.compile("(?<filePath>[^*&%?:\"<>]+)(?<fileName>[^/:*\"<>?|\\\\]+).xml");
+            Pattern.compile("(?<filePath>.+).xml");
     
     private static final List<Command> COMMAND_STUB_LIST =
             Arrays.asList(
@@ -81,7 +81,7 @@ public class JimiParser {
                     new SaveAsCommand()
             );
 
-    private static final String SAVE_FILE_EXTENSION = ".xml";
+    private static final String XML_FILE_EXTENSION = ".xml";
     
     public JimiParser() {}
 
@@ -372,7 +372,8 @@ public class JimiParser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveAsCommand.MESSAGE_USAGE));
         }
-        return new SaveAsCommand(matcher.group("filePath") + matcher.group("fileName") + SAVE_FILE_EXTENSION);
+        
+        return new SaveAsCommand(matcher.group("filePath") + XML_FILE_EXTENSION);
     }
 
 }
