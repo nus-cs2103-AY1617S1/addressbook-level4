@@ -81,7 +81,7 @@ You may wish to walk through a **quick overview** of our components and how they
 The **_Architecture Diagram_** given above provides an overview of the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It has 2 responsibilities:
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/emeraldo/MainApp.java). It has 2 responsibilities:
 1. At app launch: Initialises the components in the correct sequence, and connect them up with each other.
 2. At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -135,7 +135,7 @@ Section B will elaborate more on each component.
 
 <img src="images/UML_UI.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/emeraldo/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -145,7 +145,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
  that are in the `src/main/resources/view` folder.
 <br>
 
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/emeraldo/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -158,7 +158,7 @@ The `UI` component,
 
 <img src="images/UML_Logic.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/emeraldo/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -177,7 +177,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/UML_Model.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/emeraldo/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
@@ -192,7 +192,7 @@ The `Model`,
 
 <img src="images/UML_Storage.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/emeraldo/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -201,7 +201,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.emeraldo.commons` package.
 <br>
 <br>
 
