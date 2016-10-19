@@ -1,7 +1,11 @@
-package seedu.address.model.task;
+package seedu.address.model.activity;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.DueDate;
+import seedu.address.model.task.Priority;
+import seedu.address.model.task.Reminder;
+import seedu.address.model.task.TaskName;
 
 import java.util.Objects;
 
@@ -9,7 +13,7 @@ import java.util.Objects;
  * Represents a Task in the Lifekeeper.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Activity implements ReadOnlyActivity {
 
     private TaskName name;
     private DueDate duedate;
@@ -22,7 +26,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(TaskName name, DueDate dueDate, Priority priority, Reminder reminder, UniqueTagList tags) {
+    public Activity(TaskName name, DueDate dueDate, Priority priority, Reminder reminder, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, dueDate, priority, reminder, tags);
         this.name = name;
         this.duedate = dueDate;
@@ -35,7 +39,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Copy constructor.
      */
-    public Task(ReadOnlyTask source) {
+    public Activity(ReadOnlyActivity source) {
         this(source.getName(), source.getDueDate(), source.getPriority(), source.getReminder(), source.getTags());
     }
 
@@ -108,8 +112,8 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                || (other instanceof ReadOnlyActivity // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyActivity) other));
     }
 
     @Override

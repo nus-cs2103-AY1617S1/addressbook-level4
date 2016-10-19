@@ -1,12 +1,13 @@
 package seedu.address.testutil;
 
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestPerson implements ReadOnlyActivity {
 
     private TaskName name;
     private Reminder address;

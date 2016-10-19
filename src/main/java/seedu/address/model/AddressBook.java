@@ -2,10 +2,10 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
@@ -50,11 +50,11 @@ public class AddressBook implements ReadOnlyLifeKeeper {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getPersons() {
+    public ObservableList<Activity> getPersons() {
         return tasks.getInternalList();
     }
 
-    public void setPersons(List<Task> persons) {
+    public void setPersons(List<Activity> persons) {
         this.tasks.getInternalList().setAll(persons);
     }
 
@@ -62,8 +62,8 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyActivity> newPersons, Collection<Tag> newTags) {
+        setPersons(newPersons.stream().map(Activity::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -80,7 +80,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
      */
-    public void addPerson(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addPerson(Activity p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
@@ -90,7 +90,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task person) {
+    private void syncTagsWithMasterList(Activity person) {
         final UniqueTagList personTags = person.getTags();
         tags.mergeFrom(personTags);
 
@@ -108,7 +108,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removePerson(ReadOnlyActivity key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -116,9 +116,9 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         }
     }
     
-    public Task editTask(Task task, Task newParams, String type) throws TaskNotFoundException, DuplicateTaskException {
+    public Activity editTask(Activity task, Activity newParams, String type) throws TaskNotFoundException, DuplicateTaskException {
             if (tasks.contains(task)) {
-                Task newTask = TaskManager.editUnaffectedParams(task, newParams, type);
+                Activity newTask = TaskManager.editUnaffectedParams(task, newParams, type);
                 tasks.edit(task, newTask);
                 
                 return newTask;
@@ -127,7 +127,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
             }
     }
 
-	public void markTask(Task task, boolean isComplete) throws TaskNotFoundException {
+	public void markTask(Activity task, boolean isComplete) throws TaskNotFoundException {
         if (tasks.contains(task)) {
             tasks.mark(task, isComplete);
         } else {
@@ -150,7 +150,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyActivity> getPersonList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 

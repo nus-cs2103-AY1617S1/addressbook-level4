@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Priority;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Reminder;
-import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskName;
 /** 
  * Carries information of previous command: Command word and task.
@@ -14,22 +14,22 @@ import seedu.address.model.task.TaskName;
 public class PreviousCommand {
 
 	public String COMMAND_WORD;
-	public Task updatedTask;
-	public Task oldTask;
+	public Activity updatedTask;
+	public Activity oldTask;
 
 	
-	public PreviousCommand(String command, Task task)
+	public PreviousCommand(String command, Activity task)
 	{
 		COMMAND_WORD = command;
 		updatedTask = task;
 		oldTask = null;
 	}
 	
-	public PreviousCommand(String command, ReadOnlyTask task) {
+	public PreviousCommand(String command, ReadOnlyActivity task) {
 		COMMAND_WORD = command;
 		oldTask = null;
 		try {
-		updatedTask = new Task(
+		updatedTask = new Activity(
                 new TaskName(task.getName().toString()),
                 new DueDate(task.getDueDate().getCalendarValue()),
                 new Priority(task.getPriority().toString()),
@@ -41,12 +41,12 @@ public class PreviousCommand {
 		}
 	}
 	
-	public PreviousCommand(String command, ReadOnlyTask originalTask, ReadOnlyTask editedTask) {
+	public PreviousCommand(String command, ReadOnlyActivity originalTask, ReadOnlyActivity editedTask) {
         COMMAND_WORD = command;
-        updatedTask = new Task(editedTask);
+        updatedTask = new Activity(editedTask);
         
         try {            
-            oldTask = new Task(
+            oldTask = new Activity(
                 new TaskName(originalTask.getName().toString()),
                 new DueDate(originalTask.getDueDate().getCalendarValue()),
                 new Priority(originalTask.getPriority().toString()),
@@ -64,12 +64,12 @@ public class PreviousCommand {
 		return COMMAND_WORD;
 	}
 	
-	public Task getUpdatedTask()
+	public Activity getUpdatedTask()
 	{
 		return updatedTask;
 	}
 	  
-	public Task getOldTask()
+	public Activity getOldTask()
 	{
 	    return oldTask;
     }

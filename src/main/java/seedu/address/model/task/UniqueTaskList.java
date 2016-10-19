@@ -3,6 +3,8 @@ package seedu.address.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -12,10 +14,10 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see Task#equals(Object)
+ * @see Activity#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<Task> {
+public class UniqueTaskList implements Iterable<Activity> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -32,7 +34,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Activity> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
@@ -42,7 +44,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ReadOnlyTask toCheck) {
+    public boolean contains(ReadOnlyActivity toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -52,7 +54,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(Activity toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
@@ -65,7 +67,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public boolean remove(ReadOnlyActivity toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
@@ -79,7 +81,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such person could be found in the list.
      */
-    public void edit(Task task, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
+    public void edit(Activity task, Activity newTask) throws TaskNotFoundException, DuplicateTaskException {
         assert task != null;
         assert newTask != null;
         
@@ -95,7 +97,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(index, newTask);
     }
     
-    public void mark(Task task, boolean isComplete) throws TaskNotFoundException {
+    public void mark(Activity task, boolean isComplete) throws TaskNotFoundException {
         int index = internalList.indexOf(task);
         
         if (index == -1) {
@@ -107,20 +109,20 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(index, task);
     }
     
-    public ObservableList<Task> getInternalList() {
+    public ObservableList<Activity> getInternalList() {
         return internalList;
     }
 
     /**
      * Returns task if the list contains an equivalent task as the given argument.
      */
-    public Task get(Task toGet) {
+    public Activity get(Activity toGet) {
         assert toGet != null;
         return internalList.get(internalList.indexOf(toGet));
     }
 
     @Override
-    public Iterator<Task> iterator() {
+    public Iterator<Activity> iterator() {
         return internalList.iterator();
     }
 

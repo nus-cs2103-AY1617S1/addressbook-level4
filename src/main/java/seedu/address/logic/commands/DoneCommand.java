@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -31,18 +31,18 @@ public class DoneCommand extends Command {
 	@Override
 	public CommandResult execute() {
 
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+		UnmodifiableObservableList<ReadOnlyActivity> lastShownList = model.getFilteredTaskList();
 
 		if (lastShownList.size() < targetIndex) {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
 
-		ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
+		ReadOnlyActivity taskToMark = lastShownList.get(targetIndex - 1);
 
 		if (taskToMark.getCompletionStatus() == false) {
 
-			Task unmarkedTask = new Task(taskToMark);
+			Activity unmarkedTask = new Activity(taskToMark);
 			boolean isComplete = true;
 			try {
 				model.markTask(unmarkedTask, isComplete);

@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.task.*;
 
 /**
@@ -37,13 +38,13 @@ public class TypicalTestPersons {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addPerson(new Task(alice));
-            ab.addPerson(new Task(benson));
-            ab.addPerson(new Task(carl));
-            ab.addPerson(new Task(daniel));
-            ab.addPerson(new Task(elle));
-            ab.addPerson(new Task(fiona));
-            ab.addPerson(new Task(george));
+            ab.addPerson(new Activity(alice));
+            ab.addPerson(new Activity(benson));
+            ab.addPerson(new Activity(carl));
+            ab.addPerson(new Activity(daniel));
+            ab.addPerson(new Activity(elle));
+            ab.addPerson(new Activity(fiona));
+            ab.addPerson(new Activity(george));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }

@@ -1,9 +1,9 @@
 package seedu.address.model;
 
 
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface ReadOnlyLifeKeeper {
     /**
      * Returns an unmodifiable view of persons list
      */
-    List<ReadOnlyTask> getPersonList();
+    List<ReadOnlyActivity> getPersonList();
 
     /**
      * Returns an unmodifiable view of tags list

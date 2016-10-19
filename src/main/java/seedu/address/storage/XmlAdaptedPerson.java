@@ -1,6 +1,8 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -37,7 +39,7 @@ public class XmlAdaptedPerson {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public XmlAdaptedPerson(ReadOnlyTask source) {
+    public XmlAdaptedPerson(ReadOnlyActivity source) {
         name = source.getName().fullName;
         phone = source.getDueDate().toString();
         email = source.getPriority().value;
@@ -53,7 +55,7 @@ public class XmlAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Task toModelType() throws IllegalValueException {
+    public Activity toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -63,6 +65,6 @@ public class XmlAdaptedPerson {
         final Priority email = new Priority(this.email);
         final Reminder address = new Reminder(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, phone, email, address, tags);
+        return new Activity(name, phone, email, address, tags);
     }
 }

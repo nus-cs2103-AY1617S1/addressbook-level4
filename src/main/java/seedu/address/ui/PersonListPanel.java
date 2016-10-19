@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -26,7 +26,7 @@ public class PersonListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> personListView;
+    private ListView<ReadOnlyActivity> personListView;
 
     public PersonListPanel() {
         super();
@@ -48,19 +48,19 @@ public class PersonListPanel extends UiPart {
     }
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyTask> personList) {
+                                       ObservableList<ReadOnlyActivity> personList) {
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
         personListPanel.configure(personList);
         return personListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> personList) {
+    private void configure(ObservableList<ReadOnlyActivity> personList) {
         setConnections(personList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> personList) {
+    private void setConnections(ObservableList<ReadOnlyActivity> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -87,13 +87,13 @@ public class PersonListPanel extends UiPart {
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyTask> {
+    class PersonListViewCell extends ListCell<ReadOnlyActivity> {
 
         public PersonListViewCell() {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask person, boolean empty) {
+        protected void updateItem(ReadOnlyActivity person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {

@@ -4,8 +4,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -23,7 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<Task> filteredPersons;
+    private final FilteredList<Activity> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -66,36 +66,36 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Activity person) throws UniqueTaskList.DuplicateTaskException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
     
     @Override
-    public synchronized Task editTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
-        Task editedTask = addressBook.editTask(oldTask, newParams, "edit");
+    public synchronized Activity editTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException {
+        Activity editedTask = addressBook.editTask(oldTask, newParams, "edit");
         indicateAddressBookChanged();
         
         return editedTask;
     }
     
     @Override
-    public synchronized Task undoEditTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
-        Task editedTask = addressBook.editTask(oldTask, newParams, "undo");
+    public synchronized Activity undoEditTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException {
+        Activity editedTask = addressBook.editTask(oldTask, newParams, "undo");
         indicateAddressBookChanged();
         
         return editedTask;
     }
 
 	@Override
-	public synchronized void markTask(Task taskToMark, boolean isComplete) throws TaskNotFoundException {
+	public synchronized void markTask(Activity taskToMark, boolean isComplete) throws TaskNotFoundException {
 		addressBook.markTask(taskToMark, isComplete);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -105,12 +105,12 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+    public UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
     
     @Override
-    public UnmodifiableObservableList<Task> getFilteredTaskListForEditing() {
+    public UnmodifiableObservableList<Activity> getFilteredTaskListForEditing() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
@@ -131,7 +131,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(ReadOnlyTask person);
+        boolean satisfies(ReadOnlyActivity person);
         String toString();
     }
 
@@ -144,7 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask person) {
+        public boolean satisfies(ReadOnlyActivity person) {
             return qualifier.run(person);
         }
 
@@ -155,7 +155,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask person);
+        boolean run(ReadOnlyActivity person);
         String toString();
     }
 
@@ -167,7 +167,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask person) {
+        public boolean run(ReadOnlyActivity person) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
                     .findAny()

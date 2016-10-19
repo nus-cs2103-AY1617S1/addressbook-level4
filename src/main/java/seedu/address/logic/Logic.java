@@ -2,7 +2,7 @@ package seedu.address.logic;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.activity.ReadOnlyActivity;
 
 /**
  * API of the Logic component
@@ -16,6 +16,6 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyTask> getFilteredPersonList();
+    ObservableList<ReadOnlyActivity> getFilteredPersonList();
 
 }

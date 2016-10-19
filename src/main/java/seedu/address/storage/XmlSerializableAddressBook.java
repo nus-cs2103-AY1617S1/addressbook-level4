@@ -3,9 +3,9 @@ package seedu.address.storage;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.ReadOnlyLifeKeeper;
+import seedu.address.model.activity.ReadOnlyActivity;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -68,7 +68,7 @@ public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyActivity> getPersonList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();

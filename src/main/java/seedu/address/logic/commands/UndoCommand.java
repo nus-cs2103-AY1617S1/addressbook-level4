@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import java.util.Stack;
 
-import seedu.address.model.task.Task;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -56,7 +56,7 @@ public class UndoCommand extends Command {
 	 * Undo Add command which was previously called
 	 */
 	private CommandResult undoAdd(PreviousCommand toUndo) {
-		Task taskToDelete = toUndo.getUpdatedTask();
+		Activity taskToDelete = toUndo.getUpdatedTask();
 
 		try {
 			model.deleteTask(taskToDelete);
@@ -71,7 +71,7 @@ public class UndoCommand extends Command {
 	 * Undo Delete command which was previously called
 	 */
 	private CommandResult undoDelete(PreviousCommand toUndo) {
-		Task taskToAdd = toUndo.getUpdatedTask();
+		Activity taskToAdd = toUndo.getUpdatedTask();
 
 		try {
 			model.addTask(taskToAdd);
@@ -87,12 +87,12 @@ public class UndoCommand extends Command {
      * Undo Edit command which was previously called
      */
     private CommandResult undoEdit(PreviousCommand toUndo) {
-        Task taskToEdit = toUndo.getUpdatedTask();
-        Task edittedTask = toUndo.getOldTask();
-        Task taskAfterEdit = new Task(taskToEdit);
+        Activity taskToEdit = toUndo.getUpdatedTask();
+        Activity edittedTask = toUndo.getOldTask();
+        Activity taskAfterEdit = new Activity(taskToEdit);
         
         try {
-            Task taskBeforeEdit = model.undoEditTask(taskToEdit,edittedTask);
+            Activity taskBeforeEdit = model.undoEditTask(taskToEdit,edittedTask);
             
             return new CommandResult(String.format(MESSAGE_UNDO_EDIT_SUCCESS, taskBeforeEdit, taskAfterEdit));
         } catch (TaskNotFoundException tnfe) {
@@ -108,7 +108,7 @@ public class UndoCommand extends Command {
      */
 	private CommandResult undoDone(PreviousCommand toUndo) {
 		boolean isComplete = false;
-		Task unmarkedTask = toUndo.getUpdatedTask();
+		Activity unmarkedTask = toUndo.getUpdatedTask();
         try {
     		model.markTask(unmarkedTask, isComplete);
     		
