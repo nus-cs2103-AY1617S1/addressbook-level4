@@ -293,7 +293,7 @@ Use case ends
 **Extensions**
 
 1a. OneLine detects an error in the data entered
->   1a1. OneLine requests for the correct data
+>   1a1. OneLine requests for the correct data <br>
 >   1a2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
@@ -310,7 +310,7 @@ Use case ends
 **Extensions**
 
 1a. OneLine detects an error in the data entered
->   1a1. OneLine requests for the correct data
+>   1a1. OneLine requests for the correct data <br>
 >   1a2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
@@ -325,12 +325,12 @@ Use case ends
 **Extensions**
 
 1a. OneLine detects a time clash in task entered
->   1a1. OneLine creates the task
+>   1a1. OneLine creates the task <br>
 >   1a2. OneLine reports a time clash in affected tasks.<br>
     Use case ends
 
 1b. OneLine detects an error in the data entered
->   1b1. OneLine requests for the correct data
+>   1b1. OneLine requests for the correct data <br>
 >   1b2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
@@ -345,12 +345,12 @@ Use case ends
 **Extensions**
 
 1a. OneLine detects a time clash in task entered
->   1a1. OneLine creates the task
+>   1a1. OneLine creates the task <br>
 >   1a2. OneLine reports a time clash in affected tasks.<br>
     Use case ends
 
 1b. OneLine detects an error in the data entered
->   1b1. OneLine requests for the correct data
+>   1b1. OneLine requests for the correct data<br>
 >   1b2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
@@ -369,7 +369,7 @@ Use case ends
     Use case resumes from step 2.
 
 1b. OneLine detects an error in the data entered
->   1b1. OneLine requests for the correct data
+>   1b1. OneLine requests for the correct data<br>
 >   1b2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
@@ -422,7 +422,7 @@ Use case ends.
     Use case resumes from step 4.
 
 3c. OneLine detects an error in the data entered
->   3c1. OneLine requests for the correct data
+>   3c1. OneLine requests for the correct data<br>
 >   3c2. User enters new data <br>
     Steps 3c1-3c2 are repeated until data contains no errors
     Use case resumes from step 4.
@@ -494,7 +494,7 @@ Use case ends
  Use case ends.
 
 1b. OneLine detects an error in the data entered
-> 1b1. OneLine requests for the correct data
+> 1b1. OneLine requests for the correct data<br>
 > 1b2. User enters new data <br>
  Steps 1b1-1b2 are repeated until data contains no errors<br>
  Use case resumes from step 2.
