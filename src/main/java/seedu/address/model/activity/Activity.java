@@ -88,4 +88,17 @@ public class Activity implements ReadOnlyActivity {
         return getAsText();
     }
 
+    public void setCompletionStatus(boolean isComplete) {
+        isCompleted = isComplete;
+        
+    }
+
+    @Override
+    public String toStringCompletionStatus() {
+        if(isCompleted) {
+            return "Completed";
+        } 
+            return ""; 
+    }
+
 }

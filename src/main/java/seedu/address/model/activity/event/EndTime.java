@@ -10,14 +10,13 @@ import seedu.address.model.activity.DateTime;
 
 public class EndTime extends DateTime {
 
-
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Event's start time should only contain valid date";
     public static final String MESSAGE_DUEDATE_INVALID = "Event has already started";
 
     public EndTime(Calendar date) {
         super(date);
     }
-    
+
     /**
      * Validates given Start Time.
      *
@@ -26,39 +25,34 @@ public class EndTime extends DateTime {
      */
     public EndTime(String starttime, String date) throws IllegalValueException {
         super(date);
-
-
-        if (date != "") {
-            if (date.contains("today")) { // allow user to key in "today"
-                                          // instead of today's date
-                date = DateValidation.FixedTimeToday(date);
-            } else if (date.contains("tomorrow")) { // allow user to key in
-                                                    // "tomorrow" instead of
-                                                    // tomorrow's/ date
-                date = DateValidation.FixedTimeTomorrow(date);
-            }
-            Date taskDate = DATE_PARSER.parseEvent(date);
-
-            if (taskDate == null) {
-                assert false : "Date should not be null";
-            } else if (DateUtil.hasPassed(taskDate)) {
-                throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
-            }
-
-            if (!isValidDate(date)) {
-                throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
-            }
-            this.value.setTime(taskDate);
-            this.value.set(Calendar.MILLISECOND, 0);
-            this.value.set(Calendar.SECOND, 0);
+        if (!isValidDate(date)) {
+            throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
+        Date taskDate = new Date();
+        if (date != "") {
+            taskDate = DATE_PARSER.EventDateConvert(date);
+        }
+        if (date == "") {
+            Date startdate = DATE_PARSER.EventDateConvert(starttime);
+            taskDate = DATE_PARSER.EndDateTime(startdate);
+        }
+        if (DateUtil.hasPassed(taskDate)) {
+            throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
+        } 
+
+        if (!isValidDate(date)) {
+            throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
+        }
+        this.value.setTime(taskDate);
+        this.value.set(Calendar.MILLISECOND, 0);
+        this.value.set(Calendar.SECOND, 0);
     }
-    
+
     public String forDisplay() {
         if (this.value == null) {
-            return "Start:\t\t\t-";
+            return "End:\t\t\t-";
         } else {
-            return "Start:\t\t\t".concat(this.toString());
+            return "End:\t\t\t".concat(this.toString());
         }
     }
 }

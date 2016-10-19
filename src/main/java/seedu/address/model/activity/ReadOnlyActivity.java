@@ -13,6 +13,8 @@ public interface ReadOnlyActivity {
     Name getName();
     Reminder getReminder();
 
+    String toStringCompletionStatus();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
@@ -60,6 +62,8 @@ public interface ReadOnlyActivity {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    
+ 
     
 
 }

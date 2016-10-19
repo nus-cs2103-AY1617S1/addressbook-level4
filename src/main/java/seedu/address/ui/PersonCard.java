@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.address.model.activity.event.ReadOnlyEvent;
 
 public class PersonCard extends UiPart{
 
@@ -18,11 +19,11 @@ public class PersonCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label line1;
     @FXML
-    private Label address;
+    private Label line2;
     @FXML
-    private Label email;
+    private Label reminder;
     @FXML
     private Label tags;
     @FXML
@@ -44,11 +45,25 @@ public class PersonCard extends UiPart{
 
     @FXML
     public void initialize() {
+        
+        
         name.setText(person.getName().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getDueDate().forDisplay());
-        address.setText(person.getReminder().forDisplay());
-        email.setText(person.getPriority().forDisplay());
+        
+        if(person.getClass().getSimpleName().equalsIgnoreCase("task")) {
+            line1.setText(((ReadOnlyTask) person).getDueDate().forDisplay());
+            line2.setText(((ReadOnlyTask) person).getPriority().forDisplay());  
+        
+        } else if(person.getClass().getSimpleName().equalsIgnoreCase("event")) {
+            line1.setText(((ReadOnlyEvent) person).getStartTime().forDisplay());
+            line2.setText(((ReadOnlyEvent) person).getEndTime().forDisplay());   
+        } else {
+            line1.setText("");
+            line2.setText("");
+        }
+
+        reminder.setText(person.getReminder().forDisplay());
+        
         tags.setText(person.tagsString());
         completion.setText(person.toStringCompletionStatus());
         if(person.getCompletionStatus() == true) {

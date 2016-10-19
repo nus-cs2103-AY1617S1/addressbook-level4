@@ -11,9 +11,9 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyEvent extends ReadOnlyActivity {
     StartTime getStartTime();
     EndTime getEndTime();
-    boolean getOverStatus();
+    boolean getCompletionStatus();
 
-    String toStringOverStatus();
+    String toStringCompletionStatus();
     
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -33,9 +33,9 @@ public interface ReadOnlyEvent extends ReadOnlyActivity {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Starttime: ")
+                .append(" Start Time: ")
                 .append(getStartTime())
-                .append(" Endtime: ")
+                .append(" End Time: ")
                 .append(getEndTime())
                 .append(" Reminder: ")
                 .append(getReminder())

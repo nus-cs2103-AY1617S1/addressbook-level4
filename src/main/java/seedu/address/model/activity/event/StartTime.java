@@ -11,8 +11,8 @@ import seedu.address.model.activity.DateTime;
 public class StartTime extends DateTime {
 
 
-    public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Event's start time should only contain valid date";
-    public static final String MESSAGE_DUEDATE_INVALID = "Event has already started";
+    public static final String MESSAGE_STARTTIME_CONSTRAINTS = "Event's start time should only contain valid date";
+    public static final String MESSAGE_STARTTIME_INVALID = "Event has already started";
 
     public StartTime(Calendar date) {
         super(date);
@@ -42,11 +42,11 @@ public class StartTime extends DateTime {
             if (taskDate == null) {
                 assert false : "Date should not be null";
             } else if (DateUtil.hasPassed(taskDate)) {
-                throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
+                throw new IllegalValueException(MESSAGE_STARTTIME_INVALID);
             }
 
             if (!isValidDate(date)) {
-                throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
+                throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
             }
             this.value.setTime(taskDate);
             this.value.set(Calendar.MILLISECOND, 0);

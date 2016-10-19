@@ -16,7 +16,6 @@ public class Event extends Activity implements ReadOnlyEvent{
 
     private StartTime startTime;
     private EndTime endTime;
-    private boolean isOver;
     
     public Event(ReadOnlyActivity source) {
         super(source);
@@ -59,17 +58,17 @@ public class Event extends Activity implements ReadOnlyEvent{
 
 
     @Override
-    public boolean getOverStatus() {
-        return isOver;
+    public boolean getCompletionStatus() {
+        return isCompleted;
     }
     
-    public void setOverStatus(boolean isOver) {
-        this.isOver = isOver;
+    public void setCompletionStatus(boolean isComplete) {
+        this.isCompleted = isCompleted;
     }
     
     @Override
-    public String toStringOverStatus() {
-        if(isOver) {
+    public String toStringCompletionStatus() {
+        if(isCompleted) {
             return "Over";
         } 
         
