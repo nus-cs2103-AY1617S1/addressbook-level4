@@ -77,7 +77,7 @@ The next segment will show you how to set-up to make sure that you have the nece
 
 ### Software Architecture
 
-To start off, let us introduce you to the overall structure of Mastermind. Do have a basic understanding of Mastermind�s different components before focusing on them individually. <br>
+To start off, let us introduce you to the overall structure of Mastermind. Do have a basic understanding of Mastermind's different components before focusing on them individually. <br>
 
 Mastermind is split up into 5 main components, namely the `UI`, `Logic`, `Model`, `Storage` and `Commons`, as shown below, in Figure 1. 
 
@@ -97,7 +97,7 @@ Two of those classes play an important role at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log files.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
