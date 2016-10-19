@@ -105,6 +105,13 @@ public class UniqueTagList implements Iterable<Tag> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
+    
+    /**
+     * Returns the number of tags in the list.
+     */
+    public int size() {
+        return internalList.size();
+    }
 
     /**
      * Adds a Tag to the list.
@@ -131,10 +138,15 @@ public class UniqueTagList implements Iterable<Tag> {
     @Override
     public boolean equals(Object other) {
         if (other instanceof UniqueTagList) {
-            for (Tag tag : this.internalList) {
-                if (!(((UniqueTagList) other).getInternalList()).contains(tag)) {
-                    return false;
+            UniqueTagList tagList = (UniqueTagList) other;
+            if (this.internalList.size() == tagList.size()) {
+                for (Tag tag : this.internalList) {
+                    if (!(((UniqueTagList) other).getInternalList()).contains(tag)) {
+                        return false;
+                    }
                 }
+            } else {
+                return false;
             }
             return true;
         }

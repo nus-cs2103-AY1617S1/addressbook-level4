@@ -10,6 +10,7 @@ import seedu.whatnow.logic.commands.Command;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -32,10 +33,10 @@ public interface Model {
   //=========== Methods for Task List ===============================================================
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task) throws DuplicateTaskException;
 
     /** Changes the file data storage location */
     void changeTask(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException;
@@ -68,13 +69,13 @@ public interface Model {
     void updateFilteredListToShowAllByStatus(Set<String> keyword);
     
     /** Update the given task */
-    void updateTask(ReadOnlyTask old, Task toUpdate) throws UniqueTaskList.TaskNotFoundException;
+    void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException;
     
     /** Undo the update done on given task */
-	void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException;
+	void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException, DuplicateTaskException;
 
     /** Mark the given task as completed */
-    void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void markTask(ReadOnlyTask target) throws TaskNotFoundException;
    
     /** Mark the given task as incomplete */
 	void unMarkTask(ReadOnlyTask target) throws TaskNotFoundException;
