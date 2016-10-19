@@ -201,7 +201,6 @@ public class CommandParser {
      */
     private String[] extractTaskDetailsNatty(String dataArguments) {
         dataArguments = convertToNattyDateFormat(dataArguments);
-        System.out.println(dataArguments);
         Parser dateTimeParser = new Parser();
         List<DateGroup> dateGroups = dateTimeParser.parse(dataArguments);
         
