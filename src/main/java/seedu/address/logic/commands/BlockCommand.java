@@ -62,6 +62,7 @@ public class BlockCommand extends Command {
             model.addTask(toBlock);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
         } catch (UniqueTaskList.DuplicateTaskException e) {
+        	System.out.println("enough");
             return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
         } catch (TimeslotOverlapException e) {
 			// TODO Auto-generated catch block
