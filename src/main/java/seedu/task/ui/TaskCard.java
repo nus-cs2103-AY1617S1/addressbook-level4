@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import seedu.task.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -15,7 +16,7 @@ public class TaskCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Text name;
     @FXML
     private Label id;
     @FXML
@@ -47,6 +48,7 @@ public class TaskCard extends UiPart{
     private void setComplete() {
         if (task.getComplete()) {
             cardPane.setId("cardPane-completed");
+            name.setStrikethrough(true);
         }
     }
 
