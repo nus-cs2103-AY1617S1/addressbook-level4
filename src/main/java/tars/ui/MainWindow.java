@@ -30,6 +30,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private InformationHeader infoHeader;
     private TaskListPanel taskListPanel;
+    private RsvTaskListPanel rsvTaskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -43,9 +44,6 @@ public class MainWindow extends UiPart {
     private String tarsName;
 
     @FXML
-    private AnchorPane reservedTaskListPlaceHolder;
-
-    @FXML
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
@@ -56,6 +54,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane rsvTaskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -112,6 +113,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder, logic.getFilteredTaskList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        rsvTaskListPanel = RsvTaskListPanel.load(primaryStage, getRsvTaskListPlaceholder(), logic.getFilteredRsvTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTarsFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -138,6 +140,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getRsvTaskListPlaceholder() {
+        return rsvTaskListPanelPlaceholder;
     }
 
     public void hide() {
@@ -193,6 +199,10 @@ public class MainWindow extends UiPart {
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
+    }
+    
+    public RsvTaskListPanel getRsvTaskListPanel() {
+        return this.rsvTaskListPanel;
     }
 
 }

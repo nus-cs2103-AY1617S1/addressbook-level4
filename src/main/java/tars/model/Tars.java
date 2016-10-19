@@ -71,6 +71,10 @@ public class Tars implements ReadOnlyTars {
 	public ObservableList<Task> getTasks() {
 		return tasks.getInternalList();
 	}
+	
+	public ObservableList<RsvTask> getRsvTasks() {
+        return rsvTasks.getInternalList();
+    }
 
 	public void setTasks(List<Task> tasks) {
 		this.tasks.getInternalList().setAll(tasks);
@@ -108,6 +112,7 @@ public class Tars implements ReadOnlyTars {
 
 	public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<RsvTask> newRsvTasks, Collection<Tag> newTags) {
 		setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+		setRsvTasks(newRsvTasks.stream().collect(Collectors.toList()));
 		setTags(newTags);
 	}
 

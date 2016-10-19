@@ -8,6 +8,7 @@ import tars.logic.commands.CommandResult;
 import tars.logic.parser.Parser;
 import tars.model.Model;
 import tars.model.task.ReadOnlyTask;
+import tars.model.task.rsv.RsvTask;
 import tars.storage.Storage;
 
 import java.util.logging.Logger;
@@ -40,6 +41,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+    
+    @Override
+    public ObservableList<RsvTask> getFilteredRsvTaskList() {
+        return model.getFilteredRsvTaskList();
     }
     
 }
