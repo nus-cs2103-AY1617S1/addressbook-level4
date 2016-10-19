@@ -90,7 +90,7 @@ Shows a quick reference of common actions and commands.
 
 Adds a new task or event.  
 Format:  
-**`add`**` TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]`  
+**`add`**` TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]`  
 **`add`**` EVENT NAME /d START END [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]`
 
 Although there are many parameters, all of them except name are optional. Tasks will be turned into events automatically if there are two dates specified under the `/d` flag. Here are some common scenarios:
@@ -115,13 +115,6 @@ If you need something done by a specific time, add a deadline to your task.
 
 !!! example
     **`add`**` Submit V.0.0 /d 5 Oct 2359`
-
-#### Adding a recurring task
-
-Recurring tasks only require the recurring time period. The task will be appear from the first occurrence of the specified day, and again at the start of the time period. 
-
-!!! example
-    **`add`**` CS2103T Tutorial /d 10am to 2pm /r every Wednesday`
 
 #### Adding descriptions to a task
 
@@ -154,7 +147,6 @@ Flag | Parameter        | Used to
 `/d` | `START END`      | Specify the start and end time for the event
 `/m` | `DESCRIPTION`    | Add a long description to the task or event
 `/l` | `LOCATION`       | Add a location to the event 
-`/r` | `PERIOD`         | Create a recurring task
 `/p` | -                | Pins the task to the top of the list
 `/t` | `TAG 1, TAG 2, ...` | Tags to help organize your tasks 
 
@@ -360,7 +352,7 @@ The `save` command will show you the location of the current save file if you us
 Command  | Format  
 -------- | :-------- 
 Help     | **`help`**
-Add      | **`add`**` NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]` 
+Add      | **`add`**` NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]` 
 Delete   | **`delete`**` INDEX`
 Complete | **`complete`**` INDEX` or `/all`
 Pin      | **`pin`**` INDEX`
