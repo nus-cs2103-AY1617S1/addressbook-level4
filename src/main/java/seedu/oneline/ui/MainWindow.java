@@ -44,7 +44,7 @@ public class MainWindow extends UiPart {
     private String taskBookName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane taskPanePlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -53,7 +53,7 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane taskListPanelPlaceholder;
+    private AnchorPane tagListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -108,8 +108,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskPane = TaskPane.load(primaryStage, browserPlaceholder, logic.getFilteredTaskList());
-        tagListPanel = TagListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getTagList());
+        taskPane = TaskPane.load(primaryStage, taskPanePlaceholder, logic.getFilteredTaskList());
+        tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getTagList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -127,8 +127,8 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getTaskListPlaceholder() {
-        return taskListPanelPlaceholder;
+    public AnchorPane getTagListPlaceholder() {
+        return tagListPanelPlaceholder;
     }
 
     public void hide() {
@@ -182,7 +182,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TagListPanel getTaskListPanel() {
+    public TagListPanel getTagListPanel() {
         return this.tagListPanel;
     }
 
