@@ -15,7 +15,7 @@ public class TaskDate {
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Date is unreadable and should contains only spaces, letters or digits. \n" 
             + "Example: 22 Nov or Decemeber 22 or tomorrow";
-    public static final String DATE_VALIDATION_REGEX = "\\w{3}, \\d{2} \\w{3} \\d{2}";
+    public static final String DATE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public String value;
 

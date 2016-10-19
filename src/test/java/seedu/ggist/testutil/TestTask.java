@@ -15,6 +15,7 @@ public class TestTask implements ReadOnlyTask {
     private TaskTime endTime;
     private UniqueTagList tags;
     private boolean done;
+    private boolean undo;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -99,5 +100,7 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public void setUnDone() {
         done = false;
+        undo = true;
     }
+
 }
