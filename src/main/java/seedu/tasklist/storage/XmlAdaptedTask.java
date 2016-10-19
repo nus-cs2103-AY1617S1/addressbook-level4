@@ -24,7 +24,7 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String priority;
     @XmlElement(required = true)
-    private int uniqueID;
+    private String isComplete;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -42,10 +42,10 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getTaskDetails().taskDetails;
-        startTime = source.getStartTime().toString();
-        endTime = source.getEndTime().toString();
+        startTime = Long.toString(source.getStartTime().startTime.getTimeInMillis());
+        endTime = Long.toString(source.getEndTime().endTime.getTimeInMillis());
         priority = source.getPriority().priorityLevel;
-        uniqueID = source.getUniqueID();
+        isComplete = String.valueOf(source.isComplete());
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -63,10 +63,15 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final TaskDetails name = new TaskDetails(this.name);
-        final StartTime startTime = new StartTime(this.startTime);
-        final EndTime endTime = new EndTime(this.endTime);
+        final StartTime startTime = new StartTime(Long.valueOf(this.startTime));
+        final EndTime endTime = new EndTime(Long.valueOf(this.endTime));
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, startTime, endTime, priority, tags);
+        final boolean isComplete = Boolean.valueOf(this.isComplete);
+        Task newTask = new Task(name, startTime, endTime, priority, tags);
+        if(isComplete){
+        	newTask.markAsComplete();
+        }
+        return newTask;
     }
 }

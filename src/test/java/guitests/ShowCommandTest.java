@@ -59,7 +59,7 @@ public class ShowCommandTest extends TaskListGuiTest {
     }
     @Test
     public void show_OverDue() {
-    	 assertShowResult("show overdue");
+    	 assertShowResult("show overdue", TypicalTestTasks.task5);
     }
 
     private void assertShowResult(String command, TestTask... expectedHits ) {

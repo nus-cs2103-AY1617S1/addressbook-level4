@@ -104,8 +104,8 @@ public class TestTask implements ReadOnlyTask {
 	@Override
 	public boolean isOverDue() {
 		if(!isFloating()){
-			if(!endTime.endtime.getTime().equals(new Date(0))){
-				return endTime.endtime.getTimeInMillis() < System.currentTimeMillis();
+			if(!endTime.endTime.getTime().equals(new Date(0))){
+				return endTime.endTime.getTimeInMillis() < System.currentTimeMillis();
 			}
 			else return false;
 		}

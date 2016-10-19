@@ -32,8 +32,6 @@ public class ShowCommand extends Command {
 	@Override
 	public CommandResult execute() {
 
-		String requestedTime = TimePreparser.preparse(keyword);
-
 		switch (keyword) {
 
 		case "all":

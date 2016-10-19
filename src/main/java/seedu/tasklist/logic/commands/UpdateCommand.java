@@ -57,7 +57,7 @@ public class UpdateCommand extends Command {
 				taskToUpdate.floatCounter--;
 			}
 			if (endTime != null){
-				if(taskToUpdate.getEndTime().endtime.before(endTime.endtime)){
+				if(taskToUpdate.getEndTime().endTime.before(endTime.endTime)){
 					taskToUpdate.overdueCounter--;
 				}
 			}
