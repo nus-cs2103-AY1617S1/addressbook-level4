@@ -57,7 +57,7 @@ public class PersonCardHandle extends GuiHandle {
 		String start = getStartTime().equals("-")?"":getStartTime();
 		String end = getEndTime().equals("-")?"":getEndTime();
         try {
-			return getFullName().equals(person.getTaskDetails().taskDetails) && person.getStartTime().equals(new StartTime(start))
+			return getFullName().equals(person.getTaskDetails().toString()) && person.getStartTime().equals(new StartTime(start))
 			        && person.getEndTime().equals(new EndTime(end)) && person.getPriority().equals(new Priority(getPriority()));
 		} catch (IllegalValueException e) {
 			assert false;

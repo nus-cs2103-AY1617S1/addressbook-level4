@@ -12,7 +12,7 @@ public class SetStorageCommand extends Command {
 	public static final String MESSAGE_USAGE = COMMAND_WORD
 			+ ": Sets the storage file path\n"
 			+ "Parameters: [store][valid file path]\n"
-			+ "Example: " + COMMAND_WORD + " src/main/java/seedu/tasklist/logic/commands/SetStorageCommand.java";
+			+ "Example: " + COMMAND_WORD + " src/main/java/seedu/tasklist/logic/commands/";
 
 	public static final String MESSAGE_DONE_TASK_SUCCESS = "Changed file path to: ";
 	public static final String SET_STORAGE_FAILURE = "File path not found. Please enter a valid file path.";
