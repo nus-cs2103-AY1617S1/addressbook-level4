@@ -22,7 +22,7 @@ public class UndoCommandTest extends AddressBookGuiTest {
     	
         //undo one operation
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.wedding;
+        TestTask taskToAdd = td.goGym;
         commandBox.runCommand(taskToAdd.getAddCommand());
         commandBox.runCommand("delete " + currentList.length);
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
