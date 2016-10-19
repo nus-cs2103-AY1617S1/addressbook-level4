@@ -32,7 +32,7 @@ public class FindCommand extends Command {
     public CommandResult execute(){
         
         switch (operand) {
-        case "t":
+        case "t/":
             final Set<Tag> tagSet = new HashSet<>();
             for (String tagName : keywords) {
                 try {
