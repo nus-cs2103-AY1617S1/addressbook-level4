@@ -1,67 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-/*
-<tasktanager>
+<taskManager>
     <tasks>
-        <TaskName>Buy milk</TaskName>
-        <TaskDate isPrivate="false"></TaskDate>
-        <TaskTime isPrivate="false"></TaskTime>
-        <TaskTime isPrivate="false"></TaskTime>
+        <taskName>Buy milk</taskName>
+        <startDate isPrivate="false"></startDate>
+        <startTime isPrivate = "false"></startTime>
+        <endDate isPrivate="false"></endDate>
+        <endTime isPrivate="false"></endTime>
     </tasks>
+    <!--
     <tasks>
-        <TaskName>Dance</TaskName>
+        <taskName>Dance</taskName>
         <TaskDate isPrivate="false">16 October</TaskDate>
         <TaskTime isPrivate="false">1100</TaskTime>
         <TaskTime isPrivate="false">1200</TaskTime>
     </tasks>
     <tasks>
-        <TaskName>Tutorial</TaskName>
+        <taskName>Tutorial</taskName>
         <TaskDate isPrivate="false">13 October</TaskDate>
         <TaskTime isPrivate="false">1200</TaskTime>
         <TaskTime isPrivate="false">1300</TaskTime>
     </tasks>
     <tasks>
-        <TaskName>Buy potatoes</TaskName>
+        <taskName>Buy potatoes</taskName>
         <TaskDate isPrivate="false">20 October</TaskDate>
         <TaskTime isPrivate="false"></TaskTime>
         <TaskTime isPrivate="false">10th street</TaskTime>
     </tasks>
     <tasks>
-        <TaskName>FATEHR'S BIRTHDAY</TaskName>
+        <taskName>FATEHR'S BIRTHDAY</taskName>
         <TaskDate isPrivate="false">11 November</TaskDate>
         <TaskTime isPrivate="false">0800</TaskTime>
         <TaskTime isPrivate="false">2100</TaskTime>
     </tasks>
     <tasks>
-        <taskName>Tut</TaskName>
+        <taskName>Tut</taskName>
         <TaskDate isPrivate="false">12 November</TaskDate>
         <TaskTime isPrivate="false">1200</TaskTime>
         <TaskTime isPrivate="false">1300</TaskTime>
     </tasks>
     <tasks>
-        <TaskName>Lecture</TaskName>
+        <taskName>Lecture</taskName>
         <TaskDate isPrivate="false">17 November</TaskDate>
         <TaskTime isPrivate="false">1400</TaskTime>
         <TaskTime isPrivate="false">1600</TaskTime>
     </tasks>
     <tasks>
-        <TaskName>CCA</TaskName>
+        <taskName>CCA</taskName>
         <TaskDate isPrivate="false">20 November</TaskDate>
         <TaskTime isPrivate="false">2100</TaskTime>
         <TaskTime isPrivate="false">2300</TaskTime>
     </tasks>
     <tasks>
-        <TaskName>Revise</TaskName>
+        <taskName>Revise</taskName>
         <TaskDate isPrivate="false">10 December</TaskDate>
         <TaskTime isPrivate="false">1000</TaskTime>
         <TaskTime isPrivate="false">2100</TaskTime>
     </tasks>
+    -->
 </taskManager>
-*/
-<addressbook>
-    <tasks>
-        <taskName>go run</taskName>
-        <date>Wed, Oct 12 2016</date>
-        <startTime>1800</startTime>
-        <endTime>2000</endTime>
-    </tasks>
-</addressbook>

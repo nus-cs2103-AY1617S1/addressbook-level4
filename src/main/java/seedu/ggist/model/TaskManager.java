@@ -124,7 +124,6 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
