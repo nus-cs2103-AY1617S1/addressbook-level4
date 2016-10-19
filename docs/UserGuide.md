@@ -177,7 +177,7 @@ Finally, if you need to sort your tasks, enter the following:
 
 <br>
 <img src="images/Ui-List.png" width="600"><br>
-*Figure 4a: Filter your tasks by deadlines.*
+*Figure 4a: Filter your tasks by period end time.*
 <br><br>
 
 <img src="images/Ui-List2.png" width="600"><br>
@@ -270,7 +270,7 @@ Or if the deadline is no longer valid, remove it by adding `remove` before the k
 
 Once you have completed a task, you can mark it as complete.
 
-`complete 3`
+`complete 1`
 
 <img src="images/Ui-Complete.png" width="600"><br>
 *Figure 5: Marking a task as complete*
