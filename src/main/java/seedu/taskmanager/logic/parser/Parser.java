@@ -22,7 +22,7 @@ import seedu.taskmanager.logic.commands.ListTaskCommand;
 import seedu.taskmanager.logic.commands.SelectCommand;
 import seedu.taskmanager.logic.commands.DoneCommand;
 import seedu.taskmanager.logic.commands.NotDoneCommand;
-import seedu.taskmanager.logic.commands.SaveAsCommand;
+import seedu.taskmanager.logic.commands.SaveCommand;
 import seedu.taskmanager.logic.commands.UndoCommand;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemTime;
@@ -197,7 +197,7 @@ public class Parser {
         case UndoCommand.SHORT_COMMAND_WORD:
         	return new UndoCommand();
         	
-        case SaveAsCommand.COMMAND_WORD:
+        case SaveCommand.COMMAND_WORD:
             return prepareSaveAs(arguments);
             
         default:
@@ -486,10 +486,10 @@ public class Parser {
     private Command prepareSaveAs(String args) {
         args = args.trim();
         if(!args.equals("") && args.endsWith(".xml")) {
-            return new SaveAsCommand(args);
+            return new SaveCommand(args);
         }
         
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveAsCommand.MESSAGE_USAGE));
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
     }
     
     /**
