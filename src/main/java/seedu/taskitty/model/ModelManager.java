@@ -26,9 +26,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> allTasks;
-    private final FilteredList<Task> filteredTodos;
-    private final FilteredList<Task> filteredDeadlines;
-    private final FilteredList<Task> filteredEvents;
+    private FilteredList<Task> filteredTodos;
+    private FilteredList<Task> filteredDeadlines;
+    private FilteredList<Task> filteredEvents;
     private final Stack<ReadOnlyTaskManager> historyCommands;
     private final Stack<Predicate> historyPredicates;
 
@@ -85,16 +85,25 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
+        updateFilters();
         indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
+        updateFilters();
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
     
+    private void updateFilters() {
+        filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
+        filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
+        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());
+        
+    }
+
     public synchronized void undo() {
         resetData(historyCommands.pop());
         updateFilteredTaskList(historyPredicates.pop());
