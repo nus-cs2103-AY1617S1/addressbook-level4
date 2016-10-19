@@ -17,11 +17,13 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the FlexiTrack.\n"
-            + "Parameters to add an event: [task title] from/ [starting time] to/ [ending time]\n"
-            + "Example: " + COMMAND_WORD
+            + "1. Add Floating Task - Parameters to add an Floating Task: [task title]\n"
+            + "\tExample: " + COMMAND_WORD + " Do CS homework\n"
+            + "2. Add Event - Parameters to add an event: [task title] from/ [starting time] to/ [ending time]\n"
+            + "\tExample: " + COMMAND_WORD
             + " Summer school from/ 01062016 to/ 01/072016\n"
-            + "Parameters to add a task: [task title] by/ [due date]\n"
-            + "Example: " + COMMAND_WORD
+            + "3. Add Task - Parameters to add a task: [task title] by/ [due date]\n"
+            + "\tExample: " + COMMAND_WORD
             + " CS tutorial by/ 15102016\n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
