@@ -24,6 +24,12 @@ public interface Model {
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered deadlineTask list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineTaskList();
+    
+    /** Returns the filtered event list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList();
 
     /** Updates the filter of the filtered task list to show all task */
     void updateFilteredListToShowAll();

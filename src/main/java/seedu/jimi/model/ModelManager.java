@@ -134,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredReadOnlyTasks.setPredicate(null);
         filteredDeadlineTasks.setPredicate(null);
-        filteredEvents.setPredicate(predicate);
+        filteredEvents.setPredicate(null);
     }
 
     @Override
