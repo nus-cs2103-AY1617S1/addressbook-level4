@@ -47,8 +47,8 @@ public class TestTask implements ReadOnlyTask {
     
     public void setRecurringTime() {
 	    if (isRecurring && isComplete && !this.recurringFrequency.equals("")) {
-	        RecurringUtil.updateRecurringDate(startTime.starttime, recurringFrequency);
-	    	RecurringUtil.updateRecurringDate(endTime.endtime, recurringFrequency);
+	        RecurringUtil.updateRecurringDate(startTime.startTime, recurringFrequency);
+	    	RecurringUtil.updateRecurringDate(endTime.endTime, recurringFrequency);
 	        if (!startTime.isMissing() || !endTime.isMissing()) {
 	            isComplete = false;
 	        }

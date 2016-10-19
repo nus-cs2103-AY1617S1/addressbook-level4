@@ -48,7 +48,7 @@ public class TaskBuilder {
     }
     
     public TaskBuilder withRecurringFrequency(String frequency) throws IllegalValueException {
-    	this.task.setRecurringFrequency("");
+    	this.task.setRecurringFrequency(frequency);
     	return this;
     }
 
