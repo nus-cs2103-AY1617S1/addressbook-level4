@@ -57,9 +57,9 @@ Adds a task to Do-Do Bird.<br>
 Format:
 
 * `add TASK_NAME [; a line of details]`
-* `add TASK_NAME by DATE [tTIME] [; a line of details]`
-* `add TASK_NAME on DATE [tTIME] [; a line of details]`
-* `add TASK_NAME on DATE [tTIME] by DATE [tTime] [; a line of details]`
+* `add TASK_NAME by DATE [TIME] [; a line of details]`
+* `add TASK_NAME on DATE [TIME] [; a line of details]`
+* `add TASK_NAME on DATE [TIME] by DATE [Time] [; a line of details]`
 
 
 > Date and Time formats follow the above guidelines.
@@ -85,10 +85,10 @@ Search for tasks that are done or not done.<br>
 Format:
 
 * `search KEYWORD [MORE_KEYWORDS]`
-* `search before DATE [tTIME]`
-* `search after DATE [tTIME]`
-* `search on DATE [tTIME]`
-* `search from DATE [tTIME] till DATE [tTIME]`
+* `search before DATE [TIME]`
+* `search after DATE [TIME]`
+* `search on DATE [TIME]`
+* `search from DATE [TIME] till DATE [TIME]`
 * `search tag TAG`
 * `search done`
 * `search undone`
@@ -135,7 +135,7 @@ Update an existing task inside Do-Do Bird.<br>
 
 Format:
 
-* `update ID [NEW_NAME] on [DATE [tTime]] by [DATE [tTime]] [; a line of new details]`
+* `update ID [NEW_NAME] on [DATE [Time]] by [DATE [Time]] [; a line of new details]`
 
 > * Date and Time formats follow the above guidelines.
 > * To remove an optional field, input `-` as the parameter
