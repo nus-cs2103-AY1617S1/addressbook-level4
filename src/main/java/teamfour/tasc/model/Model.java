@@ -79,11 +79,6 @@ public interface Model {
     void addTaskListFilterByTags(Set<String> tags, boolean negated);
 
     /**
-     * Filter for the find command
-     */
-    /*void addTaskListFilterBySearchTerm(Set<String> searchTerm, boolean negated);*/
-
-    /**
      * Precondition: arguments are not null.
      * Sort the filtered task list by the given order
      */

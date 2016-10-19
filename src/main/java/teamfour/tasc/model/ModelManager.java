@@ -152,12 +152,6 @@ public class ModelManager extends ComponentManager implements Model {
         taskListFilter.and(new PredicateExpression(new TagQualifier(tags), negated));
     }
 
-    /*@Override
-    public void addTaskListFilterBySearchTerm(Set<String> searchTerm, boolean negated){
-        assert searchTerm != null;
-        taskListFilter.and(new PredicateExpression(new TagQualifier(searchTerm), negated));
-    }*/
-
     @Override
     public void sortFilteredTaskListByOrder(String sortOrder) {
         switch(sortOrder) {
