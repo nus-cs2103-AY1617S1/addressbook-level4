@@ -32,7 +32,7 @@
 > * The order of parameters is fixed.
 
 <br>
-#### Viewing help : `help`
+#### Viewing help: `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
@@ -65,13 +65,13 @@ First, type a command.
 Command will be added.
 
 <br>
-#### Listing all tasks : `list`
+#### Listing all tasks: `list`
 Shows a list of all tasks in the Emeraldo.<br>
 Format: `list`
 
 
 <br>
-#### Listing all tasks by categories : `list`
+#### Listing all tasks by categories: `list`
 Shows a list of all tasks in the Emeraldo according to a stated category
 Format: `list [CATEGORIES]`
 
@@ -109,9 +109,25 @@ Examples:
 * `find dinner meeting project`<br>
   Returns any task having names `dinner`, `meeting`, or `project`
 
+<br>
+#### Editing a task: `edit`
+Edits the specified task from Emeraldo.<br>
+Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
+
+> Task will be edited given the new parameter(s), and updated instantly
+> Requires at least 1 type of parameter to be passed in
+
+Examples:
+* `list`<br>
+* `edit 3 "Order pizza, netflix & chill"`<br>
+  Edits task description with index 3 in the list
+* `find homework`<br>
+* `edit 1 by 10/11/2016` <br>
+  Edits task dateline with index 1 in the list
+
 <br> 
-#### Deleting a task : `delete`
-Deletes the specified task from the Emeraldo.<br>
+#### Deleting a task: `delete`
+Deletes the specified task from Emeraldo.<br>
 Format: `delete INDEX`
 
 > Task will be removed from the list
@@ -120,8 +136,8 @@ Examples:
 * `list`<br>
   `delete 2`<br>
   Deletes task with index 2 in the list
-* `find KEYWORDS`
-  `delete 459`
+* `find KEYWORDS`<br>
+  `delete 459`<br>
   Delete task with index 459 in the list
 
 <br> 
@@ -140,19 +156,19 @@ Examples:
   Deletes task of "add do housework"
 
 <br>  
-#### Mark task as complete : `completed`
+#### Mark task as complete: `completed`
 Marks a task as completed as a normal tag
 Format: `completed INDEX`
 
 > Emeraldo will mark task as completed with a predefined tag "completed" 
 
 <br>
-#### Clearing all entries : `clear`
+#### Clearing all entries: `clear`
 Clears all entries from the Emeraldo in the save data.<br>
 Format: `clear`  
 
 <br>
-#### Exiting the program : `exit`
+#### Exiting the program: `exit`
 Exits the program.<br>
 Format: `exit`
 
@@ -173,14 +189,15 @@ There is no need to save manually.
        the file that contains the data of your previous Task Manager folder.
 
 <br>       
-## Command Summary
+## Command Summary (listed in alphabetical order)
 
 Command | Format  
 -------- | :-------- 
-Add | `add t/TASK_DESCRIPTION [st/START_TIME] [et/END_TIME] [d/DATE] [tg/TAGS]...`
+Add | `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
 Clear | `clear`
 Completed | `completed INDEX`
 Delete | `delete INDEX`
+Edit | `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
 Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 Help | `help`
