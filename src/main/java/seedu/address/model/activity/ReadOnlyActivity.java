@@ -20,6 +20,11 @@ public interface ReadOnlyActivity {
     UniqueTagList getTags();
 
     /**
+     * Returns true if Activity is completed or over
+     */
+    boolean getCompletionStatus();
+    
+    /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyActivity other) {
@@ -55,4 +60,6 @@ public interface ReadOnlyActivity {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    
+
 }

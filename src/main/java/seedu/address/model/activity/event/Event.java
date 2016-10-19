@@ -24,6 +24,7 @@ public class Event extends Activity {
         assert !CollectionUtil.isAnyNull(start, end);
         this.startTime = start;
         this.endTime = end;
+        isCompleted = false;
     }
     
 }

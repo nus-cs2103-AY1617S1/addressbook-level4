@@ -15,7 +15,7 @@ public class Activity implements ReadOnlyActivity {
 
     protected Name name;
     protected Reminder reminder;
-
+    protected boolean isCompleted;
     protected UniqueTagList tags;
 
     /**
@@ -51,6 +51,11 @@ public class Activity implements ReadOnlyActivity {
     
     public void setReminder(Reminder reminder) {
         this.reminder = reminder;
+    }
+    
+    @Override
+    public boolean getCompletionStatus() {
+        return isCompleted;
     }
     
     @Override
