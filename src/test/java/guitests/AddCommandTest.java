@@ -1,11 +1,11 @@
 package guitests;
 
 import guitests.guihandles.PersonCardHandle;
-import org.junit.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -15,23 +15,23 @@ public class AddCommandTest extends AddressBookGuiTest {
     public void add() {
         //add one person
         TestTask[] currentList = td.getTypicalPersons();
-        TestTask personToAdd = td.one;
+        TestTask personToAdd = TypicalTestTasks.one;
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
         //add another person
-        personToAdd = td.two;
+        personToAdd = TypicalTestTasks.two;
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
         //add duplicate person
-        commandBox.runCommand(td.one.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.one.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
         assertTrue(personListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.one);
+        assertAddSuccess(TypicalTestTasks.one);
 
         //invalid command
         commandBox.runCommand("adds Johnny");

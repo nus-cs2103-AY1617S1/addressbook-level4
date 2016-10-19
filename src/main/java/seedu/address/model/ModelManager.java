@@ -10,8 +10,6 @@ import seedu.address.model.person.Task;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Status;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
-
 import java.util.Set;
 import java.util.logging.Logger;
 
