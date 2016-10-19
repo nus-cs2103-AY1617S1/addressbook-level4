@@ -4,6 +4,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ShowCommand;
+import seedu.address.logic.commands.ShowDoneCommand;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
@@ -16,6 +18,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -104,6 +107,22 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	taskManager.doneTask(target);
+    	updateFilteredTaskListToShow(ShowCommand.isNotDone());
+    	indicateTaskManagerChanged();
+    	
+    }
+    
+    @Override
+    public synchronized void undoneTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	taskManager.undoneTask(target);
+    	updateFilteredTaskListToShow(ShowDoneCommand.isDone());
+    	indicateTaskManagerChanged();
+    	
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -147,6 +166,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredTaskListToShow(Predicate<Task> predicate) {
+    	filteredTasks.setPredicate(predicate);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -200,5 +224,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    
 }

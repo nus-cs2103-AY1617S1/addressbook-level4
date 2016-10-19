@@ -11,6 +11,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIME;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import com.joestelmach.natty.generated.DateParser.relative_date_prefix_return;
 
@@ -23,10 +24,10 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: NAME d/DATE s/START e/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
+            + "Parameters: TASKNAME d/DATE s/START e/END  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe d/98765432 s/johnd@gmail.com e/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " Homework d/98765432 s/10:00pm e/11:00pm";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
@@ -78,6 +79,7 @@ public class AddCommand extends Command {
         try {
             model.saveToHistory();
             model.addTask(toAdd);
+            model.updateFilteredTaskListToShow(isNotDone());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
@@ -127,4 +129,8 @@ public class AddCommand extends Command {
     		return (end.endTime.compareTo(now.startTime) >= 0);
     	}
 	}
+    
+    public static Predicate<Task> isNotDone() {
+    	return t -> t.getDone().equals("false");
+    }
 }
