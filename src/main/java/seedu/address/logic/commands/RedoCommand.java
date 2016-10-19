@@ -6,7 +6,7 @@ import seedu.address.logic.URManager.NoAvailableCommandException;
 public class RedoCommand extends Command{
 
 	public static final String COMMAND_WORD = "r";
-
+	
     public static final String MESSAGE_FAIL = "No command to redo.";
 
     public RedoCommand() {}

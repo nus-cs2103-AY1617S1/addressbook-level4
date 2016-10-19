@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.BlockCommand;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
@@ -57,7 +58,8 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
-        return internalList.contains(toCheck);
+        return !toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME) //Ignore blocked slot case
+        		&& internalList.contains(toCheck);
     }
     
     /**
@@ -65,17 +67,15 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean overlaps(ReadOnlyTask toCheck) {
         assert toCheck != null;
-        //If to check is floating or deadline tasks, ignored.
+        //ignore floating and deadline tasks
         if(toCheck.getComponentForNonRecurringType().getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
         	return false;
-        //Only compare tasks with certain time slots.
+        //Only compare tasks with blocked time slots.
         for(Task t: internalList){
-        	if(t.getTaskType().equals(TaskType.NON_FLOATING)){
-        		if(t.getComponentForNonRecurringType().getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
-        			if(!(t.getComponentForNonRecurringType().getEndDate().getDate().before(toCheck.getComponentForNonRecurringType().getStartDate().getDate())||
-        	        	t.getComponentForNonRecurringType().getStartDate().getDate().after(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
-        	        		return true;
-        		}
+        	if(t.getName().fullName.equals(BlockCommand.DUMMY_NAME)){
+        		if(!(t.getComponentForNonRecurringType().getEndDate().getDate().before(toCheck.getComponentForNonRecurringType().getStartDate().getDate())||
+        	        t.getComponentForNonRecurringType().getStartDate().getDate().after(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
+        	        	return true;        		
         	}
         }
         return false;
