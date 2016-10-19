@@ -16,10 +16,10 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": edit an activity using their type, index, [Parameters to change] and new changes: "
-            + "\n" + "Parameters: [Activity_Type] + [Activity_Index] ['name', 'n:', 'by (Date & Time)', 'from (Date & Time) - to (Date & Time)], + [Changes]\n" 
-            + "Example: " + COMMAND_WORD + "task 1 by 10-10-2016 1900 \n"
-            + "Example: " + COMMAND_WORD + "task 1 n: write in red ink"
-            + "Example: " + COMMAND_WORD + "event 1 name ORD";
+            + "\n" + "Parameters: [Activity_Type] + [Activity_Index] [ 'name', 'note', 'by (Date & Time)', 'from (Date & Time) - to (Date & Time)' ], + [Changes]\n" 
+            + "Example: " + COMMAND_WORD + " task 1 by 10-10-2016 1900 \n"
+            + "Example: " + COMMAND_WORD + " task 1 note write in red ink \n"
+            + "Example: " + COMMAND_WORD + " event 1 name ORD";
 
     public static final String MESSAGE_EDITTED_ACTIVITY_SUCCESS = "Edited Activity to: %1$s";
     public static final String NAME_PARAM = "name";
