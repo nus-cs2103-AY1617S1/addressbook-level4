@@ -269,6 +269,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add floating tasks without date or time | I can do that task whenever I want.
 `* * *` | user | specify a specific folder as the data storage location | I can decide where to place my file for the task manager.
 `* * *` | user | have a done list | see what has been done for the day to know how productive I've been.
+`* * *` | user | clear my tasks | delete all the tasks in my task manager at once.
+`* * *` | user | clear my done tasks | delete all my tasks that are done from the done list.
 `* *` | user | undo a command | go back to the previous command if I have made a mistake.
 `* *` | user | rearrange my task based on certain commands | make my schedule more flexible.
 `* *` | user | set the priority of the task when I'm adding a new task | know the urgency of the task.
