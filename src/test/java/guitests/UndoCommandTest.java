@@ -12,7 +12,7 @@ import seedu.tasklist.testutil.TestTask;
 import seedu.tasklist.testutil.TypicalTestTasks;
 
 public class UndoCommandTest extends TaskListGuiTest {
-    
+/*    
     @Test
     public void undoOneChange() throws IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();
@@ -59,7 +59,7 @@ public class UndoCommandTest extends TaskListGuiTest {
         commandBox.runCommand("undo");
         assertResultMessage(UndoCommand.MESSAGE_FAILURE);
     }
-    
+*/    
     @Test
     public void undoThreeChanges() throws IllegalValueException {
         //undo three changes
