@@ -615,7 +615,6 @@ Use case ends
 * Should have intuitive commands for users.
 * Should store data in a human editable file.
 
-{More to be added}
 
 ## Appendix D : Glossary
 
