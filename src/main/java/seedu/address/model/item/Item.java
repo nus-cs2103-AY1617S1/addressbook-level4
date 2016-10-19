@@ -12,7 +12,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Represents a Item in the address book. Guarantees: details are present and
  * not null, field values are validated.
  */
-public class Item {
+public class Item implements ReadOnlyItem {
 
 
     private UniqueTagList tags;
@@ -53,6 +53,11 @@ public class Item {
 	    this.endDate = end;
 	}
 	
+    @Override
+    public UniqueTagList getTags() {
+        return this.tags;
+    }
+
 	public Description getDescription() {
 		return description;
     }
