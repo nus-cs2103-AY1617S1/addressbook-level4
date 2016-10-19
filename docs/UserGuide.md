@@ -2,24 +2,24 @@
 
 ## Introduction
 
-In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many todo list apps have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.
+In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many task management applications today have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.
 
 Ever wished for a tool that can manage all your daily activities in distinct categories, and suggest to you which one you want to complete first? Well, look no further as Uncle Jim's Discount To-do List is here to save your day.
 
-Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days where you had to click through several pages of menus, navigating through unintuitive interface just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type out the command hit enter!
+Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days where you had to click through several pages of menus just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type out the command and hit enter!
 
-Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. At the same time, Uncle Jum is capable of managing both tasks *and* event so you don't have to use two different apps to be productive. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
+Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. At the same time, Uncle Jim is capable of managing both tasks *and* event so you don't have to use two different applications to be productive. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
 
 Sounds exciting? Then let's get started!
 
 
 ## Quick Start
 
-1. Ensure you have [**Java version 8 update 60**][java] or later installed on your computer.
+1. Ensure you have [**Java version 8 update 60**][java]{: .print-url } or later installed on your computer.
 
     !!! warning "This application will not work with earlier versions of Java 8"
 
-2. Download the latest copy of `UJDTDL.jar` from our [releases](../../../releases) page.
+2. Download the latest copy of `UJDTDL.jar` from our [releases](../../../releases){: .print-url } page.
 3. Save the file to the folder you want to use for this application.
 4. Double-click the file to start the application. You should see something like this
 
@@ -46,7 +46,7 @@ Sounds exciting? Then let's get started!
 * Items with `...` within each parameter means you can add more items within the same parameters than specified.
 * Most commands that refer to a particular task or event in the list require an `INDEX`. This is a number indicated on the left of a task or event as shown in the screenshot below:
 
- <img src="images/sketch_task_index_small.png" width="350" alt="Index Number Location" />
+<img src="images/sketch_task_index_small.png" width="350" alt="Index Number Location" />
 
 <figcaption>Use the number on the side to choose the task for your command</figcaption>
 
@@ -77,7 +77,7 @@ Since Uncle Jim supports flexible command format as much as possible, many natur
 
     !!! example
         next Thursday  
-        tomorrow evening    
+        tomorrow evening  
         in two days
 
 ### Viewing help : **`help`**
@@ -90,7 +90,7 @@ Shows a quick reference of common actions and commands.
 
 Adds a new task or event.  
 Format:  
-**`add`**` TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]`  
+**`add`**` TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]`  
 **`add`**` EVENT NAME /d START END [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]`
 
 Although there are many parameters, all of them except name are optional. Tasks will be turned into events automatically if there are two dates specified under the `/d` flag. Here are some common scenarios:
@@ -107,7 +107,7 @@ Adding a task can be simply giving a name.
 Events normally will have include a start time, end time and a location and can be phrased as follows using the `/d` and `/l` flags.
 
 !!! example
-    **`add`**` Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens  /p`
+    **`add`**` Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens /p`
 
 #### Adding a deadline
 
@@ -115,13 +115,6 @@ If you need something done by a specific time, add a deadline to your task.
 
 !!! example
     **`add`**` Submit V.0.0 /d 5 Oct 2359`
-
-#### Adding a recurring task
-
-Recurring tasks only require the recurring time period. The task will be appear from the first occurrence of the specified day, and again at the start of the time period. 
-
-!!! example
-    **`add`**` CS2103T Tutorial /d 10am to 2pm /r every Wednesday`
 
 #### Adding descriptions to a task
 
@@ -140,7 +133,7 @@ for more detail.
 
 #### Organizing tasks using tags
 
-If you have a lot of tasks you can use tags to organize them. See [the `tag` command](#managing-tags-tag) for more detail.
+If you have a lot of tasks you can use tags to organize them. See [the `tag` command](#manage-tags-tag) for more detail.
 
 !!! example
     **`add`**` Finish tutorial 6 /d 10 Oct /t CS2106, School`
@@ -154,13 +147,12 @@ Flag | Parameter        | Used to
 `/d` | `START END`      | Specify the start and end time for the event
 `/m` | `DESCRIPTION`    | Add a long description to the task or event
 `/l` | `LOCATION`       | Add a location to the event 
-`/r` | `PERIOD`         | Create a recurring task
 `/p` | -                | Pins the task to the top of the list
 `/t` | `TAG 1, TAG 2, ...` | Tags to help organize your tasks 
 
 ### Deleting a task: **`delete`**
 
-Deletes the specified task from todo list.  
+Deletes the specified task from Todo list.  
 Format: **`delete`**` INDEX`
 
 Deletes the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
@@ -268,7 +260,7 @@ Descriptions of tasks and events are hidden by default. In order to display them
 Switch between different views.  
 Format: **`view`**` VIEW`
 
-To drill down into your todo list and see specific tasks, use the `view` command.
+To drill down into your Todo list and see specific tasks, use the `view` command.
 
 <img src="images/app_screenshot_completed.png" width="700" alt="View of completed tasks">
 
@@ -294,7 +286,7 @@ The search is case insensitive and the order of the keywords does not matter. On
     
     **`find`**` Jo`  
     :    Returns any task with **Jo** in the title, such as **Meet John for lunch**, 
-         **Jogging at the park**, or **Josting fights at the gym**
+         **Jogging at the park**, or **Jousting fights at the gym**
     
     **`find`**` Jo Ja`  
     :    Returns any task with either **Jo** or **Ja** in the title, such as 
@@ -311,7 +303,7 @@ Undo the most recent action.
 Format: **`undo`**
 
 !!! note
-    Only applies to commands which have made changes to the todo list like `add`, `edit` and `delete` 
+    Only applies to commands which have made changes to the Todo list like `add`, `edit` and `delete` 
 
 ### Redoing an action: **`redo`**
 
@@ -333,12 +325,12 @@ Loads in another save file. You can use this to restore a backup or switch to di
 
 Format: **`save`**` [FILENAME]`
 
-By default, todo list data are saved in a file called `discountTodo.xml` in the `data` folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the `save` command.
+By default, Todo list data are saved in a file called `discountTodo.xml` in the `data` folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the `save` command.
  
 The `save` command will show you the location of the current save file if you use it without specifying a `FILENAME`. 
 
 !!! note "Autosave"
-    Your todo list is saved automatically every time it is updated. There is no need to save manually.
+    Your Todo list is saved automatically every time it is updated. There is no need to save manually.
 
 
 ## FAQ
@@ -360,7 +352,7 @@ The `save` command will show you the location of the current save file if you us
 Command  | Format  
 -------- | :-------- 
 Help     | **`help`**
-Add      | **`add`**` NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]` 
+Add      | **`add`**` NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]` 
 Delete   | **`delete`**` INDEX`
 Complete | **`complete`**` INDEX` or `/all`
 Pin      | **`pin`**` INDEX`

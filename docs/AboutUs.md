@@ -20,7 +20,7 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Govind Venugopalan](https://github.com/cricketer94)
 <img src="images/Govind.jpg" width="150"><br>
 **Role**: Backend Developer <br>
-**Responsibilities**: Logic and Algorithms
+**Responsibilities**: Logic and Documentation
 
 -----
 

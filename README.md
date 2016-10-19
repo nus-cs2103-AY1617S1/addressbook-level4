@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W10-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W10-C4/main?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4780d0602a144b7a9edb9fc1e019a27b)](https://www.codacy.com/app/Logical-Reminding-Apartment/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-W10-C4/main&amp;utm_campaign=Badge_Grade)
 
-#### Current Release: [v0.2 Cadillac][release] (MVP pre-release) 
+#### Current Release: [v0.3 Daimler][release] (Alpha pre-release) 
 
 #### About Uncle Jim's Discount To-do List
 
@@ -28,4 +28,4 @@
 
 #### Licence : [MIT](LICENSE)
 
-[release]: https://github.com/CS2103AUG2016-W10-C4/main/releases/tag/v0.2 
+[release]: https://github.com/CS2103AUG2016-W10-C4/main/releases/tag/v0.3 
