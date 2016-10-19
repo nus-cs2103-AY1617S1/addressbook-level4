@@ -52,7 +52,7 @@ public class MainApp extends Application {
         storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
-        System.out.println("testing travis");
+
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
