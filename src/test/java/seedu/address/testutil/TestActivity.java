@@ -235,7 +235,7 @@ public class TestActivity implements ReadOnlyActivity {
     
     /**
      * @author Marx Low (A0139164A)
-     * @param index of the Activity to compelte
+     * @param index of the Activity to complete
      * @returna complete command for the given Activity.
      */
     public String getCompleteCommand(int index) {
@@ -264,6 +264,19 @@ public class TestActivity implements ReadOnlyActivity {
     
     @Override
     public Activity get() {
+        return null;
+    }
+    
+    @Override
+    public String toString() {
+        switch(this.activityType){
+        case Activity.FLOATING_TASK_TYPE:
+            return getFloatingTaskAsText();
+        case Activity.TASK_TYPE:
+            return getTaskAsText();
+        case Activity.EVENT_TYPE:
+            return getEventAsText();
+        }
         return null;
     }
 }

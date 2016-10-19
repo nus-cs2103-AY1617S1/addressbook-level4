@@ -35,6 +35,9 @@ public interface ReadOnlyActivity {
     // An arrayList having parameters of an activity.
     ArrayList<String> getActivityDetails();
     
+    // Returns a String summary of the activity.
+    String toString();
+    
     void setCompleted();
     
     void setUncompleted();

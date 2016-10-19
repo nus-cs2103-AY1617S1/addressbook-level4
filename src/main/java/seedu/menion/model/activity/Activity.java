@@ -231,8 +231,7 @@ public class Activity implements ReadOnlyActivity {
             activityDetails.add(status.toString());
         }
     }
-
-    
+ 
     @Override
     public String toString() {
         switch(this.activityType){
