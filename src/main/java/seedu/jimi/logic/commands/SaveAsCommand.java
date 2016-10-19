@@ -22,7 +22,7 @@ public class SaveAsCommand extends Command {
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Set a new save directory for all your tasks and events in Jimi.\n"
             + "Parameters: FILEPATH/FILENAME.xml or FILEPATH\\FILENAME.xml \n"
-            + "Jimi rejects these characters in file paths: * & % ? : <space> \" < > . \n"
+            + "Jimi rejects these characters in file paths: * & % ? : <space> \" < > \n"
             + "and these characters in file names: / : * \" < > ? | \\ \n"
             + "Example: " + COMMAND_WORD + " C:/dropbox/taskbook.xml";
 
