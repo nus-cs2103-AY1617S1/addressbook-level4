@@ -1,9 +1,7 @@
 package seedu.tasklist.commons.core;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.Objects.*;
 import java.util.logging.Level;
 
 import org.json.JSONException;

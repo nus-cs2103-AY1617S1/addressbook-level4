@@ -1,17 +1,9 @@
 package seedu.tasklist.logic.commands;
 
-import java.io.File;
-import java.io.FileReader;
-import java.nio.file.Files;
 import java.io.IOException;
-import java.nio.file.StandardCopyOption;
-
 import org.json.JSONException;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import seedu.tasklist.commons.core.Config;
 import seedu.tasklist.storage.Storage;
 
 public class SetStorageCommand extends Command {

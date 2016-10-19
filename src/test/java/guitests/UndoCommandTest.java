@@ -1,10 +1,7 @@
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
-
 import org.junit.Test;
 
-import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.UndoCommand;
 import seedu.tasklist.model.task.EndTime;
@@ -12,7 +9,6 @@ import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.testutil.TestTask;
-import seedu.tasklist.testutil.TestUtil;
 import seedu.tasklist.testutil.TypicalTestTasks;
 
 public class UndoCommandTest extends TaskListGuiTest {

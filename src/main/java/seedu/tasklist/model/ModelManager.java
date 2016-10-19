@@ -1,6 +1,4 @@
 package seedu.tasklist.model;
-import seedu.tasklist.model.task.*;
-
 import javafx.collections.transformation.FilteredList;
 import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.Config;
@@ -19,7 +17,6 @@ import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -129,12 +126,12 @@ public class ModelManager extends ComponentManager implements Model {
 		if(target instanceof Task){
 			Task myTask = (Task) target;
 			if(!myTask.isComplete())
-				myTask.IncompleteCounter--;
+				Task.IncompleteCounter--;
 			if(myTask.isOverDue()&&!myTask.isComplete()){
-				myTask.overdueCounter--;
+				Task.overdueCounter--;
 			}
 			if(myTask.isFloating()&&!myTask.isComplete()){
-				myTask.floatCounter--;
+				Task.floatCounter--;
 			}	
 		}
 		taskList.removeTask(target);
@@ -148,12 +145,12 @@ public class ModelManager extends ComponentManager implements Model {
 	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
 		if(task instanceof Task){
 			Task myTask = (Task) task;
-			myTask.IncompleteCounter++;
+			Task.IncompleteCounter++;
 			if(myTask.isOverDue()){
-				myTask.overdueCounter++;
+				Task.overdueCounter++;
 			}
 			if(myTask.isFloating()){
-				myTask.floatCounter++;
+				Task.floatCounter++;
 			}	
 		}
 		taskList.addTask(task);
@@ -192,12 +189,12 @@ public class ModelManager extends ComponentManager implements Model {
 	public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
 		if(task instanceof Task){
 			Task myTask = (Task) task;
-			myTask.IncompleteCounter--;
+			Task.IncompleteCounter--;
 			if(myTask.isOverDue()){
-				myTask.overdueCounter--;
+				Task.overdueCounter--;
 			}
 			if(myTask.isFloating()){
-				myTask.floatCounter--;
+				Task.floatCounter--;
 			}
 		}
 		taskList.markTaskAsComplete(task);
