@@ -77,7 +77,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
-<img src="images/SD_Floating_Task_Delete.png" width="800">
+<img src="images/SD_Delete_Floating_Task.png" width="800">
 
 >Note how the `Model` simply raises a `taskListChangedEvent` when the Task Master data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
