@@ -136,7 +136,7 @@ public class TestUtil {
     }
 
     public static TaskBook generateEmptyTaskBook() {
-        return new TaskBook(new UniqueTaskList(), new UniqueTagList());
+        return new TaskBook(new UniqueTaskList(), new UniqueTaskList(), new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableTaskBook generateSampleStorageTaskBook() {
