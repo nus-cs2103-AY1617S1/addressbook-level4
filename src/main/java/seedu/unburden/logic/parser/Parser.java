@@ -1,8 +1,6 @@
 package seedu.unburden.logic.parser;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZoneId;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -32,8 +30,19 @@ public class Parser {
     private static final Pattern KEYWORDS_NAME_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
+    /*private static final Pattern KEYWORDS_DATE_FORMAT = 
+    		Pattern.compile("(?<dates>\\S+([0-9]{2}[/][0-9]{2}[/][0-9]{4})*)");*/
+    
     private static final Pattern KEYWORDS_DATE_FORMAT = 
-    		Pattern.compile("(?<dates>\\S+([0-9]{2}[/][0-9]{2}[/][0-9]{4})*)"); 
+    		Pattern.compile("(?<dates>[0-9]{2}[-][0-9]{2}[-][0-9]{4}$)");
+
+    private static final Pattern ADD_FORMAT_0 = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)" + 
+            				"dd/(?<details>[^/]+)" +
+            				"(?<isDatePrivate>p?)d/(?<date>[^/]+)"+ 
+            				"(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"+
+            				"(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"+
+            				"(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern ADD_FORMAT_1 = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)" + 
@@ -57,13 +66,21 @@ public class Parser {
                             "(s/(?<startTimeArguments>[^/]+))?" + 
                             "(e/(?<endTimeArguments>[^/]+))?");
     
-    private static final String byToday = "by Today";
+    private static final String byToday = "by today";
     
-    private static final String byTomorrow = "by Tomorrow";
+    private static final String byTomorrow = "by tomorrow";
     
-    private static final String byNextWeek = "by Next Week";
+    private static final String byNextWeek = "by next week";
     
-    private static final String byNextMonth = "by Next Month";
+    private static final String byNextMonth = "by next month";
+    
+    private static final String today = "today";
+    
+    private static final String tomorrow = "tomorrow";
+    
+    private static final String nextWeek = "next week";
+    
+    private static final String nextMonth = "next month";
     
     private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
     
@@ -124,14 +141,25 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
+		Calendar calendar = Calendar.getInstance();
+		final Matcher matcher0 = ADD_FORMAT_0.matcher(args.trim());
         final Matcher matcher1 = ADD_FORMAT_1.matcher(args.trim());
         final Matcher matcher2 = ADD_FORMAT_2.matcher(args.trim());
         final Matcher matcher3 = ADD_FORMAT_3.matcher(args.trim());
         // Validate arg string format
-        if (!matcher1.matches() & !matcher2.matches() & !matcher3.matches()) {
+        if (! matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
+        	if(matcher0.matches()){
+        		return new AddCommand(
+        				matcher0.group("name"),
+        				matcher0.group("details"),
+        				matcher0.group("startTimeArguments"),
+        				matcher0.group("endTimeArguments"),
+        				getTagsFromArgs(matcher0.group("tagArguments"))
+        	);
+        	}
         	if(matcher1.matches()){
             return new AddCommand(
                     matcher1.group("name"),
@@ -149,15 +177,14 @@ public class Parser {
             );
         	}
         	else{
-        		if(matcher3.group("name").toLowerCase().contains(byToday.toLowerCase())){
+        		if(matcher3.group("name").toLowerCase().contains(byToday)){
         			return new AddCommand(
         					matcher3.group("name").replaceAll("(?i)"+Pattern.quote(byToday), ""),
-        					dateFormatter.format(Calendar.getInstance().getTime()),
+        					dateFormatter.format(calendar.getTime()),
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
-        		else if(matcher3.group("name").toLowerCase().contains(byTomorrow.toLowerCase())){
-        			Calendar calendar = Calendar.getInstance();
+        		else if(matcher3.group("name").toLowerCase().contains(byTomorrow)){
         			calendar.setTime(calendar.getTime());
         			calendar.add(Calendar.DAY_OF_YEAR, 1);
         			return new AddCommand(
@@ -166,8 +193,7 @@ public class Parser {
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
-        		else if(matcher3.group("name").toLowerCase().contains(byNextWeek.toLowerCase())){
-        			Calendar calendar = Calendar.getInstance();
+        		else if(matcher3.group("name").toLowerCase().contains(byNextWeek)){
         			calendar.setTime(calendar.getTime());
         			calendar.add(Calendar.WEEK_OF_YEAR, 1);
         			return new AddCommand(
@@ -176,8 +202,7 @@ public class Parser {
         					getTagsFromArgs(matcher3.group("tagArguments"))
         					);
         		}
-        		else if(matcher3.group("name").toLowerCase().contains(byNextMonth.toLowerCase())){
-        			Calendar calendar = Calendar.getInstance();
+        		else if(matcher3.group("name").toLowerCase().contains(byNextMonth)){
         			calendar.setTime(calendar.getTime());
         			calendar.add(Calendar.WEEK_OF_MONTH, 4);
         			return new AddCommand(
@@ -292,7 +317,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcherName = KEYWORDS_NAME_FORMAT.matcher(args.trim());
+    	final Matcher matcherName = KEYWORDS_NAME_FORMAT.matcher(args.trim());
         final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
         if (!matcherName.matches() && !matcherDate.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -300,14 +325,25 @@ public class Parser {
         }
 
         if(matcherDate.matches()){
-        	final String keyword = matcherDate.group("dates");
-        	final Set<String> dateKeyword = new HashSet<>(Arrays.asList(keyword));
+        	final String keywords = matcherDate.group("dates");
+        	final Set<String> dateKeyword = new HashSet<>(Arrays.asList(keywords));
         	return new FindCommand(dateKeyword, "date");
         }
         else{ //keywords delimited by whitespace
-        	final String[] keywords = matcherName.group("keywords").split("\\s+");
-        	final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        	return new FindCommand(keywordSet, "name");
+        	Calendar calendar = Calendar.getInstance();
+        	switch(matcherName.group("keywords").toLowerCase()){
+        	case today: final String todayKeyword = dateFormatter.format(calendar.getTime());
+        				final Set<String> todayKeywords = new HashSet<>(Arrays.asList(todayKeyword));
+        				return new FindCommand(todayKeywords, "date");
+			case tomorrow: calendar.setTime(calendar.getTime());
+						   calendar.add(Calendar.DAY_OF_YEAR, 1);
+						   final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
+						   final Set<String> tomorrowKeywords = new HashSet<>(Arrays.asList(tomorrowKeyword));
+						   return new FindCommand(tomorrowKeywords, "date");
+        	}
+        	final String[] nameKeywords = matcherName.group("keywords").split("\\s+");
+        	final Set<String> nameKeyword = new HashSet<>(Arrays.asList(nameKeywords));
+        	return new FindCommand(nameKeyword, "name");
         }
     }
 
