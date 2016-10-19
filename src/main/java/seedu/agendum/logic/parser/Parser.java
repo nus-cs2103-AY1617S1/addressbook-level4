@@ -84,6 +84,9 @@ public class Parser {
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmark(arguments);
 
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 

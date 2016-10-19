@@ -712,6 +712,56 @@ public class LogicManagerTest {
     }
 
 
+    @Test
+    public void execute_undo_identifiesNoPreviousCommand() throws Exception {
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_FAILURE, new ToDoList(), Collections.emptyList());
+    }
+
+    @Test
+    public void execute_undo_reversePreviousMutatingCommand() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task p1 = helper.generateTaskWithName("old name");
+        List<Task> listWithOneTask = helper.generateTaskList(p1);
+        ToDoList expectedTDL = helper.generateToDoList(listWithOneTask);
+        ArrayList<ReadOnlyTask> arrayListWithOneTask = new ArrayList<ReadOnlyTask>();
+        arrayListWithOneTask.add(p1);
+
+        //Undo add command
+        model.addTask(p1);
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, new ToDoList(), Collections.emptyList());
+
+        //Undo delete command
+        model.addTask(p1);
+        model.deleteTasks(arrayListWithOneTask);
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
+
+        //Undo clear command
+        model.resetData(new ToDoList());
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
+
+        //Undo rename command
+        Task p2 = new Task(p1);
+        p2.setName(new Name("new name"));
+        model.updateTask(p1, p2);
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
+
+        //Undo mark command
+        model.markTasks(arrayListWithOneTask);
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
+
+        //Undo unmark command
+        model.markTasks(arrayListWithOneTask);
+        Task p3 = helper.generateTaskWithName("old name"); //p1 clone
+        p3.markAsCompleted();
+        listWithOneTask = helper.generateTaskList(p3);
+        expectedTDL = helper.generateToDoList(listWithOneTask);
+        arrayListWithOneTask.set(0,p3);
+        model.unmarkTasks(arrayListWithOneTask);
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
+
+    }
+
+
     /**
      * A utility class to generate test data.
      */

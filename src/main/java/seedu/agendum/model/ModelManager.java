@@ -17,6 +17,7 @@ import seedu.agendum.commons.core.Config;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -27,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final ToDoList toDoList;
+    private final Stack<ToDoList> previousLists;
     private final FilteredList<Task> filteredTasks;
     private final Config config;
 
@@ -44,6 +46,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
+        previousLists = new Stack<ToDoList>();
+        backupNewToDoList();
         this.config = config;
     }
 
@@ -54,6 +58,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs, Config config) {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
+        previousLists = new Stack<ToDoList>();
+        backupNewToDoList();
         this.config = config;
     }
 
@@ -61,6 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyToDoList newData) {
         toDoList.resetData(newData);
         indicateToDoListChanged();
+        backupNewToDoList();
     }
 
     @Override
@@ -84,6 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
             toDoList.removeTask(target);
         }
         indicateToDoListChanged();
+        backupNewToDoList();
     }
 
     @Override
@@ -91,6 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList.addTask(task);
         updateFilteredListToShowAll();
         indicateToDoListChanged();
+        backupNewToDoList();
     }
 
     @Override
@@ -116,6 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList.updateTask(target, updatedTask);
         updateFilteredListToShowAll();
         indicateToDoListChanged();
+        backupNewToDoList();
     }
 
     @Override
@@ -124,6 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
             toDoList.markTask(target);
         }
         indicateToDoListChanged();
+        backupNewToDoList();
     }
     
     @Override
@@ -132,6 +143,24 @@ public class ModelManager extends ComponentManager implements Model {
             toDoList.unmarkTask(target);
         }
         indicateToDoListChanged();
+        backupNewToDoList();
+    }
+
+    @Override
+    public synchronized boolean restorePreviousToDoList() {
+        assert !previousLists.empty();
+        if (previousLists.size() == 1) {
+            return false;
+        } else {
+            previousLists.pop();
+            toDoList.resetData(previousLists.peek());
+            indicateToDoListChanged();
+            return true;
+        }
+    }
+ 
+    private void backupNewToDoList() {
+        previousLists.push(new ToDoList(this.getToDoList()));
     }
 
     //=========== Filtered Task List Accessors ===============================================================

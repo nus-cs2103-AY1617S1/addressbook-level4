@@ -33,6 +33,9 @@ public interface Model {
     
     /** Unmarks the given task(s) */
     void unmarkTasks(ArrayList<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
+
+    /** Restores the previous to do list saved. Returns true if successful; false if no previous saved list*/
+    boolean restorePreviousToDoList();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
