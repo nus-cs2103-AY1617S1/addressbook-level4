@@ -69,5 +69,9 @@ public class TaskDate {
     public int hashCode() {
         return date.hashCode();
     }
+    
+    public LocalDate getDate() {
+    	return date;
+    }
 
 }

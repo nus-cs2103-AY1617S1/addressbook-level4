@@ -12,6 +12,7 @@ import seedu.taskitty.model.task.UniqueTaskList;
 import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
@@ -182,8 +183,18 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
     }
     	
-  
 
+	@Override
+	public void updateFilteredDateTaskList(LocalDate date, boolean hasDate) {
+		allTasks.setPredicate(p -> (p.isDeadline() && !p.getEndDate().getDate().isAfter(date)) || (p.isEvent() && 
+				!(p.getEndDate().getDate().isBefore(date) || p.getStartDate().getDate().isAfter(date))));
+		filteredTodos.setPredicate(null);
+		if (hasDate) {
+			filteredDeadlines.setPredicate(p -> p.isDeadline() && !p.getEndDate().getDate().isAfter(date));
+		}
+		filteredEvents.setPredicate(p -> p.isEvent() && !(p.getEndDate().getDate().isBefore(date) || p.getStartDate().getDate().isAfter(date)));
+	}
+	
     private void updateFilteredTaskList(Expression expression) {
         allTasks.setPredicate(expression::satisfies);
         filteredTodos.setPredicate(expression::satisfies);
@@ -249,5 +260,6 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
 
 }
