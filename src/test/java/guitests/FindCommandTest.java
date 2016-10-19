@@ -16,13 +16,13 @@ public class FindCommandTest extends TaskListGuiTest {
         assertFindResult("find dry", TypicalTestTasks.task3); //no results
         assertFindResult("find buy", TypicalTestTasks.task1); //one result
         assertFindResult("find complete", TypicalTestTasks.task4, TypicalTestTasks.task6); //more than one matching result
-        assertFindResult("find *", TypicalTestTasks.task1, TypicalTestTasks.task2, TypicalTestTasks.task3, TypicalTestTasks.task4, TypicalTestTasks.task5, TypicalTestTasks.task6, TypicalTestTasks.task7);
+        assertFindResult("find *", TypicalTestTasks.task1, TypicalTestTasks.task2, TypicalTestTasks.task3, TypicalTestTasks.task4, TypicalTestTasks.task5, TypicalTestTasks.task6, TypicalTestTasks.task7, TypicalTestTasks.task10, TypicalTestTasks.task11);
 
         //find after adding one result
-        //TestTask[] currentList = td.getTypicalTasks();
-        //currentList = TestUtil.addTasksToList(currentList, TypicalTestTasks.task9);
-        //commandBox.runCommand("add Buy groceries at 6pm");
-        //assertFindResult("find b*y*", TypicalTestTasks.task1, TypicalTestTasks.task9);
+        TestTask[] currentList = td.getTypicalTasks();
+        currentList = TestUtil.addTasksToList(currentList, TypicalTestTasks.task9);
+        commandBox.runCommand("add Buy groceries at 10pm p/med");
+        assertFindResult("find b*y*", TypicalTestTasks.task1, TypicalTestTasks.task9);
         
         //find after deleting one result
         //commandBox.runCommand("delete 1");

@@ -92,5 +92,17 @@ public class StartTime {
     public int hashCode() {
         return startTime.hashCode();
     }
+    
+    public Calendar getAsCalendar() {
+        return startTime;
+    }
+
+    public int compareTo(StartTime startTime) {
+        if ((this.getAsCalendar().getTimeInMillis()) > (startTime.getAsCalendar().getTimeInMillis()))
+            return 1;
+        else if ((this.getAsCalendar().getTimeInMillis()) < (startTime.getAsCalendar().getTimeInMillis()))
+            return -1;
+        else return 0;
+    }
 
 }

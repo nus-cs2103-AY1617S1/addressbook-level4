@@ -47,7 +47,7 @@ public class UpdateCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-		UnmodifiableObservableList<Task> lastShownList = model.getModifiableTaskList();
+		UnmodifiableObservableList<Task> lastShownList = model.getListOfTasks();
 		if (targetIndex >= lastShownList.size()) {
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		} else {

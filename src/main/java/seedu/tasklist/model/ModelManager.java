@@ -20,6 +20,8 @@ import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -230,12 +232,13 @@ public class ModelManager extends ComponentManager implements Model {
 		return new UnmodifiableObservableList<>(filteredTasks);
 	}
 
-	public UnmodifiableObservableList<Task> getModifiableTaskList() {
+	public UnmodifiableObservableList<Task> getListOfTasks() {
 		return new UnmodifiableObservableList<>(filteredTasks);
 	}
 
 	@Override
 	public void updateFilteredListToShowAll() {
+	    sortByDateAndPriority();
 		filteredTasks.setPredicate(null);
 	}
 
@@ -252,10 +255,11 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredTaskList(Set<String> keywords){
-		updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+	    sortByDateAndPriority();
+	    updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
 	}
-
-	private void updateFilteredTaskList(Expression expression) {
+	
+    private void updateFilteredTaskList(Expression expression) {
 		filteredTasks.setPredicate(expression::satisfies);
 	}
 
@@ -285,8 +289,33 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredTaskList(new PredicateExpression(new OverDueQualifier()));
 	}
 
+	private void sortByDateAndPriority() {
+	    //Collections.sort(taskList.getListOfTasks(), Comparators.DATE_TIME);
+	    Collections.sort(taskList.getListOfTasks(), Comparators.PRIORITY);
+    }
+	
 	//========== Inner classes/interfaces used for filtering ==================================================
 
+	private static class Comparators {
+	    public static Comparator<Task> DATE_TIME = new Comparator<Task>(){
+	        @Override
+            public int compare(Task o1, Task o2) {
+                return o1.getStartTime().compareTo(o2.getStartTime());
+            }
+	    };
+	    public static Comparator<Task> PRIORITY = new Comparator<Task>(){
+	        @Override
+	        public int compare(Task o1, Task o2) {
+	            //extract only the date without time from the card string for start time
+	            String date1 = o1.getStartTime().toCardString().split(" ")[0];
+	            String date2 = o2.getStartTime().toCardString().split(" ")[0];
+	            if (date1.equals(date2))
+                    return o1.getPriority().compareTo(o2.getPriority());
+                else return o1.getStartTime().compareTo(o2.getStartTime());
+	        }
+	    };
+	}
+	
 	interface Expression {
 		boolean satisfies(ReadOnlyTask person);
 		String toString();

@@ -1,6 +1,5 @@
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
 import org.junit.Test;
 
 import seedu.tasklist.commons.core.Messages;
@@ -13,7 +12,6 @@ import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.testutil.TestTask;
 import seedu.tasklist.testutil.TypicalTestTasks;
 
-import static org.junit.Assert.assertTrue;
 
 public class UpdateCommandTest extends TaskListGuiTest {
     
