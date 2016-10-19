@@ -3,6 +3,7 @@ package seedu.emeraldo.model.task;
 
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,6 +65,8 @@ public class DateTime {
                     + OPTIONAL_END_DATE_TIME_REGEX);
     
     public final String value;
+    public final String context;
+    public final String overdueContext;
     public final String valueFormatted;
     public final LocalDate valueDate;
     public final LocalTime valueTime;
@@ -90,7 +93,11 @@ public class DateTime {
             this.valueTimeEnd = null;
             this.value = "";
             this.valueFormatted = "Not specified";
+            this.context = "";
+            this.overdueContext = "";
+            
         } else {
+
             final String preKeyword = matcher.group("preKeyword").trim();
             
             if(preKeyword.equals("on")){
@@ -98,7 +105,11 @@ public class DateTime {
                     throw new IllegalValueException(MESSAGE_KEYWORD_ON_CONSTRAINTS);
                 
                 this.valueDate = valueDateFormatter(matcher, preKeyword);
-                this.valueFormatted = valueFormatter(matcher, preKeyword) + getContext(valueDate);
+                this.context = setContext(valueDate, null);
+                this.overdueContext = setOverdueContext(valueDate, null);
+                this.valueFormatted = valueFormatter(matcher, preKeyword) + context + overdueContext;
+                
+
                 
                 this.valueTime = null;
                 this.valueDateEnd = null;
@@ -108,9 +119,13 @@ public class DateTime {
                 if(!isValidFormatFor_GivenKeyword(dateTime, preKeyword))
                     throw new IllegalValueException(MESSAGE_KEYWORD_BY_CONSTRAINTS);
                 
+
+                
                 this.valueDate = valueDateFormatter(matcher, preKeyword);                
-                this.valueTime = valueTimeFormatter(matcher, preKeyword);                
-                this.valueFormatted = valueFormatter(matcher, preKeyword) + getContext(valueDate);
+                this.valueTime = valueTimeFormatter(matcher, preKeyword); 
+                this.context = setContext(valueDate, valueTime);
+                this.overdueContext = setOverdueContext(valueDate, valueTime);               
+                this.valueFormatted = valueFormatter(matcher, preKeyword) + context + overdueContext;
 
                 
                 this.valueDateEnd = null;
@@ -124,12 +139,14 @@ public class DateTime {
                 
                 this.valueDate = valueDateFormatter(matcher, preKeyword);                
                 this.valueTime = valueTimeFormatter(matcher, preKeyword);
-                
+                this.context = setContext(valueDate, valueTime);
+
                 this.valueDateEnd = valueDateFormatter(matcher, aftKeyword);
                 this.valueTimeEnd = valueTimeFormatter(matcher, aftKeyword);
+                this.overdueContext = setOverdueContext(valueDateEnd, valueTimeEnd); 
                 
                 this.valueFormatted = valueFormatter(matcher, preKeyword) + " "
-                                    + valueFormatter(matcher, aftKeyword) + getContext(valueDate);                     
+                                    + valueFormatter(matcher, aftKeyword) + context + overdueContext;                     
             }
             this.value = dateTime;
         }
@@ -208,19 +225,54 @@ public class DateTime {
                     + year + ", " + hour + ":" + minute;
         }
     }
-   
-    public String getContext(LocalDate valueDate) {
+    
+
+    public String setContext(LocalDate valueDate, LocalTime valueTime) {
     	String context = ""; 
+    	Boolean timeIsNow = valueTime != null && valueTime.getHour() == LocalTime.now().getHour() && valueTime.getMinute() == LocalTime.now().getMinute();
+    	Boolean dayIsToday = valueDate.isEqual(LocalDate.now());
+    	Boolean timeIsLater = valueTime != null && valueTime.isAfter(LocalTime.now());
+    	Boolean noTimeSpecified = valueTime == null;
+    	Boolean dayIsTomorrow = valueDate.minusDays(1).isEqual(LocalDate.now());
+    	Boolean dayIsBeforeToday = valueDate.isBefore(LocalDate.now());
+    	String stringHours = ""; 
     	
-    	if(valueDate.isEqual(LocalDate.now())){
-        	context = " (Today)";
-        } 
-        
-        else if(valueDate.minusDays(1).isEqual(LocalDate.now())){
-        	context = " (Tomorrow)";
+    	//For tasks due today, now
+    	if (dayIsToday && timeIsNow)   	
+        	context = "(Today; Now)";
+    		
+        //For tasks that is due today, after current time
+        else if (dayIsToday && timeIsLater){
+        	stringHours = Long.toString(LocalTime.now().until(valueTime, ChronoUnit.HOURS));
+            context = " (Today; in " + stringHours + " Hours) "; //+ stringMinutes + " Mins)" ;
         }
+    	
+    	//For tasks due today at unspecified times
+    	else if (dayIsToday && noTimeSpecified)
+    		context = " (Today)";
         
-        else if (valueDate.isBefore(LocalDate.now())){
+    	//For tasks due tomorrow
+        else if (dayIsTomorrow)
+        	context = " (Tomorrow)";
+    	
+        else if (dayIsBeforeToday)
+        	context = "";
+    	
+        else
+            context = "";
+    	
+    	return context;
+    }
+    
+    public String setOverdueContext(LocalDate valueDate, LocalTime valueTime) {
+    	String overdueContext = "";
+    	Boolean dayIsBeforeToday = valueDate.isBefore(LocalDate.now());
+    	Boolean dayIsToday = valueDate.isEqual(LocalDate.now());
+    	Boolean dayIsAfterToday = valueDate.isEqual(LocalDate.now());
+    	Boolean timeIsBeforeNow = valueTime != null && valueTime.isBefore(LocalTime.now());
+    	
+    	//For tasks due before today
+        if (dayIsBeforeToday){
         	int monthsDue = valueDate.until(LocalDate.now()).getMonths();
         	int yearsDue = valueDate.until(LocalDate.now()).getYears();
         	int daysDue = valueDate.until(LocalDate.now()).getDays();
@@ -238,17 +290,32 @@ public class DateTime {
         	else if (monthsDue == 0 && yearsDue == 0)
         		periodDue = valueDate.until(LocalDate.now()).getDays() + " Days";
         	
-        	else
+        	else 
         		periodDue = "";
         	
-        	context = " -- Overdue by " + periodDue + ".";
+        	overdueContext = " -- Overdue by " + periodDue + ".";
         }
-    	
-        else {
-        	context = "";
-        }
-    	
-    	return context;
+        
+        //For tasks that is due today, at or before current time
+        else if (dayIsToday && timeIsBeforeNow) {
+        	//int minutesDue = valueTime.minus(LocalTime.now(), MINUTES).getMinute();
+        	String stringHoursDue = Long.toString(valueTime.until(LocalTime.now(), ChronoUnit.HOURS));
+        	//String stringMinutesDue = Integer.toString(valueTime.getMinute());
+        	
+        	String periodDue = stringHoursDue + " Hours ";
+			
+			overdueContext = " -- Was due just now, " + periodDue + "ago."; // + stringMinutes + " Mins ago.";
+		}
+			
+		else if (dayIsAfterToday) {
+			overdueContext = "";
+		}
+        
+        return overdueContext;
+    }
+    
+    public String getOverdueContext(){
+    	return overdueContext;
     }
 
     @Override
