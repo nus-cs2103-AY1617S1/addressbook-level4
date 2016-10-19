@@ -131,27 +131,28 @@ public class TaskListPanel extends UiPart {
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList,
             ObservableList<ReadOnlyTask> eventList) {
-        setupListViews(taskList, taskListView, completedTaskListView, incompleteTaskListView);
-
-        setupDaysListViews(daysTaskList, taskListViewDay1, taskListViewDay2, taskListViewDay3, taskListViewDay4,
-                taskListViewDay5, taskListViewDay6, taskListViewDay7);
-
+        setupListViews();
         setEventHandlerForSelectionChangeEvent();
     }
 
-    private void setupDaysListViews(ArrayList<ObservableList<ReadOnlyTask>> daysTaskList, 
-                        ListView<ReadOnlyTask>... taskListViewDays) {
+    private void setupListViews() {
+        this.taskListView.setItems(this.floatingTaskList);
+        this.taskListView.setCellFactory(newListView -> new TaskListViewCell());
+        this.completedTaskListView.setItems(this.completedTaskList);
+        this.completedTaskListView.setCellFactory(newListView -> new TaskListViewCell());
+        this.incompleteTaskListView.setItems(this.incompleteTaskList);
+        this.incompleteTaskListView.setCellFactory(newListView -> new TaskListViewCell());
+        
+        setupDaysListViews(daysTaskList, taskListViewDay1, taskListViewDay2, taskListViewDay3, taskListViewDay4,
+                taskListViewDay5, taskListViewDay6, taskListViewDay7);
+    }
+    
+    private void setupDaysListViews(ArrayList<ObservableList<ReadOnlyTask>> daysTaskList,
+            ListView<ReadOnlyTask>... taskListViewDays) {
         int i = 0;
-        for(ListView<ReadOnlyTask> lv : taskListViewDays){
+        for (ListView<ReadOnlyTask> lv : taskListViewDays) {
             lv.setItems(daysTaskList.get(i++));
             lv.setCellFactory(newListView -> new TaskListViewCell());
-        }
-    }
-
-    private void setupListViews(ObservableList<ReadOnlyTask> taskList, ListView<ReadOnlyTask>... listViews) {
-        for(ListView<ReadOnlyTask> t : listViews) {
-            t.setItems(taskList);
-            t.setCellFactory(newListView -> new TaskListViewCell());
         }
     }
 
@@ -220,16 +221,18 @@ public class TaskListPanel extends UiPart {
             if(t.isCompleted()){
                 newCompletedTaskList.add(t);
             }
-            else
+            else {
                 newIncompleteTaskList.add(t);
+            }
         }
         
         for(ReadOnlyTask t : deadlineTaskList){
             if(t.isCompleted()){
                 newCompletedTaskList.add(t);
             }
-            else
+            else {
                 newIncompleteTaskList.add(t);
+            }
         }
         
         this.completedTaskList.setAll(newCompletedTaskList);
