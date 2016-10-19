@@ -9,6 +9,44 @@ html {
   widows: 3;
 }
 
+
+.toc > ul > li {
+  position: relative;
+  overflow: hidden;
+}
+
+.toc span {
+  display: block;
+  float: right;
+  font-weight: bold;
+  z-index: -2;
+  padding: 0 1rem;
+  margin-right: -.5rem;
+  background: #fff;
+}
+
+.toc > ul > li > a {
+  background: #fff;
+  padding-right: .5rem;
+}
+
+.toc > ul > li:after {
+  position: absolute;
+  top: 0;
+  left: 3rem;
+  right: 2rem;
+  white-space: nowrap;
+  z-index: -1;
+  font-weight: bold;
+  content:
+     "· · · · · · · · · · · · · · · · · · · · · · · · "
+     "· · · · · · · · · · · · · · · · · · · · · · · · "
+     "· · · · · · · · · · · · · · · · · · · · · · · · "
+     "· · · · · · · · · · · · · · · · · · · · · · · · "
+     "· · · · · · · · · · · · · · · · · · · · · · · · "
+     "· · · · · · · · · · · · · · · · · · · · · · · · ";
+}
+
 table, img, .admonition, .no-page-break {
   page-break-inside: avoid;
 }

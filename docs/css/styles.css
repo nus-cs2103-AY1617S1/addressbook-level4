@@ -89,6 +89,10 @@ pre {
   padding-left: 0;
 }
 
+.toc > ul > li > a {
+  font-weight: bold;
+}
+
 .toc ul li:before {
   display: inline-block;
   width: 1.75rem;
@@ -96,6 +100,10 @@ pre {
   text-align: right;
   counter-increment: toc;
   content: counters(toc, '.') '. ';
+}
+
+.toc > ul > li:before {
+  font-weight: bold;
 }
 
 .toc ul li {
@@ -110,12 +118,21 @@ pre {
   width: 3.75rem;
 }
 
+.toc ul ul ul {
+  display: none;
+}
+
 
 .toc ul ul {
   margin: .1rem 0 .5rem .25rem;
 }
 
-/*  */
+.toc span {
+  display: none;
+}
+
+
+/* Headings */
 
 h2 span, 
 h3 span, 

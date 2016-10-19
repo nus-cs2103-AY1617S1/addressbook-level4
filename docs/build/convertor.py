@@ -4,8 +4,14 @@ from bs4 import BeautifulSoup
 from os import path
 
 files = {
-    "DeveloperGuide": "Developer Guide",
-    "UserGuide": "User Guide",
+    "DeveloperGuide": {
+        "title": "Developer Guide",
+        "toc": [3, 4, 5, 15, ], 
+    },
+    "UserGuide": {
+        "title": "User Guide",
+        "toc": [],
+    },
 }
 
 base = path.dirname(path.abspath(__file__))
@@ -22,7 +28,7 @@ md = markdown.Markdown(extensions=[
 with open(path.join(base, "template.html"), encoding="utf-8") as f:
     template = f.read()
 
-for filename, title in files.items():
+for filename, attrs in files.items():
     input_path = path.join(output_dir, filename + ".md")
     output_path = path.join(output_dir, filename + ".html")
 
@@ -51,7 +57,7 @@ for filename, title in files.items():
         caption_count.string = 'Figure {}. '.format(i + 1)
         figcaption.insert(0, caption_count)
 
-    # Adding numbering and no-page-break wrappers around headings 
+    # Adding numbering and no-page-break wrappers around headings
     sections = [0, 0, 0]
     for h in soup.find_all(['h2', 'h3', 'h4']):
         # Number the heading 
@@ -77,8 +83,14 @@ for filename, title in files.items():
         no_break = h.wrap(soup.new_tag('div'))
         no_break['class'] = 'no-page-break'
         no_break.append(next_tag)
+    
+    # Add page numbers to toc
+    for i, a in enumerate(soup.select('.toc > ul > li > a')):
+        numbering = soup.new_tag('span')
+        numbering.string = str(i + 1)
+        a.insert_after(numbering)
 
-    output_content = template.format(title=title, html=soup, classname=filename.lower())
+    output_content = template.format(title=attrs['title'], html=soup, classname=filename.lower())
 
     with open(output_path, mode="w", encoding="utf-8") as output:
         output.write(output_content)
