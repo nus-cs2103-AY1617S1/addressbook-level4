@@ -9,7 +9,7 @@ import jym.manager.model.task.ReadOnlyTask;
 import jym.manager.model.task.UniqueTaskList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an task manager
  */
 public interface ReadOnlyTaskManager {
 
