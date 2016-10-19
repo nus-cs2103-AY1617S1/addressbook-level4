@@ -35,16 +35,19 @@ public class StartDate {
             throw new IllegalValueException(MESSAGE_STARTDATE_CONSTRAINTS);
         } 
         
-        if(!startDate.equals("")){
-           	month = "" + startDate.charAt(0) + startDate.charAt(1);
-           	day = "" + startDate.charAt(2) + startDate.charAt(3);
-           	year = "" + startDate.charAt(4) + startDate.charAt(5) + startDate.charAt(6) + startDate.charAt(7);
+        if(!startDate.isEmpty()){
+//           	month = "" + startDate.charAt(0) + startDate.charAt(1);
+//           	day = "" + startDate.charAt(2) + startDate.charAt(3);
+//           	year = "" + startDate.charAt(4) + startDate.charAt(5) + startDate.charAt(6) + startDate.charAt(7);
+//            
+//            this.startDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+        	this.startDate = LocalDate.of(Integer.parseInt(startDate.substring(4, 7)), Integer.parseInt(startDate.substring(0, 1))
+            		, Integer.parseInt(startDate.substring(2, 3)));
             
-            this.startDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-            }
+        }
             
             else{
-            	this.startDate = LocalDate.MAX;
+            	//this.startDate = LocalDate.MAX;
             }
         
 //        if(!startDate.equals("")){

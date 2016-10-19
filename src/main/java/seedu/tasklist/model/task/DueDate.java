@@ -34,7 +34,7 @@ public class DueDate {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
         
-        if(!dueDate.equals("")){
+        if(!dueDate.isEmpty()){
        	month = "" + dueDate.charAt(0) + dueDate.charAt(1);
        	day = "" + dueDate.charAt(2) + dueDate.charAt(3);
        	year = "" + dueDate.charAt(4) + dueDate.charAt(5) + dueDate.charAt(6) + dueDate.charAt(7);
@@ -43,7 +43,7 @@ public class DueDate {
         }
         
         else{
-        	this.dueDate = LocalDate.MAX;
+        	//this.dueDate = LocalDate.MAX;
         }
     }
 
