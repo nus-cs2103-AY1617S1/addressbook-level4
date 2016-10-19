@@ -15,7 +15,7 @@ public class StringUtil {
      * @return true if query is contained in source
      */
 	public static boolean containsIgnoreCase(String source, String query) {
-        return source.toLowerCase().contains(query);
+        return source.toLowerCase().contains(query.toLowerCase());
     }
 
     /**
