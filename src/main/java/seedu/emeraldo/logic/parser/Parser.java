@@ -165,7 +165,7 @@ public class Parser {
             return new EditCommand(
                     matcher.group("targetIndex"),
                     matcher.group("description").split("\"")[1],
-                    "by 21/10/2016");
+                    matcher.group("dateTime").trim());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }        

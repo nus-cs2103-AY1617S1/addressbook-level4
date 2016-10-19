@@ -43,7 +43,7 @@ public class EditCommand extends Command{
         Task taskToEdit = (Task) lastShownList.get(targetIndex - 1);
 
         try {
-            model.editTask(taskToEdit, targetIndex - 1, description);
+            model.editTask(taskToEdit, targetIndex - 1, description, dateTime);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
