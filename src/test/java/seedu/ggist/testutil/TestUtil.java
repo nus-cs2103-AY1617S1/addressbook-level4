@@ -69,10 +69,11 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new TaskName("watch movie"), new TaskDate("22 nov"), new TaskTime("1800"), new TaskDate("22 nov"), new TaskTime("2000"), new UniqueTagList()),
-                    new Task(new TaskName("play computer games"), new TaskDate("23 nov"), new TaskTime("1500"), new TaskDate("23 nov"), new TaskTime("1600"), new UniqueTagList()),
-                    new Task(new TaskName("buy milk"), new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED), new TaskTime(Messages.MESSAGE_NO_START_TIME_SET), new TaskDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED),new TaskTime(Messages.MESSAGE_NO_END_TIME_SET), new UniqueTagList()),
-                    new Task(new TaskName("complete assignment"), new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED), new TaskTime(Messages.MESSAGE_NO_START_TIME_SET), new TaskDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED), new TaskTime(Messages.MESSAGE_NO_END_TIME_SET), new UniqueTagList()),
+                    new Task(new TaskName("watch movie"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new UniqueTagList()),
+                    new Task(new TaskName("play soccer"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new UniqueTagList()),
+                    new Task(new TaskName("finish assignment"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new UniqueTagList()),
+                    new Task(new TaskName("road trip"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new UniqueTagList()),
+                    new Task(new TaskName("sky dive"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new UniqueTagList())
 
             };
         } catch (IllegalValueException e) {
