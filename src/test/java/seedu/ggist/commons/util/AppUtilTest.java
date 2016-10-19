@@ -20,12 +20,12 @@ public class AppUtilTest {
         assertNotNull(AppUtil.getImage("/images/address_book_32.png"));
     }
 
-
+/*
     @Test
     public void getImage_nullGiven_assertionError(){
         thrown.expect(AssertionError.class);
         AppUtil.getImage(null);
     }
-
+*/
 
 }

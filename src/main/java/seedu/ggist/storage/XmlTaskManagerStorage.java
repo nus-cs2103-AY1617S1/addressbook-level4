@@ -52,7 +52,8 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * Similar to {@link #saveTaskManager(ReadOnlyTaskManager)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
+    public void savetaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
+
         assert taskManager != null;
         assert filePath != null;
 
@@ -68,11 +69,17 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
 
     @Override
     public void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException {
-        saveTaskManager(taskManager, filePath);
+        savetaskManager(taskManager, filePath);
     }
 
     @Override
     public void setTaskManagerFilePath(String newFilePath) {
         filePath = newFilePath;
     }
+
+	@Override
+	public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
+		savetaskManager(taskManager, filePath);
+		
+	}
 }
