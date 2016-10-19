@@ -4,15 +4,23 @@ import teamfour.tasc.commons.events.BaseEvent;
 
 public class CollapseChangeEvent extends BaseEvent {
 
-    public static boolean isCollapsed = false;
+    private static boolean isCollapsed = false;
 
     public CollapseChangeEvent(boolean toCollapse){
-        isCollapsed = toCollapse;
+        setCollapsed(toCollapse);
     }
 
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
+    }
+
+    public static boolean getCollapsed() {
+        return isCollapsed;
+    }
+
+    public static void setCollapsed(boolean isCollapsed) {
+        CollapseChangeEvent.isCollapsed = isCollapsed;
     }
 
 }
