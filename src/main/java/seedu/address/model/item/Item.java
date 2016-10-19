@@ -27,7 +27,7 @@ public class Item implements ReadOnlyItem {
     private LocalDateTime recurEndDate;
 
     /**
-     * Every field must be present and not null.
+     * constructor for floating item
      */
     public Item(Description desc) {
         // assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
@@ -39,7 +39,7 @@ public class Item implements ReadOnlyItem {
     }
 
     /**
-     * constructor for an event with a definite
+     * constructor for an item with a definite
      * start and end time (non-recurring)
      * @param desc
      * @param start
@@ -54,7 +54,7 @@ public class Item implements ReadOnlyItem {
     }
 
     /**
-     * constructor for an event with a definite
+     * constructor for an item with a definite
      * end time only (non-recurring)
      * @param desc
      * @param end
