@@ -4,8 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
-import seedu.menion.model.tag.Tag;
-import seedu.menion.model.tag.UniqueTagList;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,13 +16,11 @@ import java.util.stream.Collectors;
 public class ActivityManager implements ReadOnlyActivityManager {
 
     private final UniqueActivityList tasks;
-    private final UniqueTagList tags;
     private final UniqueActivityList floatingTasks;
     private final UniqueActivityList events;
 
     {
         tasks = new UniqueActivityList();
-        tags = new UniqueTagList();
         floatingTasks = new UniqueActivityList();
         events = new UniqueActivityList();
     }
@@ -268,8 +265,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ActivityManager // instanceof handles nulls
-                && this.tasks.equals(((ActivityManager) other).tasks)
-                && this.tags.equals(((ActivityManager) other).tags));
+                && this.tasks.equals(((ActivityManager) other).tasks));
                 //&& this.floatingTasks.equals(((ActivityManager) other).floatingTasks)
                 //&& this.events.equals(((ActivityManager) other).events);
     }

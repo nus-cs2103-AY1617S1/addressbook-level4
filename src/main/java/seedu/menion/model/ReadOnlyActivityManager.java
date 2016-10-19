@@ -3,8 +3,7 @@ package seedu.menion.model;
 
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.UniqueActivityList;
-import seedu.menion.model.tag.Tag;
-import seedu.menion.model.tag.UniqueTagList;
+
 
 import java.util.List;
 

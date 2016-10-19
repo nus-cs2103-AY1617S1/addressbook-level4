@@ -4,7 +4,6 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.ActivityManager;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
-import seedu.menion.model.tag.Tag;
 
 /**
  * A utility class to help with building ActivityManager objects.

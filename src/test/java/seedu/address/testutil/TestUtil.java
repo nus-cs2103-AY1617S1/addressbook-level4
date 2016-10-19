@@ -18,8 +18,6 @@ import seedu.menion.commons.util.FileUtil;
 import seedu.menion.commons.util.XmlUtil;
 import seedu.menion.model.ActivityManager;
 import seedu.menion.model.activity.*;
-import seedu.menion.model.tag.Tag;
-import seedu.menion.model.tag.UniqueTagList;
 import seedu.menion.storage.XmlSerializableActivityManager;
 
 import java.io.File;
@@ -312,25 +310,5 @@ public class TestUtil {
         return card.isSameActivity(activity);
     }
 
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
-    }
 
 }

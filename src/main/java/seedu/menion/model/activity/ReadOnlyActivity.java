@@ -2,8 +2,6 @@ package seedu.menion.model.activity;
 
 import java.util.ArrayList;
 
-import seedu.menion.model.tag.UniqueTagList;
-
 /**
  * A read-only immutable interface for a Task in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
@@ -41,12 +39,6 @@ public interface ReadOnlyActivity {
 
     void setActivityDetails();
     
-    /**
-     * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the task's internal tags.
-     */
-    UniqueTagList getTags();
-
     
     /**
      * For Floating Task

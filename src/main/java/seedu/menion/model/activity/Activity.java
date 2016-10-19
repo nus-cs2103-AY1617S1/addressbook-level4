@@ -2,7 +2,6 @@ package seedu.menion.model.activity;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.CollectionUtil;
-import seedu.menion.model.tag.UniqueTagList;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -48,7 +47,6 @@ public class Activity implements ReadOnlyActivity {
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
     private ArrayList<String> activityDetails;
-    private UniqueTagList tags;
 
     /**
      * For floatingTask
@@ -185,18 +183,6 @@ public class Activity implements ReadOnlyActivity {
         return activityDetails;
     }
 
-    // USELESS?
-    
-    @Override
-    public UniqueTagList getTags() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public void setTags(UniqueTagList uniqueTagList) {
-        // TODO Auto-generated method stub
-        
-    }
 
     @Override
     public Activity get() {

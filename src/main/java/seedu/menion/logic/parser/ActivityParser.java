@@ -92,6 +92,12 @@ public class ActivityParser {
         }
     }
     
+   /* 
+    private Command prepareList(String args){
+    	
+    	
+    	
+    }*/
     private Command prepareComplete(String args) {
 
         String[] splited = args.split("\\s+");
