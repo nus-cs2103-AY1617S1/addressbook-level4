@@ -31,7 +31,7 @@ public class EndTime {
      */
     public EndTime(String input) throws IllegalValueException {
     	endTime = Calendar.getInstance();
-    	if(input == null){
+    	if(input == null || input == ""){
     		endTime.setTime(new Date(0));
     	}
     	else{
