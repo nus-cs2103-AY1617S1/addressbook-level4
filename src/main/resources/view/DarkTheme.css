@@ -29,9 +29,14 @@
 }
 
 .word-list {
-	-fx-skin: "np.com.ngopal.control.AutoFillTextBoxSkin";
+	-fx-max-height: 50;
+	-fx-max-width: 70;
 	-fx-font-size: 10pt;
     -fx-font-family: "Segoe UI Semibold";
+}
+
+.word-selected {
+	-fx-background-color: #88ff88;
 }
 
 .tab-pane {

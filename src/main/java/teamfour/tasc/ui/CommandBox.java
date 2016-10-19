@@ -6,11 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import np.com.ngopal.control.AutoFillTextBox;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.events.ui.IncorrectCommandAttemptedEvent;
 import teamfour.tasc.commons.util.FxViewUtil;
@@ -32,8 +32,9 @@ public class CommandBox extends UiPart {
 
     @FXML
     private TextField commandTextField;
+    
     @FXML
-    private AutoFillTextBox<String> wordList;
+    private ListView<String> wordList = new ListView<String>();
     
     private CommandResult mostRecentResult;
 
@@ -54,10 +55,12 @@ public class CommandBox extends UiPart {
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
+        wordList.setTranslateX(80);
         placeHolderPane.getChildren().add(wordList);
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             checkCurrentWord(newValue);
         });
+        
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
@@ -73,8 +76,8 @@ public class CommandBox extends UiPart {
                 }
             }
         }
-        wordList = new AutoFillTextBox<String>(words);
-        wordList.autosize();
+        wordList.setItems(null);
+        wordList.setItems(words);
     }
     
     private void checkCurrentWord(String command) {
