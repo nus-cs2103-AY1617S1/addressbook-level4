@@ -7,7 +7,9 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +23,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -34,7 +37,7 @@ public class Parser {
 
 	// Different regex for different permutations of arguments
 	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern
-			.compile("(?i)(?<taskType>event|deadline|someday)(?<addTaskArgs>.*)");
+			.compile("(?i)(?<taskType>event|ev|deadline|dl|someday|sd)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern
 			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
 	
@@ -67,9 +70,8 @@ public class Parser {
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>(\\s*[^\\s+])+)'");
 
 	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
+
 	
-	
-	//@@author A0141019U
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
@@ -101,17 +103,14 @@ public class Parser {
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
 
-		// case FindCommand.COMMAND_WORD:
-		// return prepareFind(arguments);
+		case FindCommand.COMMAND_WORD:
+			return prepareFind(arguments);
 
 		case HelpCommand.COMMAND_WORD:
 			return new HelpCommand();
 
 		case ExitCommand.COMMAND_WORD:
 			return new ExitCommand();
-
-		// case HelpCommand.COMMAND_WORD:
-		// return new HelpCommand();
 
 		case UndoCommand.COMMAND_WORD:
 			return new UndoCommand();
@@ -187,12 +186,15 @@ public class Parser {
 		// TODO change hardcoded strings to references to strings in command
 		// classes
 		case "event":
+		case "ev":
 			return prepareAddEvent(addTaskArgs);
 
 		case "deadline":
+		case "dl":
 			return prepareAddDeadline(addTaskArgs);
 
 		case "someday":
+		case "sd":
 			return prepareAddSomeday(addTaskArgs);
 
 		default:
@@ -343,6 +345,27 @@ public class Parser {
 			return new IncorrectCommand(e.getMessage());
 		}
 	}
+	
+	//@@author A0141019U
+	/**
+     * Parses arguments in the context of the find task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareFind(String args) {
+        if (args.equals("")) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+    	
+    	// keyphrases delimited by commas
+        final String[] keyphrases = args.split(",");
+        final Set<String> keyphraseSet = new HashSet<>(Arrays.asList(keyphrases));
+        
+        System.out.println("keyphrase set: " + keyphraseSet.toString());
+        
+        return new FindCommand(keyphraseSet);
+    }
 
 	//@@author A0141019U
 	// Only supports task type and done|not-done options.
@@ -449,7 +472,7 @@ public class Parser {
 
 	public static void main(String[] args) {
 		Parser p = new Parser();
-		p.parseCommand("add deadline 'eat' by 25-12-12 5pm");
+		p.parseCommand("find bob, oh my darling, clementine");
 	}
 	
 }

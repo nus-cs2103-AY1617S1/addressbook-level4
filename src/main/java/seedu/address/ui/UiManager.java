@@ -30,7 +30,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
-    private MainWindow mainWindow;
+    private NewMainWindow newMainWindow;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -48,9 +48,9 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
+            newMainWindow = NewMainWindow.load(primaryStage, config, prefs, logic);
+            newMainWindow.show(); //This should be called before creating other UI parts
+            newMainWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -60,8 +60,8 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
-        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
-        mainWindow.hide();
+        prefs.updateLastUsedGuiSetting(newMainWindow.getCurrentGuiSetting());
+        newMainWindow.hide();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
@@ -74,7 +74,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+        showAlertDialogAndWait(newMainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
@@ -107,13 +107,13 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.handleHelp();
+        newMainWindow.handleHelp();
     }
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+        newMainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe

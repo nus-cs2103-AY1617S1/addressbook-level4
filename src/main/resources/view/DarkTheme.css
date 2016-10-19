@@ -29,7 +29,7 @@
 }
 
 .tab-pane {
-    -fx-padding: 0 0 0 1;
+    -fx-padding: 0 10 0 0;
 }
 
 .tab-pane .tab-header-area {
@@ -77,7 +77,8 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
 }
 
 .split-pane {
@@ -285,4 +286,40 @@
 
 #filterField, #taskListPanel, #taskWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+/*below is new */
+.tab-pane *.tab-header-background {
+    -fx-background-color: derive(#1d1d1d, 50%);
+}
+
+.tab-pane {
+    -fx-tab-min-width: 64px;
+}
+
+.tab {
+    -fx-background-insets: 0 1 0 1, 0, 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #e6e6e6;
+
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #3c3c3c;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #9966cc;
 }

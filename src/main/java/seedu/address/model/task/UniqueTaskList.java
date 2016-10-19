@@ -34,6 +34,7 @@ public class UniqueTaskList implements Iterable<Task> {
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
+
     /**
      * Constructs empty TaskList.
      */
@@ -78,13 +79,13 @@ public class UniqueTaskList implements Iterable<Task> {
      * set the equivalent task to the specified index of the list
      * @throws TaskNotFoundException if no such task could be found in the list.
      */ 			
-    public boolean set(int key, Task Task) throws TaskNotFoundException {
-        assert Task != null;
+    public boolean set(int key, Task toSet) throws TaskNotFoundException {
+        assert toSet != null;
         boolean isFound = false;
         if (internalList.size() < key) {
             throw new TaskNotFoundException();
         } else {
-        	internalList.set(key-1, Task);
+        	internalList.set(key-1, toSet);
         	isFound = true;
         }
         return isFound;
@@ -111,4 +112,5 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
 }

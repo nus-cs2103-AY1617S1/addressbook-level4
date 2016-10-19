@@ -7,10 +7,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayList;
@@ -121,8 +119,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-	public synchronized void editTask(int index, Task task) throws TaskNotFoundException {
-    	taskManager.editTask(index, task);
+    public synchronized void editTask(int index, Task task) throws TaskNotFoundException {
+        taskManager.editTask(index, task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
 	}
