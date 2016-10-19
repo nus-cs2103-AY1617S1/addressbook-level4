@@ -177,11 +177,11 @@ And EventsCeneter reacts to the event accordingly.
 
 
 ##### Clear 
-Clear deletes the objects. <br>
+Clear wipes all tasks currently registered in Mastermind. <br>
 
 The user can delete the objects either at the homepage, deadlines, tasks or events tabs. The user is required to choose the correct index of the object. <br>
  
-After inputting the command, the object is cleared from the Storage. <br> 
+After inputing the command, the data is cleared from the Storage.<br> 
 
 
 ##### Edit 
@@ -192,17 +192,24 @@ If there are multiple items, this is resolved by looking at the description of t
 
 However, the user can only update one item at a time. To update, the item being updated must be found, and removed from the Storage. After updating the attribute, the item is re-added back into Storage. If the update is successful, the details of the item will be printed and it will be shown to the user the new updates. Otherwise, an error message is generated. 
 
+The details are shown in the following diagrams.
+
+<img src="images/Edit Command Sequence Diagram part 1.png" width="800"><br>
+
+2 events are raised during the execution of Edit.
+
+<img src="images/Edit Command Sequence Diagram part 2.png" width="800"><br>
 
 ##### Exit
 This exit command runs when the user tries to exit the program, allowing the program to close.
 
 
 ##### Find
-To find an item, the user will search through the Storage by calling �find <task>�, �find <date>� or �find <tag>�. It calls FindTagCommand to find the exact terms of the keywords entered by the user.
+To find an item, the user will search through the Storage by calling "find <task>", "find <date>" or "find <tag>". It calls FindTagCommand to find the exact terms of the keywords entered by the user.
 
 
 ##### Mark
-The Mark class is to allow users to mark their tasks/deadlines/events as completed, thus removing this object from the tasks/deadlines/events field, and moving into the Archive. The Mark class will not delete the object immediately, in case users would want to unmark the object due to person reasons by the UnmarkCommand. 
+The Mark command allows users to mark their tasks/deadlines/events as completed. This removes the task from the tasks/deadlines/events field, and moves it into the Archive. The Mark command will not delete the task immediately. In the event that users want to unmark the task, users can do so due to using the Unmark Command. 
 
 
 ### Model component
