@@ -6,24 +6,24 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.ReadOnlyTask;
 
-public class PinCommand extends Command {
-    public static final String COMMAND_WORD = "pin";
+public class CompleteCommand extends Command {
+
+    public static final String COMMAND_WORD = "complete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Pin the task identified by the index number used in the last task listing as important.\n"
-            + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1 ";
+            + ": Marks the task identified by the index number used in the last task listing as completed.\n"
+            + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_PIN_TASK_SUCCESS = "Pinned Task: %1$s";
+    public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed Task: %1$s";
 
     public final int targetIndex;
 
-    public PinCommand(int targetIndex) {
+    public CompleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute() {
-
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -33,14 +33,15 @@ public class PinCommand extends Command {
 
         ReadOnlyTask orginialTask = lastShownList.get(targetIndex - 1);
         try {
-            Task taskToPin = new Task(orginialTask);
-            taskToPin.setIsImportant(true);
-            model.pinTask(orginialTask, taskToPin);
+            Task completedTask = new Task(orginialTask);
+            completedTask.setIsCompleted(true);
+            model.completeTask(orginialTask, completedTask);
         } catch (IllegalValueException e) {
-            assert false : "Not possible for task on list to have illegal value";
+            assert false : "Impossible";
         }
 
-        return new CommandResult(String.format(MESSAGE_PIN_TASK_SUCCESS, orginialTask));
-    }
+        
 
+        return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, orginialTask));
+    }
 }

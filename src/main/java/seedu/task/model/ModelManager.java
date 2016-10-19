@@ -24,8 +24,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given AddressBook AddressBook and its
-     * variables should not be null
+     * Initializes a ModelManager with the given TaskManager
+     * TaskManager and its variables should not be null
      */
     public ModelManager(TaskManager src, UserPrefs userPrefs) {
         super();
@@ -50,7 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
-        indicateAddressBookChanged();
+        indicateTaskManagerChanged();
     }
 
     @Override
@@ -59,21 +59,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskManager.removeTask(target);
-        indicateAddressBookChanged();
+        indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskManagerChanged();
     }
 
     @Override
@@ -81,14 +81,21 @@ public class ModelManager extends ComponentManager implements Model {
             throws UniqueTaskList.DuplicateTaskException {
         taskManager.updateTask(originalTask, updateTask);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void completeTask(ReadOnlyTask originalTask, Task completeTask){
+        taskManager.completeTask(originalTask, completeTask);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void pinTask(ReadOnlyTask originalTask, Task toPin) {
         taskManager.pinTask(originalTask, toPin);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskManagerChanged();
     }
 
     // =========== Filtered Task List Accessors ===============================================================

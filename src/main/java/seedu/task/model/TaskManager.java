@@ -1,6 +1,7 @@
 package seedu.task.model;
 
 import javafx.collections.ObservableList;
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.ReadOnlyTask;
@@ -60,7 +61,16 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(t -> {
+            try {
+                return new Task(t);
+            } catch (IllegalValueException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return null;
+            }
+            
+        }).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -102,6 +112,15 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.pin(originalTask, toPin);
     }
 
+    /**
+     * Marks a specific task as completed to the task list.
+     */
+    
+    public void completeTask(ReadOnlyTask originalTask, Task completeTask) {
+    	syncTagsWithMasterList(completeTask);
+    	tasks.complete(originalTask,completeTask); 
+    }
+    
     /**
      * Ensures that every tag in this task: - exists in the master list
      * {@link #tags} - points to a Tag object in the master list

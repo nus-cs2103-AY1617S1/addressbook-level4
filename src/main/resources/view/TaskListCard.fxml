@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.scene.shape.SVGPath?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -27,10 +28,20 @@
                             <children>
                                 <HBox>
                                     <Label fx:id="id" styleClass="cell_big_label"></Label>
-                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                    <TextFlow>
+                                    	<children>
+                                    		<Text fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                    	</children>
+                                    </TextFlow>
                                 </HBox>
                             </children>
                         </HBox>
+                        <VBox spacing="5" alignment="CENTER_LEFT">
+                             <children>
+                             	<Label fx:id="openTime" styleClass="cell_big_label" text="\$openTime" />
+                             	<Label fx:id="closeTime" styleClass="cell_big_label" text="End: \$closeTime" />
+                             </children>
+                        </VBox>
                         <AnchorPane fx:id="tagsListPlaceholder" />
                     </children>
                 </VBox>

@@ -31,10 +31,12 @@ public class UpdateCommand extends Command {
     public final int targetIndex;
     
     private final Name newTaskName;
+    private final DateTime openTime;
+    private final DateTime closeTime;
     private final Set<String> removedTags;
     private final UniqueTagList newTaskTags;
     
-    public UpdateCommand(int targetIndex, String name, Set<String> tagsToAdd, Set<String> tagsToRemove) throws IllegalValueException { 
+    public UpdateCommand(int targetIndex, String name, String openTime, String closeTime, Set<String> tagsToAdd, Set<String> tagsToRemove) throws IllegalValueException { 
         this.targetIndex = targetIndex;
         this.newTaskName = (name.isEmpty()) ? null : new Name(name);
         
@@ -42,6 +44,8 @@ public class UpdateCommand extends Command {
         for (String tagName : tagsToAdd) {
             tagSet.add(new Tag(tagName));
         }
+        this.openTime = new DateTime(openTime);
+        this.closeTime = new DateTime(closeTime);
         
         this.newTaskTags = new UniqueTagList(tagSet);
         this.removedTags = tagsToRemove;
@@ -71,11 +75,19 @@ public class UpdateCommand extends Command {
             }
         }
         
-        Task newTask = new Task(
-                updatedTaskName,
-                newTaskTags, 
-                taskToUpdate.getImportance()
-        );
+        Task newTask; 
+        try {
+            newTask = new Task(
+                    updatedTaskName,
+                    openTime,
+                    closeTime,
+                    taskToUpdate.getImportance(),
+                    taskToUpdate.getComplete(),
+                    newTaskTags
+            );
+        } catch (IllegalValueException e1) {
+            return new CommandResult(e1.getMessage()); 
+        }
         
         assert model != null;
         try {
