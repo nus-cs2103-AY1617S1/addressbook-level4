@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
+import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
@@ -114,8 +115,8 @@ public class Emeraldo implements ReadOnlyEmeraldo {
         }
     }
     
-    public void editTask(Task task, int index, Description description) throws IllegalValueException {
-        tasks.edit(task, index, description);
+    public void editTask(Task task, int index, Description description, DateTime dateTime) throws IllegalValueException {
+        tasks.edit(task, index, description, dateTime);
     }
     
 //// tag-level operations
