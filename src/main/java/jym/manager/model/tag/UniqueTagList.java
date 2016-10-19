@@ -69,7 +69,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * Copy constructor, insulates from changes in source.
      */
     public UniqueTagList(UniqueTagList source) {
-        internalList.addAll(source.internalList); // insulate internal list from changes in argument
+  //      internalList.addAll(source.internalList); // insulate internal list from changes in argument
     }
 
     /**

@@ -50,9 +50,9 @@ public class TaskCard extends UiPart{
 	        	address.setText(task.getLocation().toString());
 	        }
 	        if(task.getDate() != null) {
-	        	deadline.setText("Due: " + task.getDate().toString());
+	        	deadline.setText("" + task.getDate().toString());
 	        } else {
-	        	deadline.setText("No deadline assigned");
+	        	deadline.setText("No deadline");
 	        }
     	}catch(NullPointerException npe){
     		npe.printStackTrace();

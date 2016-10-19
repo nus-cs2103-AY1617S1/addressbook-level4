@@ -29,9 +29,9 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("clear");
         assertAddSuccess(td.doLaundry);
 
-        //invalid command
-        commandBox.runCommand("adds Johnny");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        //No more invalid add commands...
+//        commandBox.runCommand("clear Johnny");
+//        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {

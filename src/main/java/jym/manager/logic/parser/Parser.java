@@ -2,6 +2,7 @@ package jym.manager.logic.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,12 +52,21 @@ public class Parser {
 
     public static LocalDateTime parseDate(String date){
     	if(date == null) return null;
-    	
-		 LocalDateTime ldt = null;
-	     if(date != null){
-	     	date.replaceAll("\\n", "");
-	     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
-	     	ldt = LocalDateTime.parse(date, formatter);
+    		
+    	LocalDateTime ldt = null;
+    	 if(date.contains("T")){
+	    	 try{
+	 			ldt = LocalDateTime.parse(date);
+	 		} catch(DateTimeParseException dtpe){
+	 			dtpe.printStackTrace();
+	 		}
+	     } else {
+	     	try{
+		     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
+		     	ldt = LocalDateTime.parse(date, formatter);
+	    	}catch(DateTimeParseException dtpe){
+	    		dtpe.printStackTrace();
+	    	}
 	     }
 	     return ldt;
     }
@@ -104,7 +114,7 @@ public class Parser {
             return new HelpCommand();
 
         default:
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+            return prepareAdd(commandWord.concat(arguments));
         }
     }
 
@@ -128,19 +138,22 @@ public class Parser {
         String description = sections[0];
         String location = null;
         List<String> list = Arrays.asList(sections);
+        System.out.println("Section groups: ");
         list.forEach(n-> System.out.println(n));
         
         if(sections.length > 1){
         	Pattern dateRegex = Pattern.compile("(\\d\\d[- /.]\\d\\d[- /.]\\d\\d\\d\\d)(.*)");
+        	Pattern timeRegex = Pattern.compile("(.*)(\\d\\d[: /.]\\d\\d)(.*)");
         	try {
         		Matcher m = dateRegex.matcher(sections[1]);
-        		if(m.matches()){
+        		Matcher t = timeRegex.matcher(sections[1]);
+        		if(m.matches() || t.matches()){
         			date = sections[1];
-        			System.out.println(date);
+        			System.out.println("date: " + date);
         			if(sections.length > 2) location = sections[2];
         		} else {
         			location = sections[1];
-        			System.out.println(location);
+        			System.out.println("location " + location);
         			if(sections.length > 2) date = sections[2];
         		}
         	} catch (Exception e){

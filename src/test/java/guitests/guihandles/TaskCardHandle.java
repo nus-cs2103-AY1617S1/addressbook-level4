@@ -21,10 +21,11 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     protected String getTextFromLabel(String fieldId) {
-        return getTextFromLabel(fieldId, node);
+        String x = getTextFromLabel(fieldId, node);
+        return x;
     }
 
-    public String getFullName() {
+    public String getFullDescription() {
         return getTextFromLabel(DESCRIPTION_FIELD_ID);
     }
 
@@ -33,7 +34,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask Task){
-        return getFullName().equals(Task.getDescription().toString()) 
+        return getFullDescription().equals(Task.getDescription().toString()) 
         		&& getDeadline().equals(Task.getDate().toString())
                 && getAddress().equals(Task.getLocation().toString());
     }
@@ -46,7 +47,7 @@ public class TaskCardHandle extends GuiHandle {
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
+            return getFullDescription().equals(handle.getFullDescription())
                     && getAddress().equals(handle.getAddress()); //TODO: compare the rest
         }
         return super.equals(obj);
@@ -54,6 +55,6 @@ public class TaskCardHandle extends GuiHandle {
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullDescription() + " at " + getAddress() + " by " + getDeadline();
     }
 }
