@@ -97,12 +97,20 @@ public class TaskBook implements ReadOnlyTaskBook {
         ArrayList<ReadOnlyTask> newEventList = new ArrayList<ReadOnlyTask>();
 
         for (ReadOnlyTask t : newTasks) {
-            if (t instanceof DeadlineTask) {
-                newDeadlineTaskList.add(new DeadlineTask((DeadlineTask) t));
-            } else if (t instanceof Event) {
-                newEventList.add(new Event((Event) t));
-            } else {
+            if(t instanceof FloatingTask) {
                 newTaskList.add(new FloatingTask((FloatingTask) t));
+            }
+        }
+        
+        for (ReadOnlyTask t : newDeadlineTasks) {
+            if(t instanceof DeadlineTask) {
+                newDeadlineTaskList.add(new DeadlineTask((DeadlineTask) t));
+            }
+        }
+        
+        for (ReadOnlyTask t : newEvents) {
+            if(t instanceof Event) {
+                newEventList.add(new Event((Event) t));
             }
         }
         
