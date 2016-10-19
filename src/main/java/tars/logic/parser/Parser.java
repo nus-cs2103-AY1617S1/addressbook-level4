@@ -25,6 +25,7 @@ import tars.logic.commands.AddCommand;
 import tars.logic.commands.CdCommand;
 import tars.logic.commands.ClearCommand;
 import tars.logic.commands.Command;
+import tars.logic.commands.ConfirmCommand;
 import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.EditCommand;
 import tars.logic.commands.ExitCommand;
@@ -91,6 +92,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+
+        case ConfirmCommand.COMMAND_WORD:
+            return prepareConfirm(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -324,6 +328,57 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         return new DeleteCommand(args);
+    }
+
+    private Command prepareConfirm(String args) {
+        // there is no arguments
+        if (args.trim().length() == 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
+        }
+
+        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
+        Flag tagFlag = new Flag(Flag.TAG, true);
+
+        Flag[] flags = { priorityFlag, tagFlag };
+
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
+
+        String indexArgs = "";
+
+        if (flagsPosMap.size() == 0) {
+            indexArgs = args;
+        } else if (flagsPosMap.firstKey() == 0) {
+            // there are arguments but taskIndex & dateTimeIndex should be the
+            // first argument
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
+        } else {
+            indexArgs = args.substring(0, flagsPosMap.firstKey()).trim();
+        }
+        
+        int taskIndex;
+        int dateTimeIndex;
+        
+        try {
+            String[] indexStringArray = StringUtil.indexString(indexArgs).split(" ");
+            if (indexStringArray.length > 2) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
+            } else {
+                taskIndex = Integer.parseInt(indexStringArray[0]);
+                dateTimeIndex = Integer.parseInt(indexStringArray[1]);
+            }
+        } catch (InvalidRangeException | IllegalValueException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
+        }
+        
+        
+        
+        try {
+            return new ConfirmCommand(taskIndex, dateTimeIndex, argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
+                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag));
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
+        }
     }
 
     /**
