@@ -1,6 +1,6 @@
 package seedu.address.model.item;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import seedu.address.model.tag.UniqueTagList;
 
@@ -22,11 +22,11 @@ public interface ReadOnlyItem {
 	 * then the default null is used. Override these in the implemented classes
 	 * as necessary.
 	 */
-	default Date getStartDate() {
+	default LocalDateTime getStartDate() {
 		return null;
 	}
 
-	default Date getDueDate() {
+	default LocalDateTime getEndDate() {
 		return null;
 	}
 	
@@ -43,9 +43,9 @@ public interface ReadOnlyItem {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
 						// state checks here onwards
-                && other.getDescription().equals(this.getDescription()));
-                //&& other.getStartDate().equals(this.getStartDate())
-                //&& other.getDueDate().equals(this.getDueDate()));
+                && other.getDescription().equals(this.getDescription()) 
+                && other.getStartDate().equals(this.getStartDate())
+                && other.getEndDate().equals(this.getEndDate()));
     }
 
     /**
