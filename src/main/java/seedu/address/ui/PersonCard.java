@@ -69,6 +69,11 @@ public class PersonCard extends UiPart{
         if(person.getCompletionStatus() == true) {
         	cardPane.setStyle("-fx-background-color: springgreen;");
         }
+        if(person.passedDueDate()){
+            cardPane.setStyle("-fx-background-color: red;");
+        }
+        
+        
     }
 
     public HBox getLayout() {

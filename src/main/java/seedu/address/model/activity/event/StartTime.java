@@ -50,7 +50,7 @@ public class StartTime extends DateTime {
         if (this.value == null) {
             return "Start:\t\t-";
         } else {
-            return "Start:\t\t\t".concat(this.toString());
+            return "Start:\t\t".concat(this.toString());
         }
     }
 }
