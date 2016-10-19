@@ -40,9 +40,12 @@ public class Parser {
     		                    + " e/(?<endTime>[^/]+)"
     		                    + " l/(?<location>[^/]+)"    		                     
     		                  + "(?<tagArguments>(?: #/[^/]+)*)"); // variable number of tags
+    public static final Pattern DIRECTORY_ARGS_FORMAT = 
+            Pattern.compile("(?<directory>[^<>|]+)");
     
     private static final Pattern TASK_DATA_ARGS_FOMAT = 
     		Pattern.compile("(?<name>[^/]+)");
+    
     public Parser() {}
 
     /**
@@ -90,6 +93,12 @@ public class Parser {
             
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+            
+        case DirectoryCommand.COMMAND_WORD:
+            return prepareDirectory(arguments);
+            
+        case BackupCommand.COMMAND_WORD:
+            return prepareBackup(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -233,6 +242,40 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the directory command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDirectory(String args) {
+        final Matcher matcher = DIRECTORY_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DirectoryCommand.MESSAGE_USAGE));
+        }
+        return new DirectoryCommand(
+                matcher.group("directory")
+        );
+    }
+    
+    /**
+     * Parses arguments in the context of the backup command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareBackup(String args) {
+        final Matcher matcher = DIRECTORY_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BackupCommand.MESSAGE_USAGE));
+        }
+        return new BackupCommand(
+                matcher.group("directory")
+        );
     }
 
 }

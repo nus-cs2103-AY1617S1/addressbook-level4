@@ -2,13 +2,21 @@ package seedu.task.logic.commands;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 import seedu.task.commons.core.Config;
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.commons.util.ConfigUtil;
+import seedu.task.commons.util.FileUtil;
+
 import org.apache.commons.io.FileUtils;
 
 /**
  * Saves task manager data at specified directory.
  */
 public class BackupCommand extends Command {
+    
+    private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
 
     public static final String COMMAND_WORD = "backup";
 
@@ -64,8 +72,20 @@ public class BackupCommand extends Command {
     }
     
     public void setSource() {
-        Config newConfig = new Config();
-        _source = newConfig.getTaskManagerFilePath();
+        Config config = new Config();
+        File configFile = new File("config.json");
+        try {
+            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+        } catch (IOException e) {
+            logger.warning("Error reading from config file " + "config.json" + ": " + e);
+            try {
+                throw new DataConversionException(e);
+            } catch (DataConversionException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
+        _source = config.getTaskManagerFilePath();
     }
 
     
@@ -73,7 +93,6 @@ public class BackupCommand extends Command {
     @Override
     public CommandResult execute(boolean isUndo) {
         assert _directory != null;
-        //return new CommandResult(MESSAGE_BACKUP_SUCCESS);
         return new CommandResult(String.format(MESSAGE_BACKUP_SUCCESS, _directory));
     }
 
