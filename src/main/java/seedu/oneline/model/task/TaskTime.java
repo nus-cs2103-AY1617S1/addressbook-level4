@@ -108,9 +108,18 @@ public class TaskTime implements Comparable<TaskTime> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TaskTime // instanceof handles nulls
-                && this.value.compareTo(((TaskTime) other).value) == 0);
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof TaskTime)) {
+            return false;
+        }
+        TaskTime otherTime = (TaskTime) other;
+        if (this.value == null || otherTime.value == null) {
+            return this.value == otherTime.value;
+        } else {
+            return this.value.compareTo(otherTime.value) == 0;
+        }
     }
 
     @Override
