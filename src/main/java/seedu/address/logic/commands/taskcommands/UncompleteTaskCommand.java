@@ -18,6 +18,8 @@ public class UncompleteTaskCommand extends TaskCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNCOMPLETE_TASK_SUCCESS = "Uncompleted task: %1$s";
+    public static final String MESSAGE_TASK_ALR_UNCOMPLETED = "Task is already uncompleted";
+
 
     public final int targetIndex;
 
@@ -37,10 +39,15 @@ public class UncompleteTaskCommand extends TaskCommand {
         }
 
         Task taskToUncomplete = lastShownList.get(targetIndex - 1);
-        model.uncompleteTask(taskToUncomplete);
-        model.refreshTasksFilter();
+        if(taskToUncomplete.isComplete()){
+        	model.uncompleteTask(taskToUncomplete);
+        	model.refreshTasksFilter();
+        	return new CommandResult(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, taskToUncomplete));
+        }
+        else{
+        	return new CommandResult(MESSAGE_TASK_ALR_UNCOMPLETED);
 
-        return new CommandResult(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, taskToUncomplete));
+        }
     }
 
 }

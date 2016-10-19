@@ -18,6 +18,7 @@ public class FavoriteTaskCommand extends TaskCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_FAVORITE_TASK_SUCCESS = "Favorited task: %1$s";
+    public static final String MESSAGE_TASK_ALR_FAVORITED = "Task has already been favorited";
 
     public final int targetIndex;
 
@@ -37,9 +38,13 @@ public class FavoriteTaskCommand extends TaskCommand {
         }
 
         Task taskToFavorite = lastShownList.get(targetIndex - 1);
-        model.favoriteTask(taskToFavorite);
-
-        return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, taskToFavorite));
+        if(!taskToFavorite.isFavorite()){
+        	model.favoriteTask(taskToFavorite);
+            return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, taskToFavorite));
+        }
+        else{
+        	return new CommandResult(MESSAGE_TASK_ALR_FAVORITED);
+        }
     }
 
 }

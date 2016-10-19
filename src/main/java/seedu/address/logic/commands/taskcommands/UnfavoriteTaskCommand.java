@@ -18,6 +18,8 @@ public class UnfavoriteTaskCommand extends TaskCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_FAVORITE_TASK_SUCCESS = "Unavorited task: %1$s";
+    public static final String MESSAGE_TASK_ALR_UNFAVORITED = "Task is already an unfavorited task";
+
 
     public final int targetIndex;
 
@@ -37,9 +39,13 @@ public class UnfavoriteTaskCommand extends TaskCommand {
         }
 
         Task taskToUnfavorite = lastShownList.get(targetIndex - 1);
-        model.unfavoriteTask(taskToUnfavorite);
-
-        return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, taskToUnfavorite));
+        if(taskToUnfavorite.isFavorite()){
+        	model.unfavoriteTask(taskToUnfavorite);
+        	return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, taskToUnfavorite));
+        }
+        else{
+        	return new CommandResult(MESSAGE_TASK_ALR_UNFAVORITED);
+        }
     }
 
 }

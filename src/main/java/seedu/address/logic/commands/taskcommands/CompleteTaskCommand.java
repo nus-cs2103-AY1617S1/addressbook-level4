@@ -18,6 +18,8 @@ public class CompleteTaskCommand extends TaskCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed task: %1$s";
+    public static final String MESSAGE_TASK_ALR_COMPLETED = "Task has already been completed";
+
 
     public final int targetIndex;
 
@@ -37,10 +39,14 @@ public class CompleteTaskCommand extends TaskCommand {
         }
 
         Task taskToComplete = lastShownList.get(targetIndex - 1);
-        model.completeTask(taskToComplete);
-        model.refreshTasksFilter();
-
-        return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));
+        if(!taskToComplete.isComplete()){
+        	model.completeTask(taskToComplete);
+        	model.refreshTasksFilter();
+        	return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));
+        }
+        else{
+        	return new CommandResult(MESSAGE_TASK_ALR_COMPLETED);
+        }
     }
 
 }
