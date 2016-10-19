@@ -1,12 +1,8 @@
 package seedu.tasklist.model.task;
 
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Objects;
 
-import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.CollectionUtil;
 import seedu.tasklist.commons.util.RecurringUtil;
 import seedu.tasklist.model.tag.UniqueTagList;
@@ -50,6 +46,7 @@ public class Task implements ReadOnlyTask {
 		    case "daily": case "weekly": case "monthly": case "yearly": 
                 this.isRecurring = true;
                 this.recurringFrequency = recurringFrequency;
+                break;
             default:
                 this.isRecurring = false;
                 this.recurringFrequency = "";
@@ -146,6 +143,7 @@ public class Task implements ReadOnlyTask {
 	    if (isRecurring && isComplete && !this.recurringFrequency.equals("")) {
 	        RecurringUtil.updateRecurringDate(endTime.endtime, recurringFrequency);
 	        isComplete = false;
+	        
 	    }
 	}
 	
