@@ -20,8 +20,8 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all task
-   * **`add`**` Submission of CS2103 Project ed/11112016 et/0900hrs` : 
-     adds a task named `Submission of CS2103 Project` to the MustDoList.
+   * **`add`**`CS2103 Tutorial s/today 8am e/tomorrow 9am at NUS COM1-B103` : 
+     adds a task named `CS2103 Tutorial` to the MustDoList.
    * **`delete`**` 1` : deletes the 1st task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -35,14 +35,22 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a task: `add`
-Adds a task to the MustDoList.<br>
+Adds a floating task, task or an event to the MustDoList.<br>
 
-Format: **`add`**`EVENT_NAME s/START_DATE e/END_DATE a/LOCATION`
-
-> DATE Format: DDMMYYYY<br>
+Format 1: **`add`**`FLOATING_TASK_NAME`<br>
+Format 2: **`add`**`TASK_NAME by END_DATE END_TIME`<br>
+Format 3: **`add`**`EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`<br>
 
 Examples:<br> 
-* **`add`**`CS2103 Tutorial s/011016 e/111116 a/COM1 B103`<br>
+* **`add`**`Do CS2103 Pretut`<br>
+	Adding a floating task.<br>
+* **`add`**`Do CS2103 Pretut by 01-Oct-16 8am`<br>
+	Adding a task.<br>
+* **`add`**`CS2103 Tutorial s/today 8am e/tomorrow 9am at NUS COM1-B103`<br>
+	Adding an event.<br>
+	
+> Date Format: DD-MMM-YYYY<br>
+Time Format: HH:MM am/pm<br> 	
 
 #### Listing all tasks: `list`
 Shows a list of all tasks in the MustDoList.<br>
@@ -54,15 +62,18 @@ Finds a task by keywords.<br>
 
 Format: **`find`**`KEYWORD`
 
-> KEYWORD refers to: task_name, location, date, mark<br> 
+> KEYWORD refers to: task_name, location, date, time, mark<br> 
 
 Examples:<br> 
 * **`find`**`CS2103`<br>
-  Returns Any task(s) having names `Submission`, `of`, `CS2103`, or `Project`
-* **`find`**`09102016`<br>
-  Returns Any task(s) with date 09 Oct 2016
+  Returns Any task(s) having names `CS2103`
+* **`find`**`09-Oct-2016`<br>
+  Returns Any task(s) with date 09Oct-2016
 * **`find`**`completed`<br>
-  Returns Any task(s) are mark completed
+  Returns Any task(s) are mark completed<br>
+  
+> Date Format: DD-MMM-YYYY<br>
+Time Format: HH:MM am/pm<br>
 
 #### Select a task : `select`
 Selects a task from MustDoList by index.<br>
@@ -76,7 +87,7 @@ Examples:<br>
 * `list`<br>
   **`select`**`2`<br>
   Selects the 2nd task in the MustDoList.
-* **`find`**`Submission` <br> 
+* **`find`**`CS2103` <br> 
   **`select`**`1`<br>
   Selects the 1st task in the results of the `find` command.
 
@@ -91,7 +102,7 @@ Examples:<br>
 * `list`<br>
   **`delete`**`2`<br>
   Deletes the 2nd task in the MustDoList.
-* **`find`**`Submission`<br> 
+* **`find`**`CS2103`<br> 
   **`delete`**`1`<br>
   Deletes the 1st task in the results of the `find` command.
 
@@ -103,17 +114,18 @@ Format: `clear`
 #### Edit a task : `edit`
 Edits a task parameter from the MustDoList by index.<br>
 
-Format: **`edit`**`INDEX s/START_DATE_TIME e/END_DATE_TIME a/LOCATION`
-
-> DATE Format: DDMMYYYY<br>
+Format: **`edit`**`INDEX TASK_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
 
 Examples:<br>
 * `list`<br>
-  **`edit`**`2 new task name s/101016 e/101016 a/NUS`
-  Edit the 2nd task in the MustDoList by the given PARAMETERS.
-* **`find`**`Submission` <br>
-  **`edit`**`1 another new task name s/111016 e/111016 a/there `<br>
-  Edit the 1st task in the results of the `find` command by PARAMETERS.
+  **`edit`**`2 new_task_name s/10-Oct-2016 8am e/10-Oct-2016 9am at NUS`
+  Edit the 2nd task in the MustDoList by the given PARAMETERS.<br>
+* **`find`**`CS2103` <br>
+  **`edit`**`1 another_new_task_name s/11-Oct-2016 8am e/11-Oct-2016 9am at there `<br>
+  Edit the 1st task in the results of the `find` command by PARAMETERS.<br>
+  
+> Date Format: DD-MMM-YYYY<br>
+Time Format: HH:MM am/pm<br>
 
 #### Undo a previous task : `undo`
 Undo a previously add, edit, delete, mark command in the MustdoList.<br>
@@ -131,7 +143,7 @@ Examples:<br>
 * `list`<br>
   **`mark`**`2`<br>
   Marks the 2nd task in the MustDoList as completed.
-* **`find`**`Submission`<br> 
+* **`find`**`CS2103`<br> 
   **`mark`**`1`<br>
   Marks the 1st task in the results of the `find` command as completed.  
 
@@ -153,13 +165,13 @@ There is no need to save manually.
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | **`add`**`EVENT_NAME s/START_DATE e/END_DATE a/LOCATION`
+Add | **`add`**`EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
 List | `list`
 Find | **`find`**`KEYWORD`
 Select | **`select`**`INDEX`
 Delete | **`delete`**`INDEX`
 Clear | `clear`
-Edit | **`edit`**`INDEX EVENT_NAME s/START_DATE e/END_DATE a/LOCATION`
+Edit | **`edit`**`INDEX EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
 Undo | `undo`
 Mark | **`mark`**`INDEX` 
 Exit | `exit`

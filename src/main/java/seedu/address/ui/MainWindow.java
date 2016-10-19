@@ -12,6 +12,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandHistory;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.ReadOnlyTask;
 
@@ -106,6 +107,13 @@ public class MainWindow extends UiPart {
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
+    
+ //   private void setEventFilter() {
+    	
+ //   	if (taskSchedulerName.setEventFilter(KeyCombination.valueOf("DOWN"))) {
+ //   		CommandHistory.getPrevCmd();
+  //  	}
+//}
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
