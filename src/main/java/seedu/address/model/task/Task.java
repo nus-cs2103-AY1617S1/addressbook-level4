@@ -1,8 +1,13 @@
 package seedu.address.model.task;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -127,6 +132,26 @@ public class Task implements ReadOnlyTask, ModifyTask {
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
+    }
+    
+    /**
+     * Replaces the specific tag found in this task's tags with the tags in the argument.
+     * @return 
+     * @throws IllegalValueException 
+
+     */
+    public boolean setTags(String specific_tag, String replacement) throws IllegalValueException{        
+        Tag tempTag = new Tag(specific_tag);
+        System.out.println(tags.contains(tempTag));
+        Iterator<Tag> itr = tags.iterator();
+        while(itr.hasNext()){
+            Tag temp = itr.next();
+            if(temp.equals(tempTag)){    
+                temp.setTagName(replacement);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
