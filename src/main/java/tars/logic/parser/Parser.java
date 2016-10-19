@@ -347,7 +347,7 @@ public class Parser {
         String indexArgs = "";
 
         if (flagsPosMap.size() == 0) {
-            indexArgs = args;
+            indexArgs = args.trim();
         } else if (flagsPosMap.firstKey() == 0) {
             // there are arguments but taskIndex & dateTimeIndex should be the
             // first argument
@@ -376,7 +376,7 @@ public class Parser {
         try {
             return new ConfirmCommand(taskIndex, dateTimeIndex, argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
                     ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag));
-        } catch (IllegalValueException e) {
+        } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
         }
     }
