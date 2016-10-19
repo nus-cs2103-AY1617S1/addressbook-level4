@@ -90,5 +90,9 @@ public class StartTime {
     public int hashCode() {
         return startTime.hashCode();
     }
+    
+    public Calendar getAsCalendar() {
+        return startTime;
+    }
 
 }

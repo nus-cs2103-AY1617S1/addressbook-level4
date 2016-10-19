@@ -50,7 +50,7 @@ public interface Model {
     /** Updates the filter of the filtered task list to only show incomplete */
 	void updateFilteredListToShowIncomplete();
 
-    UnmodifiableObservableList<Task> getModifiableTaskList();
+    UnmodifiableObservableList<Task> getListOfTasks();
 
     void updateFilteredList();
 

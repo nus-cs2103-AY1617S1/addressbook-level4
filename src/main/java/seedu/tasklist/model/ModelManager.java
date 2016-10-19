@@ -20,6 +20,7 @@ import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -230,12 +231,13 @@ public class ModelManager extends ComponentManager implements Model {
 		return new UnmodifiableObservableList<>(filteredTasks);
 	}
 
-	public UnmodifiableObservableList<Task> getModifiableTaskList() {
+	public UnmodifiableObservableList<Task> getListOfTasks() {
 		return new UnmodifiableObservableList<>(filteredTasks);
 	}
 
 	@Override
 	public void updateFilteredListToShowAll() {
+	    //sortByDateAndPriority();
 		filteredTasks.setPredicate(null);
 	}
 
@@ -252,10 +254,11 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredTaskList(Set<String> keywords){
-		updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+	    //sortByDateAndPriority();
+	    updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
 	}
-
-	private void updateFilteredTaskList(Expression expression) {
+	
+    private void updateFilteredTaskList(Expression expression) {
 		filteredTasks.setPredicate(expression::satisfies);
 	}
 
@@ -285,8 +288,21 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredTaskList(new PredicateExpression(new OverDueQualifier()));
 	}
 
+	private void sortByDateAndPriority() {
+        getListOfTasks().sort(Comparators.DATE_TIME);
+    }
+	
 	//========== Inner classes/interfaces used for filtering ==================================================
 
+	private static class Comparators {
+	    public static Comparator<Task> DATE_TIME = new Comparator<Task>(){
+	        @Override
+            public int compare(Task o1, Task o2) {
+                return o1.getStartTime().getAsCalendar().compareTo(o2.getStartTime().getAsCalendar());
+            }
+	    };
+	}
+	
 	interface Expression {
 		boolean satisfies(ReadOnlyTask person);
 		String toString();
