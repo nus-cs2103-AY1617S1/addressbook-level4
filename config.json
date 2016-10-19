@@ -2,6 +2,6 @@
   "appTitle" : "Happy Jim Task Master",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "preferences.json",
-  "taskListFilePath" : "data\\newlist.xml",
+  "taskListFilePath" : "data\\tasklist.xml",
   "taskListName" : "MyTaskList"
 }
