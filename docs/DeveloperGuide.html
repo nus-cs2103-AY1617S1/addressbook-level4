@@ -32,7 +32,12 @@
 </li>
 <li><a href="#design">Design</a><ul>
 <li><a href="#architecture">Architecture</a></li>
-<li><a href="#ui-component">UI component</a></li>
+<li><a href="#ui-component">UI component</a><ul>
+<li><a href="#command-line-interface">Command Line Interface</a></li>
+<li><a href="#to-do-list-display">To-do List Display</a></li>
+<li><a href="#additional-information">Additional Information</a></li>
+</ul>
+</li>
 <li><a href="#logic-component">Logic component</a></li>
 <li><a href="#model-component">Model component</a></li>
 <li><a href="#common-modules">Common modules</a><ul>
@@ -196,18 +201,35 @@ coupling between components.</p>
 <div class="no-page-break"><h3 id="ui-component"><span>3.2 </span><abbr title="User interface">UI</abbr> component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3><figure><img class="u-max-full-width" src="diagrams/Ui Component.svg"/><figcaption><strong>Figure 5. </strong>The relation between the UI subcomponents</figcaption></figure></div>
 
 
-<p><strong>API</strong> : <a href="../src/main/java/seedu/todo/ui/Ui.java"><code>Ui.java</code></a></p>
+<p>The <abbr title="User interface">UI</abbr> component handles the interaction between the user and application. In particular, the <abbr title="User interface">UI</abbr> is responsible for passing the textual command input from the user to the <code>Logic</code> for execution, and then display the outcome of the execution to the user via the <abbr title="Graphical User Interface">GUI</abbr>.</p>
 <figure><img class="u-max-full-width" src="diagrams/Ui Image.svg"/><figcaption><strong>Figure 6. </strong>Visual identification of view elements in the UI</figcaption></figure>
 
-<p>The <abbr title="User interface">UI</abbr> consists of a <code>MainWindow</code> that contains several view elements. They are <code>TodoListView</code>, <code>CommandInputView</code>, <code>CommandFeedbackView</code>, <code>FilterBarView</code>, and so on. All these classes, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class and they can be loaded using the <code>UiPartLoader</code>.</p>
-<p>The <code>UI</code> component uses JavaFx <abbr title="User interface">UI</abbr> framework. The layout of these <abbr title="User interface">UI</abbr> parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="../src/main/java/seedu/todo/ui/MainWindow.java"><code>MainWindow</code></a> is specified in
- <a href="../src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
-<p>The <code>UI</code> component,</p>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/todo/ui/Ui.java"><code>Ui.java</code></a></p>
+<p>The <abbr title="User interface">UI</abbr> mainly consists of a <code>MainWindow</code>, as shown in the diagram above. This is where most of the interactions between the user and the application happen here. The <code>MainWindow</code> contains several major view elements that are discussed in greater detail below:</p>
+<div class="no-page-break"><h4 id="command-line-interface"><span>3.2.1 </span>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permanent link">#</a></h4><p>The <abbr title="User interface">UI</abbr> aims to imitate the Command Line Interface (CLI) closely by accepting textual commands from users, and displaying textual feedback back to the users. The CLI consists of:</p></div>
+
 <ul>
-<li>Executes user commands using the <code>Logic</code> component.</li>
-<li>Binds itself to some data in the <code>Model</code> so that the <abbr title="User interface">UI</abbr> can auto-update when data in the <code>Model</code> change.</li>
-<li>Responds to events raised from various parts of the App and updates the <abbr title="User interface">UI</abbr> accordingly.</li>
+<li><code>CommandInputView</code> - a text box for users to key in their commands</li>
+<li><code>CommandFeedbackView</code> - a single line text that provides a response to their commands</li>
+<li><code>CommandErrorView</code> - a detailed breakdown of any erroneous commands presented with a table</li>
 </ul>
+<p>These view classes are represented by the <code>CommandXView</code> class in the UML diagram above. </p>
+<p>The <code>CommandController</code> class is introduced to link the three classes together, so they can work and communicate with each other. The <code>CommandController</code>:
+1. Obtains a user-supplied command string from the <code>CommandInputView</code>
+2. Submits the command string to <code>Logic</code> for execution
+3. Receives a <code>CommandResult</code> from <code>Logic</code> after the execution
+4. Displays the execution outcome via the <code>CommandResult</code> to the <code>CommandFeedbackView</code> and <code>CommandErrorView</code></p>
+<div class="no-page-break"><h4 id="to-do-list-display"><span>3.2.2 </span>To-do List Display<a class="headerlink" href="#to-do-list-display" title="Permanent link">#</a></h4><p>A to-do list provides a richer representation of the tasks than the CLI to the users. The To-do List Display consists of: </p></div>
+
+<ul>
+<li><code>TodoListView</code> - a <a href="http://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ListView.html"><code>ListView</code></a> that displays a list of <code>TaskCard</code>.</li>
+<li><code>TaskCard</code> - an item in the <code>TodoListView</code> that displays details of a specific task.</li>
+</ul>
+<p>Specifically, the <code>TodoListView</code> attaches an <code>ObservableList</code> of <code>ImmutableTask</code> from the <code>Model</code> and listens to any changes that are made to the <code>ObservableList</code>. If there are any modifications made, the <code>TaskCard</code> and <code>TodoListView</code> are updated automatically.</p>
+<div class="no-page-break"><h4 id="additional-information"><span>3.2.3 </span>Additional Information<a class="headerlink" href="#additional-information" title="Permanent link">#</a></h4><p>All these view classes, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class. They can be loaded using the utility class <code>UiPartLoader</code>.</p></div>
+
+<p>The <abbr title="User interface">UI</abbr> component uses <a href="http://docs.oracle.com/javase/8/javafx/get-started-tutorial/jfx-overview.htm#JFXST784">JavaFX</a> <abbr title="User interface">UI</abbr> framework. The layout of these <abbr title="User interface">UI</abbr> parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="../src/main/java/seedu/todo/ui/view/CommandInputView.java"><code>CommandInputView</code></a> is specified in <a href="../src/main/resources/view/CommandInputView.fxml"><code>CommandInputView.fxml</code></a></p>
+<p>Other than through <code>CommandResult</code> and <code>ObservableList</code>, you may also invoke changes to the <abbr title="Graphical User Interface">GUI</abbr> outside the scope of <abbr title="User interface">UI</abbr> components by raising an event. <code>UiManager</code> will then call specific view elements to update the <abbr title="Graphical User Interface">GUI</abbr> accordingly. For example, you may show the <code>HelpView</code> by raising a <code>ShowHelpPanel</code> via the <code>EventsCentre</code>.</p>
 <div class="no-page-break"><h3 id="logic-component"><span>3.3 </span>Logic component<a class="headerlink" href="#logic-component" title="Permanent link">#</a></h3><figure><img class="u-max-full-width" src="diagrams/Logic Component.svg"/><figcaption><strong>Figure 7. </strong>The relation between the Logic subcomponents</figcaption></figure></div>
 
 
