@@ -214,16 +214,16 @@ There is no need to save manually.
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
        
-## Command Summary
+### Command Summary
 
 Command | Format  
 -------- | :-------- 
+Help | `help <command word>`
 Add | `add <Task description> <Date if applicable> <Start time if applicable> <End Time if applicable>`
 Delete | `delete <task name>`
 List | `list`
-ListByDate | `listbydate <Date>`
-HelpAll | `help`
-Help | `help <command word>`
+Find | `find <Task Name if applicable> or find <Date> or find <Tags>`
+clear| `clear`
+Edit | `edit <Task Index> <Date if applicable> <Start Time if applicable> <End Time if applicable>`
 Exit | `exit`
-
 
