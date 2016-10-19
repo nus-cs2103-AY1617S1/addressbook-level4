@@ -43,7 +43,12 @@ public class ChangeCommand extends Command {
     public CommandResult execute() {
         Path path = FileSystems.getDefault().getPath(newPath);
         if(Files.exists(path)){
-            newPath = newPath + "\\whatnow.xml";
+            if (newPath.contains("\\"))
+                newPath = newPath + "\\whatnow.xml";
+            else if (newPath.contains("/"))
+                newPath = newPath + "/whatnow.xml";
+            else
+                newPath = newPath + "/whatnow.xml";
             config.setWhatNowFilePath(newPath);
             String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
             

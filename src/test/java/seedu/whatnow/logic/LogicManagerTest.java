@@ -470,7 +470,11 @@ public class LogicManagerTest {
     public void execute_changeLocation_movesToCorrectPath() throws Exception {
         String egPath = "C:";
         assertCommandBehavior("change location to " + egPath,
-                String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "\\whatnow.xml", null, null));
+                String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "/whatnow.xml", null, null));
+        
+        egPath = "data";
+        assertCommandBehavior("change location to " + egPath,
+                String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "/whatnow.xml", null, null));
     }
 
     @Test
