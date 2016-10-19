@@ -12,39 +12,35 @@ import seedu.taskitty.testutil.TestTaskList;
 import seedu.taskitty.testutil.TestUtil;
 
 public class UndoCommandTest extends TaskManagerGuiTest {
-    /*
+    
     Stack<TestTaskList> testTaskList;
     
     @Test
     public void undo() {
+        
         testTaskList = new Stack<TestTaskList>();
         testTaskList.push(new TestTaskList(td.getTypicalTasks()));
+        
         TestTask taskToAdd = td.todo;
         testTaskList.push(addTask(taskToAdd, testTaskList.peek()));
-        //testTaskList.push(deleteTask(testTaskList.get(1).length / 2, testTaskList.peek()));
+//        testTaskList.push(deleteTask(testTaskList.size() / 2, testTaskList.peek()));
         commandBox.runCommand("clear");
-        assertUndoSuccess(testTaskList.pop());
-        //assertUndoSuccess(testTaskList.pop());
-        //testTaskList.push(TestUtil.addPersonsToList(testTaskList.peek(), taskToAdd));
-        //commandBox.runCommand("find xmas");
-        //TestTask[] expectedList = { td.shop, td.dinner };
-        //testTaskList.push(new TestTaskList(expectedList));
-        //TestTask taskToEdit = td.event;
-        //editTask(1, taskToEdit, testTaskList.peek());                   
-        //assertUndoSuccess(testTaskList.pop());
-        //assertUndoSuccess(testTaskList.pop());
-        //assertUndoSuccess(testTaskList.pop());
-        //assertNoMoreUndos();        
+        TestTaskList previous = testTaskList.peek();
+        testTaskList.push(previous);
+        assertUndoSuccess(testTaskList.pop(), "clear");
+        
+        
+        commandBox.runCommand("find xmass");
+//        TestTask taskToEdit = td.event;
+//        editTask(1, taskToEdit, testTaskList.peek());                   
+        assertUndoSuccess(testTaskList.pop(), "find xmass");
+        assertUndoSuccess(testTaskList.pop(), taskToAdd.getAddCommand());
+        assertNoMoreUndos();        
     }
     
     @Test
     public void invalidCommand_noUndos() {
-        TestTask[] currentList = td.getTypicalTasks();
         commandBox.runCommand("adds party");
-        assertNoMoreUndos(); 
-        commandBox.runCommand("delete " + currentList.length + 1);
-        assertNoMoreUndos(); 
-        commandBox.runCommand("findevent");
         assertNoMoreUndos(); 
     }
     
@@ -55,29 +51,29 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         return resultList;
     }
     
-    private TestTask[] editTask(int index, TestTask taskToEdit, TestTask[] list) {
-        TestTask[] resultList = TestUtil.replacePersonFromList(list, taskToEdit, index - 1);
-        commandBox.runCommand(taskToEdit.getEditCommand(index));
-        return resultList;
-    }
+//    private TestTask[] editTask(int index, TestTask taskToEdit, TestTaskList list) {
+//        TestTask[] resultList = TestUtil.replacePersonFromList(list, taskToEdit, index - 1);
+//        commandBox.runCommand(taskToEdit.getEditCommand(index));
+//        return resultList;
+//    }
     
-    private TestTaskList deleteTask(int targetIndex, TestTaskList list) {
-        TestTaskList resultList = list.copy();
-        //TODO remove
-        commandBox.runCommand("delete " + targetIndex);
-        return resultList;
-    }
+//    private TestTaskList deleteTask(int targetIndex, TestTaskList list) {
+//        TestTaskList resultList = list.copy();
+//        commandBox.runCommand("delete " + targetIndex);
+//        resultList.removeTaskFromList(targetIndex);
+//        return resultList;
+//    }
     
-    private void assertUndoSuccess(TestTaskList expectedList) {
+    private void assertUndoSuccess(TestTaskList expectedList, String commandText) {
         commandBox.runCommand("undo");
 
         assertTrue(expectedList.isListMatching(taskListPanel));
         
-        assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS);
+        assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS + commandText);
     }
     
     private void assertNoMoreUndos() {
         commandBox.runCommand("undo");        
         assertResultMessage(UndoCommand.MESSAGE_NO_PREVIOUS_COMMANDS);
-    }*/
+    }
 }
