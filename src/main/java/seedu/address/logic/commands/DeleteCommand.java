@@ -2,7 +2,10 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -40,11 +43,28 @@ public class DeleteCommand extends Command {
 
         try {
             model.deleteTask(personToDelete);
+
+            undo = true;
+            LogicManager.tasks.push(new Task(personToDelete.getDescription(),
+            		personToDelete.getPriority(),
+            		personToDelete.getTimeStart(),
+            		personToDelete.getTimeEnd(),
+            		personToDelete.getTags()));
+            LogicManager.indexes.push(targetIndex);
+
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
     }
+
+    @Override
+	 public CommandResult undo() throws IllegalValueException{
+        AddCommand add = new AddCommand(LogicManager.tasks.pop(),LogicManager.indexes.pop()-1);
+        add.model = model;
+        add.insert();
+        return new CommandResult("Undo Complete!");
+	 }
 
 }

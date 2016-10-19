@@ -53,6 +53,7 @@ public class DeleteTagCommand extends Command{
         Time timeEnd = taskToUpdate.getTimeEnd();
         String priority = taskToUpdate.getPriority().toString();
         UniqueTagList tags =taskToUpdate.getTags();
+        boolean completeStatus = taskToUpdate.getCompleteStatus();
 
         try {
 			tags.remove(tag);
@@ -64,14 +65,23 @@ public class DeleteTagCommand extends Command{
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description, priority, timeStart, timeEnd, tags, targetIndex-1);
+			add = new AddCommand(description, priority, timeStart, timeEnd, tags, completeStatus,targetIndex-1);
 			add.model = model;
 			add.insert();
+			undo = true;
 		} catch (IllegalValueException e){
 			return new CommandResult("re-adding failed");
 		};
 
         return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, taskToUpdate));
     }
+
+	@Override
+	 public CommandResult undo() throws IllegalValueException{
+			AddTagCommand addTag = new AddTagCommand(targetIndex,tag.tagName);
+			addTag.model = model;
+			addTag.execute();
+			return new CommandResult("Undo complete!");
+	 }
 
 }
