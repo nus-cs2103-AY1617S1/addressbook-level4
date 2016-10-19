@@ -164,11 +164,14 @@ Example:<br>
 * `delete 1, 2, 3`
 * `search oct 1`
   `done 2, 3`
-  
-  
+    
 #### Undo : `undo`
 Reverts the most recent action.<br>
 Format: `undo`
+
+#### Redo : `redo`
+Reverts the most recent undo action.<br>
+Format: `redo`
 
 #### Editing a task : `edit`
 Edits task on the display list.<br>
@@ -209,9 +212,16 @@ Example:<br>
 Exits the program.<br>
 Format: `exit`  
 
-#### Saving the data 
+#### Saving the data to a specified location : `save` 
 All GGist data is saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+There is no need to save manually. The save file is `./data/ggist.xml` by default.<br>
+You can switch the save file location easily if you wish.<br>
+Format: `save FILE_LOCATION.xml`
+
+> Filename has to be in .xml format.
+
+Example:<br>
+* `save OneDrive/data/ggist.xml`
        
 ## Command Cheatsheet
 
@@ -222,8 +232,9 @@ List    | `list DATE`
 Search  | `search KEYWORD`
 Delete  | `delete INDEX`
 Undo    | `undo`
+Redo    | `redo`
 Edit    | `edit INDEX FIELD NEW_INFORMATION`
 Done    | `done INDEX`
 Help    | `help`
-Save    | `save FILE_LOCATION`
+Save    | `save FILE_LOCATION.xml`
 Exit    | `exit`

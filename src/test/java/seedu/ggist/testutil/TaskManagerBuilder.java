@@ -9,7 +9,7 @@ import seedu.ggist.model.task.UniqueTaskList;
 /**
  * A utility class to help with building GGist objects.
  * Example usage: <br>
- *     {@code TaskManager ab = new TaskManagerBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code TaskManager ab = new TaskManagerBuilder().withTask("milk", "dance").withTag("floating").build();}
  */
 public class TaskManagerBuilder {
 

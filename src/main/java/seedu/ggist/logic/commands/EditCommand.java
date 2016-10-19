@@ -18,7 +18,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
             + "Edits a task identified by the index number used in the last task listing. "
-            + "Parameters: INDEX [FIELD TO CHANGE] [NEW INFO] \n\t" + "Example: " + COMMAND_WORD + " 1, task, buy eggs";
+            + "Parameters: INDEX [FIELD TO CHANGE] [NEW INFO] \n\t" + "Example: " + COMMAND_WORD + " 1 task, buy eggs";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task edited: %1$s";
 
@@ -49,16 +49,28 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_FIELD);
         }
+        
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         try {
+            if (field.equals("task")){
+               editTaskValue.push(taskToEdit.getTaskName().toString()); 
+            }
+            else if (field.equals("start date")){
+                editTaskValue.push(taskToEdit.getStartDate().toString()); 
+             }
+            else if (field.equals("end date")){
+                editTaskValue.push(taskToEdit.getEndDate().toString()); 
+             }
+            else if (field.equals("start time")){
+                editTaskValue.push(taskToEdit.getStartTime().toString()); 
+             }
+            else if (field.equals("end time")){
+                editTaskValue.push(taskToEdit.getEndTime().toString()); 
+             }
+            
+            editTaskField.push(field);
+            
             model.editTask(taskToEdit, field, value);
-            /*if (Command.lastListing == null || Command.lastListing.equals("")) {
-                model.updateFilteredListToShowAllUndone();
-            } else if (Command.lastListing.equals("done")) {
-                model.updateFilteredListToShowAllDone();
-            } else {
-                model.updateFilteredListToShowAll();
-            }*/
             listOfCommands.push(COMMAND_WORD);
             listOfTasks.push(taskToEdit);
         } catch (TaskNotFoundException pnfe) {

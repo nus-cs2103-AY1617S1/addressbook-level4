@@ -11,6 +11,7 @@ import seedu.ggist.logic.commands.Command;
 import seedu.ggist.logic.commands.CommandResult;
 import seedu.ggist.logic.commands.EditCommand;
 import seedu.ggist.model.task.Task;
+import seedu.ggist.model.task.TaskDate;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
@@ -28,6 +29,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
+
+    private String lastListing;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -52,7 +55,10 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
-
+    
+    public void setLastListing(String listing) {
+        lastListing = listing;
+    }
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
@@ -83,6 +89,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
     	taskManager.editTask(target, field, value);
+    	if (lastListing == null || lastListing.equals("")) {
+            updateFilteredListToShowAllUndone();
+        } else if (lastListing.equals("done")) {
+            updateFilteredListToShowAllDone();
+        } else if (TaskDate.isValidDateFormat(lastListing)){
+            updateFilteredListToShowDate(lastListing);
+        } else if (lastListing.equals("all")){
+            updateFilteredListToShowAll();
+        }
     	indicateTaskManagerChanged();
     }
 
@@ -184,13 +199,13 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
     
-    private class AllQualifier implements Qualifier {
+    /*private class AllQualifier implements Qualifier {
         AllQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
             return (task != null);
         }
-    }
+    }*/
     
     private class NotDoneQualifier implements Qualifier {
         

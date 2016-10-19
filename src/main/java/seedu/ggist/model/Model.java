@@ -51,4 +51,7 @@ public interface Model {
     /** Updates the filter of the filtered task list to show task in a particular day */
     void updateFilteredListToShowDate(String keywords);
 
+    /**Updates the attribute in ModelManager to reflect last shown listing */
+    void setLastListing(String listing);
+
 }

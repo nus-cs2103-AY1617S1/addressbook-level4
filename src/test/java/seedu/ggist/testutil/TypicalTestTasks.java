@@ -14,16 +14,45 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            milk =  new TaskBuilder().withName("go buy milk").withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
-            assignment = new TaskBuilder().withName("complete assignment").withStartDate("12 Oct").withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
-                    .withEndTime("2359").build();
-            movie = new TaskBuilder().withName("watch movie").withStartDate("13 Oct").withStartTime("2000").withEndDate("13 Oct").withEndTime("2200").build();
-            jog = new TaskBuilder().withName("go for a jog").withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
-            holiday = new TaskBuilder().withName("plan holiday").withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET).withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
-            dinner = new TaskBuilder().withName("dinner appointment").withStartDate("14 Oct").withStartTime("2100").withEndDate("14 Oct").withEndTime("2200").build();
+            milk =  new TaskBuilder().withName("go buy milk")
+            		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+            		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
+            		.withTags("Misc").build();
+            assignment = new TaskBuilder().withName("complete assignment")
+            		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+            		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
+            		.withTags("CS2103","CS2101").build();
+            movie = new TaskBuilder().withName("watch movie")
+            		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
+            jog = new TaskBuilder().withName("go for a jog")
+            		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+            		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
+            holiday = new TaskBuilder()
+            		.withName("plan holiday")
+            		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+            		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
+            dinner = new TaskBuilder()
+            		.withName("dinner appointment")
+            		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+            		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
             
             //Manually added
-            dance = new TaskBuilder().withName("dance practice").withStartDate("15 Oct").withStartTime("1830").withEndDate("15 Oct").withEndTime("2130").build();
+            dance = new TaskBuilder().withName("dance practice").withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+            		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
