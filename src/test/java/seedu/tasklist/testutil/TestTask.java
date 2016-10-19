@@ -43,6 +43,18 @@ public class TestTask implements ReadOnlyTask {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
+    
+    public void setRecurringFrequency(String frequency) {
+    	switch (frequency) {
+	    case "daily": case "weekly": case "monthly": case "yearly": 
+            this.isRecurring = true;
+            this.recurringFrequency = frequency;
+            break;
+        default:
+            this.isRecurring = false;
+            this.recurringFrequency = "";
+    	}
+    }
 
     @Override
     public TaskDetails getTaskDetails() {
