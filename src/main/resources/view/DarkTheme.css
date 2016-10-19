@@ -17,6 +17,7 @@
 	-fx-padding: 0 0 0 1;
 }
 
+
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -113,6 +114,15 @@
 	-fx-text-fill: #ff0000;
 }
 
+#done-event {
+	-fx-text-fill: #FFFFFF;
+	-fx-background-color: grey;
+}
+
+#done-deadline {
+	-fx-background-color: grey;
+	-fx-text-fill: #FFFFFF;
+}
 .cell_big_label {
     -fx-font-size: 16px;
     -fx-text-fill: #010504;

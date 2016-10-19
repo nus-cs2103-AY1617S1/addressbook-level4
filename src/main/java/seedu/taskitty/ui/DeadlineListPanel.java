@@ -107,7 +107,7 @@ public class DeadlineListPanel extends UiPart{
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(deadline, getIndex() + 1).getLayout());
+                setGraphic(DeadlineCard.load(deadline, getIndex() + 1).getLayout());
             }
         }
     }
