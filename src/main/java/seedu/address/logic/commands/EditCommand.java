@@ -20,6 +20,7 @@ public class EditCommand extends Command {
             + " 1 name oranges";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "You've successfully editted the task!\n"
             + "Editted Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_NOT_SUCCESSFUL = "Invalid edit details";
     
     private int targetIndex;
     private String newName;
@@ -50,7 +51,7 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException e) {
-            assert false : "New input is not valid";
+            return new CommandResult(MESSAGE_EDIT_TASK_NOT_SUCCESSFUL);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
