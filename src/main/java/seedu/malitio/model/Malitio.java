@@ -119,6 +119,7 @@ public class Malitio implements ReadOnlyMalitio {
     public void addDeadline(Deadline p) throws UniqueDeadlineList.DuplicateDeadlineException {
         syncTagsWithMasterList(p);
         deadlines.add(p);
+        sortDeadline();
     }
     
     /**
@@ -131,6 +132,7 @@ public class Malitio implements ReadOnlyMalitio {
     public void addEvent(Event p) throws UniqueEventList.DuplicateEventException {
         syncTagsWithMasterList(p);
         events.add(p);
+        sortEvent();
     }
 
     /**
@@ -260,6 +262,17 @@ public class Malitio implements ReadOnlyMalitio {
     @Override
     public UniqueTagList getUniqueTagList() {
         return this.tags;
+    }
+    
+    /**
+     * sort events by start date
+     */
+    private void sortEvent() {
+    	events.sort();
+    }
+    
+    private void sortDeadline() {
+    	deadlines.sort();
     }
 
 

@@ -77,6 +77,17 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     public ObservableList<Deadline> getInternalList() {
         return internalList;
     }
+    
+    public void sort() {
+    	Collections.sort(internalList, new Comparator<Deadline>() {
+        	  public int compare(Deadline e1, Deadline e2) {
+        	      if (e1.getDateTime() == null || e2.getDateTime() == null)
+        	        return 0;
+        	      return e1.getDateTime().compareTo(e2.getDateTime());
+        	  }
+        	});
+		
+	}
 
     @Override
     public Iterator<Deadline> iterator() {
@@ -95,4 +106,5 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
 }
