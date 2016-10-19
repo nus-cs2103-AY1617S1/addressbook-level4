@@ -62,7 +62,7 @@ public class DoneCommandTest {
     	String expectedString = String.format(MESSAGE_DONE_TASK_SUCCESS, model.getTaskList().getTaskList().get(0).getTaskDetails());
     	assertEquals(result.feedbackToUser, expectedString);
     }
-
+/**
     @Test
     public void doneTest2_by_name() throws DuplicateTaskException, IllegalValueException, IOException, JSONException, ParseException {
     	setup();
@@ -72,7 +72,7 @@ public class DoneCommandTest {
     	String expectedString = String.format(MESSAGE_DONE_TASK_SUCCESS, model.getTaskList().getTaskList().get(1).getTaskDetails());
     	assertEquals(result.feedbackToUser, expectedString);
     }
-    
+*/    
     @Test
     public void doneTest3_throws_invalid_index() throws DuplicateTaskException, IllegalValueException, IOException, JSONException, ParseException {
     	setup();
