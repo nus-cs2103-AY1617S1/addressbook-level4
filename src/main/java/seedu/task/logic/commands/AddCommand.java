@@ -61,12 +61,8 @@ public class AddCommand extends UndoableCommand {
     @Override
     public CommandResult rollback() {
         assert model != null;
-        try {
-            model.deleteTask(toAdd);
-        } catch (TaskNotFoundException e) {
-            assert false : "Task should exist, as previous command created the task!";
-        }
-
+        model.rollback();
+        
         return new CommandResult(true, String.format(MESSAGE_ROLLBACK_SUCCESS, toAdd));
     }
 

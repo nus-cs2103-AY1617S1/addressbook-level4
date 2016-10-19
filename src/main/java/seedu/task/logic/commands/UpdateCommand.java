@@ -16,7 +16,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Updates a task in the task list.
  */
-public class UpdateCommand extends Command {
+public class UpdateCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "update";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update a task in the task list.\n "
@@ -25,7 +25,7 @@ public class UpdateCommand extends Command {
             + " 1 cs2103 t/quiz";
     
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s"; 
-    
+    public static final String MESSAGE_ROLLBACK_SUCCESS = "Rollback changes to updated task!";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
     
     public final int targetIndex;
@@ -84,5 +84,13 @@ public class UpdateCommand extends Command {
         }
 
         return new CommandResult(true, String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
+    }
+
+    @Override
+    public CommandResult rollback() {
+        assert model != null;
+        model.rollback();
+        
+        return new CommandResult(true, String.format(MESSAGE_ROLLBACK_SUCCESS));
     }
 }

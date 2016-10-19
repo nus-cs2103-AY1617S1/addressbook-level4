@@ -53,11 +53,8 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public CommandResult rollback() {
-        try {
-            model.addTask(new Task(taskToDelete));
-        } catch (DuplicateTaskException e) {
-            assert false : "Task was deleted previously!";
-        }
+        assert model != null;
+        model.rollback();
         
         return new CommandResult(true, String.format(MESSAGE_ROLLBACK_SUCCESS, taskToDelete));
     }
