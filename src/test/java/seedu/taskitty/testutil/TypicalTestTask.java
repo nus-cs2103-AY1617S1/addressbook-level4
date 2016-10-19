@@ -16,9 +16,9 @@ public class TypicalTestTask {
             read = new TaskBuilder().withName("read clean code").withTags("important").build();
             spring = new TaskBuilder().withName("spring cleaning").withEndDate("31/12/2016").withEndTime("15:00")
                     .build();
-            shop = new TaskBuilder().withName("shop for xmas").withStartDate("12/12/2016").withStartTime("10:00")
+            shop = new TaskBuilder().withName("shop for xmass").withStartDate("12/12/2016").withStartTime("10:00")
                     .withEndDate("12/12/2016").withEndTime("19:00").build();
-            dinner = new TaskBuilder().withName("xmas dinner").withStartDate("25/12/2016").withStartTime("18:30")
+            dinner = new TaskBuilder().withName("xmass dinner").withStartDate("25/12/2016").withStartTime("18:30")
                     .withEndDate("26/12/2016").withEndTime("02:00").withTags("drinking").build();
             
             //manually added
