@@ -143,7 +143,6 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     public void handleTaskListPanelCollapsedEvent(CollapseChangeEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTaskListPanel().setCollapse(event.isCollapsed);
-        mainWindow.getTaskListPanel();
+        mainWindow.getTaskListPanel().setCollapse(CollapseChangeEvent.isCollapsed);
     }
 }

@@ -4,10 +4,10 @@ import teamfour.tasc.commons.events.BaseEvent;
 
 public class CollapseChangeEvent extends BaseEvent {
 
-    public boolean isCollapsed = false;
+    public static boolean isCollapsed = false;
 
     public CollapseChangeEvent(boolean toCollapse){
-        this.isCollapsed = toCollapse;
+        isCollapsed = toCollapse;
     }
 
     @Override
