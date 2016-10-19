@@ -13,6 +13,7 @@ import seedu.address.commons.core.ComponentManager;
 
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -93,7 +94,10 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
-
+    @Override
+    public void updateFilteredTaskList(String keyword){
+    	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keyword)));
+    }
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -131,17 +135,27 @@ public class ModelManager extends ComponentManager implements Model {
 
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
+        private String keyword;
 
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
+            this.keyword=null;
+        }
+        NameQualifier(String keyword){
+        	this.keyword=keyword;
+        	this.nameKeyWords=null;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
+        	if(nameKeyWords!=null){
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
                     .findAny()
                     .isPresent();
+        	}else{
+        		return task.getName().taskName.equals(keyword.trim());
+        	}
         }
 
         @Override
