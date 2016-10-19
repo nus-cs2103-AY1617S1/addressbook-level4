@@ -302,11 +302,11 @@ public class TaskListPanel extends UiPart {
     }
     
     private void updateDaysTitles(TitledPane... panes) {
-        int i = 0;
+        int i = 1;
         for(TitledPane t : panes) {
-            if(i == 0) {
+            if(i == 1) {
                 t.setText("Today (" + this.daysTaskList.get(i++).size() + ")");
-            } else if(i == 1) {
+            } else if(i == 2) {
                 t.setText("Tomorrow (" + this.daysTaskList.get(i++).size() + ")");
             } else {
                 String dayOfWeek = LocalDateTime.now().getDayOfWeek().plus(i).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
