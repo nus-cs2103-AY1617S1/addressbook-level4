@@ -25,6 +25,7 @@ public class EditCommand extends Command{
     public static final String START_WORD = "start";
     public static final String END_WORD = "end";
     public static final String TAG_WORD = "tag";
+    public static final String ADD_WORD = "add";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing task in Simply. "
             +"Parameters: INDEX <section to delete> <edited information>\n" 

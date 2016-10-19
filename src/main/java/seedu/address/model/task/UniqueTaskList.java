@@ -2,7 +2,9 @@ package seedu.address.model.task;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -145,7 +147,7 @@ public class UniqueTaskList implements Iterable<Task> {
             //Task toEdit = new Task(internalList.get(editIndex));
             
             if (args.contains(">")){
-                String[] beforeAndAfter = args.replaceAll(" ","").split(">");
+                String[] beforeAndAfter = args.replaceAll(" ","").split(">");              
                 if (!toEdit.setTags(beforeAndAfter[0], beforeAndAfter[beforeAndAfter.length-1])){
                     assert false: "The target tag cannot be missing";
                 }
@@ -155,8 +157,20 @@ public class UniqueTaskList implements Iterable<Task> {
             }
             
             internalList.set(editIndex, toEdit);
-        	return true;
+            return true;
+            
+        } else if (keyword.equals(EditCommand.ADD_WORD)) {            
+            String[] newTag = args.replaceAll(" ", "").replaceFirst("#", "").split("#");          
+            final Set<Tag> tagSet = new HashSet<>();
+            for (int i = 0; i < newTag.length; i++) {
+                tagSet.add(new Tag(newTag[i]));
+            }
+            UniqueTagList addTagList = new UniqueTagList(tagSet);            
+            toEdit.addTags(addTagList);          
+            internalList.set(editIndex, toEdit);
+            return true;
         }
+
         else {
             return false;
         }

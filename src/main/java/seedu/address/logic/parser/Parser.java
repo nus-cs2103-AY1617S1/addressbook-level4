@@ -50,6 +50,10 @@ public class Parser {
     				+ "(des|date|start|end|tag) "
     				+ ".+");
     
+    private static final Pattern ADD_TAGS_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("[E|D|T]\\d+"
+                    + "(?<tagArguments>(?: #[^#]+)*)");// variable number of tags
+    
     public Parser() {}
 
     /**
@@ -73,6 +77,8 @@ public class Parser {
         		return prepareEvent(arguments);
         	else if (DEADLINE_DATA_ARGS_FORMAT.matcher(userInput).find())
         		return prepareDeadline(arguments);
+        	else if (ADD_TAGS_ARGS_FORMAT.matcher(userInput).find())
+                return prepareAddTags(arguments);
         	else if (TODO_DATA_ARGS_FORMAT.matcher(userInput).find())
         		return prepareToDo(arguments);
         }
@@ -107,6 +113,28 @@ public class Parser {
         }
     }
     
+    private Command prepareAddTags(String args) {
+        final Matcher matcher = ADD_TAGS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        args = args.trim();
+
+        char category = args.charAt(0);
+        Optional<Integer> index = parseIndex(Character.toString(args.charAt(1)));
+        args = args.substring(args.indexOf(' ') + 1);
+
+        if(!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        Integer pass = index.get();
+        args = "add ".concat(args);
+        return new EditCommand(pass, args, category);
+    }
+
     /**
      * Parses arguments in the context of the add todo command.
      *
