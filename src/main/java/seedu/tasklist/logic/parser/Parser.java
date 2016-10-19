@@ -174,6 +174,8 @@ public class Parser {
 		String priority = parser.getField("p/");
 		String tag = parser.getField("t/");
 		
+		if (frequency == null) frequency = "";
+		
 		try{
 			Set<String> utags = (tag==null)?Collections.emptySet():getTagsFromArgs("/t"+tag);
 			return new AddCommand(name, startTime, endTime, priority, utags, frequency);
