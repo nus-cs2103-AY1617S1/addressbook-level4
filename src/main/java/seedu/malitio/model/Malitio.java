@@ -11,6 +11,7 @@ import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList;
 import seedu.malitio.model.task.UniqueEventList;
+import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
 
 import java.util.*;
@@ -209,7 +210,14 @@ public class Malitio implements ReadOnlyMalitio {
             throw new UniqueDeadlineList.DeadlineNotFoundException();
         }
     }
-
+    
+    public boolean removeEvent(ReadOnlyEvent key) throws EventNotFoundException {
+        if (events.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueEventList.EventNotFoundException();
+        }     
+    }
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

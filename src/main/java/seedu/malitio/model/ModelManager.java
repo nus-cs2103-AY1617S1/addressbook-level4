@@ -12,8 +12,10 @@ import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
@@ -250,6 +252,18 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+
+    @Override
+    public void deleteTask(ReadOnlyDeadline target) throws DeadlineNotFoundException {
+        malitio.removeDeadline(target);
+        indicatemalitioChanged();        
+    }
+
+    @Override
+    public void deleteTask(ReadOnlyEvent target) throws EventNotFoundException {
+        malitio.removeEvent(target);
+        indicatemalitioChanged();        
     }
 
 }
