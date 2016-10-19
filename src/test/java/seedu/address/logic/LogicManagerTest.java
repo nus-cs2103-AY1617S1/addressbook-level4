@@ -23,6 +23,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -380,10 +381,11 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Item adam() throws Exception {
-            Description description = new Description("Eat a lollipop");
-            //UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Item(description);
+        Item aLongEvent() throws Exception {
+            Description description = new Description("A long event");
+            LocalDateTime startDate = LocalDateTime.of(2016, 10, 10, 10, 10);
+            LocalDateTime endDate = LocalDateTime.of(2016, 12, 12, 12, 12);
+            return new Item(description, startDate, endDate);
         }
 
         /**
