@@ -220,6 +220,9 @@ Delete 2 deadlines, tasks or events
 2. Press `Enter`.
 
 ## When you want to specify a custom save location for your data
+
+> * File to save in is limited to .xml format.
+
 1. Type `save VALID_FILE_PATH`.
 2. Press `Enter`.
 
