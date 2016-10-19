@@ -71,6 +71,13 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
+    
+    /**
+     * Retrieves an immutable version of the task. Will not mutate if task is changed afterwards.
+     */
+    public ReadOnlyTask getImmutable() {
+        return new Task(this);
+    }
 
     @Override
     public boolean equals(Object other) {
