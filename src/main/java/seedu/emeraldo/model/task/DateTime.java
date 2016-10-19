@@ -67,6 +67,7 @@ public class DateTime {
     public final String value;
     public final String context;
     public final String overdueContext;
+    public final String eventContext;
     public final String valueFormatted;
     public final LocalDate valueDate;
     public final LocalTime valueTime;
@@ -95,6 +96,7 @@ public class DateTime {
             this.valueFormatted = "Not specified";
             this.context = "";
             this.overdueContext = "";
+            this.eventContext = "";
             
         } else {
 
@@ -107,7 +109,8 @@ public class DateTime {
                 this.valueDate = valueDateFormatter(matcher, preKeyword);
                 this.context = setContext(valueDate, null);
                 this.overdueContext = setOverdueContext(valueDate, null);
-                this.valueFormatted = valueFormatter(matcher, preKeyword) + context + overdueContext;
+                this.eventContext = "";
+                this.valueFormatted = valueFormatter(matcher, preKeyword) + context;
                 
 
                 
@@ -124,8 +127,9 @@ public class DateTime {
                 this.valueDate = valueDateFormatter(matcher, preKeyword);                
                 this.valueTime = valueTimeFormatter(matcher, preKeyword); 
                 this.context = setContext(valueDate, valueTime);
-                this.overdueContext = setOverdueContext(valueDate, valueTime);               
-                this.valueFormatted = valueFormatter(matcher, preKeyword) + context + overdueContext;
+                this.overdueContext = setOverdueContext(valueDate, valueTime);  
+                this.eventContext = "";
+                this.valueFormatted = valueFormatter(matcher, preKeyword) + context;
 
                 
                 this.valueDateEnd = null;
@@ -144,9 +148,10 @@ public class DateTime {
                 this.valueDateEnd = valueDateFormatter(matcher, aftKeyword);
                 this.valueTimeEnd = valueTimeFormatter(matcher, aftKeyword);
                 this.overdueContext = setOverdueContext(valueDateEnd, valueTimeEnd); 
+                this.eventContext = setEventContext(valueDate, valueTime, valueDateEnd, valueTimeEnd);
                 
                 this.valueFormatted = valueFormatter(matcher, preKeyword) + " "
-                                    + valueFormatter(matcher, aftKeyword) + context + overdueContext;                     
+                                    + valueFormatter(matcher, aftKeyword) + context + eventContext;                     
             }
             this.value = dateTime;
         }
@@ -244,7 +249,7 @@ public class DateTime {
         //For tasks that is due today, after current time
         else if (dayIsToday && timeIsLater){
         	stringHours = Long.toString(LocalTime.now().until(valueTime, ChronoUnit.HOURS));
-            context = " (Today; in " + stringHours + " Hours) "; //+ stringMinutes + " Mins)" ;
+            context = " (Today; in " + stringHours + " hours) ";
         }
     	
     	//For tasks due today at unspecified times
@@ -282,30 +287,27 @@ public class DateTime {
         	String periodDue = "";
         	
         	if (monthsDue > 0 && yearsDue > 0)
-        		periodDue = stringDaysDue + " Days " + stringMonthsDue + " Months " + stringYearsDue + " Years";
+        		periodDue = stringYearsDue + " years, " + stringMonthsDue + " months and " + stringDaysDue + " days";
         	
         	else if (monthsDue > 0 && yearsDue == 0)
-        		periodDue = stringDaysDue + " Days " + stringMonthsDue + " Months";
+        		periodDue = stringMonthsDue + " months and " + stringDaysDue + " days ";
             
         	else if (monthsDue == 0 && yearsDue == 0)
-        		periodDue = valueDate.until(LocalDate.now()).getDays() + " Days";
+        		periodDue = valueDate.until(LocalDate.now()).getDays() + " days";
         	
         	else 
         		periodDue = "";
         	
-        	overdueContext = " -- Overdue by " + periodDue + ".";
+        	overdueContext = "Overdue by " + periodDue;
         }
         
         //For tasks that is due today, at or before current time
         else if (dayIsToday && timeIsBeforeNow) {
-        	//int minutesDue = valueTime.minus(LocalTime.now(), MINUTES).getMinute();
-        	String stringHoursDue = Long.toString(valueTime.until(LocalTime.now(), ChronoUnit.HOURS));
-        	//String stringMinutesDue = Integer.toString(valueTime.getMinute());
-        	
-        	String periodDue = stringHoursDue + " Hours ";
+        	String stringHoursDue = Long.toString(valueTime.until(LocalTime.now(), ChronoUnit.HOURS));       	
+        	String periodDue = stringHoursDue + " hours ";
 			
-			overdueContext = " -- Was due just now, " + periodDue + "ago."; // + stringMinutes + " Mins ago.";
-		}
+			overdueContext = "Due just now, " + periodDue + "ago"; 
+		} 
 			
 		else if (dayIsAfterToday) {
 			overdueContext = "";
@@ -314,8 +316,27 @@ public class DateTime {
         return overdueContext;
     }
     
+    public String setEventContext(LocalDate valueDate, LocalTime valueTime, LocalDate valueDateEnd, LocalTime valueTimeEnd) {
+    	String eventContext = "";
+    	LocalDateTime valueDateTime = LocalDateTime.of(valueDate, valueTime);
+    	LocalDateTime valueDateTimeEnd = LocalDateTime.of(valueDateEnd, valueTimeEnd);
+    	Boolean duringEventTime = valueDateTime.isBefore(LocalDateTime.now()) && valueDateTimeEnd.isAfter(LocalDateTime.now());
+    	
+    	if (duringEventTime)
+    		eventContext = " (Today; Now)";
+    	
+    	else 
+    		eventContext = "";
+    	
+    	return eventContext;
+    }
+    
     public String getOverdueContext(){
     	return overdueContext;
+    }
+    
+    public String getEventContext(){
+    	return eventContext;
     }
 
     @Override
