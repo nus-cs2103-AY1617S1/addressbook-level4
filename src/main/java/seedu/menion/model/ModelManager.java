@@ -160,7 +160,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
     @Override
-    public void editEditNote(int index, String changes) {
+    public void editEventNote(int index, String changes) {
         activityManager.editEventNote(index, changes);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();

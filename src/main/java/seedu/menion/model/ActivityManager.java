@@ -195,8 +195,8 @@ public class ActivityManager implements ReadOnlyActivityManager {
     
     /**
      * @author Marx Low A0139164A
-     * Methods, UnCompletes an activity in the activity manager.
-     * Passes in the index of the list to complete
+     * Methods, edits an activity's NAME in the activity manager.
+     * Passes in the index of the list to complete, and changes to make
      * @param index
      */
     public void editFloatingTaskName(int index, String changes) {
@@ -212,6 +212,31 @@ public class ActivityManager implements ReadOnlyActivityManager {
         tasks.getInternalList().set(index, dub);   
     }
     public void editEventName(int index, String changes) {
+        Activity dub;
+        dub = events.getInternalList().get(index);
+        dub.setActivityName(changes);
+        events.getInternalList().set(index, dub);   
+    }
+    
+    /**
+     * @author Marx Low A0139164A
+     * Methods, edits an activity's NOTE in the activity manager.
+     * Passes in the index of the list to complete, and changes to make
+     * @param index
+     */
+    public void editFloatingTaskNote(int index, String changes) {
+        Activity dub;
+        dub = floatingTasks.getInternalList().get(index);
+        dub.setActivityName(changes);
+        floatingTasks.getInternalList().set(index, dub);   
+    }
+    public void editTaskNote(int index, String changes) {
+        Activity dub;
+        dub = tasks.getInternalList().get(index);
+        dub.setActivityName(changes);
+        tasks.getInternalList().set(index, dub);   
+    }
+    public void editEventNote(int index, String changes) {
         Activity dub;
         dub = events.getInternalList().get(index);
         dub.setActivityName(changes);

@@ -45,7 +45,7 @@ public interface Model {
      */
     void editFloatingTaskNote(int index, String changes);
     void editTaskNote(int index, String changes);
-    void editEditNote(int index, String changes);
+    void editEventNote(int index, String changes);
     
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
