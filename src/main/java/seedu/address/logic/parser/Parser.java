@@ -224,9 +224,10 @@ public class Parser {
         }
 
         // keywords delimited by whitespace
+        final String operand = (matcher.group("operand") == null) ? "" : matcher.group("operand");
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        return new FindCommand(operand, keywordSet);
     }
 
     private Command prepareAddTag(String args){
