@@ -7,8 +7,9 @@ import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the
- * argument keywords. Keyword matching is case sensitive.
+ * 
+ * @author Marx A0139164A
+ * Completes an activity given the index and it's activtyType
  */
 public class CompleteCommand extends Command {
 
