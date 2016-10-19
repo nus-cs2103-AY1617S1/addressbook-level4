@@ -17,14 +17,14 @@ public class ActivityManager {
     private static final String NULL_ENTRY = "";
     
     public static Activity editUnaffectedParams(Activity oldTask, Activity newParams, String type) {
-        Activity newTask = null;
+        Activity newActivity = null;
         String oldTaskType = oldTask.getClass().getSimpleName().toLowerCase();
         String newParamsType = newParams.getClass().getSimpleName().toLowerCase();
         try {
             switch (oldTaskType) {
             case "activity":
                 if (newParamsType.equals("task")) {
-                    newTask = new Task(
+                    newActivity = new Task(
                             updateTaskName(oldTask, newParams, type),
                             updateDueDate(oldTask, newParams, type),
                             updatePriority(oldTask, newParams, type),
@@ -32,7 +32,7 @@ public class ActivityManager {
                             updateTags(oldTask, newParams)
                             );
                 } else if (newParamsType.equals("event")) {
-                    newTask = new Event(
+                    newActivity = new Event(
                             updateTaskName(oldTask, newParams, type),
                             updateStartTime(oldTask, newParams, type),
                             updateEndTime(oldTask, newParams, type),
@@ -40,26 +40,43 @@ public class ActivityManager {
                             updateTags(oldTask, newParams)
                             );
                 } else {
-                    newTask = new Activity(
+                    newActivity = new Activity(
                             updateTaskName(oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),
                             updateTags(oldTask, newParams)
                             );
                 }
                 
-                newTask.setCompletionStatus(oldTask.getCompletionStatus());
+                newActivity.setCompletionStatus(oldTask.getCompletionStatus());
                 break;
             case "task":
-                newTask = new Task(
+            	 if (newParamsType.equals("task")) {
+            	newActivity = new Task(
                         updateTaskName(oldTask, newParams, type),
                         updateDueDate((Task) oldTask, newParams, type),
                         updatePriority((Task) oldTask, newParams, type),
                         updateReminder(oldTask, newParams, type),
                         updateTags(oldTask, newParams)
                         );
-                newTask.setCompletionStatus(oldTask.getCompletionStatus());
+            	 } else if(type == "undo") {
+					newActivity = new Activity(
+							updateTaskName(oldTask, newParams, type),
+							updateReminder(oldTask, newParams, type),
+							updateTags(oldTask, newParams)
+					);
+            		 
+            	 }
+            	
+            	newActivity.setCompletionStatus(oldTask.getCompletionStatus());
                 break;
             case "event":
+            	if (newParamsType.equals("activity") && (type == "undo") ) {
+                    newActivity = new Activity(
+                            updateTaskName(oldTask, newParams, type),
+                            updateReminder(oldTask, newParams, type),
+                            updateTags(oldTask, newParams)
+                                 ); 
+            	}
                 break;
             default:
                 assert false : "Invalid class type";
@@ -68,7 +85,7 @@ public class ActivityManager {
             assert false : "There should not be any illegal value at this point";
         }
         
-        return newTask;
+        return newActivity;
     }
 
     public static void marksTask(Activity task, boolean isComplete) {

@@ -24,39 +24,13 @@ public class PreviousCommand {
 		updatedTask = task;
 		oldTask = null;
 	}
-	
-	public PreviousCommand(String command, ReadOnlyActivity task) {
-		COMMAND_WORD = command;
-		oldTask = null;
-		try {
-		updatedTask = new Activity(
-                new Name(task.getName().toString()),
-                new DueDate(task.getDueDate().getCalendarValue()),
-                new Priority(task.getPriority().toString()),
-                new Reminder(task.getReminder().getCalendarValue()),
-                new UniqueTagList(task.getTags())
-        );
-		} catch (IllegalValueException ive) {
-			assert false: "Strings have to be all valid to be added in the first place";
-		}
-	}
-	
-	public PreviousCommand(String command, ReadOnlyActivity originalTask, ReadOnlyActivity editedTask) {
+		
+	public PreviousCommand(String command, Activity originalActivity, Activity editedActivity) {
         COMMAND_WORD = command;
-        updatedTask = new Activity(editedTask);
-        
-        try {            
-            oldTask = new Activity(
-                new Name(originalTask.getName().toString()),
-                new DueDate(originalTask.getDueDate().getCalendarValue()),
-                new Priority(originalTask.getPriority().toString()),
-                new Reminder(originalTask.getReminder().getCalendarValue()),
-                new UniqueTagList(originalTask.getTags())
-        );
-        } catch (IllegalValueException ive) {
-            assert false: "Strings have to be all valid to be added in the first place";
-        }
-	
+        updatedTask = editedActivity;
+                
+            oldTask = originalActivity;
+
 	}
 
 	public String getCommand()

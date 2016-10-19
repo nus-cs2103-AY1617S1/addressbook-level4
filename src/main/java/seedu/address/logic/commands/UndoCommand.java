@@ -97,10 +97,11 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(MESSAGE_UNDO_EDIT_SUCCESS, taskBeforeEdit, taskAfterEdit));
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task to be edited cannot be missing";
+        return new CommandResult("not found");
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "The unedited task should not be a duplicate of the edited task";
-        }
-        return null;   
+        return new CommandResult("duplicate");
+        } 
     }
 
 	/**
