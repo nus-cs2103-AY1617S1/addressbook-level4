@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
@@ -16,6 +17,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits a task identified using it's last displayed index from the task manager.
  */
+//@@author A0139339W
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -30,15 +32,20 @@ public class EditCommand extends Command {
 
 
     public final int targetIndex;
-    private final Name toEdit;
+    private final Optional<Name> newName;
+    private final Optional<LocalDateTime> newStartDateTime;
+    private final Optional<LocalDateTime> newEndDateTime;
 
     /**
      * For editing name of task
      * @throws IllegalValueException 
      */
-    public EditCommand(int targetIndex, String name) throws IllegalValueException {
+    public EditCommand(int targetIndex, String name, LocalDateTime startDateTime, LocalDateTime endDateTime)
+    		throws IllegalValueException {
         this.targetIndex = targetIndex;
-        this.toEdit = new Name(name);
+        this.newName = Optional.ofNullable(new Name(name));
+        this.newStartDateTime = Optional.ofNullable(startDateTime);
+        this.newEndDateTime = Optional.ofNullable(endDateTime);
     }
 
 
@@ -58,12 +65,26 @@ public class EditCommand extends Command {
 
         try {
         	Task postEdit = new Task(taskToEdit);
-        	postEdit.setName(toEdit);
+        	
+        	if(newName.isPresent()) {
+        		postEdit.setName(newName.get());
+        	}
+        	
+        	if(newStartDateTime.isPresent()) {
+        		postEdit.setStartDate(newStartDateTime.get());
+        	}
+        	
+        	if(newEndDateTime.isPresent()) {
+        		postEdit.setEndDate(newEndDateTime.get());
+        	}
+        	
         	if(lastShownList.contains(postEdit)) {
         		return new CommandResult(MESSAGE_DUPLICATE_TASK);
         	}
+        	
             model.editTask(targetIndex, postEdit);
-        } catch (TaskNotFoundException pnfe) {
+            
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
         
