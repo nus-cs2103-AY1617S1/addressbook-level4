@@ -23,6 +23,7 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_DUPLICATE_ITEM = "This task already exists in the to-do list";
 
 	private final Item toAdd;
+	private boolean hasTimeString = false;
 
 	
 	/**
@@ -33,11 +34,15 @@ public class AddCommand extends Command {
 	 */
 	public AddCommand(String descriptionStr, String timeStr) throws IllegalValueException {
 		assert descriptionStr != null;
+		if (timeStr != null && !timeStr.equals("")) {
+			hasTimeString = true;
+		}
 		Description descriptionObj = new Description(descriptionStr);
 		DateTimeParser parser = new DateTimeParser(timeStr);
 		LocalDateTime startTimeObj = parser.extractStartDate();
 		LocalDateTime endTimeObj = parser.extractEndDate();
 		this.toAdd = new Item(descriptionObj, startTimeObj, endTimeObj);
+		// System.out.println(toAdd.getStartDate().toString() + " " + toAdd.getEndDate().toString());
 	}
 
 	@Override
@@ -45,7 +50,8 @@ public class AddCommand extends Command {
 		assert model != null;
 		try {
 			model.addItem(toAdd);
-			if (this.toAdd.getStartDate() == null || this.toAdd.getEndDate() == null) {
+			// if user input something for time but it's not correct format
+			if (this.hasTimeString && (this.toAdd.getStartDate() == null || this.toAdd.getEndDate() == null)) {
 				return new CommandResult(String.format(MESSAGE_SUCCESS_TIME_NULL, toAdd));
 			} else {
 				return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
