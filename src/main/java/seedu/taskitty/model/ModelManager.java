@@ -29,8 +29,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTodos;
     private final FilteredList<Task> filteredDeadlines;
     private final FilteredList<Task> filteredEvents;
+
     private final Stack<ReadOnlyTaskManager> historyTaskManagers;
     private final Stack<String> historyCommands;
+
     private final Stack<Predicate> historyPredicates;
 
     /**
@@ -159,11 +161,18 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines.setPredicate(null);
         filteredEvents.setPredicate(null);
     }
-
+    
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    @Override
+    public void updateFilteredDoneList() {
+    	updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
+    }
+    	
+  
 
     private void updateFilteredTaskList(Expression expression) {
         allTasks.setPredicate(expression::satisfies);
