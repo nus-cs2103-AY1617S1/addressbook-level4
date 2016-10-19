@@ -83,6 +83,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     
+    @Override
+    public synchronized void rollback() {
+        taskManager.rollback();
+        indicateAddressBookChanged();
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
