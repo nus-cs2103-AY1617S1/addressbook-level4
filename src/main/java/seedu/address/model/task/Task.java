@@ -15,7 +15,7 @@ public class Task implements ReadOnlyTask {
     private Date date;
     private StartTime start;
     private EndTime end;
-
+    
     private UniqueTagList tags;
 
     /**
@@ -62,6 +62,11 @@ public class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
     
+    @Override
+    public String getDone() {
+    	return date.getDate();
+    }
+
     public void setName(Name name) {
         this.name = name;
     }
@@ -97,6 +102,16 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    public void setDone() {
+    	System.out.println("done");
+    	this.date.setDate("true");
+    }
+    
+    public void setUndone() {
+    	System.out.println("undone");
+    	this.date.setDate("false");
     }
 
 }

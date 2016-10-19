@@ -11,6 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.storage.Storage;
 
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
