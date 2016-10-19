@@ -188,4 +188,12 @@ public class Task implements ReadOnlyTask {
 	public String toString() {
 		return getAsText();
 	}
+
+    public boolean hasStartTime() {
+        return startTime != null;
+    }
+    
+    public boolean hasEndTime() {
+        return endTime != null;
+    }
 }

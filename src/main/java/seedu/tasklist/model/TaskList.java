@@ -150,6 +150,10 @@ public class TaskList implements ReadOnlyTaskList{
 	public List<ReadOnlyTask> getTaskList() {
 		return Collections.unmodifiableList(tasks.getInternalList());
 	}
+	
+	public List<Task> getListOfTasks() {
+        return tasks.getInternalList();
+    }
 
 	@Override
 	public List<Tag> getTagList() {
