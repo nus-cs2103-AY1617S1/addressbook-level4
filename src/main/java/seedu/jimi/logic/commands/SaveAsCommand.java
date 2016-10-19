@@ -19,7 +19,7 @@ public class SaveAsCommand extends Command {
 
     public static final String COMMAND_WORD = "saveas";
 
-    private static final String DEFAULT_FILE_PATH = new Config().getTaskBookFilePath();
+    private static final String DEFAULT_FILE_PATH = (new Config()).getTaskBookFilePath();
     
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Set a new save directory for all your tasks and events in Jimi.\n"
@@ -90,10 +90,10 @@ public class SaveAsCommand extends Command {
      */
     private static void saveAsDefaultConfig() {
         try {
-            ConfigUtil.saveConfig(new Config(), configFilePath);
+            ConfigUtil.saveConfig(new Config(), Config.DEFAULT_CONFIG_FILE);
         } catch (IOException e) {
             e.printStackTrace();
-        }        
+        }     
     }
 
     @Override

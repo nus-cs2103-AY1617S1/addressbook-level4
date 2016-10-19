@@ -102,7 +102,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
-    /** Raises an event to indicate the model has changed */
+    /** Raises an event to indicate the storage has changed */
     private void indicateStoragePathChanged() {
         Config config;
         try {
