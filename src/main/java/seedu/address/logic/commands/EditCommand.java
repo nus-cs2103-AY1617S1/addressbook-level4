@@ -56,15 +56,18 @@ public class EditCommand extends Command {
         if (description != null){
             this.description = new Description(description);
         }
-        // user inputs "date/" preceding empty <?date> group
-        if (dateList.isEmpty()){
-           this.date = new Date((String)null);
-           this.time = new Time((String)null);
-        }
-        // user inputs 
-        else {
-        	this.date = new Date(dateList);
-        	this.time = new Time(dateList);
+        
+        if (dateList != null){
+        	// user inputs "date/" preceding empty <?date> group: converts Dated Task -> Undated Task
+        	if (dateList.isEmpty()){
+        		this.date = new Date((String)null);
+        		this.time = new Time((String)null);
+        	}
+        	// user inputs edited Date which replaces Task Date
+        	else {
+        		this.date = new Date(dateList);
+        		this.time = new Time(dateList);
+        	}
         }
         
         this.tags = new UniqueTagList(tagSet);
