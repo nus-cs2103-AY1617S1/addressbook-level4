@@ -37,13 +37,14 @@
 
 #### Adding a task : `add`
 Adds a task, deadline, event or a floating task to the list. <br>
-Format: `add TASKNAME [at/from TIMEDATE] [by/to TIMEDATE] [p/PRIORITY]`
+Format: `add TASKNAME [at/from START_TIMEDATE] [by/to END_TIMEDATE] [r/RECURRING] [p/PRIORITY]`
 
 > * For tasks and events, at least one of the two TIMEDATE values must be included.<br>
 > * For floating tasks, none of the TIMEDATE values are specified.<br>
 > * If the taskname contains keywords like "add", the user can enter it using the escape character '\'.
 * `add Shop \at Topshop at 5pm`
 > * Priority must be low/med/high. If priority is not specified, default priority of low is set.
+> * Recurring frequency can be either of daily, weekly, monthly or yearly.
 > * If START_TIMEDATE exceeds END_TIMEDATE, the addition of task will not be successful.
 
 Examples: 
@@ -106,10 +107,10 @@ Examples:
 
 #### Updating a task : `update`
 Updates information for a task referred by its index.<br>
-Format: `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [p/PRIORITY]`
+Format: `update INDEX [TASKNAME] [at/from [START_TIMEDATE] [to/by [END_TIMEDATE]] [r/RECURRING] [p/PRIORITY]`
 
 > * Replaces the entered information for the task at the specified index
-> * If updated START_TIME/DATE exceeds END_TIME/DATE of the task, the update will not be successful
+> * If updated START_TIMEDATE exceeds END_TIMEDATE of the task, the update will not be successful
 
 Examples:
 * `update 1 at 13/09/2016 5pm`<br>
@@ -136,7 +137,7 @@ Examples:
 * `done b*y`
 
 #### Setting the storage location: `setstorage`
-Sets the data storage location <br>
+Sets the data storage location to the specified file path. <br>
 Format: `setstorage FILEPATH`
 
 #### Undo previous action(s): `undo`
@@ -178,11 +179,11 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-add | `add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE] [p/PRIORITY]`
+add | `add TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE] [r/RECURRING] [p/PRIORITY]`
 show | `show TYPE`
 find | `find SEARCHSTRING`
 delete | `delete INDEX/TASKNAME`
-update | `update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [p/PRIORITY]`
+update | `update INDEX [TASKNAME] [at/from [START_TIMEDATE]] [to/by [END_TIMEDATE]] [r/RECURRING] [p/PRIORITY]`
 done | `done INDEX/TASKNAME`
 setstorage | `setstorage FILEPATH`
 undo | `undo`
