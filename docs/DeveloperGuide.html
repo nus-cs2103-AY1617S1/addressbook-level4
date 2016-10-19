@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Developer Guide | Uncle Jim's Discount Todo List App by Reminding Logical Apartment</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/skeleton.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -54,6 +54,20 @@
 <li><a href="#dispatcher">Dispatcher</a></li>
 <li><a href="#command">Command</a></li>
 <li><a href="#arguments">Arguments</a></li>
+</ul>
+</li>
+<li><a href="#model">Model</a><ul>
+<li><a href="#task">Task</a></li>
+<li><a href="#immutabletask">ImmutableTask</a></li>
+<li><a href="#todolist">TodoList</a></li>
+<li><a href="#todomodel">TodoModel</a></li>
+<li><a href="#errorbag">ErrorBag</a></li>
+<li><a href="#storage">Storage</a><ul>
+<li><a href="#fixedstorage">FixedStorage</a></li>
+<li><a href="#todoliststorage">TodoListStorage</a></li>
+<li><a href="#xml">Xml...</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#logging">Logging</a><ul>
@@ -109,8 +123,8 @@
 </li>
 </ul>
 </div>
-<div class="no-page-break"><h2 id="introduction"><span>1 </span>Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2><p>Welcome to the project! This guide will get you up to speed with how to set up your development environment, 
-the basic architecture of the application, how to perform some common development tasks as well as 
+<div class="no-page-break"><h2 id="introduction"><span>1 </span>Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2><p>Welcome to the project! This guide will get you up to speed with how to set up your development environment,
+the basic architecture of the application, how to perform some common development tasks as well as
 who to contact when you're lost.</p></div>
 
 <div class="no-page-break"><h3 id="tooling"><span>1.1 </span>Tooling<a class="headerlink" href="#tooling" title="Permanent link">#</a></h3><p>This project uses </p></div>
@@ -125,9 +139,9 @@ who to contact when you're lost.</p></div>
 <div class="no-page-break"><h2 id="setting-up"><span>2 </span>Setting up<a class="headerlink" href="#setting-up" title="Permanent link">#</a></h2><h3 id="prerequisites"><span>2.1 </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h3></div>
 
 <ol>
-<li><strong>A git client</strong>. If you're on Linux you should already have one installed on your command line. For Windows 
+<li><strong>A git client</strong>. If you're on Linux you should already have one installed on your command line. For Windows
 and OS X you can use <a href="https://www.sourcetreeapp.com/">SourceTree</a> if you are more comfortable with using <abbr title="Graphical User Interface">GUI</abbr></li>
-<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"><strong>JDK 1.8.0_60</strong></a>  or later. Please use Oracle's because it comes with JavaFX, which is needed for 
+<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"><strong>JDK 1.8.0_60</strong></a>  or later. Please use Oracle's because it comes with JavaFX, which is needed for
 developing the application's <abbr title="User interface">UI</abbr>.</li>
 <li><strong>Eclipse</strong> IDE</li>
 <li><strong>e(fx)clipse</strong> plugin for Eclipse (Do the steps 2 onwards given in
@@ -160,7 +174,7 @@ developing the application's <abbr title="User interface">UI</abbr>.</li>
 
 <div class="no-page-break"><h2 id="design"><span>3 </span>Design<a class="headerlink" href="#design" title="Permanent link">#</a></h2><h3 id="architecture"><span>3.1 </span>Architecture<a class="headerlink" href="#architecture" title="Permanent link">#</a></h3></div>
 
-<figure><img src="images/Architecture.png" width="600"/><figcaption><strong>Figure 1. </strong>Simplistic overview of the application</figcaption></figure>
+<figure><img class="u-max-full-width" src="diagrams/Architecture Diagram.png"/><figcaption><strong>Figure 1. </strong>Simplistic overview of the application</figcaption></figure>
 
 <p>The Architecture Diagram above explains the high-level design of the App. Here is a quick overview of each component.</p>
 <p><code>Main</code> has only one class called <a href="../src/main/java/seedu/todo/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
@@ -168,27 +182,19 @@ developing the application's <abbr title="User interface">UI</abbr>.</li>
 <li>At app launch: Bootstrapping the application by initializing the components in the correct sequence and injecting the dependencies needed for each component. </li>
 <li>At shut down: Shuts down the components and invoke cleanup method where necessary.</li>
 </ul>
-<p><a href="#common-classes"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.</p>
-<ul>
-<li><code>EventsCentre</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google's Event Bus library</a>) is used by components to communicate with other components using events (i.e. a form of <em>Event Driven</em> design)</li>
-<li><code>LogsCenter</code> : Used by many classes to write log messages to the App's log file.</li>
-</ul>
-<p><a href="#common-modules"><strong><code>Commons</code></strong></a> represents a collection of modules used by multiple other components. A few of these modules play important roles at the architecture level.</p>
-<p>The rest of the App consists three components.</p>
-<ul>
-<li><a href="#ui-component"><strong><code>UI</code></strong></a>: The user facing elements of tha App, representing the view layer. </li>
-<li><a href="#logic-component"><strong><code>Logic</code></strong></a>: The parser and command executer, representing the controller </li>
-<li><a href="#model-component"><strong><code>Model</code></strong></a>: Data manipulation and storage, representing the model and data layer </li>
-</ul>
+<p><a href="#common-modules"><strong><code>Commons</code></strong></a> represents a collection of modules used by multiple other components.
+<em> <a href="#ui-component"><strong><code>UI</code></strong></a>: The user facing elements of tha App, representing the view layer.
+</em> <a href="#logic-component"><strong><code>Logic</code></strong></a>: The parser and command executer, representing the controller
+* <a href="#model-component"><strong><code>Model</code></strong></a>: Data manipulation and storage, representing the model and data layer </p>
 <p>Each of the three components defines its API in an <code>interface</code> with the same name and are bootstrapped at launch by <code>MainApp</code>.</p>
 <p>For example, the <code>Logic</code> component (see the class diagram given below) defines it's API in the <code>Logic.java</code> interface and exposes its functionality using the <code>TodoLogic.java</code> class.</p>
-<figure><img class="u-max-full-width" src="diagrams/Logic Component.svg"/><figcaption><strong>Figure 2. </strong>Example of a Logic class diagram exposing its API to other components</figcaption></figure>
+<figure><img class="u-max-full-width" src="diagrams/Logic Component.png"/><figcaption><strong>Figure 2. </strong>Example of a Logic class diagram exposing its API to other components</figcaption></figure>
 
 <p>The Sequence Diagram below shows how the components interact when the user issues a generic command.</p>
-<figure><img class="u-max-full-width" src="diagrams/Sequence Diagram.svg"/><figcaption><strong>Figure 3. </strong>The interaction of major components in the application through a sequence diagram</figcaption></figure>
+<figure><img class="u-max-full-width" src="diagrams/Sequence Diagram.png"/><figcaption><strong>Figure 3. </strong>The interaction of major components in the application through a sequence diagram</figcaption></figure>
 
 <p>The diagram below shows how the <code>EventsCenter</code> reacts to a <code>help</code> command event, where the <abbr title="User interface">UI</abbr> does not know or contain any business side logic.</p>
-<figure><img class="container u-max-full-width" src="diagrams/Events Center Diagram.svg"/><figcaption><strong>Figure 4. </strong>A sequence diagram showing how EventsCenter work</figcaption></figure>
+<figure><img class="container u-max-full-width" src="diagrams/Events Center Diagram.png"/><figcaption><strong>Figure 4. </strong>A sequence diagram showing how EventsCenter work</figcaption></figure>
 
 <div class="admonition note">
 <p class="admonition-title">Event Driven Design</p>
@@ -197,11 +203,11 @@ to be coupled to either of them. This is an example of how this Event Driven app
 coupling between components.</p>
 </div>
 <p>The sections below give more details of each component.</p>
-<div class="no-page-break"><h3 id="ui-component"><span>3.2 </span><abbr title="User interface">UI</abbr> component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3><figure><img class="u-max-full-width" src="diagrams/Ui Component.svg"/><figcaption><strong>Figure 5. </strong>The relation between the UI subcomponents</figcaption></figure></div>
+<div class="no-page-break"><h3 id="ui-component"><span>3.2 </span><abbr title="User interface">UI</abbr> component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3><figure><img class="u-max-full-width" src="diagrams/Ui Component.png"/><figcaption><strong>Figure 5. </strong>The relation between the UI subcomponents</figcaption></figure></div>
 
 
 <p>The <abbr title="User interface">UI</abbr> component handles the interaction between the user and application. In particular, the <abbr title="User interface">UI</abbr> is responsible for passing the textual command input from the user to the <code>Logic</code> for execution, and then display the outcome of the execution to the user via the <abbr title="Graphical User Interface">GUI</abbr>.</p>
-<figure><img class="u-max-full-width" src="diagrams/Ui Image.svg"/><figcaption><strong>Figure 6. </strong>Visual identification of view elements in the UI</figcaption></figure>
+<figure><img class="container u-max-full-width" src="diagrams/Ui Image.png"/><figcaption><strong>Figure 6. </strong>Visual identification of view elements in the UI</figcaption></figure>
 
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/ui/Ui.java"><code>Ui.java</code></a></p>
 <p>The <abbr title="User interface">UI</abbr> mainly consists of a <code>MainWindow</code>, as shown in the diagram above. This is where most of the interactions between the user and the application happen here. The <code>MainWindow</code> contains several major view elements that are discussed in greater detail below:</p>
@@ -229,10 +235,10 @@ coupling between components.</p>
 
 <p>The <abbr title="User interface">UI</abbr> component uses <a href="http://docs.oracle.com/javase/8/javafx/get-started-tutorial/jfx-overview.htm#JFXST784">JavaFX</a> <abbr title="User interface">UI</abbr> framework. The layout of these <abbr title="User interface">UI</abbr> parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="../src/main/java/seedu/todo/ui/view/CommandInputView.java"><code>CommandInputView</code></a> is specified in <a href="../src/main/resources/view/CommandInputView.fxml"><code>CommandInputView.fxml</code></a></p>
 <p>Other than through <code>CommandResult</code> and <code>ObservableList</code>, you may also invoke changes to the <abbr title="Graphical User Interface">GUI</abbr> outside the scope of <abbr title="User interface">UI</abbr> components by raising an event. <code>UiManager</code> will then call specific view elements to update the <abbr title="Graphical User Interface">GUI</abbr> accordingly. For example, you may show the <code>HelpView</code> by raising a <code>ShowHelpPanel</code> via the <code>EventsCentre</code>.</p>
-<div class="no-page-break"><h3 id="logic-component"><span>3.3 </span>Logic component<a class="headerlink" href="#logic-component" title="Permanent link">#</a></h3><figure><img class="u-max-full-width" src="diagrams/Logic Component.svg"/><figcaption><strong>Figure 7. </strong>The relation between the Logic subcomponents</figcaption></figure></div>
+<div class="no-page-break"><h3 id="logic-component"><span>3.3 </span>Logic component<a class="headerlink" href="#logic-component" title="Permanent link">#</a></h3><figure><img class="u-max-full-width" src="diagrams/Logic Component.png"/><figcaption><strong>Figure 7. </strong>The relation between the Logic subcomponents</figcaption></figure></div>
 
 
-<figure><img class="u-max-full-width" src="diagrams/Logic Component 1.svg"/><figcaption><strong>Figure 8. </strong>Continuation of the relation between the Logic subcomponents</figcaption></figure>
+<figure><img class="u-max-full-width" src="diagrams/Logic Component 1.png"/><figcaption><strong>Figure 8. </strong>Continuation of the relation between the Logic subcomponents</figcaption></figure>
 
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/logic/Logic.java"><code>Logic.java</code></a></p>
 <p>The logic component is the glue sitting between the <abbr title="User interface">UI</abbr> and the data model. It consists of three separate subcomponents, each of which also defines their own API using interfaces or abstract classes - </p>
@@ -251,9 +257,9 @@ the command the user called</li>
 <li>The command execution can affect the <code>Model</code> (e.g. adding a person), and/or raise events.</li>
 </ol>
 <p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call. See <a href="#logic">the implementation section</a> below for the implementation details of the logic component.  </p>
-<figure><img class="u-max-full-width" src="images/DeletePersonSdForLogic.png"/><figcaption><strong>Figure 9. </strong>The process of deleting a person within the Logic component</figcaption></figure>
+<figure><img class="u-max-full-width" src="diagrams/Logic Sequence Diagram.png"/><figcaption><strong>Figure 9. </strong>The process of deleting a person within the Logic component</figcaption></figure>
 
-<div class="no-page-break"><h3 id="model-component"><span>3.4 </span>Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3><figure><img class="container u-max-full-width" src="diagrams/Model Component.svg"/><figcaption><strong>Figure 10. </strong>The relation between the Model subcomponents</figcaption></figure></div>
+<div class="no-page-break"><h3 id="model-component"><span>3.4 </span>Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3><figure><img class="container u-max-full-width" src="diagrams/Model Component.png"/><figcaption><strong>Figure 10. </strong>The relation between the Model subcomponents</figcaption></figure></div>
 
 
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/model/Model.java"><code>Model.java</code></a></p>
@@ -265,7 +271,7 @@ the command the user called</li>
 <p>Each individual data model handles their own <abbr title="Create, Retrieve, Update, Delete">CRUD</abbr> operations, with the <code>Model</code> acting as a facade to present a simplified and uniform interface for external components to work with. Each of the data model holds a <code>Storage</code> object that is initalized by the <code>Model</code> and injected into them. The storage interfaces exposes a simple interface for reading and writing to the appropriate storage mechanism (read more below).</p>
 <p>To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The <abbr title="User interface">UI</abbr> component binds to the  the model through the <code>getObservableList</code> function which returns an <code>UnmodifiableObseravbleList</code> object that the <abbr title="User interface">UI</abbr> can bind to.</p>
 <p>The model ensure safety by exposing as much of its internal state as possible as immutable objects using interfaces such as <code>ImmutableTask</code>.</p>
-<figure><img class="container u-max-full-width" src="diagrams/Storage Component.svg"/><figcaption><strong>Figure 11. </strong>The relation between the Storage subcomponents</figcaption></figure>
+<figure><img class="container u-max-full-width" src="diagrams/Storage Component.png"/><figcaption><strong>Figure 11. </strong>The relation between the Storage subcomponents</figcaption></figure>
 
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/storage/Storage.java"><code>Storage.java</code></a></p>
 <p>The storage component represents the persistence layer of the data. It is implemented by <code>TodoListStorage</code> which holds and contains <code>ImmutableTodoList</code>. Similarly, <code>JsonUserPrefsStorage</code> stores the user preferences. </p>
@@ -282,6 +288,10 @@ the command the user called</li>
 </ul>
 <div class="no-page-break"><h4 id="util"><span>3.5.2 </span>Util<a class="headerlink" href="#util" title="Permanent link">#</a></h4><p>The util module contains many different helper methods and classes used throughout the application. The things that can, and should be reused can be found in here.</p></div>
 
+<ul>
+<li><code>TimeUtil</code> : Used by Ui to display time that is readable and user friendly.</li>
+<li><code>XmlUtil</code>: Used by storage to save and read .xml files.</li>
+</ul>
 <div class="no-page-break"><h4 id="exceptions"><span>3.5.3 </span>Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">#</a></h4><p>The exceptions module contains all common exceptions that will be used and thrown throughout the application.</p></div>
 
 <ul>
@@ -300,8 +310,8 @@ the command the user called</li>
 </ul>
 <p>For example, the command <code>add The Milk -d tomorrow 3pm -p</code> will produce </p>
 <div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">command</span><span class="p p-Indicator">:</span> <span class="s">"add"</span>
-<span class="l l-Scalar l-Scalar-Plain">positional</span><span class="p p-Indicator">:</span> <span class="s">"The</span><span class="nv"> </span><span class="s">Milk"</span> 
-<span class="l l-Scalar l-Scalar-Plain">named</span><span class="p p-Indicator">:</span> 
+<span class="l l-Scalar l-Scalar-Plain">positional</span><span class="p p-Indicator">:</span> <span class="s">"The</span><span class="nv"> </span><span class="s">Milk"</span>
+<span class="l l-Scalar l-Scalar-Plain">named</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">d</span><span class="p p-Indicator">:</span> <span class="s">"tomorrow</span><span class="nv"> </span><span class="s">3pm"</span>
   <span class="l l-Scalar l-Scalar-Plain">p</span><span class="p p-Indicator">:</span> <span class="s">""</span> <span class="c1"># Empty String</span>
 </pre></div>
@@ -361,7 +371,26 @@ the command the user called</li>
     <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
-<div class="no-page-break"><h3 id="logging"><span>4.2 </span>Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3><p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p></div>
+<div class="no-page-break"><h3 id="model"><span>4.2 </span>Model<a class="headerlink" href="#model" title="Permanent link">#</a></h3><p>See the <a href="#model-component">Model component architecture</a> section for the high level overview of the Model and Storage components.</p></div>
+
+<h5 id="task">Task<a class="headerlink" href="#task" title="Permanent link">#</a></h5>
+<p>A <code>Task</code> is a representation of a task or event in the todolist. This object implements <code>MutableTask</code> which allows us to edit the fields.</p>
+<h5 id="immutabletask">ImmutableTask<a class="headerlink" href="#immutabletask" title="Permanent link">#</a></h5>
+<p>This interface is used frequently to expose fields of a <code>Task</code> to external components. It prevents external components from having access to the setters.</p>
+<h5 id="todolist">TodoList<a class="headerlink" href="#todolist" title="Permanent link">#</a></h5>
+<p>This class represents the todolist inside the memory and implements the <code>TodoListModel</code>. This interface is internal to Model and represents only <abbr title="Create, Retrieve, Update, Delete">CRUD</abbr> operations to the todolist.</p>
+<h5 id="todomodel">TodoModel<a class="headerlink" href="#todomodel" title="Permanent link">#</a></h5>
+<p>This class represents the data layer of the application and implements the <code>Model</code> interface. The <code>TodoModel</code> handles any interaction with the application state that are not persisted, such as the view (sort and filtering), undo and redo commands.</p>
+<h5 id="errorbag">ErrorBag<a class="headerlink" href="#errorbag" title="Permanent link">#</a></h5>
+<p>The <code>ErrorBag</code> is a wrapper around all the errors produced while processing a model. This class exposes the errors to the Ui to show the user understand what went wrong.</p>
+<div class="no-page-break"><h4 id="storage"><span>4.2.1 </span>Storage<a class="headerlink" href="#storage" title="Permanent link">#</a></h4><h5 id="fixedstorage">FixedStorage<a class="headerlink" href="#fixedstorage" title="Permanent link">#</a></h5></div>
+
+<p>This interface simply exposes the read and save methods for external usage in order to store and read data from the persistence layer.</p>
+<h5 id="todoliststorage">TodoListStorage<a class="headerlink" href="#todoliststorage" title="Permanent link">#</a></h5>
+<p>The main class that is exposed to the Model. In addition from reading and saving, methods are exposed to enable user to switch where the storage file is saved and read.</p>
+<h5 id="xml">Xml...<a class="headerlink" href="#xml" title="Permanent link">#</a></h5>
+<p>Classes prefixed with <code>Xml</code> are classes used to enable serialization of the Model. As the prefix suggests, the critical data is stored in the <code>.xml</code> file format and uses <code>JAXB</code> to read and save to the persistence layer.</p>
+<div class="no-page-break"><h3 id="logging"><span>4.3 </span>Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3><p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p></div>
 
 <ul>
 <li>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#configuration">Configuration</a>)</li>
@@ -373,7 +402,7 @@ the command the user called</li>
 <div class="codehilite"><pre><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LogsCenter</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(&lt;</span><span class="n">YOUR</span> <span class="n">CLASS</span><span class="o">&gt;.</span><span class="na">class</span><span class="o">);</span>
 </pre></div>
 <p>at the top of your class, and replace <code>&lt;YOUR CLASS&gt;</code> with the class the logger is used in.</p>
-<div class="no-page-break"><h4 id="logging-levels"><span>4.2.1 </span>Logging Levels<a class="headerlink" href="#logging-levels" title="Permanent link">#</a></h4><table>
+<div class="no-page-break"><h4 id="logging-levels"><span>4.3.1 </span>Logging Levels<a class="headerlink" href="#logging-levels" title="Permanent link">#</a></h4><table>
 <thead>
 <tr>
 <th>Level</th>
@@ -400,7 +429,7 @@ the command the user called</li>
 </tbody>
 </table></div>
 
-<div class="no-page-break"><h3 id="configuration"><span>4.3 </span>Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h3><p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>)</p></div>
+<div class="no-page-break"><h3 id="configuration"><span>4.4 </span>Configuration<a class="headerlink" href="#configuration" title="Permanent link">#</a></h3><p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>)</p></div>
 
 <div class="no-page-break"><h2 id="testing"><span>5 </span>Testing<a class="headerlink" href="#testing" title="Permanent link">#</a></h2><p>Tests can be found in the <code>./src/test/java</code> folder.</p></div>
 
@@ -461,7 +490,7 @@ compile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
 </pre></div>
 <p>This should be copied into the <code>dependencies</code> section of the <code>build.gradle</code> file. If you wish to you can split the version string out so that the shorter <code>compile</code> property can be used instead, but this is not strictly necessary </p>
 <div class="codehilite"><pre><span></span>project.ext {
-    // ... other variables 
+    // ... other variables
     mockitoVersion = '8.40.11'
 }
 
@@ -561,7 +590,7 @@ public class YourCommand extends BaseCommand {
 <div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"..."</span> <span class="na">alt</span><span class="o">=</span><span class="s">"..."</span><span class="p">&gt;</span>
 
 <span class="p">&lt;</span><span class="nt">figcaption</span><span class="p">&gt;</span>
-  The sequence of function calls resulting from the user input 
+  The sequence of function calls resulting from the user input
   <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>execute 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">figcaption</span><span class="p">&gt;</span>
 </pre></div>
@@ -571,7 +600,7 @@ public class YourCommand extends BaseCommand {
 
   <span class="p">&lt;</span><span class="nt">figcaption</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Figure 2.<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>
-    The sequence of function calls resulting from the user input 
+    The sequence of function calls resulting from the user input
     <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>execute 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">figcaption</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">figure</span><span class="p">&gt;</span>
 </pre></div>
@@ -775,7 +804,7 @@ public class YourCommand extends BaseCommand {
 </blockquote>
 <p>3b. The given index is a task which has already been completed</p>
 <blockquote>
-<p>3b1. TodoApp informs the user the task has already been completed 
+<p>3b1. TodoApp informs the user the task has already been completed
   Use case ends</p>
 </blockquote>
 <div class="no-page-break"><h3 id="delete-task"><span>9.5 </span>Delete task<a class="headerlink" href="#delete-task" title="Permanent link">#</a></h3><p><strong>MSS</strong></p></div>
