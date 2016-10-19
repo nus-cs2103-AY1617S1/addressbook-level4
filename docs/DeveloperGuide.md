@@ -326,7 +326,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a floating task | keep track of things I want to complete without a dateline
 `* * *` | user | edit an existing task | modify the details in case a task changes
 `* * *` | user | remove an existing task | delete a task I no longer care to track
-`* * *` | user | search for a particular task | view the description of the task and to check if the task is completed or not
 `* * *` | user | search for tasks with keywords | view all tasks relevant to the keyword easily
 `* * *` | user | view all incomplete tasks | see all tasks that I need to complete
 `* * *` | user | view all completed tasks | refer to all tasks that I have completed
