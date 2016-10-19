@@ -299,8 +299,38 @@ Priority | As a ... | I want to ... | So that I can...
 
 > 1a1. ForgetMeNot shows an error and help message
 
+### Use Case: Clear Task
+
+**MSS**
+
+1. User types in clear command
+2. ForgetMeNot clears the list of task
+	Use case ends
+**Extensions**
+
+	1a. User types in wrong command
+
+> 1a1. ForgetMeNot shows error and help message
 
 
+#### Use Case: Clear Done
+
+**MSS**
+
+1. User types in clear done command
+2. ForgetMeNot clears the list of done task
+	Use case ends
+	
+**Extensions**
+
+	1a. User types in wrong command
+	
+> 1a1. ForgetMeNot shows error and help message
+
+	2a. The done list is empty
+	
+> 2a1. ForgetMeNot shows error message
+	
 #### Use Case: Delete Task
 
 **MSS**
