@@ -96,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
 	@Override
-	public synchronized void markTask(Task taskToMark, boolean isComplete) throws TaskNotFoundException {
+	public synchronized void markTask(Activity taskToMark, boolean isComplete) throws TaskNotFoundException {
 		addressBook.markTask(taskToMark, isComplete);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();

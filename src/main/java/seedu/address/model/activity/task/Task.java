@@ -68,7 +68,6 @@ public class Task extends Activity implements ReadOnlyTask {
         if(isCompleted) {
             return "Completed";
         } 
-        
             return "";  
     }
     

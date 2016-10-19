@@ -49,7 +49,7 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
 
     /** Marks task as completed **/
-	void markTask(Task unmarkedTask, boolean isComplete) throws TaskNotFoundException;
+	void markTask(Activity unmarkedTask, boolean isComplete) throws TaskNotFoundException;
 
     
 }

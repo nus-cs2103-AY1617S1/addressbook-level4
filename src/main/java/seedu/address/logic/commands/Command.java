@@ -57,6 +57,7 @@ public abstract class Command {
     
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
+     * @return "float", "task" or "event"
      * @throws IllegalValueException if Activity type cannot be determined
      */
     protected String identifyActivityType (String duedate, String priority, String start, String end) 

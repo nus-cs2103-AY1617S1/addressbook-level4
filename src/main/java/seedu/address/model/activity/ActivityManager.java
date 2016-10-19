@@ -29,7 +29,7 @@ public class ActivityManager {
         return newTask;
     }
 
-	public static void marksTask(Task task, boolean isComplete) {
+	public static void marksTask(Activity task, boolean isComplete) {
 		task.setCompletionStatus(isComplete);
 	}
 

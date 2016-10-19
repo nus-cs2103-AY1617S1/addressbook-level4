@@ -21,6 +21,8 @@ public class DoneCommand extends Command {
 
 	public static final String MESSAGE_DONE_TASK_SUCCESS = "Marked task as Completed: %1$s";
 	public static final String MESSAGE_TASK_COMPLETED = "Task is already Completed";
+	public static final String MESSAGE_EVENT_INVALID = "Events cannot be marked as completed";
+    
 	
 	public final int targetIndex;
 
@@ -40,6 +42,11 @@ public class DoneCommand extends Command {
 
 		ReadOnlyActivity taskToMark = lastShownList.get(targetIndex - 1);
 
+		if(taskToMark.getClass().getSimpleName().equalsIgnoreCase("event")){
+		    return new CommandResult(MESSAGE_EVENT_INVALID);
+		}
+		    
+		
 		if (taskToMark.getCompletionStatus() == false) {
 
 			Activity unmarkedTask = new Activity(taskToMark);

@@ -15,7 +15,7 @@ public class Activity implements ReadOnlyActivity {
 
     protected Name name;
     protected Reminder reminder;
-
+    protected boolean isCompleted;
     protected UniqueTagList tags;
 
     /**
@@ -54,6 +54,11 @@ public class Activity implements ReadOnlyActivity {
     }
     
     @Override
+    public boolean getCompletionStatus() {
+        return isCompleted;
+    }
+    
+    @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
@@ -81,6 +86,19 @@ public class Activity implements ReadOnlyActivity {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    public void setCompletionStatus(boolean isComplete) {
+        isCompleted = isComplete;
+        
+    }
+
+    @Override
+    public String toStringCompletionStatus() {
+        if(isCompleted) {
+            return "Completed";
+        } 
+            return ""; 
     }
 
 }

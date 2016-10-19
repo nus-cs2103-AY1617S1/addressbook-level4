@@ -13,12 +13,19 @@ public interface ReadOnlyActivity {
     Name getName();
     Reminder getReminder();
 
+    String toStringCompletionStatus();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
      */
     UniqueTagList getTags();
 
+    /**
+     * Returns true if Activity is completed or over
+     */
+    boolean getCompletionStatus();
+    
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
@@ -56,4 +63,7 @@ public interface ReadOnlyActivity {
         }
     }
     
+ 
+    
+
 }
