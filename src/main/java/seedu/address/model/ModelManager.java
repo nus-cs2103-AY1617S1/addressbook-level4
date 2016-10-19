@@ -4,6 +4,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -11,6 +13,8 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -100,6 +104,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    @Override
+    public void updateFilteredTaskList(UniqueTagList uniqueTagList) {
+        updateFilteredPersonList(new PredicateExpression(new TagQualifier(uniqueTagList)));
+        
+    }
 
     private void updateFilteredPersonList(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
@@ -144,9 +154,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask person) {
+        public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsWordIgnoreCase(person.getDescription().fullDescription, keyword))
+                    .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().fullDescription, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -156,5 +166,40 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
+    private class TagQualifier implements Qualifier {
+        private UniqueTagList uniqueTagList;
+
+        TagQualifier(UniqueTagList uniqueTagList) {
+            this.uniqueTagList = uniqueTagList;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            final Set<Tag> taskTags = new HashSet<>();
+            for(Tag tag : task.getTags()) {
+                taskTags.add(tag);
+            }
+            final Set<Tag> findTags = new HashSet<>();
+            for (Tag tag : uniqueTagList) {
+                findTags.add(tag);
+            }
+            return !Collections.disjoint(taskTags, findTags);
+        }
+
+        @Override
+        public String toString() {
+            final StringBuffer buffer = new StringBuffer("tag=");
+            final String separator = ", ";
+            uniqueTagList.forEach(tag -> buffer.append(tag).append(separator));
+            if (buffer.length() == 0) {
+                return "";
+            } else {
+                return buffer.substring(0, buffer.length() - separator.length());
+            }
+        }
+    }
+
+   
 
 }
