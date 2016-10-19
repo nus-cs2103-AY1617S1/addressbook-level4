@@ -168,11 +168,11 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, address", TaskDetails.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", StartTime.MESSAGE_START_TIME_CONSTRAINTS);
+                "add buy eggs at afeainfoaim by 3pm", StartTime.MESSAGE_START_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", EndTime.MESSAGE_END_TIME_CONSTRAINTS);
+                "add buy eggs at 3pm by supermarket", EndTime.MESSAGE_END_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add buy eggs at 3pm by 5pm t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -352,9 +352,9 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            TaskDetails name = new TaskDetails("Adam Brown");
-            StartTime startTime = new StartTime("111111");
-            EndTime endTime = new EndTime("adam@gmail.com");
+            TaskDetails name = new TaskDetails("Take a nap");
+            StartTime startTime = new StartTime("3pm");
+            EndTime endTime = new EndTime("5pm");
             Priority priority = new Priority("high");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -372,8 +372,8 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new TaskDetails("Person " + seed),
-                    new StartTime("" + Math.abs(seed)),
-                    new EndTime(seed + "@email"),
+                    new StartTime(" at "+seed+"pm"),
+                    new EndTime(" by "+seed + "pm"),
                     new Priority("high"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -386,9 +386,9 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getTaskDetails().toString());
-            cmd.append(" p/").append(p.getStartTime());
-            cmd.append(" e/").append(p.getEndTime());
-            cmd.append(" a/").append(p.getUniqueID());
+            cmd.append(" at ").append(p.getStartTime().toString());
+            cmd.append(" by ").append(p.getEndTime().toString());
+            cmd.append(" p/").append(p.getPriority());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -471,8 +471,8 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new TaskDetails(name),
-                    new StartTime("1"),
-                    new EndTime("1@email"),
+                    new StartTime("3pm"),
+                    new EndTime("5pm"),
                     new Priority("high"),
                     new UniqueTagList(new Tag("tag"))
             );
