@@ -10,7 +10,7 @@ public class HelpWindowTest extends MalitioGuiTest {
     @Test
     public void openHelpWindow() {
 
-        taskListPanel.clickOnListView();
+        floatingTaskListPanel.clickOnListView();
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 

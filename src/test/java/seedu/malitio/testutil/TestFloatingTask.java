@@ -4,17 +4,14 @@ import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.*;
 
 /**
- * A mutable task object. For testing only.
+ * A mutable floating task object. For testing only.
  */
-public class TestTask implements ReadOnlyFloatingTask, ReadOnlyDeadline, ReadOnlyEvent {
+public class TestFloatingTask implements ReadOnlyFloatingTask {
 
     private Name name;
-    private DateTime due;
-    private DateTime start;
-    private DateTime end;
     private UniqueTagList tags;
 
-    public TestTask() {
+    public TestFloatingTask() {
         tags = new UniqueTagList();
     }
 
@@ -44,36 +41,9 @@ public class TestTask implements ReadOnlyFloatingTask, ReadOnlyDeadline, ReadOnl
         return sb.toString();
     }
 
-
-    public DateTime getDue() {
-        return due;
-    }
-
-
-    public void setDue(DateTime due) {
-        this.due = due;
-    }
-
-    public DateTime getStart() {
-        return start;
-    }
-
-    public void setStart(DateTime start) {
-        this.start = start;
-    }
-
-    public DateTime getEnd() {
-        return end;
-    }
-
-    public void setEnd(DateTime end) {
-        this.end = end;
-    }
-
     @Override
     public String tagsString() {
-        // TODO Auto-generated method stub
-        return ReadOnlyDeadline.super.tagsString();
+        return ReadOnlyFloatingTask.super.tagsString();
     }
 
     @Override

@@ -13,6 +13,8 @@ import seedu.malitio.testutil.TestUtil;
 import seedu.malitio.testutil.TypicalTestTasks;
 import seedu.malitio.commons.core.EventsCenter;
 import seedu.malitio.model.Malitio;
+import seedu.malitio.model.task.ReadOnlyDeadline;
+import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
 import java.util.concurrent.TimeoutException;
@@ -39,7 +41,9 @@ public abstract class MalitioGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected TaskListPanelHandle taskListPanel;
+    protected FloatingTaskListPanelHandle floatingTaskListPanel;
+    protected DeadlineListPanelHandle deadlineListPanel;
+    protected EventListPanelHandle eventListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -59,7 +63,9 @@ public abstract class MalitioGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            taskListPanel = mainGui.getTaskListPanel();
+            floatingTaskListPanel = mainGui.getFloatingTaskListPanel();
+            deadlineListPanel = mainGui.getDeadlineListPanel();
+            eventListPanel = mainGui.getEventListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -96,16 +102,25 @@ public abstract class MalitioGuiTest {
     /**
      * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(ReadOnlyFloatingTask task, TaskCardHandle card) {
+    public void assertMatching(ReadOnlyFloatingTask task, FloatingTaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
-
+    public void assertMatching(ReadOnlyDeadline task, DeadlineCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
+    }
+    public void assertMatching(ReadOnlyEvent task, EventCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
+    }
+    
     /**
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+        int numberOfTasks = 
+                floatingTaskListPanel.getNumberOfTasks() 
+                + deadlineListPanel.getNumberOfTasks()
+                + eventListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
     }
 
     /**

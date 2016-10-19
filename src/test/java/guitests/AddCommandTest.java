@@ -1,10 +1,16 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.DeadlineCardHandle;
+import guitests.guihandles.EventCardHandle;
+import guitests.guihandles.FloatingTaskCardHandle;
 import org.junit.Test;
 
-import seedu.malitio.testutil.TestTask;
+import seedu.malitio.testutil.TestDeadline;
+import seedu.malitio.testutil.TestEvent;
+import seedu.malitio.testutil.TestFloatingTask;
 import seedu.malitio.testutil.TestUtil;
+import seedu.malitio.ui.DeadlineListPanel;
+import seedu.malitio.ui.FloatingTaskListPanel;
 import seedu.malitio.commons.core.Messages;
 import seedu.malitio.logic.commands.AddCommand;
 
@@ -15,20 +21,20 @@ public class AddCommandTest extends MalitioGuiTest {
     @Test
     public void addTask() {
         //add one task
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.manualFloatingTask;
+        TestFloatingTask[] currentList = td.getTypicalFloatingTasks();
+        TestFloatingTask taskToAdd = td.manualFloatingTask1;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
-        taskToAdd = td.manualDeadline;
+        taskToAdd = td.manualFloatingTask2;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
-        commandBox.runCommand(td.manualFloatingTask.getAddCommand());
+        commandBox.runCommand(td.manualFloatingTask1.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(floatingTaskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -63,16 +69,40 @@ public class AddCommandTest extends MalitioGuiTest {
         assertAddSuccess(td.event4);
        }
 
-    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+    private void assertAddSuccess(TestFloatingTask taskToAdd, TestFloatingTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        FloatingTaskCardHandle addedCard = floatingTaskListPanel.navigateToTask(taskToAdd.getName().fullName);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        TestFloatingTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        assertTrue(floatingTaskListPanel.isListMatching(expectedList));
+    }
+    
+    private void assertAddSuccess(TestDeadline taskToAdd, TestDeadline... currentList) {
+        commandBox.runCommand(taskToAdd.getAddCommand());
+
+        //confirm the new card contains the right data
+        DeadlineCardHandle addedCard = deadlineListPanel.navigateToTask(taskToAdd.getName().fullName);
+        assertMatching(taskToAdd, addedCard);
+
+        //confirm the list now contains all previous tasks plus the new task
+        TestDeadline[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        assertTrue(deadlineListPanel.isListMatching(expectedList));
+    }
+    
+    private void assertAddSuccess(TestEvent taskToAdd, TestEvent... currentList) {
+        commandBox.runCommand(taskToAdd.getAddCommand());
+
+        //confirm the new card contains the right data
+        EventCardHandle addedCard = eventListPanel.navigateToTask(taskToAdd.getName().fullName);
+        assertMatching(taskToAdd, addedCard);
+
+        //confirm the list now contains all previous tasks plus the new task
+        TestEvent[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        assertTrue(eventListPanel.isListMatching(expectedList));
     }
 
 }
