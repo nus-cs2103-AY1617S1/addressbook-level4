@@ -82,8 +82,6 @@ Examples:
 * `add prepare presentation slides by monday 2pm, high`
 
 > * `[DATE]` and `[TIME]` has to separated by a space or an 'at'.<br>
-> * The comma after `[TASK]` can be replaced with a `by`, `on` or `at`.
-
 
 
 ##### With start and end time within the same day
@@ -93,7 +91,6 @@ Examples:
 * `add tennis, 21 nov, 1pm, 3pm, high`
 * `add lunch with parents on friday from 12pm-1pm`
 
-> * The comma after `[TASK]` can be replaced with a `on`. <br>
 > * The comma after `[DATE]` can be replaced with a `from`. <br>
 > * The comma after `[START TIME]` can be replaced with a `-`. <br>
 
@@ -106,7 +103,6 @@ Examples:
 * `add going overseas from fri at 1pm-next fri at 10pm`
 
 > * `[DATE]` and `[TIME]` has to separated by a space. <br>
-> * The comma after `[TASK]` can be replaced with a `from`. <br>
 > * The comma after `[START DATE TIME]` can be replaced with a `-`.
 
 ##### Recurring
