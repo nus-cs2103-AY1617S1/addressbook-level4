@@ -85,13 +85,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
     	taskManager.editTask(target, field, value);
-    	if (Command.lastListing == null || Command.lastListing.equals("")) {
+    	/*if (Command.lastListing == null || Command.lastListing.equals("")) {
     	    updateFilteredListToShowAllUndone();
     	} else if (Command.lastListing.equals("done")) {
     	    updateFilteredListToShowAllDone();
     	} else {
     	    updateFilteredListToShowAll();
-    	}
+    	}*/
+    	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
     }
 
@@ -111,7 +112,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        updateFilteredListToShowAll(new PredicateExpression(new AllQualifier()));
+    }
+    public void updateFilteredListToShowAll(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
     }
     
     @Override
@@ -184,6 +188,14 @@ public class ModelManager extends ComponentManager implements Model {
     interface Qualifier {
         boolean run(ReadOnlyTask task);
         String toString();
+    }
+    
+    private class AllQualifier implements Qualifier {
+        AllQualifier() {}
+        
+        public boolean run(ReadOnlyTask task) {
+            return (task != null);
+        }
     }
     
     private class NotDoneQualifier implements Qualifier {
