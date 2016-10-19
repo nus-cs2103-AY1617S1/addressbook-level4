@@ -88,27 +88,8 @@ The event “project meeting” will start at 12pm on 10 October and end at 2pm 
 
 #### Retrieving task list : `list`
 
-You can view tasks sorted by date. Tasks without a date will be appended at the end of the list.<br>
-Format: `list [TYPE]`
-> `TYPE` refers to a keyword such as `overdue, near, done or all`.
-
-Examples:
-
-* `list` <br>
-  Agendum will show you a list of all uncompleted tasks.
-
-* `list overdue`<br>
-  Agendum will show you a list of overdue tasks.
-
-* `list near`  <br>
-  Agendum will show you a list of upcoming tasks within a week. <br>
-
-* `list done`<br>
-  Agendum will show you a list of completed tasks. <br>
-
-* `list all`<br>
-  Agendum will show you a list of all tasks including overdue, completed and uncompleted tasks. <br>
-
+You might want to view the lists to all overdue, upcoming and completed tasks again.<br>
+Format: `list`
 
 #### Finding tasks containing keywords: `find`
 
@@ -367,7 +348,7 @@ Delete   | `delete INDEX...`
 Exit     | `exit`
 Find     | `find KEYWORD...`
 Help     | `help`
-List     | `list [TYPE]`
+List     | `list`
 Load     | `load PATH_TO_FILE`
 Mark     | `mark INDEX...`
 Rename   | `rename INDEX NEW_NAME`

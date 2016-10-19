@@ -104,8 +104,8 @@ Two of those classes play important roles at the architecture level.
 
 The rest of the App comprises four components:
 
-* [**`UI`**](#2-ui-component) - The UI of the App.
-* [**`Logic`**](#3-logic-component) - The command executor.
+* [**`UI`**](#2-ui-component) - Interacts with and display results to the user.
+* [**`Logic`**](#3-logic-component) - Processes and executes the command of the user.
 * [**`Model`**](#4-model-component) - Holds the data of the App in-memory.
 * [**`Storage`**](#5-storage-component) - Reads data from, and writes data to, the hard disk.
 
@@ -234,38 +234,38 @@ They are further separated into sub-packages - namely `core`, `events`, `excepti
 #### Core
 This package consists of the essential classes that are required by multiple components.
 
-* `ComponentManager` - This is a base class of manager classes, namely `LogicManager`, `ModelManager`, `StorageManager` and `UiManager`
-* `Config` - This file stores the configuration values of Agendum; these include:
+* `ComponentManager` - Registers its event handlers in the EventsCenter. It is the base class of Agendum's manager classes, namely `LogicManager`, `ModelManager`, `StorageManager` and `UiManager`
+* `Config` - Stores the configuration values of Agendum; these include:
    * Application title
    * Logging level
    * User preferences file path
    * ToDoList data path
-* `EventsCenter` - This class uses _Event Driven_ design. It manages all the events of the app. Whenever an event is raised, it will be dispatched to all the classes that have subscribed to this event. It is written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained)
-* `GuiSettings` - This class saves the setting of the GUI, such as the width, height and coordinates on the screen.
-* `LogsCenter` -  Used by many classes to write log messages to the App's log file.
+* `EventsCenter` - Manages all events in the Agendum. Uses _Event Driven_ design to help other components communicate. Whenever a apecific event is raised, this class will be dispatch it to all the classes that have subscribed to this event. It is written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained)
+* `GuiSettings` - Saves the setting of the GUI, such as the width, height and coordinates on the screen.
+* `LogsCenter` -  Uses java.logging to write log messages to Agendum's log file.
 * `Messages` - Stores generalised messages that will be visible to the user.
-* `UnmodifiableObservableList` - This class is a container of oberservable list, making it an unmodifiable obervable list
-* `Version` - Stores some information about the version of the App
+* `UnmodifiableObservableList` - Wraps an observable list, making it into an unmodifiable observable list
+* `Version` - Stores information about the version of Agendum
 
 #### Events
 This package consists of the different type of events that can occur; these are used mainly by EventManager and EventBus.
 
-* `SaveLocationChangedEvent` - This event will be dispatched to the UI and Storage classes when the user uses the `store` command.
-* `ToDoListChangedEvent` - This event will be dispatch to UI and Storage when the user mutates the todo list
-* `DataSavingExceptionEvent` - This event indicates an exception during a file saving
-* `ExitAppRequestEvent` - This event indicates the user has requested to exit the app.
-* `IncorrectCommandAttemptedEvent` - This event represents an incorrect input by the user
-* `JumpToListRequestEvent` - This event indicates a request to jump to the list of tasks
-* `ShowHelpRequestEvent` - This event indicates user has used the help `command`
-* `TaskPanelSelectionChangedEvent` - This event indicates the user has selected a different panel
+* `SaveLocationChangedEvent` - Indicate the user uses the `store` command to request a change of data save location; will be dispatched to the UI and Storage classes.
+* `ToDoListChangedEvent` - Indicates the user has mutated the todo list; will be dispatch to UI and Storage.
+* `DataSavingExceptionEvent` - Indicates an exception during a file saving.
+* `ExitAppRequestEvent` - Indicates the user has requested to exit the app.
+* `IncorrectCommandAttemptedEvent` - TRepresents an incorrect input by the user
+* `JumpToListRequestEvent` - Indicates a request to jump to the list of tasks
+* `ShowHelpRequestEvent` - Indicates user has used the help `command`
+* `TaskPanelSelectionChangedEvent` - Indicates the user has selected a different panel
 
 #### Exceptions
 This package consists of exceptions that may occur with the use of Agendum.
 
-* `DataConversionException` - This exception is thrown when conversion from one data format to another has failed.
-* `DuplicateDataException` - This exception is thrown when there are multiple occurrences of the same data, when it is not allowed.
-* `FileDeletionException` - This exception is thrown when a valid file cannot be deleted.
-* `IllegalValueException` - This exception is thrown when given data does not fulfil requirements, e.g. Only positive numbers allowed, but -1 is given
+* `DataConversionException` - Conversion from one data format to another has failed.
+* `DuplicateDataException` - There are multiple occurrences of the same data, when it is not allowed.
+* `FileDeletionException` - A valid file cannot be deleted, e.g. the file is being used
+* `IllegalValueException` - The given data does not fulfil requirements, e.g. Only positive numbers allowed, but -1 is given
 
 #### Util
 This package consists of additional utilities for the different components.
