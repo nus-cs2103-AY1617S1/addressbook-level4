@@ -94,6 +94,9 @@ public class CommandParser {
             
         case DoneCommand.COMMAND_WORD:
         	return prepareDone(arguments);
+        	
+        case ViewDoneCommand.COMMAND_WORD:
+        	return new ViewDoneCommand();
         
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

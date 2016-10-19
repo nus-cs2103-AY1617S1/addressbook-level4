@@ -29,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTodos;
     private final FilteredList<Task> filteredDeadlines;
     private final FilteredList<Task> filteredEvents;
+    //private final FilteredList<Task> filteredDones;
     private final Stack<ReadOnlyTaskManager> historyCommands;
     private final Stack<Predicate> historyPredicates;
 
@@ -47,7 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
         allTasks = new FilteredList<>(taskManager.getAllTasks());
         filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
-        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());
+        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents()); 
         historyCommands = new Stack<ReadOnlyTaskManager>();
         historyPredicates = new Stack<Predicate>();
     }
@@ -154,11 +155,18 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines.setPredicate(null);
         filteredEvents.setPredicate(null);
     }
-
+    
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    @Override
+    public void updateFilteredDoneList() {
+    	updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
+    }
+    	
+  
 
     private void updateFilteredTaskList(Expression expression) {
         allTasks.setPredicate(expression::satisfies);
