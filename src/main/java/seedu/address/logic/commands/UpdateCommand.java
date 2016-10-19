@@ -4,13 +4,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.*;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * update the details of a task.
