@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.DatePreParse;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -146,18 +147,18 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
-
+// incorrect test case name please change soon
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = Messages.MESSAGE_UNKNOWN_COMMAND;
 //        assertCommandBehavior(
 //                "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 s/5:00pm e/5:00am", expectedMessage);
+                "adds Valid Name 12345 s/5:00pm e/5:00am", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name d/01/01/10 valid@start.butNoPrefix e/5:00am", expectedMessage);
+                "adds Valid Name d/01/01/10 valid@start.butNoPrefix e/5:00am from asasd", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name d/01/01/10 s/5:00pm valid, address", expectedMessage);
+                "adds Valid Name d/01/01/10 s/5:00pm valid, address from asd", expectedMessage);
 
     }
 
@@ -383,11 +384,12 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             Date privateDate = new Date("");
-            StartTime start = new StartTime("1/1/17 5:00pm");
+            StartTime start = new StartTime("1/1/17 5pm");
             EndTime privateEndTime = new EndTime("2/1/17 5:00am");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+//            Tag tag1 = new Tag("tag1");
+//            Tag tag2 = new Tag("tag2");
+//            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            UniqueTagList tags = new UniqueTagList();
             return new Task(name, privateDate, start, privateEndTime, tags);
         }
 
@@ -416,14 +418,16 @@ public class LogicManagerTest {
 
             cmd.append(p.getName().toString());
             cmd.append(p.getDate());
-            cmd.append(p.getStartTime());
-            cmd.append(p.getEndTime());
-
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
-
+            cmd.append(" from ");
+            cmd.append(p.getStartTime().appearOnUIFormat());
+            cmd.append(" to ");
+            cmd.append(p.getEndTime().appearOnUIFormat());
+            cmd.append(" ");
+//            UniqueTagList tags = p.getTags();
+//            for(Tag t: tags){
+//                cmd.append(" t/").append(t.tagName);
+//            }
+            System.out.println(cmd);
             return cmd.toString();
         }
 

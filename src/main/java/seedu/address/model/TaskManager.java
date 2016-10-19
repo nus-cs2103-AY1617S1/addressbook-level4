@@ -8,6 +8,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.StartTime;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.DatePreParse;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -129,11 +130,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     public void editTaskStartTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        tasks.setStartTime(task, new StartTime(newInfo));
+        if((newInfo.contains("/") && DatePreParse.isValidDate(newInfo, new String[3])) || !newInfo.contains("/"))
+        	tasks.setStartTime(task, new StartTime(newInfo));
+        else
+        	throw new IllegalValueException("Invalid Start Time");
     }
     
     public void editTaskEndTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        tasks.setEndTime(task, new EndTime(newInfo));
+    	if((newInfo.contains("/") && DatePreParse.isValidDate(newInfo, new String[3])) || !newInfo.contains("/"))
+        	tasks.setEndTime(task, new EndTime(newInfo));
+        else
+        	throw new IllegalValueException("Invalid End Time");
     }
     
 //// tag-level operations
