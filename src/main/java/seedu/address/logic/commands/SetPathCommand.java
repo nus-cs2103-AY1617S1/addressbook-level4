@@ -19,6 +19,8 @@ public class SetPathCommand extends Command {
             + "Parameters: <filename>\n"
             + "Example: " + COMMAND_WORD
             + " TaskSchedulerData\n";
+
+    public static final String MESSAGE_SUCCESS = "File path changed";
     
     private String savedPathLink;
     
