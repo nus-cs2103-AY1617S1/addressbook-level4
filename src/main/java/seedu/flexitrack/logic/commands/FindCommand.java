@@ -13,11 +13,11 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Default Search\n\t"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t\t"
-            + "Example: " + COMMAND_WORD + "  CS2103"
-            + "Search by exact task name\n\t"
-            + "Parameters: f/ KEYWORD [MORE KEYWORDS]...\n\t\t"
+            + "1. Default Search - "
+            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
+            + "Example: " + COMMAND_WORD + "  CS2103\n"
+            + "2. Search by exact task name - "
+            + "Parameters: f/ KEYWORD [MORE KEYWORDS]...\n\t"
             + "Example: " + COMMAND_WORD + "f/ attend CS2103 lecture";
 
     private final Set<String> keywords;
