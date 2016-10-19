@@ -34,7 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Tasks and Tags are copied into this addressbook
+     * Tasks and Tags are copied into this to-do list
      */
     public AddressBook(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
@@ -78,6 +78,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     
     public boolean editTask(ReadOnlyTask key, Task replacement) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.edit(key, replacement)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.mark(key)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();

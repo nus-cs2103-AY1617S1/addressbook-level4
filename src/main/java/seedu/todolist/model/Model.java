@@ -20,6 +20,9 @@ public interface Model {
     
     /** Reverts the previous state of the AddressBook */
     void undoAddressBook() throws EmptyStackException;
+    
+    /** Marks the given task as done. */
+    void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
