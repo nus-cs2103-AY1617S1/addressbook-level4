@@ -8,7 +8,7 @@ import seedu.todoList.testutil.TestTask;
 import static org.junit.Assert.assertTrue;
 import static seedu.todoList.logic.commands.DeleteCommand.MESSAGE_DELETE_task_SUCCESS;
 
-public class DeleteCommandTest extends TodoListGuiTest {
+public class DeleteCommandTest extends ListGuiTest {
 
     @Test
     public void delete() {

@@ -7,7 +7,7 @@ import seedu.todoList.commons.core.Messages;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends TodoListGuiTest {
+public class FindCommandTest extends ListGuiTest {
 
     @Test
     public void find_nonEmptyList() {

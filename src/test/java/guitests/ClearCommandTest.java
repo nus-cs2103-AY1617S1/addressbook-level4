@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class ClearCommandTest extends TodoListGuiTest {
+public class ClearCommandTest extends ListGuiTest {
 
     @Test
     public void clear() {

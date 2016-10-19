@@ -6,7 +6,7 @@ import seedu.todoList.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 
-public class SelectCommandTest extends TodoListGuiTest {
+public class SelectCommandTest extends ListGuiTest {
 
 
     @Test

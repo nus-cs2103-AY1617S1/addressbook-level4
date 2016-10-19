@@ -1,6 +1,9 @@
 package seedu.todoList.testutil;
 
 import com.google.common.io.Files;
+
+import guitests.guihandles.DeadlineCardHandle;
+import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -20,6 +23,8 @@ import seedu.todoList.model.task.*;
 import seedu.todoList.model.task.attributes.*;
 import seedu.todoList.storage.XmlSerializableTaskList;
 import seedu.todoList.storage.XmlSerializableTodoList;
+import seedu.todoList.storage.XmlSerializableDeadlineList;
+import seedu.todoList.storage.XmlSerializableEventList;
 
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
@@ -63,6 +68,8 @@ public class TestUtil {
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     public static final Task[] sampletaskData = getSampletaskData();
+    public static final Event[] sampleeventData = getSampleeventData();
+    public static final Deadline[] sampledeadlineData = getSampledeadlineData();
 
     private static Task[] getSampletaskData() {
         try {
@@ -81,24 +88,53 @@ public class TestUtil {
             return null;
         }
     }
-
-    /*public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
+    
+    private static Event[] getSampleeventData() {
         try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
+            return new Event[]{
+                    new Event(new Name("EE 11"), new Date("01-11-2016"), new StartTime("1000"), new EndTime("1030")),
+                    new Event(new Name("Essignment 12"), new Date("02-11-2016"), new StartTime("1000"), new EndTime("1030")),
+                    new Event(new Name("Essignment 13"), new Date("03-11-2016"), new StartTime("1100"), new EndTime("1130")),
+                    new Event(new Name("Essignment 14"), new Date("04-11-2016"), new StartTime("1200"), new EndTime("1230")),
+                    new Event(new Name("Essignment 15"), new Date("05-11-2016"), new StartTime("1300"), new EndTime("1330")),
+                    new Event(new Name("Essignment 16"), new Date("06-11-2016"), new StartTime("1400"), new EndTime("1430")),
+                    new Event(new Name("Essignment 17"), new Date("07-11-2016"), new StartTime("1500"), new EndTime("1530")),
             };
         } catch (IllegalValueException e) {
             assert false;
-            return null;
             //not possible
+            return null;
         }
-    }*/
+    }
+    
+    private static Deadline[] getSampledeadlineData() {
+        try {
+            return new Deadline[]{
+                    new Deadline(new Name("DD 11"), new Date("01-11-2016"), new EndTime("1100")),
+                    new Deadline(new Name("Dssignment 12"), new Date("02-11-2016"), new EndTime("1200")),
+                    new Deadline(new Name("Dssignment 13"), new Date("03-11-2016"), new EndTime("1300")),
+                    new Deadline(new Name("Dssignment 14"), new Date("04-11-2016"), new EndTime("1400")),
+                    new Deadline(new Name("Dssignment 15"), new Date("05-11-2016"), new EndTime("1500")),
+                    new Deadline(new Name("Dssignment 16"), new Date("06-11-2016"), new EndTime("1600")),
+                    new Deadline(new Name("Dssignment 17"), new Date("07-11-2016"), new EndTime("1700")),
+            };
+        } catch (IllegalValueException e) {
+            assert false;
+            //not possible
+            return null;
+        }
+    }
 
     public static List<Task> generateSampletaskData() {
         return Arrays.asList(sampletaskData);
+    }
+    
+    public static List<Event> generateSampleeventData() {
+        return Arrays.asList(sampleeventData);
+    }
+    
+    public static List<Deadline> generateSampledeadlineData() {
+        return Arrays.asList(sampledeadlineData);
     }
 
     /**
@@ -137,11 +173,22 @@ public class TestUtil {
 
     public static TaskList generateEmptyTodoList() {
         return new TaskList(new UniqueTaskList());
-
+    }
+    public static TaskList generateEmptyEventList() {
+        return new TaskList(new UniqueTaskList());
+    }
+    public static TaskList generateEmptyDeadlineList() {
+        return new TaskList(new UniqueTaskList());
     }
 
     public static XmlSerializableTaskList generateSampleStorageTodoList() {
         return new XmlSerializableTaskList(generateEmptyTodoList());
+    }    
+    public static XmlSerializableEventList generateSampleStorageEventList() {
+        return new XmlSerializableEventList(generateEmptyEventList());
+    }
+    public static XmlSerializableDeadlineList generateSampleStorageDeadlineList() {
+        return new XmlSerializableDeadlineList(generateEmptyDeadlineList());
     }
 
     /**
@@ -285,6 +332,18 @@ public class TestUtil {
         listOftasks.removeAll(asList(tasksToRemove));
         return listOftasks.toArray(new TestTask[listOftasks.size()]);
     }
+    
+    public static TestEvent[] removeEventsFromList(final TestEvent[] events, TestEvent... eventsToRemove) {
+        List<TestEvent> listOfEvents = asList(events);
+        listOfEvents.removeAll(asList(eventsToRemove));
+        return listOfEvents.toArray(new TestEvent[listOfEvents.size()]);
+    }
+    
+    public static TestDeadline[] removeDeadlinesFromList(final TestDeadline[] events, TestDeadline... deadlineToRemove) {
+        List<TestDeadline> listOfdd = asList(events);
+        listOfdd.removeAll(asList(deadlineToRemove));
+        return listOfdd.toArray(new TestDeadline[listOfdd.size()]);
+    }
 
 
     /**
@@ -294,6 +353,12 @@ public class TestUtil {
      */
     public static TestTask[] removetaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removetasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    }
+    public static TestEvent[] removeEventFromList(final TestEvent[] list, int targetIndexInOneIndexedFormat) {
+        return removeEventsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    }
+    public static TestDeadline[] removeDeadlineFromList(final TestDeadline[] list, int targetIndexInOneIndexedFormat) {
+        return removeDeadlinesFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
@@ -307,6 +372,15 @@ public class TestUtil {
         tasks[index] = task;
         return tasks;
     }
+    
+    public static TestEvent[] replaceEventFromList(TestEvent[] events, TestEvent event, int index) {
+        events[index] = event;
+        return events;
+    }
+    public static TestDeadline[] replaceDeadlineFromList(TestDeadline[] dds, TestDeadline dd, int index) {
+        dds[index] = dd;
+        return dds;
+    }
 
     /**
      * Appends tasks to the array of tasks.
@@ -318,6 +392,18 @@ public class TestUtil {
         List<TestTask> listOftasks = asList(tasks);
         listOftasks.addAll(asList(tasksToAdd));
         return listOftasks.toArray(new TestTask[listOftasks.size()]);
+    }
+    
+    public static TestEvent[] addEventsToList(final TestEvent[] events, TestEvent... eventsToAdd) {
+        List<TestEvent> listOfEvents = asList(events);
+        listOfEvents.addAll(asList(eventsToAdd));
+        return listOfEvents.toArray(new TestEvent[listOfEvents.size()]);
+    }
+    
+    public static TestDeadline[] addDeadlinesToList(final TestDeadline[] events, TestDeadline... eventsToAdd) {
+        List<TestDeadline> listOfEvents = asList(events);
+        listOfEvents.addAll(asList(eventsToAdd));
+        return listOfEvents.toArray(new TestDeadline[listOfEvents.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -331,26 +417,13 @@ public class TestUtil {
     public static boolean compareCardAndTask(TaskCardHandle card, Todo task) {
         return card.isSametask(task); //something wrong. Always return false
     }
-
-    /*public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
-    }*/
+    
+    public static boolean compareCardAndEvent(EventCardHandle card, Event event) {
+        return card.isSameEvent(event); //something wrong. Always return false
+    }
+    
+    public static boolean compareCardAndDeadline(DeadlineCardHandle card, Deadline dd) {
+        return card.isSameDeadline(dd); //something wrong. Always return false
+    }
 
 }

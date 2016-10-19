@@ -6,6 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.todoList.commons.events.model.EventListChangedEvent;
 import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todoList.model.ReadOnlyTaskList;
@@ -18,6 +19,7 @@ import seedu.todoList.storage.Storage;
 import seedu.todoList.storage.StorageManager;
 import seedu.todoList.storage.XmlTaskListStorage;
 import seedu.todoList.testutil.EventsCollector;
+import seedu.todoList.testutil.TypicalTestEvent;
 import seedu.todoList.testutil.TypicalTestTask;
 
 import java.io.IOException;
@@ -68,10 +70,24 @@ public class StorageManagerTest {
         assertEquals(original, new TaskList(retrieved));
         //More extensive testing of TodoList saving/reading is done in XmlTodoListStorageTest
     }
+    
+    @Test
+    public void EventListReadSave() throws Exception {
+        TaskList original = new TypicalTestEvent().getTypicalEventList();
+        storageManager.saveEventList(original);
+        ReadOnlyTaskList retrieved = storageManager.readEventList().get();
+        assertEquals(original, new TaskList(retrieved));
+       
+    }
 
     @Test
     public void getTodoListFilePath(){
         assertNotNull(storageManager.getTodoListFilePath());
+    }
+    
+    @Test
+    public void getEventListFilePath(){
+        assertNotNull(storageManager.getEventListFilePath());
     }
 
     @Test
@@ -82,6 +98,16 @@ public class StorageManagerTest {
         storage.handleTodoListChangedEvent(new TodoListChangedEvent(new TaskList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
+    
+    @Test
+    public void handleEventListChangedEvent_exceptionThrown_eventRaised() throws IOException {
+        //Create a StorageManager while injecting a stub that throws an exception when the save method is called
+        Storage storage = new StorageManager(null, new XmlEventListStorageExceptionThrowingStub("dummy"), null, new JsonUserPrefsStorage("dummy"));
+        EventsCollector eventCollector = new EventsCollector();
+        storage.handleEventListChangedEvent(new EventListChangedEvent(new TaskList()));
+        assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
+    }
+
 
 
     /**
@@ -95,6 +121,18 @@ public class StorageManagerTest {
 
         //@Override
         public void saveTodoList(ReadOnlyTaskList TodoList, String filePath) throws IOException {
+            throw new IOException("dummy exception");
+        }
+    }
+    
+    class XmlEventListStorageExceptionThrowingStub extends XmlTaskListStorage{
+
+        public XmlEventListStorageExceptionThrowingStub(String filePath) {
+            super(filePath);
+        }
+
+        //@Override
+        public void saveEventList(ReadOnlyTaskList EventList, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

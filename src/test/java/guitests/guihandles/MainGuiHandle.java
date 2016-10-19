@@ -16,6 +16,14 @@ public class MainGuiHandle extends GuiHandle {
     public TaskListPanelHandle getTaskListPanel() {
         return new TaskListPanelHandle(guiRobot, primaryStage);
     }
+    
+    public EventListPanelHandle getEventListPanel() {
+        return new EventListPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public DeadlineListPanelHandle getDeadlineListPanel() {
+        return new DeadlineListPanelHandle(guiRobot, primaryStage);
+    }
 
     public ResultDisplayHandle getResultDisplay() {
         return new ResultDisplayHandle(guiRobot, primaryStage);

@@ -5,9 +5,13 @@ import javafx.stage.Stage;
 import seedu.todoList.TestApp;
 import seedu.todoList.commons.core.EventsCenter;
 import seedu.todoList.model.TaskList;
+import seedu.todoList.model.task.Deadline;
+import seedu.todoList.model.task.Event;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Todo;
 import seedu.todoList.testutil.TestUtil;
+import seedu.todoList.testutil.TypicalTestDeadline;
+import seedu.todoList.testutil.TypicalTestEvent;
 import seedu.todoList.testutil.TypicalTestTask;
 
 import org.junit.After;
@@ -23,9 +27,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for TodoList.
+ * A GUI Test class for List.
  */
-public abstract class TodoListGuiTest {
+public abstract class ListGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -34,6 +38,8 @@ public abstract class TodoListGuiTest {
     TestApp testApp;
 
     protected TypicalTestTask td = new TypicalTestTask();
+    protected TypicalTestEvent ed = new TypicalTestEvent();
+    protected TypicalTestDeadline dd = new TypicalTestDeadline();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -42,6 +48,8 @@ public abstract class TodoListGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
+    protected EventListPanelHandle eventListPanel;
+    protected DeadlineListPanelHandle deadlineListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -62,6 +70,8 @@ public abstract class TodoListGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
+            eventListPanel = mainGui.getEventListPanel();
+            deadlineListPanel = mainGui.getDeadlineListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -79,9 +89,14 @@ public abstract class TodoListGuiTest {
      */
     protected TaskList getInitialData() {
         TaskList ab = TestUtil.generateEmptyTodoList();
+        TaskList cd = TestUtil.generateEmptyEventList();
+        TaskList ef = TestUtil.generateEmptyDeadlineList();
         TypicalTestTask.loadTodoListWithSampleData(ab);
+        TypicalTestEvent.loadEventListWithSampleData(cd);
+        TypicalTestDeadline.loadDeadlineListWithSampleData(ef);
         return ab;
     }
+
 
     /**
      * Override this in child classes to set the data file location.
@@ -102,12 +117,31 @@ public abstract class TodoListGuiTest {
     public void assertMatching(Todo task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
+    
+    public void assertEventMatching(Event event, EventCardHandle card) {
+        assertTrue(TestUtil.compareCardAndEvent(card, event));
+    }
+    
+    public void assertDeadlineMatching(Deadline event, DeadlineCardHandle card) {
+        assertTrue(TestUtil.compareCardAndDeadline(card, event));
+    }
+    
 
     /**
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
         int numberOfTask = taskListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTask);
+    }
+    
+    protected void assertEventListSize(int size) {
+        int numberOfTask = eventListPanel.getNumberOfEvents();
+        assertEquals(size, numberOfTask);
+    }
+    
+    protected void assertDeadlineListSize(int size) {
+        int numberOfTask = deadlineListPanel.getNumberOfDeadlines();
         assertEquals(size, numberOfTask);
     }
 
