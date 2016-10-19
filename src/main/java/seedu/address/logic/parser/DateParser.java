@@ -68,7 +68,8 @@ public class DateParser {
 		dateString = dateString.trim();
 
 		LocalDateTime dateTime = parseStandardFormat(dateString);
-
+		System.out.println("1 success");
+		
 		if (dateTime == null) {
 			dateTime = parseAmPmFormat(dateString);
 			System.out.println("DateParser first try");
