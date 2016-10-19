@@ -2,6 +2,7 @@ package seedu.tasklist.testutil;
 
 import java.sql.Date;
 
+import seedu.tasklist.commons.util.RecurringUtil;
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
 
@@ -39,6 +40,20 @@ public class TestTask implements ReadOnlyTask {
     public void setStartTime(StartTime startTime) {
         this.startTime = startTime;
     }
+    
+    public void setRecurringFrequency(String frequency) {
+        this.recurringFrequency = frequency;
+    }
+    
+    public void setRecurringTime() {
+	    if (isRecurring && isComplete && !this.recurringFrequency.equals("")) {
+	        RecurringUtil.updateRecurringDate(startTime.starttime, recurringFrequency);
+	    	RecurringUtil.updateRecurringDate(endTime.endtime, recurringFrequency);
+	        if (!startTime.isMissing() || !endTime.isMissing()) {
+	            isComplete = false;
+	        }
+	    }
+	}
     
     public void setPriority(Priority priority) {
         this.priority = priority;
