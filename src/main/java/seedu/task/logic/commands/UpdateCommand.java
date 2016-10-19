@@ -73,7 +73,8 @@ public class UpdateCommand extends Command {
         
         Task newTask = new Task(
                 updatedTaskName,
-                newTaskTags,false
+                newTaskTags, 
+                taskToUpdate.getImportance()
         );
         
         assert model != null;
