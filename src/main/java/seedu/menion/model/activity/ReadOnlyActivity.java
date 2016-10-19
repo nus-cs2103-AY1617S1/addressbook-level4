@@ -43,8 +43,13 @@ public interface ReadOnlyActivity {
 
     void setActivityDetails();
     
-    // Sets the activityName of an activity.
-    void setActivityName(String newName) throws IllegalValueException;
+    /**
+     * @author Marx Low A0139164A
+     * Methods to set the Activity's Param 
+     * @param the String of the new change to make.
+     */
+    void setActivityName(String newName);
+    void setActivityNote(String newNote);
     
     /**
      * The returned TagList is a deep copy of the internal TagList,

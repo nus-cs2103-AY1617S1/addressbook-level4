@@ -227,19 +227,19 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void editFloatingTaskNote(int index, String changes) {
         Activity dub;
         dub = floatingTasks.getInternalList().get(index);
-        dub.setActivityName(changes);
+        dub.setActivityNote(changes);
         floatingTasks.getInternalList().set(index, dub);   
     }
     public void editTaskNote(int index, String changes) {
         Activity dub;
         dub = tasks.getInternalList().get(index);
-        dub.setActivityName(changes);
+        dub.setActivityNote(changes);
         tasks.getInternalList().set(index, dub);   
     }
     public void editEventNote(int index, String changes) {
         Activity dub;
         dub = events.getInternalList().get(index);
-        dub.setActivityName(changes);
+        dub.setActivityNote(changes);
         events.getInternalList().set(index, dub);   
     }
     

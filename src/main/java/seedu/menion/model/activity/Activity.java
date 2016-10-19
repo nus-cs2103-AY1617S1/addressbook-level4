@@ -147,8 +147,11 @@ public class Activity implements ReadOnlyActivity {
         return this.name;
     }
     
-    //@Author Marx Low A0139164A
-    // Exception handling to be editted ----------> ALERT!
+    /**
+     * @Author Marx Low A0139164A
+     * List of methods to set Activity's param : Name, Note
+     * Exception handling to be editted ----------> ALERT!
+     */
     @Override
     public void setActivityName(String newName) {
         assert (newName != null);
@@ -159,6 +162,15 @@ public class Activity implements ReadOnlyActivity {
         }
     }
 
+    @Override
+    public void setActivityNote(String newNote) {
+        assert (newNote != null);
+        try {
+            this.note = new Note(newNote);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public Note getNote() {
         return this.note;
