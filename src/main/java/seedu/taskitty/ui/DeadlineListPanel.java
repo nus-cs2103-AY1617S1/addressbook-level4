@@ -61,7 +61,7 @@ public class DeadlineListPanel extends UiPart{
     }
 
     private void configure(ObservableList<ReadOnlyTask> deadlineList) {
-    	header.setText("DEADLINES");
+    	header.setText("DEADLINES [d]");
     	header.setStyle("-fx-text-fill: white");
         setConnections(deadlineList);
         addToPlaceholder();
