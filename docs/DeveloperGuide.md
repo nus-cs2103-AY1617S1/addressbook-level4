@@ -288,9 +288,9 @@ Priority | As a ... | I want to ... | So that I can...
 	
 #### Use Case: Add task
 
-**MSS**
-1. User types in a task to be added.
-2. ForgetMeNot adds the task in the list of tasks
+**MSS** <br>
+1. User types in a task to be added. <br>
+2. ForgetMeNot adds the task in the list of tasks <br>
       Use case ends.
 
 **Extensions**
@@ -303,9 +303,10 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. User types in clear command
-2. ForgetMeNot clears the list of task
-	Use case ends
+1. User types in clear command <br>
+2. ForgetMeNot clears the list of task <br>
+	Use case ends <br>
+	
 **Extensions**
 
 	1a. User types in wrong command
