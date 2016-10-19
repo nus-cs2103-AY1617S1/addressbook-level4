@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
 
@@ -81,8 +82,8 @@ public class StatusBarFooter extends UiPart {
     }
 
     @Override
-    public void setPlaceholder(AnchorPane placeholder) {
-        this.placeHolder = placeholder;
+    public void setPlaceholder(Pane placeholder) {
+        this.placeHolder = (AnchorPane) placeholder;
     }
 
     @Override

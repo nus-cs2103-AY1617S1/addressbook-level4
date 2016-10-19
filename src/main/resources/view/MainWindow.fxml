@@ -14,7 +14,18 @@
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
+                  <MenuItem fx:id="mainMenuItem" mnemonicParsing="false" onAction="#handleFullScreen" text="FullScreen" />
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Navigate">
+               <items>
+                  <MenuItem fx:id="commandNextMenuItem" mnemonicParsing="false" onAction="#handlePreviousCommandTextNext" text="Previous Command" />
+                  <MenuItem fx:id="commandPreviousMenuItem" mnemonicParsing="false" onAction="#handlePreviousCommandTextPrevious" text="Previous Command" />
+                  <MenuItem fx:id="listFirstMenuItem" mnemonicParsing="false" onAction="#handleListPanelSelectFirst" text="Select First Task" />
+                  <MenuItem fx:id="listLastMenuItem" mnemonicParsing="false" onAction="#handleListPanelSelectLast" text="Select Last Task" />
+                  <MenuItem fx:id="listNextMenuItem" mnemonicParsing="false" onAction="#handleListPanelSelectNext" text="Select Next Task" />
+                  <MenuItem fx:id="listPreviousMenuItem" mnemonicParsing="false" onAction="#handleListPanelSelectPrevious" text="Select Previous Task" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">

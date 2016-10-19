@@ -1,10 +1,11 @@
 package seedu.tasklist.ui;
 
+import java.util.Map;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -52,9 +53,6 @@ public class MainWindow extends UiPart {
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
     private AnchorPane taskListPanelPlaceholder;
 
     @FXML
@@ -62,6 +60,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private MenuItem mainMenuItem, helpMenuItem, commandNextMenuItem, commandPreviousMenuItem, listNextMenuItem, listPreviousMenuItem, listFirstMenuItem, listLastMenuItem;
 
     public MainWindow() {
         super();
@@ -100,86 +101,31 @@ public class MainWindow extends UiPart {
         primaryStage.setScene(scene);
 
         setAccelerators();
-        setEventFilters();
+        addEventFilters();
     }
 
     private void setAccelerators() {
+        mainMenuItem.setAccelerator(KeyCombination.valueOf("F11"));
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        commandNextMenuItem.setAccelerator(KeyCombination.valueOf("UP"));
+        commandPreviousMenuItem.setAccelerator(KeyCombination.valueOf("DOWN"));
+        listFirstMenuItem.setAccelerator(KeyCombination.valueOf("HOME"));
+        listLastMenuItem.setAccelerator(KeyCombination.valueOf("END"));
+        listNextMenuItem.setAccelerator(KeyCombination.valueOf("PAGE_UP"));
+        listPreviousMenuItem.setAccelerator(KeyCombination.valueOf("PAGE_DOWN"));
     }
 
-    private void setEventFilters() {
+    private void addEventFilters() {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
-            if (event.getCode() == KeyCode.F1) {
-                handleHelp();
-            } else if (event.getCode() == KeyCode.F11) {
-                handleFullScreen();
-            } else if (event.getCode() == KeyCode.HOME) {
-                handleListPanelSelectFirst();
-            } else if (event.getCode() == KeyCode.END) {
-                handleListPanelSelectLast();
-            } else if (event.getCode() == KeyCode.PAGE_UP) {
-                handleListPanelSelectPrevious();
-            } else if (event.getCode() == KeyCode.PAGE_DOWN) {
-                handleListPanelSelectNext();
-            } else if (event.getCode() == KeyCode.UP) {
-                handlePreviousCommandTextNext();
-            } else if (event.getCode() == KeyCode.DOWN) {
-                handlePreviousCommandTextPrevious();
+            Map<KeyCombination,Runnable> accelerators = scene.getAccelerators();
+            for (KeyCombination keyCombination : accelerators.keySet()) {
+                if (keyCombination.match(event)) {
+                    accelerators.get(keyCombination).run();
+                    event.consume();
+                    return;
+                }
             }
         });
-    }
-
-    /**
-     * Scroll to the first task in the list view
-     */
-    private void handleListPanelSelectFirst() {
-        taskListPanel.selectFirst();
-    }
-    
-    /**
-     * Scroll to the last task in the list view
-     */
-    private void handleListPanelSelectLast() {
-        taskListPanel.selectLast();
-    }
-    
-    /**
-     * Scroll up and select the next task in the list view
-     */
-    private void handleListPanelSelectPrevious() {
-        taskListPanel.selectPrevious();
-    }
-    
-    /**
-     * Scroll down and select the next task in the list view
-     */
-    private void handleListPanelSelectNext() {
-        taskListPanel.selectNext();
-    }
-    
-    /**
-     * Set the main Window into and out of full screen mode
-     */
-    private void handleFullScreen() {
-        if (primaryStage.isFullScreen()) {
-            primaryStage.setFullScreen(false);
-        } else {
-            primaryStage.setFullScreen(true);
-        }
-    }
-
-    /**
-     * Scroll through the previous commands by pressing the Up Key
-     */
-    private void handlePreviousCommandTextNext() {
-        commandBox.selectPreviousCommandTextNext();
-    }
-
-    /**
-     * Scroll through the previous commands by pressing the Down Key
-     */
-    private void handlePreviousCommandTextPrevious() {
-        commandBox.selectPreviousCommandTextPrevious();
     }
 
     void fillInnerParts() {
@@ -243,6 +189,66 @@ public class MainWindow extends UiPart {
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
+    }
+    
+    /**
+     * Scroll to the first task in the list view
+     */
+    @FXML
+    private void handleListPanelSelectFirst() {
+        taskListPanel.selectFirst();
+    }
+    
+    /**
+     * Scroll to the last task in the list view
+     */
+    @FXML
+    private void handleListPanelSelectLast() {
+        taskListPanel.selectLast();
+    }
+    
+    /**
+     * Scroll up and select the next task in the list view
+     */
+    @FXML
+    private void handleListPanelSelectPrevious() {
+        taskListPanel.selectPrevious();
+    }
+    
+    /**
+     * Scroll down and select the next task in the list view
+     */
+    @FXML
+    private void handleListPanelSelectNext() {
+        taskListPanel.selectNext();
+    }
+    
+    /**
+     * Set the main Window into and out of full screen mode
+     */
+    @FXML
+    private void handleFullScreen() {
+        if (primaryStage.isFullScreen()) {
+            primaryStage.setFullScreen(false);
+        } else {
+            primaryStage.setFullScreen(true);
+        }
+    }
+
+    /**
+     * Scroll through the previous commands by pressing the Up Key
+     */
+    @FXML
+    private void handlePreviousCommandTextNext() {
+        commandBox.selectPreviousCommandTextNext();
+    }
+
+    /**
+     * Scroll through the previous commands by pressing the Down Key
+     */
+    @FXML
+    private void handlePreviousCommandTextPrevious() {
+        commandBox.selectPreviousCommandTextPrevious();
     }
 
     public void show() {

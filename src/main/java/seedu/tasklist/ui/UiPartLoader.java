@@ -3,6 +3,8 @@ package seedu.tasklist.ui;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.tasklist.MainApp;
 
@@ -24,7 +26,7 @@ public class UiPartLoader {
      * @param sampleUiPart The sample of the expected UiPart class.
      * @param <T> The type of the UiPart
      */
-    public static <T extends UiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
+    public static <T extends UiPart> T loadUiPart(Stage primaryStage, Pane placeholder, T sampleUiPart) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
         Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());

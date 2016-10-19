@@ -7,8 +7,6 @@ package seedu.tasklist.logic.commands;
 public class IncorrectCommand extends Command {
 
     public String feedbackToUser;
-    
-    public IncorrectCommand() {}
 
     public IncorrectCommand(String feedbackToUser){
         this.feedbackToUser = feedbackToUser;

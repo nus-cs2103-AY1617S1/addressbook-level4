@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.tasklist.commons.core.LogsCenter;
@@ -27,7 +28,6 @@ public class TaskListPanel extends UiPart {
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
-    private int taskListViewIndex = 0;
 
     public TaskListPanel() {
         super();
@@ -44,8 +44,8 @@ public class TaskListPanel extends UiPart {
     }
 
     @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
+    public void setPlaceholder(Pane pane) {
+        this.placeHolderPane = (AnchorPane) pane;
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
@@ -55,7 +55,7 @@ public class TaskListPanel extends UiPart {
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
@@ -129,4 +129,7 @@ public class TaskListPanel extends UiPart {
         }
     }
 
+    public ListView<ReadOnlyTask> getTaskListView() {
+        return taskListView;
+    }
 }
