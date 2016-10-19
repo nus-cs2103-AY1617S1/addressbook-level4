@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
-    <persons>
-        <id>1</id>
-        <firstName>John</firstName>
-        <lastName>Doe</lastName>
-        <githubUsername></githubUsername>
-        <street></street>
-        <postalCode></postalCode>
-        <city></city>
-    </persons>
-    <tags>
-        <name>Friends</name>
-    </tags>
-</addressbook>
+<taskmanager>
+    <tasks>
+        <name>task</name>
+    </tasks>
+    <tasks>
+        <name>event</name>
+        <startDate>10/19/2016</startDate>
+        <endDate>10/19/2016</endDate>
+        <startTime>14:00</startTime>
+        <endTime>15:00</endTime>
+    </tasks>
+    <tasks>
+        <name>deadline</name>
+        <endDate>10/19/2016</endDate>
+        <endTime>09:00</endTime>
+    </tasks>
+</taskmanager>
