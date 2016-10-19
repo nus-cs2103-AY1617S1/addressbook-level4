@@ -449,7 +449,7 @@ public class ModelManager extends ComponentManager implements Model {
 		@Override
 		public boolean run(ReadOnlyTask person) {
 			Matcher matcher = NAME_QUERY.matcher(person.getTaskDetails().taskDetails);
-			return matcher.matches() && !person.isComplete();
+			return matcher.matches();
 		}
 
 		@Override
