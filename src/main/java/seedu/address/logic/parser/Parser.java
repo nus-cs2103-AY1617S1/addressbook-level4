@@ -334,7 +334,11 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        // keyphrases delimited by commas
+        if (args.equals("")) {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+    	
+    	// keyphrases delimited by commas
         final String[] keyphrases = args.split(",");
         final Set<String> keyphraseSet = new HashSet<>(Arrays.asList(keyphrases));
         
