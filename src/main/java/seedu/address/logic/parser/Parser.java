@@ -70,6 +70,9 @@ public class Parser {
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
@@ -183,6 +186,23 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
 
+    /**
+     * Parses arguments in the context of the done task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDone(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(index.get());
+    }
+    
     /**
      * Parses arguments in the context of the edit person command.
      *

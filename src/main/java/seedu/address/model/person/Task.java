@@ -100,16 +100,19 @@ public class Task implements ReadOnlyTask {
         this.time = time;
     }
     
-    public void setAsDone(){
+    public boolean setAsDone(){
         this.setStatus(new Status(State.DONE));
+        return true;
     }
     
-    public void setAsOverdue(){
+    public boolean setAsOverdue(){
         this.setStatus(new Status(State.OVERDUE));
+        return true;
     }
     
-    public void setAsNorm(){
+    public boolean setAsNorm(){
         this.setStatus(new Status(State.NONE));
+        return true;
     }
     
     private void setStatus(Status status) {

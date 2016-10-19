@@ -74,6 +74,20 @@ public class UniquePersonList implements Iterable<Task> {
         return personFoundAndDeleted;
     }
 
+    /**
+     * Removes the equivalent person from the list.
+     *
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public boolean complete(ReadOnlyTask toComplete) throws PersonNotFoundException {
+        assert toComplete != null;
+        if (!internalList.contains(toComplete)) {
+            throw new PersonNotFoundException();
+        }
+        Task taskFoundAndCompleted = internalList.get(internalList.indexOf(toComplete));
+        return taskFoundAndCompleted.setAsDone();
+    }
+    
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

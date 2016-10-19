@@ -18,12 +18,12 @@ public class XmlAdaptedPerson {
     private String name;
     @XmlElement(required = true)
     private String phone;
+    @XmlElement(required = true)
+    private String status;
     @XmlElement(required = false)
     private String email;
     @XmlElement(required = false)
     private String address;
-    @XmlElement(required = true)
-    private String status;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 

@@ -79,6 +79,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    @Override
+    public void completeTask(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException {
+        addressBook.completeTask(target);
+        indicateAddressBookChanged();
+    }
 
     //=========== Filtered Person List Accessors ===============================================================
 
@@ -175,5 +181,6 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
 
 }
