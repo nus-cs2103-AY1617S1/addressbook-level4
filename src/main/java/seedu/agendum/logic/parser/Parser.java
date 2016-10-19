@@ -4,6 +4,7 @@ import seedu.agendum.logic.commands.*;
 import seedu.agendum.commons.util.StringUtil;
 import seedu.agendum.commons.exceptions.IllegalValueException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,10 +31,13 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)");
-
     private static final Pattern RENAME_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)\\s+(?<name>[^/]+)");
+
+    private static final Pattern ADD_ARGS_FORMAT = Pattern.compile("(?:.+?(?=(?:(?:by|from|to)\\s|$)))+?");
+
+    private static final String ADD_ARGS_FROM = "from";
+    private static final String ADD_ARGS_BY = "by";
+    private static final String ADD_ARGS_TO = "to";
 
     public Parser() {}
 
@@ -98,15 +102,54 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
+        Matcher matcher = ADD_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+
         try {
-            return new AddCommand(
-                    matcher.group("name")
-            );
+            matcher = ADD_ARGS_FORMAT.matcher(args.trim());
+
+            String taskTitle = null;
+            HashMap<String, Optional<LocalDateTime>> dateTimeMap = new HashMap<>();
+            final String[] tokens = new String[]{ADD_ARGS_FROM, ADD_ARGS_TO, ADD_ARGS_BY};
+
+            while (matcher.find()) {
+                boolean matchedWithPrefix = false;
+
+                for (String token:tokens) {
+                    String s = matcher.group(0).toLowerCase();
+                    if (s.startsWith(token)) {
+                        s = s.substring(token.length(), s.length());
+                        dateTimeMap.put(token, DateTimeParser.parseString(s));
+                        matchedWithPrefix = true;
+                    }
+                }
+                if (!matchedWithPrefix) {
+                    taskTitle = matcher.group(0);
+                }
+            }
+
+            if (dateTimeMap.containsKey(ADD_ARGS_BY)) {
+                return new AddCommand(
+                        taskTitle,
+                        dateTimeMap.get(ADD_ARGS_BY)
+                );
+            } else if (dateTimeMap.containsKey(ADD_ARGS_FROM) && dateTimeMap.containsKey(ADD_ARGS_TO)) {
+                return new AddCommand(
+                        taskTitle,
+                        dateTimeMap.get(ADD_ARGS_FROM),
+                        dateTimeMap.get(ADD_ARGS_TO)
+                );
+            } else if (!dateTimeMap.containsKey(ADD_ARGS_FROM) && !dateTimeMap.containsKey(ADD_ARGS_TO) && !dateTimeMap.containsKey(ADD_ARGS_BY)) {
+                return new AddCommand(
+                        taskTitle
+                );
+            }
+            else {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

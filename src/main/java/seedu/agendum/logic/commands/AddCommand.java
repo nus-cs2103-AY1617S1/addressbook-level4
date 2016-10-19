@@ -3,6 +3,9 @@ package seedu.agendum.logic.commands;
 import seedu.agendum.commons.exceptions.IllegalValueException;
 import seedu.agendum.model.task.*;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -23,7 +26,7 @@ public class AddCommand extends Command {
     private final Task toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructor using name
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -31,6 +34,33 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         this.toAdd = new Task(
                 new Name(name)
+        );
+    }
+
+    /**
+     * Convenience constructor using name, end datetime
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, Optional<LocalDateTime> deadlineDate)
+            throws IllegalValueException {
+        this.toAdd = new Task(
+                new Name(name),
+                deadlineDate
+        );
+    }
+
+    /**
+     * Convenience constructor using name, start datetime, end datetime
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, Optional<LocalDateTime> startDateTime, Optional<LocalDateTime> endDateTime)
+            throws IllegalValueException {
+        this.toAdd = new Task(
+                new Name(name),
+                startDateTime,
+                endDateTime
         );
     }
 

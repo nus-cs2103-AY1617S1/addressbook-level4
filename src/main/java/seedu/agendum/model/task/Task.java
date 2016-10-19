@@ -40,9 +40,9 @@ public class Task implements ReadOnlyTask {
         this.startDateTime = null;
         this.endDateTime = deadline.orElse(null);
     }
-    
+
     /**
-     * Constructor for a task (event) with both a start and end time
+     * Constructor for a task with start and end datetime
      */
     public Task(Name name, Optional<LocalDateTime> startDateTime,
             Optional<LocalDateTime> endDateTime) {
