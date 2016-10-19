@@ -10,11 +10,7 @@ import seedu.tasklist.model.UserPrefs;
 import seedu.tasklist.storage.XmlSerializableTaskList;
 import seedu.tasklist.testutil.TestUtil;
 
-import java.io.IOException;
 import java.util.function.Supplier;
-
-import org.json.JSONException;
-import org.json.simple.parser.ParseException;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -46,7 +42,7 @@ public class TestApp extends MainApp {
     }
 
     @Override
-    protected Config initConfig(String configFilePath) throws JSONException, IOException, ParseException {
+    protected Config initConfig(String configFilePath) {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
         config.setTaskListFilePath(saveFileLocation);

@@ -1,8 +1,6 @@
 package seedu.tasklist.commons.util;
 
 
-import org.json.JSONException;
-import org.json.simple.parser.ParseException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -54,7 +52,7 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_fileInOrder_successfullyRead() throws DataConversionException, JSONException, IOException, ParseException {
+    public void read_fileInOrder_successfullyRead() throws DataConversionException {
 
         Config expected = getTypicalConfig();
 
@@ -69,14 +67,14 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException, JSONException, IOException, ParseException {
+    public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         Config expected = getTypicalConfig();
         Config actual = read("ExtraValuesConfig.json").get();
 
         assertEquals(expected, actual);
     }
 
-    private Config getTypicalConfig() throws JSONException, IOException, ParseException {
+    private Config getTypicalConfig() {
         Config config = new Config();
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
@@ -104,7 +102,7 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void saveConfig_allInOrder_success() throws DataConversionException, IOException, JSONException, ParseException {
+    public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
         Config original = getTypicalConfig();
 
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";

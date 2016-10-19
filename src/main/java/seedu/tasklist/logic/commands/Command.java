@@ -1,10 +1,5 @@
 package seedu.tasklist.logic.commands;
 
-import java.io.IOException;
-
-import org.json.JSONException;
-import org.json.simple.parser.ParseException;
-
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -30,11 +25,8 @@ public abstract class Command {
      * Executes the command and returns the result message.
      *
      * @return feedback message of the operation result for display
-     * @throws IOException 
-     * @throws JSONException 
-     * @throws ParseException 
      */
-    public abstract CommandResult execute() throws IOException, JSONException, ParseException;
+    public abstract CommandResult execute();
 
     /**
      * Provides any needed dependencies to the command.

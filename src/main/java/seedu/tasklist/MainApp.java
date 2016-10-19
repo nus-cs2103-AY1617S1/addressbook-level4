@@ -26,9 +26,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import org.json.JSONException;
-import org.json.simple.parser.ParseException;
-
 /**
  * The main entry point to the application.
  */
@@ -96,7 +93,7 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
-    protected Config initConfig(String configFilePath) throws JSONException, IOException, ParseException {
+    protected Config initConfig(String configFilePath) {
         Config initializedConfig;
         String configFilePathUsed;
 

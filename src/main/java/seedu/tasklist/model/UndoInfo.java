@@ -9,13 +9,11 @@ import seedu.tasklist.model.task.Task;
 public class UndoInfo {
 
     private int undo_ID;
-    private String filePath;
     private ArrayList<Task> tasks;
     
-    public UndoInfo(int undo_ID, String filePath, Task... tasks){
+    public UndoInfo(int undo_ID, Task... tasks){
         this.undo_ID = undo_ID;
         Collection<Task> collection = Arrays.asList(tasks);
-        this.filePath = filePath;
         this.tasks = new ArrayList<Task>(collection);
     }
     
@@ -25,14 +23,6 @@ public class UndoInfo {
     
     public ArrayList<Task> getTasks(){
         return tasks;
-    }
-    
-    public String getFilePath(){
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
     }
     
 }
