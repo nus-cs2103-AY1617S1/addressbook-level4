@@ -195,12 +195,12 @@ Command | Format
 Add | `add TASK_NAME [t/TAG]...`
 Add | `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 Add | `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
-Edit | `edit TASK_ID [start/EDIT_START_DATE EDIT_START_TIME end/EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]...`
+Edit | `edit TASK_ID [from EDIT_START_DATE EDIT_START_TIME to EDIT_END_DATE EDIT_END_TIME] [by EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]...`
 Delete | `delete TASK_ID`
-Block | `block TASK_NAME start/START_DATE START_TIME end/START_DATE START_TIME`
+Block | `block TASK_NAME from START_DATE START_TIME to START_DATE START_TIME`
 Redo | `r`
 Undo | `u`
-Find | `find [TASK_NAME] [date/DATE [TIME]] [t/TAG]...`
+Find | `find [TASK_NAME] [by DATE TIME] [t/TAG]...`
 Clear | `clear`
 Change directory | `cd FILE_PATH`
 Exit | `exit`
