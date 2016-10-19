@@ -124,7 +124,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME [m/description d/duedate l/location p/priorityrank(1- highest,5-lowest) s/startdate e/enddate t/TAG]...`
+Add | `add NAME [m/description d/duedate a/address p/priorityrank(1- highest,5-lowest) s/startdate e/enddate t/TAG]...`
 Edit | `edit INDEX [Detail Type] x/detail change` where x is either d, l, p, s, e or t
 Clear | `clear`
 Delete | `delete INDEX`
