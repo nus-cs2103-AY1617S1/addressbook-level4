@@ -2,6 +2,7 @@ package seedu.menion.model.activity;
 
 import java.util.ArrayList;
 
+import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.tag.UniqueTagList;
 
 /**
@@ -17,7 +18,7 @@ public interface ReadOnlyActivity {
     // Floating Task parameters
     ActivityName getActivityName();   
     Note getNote();
-    
+
     // Task additional parameters, on top of Floating Task
     ActivityDate getActivityStartDate();
     ActivityTime getActivityStartTime();
@@ -28,6 +29,7 @@ public interface ReadOnlyActivity {
     
     // Finding Activity Type; Can be a Floating Task, Task, or Event
     String getActivityType();
+
     
     // Gets the state of completion of an activity.
     Completed getActivityStatus();
@@ -40,6 +42,9 @@ public interface ReadOnlyActivity {
     void setUncompleted();
 
     void setActivityDetails();
+    
+    // Sets the activityName of an activity.
+    void setActivityName(String newName) throws IllegalValueException;
     
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -144,4 +149,5 @@ public interface ReadOnlyActivity {
                 .append(getActivityStatus().toString());
         return builder.toString();
     }
+
 }

@@ -146,6 +146,13 @@ public class Activity implements ReadOnlyActivity {
     public ActivityName getActivityName() {
         return this.name;
     }
+    
+    //@Author Marx Low A0139164A
+    @Override
+    public void setActivityName(String newName) throws IllegalValueException {
+        assert (newName != null);
+        this.name = new ActivityName(newName);
+    }
 
     @Override
     public Note getNote() {
@@ -232,7 +239,6 @@ public class Activity implements ReadOnlyActivity {
         }
     }
 
-    
     @Override
     public String toString() {
         switch(this.activityType){
