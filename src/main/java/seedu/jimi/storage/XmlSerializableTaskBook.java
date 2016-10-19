@@ -5,8 +5,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.ReadOnlyTaskBook;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
+import seedu.jimi.model.task.DeadlineTask;
+import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
 
@@ -47,6 +50,8 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
      */
     public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        deadlineTasks.addAll(src.getDeadlineTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        events.addAll(src.getEventList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -66,7 +71,10 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : tasks) {
             try {
-                lists.add(p.toModelType());
+                ReadOnlyTask toAdd = p.toModelType();
+                if(!(toAdd instanceof DeadlineTask) && !(toAdd instanceof Event) && (toAdd instanceof FloatingTask)) {
+                    lists.add(p.toModelType());
+                }
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }
@@ -79,7 +87,10 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : deadlineTasks) {
             try {
-                lists.add(p.toModelType());
+                ReadOnlyTask toAdd = p.toModelType();
+                if(!(toAdd instanceof Event) && (toAdd instanceof DeadlineTask)) {
+                    lists.add(p.toModelType());
+                }
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }
@@ -92,7 +103,10 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : events) {
             try {
-                lists.add(p.toModelType());
+                ReadOnlyTask toAdd = p.toModelType();
+                if(!(toAdd instanceof DeadlineTask) && (toAdd instanceof Event)) {
+                    lists.add(p.toModelType());
+                }
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }
@@ -104,7 +118,11 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
             try {
-                return p.toModelType();
+                ReadOnlyTask toAdd = p.toModelType();
+                if(!(toAdd instanceof DeadlineTask) && !(toAdd instanceof Event) && (toAdd instanceof FloatingTask)) {
+                    return toAdd;
+                }
+                return null;
             } catch (IllegalValueException e) {
                 e.printStackTrace();
                 //TODO: better error handling
@@ -117,7 +135,11 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     public List<ReadOnlyTask> getDeadlineTaskList() {
         return deadlineTasks.stream().map(p -> {
             try {
-                return p.toModelType();
+                ReadOnlyTask toAdd = p.toModelType();
+                if(!(toAdd instanceof Event) && (toAdd instanceof DeadlineTask)) {
+                    return toAdd;
+                }
+                return null;
             } catch (IllegalValueException e) {
                 e.printStackTrace();
                 //TODO: better error handling
@@ -130,7 +152,11 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     public List<ReadOnlyTask> getEventList() {
         return events.stream().map(p -> {
             try {
-                return p.toModelType();
+                ReadOnlyTask toAdd = p.toModelType();
+                if(!(toAdd instanceof DeadlineTask) && (toAdd instanceof Event)) {
+                    return toAdd;
+                }
+                return null;
             } catch (IllegalValueException e) {
                 e.printStackTrace();
                 //TODO: better error handling
