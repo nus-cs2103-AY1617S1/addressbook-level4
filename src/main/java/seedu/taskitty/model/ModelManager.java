@@ -98,9 +98,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    public synchronized void undo() {
-        resetData(historyTaskManagers.pop());
+    public synchronized String undo() {
+        resetData(historyTaskManagers.pop());        
         updateFilteredTaskList(historyPredicates.pop());
+        return historyCommands.pop();
     }
     
     public synchronized void saveState(String command) {

@@ -32,7 +32,7 @@ public interface Model {
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
     /** Undoes the previous command if there is any */
-    void undo();
+    String undo();
     
     /** Saves the current state of the TaskManager andfilteredTasks to allow for undoing */
     void saveState(String command);
