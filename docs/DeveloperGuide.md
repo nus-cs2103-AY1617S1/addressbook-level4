@@ -114,7 +114,7 @@ The sections below give more details of each component.
 
 The UI component handles the interaction between the user and application. In particular, the UI is responsible for passing the textual command input from the user to the `Logic` for execution, and then display the outcome of the execution to the user via the GUI.
 
-<img src="diagrams/Ui Image.png" class="u-max-full-width">
+<img src="diagrams/Ui Image.png" class="container u-max-full-width">
 
 <figcaption>Visual identification of view elements in the UI</figcaption>
 
