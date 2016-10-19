@@ -10,6 +10,8 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import edu.emory.mathcs.backport.java.util.Collections;
+
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
@@ -49,11 +51,20 @@ public class AddressBook implements ReadOnlyAddressBook {
 //// list overwrite operations
 
     public ObservableList<Task> getPersons() {
+    	System.out.println("sort dated");
+    	sortFilteredLists();
         return persons.getInternalList();
     }
     
     public ObservableList<Task> getUndatedTasks() {
+    	System.out.println("sort undated");
+    	sortFilteredLists();
         return undatedList.getInternalList();
+    }
+    
+    private void sortFilteredLists(){
+    	persons.sort(Task.Comparators.DATE);
+    	undatedList.sort(Task.Comparators.NAME);
     }
 
     public void setPersons(List<Task> persons) {
@@ -159,13 +170,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         // TODO: refine later
     }
 
+    //this gets called when ModelManager.indicateAddressBookChanged() 
     @Override
     public List<ReadOnlyTask> getPersonList() {
+    	sortFilteredLists();
         return Collections.unmodifiableList(persons.getInternalList());
     }
     
+    //this also gets called when ModelManager.indicateAddressBookChanged() 
     @Override
     public List<ReadOnlyTask> getUndatedTaskList() {
+    	sortFilteredLists();
         return Collections.unmodifiableList(undatedList.getInternalList());
     }
 
@@ -176,11 +191,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public UniquePersonList getUniquePersonList() {
+    	sortFilteredLists();
         return this.persons;
     }
     
     @Override
     public UniquePersonList getUniqueUndatedTaskList() {
+    	sortFilteredLists();
         return this.undatedList;
     }
 
