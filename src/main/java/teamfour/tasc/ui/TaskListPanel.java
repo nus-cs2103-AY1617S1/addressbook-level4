@@ -105,6 +105,10 @@ public class TaskListPanel extends UiPart {
         });
     }
 
+    public void setCollapse(boolean collapse){
+        this.isCollapsed = collapse;
+    }
+
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
         public TaskListViewCell() {

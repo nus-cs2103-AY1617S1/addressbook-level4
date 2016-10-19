@@ -19,6 +19,7 @@ import teamfour.tasc.logic.commands.SelectCommand;
 import teamfour.tasc.logic.commands.ShowCommand;
 import teamfour.tasc.logic.commands.UndoCommand;
 import teamfour.tasc.logic.commands.UpdateCommand;
+import teamfour.tasc.logic.commands.CollapseCommand;
 
 import static teamfour.tasc.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static teamfour.tasc.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -109,6 +110,9 @@ public class Parser {
         case RelocateCommand.COMMAND_WORD:
             return prepareRelocate(arguments);
 
+        case CollapseCommand.COMMAND_WORD:
+            return new CollapseCommand();
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -170,7 +174,7 @@ public class Parser {
         string = string.replace(".", "");
         return string;
     }
-    
+
     /**
      * Precondition: argument string is not null.
      * Parses the command string in the context of the list task command.
@@ -204,7 +208,7 @@ public class Parser {
         } else {
             tags = removeFullStopsAndCommas(tags);
         }
-        
+
         if (sortingOrder != null) {
             sortingOrder = removeFullStopsAndCommas(sortingOrder);
         }
@@ -232,7 +236,7 @@ public class Parser {
      */
     private Command prepareShow(String args){
         assert args != null;
-        
+
         if (args.trim().equals("")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
@@ -251,7 +255,7 @@ public class Parser {
         } else {
             tags = removeFullStopsAndCommas(tags);
         }
-        
+
         try {
             return new ShowCommand(
                     type,
@@ -275,7 +279,7 @@ public class Parser {
      */
     private Command prepareHide(String args){
         assert args != null;
-        
+
         if (args.trim().equals("")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE));
         }
@@ -294,7 +298,7 @@ public class Parser {
         } else {
             tags = removeFullStopsAndCommas(tags);
         }
-        
+
         try {
             return new HideCommand(
                     type,
