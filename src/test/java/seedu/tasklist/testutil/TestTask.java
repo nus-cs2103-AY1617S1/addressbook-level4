@@ -17,6 +17,8 @@ public class TestTask implements ReadOnlyTask {
     private Priority priority;
     private UniqueTagList tags;
     private boolean isComplete;
+    private boolean isRecurring;
+    private String recurringFrequency;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -55,6 +57,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public EndTime getEndTime() {
         return endTime;
+    }
+    
+    @Override
+    public String getRecurringFrequency() {
+    	return this.recurringFrequency;
     }
 
     @Override
@@ -103,6 +110,11 @@ public class TestTask implements ReadOnlyTask {
 	@Override
 	public boolean isFloating() {
 		return endTime.isMissing()&&startTime.isMissing();
+	}
+	
+	@Override
+	public boolean isRecurring() {
+		return this.isRecurring;
 	}
 
 	@Override
