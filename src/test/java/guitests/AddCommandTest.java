@@ -32,7 +32,7 @@ public class AddCommandTest extends ListGuiTest {
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
         
         //add one deadline
-        TestDeadline[] currentDeadlineList = dd.getTypicalDeadline();//.getTypicalDeadline();
+        TestDeadline[] currentDeadlineList = dd.getTypicalDeadline();
         TestDeadline ddToAdd = dd.d6;
         assertAddDeadlineSuccess(ddToAdd, currentDeadlineList);
         currentDeadlineList = TestUtil.addDeadlinesToList(currentDeadlineList, ddToAdd);
@@ -46,6 +46,11 @@ public class AddCommandTest extends ListGuiTest {
         eventToAdd = ed.e7;
         assertAddEventSuccess(eventToAdd, currentEventList);
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
+        
+        //add another deadline
+        ddToAdd = dd.d7;
+        assertAddDeadlineSuccess(ddToAdd, currentDeadlineList);
+        currentDeadlineList = TestUtil.addDeadlinesToList(currentDeadlineList, ddToAdd);
 
         //add duplicate task
         commandBox.runCommand(td.a6.getAddCommand());
@@ -56,6 +61,11 @@ public class AddCommandTest extends ListGuiTest {
         commandBox.runCommand(ed.e6.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(eventListPanel.isListMatching(currentEventList));
+        
+        //add duplicate deadline
+        commandBox.runCommand(dd.d6.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(deadlineListPanel.isListMatching(currentEventList));
 
         //add to empty list
         commandBox.runCommand("clear");
