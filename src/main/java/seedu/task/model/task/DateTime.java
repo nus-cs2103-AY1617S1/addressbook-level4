@@ -1,50 +1,55 @@
 package seedu.task.model.task;
-/**
-package seedu.address.model.task;
-import java.time.LocalDateTime;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-**/
+import java.time.Instant;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
+
+import seedu.task.commons.exceptions.IllegalValueException;
+
 /**
  * Represents a Date and Time in the task list
  * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(String)}
  */
-/**
 public class DateTime {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Person date numbers should only contain numbers";
-    //TODO: Set Regex for DateTime
-    public static final String DATETIME_VALIDATION_REGEX = "\\d+";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date entered should be in a relatively standard form (e.g. in X hours, tomorrow, 20 Jan 2016, 5pm)";
 
-    public final LocalDateTime value;
+    public final Optional<Instant> value;
 
     /**
      * Validates given Date and Time entered by the user.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException if given date/time string is invalid.
      */
-    /**
     public DateTime(String dateTime) throws IllegalValueException {
         assert dateTime != null;
-        dateTime = dateTime.trim();
-        if (!isValidDateTime(dateTime)) {
+        if (dateTime.equals("")) {
+            this.value = Optional.empty();
+            return;
+        }
+        List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
+        if (!isValidDateTime(possibleDates)) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
-        //TODO: Parse DateTime?
-        //this.value = dateTime;
+        
+        this.value = Optional.of(possibleDates.get(0).toInstant());
     }
 
     /**
-     * Returns true if a given string is a valid datetime in required format
+     * Returns true if a given string is a valid date/time that can be parsed
+     * 
+     * @param test output from date/time parser
      */
-    /**
-    public static boolean isValidDateTime(String test) {
-        return test.matches(DATETIME_VALIDATION_REGEX);
+    public static boolean isValidDateTime(List<Date> test) {
+        return !test.isEmpty() && (test.size() == 1);
     }
 
     @Override
     public String toString() {
-        return value;
+        return (value.isPresent()) ? value.get().toString() : "";
     }
 
     @Override
@@ -60,4 +65,3 @@ public class DateTime {
     }
 
 }
-**/
