@@ -36,7 +36,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new Task(
-                new TaskDetails(name),
+                new TaskDetails(name.replace("\\", "")),
                 new StartTime(startTime),
                 new EndTime(endTime),
                 new Priority(priority),

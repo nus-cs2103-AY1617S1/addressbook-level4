@@ -36,7 +36,7 @@ public class UpdateCommand extends Command {
 			throws IllegalValueException {
 		this.targetIndex = targetIndex - 1;
 		if (taskDetails != null)
-			this.taskDetails = new TaskDetails(taskDetails);
+			this.taskDetails = new TaskDetails(taskDetails.replace("\\", ""));
 		if (startTime != null)
 			this.startTime = new StartTime(startTime);
 		if (endTime != null)
