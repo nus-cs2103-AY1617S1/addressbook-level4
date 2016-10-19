@@ -46,12 +46,12 @@ public class TaskCard extends UiPart{
         if(task.getStartDate().startDate != null){
         	startDate.setText(task.getStartDate().startDate.toString());
         } else{
-        	startDate.setText("");
+        	startDate.setText(" ");
         }
         if(task.getDueDate().dueDate != null){
         	dueDate.setText(task.getDueDate().dueDate.toString());
         } else{
-        	dueDate.setText("");
+        	dueDate.setText(" ");
         }
         description.setText(task.getDescription().description);
         tags.setText(task.tagsString());
