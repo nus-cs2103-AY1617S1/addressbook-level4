@@ -28,8 +28,8 @@ public class DueDate {
         }
         
         if(!dueDate.isEmpty()){
-        	this.dueDate = LocalDateTime.of(Integer.parseInt(dueDate.substring(4, 8)), Integer.parseInt(dueDate.substring(0, 2))
-            		, Integer.parseInt(dueDate.substring(2, 4)), Integer.parseInt(dueDate.substring(9, 11)),
+        	this.dueDate = LocalDateTime.of(Integer.parseInt(dueDate.substring(4, 8)), Integer.parseInt(dueDate.substring(2, 4))
+            		, Integer.parseInt(dueDate.substring(0, 2)), Integer.parseInt(dueDate.substring(9, 11)),
             			Integer.parseInt(dueDate.substring(11, 13)));
         }
     }
@@ -44,7 +44,7 @@ public class DueDate {
     @Override
     public String toString() {
     		if(dueDate !=null){
-    		DateTimeFormatter df = DateTimeFormatter.ofPattern("MMddyyyy HHmm");
+    		DateTimeFormatter df = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
     		return df.format(dueDate);
     	} else{
     		return "";
