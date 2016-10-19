@@ -14,10 +14,8 @@ public class TimePreparser {
             for (String token : tokens) {
                 Matcher matcher = dateType.matcher(token);
                 if (matcher.matches()) {
-                	System.out.println("token: "+token);
                     String rearrangedDate = matcher.group("month") + "/" + matcher.group("day") + "/"
                             + matcher.group("year");
-                    System.out.println("rearrangedDate: "+rearrangedDate);
                     token = rearrangedDate;
                 }   
                 result +=  token + " ";
