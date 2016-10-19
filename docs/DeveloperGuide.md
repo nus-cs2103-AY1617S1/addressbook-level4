@@ -9,11 +9,11 @@
 * [Design](#design)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e--product-survey)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
+* [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
 
@@ -380,8 +380,36 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | predict and auto correct my typos | be lazy and not retype everything again
 
 
-
-
+|   | **Priority** | **As a...** | **I want to...** | **So that I can...** | 
+| --- | --- | --- | --- | --- |
+| `* * *` | new user | list all the commands | know how to use the program |
+|`* * *` | new user | view a command | know how to use that particular command |
+|`* * *` | user | add a task | keep track of all my tasks/to-dos |
+|`* * *` | user | add a task with a time and date | keep track of deadlines |
+|`* * *` | user | add a floating task | remind myself on less important tasks |
+|`* * *` | user | add a recurring task | be constantly reminded/won't accidentally delete this task |
+|`* * *` | user | add a task with tags | properly categorize my tasks |
+|`* * *` | user | delete a task | remove a completed task from the list |
+|`* * *` | user | delete all tasks | declutter my task manager |
+|`* * *` | user | delete all tasks with a certain tag | declutter my task manager |
+|`* * *` | user | find a task by name/description | see what needs to be done |
+|`* * *` | user | find a task by tags | find a task that may be related to another task |
+|`* * *` | user | list all tasks | know what are the tasks I have entered |
+|`* * *` | user | list all tasks due by today | know what are the tasks I need to complete by today |
+|`* * *` | user | list all tasks with a deadline | know what are the tasks I can plan my schedule |
+|`* * *` | user | list all tags | know what tags I can search for |
+|`* * *` | user | edit any information of the task | make changes to the tasks that I have created |
+|`* *` | user | undo previous command | remove any task that is entered wrongly |
+|`* *` | user | keep my information safe | protect information that is private to me |
+|`* *` | user | be reminded of my deadlines | meet my deadlines |
+|`* *` | user | prioritize my tasks | know which tasks are more important |
+|`* *` | user | keep my deleted tasks temporarily | restore them should I need to |
+|`* *` | user | auto correct my typos when typing a command | not retype/edit the command every time I make a typo |
+|`* *` | user | asked every time I add a task | ensure that all fields have been entered correctly |
+|`* *` | user | asked every time I delete a task | not accidentally lose information |
+|`* *` | user | asked every time I edit a task | not accidentally change the wrong information |
+|`*` | user | find history of tasks of certain past period of time |
+|`*` | user | predict and auto correct my typos | be lazy and not retype everything again |
 
 
 
