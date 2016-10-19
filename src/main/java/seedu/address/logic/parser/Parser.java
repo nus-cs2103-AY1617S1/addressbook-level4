@@ -24,7 +24,7 @@ public class Parser {
     private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("((?<operand>(start|end|pr|t))\\W+)?(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+            Pattern.compile("^((?<operand>(start|end|pr|t))/)?(?<keywords>\\w+(?:\\s+\\w+)*)$"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<description>[^/]+)"
