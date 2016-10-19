@@ -34,7 +34,8 @@ public class Parser {
 																											// by
 																											// whitespace
 
-	private static final Pattern HELP_FORMAT = Pattern.compile("(?<help>\\S+(?:\\s+\\S+)*)"); // one
+	// private static final Pattern HELP_FORMAT =
+	// Pattern.compile("(?<help>\\S+(?:\\s+\\S+)*)"); // one
 	// or
 	// more
 	// characters
@@ -70,6 +71,10 @@ public class Parser {
 			.compile("(?<name>[^/]+)" + "(?<isDatePrivate>p?)d/(?<date>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	private static final Pattern ADD_FORMAT_3 = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+
+	private static final Pattern ADD_FORMAT_4 = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)" + "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
+			+ "(?<tagArguments>(?: t/[^/]+)*)");
 
 	private static final Pattern EDIT_FORMAT = Pattern.compile("(?<index>[^/]+)(?!$)" + "(d/(?<date>[^/]+))?"
 			+ "(s/(?<startTimeArguments>[^/]+))?" + "(e/(?<endTimeArguments>[^/]+))?");
@@ -163,8 +168,9 @@ public class Parser {
 		final Matcher matcher1 = ADD_FORMAT_1.matcher(args.trim());
 		final Matcher matcher2 = ADD_FORMAT_2.matcher(args.trim());
 		final Matcher matcher3 = ADD_FORMAT_3.matcher(args.trim());
+		final Matcher matcher4 = ADD_FORMAT_4.matcher(args.trim());
 		// Validate arg string format
-		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches()) {
+		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches() & !matcher4.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		try {
@@ -180,6 +186,9 @@ public class Parser {
 			} else if (matcher2.matches()) {
 				return new AddCommand(matcher2.group("name"), matcher2.group("date"),
 						getTagsFromArgs(matcher2.group("tagArguments")));
+			} else if (matcher4.matches()) {
+				return new AddCommand(matcher4.group("name"), matcher4.group("date"),
+						matcher4.group("endTimeArguments"), getTagsFromArgs(matcher4.group("tagArguments")));
 			} else {
 				if (matcher3.group("name").toLowerCase().contains(byToday)) {
 					return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""),
