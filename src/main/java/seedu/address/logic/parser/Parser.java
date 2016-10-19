@@ -3,31 +3,19 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.xml.bind.JAXBException;
-
-import com.joestelmach.natty.DateGroup;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.IncorrectCommandException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.util.XmlUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -41,25 +29,19 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.TaskManager;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.Status;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskType;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.address.storage.XmlSerializableTaskManager;
+
 
 public class Parser {
-
+	// @@author A0141019U
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-	// Different regexes for different permutations of arguments
+	// Different regex for different permutations of arguments
 	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern
 			.compile("(?i)(?<taskType>event|ev|deadline|dl|someday|sd)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern
 			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
-
+	
+	// Start and end on same day
 	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile(
 			"(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+on\\s+(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
 	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile(
@@ -72,23 +54,24 @@ public class Parser {
 			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+on\\s+(?<date>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
 	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile(
 			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>(\\s*[^\\s+])+)'\\s+on\\s+(?<date>\\S+)");
+	// Start and end on different days
+	private static final Pattern EVENT_ARGS_FORMAT_7 = Pattern.compile(
+			"(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)");
+	private static final Pattern EVENT_ARGS_FORMAT_8 = Pattern.compile(
+			"(?i)from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
 
+	
 	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern
 			.compile("(?i)'(?<taskName>(\\s*[^\\s+])+)'\\s+by\\s+(?<dateTime>.+)");
 	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern
 			.compile("(?i)by\\s+(?<dateTime>.+)\\s+'(?<taskName>(\\s*[^\\s+])+)'");
-
+	
+	
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>(\\s*[^\\s+])+)'");
 
 	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
 
-
-	private com.joestelmach.natty.Parser nattyParser;
-
-	public Parser() {
-		nattyParser = new com.joestelmach.natty.Parser();
-	}
-
+	
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
@@ -139,7 +122,8 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
-
+	
+	//@@author
 	private Command prepareDone(String arguments) {
 		int[] indices;
 		try {
@@ -169,7 +153,7 @@ public class Parser {
 		return indices;
 	}
 
-
+	//@@author A0141019U
 	private Command prepareAdd(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(ADD_COMMAND_FORMAT_1.matcher(arguments.trim()));
@@ -186,6 +170,8 @@ public class Parser {
 				isAnyMatch = true;
 				taskType = matcher.group("taskType").trim();
 				addTaskArgs = matcher.group("addTaskArgs").trim();
+				
+				break;
 			}
 		}
 
@@ -216,22 +202,24 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
-
+	
+	//@@author A0141019U
 	private Command prepareAddEvent(String arguments) {
+		arguments = arguments.trim();
+		
 		ArrayList<Matcher> matchers = new ArrayList<>();
-		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments.trim()));
-		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments.trim()));
-		matchers.add(EVENT_ARGS_FORMAT_3.matcher(arguments.trim()));
-		matchers.add(EVENT_ARGS_FORMAT_4.matcher(arguments.trim()));
-		matchers.add(EVENT_ARGS_FORMAT_5.matcher(arguments.trim()));
-		matchers.add(EVENT_ARGS_FORMAT_6.matcher(arguments.trim()));
+		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_3.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_4.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_5.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_6.matcher(arguments));
 
 		// Null values will always be overwritten if the matcher matches.
 		String taskName = null;
-		String date = null;
-		String startTime = null;
-		String endTime = null;
-
+		LocalDateTime startDateTime = null;
+		LocalDateTime endDateTime = null;
+		
 		boolean isAnyMatch = false;
 
 		for (Matcher matcher : matchers) {
@@ -239,32 +227,64 @@ public class Parser {
 				isAnyMatch = true;
 
 				taskName = matcher.group("taskName").trim();
-				date = matcher.group("date").trim();
-				startTime = matcher.group("startTime").trim();
-				endTime = matcher.group("endTime").trim();
+				String date = matcher.group("date").trim();
+				String startTime = matcher.group("startTime").trim();
+				String endTime = matcher.group("endTime").trim();
+				
+				try {
+					startDateTime = DateParser.parse(date + " " + startTime);
+					endDateTime = DateParser.parse(date + " " + endTime);
+				} catch (ParseException e) {
+					// TODO better command
+					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+				}				
+
+				break;
+			}
+		}
+		
+		ArrayList<Matcher> diffDayMatchers = new ArrayList<>();
+		diffDayMatchers.add(EVENT_ARGS_FORMAT_7.matcher(arguments));
+		diffDayMatchers.add(EVENT_ARGS_FORMAT_8.matcher(arguments));
+		
+		for (Matcher matcher : diffDayMatchers) {
+			if (matcher.matches()) {
+				isAnyMatch = true;
+
+				taskName = matcher.group("taskName").trim();
+				String startDayAndTime = matcher.group("startDateTime").trim();
+				String endDayAndTime = matcher.group("endDateTime").trim();
+				
+				try {
+					startDateTime = DateParser.parse(startDayAndTime);
+					endDateTime = DateParser.parse(endDayAndTime);
+				} catch (ParseException e) {
+					// TODO better command
+					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+				}				
 
 				break;
 			}
 		}
 
+		System.out.println("task name: " + taskName);
+		System.out.println("start date: " + startDateTime.toString());
+		System.out.println("end date: " + endDateTime.toString());
+		
 		if (!isAnyMatch) {
 			System.out.println("no match");
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
-		System.out.println("task name: " + taskName);
-		System.out.println("date: " + date);
-		System.out.println("start time: " + startTime);
-		System.out.println("end time: " + endTime);
-
 		// TODO format date properly
 		try {
-			return new AddCommand(taskName, date + startTime, date + endTime);
+			return new AddCommand(taskName, startDateTime, endDateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 	}
-
+	
+	//@@author A0141019U
 	private Command prepareAddDeadline(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(DEADLINE_ARGS_FORMAT_1.matcher(arguments.trim()));
@@ -283,11 +303,10 @@ public class Parser {
 				taskName = matcher.group("taskName").trim();
 				String dateTimeString = matcher.group("dateTime").trim();
 				try {
-					dateTime = parseDate(dateTimeString);
+					dateTime = DateParser.parse(dateTimeString);
 				} catch (ParseException e) {
 					// TODO better command
-					return new IncorrectCommand(
-							String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 				}
 
 				break;
@@ -299,16 +318,17 @@ public class Parser {
 		}
 
 		System.out.println("task name: " + taskName);
-		System.out.println("date: " + dateTime);
+		System.out.println("date: " + dateTime.toString());
 
 		// TODO format date properly
 		try {
-			return new AddCommand(taskName, dateTime.toString());
+			return new AddCommand(taskName, dateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 	}
-
+	
+	//@@author A0141019U
 	private Command prepareAddSomeday(String arguments) {
 		final Matcher matcher = SOMEDAY_ARGS_FORMAT.matcher(arguments.trim());
 		if (!matcher.matches()) {
@@ -347,32 +367,7 @@ public class Parser {
         return new FindCommand(keyphraseSet);
     }
 
-	/**
-	 * Uses Natty to parse the date/time contained in the input string. If no
-	 * time is specified, time at instant of parsing is taken.
-	 * 
-	 * @param string
-	 *            that contains date/time to be parsed
-	 * @return LocalDateTime
-	 * @throws ParseException
-	 *             if 0, or more than one date is found
-	 */
-	private LocalDateTime parseDate(String string) throws ParseException {
-		List<DateGroup> groups = nattyParser.parse(string);
-		List<Date> dates = groups.get(0).getDates();
-
-		if (groups.size() > 1 || groups.size() == 0 || dates.size() > 1 || dates.size() == 0) {
-			System.out.println("parsing error");
-			// TODO better err msg
-			throw new ParseException(
-					"Error while parsing date and time. Trying entering the date in yyyy-mm-dd instead", 0);
-		}
-
-		Date input = dates.get(0);
-		Instant instant = input.toInstant();
-		return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-	}
-
+	//@@author A0141019U
 	// Only supports task type and done|not-done options.
 	private Command prepareList(String arguments) {
 		if (arguments.equals("")) {
@@ -412,7 +407,8 @@ public class Parser {
 		// and the constructor overloaded.
 		return new ListCommand();
 	}
-
+	
+	//@@author
 	/**
 	 * Parses arguments in the context of the delete task command.
 	 *
@@ -450,7 +446,8 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 	}
-
+	
+	//@@author A0141019U
 	/**
 	 * Returns an ArrayList of the specified indices in the {@code command} IF
 	 * positive unsigned integers are given. Returns an ArrayList with a single
