@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import seedu.jimi.MainApp;
 import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.core.GuiSettings;
+import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.model.ReadOnlyTaskBook;
 import seedu.jimi.model.UserPrefs;
 import seedu.jimi.storage.XmlSerializableAddressBook;
@@ -49,6 +50,7 @@ public class TestApp extends MainApp {
         config.setTaskBookFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
         config.setTaskBookName(ADDRESS_BOOK_NAME);
+        SaveAsCommand.setConfigFilePath(DEFAULT_CONFIG_FILE_FOR_TESTING);
         return config;
     }
 
