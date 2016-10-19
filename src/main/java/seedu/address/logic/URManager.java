@@ -5,8 +5,8 @@ import java.util.ArrayDeque;
 import seedu.address.logic.commands.*;
 
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.TaskList;
+import seedu.address.model.ReadOnlyTaskMaster;
+import seedu.address.model.TaskMaster;
 
 public class URManager {
 	
@@ -94,16 +94,16 @@ public class URManager {
 	 */
 	public class Context{
 		
-		private ReadOnlyTaskList taskList;
+		private ReadOnlyTaskMaster taskList;
 		private Command command;
 		Context(Model model, Command command){
 			this.command = command;
-			this.taskList = new TaskList(model.getTaskList());
+			this.taskList = new TaskMaster(model.getTaskMaster());
 		}
 		public Command getCommand(){
 			return command;			
 		}
-		public ReadOnlyTaskList getData(){
+		public ReadOnlyTaskMaster getData(){
 			return taskList;
 		}
 	}

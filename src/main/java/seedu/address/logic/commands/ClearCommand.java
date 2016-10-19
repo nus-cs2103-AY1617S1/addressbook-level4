@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.TaskList;
+import seedu.address.model.TaskMaster;
 
 /**
  * Clears the task list.
@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(TaskList.getEmptyTaskList());
+        model.resetData(TaskMaster.getEmptyTaskList());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

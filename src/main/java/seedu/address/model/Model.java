@@ -12,6 +12,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
@@ -21,10 +22,10 @@ import javafx.collections.ObservableList;
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyTaskList newData);
+    void resetData(ReadOnlyTaskMaster newData);
 
-    /** Returns the TaskList */
-    ReadOnlyTaskList getTaskList();
+    /** Returns the TaskMaster */
+    ReadOnlyTaskMaster getTaskMaster();
 
     /** Deletes the given task. */
     void deleteTask(TaskComponent target) throws UniqueTaskList.TaskNotFoundException;
@@ -33,8 +34,8 @@ public interface Model {
      * @throws TimeslotOverlapException */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException;
 
+    List<ReadOnlyTask> getTaskList();
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     UnmodifiableObservableList<TaskComponent> getFilteredTaskComponentList();
     
     /** Updates the filter of the filtered task list to show all tasks */

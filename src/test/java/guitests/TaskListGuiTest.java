@@ -10,7 +10,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.TaskList;
+import seedu.address.model.TaskMaster;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
@@ -86,8 +86,8 @@ public abstract class TaskListGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      * @throws TimeslotOverlapException 
      */
-    protected TaskList getInitialData() throws TimeslotOverlapException {
-        TaskList ab = TestUtil.generateEmptyTaskList();
+    protected TaskMaster getInitialData() throws TimeslotOverlapException {
+        TaskMaster ab = TestUtil.generateEmptyTaskList();
         TypicalTestTasks.loadTaskListWithSampleData(ab);
         return ab;
     }

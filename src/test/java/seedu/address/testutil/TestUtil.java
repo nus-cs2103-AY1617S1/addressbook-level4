@@ -16,7 +16,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.TaskList;
+import seedu.address.model.TaskMaster;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -134,8 +134,8 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static TaskList generateEmptyTaskList() {
-        return new TaskList(new UniqueTaskList(), new UniqueTagList());
+    public static TaskMaster generateEmptyTaskList() {
+        return new TaskMaster(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableTaskList generateSampleStorageTaskList() {

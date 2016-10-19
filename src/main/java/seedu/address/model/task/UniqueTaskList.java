@@ -45,7 +45,7 @@ public class UniqueTaskList implements Iterable<Task> {
 		}
 	}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final List<Task> internalList = new ArrayList<Task>();
     private final ObservableList<TaskComponent> internalComponentList = FXCollections.observableArrayList();
     /**
      * Constructs empty TaskList.
@@ -114,7 +114,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
-    public ObservableList<Task> getInternalList() {
+    public List<Task> getInternalTaskList() {
         return internalList;
     }
 
@@ -156,8 +156,10 @@ public class UniqueTaskList implements Iterable<Task> {
 	
 	private boolean checkUpdateOverlapping(ReadOnlyTask target, TaskDate startDate,
 			TaskDate endDate) {
+	    assert target.getRecurringType() == RecurringType.NONE : "checkUpdateOverlapping does not support recurring dates";
 		if(startDate != null && endDate != null) {
 			for(Task t: internalList){
+			    assert t.getRecurringType() == RecurringType.NONE : "checkUpdateOverlapping does not support recurring dates";
 				if(!t.equals(target)) {
 					if(t.getTaskType().equals(TaskType.NON_FLOATING)){
 		        		if(t.getComponentForNonRecurringType().getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
@@ -177,8 +179,10 @@ public class UniqueTaskList implements Iterable<Task> {
 		assert target != null;
 
 		boolean taskFoundAndUpdated = false;
+        assert target.getRecurringType() == RecurringType.NONE : "updateTask does not support recurring dates";		
 		for(Task t : internalList) {
-        	if(t.equals(target)) {
+            assert t.getRecurringType() == RecurringType.NONE : "updateTask does not support recurring dates";
+		    if(t.equals(target)) {
         		if(checkUpdateOverlapping(target, startDate, endDate))
         			throw new TimeslotOverlapException();
         		

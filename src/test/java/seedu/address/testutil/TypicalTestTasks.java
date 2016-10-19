@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.TaskList;
+import seedu.address.model.TaskMaster;
 import seedu.address.model.task.*;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
@@ -54,7 +54,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadTaskListWithSampleData(TaskList ab) throws TimeslotOverlapException {
+    public static void loadTaskListWithSampleData(TaskMaster ab) throws TimeslotOverlapException {
 
         try {
             ab.addTask(new Task(trash));
@@ -86,8 +86,8 @@ public class TypicalTestTasks {
         return components.toArray(taskComponents);
     }
 
-    public TaskList getTypicalTaskList() throws TimeslotOverlapException{
-        TaskList ab = new TaskList();
+    public TaskMaster getTypicalTaskList() throws TimeslotOverlapException{
+        TaskMaster ab = new TaskMaster();
         loadTaskListWithSampleData(ab);
         return ab;
     }

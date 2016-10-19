@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -71,8 +72,9 @@ public class EditCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-		
+		//UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+		List<ReadOnlyTask> lastShownList = model.getTaskList(); // Should use TaskComponent instead of Task
+		assert false : "Edit command does not support recurring tasks";
 		if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

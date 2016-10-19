@@ -20,8 +20,10 @@ import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.core.ComponentManager;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -32,82 +34,82 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskList taskList;
-    private final FilteredList<Task> filteredTasks;
+    private final TaskMaster taskMaster;
+    private final List<Task> tasks;
     private final FilteredList<TaskComponent> filteredTaskComponents;
     
     /**
      * Initializes a ModelManager with the given TaskList
      * TaskList and its variables should not be null
      */
-    public ModelManager(TaskList src, UserPrefs userPrefs) {
+    public ModelManager(TaskMaster src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        taskList = new TaskList(src);
+        taskMaster = new TaskMaster(src);
         RecurringTaskManager.getInstance().removeCompletedRecurringTasks(src);
-        filteredTasks = new FilteredList<>(taskList.getTasks());
-        filteredTaskComponents = new FilteredList<>(taskList.getTaskComponentList());
-        RecurringTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
+        tasks = taskMaster.getTasks();
+        filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
+        RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
         RecurringTaskManager.getInstance().setInitialisedTime();
     }
 
     public ModelManager() {
-        this(new TaskList(), new UserPrefs());
+        this(new TaskMaster(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
-        taskList = new TaskList(initialData);
-        RecurringTaskManager.getInstance().removeCompletedRecurringTasks(taskList);
-        filteredTasks = new FilteredList<>(taskList.getTasks());
-        filteredTaskComponents = new FilteredList<>(taskList.getTaskComponentList());
-        RecurringTaskManager.getInstance().setTaskList(taskList.getUniqueTaskList());
+    public ModelManager(ReadOnlyTaskMaster initialData, UserPrefs userPrefs) {
+        taskMaster = new TaskMaster(initialData);
+        RecurringTaskManager.getInstance().removeCompletedRecurringTasks(taskMaster);
+        tasks = taskMaster.getTasks();
+        filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
+        RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
         RecurringTaskManager.getInstance().setInitialisedTime();
     }
 
     @Override
-    public void resetData(ReadOnlyTaskList newData) {
-        taskList.resetData(newData);
+    public void resetData(ReadOnlyTaskMaster newData) {
+        taskMaster.resetData(newData);
         indicateTaskListChanged();
     }
 
     @Override
-    public ReadOnlyTaskList getTaskList() {
-        return taskList;
+    public ReadOnlyTaskMaster getTaskMaster() {
+        return taskMaster;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskListChanged() {
-        raise(new TaskListChangedEvent(taskList));
+        raise(new TaskListChangedEvent(taskMaster));
     }
 
     @Override
     public synchronized void deleteTask(TaskComponent target) throws TaskNotFoundException {
-        taskList.removeTask(target.getTaskReference());
+        taskMaster.removeTask(target.getTaskReference());
         indicateTaskListChanged();
     }
     
     @Override
     public synchronized void editTask(Task target, Name name, UniqueTagList tags,
     		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
-    	taskList.updateTask(target, name, tags, startDate, endDate);
+    	taskMaster.updateTask(target, name, tags, startDate, endDate);
     	indicateTaskListChanged();
     	updateFilteredListToShowAll();
     }
     
     @Override
     public synchronized void archiveTask(TaskComponent target) throws TaskNotFoundException {
-        taskList.archiveTask(target);
+        taskMaster.archiveTask(target);
         indicateTaskListChanged();
         updateFilteredListToShowAll();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
-        taskList.addTask(task);
+        taskMaster.addTask(task);
         RecurringTaskManager.getInstance().updateRecurringTasks();
         updateFilteredListToShowAll();
         indicateTaskListChanged();
@@ -123,8 +125,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+    public List<ReadOnlyTask> getTaskList() {
+        return new ArrayList<ReadOnlyTask>(tasks);
     }
 
     @Override

@@ -11,7 +11,7 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
-import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyTaskMaster;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * An Immutable TaskList that is serializable to XML format
  */
 @XmlRootElement(name = "tasklist")
-public class XmlSerializableTaskList implements ReadOnlyTaskList {
+public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
@@ -43,7 +43,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     /**
      * Conversion
      */
-    public XmlSerializableTaskList(ReadOnlyTaskList src) {
+    public XmlSerializableTaskList(ReadOnlyTaskMaster src) {
     	try {
 			src = src.purify();
 		} catch (TaskNotFoundException e) {
@@ -95,7 +95,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     }
 
 	@Override
-	public ReadOnlyTaskList purify() {
+	public ReadOnlyTaskMaster purify() {
 		// TODO Auto-generated method stub
 		return null;
 	}

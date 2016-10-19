@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Unmodifiable view of an tag list
  */
-public interface ReadOnlyTaskList {
+public interface ReadOnlyTaskMaster {
 
     UniqueTagList getUniqueTagList();
 
@@ -34,6 +34,6 @@ public interface ReadOnlyTaskList {
      */
     List<Tag> getTagList();
     
-    ReadOnlyTaskList purify() throws TaskNotFoundException;
+    ReadOnlyTaskMaster purify() throws TaskNotFoundException;
 
 }

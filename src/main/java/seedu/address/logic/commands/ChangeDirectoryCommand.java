@@ -34,7 +34,7 @@ public class ChangeDirectoryCommand extends Command{
 			if(!filePath.endsWith(".xml"))
 				return new CommandResult(MESSAGE_CONVENSION_ERROR);
 			XmlTaskListStorage newFile = new XmlTaskListStorage(filePath);
-			newFile.saveTaskList(model.getTaskList(), filePath);
+			newFile.saveTaskList(model.getTaskMaster(), filePath);
 			model.changeDirectory(filePath);
 			Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
 			config.setTaskListFilePath(filePath);

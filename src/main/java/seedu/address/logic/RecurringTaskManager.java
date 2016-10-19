@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.TaskList;
+import seedu.address.model.ReadOnlyTaskMaster;
+import seedu.address.model.TaskMaster;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
@@ -276,7 +276,7 @@ public class RecurringTaskManager {
         return instance;
     }
 
-    /**
+    public void removeCompletedRecurringTasks(TaskMaster initialData) {
         List<TaskComponent> components = initialData.getTaskComponentList();
      * 
      * @param task Recurring task to be considered for removal
