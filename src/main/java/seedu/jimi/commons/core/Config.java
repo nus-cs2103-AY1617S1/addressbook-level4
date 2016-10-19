@@ -17,9 +17,7 @@ public class Config {
     private String taskBookFilePath = "data/jimi.xml";
     private String taskBookName = "Jimi";
 
-
-    public Config() {
-    }
+    public Config() {}
 
     public String getAppTitle() {
         return appTitle;

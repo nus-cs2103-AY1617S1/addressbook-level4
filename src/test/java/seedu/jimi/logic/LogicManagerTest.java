@@ -556,7 +556,7 @@ public class LogicManagerTest {
     
     @Test
     public void execute_saveAs_successful() throws Exception {
-        SaveAsCommand.setConfigFilePath(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING);   //Access config file used for testing only
+        SaveAsCommand.setConfigFilePath(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING); //Access config file used for testing only
         TestDataHelper helper = new TestDataHelper();
         String originalTaskBookFilePathName = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
         
@@ -565,19 +565,20 @@ public class LogicManagerTest {
         Config expectedConfig = helper.generateConfigFile(newTaskBookFilePathName);
         Config currentConfig = ConfigUtil.readConfig(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING).orElse(new Config());
         
-        assertCommandBehavior(helper.generateSaveAsCommand(newTaskBookFilePathName), String.format(SaveAsCommand.MESSAGE_SUCCESS, expectedConfig.getTaskBookFilePath()));
+        assertCommandBehavior(helper.generateSaveAsCommand(newTaskBookFilePathName),
+                String.format(SaveAsCommand.MESSAGE_SUCCESS, expectedConfig.getTaskBookFilePath()));
         currentConfig = ConfigUtil.readConfig(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING).orElse(new Config());
         assertEquals(expectedConfig, currentConfig);
         
-        assertCommandBehavior(helper.generateSaveAsCommand(originalTaskBookFilePathName), String.format(SaveAsCommand.MESSAGE_SUCCESS, originalConfig.getTaskBookFilePath()));
+        assertCommandBehavior(helper.generateSaveAsCommand(originalTaskBookFilePathName),
+                String.format(SaveAsCommand.MESSAGE_SUCCESS, originalConfig.getTaskBookFilePath()));
         currentConfig = ConfigUtil.readConfig(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING).orElse(new Config());
         assertEquals(originalConfig, currentConfig);
     }
 
-
     @Test
     public void execute_saveAs_duplicateNotAllowed() throws Exception {
-        SaveAsCommand.setConfigFilePath(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING);   //Access config file used for testing only
+        SaveAsCommand.setConfigFilePath(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING); //Access config file used for testing only
         TestDataHelper helper = new TestDataHelper();
         String originalTaskBookFilePathName = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
         
@@ -588,8 +589,8 @@ public class LogicManagerTest {
     /**
      * A utility class to generate test data.
      */
-    class TestDataHelper{
-
+    class TestDataHelper {
+        
         FloatingTask adam() throws Exception {
             Name name = new Name("Adam Brown");
             Tag tag1 = new Tag("tag1");
@@ -634,7 +635,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append("\"");
             UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
             }
 
@@ -649,7 +650,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append("\"");
             UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
             }
 
@@ -664,7 +665,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append("\"");
             UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
             }
 
@@ -718,7 +719,7 @@ public class LogicManagerTest {
          * Adds the given list of Persons to the given model
          */
         void addToModel(Model model, List<FloatingTask> floatingTasksToAdd) throws Exception{
-            for(FloatingTask p: floatingTasksToAdd){
+            for (FloatingTask p : floatingTasksToAdd) {
                 model.addTask(p);
             }
         }
@@ -728,7 +729,7 @@ public class LogicManagerTest {
          */
         List<FloatingTask> generateFloatingTaskList(int numGenerated) throws Exception{
             List<FloatingTask> floatingTasks = new ArrayList<>();
-            for(int i = 1; i <= numGenerated; i++){
+            for (int i = 1; i <= numGenerated; i++) {
                 floatingTasks.add(generateFloatingTask(i));
             }
             return floatingTasks;
