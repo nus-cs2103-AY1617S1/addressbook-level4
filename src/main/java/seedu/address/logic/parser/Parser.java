@@ -36,7 +36,7 @@ public class Parser {
             Pattern.compile("(?<index>[\\d]+)"
                     + "( (?<name>[^/]+)){0,1}"
                     + "( d/(?<description>[^/]+)){0,1}"
-                    + "( date/(?<date>[^/]+)){0,1}"
+                    + "( date/(?<date>[^/]*)){0,1}" // group <date> can be blank to edit DatedTask -> UndatedTask
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     //    private static final Pattern USA_DATE_FORMAT = 
@@ -136,8 +136,10 @@ public class Parser {
             // return empty list
             dateList = new ArrayList <java.util.Date> ();
         }
+        // natty cannot parse the input and returns empty List<DateGroup>
         else if (natty.parse(matcher.group("date")).isEmpty()){
             throw new IllegalValueException(seedu.address.model.person.Date.MESSAGE_DATE_CONSTRAINTS);
+        	//throw new IllegalValueException(matcher.group("date"));
         }
         else {
             dateList = natty.parse(matcher.group("date")).get(0).getDates();
@@ -191,8 +193,6 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-
-
         try {
             List<java.util.Date> dateList = nattyParse(matcher);
 
@@ -200,8 +200,7 @@ public class Parser {
                     Integer.parseInt(matcher.group("index")),
                     matcher.group("name"),
                     matcher.group("description"),
-                    matcher.group("date"),
-                    matcher.group("time"),
+                    dateList,
                     getTagsFromArgs(matcher.group("tagArguments"))
                     );
         } catch (IllegalValueException ive) {

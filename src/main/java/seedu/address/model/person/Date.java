@@ -12,11 +12,11 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Date should be in DD-MM-YYYY format";
+            "Date should be in MM-DD-YYYY format";
     public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])"
-                                                        + "\\."
+                                                        + "-"
                                                         + "(0?[1-9]|1[012])"
-                                                        + "\\."
+                                                        + "-"
                                                         + "\\d{4}";
 
     public final String value;
@@ -51,7 +51,7 @@ public class Date {
     	String [] dateStrings = new String [2];
     	for (int i = 0; i < dateList.size(); i++){
         	java.util.Date date = dateList.get(i);
-        	dateStrings[i] = date.getDate() + "." + (date.getMonth() + 1) + "." + (date.getYear() + 1900);
+        	dateStrings[i] = date.getDate() + "-" + (date.getMonth() + 1) + "-" + (date.getYear() + 1900);
         	
         	if (!isValidDate(dateStrings[i])) {
                 throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
