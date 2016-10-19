@@ -122,7 +122,7 @@ public class CommandParser {
     	if (arguments == null) {
 			return new ViewCommand(); // view events today, and all deadlines and todos
 		}
-    	if (arguments.equals("done")) {
+    	if (arguments.trim().equals("done")) {
     		return new ViewDoneCommand(); // defaults to viewDone command
     	}
 		String[] details = extractTaskDetailsNatty(arguments);
