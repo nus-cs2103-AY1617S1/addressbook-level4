@@ -76,4 +76,10 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     public void setTaskManagerFilePath(String newFilePath) {
         filePath = newFilePath;
     }
+
+	@Override
+	public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
+		savetaskManager(taskManager, filePath);
+		
+	}
 }
