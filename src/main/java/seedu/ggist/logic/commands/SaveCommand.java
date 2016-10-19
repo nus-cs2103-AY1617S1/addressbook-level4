@@ -24,15 +24,16 @@ public class SaveCommand extends Command{
         public static final String MESSAGE_USAGE = COMMAND_WORD + ": Saves data to a specified valid location.\n"
                 + "Parameters: filepath"
                 + "Example: " + COMMAND_WORD
-                + " OneDrive/data/ggist.xml";
-
+                + " /OneDrive/data";
+     
     public static final String MESSAGE_SUCCESS = "File location successfully changed to %1$s.";
+    private static final String DEFAULT_FILENAME = "/ggist.xml";
     
     private final String filePath;
 
     public SaveCommand(String filePath) {
         assert filePath != null;
-        this.filePath = filePath;
+        this.filePath = filePath + DEFAULT_FILENAME;
     }
 
     @Override

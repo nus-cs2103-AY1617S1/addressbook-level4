@@ -17,12 +17,17 @@ public class EventTask extends Task implements ReadOnlyTask {
     public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
         super(taskName, startDate, startTime, endDate, endTime, tags);
     }
+    
+    public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, UniqueTagList tags, boolean done) {
+        super(taskName, startDate, startTime, endDate, endTime, tags);
+        this.done = done;
+    }
    
     /**
      * Copy constructor.
      */
     public EventTask(ReadOnlyTask source) {
-        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getTags());
+        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getTags(), source.getDone());
     }
 
     @Override

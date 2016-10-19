@@ -46,4 +46,8 @@ public class DateTimeParser {
         parseTime(dateTime);
         return time;
     }
+    
+    public Date getDateTime() {
+        return dateTime;
+    }
 }
