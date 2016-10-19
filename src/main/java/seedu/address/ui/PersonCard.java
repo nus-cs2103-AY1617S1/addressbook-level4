@@ -24,6 +24,8 @@ public class PersonCard extends UiPart {
     private Label email;
     @FXML
     private Label tags;
+    @FXML
+    private Label complete;
 
     private ReadOnlyTask person;
     private int displayedIndex;
@@ -43,10 +45,11 @@ public class PersonCard extends UiPart {
     public void initialize() {
         name.setText(person.getDescription().fullDescription);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getPriority().toString());
-        address.setText(person.getTimeStart().toString());
-        email.setText(person.getTimeEnd().toString());
-        tags.setText(person.tagsString());
+        phone.setText("Priority: " + person.getPriority().toString());
+        address.setText("Start Time: " + person.getTimeStart().toString());
+        email.setText("End Time: "+ person.getTimeEnd().toString());
+        tags.setText("Tags: " + person.tagsString());
+        complete.setText(person.getCompleteStatus()? "  [Compeled]": "  [Not Completed]");
     }
 
     public HBox getLayout() {

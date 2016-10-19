@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.FxViewUtil;
@@ -68,7 +69,7 @@ public class CommandBox extends UiPart {
 
 
     @FXML
-    private void handleCommandInputChanged() {
+    private void handleCommandInputChanged() throws IllegalValueException {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
 

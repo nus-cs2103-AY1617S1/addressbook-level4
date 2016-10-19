@@ -13,6 +13,7 @@ public class TestTask implements ReadOnlyTask {
     private Time timeStart;
     private Time timeEnd;
     private UniqueTagList tags;
+    private boolean completeStatus = false;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -32,6 +33,10 @@ public class TestTask implements ReadOnlyTask {
 
     public void setTimeEnd(Time time) {
         this.timeEnd = time;
+    }
+
+    public void completeTask(){
+    	this.completeStatus = true;
     }
 
     @Override
@@ -73,4 +78,9 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+	@Override
+	public boolean getCompleteStatus() {
+		return completeStatus;
+	}
 }

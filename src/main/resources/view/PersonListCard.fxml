@@ -28,12 +28,13 @@
                                     <Label fx:id="id" styleClass="cell_big_label"></Label>
                                     <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                                <Label fx:id="complete" styleClass="cell_small_label" text="\$complete" />
                             </children>
                         </HBox>
                         <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
                         <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
                         <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                        <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                     </children>
                 </VBox>
             </children>

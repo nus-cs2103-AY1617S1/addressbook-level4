@@ -15,6 +15,7 @@ public class Task implements ReadOnlyTask {
     private Time timeStart;
     private Time timeEnd;
     private Priority priority;
+    private	boolean completeStatus = false;
 
     private UniqueTagList tags;
 
@@ -28,6 +29,16 @@ public class Task implements ReadOnlyTask {
         this.timeEnd = timeEnd;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+
+    public Task(Description description, Priority priority, Time timeStart, Time timeEnd, UniqueTagList tags, boolean completeStatus) {
+        assert !CollectionUtil.isAnyNull(description, priority, timeStart, timeEnd, tags);
+        this.description = description;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.priority = priority;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.completeStatus = completeStatus;
     }
 
     /**
@@ -44,6 +55,14 @@ public class Task implements ReadOnlyTask {
 
     public void setDescription(Description description){
     	this.description = description;
+    }
+
+    public void undoTask(){
+    	completeStatus = false;
+    }
+
+    public boolean getCompleteStatus(){
+		return completeStatus;
     }
 
     @Override
