@@ -43,6 +43,11 @@ public class Task implements ReadOnlyTask {
        this.description = description;
     }
 
+    public void setDateTime(DateTime dateTime){
+        assert !CollectionUtil.isAnyNull(dateTime);
+        this.dateTime = dateTime;
+    }
+    
     @Override
     public DateTime getDateTime() {
         return dateTime;
