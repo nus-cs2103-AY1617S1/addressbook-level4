@@ -1,0 +1,53 @@
+.all-pane {
+	-fx-background-color:  #F39C12;
+	-fx-background-radius: 10;
+}
+
+.completed-pane {
+	-fx-background-color:  #03C9A9;
+	-fx-background-radius: 10;
+}
+
+.other-pane {
+	-fx-background-color:  #3498DB;
+	-fx-background-radius: 10;
+}
+
+.list-view {
+	-fx-background-color: transparent;
+	-fx-background-radius: 10;
+}
+
+.list-cell {
+    -fx-background-radius: 10;
+    -fx-background-color: transparent;
+}
+
+.list-cell:empty  {
+	-fx-background-color: transparent;
+}
+
+.cell_big_label {
+    -fx-font-size: 16pt;
+    -fx-opacity: 0.9;
+}
+
+.cell_small_label {
+    -fx-font-size: 11pt;
+    -fx-text-fill: #555555;
+    -fx-opacity: 0.9;
+}
+
+.cell_time_label {
+    -fx-text-fill: #5284f2;
+    -fx-font-family: "Segoe UI Light";
+	-fx-opacity: 0.9;
+}
+
+.hbox {
+	-fx-background-radius: 10;
+}
+
+.vbox {
+	-fx-background-color: transparent;
+}

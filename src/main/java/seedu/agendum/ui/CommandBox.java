@@ -21,7 +21,7 @@ public class CommandBox extends UiPart {
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
-    private ResultDisplay resultDisplay;
+    private ResultPopUp resultPopUp;
     String previousCommandTest;
 
     private Logic logic;
@@ -31,15 +31,15 @@ public class CommandBox extends UiPart {
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic) {
+            ResultPopUp resultPopUp, Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(resultDisplay, logic);
+        commandBox.configure(resultPopUp, logic);
         commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    public void configure(ResultDisplay resultDisplay, Logic logic) {
-        this.resultDisplay = resultDisplay;
+    public void configure(ResultPopUp resultPopUp, Logic logic) {
+        this.resultPopUp = resultPopUp;
         this.logic = logic;
         registerAsAnEventHandler(this);
     }
@@ -66,7 +66,6 @@ public class CommandBox extends UiPart {
         this.placeHolderPane = pane;
     }
 
-
     @FXML
     private void handleCommandInputChanged() {
         //Take a copy of the command text
@@ -77,10 +76,11 @@ public class CommandBox extends UiPart {
          */
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
-        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+        if(!previousCommandTest.toLowerCase().equals("help")) {
+            resultPopUp.postMessage(mostRecentResult.feedbackToUser);
+        }
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
-
 
     /**
      * Sets the command box style to indicate a correct command.

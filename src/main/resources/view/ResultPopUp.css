@@ -1,0 +1,10 @@
+.pane {
+    -fx-background-color: rgb(229,74,63);
+    -fx-background-radius: 20;
+    -fx-padding: 10px;
+}
+
+.label {
+	-fx-text-fill: white;
+	-fx-font-size: 14pt;
+}

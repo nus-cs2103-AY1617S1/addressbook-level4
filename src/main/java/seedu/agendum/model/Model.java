@@ -43,10 +43,31 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
+    /** Updates the filter of the filtered task list to show all uncompleted tasks */
+    void updateFilteredListToShowUncompleted();
+
+    /** Updates the filter of the filtered task list to show all completed tasks */
+    void updateFilteredListToShowCompleted();
+
+    /** Updates the filter of the filtered task list to show all overdue tasks */
+    void updateFilteredListToShowOverdue();
+
+    /** Updates the filter of the filtered task list to show all upcoming tasks */
+    void updateFilteredListToShowUpcoming();
+
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
     /** Change the storage location of the todolist.xml */
     void changeSaveLocation(String location);
+
+    /** Returns the completed task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getCompletedTaskList();
+
+    /** Returns the upcoming task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getUpcomingTaskList();
+
+    /** Returns the overdue task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getOverdueTaskList();
 
 }

@@ -10,7 +10,23 @@ import seedu.agendum.model.Model;
  */
 public abstract class Command {
     protected Model model;
-
+    
+    /**
+     * Return the name of this command.
+     */
+    public abstract String getName();
+    
+    /**
+     * Return the format of this command.
+     */
+    public abstract String getFormat();
+    /**
+     * Return the description of this command.
+     */
+    public abstract String getDescription();
+    
+    public Command() {};
+    
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
      *

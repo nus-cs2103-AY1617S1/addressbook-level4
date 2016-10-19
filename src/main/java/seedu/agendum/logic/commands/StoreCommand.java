@@ -10,6 +10,9 @@ import seedu.agendum.commons.util.StringUtil;
 public class StoreCommand extends Command {
     
     public static final String COMMAND_WORD = "store";
+	public static final String COMMAND_FORMAT = "store <location>";
+	public static final String COMMAND_DESCRIPTION = "stores task list at specified location";
+	
     public static final String MESSAGE_SUCCESS = "New save location: %1$s";
     public static final String MESSAGE_LOCATION_DEFAULT = "Save location set to default: %1$s";
 
@@ -63,6 +66,21 @@ public class StoreCommand extends Command {
     
     private boolean isFileExists() {
         return FileUtil.isFileExists(pathToFile);
+    }
+	
+    @Override
+    public String getName() {
+        return COMMAND_WORD;
+    }
+	
+    @Override
+    public String getFormat() {
+        return COMMAND_FORMAT;
+    }
+	
+    @Override
+    public String getDescription() {
+        return COMMAND_DESCRIPTION;
     }
     
 }

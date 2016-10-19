@@ -1,13 +1,24 @@
 package seedu.agendum.ui;
 
+import com.sun.javafx.stage.StageHelper;
+
+import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import seedu.agendum.commons.core.Config;
 import seedu.agendum.commons.core.GuiSettings;
 import seedu.agendum.commons.events.ui.ExitAppRequestEvent;
@@ -21,17 +32,18 @@ import seedu.agendum.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/agendum_icon.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
     private Logic logic;
-
+    
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private TaskListPanel taskListPanel;
-    private ResultDisplay resultDisplay;
+    private AllTasksPanel allTasksPanel;
+    private CompletedTasksPanel completedTasksPanel;
+    private OtherTasksPanel otherTasksPanel;
+    private ResultPopUp resultPopUp;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
@@ -53,14 +65,16 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane taskListPanelPlaceholder;
-
+    private AnchorPane allTasksPlaceHolder;
+    
     @FXML
-    private AnchorPane resultDisplayPlaceholder;
-
+    private AnchorPane completedTasksPlaceHolder;
+    
+    @FXML
+    private AnchorPane otherTasksPlaceHolder;
+    
     @FXML
     private AnchorPane statusbarPlaceholder;
-
 
     public MainWindow() {
         super();
@@ -77,7 +91,6 @@ public class MainWindow extends UiPart {
     }
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
         mainWindow.configure(config.getAppTitle(), config.getToDoListName(), config, prefs, logic);
         return mainWindow;
@@ -98,21 +111,25 @@ public class MainWindow extends UiPart {
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
+        
         primaryStage.setScene(scene);
+        
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
 
         setAccelerators();
     }
 
     private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        helpMenuItem.setAccelerator(KeyCombination.valueOf("F5"));
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
+        allTasksPanel = AllTasksPanel.load(primaryStage, getAllTasksPlaceHolder(), logic.getFilteredTaskList());
+        completedTasksPanel = CompletedTasksPanel.load(primaryStage, getCompletedTasksPlaceHolder(), logic.getFilteredTaskList());
+        otherTasksPanel = OtherTasksPanel.load(primaryStage, getOtherTasksPlaceHolder(), logic.getFilteredTaskList());
+        resultPopUp = ResultPopUp.load(primaryStage);
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultPopUp, logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -122,13 +139,17 @@ public class MainWindow extends UiPart {
     private AnchorPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
     }
-
-    private AnchorPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
+    
+    public AnchorPane getAllTasksPlaceHolder() {
+        return allTasksPlaceHolder;
     }
-
-    public AnchorPane getTaskListPlaceholder() {
-        return taskListPanelPlaceholder;
+    
+    public AnchorPane getCompletedTasksPlaceHolder() {
+        return completedTasksPlaceHolder;
+    }
+    
+    public AnchorPane getOtherTasksPlaceHolder() {
+        return otherTasksPlaceHolder;
     }
 
     public void hide() {
@@ -164,10 +185,13 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    @SuppressWarnings("restriction")
     @FXML
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
-        helpWindow.show();
+        if(helpWindow != null) {
+            helpWindow.show();
+        }
     }
 
     public void show() {
@@ -182,15 +206,11 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TaskListPanel getTaskListPanel() {
-        return this.taskListPanel;
+    public AllTasksPanel getAllTasksPanel() {
+        return this.allTasksPanel;
     }
-
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
+    
+    public CompletedTasksPanel getCompletedTasksPanel() {
+        return this.completedTasksPanel;
     }
 }

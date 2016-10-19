@@ -2,6 +2,8 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import seedu.agendum.TestApp;
 
@@ -21,17 +23,28 @@ public class MainMenuHandle extends GuiHandle {
     }
 
     public HelpWindowHandle openHelpWindowUsingMenu() {
-        clickOn("Help", "F1");
+        clickOn("Help", "F5");
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
 
     public HelpWindowHandle openHelpWindowUsingAccelerator() {
-        useF1Accelerator();
+        useAcceleratorToOpenHelpWindow();
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
+    
+    public MainGuiHandle closeHelpWindowUsingAccelerator() {
+        useAcceleratorToCloseHelpWindow();
+        return new MainGuiHandle(guiRobot, primaryStage);
+    }
 
-    private void useF1Accelerator() {
-        guiRobot.push(KeyCode.F1);
+    private void useAcceleratorToOpenHelpWindow() {
+        guiRobot.push(new KeyCodeCombination(KeyCode.F5));
         guiRobot.sleep(500);
     }
+    
+    private void useAcceleratorToCloseHelpWindow() {
+        guiRobot.push(new KeyCodeCombination(KeyCode.ESCAPE));
+        guiRobot.sleep(500);
+    }
+
 }

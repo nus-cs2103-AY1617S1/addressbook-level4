@@ -18,5 +18,20 @@ public class IncorrectCommand extends Command {
         return new CommandResult(feedbackToUser);
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public String getFormat() {
+        return null;
+    }
+
+    @Override
+    public String getDescription() {
+        return null;
+    }
+
 }
 
