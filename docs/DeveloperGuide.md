@@ -385,10 +385,9 @@ Priority | As a ... | I want to ... | So that I can...
 | [UC7](#uc7-undo-action) | Undo Action  | Undo last action performed. |
 | [UC8](#uc8-redo-action) | Redo Action  | Redo an action performed in UC7. |
 | [UC9](#uc9-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
-| [UC10](#uc10-clear-a-category) | Clear a category  | System performs bulk delete on the category specified (Deadlines, events, tasks). |
-| [UC11](#uc11-clear-all-category) | Clear all category  | System performs bulk delete on every category (Deadlines, events, tasks). |
-| [UC12](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
-| [UC13](#uc13-exit-application) | Exit application  | Quit the application |
+| [UC10](#uc10-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
+| [UC11](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
+| [UC12](#uc13-exit-application) | Exit application  | Quit the application |
 
 ---
 
@@ -668,13 +667,12 @@ Mark a task as done by index. A marked task should be automatically archived and
 
 ---
 
-### UC10: Clear a category
+### UC10: Clear everything
 
-System performs bulk delete on the category specified (Deadlines, events, tasks).
-
+System performs bulk delete on the data (Deadlines, events, tasks).
 ##### Main Success Scenario
 
-1. User requests to clear a category.
+1. User requests to clear Mastermind
 
 2. System proceed to perform bulk action described in UC6 for the specified category.
 
@@ -688,39 +686,9 @@ System performs bulk delete on the category specified (Deadlines, events, tasks)
 
 * 1a2. Use case ends.
 
-2a. Invalid category
-
-* 2a1. System cannot find the specified category.
-
-* 2a2. System display unsuccessful message.
-
-* 2a3. Use case ends.
-
 ---
 
-### UC11: Clear all category
-
-System performs bulk delete on every category (Deadlines, events, tasks).
-
-##### Main Success Scenario
-
-1. User requests to clear all category.
-
-2. System proceed to perform bulk action describe in UC6.
-
-3. Use case ends.
-
-##### Extensions
-
-1a. User entered an invalid command.
-
-* 1a1. System display unsuccessful message.
-
-* 1a2. Use case ends.
-
----
-
-### UC12: Relocate storage location
+### UC11: Relocate storage location
 
 Change the current storage to other directory specified by the user.
 
@@ -760,7 +728,7 @@ Change the current storage to other directory specified by the user.
 
 ---
 
-### UC13: Exit application
+### UC12: Exit application
 
 Quit the application.
 
