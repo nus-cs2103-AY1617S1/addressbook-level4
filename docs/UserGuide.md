@@ -30,6 +30,7 @@
 Displays the list of commands(along with their formats) for the user to help him use those commands.<br>
 Format: `help`
 
+
 #### Adding a Task: `add`
 Adds a task to the task manager<br>
 Date Format: dd/mm/yy
@@ -73,7 +74,8 @@ Examples:
 * `add exam from tmr 7pm to tmr 8pm`
 * `add event from today 5pm to next fri 10pm`
 
-### Editing a Task: `edit`
+
+#### Editing a Task: `edit`
 Allows the user to edit a particular task<br>
 Format: `edit <task index> <detail to edit> <new value>`
 
@@ -82,6 +84,7 @@ Example:
 * `edit 1 CS2103T Tutorial` (Edits the name to CS2103 Tutorial)
 * `edit 2 at today 3pm` (Edits the start time at today 3pm)
 
+
 #### Priority tasks: `priority`
 Allows the user to set the priority of a task when creating it. If the task is of importance, the user can assign it with a high priority. <br>
 Format : `add <task name> priority high`
@@ -89,13 +92,16 @@ Format : `add <task name> priority high`
 Example:
 * `add CS2101 by 01/01/2016 priority high`
 
+
 #### Undo a Task: `undo`
 Undo the most recent task entered in the command line<br>
 Format: `undo`
 
+
 #### Redo a Task: `redo`
 Redo the most recent undo in the command line<br>
 Format: `redo`
+
 
 #### Deleting a Task: `delete`
 Deletes a particular task in the task manager<br>
@@ -104,6 +110,7 @@ Format: `delete <task index>`
 Example:
 * `delete 1`
 
+
 #### Finding a Task: `Find`
 Finds tasks in the task manager. Task manager will display all task with the input keywords<br>
 Format: `find <task name>`
@@ -111,39 +118,42 @@ Format: `find <task name>`
 Example:
 *`find project`
 
+
+### Mark as done: `done`
+Marks a task as done. <br>
+Format: `done <task index>`
+
+Example:
+* `done 1`
+
+
 #### Showing full list: `show`
 Displays all the task for the user to view.<br>
 Format: `show`
 
-#### Showing list for today: `show today`
+##### Showing list for today: `show today`
 Displays all the task for today for the user to view.<br>
 Format: `show today`
 
-#### Showing list for tomorrow: `show tomorrow`
+##### Showing list for tomorrow: `show tomorrow`
 Displays all the task for tomorrow for the user to view.<br>
 Format: `show tomorrow`
 
-#### Showing list for upcoming: `show upcoming`
+##### Showing list for upcoming: `show upcoming`
 Displays all the task for upcoming task for the user to view.<br>
 Format: `show upcoming`
 
-#### Showing list for specific date: `show <date>`
+##### Showing list for specific date: `show <date>`
 Displays all the task for today the user to view.<br>
 Format: `show <date>`
 
 Example:
 * `show 10/10/16`
 
-#### Show all the done tasks: `show done`
+##### Show all the done tasks: `show done`
 Displays all the done tasks. <br>
 Format: `show done`
 
-#### Mark as done: `done`
-Marks a task as done. <br>
-Format: `done <task index>`
-
-Example:
-* `done 1`
 
 #### Selecting a task: `select`
 Selects a task based on index. <br>
@@ -151,6 +161,7 @@ Format: `select <index>`
 
 Example:
 * `select 2`
+
 
 #### Set storage: `set storage`
 Allows the user to change the storage location to a different folder
