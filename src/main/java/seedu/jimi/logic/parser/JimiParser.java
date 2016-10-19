@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.exceptions.DateNotParsableException;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.StringUtil;
@@ -63,8 +64,9 @@ public class JimiParser {
     private static final Pattern ADD_EVENT_DATA_ARGS_FORMAT =
             Pattern.compile("(\"(?<taskDetails>.+)\") on (?<startDateTime>((?! to ).)*)( to (?<endDateTime>.+))?");
     
-    private static final Pattern SAVE_DIRECTORY_ARGS_FORMAT = 
-            Pattern.compile("(?<filePath>.+).xml");
+    private static final Pattern SAVE_DIRECTORY_ARGS_FORMAT = Pattern.compile("(?<filePath>.+).xml");
+    
+    private static final Pattern SAVE_RESET_DIRECTORY_ARGS_FORMAT = Pattern.compile(SaveAsCommand.COMMAND_WORD_RESET);
     
     private static final List<Command> COMMAND_STUB_LIST =
             Arrays.asList(
@@ -367,6 +369,11 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareSaveAs(String args) {
+        final Matcher resetMatcher = SAVE_RESET_DIRECTORY_ARGS_FORMAT.matcher(args.trim());
+        if (resetMatcher.matches()) {
+            return new SaveAsCommand(Config.DEFAULT_XML_FILE_PATH);
+        }
+        
         final Matcher matcher = SAVE_DIRECTORY_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(

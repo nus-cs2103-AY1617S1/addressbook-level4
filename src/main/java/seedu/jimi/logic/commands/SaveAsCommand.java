@@ -16,11 +16,14 @@ import seedu.jimi.commons.util.FileUtil;
 public class SaveAsCommand extends Command {
 
     public static final String COMMAND_WORD = "saveas";
+    
+    public static final String COMMAND_WORD_RESET = "reset";
 
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Set a new save directory for all your tasks and events in Jimi.\n"
             + "Parameters: FILEPATH/FILENAME.xml or FILEPATH\\FILENAME.xml \n"
-            + "Example: " + COMMAND_WORD + " C:/dropbox/taskbook.xml";
+            + "Example: " + COMMAND_WORD + " C:/dropbox/taskbook.xml\n"
+            + "> Tip: type \"saveas reset\" to reset Jimi's save directory back to its default.";
 
     public static final String MESSAGE_INVALID_PATH = "Specified directory is invalid!";
     public static final String MESSAGE_SUCCESS = "Save directory changed: %1$s";

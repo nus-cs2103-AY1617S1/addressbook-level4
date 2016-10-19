@@ -9,12 +9,13 @@ import java.util.logging.Level;
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
-
+    public static final String DEFAULT_XML_FILE_PATH = "data/jimi.xml";
+    
     // Config values customizable through config file
     private String appTitle = "Jimi";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskBookFilePath = "data/jimi.xml";
+    private String taskBookFilePath = DEFAULT_XML_FILE_PATH;
     private String taskBookName = "Jimi";
 
     public Config() {}
