@@ -1,5 +1,6 @@
 package seedu.address.model.item;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import seedu.address.model.tag.UniqueTagList;
@@ -22,11 +23,11 @@ public interface ReadOnlyItem {
 	 * then the default null is used. Override these in the implemented classes
 	 * as necessary.
 	 */
-	default Date getStartDate() {
+	default LocalDateTime getStartDate() {
 		return null;
 	}
 
-	default Date getDueDate() {
+	default LocalDateTime getEndDate() {
 		return null;
 	}
 	
@@ -45,7 +46,7 @@ public interface ReadOnlyItem {
 						// state checks here onwards
                 && other.getDescription().equals(this.getDescription()) 
                 && other.getStartDate().equals(this.getStartDate())
-                && other.getDueDate().equals(this.getDueDate()));
+                && other.getEndDate().equals(this.getEndDate()));
     }
 
     /**
