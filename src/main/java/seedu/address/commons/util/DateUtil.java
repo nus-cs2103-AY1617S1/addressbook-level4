@@ -54,6 +54,43 @@ public class DateUtil {
             } catch (ParseException e) {
                 continue;
             }
+<<<<<<< HEAD
+=======
+        }        
+        return null;
+    }
+    
+    public static Date parseEvent(String date) {
+        Date validDate;
+        
+        for (SimpleDateFormat sdf : DATE_FORMATS) {
+            try {
+                validDate = sdf.parse(date);
+                if (date.equals(sdf.format(validDate))) {
+                    return validDate;
+                }
+            } catch (ParseException e) {
+                continue;
+            }
+        }        
+        return null;
+    }
+    public static Date parseReminder(String date) {
+        Date validDate;
+        String dateform;
+        for (SimpleDateFormat sdf : DATE_FORMATS1) {
+            try {
+                validDate = sdf.parse(date);
+                if (date.equals(sdf.format(validDate))) {
+                    dateform = sdf.format(validDate);
+                    dateform = dateform.concat(" 20:00");
+                    validDate = DATE_FORMATS2.get(DATE_FORMATS1.indexOf(sdf)).parse(dateform);
+                    return validDate;
+                }
+            } catch (ParseException e) {
+                continue;
+            }
+>>>>>>> 8e3d4fe... refinement for date format
         }
         
         return null;

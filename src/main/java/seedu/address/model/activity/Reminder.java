@@ -32,19 +32,15 @@ public class Reminder extends DateTime {
     public Reminder(String date) throws IllegalValueException {
         super(date);
 
-        if (!isValidDate(date)) {
-            throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
-        }
 
         if (date != "") {
             if (date.contains("today")) { // allow user to key in "today"
                                           // instead of today's date
-                this.value.setTime(Calendar.getInstance().getTime());
+                date = DateValidation.ReminderTimeToday(date);
             } else if (date.contains("tomorrow")) { // allow user to key in
                                                     // "tomorrow" instead of
                                                     // tomorrow's/ date
-                this.value.setTime(Calendar.getInstance().getTime());
-                value.add(Calendar.DAY_OF_MONTH, 1);
+                date = DateValidation.DateTimeTomorrow(date);
             }
 
             Date taskDate = DATE_PARSER.parseDate(date);
@@ -54,11 +50,17 @@ public class Reminder extends DateTime {
             } else if (DateUtil.hasPassed(taskDate)) {
                 throw new IllegalValueException(MESSAGE_REMINDER_INVALID);
             }
-
+            System.out.println(date);
+            System.out.println(taskDate);
+            if (!isValidDate(date)) {
+                throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
+            }
             this.value.setTime(taskDate);
             this.value.set(Calendar.MILLISECOND, 0);
             this.value.set(Calendar.SECOND, 0);
         }
+
+
     }
     
     public String forDisplay() {

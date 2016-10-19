@@ -46,7 +46,6 @@ public class DueDate extends DateTime {
                 this.value.setTime(Calendar.getInstance().getTime());
                 value.add(Calendar.DAY_OF_MONTH, 1);
             }
-
             Date taskDate = DATE_PARSER.parseDate(date);
 
             if (taskDate == null) {
