@@ -50,6 +50,7 @@ public class TaskCard extends UiPart{
         tags.setText(task.tagsString());
         initializeDate();
         initializeRecurringType();
+        setCellColor();
     }
 
     private void initializeRecurringType() {
@@ -73,6 +74,24 @@ public class TaskCard extends UiPart{
         } else {
         	endDate.setText(dateComponent.getEndDate().getFormattedDate());
         }
+    }
+    
+    private void setCellColor(){
+    	
+    	//normal non-floating task
+    	cardPane.setStyle("-fx-background-color : derive(#11aabb, 20%);");
+    	//Deadline
+    	if(dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT
+    			&& dateComponent.getEndDate().getDateInLong() != TaskDate.DATE_NOT_PRESENT)
+    		cardPane.setStyle("-fx-background-color : derive(#dd0000, 20%);");
+    	//Floating task
+    	if(dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT
+    			&& dateComponent.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
+    		cardPane.setStyle("-fx-background-color : derive(#fff000, 20%);");
+    	//Blocked Slot
+    	if(task.getName().fullName.equals("BLOCKED SLOT"))
+    		cardPane.setStyle("-fx-background-color : derive(#ff00dd, 20%);");
+    	
     }
 
 
