@@ -10,20 +10,21 @@ import org.ocpsoft.prettytime.nlp.parse.DateGroup;
 
 /**
  * For parsing dates and times in Sudowudo command input
+ * 
  * @author darren
  */
 public class DateTimeParser {
     // the part of the command that contains the temporal part of the command
     private String datetime;
-    
+
     // natty parser object
     // careful of name collision with our own Parser object
     private PrettyTimeParser parser;
-    
+
     // result from parser
     private List<DateGroup> dategroups;
     private List<Date> dates;
-    
+
     DateTimeParser(String input) {
         assert input != null;
         assert input.isEmpty() != true;
@@ -35,33 +36,34 @@ public class DateTimeParser {
         this.dategroups = this.parser.parseSyntax(input);
         this.dates = this.parser.parse(input);
     }
-    
+
     public LocalDateTime extractStartDate() {
         assert this.dates != null;
 
-        if(this.dategroups.isEmpty()) {
+        if (this.dategroups.isEmpty()) {
             return null;
         }
 
         return changeDateToLocalDateTime(this.dates.get(0));
     }
-    
+
     public LocalDateTime extractEndDate() {
         assert this.dates != null;
 
-        if(this.dates.size() < 2) {
+        if (this.dates.size() < 2) {
             return extractStartDate();
         }
 
         return changeDateToLocalDateTime(this.dates.get(1));
     }
-    
+
     public boolean isRecurring() {
         return this.dategroups.get(0).isRecurring();
     }
-    
+
     public LocalDateTime getRecurEnd() {
-        return changeDateToLocalDateTime(this.dategroups.get(0).getRecursUntil());
+        return changeDateToLocalDateTime(
+                this.dategroups.get(0).getRecursUntil());
     }
 
     /**
@@ -73,7 +75,8 @@ public class DateTimeParser {
      * @author darren
      */
     public static LocalDateTime changeDateToLocalDateTime(Date date) {
-        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        return LocalDateTime.ofInstant(date.toInstant(),
+                ZoneId.systemDefault());
     }
 
     public DateGroup getDateGroup(int index) {
@@ -83,5 +86,5 @@ public class DateTimeParser {
     public String getDateTime() {
         return this.datetime;
     }
-    
+
 }
