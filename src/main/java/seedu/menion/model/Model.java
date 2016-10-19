@@ -30,10 +30,22 @@ public interface Model {
     void UncompleteTask(int index);
     void UncompleteEvent(int index);
     
-    /** Edits the name of the given Activity, given it's index. */
+    /** 
+     * @author Marx  Low A0139164A
+     * Edits the name of the given Activity, given it's index. 
+     */
     void editFloatingTaskName(int index, String changes);
     void editTaskName(int index, String changes);
     void editEventName(int index, String changes);
+    
+
+    /**
+     * @author Marx Low A0139164A
+     * Edits the note of the given Activity, given it's index. 
+     */
+    void editFloatingTaskNote(int index, String changes);
+    void editTaskNote(int index, String changes);
+    void editEditNote(int index, String changes);
     
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;

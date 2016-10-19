@@ -141,6 +141,30 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
+
+    /**
+     * @author Marx Low A0139164A
+     * Methods for editting Activity's note
+     */
+    @Override
+    public void editFloatingTaskNote(int index, String changes) {
+        activityManager.editFloatingTaskNote(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public void editTaskNote(int index, String changes) {
+        activityManager.editTaskNote(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    @Override
+    public void editEditNote(int index, String changes) {
+        activityManager.editEventNote(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
     
     @Override
     public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
