@@ -271,7 +271,7 @@ public class Parser {
                     EditCommand.MESSAGE_USAGE));
         }
 
-        if(dataType.get() == "todo") {
+        if(matcher_task.matches()) {
            try {
                 return new EditCommand(
                         matcher_task.group("name"),
@@ -282,7 +282,7 @@ public class Parser {
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }   
-        }else if(dataType.get() == "event") {
+        }else if(matcher_event.matches()) {
             try {
                 return new EditCommand(
                         matcher_event.group("name"),
@@ -294,7 +294,7 @@ public class Parser {
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
-        }else if(dataType.get() == "deadline") {  
+        }else if(matcher_deadline.matches()) {  
             try {
                 return new EditCommand(
                         matcher_deadline.group("name"),
