@@ -29,12 +29,12 @@ public interface Model {
     /** Edits the given task
      * @return The edited task
      */
-    Activity editTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException;
+    Activity editTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException;
 
     /** Undo edit 
      * @return The original task before edit
      */
-    Activity undoEditTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException;
+    Activity undoEditTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList();

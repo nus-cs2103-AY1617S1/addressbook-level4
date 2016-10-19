@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,48 +13,87 @@ import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
 import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.activity.event.EndTime;
+import seedu.address.model.activity.event.Event;
+import seedu.address.model.activity.event.StartTime;
 import seedu.address.model.activity.task.DueDate;
 import seedu.address.model.activity.task.Priority;
+import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 public class EditCommand extends Command {
-    
+
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the indexed task from Lifekeeper. \n"
             + "Parameters: INDEX (must be a positive integer) [n/TASK_NAME] [c/CATEGORY] [d/DEADLINE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " 1 n/CS2103 T8A2 d/15-10-2016 p/3 r/12-01-2016 t/CS t/project";
-    
+            + "Example: " + COMMAND_WORD + " 1 n/CS2103 T8A2 d/15-10-2016 p/3 r/12-01-2016 t/CS t/project";
+
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task from: %1$s\nto: %2$s";
-    
     public static final String MESSAGE_TASK_EXISTS = "An existing task already contains the specified parameters.";
-    
+    public static final String MESSAGE_ACTIVITY_MISMATCH = "Task cannot be changed to event and vice versa.";
+
     public final int targetIndex;
     
-    public final Activity newParams;
+    private final String newParamsType;
     
+    private final Activity taskToEdit;
+
+    public final Activity newParams;
+
     /**
      * Set parameters to null if they are not provided.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name, String duedate, String priority, String reminder, Set<String> tags)
+    public EditCommand(int targetIndex, String name, String duedate, String priority, String start, String end, String reminder, Set<String> tags)
             throws IllegalValueException {
         this.targetIndex = targetIndex;
+        
+        UnmodifiableObservableList<Activity> lastShownList = model.getFilteredTaskListForEditing();
+        this.taskToEdit = lastShownList.get(targetIndex - 1);
         
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.newParams = new Activity(
-                new Name(name),
-                new DueDate(duedate),
-                new Priority(priority),
-                new Reminder(reminder),
-                new UniqueTagList(tagSet)
-        );
+        
+        newParamsType = identifyActivityType(duedate, priority, start, end);
+        
+        if (newParamsType.equalsIgnoreCase("float")) {
+            this.newParams = new Activity(
+                    new Name(name),
+                    new Reminder(reminder),
+                    new UniqueTagList(tagSet)
+            );
+        } else if (newParamsType.equalsIgnoreCase("task")) {
+            this.newParams = new Task(
+                    new Name(name),
+                    new DueDate(duedate),
+                    new Priority(priority),
+                    new Reminder(reminder),
+                    new UniqueTagList(tagSet)
+            );
+        } else if (newParamsType.equalsIgnoreCase("event")) {
+            this.newParams = new Event(
+                    new Name(name),
+                    new StartTime(Calendar.getInstance()),
+                    new EndTime(Calendar.getInstance()),
+                    new Reminder(reminder),
+                    new UniqueTagList(tagSet)
+            );
+        } else {
+            assert false : "Invalid method output: identifyActivityType";
+            throw new IllegalValueException(MESSAGE_INVALID_ACTIVITY_TYPE);
+        }
+        
+        String taskToEditType = taskToEdit.getClass().getSimpleName();
+        
+        if (taskToEditType.equalsIgnoreCase("task") && newParamsType.equalsIgnoreCase("event")
+                || taskToEditType.equalsIgnoreCase("event") && newParamsType.equalsIgnoreCase("task")) {
+            throw new IllegalValueException(MESSAGE_ACTIVITY_MISMATCH);
+        }
     }
 
     @Override
@@ -65,15 +105,13 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        Activity taskToEdit = lastShownList.get(targetIndex - 1);
-        
         try {
             Activity oldTask = new Activity(taskToEdit);
             Activity editedTask = new Activity(model.editTask(taskToEdit, newParams));
-            
-            PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD,oldTask,editedTask);
+
+            PreviousCommand editCommand = new PreviousCommand(COMMAND_WORD, oldTask, editedTask);
             PreviousCommandsStack.push(editCommand);
-            
+
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, oldTask, editedTask));
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task to be edited cannot be missing";

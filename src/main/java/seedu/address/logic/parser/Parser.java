@@ -220,6 +220,8 @@ public class Parser {
                     getElement(matcherParams.group("task"), " n/"),
                     getElement(matcherParams.group("duedate")," d/"),
                     getElement(matcherParams.group("priority")," p/"),
+                    getElement(matcherParams.group("start")," s/"),
+                    getElement(matcherParams.group("end")," e/"),
                     getElement(matcherParams.group("reminder")," r/"),
                     getTagsFromArgs(matcherParams.group("tagArguments"))
             );

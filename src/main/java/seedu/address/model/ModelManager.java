@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized Activity editTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
+    public synchronized Activity editTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException {
         Activity editedTask = addressBook.editTask(oldTask, newParams, "edit");
         indicateAddressBookChanged();
         
@@ -88,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized Activity undoEditTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
+    public synchronized Activity undoEditTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException {
         Activity editedTask = addressBook.editTask(oldTask, newParams, "undo");
         indicateAddressBookChanged();
         

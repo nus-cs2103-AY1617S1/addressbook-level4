@@ -117,7 +117,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         }
     }
     
-    public Activity editTask(Task task, Task newParams, String type) throws TaskNotFoundException, DuplicateTaskException {
+    public Activity editTask(Activity task, Activity newParams, String type) throws TaskNotFoundException, DuplicateTaskException {
             if (tasks.contains(task)) {
                 Activity newTask = ActivityManager.editUnaffectedParams(task, newParams, type);
                 tasks.edit(task, newTask);
