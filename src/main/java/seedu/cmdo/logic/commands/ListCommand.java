@@ -9,6 +9,8 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     public static final String COMMAND_WORD_SHORT_ALL = "la";
     public static final String COMMAND_WORD_SHORT_DONE = "ld";
+    public static final String COMMAND_WORD_ALL = "list all";
+    public static final String COMMAND_WORD_DONE = "list done";
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     

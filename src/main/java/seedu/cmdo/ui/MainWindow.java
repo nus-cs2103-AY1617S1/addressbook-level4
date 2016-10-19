@@ -13,7 +13,6 @@ import seedu.cmdo.commons.core.GuiSettings;
 import seedu.cmdo.commons.events.ui.ExitAppRequestEvent;
 import seedu.cmdo.logic.Logic;
 import seedu.cmdo.model.UserPrefs;
-import seedu.cmdo.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,22 +30,13 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
-    private CommandBox commandBox;
     private Config config;
-    private UserPrefs userPrefs;
-
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
 
-    private String toDoListName;
-
-    //@FXML
-    //private Stage welcomeMessagePlaceholder;
-    
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane welcomePanePlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -54,6 +44,9 @@ public class MainWindow extends UiPart {
     @FXML
     private MenuItem helpMenuItem;
 
+    @FXML
+    private AnchorPane taskCategoryPlaceholder;
+    
     @FXML
     private AnchorPane taskListPanelPlaceholder;
 
@@ -90,10 +83,7 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.toDoListName = toDoListName;
         this.config = config;
-        this.userPrefs = prefs;
-
         //Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
@@ -110,11 +100,12 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-    	//welcomeMessage = WelcomeMessage.load(welcomeMessagePlaceholder); 
+    	taskCategoryPlaceholder.getChildren().add((new TaskCategory()).getTaskCategoryPane());
+    	welcomePanePlaceholder.getChildren().add((new WelcomeMessage()).getWelcomePane());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(true));
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
+        CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -165,13 +156,7 @@ public class MainWindow extends UiPart {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
-/*
-    @FXML
-    public void handleWelcome() {
-    	WelcomeMessage welcomeMessage = WelcomeMessage.load(primaryStage);
-    	welcomeMessage.show();
-    }
-  */  
+
     @FXML
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);

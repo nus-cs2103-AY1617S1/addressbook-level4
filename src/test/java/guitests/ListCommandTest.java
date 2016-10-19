@@ -6,7 +6,6 @@ import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.cmdo.logic.commands.ListCommand.MESSAGE_SUCCESS;;
 
 public class ListCommandTest extends ToDoListGuiTest {
 

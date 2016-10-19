@@ -32,11 +32,11 @@ public class DueByTime {
         assert dueByTime != null;
         // Enable storage of floating time
         if (!dueByTime.equals(LocalTime.MAX)) {
-        	this.end = dueByTime.truncatedTo(ChronoUnit.MINUTES);
+        	this.start = dueByTime.truncatedTo(ChronoUnit.MINUTES);
         } else {
-        	this.end = dueByTime;
+        	this.start = dueByTime;
         }
-    	this.start = LocalTime.MAX;
+    	this.end = LocalTime.MAX;
     	this.isRange = false;
     }
     
@@ -49,8 +49,14 @@ public class DueByTime {
      */
     public DueByTime(LocalTime dueByTimeStart, LocalTime dueByTimeEnd) throws IllegalValueException {
         assert dueByTimeStart != null && dueByTimeEnd != null;
-        this.start = dueByTimeStart.truncatedTo(ChronoUnit.MINUTES);
-        this.end = dueByTimeEnd.truncatedTo(ChronoUnit.MINUTES);
+        // Enable storage of floating time in date range
+        if (dueByTimeStart.equals(LocalTime.MAX) && dueByTimeEnd.equals(LocalTime.MAX)) {
+        	this.start = LocalTime.MAX;
+        	this.end = start;
+        } else {
+        	this.start = dueByTimeStart.truncatedTo(ChronoUnit.MINUTES);
+        	this.end = dueByTimeEnd.truncatedTo(ChronoUnit.MINUTES);
+        }
         this.isRange = true;
     }
 
@@ -59,7 +65,7 @@ public class DueByTime {
         if (isRange)
         	return new StringBuilder(start.toString() + "/to/" + end.toString()).toString();
         else 
-        	return end.toString();
+        	return start.toString();
     }
     
     /*
@@ -92,11 +98,25 @@ public class DueByTime {
 			return "";
 		}
     	if (!isRange) {
-    		return new StringBuilder(end.format(DateTimeFormatter.ofPattern("kkmm"))).toString();
+    		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("kkmm"))).toString();
     	}
 		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("kkmm")) 
 				+ " - " 
 				+ end.format(DateTimeFormatter.ofPattern("kkmm")))
 				.toString();
+	}
+    
+	// @@author A0139661Y
+	public String getFriendlyStartString() {
+		if (start.equals(LocalTime.MAX)) {
+			return "";
+		} return start.format(DateTimeFormatter.ofPattern("kkmm")).toString(); 
+	}
+	
+	// @@author A0139661Y
+	public String getFriendlyEndString() {
+		if (end.equals(LocalTime.MAX)) {
+			return "";
+		} else return end.format(DateTimeFormatter.ofPattern("kkmm")).toString();
 	}
 }
