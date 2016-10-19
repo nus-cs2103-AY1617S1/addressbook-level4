@@ -83,6 +83,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    @Override
+    public synchronized void completeTask(ReadOnlyTask originalTask, Task completeTask){
+        taskManager.completeTask(originalTask, completeTask);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

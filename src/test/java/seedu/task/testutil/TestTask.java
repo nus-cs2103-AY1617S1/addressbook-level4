@@ -12,6 +12,7 @@ public class TestTask implements ReadOnlyTask {
     private DateTime openTime;
     private DateTime closeTime;
     private UniqueTagList tags;
+    private boolean isCompleted;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -24,17 +25,25 @@ public class TestTask implements ReadOnlyTask {
     public void setOpenTime(DateTime openTime) {
         this.openTime = openTime;
     }
-
+    
     public void setCloseTime(DateTime closeTime) {
         this.closeTime = closeTime;
     }
 
+    public void setIsCompleted(boolean isCompleted){
+        this.isCompleted = isCompleted;
+    }
 
     @Override
     public Name getName() {
         return name;
     }
 
+    @Override
+    public boolean getComplete() {
+        return isCompleted;
+    }
+    
     @Override
     public DateTime getOpenTime() {
         return openTime;
@@ -44,7 +53,6 @@ public class TestTask implements ReadOnlyTask {
     public DateTime getCloseTime() {
         return closeTime;
     }
-
 
     @Override
     public UniqueTagList getTags() {

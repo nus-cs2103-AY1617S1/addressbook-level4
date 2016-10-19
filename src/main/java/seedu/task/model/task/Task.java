@@ -16,6 +16,7 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private DateTime openTime;
     private DateTime closeTime;
+    private boolean isCompleted;
 
     private UniqueTagList tags;
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
@@ -25,12 +26,13 @@ public class Task implements ReadOnlyTask {
      * Assigns instance variables
      * @throws IllegalValueException if DateTime pair is invalid
      */
-    public Task(Name name, DateTime openTime, DateTime closeTime, UniqueTagList tags) throws IllegalValueException {
+    public Task(Name name, DateTime openTime, DateTime closeTime, boolean isCompleted, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted = isCompleted;  
         if (!isValidDateTimePair()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
@@ -40,7 +42,7 @@ public class Task implements ReadOnlyTask {
      * @return
      */
     private boolean isValidDateTimePair() {
-        if( openTime.getDateTimeValue().isPresent() && closeTime.getDateTimeValue().isPresent()) {
+        if(openTime.getDateTimeValue().isPresent() && closeTime.getDateTimeValue().isPresent()) {
             Instant openTimeValue = openTime.getDateTimeValue().get();
             Instant closeTimeValue = closeTime.getDateTimeValue().get();
             return openTimeValue.isBefore(closeTimeValue);
@@ -54,12 +56,27 @@ public class Task implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getTags());
+        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getComplete(), source.getTags());
     }
 
     @Override
     public Name getName() {
         return name;
+    }
+
+    @Override
+    public DateTime getOpenTime() {
+        return openTime;
+    }
+
+    @Override
+    public DateTime getCloseTime() {
+        return closeTime;
+    }
+
+    @Override
+    public boolean getComplete() {
+        return isCompleted;
     }
 
     @Override
@@ -74,6 +91,14 @@ public class Task implements ReadOnlyTask {
         tags.setTags(replacement);
     }
 
+    /**
+     * Sets the task's completion flag
+     */
+    public void setIsCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+    
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -92,15 +117,4 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
-    @Override
-    public DateTime getOpenTime() {
-        return this.openTime;
-    }
-
-    @Override
-    public DateTime getCloseTime() {
-         return this.closeTime;
-    }
-
 }

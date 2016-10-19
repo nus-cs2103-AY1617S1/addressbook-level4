@@ -2,9 +2,9 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.task.TestApp;
@@ -64,10 +64,11 @@ public class GuiHandle {
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+        return ((Text) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
 
     public void focusOnSelf() {
+        
         if (stageTitle != null) {
             focusOnWindow(stageTitle);
         }
@@ -77,6 +78,7 @@ public class GuiHandle {
         this.focusOnWindow(TestApp.APP_TITLE);
     }
 
+    
     public void closeWindow() {
         java.util.Optional<Window> window = guiRobot.listTargetWindows()
                 .stream()

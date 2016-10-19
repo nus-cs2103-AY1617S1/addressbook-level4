@@ -103,7 +103,14 @@ public class TaskManager implements ReadOnlyTaskManager {
     	syncTagsWithMasterList(updateTask);
     	tasks.update(originalTask,updateTask); 
     }
+    /**
+     * Marks a specific task as completed to the task list.
+     */
     
+    public void completeTask(ReadOnlyTask originalTask, Task completeTask) {
+    	syncTagsWithMasterList(completeTask);
+    	tasks.complete(originalTask,completeTask); 
+    }
     
     /**
      * Ensures that every tag in this task:

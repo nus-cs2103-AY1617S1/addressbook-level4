@@ -26,6 +26,9 @@ public interface Model {
     /** Updates the given task */
     void updateTask(ReadOnlyTask orginalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException; 
     
+    /** Mark the given task as completed */
+    void completeTask(ReadOnlyTask originalTask, Task completedTask);
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

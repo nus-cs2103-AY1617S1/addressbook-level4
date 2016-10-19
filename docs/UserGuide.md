@@ -23,6 +23,7 @@
    * **`add`**`meeting`: adds a task named CS2103 Tutorial
    * **`find`**`meeting `: searches the task named tutorial   
    * **`delete`**`presentation`: delete a task named Quiz
+   * **`complete`** `1`: mark the first task as completed
    * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
    * **`exit`** :exit the program
@@ -70,6 +71,16 @@ Examples:
   Deletes `meeting` task.
 * `delete 1`<br>
   Deletes the first task in the to-do list.
+
+#### Marking a task as completed: `complete`
+Marks a specific task by index from the to-do list.<br>
+FormatL `complete INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
+
+Example:
+* `complete 2`<br>
+   Marks the second task on the list as completed.
 
 #### Listing all persons : `list`
 Shows a list of tasks and events in the todo list.<br>
@@ -149,6 +160,7 @@ Command | Format
 -------- | :--------
 Add | `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 Delete | `delete TASK_NAME` or `delete INDEX`
+Complete | `complete INDEX`
 List | `list`
 Find | `find KEYWORD` or `find t/TAG`
 Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`

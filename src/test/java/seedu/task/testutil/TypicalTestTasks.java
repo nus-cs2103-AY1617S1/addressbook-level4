@@ -13,14 +13,14 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            cs2103 =  new TaskBuilder().withName("Do CS 2103").withOpenTime("thursday")
-                    .withCloseTime("friday").withTags("friends").build();
+            cs2103 =  new TaskBuilder().withName("Do CS 2103").withOpenTime("next thursday")
+                    .withCloseTime("next friday").withTags("friends").build();
             laundry = new TaskBuilder().withName("Meier").withOpenTime("tomorrow")
                     .withCloseTime("day after tomorrow").withTags("urgent", "important").build();
-            carl = new TaskBuilder().withName("Meet Carl").withOpenTime("thursday")
-                    .withCloseTime("friday").build();
-            daniel = new TaskBuilder().withName("Have lunch with Meier").withOpenTime("")
-                    .withCloseTime("thursday").build();
+            carl = new TaskBuilder().withName("Meet Carl").withOpenTime("next thursday")
+                    .withCloseTime("next friday").build();
+            daniel = new TaskBuilder().withName("Have lunch with Meier").withOpenTime("6 hours from now")
+                    .withCloseTime("8 hours from now").build();
             elle = new TaskBuilder().withName("Take Ellie out on a date").withOpenTime("6 hours from now")
                     .withCloseTime("12 hours from now").build();
             fiona = new TaskBuilder().withName("Buy a Shrek and Fiona Toy").withOpenTime("tomorrow")
