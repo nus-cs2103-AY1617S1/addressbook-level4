@@ -155,7 +155,7 @@ public class Parser {
         		System.out.println(endTime);
 	            return new AddCommand(
 	                    matcher.group("name").replace('\\', '\0'),
-	                    "",
+	                    "false",
 	                    startTime,
 	                    endTime,
 	                    getTagsFromArgs(matcher.group("tagArguments"))

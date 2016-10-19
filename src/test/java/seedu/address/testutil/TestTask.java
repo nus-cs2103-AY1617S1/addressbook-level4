@@ -75,7 +75,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
 	@Override
-	public boolean getDone() {
-		return false;
+	public String getDone() {
+		return "false";
 	}
 }

@@ -12,7 +12,7 @@ public interface ReadOnlyTask {
     Date getDate();
     StartTime getStartTime();
     EndTime getEndTime();
-    boolean getDone();
+    String getDone();
     
     /**
      * The returned TagList is a deep copy of the internal TagList,

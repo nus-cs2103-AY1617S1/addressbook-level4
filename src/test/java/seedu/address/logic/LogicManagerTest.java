@@ -204,7 +204,6 @@ public class LogicManagerTest {
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
-
     }
 
 
@@ -218,7 +217,7 @@ public class LogicManagerTest {
         // prepare address book state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("showall",
+        assertCommandBehavior("show all",
                 ShowAllCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);

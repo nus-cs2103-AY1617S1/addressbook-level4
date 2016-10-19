@@ -16,7 +16,7 @@ public class ShowDoneCommand extends Command {
     public ShowDoneCommand() {}
 
     public static Predicate<Task> isDone() {
-    	return t -> t.getDone() == true;
+    	return t -> t.getDone().equals("true");
     }
     
     @Override

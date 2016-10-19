@@ -15,7 +15,6 @@ public class Task implements ReadOnlyTask {
     private Date date;
     private StartTime start;
     private EndTime end;
-    private boolean done = false;
     
     private UniqueTagList tags;
 
@@ -64,8 +63,8 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
-    public boolean getDone() {
-    	return done;
+    public String getDone() {
+    	return date.getDate();
     }
 
     public void setName(Name name) {
@@ -107,12 +106,12 @@ public class Task implements ReadOnlyTask {
     
     public void setDone() {
     	System.out.println("done");
-    	this.done = true;
+    	this.date.setDate("true");
     }
     
     public void setUndone() {
     	System.out.println("undone");
-    	this.done = false;
+    	this.date.setDate("false");
     }
 
 }
