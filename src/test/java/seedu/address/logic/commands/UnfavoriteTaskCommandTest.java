@@ -59,13 +59,29 @@ public class UnfavoriteTaskCommandTest {
 	}
 	
 	@Test
-	public void unfavoriteTask_validIndex() throws IllegalValueException {
+	public void unfavoriteTask_validIndex_alreadyUnfavorite() throws IllegalValueException {
 		/* 
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to unfavoriteTaskCommand constructor is within the range of added tasks.
 		 */
 		InMemoryTaskList model;
 		model = TestUtil.setupFloatingTasks(3);
+		UnfavoriteTaskCommand command = new UnfavoriteTaskCommand(2);
+		command.setData(model);
+		
+		String expected = String.format(UnfavoriteTaskCommand.MESSAGE_TASK_ALR_UNFAVORITED, "[Floating Task][Description: Task 1]");
+		assertCommandFeedback(command, expected);
+	}
+	
+	@Test
+	public void unfavoriteTask_validIndex_isFavorite() throws IllegalValueException {
+		/* 
+		 * CommandResult should return a string that denotes success in execution if index given 
+		 * to unfavoriteTaskCommand constructor is within the range of added tasks.
+		 */
+		InMemoryTaskList model;
+		model = TestUtil.setupFloatingTasks(3);
+		model.getCurrentFilteredTasks().get(1).setAsFavorite();
 		UnfavoriteTaskCommand command = new UnfavoriteTaskCommand(2);
 		command.setData(model);
 		
