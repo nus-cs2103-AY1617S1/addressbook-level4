@@ -466,6 +466,27 @@ Use case ends.
 
 > 3a1. Happy Jim Task Manager shows an error message <br>
   Use case resumes at step 2
+  
+#### Use case: UC07 - Archive Completed Task
+
+**MSS**
+
+1. User request to find Tasks(UC04) or view Tasks(UC03).
+2. Happy Jim Task Manager shows Tasks(UC04) or (UC03).
+3. User requests to archive a specific task in the list
+4. Happy Jim Task Manager archives the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. Invalid command
+
+> 3a1. Happy Jim Task Manager shows an error message <br>
+  Use case resumes at step 2
 
 #### Use case: UC09 - Block Timeslot
 
@@ -558,7 +579,7 @@ Use case ends
 
 3a. Not enough file space
 
-> 3a1. Happy Jim Task Manager shows not enough disk space message<br>
+> 3a1. Happy Jim Task Manager shows i/o message<br>
 Use case ends
 
 #### Use case: UC13 - Exit
