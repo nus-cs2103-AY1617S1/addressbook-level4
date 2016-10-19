@@ -68,7 +68,11 @@ public class AddCommand extends Command {
 				model.addTask(task);
 			}
 			if(tasksToAdd.size()==1)
-				return new CommandResult(String.format(MESSAGE_SUCCESS,tasksToAdd.get(0).getTitle()));
+				return new CommandResult(String.format(MESSAGE_SUCCESS,tasksToAdd.get(0).getTitle()
+				        + " Description: " + tasksToAdd.get(0).getDescription()
+				        + " Start Date: " + tasksToAdd.get(0).getStartDate()
+				        + " Due Date: " + tasksToAdd.get(0).getDueDate()
+				        + " Status: " + tasksToAdd.get(0).getStatus()));
 			else
 				return new CommandResult(String.format(MESSAGE_SUCCESS_MANY_TASKS,tasksToAdd.get(0).getInterval(),tasksToAdd.get(0).getTitle()));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
