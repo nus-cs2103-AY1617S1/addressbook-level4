@@ -110,15 +110,20 @@ public class LogicManagerTest {
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
         
         //Execute the command
+       
+        System.out.println("input command: " + inputCommand);
+        
         CommandResult result = logic.execute(inputCommand);
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        if (!inputCommand.contains("find"))
+        if (!inputCommand.contains("find") && !inputCommand.contains("change"))
             assertEquals(expectedShownList, model.getAllTaskTypeList());
         
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedWhatNow, model.getWhatNow());
-        assertEquals(expectedWhatNow, latestSavedWhatNow);
+        if (!inputCommand.contains("change")) {
+            assertEquals(expectedWhatNow, model.getWhatNow());
+            assertEquals(expectedWhatNow, latestSavedWhatNow);
+        }
     }
 
 
@@ -400,6 +405,73 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
 
+//    @Test
+//    public void execute_markDoneInvalidArgsFormat_errorMessageShown() throws Exception {
+//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_USAGE);
+//        assertIncorrectIndexFormatBehaviorForCommand("done", "todo", expectedMessage);
+//    }
+//
+//    @Test
+//    public void execute_markDoneIndexNotFound_errorMessageShown() throws Exception {
+//        assertIndexNotFoundBehaviorForCommand("done", "todo");
+//    }
+//
+//    @Test
+//    public void execute_markDone_marksCorrectTask() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        List<Task> threeTasks = helper.generateTaskList(3);
+//
+//        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+//        expectedAB.markTask(threeTasks.get(1));
+//        helper.addToModel(model, threeTasks);
+//        
+//        assertCommandBehavior("done schedule 2",
+//                String.format(MarkDoneCommand.MESSAGE_MARK_TASK_SUCCESS, threeTasks.get(1)),
+//                expectedAB,
+//                expectedAB.getTaskList());
+//    }
+    /**
+     * Confirms the 'invalid argument behaviour' for the given command
+     * @param commandWord to test assuming it targets a single task in the last shown list.
+     */
+    private void assertIncorrectArgsFormatBehavior(String commandWord, String expectedMessage) throws Exception {
+        assertCommandBehavior(commandWord + " description Check if command is incorrect", expectedMessage);
+        assertCommandBehavior(commandWord + " location" + " description Check if command is incorrect", expectedMessage);
+        assertCommandBehavior(commandWord + " to" + " description Check if command is incorrect", expectedMessage);
+        assertCommandBehavior(commandWord + " C:/Users/Raul/Desktop"+ " description Check if command is incorrect", expectedMessage);
+        assertCommandBehavior(commandWord + " location" + "C:/Users/Abernathy/Documents"+ " description Check if command is incorrect", expectedMessage);
+        assertCommandBehavior(commandWord + " to" + "C:/Users/Dorain/Desktop" + "description Check if command is incorrect", expectedMessage);
+        assertCommandBehavior(commandWord + " locationto" + " C:/Users/Emmet/Documents" + "description Check if command is incorrect", expectedMessage);
+        assertCommandBehavior(commandWord + " location to" + "C:/Users/Gina/Documents C:/Users/Hamlet/D" + "description Check if command is incorrect", expectedMessage);
+    }
+    
+    /**
+     * Confirms the 'invalid argument behaviour' for the given command
+     * @param commandWord to test assuming it targets a single task in the last shown list.
+     */
+    private void assertInvalidPathBehavior(String commandWord, String expectedMessage) throws Exception {
+        assertCommandBehavior(commandWord + " doesnotexistfolder" + "description Check if path is incorrect", expectedMessage);
+        assertCommandBehavior(commandWord + " cs2103projectfolder" + "description Check if path is incorrect", expectedMessage);
+    }
+    
+    @Test
+    public void execute_changeLocationInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE);
+        assertIncorrectArgsFormatBehavior("change", expectedMessage);
+    }
+
+    @Test
+    public void execute_changeLocationInvalidPath_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_PATH, ChangeCommand.MESSAGE_USAGE);
+        assertInvalidPathBehavior("change location to", expectedMessage);
+    }
+
+    @Test
+    public void execute_changeLocation_movesToCorrectPath() throws Exception {
+        String egPath = "C:";
+        assertCommandBehavior("change location to " + egPath,
+                String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "\\whatnow.xml", null, null));
+    }
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {

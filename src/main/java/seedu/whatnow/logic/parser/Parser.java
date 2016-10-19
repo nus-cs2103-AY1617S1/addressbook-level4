@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
@@ -60,6 +61,9 @@ public class Parser {
 	private static final String TASK_ARG_TAG = "tag";
 	private static final String TASK_ARG_DATE = "date";
 	private static final String TASK_ARG_TIME = "time";
+	private static final int CHANGE_LOCATION = 0;
+	private static final int CHANGE_LOCATION_TO = 1;
+	private static final int CHANGE_LOCATION_TO_PATH = 2;
 	
 
 
@@ -191,10 +195,15 @@ public class Parser {
 		
 		Set<String> tags = new HashSet<String>();
         
-        for (int i = 0; i < additionalArgs.length; i++) {
-            String[] splitTag = additionalArgs[i].trim().split("/");
-            tags.add(splitTag[1]);
-        }
+		try {
+		    for (int i = 0; i < additionalArgs.length; i++) {
+		        String[] splitTag = additionalArgs[i].trim().split("t/");
+		        tags.add(splitTag[1]);
+		    }
+		} catch (ArrayIndexOutOfBoundsException e) {
+		    return new IncorrectCommand("Invalid command format!\n" + AddCommand.MESSAGE_USAGE); 
+		} //Zac@All: Not sure if there is a better way to fix this. This captures the cases where user dont type
+		  //on or by when adding a schedule/deadline
 		
 		try {
 			return new AddCommand(arguments[DESCRIPTION], tags);
@@ -225,8 +234,11 @@ public class Parser {
      */
     private Command prepareChange(String args) {
         String[] argComponents= args.trim().split(" ");
-        if(argComponents[0].equals("location") && argComponents[1].equals("to")){
-            return new ChangeCommand(argComponents[2]);
+        for (int i = 0; i < argComponents.length; i++) {
+            System.out.println(i + " " + argComponents[i]);
+        }
+        if(argComponents[CHANGE_LOCATION].equals("location") && argComponents[CHANGE_LOCATION_TO].equals("to")){
+            return new ChangeCommand(argComponents[CHANGE_LOCATION_TO_PATH]);
         }
         else{
             return new IncorrectCommand(
@@ -291,6 +303,14 @@ public class Parser {
         String arg = "";
         Optional<Integer> index = parseIndex(argComponents[INDEX]);
         for (int i = ARG; i < argComponents.length; i++) {
+            if (argComponents[i].toUpperCase().compareToIgnoreCase("none") == 0 && argType.toUpperCase().compareToIgnoreCase("description") != 0) {
+                arg = argComponents[i];
+                try {
+                    return new UpdateCommand(type, index.get(), argType, arg);
+                } catch (IllegalValueException ive) {
+                    return new IncorrectCommand(ive.getMessage());
+                }
+            }
             arg += argComponents[i] + " ";
         }
         if(!index.isPresent()){
@@ -303,11 +323,7 @@ public class Parser {
         }
         
         try {
-            return new UpdateCommand(
-                type,
-                index.get(),
-                argType,
-                arg);
+            return new UpdateCommand(type, index.get(), argType, arg);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

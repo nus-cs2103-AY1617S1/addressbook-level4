@@ -21,9 +21,14 @@ public interface Model {
 
     /** Reverts to the pre-existing backing model and replaces with backup-ed data */
 	void revertData();
-    /** Returns the WhatNow */
+    
+	/** Returns the WhatNow */
     ReadOnlyWhatNow getWhatNow();
     
+    /** Reverts to previous data of WhatNow */
+	void revertDataUpdate();
+	
+	void revertToPrevDataUpdate();
   //=========== Methods for Task List ===============================================================
 
     /** Deletes the given task. */
@@ -86,6 +91,24 @@ public interface Model {
 	/**Gets the newTask if possible */
 	Stack<ReadOnlyTask> getNewTask();
 	
+	/** Gets the deletedStackOfTask */
+	Stack<ReadOnlyTask> getDeletedStackOfTask();
+
+	/** Gets the deletedStackOfTaskType corresponding to stackOfTask */
+	Stack<String> getDeletedStackOfTaskType();
+	
+	/** Gets Stack of Task that were marked */
+	Stack<ReadOnlyTask> getStackOfMarkDoneTask();  
+	
+	/** Gets stack of TaskTypes corresponding to stackOfMarkDoneTask */
+	Stack<String> getStackOfMarkDoneTaskTaskType();
+	
+	/** Gets a stack of WhatNow corresponding to Undoes of Update */
+	Stack<ReadOnlyWhatNow> getStackOfWhatNowUpdate();  
+	
+	/** Gets a stack of WhatNow corresponding to Redoes of Update */
+	Stack<ReadOnlyWhatNow> getStackOfWhatNowRedoUpdate();
+    
   //=========== Methods for Schedule List ===============================================================
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();
@@ -116,5 +139,4 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to display all task types*/
     UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList();
-    
 }

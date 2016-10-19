@@ -10,6 +10,11 @@ import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.storage.Storage;
 import seedu.whatnow.storage.StorageManager;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static seedu.whatnow.commons.core.Messages.*;
 
 public class ChangeCommand extends Command {
     
@@ -21,8 +26,10 @@ public class ChangeCommand extends Command {
             + " PATH: C:"+"\\" + "Users" + "\\" + "Jim"+"\\"+"Dropbox"+"\\"+"WhatNow";
     
     public static final String MESSAGE_SUCCESS = "The data storage location has been successfully changed to: %1$s";
-    
+
     public String newPath;
+    
+    public MainApp app;
     
     public Config config = new Config();
     
@@ -34,19 +41,25 @@ public class ChangeCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        config.setWhatNowFilePath(newPath);
-        String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-        
-        try {
-            ConfigUtil.saveConfig(config, configFilePathUsed);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        } 
-        
-        MainApp app = new MainApp();
-        app.setConfig(config);
-        Storage storage = new StorageManager(config.getWhatNowFilePath(), config.getUserPrefsFilePath());
-        app.setStorage(storage);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, newPath));
+        Path path = FileSystems.getDefault().getPath(newPath);
+        if(Files.exists(path)){
+            newPath = newPath + "\\whatnow.xml";
+            config.setWhatNowFilePath(newPath);
+            String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+            
+            try {
+                ConfigUtil.saveConfig(config, configFilePathUsed);
+            } catch (IOException e) {
+                logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+            } 
+            
+            app = new MainApp();
+            app.setConfig(config);
+            Storage storage = new StorageManager(config.getWhatNowFilePath(), config.getUserPrefsFilePath());
+            app.setStorage(storage);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, newPath));
+        } else { 
+            return new CommandResult(String.format(MESSAGE_INVALID_PATH, newPath));
+        }
     }
 }

@@ -4,6 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.whatnow.ui.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
@@ -34,21 +36,23 @@
                <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
            </padding>
        </AnchorPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+
+       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.3" VBox.vgrow="ALWAYS">
          <items>
-            <VBox fx:id="taskList" minWidth="340" prefWidth="340">
-                <padding>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                </padding>
-               <children>
-                  <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-               </children>
+            <VBox fx:id="taskList" minWidth="340" alignment = "CENTER">
+                <Label fx:id = "todo" contentDisplay="CENTER" prefWidth="100.0" text="Todo" styleClass = "label-bright"/>
+                <children>
+                    <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                </children>
             </VBox>
-            <AnchorPane fx:id="scheduleListPlaceholder" prefWidth="1700" >
-                <padding>
-                    <Insets top="10" bottom="10" left="10" right="10"/>
-                </padding>
-            </AnchorPane>
+         </items>
+         <items>
+         	<VBox fx:id="scheduleList" minWidth="340" alignment = "CENTER">
+                <Label fx:id = "schedule" contentDisplay="CENTER" prefWidth="100.0" text="Schedule" styleClass = "label-bright"/>
+                <children>
+                     <AnchorPane fx:id="scheduleListPlaceholder" VBox.vgrow = "ALWAYS" prefWidth="1700" />
+				</children>
+         	</VBox>
          </items>
       </SplitPane>
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
