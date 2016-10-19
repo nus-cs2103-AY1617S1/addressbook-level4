@@ -20,6 +20,7 @@ public class ListCommand extends Command {
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
+    //@@author A0139339W
     private Optional<String> taskType;
     private Optional<String> doneStatus;
     
@@ -80,4 +81,5 @@ public class ListCommand extends Command {
     	}
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    //@@author
 }
