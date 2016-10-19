@@ -86,6 +86,7 @@ Use case ends
 Use case ends
 
 **Extensions**
+
 2a. The given event/task is non existent 
 
 >2a1.Task manager shows an error message <br>
@@ -101,6 +102,7 @@ Use case ends
 Use case ends
 
 **Extensions**
+
 2a. There are no previous operations
 
 > 2a1.Task manager shows an warning message <br>
