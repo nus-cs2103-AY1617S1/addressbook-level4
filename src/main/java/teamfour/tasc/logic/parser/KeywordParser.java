@@ -110,9 +110,8 @@ public class KeywordParser {
 	        }
 	        parts = newParts.toArray(new String[newParts.size()]);
 		}
-        for (String i : parts) {
-            System.out.println(i);
-        }
+        //end open close "" parts
+
         for (int i = 0; i < parts.length; i++) {
             if (stringIsAKeyword(keywordsInHashSet, parts[i])) {
 
