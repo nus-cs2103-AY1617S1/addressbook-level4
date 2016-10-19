@@ -141,21 +141,21 @@ Following is the list of all commands:
 
 | Command  | Format                                       | Description                                    |
 |----------|----------------------------------------------|------------------------------------------------|
-| `help`   | `help`                                       | Opens a help page                              |
-|          | `help` <command>                             | Shows a help page for that particular command  |
-| `add`    | `add` <name>                                 | Adds a floating task                           |
-|          | `add` <name> at <start time>                 | Adds a task only with a start time             |
-|          | `add` <name> by <end time>                   | Adds a deadline task                           |
-|          | `add` <name> from <start time> to <end time> | Adds an event task from start time to end time |
-| `edit`   | `edit` <index> <new parameters>              | Edits a task with the new parameters           |
-| `done`   | `done` <index>                               | Marks a task as done                           |
-| `delete` | `delete` <index>                             | Removes a task from the task manager           |
-| `show`   | `show`                                       | Shows all tasks                                |
-|          | `show` done                                  | Shows the done tasks                           |
-|          | `show` today                                 | Shows all tasks for today                      |
-|          | `show` tmr                                   | Shows all tasks for tomorrow                   |
-|          | `show` <date>                                | Shows all tasks for that particular date       |
-| `undo`   | `undo`                                       | Undoes the most recent command                 |
-| `redo`   | `redo`                                       | Redoes the latest undo                         |
-| `find`   | `find` <name>                                | Finds a task with task name as <name>          |
-| `select` | `select` <index>                             | Highlights the particular task at that index   |
+| `help`   | `help`                                             | Opens a help page                              |
+|          | `help` `<command>`                                 | Shows a help page for that particular command  |
+| `add`    | `add` `<name>`                                     | Adds a floating task                           |
+|          | `add` `<name>` at `<Start Time>`                   | Adds a task only with a start time             |
+|          | `add` `<name>` by `<End Time>`                     | Adds a deadline task                           |
+|          | `add` `<name>` from `<Start Time>` to `<End_Time>` | Adds an event task from start time to end time |
+| `edit`   | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           |
+| `done`   | `done` `<index>`                                   | Marks a task as done                           |
+| `delete` | `delete` `<index>`                                 | Removes a task from the task manager           |
+| `show`   | `show`                                             | Shows all tasks                                |
+|          | `show` done                                        | Shows the done tasks                           |
+|          | `show` today                                       | Shows all tasks for today                      |
+|          | `show` tmr                                         | Shows all tasks for tomorrow                   |
+|          | `show` `<date>`                                    | Shows all tasks for that particular date       |
+| `undo`   | `undo`                                             | Undoes the most recent command                 |
+| `redo`   | `redo`                                             | Redoes the latest undo                         |
+| `find`   | `find` `<name>`                                    | Finds a task with task name as <name>          |
+| `select` | `select` `<index>`                                 | Highlights the particular task at that index   |
