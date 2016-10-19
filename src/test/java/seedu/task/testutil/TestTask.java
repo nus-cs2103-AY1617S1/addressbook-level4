@@ -59,9 +59,8 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskName + " ");
-//        sb.append("p/" + this.getPhone().value + " ");
-//        sb.append("e/" + this.getEmail().value + " ");
-//        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("s/" + this.getOpenTime().toPrettyString() + " ");
+        sb.append("c/" + this.getCloseTime().toPrettyString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
@@ -69,9 +68,8 @@ public class TestTask implements ReadOnlyTask {
     public String getArgs() {
         StringBuilder sb = new StringBuilder();
         sb.append(" "+this.getName().taskName + " ");
-//        sb.append("p/" + this.getPhone().value + " ");
-//        sb.append("e/" + this.getEmail().value + " ");
-//        sb.append("a/" + this.getAddress().value + " ");
+        sb.append("s/" + this.getOpenTime().toPrettyString() + " ");
+        sb.append("c/" + this.getCloseTime().toPrettyString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

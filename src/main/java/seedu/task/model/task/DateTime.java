@@ -49,11 +49,9 @@ public class DateTime {
      * @param test output from date/time parser
      */
     public static boolean isValidDateTime(String dateTime) {
-        Instant now = Instant.now();
         List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
         if(!possibleDates.isEmpty() && (possibleDates.size() == 1)) {
-            Instant date = possibleDates.get(0).toInstant();
-            return !date.isBefore(now);
+            return true;
         } else {
             return false;
         }

@@ -150,16 +150,14 @@ public class LogicManagerTest {
     }
 
 
-//    @Test
-//    public void execute_add_invalidArgsFormat() throws Exception {
-//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-//        assertCommandBehavior(
-//                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
-//    }
+    @Test
+    public void execute_add_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        assertCommandBehavior(
+                "add s/today c/tomorrow", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name a/sadsadsad", expectedMessage);
+    }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
@@ -167,6 +165,12 @@ public class LogicManagerTest {
                 "add []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Do CS2103 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 s/hello", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 s/hello c/bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 c/bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 s/tomorrow c/today", Task.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 s/6 hours from now c/3 hours from now", Task.MESSAGE_DATETIME_CONSTRAINTS);
+
 
     }
 
