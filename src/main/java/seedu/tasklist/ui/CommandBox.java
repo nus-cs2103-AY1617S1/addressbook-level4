@@ -13,7 +13,11 @@ import seedu.tasklist.commons.util.FxViewUtil;
 import seedu.tasklist.logic.Logic;
 import seedu.tasklist.logic.commands.*;
 
+import java.io.IOException;
 import java.util.logging.Logger;
+
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -68,7 +72,7 @@ public class CommandBox extends UiPart {
 
 
     @FXML
-    private void handleCommandInputChanged() {
+    private void handleCommandInputChanged() throws IOException, JSONException, ParseException {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
 

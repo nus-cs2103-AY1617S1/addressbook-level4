@@ -1,5 +1,15 @@
 package seedu.tasklist.logic.commands;
 import java.io.File;
+import java.nio.file.Files;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
+
+//import com.google.common.io.Files;
 
 import seedu.tasklist.MainApp;
 import seedu.tasklist.commons.core.Config;
@@ -23,12 +33,23 @@ public class SetStorageCommand extends Command {
 
 	}
 
-	public CommandResult execute(){
-		File taskListFile = new File(filePath);
+	public CommandResult execute() throws IOException, JSONException, ParseException{
+		//filePath = filePath+"/tasklist.xml";
+		File targetListFile = new File(filePath);
+		File defaultFilePath = new File("/Users/dheeraj/dheeraj5/data/tasklist.xml");
+		Path defaultPath = defaultFilePath.toPath();
 	    Config config = new Config();
-		if(taskListFile.exists()){
+		if(targetListFile.exists()){
+			Path targetPath = targetListFile.toPath();
+			  try {
+				//Files.copy(defaultPath,targetPath);
+			//	Files.createFile(targetPath);
+				  Files.copy(defaultFilePath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING); 
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 			    config.setTaskListFilePath(filePath);
-			    storage = new StorageManager(config.getTaskListFilePath(), config.getUserPrefsFilePath());
+			   // storage = new StorageManager(config.getTaskListFilePath(), config.getUserPrefsFilePath());    
 			    return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS + filePath));
 		}
 		else

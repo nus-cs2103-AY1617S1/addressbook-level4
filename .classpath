@@ -17,5 +17,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/dheeraj/Desktop/java-json.jar"/>
+	<classpathentry kind="lib" path="/Users/dheeraj/Desktop/json-simple.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
