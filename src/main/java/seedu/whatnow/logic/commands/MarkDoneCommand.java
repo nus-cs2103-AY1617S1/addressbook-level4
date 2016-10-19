@@ -35,8 +35,10 @@ public class MarkDoneCommand extends UndoAndRedo {
 	public CommandResult execute() {
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList;
 		if (taskType.equals(TASK_TYPE_FLOATING)) {
+		    model.updateFilteredListToShowAllIncomplete();
 			lastShownList = model.getCurrentFilteredTaskList();
 		} else {
+		    model.updateFilteredScheduleListToShowAllIncomplete();
 			lastShownList = model.getCurrentFilteredScheduleList();
 		}
 
