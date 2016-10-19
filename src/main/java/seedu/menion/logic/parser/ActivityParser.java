@@ -155,7 +155,6 @@ public class ActivityParser {
     private Command prepareEdit(String args) {
 
         String[] splited = args.split("\\s+");
-        assert(splited.length == 5); // Should only contain a space, Activity Type and Index
         boolean isValidType = false; // Checks that the activity type is of valid type
         String activityType = splited[1];
         

@@ -28,7 +28,7 @@ public class CompleteCommand extends Command {
 
     public CompleteCommand(String[] splited) {
         this.targetType = splited[1];
-        this.targetIndex = Integer.valueOf(splited[2]);
+        this.targetIndex = Integer.valueOf(splited[2]) - 1;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class CompleteCommand extends Command {
 
         callCompleteActivity(targetType); // Calls the correct method depending
                                           // on type of activity.
-        ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex - 1);
+        ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex);
 
 
         return new CommandResult(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
@@ -60,11 +60,11 @@ public class CompleteCommand extends Command {
     private void callCompleteActivity(String targetType) {
 
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
-            model.completeFloatingTask(targetIndex - 1);
+            model.completeFloatingTask(targetIndex);
         } else if (targetType.equals(Activity.TASK_TYPE)) {
-            model.completeTask(targetIndex - 1);
+            model.completeTask(targetIndex);
         } else {
-            model.completeEvent(targetIndex - 1);
+            model.completeEvent(targetIndex);
         }
     }
 
@@ -83,11 +83,11 @@ public class CompleteCommand extends Command {
     private void callUnCompleteActivity(String targetType) {
 
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
-            model.UncompleteFloatingTask(targetIndex - 1);
+            model.UncompleteFloatingTask(targetIndex);
         } else if (targetType.equals(Activity.TASK_TYPE)) {
-            model.UncompleteTask(targetIndex - 1);
+            model.UncompleteTask(targetIndex);
         } else {
-            model.UncompleteEvent(targetIndex - 1);
+            model.UncompleteEvent(targetIndex);
         }
     }
 
