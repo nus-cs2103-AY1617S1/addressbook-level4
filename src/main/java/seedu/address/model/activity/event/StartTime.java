@@ -26,18 +26,10 @@ public class StartTime extends DateTime {
      */
     public StartTime(String date) throws IllegalValueException {
         super(date);
-
+        Date taskDate;
 
         if (date != "") {
-            if (date.contains("today")) { // allow user to key in "today"
-                                          // instead of today's date
-                date = DateValidation.FixedTimeToday(date);
-            } else if (date.contains("tomorrow")) { // allow user to key in
-                                                    // "tomorrow" instead of
-                                                    // tomorrow's/ date
-                date = DateValidation.FixedTimeTomorrow(date);
-            }
-            Date taskDate = DATE_PARSER.parseEvent(date);
+            taskDate = DATE_PARSER.EventDateConvert(date);
 
             if (taskDate == null) {
                 assert false : "Date should not be null";
@@ -56,9 +48,9 @@ public class StartTime extends DateTime {
     
     public String forDisplay() {
         if (this.value == null) {
-            return "Start:\t\t\t-";
+            return "Start:\t\t-";
         } else {
-            return "Start:\t\t\t".concat(this.toString());
+            return "Start:\t\t".concat(this.toString());
         }
     }
 }

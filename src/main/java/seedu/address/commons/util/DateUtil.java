@@ -303,7 +303,7 @@ public class DateUtil {
         String strDate = new SimpleDateFormat("dd-MM-yyyy").format(today.getTime() + TimeUnit.DAYS.toMillis(1));
         if (timeparts.length != 1) {
             String part2 = timeparts[1];
-            if (part1.contains("today"))
+            if (part1.contains("tomorrow"))
                 return strDate.concat(" " + part2);
             else
                 return strDate.concat(" " + part1);
@@ -343,12 +343,14 @@ public class DateUtil {
     
     public static Date EndDateTime(Date date) throws IllegalValueException {
         String strDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(date.getTime() + TimeUnit.HOURS.toMillis(1));
-        Date dateformat;
+        Date dateformat = null;
         try {
             dateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(strDate);
         } catch (ParseException e) {
             throw new IllegalValueException(INVALID_FORMAT);
         }
+        if(dateformat == null)
+            throw new IllegalValueException(INVALID_FORMAT);
         return dateformat;
 
     }

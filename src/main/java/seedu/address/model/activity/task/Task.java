@@ -1,5 +1,6 @@
 package seedu.address.model.activity.task;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 import seedu.address.commons.util.CollectionUtil;
@@ -68,8 +69,16 @@ public class Task extends Activity implements ReadOnlyTask {
         if(isCompleted) {
             return "Completed";
         } 
+        if(!isCompleted && passedDueDate())
+            return "Passed Due Date";
             return "";  
     }
+    public boolean passedDueDate() {
+        if(duedate.value.after(Calendar.getInstance()))
+            return true;            
+        return false;
+    }
+
     
     @Override
     public boolean equals(Object other) {

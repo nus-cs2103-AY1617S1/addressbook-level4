@@ -68,6 +68,7 @@ public interface ReadOnlyActivity {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    boolean passedDueDate();
     
  
     
