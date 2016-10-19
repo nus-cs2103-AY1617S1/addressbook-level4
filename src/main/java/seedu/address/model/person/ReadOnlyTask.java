@@ -38,18 +38,26 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Description: ")
-                .append(getDescription())
-                .append(" Date: ")
-                .append(getDate())
-                .append(" Time: ")
-                .append(getTime())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+        builder.append(getName());
+        if (!getDescription().toString().isEmpty()) {
+            builder.append(" Description: ")
+            .append(getDescription());
+        }
+        if (!getDate().toString().isEmpty()) {
+            builder.append(" Date: ")
+            .append(getDate());
+        }
+        if (!getTime().toString().isEmpty()) {
+            builder.append(" Time: ")
+                .append(getTime());
+        }
+        if (!getTags().toString().isEmpty()) {
+            builder.append(" Tags: ");
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
-
+    
     /**
      * Returns a string representation of this Person's tags
      */

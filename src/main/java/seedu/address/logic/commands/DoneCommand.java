@@ -21,7 +21,7 @@ public class DoneCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "Selected Task: %1$s";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Completed Task: %1$s";
 
     public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -59,7 +59,7 @@ public class DoneCommand extends Command {
         
         //TODO look at posting a set as completed event.
         //EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, targetIndex));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, readTaskToComplete));
 
     }
 
