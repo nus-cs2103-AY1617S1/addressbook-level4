@@ -11,10 +11,7 @@ import seedu.address.model.task.Priority;
 public interface ReadOnlyActivity {
 
     Name getName();
-    DueDate getDueDate();
-    Priority getPriority();
     Reminder getReminder();
-    boolean getCompletionStatus();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -29,8 +26,6 @@ public interface ReadOnlyActivity {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getDueDate().equals(this.getDueDate())
-                && other.getPriority().equals(this.getPriority())
                 && other.getReminder().equals(this.getReminder()));
     }
 
@@ -40,10 +35,6 @@ public interface ReadOnlyActivity {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Duedate: ")
-                .append(getDueDate())
-                .append(" Priority: ")
-                .append(getPriority())
                 .append(" Reminder: ")
                 .append(getReminder())
                 .append(" Tags: ");
@@ -64,6 +55,4 @@ public interface ReadOnlyActivity {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-	String toStringCompletionStatus();
-
 }

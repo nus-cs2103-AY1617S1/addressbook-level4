@@ -9,6 +9,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.UniqueTaskList;
 import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.Task;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
@@ -79,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized Activity editTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException {
+    public synchronized Activity editTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
         Activity editedTask = addressBook.editTask(oldTask, newParams, "edit");
         indicateAddressBookChanged();
         
@@ -87,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized Activity undoEditTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException {
+    public synchronized Activity undoEditTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException {
         Activity editedTask = addressBook.editTask(oldTask, newParams, "undo");
         indicateAddressBookChanged();
         
@@ -95,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
 	@Override
-	public synchronized void markTask(Activity taskToMark, boolean isComplete) throws TaskNotFoundException {
+	public synchronized void markTask(Task taskToMark, boolean isComplete) throws TaskNotFoundException {
 		addressBook.markTask(taskToMark, isComplete);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();

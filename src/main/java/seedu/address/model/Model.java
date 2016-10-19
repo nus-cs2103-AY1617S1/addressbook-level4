@@ -6,6 +6,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.UniqueTaskList;
 import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.Task;
 
 import java.util.Set;
 
@@ -28,12 +29,12 @@ public interface Model {
     /** Edits the given task
      * @return The edited task
      */
-    Activity editTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException;
+    Activity editTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException;
 
     /** Undo edit 
      * @return The original task before edit
      */
-    Activity undoEditTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException;
+    Activity undoEditTask(Task oldTask, Task newParams) throws TaskNotFoundException, DuplicateTaskException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList();
@@ -48,7 +49,7 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
 
     /** Marks task as completed **/
-	void markTask(Activity unmarkedTask, boolean isComplete) throws TaskNotFoundException;
+	void markTask(Task unmarkedTask, boolean isComplete) throws TaskNotFoundException;
 
     
 }

@@ -10,6 +10,7 @@ import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Task;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -116,7 +117,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         }
     }
     
-    public Activity editTask(Activity task, Activity newParams, String type) throws TaskNotFoundException, DuplicateTaskException {
+    public Activity editTask(Task task, Task newParams, String type) throws TaskNotFoundException, DuplicateTaskException {
             if (tasks.contains(task)) {
                 Activity newTask = ActivityManager.editUnaffectedParams(task, newParams, type);
                 tasks.edit(task, newTask);
@@ -127,7 +128,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
             }
     }
 
-	public void markTask(Activity task, boolean isComplete) throws TaskNotFoundException {
+	public void markTask(Task task, boolean isComplete) throws TaskNotFoundException {
         if (tasks.contains(task)) {
             tasks.mark(task, isComplete);
         } else {

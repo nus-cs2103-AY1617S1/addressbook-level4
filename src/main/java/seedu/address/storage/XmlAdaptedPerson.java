@@ -43,6 +43,22 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyActivity source) {
         name = source.getName().fullName;
+        phone = null;
+        email = null;
+        address = source.getReminder().toString();
+        tagged = new ArrayList<>();
+        for (Tag tag : source.getTags()) {
+            tagged.add(new XmlAdaptedTag(tag));
+        }
+    }
+    
+    /**
+     * Converts a given Person into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     */
+    public XmlAdaptedPerson(ReadOnlyTask source) {
+        name = source.getName().fullName;
         phone = source.getDueDate().toString();
         email = source.getPriority().value;
         address = source.getReminder().toString();
@@ -57,7 +73,7 @@ public class XmlAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Activity toModelType() throws IllegalValueException {
+    public Task toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -67,6 +83,6 @@ public class XmlAdaptedPerson {
         final Priority email = new Priority(this.email);
         final Reminder address = new Reminder(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Activity(name, phone, email, address, tags);
+        return new Task(name, phone, email, address, tags);
     }
 }

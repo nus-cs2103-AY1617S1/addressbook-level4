@@ -6,14 +6,15 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Task;
 
 public class ActivityManager {
     private static final String NULL_ENTRY = "";
     
-    public static Activity editUnaffectedParams(Activity oldTask, Activity newParams, String type) {
-        Activity newTask = null;
+    public static Task editUnaffectedParams(Task oldTask, Task newParams, String type) {
+        Task newTask = null;
         try {
-            newTask = new Activity(
+            newTask = new Task(
                     updateTaskName(oldTask, newParams, type),
                     updateDueDate(oldTask, newParams, type),
                     updatePriority(oldTask, newParams, type),
@@ -28,11 +29,11 @@ public class ActivityManager {
         return newTask;
     }
 
-	public static void marksTask(Activity task, boolean isComplete) {
+	public static void marksTask(Task task, boolean isComplete) {
 		task.setCompletionStatus(isComplete);
 	}
 
-	private static Name updateTaskName(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
+	private static Name updateTaskName(Task oldTask, Task newParams, String type) throws IllegalValueException {
         Name newTaskName;
 
         if (newParams.getName().toString().equals(NULL_ENTRY)&& type == "edit") {
@@ -44,7 +45,7 @@ public class ActivityManager {
         return newTaskName;
     }
 
-    private static DueDate updateDueDate(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
+    private static DueDate updateDueDate(Task oldTask, Task newParams, String type) throws IllegalValueException {
         DueDate newDueDate;
 
         if (newParams.getDueDate().toString().equals(NULL_ENTRY)&& type == "edit") {
@@ -56,7 +57,7 @@ public class ActivityManager {
         return newDueDate;
     }
 
-    private static Priority updatePriority(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
+    private static Priority updatePriority(Task oldTask, Task newParams, String type) throws IllegalValueException {
         Priority newPriority;
 
         if (newParams.getPriority().toString().equals(NULL_ENTRY)&& type == "edit") {
@@ -68,7 +69,7 @@ public class ActivityManager {
         return newPriority;
     }
 
-    private static Reminder updateReminder(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
+    private static Reminder updateReminder(Task oldTask, Task newParams, String type) throws IllegalValueException {
         Reminder newReminder;
 
         if (newParams.getReminder().toString().equals(NULL_ENTRY)&& type == "edit") {
@@ -80,7 +81,7 @@ public class ActivityManager {
         return newReminder;
     }
    
-    private static UniqueTagList updateTags(Activity oldTask, Activity newParams) {
+    private static UniqueTagList updateTags(Task oldTask, Task newParams) {
         UniqueTagList newTags = new UniqueTagList(oldTask.getTags());
 
         for (Tag toAdd : newParams.getTags()) {

@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart{
 
@@ -27,14 +28,14 @@ public class PersonCard extends UiPart{
     @FXML
     private Label completion;
     
-    private ReadOnlyActivity person;
+    private ReadOnlyTask person;
     private int displayedIndex;
 
     public PersonCard(){
 
     }
 
-    public static PersonCard load(ReadOnlyActivity person, int displayedIndex){
+    public static PersonCard load(ReadOnlyTask person, int displayedIndex){
         PersonCard card = new PersonCard();
         card.person = person;
         card.displayedIndex = displayedIndex;
