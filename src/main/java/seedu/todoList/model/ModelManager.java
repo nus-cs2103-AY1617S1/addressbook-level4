@@ -105,28 +105,22 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void editTask(ReadOnlyTask target, String dataType, Task task) throws IllegalValueException, TaskNotFoundException {
-    	// code for editing
-    	switch(dataType) {
-		case "todo":
-			todoList.removeTask(target);
-		case "event":
-			eventList.removeTask(target);
-		case "deadline":
-			deadlineList.removeTask(target);
-    	}
     	
     	if(task instanceof Todo) {
+    	    todoList.removeTask(target);
     		todoList.addTask(task);
     		updateFilteredTodoListToShowAll();
     		indicateTodoListChanged();
     	}
     	else if(task instanceof Event) {
+    	    eventList.removeTask(target);
     		eventList.addTask(task);
     		updateFilteredEventListToShowAll();
     		indicateEventListChanged();
     	}
     	else if(task instanceof Deadline) {
-    		deadlineList.addTask(task);
+    	    deadlineList.removeTask(target);
+    	    deadlineList.addTask(task);
     		updateFilteredDeadlineListToShowAll();
     		indicateDeadlineListChanged();
     	}
