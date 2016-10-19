@@ -1,22 +1,30 @@
 package seedu.taskitty.testutil;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import guitests.guihandles.TaskListPanelHandle;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.model.task.Task;
 
 public class TestTaskList {
-    private ArrayList<TestTask> todoList;
-    private ArrayList<TestTask> deadlineList;
-    private ArrayList<TestTask> eventList;
+    private List<TestTask> todoList;
+    private List<TestTask> deadlineList;
+    private List<TestTask> eventList;
     
     private final Logger logger = LogsCenter.getLogger(TestTaskList.class);
     
     public TestTaskList(TestTask[] taskList) {
         clear();
         splitTaskList(taskList);
+    }
+    
+    public TestTaskList(TestTask[] todoList, TestTask[] deadlineList, TestTask[] eventList) {
+        this.todoList = new ArrayList<TestTask>(Arrays.asList(todoList));
+        this.deadlineList = new ArrayList<TestTask>(Arrays.asList(deadlineList));
+        this.eventList = new ArrayList<TestTask>(Arrays.asList(eventList));
     }
     
     private void splitTaskList(TestTask[] taskList) {
@@ -45,10 +53,20 @@ public class TestTaskList {
         }
     }
     
+    public void removeTaskFromList(TestTask task) {
+        
+    }
+    
     public void clear() {
         todoList = new ArrayList<TestTask>();
         deadlineList = new ArrayList<TestTask>();
         eventList = new ArrayList<TestTask>();
+    }
+    
+    public TestTaskList copy() {
+        return new TestTaskList(todoList.toArray(new TestTask[todoList.size()]),
+                deadlineList.toArray(new TestTask[deadlineList.size()]),
+                eventList.toArray(new TestTask[eventList.size()]));
     }
     
     public boolean isListMatching(TaskListPanelHandle taskListPanel) {
