@@ -52,4 +52,12 @@ public class DateTime {
         String newDateString = df.format(date);
         return newDateString;
     }
+
+	public int compareTo(DateTime dateTime) {
+		return date.compareTo(dateTime.getDate());
+	}
+
+	public Date getDate() {
+		return date;
+	}
 }

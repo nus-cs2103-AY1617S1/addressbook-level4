@@ -77,6 +77,16 @@ public class UniqueEventList implements Iterable<Event> {
     public ObservableList<Event> getInternalList() {
         return internalList;
     }
+    
+    public void sort() {
+    	Collections.sort(internalList, new Comparator<Event>() {
+      	  public int compare(Event e1, Event e2) {
+      	      if (e1.getStartTime() == null || e2.getStartTime() == null)
+      	        return 0;
+      	      return e1.getStartTime().compareTo(e2.getStartTime());
+      	  }
+      	});
+    }
 
     @Override
     public Iterator<Event> iterator() {
