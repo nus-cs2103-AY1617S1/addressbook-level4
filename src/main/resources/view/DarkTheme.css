@@ -5,7 +5,7 @@
 .contentbox .label {
 	-fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: red;
+    -fx-text-fill: #2da4d2;
     -fx-opacity: 0.9;	
 }
 .label {
@@ -23,9 +23,9 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-font-size: 40pt;
+    -fx-font-family: "Impact, Charcoal, sans-serif";
+    -fx-text-fill: #1d1d1d;
     -fx-opacity: 1;
 }
 

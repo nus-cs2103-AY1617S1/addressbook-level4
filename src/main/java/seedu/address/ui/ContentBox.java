@@ -13,12 +13,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Panel containing the list of tasks.
@@ -36,6 +40,21 @@ public class ContentBox extends UiPart {
     
     @FXML
     private AnchorPane summarypane;
+    
+    @FXML
+    private ImageView todayicon;
+    
+    @FXML
+    private ImageView tmricon;
+    
+    @FXML
+    private ImageView floatingicon;
+    
+    @FXML
+    private ImageView upcomingicon;
+    
+    @FXML
+    private ImageView alltaskicon;
     
     @FXML
     private Label summary;
@@ -99,7 +118,13 @@ public class ContentBox extends UiPart {
     	ContentBox contentbox =
                 UiPartLoader.loadUiPart(primaryStage, ContentBoxPlaceholder, new ContentBox());
         contentbox.configure(taskList);
+        EventsCenter.getInstance().registerHandler(contentbox);
         return contentbox;
+    }
+    
+    @Subscribe
+    private void modelChangedEvent(TaskManagerChangedEvent change) {
+    	dummy1.setText(Integer.toString(list.size()));
     }
     
  
@@ -115,7 +140,10 @@ public class ContentBox extends UiPart {
     public void initialize() {
     	
     	dummy1.setText(Integer.toString(list.size()));
-    	dummy2.setText("testtestest");
+    	dummy2.setText("X");
+    	dummy3.setText("X");
+    	dummy4.setText("X");
+    	dummy5.setText("X");
     }
 
 //    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
