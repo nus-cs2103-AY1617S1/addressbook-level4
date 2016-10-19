@@ -18,7 +18,10 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.Reminder;
+import seedu.address.model.activity.UniqueTaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -67,15 +70,15 @@ public class TestUtil {
     private static Activity[] getSamplePersonData() {
         try {
             return new Activity[]{
-                    new Activity(new TaskName("Ali Muster"), new DueDate("9482424"), new Priority("hans@google.com"), new Reminder("4th street"), new UniqueTagList()),
-                    new Activity(new TaskName("Boris Mueller"), new DueDate("87249245"), new Priority("ruth@google.com"), new Reminder("81th street"), new UniqueTagList()),
-                    new Activity(new TaskName("Carl Kurz"), new DueDate("95352563"), new Priority("heinz@yahoo.com"), new Reminder("wall street"), new UniqueTagList()),
-                    new Activity(new TaskName("Daniel Meier"), new DueDate("87652533"), new Priority("cornelia@google.com"), new Reminder("10th street"), new UniqueTagList()),
-                    new Activity(new TaskName("Elle Meyer"), new DueDate("9482224"), new Priority("werner@gmail.com"), new Reminder("michegan ave"), new UniqueTagList()),
-                    new Activity(new TaskName("Fiona Kunz"), new DueDate("9482427"), new Priority("lydia@gmail.com"), new Reminder("little tokyo"), new UniqueTagList()),
-                    new Activity(new TaskName("George Best"), new DueDate("9482442"), new Priority("anna@google.com"), new Reminder("4th street"), new UniqueTagList()),
-                    new Activity(new TaskName("Hoon Meier"), new DueDate("8482424"), new Priority("stefan@mail.com"), new Reminder("little india"), new UniqueTagList()),
-                    new Activity(new TaskName("Ida Mueller"), new DueDate("8482131"), new Priority("hans@google.com"), new Reminder("chicago ave"), new UniqueTagList())
+                    new Activity(new Name("Ali Muster"), new DueDate("9482424"), new Priority("hans@google.com"), new Reminder("4th street"), new UniqueTagList()),
+                    new Activity(new Name("Boris Mueller"), new DueDate("87249245"), new Priority("ruth@google.com"), new Reminder("81th street"), new UniqueTagList()),
+                    new Activity(new Name("Carl Kurz"), new DueDate("95352563"), new Priority("heinz@yahoo.com"), new Reminder("wall street"), new UniqueTagList()),
+                    new Activity(new Name("Daniel Meier"), new DueDate("87652533"), new Priority("cornelia@google.com"), new Reminder("10th street"), new UniqueTagList()),
+                    new Activity(new Name("Elle Meyer"), new DueDate("9482224"), new Priority("werner@gmail.com"), new Reminder("michegan ave"), new UniqueTagList()),
+                    new Activity(new Name("Fiona Kunz"), new DueDate("9482427"), new Priority("lydia@gmail.com"), new Reminder("little tokyo"), new UniqueTagList()),
+                    new Activity(new Name("George Best"), new DueDate("9482442"), new Priority("anna@google.com"), new Reminder("4th street"), new UniqueTagList()),
+                    new Activity(new Name("Hoon Meier"), new DueDate("8482424"), new Priority("stefan@mail.com"), new Reminder("little india"), new UniqueTagList()),
+                    new Activity(new Name("Ida Mueller"), new DueDate("8482131"), new Priority("hans@google.com"), new Reminder("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

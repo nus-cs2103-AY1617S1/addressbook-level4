@@ -3,9 +3,9 @@ package seedu.address.storage;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.ReadOnlyLifeKeeper;
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.UniqueTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

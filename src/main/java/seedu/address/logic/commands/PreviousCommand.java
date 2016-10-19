@@ -2,12 +2,12 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.Reminder;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Priority;
-import seedu.address.model.task.Reminder;
-import seedu.address.model.task.TaskName;
 /** 
  * Carries information of previous command: Command word and task.
  */
@@ -30,7 +30,7 @@ public class PreviousCommand {
 		oldTask = null;
 		try {
 		updatedTask = new Activity(
-                new TaskName(task.getName().toString()),
+                new Name(task.getName().toString()),
                 new DueDate(task.getDueDate().getCalendarValue()),
                 new Priority(task.getPriority().toString()),
                 new Reminder(task.getReminder().getCalendarValue()),
@@ -47,7 +47,7 @@ public class PreviousCommand {
         
         try {            
             oldTask = new Activity(
-                new TaskName(originalTask.getName().toString()),
+                new Name(originalTask.getName().toString()),
                 new DueDate(originalTask.getDueDate().getCalendarValue()),
                 new Priority(originalTask.getPriority().toString()),
                 new Reminder(originalTask.getReminder().getCalendarValue()),

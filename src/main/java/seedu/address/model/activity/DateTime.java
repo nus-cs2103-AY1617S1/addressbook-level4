@@ -1,4 +1,4 @@
-package seedu.address.model.task;
+package seedu.address.model.activity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

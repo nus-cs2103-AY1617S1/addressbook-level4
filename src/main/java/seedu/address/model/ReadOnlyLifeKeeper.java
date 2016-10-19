@@ -2,9 +2,9 @@ package seedu.address.model;
 
 
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.UniqueTaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.UniqueTaskList;
 
 import java.util.List;
 

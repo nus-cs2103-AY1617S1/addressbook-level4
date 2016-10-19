@@ -1,10 +1,8 @@
-package seedu.address.model.task;
+package seedu.address.model.activity;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -104,7 +102,7 @@ public class UniqueTaskList implements Iterable<Activity> {
             throw new TaskNotFoundException();
         }
         
-        TaskManager.marksTask(task, isComplete);
+        ActivityManager.marksTask(task, isComplete);
         
         internalList.set(index, task);
     }

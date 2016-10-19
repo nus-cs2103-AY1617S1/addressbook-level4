@@ -4,12 +4,12 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.ActivityManager;
+import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
+import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.TaskManager;
-import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -118,7 +118,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
     
     public Activity editTask(Activity task, Activity newParams, String type) throws TaskNotFoundException, DuplicateTaskException {
             if (tasks.contains(task)) {
-                Activity newTask = TaskManager.editUnaffectedParams(task, newParams, type);
+                Activity newTask = ActivityManager.editUnaffectedParams(task, newParams, type);
                 tasks.edit(task, newTask);
                 
                 return newTask;

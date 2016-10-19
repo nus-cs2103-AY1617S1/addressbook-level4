@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Name;
+import seedu.address.model.activity.Reminder;
+import seedu.address.model.activity.UniqueTaskList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -38,7 +41,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         this.toAdd = new Activity(
-                new TaskName(name),
+                new Name(name),
                 new DueDate(duedate),
                 new Priority(priority),
                 new Reminder(reminder),

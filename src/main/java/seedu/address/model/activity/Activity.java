@@ -4,8 +4,6 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Priority;
-import seedu.address.model.task.Reminder;
-import seedu.address.model.task.TaskName;
 
 import java.util.Objects;
 
@@ -15,7 +13,7 @@ import java.util.Objects;
  */
 public class Activity implements ReadOnlyActivity {
 
-    private TaskName name;
+    private Name name;
     private DueDate duedate;
     private Priority priority;
     private Reminder reminder;
@@ -26,7 +24,7 @@ public class Activity implements ReadOnlyActivity {
     /**
      * Every field must be present and not null.
      */
-    public Activity(TaskName name, DueDate dueDate, Priority priority, Reminder reminder, UniqueTagList tags) {
+    public Activity(Name name, DueDate dueDate, Priority priority, Reminder reminder, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, dueDate, priority, reminder, tags);
         this.name = name;
         this.duedate = dueDate;
@@ -44,11 +42,11 @@ public class Activity implements ReadOnlyActivity {
     }
 
     @Override
-    public TaskName getName() {
+    public Name getName() {
         return name;
     }
     
-    public void setName(TaskName name) {
+    public void setName(Name name) {
         this.name = name;
     }
 

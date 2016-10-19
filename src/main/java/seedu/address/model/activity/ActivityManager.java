@@ -1,12 +1,13 @@
-package seedu.address.model.task;
+package seedu.address.model.activity;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.activity.Activity;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.address.model.task.DueDate;
+import seedu.address.model.task.Priority;
 
-public class TaskManager {
+public class ActivityManager {
     private static final String NULL_ENTRY = "";
     
     public static Activity editUnaffectedParams(Activity oldTask, Activity newParams, String type) {
@@ -31,13 +32,13 @@ public class TaskManager {
 		task.setCompletionStatus(isComplete);
 	}
 
-	private static TaskName updateTaskName(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
-        TaskName newTaskName;
+	private static Name updateTaskName(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
+        Name newTaskName;
 
         if (newParams.getName().toString().equals(NULL_ENTRY)&& type == "edit") {
-            newTaskName = new TaskName(oldTask.getName().toString());
+            newTaskName = new Name(oldTask.getName().toString());
         } else {
-            newTaskName = new TaskName(newParams.getName().toString());
+            newTaskName = new Name(newParams.getName().toString());
         }
 
         return newTaskName;

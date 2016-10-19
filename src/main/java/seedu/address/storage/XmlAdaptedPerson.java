@@ -2,7 +2,9 @@ package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.Reminder;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -60,7 +62,7 @@ public class XmlAdaptedPerson {
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
-        final TaskName name = new TaskName(this.name);
+        final Name name = new Name(this.name);
         final DueDate phone = new DueDate(this.phone);
         final Priority email = new Priority(this.email);
         final Reminder address = new Reminder(this.address);

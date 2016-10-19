@@ -1,4 +1,4 @@
-package seedu.address.model.task;
+package seedu.address.model.activity;
 
 import java.text.DateFormat;
 import java.text.ParseException;

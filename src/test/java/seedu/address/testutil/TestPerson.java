@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
+import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.Reminder;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
@@ -9,7 +11,7 @@ import seedu.address.model.task.*;
  */
 public class TestPerson implements ReadOnlyActivity {
 
-    private TaskName name;
+    private Name name;
     private Reminder address;
     private Priority email;
     private DueDate phone;
@@ -20,7 +22,7 @@ public class TestPerson implements ReadOnlyActivity {
         tags = new UniqueTagList();
     }
 
-    public void setName(TaskName name) {
+    public void setName(Name name) {
         this.name = name;
     }
 
@@ -37,7 +39,7 @@ public class TestPerson implements ReadOnlyActivity {
     }
 
     @Override
-    public TaskName getName() {
+    public Name getName() {
         return name;
     }
 

@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import java.util.Stack;
 
 import seedu.address.model.activity.Activity;
-import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Undo previous add, delete and edit commands.

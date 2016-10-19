@@ -3,8 +3,6 @@ package seedu.address.model.activity;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.DueDate;
 import seedu.address.model.task.Priority;
-import seedu.address.model.task.Reminder;
-import seedu.address.model.task.TaskName;
 
 /**
  * A read-only immutable interface for a Task in the Lifekeeper.
@@ -12,7 +10,7 @@ import seedu.address.model.task.TaskName;
  */
 public interface ReadOnlyActivity {
 
-    TaskName getName();
+    Name getName();
     DueDate getDueDate();
     Priority getPriority();
     Reminder getReminder();

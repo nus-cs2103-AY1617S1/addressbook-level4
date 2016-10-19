@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.activity.Name;
+import seedu.address.model.activity.Reminder;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.*;
 
@@ -16,7 +18,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new TaskName(name));
+        this.person.setName(new Name(name));
         return this;
     }
 
