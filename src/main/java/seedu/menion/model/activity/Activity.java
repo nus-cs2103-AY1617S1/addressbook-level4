@@ -148,10 +148,15 @@ public class Activity implements ReadOnlyActivity {
     }
     
     //@Author Marx Low A0139164A
+    // Exception handling to be editted ----------> ALERT!
     @Override
-    public void setActivityName(String newName) throws IllegalValueException {
+    public void setActivityName(String newName) {
         assert (newName != null);
-        this.name = new ActivityName(newName);
+        try {
+            this.name = new ActivityName(newName);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

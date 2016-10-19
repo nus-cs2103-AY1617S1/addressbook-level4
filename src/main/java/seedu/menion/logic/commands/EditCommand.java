@@ -28,7 +28,7 @@ public class EditCommand extends Command {
     public final String changes;
     public final String paramToChange;
     
-    ReadOnlyActivity activityToComplete;
+    ReadOnlyActivity activityToEdit;
 
     public EditCommand(String[] splited) {
         this.targetType = splited[1];
@@ -54,8 +54,9 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
-
-        return new CommandResult();
+        
+        ReadOnlyActivity activityToEdit= lastShownList.get(targetIndex - 1);
+        return new CommandResult(String.format(MESSAGE_EDITTED_ACTIVITY_SUCCESS, activityToEdit));
     }
 
     /*

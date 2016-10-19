@@ -25,7 +25,6 @@ public interface ReadOnlyActivityManager {
      */
     List<ReadOnlyActivity> getTaskList();
     
-    
     /**
      * Returns an unmodifiable view of floating tasks list
      */

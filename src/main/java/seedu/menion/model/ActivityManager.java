@@ -140,7 +140,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     /**
-     * Completes an activity in the activity manager.
+     * Methods, Completes an activity in the activity manager.
      * Passes in the index of the list to complete
      * 
      * @param index
@@ -167,7 +167,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     /**
-     * UnCompletes an activity in the activity manager.
+     * Methods, UnCompletes an activity in the activity manager.
      * Passes in the index of the list to complete
      * 
      * @param index
@@ -192,7 +192,32 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub.setUncompleted();
         events.getInternalList().set(index, dub);        
     }
-
+    
+    /**
+     * @author Marx Low A0139164A
+     * Methods, UnCompletes an activity in the activity manager.
+     * Passes in the index of the list to complete
+     * @param index
+     */
+    public void editFloatingTaskName(int index, String changes) {
+        Activity dub;
+        dub = floatingTasks.getInternalList().get(index);
+        dub.setActivityName(changes);
+        floatingTasks.getInternalList().set(index, dub);   
+    }
+    public void editTaskName(int index, String changes) {
+        Activity dub;
+        dub = tasks.getInternalList().get(index);
+        dub.setActivityName(changes);
+        tasks.getInternalList().set(index, dub);   
+    }
+    public void editEventName(int index, String changes) {
+        Activity dub;
+        dub = events.getInternalList().get(index);
+        dub.setActivityName(changes);
+        events.getInternalList().set(index, dub);   
+    }
+    
     public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
