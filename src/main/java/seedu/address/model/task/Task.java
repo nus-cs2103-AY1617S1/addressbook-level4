@@ -133,6 +133,13 @@ public class Task implements ReadOnlyTask, ModifyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
+    /**
+     * increase this task's tags with the tags in the argument tag list.
+     */
+    public void addTags(UniqueTagList addOn) {
+        tags.mergeFrom(addOn);
+    }
+    
     
     /**
      * Replaces the specific tag found in this task's tags with the tags in the argument.
