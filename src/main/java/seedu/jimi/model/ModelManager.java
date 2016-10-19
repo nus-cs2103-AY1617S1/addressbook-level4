@@ -22,6 +22,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskBook taskBook;
     private final FilteredList<ReadOnlyTask> filteredReadOnlyTasks;
+    private final FilteredList<ReadOnlyTask> filteredDeadlineTasks;
+    private final FilteredList<ReadOnlyTask> filteredEvents;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -36,6 +38,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskBook = new TaskBook(src);
         filteredReadOnlyTasks = new FilteredList<>(taskBook.getTasks());
+        filteredDeadlineTasks = new FilteredList<>(taskBook.getDeadlineTasks());
+        filteredEvents = new FilteredList<>(taskBook.getEvents());
     }
 
     public ModelManager() {
@@ -45,6 +49,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         taskBook = new TaskBook(initialData);
         filteredReadOnlyTasks = new FilteredList<>(taskBook.getTasks());
+        filteredDeadlineTasks = new FilteredList<>(taskBook.getDeadlineTasks());
+        filteredEvents = new FilteredList<>(taskBook.getEvents());
     }
 
     @Override
@@ -107,7 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     
-    //=========== Filtered FloatingTask List Accessors ===============================================================
+    //=========== Filtered FloatingTask, DeadlineTask, Events List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
@@ -115,17 +121,40 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineTaskList() {
+        return new UnmodifiableObservableList<>(filteredDeadlineTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
+        return new UnmodifiableObservableList<>(filteredEvents);
+    }
+    
+    @Override
     public void updateFilteredListToShowAll() {
         filteredReadOnlyTasks.setPredicate(null);
+        filteredDeadlineTasks.setPredicate(null);
+        filteredEvents.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredDeadlineTaskList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));
+        
     }
 
     private void updateFilteredTaskList(Expression expression) {
         filteredReadOnlyTasks.setPredicate(expression::satisfies);
+    }
+
+    private void updateFilteredDeadlineTaskList(Expression expression) {
+        filteredDeadlineTasks.setPredicate(expression::satisfies);
+    }
+
+    private void updateFilteredEventList(Expression expression) {
+        filteredEvents.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
