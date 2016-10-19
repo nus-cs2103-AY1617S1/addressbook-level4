@@ -74,15 +74,13 @@ public class Parser {
     
     private static final Pattern NON_FLOATING_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<name>[^/]+)"
-                    + " (from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
-                    + " to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
-                    + "|by (?<deadline>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+))"
+            		+ "((?<startTime>(?: from [^/]+)(?<endTime>(?: to [^/]+)))|"
+    				+ "(?<deadline>(?: by [^/]+)))"
                     + "(?<recurring>(?: [^/(t/) ]+)*)"
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
         
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
-                    +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+            Pattern.compile("(?<startTime>(?:from [^/]+)(?<endTime>(?: to [^/]+)))"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final int DEADLINE_INDEX = 0;
@@ -264,8 +262,8 @@ public class Parser {
      * @throws IllegalValueException Signals for incorrect command
      */    
     private Command prepareAddNonFloatingFromDateToDate(Matcher matcher, RecurringType recurringType) throws IllegalValueException {
-        String startInput = matcher.group("startdate");
-        String endInput = matcher.group("enddate");
+        String startInput = matcher.group("startTime");
+        String endInput = matcher.group("endTime");
         
         return new AddNonFloatingCommand(
                 matcher.group("name"),
@@ -284,8 +282,8 @@ public class Parser {
         }
         try {
             
-            String startInput = matcher.group("startdate");
-            String endInput = matcher.group("enddate");
+            String startInput = matcher.group("startTime");
+            String endInput = matcher.group("endTime");
             
             return new BlockCommand(
                     getTagsFromArgs(matcher.group("tagArguments")),
