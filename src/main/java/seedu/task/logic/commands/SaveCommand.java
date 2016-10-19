@@ -33,6 +33,9 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
     @Override
     public CommandResult execute() {
         
+        /*
+         * Change the folder path and update config.json
+         */
         Config config = new Config();
         String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
         

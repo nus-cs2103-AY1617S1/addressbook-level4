@@ -64,7 +64,14 @@ Format: `delete TASKID`
   
 
 Examples: 
-* `delete 1`<br> 
+* `delete 1`<br>
+
+#### Change the file directory stored: `save`
+Change the folder path name
+Format: `save folderpath`
+
+Example:
+* `save C:\\Users\\<username>\\Desktop\\CS2103 Tutorial`.
 
 
 #### Add Category: `Assign`
@@ -126,5 +133,6 @@ Clear | `clear`
 Delete | `delete TASKID`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
+Save | `save`
 Help | `help`
 Color | `color`
