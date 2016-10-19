@@ -5,7 +5,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -26,7 +26,7 @@ public interface ReadOnlyTaskList {
      * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getTaskList();
-    List<TaskDateComponent> getTaskComponentList();
+    List<TaskComponent> getTaskComponentList();
 
     
     /**

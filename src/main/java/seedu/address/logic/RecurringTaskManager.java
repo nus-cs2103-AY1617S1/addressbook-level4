@@ -15,7 +15,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -80,15 +80,13 @@ public class RecurringTaskManager {
     }
 
     /**
-     * Updates any of the recurring tasks to their next available date slot
-     * 
+        List<TaskComponent> dateComponents = task.getTaskDateComponent();
+        TaskComponent lastAddedComponent =  dateComponents.get(dateComponents.size()-1);
      * @param Recurring task to be updated
      * @return True if the recurring task has been updated
      *          False if the recurring tasks has not been updated;
      */
     private boolean updateRecurringTask(ReadOnlyTask task) {
-        List<TaskDateComponent> dateComponents = task.getTaskDateComponent();
-        TaskDateComponent lastAddedComponent =  dateComponents.get(dateComponents.size()-1);
         Calendar currentDate = new GregorianCalendar();
         Calendar startDate = new GregorianCalendar();
         Calendar endDate = new GregorianCalendar();
@@ -172,7 +170,7 @@ public class RecurringTaskManager {
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
+        TaskComponent newRepeatingTaskToAdd = new TaskComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
         repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
     }
 
@@ -204,7 +202,7 @@ public class RecurringTaskManager {
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
+        TaskComponent newRepeatingTaskToAdd = new TaskComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
         repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
     }
 
@@ -235,7 +233,7 @@ public class RecurringTaskManager {
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
+        TaskComponent newRepeatingTaskToAdd = new TaskComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
         repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
     }
 
@@ -266,7 +264,7 @@ public class RecurringTaskManager {
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
+        TaskComponent newRepeatingTaskToAdd = new TaskComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
         repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
     }
     
@@ -279,14 +277,14 @@ public class RecurringTaskManager {
     }
 
     /**
-     * Remove completed recurring task to not show until their next recurring date
+        List<TaskComponent> components = initialData.getTaskComponentList();
      * 
      * @param task Recurring task to be considered for removal
      */
     public void removeCompletedRecurringTasks(TaskList task) {
         List<TaskDateComponent> components = task.getTaskComponentList();
         List<ReadOnlyTask> toBeDeleted = new ArrayList<ReadOnlyTask>();
-        for(TaskDateComponent t : components) {
+        for(TaskComponent t : components) {
             if (t.getTaskReference().getRecurringType() == RecurringType.NONE) {
                 continue;
             }

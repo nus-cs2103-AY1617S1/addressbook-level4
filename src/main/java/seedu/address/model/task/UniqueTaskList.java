@@ -46,7 +46,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-    private final ObservableList<TaskDateComponent> internalComponentList = FXCollections.observableArrayList();
+    private final ObservableList<TaskComponent> internalComponentList = FXCollections.observableArrayList();
     /**
      * Constructs empty TaskList.
      */
@@ -66,14 +66,14 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean overlaps(ReadOnlyTask toCheck) {
         assert toCheck != null;
         //If to check is floating or deadline tasks, ignored.
-        if(toCheck.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
+        if(toCheck.getComponentForNonRecurringType().getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
         	return false;
         //Only compare tasks with certain time slots.
         for(Task t: internalList){
         	if(t.getTaskType().equals(TaskType.NON_FLOATING)){
-        		if(t.getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
-        			if(!(t.getEndDate().getDate().before(toCheck.getStartDate().getDate())||
-        	        	t.getStartDate().getDate().after(toCheck.getEndDate().getDate())))
+        		if(t.getComponentForNonRecurringType().getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
+        			if(!(t.getComponentForNonRecurringType().getEndDate().getDate().before(toCheck.getComponentForNonRecurringType().getStartDate().getDate())||
+        	        	t.getComponentForNonRecurringType().getStartDate().getDate().after(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
         	        		return true;
         		}
         	}
@@ -118,7 +118,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList;
     }
 
-    public ObservableList<TaskDateComponent> getInternalComponentList() {
+    public ObservableList<TaskComponent> getInternalComponentList() {
         return internalComponentList;
     }
 
@@ -140,11 +140,11 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.hashCode();
     }
 
-	public boolean archive(TaskDateComponent target) {
+	public boolean archive(TaskComponent target) {
 		assert target != null;
         boolean taskFoundAndArchived = false;
         System.out.println(internalComponentList.contains(target));
-        for(TaskDateComponent t : internalComponentList){
+        for(TaskComponent t : internalComponentList){
         	if(t.equals(target)){
         		t.archive();
         		taskFoundAndArchived = true;
@@ -160,9 +160,9 @@ public class UniqueTaskList implements Iterable<Task> {
 			for(Task t: internalList){
 				if(!t.equals(target)) {
 					if(t.getTaskType().equals(TaskType.NON_FLOATING)){
-		        		if(t.getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
-		        			if(!(t.getEndDate().getDate().before(startDate.getDate())||
-		        	        	t.getStartDate().getDate().after(endDate.getDate())))
+		        		if(t.getComponentForNonRecurringType().getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
+		        			if(!(t.getComponentForNonRecurringType().getEndDate().getDate().before(startDate.getDate())||
+		        	        	t.getComponentForNonRecurringType().getStartDate().getDate().after(endDate.getDate())))
 		        	        		return true;
 		        		}
 		        	}

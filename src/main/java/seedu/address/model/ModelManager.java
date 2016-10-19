@@ -7,7 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -34,7 +34,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
-    private final FilteredList<TaskDateComponent> filteredTaskComponents;
+    private final FilteredList<TaskComponent> filteredTaskComponents;
     
     /**
      * Initializes a ModelManager with the given TaskList
@@ -85,7 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(TaskDateComponent target) throws TaskNotFoundException {
+    public synchronized void deleteTask(TaskComponent target) throws TaskNotFoundException {
         taskList.removeTask(target.getTaskReference());
         indicateTaskListChanged();
     }
@@ -99,7 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void archiveTask(TaskDateComponent target) throws TaskNotFoundException {
+    public synchronized void archiveTask(TaskComponent target) throws TaskNotFoundException {
         taskList.archiveTask(target);
         indicateTaskListChanged();
         updateFilteredListToShowAll();
@@ -128,7 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public UnmodifiableObservableList<TaskDateComponent> getFilteredTaskComponentList() {
+    public UnmodifiableObservableList<TaskComponent> getFilteredTaskComponentList() {
         return new UnmodifiableObservableList<>(filteredTaskComponents);
     }
 
@@ -149,7 +149,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(TaskDateComponent t);
+        boolean satisfies(TaskComponent t);
         String toString();
     }
 
@@ -162,12 +162,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(TaskDateComponent task) {
+        public boolean satisfies(TaskComponent task) {
             return qualifier.run(task);
         }
         
         
-        public boolean unsatisfies(TaskDateComponent task) {
+        public boolean unsatisfies(TaskComponent task) {
             return !qualifier.run(task);
         }
 
@@ -178,7 +178,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(TaskDateComponent task);
+        boolean run(TaskComponent task);
         String toString();
     }
     
@@ -190,7 +190,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(TaskDateComponent task) {
+        public boolean run(TaskComponent task) {
 
             return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.isArchived();
         }
@@ -209,7 +209,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(TaskDateComponent task) {
+        public boolean run(TaskComponent task) {
 
             return task.isArchived() == isArchived;
         }
@@ -229,7 +229,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(TaskDateComponent task) {
+        public boolean run(TaskComponent task) {
         	if(nameKeyWords.isEmpty())
         		return true;
         		
@@ -252,7 +252,7 @@ public class ModelManager extends ComponentManager implements Model {
     		this.tagSet = tagSet;
     	}
     	
-    	private String tagToString(TaskDateComponent task) {
+    	private String tagToString(TaskComponent task) {
     		Set<Tag> tagSet = task.getTaskReference().getTags().toSet();
     		Set<String> tagStringSet = new HashSet<String>();
     		for(Tag t : tagSet) {
@@ -262,7 +262,7 @@ public class ModelManager extends ComponentManager implements Model {
     	}
 
 		@Override
-		public boolean run(TaskDateComponent task) {
+		public boolean run(TaskComponent task) {
 			if(tagSet.isEmpty()) {
 				return true;
 			}
@@ -290,7 +290,7 @@ public class ModelManager extends ComponentManager implements Model {
 			this.endTime = endTime;
 		}
 		
-		private Date[] extractTaskPeriod(TaskDateComponent task) {
+		private Date[] extractTaskPeriod(TaskComponent task) {
 			TaskType type = task.getTaskReference().getTaskType();
 			if(type.equals(TaskType.FLOATING)) {
 				return null;
@@ -307,7 +307,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 
 		@Override
-		public boolean run(TaskDateComponent task) {
+		public boolean run(TaskComponent task) {
 			
 			if(this.startTime == null || this.endTime == null)
 				return true;
@@ -342,7 +342,7 @@ public class ModelManager extends ComponentManager implements Model {
     	}
 
 		@Override
-		public boolean run(TaskDateComponent task) {
+		public boolean run(TaskComponent task) {
 			
 			if(this.deadline == null)
 				return true;
@@ -392,7 +392,7 @@ public class ModelManager extends ComponentManager implements Model {
     	}
     	
     	@Override
-    	public boolean run(TaskDateComponent task) {
+    	public boolean run(TaskComponent task) {
     		if(this.typeQualifier!=null)
     			return typeQualifier.run(task);
     		if(this.archiveQualifier != null) {

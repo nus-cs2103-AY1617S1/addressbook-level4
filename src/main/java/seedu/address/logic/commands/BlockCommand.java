@@ -49,7 +49,7 @@ public class BlockCommand extends Command {
                 new TaskDate(endDate),
                 RecurringType.NONE
         );
-        if(!this.toBlock.isValidTimeSlot()){
+        if(!this.toBlock.getComponentForNonRecurringType().isValidTimeSlot()){
         	indicateAttemptToExecuteIncorrectCommand();
         	throw new IllegalValueException(MESSAGE_ILLEGAL_TIME_SLOT);
         }

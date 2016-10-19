@@ -6,7 +6,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.task.Name;
@@ -61,7 +61,7 @@ public class TaskList implements ReadOnlyTaskList {
     }
 
     @Override
-    public ObservableList<TaskDateComponent> getTaskComponentList() {
+    public ObservableList<TaskComponent> getTaskComponentList() {
         return tasks.getInternalComponentList();
     }
 
@@ -69,7 +69,7 @@ public class TaskList implements ReadOnlyTaskList {
         this.tasks.getInternalList().setAll(tasks);
     }
     
-    public void setComponents(List<TaskDateComponent> components) {
+    public void setComponents(List<TaskComponent> components) {
         this.tasks.getInternalComponentList().setAll(components);
     }
 
@@ -77,9 +77,9 @@ public class TaskList implements ReadOnlyTaskList {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskDateComponent> newComponents, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskComponent> newComponents, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-        setComponents(newComponents.stream().map(TaskDateComponent::new).collect(Collectors.toList()));
+        setComponents(newComponents.stream().map(TaskComponent::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -194,7 +194,7 @@ public class TaskList implements ReadOnlyTaskList {
 		return new TaskList(newList);
 	}
 
-	public boolean archiveTask(TaskDateComponent target) throws TaskNotFoundException {
+	public boolean archiveTask(TaskComponent target) throws TaskNotFoundException {
 		// TODO Auto-generated method stub
 		if (tasks.archive(target)) {
             return true;

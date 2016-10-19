@@ -326,16 +326,16 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, TaskDateComponent task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, TaskComponent task) {
         return card.isSameTask(task);
     }
 
-    public static TaskDateComponent[] convertTasksToDateComponents(final TestTask[] tasks) {
-        List<TaskDateComponent> componentList = new ArrayList<TaskDateComponent>();
+    public static TaskComponent[] convertTasksToDateComponents(final TestTask[] tasks) {
+        List<TaskComponent> componentList = new ArrayList<TaskComponent>();
         for(TestTask t : tasks) {
             componentList.addAll(t.getTaskDateComponent());
         }
-        TaskDateComponent[] taskComponents = new TaskDateComponent[componentList.size()];
+        TaskComponent[] taskComponents = new TaskComponent[componentList.size()];
         return componentList.toArray(taskComponents);
     }
     

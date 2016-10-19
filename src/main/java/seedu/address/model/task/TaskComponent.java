@@ -2,18 +2,17 @@ package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
 
-/**
+public class TaskComponent {
  * This class served as the occurrence portion in an abstraction occurrence pattern.
  * The abstraction is the Task and the occurrence is the TaskDateComponent.
  * @author User
  *
  */
-public class TaskDateComponent {
     private Task taskReference;
     private TaskDate startDate, endDate;
     private boolean isArchived;
     
-    public TaskDateComponent(Task taskReference) {
+    public TaskComponent(Task taskReference) {
         assert taskReference != null : "Reference must not be null";
         this.taskReference = taskReference; 
         this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
@@ -21,7 +20,7 @@ public class TaskDateComponent {
         isArchived = false;
     }
     
-    public TaskDateComponent(Task taskReference,TaskDate startDate, TaskDate endDate) {
+    public TaskComponent(Task taskReference,TaskDate startDate, TaskDate endDate) {
         assert !CollectionUtil.isAnyNull(startDate, endDate);
         assert taskReference != null : "Reference must not be null";
         this.taskReference = taskReference;
@@ -29,8 +28,7 @@ public class TaskDateComponent {
         this.endDate = new TaskDate(endDate);
     }
     
-    /** copy constructor */
-    public TaskDateComponent(TaskDateComponent taskDateComponent) {
+    public TaskComponent(TaskComponent taskDateComponent) {
         this.taskReference = taskDateComponent.taskReference;
         this.startDate = taskDateComponent.startDate;
         this.endDate = taskDateComponent.endDate;
@@ -95,7 +93,7 @@ public class TaskDateComponent {
         return isArchived;
     }
     
-    private boolean isSameStateAs(TaskDateComponent other) {
+    private boolean isSameStateAs(TaskComponent other) {
         return other == this // short circuit if same object
             || (other != null // this is first to avoid NPE below
             && other.getTaskReference().getName().equals(this.getTaskReference().getName()) // state checks here onwards
@@ -108,8 +106,8 @@ public class TaskDateComponent {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskDateComponent // instanceof handles nulls
-                && this.isSameStateAs((TaskDateComponent) other));        
+                || (other instanceof TaskComponent // instanceof handles nulls
+                && this.isSameStateAs((TaskComponent) other));        
     }
     
 }

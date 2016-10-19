@@ -7,7 +7,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.TestTask;
@@ -73,7 +73,7 @@ public class EditCommandTest extends TaskListGuiTest {
         assertMatching(editedCopy.getTaskDateComponent().get(0), editedCard);
 
         //confirm the list now contains all the unmodified tasks and the edited task
-        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(modifiedList);
+        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(modifiedList);
         
         assertTrue(taskListPanel.isListMatching(taskComponents));
     }
