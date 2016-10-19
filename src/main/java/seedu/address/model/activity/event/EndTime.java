@@ -10,8 +10,9 @@ import seedu.address.model.activity.DateTime;
 
 public class EndTime extends DateTime {
 
-    public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Event's start time should only contain valid date";
-    public static final String MESSAGE_DUEDATE_INVALID = "Event has already started";
+    public static final String MESSAGE_ENDTIME_CONSTRAINTS = "Event's start time should only contain valid date";
+    public static final String MESSAGE_ENDTIME_INVALID = "Event has already ended";
+    public static final String MESSAGE_ENDTIME_NOTVALID = "Event end time is before start time";
 
     public EndTime(Calendar date) {
         super(date);
@@ -24,25 +25,25 @@ public class EndTime extends DateTime {
      *             if given Start time string is invalid.
      */
     public EndTime(String starttime, String date) throws IllegalValueException {
-        super(date);
+        super(Calendar.getInstance());
+        Date taskDate = null;
         if (!isValidDate(date)) {
-            throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
         }
-        Date taskDate = new Date();
-        if (date != "") {
+        Date startdate = DATE_PARSER.EventDateConvert(starttime);
+        if (date != "")
             taskDate = DATE_PARSER.EventDateConvert(date);
-        }
-        if (date == "") {
-            Date startdate = DATE_PARSER.EventDateConvert(starttime);
+        else
             taskDate = DATE_PARSER.EndDateTime(startdate);
-        }
+        if (taskDate.before(startdate))
+            throw new IllegalValueException(MESSAGE_ENDTIME_NOTVALID);
         if (DateUtil.hasPassed(taskDate)) {
-            throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
-        } 
-
-        if (!isValidDate(date)) {
-            throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_ENDTIME_INVALID);
         }
+        if (!isValidDate(date)) {
+            throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
+        }
+
         this.value.setTime(taskDate);
         this.value.set(Calendar.MILLISECOND, 0);
         this.value.set(Calendar.SECOND, 0);
