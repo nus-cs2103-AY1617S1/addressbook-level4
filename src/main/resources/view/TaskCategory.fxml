@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<fx:root gridLinesVisible="true" type="GridPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.cmdo.ui.TaskCategory">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <ImageView fx:id="overDueImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </ImageView>
+      <ImageView fx:id="todayImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+      <ImageView fx:id="thisWeekImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+      <ImageView fx:id="thisMonthImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" />
+      <ImageView fx:id="somedayImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" />
+      <ImageView fx:id="totalTaskImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
+      <Label fx:id="overDue" text="Label" GridPane.columnIndex="1" />
+      <Label fx:id="today" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="thisWeek" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="thisMonth" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="someday" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label fx:id="totalTask" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label fx:id="overDueNo" text="Label" GridPane.columnIndex="2" />
+      <Label fx:id="todayNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Label fx:id="thisWeekNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Label fx:id="thisMonthNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label fx:id="somedayNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Label fx:id="totalTaskNo" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+   </children>
+</fx:root>
