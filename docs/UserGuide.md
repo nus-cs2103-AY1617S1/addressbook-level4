@@ -14,27 +14,46 @@
 1. Download the latest `happyjimtaskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.JPG" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`view`** : View floating task of the day
-   * **`add`**` Homework by 24 sep 6pm : 
-     adds a task named `Homework` to the Task Master .
+   * **`add`**` Homework by 24 sep 6pm` : 
+     adds a task named Homework to the Task Master .
    * **`delete`**` 212` : deletes the task with ID 212 shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
+## HappyJimTaskMaster's GUI
+ <img src="images/Ui.PNG" width="600">
+
+1. Command box. This is where the commands are entered. Simply type in the command and press enter to execute it.
+2. Result display. This is where the results of commands are shown.
+3. Google calendar. Tasks entered will be synced to your google calendar.
+4. Tasklist panel. This is where the tasks are displayed. 
+5. Navigation bar panel. This is where the navigation categories are displayed.
 
 ## Features
-
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
+### Command Format
+> * Each command consists of a command word (such as add or delete), followed by other options such as DATE,TIME or [t/TAG]
+> * Words in `UPPER_CASE` are the description of what kind data to input.
+> * Items in `SQUARE_BRACKETS` `[items]` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+### Date and Time Format
+HappyJimTaskMaster uses Natty date parser to parse date and time options. <br>
+
+Some examples of acceptable format include:
+* 21 nov 2005
+* 24 sep 8pm
+* jan 1st
+* next thursday
+* 3 days from now
+
+For a full list of acceptable formats, please refer to http://natty.joestelmach.com/doc.jsp
+### Commands
 #### Viewing help : `help`
 Format: `help`
 
@@ -54,8 +73,10 @@ Format:`add TASK_NAME [t/TAG]...`
 
 Examples: <br>
 * `add Homework`<br>
-* `add Homework tag/CS1231`
+* `add Homework t/CS1231`
 
+ <img src="images/addfloating1.PNG" width="600">
+ <img src="images/addfloating2.PNG" width="600">
 #### Adding a task with deadline: `add`
 Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 
@@ -67,9 +88,11 @@ Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 > Tasks can have any number of tags (including 0).
 
 Examples:
-* `add Homework by 24 sep 8pm tag/CS1231`
-* `add Homework by 24 sep 6pm daily tag/CS1231`
+* `add Homework by 24 sep 8pm t/CS1231`
+* `add Homework by 24 sep 6pm daily t/CS1231`
 
+ <img src="images/adddeadline1.PNG" width="600">
+ <img src="images/adddeadline2.PNG" width="600">
 #### Adding a task with start time and end time: `add`
 Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
 
@@ -81,8 +104,10 @@ Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
 > Tasks can have any number of tags (including 0).
 
 Examples:
-* `add Homework from 24 sep 8pm to 25 sep 9pm tag/CS1231`
-* `add Homework start/24 sep 9pm end/25 sep 7pm daily tag/CS1231`
+* `add Homework from 24 sep 8pm to 25 sep 9pm t/CS1231`
+* `add Homework start/24 sep 9pm end/25 sep 7pm daily t/CS1231`
+<img src="images/addperiod1.PNG" width="600">
+<img src="images/addperiod2.PNG" width="600">
 
 #### View floating task of the day : `view`
 Format: view /OPTION
@@ -111,8 +136,8 @@ Format: `edit TASK_ID [start/EDIT_START_DATE EDIT_START_TIME end/EDIT_END_DATE E
 > Tasks can have any number of tags (including 0)
 
 Examples: 
-* `edit 213 start/2709 1800 end/3009 1800  tag/cs2101`
-* `edit 213 start/27sep 6pm end/30sep 6pm tag/cs2101`
+* `edit 213 start/2709 1800 end/3009 1800  t/cs2101`
+* `edit 213 start/27sep 6pm end/30sep 6pm t/cs2101`
 
 #### Delete tasks : `delete`
 Format: delete TASK_ID
@@ -121,6 +146,9 @@ Format: delete TASK_ID
 
 Examples:
 * `Delete 212`
+
+   <img src="images/delete1png" width="600">
+   <img src="images/delete2.png" width="600">
 
 #### Archive completed tasks : `done`
 Format: done TASK_ID
