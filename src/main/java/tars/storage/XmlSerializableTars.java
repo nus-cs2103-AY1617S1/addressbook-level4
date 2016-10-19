@@ -4,6 +4,8 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.model.ReadOnlyTars;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
+import tars.model.task.rsv.RsvTask;
+import tars.model.task.rsv.UniqueRsvTaskList;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 
@@ -24,10 +26,13 @@ public class XmlSerializableTars implements ReadOnlyTars {
     private List<XmlAdaptedTask> tasks;
     @XmlElement
     private List<Tag> tags;
+    @XmlElement
+    private List<XmlAdaptedRsvTask> rsvTasks;
 
     {
         tasks = new ArrayList<>();
         tags = new ArrayList<>();
+        rsvTasks = new ArrayList<>();
     }
 
     /**
@@ -40,6 +45,7 @@ public class XmlSerializableTars implements ReadOnlyTars {
      */
     public XmlSerializableTars(ReadOnlyTars src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        rsvTasks.addAll(src.getRsvTaskList().stream().map(XmlAdaptedRsvTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -81,6 +87,31 @@ public class XmlSerializableTars implements ReadOnlyTars {
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags);
+    }
+
+    @Override
+    public UniqueRsvTaskList getUniqueRsvTaskList() {
+        UniqueRsvTaskList lists = new UniqueRsvTaskList();
+        for (XmlAdaptedRsvTask rt : rsvTasks) {
+            try {
+                lists.add(rt.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        return lists;
+    }
+
+    @Override
+    public List<RsvTask> getRsvTaskList() {
+        return rsvTasks.stream().map(rt -> {
+            try {
+                return rt.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
     }
 
 }

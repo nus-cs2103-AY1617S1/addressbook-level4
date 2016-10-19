@@ -34,6 +34,7 @@ import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.MarkCommand;
 import tars.logic.commands.RedoCommand;
+import tars.logic.commands.RsvCommand;
 import tars.logic.commands.TagCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.task.TaskQuery;
@@ -77,6 +78,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+
+        case RsvCommand.COMMAND_WORD:
+            return prepareRsv(arguments);
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
@@ -163,6 +167,56 @@ public class Parser {
                     argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
                     ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag),
                     ExtractorUtil.getRecurringFromArgs(argumentMap.get(recurringFlag), recurringFlag));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        } catch (DateTimeException dte) {
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
+        }
+    }
+
+    private Command prepareRsv(String args) {
+        // there is no arguments
+        if (args.trim().length() == 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
+        }
+
+        String name = "";
+
+        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
+        Flag dateTimeFlag = new Flag(Flag.DATETIME, true);
+        Flag tagFlag = new Flag(Flag.TAG, true);
+
+        Flag[] flags = { priorityFlag, dateTimeFlag, tagFlag };
+
+        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
+        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
+
+        if (!flagsPosMap.containsValue(dateTimeFlag)) {
+            // there are arguments but arguments must contain at least one DateTime
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_DATETIME_NOTFOUND));
+        } else if (flagsPosMap.size() == 0) {
+            name = args;
+        } else if (flagsPosMap.firstKey() == 0) {
+            // there are arguments but name should be the first argument 
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
+        } else {
+            name = args.substring(0, flagsPosMap.firstKey()).trim();
+        }
+
+        Set<String[]> dateTimeStringSet = new HashSet<>();
+        try {
+            for (String dateTimeString : ExtractorUtil.getDateTimeStringSetFromArgs(argumentMap.get(dateTimeFlag),
+                    dateTimeFlag)) {
+                dateTimeStringSet.add(DateTimeUtil.getDateTimeFromArgs(dateTimeString));
+            }
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+
+        try {
+            return new RsvCommand(name, dateTimeStringSet,
+                    argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
+                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {

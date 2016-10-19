@@ -12,6 +12,7 @@ import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
+import tars.model.task.rsv.RsvTask;
 
 import java.time.DateTimeException;
 import java.util.HashMap;
@@ -45,6 +46,9 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
     
+    /** Adds the given reserved task */
+    void addRsvTask(RsvTask rsvTask) throws DuplicateTaskException;
+
     /** Rename all tag with the new tag name */
     void renameTag(ReadOnlyTag oldTag, String newTagName)
             throws IllegalValueException, TagNotFoundException, DuplicateTagException;
@@ -84,5 +88,7 @@ public interface Model {
      * @@author A0140022H
      */
 	void sortFilteredTaskList(Set<String> keywords);
+
+   
 
 }
