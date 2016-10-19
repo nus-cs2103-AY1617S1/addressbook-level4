@@ -113,7 +113,7 @@ The sections below give more details of each component.
 
 UI is implemented by JavaFX 8 and consists of the main panel Main Window. This component primarily handles user input such as text input which will be entered via Command Line Input (CLI) as shown in Figure 2. On top of text input, users are also allowed to use keypress or mouse click and pass on to the Logic component. <br>
 
-If you are intending to work on the UI, you will need to update the application�s internal state, which also includes: <br>
+If you are intending to work on the UI, you will need to update the application's internal state, which also includes: <br>
 1.	UiManager.java <br>
 2.	UiPartLoader.java <br>
 3.	UiPart.java <br>
@@ -135,7 +135,7 @@ The `UI` component,
 * Responds to events raises from various parts of the App and updates the UI accordingly.
 
 #### Logic component
-Logic is the brain of the application as it controls and manages the overall flow of the application. Upon receiving the user input from UI, it will process the input using the parser and return the result of executing the user input back to the UI. The inputs Logic take in are command words such as add, edit, delete, etc., and executes them accordingly based on their functionality. If you were to work on this execution of user input, you will need to access Storage to retrieve and update state of tasks. 
+Logic is the brain of the application as it controls and manages the overall flow of the application. Upon receiving the user input from UI, it will process the input using the parser and return the result of executing the user input back to the UI. The inputs Logic take in are command words such as add, edit, delete, etc., and executes them accordingly based on their functionality. If you were to work on this execution of user input, you will need to access Storage through the EventsCenter to retrieve and update state of tasks. 
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
@@ -152,8 +152,29 @@ The add class allows the user to add tasks, deadlines or events to Mastermind. T
 
 You can refer to Figure 4 and Figure 5 below and the next page for the class diagram of Add.
 
+<img src="images/Add Command Sequence Diagram part 1.png" width="800"><br>
+
+> Note how the Model simply raises a TaskManagerChangedEvent when Mastermind's data is changed, instead of asking the Storage to save the updates to the hard disk.
+
+The diagram below shows how the EventsCenter reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+
+<img src="images/Add Command Sequence Diagram part 2.png" width="800"><br>
+
+> Note how the event is propagated through the EventsCenter to the Storage and UI without Model having to be coupled to either of them. This is how we reduce direct coupling between 2 components.
+
 ##### Delete
 This delete allows the user to delete whatever they have input into the program beforehand. What the user have to do is to delete and choose the index that he or she wishes to delete.
+
+Details are illustrated in the following diagrams.
+
+<img src="images/Delete Command Sequence Diagram part 1.png" width="800"><br>
+
+> Again, note how that model simply raises an event instead of relying on Storage directly.
+
+And EventsCeneter reacts to the event accordingly.
+
+<img src="images/Delete Command Sequence Diagram part 2.png" width="800"><br>
+
 
 ##### Clear 
 Clear deletes the objects. <br>
