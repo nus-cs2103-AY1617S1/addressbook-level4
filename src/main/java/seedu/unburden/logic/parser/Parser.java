@@ -317,17 +317,13 @@ public class Parser {
         	switch(matcherName.group("keywords").toLowerCase()){
         	case today: final String todayKeyword = dateFormatter.format(calendar.getTime());
         				final Set<String> todayKeywords = new HashSet<>(Arrays.asList(todayKeyword));
-        				System.out.println("today");
-        				System.out.println("today");
         				return new FindCommand(todayKeywords, "date");
 			case tomorrow: calendar.setTime(calendar.getTime());
 						   calendar.add(Calendar.DAY_OF_YEAR, 1);
 						   final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
 						   final Set<String> tomorrowKeywords = new HashSet<>(Arrays.asList(tomorrowKeyword));
-						   System.out.println("tomorrow");
 						   return new FindCommand(tomorrowKeywords, "date");
         	}
-        	System.out.println("name");
         	final String[] nameKeywords = matcherName.group("keywords").split("\\s+");
         	final Set<String> nameKeyword = new HashSet<>(Arrays.asList(nameKeywords));
         	return new FindCommand(nameKeyword, "name");
