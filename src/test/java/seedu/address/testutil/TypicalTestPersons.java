@@ -26,7 +26,7 @@ public class TypicalTestPersons {
             george = new TaskBuilder().withName("George Best").withPriority("1").withDeadline("456789").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withPriority("1").withDeadline("202020").build();
+            hoon = new TaskBuilder().withName("Hoon Meier").withPriority("1").withDeadline("000000").build();
             ida = new TaskBuilder().withName("Ida Mueller").withPriority("1").withDeadline("999999").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
