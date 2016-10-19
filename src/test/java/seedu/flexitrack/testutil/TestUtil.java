@@ -74,7 +74,7 @@ public class TestUtil {
                     new Task(new Name("Ma1505 midterm"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("9 Aug 7pm"), new DateTimeInfo("9 Aug 11pm"), new UniqueTagList()),
                     new Task(new Name("Cycling"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("14 Nov 10.30"), new DateTimeInfo("14 Nov 12.30"), new UniqueTagList()),
                     new Task(new Name("Movie time"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("today 2pm"), new DateTimeInfo("today 6pm"), new UniqueTagList())                                
-                  };
+            };
         } catch (IllegalValueException e) {
             assert false;
             //not possible
