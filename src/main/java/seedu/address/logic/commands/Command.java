@@ -5,6 +5,7 @@ import java.util.Stack;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Model;
 
 /**
@@ -15,6 +16,12 @@ public abstract class Command {
 
     protected static Stack<PreviousCommand> PreviousCommandsStack = new Stack<PreviousCommand>();
 
+    public static final String MESSAGE_INVALID_ACTIVITY_TYPE = "Activity parameters should not contain both:\n"
+            + "1. start time [and end time]  or\n"
+            + "2. [due date] and/or [priority]";
+    
+    public static final String MESSAGE_INVALID_EVENT = "Event must contain a start time";
+    
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *
@@ -47,4 +54,28 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
+    
+    /**
+     * Raises an event to indicate an attempt to execute an incorrect command
+     * @throws IllegalValueException if Activity type cannot be determined
+     */
+    protected String identifyActivityType (String duedate, String priority, String start, String end) 
+            throws IllegalValueException {
+        
+        if( (!duedate.isEmpty() || !priority.isEmpty()) && (!start.isEmpty() || !end.isEmpty()) ) {
+            throw new IllegalValueException(MESSAGE_INVALID_ACTIVITY_TYPE);
+        } else if ( duedate.isEmpty() && priority.isEmpty() && start.isEmpty() && end.isEmpty()){
+            return "float";
+        }
+        
+        if(!duedate.isEmpty() || !priority.isEmpty()) {
+            return "task";
+        } else if (start.isEmpty()) {
+            throw new IllegalValueException(MESSAGE_INVALID_EVENT);
+        } else {
+            return "event";
+        }
+        
+    }
+    
 }

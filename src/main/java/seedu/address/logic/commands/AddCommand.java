@@ -26,7 +26,6 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Lifekeeper";
-    public static final String MESSAGE_INVALID_ACTIVITY = "Activity must not have both start time and duedate";
     
     private final Activity toAdd;
 
@@ -58,7 +57,7 @@ if(type == "task"){
     this.toAdd = new Event(
             new Name(name),
             new StartTime(start),
-            new EndTime(end),
+            new EndTime(start,end),
             new Reminder(reminder),
             new UniqueTagList(tagSet)
     );
@@ -91,10 +90,6 @@ if(type == "task"){
 
     }
 
-    private String identifyActivityType (String duedate, String priority, String start, String end) 
-            throws IllegalValueException {
-                return end;
-        
-    };
+
     
 }
