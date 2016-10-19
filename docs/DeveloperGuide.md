@@ -289,6 +289,10 @@ Use case ends.
 1a1. TaskManager shows an error message <br>
 Use case resumes at step 1
 
+#### Use case: Find an item
+1. User requests to find an item by searching for a keyword
+2. TaskManager lists the specific item
+
 #### Use case: Edit a task/deadline/event
 **MSS**
 
