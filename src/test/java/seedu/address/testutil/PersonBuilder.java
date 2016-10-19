@@ -3,8 +3,8 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.Reminder;
+import seedu.address.model.activity.task.*;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.*;
 
 /**
  *

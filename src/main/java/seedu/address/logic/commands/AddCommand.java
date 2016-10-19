@@ -5,9 +5,9 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.Reminder;
 import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.task.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.*;
 
 import java.util.HashSet;
 import java.util.Set;

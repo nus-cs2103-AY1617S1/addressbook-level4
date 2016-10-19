@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.activity.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart{
 

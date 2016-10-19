@@ -12,10 +12,10 @@ import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
 import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.activity.task.DueDate;
+import seedu.address.model.activity.task.Priority;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.DueDate;
-import seedu.address.model.task.Priority;
 
 public class EditCommand extends Command {
     

@@ -1,12 +1,12 @@
 package seedu.address.model.activity;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.activity.task.DueDate;
+import seedu.address.model.activity.task.Priority;
+import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
-import seedu.address.model.task.DueDate;
-import seedu.address.model.task.Priority;
-import seedu.address.model.task.Task;
 
 public class ActivityManager {
     private static final String NULL_ENTRY = "";

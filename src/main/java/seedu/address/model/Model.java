@@ -6,7 +6,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.UniqueTaskList;
 import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
-import seedu.address.model.task.Task;
+import seedu.address.model.activity.task.Task;
 
 import java.util.Set;
 

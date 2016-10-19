@@ -3,8 +3,8 @@ package seedu.address.testutil;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
+import seedu.address.model.activity.task.*;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.*;
 
 /**
  * A mutable person object. For testing only.

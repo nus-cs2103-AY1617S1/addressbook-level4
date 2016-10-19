@@ -5,9 +5,9 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
+import seedu.address.model.activity.task.DueDate;
+import seedu.address.model.activity.task.Priority;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.DueDate;
-import seedu.address.model.task.Priority;
 /** 
  * Carries information of previous command: Command word and task.
  */
