@@ -27,7 +27,7 @@ public class TypicalTestTasks {
 
             //Manually added
             task8 = new TaskBuilder().withTaskDetails("Work on CS2103T Project").withStartTime("1 Oct 6pm").withEndTime("9pm").withUniqueID(8).withPriority("high").build();
-            task9 = new TaskBuilder().withTaskDetails("Buy groceries").withStartTime("5pm").withEndTime("").withUniqueID(9).withPriority("med").build();
+            task9 = new TaskBuilder().withTaskDetails("Buy groceries").withStartTime("10pm").withEndTime("").withUniqueID(9).withPriority("med").build();
             task10 = new TaskBuilder().withTaskDetails("Study for EE2021").withStartTime("").withEndTime("").withUniqueID(10).withPriority("med").build();
             task11 = new TaskBuilder().withTaskDetails("Work on CS2101 Project").withStartTime("10/10/15 5pm").withEndTime("21/09/2016").withUniqueID(8).withPriority("high").build();
         } catch (IllegalValueException e) {
