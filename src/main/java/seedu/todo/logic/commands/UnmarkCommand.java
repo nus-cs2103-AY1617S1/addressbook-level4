@@ -2,6 +2,9 @@ package seedu.todo.logic.commands;
 
 import seedu.todo.commons.core.Messages;
 import seedu.todo.commons.core.UnmodifiableObservableList;
+import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.model.tag.Tag;
+import seedu.todo.model.tag.UniqueTagList.TagNotFoundException;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
@@ -37,10 +40,19 @@ public class UnmarkCommand extends Command {
         
         try {
             Task toMark = model.getTask(taskToMark);
+            
             toMark.setIsDone(false);
+            toMark.removeTag(new Tag("done"));
+            
             model.updateTask(taskToMark, toMark);
+            model.updateTaskTags(taskToMark, toMark);
+            model.updateFilteredListToShowAll();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
+        } catch (TagNotFoundException e) {
+            assert false : "The tag is already added";
+        } catch (IllegalValueException e) {
+            assert false : "The tag name is not valid";
         }
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark.getName()));
