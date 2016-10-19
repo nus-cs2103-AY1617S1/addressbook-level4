@@ -28,15 +28,15 @@ public class Task implements ReadOnlyTask {
         //TODO: set default values
         //this.openTime = openTime;
         //this.closeTime = closeTime;
-        this.tags = new UniqueTagList(tags); 
-        this.isImportant = false; // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isImportant = isImportant; 
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags(),false);
+        this(source.getName(), source.getTags(),source.getImportance());
     }
 
     @Override
