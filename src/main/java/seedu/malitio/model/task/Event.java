@@ -9,10 +9,9 @@ public class Event implements ReadOnlyEvent {
     private DateTime start;
     private DateTime end;
     private UniqueTagList tags;
-
 	
 	public Event(Name name, DateTime start, DateTime end, UniqueTagList tags) {
-		this.name=name;	
+		this.name = name;	
 		this.start = start;
 		this.end = end;
 		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -53,8 +52,12 @@ public class Event implements ReadOnlyEvent {
         tags.setTags(replacement);
     }
     
-    public DateTime getDateTime() {
+    public DateTime getStartTime() {
 		return start;
+	}
+    
+    public DateTime getEndTime() {
+		return end;
 	}
 
     @Override
