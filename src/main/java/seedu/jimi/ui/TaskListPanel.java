@@ -113,7 +113,7 @@ public class TaskListPanel extends UiPart {
         updateTasksAndEventsForDays(deadlineTaskList, eventList);
         
         setConnections(taskList, deadlineTaskList, eventList);
-        tasksAccordion.setExpandedPane(titleFloatingTasks); //expands floating task list when Jimi starts
+        showFloatingTasks();
         addToPlaceholder();
         registerAsAnEventHandler(this); //to update labels
     }
@@ -181,19 +181,6 @@ public class TaskListPanel extends UiPart {
             taskListView.scrollTo(index);
             taskListView.getSelectionModel().clearAndSelect(index);
         });
-    }
-    
-    /**
-     * Updates all the titles when taskBook is changed. Updates remaining tasks for each title.
-     * @param abce
-     */
-    @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        updateFloatingTaskList(abce.data.getTaskList());
-        updateCompletedAndIncompleteTaskList(abce.data.getTaskList(), abce.data.getDeadlineTaskList());
-        updateTasksAndEventsForDays(abce.data.getDeadlineTaskList(), abce.data.getEventList());
-        
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
     }
     
     private void updateFloatingTaskList(List<ReadOnlyTask> floatingTaskList) {
@@ -314,6 +301,73 @@ public class TaskListPanel extends UiPart {
             }
         }
     }
+    
+    //========== Event handlers ================================================================================
+
+    
+    /**
+     * Updates all the titles when taskBook is changed. Updates remaining tasks for each title.
+     * @param abce
+     */
+    @Subscribe
+    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+        updateFloatingTaskList(abce.data.getTaskList());
+        updateCompletedAndIncompleteTaskList(abce.data.getTaskList(), abce.data.getDeadlineTaskList());
+        updateTasksAndEventsForDays(abce.data.getDeadlineTaskList(), abce.data.getEventList());
+        
+        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
+    }
+    
+    /**
+     * Expands the relevant task panels according to user input.
+     */
+    
+    
+    //========== Method calls to expand relevant listviews in panel. ===========================================
+    
+    public void showFloatingTasks() {
+        tasksAccordion.setExpandedPane(titleFloatingTasks); 
+    }
+    
+    public void showIncompleteTasks() {
+        tasksAccordion.setExpandedPane(titleIncompleteTasks); 
+    }
+    
+    public void showCompleteTasks() {
+        tasksAccordion.setExpandedPane(titleCompletedTasks);
+    }
+    
+    //today
+    public void showDay1() {
+        tasksAccordion.setExpandedPane(titleTaskDay1);
+    }
+    
+    //tomorrow
+    public void showDay2() {
+        tasksAccordion.setExpandedPane(titleTaskDay2);
+    }
+    
+    public void showDay3() {
+        tasksAccordion.setExpandedPane(titleTaskDay3);
+    }
+    
+    public void showDay4() {
+        tasksAccordion.setExpandedPane(titleTaskDay4);
+    }
+    
+    public void showDay5() {
+        tasksAccordion.setExpandedPane(titleTaskDay5);
+    }
+    
+    public void showDay6() {
+        tasksAccordion.setExpandedPane(titleTaskDay6);    
+    }
+    
+    public void showDay7() {
+        tasksAccordion.setExpandedPane(titleTaskDay7);    
+    }
+    
+    //===========================================================================================================
     
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
