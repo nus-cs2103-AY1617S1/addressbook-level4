@@ -87,6 +87,9 @@ public class RecurringTaskManager {
         if(!lastAddedComponent.getStartDate().isValid()) {
             startDate = null;
         }
+        if ((currentDate.getTimeInMillis() - endDate.getTimeInMillis()) < 0) {
+            return false;
+        }
         switch (task.getRecurringType()) {
             case DAILY:
                 final int elapsedDay = resultingDate.get(Calendar.DAY_OF_MONTH)-1;
@@ -101,12 +104,11 @@ public class RecurringTaskManager {
                 if (elapsedWeek >= 1) {
                     executeWeeklyRecurringTask(task, startDate, endDate, elapsedWeek);
                     return true;
-                } else {
-                    final int weekRemainder = (resultingDate.get(Calendar.DAY_OF_MONTH)-1) % NUMBER_OF_DAYS_IN_A_WEEK;
-                    if (weekRemainder > 0) {
-                        executeWeeklyRecurringTask(task, startDate, endDate, 1);
-                        return true;
-                    }
+                } 
+                final int weekRemainder = (resultingDate.get(Calendar.DAY_OF_MONTH)-1) % NUMBER_OF_DAYS_IN_A_WEEK;
+                if (weekRemainder > 0) {
+                    executeWeeklyRecurringTask(task, startDate, endDate, 1);
+                    return true;
                 }
                 break;
             case MONTHLY:
@@ -245,7 +247,9 @@ public class RecurringTaskManager {
             Calendar todayDate = new GregorianCalendar();
             todayDate.setTime(today);
             calendar.setTimeInMillis(todayDate.getTimeInMillis() - toBeConsidered.getTimeInMillis());
-            
+//            if (todayDate.getTimeInMillis() - toBeConsidered.getTimeInMillis() < 0) {
+//                continue;
+//            }
             long elapsedVal = 0;
             System.out.println(calendar.get(Calendar.DAY_OF_MONTH) - 1);
             switch(t.getTaskReference().getRecurringType()) {
@@ -253,7 +257,7 @@ public class RecurringTaskManager {
                     elapsedVal = calendar.get(Calendar.DAY_OF_MONTH) - 1; 
                     break;
                 case WEEKLY:
-                    elapsedVal = (calendar.get(Calendar.DAY_OF_MONTH) - 1) % NUMBER_OF_DAYS_IN_A_WEEK; 
+                    elapsedVal = (calendar.get(Calendar.DAY_OF_MONTH) - 1) / NUMBER_OF_DAYS_IN_A_WEEK;
                     break;
                 case MONTHLY:
                     elapsedVal = calendar.get(Calendar.MONTH);
@@ -265,7 +269,7 @@ public class RecurringTaskManager {
                     break;
             }
             
-            if ( elapsedVal < 0) {
+            if ( elapsedVal > 0) {
                 toBeDeleted.add(t.getTaskReference());
             }
         }
