@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends AddressBookGuiTest {
 
-    @Test
+    //@Test
     public void add() {
         //add one person
         TestPerson[] currentList = td.getTypicalPersons();
