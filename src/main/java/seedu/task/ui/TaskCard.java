@@ -41,6 +41,13 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
         tagListPanel = TagListPanel.load(getPrimaryStage(), tagsListPlaceholder, task.getTags().getInternalList());
+        setComplete();
+    }
+    
+    private void setComplete() {
+        if (task.getComplete()) {
+            cardPane.setId("cardPane-completed");
+        }
     }
 
     public HBox getLayout() {
