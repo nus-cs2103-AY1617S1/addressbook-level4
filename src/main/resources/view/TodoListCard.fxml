@@ -9,15 +9,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefWidth="251.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane HBox.hgrow="ALWAYS">
+        <GridPane maxHeight="77.0" prefHeight="0.0" prefWidth="238.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="30.0" prefHeight="30.0" prefWidth="151.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -25,7 +25,7 @@
                     <padding>
                         <Insets bottom="5" left="15" right="5" top="5" />
                     </padding>
-
+      
                     <children>
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
@@ -36,9 +36,6 @@
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
-                        <Label fx:id="start" styleClass="cell_small_label" text="\$start" />
-                        <Label fx:id="end" styleClass="cell_small_label" text="\$end" />
                     </children>
                 </VBox>
             </children>
