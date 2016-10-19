@@ -1,5 +1,6 @@
 package seedu.ggist;
 
+
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
