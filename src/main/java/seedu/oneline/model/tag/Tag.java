@@ -13,6 +13,7 @@ public class Tag {
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
     public String tagName;
+    private String colour; 
 
     public Tag() {
     }
@@ -29,6 +30,7 @@ public class Tag {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS + " : " + name);
         }
         this.tagName = name;
+        this.colour = "#ffffff";
     }
 
     /**
@@ -37,7 +39,40 @@ public class Tag {
     public static boolean isValidTagName(String test) {
         return test.matches(TAG_VALIDATION_REGEX);
     }
-
+    
+    public void setColour(String colour) {
+        switch(colour) {
+        case "white": 
+            this.colour = "#ffffff";
+            break;
+        case "red": 
+            this.colour = "#F95E59"; 
+            break;
+        case "orange": 
+            this.colour = "#F95E59"; 
+            break;
+        case "yellow": 
+            this.colour = "#F95E59"; 
+            break;
+        case "green": 
+            this.colour = "#F95E59"; 
+            break;
+        case "blue": 
+            this.colour = "#F95E59"; 
+            break;
+        case "purple": 
+            this.colour = "#F95E59"; 
+            break;
+        default: 
+            return; 
+        }
+            
+    }
+    
+    public String getColour() {
+        return colour; 
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
