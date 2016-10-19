@@ -25,6 +25,7 @@ public class Date {
 
     
     public Date(String date) throws IllegalValueException {
+    	// allow dateList to be null in Date constructor when user doesn't input "date/"
         if (date == null){
             this.value = "";
             startDate = null;
@@ -48,6 +49,14 @@ public class Date {
      * @throws IllegalValueException if given date(s) are invalid.
      */
     public Date(List<java.util.Date> dateList) throws IllegalValueException {
+    	// allow dateList to be null in Date constructor when user doesn't input "date/"
+    	if (dateList == null){
+    		this.value = "";
+            startDate = null;
+            endDate = null;
+            return;
+    	}
+    	
     	String [] dateStrings = new String [2];
     	for (int i = 0; i < dateList.size(); i++){
         	java.util.Date date = dateList.get(i);
