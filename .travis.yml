@@ -15,3 +15,7 @@ addons:
 notifications:
   slack:
     on_success: change
+
+notifications:
+  email:
+    on_failure: never
