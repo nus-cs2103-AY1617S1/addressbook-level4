@@ -50,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<>(taskManager.getFilteredEvents()); 
         historyCommands = new Stack<ReadOnlyTaskManager>();
+
         historyPredicates = new Stack<Predicate>();
     }
 
