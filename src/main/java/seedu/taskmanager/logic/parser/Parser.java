@@ -485,7 +485,7 @@ public class Parser {
      */
     private Command prepareSaveAs(String args) {
         args = args.trim();
-        if(!args.equals("")) {
+        if(!args.equals("") && args.endsWith(".xml")) {
             return new SaveAsCommand(args);
         }
         
