@@ -9,8 +9,8 @@ import seedu.task.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    //DateTime getOpenTime();
-    //DateTime getCloseTime();
+    DateTime getOpenTime();
+    DateTime getCloseTime();
     boolean getComplete();
 
     /**

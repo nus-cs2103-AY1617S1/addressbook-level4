@@ -20,6 +20,11 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
+    private Label openTime;
+    @FXML
+    private Label closeTime;
+
+    @FXML
     private AnchorPane tagsListPlaceholder;
 
     private ReadOnlyTask task;
@@ -41,6 +46,8 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
+        openTime.setText("Start: "+task.getOpenTime().toPrettyString());
+        closeTime.setText("End: "+task.getCloseTime().toPrettyString());
         tagListPanel = TagListPanel.load(getPrimaryStage(), tagsListPlaceholder, task.getTags().getInternalList());
         setComplete();
     }
