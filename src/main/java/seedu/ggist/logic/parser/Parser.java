@@ -19,31 +19,36 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.CASE_INSENSITIVE);
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)", Pattern.CASE_INSENSITIVE); // one or more keywords separated by whitespace
     
     private static final Pattern LIST_ARGS_FORMAT =
-            Pattern.compile("(?<listing>.*)");
+            Pattern.compile("(?<listing>.*)", Pattern.CASE_INSENSITIVE);
 
     //regex for tasks without deadline
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)"); // variable number of tags;
+            Pattern.compile("(?<taskName>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)" , Pattern.CASE_INSENSITIVE); // variable number of tags;
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*(,|by|on)\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|by|on|at)\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
         
     //regex for tasks with start and end time spanning different days
     private static final Pattern EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*(,|from)\\s*(?<startDateTime>.+)\\s*(,|-)\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|from)\\s*(?<startDateTime>.+)\\s*(,|-)\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
    
   //regex for tasks with start and end time within same day
     private static final Pattern EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*(,|on)\\s*(?<day>.+)\\s*(,|from)\\s*(?<startTime>.+)\\s*(,|-)\\s*(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)");
+            Pattern.compile("(?<taskName>.+)\\s*(,|on)\\s*(?<day>.+)\\s*(,|from)\\s*(?<startTime>.+)\\s*(,|-)\\s*(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
+    
+  //regex for edit
+    private static final Pattern EDIT_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<index>\\d+?)\\s+?(?<field>.+)\\s*,\\s*(?<value>.+)" , Pattern.CASE_INSENSITIVE);
+    
     public Parser() {}
     /**
      * Parses user input into command for execution.
@@ -79,7 +84,10 @@ public class Parser {
                 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-        	
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -94,7 +102,10 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+            
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
+            
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -232,27 +243,27 @@ public class Parser {
     }
     
     private Command prepareEdit(String args) {
+        Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        int index = Integer.parseInt(matcher.group("index"));
+        String field  = matcher.group("field");
+        String value = matcher.group("value");
+
+    	try {
+    	    if (field.equals("start date") || field.equals("end date")) {
+    	        value = new DateTimeParser(value).getDate();
+    	    }
     	
-    	String type;
-    	String toEdit;
-    	int index = -1;
-  
-    	String[] splitedArgs = args.trim().split("\\s+");
-    	if (splitedArgs.length >= 3) {
-    		index = Integer.parseInt(splitedArgs[0]);
-    		type = splitedArgs[1];
-    		StringBuffer toBeEdited = new StringBuffer ();
-    		for (int i=2; i<splitedArgs.length; i++) {
-    			toBeEdited.append(splitedArgs[i]);
-    			toBeEdited.append(" ");
-    		}	
-    		toEdit = toBeEdited.toString();
-    
-    	} else {
-    		return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    	    if (field.equals("start time") || field.equals("end time")) {
+    	        value = new DateTimeParser(value).getTime();
+    	    }
+    	} catch (IllegalValueException e) {
+    	    return new IncorrectCommand(e.getMessage());
     	}
-         return new EditCommand (index,type,toEdit.trim());
+         return new EditCommand(index, field.trim(), value.trim());
     }
 
     /**
@@ -332,6 +343,20 @@ public class Parser {
         } catch (IllegalValueException e) {
             return new IncorrectCommand(ListCommand.MESSAGE_USAGE);
         }
+    }
+    
+    /**
+     * Parses arguments in the context of the save command.
+     *
+     * @param args full command arguments string
+     * @return the prepared command
+     */
+    private Command prepareSave(String args) {
+        if (args.equals("")) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SaveCommand.MESSAGE_USAGE));
+        }
+        return new SaveCommand(args.trim());
     }
 
 }

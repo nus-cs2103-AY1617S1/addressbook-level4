@@ -6,7 +6,7 @@ import seedu.ggist.model.ReadOnlyTaskManager;
 /** Indicates the TaskManager in the model has changed*/
 public class TaskManagerChangedEvent extends BaseEvent {
 
-    public final ReadOnlyTaskManager data;
+    public static ReadOnlyTaskManager data;
 
     public TaskManagerChangedEvent(ReadOnlyTaskManager data){
         this.data = data;

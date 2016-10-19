@@ -28,7 +28,7 @@ public interface Model {
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
     /** Edits the given task*/
-    void editTask(int index,String type, String toEdit) throws UniqueTaskList.TaskTypeNotFoundException;
+    void editTask(ReadOnlyTask target, String field, String value) throws UniqueTaskList.TaskNotFoundException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
@@ -37,7 +37,7 @@ public interface Model {
     void updateFilteredListToShowAll();
     
     /** Updates the filter of the filtered task list to show undone tasks */
-    void updateFilteredTaskListToShowUndone();
+    void updateFilteredListToShowAllUndone();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
@@ -49,6 +49,9 @@ public interface Model {
     void updateFilteredListToShowChanges();
     
     /** Updates the filter of the filtered task list to show task in a particular day */
-    void updateFilteredTaskListToShowDate(String keywords);
+    void updateFilteredListToShowDate(String keywords);
+
+    /**Updates the attribute in ModelManager to reflect last shown listing */
+    void setLastListing(String listing);
 
 }

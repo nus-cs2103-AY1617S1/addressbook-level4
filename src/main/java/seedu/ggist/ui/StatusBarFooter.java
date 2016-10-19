@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
+import seedu.ggist.commons.events.ui.ChangeFileLocationEvent;
 import seedu.ggist.commons.util.FxViewUtil;
 
 import org.controlsfx.control.StatusBar;
@@ -91,9 +92,17 @@ public class StatusBarFooter extends UiPart {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(TaskManagerChangedEvent abce) {
+    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent abce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
+    
+    @Subscribe
+    public void handleChangeFileLocationEvent(ChangeFileLocationEvent event) {
+        String newLocation = event.path;
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Settinng file location to " + newLocation));
+        setSaveLocation(newLocation);
+    }
+    
 }

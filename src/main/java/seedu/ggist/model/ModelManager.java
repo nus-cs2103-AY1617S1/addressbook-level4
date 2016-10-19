@@ -7,14 +7,15 @@ import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
+import seedu.ggist.logic.commands.Command;
 import seedu.ggist.logic.commands.CommandResult;
 import seedu.ggist.logic.commands.EditCommand;
 import seedu.ggist.model.task.Task;
+import seedu.ggist.model.task.TaskDate;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.ggist.model.task.UniqueTaskList.TaskTypeNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -28,8 +29,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
+    private String lastListing;
     
-    public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
+    //public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -54,7 +56,10 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
-
+    
+    public void setLastListing(String listing) {
+        lastListing = listing;
+    }
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
@@ -83,55 +88,24 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    public synchronized void editTask (int index, String type, String toEdit) throws TaskTypeNotFoundException {
-    	Task toBeEditedTask = filteredTasks.get(index-1);
-    	switch (type) {
-    	case "task":
-    		try{
-    			toBeEditedTask.getTaskName().editTaskName(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		break;
-    	case "start date":
-    		try{
-    		 toBeEditedTask.getStartDate().editDate(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		 break;
-    	case "start time":
-    		try{
-    		toBeEditedTask.getStartTime().editTime(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		break;
-    	case "end date":
-    		try{
-    		toBeEditedTask.getEndTime().editTime(toEdit);
-    		} catch (IllegalValueException ive) {
-    			System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-    		}
-    		break;
-        case "end time":
-            try{
-            toBeEditedTask.getEndTime().editTime(toEdit);
-            } catch (IllegalValueException ive) {
-                System.out.printf(MESSAGE_INVALID_TASK_TYPE,type);
-            }
-            break;
-    	default:
-    		throw new TaskTypeNotFoundException();
+    public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
+    	taskManager.editTask(target, field, value);
+    	if (lastListing == null || lastListing.equals("")) {
+    	    updateFilteredListToShowAllUndone();
+    	} else if (lastListing.equals("done")) {
+    	    updateFilteredListToShowAllDone();
+    	} else if (TaskDate.isValidDateFormat(lastListing)){
+    	    updateFilteredListToShowDate(lastListing);
+    	} else if (lastListing.equals("all")){
+    	    updateFilteredListToShowAll();
     	}
-    	updateFilteredListToShowChanges();
     	indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskManager.addTask(task);
-        updateFilteredTaskListToShowUndone();
+        updateFilteredListToShowAllUndone();
         indicateTaskManagerChanged();
     }
 
@@ -157,20 +131,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskListToShowUndone() {
-        updateFilteredTaskListToShowUndone(new PredicateExpression(new NotDoneQualifier()));
+    public void updateFilteredListToShowAllUndone() {
+        updateFilteredListToShowAllUndone(new PredicateExpression(new NotDoneQualifier()));
     }
     
-    private void updateFilteredTaskListToShowUndone(Expression expression) {
+    private void updateFilteredListToShowAllUndone(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
     @Override
-    public void updateFilteredTaskListToShowDate(String keywords){
+    public void updateFilteredListToShowDate(String keywords){
         updateFilteredTaskList(new PredicateExpression(new DateQualifier(keywords)));
     }
 
-    private void updateFilteredTaskListToShowDate(Expression expression) {
+    private void updateFilteredListToShowDate(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
@@ -179,7 +153,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredTaskList(Expression expression) {
+    public void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
     

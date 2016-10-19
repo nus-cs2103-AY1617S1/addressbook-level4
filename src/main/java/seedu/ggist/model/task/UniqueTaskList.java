@@ -2,7 +2,9 @@ package seedu.ggist.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.DuplicateDataException;
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.CollectionUtil;
 
 import java.util.*;
@@ -31,14 +33,8 @@ public class UniqueTaskList implements Iterable<Task> {
      * there is no such matching task in the list.
      */
     public static class TaskNotFoundException extends Exception {
-    	public TaskNotFoundException () {
-    		super("Target task does not found");
-    	}
-    }
-    
-    public static class TaskTypeNotFoundException extends Exception {
-    	public TaskTypeNotFoundException () {
-    		super("Target task type does not found");
+    	public TaskNotFoundException() {
+    		super("Target task is not found");
     	}
     }
 
@@ -82,6 +78,49 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
+    }
+    
+    //not sure about way of handling invalid value, logicmanager?
+    public void edit(ReadOnlyTask toEdit, String field, String value) throws TaskNotFoundException {
+        assert toEdit != null;
+        //Task edit = internalList.get(internalList.indexOf(toEdit));
+        switch (field) {
+        case "task":
+            try {
+                toEdit.getTaskName().editTaskName(value);
+            } catch (IllegalValueException ive) {
+                System.out.printf(Messages.MESSAGE_INVALID_TASK_VALUE);
+            }
+            break;
+        case "start date":
+            try {
+                toEdit.getStartDate().editDate(value);
+            } catch (IllegalValueException ive) {
+                System.out.printf(Messages.MESSAGE_INVALID_DATE_VALUE);
+            }
+            break;
+        case "start time":
+            try {
+                toEdit.getStartTime().editTime(value);
+            } catch (IllegalValueException ive) {
+                System.out.printf(Messages.MESSAGE_INVALID_TIME_VALUE);
+            }
+            break;
+        case "end date":
+            try {
+                toEdit.getEndDate().editDate(value);
+            } catch (IllegalValueException ive) {
+                System.out.printf(Messages.MESSAGE_INVALID_DATE_VALUE);
+            }
+            break;
+        case "end time":
+            try {
+                toEdit.getEndTime().editTime(value);
+            } catch (IllegalValueException ive) {
+                System.out.printf(Messages.MESSAGE_INVALID_TIME_VALUE, value);
+            }
+            break;
+        }    
     }
 
     public ObservableList<Task> getInternalList() {

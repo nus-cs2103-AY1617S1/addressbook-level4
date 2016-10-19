@@ -53,6 +53,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * @param filePath location of the data. Cannot be null
      */
     public void savetaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
+
         assert taskManager != null;
         assert filePath != null;
 
@@ -72,14 +73,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     @Override
-    public void saveTaskManagerk(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
-        // TODO Auto-generated method stub
-        
+    public void setTaskManagerFilePath(String newFilePath) {
+        filePath = newFilePath;
     }
 }
