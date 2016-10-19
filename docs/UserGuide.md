@@ -2,13 +2,13 @@
 
 ## Introduction
 
-In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many todo list apps have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.
+In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many task management applications today have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.
 
 Ever wished for a tool that can manage all your daily activities in distinct categories, and suggest to you which one you want to complete first? Well, look no further as Uncle Jim's Discount To-do List is here to save your day.
 
 Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days where you had to click through several pages of menus, navigating through unintuitive interface just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type out the command hit enter!
 
-Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. At the same time, Uncle Jum is capable of managing both tasks *and* event so you don't have to use two different apps to be productive. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
+Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. At the same time, Uncle Jim is capable of managing both tasks *and* event so you don't have to use two different applications to be productive. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
 
 Sounds exciting? Then let's get started!
 
@@ -152,7 +152,7 @@ Flag | Parameter        | Used to
 
 ### Deleting a task: **`delete`**
 
-Deletes the specified task from todo list.  
+Deletes the specified task from Todo list.  
 Format: **`delete`**` INDEX`
 
 Deletes the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
@@ -260,7 +260,7 @@ Descriptions of tasks and events are hidden by default. In order to display them
 Switch between different views.  
 Format: **`view`**` VIEW`
 
-To drill down into your todo list and see specific tasks, use the `view` command.
+To drill down into your Todo list and see specific tasks, use the `view` command.
 
 <img src="images/app_screenshot_completed.png" width="700" alt="View of completed tasks">
 
@@ -286,7 +286,7 @@ The search is case insensitive and the order of the keywords does not matter. On
     
     **`find`**` Jo`  
     :    Returns any task with **Jo** in the title, such as **Meet John for lunch**, 
-         **Jogging at the park**, or **Josting fights at the gym**
+         **Jogging at the park**, or **Jousting fights at the gym**
     
     **`find`**` Jo Ja`  
     :    Returns any task with either **Jo** or **Ja** in the title, such as 
@@ -303,7 +303,7 @@ Undo the most recent action.
 Format: **`undo`**
 
 !!! note
-    Only applies to commands which have made changes to the todo list like `add`, `edit` and `delete` 
+    Only applies to commands which have made changes to the Todo list like `add`, `edit` and `delete` 
 
 ### Redoing an action: **`redo`**
 
@@ -325,12 +325,12 @@ Loads in another save file. You can use this to restore a backup or switch to di
 
 Format: **`save`**` [FILENAME]`
 
-By default, todo list data are saved in a file called `discountTodo.xml` in the `data` folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the `save` command.
+By default, Todo list data are saved in a file called `discountTodo.xml` in the `data` folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the `save` command.
  
 The `save` command will show you the location of the current save file if you use it without specifying a `FILENAME`. 
 
 !!! note "Autosave"
-    Your todo list is saved automatically every time it is updated. There is no need to save manually.
+    Your Todo list is saved automatically every time it is updated. There is no need to save manually.
 
 
 ## FAQ
