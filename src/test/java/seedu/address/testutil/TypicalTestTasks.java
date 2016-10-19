@@ -17,15 +17,17 @@ public class TypicalTestTasks {
                     .withTags("urgent").build();
             party = new TaskBuilder().withDescription("Fred birthday party").withDateTime("by 21/03/2015 11:00")
                     .withTags("buyGift", "friends").build();
-            book = new TaskBuilder().withDescription("Return book to library").withDateTime("by 01/05/2015").build();
-            food = new TaskBuilder().withDescription("Bring food for party").withDateTime("by 01/06/2015").build();
-            haircut = new TaskBuilder().withDescription("Go for a haircut").withDateTime("by 30/11/2016").build();
-            fines = new TaskBuilder().withDescription("Pay for parking fines").withDateTime("by 30/01/2017").build();
-            tutorial = new TaskBuilder().withDescription("Complete tutorial for EE2020").withDateTime("by 30/05/2017").build();
+            book = new TaskBuilder().withDescription("Return book to library").withDateTime("on 01/05/2015").build();
+            food = new TaskBuilder().withDescription("Bring food for party").withDateTime("on 01/06/2015").build();
+            haircut = new TaskBuilder().withDescription("Go for a haircut").withDateTime("on 30/11/2016").build();
+            fines = new TaskBuilder().withDescription("Pay for parking fines")
+                    .withDateTime("from 30/01/2017 11:00 to 28/02/2018 12:00").build();
+            tutorial = new TaskBuilder().withDescription("Complete tutorial for EE2020")
+                    .withDateTime("from 30/05/2017 13:00 to 06/06/2017 14:00").build();
 
             //Manually added
-            homework = new TaskBuilder().withDescription("Do Homework").withDateTime("by 20/11/2016").build();
-            groceries = new TaskBuilder().withDescription("Buy groceries for mum").withDateTime("by 20/12/2016").build();
+            homework = new TaskBuilder().withDescription("Do Homework").withDateTime("by 20/11/2016 13:01").build();
+            groceries = new TaskBuilder().withDescription("Buy groceries for mum").withDateTime("on 20/12/2016").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
