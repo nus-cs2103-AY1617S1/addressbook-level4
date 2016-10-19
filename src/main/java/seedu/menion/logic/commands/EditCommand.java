@@ -23,7 +23,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDITTED_ACTIVITY_SUCCESS = "Edited Activity to: %1$s";
     public static final String NAME_PARAM = "name";
-
+    public static final String NOTE_PARAM = "note";
     
     public final int targetIndex;
     public final String targetType;
@@ -74,6 +74,9 @@ public class EditCommand extends Command {
         case 0:
             model.editFloatingTaskName(index, changes);
             break;
+        case 1:
+            model.editFloatingTaskNote(index, changes);
+            break;
         }
         
     }
@@ -85,6 +88,9 @@ public class EditCommand extends Command {
         case 0:
             model.editTaskName(index, changes);
             break;
+        case 1:
+            model.editTaskNote(index, changes);
+            break;
         }
     }
     private void eventEdit(int index, String paramToChange, String changes) {
@@ -94,6 +100,9 @@ public class EditCommand extends Command {
         
         case 0:
             model.editEventName(index, changes);
+            break;
+        case 1:
+            model.editEventNote(index, changes);
             break;
         }
     }
@@ -110,6 +119,9 @@ public class EditCommand extends Command {
 
         if (paramToChange.equals(NAME_PARAM)) {
             return 0;
+        }
+        else if (paramToChange.equals(NOTE_PARAM)) {
+            return 1;
         }
         
         return 100;
