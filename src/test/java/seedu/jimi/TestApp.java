@@ -23,7 +23,7 @@ public class TestApp extends MainApp {
     public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
-    protected static final String ADDRESS_BOOK_NAME = "Test";
+    protected static final String TASK_BOOK_NAME = "Test";
     protected Supplier<ReadOnlyTaskBook> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
@@ -49,7 +49,7 @@ public class TestApp extends MainApp {
         config.setAppTitle(APP_TITLE);
         config.setTaskBookFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
-        config.setTaskBookName(ADDRESS_BOOK_NAME);
+        config.setTaskBookName(TASK_BOOK_NAME);
         SaveAsCommand.setConfigFilePath(DEFAULT_CONFIG_FILE_FOR_TESTING);
         return config;
     }
@@ -59,7 +59,7 @@ public class TestApp extends MainApp {
         UserPrefs userPrefs = super.initPrefs(config);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
+        userPrefs.updateLastUsedGuiSetting(new GuiSettings(800.0, 600.0, (int) x, (int) y));
         return userPrefs;
     }
 

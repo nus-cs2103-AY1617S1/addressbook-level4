@@ -36,6 +36,7 @@ import seedu.jimi.logic.commands.IncorrectCommand;
 import seedu.jimi.logic.commands.ListCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.SelectCommand;
+import seedu.jimi.logic.commands.ShowCommand;
 
 /**
  * Parses user input.
@@ -64,6 +65,9 @@ public class JimiParser {
     private static final Pattern ADD_EVENT_DATA_ARGS_FORMAT =
             Pattern.compile("(\"(?<taskDetails>.+)\") on (?<startDateTime>((?! to ).)*)( to (?<endDateTime>.+))?");
     
+    private static final Pattern SHOW_COMMAND_ARGS_FORMAT =
+            Pattern.compile("(?<sectionToShow>.+)");
+    
     private static final Pattern SAVE_DIRECTORY_ARGS_FORMAT = Pattern.compile("(?<filePath>.+).xml");
     
     private static final Pattern SAVE_RESET_DIRECTORY_ARGS_FORMAT = Pattern.compile(SaveAsCommand.COMMAND_WORD_RESET);
@@ -77,13 +81,17 @@ public class JimiParser {
                     new DeleteCommand(),
                     new ClearCommand(), 
                     new FindCommand(), 
-                    new ListCommand(), 
+                    new ListCommand(),
+                    new ShowCommand(),
                     new ExitCommand(), 
                     new HelpCommand(), 
                     new SaveAsCommand()
             );
 
     private static final String XML_FILE_EXTENSION = ".xml";
+    
+    private static final String[] showCommandValidKeywords = { "floating tasks", "incomplete tasks", "complete tasks",
+            "today", "tomorrow", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
     
     public JimiParser() {}
 
@@ -129,6 +137,8 @@ public class JimiParser {
                     return prepareDelete(arguments);
                 } else if (command instanceof FindCommand) {
                     return prepareFind(arguments);
+                } else if (command instanceof ShowCommand) {
+                    return prepareShow(arguments);
                 } else if (command instanceof SaveAsCommand) {
                     return prepareSaveAs(arguments);
                 } else { // commands that do not require arguments e.g. exit
@@ -324,7 +334,35 @@ public class JimiParser {
 
         return new SelectCommand(index.get());
     }
+    
+    /**
+     * Parses arguments to filter section of task panel to be displayed to user.
+     * @param arguments
+     * @return
+     */
+    private Command prepareShow(String args) {
+        final Matcher matcher = SHOW_COMMAND_ARGS_FORMAT.matcher(args.trim());
+        boolean keywordFound = false;
+        
+        //goes through list of keywords to check if user input is valid
+        for(int i = 0; i < this.showCommandValidKeywords.length ; i++) {
+            if(showCommandValidKeywords[i].contains(args)) {
+                keywordFound = true;
+            }
+        }
+        
+        if (!keywordFound || !matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ShowCommand.MESSAGE_USAGE));
+        }
+        
+        // keywords delimited by whitespace
+        final String sectionToShow = matcher.group("sectionToShow");
+        
+        return new ShowCommand(sectionToShow);
+    }
 
+    
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
