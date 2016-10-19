@@ -408,7 +408,9 @@ JAXB-friendly adapted version of the `Tag` and `Task` and Task Lists.
 
 The `teamfour.tasc.commons` package contains classes used by multiple components.
 
-**`Component Manager` Class:**
+**`ComponentManager` Class:**
+
+The `ComponentManager` class serves as the base class for the various Manager classes, like `ModelManager` and `LogicManager`. It is responsible for registering the Managers' event handlers in `EventsCenter`.
 
 **`Config` Class:**
 
