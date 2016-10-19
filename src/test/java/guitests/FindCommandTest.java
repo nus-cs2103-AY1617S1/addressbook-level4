@@ -11,18 +11,21 @@ public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult("find task"); //no results
-        assertFindResult("find xmas", td.shop, td.dinner); //multiple results
+        assertFindResult("find task", new TestTask[0], new TestTask[0], new TestTask[0]); //no results
+        
+        TestTask[] expectedEventHits = { td.shop, td.dinner };
+        assertFindResult("find xmas", new TestTask[0], new TestTask[0], expectedEventHits); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find xmas",td.dinner);
+        TestTask[] expectedEventHitsAfterDelete = { td.dinner };
+        assertFindResult("find xmas", new TestTask[0], new TestTask[0], expectedEventHitsAfterDelete);
     }
 
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find todo"); //no results
+        assertFindResult("find todo", new TestTask[0], new TestTask[0], new TestTask[0]); //no results
     }
 
     @Test
@@ -31,10 +34,16 @@ public class FindCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
+    private void assertFindResult(String command, TestTask[] expectedTodoHits,
+            TestTask[] expectedDeadlineHits, TestTask[] expectedEventHits) {
         commandBox.runCommand(command);
-        assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " tasks listed!");
-        assertTrue(taskListPanel.isListMatching(expectedHits));
+        assertTodoListSize(expectedTodoHits.length);
+        assertDeadlineListSize(expectedDeadlineHits.length);
+        assertEventListSize(expectedEventHits.length);
+        assertResultMessage(expectedTodoHits.length + expectedDeadlineHits.length + expectedEventHits.length + " tasks listed!");
+        
+        assertTrue(taskListPanel.isTodoListMatching(expectedTodoHits));
+        assertTrue(taskListPanel.isDeadlineListMatching(expectedDeadlineHits));
+        assertTrue(taskListPanel.isEventListMatching(expectedEventHits));
     }
 }

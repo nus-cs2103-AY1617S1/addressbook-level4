@@ -13,6 +13,7 @@ import seedu.taskitty.TestApp;
 import seedu.taskitty.commons.core.EventsCenter;
 import seedu.taskitty.model.TaskManager;
 import seedu.taskitty.model.task.ReadOnlyTask;
+import seedu.taskitty.model.task.Task;
 import seedu.taskitty.testutil.TestUtil;
 import seedu.taskitty.testutil.TypicalTestTask;
 
@@ -102,10 +103,26 @@ public abstract class TaskManagerGuiTest {
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Asserts the size of the todo list is equal to the given number.
      */
-    protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfPeople();
+    protected void assertTodoListSize(int size) {
+        int numberOfPeople = taskListPanel.getNumberOfTasks(Task.TASK_COMPONENT_COUNT);
+        assertEquals(size, numberOfPeople);
+    }
+    
+    /**
+     * Asserts the size of the deadline list is equal to the given number.
+     */
+    protected void assertDeadlineListSize(int size) {
+        int numberOfPeople = taskListPanel.getNumberOfTasks(Task.DEADLINE_COMPONENT_COUNT);
+        assertEquals(size, numberOfPeople);
+    }
+    
+    /**
+     * Asserts the size of the event list is equal to the given number.
+     */
+    protected void assertEventListSize(int size) {
+        int numberOfPeople = taskListPanel.getNumberOfTasks(Task.EVENT_COMPONENT_COUNT);
         assertEquals(size, numberOfPeople);
     }
 
