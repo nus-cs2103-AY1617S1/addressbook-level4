@@ -9,7 +9,7 @@ public class ViewCommand extends Command {
             + "Parameters: view [DATE]"
             + "Example: " + COMMAND_WORD + " 12 Oct 2016";
     
-    public static final String VIEW_DEFAULT_MESSAGE = " ";
+    public static final String VIEW_DEFAULT_MESSAGE = "All events for today, todo tasks and deadlines are displayed below.";
     
     public ViewCommand(String date) {
         
@@ -21,8 +21,6 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public void saveStateIfNeeded(String commandText) {
-        
-    }
+    public void saveStateIfNeeded(String commandText) {}
 
 }

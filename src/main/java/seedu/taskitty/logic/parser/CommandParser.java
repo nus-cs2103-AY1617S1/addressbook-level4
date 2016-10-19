@@ -357,9 +357,9 @@ public class CommandParser {
         }
         
         //check if a date argument is given and return a view command instead if so
-        String[] checkDates = extractTaskDetailsNatty(args);
-        if (checkDates.length == 1 && TaskDate.isValidDate(checkDates[0])) {
-            return new ViewCommand(checkDates[0]);
+        String[] checkDates = extractTaskDetailsNatty(args.trim());
+        if (containsOnlyOneDate(checkDates)) {            
+            return new ViewCommand(checkDates[1]);
         }
         
         // keywords delimited by whitespace
@@ -367,4 +367,14 @@ public class CommandParser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
+    
+    /**
+     * Checks if only one date parameter was given for find command
+     * @param args the array obtained after parsing for the dates
+     * @return true if only one date parameter was given
+     */
+    private boolean containsOnlyOneDate(String[] args) {
+        return args.length == 3 && TaskDate.isValidDate(args[1]) && args[2] == null;
+    }
+    
 }
