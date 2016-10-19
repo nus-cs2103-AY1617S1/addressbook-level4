@@ -186,20 +186,14 @@ public class Parser {
         Flag dateTimeFlag = new Flag(Flag.DATETIME, true);
         Flag tagFlag = new Flag(Flag.TAG, true);
         Flag rsvDelFlag = new Flag(Flag.DELETE_RSVTASK, false);
-        Flag rsvEditFlag = new Flag(Flag.EDIT_RSVTASK, false);
 
-        Flag[] flags = { priorityFlag, dateTimeFlag, tagFlag, rsvDelFlag, rsvEditFlag };
+        Flag[] flags = { priorityFlag, dateTimeFlag, tagFlag, rsvDelFlag };
 
         TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
         HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
 
-        if (flagsPosMap.containsValue(rsvEditFlag) && flagsPosMap.containsValue(rsvDelFlag)) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_DEL_AND_EDIT_FLAG_DETECTED));
-        }
         if (flagsPosMap.containsValue(rsvDelFlag)) {
             return prepareRsvDel(flagsPosMap, argumentMap, rsvDelFlag);
-        } else if (flagsPosMap.containsValue(rsvEditFlag)) {
-            return prepareRsvEdit(flagsPosMap, argumentMap, rsvEditFlag);
         } else {
             return prepareRsvAdd(args, flagsPosMap, argumentMap, priorityFlag, dateTimeFlag, tagFlag);
         }
@@ -235,9 +229,7 @@ public class Parser {
         }
 
         try {
-            return new RsvCommand(name, dateTimeStringSet,
-                    argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
-                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag));
+            return new RsvCommand(name, dateTimeStringSet);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
@@ -256,26 +248,6 @@ public class Parser {
             try {
                 rangeIndex = StringUtil
                         .indexString(argumentMap.get(rsvDelFlag).replace(Flag.DELETE_RSVTASK, "").trim());
-                return new RsvCommand(rangeIndex);
-            } catch (InvalidRangeException | IllegalValueException ie) {
-                return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL));
-            }
-
-        }
-    }
-
-    // Parses arguments for editing a reserved task
-    private Command prepareRsvEdit(TreeMap<Integer, Flag> flagsPosMap, HashMap<Flag, String> argumentMap,
-            Flag rsvEditFlag) {
-
-        if (flagsPosMap.size() > 1 || flagsPosMap.firstKey() != 0) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL));
-        } else {
-            String rangeIndex;
-            try {
-                rangeIndex = StringUtil
-                        .indexString(argumentMap.get(rsvEditFlag).replace(Flag.DELETE_RSVTASK, "").trim());
                 return new RsvCommand(rangeIndex);
             } catch (InvalidRangeException | IllegalValueException ie) {
                 return new IncorrectCommand(
