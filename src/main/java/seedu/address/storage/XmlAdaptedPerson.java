@@ -18,11 +18,12 @@ public class XmlAdaptedPerson {
     private String name;
     @XmlElement(required = true)
     private String phone;
+    @XmlElement(required = true)
+    private String status;
     @XmlElement(required = false)
     private String email;
     @XmlElement(required = false)
     private String address;
-
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -42,6 +43,7 @@ public class XmlAdaptedPerson {
         phone = source.getDescription().value;
         email = source.getDate().value;
         address = source.getTime().value;
+        status = source.getStatus().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -62,7 +64,8 @@ public class XmlAdaptedPerson {
         final Description phone = new Description(this.phone);
         final Date email = new Date(this.email);
         final Time address = new Time(this.address);
+        final Status status = new Status(this.status);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, phone, email, address, tags);
+        return new Task(name, phone, email, address, status, tags);
     }
 }

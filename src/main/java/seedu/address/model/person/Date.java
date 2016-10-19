@@ -56,8 +56,9 @@ public class Date {
             endDate = null;
             return;
     	}
-    	
-    	String [] dateStrings = new String [2];
+
+        String [] dateStrings = new String [2];
+
     	for (int i = 0; i < dateList.size(); i++){
         	java.util.Date date = dateList.get(i);
         	dateStrings[i] = date.getDate() + "-" + (date.getMonth() + 1) + "-" + (date.getYear() + 1900);

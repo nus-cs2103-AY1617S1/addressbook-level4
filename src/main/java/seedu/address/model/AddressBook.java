@@ -156,6 +156,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
    
+    public boolean completeTask(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {
+        if (persons.contains(key)) {
+            persons.complete(key);
+            return true;
+        } 
+        else if (undatedList.contains(key)){
+            undatedList.complete(key);
+            return true;
+        }
+        else {
+            throw new UniquePersonList.PersonNotFoundException();
+        }
+    }
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
@@ -221,4 +235,5 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, undatedList, tags);
     }
+
 }

@@ -52,7 +52,7 @@ public class DeleteCommand extends Command {
         try {
             model.deletePerson(personToDelete);
         } catch (PersonNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            assert false : "The target task cannot be found";
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));

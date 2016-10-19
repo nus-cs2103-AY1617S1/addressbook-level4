@@ -9,16 +9,16 @@ import seedu.address.model.person.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask one, two, three, four;
+    public static TestTask one, two, three;
 
     public TypicalTestTasks() {
         try {
             one = new DatedTaskBuilder().withName("buy milk").withDescription("lots of it")
-                    .withDate("11-11-2017").withTime("1111").build();
+                    .withDate("11-11-2017").withTime("1111").withStatus("NONE").build();
             two = new DatedTaskBuilder().withName("buy some milk").withDescription("not so much")
-                    .withDate("11-11-2017").withTime("1111").build();
+                    .withDate("11-11-2017").withTime("1111").withStatus("NONE").build();
             three = new DatedTaskBuilder().withName("buy some milk").withDescription("just a little")
-                    .withDate("12-12-2017").withTime("1111").build();
+                    .withDate("12-12-2017").withTime("1111").withStatus("NONE").build();
             
             
             
@@ -32,9 +32,8 @@ public class TypicalTestTasks {
 
         try {
             ab.addPerson(new Task(one));
-//            ab.addPerson(new Task(two));
-//            ab.addPerson(new Task(three));
-//            ab.addPerson(new Task(four));
+            //ab.addPerson(new Task(two));
+            //ab.addPerson(new Task(three));
         } catch (UniquePersonList.DuplicatePersonException e) {
             assert false : "not possible";
         }

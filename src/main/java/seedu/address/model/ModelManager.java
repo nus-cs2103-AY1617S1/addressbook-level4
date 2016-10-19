@@ -8,6 +8,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.Task;
 import seedu.address.model.person.ReadOnlyTask;
+import seedu.address.model.person.Status;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
@@ -79,6 +80,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    @Override
+    public void completeTask(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException {
+        addressBook.completeTask(target);
+        indicateAddressBookChanged();
+    }
 
     //=========== Filtered Person List Accessors ===============================================================
 
@@ -103,6 +110,10 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
+    public void updateFilteredPersonList(String keyword){
+        updateFilteredPersonList(new PredicateExpression(new StatusQualifier(keyword)));
+    }
+    
     private void updateFilteredPersonList(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
         filteredUndatedTasks.setPredicate(expression::satisfies);
@@ -175,5 +186,24 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
+    private class StatusQualifier implements Qualifier {
+        private Status stateKeyWord;
 
+        StatusQualifier(String stateKeyWord) {
+            this.stateKeyWord = new Status(stateKeyWord);
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            System.out.println(task.getStatus().toString() + " && " + stateKeyWord.toString());
+            System.out.println((task.getStatus().equals(stateKeyWord)? "yay" : "nay"));
+            return task.getStatus().equals(stateKeyWord);
+        }
+
+        @Override
+        public String toString() {
+            return "status=" + stateKeyWord;
+        }
+    }
 }

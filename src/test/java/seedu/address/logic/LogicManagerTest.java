@@ -398,8 +398,9 @@ public class LogicManagerTest {
             Time privateAddress = new Time(dateList);
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
+            Status status = new Status(Status.State.NONE);
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+            return new Task(name, privatePhone, email, privateAddress, status, tags);
         }
 
         /**
@@ -415,6 +416,7 @@ public class LogicManagerTest {
                     new Description("" + Math.abs(seed)),
                     new Date("11-11-201" + seed),
                     new Time("111" + seed),
+                    new Status(Status.State.NONE),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -545,6 +547,7 @@ public class LogicManagerTest {
                     new Description("Describes task"),
                     new Date(dateList),
                     new Time(dateList),
+                    new Status(Status.State.NONE),
                     new UniqueTagList(new Tag("tag"))
             );
         }

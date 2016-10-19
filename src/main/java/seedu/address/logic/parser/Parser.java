@@ -70,6 +70,9 @@ public class Parser {
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
@@ -83,8 +86,8 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
+            return prepareList(arguments);
+            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -184,6 +187,23 @@ public class Parser {
     }
 
     /**
+     * Parses arguments in the context of the done task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDone(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(index.get());
+    }
+    
+    /**
      * Parses arguments in the context of the edit person command.
      *
      * @param args full command args string
@@ -266,4 +286,32 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    /**
+     * Parses arguments in the context of the list task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareList(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListCommand.MESSAGE_USAGE));
+        }
+
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        
+        if (keywords.length > 1) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new ListCommand(keywords[0]);
+                
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
 }

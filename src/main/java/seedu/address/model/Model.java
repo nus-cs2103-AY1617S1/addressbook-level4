@@ -17,12 +17,15 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given person. */
+    /** Deletes the given task. */
     void deletePerson(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException;
 
-    /** Adds the given person */
+    /** Adds the given task */
     void addPerson(Task person) throws UniquePersonList.DuplicatePersonException;
 
+    /** Marks the given task as completed */
+    void completeTask(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException;
+    
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
     
@@ -34,5 +37,10 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
+
+    /** Updates the filter of the filtered person list to filter by the given keyword (od/done)*/
+    void updateFilteredPersonList(String keyword);
+
+    
 
 }

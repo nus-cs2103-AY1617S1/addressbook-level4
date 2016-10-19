@@ -10,7 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class Time {
-    
+
     public static final String MESSAGE_TIME_CONSTRAINTS = 
             "Time should be in 24hr format. Eg. 2359";
     public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
@@ -19,7 +19,7 @@ public class Time {
     public final java.util.Date startTime;
     public final java.util.Date endTime;
 
-    
+
     public Time(String time) throws IllegalValueException {
         if (time == null){
             this.value = "";
@@ -34,7 +34,7 @@ public class Time {
         startTime = null;
         endTime = null;
     }
-    
+
     /**
      * Validates given time.
      *
@@ -56,31 +56,31 @@ public class Time {
                 throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
             }
         }
-        
+
         if (dateList.size() == 1){
-        	this.value = timeStrings[0];
-        	startTime = dateList.get(0);
-        	endTime = null;
+            this.value = timeStrings[0];
+            startTime = dateList.get(0);
+            endTime = null;
         }
         else if (dateList.size() == 2){
-        	if (timeStrings[0].equals(timeStrings[1])){
-        		this.value = timeStrings[0];
-        	}
-        	else {
-        		this.value = timeStrings[0] + " to " + timeStrings[1];
-        	}
-        	startTime = dateList.get(0);
-        	endTime = dateList.get(1);
+            if (timeStrings[0].equals(timeStrings[1])){
+                this.value = timeStrings[0];
+            }
+            else {
+                this.value = timeStrings[0] + " to " + timeStrings[1];
+            }
+            startTime = dateList.get(0);
+            endTime = dateList.get(1);
         }
         else {
-        	this.value = "";
-        	startTime = null;
-        	endTime = null;
+            this.value = "";
+            startTime = null;
+            endTime = null;
         }
-        
+
     }
-    
-    
+
+
     /**
      * Returns true if a given string is a valid time
      */
@@ -97,7 +97,7 @@ public class Time {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Time // instanceof handles nulls
-                && this.value.equals(((Time) other).value)); // state check
+                        && this.value.equals(((Time) other).value)); // state check
     }
 
     @Override

@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     Description getDescription();
     Date getDate();
     Time getTime();
+    Status getStatus();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -28,7 +29,8 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getDescription().equals(this.getDescription())
                 && other.getDate().equals(this.getDate())
-                && other.getTime().equals(this.getTime()));
+                && other.getTime().equals(this.getTime())
+                && other.getStatus().equals(this.getStatus()));
     }
 
     /**
@@ -36,18 +38,26 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Description: ")
-                .append(getDescription())
-                .append(" Date: ")
-                .append(getDate())
-                .append(" Time: ")
-                .append(getTime())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+        builder.append(getName());
+        if (!getDescription().toString().isEmpty()) {
+            builder.append(" Description: ")
+            .append(getDescription());
+        }
+        if (!getDate().toString().isEmpty()) {
+            builder.append(" Date: ")
+            .append(getDate());
+        }
+        if (!getTime().toString().isEmpty()) {
+            builder.append(" Time: ")
+                .append(getTime());
+        }
+        if (!getTags().toString().isEmpty()) {
+            builder.append(" Tags: ");
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
-
+    
     /**
      * Returns a string representation of this Person's tags
      */
@@ -61,5 +71,5 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
+    
 }
