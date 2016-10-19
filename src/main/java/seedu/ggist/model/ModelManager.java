@@ -28,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
+    private String lastListing;
     
     //public static final String MESSAGE_INVALID_TASK_TYPE = "%1$s is not a valid type";
 
@@ -54,7 +55,10 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
-
+    
+    public void setLastListing(String listing) {
+        lastListing = listing;
+    }
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
@@ -85,9 +89,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
     	taskManager.editTask(target, field, value);
-    	if (Command.lastListing == null || Command.lastListing.equals("")) {
+    	if (lastListing == null || lastListing.equals("")) {
     	    updateFilteredListToShowAllUndone();
-    	} else if (Command.lastListing.equals("done")) {
+    	} else if (lastListing.equals("done")) {
     	    updateFilteredListToShowAllDone();
     	} else {
     	    updateFilteredListToShowAll();
