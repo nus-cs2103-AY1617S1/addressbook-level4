@@ -24,6 +24,13 @@ public class PreviousCommand {
 		updatedTask = task;
 		oldTask = null;
 	}
+	
+	public PreviousCommand(String command, ReadOnlyActivity task)
+	{
+		COMMAND_WORD = command;
+		updatedTask = new Activity(task);
+		oldTask = null;
+	}
 		
 	public PreviousCommand(String command, Activity originalActivity, Activity editedActivity) {
         COMMAND_WORD = command;
