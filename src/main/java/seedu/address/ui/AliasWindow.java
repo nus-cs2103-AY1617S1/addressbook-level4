@@ -59,6 +59,6 @@ public class AliasWindow extends UiPart {
     }
 
     public void show() {
-        dialogStage.showAndWait();
+        dialogStage.show();
     }
 }
