@@ -27,6 +27,8 @@ public class MainParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    
+    private static final Pattern LIST_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+(?:\\s+\\S+)*)(?<arguments>.*)"); 
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     
@@ -107,6 +109,7 @@ public class MainParser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
             
+        case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_WORD_ALL:        	
         case ListCommand.COMMAND_WORD_SHORT_ALL:
         	return prepareList(arguments);
@@ -215,7 +218,7 @@ public class MainParser {
         extractDetail(args);
         
         // Parse date and time
-        reducedArgs = extractDueByDateAndTime(args, validTime);
+        reducedArgs = extractDueByDateAndTime(args);
         LocalDateTime dt;
         
         // empty details
@@ -378,7 +381,7 @@ public class MainParser {
     		throw new IllegalValueException(MESSAGE_BLANK_DETAIL_WARNING);
     	}
     	// Split into '  ...  '
-    	String[] details = args.split("^'(.+)'$");
+    	String[] details = args.split("^ '(.+)'$");
     	// Details only, get rid of anything after the '
     	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'"), 
     													details[0].length(), 
@@ -429,7 +432,7 @@ public class MainParser {
      * 
      * @@author A0139661Y
      */
-    public String extractDueByDateAndTime(String dirtyArgs, boolean validTime) {
+    public String extractDueByDateAndTime(String dirtyArgs) {
     	Parser parser = new Parser();
     	List<DateGroup> groups = parser.parse(dirtyArgs);
     	String cleanArgs = dirtyArgs;
