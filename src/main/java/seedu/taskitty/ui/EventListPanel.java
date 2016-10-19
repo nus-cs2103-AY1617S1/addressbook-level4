@@ -67,7 +67,7 @@ public class EventListPanel extends UiPart{
     }
 
     private void configure(ObservableList<ReadOnlyTask> eventList) {
-    	header.setText("EVENTS");
+    	header.setText("EVENTS [e]");
     	header.setStyle("-fx-text-fill: white");
     	setDate();
         setConnections(eventList);

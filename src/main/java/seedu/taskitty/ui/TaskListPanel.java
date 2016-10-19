@@ -59,7 +59,7 @@ public class TaskListPanel extends UiPart {
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
-    	header.setText("TODOS");
+    	header.setText("TODOS [t]");
     	header.setStyle("-fx-text-fill: white");
         setConnections(taskList);
         addToPlaceholder();
