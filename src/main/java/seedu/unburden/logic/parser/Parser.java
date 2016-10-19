@@ -99,8 +99,6 @@ public class Parser {
 
 	public static final String find = "find";
 
-	public static final String all = "all";
-
 	private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 
 	public Parser() {
@@ -356,8 +354,6 @@ public class Parser {
 			return new HelpCommand(find);
 		case edit:
 			return new HelpCommand(edit);
-		case all:
-			return new HelpCommand(all);
 		default:
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}

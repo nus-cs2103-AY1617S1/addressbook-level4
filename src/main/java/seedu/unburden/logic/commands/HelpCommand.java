@@ -19,13 +19,8 @@ public class HelpCommand extends Command {
 
 	public static final String find = "find";
 
-	public static final String all = "all";
-
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n" + "Example: "
 			+ COMMAND_WORD;
-
-	public static final String HELP_MESSAGE_ALL = "To add, type: \n" + "add \"your own task name\" \n"
-			+ "To delete, type: delete \"the specified index\" \n" + "To list, type: list \n";
 
 	public static final String HELP_MESSAGE_ADD = "To add a task, type: \n"+"add \"your own task name\" \n"
 			+ "d/ \"your deadline (optional)\" \n" + "s/ \"your start time (optional)\" \n"
@@ -41,10 +36,15 @@ public class HelpCommand extends Command {
 	public static final String HELP_MESSAGE_EDIT = "To find a task, type: \n"+"\"edit \'index of task\'\" \n"
 			+ "d/ \"your new deadline(optional)\" \n" + "s/ \"your new start time\" \n" + "e/ \"your new end time\" \n";
 
-	public static final String HELP_MESSAGE_HELP = "To find out how to add a task, type: \"help add\" \n"
-			+ "To find out how to delete a task, type: \"help delete\" \n"
-			+ "To find out how to find a task, type: \"help find\" \n"
-			+ "To find out how to edit a task, type: \"help edit\" \n";
+	public static final String HELP_MESSAGE_HELP = "List of commands: \n"
+			+ "1) Add : Allows you to add a task to Unburden \n"
+			+ "2) Edit : Allows you to edit an existing task in Unburden \n"
+			+ "3) Find : Allows you to find an exisiting task in Unburden based on task names or deadlines \n"
+			+ "4) Delete : Allows you delete a single exisiting task task in Unburden \n"
+			+ "5) List : Allows you to list all exisiting tasks in Unburden \n"
+			+ "6) Clear : Allows you delete ALL tasks within Unburden \n"
+			+ "7) Help : Allows you get some information on how to use the application \n"
+			+ "8) Exit : Allows you exit and close the application \n";
 
 	private final String whichCommand;
 
@@ -64,8 +64,6 @@ public class HelpCommand extends Command {
 			return new CommandResult(HELP_MESSAGE_FIND);
 		case edit:
 			return new CommandResult(HELP_MESSAGE_EDIT);
-		case all:
-			return new CommandResult(HELP_MESSAGE_ALL);
 		default:
 			return new CommandResult(HELP_MESSAGE_HELP);
 		}
