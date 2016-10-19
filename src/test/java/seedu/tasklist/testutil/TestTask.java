@@ -2,7 +2,6 @@ package seedu.tasklist.testutil;
 
 import java.sql.Date;
 
-import seedu.tasklist.commons.util.RecurringUtil;
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
 
