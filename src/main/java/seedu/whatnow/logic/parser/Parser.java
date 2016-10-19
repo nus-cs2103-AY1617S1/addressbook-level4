@@ -61,6 +61,9 @@ public class Parser {
 	private static final String TASK_ARG_TAG = "tag";
 	private static final String TASK_ARG_DATE = "date";
 	private static final String TASK_ARG_TIME = "time";
+	private static final int CHANGE_LOCATION = 0;
+	private static final int CHANGE_LOCATION_TO = 1;
+	private static final int CHANGE_LOCATION_TO_PATH = 2;
 	
 
 
@@ -231,8 +234,11 @@ public class Parser {
      */
     private Command prepareChange(String args) {
         String[] argComponents= args.trim().split(" ");
-        if(argComponents[0].equals("location") && argComponents[1].equals("to")){
-            return new ChangeCommand(argComponents[2]);
+        for (int i = 0; i < argComponents.length; i++) {
+            System.out.println(i + " " + argComponents[i]);
+        }
+        if(argComponents[CHANGE_LOCATION].equals("location") && argComponents[CHANGE_LOCATION_TO].equals("to")){
+            return new ChangeCommand(argComponents[CHANGE_LOCATION_TO_PATH]);
         }
         else{
             return new IncorrectCommand(
