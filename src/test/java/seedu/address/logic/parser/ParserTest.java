@@ -88,7 +88,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addEventNoEndTime_incorrectCommandReturned() {
-		String userInput = "add event ' party hehehe yay' from 8:00 on 12/12/12";
+		String userInput = "add event ' party hehehe yay' from 8:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -96,7 +96,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addEventNoName_incorrectCommandReturned() {
-		String userInput = "add event from 8:00 to 10:00 on 12/12/12";
+		String userInput = "add event from 8:00 to 10:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -104,7 +104,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addEventInvalidOrder_incorrectCommandReturned() {
-		String userInput = "add event from 8:00 'party' to 10:00 on 12/12/12";
+		String userInput = "add event from 8:00 'party' to 10:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -112,7 +112,7 @@ public class ParserTest {
 
 	@Test
 	public void parseCommand_addEventValidOrder_addCommandReturned() {
-		String userInput = "add event 'party' from 5:00 to 27:00 on 12-12-12";
+		String userInput = "add event 'party' from 5:00 to 5:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(addCommand.getClass(), command.getClass());
@@ -120,7 +120,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addEventValidOrder2_addCommandReturned() {
-		String userInput = "add event from 8:00 to 10:00 'party' on 12-190-12";
+		String userInput = "add event from 8:00 to 10:00 'party' on 12-10-12";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(addCommand.getClass(), command.getClass());
@@ -156,7 +156,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineNoTime_incorrectCommandReturned() {
-		String userInput = "add deadline 'submission all day' by 16/2/";
+		String userInput = "add deadline 'submission all day' by 16-2-";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -164,7 +164,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_addDeadlineInvalidOrder_incorrectCommandReturned() {
-		String userInput = "add deadline by 25/16/16 'submission' 4am";
+		String userInput = "add deadline by 25-16-16 'submission' 4am";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());

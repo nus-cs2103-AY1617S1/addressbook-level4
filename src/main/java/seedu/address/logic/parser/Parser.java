@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -222,18 +223,20 @@ public class Parser {
 		LocalDateTime endDateTime = null;
 		
 		boolean isAnyMatch = false;
-
+		
+		int i = -1;
 		for (Matcher matcher : matchers) {
+			i++;
 			if (matcher.matches()) {
+				System.out.println("i: " + i);
+				
+				
 				isAnyMatch = true;
 
 				taskName = matcher.group("taskName").trim();
 				String date = matcher.group("date").trim();
 				String startTime = matcher.group("startTime").trim();
 				String endTime = matcher.group("endTime").trim();
-				
-				System.out.println("date startTime: " + date + " " + startTime);
-				System.out.println("date endTime: " + date + " " + endTime);
 				
 				try {
 					startDateTime = DateParser.parse(date + " " + startTime);
@@ -243,10 +246,15 @@ public class Parser {
 					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 				}				
 
-				break;
+				try {
+					return new AddCommand(taskName, startDateTime, endDateTime);
+				} catch (IllegalValueException e) {
+					// TODO Auto-generated catch block
+					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+				}
 			}
 		}
-		
+
 		ArrayList<Matcher> diffDayMatchers = new ArrayList<>();
 		diffDayMatchers.add(EVENT_ARGS_FORMAT_7.matcher(arguments));
 		diffDayMatchers.add(EVENT_ARGS_FORMAT_8.matcher(arguments));

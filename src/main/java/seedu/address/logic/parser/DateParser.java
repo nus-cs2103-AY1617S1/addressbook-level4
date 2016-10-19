@@ -10,17 +10,17 @@ import java.util.regex.Pattern;
 public class DateParser {
 
 	private static final Pattern[] STANDARD_DATE_FORMATS = new Pattern[] {
-			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yyyy HH:mm
-			Pattern.compile("^(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // yyyy-MM-dd HH:mm
-			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yy HH:mm
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd MMM yyyy HH:mm
-			Pattern.compile("^(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd MMM yy HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})\\s+(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yyyy HH:mm
+			Pattern.compile("^(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})\\s+(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // yyyy-MM-dd HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})\\s+(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd-MM-yy HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{4})\\s+(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd MMM yyyy HH:mm
+			Pattern.compile("^(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{2})\\s+(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // dd MMM yy HH:mm
 
-			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})$"), // HH:mm dd-MM-yyyy
-			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})$"), // HH:mm yyyy-MM-dd
-			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})$"), // HH:mm dd-MM-yy
-			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{4})$"), // HH:mm dd MMM yyyy
-			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{2})$") // HH:mm dd MMM yy
+			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s+(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})$"), // HH:mm dd-MM-yyyy
+			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s+(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})$"), // HH:mm yyyy-MM-dd
+			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s+(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})$"), // HH:mm dd-MM-yy
+			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s+(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{4})$"), // HH:mm dd MMM yyyy
+			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s+(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{2})$") // HH:mm dd MMM yy
 	};
 
 	private static final Pattern[] AMPM_DATE_FORMATS = new Pattern[] {
@@ -304,6 +304,18 @@ public class DateParser {
 		}
 		else {
 			return minute;
+		}
+	}
+	
+	public static void main(String[] args) {
+		try {
+			LocalDateTime date1 = DateParser.parse("12-12-12 05:00");
+			System.out.println(date1.toString());
+			LocalDateTime date2 = DateParser.parse("12-12-12 05:00");
+			System.out.println(date2.toString());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
