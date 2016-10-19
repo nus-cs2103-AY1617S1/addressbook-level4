@@ -56,7 +56,6 @@ public class Config {
     }
 
     public void setTaskListFilePath(String taskListFilePath) throws JSONException, IOException, ParseException {
-    	FileReader read= new FileReader(DEFAULT_CONFIG_FILE);
     	//JSONObject obj = (JSONObject) new JSONParser().parse(read);
     	//String result = (String) obj.get("taskListFilePath");
     	//JSONObject tasklist = (JSONObject) obj.get("taskListFilePath");

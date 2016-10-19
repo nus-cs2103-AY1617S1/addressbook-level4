@@ -1,5 +1,6 @@
 package seedu.tasklist.logic.commands;
 import java.io.File;
+import java.io.FileReader;
 import java.nio.file.Files;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,6 +8,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import org.json.JSONException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 //import com.google.common.io.Files;
@@ -34,25 +37,21 @@ public class SetStorageCommand extends Command {
 	}
 
 	public CommandResult execute() throws IOException, JSONException, ParseException{
-		//filePath = filePath+"/tasklist.xml";
-		File targetListFile = new File(filePath);
-		File defaultFilePath = new File("/Users/dheeraj/dheeraj5/data/tasklist.xml");
-		Path defaultPath = defaultFilePath.toPath();
+		if(filePath.equals("default")){
+			filePath = "/data/tasklist.xml";
+		}
+     	File targetListFile = new File(filePath);
+     	FileReader read= new FileReader("config.json");
+        JSONObject obj = (JSONObject) new JSONParser().parse(read);
+    	String currentFilePath = (String) obj.get("taskListFilePath");
+    	File currentTaskListPath = new File(currentFilePath);
 	    Config config = new Config();
-		if(targetListFile.exists()){
-			Path targetPath = targetListFile.toPath();
 			  try {
-				//Files.copy(defaultPath,targetPath);
-			//	Files.createFile(targetPath);
-				  Files.copy(defaultFilePath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING); 
+				  Files.move(currentTaskListPath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING); 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-			    config.setTaskListFilePath(filePath);
-			   // storage = new StorageManager(config.getTaskListFilePath(), config.getUserPrefsFilePath());    
+			    config.setTaskListFilePath(filePath);   
 			    return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS + filePath));
-		}
-		else
-			return new CommandResult(String.format(SET_STORAGE_FAILURE));
 	}
 }
