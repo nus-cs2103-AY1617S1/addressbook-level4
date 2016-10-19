@@ -11,3 +11,7 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
+
+notifications:
+  slack:
+    on_success: change
