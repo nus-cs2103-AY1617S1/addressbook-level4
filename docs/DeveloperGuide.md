@@ -276,7 +276,7 @@ Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add tasks to the todo list | be reminded of what to do
-`* * *` | user | add tasks with dealine | remember by what time I have to complete a task
+`* * *` | user | add tasks with deadline | remember by what time I have to complete a task
 `* * *` | user | add tasks with timeframe | know what I have to attend an event
 `* * *` | user | view upcoming tasks | check what I need to do / have to do soon
 `* * *` | user | search for details on a task or event | view what needs to be done
@@ -287,6 +287,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | undo my actions | reverse any mistakes that I have made
 `* * *` | user | redo my undo | correct any accidental undo
 `* * *` | user | edit tasks | keep them up to date
+`* *` | user | sync my task with other computers | keep track of what to do anywhere
 `* *` | user | enter synonyms for the commands | use natural language to accomplish what I want
 `*` | user | tag tasks | classify them and search for them according to these tags
 
