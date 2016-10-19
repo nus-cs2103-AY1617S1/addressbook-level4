@@ -2,6 +2,7 @@ package seedu.task.logic.commands;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.ReadOnlyTask;
 
@@ -31,10 +32,19 @@ public class CompleteCommand extends Command {
         }
 
         ReadOnlyTask orginialTask = lastShownList.get(targetIndex - 1);
-        Task completedTask = new Task(orginialTask.getName(), orginialTask.getTags(), orginialTask.getComplete());
+        try {
+            Task completedTask = new Task(orginialTask.getName(),
+                    orginialTask.getOpenTime(),
+                    orginialTask.getCloseTime(),
+                    orginialTask.getComplete(),
+                    orginialTask.getTags());
+            completedTask.setIsCompleted(true);
+            model.completeTask(orginialTask, completedTask);
+        } catch (IllegalValueException e) {
+            assert false : "Impossible";
+        }
 
-        completedTask.setIsCompleted(true);
-        model.completeTask(orginialTask, completedTask);
+        
 
         return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, orginialTask));
     }
