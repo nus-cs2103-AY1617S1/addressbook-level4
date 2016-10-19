@@ -36,11 +36,11 @@ public class Reminder extends DateTime {
         if (date != "") {
             if (date.contains("today")) { // allow user to key in "today"
                                           // instead of today's date
-                date = DateValidation.ReminderTimeToday(date);
+                date = DateValidation.FixedTimeToday(date);
             } else if (date.contains("tomorrow")) { // allow user to key in
                                                     // "tomorrow" instead of
                                                     // tomorrow's/ date
-                date = DateValidation.DateTimeTomorrow(date);
+                date = DateValidation.FixedTimeTomorrow(date);
             }
 
             Date taskDate = DATE_PARSER.parseDate(date);

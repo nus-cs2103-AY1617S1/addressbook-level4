@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 public class DateValidation {
 
-    public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20)\\d\\d) ([01]?[0-9]|2[0-3]):([0-5][0-9])";
+//    public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20)\\d\\d) ([01]?[0-9]|2[0-3]):([0-5][0-9])";
     public static final String INVALID_FORMAT = "Invalid Format";
     
     public void DateValidator() {
@@ -25,8 +25,7 @@ public class DateValidation {
      * @param date
      * @return true valid date format, false invalid date format
      */
-<<<<<<< HEAD
-    public static boolean validate(String date) {
+ /*   public static boolean validate(String date) {
 
         pattern = Pattern.compile(DATE_VALIDATION_REGEX);
         matcher = pattern.matcher(date);
@@ -115,7 +114,6 @@ public class DateValidation {
             
     }
 
-=======
     /*
      * public static boolean validate(String date) {
      * 
@@ -173,6 +171,15 @@ public class DateValidation {
      * 
      * }
      */
+    
+    
+    /**
+     * Convert today's date into date format
+     * Optional to contain time of the day in hour and mins
+     * @param string "today"
+     * @return today in valid date format
+     */
+    
     public static String DateTimeToday(String date) throws IllegalValueException {
         String[] timeparts = date.split(" ");
         String part1 = timeparts[0];
@@ -193,7 +200,12 @@ public class DateValidation {
                 throw new IllegalValueException(INVALID_FORMAT);
             }
     }
-
+    /**
+     * Convert today's date into date format
+     * Optional to contain time of the day in hour and mins
+     * @param string "tomorrow"
+     * @return tomorrow in valid date format
+     */
     public static String DateTimeTomorrow(String date) throws IllegalValueException {
         String[] timeparts = date.split(" ");
         String part1 = timeparts[0];
@@ -215,8 +227,13 @@ public class DateValidation {
                 throw new IllegalValueException(INVALID_FORMAT);
             }
     }
-
-    public static String ReminderTimeToday(String date) throws IllegalValueException {
+    /**
+     * Convert today's date into date format
+     * Must contain time of the day in hour and mins
+     * @param string "today"
+     * @return today in valid date format
+     */
+    public static String FixedTimeToday(String date) throws IllegalValueException {
         String[] timeparts = date.split(" ");
         String part1 = timeparts[0];
         Date today = new Date();
@@ -230,5 +247,27 @@ public class DateValidation {
         } else
             throw new IllegalValueException(INVALID_FORMAT);
     }
->>>>>>> 8e3d4fe... refinement for date format
+    /**
+     * Convert today's date into date format
+     * Must contain time of the day in hour and mins
+     * @param string "tomorrow"
+     * @return tomorrow in valid date format
+     */
+    
+    public static String FixedTimeTomorrow(String date) throws IllegalValueException {
+        String[] timeparts = date.split(" ");
+        String part1 = timeparts[0];
+        Date today = new Date();
+        Date todaydate;
+        new Date(today.getTime() + TimeUnit.DAYS.toMillis(1));
+        String strDate = new SimpleDateFormat("dd-MM-yyyy").format(today.getTime() + TimeUnit.DAYS.toMillis(1));
+        if (timeparts.length != 1) {
+            String part2 = timeparts[1];
+            if (part1.contains("today"))
+                return strDate.concat(" " + part2);
+            else
+                return strDate.concat(" " + part1);
+        } else
+            throw new IllegalValueException(INVALID_FORMAT);
+    }
 }
