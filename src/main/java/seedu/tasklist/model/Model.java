@@ -104,4 +104,12 @@ public interface Model {
 
     void deleteTaskRedo(Task task) throws TaskNotFoundException;
 
+    void addTaskRedo(Task task) throws DuplicateTaskException;
+
+    void markTaskAsCompleteRedo(Task task) throws TaskNotFoundException;
+
+    void resetDataRedo(ReadOnlyTaskList emptyTaskList);
+
+    void changeFileStorageRedo(String filePath) throws FileNotFoundException, IOException, ParseException, JSONException;
+
 }

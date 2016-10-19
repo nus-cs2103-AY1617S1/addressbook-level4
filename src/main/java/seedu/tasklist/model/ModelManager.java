@@ -1,4 +1,5 @@
 package seedu.tasklist.model;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.tasklist.commons.core.Config;
 import seedu.tasklist.commons.core.ComponentManager;
@@ -14,9 +15,11 @@ import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.TaskDetails;
 import seedu.tasklist.model.task.UniqueTaskList;
+import seedu.tasklist.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -58,40 +61,40 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
 
-	/**
-	 * Initializes a ModelManager with the given TaskList
-	 * TaskList and its variables should not be null
-	 */
-	public ModelManager(TaskList src, UserPrefs userPrefs) {
-		super();
-		assert src != null;
-		assert userPrefs != null;
+    /**
+     * Initializes a ModelManager with the given TaskList TaskList and its
+     * variables should not be null
+     */
+    public ModelManager(TaskList src, UserPrefs userPrefs) {
+        super();
+        assert src != null;
+        assert userPrefs != null;
 
-		logger.fine("Initializing with tasklist: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with tasklist: " + src + " and user prefs " + userPrefs);
 
-		taskList = new TaskList(src);
-		filteredTasks = new FilteredList<>(taskList.getTasks());
-	}
+        taskList = new TaskList(src);
+        filteredTasks = new FilteredList<>(taskList.getTasks());
+    }
 
-	public ModelManager() {
-		this(new TaskList(), new UserPrefs());
-	}
+    public ModelManager() {
+        this(new TaskList(), new UserPrefs());
+    }
 
-	public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
-		taskList = new TaskList(initialData);
-		filteredTasks = new FilteredList<>(taskList.getTasks());
-	}
+    public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
+        taskList = new TaskList(initialData);
+        filteredTasks = new FilteredList<>(taskList.getTasks());
+    }
 
-	@Override
-	public void resetData(ReadOnlyTaskList newData) {
-		if (newData.isEmpty()){ //clear or redo clear was executed
-		    List<Task> listOfTasks = (List<Task>)(List<?>)taskList.getTaskList();
-     		addToUndoStack(UndoCommand.CLR_CMD_ID, null, listOfTasks.toArray(new Task [listOfTasks.size()]));
-		}
-     	taskList.resetData(newData);
+    @Override
+    public void resetData(ReadOnlyTaskList newData) {
+        if (newData.isEmpty()) { // clear or redo clear was executed
+            List<Task> listOfTasks = (List<Task>) (List<?>) taskList.getTaskList();
+            addToUndoStack(UndoCommand.CLR_CMD_ID, null, listOfTasks.toArray(new Task[listOfTasks.size()]));
+        }
+        taskList.resetData(newData);
         indicateTaskListChanged();
         clearRedoStack();
-	}
+    }
 
     private void clearRedoStack() {
         redoStack.clear();
@@ -104,16 +107,16 @@ public class ModelManager extends ComponentManager implements Model {
         taskList.resetData(oldTaskList);
     }
 
-	@Override
-	public ReadOnlyTaskList getTaskList() {
-		return taskList;
-	}
+    @Override
+    public ReadOnlyTaskList getTaskList() {
+        return taskList;
+    }
 
-	/** Raises an event to indicate the model has changed */
-	private void indicateTaskListChanged() {
-		raise(new TaskListChangedEvent(taskList));
-	}
-	
+    /** Raises an event to indicate the model has changed */
+    private void indicateTaskListChanged() {
+        raise(new TaskListChangedEvent(taskList));
+    }
+
     @Override
     public void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
@@ -121,44 +124,44 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
 
-	@Override
-	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-		if(target instanceof Task){
-			Task myTask = (Task) target;
-			if(!myTask.isComplete())
-				Task.IncompleteCounter--;
-			if(myTask.isOverDue()&&!myTask.isComplete()){
-				Task.overdueCounter--;
-			}
-			if(myTask.isFloating()&&!myTask.isComplete()){
-				Task.floatCounter--;
-			}	
-		}
-		taskList.removeTask(target);
-		updateFilteredListToShowIncomplete();
-		indicateTaskListChanged();
-		addToUndoStack(UndoCommand.DEL_CMD_ID, null, (Task) target);
+    @Override
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        if (target instanceof Task) {
+            Task myTask = (Task) target;
+            if (!myTask.isComplete())
+                Task.IncompleteCounter--;
+            if (myTask.isOverDue() && !myTask.isComplete()) {
+                Task.overdueCounter--;
+            }
+            if (myTask.isFloating() && !myTask.isComplete()) {
+                Task.floatCounter--;
+            }
+        }
+        taskList.removeTask(target);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+        addToUndoStack(UndoCommand.DEL_CMD_ID, null, (Task) target);
         clearRedoStack();
-	}
+    }
 
-	@Override
-	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-		if(task instanceof Task){
-			Task myTask = (Task) task;
-			Task.IncompleteCounter++;
-			if(myTask.isOverDue()){
-				Task.overdueCounter++;
-			}
-			if(myTask.isFloating()){
-				Task.floatCounter++;
-			}	
-		}
-		taskList.addTask(task);
-		updateFilteredListToShowIncomplete();
-		indicateTaskListChanged();
-		addToUndoStack(UndoCommand.ADD_CMD_ID, null, task);
+    @Override
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        if (task instanceof Task) {
+            Task myTask = (Task) task;
+            Task.IncompleteCounter++;
+            if (myTask.isOverDue()) {
+                Task.overdueCounter++;
+            }
+            if (myTask.isFloating()) {
+                Task.floatCounter++;
+            }
+        }
+        taskList.addTask(task);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+        addToUndoStack(UndoCommand.ADD_CMD_ID, null, task);
         clearRedoStack();
-	}
+    }
 
     @Override
     public void addTaskUndo(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -166,10 +169,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
     }
-    
+
     @Override
     public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime,
-            EndTime endTime, Priority priority, UniqueTagList tags, String frequency) throws UniqueTaskList.DuplicateTaskException {
+            EndTime endTime, Priority priority, UniqueTagList tags, String frequency)
+            throws UniqueTaskList.DuplicateTaskException {
         Task originalTask = new Task(taskToUpdate);
         taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
         updateFilteredListToShowIncomplete();
@@ -179,31 +183,31 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags, String frequency) throws UniqueTaskList.DuplicateTaskException {
+    public void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
+            Priority priority, UniqueTagList tags, String frequency) throws UniqueTaskList.DuplicateTaskException {
         taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
     }
 
-	@Override
-	public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
-		if(task instanceof Task){
-			Task myTask = (Task) task;
-			Task.IncompleteCounter--;
-			if(myTask.isOverDue()){
-				Task.overdueCounter--;
-			}
-			if(myTask.isFloating()){
-				Task.floatCounter--;
-			}
-		}
-		taskList.markTaskAsComplete(task);
-		updateFilteredListToShowIncomplete();
-		indicateTaskListChanged();
-		addToUndoStack(UndoCommand.DONE_CMD_ID, null, (Task) task);
+    @Override
+    public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
+        if (task instanceof Task) {
+            Task myTask = (Task) task;
+            Task.IncompleteCounter--;
+            if (myTask.isOverDue()) {
+                Task.overdueCounter--;
+            }
+            if (myTask.isFloating()) {
+                Task.floatCounter--;
+            }
+        }
+        taskList.markTaskAsComplete(task);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+        addToUndoStack(UndoCommand.DONE_CMD_ID, null, (Task) task);
         clearRedoStack();
-	}
-
+    }
 
     @Override
     public synchronized void markTaskAsIncomplete(ReadOnlyTask task) throws TaskNotFoundException {
@@ -211,7 +215,6 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
     }
-    
 
     @Override
     public void addToUndoStack(int undoID, String filePath, Task... tasks) {
@@ -221,251 +224,257 @@ public class ModelManager extends ComponentManager implements Model {
         UndoInfo undoInfo = new UndoInfo(undoID, filePath, tasks);
         undoStack.push(undoInfo);
     }
-    
+
     @Override
     public void updateFilteredListToShowPriority(String priority) {
         updateFilteredListToShowAll();
         updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));
     }
-    
+
     @Override
     public void updateFilteredListToShowDate(String date) {
-    	updateFilteredListToShowAll();
-	    updateFilteredTaskList(new PredicateExpression(new DateQualifier(date)));
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(date)));
 
     }
-	//=========== Filtered Person List Accessors ===============================================================
+    // =========== Filtered Person List Accessors
+    // ===============================================================
 
-	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-		return new UnmodifiableObservableList<>(filteredTasks);
-	}
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks);
+    }
 
-	public UnmodifiableObservableList<Task> getListOfTasks() {
-		return new UnmodifiableObservableList<>(filteredTasks);
-	}
+    public UnmodifiableObservableList<Task> getListOfTasks() {
+        return new UnmodifiableObservableList<>(filteredTasks);
+    }
 
-	@Override
-	public void updateFilteredListToShowAll() {
-	    sortByDateAndPriority();
-		filteredTasks.setPredicate(null);
-	}
+    @Override
+    public void updateFilteredListToShowAll() {
+        sortByDateAndPriority();
+        filteredTasks.setPredicate(null);
+    }
 
-	@Override
-	public void updateFilteredListToShowIncomplete() {
-		updateFilteredListToShowAll();
-		updateFilteredTaskList(new PredicateExpression(new DefaultDisplayQualifier()));
-	}
+    @Override
+    public void updateFilteredListToShowIncomplete() {
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new DefaultDisplayQualifier()));
+    }
 
-	public void updateFilteredList(){
-		updateFilteredListToShowIncomplete();
-		indicateTaskListChanged();
-	}
+    public void updateFilteredList() {
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+    }
 
-	@Override
-	public void updateFilteredTaskList(Set<String> keywords){
-	    sortByDateAndPriority();
-	    updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-	}
-	
+    @Override
+    public void updateFilteredTaskList(Set<String> keywords) {
+        sortByDateAndPriority();
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
     private void updateFilteredTaskList(Expression expression) {
-		filteredTasks.setPredicate(expression::satisfies);
-	}
-
-	public Set<String> getKeywordsFromList(List<ReadOnlyTask> tasks){
-		Set<String> keywords = new HashSet<String>();
-		for(ReadOnlyTask task: tasks){
-			keywords.addAll(Arrays.asList(task.getTaskDetails().toString().split(" ")));
-		}
-		return keywords;
-	}
-
-	@Override
-	public void updateFilteredListToShowComplete() {
-		updateFilteredListToShowAll();
-		updateFilteredTaskList(new PredicateExpression(new CompletedQualifier()));
-	}
-
-	@Override
-	public void updateFilteredListToShowFloating(){
-		updateFilteredListToShowAll();
-		updateFilteredTaskList(new PredicateExpression(new FloatingQualifier()));
-	}
-
-	@Override
-	public void updateFilteredListToShowOverDue(){
-		updateFilteredListToShowAll();
-		updateFilteredTaskList(new PredicateExpression(new OverDueQualifier()));
-	}
-	
-	@Override
-	public void updateFilteredListToShowRecurring(){
-		updateFilteredListToShowAll();
-		updateFilteredTaskList(new PredicateExpression(new RecurringQualifier()));
-	}
-
-	private void sortByDateAndPriority() {
-	    //Collections.sort(taskList.getListOfTasks(), Comparators.DATE_TIME);
-	    Collections.sort(taskList.getListOfTasks(), Comparators.PRIORITY);
+        filteredTasks.setPredicate(expression::satisfies);
     }
-	
-	//========== Inner classes/interfaces used for filtering ==================================================
 
-	private static class Comparators {
-	    public static Comparator<Task> DATE_TIME = new Comparator<Task>(){
-	        @Override
+    public Set<String> getKeywordsFromList(List<ReadOnlyTask> tasks) {
+        Set<String> keywords = new HashSet<String>();
+        for (ReadOnlyTask task : tasks) {
+            keywords.addAll(Arrays.asList(task.getTaskDetails().toString().split(" ")));
+        }
+        return keywords;
+    }
+
+    @Override
+    public void updateFilteredListToShowComplete() {
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier()));
+    }
+
+    @Override
+    public void updateFilteredListToShowFloating() {
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new FloatingQualifier()));
+    }
+
+    @Override
+    public void updateFilteredListToShowOverDue() {
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new OverDueQualifier()));
+    }
+
+    @Override
+    public void updateFilteredListToShowRecurring() {
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new RecurringQualifier()));
+    }
+
+    private void sortByDateAndPriority() {
+        // Collections.sort(taskList.getListOfTasks(), Comparators.DATE_TIME);
+        Collections.sort(taskList.getListOfTasks(), Comparators.PRIORITY);
+    }
+
+    // ========== Inner classes/interfaces used for filtering
+    // ==================================================
+
+    private static class Comparators {
+        public static Comparator<Task> DATE_TIME = new Comparator<Task>() {
+            @Override
             public int compare(Task o1, Task o2) {
                 return o1.getStartTime().compareTo(o2.getStartTime());
             }
-	    };
-	    public static Comparator<Task> PRIORITY = new Comparator<Task>(){
-	        @Override
-	        public int compare(Task o1, Task o2) {
-	            //extract only the date without time from the card string for start time
-	            String date1 = o1.getStartTime().toCardString().split(" ")[0];
-	            String date2 = o2.getStartTime().toCardString().split(" ")[0];
-	            if (date1.equals(date2))
+        };
+        public static Comparator<Task> PRIORITY = new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                // extract only the date without time from the card string for
+                // start time
+                String date1 = o1.getStartTime().toCardString().split(" ")[0];
+                String date2 = o2.getStartTime().toCardString().split(" ")[0];
+                if (date1.equals(date2))
                     return o1.getPriority().compareTo(o2.getPriority());
-                else return o1.getStartTime().compareTo(o2.getStartTime());
-	        }
-	    };
-	}
-	
-	interface Expression {
-		boolean satisfies(ReadOnlyTask person);
-		String toString();
-	}
+                else
+                    return o1.getStartTime().compareTo(o2.getStartTime());
+            }
+        };
+    }
 
-	private class PredicateExpression implements Expression {
+    interface Expression {
+        boolean satisfies(ReadOnlyTask person);
 
-		private final Qualifier qualifier;
+        String toString();
+    }
 
-		PredicateExpression(Qualifier qualifier) {
-			this.qualifier = qualifier;
-		}
+    private class PredicateExpression implements Expression {
 
-		@Override
-		public boolean satisfies(ReadOnlyTask person) {
-			return qualifier.run(person);
-		}
+        private final Qualifier qualifier;
 
-		@Override
-		public String toString() {
-			return qualifier.toString();
-		}
-	}
+        PredicateExpression(Qualifier qualifier) {
+            this.qualifier = qualifier;
+        }
 
-	interface Qualifier {
-		boolean run(ReadOnlyTask person);
-		String toString();
-	}
+        @Override
+        public boolean satisfies(ReadOnlyTask person) {
+            return qualifier.run(person);
+        }
 
-	private class DefaultDisplayQualifier implements Qualifier {
+        @Override
+        public String toString() {
+            return qualifier.toString();
+        }
+    }
 
-		DefaultDisplayQualifier(){
+    interface Qualifier {
+        boolean run(ReadOnlyTask person);
 
-		}
+        String toString();
+    }
 
-		@Override
-		public boolean run(ReadOnlyTask person) {
-			return !person.isComplete();
-		}
-	}
+    private class DefaultDisplayQualifier implements Qualifier {
 
-	private class CompletedQualifier implements Qualifier {
-		@Override
-		public boolean run(ReadOnlyTask person) {
-			return person.isComplete();
-		}
-	}
+        DefaultDisplayQualifier() {
 
-	private class FloatingQualifier implements Qualifier {
-		@Override
-		public boolean run(ReadOnlyTask person) {
-			return person.isFloating();
-		}
-	}
-    
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return !person.isComplete();
+        }
+    }
+
+    private class CompletedQualifier implements Qualifier {
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return person.isComplete();
+        }
+    }
+
+    private class FloatingQualifier implements Qualifier {
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return person.isFloating();
+        }
+    }
+
     private class PriorityQualifier implements Qualifier {
         private String priority;
-	    
+
         public PriorityQualifier(String priority) {
             this.priority = priority.replaceFirst("p/", "");
         }
-    	
+
         @Override
         public boolean run(ReadOnlyTask person) {
             return person.getPriority().priorityLevel.equals(this.priority);
         }
     }
-    
+
     private class DateQualifier implements Qualifier {
         private final Calendar requestedTime;
-	    
+
         public DateQualifier(String time) {
-        	requestedTime = Calendar.getInstance();
-        	List<DateGroup> dates = new Parser().parse(time);
-        	requestedTime.setTime(dates.get(0).getDates().get(0));
+            requestedTime = Calendar.getInstance();
+            List<DateGroup> dates = new Parser().parse(time);
+            requestedTime.setTime(dates.get(0).getDates().get(0));
         }
-    	
+
         @Override
-        public boolean run(ReadOnlyTask person) {        	
-        	return DateUtils.isSameDay(person.getStartTime().startTime, requestedTime) ||
-                    (person.getStartTime().toCardString().equals("-") && DateUtils.isSameDay(person.getEndTime().endTime, requestedTime));
+        public boolean run(ReadOnlyTask person) {
+            return DateUtils.isSameDay(person.getStartTime().startTime, requestedTime)
+                    || (person.getStartTime().toCardString().equals("-")
+                            && DateUtils.isSameDay(person.getEndTime().endTime, requestedTime));
         }
     }
 
-	private class OverDueQualifier implements Qualifier {
-		@Override
-		public boolean run(ReadOnlyTask person) {
-			return person.isOverDue();
-		}
-	}
-	
-	private class RecurringQualifier implements Qualifier {
-		@Override
-		public boolean run(ReadOnlyTask person) {
-			return person.isRecurring();
-		}
-	}
+    private class OverDueQualifier implements Qualifier {
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return person.isOverDue();
+        }
+    }
 
-	private class NameQualifier implements Qualifier {
-		private Set<String> nameKeyWords;
-		private Pattern NAME_QUERY;
+    private class RecurringQualifier implements Qualifier {
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return person.isRecurring();
+        }
+    }
 
+    private class NameQualifier implements Qualifier {
+        private Set<String> nameKeyWords;
+        private Pattern NAME_QUERY;
 
-		NameQualifier(Set<String> nameKeyWords) {
-			this.nameKeyWords = nameKeyWords;
-			this.NAME_QUERY = Pattern.compile(getRegexFromString(), Pattern.CASE_INSENSITIVE);
-		}
+        NameQualifier(Set<String> nameKeyWords) {
+            this.nameKeyWords = nameKeyWords;
+            this.NAME_QUERY = Pattern.compile(getRegexFromString(), Pattern.CASE_INSENSITIVE);
+        }
 
-		private String getRegexFromString(){
-			String result = "";
-			for(String keyword: nameKeyWords){
-				for(char c: keyword.toCharArray()){
-					switch(c){
-					case '*':
-						result += ".*";
-						break;
-					default:
-						result += c;
-					}
-				}
-			}
-			return result;
-		}
+        private String getRegexFromString() {
+            String result = "";
+            for (String keyword : nameKeyWords) {
+                for (char c : keyword.toCharArray()) {
+                    switch (c) {
+                    case '*':
+                        result += ".*";
+                        break;
+                    default:
+                        result += c;
+                    }
+                }
+            }
+            return result;
+        }
 
-		@Override
-		public boolean run(ReadOnlyTask person) {
-			Matcher matcher = NAME_QUERY.matcher(person.getTaskDetails().taskDetails);
-			return matcher.matches();
-		}
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            Matcher matcher = NAME_QUERY.matcher(person.getTaskDetails().taskDetails);
+            return matcher.matches();
+        }
 
-		@Override
-		public String toString() {
-			return "name=" + String.join(", ", nameKeyWords);
-		}
-	}
+        @Override
+        public String toString() {
+            return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
 
     @Override
     public LinkedList<UndoInfo> getUndoStack() {
@@ -482,57 +491,124 @@ public class ModelManager extends ComponentManager implements Model {
         if (filePath.equals("default")) {
             filePath = "/data/tasklist.xml";
         }
-    File targetListFile = new File(filePath);
-    FileReader read = new FileReader("config.json");
-    JSONObject obj = (JSONObject) new JSONParser().parse(read);
-    String currentFilePath = (String) obj.get("taskListFilePath");
-    File currentTaskListPath = new File(currentFilePath);
-    Config config = new Config();
-    try {
-        Files.move(currentTaskListPath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-    } catch (Exception e) {
-        e.printStackTrace();
+        File targetListFile = new File(filePath);
+        FileReader read = new FileReader("config.json");
+        JSONObject obj = (JSONObject) new JSONParser().parse(read);
+        String currentFilePath = (String) obj.get("taskListFilePath");
+        File currentTaskListPath = new File(currentFilePath);
+        Config config = new Config();
+        try {
+            Files.move(currentTaskListPath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        config.setTaskListFilePath(filePath);
+        addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
+        clearRedoStack();
     }
-    config.setTaskListFilePath(filePath);
-    addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
-    }
-    
+
     @Override
     public String changeFileStorageUndo(String filePath) throws IOException, ParseException, JSONException {
-    if (filePath.equals("default")) {
-        filePath = "/data/tasklist.xml";
-    }
-    File targetListFile = new File(filePath);
-    FileReader read = new FileReader("config.json");
-    JSONObject obj = (JSONObject) new JSONParser().parse(read);
-    String currentFilePath = (String) obj.get("taskListFilePath");
-    File currentTaskListPath = new File(currentFilePath);
-    Config config = new Config();
-    try {
-        Files.move(currentTaskListPath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    config.setTaskListFilePath(filePath);
+        if (filePath.equals("default")) {
+            filePath = "/data/tasklist.xml";
+        }
+        File targetListFile = new File(filePath);
+        FileReader read = new FileReader("config.json");
+        JSONObject obj = (JSONObject) new JSONParser().parse(read);
+        String currentFilePath = (String) obj.get("taskListFilePath");
+        File currentTaskListPath = new File(currentFilePath);
+        Config config = new Config();
+        try {
+            Files.move(currentTaskListPath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        config.setTaskListFilePath(filePath);
         return currentFilePath;
     }
 
     @Override
     public void deleteTaskRedo(Task target) throws TaskNotFoundException {
-        if(target instanceof Task){
+        if (target instanceof Task) {
             Task myTask = (Task) target;
-            if(!myTask.isComplete())
+            if (!myTask.isComplete())
                 myTask.IncompleteCounter--;
-            if(myTask.isOverDue()&&!myTask.isComplete()){
+            if (myTask.isOverDue() && !myTask.isComplete()) {
                 myTask.overdueCounter--;
             }
-            if(myTask.isFloating()&&!myTask.isComplete()){
+            if (myTask.isFloating() && !myTask.isComplete()) {
                 myTask.floatCounter--;
-            }   
+            }
         }
         taskList.removeTask(target);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
         addToUndoStack(UndoCommand.DEL_CMD_ID, null, (Task) target);
+    }
+
+    @Override
+    public void addTaskRedo(Task task) throws DuplicateTaskException {
+        if (task instanceof Task) {
+            Task myTask = (Task) task;
+            Task.IncompleteCounter++;
+            if (myTask.isOverDue()) {
+                Task.overdueCounter++;
+            }
+            if (myTask.isFloating()) {
+                Task.floatCounter++;
+            }
+        }
+        taskList.addTask(task);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+        addToUndoStack(UndoCommand.ADD_CMD_ID, null, task);
+    }
+
+    @Override
+    public void markTaskAsCompleteRedo(Task task) throws TaskNotFoundException {
+        if (task instanceof Task) {
+            Task myTask = (Task) task;
+            Task.IncompleteCounter--;
+            if (myTask.isOverDue()) {
+                Task.overdueCounter--;
+            }
+            if (myTask.isFloating()) {
+                Task.floatCounter--;
+            }
+        }
+        taskList.markTaskAsComplete(task);
+        updateFilteredListToShowIncomplete();
+        indicateTaskListChanged();
+        addToUndoStack(UndoCommand.DONE_CMD_ID, null, (Task) task);
+    }
+
+    @Override
+    public void resetDataRedo(ReadOnlyTaskList newData) {
+        if (newData.isEmpty()) { // clear or redo clear was executed
+            List<Task> listOfTasks = (List<Task>) (List<?>) taskList.getTaskList();
+            addToUndoStack(UndoCommand.CLR_CMD_ID, null, listOfTasks.toArray(new Task[listOfTasks.size()]));
+        }
+        taskList.resetData(newData);
+        indicateTaskListChanged();
+    }
+
+    @Override
+    public void changeFileStorageRedo(String filePath) throws IOException, ParseException, JSONException {
+        if (filePath.equals("default")) {
+            filePath = "/data/tasklist.xml";
+        }
+        File targetListFile = new File(filePath);
+        FileReader read = new FileReader("config.json");
+        JSONObject obj = (JSONObject) new JSONParser().parse(read);
+        String currentFilePath = (String) obj.get("taskListFilePath");
+        File currentTaskListPath = new File(currentFilePath);
+        Config config = new Config();
+        try {
+            Files.move(currentTaskListPath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        config.setTaskListFilePath(filePath);
+        addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
     }
 }

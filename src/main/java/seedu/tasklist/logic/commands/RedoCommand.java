@@ -67,7 +67,7 @@ public class RedoCommand extends Command {
     private void redoSetStorage() {
     	assert model != null;
     	try{
-    	   model.changeFileStorage(undoInfo.getFilePath());
+    	   model.changeFileStorageRedo(undoInfo.getFilePath());
     	}
     	catch (IOException | ParseException | JSONException e) {
     		e.printStackTrace();
@@ -76,7 +76,7 @@ public class RedoCommand extends Command {
     
     private void redoAdd(Task task) {
         try {
-            model.addTask(task);
+            model.addTaskRedo(task);
         } 
         catch (UniqueTaskList.DuplicateTaskException e) {
             e.printStackTrace();
@@ -105,7 +105,7 @@ public class RedoCommand extends Command {
 
     private void redoDone(Task task) {
         try {
-            model.markTaskAsComplete(task);
+            model.markTaskAsCompleteRedo(task);
         }
         catch (TaskNotFoundException e) {
             assert false: "The target task cannot be missing";
@@ -116,7 +116,7 @@ public class RedoCommand extends Command {
         Task.IncompleteCounter=0;
         Task.floatCounter=0;
         Task.overdueCounter=0;
-        model.resetData(TaskList.getEmptyTaskList());
+        model.resetDataRedo(TaskList.getEmptyTaskList());
     }
     
 }
