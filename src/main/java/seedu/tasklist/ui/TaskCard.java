@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import seedu.tasklist.model.task.ReadOnlyTask;
+import seedu.tasklist.model.task.Task;
 
 public class TaskCard extends UiPart{
 

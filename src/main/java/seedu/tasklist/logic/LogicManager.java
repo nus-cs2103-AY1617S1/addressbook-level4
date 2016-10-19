@@ -11,11 +11,7 @@ import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.storage.Storage;
 
-import java.io.IOException;
 import java.util.logging.Logger;
-
-import org.json.JSONException;
-import org.json.simple.parser.ParseException;
 
 /**
  * The main LogicManager of the app.
@@ -32,7 +28,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws IOException, JSONException, ParseException {
+    public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);
@@ -46,6 +42,6 @@ public class LogicManager extends ComponentManager implements Logic {
     
     @Override
     public ReadOnlyTaskList getTaskList() {
-        return model.getTaskList();
+    	return model.getTaskList();
     }
 }

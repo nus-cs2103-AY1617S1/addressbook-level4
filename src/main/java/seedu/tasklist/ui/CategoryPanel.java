@@ -1,17 +1,25 @@
 package seedu.tasklist.ui;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
+import seedu.tasklist.model.Model;
 import seedu.tasklist.model.ReadOnlyTaskList;
+import seedu.tasklist.model.TaskList;
+import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -49,7 +57,7 @@ public class CategoryPanel extends UiPart {
     
     @Override
     public void setNode(Node node) {
-        gridpane = (AnchorPane) node;
+    	gridpane = (AnchorPane) node;
     }
 
     @Override
@@ -75,13 +83,13 @@ public class CategoryPanel extends UiPart {
     
     @Subscribe
     private void modelChangedEvent(TaskListChangedEvent abce) {
-        overdueNo.setText(Integer.toString(Task.overdueCounter));
-        floatingNo.setText(Integer.toString(Task.floatCounter));
-        totalNo.setText(Integer.toString(abce.data.getTaskList().size()));
+    	overdueNo.setText(Integer.toString(Task.overdueCounter));
+    	floatingNo.setText(Integer.toString(Task.floatCounter));
+    	totalNo.setText(Integer.toString(abce.data.getTaskList().size()));
     }
     
     private void configure() {
-        gridpane.setStyle("-fx-background-color: #FFFFFF;");
+    	gridpane.setStyle("-fx-background-color: #FFFFFF;");
         addToPlaceholder();
     }
 

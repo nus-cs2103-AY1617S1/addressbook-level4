@@ -1,10 +1,5 @@
 package seedu.tasklist.logic.commands;
 
-import java.io.IOException;
-
-import org.json.JSONException;
-import org.json.simple.parser.ParseException;
-
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -21,9 +16,6 @@ public abstract class Command {
      *
      * @param displaySize used to generate summary
      * @return summary message for persons displayed
-     * @throws IOException 
-     * @throws JSONException 
-     * @throws ParseException 
      */
     public static String getMessageForTaskListShownSummary(int displaySize) {
         return String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, displaySize);
@@ -34,7 +26,7 @@ public abstract class Command {
      *
      * @return feedback message of the operation result for display
      */
-    public abstract CommandResult execute() throws IOException, JSONException, ParseException;
+    public abstract CommandResult execute();
 
     /**
      * Provides any needed dependencies to the command.
