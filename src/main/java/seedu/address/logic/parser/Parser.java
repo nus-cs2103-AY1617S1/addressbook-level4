@@ -97,7 +97,9 @@ public class Parser {
     
     private static final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
     
-    public Parser() {}
+    public Parser() {
+        nattyParser.notifyAll();
+    }
 
     /**
      * Parses user input into command for execution.
