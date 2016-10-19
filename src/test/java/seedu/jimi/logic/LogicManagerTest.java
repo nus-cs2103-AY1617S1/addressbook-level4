@@ -390,15 +390,21 @@ public class LogicManagerTest {
         String newTaskBookFilePathName = TestUtil.getFilePathInSandboxFolder("newSampleData.xml");
         Config originalConfig = helper.generateConfigFile(originalTaskBookFilePathName);
         Config expectedConfig = helper.generateConfigFile(newTaskBookFilePathName);
+        Config currentConfig = ConfigUtil.readConfig(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING).orElse(new Config());
         
         assertCommandBehavior(helper.generateSaveAsCommand(newTaskBookFilePathName), String.format(SaveAsCommand.MESSAGE_SUCCESS, expectedConfig.getTaskBookFilePath()));
+        currentConfig = ConfigUtil.readConfig(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING).orElse(new Config());
+        assertEquals(expectedConfig, currentConfig);
         
         assertCommandBehavior(helper.generateSaveAsCommand(originalTaskBookFilePathName), String.format(SaveAsCommand.MESSAGE_SUCCESS, originalConfig.getTaskBookFilePath()));
+        currentConfig = ConfigUtil.readConfig(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING).orElse(new Config());
+        assertEquals(originalConfig, currentConfig);
     }
 
 
     @Test
     public void execute_saveAs_duplicateNotAllowed() throws Exception {
+        SaveAsCommand.setConfigFilePath(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING);   //Access config file used for testing only
         TestDataHelper helper = new TestDataHelper();
         String originalTaskBookFilePathName = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
         

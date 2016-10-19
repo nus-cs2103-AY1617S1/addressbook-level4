@@ -22,14 +22,17 @@ public class SaveAsCommandTest extends AddressBookGuiTest{
         String newTaskBookFilePath = TestUtil.getFilePathInSandboxFolder("newSampleData.xml");
         
         // change storage directory
-        commandBox.runCommand(getSaveAsCommand(newTaskBookFilePath));
+        assertSaveAsSuccess(currentConfig, newTaskBookFilePath);
+
         
         // save to duplicate storage directory
         commandBox.runCommand(getSaveAsCommand(newTaskBookFilePath));
         assertResultMessage(SaveAsCommand.MESSAGE_DUPLICATE_SAVE_DIRECTORY);
 
+
         // reset storage directory for next test run
         assertSaveAsSuccess(currentConfig, originalTaskBookFilePath);
+        
     }
 
     /**
@@ -37,13 +40,17 @@ public class SaveAsCommandTest extends AddressBookGuiTest{
      * 
      * @param newFilePath newFilePath name to be used
      * @param currentConfig Config file to be edited.
+     * @throws DataConversionException if Config file can't be read
      *
      */
-    private void assertSaveAsSuccess(Config currentConfig, String newFilePath) {
+    private void assertSaveAsSuccess(Config currentConfig, String newFilePath) throws DataConversionException {
         commandBox.runCommand(getSaveAsCommand(newFilePath));
         
         Config expectedConfig = new Config();
         expectedConfig.setTaskBookFilePath(newFilePath);
+        
+        currentConfig = ConfigUtil.readConfig(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING).orElse(new Config());    //Update currentConfig after command is executed
+        assertEquals(newFilePath, currentConfig.getTaskBookFilePath());
         
     }
     
