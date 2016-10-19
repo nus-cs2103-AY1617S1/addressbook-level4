@@ -191,7 +191,7 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Item toBeAdded = helper.adam();
+        Item toBeAdded = helper.aLongEvent();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addItem(toBeAdded);
 
@@ -204,7 +204,6 @@ public class LogicManagerTest {
                 AddCommand.MESSAGE_DUPLICATE_ITEM,
                 expectedAB,
                 expectedAB.getItemList());
-
     }
 
 
