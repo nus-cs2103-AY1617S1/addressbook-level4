@@ -311,74 +311,6 @@ Some possible additions to be made:
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-**Must-Have Features**
-
-Priority | As a ... | I want to ... | So that I can...
-
----------- | :-------- | :--------- | :-----------
-
-`* * *` | new user | list all the commands | know how to use the program
-
-`* * *` | new user | view a command | know how to use that particular command
-
-`* * *` | user | add a task | keep track of all my tasks/to-dos
-
-`* * *` | user | add a task with a time and date | keep track of deadlines
-
-`* * *` | user | add a floating task | remind myself on less important tasks
-
-`* * *` | user | add a recurring task | be constantly reminded/won't accidentally delete this task
-
-`* * *` | user | add a task with tags | properly categorize my tasks 
-
-`* * *` | user | delete a task | remove a completed task from the list
-
-`* * *` | user | delete all tasks | declutter my task manager
-
-`* * *` | user | delete all tasks with a certain tag | declutter my task manager
-
-`* * *` | user | find a task by name/description | see what needs to be done
-
-`* * *` | user | find a task by tags | find a task that may be related to another task
-
-`* * *` | user | list all tasks | know what are the tasks I have entered
-
-`* * *` | user | list all tasks due by today | know what are the tasks I need to complete by today
-
-`* * *` | user | list all tasks with a deadline | know what are the tasks I can plan my schedule
-
-`* * *` | user | list all tags | know what tags I can search for
-
-`* * *` | user | edit any information of the task | make changes to the tasks that I have created
-
-
-**Nice-To-Have Features**
-
-`* *` | user | undo previous command | remove any task that is entered wrongly
-
-`* *` | user | keep my information safe | protect information that is private to me
-
-`* *` | user | be reminded of my deadlines | meet my deadlines
-
-`* *` | user | prioritize my tasks | know which tasks are more important
-
-`* *` | user | keep my deleted tasks temporarily | restore them should I need to
-
-`* *` | user | auto correct my typos when typing a command | not retype/edit the command everytime I make a typo
-
-`* *` | user | asked everytime I add a task | ensure that all fields have been entered correctly
-
-`* *` | user | asked everytime I delete a task | not accidentally lose information
-
-`* *` | user | asked everytime I edit a task | not accidentally change the wrong information
-
-
-**May-Have Features**
-
-`*` | user | find history of tasks of certain past period of time
-
-`*` | user | predict and auto correct my typos | be lazy and not retype everything again
-
 
 | **Priority** | **As a...** | **I want to...** | **So that I can...** | 
 | --- | --- | --- | --- | --- |
@@ -408,7 +340,7 @@ Priority | As a ... | I want to ... | So that I can...
 |`* *` | user | asked every time I add a task | ensure that all fields have been entered correctly |
 |`* *` | user | asked every time I delete a task | not accidentally lose information |
 |`* *` | user | asked every time I edit a task | not accidentally change the wrong information |
-|`*` | user | find history of tasks of certain past period of time |
+|`*` | user | find history of tasks of certain past periods of time | recall what I've done |
 |`*` | user | predict and auto correct my typos | be lazy and not retype everything again |
 
 
