@@ -43,6 +43,8 @@ public class StartTime {
     			startTime.setTime(dates.get(0).getDates().get(0));
     		}
     	}
+    	startTime.clear(Calendar.SECOND);
+    	startTime.clear(Calendar.MILLISECOND);
     }
     
     public StartTime(Long unixTime) {
@@ -82,8 +84,8 @@ public class StartTime {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (this.startTime != null && ((StartTime) other).startTime != null ) && (other instanceof StartTime // instanceof handles nulls
-                && this.startTime.equals(((StartTime) other).startTime)); // state check
+                || (other instanceof StartTime // instanceof handles nulls
+                && this.startTime.getTimeInMillis()==((StartTime) other).startTime.getTimeInMillis()); // state check
     }
 
     @Override
