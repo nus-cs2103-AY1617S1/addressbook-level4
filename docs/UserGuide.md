@@ -225,7 +225,6 @@ Complete | `done TASK_ID`
 Block | `block TASK_NAME from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG]...`
 Redo | `r`
 Undo | `u`
-Find | `find [TASK_NAME] [by DATE TIME] [t/TAG]...`
 Clear | `clear`
 Change directory | `cd FILE_PATH`
 Exit | `exit`
