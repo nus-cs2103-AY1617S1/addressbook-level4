@@ -334,16 +334,16 @@ user wants to collate the source files in the same folder periodically.
 Priority | As a ... | I want to ... | So that I can...
 :------- | :--------| :------------ | :-----------
 `* * *`  | new user | see usage instructions | refer to instructions when I forget how to use the application
-`* * *`  | user | add a new task |
+`* * *`  | user | add a new task | keep a record of what I have to do without the need to remember them
 `* * *`  | user | list tasks that fulfil specific parameters | filter tasks according to specific parameters 
 `* * *`  | user | delete a task | remove entries that are no longer relevant
 `* * *`  | user | find a task by name | locate details of tasks without having to go through the entire list
-`* * *` | user | undo an action |
-`* * *` | user  | update a task |
+`* * *` | user | undo an action | easily revert the wrong actions I have done
+`* * *` | user  | update a task | change the details whenever the situation changes without the need to re-add the task
 `* * *` | user | mark a task as done | keep track of my progress
 `* *`   | advanced user | set data storage location | sync data to the cloud and access tasks from multiple computers
 `* *` | user | set command aliases | type more efficiently
-`* *` | user | clear all tasks |
+`* *` | user | clear all tasks | start with a fresh page again when the task manager gets too messy
 
 <br>
 ## Appendix B: Use Cases
@@ -374,8 +374,8 @@ Use case ends
 **MSS**
 
 1. User requests to add task
-2. Amethyst adds the task
-3. Amethyst displays successful addition <br>
+2. Amethyst adds the task <br>
+[//]: # (3. Amethyst displays successful addition <br>)
 Use case ends
 
 **Extensions**
@@ -386,7 +386,7 @@ Use case ends
   2a2. Amethyst prompts user to input in correct format <br>
   Use case ends
 
-2b. Duplicate entry entered by user
+2b. Duplicate entry (entries with the same task name, type, date and time) entered by user
 
 > 2b1. Amethyst displays prompt message, requests user to differentiate entry <br>
   Use case ends
