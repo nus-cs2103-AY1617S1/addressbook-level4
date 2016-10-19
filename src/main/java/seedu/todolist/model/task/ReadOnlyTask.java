@@ -10,6 +10,7 @@ public interface ReadOnlyTask {
     Interval getInterval();
     Location getLocation();  
     Remarks getRemarks();
+    Status getStatus();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

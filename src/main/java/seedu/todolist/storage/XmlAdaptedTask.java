@@ -30,6 +30,9 @@ public class XmlAdaptedTask {
     
     @XmlElement
     private String remarks;
+    
+    @XmlElement
+    private String status;
 
     /**
      * No-arg constructor for JAXB use.
@@ -64,6 +67,7 @@ public class XmlAdaptedTask {
         
         location = source.getLocation().toString();
         remarks = source.getRemarks().toString();
+        status = source.getStatus().toString();
     }
 
     /**
@@ -76,6 +80,7 @@ public class XmlAdaptedTask {
         final Interval interval = new Interval(this.startDate, this.startTime, this.endDate, this.endTime);
         final Location location = new Location(this.location);
         final Remarks remarks = new Remarks(this.remarks);
-        return new Task(name, interval, location, remarks);
+        final Status status = new Status(this.status);
+        return new Task(name, interval, location, remarks, status);
     }
 }
