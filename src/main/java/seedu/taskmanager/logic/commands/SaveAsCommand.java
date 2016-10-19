@@ -18,14 +18,14 @@ import seedu.taskmanager.storage.StorageManager;
  * Saves the program data file at the specified location
  */
 public class SaveAsCommand extends Command {
-    public static final String COMMAND_WORD = "saveAs";
+    public static final String COMMAND_WORD = "save";
     
     public static final String MESSAGE_ERROR_CONVERTING_FILE = "Error reading from config file: " + Config.DEFAULT_CONFIG_FILE;
     public static final String MESSAGE_SUCCESS = "File path changed! Custom file path specified: %1$s";
     public static final String MESSAGE_SAME_FILE_PATH = "File path is already saved at the specified location!";
     public static final String MESSAGE_ERROR_SAVING_FILE = "Error occured saving to file.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Saves task manager information to the specified storage file path. \n"
-            + "Parameters: " + COMMAND_WORD + " FILEPATH \n"
+            + "Parameters: " + COMMAND_WORD + " FILEPATH.xml \n"
             + "Example: " + COMMAND_WORD +  " " + " data/newtaskbook.xml" + "\n"
             + "Note: file path is limited to .xml format";
 //            + "Note: " + COMMAND_WORD + " can be replaced by " + SHORT_COMMAND_WORD + "\n"
