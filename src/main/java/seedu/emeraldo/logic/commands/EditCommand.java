@@ -15,8 +15,8 @@ public class EditCommand extends Command{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD            
             + ": Edits the task identified by the index number used in the last tasks listing.\n"
-            + "Parameters: INDEX (must be a positive integer) and \"TASK_DESCRIPTION\"\n"
-            + "Example: " + COMMAND_WORD + " 1" + " \"CS2103T Week 8 Tutorial\"";
+            + "Parameters: INDEX (must be a positive integer) and \"TASK_DESCRIPTION\" and/or [by/on/from DD/MM/YYYY and/or HH:MM]\n"
+            + "Example: " + COMMAND_WORD + " 1" + " \"CS2103T Software Demo\"" + "by 7/11/2016 23:59";
    
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
     
