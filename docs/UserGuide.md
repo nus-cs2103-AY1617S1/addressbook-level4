@@ -46,7 +46,7 @@ Sounds exciting? Then let's get started!
 * Items with `...` within each parameter means you can add more items within the same parameters than specified.
 * Most commands that refer to a particular task or event in the list require an `INDEX`. This is a number indicated on the left of a task or event as shown in the screenshot below:
 
-<img src="images/app_screenshot_index.PNG" width="350" alt="Index Number Location" />
+<img src="images/app_screenshot_index.PNG" width="700" alt="Index Number Location" />
 
 <figcaption>Use the number on the side to choose the task for your command</figcaption>
 
