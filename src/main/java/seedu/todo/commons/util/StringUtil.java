@@ -35,7 +35,10 @@ public class StringUtil {
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
-    
+
+    /**
+     * Returns true if the string is null, of length zero, or contains only whitespace 
+     */
     public static boolean isEmpty(String s) {
         return s == null || s.length() == 0 || CharMatcher.whitespace().matchesAllOf(s);
     }

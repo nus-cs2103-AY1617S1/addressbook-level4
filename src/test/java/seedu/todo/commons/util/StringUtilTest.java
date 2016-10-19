@@ -49,14 +49,24 @@ public class StringUtilTest {
 
     @Test
     public void isEmpty() {
+        // EP: null
         assertTrue(StringUtil.isEmpty(null));
+        
+        // EP: empty string (length zero) 
         assertTrue(StringUtil.isEmpty(""));
+        
+        // EP: whitespace characters only 
         assertTrue(StringUtil.isEmpty("    "));
         assertTrue(StringUtil.isEmpty("\t\n"));
         assertTrue(StringUtil.isEmpty("\r \r\n"));
         
-        assertFalse(StringUtil.isEmpty("a"));
-        assertFalse(StringUtil.isEmpty("  ah c "));
-        assertFalse(StringUtil.isEmpty("12345"));
+        // EP: Non-empty strings 
+        assertFalse(StringUtil.isEmpty("a")); // One character 
+        assertFalse(StringUtil.isEmpty("  ah c ")); // Leading and trailing whitespace
+        assertFalse(StringUtil.isEmpty(" c ah c")); 
+        assertFalse(StringUtil.isEmpty("ah c ")); 
+        
+        assertFalse(StringUtil.isEmpty("12345")); // Non-alphabet characters
+        assertFalse(StringUtil.isEmpty("!@#*&")); // Non-alphanumeric characters  
     }
 }
