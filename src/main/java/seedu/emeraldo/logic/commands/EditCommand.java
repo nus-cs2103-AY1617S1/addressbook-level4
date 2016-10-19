@@ -4,6 +4,7 @@ import seedu.emeraldo.commons.core.Messages;
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.model.task.Description;
+import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
@@ -20,12 +21,13 @@ public class EditCommand extends Command{
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
     
     public final int targetIndex;
-    
     public final Description description;
+    public final DateTime dateTime;
     
-    public EditCommand(String targetIndex, String description) throws IllegalValueException {
+    public EditCommand(String targetIndex, String description, String completeDT) throws IllegalValueException {
         this.targetIndex = Integer.parseInt(targetIndex);
         this.description = new Description(description);
+        this.dateTime = new DateTime(completeDT);
     }
     
     @Override
