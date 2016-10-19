@@ -70,7 +70,7 @@ public class DateTimeParserTest {
     }
 
     @Test
-    public void extractRecurringEventDateTime() {
+    public void extractRecurringEventDetails() {
         String input = "every monday at 9am until 25 december 2016";
         DateTimeParser parser = new DateTimeParser(input);
 
