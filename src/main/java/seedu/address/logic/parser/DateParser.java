@@ -78,6 +78,9 @@ public class DateParser {
 		if (dateTime == null) {
 			dateTime = parseNaturalLanguage(dateString);
 		}
+		if (dateTime == null) {
+			throw new ParseException("dateTime is null", -1);
+		}
 
 		return dateTime;
 	}

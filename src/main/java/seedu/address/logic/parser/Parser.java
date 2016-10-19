@@ -250,6 +250,7 @@ public class Parser {
 		for (Matcher matcher : diffDayMatchers) {
 			if (matcher.matches()) {
 				isAnyMatch = true;
+				
 
 				taskName = matcher.group("taskName").trim();
 				String startDayAndTime = matcher.group("startDateTime").trim();
@@ -267,9 +268,9 @@ public class Parser {
 			}
 		}
 
-		System.out.println("task name: " + taskName);
-		System.out.println("start date: " + startDateTime.toString());
-		System.out.println("end date: " + endDateTime.toString());
+		//System.out.println("task name: " + taskName);
+		//System.out.println("start date: " + startDateTime.toString());
+		//System.out.println("end date: " + endDateTime.toString());
 		
 		if (!isAnyMatch) {
 			System.out.println("no match");
