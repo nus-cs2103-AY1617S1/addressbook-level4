@@ -1,15 +1,12 @@
 package seedu.address.logic.commands;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskType;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**

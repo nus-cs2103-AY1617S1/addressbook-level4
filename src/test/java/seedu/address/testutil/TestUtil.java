@@ -5,7 +5,6 @@ import com.google.common.io.Files;
 import guitests.guihandles.DeadlineTaskCardHandle;
 import guitests.guihandles.EventTaskCardHandle;
 import guitests.guihandles.SomedayTaskCardHandle;
-import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
