@@ -12,6 +12,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 import java.util.logging.Logger;
 
@@ -51,9 +52,11 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredTaskList();
     }
 
-    public static CommandResult undo() throws IllegalValueException{
-    	if(operations.empty())
+    public static CommandResult undo() throws IllegalValueException {
+    	try{
+    		return operations.pop().undo();
+    	}catch (EmptyStackException e){
     		return new CommandResult("No operations can be undone.");
-    	return operations.pop().undo();
+    	}
     }
 }
