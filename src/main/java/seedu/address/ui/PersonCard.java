@@ -68,8 +68,7 @@ public class PersonCard extends UiPart{
         completion.setText(person.toStringCompletionStatus());
         if(person.getCompletionStatus() == true) {
         	cardPane.setStyle("-fx-background-color: springgreen;");
-        }
-        if(person.passedDueDate()){
+        } else if(person.passedDueDate()){
             cardPane.setStyle("-fx-background-color: red;");
         }
         

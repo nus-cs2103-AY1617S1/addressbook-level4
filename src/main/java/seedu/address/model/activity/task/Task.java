@@ -68,14 +68,18 @@ public class Task extends Activity implements ReadOnlyTask {
     public String toStringCompletionStatus() {
         if(isCompleted) {
             return "Completed";
-        } 
-        if(!isCompleted && passedDueDate())
+        } else if(!isCompleted && passedDueDate()){
             return "Passed Due Date";
-            return "";  
+        }
+        
+        return "";  
     }
+    
     public boolean passedDueDate() {
-        if(duedate.value.after(Calendar.getInstance()))
-            return true;            
+        if(duedate.value.after(Calendar.getInstance())) {
+            return true;       
+        }
+        
         return false;
     }
 

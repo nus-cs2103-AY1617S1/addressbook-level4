@@ -105,4 +105,11 @@ public class Activity implements ReadOnlyActivity {
             return ""; 
     }
 
+	@Override
+	public boolean passedDueDate() {
+		return false;
+	}
+    
+    
+
 }
