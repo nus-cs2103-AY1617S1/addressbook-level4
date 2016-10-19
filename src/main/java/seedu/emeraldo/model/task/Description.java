@@ -21,10 +21,15 @@ public class Description {
     public Description(String description) throws IllegalValueException {
         assert description != null;
         description = description.trim();
-        if (!isValidDescription(description)) {
+        if(description.isEmpty()){
+            this.fullDescription = "";
+        }
+        else if (!isValidDescription(description)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullDescription = description;
+        else{
+            this.fullDescription = description;
+        }
     }
 
     /**

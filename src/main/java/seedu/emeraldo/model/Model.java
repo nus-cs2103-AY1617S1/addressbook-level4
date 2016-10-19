@@ -1,6 +1,7 @@
 package seedu.emeraldo.model;
 
 import seedu.emeraldo.commons.core.UnmodifiableObservableList;
+import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
@@ -22,7 +23,7 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
-    void editTask(Task target, int index, Description description) throws TaskNotFoundException;
+    void editTask(Task target, int index, Description description, DateTime dateTime) throws TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;

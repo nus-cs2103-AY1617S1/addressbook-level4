@@ -28,13 +28,15 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("\"(?<description>.+)\""
-                    + "(?<dateTime>( by [^#]+)?)"
+                    + "(?<dateTime>((( by )|( on )|( from ))[^#]+)?)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
     
     private static final Pattern TASK_EDIT_ARGS_FORMAT = 
             Pattern.compile("(?<targetIndex>\\d+)" //index must be digits
             + "\\s+"                               //any number of whitespace
-            + "\"(?<description>[^\"]+)\"");       //quote marks are reserved for start and end of description field
+            + "(?<description>(\"[^\"]+\")?)"      //quote marks are reserved for start and end of description field
+            + "( )?(?<dateTime>(((by )|(on )|(from ))[^#]+)?)"
+            );
 
     public Parser() {}
 
@@ -152,19 +154,30 @@ public class Parser {
     private Command prepareEdit(String args) {
         
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
+        
         // Validate arg string format
         if (!matcher.matches()) {
+            System.out.println("yoooo");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        
         Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
+        
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        
         try {
+            String description = matcher.group("description");
+            if(!description.isEmpty()){
+                description = description.split("\"")[1];
+            }
+            
             return new EditCommand(
                     matcher.group("targetIndex"),
-                    matcher.group("description"));
+                    description,
+                    matcher.group("dateTime").trim());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }        

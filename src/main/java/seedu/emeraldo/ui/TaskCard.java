@@ -20,6 +20,8 @@ public class TaskCard extends UiPart{
     private Label id;
     @FXML
     private Label dateTime;
+    @FXML 
+    private Label overdueContext;
     @FXML
     private Label tags;
 
@@ -42,6 +44,8 @@ public class TaskCard extends UiPart{
         description.setText(task.getDescription().fullDescription);
         id.setText(displayedIndex + ". ");
         dateTime.setText(task.getDateTime().toString());
+        overdueContext.setText(task.getDateTime().getOverdueContext());
+        //eventContext.setText(task.getDateTime().getEventContext());
         tags.setText(task.tagsString());
     }
 
