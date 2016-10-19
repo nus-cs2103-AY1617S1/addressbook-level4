@@ -10,7 +10,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /** 
- * Edits a person identified using its last displayed index in the task manager.
+ * Edits a task identified using its last displayed index in the task manager.
  * @author Ronald
  *
  */

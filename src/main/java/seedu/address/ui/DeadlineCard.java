@@ -17,11 +17,9 @@ public class DeadlineCard extends UiPart {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label date;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
+    private Label end;
     @FXML
     private Label tags;
     
@@ -43,9 +41,8 @@ public class DeadlineCard extends UiPart {
     public void initialize() {
         name.setText(deadline.getName().taskDetails);
         id.setText("D" + displayedIndex + ". ");
-        phone.setText(deadline.getDate().value);
-        address.setText(deadline.getStart().value);
-        email.setText(deadline.getEnd().value);
+        date.setText("Date:" + "    " + deadline.getDate().value);
+        end.setText("End time:" + "    " + deadline.getEnd().value);
         tags.setText(deadline.tagsString());
     }
 

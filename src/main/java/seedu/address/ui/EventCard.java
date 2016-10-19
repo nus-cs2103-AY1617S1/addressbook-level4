@@ -17,11 +17,11 @@ public class EventCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label date;
     @FXML
-    private Label address;
+    private Label start;
     @FXML
-    private Label email;
+    private Label end;
     @FXML
     private Label tags;
 
@@ -43,9 +43,9 @@ public class EventCard extends UiPart{
     public void initialize() {
         name.setText(event.getName().taskDetails);
         id.setText("E" + displayedIndex + ". ");
-        phone.setText(event.getDate().value);
-        address.setText(event.getStart().value);
-        email.setText(event.getEnd().value);
+        date.setText("Date:" + "    " + event.getDate().value);
+        start.setText("Start time:" + "    " + event.getStart().value);
+        end.setText("End time:" + "    " + event.getEnd().value);
         tags.setText(event.tagsString());
     }
 
