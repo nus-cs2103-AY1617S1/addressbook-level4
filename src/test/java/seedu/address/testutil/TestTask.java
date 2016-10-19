@@ -1,8 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.Date;
-
-import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
@@ -78,6 +75,28 @@ public class TestTask implements ReadOnlyTask {
     }
     
     public String getTaskString() {
+        if (this.getEndDate() == null) {
+            return getFloatingString();
+        } else if (this.getStartDate() == null) {
+            return getDeadlineString();
+        } else {
+            return getEventString();
+        }
+    }
+    
+    private String getFloatingString() {
+        return " " + this.getName().fullName;
+        
+    }
+    
+    private String getDeadlineString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" " + this.getName().fullName + " ");
+        sb.append("by " + this.getEndDate());       
+        return sb.toString();
+    }
+
+    private String getEventString() {
         StringBuilder sb = new StringBuilder();
         sb.append(" " + this.getName().fullName + " ");
         sb.append("s/" + this.getStartDate() + " ");
@@ -86,5 +105,4 @@ public class TestTask implements ReadOnlyTask {
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
-
 }

@@ -11,11 +11,11 @@ public class FindCommandTest extends TaskSchedulerGuiTest {
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Mark"); //no results
-        assertFindResult("find Mcdonalds", td.carl, td.george); //multiple results
+        assertFindResult("find project", td.benson, td.carl, td.george); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Flunk", td.daniel);
+        assertFindResult("find Grocery", td.daniel);
     }
     
     @Test
@@ -25,7 +25,7 @@ public class FindCommandTest extends TaskSchedulerGuiTest {
     
     @Test
     public void find_address() {
-        assertFindResult("find hall", td.daniel, td.elle);
+        assertFindResult("find hall", td.elle, td.george);
     }
     
     @Test
