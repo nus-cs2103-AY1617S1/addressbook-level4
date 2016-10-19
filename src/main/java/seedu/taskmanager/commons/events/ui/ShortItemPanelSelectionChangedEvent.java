@@ -6,13 +6,15 @@ import seedu.taskmanager.model.item.ReadOnlyItem;
 /**
  * Represents a selection change in the Item List Panel
  */
-public class ItemPanelSelectionChangedEvent extends BaseEvent {
+public class ShortItemPanelSelectionChangedEvent extends BaseEvent {
 
 
     private final ReadOnlyItem newSelection;
+    private final int newIdx;
 
-    public ItemPanelSelectionChangedEvent(ReadOnlyItem newSelection){
+    public ShortItemPanelSelectionChangedEvent(ReadOnlyItem newSelection, int newIdx){
         this.newSelection = newSelection;
+        this.newIdx = newIdx;
     }
 
     @Override
@@ -22,5 +24,9 @@ public class ItemPanelSelectionChangedEvent extends BaseEvent {
 
     public ReadOnlyItem getNewSelection() {
         return newSelection;
+    }
+    
+    public int getNewIdx() {
+        return newIdx;
     }
 }
