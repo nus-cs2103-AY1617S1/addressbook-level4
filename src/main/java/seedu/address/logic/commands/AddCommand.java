@@ -11,6 +11,8 @@ import seedu.address.model.item.UniqueItemList;
  * Adds a person to the address book.
  */
 public class AddCommand extends Command {
+	
+	
 
 	public static final String COMMAND_WORD = "add";
 
@@ -22,6 +24,8 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_SUCCESS_TIME_NULL = "START or END time not found but new task added: %1$s ";
 	public static final String MESSAGE_DUPLICATE_ITEM = "This task already exists in the to-do list";
 
+	private static final String DEFAULT_ITEM_NAME = "BLOCK";
+	
 	private final Item toAdd;
 	private boolean hasTimeString = false;
 
@@ -34,6 +38,9 @@ public class AddCommand extends Command {
 	 */
 	public AddCommand(String descriptionStr, String timeStr) throws IllegalValueException {
 		assert descriptionStr != null;
+		if (descriptionStr.equals("")) {
+			descriptionStr = DEFAULT_ITEM_NAME;
+		}
 		if (timeStr != null && !timeStr.equals("")) {
 			hasTimeString = true;
 		}
