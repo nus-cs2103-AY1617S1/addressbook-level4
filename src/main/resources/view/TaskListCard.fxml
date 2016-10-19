@@ -13,14 +13,16 @@
 <HBox fx:id="cardPane" minHeight="40.0" prefHeight="50.0" prefWidth="630.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane minHeight="50.0" prefHeight="50.0" translateY="5.0" HBox.hgrow="ALWAYS">
+            
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="526.0" minWidth="10.0" prefWidth="412.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="218.0" />
+                <ColumnConstraints hgrow="SOMETIMES"  minWidth="10.0" prefWidth="412.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="218.0" />
             </columnConstraints>
+            
             <children>
             <GridPane prefHeight="32.0" prefWidth="580.0" translateY="2.0" GridPane.hgrow="NEVER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="31.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="35.0" minWidth="10.0" prefWidth="31.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="555.0" minWidth="10.0" prefWidth="372.0" />
               </columnConstraints>
               <rowConstraints>
