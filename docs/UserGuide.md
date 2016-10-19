@@ -35,8 +35,8 @@ Different Types of tasks (Todo/Event/Deadline) have different command format.<br
 
 ###### Adding a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
-> Format: `add TASK_NAME p/PRIORITY`<br>
-> Example: `add Assignment 3 p/1`
+> Format: `add TASK_NAME d/DATE p/PRIORITY`<br>
+> Example: `add Assignment 3 d/25-12/2015 p/1`
 
 ###### Adding an Event:
 > Format: `add TASK_NAME d/DATE s/START_TIME e/END_TIME`<br>
@@ -52,8 +52,8 @@ Different Types of tasks (Todo/Event/Deadline) have different command format.<br
 
 ###### Editing a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
-> Format: `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME p/PRIORITY`<br>
-> Example: `edit todo 1 n/Assignment 1 p/2`
+> Format: `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE p/PRIORITY`<br>
+> Example: `edit todo 1 d/25-12/2015 n/Assignment 1 p/2`
 
 ###### Editing an Event:
 > Format: `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`<br>
@@ -95,6 +95,12 @@ The order of the keywords does not matter, only the name is searched, and tasks 
 Undo the latest command. If there is no previous command, nothing will happen.<br>
 > Format: `undo`
 
+#### Change the Storage directory : `storage`
+Change the storage directory for the app.<br>
+The storage folder's name must be 'data'
+> Format: `storage DIRECTORY` <br>
+> Example: `storage /Desktop/Tdoo/date`
+
 #### Exiting the program : `exit`
 Exits the program.<br>
 > Format: `exit`  
@@ -107,10 +113,10 @@ Task-list data are saved in the hard disk automatically after any command that c
 
 Command 	| Format  
 --------------- | :-------- 
-Add	Todo	| `add TASK_NAME p/PRIORITY`
+Add	Todo	| `add TASK_NAME d/DATE p/PRIORITY`
 Add	Event	| `add TASK_NAME d/DATE s/START_TIME e/END_TIME`
 Add	Deadline| `add TASK_NAME d/DATE e/END_TIME`
-Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME p/PRIORITY`
+Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE p/PRIORITY`
 Edit	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`
 Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
 Delete		| `delete TASK_TYPE INDEX_NUMBER`
@@ -119,6 +125,7 @@ List		| `list TASK_TYPE`
 Find		| `find TASK_TYPE KEYWORD [MORE_KEYWORDS]`
 Help		| `help`
 Undo		| `undo`
+Storage		| `storage DIRECTORY`
 Exit		| `exit`
 
 
