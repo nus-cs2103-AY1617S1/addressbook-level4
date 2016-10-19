@@ -274,4 +274,16 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    @Override
+    public void deleteTask(ReadOnlyDeadline target) throws DeadlineNotFoundException {
+        malitio.removeDeadline(target);
+        indicatemalitioChanged();        
+    }
+
+    @Override
+    public void deleteTask(ReadOnlyEvent target) throws EventNotFoundException {
+        malitio.removeEvent(target);
+        indicatemalitioChanged();        
+    }
+
 }

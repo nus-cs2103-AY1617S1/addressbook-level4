@@ -32,6 +32,12 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyFloatingTask target) throws UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
+    /** Deletes the given deadline. */
+    void deleteTask(ReadOnlyDeadline target) throws UniqueDeadlineList.DeadlineNotFoundException;
+    
+    /** Deletes the given event. */
+    void deleteTask(ReadOnlyEvent target) throws UniqueEventList.EventNotFoundException;
+    
     /** Adds the given floating task */
     void addFloatingTask(FloatingTask task) throws UniqueFloatingTaskList.DuplicateFloatingTaskException;
     

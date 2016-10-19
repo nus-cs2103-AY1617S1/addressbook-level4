@@ -216,7 +216,6 @@ public class Malitio implements ReadOnlyMalitio {
         }
     }
     
-    
     public void editFloatingTask(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
         syncTagsWithMasterList(edited);
         tasks.edit(edited, beforeEdit);
@@ -230,6 +229,14 @@ public class Malitio implements ReadOnlyMalitio {
     public void editEvent(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
         syncTagsWithMasterList(edited);
         events.edit(edited, beforeEdit);
+    }
+
+    public boolean removeEvent(ReadOnlyEvent key) throws EventNotFoundException {
+        if (events.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueEventList.EventNotFoundException();
+        }     
     }
 
 //// tag-level operations
