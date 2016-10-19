@@ -2,12 +2,13 @@ package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
 
+/** 
+* This class served as the occurrence portion in an abstraction occurrence pattern.
+* The abstraction is the Task and the occurrence is the TaskDateComponent.
+*
+*/
 public class TaskComponent {
- * This class served as the occurrence portion in an abstraction occurrence pattern.
- * The abstraction is the Task and the occurrence is the TaskDateComponent.
- * @author User
- *
- */
+
     private Task taskReference;
     private TaskDate startDate, endDate;
     private boolean isArchived;

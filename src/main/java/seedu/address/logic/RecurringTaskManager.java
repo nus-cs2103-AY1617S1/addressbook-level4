@@ -80,8 +80,6 @@ public class RecurringTaskManager {
     }
 
     /**
-        List<TaskComponent> dateComponents = task.getTaskDateComponent();
-        TaskComponent lastAddedComponent =  dateComponents.get(dateComponents.size()-1);
      * @param Recurring task to be updated
      * @return True if the recurring task has been updated
      *          False if the recurring tasks has not been updated;
@@ -91,6 +89,8 @@ public class RecurringTaskManager {
         Calendar startDate = new GregorianCalendar();
         Calendar endDate = new GregorianCalendar();
         Calendar resultingDate = new GregorianCalendar();
+        List<TaskComponent> dateComponents = task.getTaskDateComponent();
+        TaskComponent lastAddedComponent =  dateComponents.get(dateComponents.size()-1);
         currentDate = Calendar.getInstance();
         startDate.setTime(lastAddedComponent.getStartDate().getDate());
         endDate.setTime(lastAddedComponent.getEndDate().getDate());
@@ -276,13 +276,11 @@ public class RecurringTaskManager {
         return instance;
     }
 
-    public void removeCompletedRecurringTasks(TaskMaster initialData) {
-        List<TaskComponent> components = initialData.getTaskComponentList();
-     * 
+    /** 
      * @param task Recurring task to be considered for removal
-     */
-    public void removeCompletedRecurringTasks(TaskList task) {
-        List<TaskDateComponent> components = task.getTaskComponentList();
+    */
+    public void removeCompletedRecurringTasks(TaskMaster task) {
+        List<TaskComponent> components = task.getTaskComponentList();
         List<ReadOnlyTask> toBeDeleted = new ArrayList<ReadOnlyTask>();
         for(TaskComponent t : components) {
             if (t.getTaskReference().getRecurringType() == RecurringType.NONE) {
