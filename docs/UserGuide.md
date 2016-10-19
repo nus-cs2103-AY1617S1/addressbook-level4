@@ -122,14 +122,41 @@ Format: delete TASK_ID
 Examples:
 * `Delete 212`
 
-#### Block out tasks : `block`
-Format: block TASK_NAME start/START_DATE START_TIME end/START_DATE START_TIME
+#### Archive completed tasks : `done`
+Format: done TASK_ID
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 
 Examples:
-* `block cs2103t start/2409 1900 end/2409 2100`
-* `block cs2103t start/24sep 7pm end/24sep 9pm`
+* `done 1`
+
+   <img src="images/ugdone_0.png" width="600">
+   <img src="images/ugdone_1.png" width="600">
+   <img src="images/ugdone_2.png" width="600">
+   >Completed tasks can be viewed from navigation bar on the side.
+
+#### Block out timeslot : `block`
+Format: block from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG]
+
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+
+Examples:
+* `block from today 8pm to today 9pm`
+
+ > <img src="images/ugblock_0.png" width="600">
+ > <img src="images/ugblock_1.png" width="600">
+
+#### Undo tasks : `undo`
+Format: u
+
+> Maximum 3 undo
+
+Examples: 
+* `u`
+
+   <img src="images/ugundo_0.png" width="600">
+   <img src="images/ugundo_1.png" width="600">
+   <img src="images/ugundo_2.png" width="600">
 
 #### Redo tasks : `redo`
 Format: r
@@ -139,13 +166,8 @@ Format: r
 Examples: 
 * `r`
 
-#### Undo tasks : `undo`
-Format: u
-
-> Maximum 3 undo
-
-Examples: 
-* `u`
+   <img src="images/ugredo_0.png" width="600">
+   <img src="images/ugredo_2.png" width="600">
 
 #### Find tasks : `find`
 Format: find [TASK_NAME] [date/DATE [TIME]] [tag/TAG]
@@ -166,14 +188,16 @@ Format: clear
 Examples: 
 * `clear`
 
-#### Change directory: `Change directory`
+#### Change directory: `cd`
 Format: cd FILE_PATH
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
 
 Examples: 
-* `cd C://user/saveFolder`
+* `cd data\newlist.xml`
 
+   <img src="images/ugcd_0.png" width="600">
+   <img src="images/ugcd_1.png" width="600">
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -197,7 +221,8 @@ Add | `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 Add | `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
 Edit | `edit TASK_ID [from EDIT_START_DATE EDIT_START_TIME to EDIT_END_DATE EDIT_END_TIME] [by EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]...`
 Delete | `delete TASK_ID`
-Block | `block TASK_NAME from START_DATE START_TIME to START_DATE START_TIME`
+Complete | `done TASK_ID`
+Block | `block TASK_NAME from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG]...`
 Redo | `r`
 Undo | `u`
 Find | `find [TASK_NAME] [by DATE TIME] [t/TAG]...`
