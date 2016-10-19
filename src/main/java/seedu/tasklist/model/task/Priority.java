@@ -45,4 +45,12 @@ public class Priority {
         return priorityLevel.hashCode();
     }
 
+    public int compareTo(Priority priority) {
+        if (this.priorityLevel.equals(priority.priorityLevel)) return 0;
+        else if (this.priorityLevel.equals("high")) return -1;
+        else if (priority.priorityLevel.equals("high")) return 1;
+        else if (this.priorityLevel.equals("med")) return -1;
+        else return 1;
+    }
+
 }

@@ -20,6 +20,7 @@ import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -237,7 +238,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredListToShowAll() {
-	    //sortByDateAndPriority();
+	    sortByDateAndPriority();
 		filteredTasks.setPredicate(null);
 	}
 
@@ -254,7 +255,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredTaskList(Set<String> keywords){
-	    //sortByDateAndPriority();
+	    sortByDateAndPriority();
 	    updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
 	}
 	
@@ -289,7 +290,8 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 	private void sortByDateAndPriority() {
-        getListOfTasks().sort(Comparators.DATE_TIME);
+        //getListOfTasks().sort(Comparators.DATE_TIME);
+        Collections.sort(taskList.getListOfTasks(), Comparators.PRIORITY);
     }
 	
 	//========== Inner classes/interfaces used for filtering ==================================================
@@ -298,8 +300,15 @@ public class ModelManager extends ComponentManager implements Model {
 	    public static Comparator<Task> DATE_TIME = new Comparator<Task>(){
 	        @Override
             public int compare(Task o1, Task o2) {
-                return o1.getStartTime().getAsCalendar().compareTo(o2.getStartTime().getAsCalendar());
+                //return o1.getStartTime().compareTo(o2.getStartTime());
+	            return -1;
             }
+	    };
+	    public static Comparator<Task> PRIORITY = new Comparator<Task>(){
+	        @Override
+	        public int compare(Task o1, Task o2) {
+	            return o1.getPriority().compareTo(o2.getPriority());
+	        }
 	    };
 	}
 	
