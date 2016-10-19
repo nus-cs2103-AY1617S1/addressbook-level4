@@ -17,7 +17,7 @@ import seedu.address.model.activity.DateTime;
 public class DueDate extends DateTime {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task's DueDate should only contain valid date";
-    public static final String MESSAGE_DUEDATE_INVALID = "reminder time has passed";
+    public static final String MESSAGE_DUEDATE_INVALID = "Deadline is over";
 
     public DueDate(Calendar date) {
         super(date);
