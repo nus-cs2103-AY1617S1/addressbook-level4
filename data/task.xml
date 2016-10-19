@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <persons>
+        <name>deadline</name>
+        <phone>im so dead</phone>
+        <status>DONE</status>
+        <email>20-10-2016</email>
+        <address>1400</address>
+        <tagged>haha</tagged>
+    </persons>
+    <undatedTasks>
+        <name>hello</name>
+        <phone>this is floating</phone>
+        <status>DONE</status>
+        <email></email>
+        <address></address>
+    </undatedTasks>
+    <tags>
+        <tagName>LOLOL</tagName>
+    </tags>
+    <tags>
+        <tagName>haha</tagName>
+    </tags>
+</addressbook>
