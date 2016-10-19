@@ -175,7 +175,7 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Item toBeAdded = helper.adam();
+        Item toBeAdded = helper.aLongEvent();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addItem(toBeAdded);
 
