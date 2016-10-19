@@ -43,7 +43,7 @@ public class DateTimeParser {
             return null;
         }
 
-        return Date2LocalDateTime(this.dates.get(0));
+        return changeDateToLocalDateTime(this.dates.get(0));
     }
     
     public LocalDateTime extractEndDate() {
@@ -53,7 +53,7 @@ public class DateTimeParser {
             return extractStartDate();
         }
 
-        return Date2LocalDateTime(this.dates.get(1));
+        return changeDateToLocalDateTime(this.dates.get(1));
     }
     
     public boolean isRecurring() {
@@ -61,7 +61,7 @@ public class DateTimeParser {
     }
     
     public LocalDateTime getRecurEnd() {
-        return Date2LocalDateTime(this.dategroups.get(0).getRecursUntil());
+        return changeDateToLocalDateTime(this.dategroups.get(0).getRecursUntil());
     }
 
     /**
@@ -72,7 +72,7 @@ public class DateTimeParser {
      * @return
      * @author darren
      */
-    public static LocalDateTime Date2LocalDateTime(Date date) {
+    public static LocalDateTime changeDateToLocalDateTime(Date date) {
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
     }
 
