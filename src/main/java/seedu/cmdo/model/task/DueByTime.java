@@ -94,7 +94,7 @@ public class DueByTime {
      */
     public String getFriendlyString() {
 		// If floating date, return do not print anything
-		if (start.equals(LocalTime.MAX) || end.equals(LocalTime.MAX)) {
+		if (start.equals(LocalTime.MAX) && end.equals(LocalTime.MAX)) {
 			return "";
 		}
     	if (!isRange) {
