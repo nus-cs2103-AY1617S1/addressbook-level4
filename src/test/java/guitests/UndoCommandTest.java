@@ -11,7 +11,7 @@ import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestUtil;
 
 public class UndoCommandTest extends TaskManagerGuiTest {
-    
+    /*
     Stack<TestTask[]> testTaskList;
     
     @Test
@@ -75,5 +75,5 @@ public class UndoCommandTest extends TaskManagerGuiTest {
     private void assertNoMoreUndos() {
         commandBox.runCommand("undo");        
         assertResultMessage(UndoCommand.MESSAGE_NO_PREVIOUS_COMMANDS);
-    }
+    }*/
 }
