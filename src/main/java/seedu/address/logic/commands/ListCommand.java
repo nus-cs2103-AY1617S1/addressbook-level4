@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
+import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskFilter;
 
 /**
@@ -30,8 +32,11 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
+    	Predicate <ReadOnlyTask> taskTypePredicate = null;
+    	Predicate <ReadOnlyTask> donePredicate = null;
+    	
     	System.out.println("DEBUG1");
-    	//model.updateFilteredListToShowAll();
+    	
     	if(taskType.isPresent()) {
     		System.out.println("DEBUG2");
     		assert taskType.get().equals("someday") || 
@@ -41,17 +46,37 @@ public class ListCommand extends Command {
     		switch(taskType.get()) {
     		case "someday":
     			System.out.println("DEBUG4");
-    			model.updateFilteredTaskList(TaskFilter.isSomedayTask());
+    			taskTypePredicate = (TaskFilter.isSomedayTask());
     			break;
     		case "deadline":
     			System.out.println("DEBUG5");
-    			model.updateFilteredTaskList(TaskFilter.isDeadlineTask());
+    			taskTypePredicate = (TaskFilter.isDeadlineTask());
     			break;
     		case "event":
     			System.out.println("DEBUG6");
-    			model.updateFilteredTaskList(TaskFilter.isEventTask());
+    			taskTypePredicate = (TaskFilter.isEventTask());
     			break;
     		}
+    	}
+    	if(doneStatus.isPresent()) {
+    		assert doneStatus.get().equals("done") || doneStatus.get().equals("not-done");
+    		switch(doneStatus.get()) {
+    		case "done":
+    			donePredicate = TaskFilter.isDone();
+    			break;
+    		case "not-done":
+    			donePredicate = TaskFilter.isDone().negate();
+    		}
+    	}
+    	
+    	if(doneStatus.isPresent() && taskType.isPresent()) {
+    		model.updateFilteredTaskList(taskTypePredicate.and(donePredicate));
+    	} else if(!doneStatus.isPresent() && taskType.isPresent()) {
+    		model.updateFilteredTaskList(taskTypePredicate);
+    	} else if(doneStatus.isPresent() && !taskType.isPresent()) {
+    		model.updateFilteredTaskList(donePredicate);
+    	} else if(!doneStatus.isPresent() && !taskType.isPresent()) {
+    		model.updateFilteredListToShowAll();
     	}
         return new CommandResult(MESSAGE_SUCCESS);
     }
