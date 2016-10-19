@@ -39,8 +39,6 @@ public class RsvCommand extends UndoableCommand {
     public static final String MESSAGE_DATETIME_NOTFOUND = "At least one DateTime is required!\n" + MESSAGE_USAGE;
     
     public static final String MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX = "The Reserved Task Index is invalid!";
-    
-    public static final String MESSAGE_RSV_TASK_NOT_FOUND = "The reserved task is not found!";
 
     public static final String MESSAGE_SUCCESS = "New task reserved: %1$s";
     public static final String MESSAGE_SUCCESS_DEL = "Deleted Reserved Tasks: %1$s";
@@ -123,7 +121,7 @@ public class RsvCommand extends UndoableCommand {
             try {
                 model.deleteRsvTask(t);
             } catch (RsvTaskNotFoundException rtnfe) {
-                return new CommandResult(MESSAGE_RSV_TASK_NOT_FOUND);
+                return new CommandResult(Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND);
             }
             deletedRsvTasks.add(t);
         }
@@ -147,7 +145,7 @@ public class RsvCommand extends UndoableCommand {
             int targetIndex = Integer.parseInt(indexes[i]);
             if (lastShownList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
-                throw new InvalidTaskDisplayedException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                throw new InvalidTaskDisplayedException(Messages.MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
             }
             RsvTask rsvTask = lastShownList.get(targetIndex - 1);
             rsvTasksList.add(rsvTask);
