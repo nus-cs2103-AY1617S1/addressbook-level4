@@ -387,6 +387,11 @@ public class LogicManagerTest {
             LocalDateTime endDate = LocalDateTime.of(2016, 12, 12, 12, 12);
             return new Item(description, startDate, endDate);
         }
+        
+        Item aFloatingTask() throws Exception {
+            Description description = new Description("Floating task");
+            return new Item(description, null, null);
+        }
 
         /**
          * Generates a valid person using the given seed.
