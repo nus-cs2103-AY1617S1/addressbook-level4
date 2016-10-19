@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTaskComponent> tasks;
     @XmlElement
     private List<Tag> tags;
 
@@ -50,7 +50,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
 			// TODO Auto-generated catch block
 			assert false : "impossible";
 		}
-        tasks.addAll(src.getTaskComponentList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskComponentList().stream().map(XmlAdaptedTaskComponent::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -67,7 +67,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : tasks) {
+        for (XmlAdaptedTaskComponent p : tasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {

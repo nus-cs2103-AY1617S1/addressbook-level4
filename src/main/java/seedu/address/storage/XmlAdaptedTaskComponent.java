@@ -1,24 +1,25 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.RecurringTaskManager;
-import seedu.address.logic.parser.Parser;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.RecurringTaskManager;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskDate;
+import seedu.address.model.task.TaskType;
 
 /**
  * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedTask {
+public class XmlAdaptedTaskComponent {
 
     @XmlElement(required = true)
     private String name;
@@ -36,7 +37,7 @@ public class XmlAdaptedTask {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
+    public XmlAdaptedTaskComponent() {}
 
 
     /**
@@ -44,7 +45,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTask(TaskComponent source) {
+    public XmlAdaptedTaskComponent(TaskComponent source) {
         name = source.getTaskReference().getName().fullName;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTaskReference().getTags()) {
