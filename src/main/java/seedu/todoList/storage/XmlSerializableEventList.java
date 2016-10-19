@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * An Immutable TaskList that is serializable to XML format
  */
 @XmlRootElement(name = "EventList")
-public class XmlSerializableEventList extends XmlSerializableTaskList implements ReadOnlyTaskList {
+public class XmlSerializableEventList implements XmlSerializableTaskList {
 
     @XmlElement
     private List<XmlAdaptedEvent> tasks;
