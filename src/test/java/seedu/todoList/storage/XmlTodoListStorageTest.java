@@ -8,10 +8,14 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.todoList.commons.exceptions.DataConversionException;
 import seedu.todoList.commons.util.FileUtil;
-import seedu.todoList.model.ReadOnlyTodoList;
+import seedu.todoList.model.ReadOnlyTaskList;
+//import seedu.todoList.model.ReadOnlyTodoList;
 import seedu.todoList.model.TaskList;
+import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Task;
+import seedu.todoList.model.task.Todo;
 import seedu.todoList.storage.XmlTodoListStorage;
+
 import seedu.todoList.testutil.TypicalTestTask;
 
 import java.io.IOException;
@@ -34,8 +38,10 @@ public class XmlTodoListStorageTest {
         readTodoList(null);
     }
 
-    private java.util.Optional<ReadOnlyTodoList> readTodoList(String filePath) throws Exception {
-        return new XmlTodoListStorage(filePath).readTodoList(addToTestDataPathIfNotNull(filePath));
+
+    private java.util.Optional<ReadOnlyTaskList> readTodoList(String filePath) throws Exception {
+        return new XmlTodoListStorage(filePath).readTaskList(addToTestDataPathIfNotNull(filePath));
+
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -69,21 +75,21 @@ public class XmlTodoListStorageTest {
         XmlTodoListStorage xmlTodoListStorage = new XmlTodoListStorage(filePath);
 
         //Save in new file and read back
-        xmlTodoListStorage.saveTodoList(original, filePath);
-        ReadOnlyTodoList readBack = xmlTodoListStorage.readTodoList(filePath).get();
+        xmlTodoListStorage.saveTaskList(original, filePath);
+        ReadOnlyTaskList readBack = xmlTodoListStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTask.hoon));
-        original.removeTask(new Task(TypicalTestTask.alice));
-        xmlTodoListStorage.saveTodoList(original, filePath);
-        readBack = xmlTodoListStorage.readTodoList(filePath).get();
+        original.addTask(new Todo(TypicalTestTask.a6));
+        original.removeTask(new Todo(TypicalTestTask.a1));
+        xmlTodoListStorage.saveTaskList(original, filePath);
+        readBack = xmlTodoListStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTask.ida));
-        xmlTodoListStorage.saveTodoList(original); //file path not specified
-        readBack = xmlTodoListStorage.readTodoList().get(); //file path not specified
+        original.addTask(new Todo(TypicalTestTask.a7));
+        xmlTodoListStorage.saveTaskList(original); //file path not specified
+        readBack = xmlTodoListStorage.readTaskList().get(); //file path not specified
         assertEquals(original, new TaskList(readBack));
 
     }
@@ -94,8 +100,9 @@ public class XmlTodoListStorageTest {
         saveTodoList(null, "SomeFile.xml");
     }
 
-    private void saveTodoList(ReadOnlyTodoList TodoList, String filePath) throws IOException {
-        new XmlTodoListStorage(filePath).saveTodoList(TodoList, addToTestDataPathIfNotNull(filePath));
+
+    private void saveTodoList(ReadOnlyTaskList TodoList, String filePath) throws IOException {
+        new XmlTodoListStorage(filePath).saveTaskList(TodoList, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

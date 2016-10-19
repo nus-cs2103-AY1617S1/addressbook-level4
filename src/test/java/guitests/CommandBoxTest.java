@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class CommandBoxTest extends TodoListGuiTest {
+public class CommandBoxTest extends ListGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(td.a2.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

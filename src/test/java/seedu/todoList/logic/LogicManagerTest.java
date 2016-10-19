@@ -11,12 +11,13 @@ import seedu.todoList.logic.LogicManager;
 import seedu.todoList.logic.commands.*;
 import seedu.todoList.model.Model;
 import seedu.todoList.model.ModelManager;
-import seedu.todoList.model.ReadOnlyTodoList;
+import seedu.todoList.model.ReadOnlyTaskList;
 import seedu.todoList.model.TaskList;
-import seedu.todoList.model.tag.Tag;
-import seedu.todoList.model.tag.UniqueTagList;
+
 import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.attributes.*;
 import seedu.todoList.storage.StorageManager;
+import seedu.todoList.logic.commands.AddCommand;
 
 import org.junit.After;
 import org.junit.Before;
@@ -45,7 +46,7 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyTodoList latestSavedTodoList;
+    private ReadOnlyTaskList latestSavedTodoList;
     private boolean helpShown;
     private int targetedJumpIndex;
 
@@ -68,8 +69,10 @@ public class LogicManagerTest {
     public void setup() {
         model = new ModelManager();
         String tempTodoListFile = saveFolder.getRoot().getPath() + "TempTodoList.xml";
+        String tempEventListFile = saveFolder.getRoot().getPath() + "TempEventList.xml";
+        String tempDeadlineListFile = saveFolder.getRoot().getPath() + "TempDeadlineList.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempTodoListFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempTodoListFile, tempEventListFile, tempDeadlineListFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTodoList = new TaskList(model.getTodoList()); // last saved assumed to be up to date before.
@@ -106,7 +109,7 @@ public class LogicManagerTest {
      *      - {@code expectedTodoList} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyTodoList expectedTodoList,
+                                       ReadOnlyTaskList expectedTodoList,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
@@ -114,7 +117,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        assertEquals(expectedShownList, model.getFilteredTodoList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTodoList, model.getTodoList());
@@ -152,7 +155,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
@@ -168,11 +171,9 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, Todo", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, Todo", Phone.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, Todo", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, Todo", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, Todo t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name p/12345 e/notAnEmail a/valid, Todo", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
 
     }
 
@@ -180,15 +181,17 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+
+        Todo toBeAdded = helper.a111();
         TaskList expectedAB = new TaskList();
+
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddTaskCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.gettaskList());
+                expectedAB.getTaskList());
 
     }
 
@@ -196,8 +199,10 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+
+        Todo toBeAdded = helper.a111();
         TaskList expectedAB = new TaskList();
+
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
@@ -208,7 +213,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
-                expectedAB.gettaskList());
+                expectedAB.getTaskList());
 
     }
 
@@ -218,7 +223,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskList expectedAB = helper.generateTodoList(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.gettaskList();
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare TodoList state
         helper.addToModel(model, 2);
@@ -254,7 +259,7 @@ public class LogicManagerTest {
         List<Task> taskList = helper.generatetaskList(2);
 
         // set AB state to 2 tasks
-        model.resetData(new TaskList());
+        model.resetTodoListData(new TaskList());
         for (Task p : taskList) {
             model.addTask(p);
         }
@@ -284,9 +289,9 @@ public class LogicManagerTest {
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_task_SUCCESS, 2),
                 expectedAB,
-                expectedAB.gettaskList());
+                expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threetasks.get(1));
+        assertEquals(model.getFilteredTodoList().get(1), threetasks.get(1));
     }
 
 
@@ -313,7 +318,7 @@ public class LogicManagerTest {
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_task_SUCCESS, threetasks.get(1)),
                 expectedAB,
-                expectedAB.gettaskList());
+                expectedAB.getTaskList());
     }
 
 
@@ -326,10 +331,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generatetaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generatetaskWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generatetaskWithName("KE Y");
-        Task p2 = helper.generatetaskWithName("KEYKEYKEY sduauo");
+        Task pTarget1 = helper.generatetaskWithToDo("bla bla KEY bla");
+        Task pTarget2 = helper.generatetaskWithToDo("bla KEY bla bceofeia");
+        Task p1 = helper.generatetaskWithToDo("KE Y");
+        Task p2 = helper.generatetaskWithToDo("KEYKEYKEY sduauo");
 
         List<Task> fourtasks = helper.generatetaskList(p1, pTarget1, p2, pTarget2);
         TaskList expectedAB = helper.generateTodoList(fourtasks);
@@ -345,10 +350,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generatetaskWithName("bla bla KEY bla");
-        Task p2 = helper.generatetaskWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generatetaskWithName("key key");
-        Task p4 = helper.generatetaskWithName("KEy sduauo");
+        Task p1 = helper.generatetaskWithToDo("bla bla KEY bla");
+        Task p2 = helper.generatetaskWithToDo("bla KEY bla bceofeia");
+        Task p3 = helper.generatetaskWithToDo("key key");
+        Task p4 = helper.generatetaskWithToDo("KEy sduauo");
 
         List<Task> fourtasks = helper.generatetaskList(p3, p1, p4, p2);
         TaskList expectedAB = helper.generateTodoList(fourtasks);
@@ -364,10 +369,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generatetaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generatetaskWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generatetaskWithName("key key");
-        Task p1 = helper.generatetaskWithName("sduauo");
+        Task pTarget1 = helper.generatetaskWithToDo("bla bla KEY bla");
+        Task pTarget2 = helper.generatetaskWithToDo("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generatetaskWithToDo("key key");
+        Task p1 = helper.generatetaskWithToDo("sduauo");
 
         List<Task> fourtasks = helper.generatetaskList(pTarget1, p1, pTarget2, pTarget3);
         TaskList expectedAB = helper.generateTodoList(fourtasks);
@@ -386,15 +391,16 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@gmail.com");
-            Todo privateTodo = new Todo("111, alpha street");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateTodo, tags);
+        Todo a111() throws Exception {
+            Name name = new Name("Assignment 111");
+            Date date = new Date("01-11-2016");
+            Priority priority = new Priority("111");
+            
+            //EndTime endTime = new EndTime("1111");
+            //Tag tag1 = new Tag("tag1");
+            //Tag tag2 = new Tag("tag2");
+            //UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Todo(name, date, priority);
         }
 
         /**
@@ -405,30 +411,30 @@ public class LogicManagerTest {
          * @param seed used to generate the task data field values
          */
         Task generatetask(int seed) throws Exception {
-            return new Task(
+            return new Todo(
                     new Name("task " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Todo("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new Date("11-12-2016"),
+                    new Priority(seed + "10")
+                    //new EndTime("EndTime " + seed)
+                    //new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
         /** Generates the correct add command based on the task given */
-        String generateAddCommand(Task p) {
+        String generateAddCommand(Todo p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
 
-            cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" a/").append(p.getTodo());
+            cmd.append(p.getName().name);
+            cmd.append(" d/").append(p.getDate().date);
+            cmd.append(" p/").append(p.getPriority().priority);
+            //cmd.append(" e/").append(p.getEndTime().endTime);
 
-            UniqueTagList tags = p.getTags();
+            /*UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
-            }
+            }*/
 
             return cmd.toString();
         }
@@ -503,13 +509,14 @@ public class LogicManagerTest {
         /**
          * Generates a task object with given name. Other fields will have some dummy values.
          */
-        Task generatetaskWithName(String name) throws Exception {
-            return new Task(
+        Task generatetaskWithToDo(String name) throws Exception {
+            return new Todo(
                     new Name(name),
-                    new Phone("1"),
-                    new Email("1@email"),
-                    new Todo("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
+                    new Date("01-11-2016"),
+                    new Priority("1")
+                    
+                    
+                    //new UniqueTagList(new Tag("tag"))
             );
         }
     }

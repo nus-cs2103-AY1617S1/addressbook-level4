@@ -7,30 +7,30 @@ import seedu.todoList.model.task.attributes.*;
 /**
  * A mutable task object. For testing only.
  */
-public class TestTask extends Todo implements ReadOnlyTask {
+public class TestDeadline extends Deadline implements ReadOnlyTask {
 
     //private Name name;
-    private Todo Todo;
+    private Deadline deadline;
     private static Name name;
-    private static Priority priority;
     private static Date date;
+    private static EndTime endTime;
 
 
-    public TestTask() {
-        super(name, date, priority);
+    public TestDeadline() {
+        super(name, date, endTime);
         //tags = new UniqueTagList();
     }
 
-    public void setTodo(Todo Todo) {
-        this.Todo = Todo;
+    public void setDeadline(Deadline deadline) {
+        this.deadline = deadline;
     }
 
     public void setName(Name name) {
         this.name = name;
     }
 
-    public void setPriority(Priority priority) {
-        this.priority = priority;
+    public void setEndTime(EndTime et) {
+        this.endTime = et;
     }
     
     public void setDate(Date date) {
@@ -38,13 +38,13 @@ public class TestTask extends Todo implements ReadOnlyTask {
     }
 
     //@Override
-    public Todo getTodo() {
-        return Todo;
+    public Deadline getDeadline() {
+        return deadline;
     }
     
     //@Override
-    public Priority getPriority() {
-        return priority;
+    public EndTime getEndTime() {
+        return endTime;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class TestTask extends Todo implements ReadOnlyTask {
         sb.append("add " + this.getName().name + " ");
         //sb.append(this.getName().name + " ");
         sb.append("d/" + this.getDate().date + " ");
-        sb.append("p/" + this.getPriority().priority + " ");
+        sb.append("e/" + this.getEndTime().endTime + " ");
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

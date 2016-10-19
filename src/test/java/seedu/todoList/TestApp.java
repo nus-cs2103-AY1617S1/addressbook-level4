@@ -6,9 +6,10 @@ import javafx.stage.Stage;
 import seedu.todoList.MainApp;
 import seedu.todoList.commons.core.Config;
 import seedu.todoList.commons.core.GuiSettings;
-import seedu.todoList.model.ReadOnlyTodoList;
+import seedu.todoList.model.ReadOnlyTaskList;
 import seedu.todoList.model.UserPrefs;
 import seedu.todoList.storage.XmlSerializableTaskList;
+import seedu.todoList.storage.XmlSerializableTodoList;
 import seedu.todoList.testutil.TestUtil;
 
 import java.util.function.Supplier;
@@ -23,13 +24,13 @@ public class TestApp extends MainApp {
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String Todo_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyTodoList> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyTaskList> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyTodoList> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyTaskList> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -37,7 +38,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableTaskList(this.initialDataSupplier.get()),
+                    new XmlSerializableTodoList(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }

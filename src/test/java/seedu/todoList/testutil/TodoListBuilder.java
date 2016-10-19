@@ -1,6 +1,6 @@
 package seedu.todoList.testutil;
 
-import seedu.todoList.model.tag.Tag;
+//import seedu.todoList.model.tag.Tag;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.Task;
@@ -24,10 +24,6 @@ public class TodoListBuilder {
         return this;
     }
 
-    public TodoListBuilder withTag(String tagName) throws IllegalValueException {
-        TodoList.addTag(new Tag(tagName));
-        return this;
-    }
 
     public TaskList build(){
         return TodoList;
