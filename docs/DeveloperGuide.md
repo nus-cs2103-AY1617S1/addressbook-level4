@@ -293,8 +293,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | track completed/uncompleted activities | better manage my schedule
 `* * *` | user | modify storage path | store data in my desired location
 `* * *` | user | search for my activities using keywords | locate activities quickly
-`* * *` | user | upload my schedule online and snyc them across devices | view my schedules when I am using different devices
-`* *` | user | set priorities to my activities | prioratise activities that are more important to me
+`* * *` | user | upload my schedule online and sync them across devices | view my schedules when I am using different devices
 `* *` | user with many activities in the address book | sort activities by different priority/dateline | have a clearer view of what needs to be completed first
 
 {More to be added}
