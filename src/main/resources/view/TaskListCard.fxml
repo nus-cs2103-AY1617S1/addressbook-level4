@@ -30,6 +30,12 @@
                                 </HBox>
                             </children>
                         </HBox>
+                        <VBox spacing="5" alignment="CENTER_LEFT">
+                             <children>
+                             	<Label fx:id="openTime" styleClass="cell_big_label" text="\$openTime" />
+                             	<Label fx:id="closeTime" styleClass="cell_big_label" text="End: \$closeTime" />
+                             </children>
+                        </VBox>
                         <AnchorPane fx:id="tagsListPlaceholder" />
                     </children>
                 </VBox>

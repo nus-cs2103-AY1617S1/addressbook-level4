@@ -1,10 +1,15 @@
 package seedu.task.model.task;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.task.commons.exceptions.IllegalValueException;
@@ -15,9 +20,10 @@ import seedu.task.commons.exceptions.IllegalValueException;
  */
 public class DateTime {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date entered should be in a relatively standard form (e.g. in X hours, tomorrow, 20 Jan 2016, 5pm)";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "You have entered an invalid Date/Time format. For a complete list of all acceptable formats, please view our user guide.";
 
     public final Optional<Instant> value;
+    private static PrettyTime p = new PrettyTime();
 
     /**
      * Validates given Date and Time entered by the user.
@@ -25,17 +31,16 @@ public class DateTime {
      * @throws IllegalValueException if given date/time string is invalid.
      */
     public DateTime(String dateTime) throws IllegalValueException {
-        assert dateTime != null;
-        if (dateTime.equals("")) {
+        if (dateTime == null || dateTime.equals("")) {
             this.value = Optional.empty();
             return;
         }
-        List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
-        if (!isValidDateTime(possibleDates)) {
+        if (!isValidDateTime(dateTime)) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
-        
+        List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
         this.value = Optional.of(possibleDates.get(0).toInstant());
+        
     }
 
     /**
@@ -43,13 +48,35 @@ public class DateTime {
      * 
      * @param test output from date/time parser
      */
-    public static boolean isValidDateTime(List<Date> test) {
-        return !test.isEmpty() && (test.size() == 1);
+    public static boolean isValidDateTime(String dateTime) {
+        List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
+        if(!possibleDates.isEmpty() && (possibleDates.size() == 1)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public String toString() {
-        return (value.isPresent()) ? value.get().toString() : "";
+
+        if(value.isPresent()) {
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.FULL )
+                                     .withLocale( Locale.UK )
+                                     .withZone( ZoneId.systemDefault() );
+            return formatter.format( value.get() );
+        } else {
+            return "";
+        }
+    }
+    
+    public String toPrettyString() {
+        if(value.isPresent()) {
+            return p.format(Date.from(this.value.get()));
+        } else {
+            return "";
+        }
     }
 
     @Override
@@ -62,6 +89,13 @@ public class DateTime {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    /**
+     * Returns an optional corresponding to the value of the DateTime object
+     * @return value of DateTime object
+     */
+    public Optional<Instant> getDateTimeValue() {
+        return this.value;
     }
 
 }
