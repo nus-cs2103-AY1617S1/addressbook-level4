@@ -11,6 +11,7 @@ import seedu.taskitty.model.task.TaskTime;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -98,12 +99,40 @@ public class CommandParser {
         case ViewDoneCommand.COMMAND_WORD:
         	return new ViewDoneCommand();
         
+        case ViewCommand.COMMAND_WORD:
+        	if (userInput.equals("view")) {
+        		return prepareView(null);
+        	}
+        	return prepareView(arguments);
+        
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
     /**
+     * Parses arguments in the context of the view command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareView(String arguments) {
+    	if (arguments == null) {
+			return new ViewCommand(); // view events today, and all deadlines and todos
+		}
+    	if (arguments.equals("done")) {
+    		return new ViewDoneCommand(); // defaults to viewDone command
+    	}
+		String[] details = extractTaskDetailsNatty(arguments);
+		if (details.length!= 3) { // no date was successfully extracted
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+	    } else {
+	        assert details[1] != null; // contains date
+	        return new ViewCommand(details[1]);
+	    }
+	}
+
+
+	/**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
