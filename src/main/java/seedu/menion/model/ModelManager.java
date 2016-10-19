@@ -117,6 +117,31 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
     
+    /**
+     * @author Marx Low A0139164A
+     * Methods for editting Activity's name
+     */
+    @Override
+    public void editFloatingTaskName(int index, String changes) {
+        activityManager.editFloatingTaskName(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override 
+    public void editTaskName(int index, String changes) {
+        activityManager.editTaskName(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override
+    public void editEventName(int index, String changes) {
+        activityManager.editEventName(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
     @Override
     public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
         activityManager.removeTask(target);
