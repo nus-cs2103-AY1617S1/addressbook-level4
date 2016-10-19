@@ -171,7 +171,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public void completeTaskWhenAllComponentArchived() {
         for (TaskDateComponent c : recurringDates) {
-            if (c.getIsArchived() == false || c.getTaskReference().getRecurringType() != RecurringType.NONE) {
+            if (c.tIsArchived() == false || c.getTaskReference().getRecurringType() != RecurringType.NONE) {
                 if (c.getTaskReference().getRecurringType() != RecurringType.NONE) {
 //                    RecurringTaskManager.getInstance().archiveRecurringTask(c.getTaskReference());
                 }

@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -27,6 +29,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
  *
  */
 public class RecurringTaskManager {
+    private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
     private static RecurringTaskManager instance;
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     
@@ -38,7 +41,7 @@ public class RecurringTaskManager {
     
     public void setInitialisedTime() {
         initialisedTime = LocalDate.now();
-        updateRepeatingTasks(); // updates once every boot up
+        updateRecurringTasks(); // updates once every boot up
     }
     
     public void setTaskList(UniqueTaskList referenceList) {
@@ -54,10 +57,10 @@ public class RecurringTaskManager {
         if (daysElapsed <= 0) {
             return;
         }
-        updateRepeatingTasks();
+        updateRecurringTasks();
     }
     
-    public void updateRepeatingTasks() {
+    public void updateRecurringTasks() {
         assert repeatingTasks != null : "Repeating Task list reference cannot be null";
         logger.info("=============================[ RecurringTaskManager Updating ]===========================");
         for(ReadOnlyTask task : repeatingTasks){
@@ -71,41 +74,44 @@ public class RecurringTaskManager {
     private boolean isUpdateRecurringTask(ReadOnlyTask task) {
         List<TaskDateComponent> dateComponents = task.getTaskDateComponent();
         TaskDateComponent lastAddedComponent =  dateComponents.get(dateComponents.size()-1);
-        LocalDate currentDate = LocalDate.now();
-        LocalDate lastAddedStartDate = lastAddedComponent.getStartDate().getDate().
-                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate lastAddedEndDate = lastAddedComponent.getEndDate().getDate().
-                toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (!lastAddedComponent.getStartDate().isValid()) {
-            lastAddedStartDate = null;
+        Calendar currentDate = new GregorianCalendar();
+        Calendar startDate = new GregorianCalendar();
+        Calendar endDate = new GregorianCalendar();
+        Calendar resultingDate = new GregorianCalendar();
+        currentDate.setTime(new Date());
+        startDate.setTime(lastAddedComponent.getStartDate().getDate());
+        endDate.setTime(lastAddedComponent.getEndDate().getDate());
+        resultingDate.setTimeInMillis(currentDate.getTimeInMillis() - endDate.getTimeInMillis());
+        
+        if(!lastAddedComponent.getStartDate().isValid()) {
+            startDate = null;
         }
         switch (task.getRecurringType()) {
             case DAILY:
-
-                long elapsedDay = ChronoUnit.DAYS.between(lastAddedEndDate, currentDate);
+                final int elapsedDay = resultingDate.get(Calendar.DAY_OF_MONTH)-1;
                 if (elapsedDay >= 1) {
-                    executeDailyRecurringTask(task, lastAddedStartDate, lastAddedEndDate, elapsedDay);
+                    executeDailyRecurringTask(task, startDate, endDate, elapsedDay);
                     return true;
                 }
                 break;
             case WEEKLY:
-                long elapsedWeek = ChronoUnit.WEEKS.between(lastAddedEndDate, currentDate);
+                final int elapsedWeek = (resultingDate.get(Calendar.DAY_OF_MONTH)-1) / NUMBER_OF_DAYS_IN_A_WEEK;
                 if (elapsedWeek >= 1) {
-                    executeWeeklyRecurringTask(task, lastAddedStartDate, lastAddedEndDate, elapsedWeek);
+                    executeWeeklyRecurringTask(task, startDate, endDate, elapsedWeek);
                     return true;
                 }
                 break;
             case MONTHLY:
-                long elapsedMonth = ChronoUnit.MONTHS.between(lastAddedEndDate, currentDate);
+                final int elapsedMonth = resultingDate.get(Calendar.MONTH);
                 if (elapsedMonth >= 1){
-                    executeMonthlyRecurringTask(task, lastAddedStartDate, lastAddedEndDate, elapsedMonth);
+                    executeMonthlyRecurringTask(task, startDate, endDate, elapsedMonth);
                     return true;
                 }
                 break;
             case YEARLY:
-                long elapsedYear = ChronoUnit.YEARS.between(lastAddedEndDate, currentDate);
+                final int elapsedYear = resultingDate.get(Calendar.YEAR);
                 if (elapsedYear >= 1) {
-                    executeYearlyRecurringTask(task, lastAddedStartDate, lastAddedEndDate, elapsedYear);
+                    executeYearlyRecurringTask(task, startDate, endDate, elapsedYear);
                     return true;
                 }
                 break;
@@ -115,85 +121,97 @@ public class RecurringTaskManager {
         return false;
     }
 
-    private void executeYearlyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
-            LocalDate lastAddedEndDate, long elapsedYear) {
+    private void executeYearlyRecurringTask(ReadOnlyTask task, Calendar startDate,
+            Calendar endDate, int elapsedYear) {
         // Append a new date to the current task
-        LocalDate newLocalStartDate;
-        Date convertedStartDate;
-        
-        if(lastAddedStartDate != null) {
-            newLocalStartDate = lastAddedStartDate.plusYears(elapsedYear);
-            convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Calendar calendar = Calendar.getInstance();
+        TaskDate editedStartDate = new TaskDate();
+        TaskDate editedEndDate = new TaskDate();
+        if(startDate != null) {
+            calendar.setTime(startDate.getTime());
+            calendar.add(Calendar.YEAR, elapsedYear);
+            editedStartDate.setDateInLong(calendar.getTime().getTime());
         }else {
-            convertedStartDate = (new TaskDate()).getDate();
+            editedStartDate.setDateInLong((new TaskDate()).getDateInLong());
         }
-        LocalDate newLocalEndDate = lastAddedEndDate.plusYears(elapsedYear);
-        Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        calendar.setTime(endDate.getTime());
+        calendar.add(Calendar.YEAR, elapsedYear);
+        editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
+        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
         repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
     }
 
-    private void executeMonthlyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
-            LocalDate lastAddedEndDate, long elapsedMonth) {
+    private void executeMonthlyRecurringTask(ReadOnlyTask task, Calendar startDate,
+            Calendar endDate, int elapsedMonth) {
         // Append a new date to the current task
-        LocalDate newLocalStartDate;
-        Date convertedStartDate;
-        
-        if(lastAddedStartDate != null) {
-            newLocalStartDate = lastAddedStartDate.plusMonths(elapsedMonth);
-            convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        // Append a new date to the current task
+        Calendar calendar = Calendar.getInstance();
+        TaskDate editedStartDate = new TaskDate();
+        TaskDate editedEndDate = new TaskDate();
+        if(startDate != null) {
+            calendar.setTime(startDate.getTime());
+            calendar.add(Calendar.MONTH, elapsedMonth);
+            editedStartDate.setDateInLong(calendar.getTime().getTime());
         }else {
-            convertedStartDate = (new TaskDate()).getDate();
+            editedStartDate.setDateInLong((new TaskDate()).getDateInLong());
         }
-        LocalDate newLocalEndDate = lastAddedEndDate.plusMonths(elapsedMonth);
-        Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        calendar.setTime(endDate.getTime());
+        calendar.add(Calendar.MONTH, elapsedMonth);
+        editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
+        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
         repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
     }
 
-    private void executeWeeklyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
-            LocalDate lastAddedEndDate, long elapsedWeek) {
+    private void executeWeeklyRecurringTask(ReadOnlyTask task, Calendar startDate,
+            Calendar endDate, int elapsedWeek) {
         // Append a new date to the current task
-        LocalDate newLocalStartDate;
-        Date convertedStartDate;
-        
-        if(lastAddedStartDate != null) {
-            newLocalStartDate = lastAddedStartDate.plusWeeks(elapsedWeek);
-            convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Calendar calendar = Calendar.getInstance();
+        TaskDate editedStartDate = new TaskDate();
+        TaskDate editedEndDate = new TaskDate();
+        if(startDate != null) {
+            calendar.setTime(startDate.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, elapsedWeek * NUMBER_OF_DAYS_IN_A_WEEK);
+            editedStartDate.setDateInLong(calendar.getTime().getTime());
         }else {
-            convertedStartDate = (new TaskDate()).getDate();
+            editedStartDate.setDateInLong((new TaskDate()).getDateInLong());
         }
-        LocalDate newLocalEndDate = lastAddedEndDate.plusWeeks(elapsedWeek);
-        Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        calendar.setTime(endDate.getTime());
+        calendar.add(Calendar.DAY_OF_MONTH, elapsedWeek * NUMBER_OF_DAYS_IN_A_WEEK);
+        editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
+        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
         repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
     }
 
-    private void executeDailyRecurringTask(ReadOnlyTask task, LocalDate lastAddedStartDate,
-            LocalDate lastAddedEndDate, long elapsedDay) {
+    private void executeDailyRecurringTask(ReadOnlyTask task, Calendar startDate,
+            Calendar endDate, int elapsedDay) {
         // Append a new date to the current task
-        LocalDate newLocalStartDate;
-        Date convertedStartDate;
-        
-        if(lastAddedStartDate != null) {
-            newLocalStartDate = lastAddedStartDate.plusDays(elapsedDay);
-            convertedStartDate = Date.from(newLocalStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Calendar calendar = Calendar.getInstance();
+        TaskDate editedStartDate = new TaskDate();
+        TaskDate editedEndDate = new TaskDate();
+        if(startDate != null) {
+            calendar.setTime(startDate.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, elapsedDay);
+            editedStartDate.setDateInLong(calendar.getTime().getTime());
         }else {
-            convertedStartDate = (new TaskDate()).getDate();
+            editedStartDate.setDateInLong((new TaskDate()).getDateInLong());
         }
-        LocalDate newLocalEndDate = lastAddedEndDate.plusDays(elapsedDay);
-        Date convertedEndDate = Date.from(newLocalEndDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        calendar.setTime(endDate.getTime());
+        calendar.add(Calendar.DAY_OF_MONTH, elapsedDay);
+        editedEndDate.setDateInLong(calendar.getTime().getTime());
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
-        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(convertedStartDate), new TaskDate(convertedEndDate));
+        TaskDateComponent newRepeatingTaskToAdd = new TaskDateComponent((Task)task, new TaskDate(editedStartDate), new TaskDate(editedEndDate));
         repeatingTasks.getInternalComponentList().set(idx, newRepeatingTaskToAdd);
-        
     }
     
     public void archiveRecurringTask(ReadOnlyTask task) {
@@ -370,48 +388,47 @@ public class RecurringTaskManager {
     }
 
     public void handleRecurringTask(TaskDate start, TaskDate end, RecurringType type) {
-        LocalDate local;
+        Calendar local = Calendar.getInstance();
         switch(type) {
             case DAILY:
-                local = end.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                local = local.plusDays(1);
-                end.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());
+                local.setTime(end.getDate());
+                local.add(Calendar.DAY_OF_MONTH, 1);
+                end.setDateInLong(local.getTimeInMillis());
                 if (start.getDateInLong() != TaskDate.DATE_NOT_PRESENT) {
-                    local = start.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    local = local.plusDays(1);
-                    start.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());                    
+                    local.setTime(start.getDate());
+                    local.add(Calendar.DAY_OF_MONTH, 1);
+                    start.setDateInLong(local.getTimeInMillis());                    
                 }
                 break;
             case WEEKLY:
-                local = end.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                local = local.plusWeeks(1);
-                end.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());
+                local.setTime(end.getDate());
+                local.add(Calendar.DAY_OF_MONTH, NUMBER_OF_DAYS_IN_A_WEEK);
+                end.setDateInLong(local.getTimeInMillis());
                 if (start.getDateInLong() != TaskDate.DATE_NOT_PRESENT) {
-                    local = start.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    local = local.plusWeeks(1);
-                    start.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());                    
+                    local.setTime(start.getDate());
+                    local.add(Calendar.DAY_OF_MONTH, NUMBER_OF_DAYS_IN_A_WEEK);
+                    start.setDateInLong(local.getTimeInMillis());                    
                 }
                 break;
             case MONTHLY:
-                local = end.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                local = local.plusMonths(1);
-                end.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());
+                local.setTime(end.getDate());
+                local.add(Calendar.MONTH, 1);
+                end.setDateInLong(local.getTimeInMillis());
                 if (start.getDateInLong() != TaskDate.DATE_NOT_PRESENT) {
-                    local = start.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    local = local.plusMonths(1);
-                    start.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());                    
-                }                
+                    local.setTime(start.getDate());
+                    local.add(Calendar.MONTH, 1);
+                    start.setDateInLong(local.getTimeInMillis());                    
+                }
                 break;
             case YEARLY:
-                local = end.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                local = local.plusYears(1);
-                end.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());
+                local.setTime(end.getDate());
+                local.add(Calendar.YEAR, 1);
+                end.setDateInLong(local.getTimeInMillis());
                 if (start.getDateInLong() != TaskDate.DATE_NOT_PRESENT) {
-                    local = start.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    local = local.plusYears(1);
-                    start.setDateInLong(Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime());                    
-                }                
-                break;
-        }
+                    local.setTime(start.getDate());
+                    local.add(Calendar.YEAR, 1);
+                    start.setDateInLong(local.getTimeInMillis());                    
+                }
+                break;        }
     }
 }

@@ -88,4 +88,9 @@ public class TaskDate {
     public boolean isValid() {
         return date != DATE_NOT_PRESENT;
     }
+    
+    @Override
+    public String toString() {
+        return getFormattedDate();
+    }
 }

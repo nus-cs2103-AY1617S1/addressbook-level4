@@ -69,7 +69,7 @@ public class TaskDateComponent {
         isArchived = true;
     }
     
-    public boolean getIsArchived() {
+    public boolean tIsArchived() {
         return isArchived;
     }
     

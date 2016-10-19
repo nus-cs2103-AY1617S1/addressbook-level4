@@ -57,7 +57,7 @@ public class XmlAdaptedTask {
             startDate = TaskDate.DATE_NOT_PRESENT;
             endDate = TaskDate.DATE_NOT_PRESENT;
         }
-        if (source.getTaskReference().getRecurringType() != RecurringType.NONE) {
+        if (source.getTaskReference().getRecurringType() != RecurringType.NONE && source.tIsArchived()) {
             TaskDate startCopy = new TaskDate(source.getStartDate());
             TaskDate endCopy = new TaskDate(source.getEndDate());
             RecurringTaskManager.getInstance().handleRecurringTask(startCopy,

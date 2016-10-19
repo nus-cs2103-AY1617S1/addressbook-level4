@@ -98,7 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskList.addTask(task);
-        RecurringTaskManager.getInstance().updateRepeatingTasks();
+        RecurringTaskManager.getInstance().updateRecurringTasks();
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
@@ -182,7 +182,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(TaskDateComponent task) {
 
-            return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.getIsArchived();
+            return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.tIsArchived();
         }
 
         @Override
@@ -201,7 +201,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(TaskDateComponent task) {
 
-            return task.getIsArchived() == isArchived;
+            return task.tIsArchived() == isArchived;
         }
 
         @Override
