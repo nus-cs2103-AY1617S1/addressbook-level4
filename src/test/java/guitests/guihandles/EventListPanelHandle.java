@@ -34,20 +34,20 @@ public class EventListPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public ObservableList<Event> getSelectedtasks() {
-        ListView<Event> taskList = getListView();
+    public List<ReadOnlyTask> getSelectedtasks() {
+        ListView<ReadOnlyTask> taskList = getListView();
         return taskList.getSelectionModel().getSelectedItems();
     }
 
-    public ListView<Event> getListView() {
-        return (ListView<Event>) getNode(task_LIST_VIEW_ID);
+    public ListView<ReadOnlyTask> getListView() {
+        return (ListView<ReadOnlyTask>) getNode(task_LIST_VIEW_ID);
     }
 
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
      * @param tasks A list of task in the correct order.
      */
-    public boolean isListMatching(Event... tasks) {
+    public boolean isListMatching(ReadOnlyTask... tasks) {
         return this.isListMatching(0, tasks); //something wrong, always return false!!!
     }
     
@@ -62,8 +62,8 @@ public class EventListPanelHandle extends GuiHandle {
     /**
      * Returns true if the {@code tasks} appear as the sub list (in that order) at position {@code startPosition}.
      */
-    public boolean containsInOrder(int startPosition, Event... tasks) {
-        List<Event> tasksInList = getListView().getItems();
+    public boolean containsInOrder(int startPosition, ReadOnlyTask... tasks) {
+        List<ReadOnlyTask> tasksInList = getListView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
         if (startPosition + tasks.length > tasksInList.size()){
@@ -85,7 +85,7 @@ public class EventListPanelHandle extends GuiHandle {
      * @param startPosition The starting position of the sub list.
      * @param tasks A list of task in the correct order.
      */
-    public boolean isListMatching(int startPosition, Event... tasks) throws IllegalArgumentException {
+    public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " tasks");
@@ -95,7 +95,7 @@ public class EventListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndEvent(getEventCardHandle(startPosition + i), (Event) tasks[i])) {
+            if (!TestUtil.compareCardAndEvent(getEventCardHandle(startPosition + i), tasks[i])) {
                 return false;
             }
         }
@@ -103,20 +103,20 @@ public class EventListPanelHandle extends GuiHandle {
     }
 
 
-    public TaskCardHandle navigateTotask(ReadOnlyTask readOnlyTask) {
+    public EventCardHandle navigateToevent(String readOnlyTask) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<Event> task = getListView().getItems().stream().filter(p -> p.getName().name.equals(readOnlyTask)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().name.equals(readOnlyTask)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Task not found: " + readOnlyTask);
         }
 
-        return navigateTotask(task.get());
+        return navigateToevent(task.get());
     }
 
     /**
      * Navigates the listview to display and select the task.
      */
-    public EventCardHandle navigateToevent(Event event) {
+    public EventCardHandle navigateToevent(ReadOnlyTask event) {
         int index = geteventIndex(event); //SOmething wrong. Always return 0
 
         guiRobot.interact(() -> {
@@ -133,9 +133,9 @@ public class EventListPanelHandle extends GuiHandle {
      * Returns the position of the task given, {@code NOT_FOUND} if not found in the list.
      */
     public int geteventIndex(ReadOnlyTask targettask) {
-        List<Event> tasksInList = getListView().getItems();
+        List<ReadOnlyTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
-            if(tasksInList.get(i).getName().equals(targettask.getName().name)){
+            if(tasksInList.get(i).getName().equals(targettask.getName())){
                 return i;
             }
         }
@@ -153,7 +153,7 @@ public class EventListPanelHandle extends GuiHandle {
         return getEventCardHandle(new Event(getListView().getItems().get(task)));
     }
 
-    public EventCardHandle getEventCardHandle(Event event) {
+    public EventCardHandle getEventCardHandle(ReadOnlyTask event) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> eventCardNode = nodes.stream()
                 .filter(n -> new EventCardHandle(guiRobot, primaryStage, n).isSameEvent(event))

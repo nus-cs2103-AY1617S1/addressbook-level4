@@ -19,6 +19,7 @@ import seedu.todoList.storage.Storage;
 import seedu.todoList.storage.StorageManager;
 import seedu.todoList.storage.XmlTodoListStorage;
 import seedu.todoList.testutil.EventsCollector;
+import seedu.todoList.testutil.TypicalTestDeadline;
 import seedu.todoList.testutil.TypicalTestEvent;
 import seedu.todoList.testutil.TypicalTestTask;
 
@@ -38,7 +39,7 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storageManager = new StorageManager(getTempFilePath("ab"), null, null, getTempFilePath("prefs"));
+        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("cd"), getTempFilePath("ef"), getTempFilePath("prefs"));
     }
 
 
@@ -77,7 +78,14 @@ public class StorageManagerTest {
         storageManager.saveEventList(original);
         ReadOnlyTaskList retrieved = storageManager.readEventList().get();
         assertEquals(original, new TaskList(retrieved));
-       
+    }
+    
+    @Test
+    public void DeadlineListReadSave() throws Exception {
+        TaskList original = new TypicalTestDeadline().getTypicalDeadlineList();
+        storageManager.saveDeadlineList(original);
+        ReadOnlyTaskList retrieved = storageManager.readDeadlineList().get();
+        assertEquals(original, new TaskList(retrieved));
     }
 
     @Test
@@ -88,6 +96,11 @@ public class StorageManagerTest {
     @Test
     public void getEventListFilePath(){
         assertNotNull(storageManager.getEventListFilePath());
+    }
+    
+    @Test
+    public void getDeadlineListFilePath(){
+        assertNotNull(storageManager.getDeadlineListFilePath());
     }
 
     @Test
@@ -103,6 +116,15 @@ public class StorageManagerTest {
     public void handleEventListChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(null, new XmlEventListStorageExceptionThrowingStub("dummy"), null, new JsonUserPrefsStorage("dummy"));
+        EventsCollector eventCollector = new EventsCollector();
+        storage.handleEventListChangedEvent(new EventListChangedEvent(new TaskList()));
+        assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
+    }
+    
+    @Test
+    public void handleDeadlineListChangedEvent_exceptionThrown_eventRaised() throws IOException {
+        //Create a StorageManager while injecting a stub that throws an exception when the save method is called
+        Storage storage = new StorageManager(null, null, new XmlDeadlineListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleEventListChangedEvent(new EventListChangedEvent(new TaskList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
@@ -125,7 +147,7 @@ public class StorageManagerTest {
         }
     }
     
-    class XmlEventListStorageExceptionThrowingStub extends XmlTaskListStorage{
+    class XmlEventListStorageExceptionThrowingStub extends XmlEventListStorage{
 
         public XmlEventListStorageExceptionThrowingStub(String filePath) {
             super(filePath);
@@ -133,6 +155,18 @@ public class StorageManagerTest {
 
         //@Override
         public void saveEventList(ReadOnlyTaskList EventList, String filePath) throws IOException {
+            throw new IOException("dummy exception");
+        }
+    }
+    
+    class XmlDeadlineListStorageExceptionThrowingStub extends XmlDeadlineListStorage{
+
+        public XmlDeadlineListStorageExceptionThrowingStub(String filePath) {
+            super(filePath);
+        }
+
+        //@Override
+        public void saveDeadlineList(ReadOnlyTaskList DeadlineList, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

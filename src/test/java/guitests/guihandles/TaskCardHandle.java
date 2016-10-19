@@ -39,9 +39,9 @@ public class TaskCardHandle extends GuiHandle {
     }
 
 
-    public boolean isSametask(Todo task){
-        return getName().equals(task.getName().name) && getDate().equals(task.getDate().date)
-                && getPriority().equals(task.getPriority().priority);
+    public boolean isSametask(ReadOnlyTask task){
+        return getName().equals(task.getName().name);// && getDate().equals(task.getDate().date)
+                //&& getPriority().equals(task.getPriority().priority);
     }
 
     @Override

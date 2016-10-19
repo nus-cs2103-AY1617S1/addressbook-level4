@@ -74,7 +74,7 @@ public class TestUtil {
     private static Task[] getSampletaskData() {
         try {
             return new Task[]{
-                    new Todo(new Name("Assignment 11"), new Date("01-11-2016"), new Priority("1")),
+                    new Todo(new Name("TT 11"), new Date("01-11-2016"), new Priority("1")),
                     new Todo(new Name("Assignment 12"), new Date("02-11-2016"), new Priority("2")),
                     new Todo(new Name("Assignment 13"), new Date("03-11-2016"), new Priority("3")),
                     new Todo(new Name("Assignment 14"), new Date("04-11-2016"), new Priority("4")),
@@ -181,8 +181,8 @@ public class TestUtil {
         return new TaskList(new UniqueTaskList());
     }
 
-    public static XmlSerializableTaskList generateSampleStorageTodoList() {
-        return new XmlSerializableTaskList(generateEmptyTodoList());
+    public static XmlSerializableTodoList generateSampleStorageTodoList() {
+        return new XmlSerializableTodoList(generateEmptyTodoList());
     }    
     public static XmlSerializableEventList generateSampleStorageEventList() {
         return new XmlSerializableEventList(generateEmptyEventList());
@@ -414,16 +414,16 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, Todo task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSametask(task); //something wrong. Always return false
     }
     
-    public static boolean compareCardAndEvent(EventCardHandle card, Event event) {
+    public static boolean compareCardAndEvent(EventCardHandle card, ReadOnlyTask event) {
         return card.isSameEvent(event); //something wrong. Always return false
     }
     
-    public static boolean compareCardAndDeadline(DeadlineCardHandle card, Deadline dd) {
-        return card.isSameDeadline(dd); //something wrong. Always return false
+    public static boolean compareCardAndDeadline(DeadlineCardHandle card, ReadOnlyTask tasks) {
+        return card.isSameDeadline(tasks); //something wrong. Always return false
     }
 
 }

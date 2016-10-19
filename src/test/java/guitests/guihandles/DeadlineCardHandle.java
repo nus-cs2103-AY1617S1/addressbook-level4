@@ -40,10 +40,9 @@ public class DeadlineCardHandle extends GuiHandle {
     }
 
 
-    public boolean isSameDeadline(Deadline task){
+    public boolean isSameDeadline(ReadOnlyTask task){
         return getName().equals(task.getName().name) 
-               && getDate().equals(task.getDate().date)
-               && getEndTime().equals(task.getEndTime().endTime);
+               ;
     }
 
     @Override

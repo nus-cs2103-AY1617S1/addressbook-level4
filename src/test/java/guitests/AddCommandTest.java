@@ -20,16 +20,16 @@ public class AddCommandTest extends ListGuiTest {
     @Test
     public void add() {
         //add one task
-        /*TestTask[] currentList = td.getTypicaltasks();
+        TestTask[] currentList = td.getTypicaltasks();
         TestTask taskToAdd = td.a6;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);*/
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add one event
-        /*TestEvent[] currentEventList = ed.getTypicalEvent();
+        TestEvent[] currentEventList = ed.getTypicalEvent();
         TestEvent eventToAdd = ed.e6;
         assertAddEventSuccess(eventToAdd, currentEventList);
-        currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);*/
+        currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
         
         //add one deadline
         TestDeadline[] currentDeadlineList = dd.getTypicalDeadline();//.getTypicalDeadline();
@@ -38,24 +38,24 @@ public class AddCommandTest extends ListGuiTest {
         currentDeadlineList = TestUtil.addDeadlinesToList(currentDeadlineList, ddToAdd);
 
         //add another task
-        /*taskToAdd = td.a7;
+        taskToAdd = td.a7;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);*/
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add another event
-        /*eventToAdd = ed.e7;
+        eventToAdd = ed.e7;
         assertAddEventSuccess(eventToAdd, currentEventList);
-        currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);*/
+        currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
 
         //add duplicate task
-        /*commandBox.runCommand(td.a6.getAddCommand());
+        commandBox.runCommand(td.a6.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));*/
+        assertTrue(taskListPanel.isListMatching(currentList));
         
         //add duplicate event
-        /*commandBox.runCommand(ed.e6.getAddCommand());
+        commandBox.runCommand(ed.e6.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(eventListPanel.isListMatching(currentEventList));*/
+        assertTrue(eventListPanel.isListMatching(currentEventList));
 
         //add to empty list
         commandBox.runCommand("clear");

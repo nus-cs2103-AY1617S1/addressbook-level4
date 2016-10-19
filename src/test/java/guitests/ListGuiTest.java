@@ -89,11 +89,11 @@ public abstract class ListGuiTest {
      */
     protected TaskList getInitialData() {
         TaskList ab = TestUtil.generateEmptyTodoList();
-        TaskList cd = TestUtil.generateEmptyEventList();
-        TaskList ef = TestUtil.generateEmptyDeadlineList();
+        //TaskList cd = TestUtil.generateEmptyEventList();
+        //TaskList ef = TestUtil.generateEmptyDeadlineList();
         TypicalTestTask.loadTodoListWithSampleData(ab);
-        TypicalTestEvent.loadEventListWithSampleData(cd);
-        TypicalTestDeadline.loadDeadlineListWithSampleData(ef);
+        //TypicalTestEvent.loadEventListWithSampleData(cd);
+        //TypicalTestDeadline.loadDeadlineListWithSampleData(ef);
         return ab;
     }
 
