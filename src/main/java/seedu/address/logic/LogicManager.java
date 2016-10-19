@@ -52,6 +52,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     public static CommandResult undo() throws IllegalValueException{
+    	if(operations.empty())
+    		return new CommandResult("No operations can be undone.");
     	return operations.pop().undo();
     }
 }

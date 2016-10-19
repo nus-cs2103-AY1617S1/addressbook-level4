@@ -16,13 +16,10 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo the last add/delete/addTag/deleteTag/update Command.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_UNDO_MESSAGE = "Undo complete";
-
     public UndoCommand() {}
 
     @Override
     public CommandResult execute() throws IllegalValueException {
-        LogicManager.undo();
-        return new CommandResult(SHOWING_UNDO_MESSAGE);
+    	return LogicManager.undo();
     }
 }

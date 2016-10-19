@@ -62,7 +62,7 @@ public class AddCommand extends Command {
 
     }
 
-    public AddCommand(String description, String priority, Time start, Time end, UniqueTagList tags, int index)
+    public AddCommand(String description, String priority, Time start, Time end, UniqueTagList tags, boolean completeStatus,int index)
             throws IllegalValueException {
 
     	this.start = start;
@@ -73,7 +73,8 @@ public class AddCommand extends Command {
                 new Priority(priority),
                 this.start,
                 this.end,
-                tags
+                tags,
+                completeStatus
         );
         this.index = index;
     }

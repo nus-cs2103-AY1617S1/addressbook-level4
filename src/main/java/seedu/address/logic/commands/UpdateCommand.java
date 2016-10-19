@@ -57,8 +57,9 @@ public class UpdateCommand extends Command{
         Time timeStart = taskToUpdate.getTimeStart();
         Time timeEnd = taskToUpdate.getTimeEnd();
         UniqueTagList tags = taskToUpdate.getTags();
+        boolean completeStatus = taskToUpdate.getCompleteStatus();
 
-        LogicManager.tasks.push(new Task(description, priority, timeStart, timeEnd, tags));
+        LogicManager.tasks.push(new Task(description, priority, timeStart, timeEnd, tags, completeStatus));
         LogicManager.indexes.push(targetIndex);
 
 			switch(property){
@@ -68,6 +69,7 @@ public class UpdateCommand extends Command{
 					timeEnd = taskToUpdate.getTimeEnd();
 					priority = taskToUpdate.getPriority();
 					tags =taskToUpdate.getTags();
+					completeStatus = taskToUpdate.getCompleteStatus();
 					break;
 
 				case "start":
@@ -82,6 +84,7 @@ public class UpdateCommand extends Command{
 					timeEnd = taskToUpdate.getTimeEnd();
 					priority = taskToUpdate.getPriority();
 					tags =taskToUpdate.getTags();
+					completeStatus = taskToUpdate.getCompleteStatus();
 
 					if(timeEnd.isEndBeforeStart(timeStart)){
 						LogicManager.tasks.pop();
@@ -96,6 +99,7 @@ public class UpdateCommand extends Command{
 					timeEnd = taskToUpdate.getTimeEnd();
 					timeStart = taskToUpdate.getTimeStart();
 					tags =taskToUpdate.getTags();
+					completeStatus = taskToUpdate.getCompleteStatus();
 					break;
 
 				case "end":
@@ -111,6 +115,7 @@ public class UpdateCommand extends Command{
 					priority = taskToUpdate.getPriority();
 					timeStart = taskToUpdate.getTimeStart();
 					tags =taskToUpdate.getTags();
+					completeStatus = taskToUpdate.getCompleteStatus();
 					if(timeEnd.isEndBeforeStart(timeStart)){
 						LogicManager.tasks.pop();
 				        LogicManager.indexes.pop();
@@ -126,7 +131,7 @@ public class UpdateCommand extends Command{
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description.toString(), priority.toString(), timeStart, timeEnd, tags, targetIndex-1);
+			add = new AddCommand(description.toString(), priority.toString(), timeStart, timeEnd, tags, completeStatus,targetIndex-1);
 			add.model = model;
 			add.insert();
 			undo = true;
@@ -157,6 +162,6 @@ public class UpdateCommand extends Command{
 		 LogicManager.tasks.pop();
 		 LogicManager.indexes.pop();
 
-		 return null;
+		 return new CommandResult("Undo complete!");
 	 }
 }

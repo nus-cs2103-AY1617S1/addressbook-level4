@@ -53,6 +53,7 @@ public class DeleteTagCommand extends Command{
         Time timeEnd = taskToUpdate.getTimeEnd();
         String priority = taskToUpdate.getPriority().toString();
         UniqueTagList tags =taskToUpdate.getTags();
+        boolean completeStatus = taskToUpdate.getCompleteStatus();
 
         try {
 			tags.remove(tag);
@@ -64,7 +65,7 @@ public class DeleteTagCommand extends Command{
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description, priority, timeStart, timeEnd, tags, targetIndex-1);
+			add = new AddCommand(description, priority, timeStart, timeEnd, tags, completeStatus,targetIndex-1);
 			add.model = model;
 			add.insert();
 			undo = true;

@@ -53,6 +53,7 @@ public class AddTagCommand extends Command{
         Time timeEnd = taskToUpdate.getTimeEnd();
         Priority priority = taskToUpdate.getPriority();
         UniqueTagList tags =taskToUpdate.getTags();
+        boolean completeStatus = taskToUpdate.getCompleteStatus();
 
         try {
 			tags.add(tag);
@@ -64,13 +65,13 @@ public class AddTagCommand extends Command{
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description.toString(), priority.toString(), timeStart, timeEnd, tags, targetIndex-1);
+			add = new AddCommand(description.toString(), priority.toString(), timeStart, timeEnd, tags, completeStatus, targetIndex-1);
 			add.model = model;
 			add.insert();
 
 			undo = true;
 			tags.remove(tag);
-		    LogicManager.tasks.push(new Task(description, priority, timeStart, timeEnd, tags));
+		    LogicManager.tasks.push(new Task(description, priority, timeStart, timeEnd, tags, completeStatus));
             LogicManager.indexes.push(targetIndex);
 		} catch (IllegalValueException e){
 			 LogicManager.tasks.pop();
@@ -96,7 +97,7 @@ public class AddTagCommand extends Command{
 		 LogicManager.tasks.pop();
 		 LogicManager.indexes.pop();
 
-		 return null;
+		 return new CommandResult("Undo complete!");
 	 }
 
 }

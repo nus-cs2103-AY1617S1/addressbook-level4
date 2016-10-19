@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     Priority getPriority();
     Time getTimeStart();
     Time getTimeEnd();
+    boolean getCompleteStatus();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -37,6 +38,7 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getDescription())
+        		.append(getCompleteStatus() ? "  (Completed)" : "  (Not Completed)")
                 .append("\nPriority: ")
                 .append(getPriority())
                 .append("\nTime Start: ")
