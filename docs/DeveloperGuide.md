@@ -299,7 +299,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > 1a1. ForgetMeNot shows an error and help message
 
-### Use Case: Clear Task
+#### Use Case: Clear Task
 
 **MSS**
 
