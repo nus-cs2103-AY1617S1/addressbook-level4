@@ -48,6 +48,8 @@ public class FindController implements Controller {
         tokenDefinitions.put("time", new String[] { "at", "by", "on", "time" });
         tokenDefinitions.put("timeFrom", new String[] { "from" });
         tokenDefinitions.put("timeTo", new String[] { "to", "before" });
+        tokenDefinitions.put("name", new String[] { "name" });
+        tokenDefinitions.put("tag", new String [] { "tag" }); //TODO
         return tokenDefinitions;
     }
 
