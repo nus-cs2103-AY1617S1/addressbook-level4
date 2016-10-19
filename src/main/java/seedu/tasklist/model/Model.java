@@ -72,12 +72,12 @@ public interface Model {
     void markTaskAsIncomplete(ReadOnlyTask task) throws TaskNotFoundException;
 
     void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority,
-            UniqueTagList tags) throws DuplicateTaskException;
+            UniqueTagList tags, String frequency) throws DuplicateTaskException;
 
     void addTaskUndo(Task task) throws DuplicateTaskException;
 
     void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
-            Priority priority, UniqueTagList tags) throws DuplicateTaskException;
+            Priority priority, UniqueTagList tags, String frequency) throws DuplicateTaskException;
 
     void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException;
 

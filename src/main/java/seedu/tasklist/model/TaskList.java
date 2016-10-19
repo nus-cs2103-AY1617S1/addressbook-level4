@@ -185,7 +185,7 @@ public class TaskList implements ReadOnlyTaskList{
 	}
 
     public void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
-            Priority priority) {
+            Priority priority, String recurringFrequency) {
         
         if (taskDetails != null) 
             taskToUpdate.setTaskDetails(taskDetails); 
@@ -195,6 +195,8 @@ public class TaskList implements ReadOnlyTaskList{
             taskToUpdate.setEndTime(endTime); 
         if (priority != null)
             taskToUpdate.setPriority(priority);
+        if (recurringFrequency != null)
+            taskToUpdate.setRecurringFrequency(recurringFrequency);
     }
 
     public void markTaskAsIncomplete(ReadOnlyTask task) {

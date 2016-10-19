@@ -38,7 +38,7 @@ public class Parser {
     
     private static final Pattern TASK_UPDATE_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
     		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
-            + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?" + "((?: p/)(?<priority>[^/]+))?"
+            + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?" + "((?: r/)(?<frequency>[^/]+))?" + "((?: p/)(?<priority>[^/]+))?"
             + "(?<tagArguments>(?: t/[^;]+)*)"
             );
     
@@ -122,6 +122,7 @@ public class Parser {
             String taskDetails = (matcher.group("name") == null) ? null : matcher.group("name").replace("\\", "");
             String startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             String endTime = (matcher.group("end") == null) ? null : matcher.group("end");
+            String frequency = (matcher.group("frequency") == null) ? null : matcher.group("frequency");
             String priority = (matcher.group("priority") == null) ? null : matcher.group("priority");
             UniqueTagList utags = null;
             try {
@@ -133,7 +134,7 @@ public class Parser {
             }
             
             try {
-                return new UpdateCommand(targetIndex, taskDetails, startTime, endTime, priority, utags);
+                return new UpdateCommand(targetIndex, taskDetails, startTime, endTime, priority, utags, frequency);
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }

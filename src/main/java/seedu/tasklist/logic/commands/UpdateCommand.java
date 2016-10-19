@@ -30,8 +30,9 @@ public class UpdateCommand extends Command {
 	private EndTime endTime;
 	private Priority priority;
 	private UniqueTagList tags;
+	private String recurringFrequency;
 
-	public UpdateCommand(int targetIndex, String taskDetails, String startTime, String endTime, String priority, UniqueTagList tags)
+	public UpdateCommand(int targetIndex, String taskDetails, String startTime, String endTime, String priority, UniqueTagList tags, String frequency)
 			throws IllegalValueException {
 		this.targetIndex = targetIndex - 1;
 		if (taskDetails != null)
@@ -43,6 +44,8 @@ public class UpdateCommand extends Command {
 		if (priority != null)
 			this.priority = new Priority(priority);
 		this.tags = new UniqueTagList(tags);
+		if (frequency != null)
+			this.recurringFrequency = frequency;
 	}
 
 	@Override
@@ -62,7 +65,7 @@ public class UpdateCommand extends Command {
 				}
 			}
 			try {
-				model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, tags);
+				model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, tags, recurringFrequency);
 				return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
 			} catch (UniqueTaskList.DuplicateTaskException e) {
 				return new CommandResult(MESSAGE_DUPLICATE_TASK);

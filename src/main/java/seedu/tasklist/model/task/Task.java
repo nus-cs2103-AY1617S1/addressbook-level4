@@ -141,6 +141,10 @@ public class Task implements ReadOnlyTask {
 	public void setPriority(Priority priority){
 		this.priority = priority;
 	}
+	
+	public void setRecurringFrequency(String frequency) {
+		this.recurringFrequency = frequency;
+	}
 
 	public void setRecurringTime() {
 	    if (isRecurring && isComplete && !this.recurringFrequency.equals("")) {
