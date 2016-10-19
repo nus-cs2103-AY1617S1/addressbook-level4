@@ -170,7 +170,7 @@ public class Parser {
 		final Matcher matcher3 = ADD_FORMAT_3.matcher(args.trim());
 		final Matcher matcher4 = ADD_FORMAT_4.matcher(args.trim());
 		// Validate arg string format
-		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches()) {
+		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches() & !matcher4.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		try {
