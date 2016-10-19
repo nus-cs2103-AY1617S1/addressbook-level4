@@ -167,7 +167,7 @@
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
+    -font-family: 'Droid Serif', Georgia, Times, serif;
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
@@ -274,7 +274,7 @@
 
 #cardPane {
     -fx-background-color: transparent;
-    -fx-border-color: #d6d6d6;
+    -fx-border-color: #FFFFFF;
     -fx-border-width: 1 1 1 1;
 }
 
