@@ -11,11 +11,13 @@ public class TestTask implements ReadOnlyTask {
     private Name name;
     private Date date;
     private boolean isEvent;
+    private boolean isDone;
     
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
+        isDone=false;
     }
 
     public void setName(Name name) {
@@ -51,6 +53,10 @@ public class TestTask implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return tags;
     }
+    @Override
+    public boolean isDone() {
+    	return isDone;
+    }
 
     @Override
     public String toString() {
@@ -75,4 +81,11 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+	@Override
+	public void markAsDone() {
+		isDone=true;
+		
+	}
+
 }

@@ -14,6 +14,7 @@ public class Task implements ReadOnlyTask {
     private boolean isEvent;
     private Name name;
     private Date date;
+    private boolean taskDone;
 
     private UniqueTagList tags;
 
@@ -22,6 +23,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(Name name, Date date, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, date, tags);
+        this.taskDone=false;
         this.name = name;
         this.date = date;
         if (date instanceof EventDate) {
@@ -53,6 +55,11 @@ public class Task implements ReadOnlyTask {
     public boolean isEvent() {
         return isEvent;
     }
+    
+    @Override
+    public boolean isDone(){
+    	return taskDone;
+    }
 
     @Override
     public UniqueTagList getTags() {
@@ -83,5 +90,11 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
+	@Override
+	public void markAsDone() {
+		taskDone=true;
+		
+	}
 
 }

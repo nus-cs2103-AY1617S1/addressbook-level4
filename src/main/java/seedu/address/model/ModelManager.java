@@ -99,8 +99,10 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(String event){
     	if(event.equals("events")){
     	updateFilteredTaskList(new PredicateExpression(new EventQualifier()));
-    	}else{
+    	}else if(event.equals("tasks")){
     		updateFilteredTaskList(new PredicateExpression(new TaskQualifier()));
+    	}else{
+    		updateFilteredTaskList(new PredicateExpression(new DoneQualifier()));
     	}
 
     }
@@ -192,6 +194,19 @@ public class ModelManager extends ComponentManager implements Model {
     	public String toString(){
     		return "name";
     	}
+    }
+    private class DoneQualifier implements Qualifier{
+    	DoneQualifier(){}
+
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			return task.isDone();
+		}
+		@Override
+		public String toString(){
+			return "name";
+		}
+    	
     }
 
 }

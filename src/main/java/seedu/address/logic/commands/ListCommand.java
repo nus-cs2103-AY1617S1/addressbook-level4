@@ -11,6 +11,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     public static final String MESSAGE_EVENT_SUCCESS="Listed all events";
     public static final String MESSAGE_TASK_SUCCESS="Listed all floating tasks";
+    public static final String MESSAGE_LIST_DONE_TASK_SUCCESS="Listed all done tasks or events";
     
     private String toList=null;
     
@@ -27,9 +28,12 @@ public class ListCommand extends Command {
     	}else if(toList.equals("events")){
     		model.updateFilteredTaskList(toList);
     		return new CommandResult(MESSAGE_EVENT_SUCCESS);
-    	}else{
+    	}else if (toList.equals("tasks")){
     		model.updateFilteredTaskList(toList);
     		return new CommandResult(MESSAGE_TASK_SUCCESS);
+    	}else{
+    		model.updateFilteredTaskList(toList);
+    		return new CommandResult(MESSAGE_LIST_DONE_TASK_SUCCESS);
     	}
     }
 }
