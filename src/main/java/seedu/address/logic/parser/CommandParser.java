@@ -152,8 +152,8 @@ public class CommandParser {
         String taskName = null;
         Optional<String> startDate = Optional.empty();
         Optional<String> endDate = Optional.empty();
-        Optional<String> rate = null;
-        Optional<String> timePeriod = null;
+        Optional<String> rate = Optional.empty();
+        Optional<String> timePeriod = Optional.empty();;
         String priority = null;
         
         String startOfRegex = null;
@@ -234,11 +234,11 @@ public class CommandParser {
             assert matcher.group("taskName") != null;
             taskName = matcher.group("taskName").trim();
             
-            if (matcher.group("startDate") == null) {
+            if (!matcher.toString().contains(REGEX_FIRST_DATE)) {
                 startDate = Optional.empty();
             }
             
-            if (matcher.group("endDate") == null) {
+            if (!matcher.toString().contains(REGEX_FIRST_DATE) && !matcher.toString().contains(REGEX_SECOND_DATE)) {
                 endDate = Optional.empty();
             }
 
