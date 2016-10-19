@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -75,7 +77,8 @@ public class DateTimeParser {
      * @author darren
      */
     public static LocalDateTime changeDateToLocalDateTime(Date date) {
-        return LocalDateTime.ofInstant(date.toInstant(),
+        Instant instant = date.toInstant().truncatedTo(ChronoUnit.SECONDS); // strip milliseconds
+        return LocalDateTime.ofInstant(instant,
                 ZoneId.systemDefault());
     }
 
