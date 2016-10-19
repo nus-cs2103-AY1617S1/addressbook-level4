@@ -6,7 +6,7 @@ In today's hectic society, our lives feel like a never-ending procession of task
 
 Ever wished for a tool that can manage all your daily activities in distinct categories, and suggest to you which one you want to complete first? Well, look no further as Uncle Jim's Discount To-do List is here to save your day.
 
-Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days where you had to click through several pages of menus, navigating through unintuitive interface just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type out the command hit enter!
+Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days where you had to click through several pages of menus just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type out the command and hit enter!
 
 Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. At the same time, Uncle Jim is capable of managing both tasks *and* event so you don't have to use two different applications to be productive. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
 
@@ -15,11 +15,11 @@ Sounds exciting? Then let's get started!
 
 ## Quick Start
 
-1. Ensure you have [**Java version 8 update 60**][java] or later installed on your computer.
+1. Ensure you have [**Java version 8 update 60**][java]{: .print-url } or later installed on your computer.
 
     !!! warning "This application will not work with earlier versions of Java 8"
 
-2. Download the latest copy of `UJDTDL.jar` from our [releases](../../../releases) page.
+2. Download the latest copy of `UJDTDL.jar` from our [releases](../../../releases){: .print-url } page.
 3. Save the file to the folder you want to use for this application.
 4. Double-click the file to start the application. You should see something like this
 
@@ -46,7 +46,7 @@ Sounds exciting? Then let's get started!
 * Items with `...` within each parameter means you can add more items within the same parameters than specified.
 * Most commands that refer to a particular task or event in the list require an `INDEX`. This is a number indicated on the left of a task or event as shown in the screenshot below:
 
- <img src="images/sketch_task_index_small.png" width="350" alt="Index Number Location" />
+<img src="images/sketch_task_index_small.png" width="350" alt="Index Number Location" />
 
 <figcaption>Use the number on the side to choose the task for your command</figcaption>
 
@@ -77,7 +77,7 @@ Since Uncle Jim supports flexible command format as much as possible, many natur
 
     !!! example
         next Thursday  
-        tomorrow evening    
+        tomorrow evening  
         in two days
 
 ### Viewing help : **`help`**
@@ -107,7 +107,7 @@ Adding a task can be simply giving a name.
 Events normally will have include a start time, end time and a location and can be phrased as follows using the `/d` and `/l` flags.
 
 !!! example
-    **`add`**` Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens  /p`
+    **`add`**` Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens /p`
 
 #### Adding a deadline
 
