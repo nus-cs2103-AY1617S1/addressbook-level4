@@ -9,22 +9,42 @@ import java.util.Set;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
-
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final Set<String> keywords;
+    private final String type;
 
-    public FindCommand(Set<String> keywords) {
+    public FindCommand(String type, Set<String> keywords) {
         this.keywords = keywords;
+        this.type = type;
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredFloatingTaskList().size()));
+
+        switch (type) {
+        case "f": 
+            model.updateFilteredTaskList(keywords);
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredFloatingTaskList().size()));
+        case "d":
+            model.updateFilteredDeadlineList(keywords);
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredDeadlineList().size()));
+        case "e":
+            model.updateFilteredEventList(keywords);
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredEventList().size()));
+        default:
+            model.updateFilteredTaskList(keywords);
+            model.updateFilteredDeadlineList(keywords);
+            model.updateFilteredEventList(keywords);    
+            return new CommandResult(getMessageForTaskListShownSummary(
+                    model.getFilteredFloatingTaskList().size() +
+                    model.getFilteredDeadlineList().size() + 
+                    model.getFilteredEventList().size()));
+        }
     }
 
 }

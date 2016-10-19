@@ -38,6 +38,8 @@ public class Parser {
             Pattern.compile("(?<targetIndex>[e|d|f]\\d+)"
                     + "(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
+    
+    private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e" ));
 
     public Parser() {}
 
@@ -337,11 +339,16 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-
+                
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
+        String[] keywords = matcher.group("keywords").split("\\s+");
+        String typeOfTask = "";
+        
+        if(TYPES_OF_TASKS.contains(keywords[0])) {
+            typeOfTask = keywords[0];
+        }
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        return new FindCommand(typeOfTask, keywordSet);
     }
 
 }
