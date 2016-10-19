@@ -2,6 +2,7 @@ package seedu.jimi.logic;
 
 import com.google.common.eventbus.Subscribe;
 
+import seedu.jimi.TestApp;
 import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
@@ -19,6 +20,7 @@ import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
 import seedu.jimi.storage.StorageManager;
+import seedu.jimi.testutil.TestUtil;
 
 import org.junit.After;
 import org.junit.Before;
@@ -380,18 +382,29 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void excute_saveAs_successful() throws Exception {
+    public void execute_saveAs_successful() throws Exception {
+        SaveAsCommand.setConfigFilePath(TestApp.DEFAULT_CONFIG_FILE_FOR_TESTING);   //Access config file used for testing only
         TestDataHelper helper = new TestDataHelper();
-        Config expectedConfig = helper.generateConfigFile("data/newTaskBook.xml");
+        String originalTaskBookFilePathName = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
         
+        String newTaskBookFilePathName = TestUtil.getFilePathInSandboxFolder("newSampleData.xml");
+        Config originalConfig = helper.generateConfigFile(originalTaskBookFilePathName);
+        Config expectedConfig = helper.generateConfigFile(newTaskBookFilePathName);
         
-        Config latestConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).orElse(new Config());
+        assertCommandBehavior(helper.generateSaveAsCommand(newTaskBookFilePathName), String.format(SaveAsCommand.MESSAGE_SUCCESS, expectedConfig.getTaskBookFilePath()));
         
-        assertCommandBehavior("saveas data/newTaskBook.xml" , String.format(SaveAsCommand.MESSAGE_SUCCESS, expectedConfig.getTaskBookFilePath()));
-        assertEquals(expectedConfig, latestConfig);
+        assertCommandBehavior(helper.generateSaveAsCommand(originalTaskBookFilePathName), String.format(SaveAsCommand.MESSAGE_SUCCESS, originalConfig.getTaskBookFilePath()));
     }
-    
-    
+
+
+    @Test
+    public void execute_saveAs_duplicateNotAllowed() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        String originalTaskBookFilePathName = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+        
+        String expectedMessage = String.format(SaveAsCommand.MESSAGE_DUPLICATE_SAVE_DIRECTORY);
+        assertCommandBehavior(helper.generateSaveAsCommand(originalTaskBookFilePathName), expectedMessage);
+    }
 
     /**
      * A utility class to generate test data.
@@ -511,6 +524,20 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag"))
             );
         }
+        
+        /** 
+         * Generates the correct saveAs command based on the filepath given 
+         **/
+        String generateSaveAsCommand(String taskBookFilePathName) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("saveas ");
+
+            cmd.append(taskBookFilePathName);
+
+            return cmd.toString();
+        }
+        
         
         /**
          * Generates a config file with the given task book file path name. Other fields will have some dummy values.
