@@ -269,6 +269,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add floating tasks without date or time | I can do that task whenever I want.
 `* * *` | user | specify a specific folder as the data storage location | I can decide where to place my file for the task manager.
 `* * *` | user | have a done list | see what has been done for the day to know how productive I've been.
+`* * *` | user | clear my tasks | delete all the tasks in my task manager at once.
+`* * *` | user | clear my done tasks | delete all my tasks that are done from the done list.
 `* *` | user | undo a command | go back to the previous command if I have made a mistake.
 `* *` | user | rearrange my task based on certain commands | make my schedule more flexible.
 `* *` | user | set the priority of the task when I'm adding a new task | know the urgency of the task.
@@ -285,32 +287,6 @@ Priority | As a ... | I want to ... | So that I can...
 
 	
 #### Use Case: Add task
-
-**MSS**
-1. User types in clear
-2. ForgetMeNot clears the list of task
-	Use case ends.
-	
-**Extensions**
-
-1a. User enters an incorrect command
-
-> ForgetMeNot shows an error and help message
-
-
-**MSS**
-1. User types in clear done
-2. ForgetMeNot clears the list of done task
-
-**Extensions**
-
-1a. User enters an incorrect command
-
-> ForgetMeNot shows an error and help message
-
-2a. There are no done task in the list
-
-> ForgetMeNot shows an error message
 
 **MSS**
 1. User types in a task to be added.
@@ -527,38 +503,38 @@ Day:
 
 1. **Fantastical**
 
-1a. It has a good and clean UI, really simple to use
-1b. It has integration with all iOS products, i.e. mac, iphone, ipad etc.
-1c. Includes all CRUD features
-1d. It has a reminder function
-1e. Has a list of all upcoming tasks for the week at the left hand side
-1f. Has natural language processing, can add events using Siri
-1g. Locations added when creating events are automatically shown in google/apple map when clicked
-1h. Automatically syncs with apple calendar, updates and syncs on the go.
+1a. It has a good and clean UI, really simple to use. <br>
+1b. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
+1c. Includes all CRUD features. <br>
+1d. It has a reminder function. <br>
+1e. Has a list of all upcoming tasks for the week at the left hand side. <br>
+1f. Has natural language processing, can add events using Siri. <br>
+1g. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
+1h. Automatically syncs with apple calendar, updates and syncs on the go. <br>
 
 2. **Google Cal**
 
-2a. It has CRUD features.
-2b. It can link to external applications such as Gmail and Contacts.
-2c. It has cross-platform features.
-2d. It has a reminder function.
-2e. It can support multiple accounts in one device.
-2f. It can create Event, Reminder or Goal.
-2g. All task created are automatically grouped and colour coded.
-2h Clean and simple UI.
-3i. It can be used online or offline.
-3j. It has different kind of viewing options such as Day, 3-day, Week and Month.
+2a. It has CRUD features. <br>
+2b. It can link to external applications such as Gmail and Contacts. <br>
+2c. It has cross-platform features.<br>
+2d. It has a reminder function.<br>
+2e. It can support multiple accounts in one device.<br>
+2f. It can create Event, Reminder or Goal.<br>
+2g. All task created are automatically grouped and colour coded.<br>
+2h Clean and simple UI.<br>
+3i. It can be used online or offline.<br>
+3j. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
 
 3. **Any.do**
 
-3a. It has support for events, deadlines(Today category/Notification reminder), floating task(Someday category)
-3b. It has CRUD
-3c. It has a search function
-3d. It has a way to keep track of which items are done and yet to be done reminders
-3e. It has CRUD features.
-3f. It has a search function.
-3g. It has different tabs for today, tomorrow and date-wise events.
-3h. It allows to set priorities for different tasks.
-3i. It allows to repeat reminders on a periodic basis.
-3j. It can show all previous events which are marked done.
+3a. It has support for events, deadlines(Today category/Notification reminder), floating task(Someday category).<br>
+3b. It has CRUD<br>
+3c. It has a search function.<br>
+3d. It has a way to keep track of which items are done and yet to be done reminders.<br>
+3e. It has CRUD features.<br>
+3f. It has a search function.<br>
+3g. It has different tabs for today, tomorrow and date-wise events.<br>
+3h. It allows to set priorities for different tasks.<br>
+3i. It allows to repeat reminders on a periodic basis.<br>
+3j. It can show all previous events which are marked done.<br>
 
