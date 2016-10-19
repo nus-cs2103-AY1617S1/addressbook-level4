@@ -290,8 +290,8 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 	private void sortByDateAndPriority() {
-        Collections.sort(taskList.getListOfTasks(), Comparators.PRIORITY);
-        //Collections.sort(taskList.getListOfTasks(), Comparators.DATE_TIME);
+	    Collections.sort(taskList.getListOfTasks(), Comparators.PRIORITY);
+	    Collections.sort(taskList.getListOfTasks(), Comparators.DATE_TIME);
     }
 	
 	//========== Inner classes/interfaces used for filtering ==================================================

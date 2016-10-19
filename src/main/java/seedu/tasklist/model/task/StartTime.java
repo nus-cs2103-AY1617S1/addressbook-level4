@@ -96,7 +96,11 @@ public class StartTime {
     }
 
     public int compareTo(StartTime startTime) {
-        return this.getAsCalendar().compareTo(startTime.getAsCalendar());
+        if ((this.getAsCalendar().getTimeInMillis()) > (startTime.getAsCalendar().getTimeInMillis()))
+            return 1;
+        else if ((this.getAsCalendar().getTimeInMillis()) < (startTime.getAsCalendar().getTimeInMillis()))
+            return -1;
+        else return 0;
     }
 
 }
