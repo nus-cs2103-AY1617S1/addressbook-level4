@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.ArrayList;
 
+import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.*;
 import seedu.menion.model.tag.UniqueTagList;
 
@@ -236,5 +237,44 @@ public class TestActivity implements ReadOnlyActivity {
     @Override
     public Activity get() {
         return null;
+    }
+    
+    /**
+     * @Author Marx Low A0139164A
+     * List of methods to set Activity's param : Name, Note, startDate, startTime
+     * Exception handling to be editted ----------> ALERT! (Assumes User to pass in correct parameters)
+     */
+    @Override
+    public void setActivityName(String newName) {
+        assert (newName != null);
+        try {
+            this.name = new ActivityName(newName);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setActivityNote(String newNote) {
+        assert (newNote != null);
+        try {
+            this.note = new Note(newNote);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setActivityStartDateTime(String newDate, String newTime) {
+        
+        boolean isTask = this.activityType.equals(Activity.TASK_TYPE);
+        boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
+        assert (isTask || isEvent);
+        try {
+            this.startDate = new ActivityDate(newDate);
+            this.startTime = new ActivityTime(newTime);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        } 
     }
 }

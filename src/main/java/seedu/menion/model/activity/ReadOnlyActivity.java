@@ -37,10 +37,6 @@ public interface ReadOnlyActivity {
     // An arrayList having parameters of an activity.
     ArrayList<String> getActivityDetails();
     
-    void setCompleted();
-    
-    void setUncompleted();
-
     void setActivityDetails();
     
     /**
@@ -48,8 +44,11 @@ public interface ReadOnlyActivity {
      * Methods to set the Activity's Param 
      * @param the String of the new change to make.
      */
+    void setCompleted();
+    void setUncompleted();
     void setActivityName(String newName);
     void setActivityNote(String newNote);
+    void setActivityStartDateTime(String newDate, String newTime);
     
     /**
      * The returned TagList is a deep copy of the internal TagList,
