@@ -21,8 +21,10 @@ This user guide covers the features of the application and has a short summary o
 1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.<br>
-   <img src="images/UserGuide Mock up1.png" title="Task manager GUI on start up" width="900">
-   <figcaption>Fig. 1: Task manager GUI on start up</figcaption>
+<div style="text-align:center" markdown="1">
+<img src="images/UserGuide Mock up1.png" title="Task manager GUI on start up" width="900">
+<figcaption>Fig. 1: Task manager GUI on start up</figcaption>
+</div>
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
@@ -40,6 +42,14 @@ This user guide covers the features of the application and has a short summary o
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+Parameters | Input Limit
+--- | :---
+DESCRIPTION | Alphanumeric
+PRIORITY | `normal`, `high`, `low`
+TIME | Day of the Week or 24:00 format
+TAG | Alphanumeric
+INDEX | Integers
+
 
 #### View help : `help`
 Format: `help`
@@ -50,7 +60,7 @@ Format: `help`
 #### Add a task/tag
 ##### Add a task: `add`
 Adds a task to the task manager.<br>
-Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [start/ENDTIME] [t/TAG]...`
+Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
 
 > * Tasks can have different priorities, normal by default, high or low
 > * Deadlines are set for tasks if a endtime entered without a start time
@@ -84,21 +94,24 @@ Format: `list [-pr] [-t/TAGS]...`
 Modifiers | Action
 --- | :---
 -pr | Tasks are listed by priority
--t/TAG | Tasks with the specified tag are listed 
+-t/TAG | Tasks with the specified tag are listed
 
+<div style="text-align:center" markdown="1">
 <img src="images/UserGuide Mock up2.png" title="Task manager listing tasks by priority" width="900">
 <figcaption>Fig. 2: Task manager listing tasks by priority</figcaption>
+</div>
 
 ##### List all tags used: `list tags`
 Lists all the tags used in the task manager.<br>
 Format: `list tags`
 
 
-#### Find all tasks containing any keyword in their description: `find`
+#### Finding tasks
+##### Find all tasks containing any keyword in their description: `find`
 Finds tasks whose description contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is not case sensitive. e.g `Gives` will match `give`
+> * The search is not case sensitive. e.g. `Gives` will match `gives`
 > * The order of the keywords does not matter. e.g. `Give Eggs` will match `Eggs Give`
 > * Only the description is searched.
 > * Only full words will be matched e.g. `Return` will not match `Returns`
@@ -110,6 +123,28 @@ Examples:
   Returns `Tutorial 8` but not `tutorial`
 * `find Return lunch Meeting`<br>
   Returns Any tasks having description containing `Return`, `lunch`, or `Meeting`
+
+##### Find tasks using specified information: `find pr/`
+Find tasks with the specified priority.<br>
+Format: `find pr/PRIORITY`
+
+
+##### Find tasks starting after given time: `find start/`
+Find tasks that starts after the specified time.<br>
+Format: `find start/TIME`
+
+> * When only DayOfWeek is inputted, tasks that start on that day, current time is listed
+
+##### Find task due before given time: `find end/`
+Find tasks that are due before the specified time.<br>
+Format: `find end/TIME`
+
+> * When only DayOfWeek is inputted, tasks that are due by that day, current time is listed
+
+
+##### Find task with given tags: `find t/`
+Find tasks that have any of the specified tags.<br>
+Format: `find t/TAG [MORE_TAGS]`
 
 
 #### Delete a task/tag
@@ -147,7 +182,7 @@ Examples:
 
 
 #### Complete a task: `complete`
-Tag the task last selected as 'Complete' and remove it from the calendar.<br>
+Mark the task specified as 'Complete' and remove it from the calendar.<br>
 Format: `complete INDEX`
 
 Examples:
@@ -187,13 +222,17 @@ There is no need to save manually.
 
 Command | Format
 -------- | :--------
-Add Task | `add DESCRIPTION [pr/RANK] [time/TIME] [d/DATE] [t/TAG]...`
+Add Task | `add DESCRIPTION [pr/PRIORITY] [start/TIME] [end/TIME] [t/TAG]...`
 Add Tag | `addTag INDEX TAG`
 Clear | `clear`
 Delete Task | `delete INDEX`
 Delete Tags | `deleteTag INDEX TAG`
 Edit | `update INDEX PROPERTY NEW_INFORMATION `
 Find Tasks | `find KEYWORD [MORE_KEYWORDS]`
+Find Tasks with PRIORITY | `find pr/PRIORITY`
+Find Tasks starting after TIME | `find start/TIME`
+Find Tasks due by TIME | `find end/TIME`
+Find Tasks with TAGS | `find t/TAG [MORE_TAGS]`
 List Tasks | `list [-pr] [-t/TAG]...`
 List Tags | `list tags`
 Undo | `undo`
