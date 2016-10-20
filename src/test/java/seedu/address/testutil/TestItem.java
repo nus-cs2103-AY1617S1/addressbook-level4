@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import seedu.address.model.item.Description;
@@ -12,6 +13,8 @@ public class TestItem implements ReadOnlyItem {
     private UniqueTagList tags;
     private Description description;
     private boolean isDone;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate; 
     
     /**
      * Every field must be present and not null.
@@ -28,6 +31,24 @@ public class TestItem implements ReadOnlyItem {
     public Description getDescription() {
         return description;
     }
+    
+    @Override
+   	public LocalDateTime getStartDate() {
+   		return startDate;
+   	}
+
+   	public void setStartDate(LocalDateTime startDate) {
+   		this.startDate = startDate;
+   	}
+   	
+   	@Override
+   	public LocalDateTime getEndDate() {
+   		return endDate;
+   	}
+
+   	public void setEndDate(LocalDateTime endDate) {
+   		this.endDate = endDate;
+   	}
     
     public void setDone(){
         this.isDone = true;
@@ -75,6 +96,5 @@ public class TestItem implements ReadOnlyItem {
         // this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
-
 
 }
