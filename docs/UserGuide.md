@@ -48,6 +48,7 @@ DESCRIPTION | Alphanumeric
 PRIORITY | `normal`, `high`, `low`
 TIME | Day of the Week or 24:00 format
 TAG | Alphanumeric
+INDEX | Integers
 
 
 #### View help : `help`
@@ -221,7 +222,7 @@ There is no need to save manually.
 
 Command | Format
 -------- | :--------
-Add Task | `add DESCRIPTION [pr/RANK] [time/TIME] [d/DATE] [t/TAG]...`
+Add Task | `add DESCRIPTION [pr/PRIORITY] [start/TIME] [end/TIME] [t/TAG]...`
 Add Tag | `addTag INDEX TAG`
 Clear | `clear`
 Delete Task | `delete INDEX`
