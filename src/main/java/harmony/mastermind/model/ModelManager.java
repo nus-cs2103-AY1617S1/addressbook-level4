@@ -47,6 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredArchives;
     private final Stack<Undoable> undoHistory;
     private final Stack<Redoable> redoHistory;
+    private final Stack<String> commandHistory;
    
 
     public static final String TAB_HOME = "Home";
@@ -76,6 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredArchives = new FilteredList<>(taskManager.getArchives());
         undoHistory = new Stack<>();
         redoHistory = new Stack<>();
+        commandHistory = new Stack<String>();
         currentTab = TAB_HOME;
     }
 
@@ -92,6 +94,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredArchives = new FilteredList<>(taskManager.getArchives());
         undoHistory = new Stack<>();
         redoHistory = new Stack<>();
+        commandHistory = new Stack<String>();
     }
 
     @Override
