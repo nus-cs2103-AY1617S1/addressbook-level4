@@ -4,7 +4,6 @@
 * [Getting Started](#getting-started)
 * [Features](#features)
     * [Help Command](#1-help-command)
-	
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
