@@ -304,8 +304,8 @@ Actor: User<br>
 
 **MSS**
 
-1.User enter help for a particular command
-2.System show the user guide of the particular command
+1. User enter help for a particular command
+2. System show the user guide of the particular command
 Use Case ends
 
 **Extension**
@@ -318,8 +318,9 @@ Use Case ends
 Actor: User<br>
 
 **MSS**
-1.User requests to add new event by specifying title, description, start and end date.
-2.System will update the database of the newly created event.
+
+1. User requests to add new event by specifying title, description, start and end date.
+2. System will update the database of the newly created event.
 Use Case end.
 
 **Extension**
@@ -340,8 +341,8 @@ Use Case end.
 Actor: User<br>
 
 **MSS**
-1.User requests to add new event by specifying title, description and end date.
-2.System will update the database of the newly created deadline.
+1. User requests to add new event by specifying title, description and end date.
+2. System will update the database of the newly created deadline.
 Use Case end.
 
 **Extension**
@@ -362,8 +363,9 @@ Use Case end.
 Actor: User<br>
 
 **MSS**
-1.User requests to add new event by specifying title, description
-2.System will update the database of the newly created floating task.
+
+1. User requests to add new event by specifying title, description
+2. System will update the database of the newly created floating task.
 Use Case end.
 
 **Extension**
@@ -455,8 +457,8 @@ Use Case ends
    Actor: User
 
 **MSS**
-1.User requests to add duplicated tasks by specifying title, description, interval and start date
-2.System will update the database of the newly created duplicated tasks.
+1. User requests to add duplicated tasks by specifying title, description, interval and start date
+2. System will update the database of the newly created duplicated tasks.
 Use Case end.
 
 **Extension**
