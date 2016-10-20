@@ -73,10 +73,12 @@ public class AliasController implements Controller {
                     aliasValue = args[0];
             }
             renderDisambiguation(aliasKey, aliasValue, INVALID_NUM_PARAMS);
+            return;
         }
         
         if (!validateAlias(aliasKey) || !validateAlias(aliasValue)) {
             renderDisambiguation(aliasKey, aliasValue, MESSAGE_INVALID_INPUT);
+            return;
         }
     }
     
