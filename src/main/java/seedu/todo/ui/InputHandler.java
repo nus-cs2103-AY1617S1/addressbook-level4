@@ -57,6 +57,7 @@ public class InputHandler {
                                   new RedoController(),
                                   new ConfigController(),
                                   new ClearController(),
+                                  new FindController(),
                                   new ExitController() };
     }
 
