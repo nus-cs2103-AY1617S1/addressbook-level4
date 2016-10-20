@@ -5,6 +5,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.StoragePathChangedEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.UserPrefs;
@@ -53,6 +54,11 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getTaskManagerFilePath() {
         return taskManagerStorage.getTaskManagerFilePath();
     }
+    
+    @Override
+    public void setTaskManagerFilePath(String filePath) {
+        taskManagerStorage.setTaskManagerFilePath(filePath);
+    }
 
     @Override
     public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException {
@@ -75,7 +81,17 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         taskManagerStorage.saveTaskManager(taskManager, filePath);
     }
-
+    
+    @Override
+    public void deleteTaskManager() throws IOException {
+        deleteTaskManager(taskManagerStorage.getTaskManagerFilePath());
+    }
+    
+    @Override
+    public void deleteTaskManager(String filePath) throws IOException {
+        logger.fine("Attempting to delete the data file: " + filePath);
+        taskManagerStorage.deleteTaskManager(filePath);
+    }
 
     @Override
     @Subscribe
@@ -83,6 +99,20 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveTaskManager(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+    
+    @Override
+    @Subscribe
+    public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage file path changed, saving to new file"));
+        try {
+            if (event.isToClearOld) {
+                deleteTaskManager(getTaskManagerFilePath());
+            }
+            setTaskManagerFilePath(event.newStorageFilePath);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

@@ -6,6 +6,9 @@ import seedu.address.commons.exceptions.DataConversionException;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Stores task manager data in an XML file
@@ -21,6 +24,13 @@ public class XmlFileStorage {
         } catch (JAXBException e) {
             assert false : "Unexpected exception " + e.getMessage();
         }
+    }
+    
+    /**
+     * Delete the XML storage file with the specified path.
+     */
+    public static void deleteFile(Path filePath) throws IOException{
+        Files.deleteIfExists(filePath);
     }
 
     /**

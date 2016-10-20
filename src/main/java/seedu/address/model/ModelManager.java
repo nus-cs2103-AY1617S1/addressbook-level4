@@ -56,7 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskManager getAddressBook() {
+    public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
     }
 
@@ -77,6 +77,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public void updateTaskManager() {
+        indicateTaskManagerChanged();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -94,8 +99,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
     @Override
-
     public void updateFilteredTaskList(String event){
     	if(event.equals("events")){
     	updateFilteredTaskList(new PredicateExpression(new EventQualifier()));
@@ -104,10 +109,11 @@ public class ModelManager extends ComponentManager implements Model {
     	}
 
     }
+    
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-
+    
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
