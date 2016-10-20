@@ -27,6 +27,11 @@ public class TaskBuilder {
         return this;
     }
 
+    public TaskBuilder withImportance(boolean isImportant) throws IllegalValueException{
+    	this.task.setIsImportant(isImportant);
+    	return this;
+    }
+
     public TaskBuilder withOpenTime(String openTime) throws IllegalValueException {
         this.task.setOpenTime(new DateTime(openTime));
         return this;
@@ -36,7 +41,6 @@ public class TaskBuilder {
         this.task.setCloseTime(new DateTime(closeTime));
         return this;
     }
-
 
     public TestTask build() {
         return this.task;

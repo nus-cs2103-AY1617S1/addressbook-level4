@@ -12,6 +12,7 @@ public class TestTask implements ReadOnlyTask {
     private DateTime openTime;
     private DateTime closeTime;
     private UniqueTagList tags;
+    private boolean isImportant;
     private boolean isCompleted;
 
     public TestTask() {
@@ -22,6 +23,10 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
 
+    public void setIsImportant(boolean isImportant){
+    	this.isImportant=isImportant;
+    }
+    
     public void setOpenTime(DateTime openTime) {
         this.openTime = openTime;
     }
@@ -59,6 +64,10 @@ public class TestTask implements ReadOnlyTask {
         return tags;
     }
 
+    @Override
+    public boolean getImportance() {
+        return isImportant;
+    }
     @Override
     public String toString() {
         return getAsText();

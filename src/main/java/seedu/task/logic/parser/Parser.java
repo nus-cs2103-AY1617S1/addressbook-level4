@@ -71,6 +71,9 @@ public class Parser {
         case CompleteCommand.COMMAND_WORD:
         	return prepareComplete(arguments);
 
+        case PinCommand.COMMAND_WORD:
+            return preparePin(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -254,4 +257,17 @@ public class Parser {
         return new CompleteCommand(index.get());
     }
 
+	/**
+	 * Parses arguments in the context of the mark task command.
+	 * 
+	 * @param args
+	 * @return
+	 */
+    private Command preparePin(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+        }
+        return new PinCommand(index.get());
+    }
 }

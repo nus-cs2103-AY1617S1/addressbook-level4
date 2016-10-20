@@ -17,22 +17,23 @@ public class Task implements ReadOnlyTask {
     private DateTime openTime;
     private DateTime closeTime;
     private boolean isCompleted;
+    private boolean isImportant;
 
     private UniqueTagList tags;
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
-
 
     /**
      * Assigns instance variables
      * @throws IllegalValueException if DateTime pair is invalid
      */
-    public Task(Name name, DateTime openTime, DateTime closeTime, boolean isCompleted, UniqueTagList tags) throws IllegalValueException {
+    public Task(Name name, DateTime openTime, DateTime closeTime, boolean isImportant, boolean isCompleted, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        this.isCompleted = isCompleted;  
+        this.isCompleted = isCompleted;
+        this.isImportant = isImportant;
         if (!isValidDateTimePair()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
@@ -56,7 +57,7 @@ public class Task implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getComplete(), source.getTags());
+        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getImportance(), source.getComplete(), source.getTags());
     }
 
     @Override
@@ -72,6 +73,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public DateTime getCloseTime() {
         return closeTime;
+    }
+    
+    @Override
+    public boolean getImportance() {
+        return isImportant;
     }
 
     @Override
@@ -91,6 +97,10 @@ public class Task implements ReadOnlyTask {
         tags.setTags(replacement);
     }
 
+    public void setIsImportant(boolean isImportant) {
+        this.isImportant = isImportant;
+    }
+
     /**
      * Sets the task's completion flag
      */
@@ -98,18 +108,18 @@ public class Task implements ReadOnlyTask {
         this.isCompleted = isCompleted;
     }
     
-    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                        && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        //return Objects.hash(name, openTime, closeTime, isImportant, tags);
+        // use this method for custom fields hashing instead of implementing
+        // your own
+        // return Objects.hash(name, openTime, closeTime, isImportant, tags);
         return Objects.hash(name, tags);
     }
 
