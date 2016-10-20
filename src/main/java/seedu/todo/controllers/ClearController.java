@@ -87,14 +87,13 @@ public class ClearController implements Controller {
             return;
         } else {
             if (deleteAll) { //no item type provided
-                displayErrorMessage(input, parsedDates);
+                displayErrorMessage(input, parsedDates, deleteAll, isTask);
             }
         }
         
         LocalDateTime dateOn = null;
         LocalDateTime dateFrom = null;
         LocalDateTime dateTo = null;
-        
         if (parsedDates != null) {
             String naturalOn = parsedDates[0];
             String naturalFrom = parsedDates[1];
@@ -124,16 +123,18 @@ public class ClearController implements Controller {
      *            null if parsing failed or End date for Event
      */
     private void destroyByDate(TodoListDB db, String[] parsedDate, LocalDateTime dateOn, 
-            LocalDateTime dateFrom, LocalDateTime dateTo, boolean deleteAll, boolean isTask, String input) {
+            LocalDateTime dateFrom, LocalDateTime dateTo, boolean deleteAll,
+            boolean isTask, String input) {
         if (dateOn != null) {
             destroyBySelectedDate(db, dateOn, deleteAll, isTask);
             return;
-        } else if (dateFrom != null || dateTo != null || !deleteAll) {
+        } else if (dateFrom != null || dateTo != null) {
+            System.out.println("t");
             destroyByRange(db, dateFrom, dateTo, deleteAll, isTask);
             return;
         } 
         else { //natty deem all dates as invalid
-            displayErrorMessage(input, parsedDate);
+            displayErrorMessage(input, parsedDate, deleteAll, isTask);
         }
     }
 
@@ -203,19 +204,26 @@ public class ClearController implements Controller {
      * @param parsedDate            
      *            the date entered by the user      
      */
-    private void displayErrorMessage(String input, String[] parsedDate) {
+    private void displayErrorMessage(String input, String[] parsedDate, boolean deleteAll, boolean isTask) {
         String consoleDisplayMessage = String.format("You have entered : %s.",input);
-        String commandLineMessage;
-        if (parsedDate == null) {
-            commandLineMessage = COMMAND_WORD;
-        } else if (parsedDate[0] != null) {
-            commandLineMessage = String.format("%s by <date>", COMMAND_WORD);
-        } else if (parsedDate[1] != null && parsedDate[2] != null) {
-            commandLineMessage = String.format("%s from <date> to <date>", COMMAND_WORD);
-        } else if (parsedDate[1] != null) {
-            commandLineMessage = String.format("%s from <date>", COMMAND_WORD);
-        } else {
-            commandLineMessage = String.format("%s to <date>", COMMAND_WORD);
+        String commandLineMessage = COMMAND_WORD;
+        if (!deleteAll) {
+            if (isTask) {
+                commandLineMessage = String.format("%s %s", commandLineMessage, "task");
+            } else {
+                commandLineMessage = String.format("%s %s", commandLineMessage, "event");
+            }
+        }
+        if (parsedDate != null) {
+            if (parsedDate[0] != null) {
+                commandLineMessage = String.format("%s by <date>", commandLineMessage);
+            } else if (parsedDate[1] != null && parsedDate[2] != null) {
+                commandLineMessage = String.format("%s from <date> to <date>", commandLineMessage);
+            } else if (parsedDate[1] != null) {
+                commandLineMessage = String.format("%s from <date>", commandLineMessage);
+            } else {
+                commandLineMessage = String.format("%s to <date>", commandLineMessage);
+            }
         }
         Renderer.renderDisambiguation(commandLineMessage, consoleDisplayMessage);
     }
@@ -240,8 +248,10 @@ public class ClearController implements Controller {
             db.destroyAllTaskByDate(givenDate);
         } else if (isTask) {
             db.destroyAllTaskByDate(givenDate);
+            numEvents = 0;
         } else {
             db.destroyAllEventByDate(givenDate);
+            numTasks = 0;
         }
         db.save();
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, displaySuccessMessage(numTasks, numEvents)));
