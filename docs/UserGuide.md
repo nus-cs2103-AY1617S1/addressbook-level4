@@ -5,6 +5,7 @@
 3. [Features](#3-features)
 4. [FAQ](#4-faq)
 5. [Command Summary](#5-command-summary)
+6. [Appendix](#6-appendix)
 
 ## 1. Introduction 
 
