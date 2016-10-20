@@ -119,6 +119,9 @@ public class MainParser {
         case ListCommand.COMMAND_WORD_DONE:	
         case ListCommand.COMMAND_WORD_SHORT_DONE:
             return prepareList("--done");
+        case ListCommand.COMMAND_WORD_BLOCK:
+        case ListCommand.COMMAND_WORD_SHORT_BLOCK:
+        	return prepareList("--block");
             
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -378,11 +381,13 @@ public class MainParser {
      * @author A0139661Y
      */
     private Command prepareList(String args) {
-        boolean taskStatus = false; // we assume the user is searching for undone tasks
+        int type = 0; // we assume the user is searching for undone tasks
         if (args.contains("--done")) {
-        	taskStatus = true;
+        	type = 1;
+        } else if (args.contains("--block")) {
+        	type = 2;
         }
-        return new ListCommand(taskStatus);
+        return new ListCommand(type);
     }
     
     /**
