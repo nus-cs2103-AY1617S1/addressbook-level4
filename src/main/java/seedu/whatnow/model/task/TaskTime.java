@@ -122,11 +122,7 @@ public class TaskTime {
 			DateFormat df5 = new SimpleDateFormat(DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT);	//e.g. 10/12
 			DateFormat df6 = new SimpleDateFormat(DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENED_DAY_FORMAT); // e.g. 1/12
 			DateFormat df7 = new SimpleDateFormat(DATE_NUM_SLASH_WITHOUT_YEAR_SHORTEND_DAY_MONTH_FORMAT); //e.g. 1/1
-			
-			try {
-				
-			}
-			
+
 			return false;
 		}
 	}
