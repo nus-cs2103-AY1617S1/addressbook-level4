@@ -1,6 +1,8 @@
 package seedu.tasklist.testutil;
 
 import com.google.common.io.Files;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 import guitests.guihandles.PersonCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -323,6 +325,7 @@ public class TestUtil {
     public static TestTask[] addTasksToList(final TestTask[] persons, TestTask... personsToAdd) {
         List<TestTask> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
+        Collections.sort(listOfPersons);
         return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 
