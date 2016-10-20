@@ -42,51 +42,9 @@ public interface ReadOnlyItem {
 	 * .equals)
 	 */
 	default boolean isSameStateAs(ReadOnlyItem other) {
-		Description thisDescription = this.getDescription();
-		LocalDateTime thisStartDate = this.getStartDate();
-		LocalDateTime thisEndDate = this.getEndDate();
-		if (other != null) {
-			Description otherDescription = other.getDescription();
-			LocalDateTime otherStartDate = other.getStartDate();
-			LocalDateTime otherEndDate = other.getEndDate();
-			// if different descriptions
-			if (!thisDescription.equals(otherDescription)) {
-				return false;
-			}
-			// if one start date is null the other must be null
-			if (thisStartDate == null) {
-				if (otherStartDate != null) {
-					return false;
-				}
-			} else {
-				if (otherStartDate == null) {
-					return false;
-				} else {
-					if (!thisStartDate.equals(otherStartDate)) {
-						return false;
-					}
-				}
-			}
-			// if one end date is null the other must be null
-			if (thisEndDate == null) {
-				if (otherEndDate != null) {
-					return false;
-				}
-			} else {
-				if (otherEndDate == null) {
-					return false;
-				} else {
-					if (!thisEndDate.equals(otherEndDate)) {
-						return false;
-					}
-				}
-			}
-			// if passed all tests return true
-			return true;
-		} else {
-			return false;
-		}
-
+		return this == other
+				|| (other != null
+				&& this.getDescription().equals(other.getDescription()));
 	}
 
 	/**
