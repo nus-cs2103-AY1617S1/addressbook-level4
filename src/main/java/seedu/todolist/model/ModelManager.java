@@ -7,6 +7,7 @@ import seedu.todolist.commons.core.UnmodifiableObservableList;
 import seedu.todolist.commons.events.model.AddressBookChangedEvent;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.model.task.ReadOnlyTask;
+import seedu.todolist.model.task.Status;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
@@ -25,6 +26,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Task> filteredTasks;
+    
+    private FilteredList<Task> filteredCompleteTasks;
+    private FilteredList<Task> filteredIncompleteTasks;
+    
     private final Stack<ReadOnlyAddressBook> addressBookHistory;
 
     /**
@@ -40,6 +45,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
+        filteredCompleteTasks = new FilteredList<>(addressBook.getCompletedTasks());
+        filteredIncompleteTasks = new FilteredList<>(addressBook.getIncompleteTasks());
         addressBookHistory = new Stack<ReadOnlyAddressBook>();
     }
 
@@ -50,6 +57,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
+        filteredCompleteTasks = new FilteredList<>(addressBook.getCompletedTasks());
+        filteredIncompleteTasks = new FilteredList<>(addressBook.getIncompleteTasks());
         addressBookHistory = new Stack<ReadOnlyAddressBook>();
     }
 
@@ -110,6 +119,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompleteTaskList() {
+        return new UnmodifiableObservableList<>(filteredCompleteTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList() {
+        return new UnmodifiableObservableList<>(filteredIncompleteTasks);
     }
 
     @Override

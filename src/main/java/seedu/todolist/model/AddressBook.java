@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.todolist.model.tag.Tag;
 import seedu.todolist.model.tag.UniqueTagList;
 import seedu.todolist.model.task.ReadOnlyTask;
+import seedu.todolist.model.task.Status;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
 
@@ -48,6 +49,14 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
+    }
+    
+    public ObservableList<Task> getCompletedTasks() {
+        return tasks.getFilteredTaskList(Status.STATUS_COMPLETE);
+    }
+    
+    public ObservableList<Task> getIncompleteTasks() {
+        return tasks.getFilteredTaskList(Status.STATUS_INCOMPLETE);
     }
 
     public void setTasks(List<Task> tasks) {

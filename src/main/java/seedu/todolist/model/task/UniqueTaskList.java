@@ -2,6 +2,7 @@ package seedu.todolist.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.todolist.commons.exceptions.DuplicateDataException;
 import seedu.todolist.commons.util.CollectionUtil;
 
@@ -83,6 +84,8 @@ public class UniqueTaskList implements Iterable<Task> {
         assert toMark != null;
         final boolean taskFound = (internalList.indexOf(toMark) != -1);
         toMark.getStatus().setStatus(true);
+        internalList.remove(toMark);
+        internalList.add((Task)toMark);
         if (!taskFound) {
             throw new TaskNotFoundException();
         }
@@ -106,6 +109,10 @@ public class UniqueTaskList implements Iterable<Task> {
 
     public ObservableList<Task> getInternalList() {
         return internalList;
+    }
+    
+    public FilteredList<Task> getFilteredTaskList(String filter) {
+        return internalList.filtered(p -> p.getStatus().toString().equals(filter));
     }
 
     @Override
