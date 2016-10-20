@@ -52,7 +52,7 @@ public class XmlTaskListStorageTest {
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
-//        thrown.expect(DataConversionException.class);
+        thrown.expect(DataConversionException.class);
         readTaskList("NotXmlFormatTaskList.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.

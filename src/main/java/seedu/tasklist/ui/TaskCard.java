@@ -46,7 +46,7 @@ public class TaskCard extends UiPart{
         name.setText(task.getTitle().fullTitle);
         id.setText(displayedIndex + ". ");
         if(task.getStartDate().startDate != null){
-        	startDate.setText("Start:  " +task.getStartDate().toString().replaceAll(" ", "    Time:  "));
+        	startDate.setText("Start:  " + task.getStartDate().toString().replaceAll(" ", "    Time:  "));
         } else{
         	startDate.setText(" ");
         }
