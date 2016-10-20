@@ -73,6 +73,11 @@ public class Event extends TaskManagerItem implements ReadOnlyTask {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Complete getComplete() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

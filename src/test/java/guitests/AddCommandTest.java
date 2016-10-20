@@ -2,15 +2,15 @@ package guitests;
 
 import jym.manager.commons.core.Messages;
 import jym.manager.logic.commands.AddCommand;
+import jym.manager.testutil.TestTask;
+import jym.manager.testutil.TestUtil;
 import guitests.guihandles.TaskCardHandle;
 
 import org.junit.Test;
 
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void add() {

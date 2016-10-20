@@ -21,6 +21,7 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 	private Location loc;
 	private Deadline dueDate;
 	private Priority pri;
+	private Complete compl;
 
     private UniqueTagList tags;
 
@@ -140,6 +141,12 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     public boolean hasDeadline(){
     	return this.dueDate != null && this.dueDate.hasDeadline();
     }
+	@Override
+	public Complete getComplete() {
+		return this.compl;
+	}
+
+
 
 
 }

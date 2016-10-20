@@ -170,7 +170,7 @@ public class Parser {
             	description = furtherSects[0];
             }
     		
-    		if(location.contains("at")){
+    		if(location != null && location.contains("at")){
         		location = location.substring(4);
         	}
         	if(description.endsWith("by ")){
