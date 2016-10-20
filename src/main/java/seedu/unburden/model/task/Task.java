@@ -13,6 +13,7 @@ import seedu.unburden.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
+    private TaskDescription taskD;
     private Date date;
     private Time startTime;
     private Time endTime;
