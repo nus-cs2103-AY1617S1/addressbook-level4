@@ -41,18 +41,18 @@
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-  
+
 #### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
-* Solution: Refresh the project in Eclipse:<br> 
+* Reason: Eclipse fails to recognize new files that appeared due to the Git pull.
+* Solution: Refresh the project in Eclipse:<br>
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
-  
+
 **Problem: Eclipse reports some required libraries missing**
-* Reason: Required libraries may not have been downloaded during the project import. 
+* Reason: Required libraries may not have been downloaded during the project import.
 * Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
- 
+
 
 ## Design
 
@@ -228,16 +228,16 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
- 
+
 #### Troubleshooting tests
  **Problem: Tests fail because NullPointException when AssertionError is expected**
- * Reason: Assertions are not enabled for JUnit tests. 
+ * Reason: Assertions are not enabled for JUnit tests.
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described 
+ * Solution: Enable assertions in JUnit tests as described
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
 
-  
+
 ## Dev Ops
 
 ### Build Automation
@@ -275,7 +275,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :------------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a task | 
+`* * *` | user | add a task |
 `* * *` | user | edit a task | update the details of a task
 `* * *` | user | delete a task | delete a task with wrong details
 `* * *` | user | add tags to a specific task |
@@ -299,7 +299,7 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User enters command to add task along with task details
-2. TaskManager adds task with the details provided
+2. TaskManager adds task with the details provided <br>
 Use case ends.
 
 **Extensions**
@@ -311,7 +311,7 @@ Use case ends.
 
 1b. No task details provided
 
-> 1b1. TaskManager creates a task with description but no other details <br>
+> 1b1. TaskManager creates a task with description and normal priority but no other details <br>
   Use case ends
 
 #### Use case: Delete task
@@ -356,6 +356,56 @@ Use case ends.
 
 > 3a1. TaskManager shows an error message <br>
   Use case resumes at step 2
+
+#### Use case: Find task
+
+**MSS**
+
+1. User requests to find tasks along with the limiting parameters
+2. TaskManager shows a list of tasks that satisfies the parameters
+<br>
+Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> Use case ends
+
+1b. The given parameters are invalid
+
+> 1b1. TaskManager shows an error message <br>
+  Use case resumes at step 1
+
+
+#### Use case: Undo task
+
+**MSS**
+
+1. User request to undo
+2. TaskManager undoes the most recent change to stored data
+<br>
+Use case ends.
+
+**Extensions**
+
+2a. There is no edit to undo.
+> 2a1. TaskManager shows an error message <br>
+Use case  ends
+
+#### Use case: Complete task
+
+**MSS**
+1. User request to mark the specified task as complete
+2. TaskManager marks the specified task as complete
+
+**Extensions**
+
+1a. The list is empty
+> Use case ends
+
+1b. Specified task is already marked complete
+> Use case ends
 
 
 ## Appendix C : Non Functional Requirements
