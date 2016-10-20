@@ -6,8 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
+import seedu.address.model.task.TaskType;
 
 public class DeadlineTaskCard extends UiPart{
 
@@ -55,9 +57,10 @@ public class DeadlineTaskCard extends UiPart{
     private void setTaskStatus() {
 		if (task.getStatus().value.equals(Status.DoneStatus.DONE)) {
 			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+			taskStatus.setStyle("-fx-text-fill: green");
 		} else if (task.getStatus().value.equals(Status.DoneStatus.OVERDUE)) {
 			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
-			taskStatus.setStyle("-fx-background-color: red;");
+			taskStatus.setStyle("-fx-text-fill: red");
 		}
 	}
     

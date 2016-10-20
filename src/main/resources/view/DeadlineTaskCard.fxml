@@ -19,7 +19,7 @@
             <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="80.0" />
          </columnConstraints>
          <children>
-            <Label fx:id="taskType" style="-fx-background-color: #ffd13d;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="taskType" style="-fx-background-color: #ffd13d; -fx-font-weight: bold;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -30,9 +30,9 @@
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
             </Label>
-            <Label fx:id="taskStatus" style="-fx-background-color: red;" textAlignment="JUSTIFY" textOverrun="CLIP" underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <Label fx:id="taskStatus" style="-fx-font-size: 12;" textAlignment="JUSTIFY" textOverrun="CLIP" underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <font>
-                  <Font size="16.0" />
+                  <Font size="14.0" />
                </font>
                <GridPane.margin>
                   <Insets />
@@ -81,7 +81,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" translateY="-3.0" GridPane.rowIndex="1">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" translateY="-8.0" GridPane.rowIndex="1">
                <children>
                   <Label text="Tags: ">
                      <font>
@@ -99,13 +99,9 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" translateY="-3.0">
+            <HBox alignment="CENTER_LEFT" translateY="-6.0">
                <children>
-                  <Label fx:id="dueDateAndTime" styleClass="cell_big_label" text="\$dueDateAndTime">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
+                  <Label fx:id="dueDateAndTime" styleClass="cell_big_label" text="\$dueDateAndTime" textFill="#615b5b" />
                </children>
                <GridPane.margin>
                   <Insets left="20.0" />

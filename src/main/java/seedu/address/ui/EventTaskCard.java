@@ -59,10 +59,10 @@ public class EventTaskCard extends UiPart{
     private void setTaskStatus() {
 		if (task.getStatus().value.equals(Status.DoneStatus.DONE)) {
 			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
-			taskStatus.setTextFill(Color.valueOf("#21a127"));
+			taskStatus.setStyle("-fx-text-fill: green");
 		} else if (task.getStatus().value.equals(Status.DoneStatus.OVERDUE)) {
 			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
-			taskStatus.setStyle("-fx-font-color: red;");
+			taskStatus.setStyle("-fx-text-fill: red");
 		}
 	}
 

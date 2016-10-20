@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="cardPane" fx:id="cardPane" prefHeight="70.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane prefWidth="600.0" VBox.vgrow="NEVER">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="NEVER" />
+            <ColumnConstraints fillWidth="false" hgrow="NEVER" />
             <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="80.0" />
          </columnConstraints>
          <children>
-            <Label fx:id="taskType" style="-fx-background-color: #63ff75;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="taskType" style="-fx-background-color: #63ff75; -fx-font-weight: bold;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -32,7 +32,7 @@
             </Label>
             <Label fx:id="taskStatus" textAlignment="JUSTIFY" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <font>
-                  <Font size="16.0" />
+                  <Font size="14.0" />
                </font>
                <GridPane.margin>
                   <Insets />
@@ -80,7 +80,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" translateY="-6.0">
                <children>
                   <Label text="Tags: ">
                      <font>
