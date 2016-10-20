@@ -108,7 +108,8 @@ public class ListController implements Controller {
             //setting up view
             
         }
-        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, isExactCommand, input);
+        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, 
+                parsedDates, isExactCommand, input);
         
     }
 
@@ -134,7 +135,7 @@ public class ListController implements Controller {
      */
     private void setupView(boolean isTask, boolean listAll, boolean isCompleted,
             boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
-            LocalDateTime dateTo, boolean isDateProvided, boolean isExactCommand, String input) {
+            LocalDateTime dateTo, boolean isDateProvided, String[] parsedDates, boolean isExactCommand, String input) {
         TodoListDB db = TodoListDB.getInstance();
         List<Task> tasks = null;
         List<Event> events = null;
@@ -153,7 +154,7 @@ public class ListController implements Controller {
         }
         
         if (tasks == null && events == null) {
-            displayErrorMessage(input, listAll, listAllStatus, isCompleted, isTask, dateOn, dateFrom, dateTo);
+            displayErrorMessage(input, listAll, listAllStatus, isCompleted, isTask, parsedDates);
             return ; //display error message
         }
         
@@ -173,7 +174,7 @@ public class ListController implements Controller {
         if (numTasks != 0 || numEvents != 0) {
             consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, formatDisplayMessage(numTasks, numEvents));
         } else {
-            consoleMessage = "No items found!";
+            consoleMessage = MESSAGE_LISTING_FAILURE;
         }
         
         Renderer.renderIndex(db, consoleMessage, tasks, events);
@@ -189,7 +190,7 @@ public class ListController implements Controller {
      *            the date entered by the user      
      */
     private void displayErrorMessage(String input, boolean listAll, boolean listAllStatus, boolean isCompleted,
-            boolean isTask, LocalDateTime dateOn, LocalDateTime dateFrom, LocalDateTime dateTo) {
+            boolean isTask, String[] parsedDates) {
         String consoleDisplayMessage = String.format("You have entered : %s.",input);
         String commandLineMessage = COMMAND_SYNTAX;
         String commandLineCompleteSuggestMessage = "complete";
@@ -213,8 +214,8 @@ public class ListController implements Controller {
             }
         }
         
-        if (dateOn != null || dateFrom != null || dateTo != null) {
-            if (dateOn != null) {
+        if (parsedDates != null) {
+            if (parsedDates[0] != null) {
                 commandLineMessage = String.format("%s by <date>", commandLineMessage);
             } else {
                 commandLineMessage = String.format("%s from <date> to <date>", commandLineMessage);
