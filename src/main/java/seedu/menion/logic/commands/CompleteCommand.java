@@ -83,10 +83,10 @@ public class CompleteCommand extends Command {
         }
     }
     
+    //@@author A0139515A
     /**
      * Complete command will store previous activity manager to support undo command
      * 
-     * @author Seow Wei Jie A0139515A
      */
     public void storePreviousState() {
         assert model != null;
@@ -94,4 +94,5 @@ public class CompleteCommand extends Command {
         ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
     	model.addStateToUndoStack(beforeState);
     }
+    //@@author
 }
