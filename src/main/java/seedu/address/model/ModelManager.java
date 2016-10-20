@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.ReadOnlyTask;
@@ -10,10 +11,15 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskSchedulerChangedEvent;
+import seedu.address.commons.events.storage.FilePathChangedEvent;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.Config;
 
+import java.io.IOException;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -117,6 +123,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskSchedulerChanged();
         
+    }
+    
+    @Subscribe
+    public void changeFilePathRequestEvent(FilePathChangedEvent event) {
+        indicateTaskSchedulerChanged();
     }
     
     //=========== Filtered Task List Accessors ===============================================================
