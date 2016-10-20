@@ -77,8 +77,12 @@ public class AliasController implements Controller {
         }
         
         // Persist alias mapping
-        TodoListDB db = TodoListDB.getInstance();
-        saveAlias(db, aliasKey, aliasValue);
+        try {
+            saveAlias(aliasKey, aliasValue);
+        } catch (IOException e) {
+            Renderer.renderAlias(SAVE_ERROR);
+            return;
+        }
         
         Renderer.renderAlias(MESSAGE_SHOWING);
     }
@@ -89,11 +93,14 @@ public class AliasController implements Controller {
      * @param db    TodoListDB singleton
      * @param aliasKey
      * @param aliasValue
+     * @throws IOException 
      */
-    private static void saveAlias(TodoListDB db, String aliasKey, String aliasValue) {
-        Map<String, String> aliases = db.getAliases();
+    private static void saveAlias(String aliasKey, String aliasValue) throws IOException {
+        Config config = MainApp.getConfig();
+        Map<String, String> aliases = config.getAliases();
         aliases.put(aliasKey, aliasValue);
-        db.save();
+        ConfigUtil.saveConfig(config, MainApp.getConfigFilePath());
+        
     }
     
     /**
