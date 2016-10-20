@@ -35,7 +35,7 @@ public class FindCommandTest extends TaskManagerGuiTest {
     //@@author A0124797R
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findassignment");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND+": findassignment");
     }
 
     private void assertFindResult(String command, TestTask... expectedHits ) {

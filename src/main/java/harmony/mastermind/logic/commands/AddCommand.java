@@ -130,9 +130,9 @@ public class AddCommand extends Command implements Undoable, Redoable {
             // need to clear the redoHistory Stack 
             model.clearRedoHistory();
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            return new CommandResult(COMMAND_KEYWORD_ADD,String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(COMMAND_KEYWORD_ADD,MESSAGE_DUPLICATE_TASK);
         }
 
     }
@@ -147,9 +147,9 @@ public class AddCommand extends Command implements Undoable, Redoable {
             
             model.pushToRedoHistory(this);
 
-            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
+            return new CommandResult(COMMAND_KEYWORD_ADD,String.format(MESSAGE_UNDO_SUCCESS, toAdd));
         } catch (UniqueTaskList.TaskNotFoundException pne) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+            return new CommandResult(COMMAND_KEYWORD_ADD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
     }
 
@@ -163,9 +163,9 @@ public class AddCommand extends Command implements Undoable, Redoable {
             
             model.pushToUndoHistory(this);
 
-            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, toAdd));
+            return new CommandResult(COMMAND_KEYWORD_ADD,String.format(MESSAGE_REDO_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(COMMAND_KEYWORD_ADD,MESSAGE_DUPLICATE_TASK);
         }        
     }
     

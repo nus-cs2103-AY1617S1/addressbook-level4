@@ -120,7 +120,7 @@ public class Parser {
                 return new HelpCommand();
 
             default:
-                return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+                return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND+": "+userInput);
         }
     }
 

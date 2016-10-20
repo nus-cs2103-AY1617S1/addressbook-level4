@@ -127,7 +127,7 @@ public class LogicManagerTest {
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND+": uicfhmowqewca");
     }
 
     @Test

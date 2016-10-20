@@ -1,5 +1,6 @@
 package harmony.mastermind.ui;
 
+import java.util.Date;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -32,6 +33,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
@@ -49,7 +53,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -199,6 +203,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsArchive;
+    
+    @FXML
+    private ListView<String> actionHistory;
 
     public MainWindow() {
         super();
@@ -254,6 +261,12 @@ public class MainWindow extends UiPart {
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
     }
+    
+    //@@A0138862W
+    public void pushToActionHistory(Date dateExecuted, String title, String description){
+        actionHistory.getItems().add(title+";"+description+";"+dateExecuted);
+        actionHistory.scrollTo(actionHistory.getItems().size()-1);
+    }
 
     /**
      * Sets the default size based on user preferences.
@@ -299,11 +312,14 @@ public class MainWindow extends UiPart {
         initDeadlineTab();
         initArchiveTab();
 
-        Platform.runLater(()->{
-            commandField.requestFocus();
-        });
         
         initAutoComplete();
+        
+        initActionHistory(actionHistory);
+        actionHistory.setPlaceholder(new Label("No action history yet"));
+        
+        // default focus to cammand box
+        Platform.runLater(()->commandField.requestFocus());
     }
 
     /**
@@ -369,6 +385,50 @@ public class MainWindow extends UiPart {
     }
     
 
+    private void initActionHistory(ListView<String> actionHistory){
+
+        actionHistory.setCellFactory(listView -> {
+            ListCell<String> actionCell = new ListCell<String>(){
+              
+                @Override
+                protected void updateItem(String item, boolean isEmpty){
+                    super.updateItem(item, isEmpty);
+                    
+                    
+                    
+                    if(!isEmpty){
+                        
+                        ActionHistoryItem actionHistoryItem = UiPartLoader.loadUiPart(new ActionHistoryItem());
+                        
+                        
+                        String[] args = item.split(";");
+                        
+                        actionHistoryItem.setTitle(args[0].toUpperCase());
+                        actionHistoryItem.setDescription(args[1]);
+                        actionHistoryItem.setDate(args[2].toUpperCase());
+                        
+                        
+                        if(args[0].toUpperCase().equals("INVALID COMMAND")){
+                            actionHistoryItem.setTypeFail();
+                        }else{
+                            actionHistoryItem.setTypeSuccess();
+                        }
+                        
+                        this.setGraphic(actionHistoryItem.getNode());
+                        this.setPrefHeight(50);
+                        this.setPrefWidth(250);
+                        
+                        this.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                    }else{
+                        this.setGraphic(null);
+                    }
+                }
+            };
+            
+            
+            return actionCell;
+        });
+    }
     
     /**
      * Initializes the indexing of tasks
@@ -579,6 +639,8 @@ public class MainWindow extends UiPart {
          */
         mostRecentResult = logic.execute(currCommandText, currentTab);
         consoleOutput.setText(mostRecentResult.feedbackToUser);
+        
+        this.pushToActionHistory(new Date(), mostRecentResult.title, mostRecentResult.feedbackToUser);
         
         if (!currCommandText.equals(PreviousCommand.COMMAND_WORD)) {
             updateTab(mostRecentResult);

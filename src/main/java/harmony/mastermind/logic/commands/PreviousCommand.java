@@ -16,6 +16,6 @@ public class PreviousCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
     }
 }

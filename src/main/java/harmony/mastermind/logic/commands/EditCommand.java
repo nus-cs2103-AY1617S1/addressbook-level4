@@ -94,10 +94,10 @@ public class EditCommand extends Command implements Undoable, Redoable {
             // need to clear the redoHistory Stack
             model.clearRedoHistory();
 
-            return new CommandResult(String.format(MESSAGE_EDIT_TASK_PROMPT, originalTask));
+            return new CommandResult(COMMAND_KEYWORD_EDIT, String.format(MESSAGE_EDIT_TASK_PROMPT, originalTask));
 
         } catch (TaskNotFoundException | DuplicateTaskException | IndexOutOfBoundsException ie) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(COMMAND_KEYWORD_EDIT, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
     }
@@ -115,11 +115,11 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
             model.pushToRedoHistory(this);
 
-            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, originalTask));
+            return new CommandResult(COMMAND_KEYWORD_EDIT, String.format(MESSAGE_UNDO_SUCCESS, originalTask));
         } catch (UniqueTaskList.TaskNotFoundException pne) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+            return new CommandResult(COMMAND_KEYWORD_EDIT, Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         } catch (DuplicateTaskException e) {
-            return new CommandResult(AddCommand.MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(COMMAND_KEYWORD_EDIT, AddCommand.MESSAGE_DUPLICATE_TASK);
         }
     }
 
@@ -132,9 +132,9 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
             model.pushToUndoHistory(this);
 
-            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, originalTask));
+            return new CommandResult(COMMAND_KEYWORD_EDIT, String.format(MESSAGE_REDO_SUCCESS, originalTask));
         } catch (TaskNotFoundException | DuplicateTaskException | IndexOutOfBoundsException ie) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(COMMAND_KEYWORD_EDIT, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
     }
 

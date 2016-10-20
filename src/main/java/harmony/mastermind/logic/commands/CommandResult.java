@@ -6,9 +6,13 @@ package harmony.mastermind.logic.commands;
 public class CommandResult {
 
     public final String feedbackToUser;
+    
+    public final String title;
+    
 
-    public CommandResult(String feedbackToUser) {
+    public CommandResult(String title, String feedbackToUser) {
         assert feedbackToUser != null;
+        this.title = title;
         this.feedbackToUser = feedbackToUser;
     }
     
