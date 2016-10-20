@@ -21,7 +21,7 @@ public class AddCommand extends Command {
 			+ "\"Be awesome\" from 1300 to 2359 on 07/10/2016";
 
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-	public static final String MESSAGE_SUCCESS_TIME_NULL = "START or END time not found but new task added: %1$s ";
+	public static final String MESSAGE_SUCCESS_TIME_NULL = "START or END time not found but new task added!";
 	public static final String MESSAGE_DUPLICATE_ITEM = "This task already exists in the to-do list";
 
 	private static final String DEFAULT_ITEM_NAME = "BLOCK";
@@ -59,7 +59,7 @@ public class AddCommand extends Command {
 			model.addItem(toAdd);
 			// if user input something for time but it's not correct format
 			if (this.hasTimeString && (this.toAdd.getStartDate() == null || this.toAdd.getEndDate() == null)) {
-				return new CommandResult(String.format(MESSAGE_SUCCESS_TIME_NULL, toAdd));
+				return new CommandResult(MESSAGE_SUCCESS_TIME_NULL);
 			} else {
 				return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 			}
