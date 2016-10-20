@@ -73,6 +73,22 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+    
+    /**
+     * Complete the equivalent task from the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean complete(ReadOnlyTask toRemove, ReadOnlyTask toReplaceWith) throws TaskNotFoundException {
+        assert toRemove != null;
+        assert toReplaceWith != null;
+        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
+        if (!taskFoundAndDeleted) {
+            throw new TaskNotFoundException();
+        }
+        internalList.add((Task)toReplaceWith);
+        return taskFoundAndDeleted;
+    }
 
     public ObservableList<Task> getInternalList() {
         return internalList;
