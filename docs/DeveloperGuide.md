@@ -299,7 +299,7 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User enters command to add task along with task details
-2. TaskManager adds task with the details provided
+2. TaskManager adds task with the details provided <br>
 Use case ends.
 
 **Extensions**
@@ -392,6 +392,20 @@ Use case ends.
 2a. There is no edit to undo.
 > 2a1. TaskManager shows an error message <br>
 Use case  ends
+
+#### Use case: Complete task
+
+**MSS**
+1. User request to mark the specified task as complete
+2. TaskManager marks the specified task as complete
+
+**Extensions**
+
+1a. The list is empty
+> Use case ends
+
+1b. Specified task is already marked complete
+> Use case ends
 
 
 ## Appendix C : Non Functional Requirements
