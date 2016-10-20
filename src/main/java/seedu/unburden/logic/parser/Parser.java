@@ -39,7 +39,7 @@ public class Parser {
 
 	private static final Pattern ADD_FORMAT_0 = // '/' forward slashes are reserved for delimiter prefixes
 			Pattern.compile("(?<name>[^/]+)" 
-							+ "(?<isTaskDescriptionPrivate>p?)i/(?<TaskDescription>[^/]+)" 
+							+ "(?<isTaskDescriptionPrivate>p?)i/(?<taskDescriptions>[^/]+)" 
 							+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
 							+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
 							+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
