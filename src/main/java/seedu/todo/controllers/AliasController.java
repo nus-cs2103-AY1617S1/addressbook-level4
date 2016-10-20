@@ -25,7 +25,9 @@ public class AliasController implements Controller {
     
     private static final String SPACE = " ";
     private static final int ARGS_LENGTH = 2;
-    private static final String MESSAGE_INVALID_INPUT = "Invalid alias command!";
+    private static final String INVALID_NUM_PARAMS = "Seems like you have provided an invalid number of parameters!";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid alias parameters! Alias inputs must consist solely "
+                                                      + "of alphabetical characters.";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -49,16 +51,63 @@ public class AliasController implements Controller {
         } else {
             String[] args = params.split(SPACE, ARGS_LENGTH);
             
-            // Check args length
-            if (args.length != ARGS_LENGTH) {
-                Renderer.renderConfig(MESSAGE_INVALID_INPUT);
-                return;
+            String aliasKey;
+            String aliasValue;
+            
+            // Best-effort matching, disambiguate if wrong.
+            validate: {
+                switch (args.length) {
+                case 0:
+                    break;
+                case 1:
+                    aliasKey = args[0];
+                case 2: // All good!
+                    aliasKey = args[0];
+                    aliasValue = args[1];
+                    break validate; 
+                default:
+                    aliasKey = args[0];
+                    aliasValue = args[0];
+                renderDisambiguation(aliasKey, aliasValue, INVALID_NUM_PARAMS);
             }
-
-            // Split by args
-            String configName = args[0];
-            String configValue = args[1];
+            
+            if (!validateAlias(aliasKey) || !validateAlias(aliasValue) {
+                renderDisambiguation(aliasKey, aliasValue, MESSAGE_INVALID_INPUT);
+            }
         }
+    }
+    
+    /**
+     * Validates that string is sanitized and safe for aliasing.
+     * 
+     * @param alias     string to check
+     * @return          true if string is sanitized, false otherwise
+     */
+    private static boolean validateAlias(String alias) {
+        return alias.chars().allMatch(Character::isLetter);
+    }
+    
+    /**
+     * Makes a best effort to sanitize input string.
+     * 
+     * @param alias     string to sanitize
+     * @return          sanitized string
+     */
+    private static String sanitize(String alias) {
+        return (alias == null) ? null : alias.replaceAll("[^A-Za-z]+", "");
+    }
+    
+    private static void renderDisambiguation(String aliasKey, String aliasValue, String message) {
+        String sanitizedAliasKey = sanitize(aliasKey);
+        if (sanitizedAliasKey == null || sanitizedAliasKey.length() == 0) {
+            sanitizedAliasKey = "<alias key>";
+        }
+        String sanitizedAliasValue = sanitize(aliasValue);
+        if (sanitizedAliasValue == null || sanitizedAliasValue.length() == 0) {
+            sanitizedAliasValue = "<alias value>";
+        }
+        Renderer.renderDisambiguation(String.format("alias \"%s\" \"%s\"",
+                sanitizedAliasKey, sanitizedAliasValue), message);
     }
 
 }
