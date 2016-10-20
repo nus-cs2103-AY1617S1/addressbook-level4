@@ -41,7 +41,7 @@ public class StorageCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		File file = new File(filepath);
-		if (file.getAbsolutePath()==null) {
+		if (!file.isDirectory() && !filepath.contains(".xml")) {
 			return new CommandResult(MESSAGE_FILE_PATH_NOT_EXIST);
 		}
 		
