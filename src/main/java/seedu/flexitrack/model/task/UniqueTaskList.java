@@ -145,7 +145,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(targetIndex, editTask);
         
         if(editTask.getIsEvent()){
-        	return DateTimeInfoParser.durationOfTheEvent(editTask.getStartTime().toString(), editTask.getEndTime().toString());
+        	return DateTimeInfo.durationOfTheEvent(editTask.getStartTime().toString(), editTask.getEndTime().toString());
         }else{
         	return "";
         }

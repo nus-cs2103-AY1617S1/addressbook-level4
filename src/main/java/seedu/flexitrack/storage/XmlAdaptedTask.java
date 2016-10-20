@@ -43,9 +43,9 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        dueDate = source.getDueDate().setTime;
-        startTime = source.getStartTime().setTime;
-        endTime = source.getEndTime().setTime;
+        dueDate = source.getDueDate().toString();
+        startTime = source.getStartTime().toString();
+        endTime = source.getEndTime().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));

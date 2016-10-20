@@ -48,7 +48,7 @@ public class Parser {
     private static final Pattern EDIT_ARGS_STARTTIME = Pattern.compile("from/\\s*(?<startTime>[^/]+)");
     private static final Pattern EDIT_ARGS_ENDTIME = Pattern.compile("to/\\s*(?<endTime>[^/]+)");
     
-    public final static String EMPTY_TIME_INFO = "Feb 29 23:23:23";
+    public final static String EMPTY_TIME_INFO = "Feb 29 2000 00:00:00";
     
     public Parser() {}
 
