@@ -39,7 +39,7 @@ Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
 > With the exception of `TASK_NAME`, all other parameters are optional. The order of parameters are not fixed. 
 > `DEADLINE_DATE_TIME` can be entered in any natural language format.
 > For date, entering words like today, tomorrow and day after are recognised.
-> For time, entering 7pm, 0700 or 19.00 are recognised.
+> For time, entering 7pm, 1900 or 19.00 are recognised.
 > If no time is entered, it is assumed to be due at 23:59 hours.
 
 Examples: 
@@ -50,14 +50,15 @@ Examples:
 #### Adding an event
 Similar to adding a task, you can also add an event to the TaskBook<br>
 
-Format: `add EVENT_NAME [/desc DESCRIPTION] [/from START_DATE_TIME > END_DATE_TIME]` <br>
+Format: `add EVENT_NAME /from START_DATE_TIME [> END_DATE_TIME] [/desc DESCRIPTION]` <br>
 
-> With the exception of `EVENT_NAME`, all other parameters are optional. The order of parameters are not fixed. 
+> With the exception of `EVENT_NAME` and `START_DATE_TIME`, all other parameters are optional. The order of parameters are not fixed. 
 > `START_DATE_TIME` and `END_DATE_TIME` can be entered in natural language.
 > For date, entering words like today, tomorrow and day after are recognised.
-> For time, entering 7pm, 0700 or 19.00 are recognised.
-> If no time is entered, it is assumed to start at 00:00 hours and end at 23:59 hours.
-> If only one date parameter is given after “/from”, the start and end dates will be the same, the default timing will be set 1 hour apart.
+> For time, entering 7pm, 1900 or 19.00 are recognised.
+> If no time is entered, it is assumed to start at 00:00 hours.
+> If no end time is entered, it is assumed to end at 23:59 hours.
+> If `END_DATE_TIME` is not provided, the start and end dates will be the same, the default timing will be set 1 hour apart.
 
 Examples:
 * `add CS2103 Exam /desc final examination @ MPSH3 /from today 4pm > 6pm` <br>
@@ -97,11 +98,10 @@ Examples:
 #### Editing a task
 Edits an existing task/event in TaskBook<br>
 
-Format: `edit -t INDEX /name NEW_TASK_NAME /desc NEW_TASK_DESCRIPTION /by NEW_DEADLINE_DATE_TIME` <br>
-
+Format: `edit -t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]` <br>
 
 > Edits the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing of tasks.
-> Edits any number of fields of the task. This includes name and/or description and/or deadline.
+> Edits at least 1 field of the task. This includes name and/or description and/or deadline.
 > `NEW_DEADLINE_DATE_TIME` can be entered in natural language.
 > Edited tasks are automatically marked as uncompleted.
 
@@ -122,8 +122,8 @@ Format: `edit -e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/fr
 > `NEW_START_DATE_TIME` and `NEW_END_DATE_TIME` can be entered in natural language.
 
 Examples:
-* `edit -e 1 [/desc CS2103 Workshop] [/from 3-10-16 > 5-10-16]`  
-  Edits the description of the 1st event to “CS2103 Workshop” and the duration to the period of 3-10-16 to 5-10-16
+* `edit -e 1 /desc CS2103 Workshop /from 3-10-16 > 5-10-16`  
+  Edits the description of the 1st event to “CS2103 Workshop” and the duration to the period of 0000 hours, 3-10-16 to 2359 hours, 5-10-16
 * `edit -e 4 /desc CS2103 TaskBook Project Meeting 4`  
   Edits the description of the 4th task to “CS2103 TaskBook Project Meeting 4”
 
@@ -265,7 +265,7 @@ Format : `exit`
  Command | Format  
 -------- | :-------- 
 [Add Task](#adding-a-task) | `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]`
-[Add Event](#adding-an-event) | `add EVENT_NAME [/desc DESCRIPTION] [/from START_DATE_TIME > END_DATE_TIME]`
+[Add Event](#adding-an-event) | `add EVENT_NAME /from START_DATE_TIME [> END_DATE_TIME] [/desc DESCRIPTION] `
 [List Task or Event](#listing-tasks) | `list -t|-e [-a]`
 [Edit Task](#editing-a-task) | `edit -t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]`
 [Edit Event](#editing-an-event) | `edit -e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
