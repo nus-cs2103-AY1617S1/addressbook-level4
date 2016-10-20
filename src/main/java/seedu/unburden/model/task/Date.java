@@ -1,5 +1,8 @@
 package seedu.unburden.model.task;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 
 /**
@@ -35,6 +38,11 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         return test.matches(DATE_VALIDATION_REGEX);
+    }
+    
+    public java.util.Date toDate() throws ParseException {
+    	DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+    	return df.parse(fullDate);
     }
 
 
