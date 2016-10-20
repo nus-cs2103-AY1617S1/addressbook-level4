@@ -132,11 +132,6 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-    
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFullTaskList() {
-        return new UnmodifiableObservableList<>(taskManager.getTasks());
-    }
 
     @Override
     public void updateFilteredListToShowAll() {
@@ -156,7 +151,6 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-    
 
     //========== Inner classes/interfaces used for filtering ==================================================
 

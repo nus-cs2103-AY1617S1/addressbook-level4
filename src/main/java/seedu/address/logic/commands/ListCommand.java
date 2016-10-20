@@ -79,7 +79,6 @@ public class ListCommand extends Command {
     	} else if(!doneStatus.isPresent() && !taskType.isPresent()) {
     		model.updateFilteredListToShowAll();
     	}
-    	
         return new CommandResult(MESSAGE_SUCCESS);
     }
     //@@author
