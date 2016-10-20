@@ -2,10 +2,10 @@ package seedu.menion.logic.commands;
 
 import seedu.menion.model.ActivityManager;
 
+//@@author A0139515A
 /**
  * Revert to previous activity manager state before undo command is called
- * 
- *  @author Seow Wei Jie A0139515A
+ *
  */
 public class RedoCommand extends Command {
 

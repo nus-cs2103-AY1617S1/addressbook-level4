@@ -16,6 +16,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
+    //@@author A0139515A
     public static final String MESSAGE_USAGE = "Make sure the date is a valid date. If not the date will be set to today. \n" + 
     		"Adding a Floating Task: "+ COMMAND_WORD + " buy lunch n: hawker food\n"
             + "Adding a Task: "+ COMMAND_WORD + " complete cs2103t by: 10-08-2016 1900 n: must complete urgent\n"
@@ -90,10 +91,10 @@ public class AddCommand extends Command {
         }
     }
     
+    //@@author A0139515A
     /**
      * Add command will store previous activity manager to support undo command
      * 
-     * @author Seow Wei Jie A0139515A
      */
     public void storePreviousState() {
         assert model != null;
@@ -101,4 +102,5 @@ public class AddCommand extends Command {
         ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
     	model.addStateToUndoStack(beforeState);
     }
+    //@@author
 }

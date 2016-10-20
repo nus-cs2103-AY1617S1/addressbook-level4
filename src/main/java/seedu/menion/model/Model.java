@@ -30,10 +30,11 @@ public interface Model {
     void UncompleteFloatingTask(int index);
     void UncompleteTask(int index);
     void UncompleteEvent(int index);
-    
+  
+    //@@author A0139515A
     /**
      * Methods for undo 
-     * @author Seow Wei Jie A0139515A
+     * 
      */
     
     /** add an activity manager state into undo stack */
@@ -47,18 +48,19 @@ public interface Model {
     
     /**
      * Methods for redo
-     * @author Seow Wei Jie A0139515A
+     * 
      */
     
+
     /** add an activity manager state into redo stack */
     void addStateToRedoStack(ReadOnlyActivityManager activityManager);
     
     /** retrieve previous activity manager from redo stack */
     ReadOnlyActivityManager retrievePreviousStateFromRedoStack();
-    
+  
     /** check if there is any previous activity manager in redo stack */
     boolean checkStatesInRedoStack();
-    
+    //@@author
     
     /** 
      * @author Marx  Low A0139164A

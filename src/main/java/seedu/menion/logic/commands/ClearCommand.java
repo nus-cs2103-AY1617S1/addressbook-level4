@@ -24,10 +24,10 @@ public class ClearCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
     
+    //@@author A0139515A
     /**
      * Clear command will store previous activity manager to support undo command
      * 
-     * @author Seow Wei Jie A0139515A
      */
     public void storePreviousState() {
         assert model != null;
@@ -35,4 +35,5 @@ public class ClearCommand extends Command {
         ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
     	model.addStateToUndoStack(beforeState);
     }
+    //@@author
 }

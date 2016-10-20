@@ -276,6 +276,18 @@
     -fx-padding: 8 1 8 1;
 }
 
+
+#commandTypeLabel {
+    -fx-font-size: 11px;
+    -fx-text-fill: #F70D1A;
+}
+
+#filterField, #personWebpage {
+    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+
+}
+
+/* @@author A0139515A */
 #eventCardPane {
     -fx-background-color: #ffa07a;
     -fx-border-color: #ffa07a;
@@ -294,17 +306,8 @@
     -fx-border-width: 1 1 1 1;
 }
 
-
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
-}
-
-#filterField, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
-
-}
-
 #taskList {
      -fx-background-color: white;
 }
+
+/* @@author */

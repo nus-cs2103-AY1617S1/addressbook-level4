@@ -149,10 +149,10 @@ public class EditCommand extends Command {
         return 100;
     }
     
+    //@@author A0139515A
     /**
      * Edit command will store previous activity manager to support undo command
      * 
-     * @author Seow Wei Jie A0139515A
      */
     public void storePreviousState() {
         assert model != null;
@@ -160,5 +160,5 @@ public class EditCommand extends Command {
         ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
     	model.addStateToUndoStack(beforeState);
     }
-
+    //@@author
 }

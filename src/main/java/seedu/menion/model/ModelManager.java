@@ -76,21 +76,22 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ActivityManagerChangedEvent(activityManager));
     }
 
+    //@@author A0139515A
     /**
      * Methods for undo 
-     * @author Seow Wei Jie A0139515A
+     * 
      */
-    
+
     @Override
     public void addStateToUndoStack(ReadOnlyActivityManager activityManager) {
     	activityManagerUndoStack.push(activityManager);
     }
-    
+
     @Override
     public ReadOnlyActivityManager retrievePreviousStateFromUndoStack() {
     	return activityManagerUndoStack.pop();
     }
-    
+
     @Override
     public boolean checkStatesInUndoStack() {
     	return this.activityManagerUndoStack.isEmpty();
@@ -98,22 +99,24 @@ public class ModelManager extends ComponentManager implements Model {
     
     /**
      * Methods for redo
-     * @author Seow Wei Jie A0139515A
+     * 
      */
+
     @Override
     public void addStateToRedoStack(ReadOnlyActivityManager activityManager) {
     	activityManagerRedoStack.push(activityManager);
     }
-    
+
     @Override
     public ReadOnlyActivityManager retrievePreviousStateFromRedoStack() {
     	return activityManagerRedoStack.pop();
     }
-    
+
     @Override
     public boolean checkStatesInRedoStack() {
     	return this.activityManagerRedoStack.isEmpty();
     }
+    //@@author
     
     /**
      * Methods for Completing an activity

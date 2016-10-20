@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 
+//@@author A0139515A
 public class EventCard extends UiPart{
 
     private static final String FXML = "EventCard.fxml";
@@ -56,7 +56,8 @@ public class EventCard extends UiPart{
         status.setText(event.getActivityStatus().toString());
         id.setText(displayedIndex + ". ");    
     }
-
+    //@@author
+    
     public HBox getLayout() {
         return eventCardPane;
     }
