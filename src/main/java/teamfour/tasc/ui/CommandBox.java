@@ -68,8 +68,10 @@ public class CommandBox extends UiPart {
         commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)) {
-                    wordList.getSelectionModel().select(0);
-                    wordList.requestFocus();
+                    if (wordList.getItems().size() > 0) {
+                        wordList.getSelectionModel().select(0);
+                        wordList.requestFocus();
+                    }
                 }
             }
         });
