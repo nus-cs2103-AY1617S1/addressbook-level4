@@ -8,7 +8,6 @@ import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.TaskDetails;
-import seedu.tasklist.testutil.TestTask;
 import seedu.tasklist.testutil.TypicalTestTasks;
 
 public class UndoCommandTest extends TaskListGuiTest {

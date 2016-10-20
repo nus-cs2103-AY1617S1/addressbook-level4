@@ -1,6 +1,5 @@
 package seedu.tasklist.model.task;
 
-import java.sql.Date;
 import java.util.Calendar;
 import java.util.Objects;
 

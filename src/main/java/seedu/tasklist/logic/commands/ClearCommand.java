@@ -1,7 +1,6 @@
 package seedu.tasklist.logic.commands;
 
 import seedu.tasklist.model.TaskList;
-import seedu.tasklist.model.task.Task;
 /**
  * Clears the address book.
  */

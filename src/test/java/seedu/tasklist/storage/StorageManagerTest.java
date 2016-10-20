@@ -6,12 +6,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.tasklist.model.ReadOnlyTaskList;
-import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.UserPrefs;
 import seedu.tasklist.storage.StorageManager;
-import seedu.tasklist.testutil.TypicalTestTasks;
-
 import static org.junit.Assert.assertEquals;
 
 public class StorageManagerTest {

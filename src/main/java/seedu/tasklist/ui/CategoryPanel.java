@@ -9,10 +9,7 @@ import javafx.stage.Stage;
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.events.model.TaskCountersChangedEvent;
-import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.TaskCounter;
-import seedu.tasklist.model.task.Task;
-
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;

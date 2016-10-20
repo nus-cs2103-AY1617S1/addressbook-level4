@@ -6,17 +6,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.tasklist.commons.exceptions.DataConversionException;
 import seedu.tasklist.commons.util.FileUtil;
 import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.TaskList;
-import seedu.tasklist.model.task.Task;
 import seedu.tasklist.storage.XmlTaskListStorage;
-import seedu.tasklist.testutil.TypicalTestTasks;
-
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class XmlTaskListStorageTest {
