@@ -162,7 +162,6 @@ public class LogicManagerTest {
 		assertCommandBehavior("add wrong args format\"", expectedMessage);
 		assertCommandBehavior("add wrong args format", expectedMessage);
 		assertCommandBehavior("add wrong args \"format\"", expectedMessage);
-		assertCommandBehavior("add \"Valid description\" not a valid date", AddCommand.MESSAGE_SUCCESS_TIME_NULL);
 	}
 
 
@@ -188,7 +187,6 @@ public class LogicManagerTest {
 
 		// prepare task book state
 		helper.addToModel(model, 2);
-
 		assertCommandBehavior("list", ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
 	}
 
