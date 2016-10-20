@@ -1,16 +1,8 @@
 package seedu.todo.controllers;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Map;
-
-import seedu.todo.MainApp;
-import seedu.todo.commons.core.Config;
-import seedu.todo.commons.exceptions.CannotConfigureException;
-import seedu.todo.commons.util.ConfigUtil;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.TodoListDB;
-import seedu.todo.ui.UiManager;
 
 /**
  * Controller to declare aliases
