@@ -7,7 +7,6 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
-import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Adds a task to the task list.

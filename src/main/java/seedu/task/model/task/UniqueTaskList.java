@@ -22,6 +22,9 @@ import java.util.Map.Entry;
  */
 public class UniqueTaskList implements Iterable<Task> {
 
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ListMutation<ReadOnlyTask> history = new ListMutation<ReadOnlyTask>();
+    
     /**
      * Signals that an operation would have violated the 'no duplicates'
      * property of the list.
@@ -38,9 +41,6 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {
     }
-
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-    private final ListMutation<ReadOnlyTask> history = new ListMutation<ReadOnlyTask>();
 
     /**
      * Constructs empty TaskList.
