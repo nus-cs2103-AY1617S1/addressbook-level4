@@ -11,7 +11,7 @@ import seedu.flexitrack.commons.exceptions.IllegalValueException;
  * Represents a DateTimeInfo class in FlexiTrack
  */
 public class DateTimeInfo {
-    public static final String MESSAGE_DATETIMEINFO_CONSTRAINTS = "Time format should follow DD/MM/YYYY-hhmm(in 24 hour format)";
+    public static final String MESSAGE_DATETIMEINFO_CONSTRAINTS = "Invalid time inputed. Please check your spelling!";
 
     private static final Pattern TIME_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<info>.+)");

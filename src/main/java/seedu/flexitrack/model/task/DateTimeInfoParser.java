@@ -12,16 +12,19 @@ import seedu.flexitrack.commons.exceptions.IllegalValueException;
  */
 public class DateTimeInfoParser {
 
-    public String timingInfo;
+    public static final String MESSAGE_DATETIMEINFO_CONSTRAINTS = "Invalid time inputed. Please check your spelling!";
+    
+    private String timingInfo;
 
     public DateTimeInfoParser(String givenTime) throws IllegalValueException {
-        Parser parser = new Parser(); 
-        List<DateGroup> dateParser = parser.parse(givenTime);
-        if (!isValidDateTimeInfo(dateParser)) {
-            throw new IllegalValueException("error");
-            //TODO: use MESSAGE_DATETIMEINFO_CONSTRAINTS instead of error
-        }       
-        setTimingInfo(dateParser);
+        try { 
+            Parser parser = new Parser(); 
+            List<DateGroup> dateParser = parser.parse(givenTime);
+            System.out.println(dateParser.get(0).getDates());  // dont forget to delete this #DELETETHIS
+            setTimingInfo(dateParser);
+        } catch (IndexOutOfBoundsException e){ 
+            throw new IllegalValueException(MESSAGE_DATETIMEINFO_CONSTRAINTS);
+        }   
     }
 
     /** 
@@ -30,12 +33,20 @@ public class DateTimeInfoParser {
      */
     private void setTimingInfo(List<DateGroup> dateParser) {
         this.timingInfo = dateParser.get(0).getDates().toString();
-        if (!isTimeSpecified(timingInfo)){
-            timingInfo = timingInfo.substring(5, 12);
-            timingInfo = timingInfo + "08:00";
+        if (dateParser.get(0).isTimeInferred()){
+        //if (!isTimeSpecified(timingInfo)){
+            setTimeAsDefault();
         }else { 
             timingInfo = timingInfo.substring(5, 17);
         }
+    }
+
+    /**
+     * Setting the timingInfo as default timing (8am) 
+     */
+    private void setTimeAsDefault() {
+        timingInfo = timingInfo.substring(5, 12);
+        timingInfo = timingInfo + "08:00";
     }
 
     /** 
