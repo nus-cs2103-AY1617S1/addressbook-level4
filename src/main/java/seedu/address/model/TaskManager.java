@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.deadline.Deadline;
+import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
@@ -18,10 +20,12 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
+    private final UniqueDeadlineList deadlines;
 
     {
         tasks = new UniqueTaskList();
         tags = new UniqueTagList();
+        deadlines = new UniqueDeadlineList();
     }
 
     public TaskManager() {}
@@ -30,14 +34,14 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Tasks and Tags are copied into this task manager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueDeadlineList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Persons and Tags are copied into this task manager
      */
-    public TaskManager(UniqueTaskList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public TaskManager(UniqueTaskList persons, UniqueDeadlineList deadlines, UniqueTagList tags) {
+        resetData(persons.getInternalList(), deadlines.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyTaskManager getEmptyTaskManager() {
@@ -54,17 +58,22 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().setAll(tasks);
     }
 
+    public void setDeadlines(Collection<Deadline> deadlines) {
+        this.deadlines.getInternalList().setAll(deadlines);
+    }
+    
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
-
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Deadline> newDeadlines, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setDeadlines(newDeadlines);
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getDeadlineList(), newData.getTagList());
     }
 
 //// task-level operations
@@ -103,6 +112,24 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
         task.setTags(new UniqueTagList(commonTagReferences));
     }
+    
+    private void syncDeadlinesWithMasterList(Task task) {
+        final UniqueDeadlineList taskDeadlines = task.getDeadlines();
+        deadlines.mergeFrom(taskDeadlines);
+
+        // Create map with values = tag object references in the master list
+        final Map<Deadline, Deadline> masterDeadlineObjects = new HashMap<>();
+        for (Deadline deadline : deadlines) {
+            masterDeadlineObjects.put(deadline, deadline);
+        }
+
+        // Rebuild the list of person tags using references from the master list
+        final Set<Deadline> commonDeadlineReferences = new HashSet<>();
+        for (Deadline deadline : taskDeadlines) {
+            commonDeadlineReferences.add(masterDeadlineObjects.get(deadline));
+        }
+        task.setDeadlines(new UniqueDeadlineList(commonDeadlineReferences));
+    }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
@@ -112,17 +139,24 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
+////deadline-level operations
+
+   public void addDeadline(Deadline d) throws UniqueDeadlineList.DuplicateDeadlineException {
+       deadlines.add(d);
+   }
+   
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
+    
 
 //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + deadlines.getInternalList().size() + " deadlines, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
@@ -132,6 +166,11 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
+    public List<Deadline> getDeadlineList() {
+        return Collections.unmodifiableList(deadlines.getInternalList());
+    }
+    
+    @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());
     }
@@ -139,6 +178,11 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
+    }
+
+    @Override
+    public UniqueDeadlineList getUniqueDeadlineList() {
+        return this.deadlines;
     }
 
     @Override
@@ -152,13 +196,14 @@ public class TaskManager implements ReadOnlyTaskManager {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
                 && this.tasks.equals(((TaskManager) other).tasks)
+                && this.deadlines.equals(((TaskManager)other).deadlines)
                 && this.tags.equals(((TaskManager) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(tasks, deadlines, tags);
     }
     
     public boolean contains(Task task){

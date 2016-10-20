@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -10,7 +11,12 @@ public interface ReadOnlyTask {
 
     Name getName();
     Priority getPriority();
-    Deadline getDeadline();
+    
+    /**
+     * The returned DeadlineList is a deep copy of the internal DeadlineList,
+     * changes on the returned list will not affect the person's internal deadlines.
+     */
+    UniqueDeadlineList getDeadlines();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -24,8 +30,7 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getDeadline().equals(this.getDeadline()))
+                && other.getName().equals(this.getName())) // state checks here onwards
                 && other.getPriority().equals(this.getPriority());
     }
 
@@ -35,9 +40,9 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Deadline: ")
-                .append(getDeadline())
-                .append(" Priority: ")
+                .append(" Deadline: ");
+                getDeadlines().forEach(builder::append);               
+        builder.append(" Priority: ")
                 .append(getPriority())
         		.append(" Tags: ");
         getTags().forEach(builder::append);
@@ -51,6 +56,17 @@ public interface ReadOnlyTask {
         final StringBuffer buffer = new StringBuffer();
         final String separator = ", ";
         getTags().forEach(tag -> buffer.append(tag).append(separator));
+        if (buffer.length() == 0) {
+            return "";
+        } else {
+            return buffer.substring(0, buffer.length() - separator.length());
+        }
+    }
+    
+    default String deadlinesString() {
+        final StringBuffer buffer = new StringBuffer();
+        final String separator = ", ";
+        getDeadlines().forEach(deadline -> buffer.append(deadline).append(separator));
         if (buffer.length() == 0) {
             return "";
         } else {
