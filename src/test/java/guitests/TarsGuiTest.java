@@ -42,6 +42,7 @@ public abstract class TarsGuiTest {
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
+    protected RsvTaskListPanelHandle rsvTaskListPanel;
     protected CommandBoxHandle commandBox;
     private Stage stage;
 
@@ -62,6 +63,7 @@ public abstract class TarsGuiTest {
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
+            rsvTaskListPanel = mainGui.getRsvTaskListPanel();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
         });

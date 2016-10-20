@@ -59,7 +59,6 @@ public class AddCommandTest extends TarsGuiTest {
     //@@author A0140022H
     @Test
     public void addRecurring() {
-        commandBox.runCommand("clear");
         TestTask[] recurringList = new TestTask[0];
         recurringList = TestUtil.addTasksToList(recurringList, td.taskC, td.taskD);
         try {
