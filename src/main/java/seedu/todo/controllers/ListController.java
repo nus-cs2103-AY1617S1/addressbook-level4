@@ -2,6 +2,7 @@ package seedu.todo.controllers;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -87,17 +88,27 @@ public class ListController implements Controller {
         }
         
         String[] parsedDates = parseDates(parsedResult);
-        String naturalOn = parsedDates[0];
-        String naturalFrom = parsedDates[1];
-        String naturalTo = parsedDates[2];
-
-        // Parse natural date using Natty.
-        LocalDateTime dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
-        LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
-        LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+        boolean isDateProvided = true;
+        LocalDateTime dateOn = null;
+        LocalDateTime dateFrom = null;
+        LocalDateTime dateTo = null;
         
-        //setting up view
-        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isExactCommand, input, parsedDates);
+        if (parsedDates == null) {
+            isDateProvided = false;
+        } else {
+            String naturalOn = parsedDates[0];
+            String naturalFrom = parsedDates[1];
+            String naturalTo = parsedDates[2];
+    
+            // Parse natural date using Natty.
+            dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
+            dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
+            dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+            
+            //setting up view
+            
+        }
+        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, isExactCommand, input);
         
     }
 
@@ -123,7 +134,7 @@ public class ListController implements Controller {
      */
     private void setupView(boolean isTask, boolean listAll, boolean isCompleted,
             boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
-            LocalDateTime dateTo, boolean isExactCommand, String input, String [] parsedDate) {
+            LocalDateTime dateTo, boolean isDateProvided, boolean isExactCommand, String input) {
         TodoListDB db = TodoListDB.getInstance();
         List<Task> tasks = null;
         List<Event> events = null;
@@ -131,18 +142,18 @@ public class ListController implements Controller {
         if (listAll) { //task or event not specify
             //no event or task keyword found
             isTask = false;
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isExactCommand, db);
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isExactCommand, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, isExactCommand, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, isExactCommand, db);
         }
         
         if (isTask) {
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isExactCommand, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, isExactCommand, db);
         } else {
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isExactCommand, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, isExactCommand, db);
         }
         
         if (tasks == null && events == null) {
-            displayErrorMessage(input, parsedDate);
+            displayErrorMessage(input, listAll, listAllStatus, isCompleted, isTask, dateOn, dateFrom, dateTo);
             return ; //display error message
         }
         
@@ -177,20 +188,39 @@ public class ListController implements Controller {
      * @param parsedDate            
      *            the date entered by the user      
      */
-    private void displayErrorMessage(String input, String[] parsedDate) {
+    private void displayErrorMessage(String input, boolean listAll, boolean listAllStatus, boolean isCompleted,
+            boolean isTask, LocalDateTime dateOn, LocalDateTime dateFrom, LocalDateTime dateTo) {
         String consoleDisplayMessage = String.format("You have entered : %s.",input);
-        String commandLineMessage;
-        if (parsedDate == null) {
-            commandLineMessage = COMMAND_SYNTAX;
-        } else if (parsedDate[0] != null) {
-            commandLineMessage = String.format("%s by <date>", COMMAND_SYNTAX);
-        } else if (parsedDate[1] != null && parsedDate[2] != null) {
-            commandLineMessage = String.format("%s from <date> to <date>", COMMAND_SYNTAX);
-        } else if (parsedDate[1] != null) {
-            commandLineMessage = String.format("%s from <date>", COMMAND_SYNTAX);
-        } else { //update here
-            commandLineMessage = String.format("%s to <date>", COMMAND_SYNTAX);
+        String commandLineMessage = COMMAND_SYNTAX;
+        String commandLineCompleteSuggestMessage = "complete";
+        String commandLineIncompleteSuggestMessage = "incomplete";
+        String commandLineTaskSuggestMessage = "task";
+        String commandLineEventSuggestMessage = "event";
+        
+        if (!listAll) {
+            if (isTask) {
+                commandLineMessage = String.format("%s %s", commandLineMessage, commandLineTaskSuggestMessage);
+            } else {
+                commandLineMessage = String.format("%s %s", commandLineMessage, commandLineEventSuggestMessage);
+            }
         }
+        
+        if (!listAllStatus) {
+            if (isCompleted) {
+                commandLineMessage = String.format("%s %s", commandLineMessage, commandLineCompleteSuggestMessage);
+            } else {
+                commandLineMessage = String.format("%s %s", commandLineMessage, commandLineIncompleteSuggestMessage);
+            }
+        }
+        
+        if (dateOn != null || dateFrom != null || dateTo != null) {
+            if (dateOn != null) {
+                commandLineMessage = String.format("%s by <date>", commandLineMessage);
+            } else {
+                commandLineMessage = String.format("%s from <date> to <date>", commandLineMessage);
+            } 
+        }
+        
         Renderer.renderDisambiguation(commandLineMessage, consoleDisplayMessage);
     }
     
@@ -213,10 +243,10 @@ public class ListController implements Controller {
     }
     
     private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn,
-            LocalDateTime dateFrom, LocalDateTime dateTo, boolean isExactCommand, TodoListDB db) {
+            LocalDateTime dateFrom, LocalDateTime dateTo, boolean isDateProvided, boolean isExactCommand, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
             if (listAllStatus) { // not specify
-                if (isExactCommand) {
+                if (isExactCommand && isDateProvided == false) {
                     return db.getAllEvents();
                 } else {
                     return null;
@@ -234,10 +264,10 @@ public class ListController implements Controller {
     }
 
     private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
-            LocalDateTime dateTo, boolean isExactCommand, TodoListDB db) {
+            LocalDateTime dateTo, boolean isDateProvided, boolean isExactCommand, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
             if (listAllStatus) { // not specify
-                if (isExactCommand) {
+                if (isExactCommand && isDateProvided == false) {
                     return db.getAllTasks();
                 } else {
                     return null;
@@ -320,7 +350,7 @@ public class ListController implements Controller {
      * Extracts the natural dates from parsedResult.
      * 
      * @param parsedResult
-     * @return { naturalOn, naturalFrom, naturalTo }
+     * @return { naturalOn, naturalFrom, naturalTo } or null if no date provided
      */
     private String[] parseDates(Map<String, String[]> parsedResult) {
         String naturalFrom = null;
@@ -338,7 +368,11 @@ public class ListController implements Controller {
             naturalOn = parsedResult.get("time")[1];
         }
         
-        return new String[] { naturalOn, naturalFrom, naturalTo };
+        if (naturalFrom != null || naturalTo != null || naturalOn != null) {
+            return new String[] { naturalOn, naturalFrom, naturalTo };
+        } else {
+            return null;
+        }
     }
     
 
