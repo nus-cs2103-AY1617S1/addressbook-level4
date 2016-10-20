@@ -24,14 +24,15 @@ import seedu.todo.models.TodoListDB;
 public class FindController implements Controller {
     
     private static final String NAME = "Find";
-    private static final String DESCRIPTION = "Find all tasks and events based on keywords.";
-    private static final String COMMAND_SYNTAX = "find";
+    private static final String DESCRIPTION = "Find all tasks and events based on the provided keywords.";
+    private static final String COMMAND_SYNTAX = "find [name] or/and [on date]";
+    private static final String COMMAND_WORD = "find";
     
     private static final String MESSAGE_LISTING_SUCCESS = "A total of %s found!";
     private static final String MESSAGE_LISTING_FAILURE = "No task or event found!";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_WORD); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
@@ -39,7 +40,7 @@ public class FindController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith("find")) ? 1 : 0;
+        return (input.toLowerCase().startsWith(COMMAND_WORD)) ? 1 : 0;
     }
     
     private static Map<String, String[]> getTokenDefinitions() {
@@ -93,7 +94,7 @@ public class FindController implements Controller {
         if (parsedDates == null && listAllStatus == true && listAll == true 
                 && parsedResult.size() == 1 && itemNameList.size() == 0) {
             //display error message, no keyword provided
-            String disambiguationString = String.format("%s %s %s %s", COMMAND_SYNTAX, "<name>" , 
+            String disambiguationString = String.format("%s %s %s %s", COMMAND_WORD, "<name>" , 
                     "<complete/incomplete>", "<task/event>");  
             Renderer.renderDisambiguation(disambiguationString, input);
             return ;
