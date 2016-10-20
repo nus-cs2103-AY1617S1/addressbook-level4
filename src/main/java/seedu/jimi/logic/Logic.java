@@ -17,11 +17,26 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
-    
-    /** Returns the filtered list of deadlineTasks */
-    ObservableList<ReadOnlyTask> getFilteredDeadlineTaskList();
-    
-    /** Returns the filtered list of events */
-    ObservableList<ReadOnlyTask> getFilteredEventList();
 
+    ObservableList<ReadOnlyTask> getFilteredCompletedTaskList();
+    
+    ObservableList<ReadOnlyTask> getFilteredIncompleteTaskList();
+    
+    ObservableList<ReadOnlyTask> getFilteredMondayTaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredTuesdayTaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredWednesdayTaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredThursdayTaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredFridayTaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredSaturdayTaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredSundayTaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredAgendaTaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredAgendaEventList();
 }
