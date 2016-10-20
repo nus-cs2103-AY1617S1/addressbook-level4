@@ -177,6 +177,15 @@ There is no need to save manually.
 **Q**: How do i block out slots for unconfirmed tasks?
 **A**: use the block command
 
+**Q**: How do i remove a blocked out slot to add task?
+**A**: use the delete command to delete the blocked slot
+
+**Q**: Where did all my tasks go when i try to add a task to a blocked slot?
+**A**: When you attempt to add a task to a blocked slot, CMDo will list all your blocked slots, hence, you are only shown your blocked slots now. Simply use the command 'list all' to go back to your task listing.
+
+**Q**: What if i input only one timing when using the block command?
+**A**: It will create a blocked slot with one hour default end time from the start time which is the time you entered
+
 **Q**: How do i see upcoming tasks?
 **A**: The list will be sorted according to date and time
 
@@ -192,7 +201,9 @@ Block | `Block <day> <start time> <end time>`
 Delete | `delete <INDEX>`
 Done | `done <INDEX>`
 Find | `find <keyword>`
-List All | `list`
+List All | `list all / la`
+List Done | `list done / ld`
+List Block | `list block / lb`
 Help | `help`
 Undo | `undo`
 Redo | `redo`
@@ -201,4 +212,4 @@ Page Up | <kbd>PgUp</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Up</kb
 Page Down | <kbd>PgDown</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Down</kbd> (Mac)
 Exit | `exit`
 
-Last updated 11 Oct 2016. @author A0141128R
+Last updated 20 Oct 2016. @author A0141128R
