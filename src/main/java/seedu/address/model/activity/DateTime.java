@@ -37,7 +37,7 @@ public abstract class DateTime {
      * Returns true if a given string is a valid task reminder.
      */
     protected static boolean isValidDate(String test) {
-        if (DATE_PARSER.validate(test) || test == ""||test.contains("today") || test.contains("tomorrow"))
+        if (DATE_PARSER.validate(test) || test.equals("") ||test.contains("today") || test.contains("tomorrow"))
             return true;
         else
             return false;
