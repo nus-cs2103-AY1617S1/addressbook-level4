@@ -345,40 +345,45 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 ## **Appendix B : Use Cases**
 
-1. Use case: Add task
+- Use case: Add task
 
-- User requests to add a task
-- Unburden will add the task
-- Unburden will show the task added
+MSS
+
+1. User requests to add a task
+2. Unburden saves the task to the list of tasks and displays the existing list of tasks
+
+  Use case ends
+
+Extension
+
+ 1.1 User requests to add a task with a wrong format
+ 2.1 Unburden will give display a error message 
+
+
+- Use case: Delete task
+
+MSS
+
+1. User requests to delete a specific task by index
+2. Unburden will delete the task and show the existing list of tasks
 
   Use case ends
 
 
 
-2. Use case: Delete task
+- Use case: Find task
 
-- User requests to delete a specific task
-- Unburden will request the user to confirm
-- User confirms with Unburden
-- Unburden will delete the task
-
-  Use case ends
-
-
-
-3. Use case: Find task
-
-- User requests to find a specific task
-- Unburden will search through the library of existing tasks
-- Unburden will sieve out tasks that contain the keywords typed in
-- Unburden will show a list of the tasks
-- User is able to remember what he/she needs to do
+1. User requests to find a specific task
+2. Unburden will search through the library of existing tasks
+3. Unburden will sieve out tasks that contain the keywords typed in
+4. Unburden will show a list of the tasks
+5. User is able to remember what he/she needs to do
 
   Use case ends
 
 
 
-4. Use case: Edit task
+- Use case: Edit task
 
 - User requests to edit a task
 - Unburden will search for the task based on the user&#39;s input
