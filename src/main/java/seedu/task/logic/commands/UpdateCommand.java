@@ -16,7 +16,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Updates a task in the task list.
  */
-public class UpdateCommand extends Command {
+public class UpdateCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "update";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update a task in the task list.\n "
@@ -25,16 +25,18 @@ public class UpdateCommand extends Command {
             + " 1 cs2103 t/quiz";
     
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s"; 
-    
+    public static final String MESSAGE_ROLLBACK_SUCCESS = "Rollback changes to updated task!";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
     
     public final int targetIndex;
     
     private final Name newTaskName;
+    private final DateTime newOpenTime;
+    private final DateTime newCloseTime;
     private final Set<String> removedTags;
     private final UniqueTagList newTaskTags;
     
-    public UpdateCommand(int targetIndex, String name, Set<String> tagsToAdd, Set<String> tagsToRemove) throws IllegalValueException { 
+    public UpdateCommand(int targetIndex, String name, String openTime, String closeTime, Set<String> tagsToAdd, Set<String> tagsToRemove) throws IllegalValueException { 
         this.targetIndex = targetIndex;
         this.newTaskName = (name.isEmpty()) ? null : new Name(name);
         
@@ -42,23 +44,14 @@ public class UpdateCommand extends Command {
         for (String tagName : tagsToAdd) {
             tagSet.add(new Tag(tagName));
         }
+        this.newOpenTime = new DateTime(openTime);
+        this.newCloseTime = new DateTime(closeTime);
         
         this.newTaskTags = new UniqueTagList(tagSet);
         this.removedTags = tagsToRemove;
     }
     
-    @Override
-    public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-
-        ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
-
-        Name updatedTaskName = (newTaskName == null) ? taskToUpdate.getName() : newTaskName;
+    private void mergeTaskTags(ReadOnlyTask taskToUpdate) {
         newTaskTags.mergeFrom(taskToUpdate.getTags());
         
         for (String tagName : removedTags) {
@@ -70,19 +63,54 @@ public class UpdateCommand extends Command {
                 assert false : "Tag cannot be of other type!";
             }
         }
+    }
+    
+    @Override
+    public CommandResult execute() {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(false, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
+        ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
+
+        Name updatedTaskName = (newTaskName == null) ? taskToUpdate.getName() : newTaskName;
+
+        DateTime updatedOpenTime = (newOpenTime.isEmpty()) ? taskToUpdate.getOpenTime() : newOpenTime;
+        DateTime updatedCloseTime = (newCloseTime.isEmpty()) ? taskToUpdate.getCloseTime() : newCloseTime;
+        mergeTaskTags(taskToUpdate);
         
-        Task newTask = new Task(
-                updatedTaskName,
-                newTaskTags
-        );
+        Task newTask; 
+        try {
+            newTask = new Task(
+                    updatedTaskName,
+                    updatedOpenTime,
+                    updatedCloseTime,
+                    taskToUpdate.getImportance(),
+                    taskToUpdate.getComplete(),
+                    newTaskTags
+            );
+        } catch (IllegalValueException e1) {
+            return new CommandResult(false, e1.getMessage()); 
+        }
         
         assert model != null;
         try {
             model.updateTask(taskToUpdate, newTask);
         } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(false, MESSAGE_DUPLICATE_TASK);
         }
 
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
+        return new CommandResult(true, String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
+    }
+
+    @Override
+    public CommandResult rollback() {
+        assert model != null;
+        model.rollback();
+        
+        return new CommandResult(true, String.format(MESSAGE_ROLLBACK_SUCCESS));
     }
 }

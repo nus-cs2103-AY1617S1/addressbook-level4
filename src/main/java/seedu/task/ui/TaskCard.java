@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.SVGPath;
+import javafx.scene.text.Text;
 import seedu.task.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -13,21 +16,28 @@ public class TaskCard extends UiPart{
 
     @FXML
     private HBox cardPane;
+    
     @FXML
-    private Label name;
+    private Text name;
+    
     @FXML
     private Label id;
-//    @FXML
-//    private Label phone;
-//    @FXML
-//    private Label address;
-//    @FXML
-//    private Label email;
+    
     @FXML
-    private Label tags;
+    private SVGPath star;
+    
+    @FXML
+    private Label openTime;
+    
+    @FXML
+    private Label closeTime;
+
+    @FXML
+    private AnchorPane tagsListPlaceholder;
 
     private ReadOnlyTask task;
     private int displayedIndex;
+    private TagListPanel tagListPanel;
 
     public TaskCard(){
 
@@ -44,10 +54,21 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
-//        phone.setText(person.getPhone().value);
-//        address.setText(person.getAddress().value);
-//        email.setText(person.getEmail().value);
-        tags.setText(task.tagsString());
+        openTime.setText("Start: "+task.getOpenTime().toPrettyString());
+        closeTime.setText("End: "+task.getCloseTime().toPrettyString());
+        tagListPanel = TagListPanel.load(getPrimaryStage(), tagsListPlaceholder, task.getTags().getInternalList());
+        setVisualFlags();
+    }
+    
+    private void setVisualFlags() {
+        if (!task.getImportance()) {
+            star.setOpacity(0.0);
+        }
+        
+        if (task.getComplete()) {
+            cardPane.setId("cardPane-completed");
+            name.setStrikethrough(true);
+        }
     }
 
     public HBox getLayout() {
@@ -55,7 +76,8 @@ public class TaskCard extends UiPart{
     }
 
     @Override
-    public void setNode(Node node) {
+    public void setNode(Node node) 
+    {
         cardPane = (HBox)node;
     }
 

@@ -10,6 +10,7 @@ import seedu.task.model.Model;
  */
 public abstract class Command {
     protected Model model;
+    protected UndoableCommand previousCommand;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
@@ -33,8 +34,9 @@ public abstract class Command {
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(Model model) {
+    public void setData(Model model, UndoableCommand previousCommand) {
         this.model = model;
+        this.previousCommand = previousCommand;
     }
 
     /**

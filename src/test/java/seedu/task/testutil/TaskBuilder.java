@@ -27,20 +27,20 @@ public class TaskBuilder {
         return this;
     }
 
-//    public TaskBuilder withAddress(String address) throws IllegalValueException {
-//        this.task.setAddress(new Address(address));
-//        return this;
-//    }
-//
-//    public TaskBuilder withPhone(String phone) throws IllegalValueException {
-//        this.task.setPhone(new Phone(phone));
-//        return this;
-//    }
-//
-//    public PersonBuilder withEmail(String email) throws IllegalValueException {
-//        this.person.setEmail(new Email(email));
-//        return this;
-//    }
+    public TaskBuilder withImportance(boolean isImportant) throws IllegalValueException{
+    	this.task.setIsImportant(isImportant);
+    	return this;
+    }
+
+    public TaskBuilder withOpenTime(String openTime) throws IllegalValueException {
+        this.task.setOpenTime(new DateTime(openTime));
+        return this;
+    }
+    
+    public TaskBuilder withCloseTime(String closeTime) throws IllegalValueException {
+        this.task.setCloseTime(new DateTime(closeTime));
+        return this;
+    }
 
     public TestTask build() {
         return this.task;

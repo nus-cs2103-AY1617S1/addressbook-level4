@@ -9,16 +9,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores taskmanager data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given taskmanager data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableTaskManager addressBook)
+    public static void saveDataToFile(File file, XmlSerializableTaskManager taskManager)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, taskManager);
         } catch (JAXBException e) {
             assert false : "Unexpected exception " + e.getMessage();
         }

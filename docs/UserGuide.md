@@ -22,9 +22,11 @@
    * **`list`** : lists all tasks
    * **`add`**`meeting`: adds a task named CS2103 Tutorial
    * **`find`**`meeting `: searches the task named tutorial   
-   * **`delete`**`presentation`: delete a task named Quiz
+   * **`delete`**`1`: delete the first task in the list
+   * **`complete`** `1`: mark the first task as completed
    * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
+   * **`pin`**`1` : pin the first task in the list
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -41,10 +43,9 @@
 Adds a task to the to-do list<br>
 Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 
-> Date format of START_DATE and CLOSE_DATE is DD-MM-YYYY:HHMM e.g. 01/10/2016:2100
-> This is only the standard date time format. There is flexibility on the datetime format. You can use both type of date time format.
+> Date format of START_DATE and CLOSE_DATE includes words like today, tomorrow, 3 days from now, day after tomorrow, noon, 12pm, 6am
 
-* `TASK_NAME` must be unique.
+* `TASK_NAME` need not be unique.
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
 * `TAG` is for users to write tags for different tasks. Mulitple tags are available by typing `t/TAG t/TAG`.
@@ -58,8 +59,7 @@ Examples:
 * `add quiz t/cs2102 t/easy` <br> Adds a flaoting task named tutorial with a tag CS2012 and easy
 
 Examples on date time flexibility:
-* `add project three days from now` <br> Adds a project task three days later from the time you input this command
-* `add meet with friends in three days` <br> Adds meet with friend as a task three days later from the time you input this command
+* `add project c/3 days from now` <br> Adds a project task three days later from the time you input this command
 
 #### Deleting a task : `delete`
 Deletes a specific task by task name or index from the to-do list.<br>
@@ -72,6 +72,26 @@ Examples:
   Deletes `meeting` task.
 * `delete 1`<br>
   Deletes the first task in the to-do list.
+
+#### Marking a task as completed: `complete`
+Marks a specific task by index from the to-do list.<br>
+FormatL `complete INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
+
+Example:
+* `complete 2`<br>
+   Marks the second task on the list as completed.
+   
+#### Pin: `pin`
+Pin a important task.<br>
+Format: `pin INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
+
+Example:
+* `pin 1`<br>
+pin the first task to show that it is an important task.
 
 #### Listing all persons : `list`
 Shows a list of tasks and events in the todo list.<br>
@@ -118,8 +138,10 @@ Examples:
    add a tag family to the second task and remove the tag named friends
 
 #### Undo action : `undo`
-Undo the previous one action.<br>
+Undo the previous action.<br>
 Format: `undo`
+
+> * Will only undo `add`, `delete` and `update` actions.
 
 #### Viewing help : `help`
 Show the help menu. Format: `help`
@@ -136,7 +158,7 @@ There is no need to save manually.
 ## FAQ
 **Q**: Can I add event which have a start date and time to my to-do list ?<br>
 
-**A**: Yes, you can create an event by typing command with a start and end date. For example, you have a trip from 10/10/2016 8:00 to 13/10/2016 21:00. You can type command like this: `add trip s/10/10/2016:0800 c/13/10/2016:2100`.
+**A**: Yes, you can create an event by typing command with a start and end date. For example, you have a trip from 10/10/2016 8:00 to 13/10/2016 21:00. You can type command like this: `add trip s/8am 10th October c/9pm 13th October`.
        
 **Q**: If I don't know the deadline of my task yet, can I still add my task?<br>
 
@@ -151,9 +173,11 @@ Command | Format
 -------- | :--------
 Add | `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 Delete | `delete TASK_NAME` or `delete INDEX`
+Complete | `complete INDEX`
 List | `list`
 Find | `find KEYWORD` or `find t/TAG`
 Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
 Undo | `undo`
+Pin | `pin`
 Help | `help`
 Exit | `exit`

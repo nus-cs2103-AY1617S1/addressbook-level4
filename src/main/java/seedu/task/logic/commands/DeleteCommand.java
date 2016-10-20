@@ -8,7 +8,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Deletes a task identified using it's last displayed index from the task list.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -18,8 +18,10 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_ROLLBACK_SUCCESS = "Undo task deletion: %1$s";
 
     public final int targetIndex;
+    private ReadOnlyTask taskToDelete;
 
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -33,10 +35,10 @@ public class DeleteCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(false, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.deleteTask(taskToDelete);
@@ -44,7 +46,14 @@ public class DeleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(true, String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
+    @Override
+    public CommandResult rollback() {
+        assert model != null;
+        model.rollback();
+        
+        return new CommandResult(true, String.format(MESSAGE_ROLLBACK_SUCCESS, taskToDelete));
+    }
 }

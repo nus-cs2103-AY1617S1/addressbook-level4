@@ -25,14 +25,19 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern ADD_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+                    + "(s/(?<openTime>[^/]+))?"
+                    + "(c/(?<closeTime>[^/]+))?"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern UPDATE_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]*)"
-//                  + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-//                  + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-//                  + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
+                    + "( s/(?<openTime>[^/]+))?"
+                    + "( c/(?<closeTime>[^/]+))?"
                     + "(?<tagArguments>(?: t/[^/]+)*)" // variable number of tags
                     + "(?<removeTagArguments>(?: rt/[^/]+)*)");
-
+    
     public Parser() { }
 
     /**
@@ -62,9 +67,18 @@ public class Parser {
 
         case UpdateCommand.COMMAND_WORD:
             return prepareUpdate(arguments);
+            
+        case CompleteCommand.COMMAND_WORD:
+        	return prepareComplete(arguments);
+
+        case PinCommand.COMMAND_WORD:
+            return preparePin(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+        
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
@@ -90,16 +104,16 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = ADD_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
             return new AddCommand(matcher.group("name"),
-                    // matcher.group("phone"),
-                    // matcher.group("email"),
-                    // matcher.group("address"),
+                    //TODO: set group somewhere
+                    matcher.group("openTime"),
+                    matcher.group("closeTime"),
                     getTagsFromArgs(matcher.group("tagArguments")));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -195,7 +209,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
 
-        final Matcher argsMatcher = TASK_DATA_ARGS_FORMAT.matcher(matcher.group("arguments"));
+        final Matcher argsMatcher = UPDATE_TASK_DATA_ARGS_FORMAT.matcher(matcher.group("arguments"));
         
         if (!argsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
@@ -205,6 +219,8 @@ public class Parser {
             return new UpdateCommand(
                     index.get(),
                     argsMatcher.group("name"),
+                    argsMatcher.group("openTime"),
+                    argsMatcher.group("closeTime"),
                     getTagsFromArgs(argsMatcher.group("tagArguments")),
                     getTagsFromArgs("rt", argsMatcher.group("removeTagArguments"))
             );
@@ -230,5 +246,31 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
+    /**
+     * Parses arguments in the context of the complete task command.
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareComplete(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
 
+        return new CompleteCommand(index.get());
+    }
+
+	/**
+	 * Parses arguments in the context of the mark task command.
+	 * 
+	 * @param args
+	 * @return
+	 */
+    private Command preparePin(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+        }
+        return new PinCommand(index.get());
+    }
 }
