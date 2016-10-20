@@ -74,6 +74,7 @@ The Architecture Diagram above explains the high-level design of the App. Here i
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-modules) represents a collection of modules used by multiple other components.
+
 * [**`UI`**](#ui-component): The user facing elements of tha App, representing the view layer. 
 * [**`Logic`**](#logic-component): The parser and command executer, representing the controller 
 * [**`Model`**](#model-component): Data manipulation and storage, representing the model and data layer 
@@ -112,7 +113,7 @@ The sections below give more details of each component.
 
 <figcaption>The relation between the UI subcomponents</figcaption>
 
-The UI component handles the interaction between the user and application. In particular, the UI is responsible for passing the textual command input from the user to the `Logic` for execution, and then display the outcome of the execution to the user via the GUI.
+The UI component handles the interaction between the user and application. In particular, the UI is responsible for passing the textual command input from the user to the `Logic` for execution, and displaying the outcome of the execution to the user via the GUI.
 
 <img src="diagrams/Ui Image.png" />
 
@@ -132,6 +133,7 @@ The UI aims to imitate the Command Line Interface (CLI) closely by accepting tex
 These view classes are represented by the `CommandXView` class in the UML diagram above. 
 
 The `CommandController` class is introduced to link the three classes together, so they can work and communicate with each other. The `CommandController`:
+
 1. Obtains a user-supplied command string from the `CommandInputView`
 2. Submits the command string to `Logic` for execution
 3. Receives a `CommandResult` from `Logic` after the execution
@@ -178,12 +180,12 @@ The flow of a command being executed is -
 the command the user called
 3. `Logic` binds the model and arguments to the `Command` object and executes it 
 4. The command execution can affect the `Model` (e.g. adding a person), and/or raise events.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call. See [the implementation section](#logic) below for the implementation details of the logic component.  
  
 <img src="diagrams/Logic Sequence Diagram.png" />
 
 <figcaption>The process of deleting a person within the Logic component</figcaption>
+
+Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call. See [the implementation section](#logic) below for the implementation details of the logic component.  
 
 ### Model component
 
@@ -224,8 +226,8 @@ Modules used by multiple components are in the `seedu.todo.commons` package.
 
 The core module contains many important classes used throughout the application.
 
-* `UnmodifiableObservableList` :  Apply the Observer pattern to allow the UI component to be listen to changes to the data.
-* `Events` : This module is used by components to marshal information around and inform other components that things have happened. (i.e. a form of _Event Driven_ design)
+* `UnmodifiableObservableList` :  Used by the UI component to be listen to changes to the data through the Observer pattern.
+* `Events` : Used by components to marshal information around and inform other components that things have happened. (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 #### Util
@@ -366,13 +368,14 @@ This class represents the data layer of the application and implements the `Mode
 The `ErrorBag` is a wrapper around all the errors produced while processing a model. This class exposes the errors to the Ui to show the user understand what went wrong.
 
 #### Storage
+
 ##### FixedStorage
 This interface simply exposes the read and save methods for external usage in order to store and read data from the persistence layer.
 
 ##### TodoListStorage
 The main class that is exposed to the Model. In addition from reading and saving, methods are exposed to enable user to switch where the storage file is saved and read.
 
-##### Xml...
+##### Xml Classes
 Classes prefixed with `Xml` are classes used to enable serialization of the Model. As the prefix suggests, the critical data is stored in the `.xml` file format and uses `JAXB` to read and save to the persistence layer.
 
 ### Logging
@@ -418,7 +421,7 @@ Tests can be found in the `./src/test/java` folder.
 
 !!! note
     If you are not using a recent Eclipse version (Neon or later), enable assertions in JUnit tests
-    as described [in this Stack Overflow question](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+    as described [in this Stack Overflow question](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option) (url: http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 
 ### Using Gradle
@@ -579,7 +582,7 @@ To add a caption to a table, image or a piece of code, use the [`<figcaption>`][
 </figcaption>
 ```
 
-The document processor will automatically wrap the `<figcaption>` and the preceeding element in a `<figure>` element and automatically add a count to it, producing 
+The document processor will automatically wrap the `<figcaption>` and the preceding element in a `<figure>` element and automatically add a count to it, producing the following code:
 
 ```html 
 <figure>
@@ -588,7 +591,8 @@ The document processor will automatically wrap the `<figcaption>` and the precee
   <figcaption>
     <strong>Figure 2.</strong>
     The sequence of function calls resulting from the user input 
-    <code>execute 1</code></figcaption>
+    <code>execute 1</code>
+  </figcaption>
 </figure>
 ```
 
