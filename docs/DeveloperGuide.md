@@ -470,6 +470,32 @@ Use case ends.
 2. MustDoList closes the task list <br>
 Use case ends.
 
+#### Use case 13: Recur a task
+
+**MSS**
+
+1. User requests to list task
+2. MustDoList shows a list of tasks
+3. User requests to recur a specific task in the list by the task's index
+4. MustDoList recurs the task with a specific numbers of days <br>
+Use case ends
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The edit task request has invalid format
+
+> 3a1. MustDoList shows an error message <br>
+  Use case resumes at step 3
+
+3b. The given index is invalid
+
+> 3b1. MustDoList shows an error message <br>
+  Use case resumes at step 3
+
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
