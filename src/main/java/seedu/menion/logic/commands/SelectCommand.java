@@ -40,14 +40,4 @@ public class SelectCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SELECT_ACTIVITY_SUCCESS, targetIndex));
 
     }
-
-    /*
-     * select command does not support undo
-     */
-	@Override
-	public boolean undo() {
-		
-		return false;
-	}
-
 }
