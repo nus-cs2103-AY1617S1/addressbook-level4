@@ -187,26 +187,6 @@ public class LogicManagerTest {
 
     }
 
-   @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Item toBeAdded = helper.aLongEvent();
-        TaskBook expectedAB = new TaskBook();
-        expectedAB.addItem(toBeAdded);
-
-        // setup starting state
-        model.addItem(toBeAdded); // person already in internal task book
-
-        // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedAB.getItemList());
-    }
-
-
     @Test
     public void execute_list_showsAllItems() throws Exception {
         // prepare expectations
