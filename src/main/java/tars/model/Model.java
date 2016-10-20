@@ -13,6 +13,7 @@ import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
 import tars.model.task.rsv.RsvTask;
+import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 import java.time.DateTimeException;
 import java.util.HashMap;
@@ -45,6 +46,9 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
+    
+    /** Deletes the reserved task. */
+    void deleteRsvTask(RsvTask target) throws RsvTaskNotFoundException;
     
     /** Adds the given reserved task */
     void addRsvTask(RsvTask rsvTask) throws DuplicateTaskException;
@@ -90,7 +94,6 @@ public interface Model {
      * 
      * @@author A0140022H
      */
-	void sortFilteredTaskList(Set<String> keywords);
-  
+	void sortFilteredTaskList(Set<String> keywords);  
 
 }

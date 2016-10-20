@@ -26,7 +26,7 @@ public class UniqueRsvTaskList implements Iterable<RsvTask> {
      * Signals that an operation targeting a specified task in the list would
      * fail because there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {
+    public static class RsvTaskNotFoundException extends Exception {
     }
 
     private final ObservableList<RsvTask> internalList = FXCollections.observableArrayList();
@@ -62,16 +62,16 @@ public class UniqueRsvTaskList implements Iterable<RsvTask> {
     }
 
     /**
-     * Removes the equivalent task from the list.
+     * Removes the equivalent reserved task from the list.
      *
      * @throws TaskNotFoundException
      *             if no such task could be found in the list.
      */
-    public boolean remove(RsvTask toRemove) throws TaskNotFoundException {
+    public boolean remove(RsvTask toRemove) throws RsvTaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
-            throw new TaskNotFoundException();
+            throw new RsvTaskNotFoundException();
         }
         return taskFoundAndDeleted;
     }

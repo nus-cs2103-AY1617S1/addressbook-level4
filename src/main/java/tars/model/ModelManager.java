@@ -22,6 +22,7 @@ import tars.model.task.DateTime.IllegalDateException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import tars.model.task.rsv.RsvTask;
+import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 import java.time.DateTimeException;
 import java.util.HashMap;
@@ -149,6 +150,12 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         tars.addTask(task);
         updateFilteredListToShowAll();
+        indicateTarsChanged();
+    }
+    
+    @Override
+    public synchronized void deleteRsvTask(RsvTask target) throws RsvTaskNotFoundException {
+        tars.removeRsvTask(target);
         indicateTarsChanged();
     }
     

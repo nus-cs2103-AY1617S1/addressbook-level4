@@ -214,8 +214,6 @@ public class Parser {
             // DateTime
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_DATETIME_NOTFOUND));
-        } else if (flagsPosMap.size() == 0) {
-            name = args;
         } else if (flagsPosMap.firstKey() == 0) {
             // there are arguments but name should be the first argument
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
@@ -231,6 +229,8 @@ public class Parser {
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (DateTimeException dte) {
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
         }
 
         try {
@@ -347,7 +347,7 @@ public class Parser {
         String indexArgs = "";
 
         if (flagsPosMap.size() == 0) {
-            indexArgs = args;
+            indexArgs = args.trim();
         } else if (flagsPosMap.firstKey() == 0) {
             // there are arguments but taskIndex & dateTimeIndex should be the
             // first argument
@@ -367,8 +367,10 @@ public class Parser {
                 taskIndex = Integer.parseInt(indexStringArray[0]);
                 dateTimeIndex = Integer.parseInt(indexStringArray[1]);
             }
-        } catch (InvalidRangeException | IllegalValueException e) {
+        } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
+        } catch (InvalidRangeException ire) {
+            return new IncorrectCommand(ire.getMessage());
         }
         
         
@@ -376,7 +378,7 @@ public class Parser {
         try {
             return new ConfirmCommand(taskIndex, dateTimeIndex, argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
                     ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag));
-        } catch (IllegalValueException e) {
+        } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
         }
     }
