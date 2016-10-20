@@ -15,6 +15,7 @@ import com.joestelmach.natty.*;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
+import seedu.cmdo.logic.LogicManager;
 import seedu.cmdo.logic.commands.*;
 import seedu.cmdo.model.task.Priority;
 
@@ -42,6 +43,7 @@ public class MainParser {
 	
 	// Singleton
 	private static MainParser mainParser;
+	private static Blocker blocker;
 	private ArrayList<LocalDateTime> datesAndTimes;
 	private String reducedArgs;
 	private static String detailToAdd;
@@ -49,14 +51,27 @@ public class MainParser {
     /**
      * Private constructor
      */
-	private MainParser() {
-    	init();
+	private MainParser(Blocker blocker) {
+    	init(blocker);
     }
     
-    public static MainParser getInstance() {
+    public static MainParser getInstance(Blocker blocker) {
     	if (mainParser == null) {
-    		mainParser = new MainParser();
+    		mainParser = new MainParser(blocker);
     	} return mainParser;
+    }
+    
+    /**
+     * Initialize main parser.
+     * 
+     * Natty is a natural language parser for dates by Joe Stelmach
+     * 
+     * @author A0139661Y
+     */
+    private void init(Blocker blocker) {
+    	Parser parser = new Parser();
+    	this.blocker = blocker;
+    	datesAndTimes = new ArrayList<LocalDateTime>();
     }
 
     /**
@@ -142,7 +157,8 @@ public class MainParser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        try {
+    	datesAndTimes.clear();
+    	try {
         	args = extractDetail(args);	// Saves to detailToAdd
         	args = extractDueByDateAndTime(args);
         	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
@@ -151,6 +167,10 @@ public class MainParser {
         	LocalDateTime dtStart = LocalDateTime.MIN;
         	LocalDateTime dtEnd = LocalDateTime.MIN;
         	String[] splittedArgs = getCleanString(args).split(" ");
+        	// Check for blocking
+        	if (blocker.isBlocked(datesAndTimes))
+        		throw new IllegalValueException(Messages.MESSAGE_TIMESLOT_BLOCKED);
+
         	// used as flag for task type. 0 for floating, 1 for non-range, 2 for range
         	int dataMode;
         	if (datesAndTimes.size() == 1) {
@@ -165,8 +185,6 @@ public class MainParser {
         								LocalTime.MAX);
         		dataMode = 0;
         	}
-        	// For testing purposes
-        	datesAndTimes.clear();
     		if (dataMode <= 1) {
     			return new AddCommand(
     					detailToAdd,
@@ -195,7 +213,8 @@ public class MainParser {
      * @return the prepared command
      */
     private Command prepareBlock(String args){
-        try {
+    	datesAndTimes.clear();
+    	try {
         	args = extractDetail(args);	// Saves to detailToBlock
         	args = extractDueByDateAndTime(args);
         	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
@@ -204,8 +223,11 @@ public class MainParser {
         	LocalDateTime dtStart = LocalDateTime.MIN;
         	LocalDateTime dtEnd = LocalDateTime.MIN;
         	String[] splittedArgs = getCleanString(args).split(" ");
+        	// Check for blocking
+        	if (blocker.isBlocked(datesAndTimes))
+        		throw new IllegalValueException(Messages.MESSAGE_TIMESLOT_BLOCKED);
+        	
         	// used as flag for task type. 0 for floating, 1 for non-range, 2 for range
-        	int dataMode;
         	if (datesAndTimes.size() == 1) {
         		dtStart = datesAndTimes.get(0);
         		dtEnd = dtStart.plusHours(1);//one hr later by default
@@ -215,9 +237,6 @@ public class MainParser {
         	} else {
         		throw new IllegalValueException(Messages.MESSAGE_INVALID_TIME_SPACE);
         	}
-        	// For testing purposes
-        	datesAndTimes.clear();
-    		
     			return new BlockCommand(
     					detailToAdd,
     					dtStart.toLocalDate(),
@@ -400,18 +419,6 @@ public class MainParser {
      */
     private String getCleanString(String args) {
     	return args.trim().replaceAll("\\s+", " ");
-    }
-    
-    /**
-     * Initialize main parser.
-     * 
-     * Natty is a natural language parser for dates by Joe Stelmach
-     * 
-     * @author A0139661Y
-     */
-    private void init() {
-    	Parser parser = new Parser();
-    	datesAndTimes = new ArrayList<LocalDateTime>();
     }
     
 //    ============== HELPER METHODS

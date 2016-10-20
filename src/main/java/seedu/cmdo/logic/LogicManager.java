@@ -5,6 +5,7 @@ import seedu.cmdo.commons.core.ComponentManager;
 import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.logic.commands.Command;
 import seedu.cmdo.logic.commands.CommandResult;
+import seedu.cmdo.logic.parser.Blocker;
 import seedu.cmdo.logic.parser.MainParser;
 import seedu.cmdo.model.Model;
 import seedu.cmdo.model.task.ReadOnlyTask;
@@ -20,10 +21,16 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final MainParser parser;
-
+    private Blocker blocker;
+    
     public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.parser = MainParser.getInstance();
+        this.blocker = Blocker.getInstance(model);
+        this.parser = MainParser.getInstance(blocker);
+    }
+    
+    public Blocker getBlocker() {
+    	return blocker;
     }
 
     @Override	
