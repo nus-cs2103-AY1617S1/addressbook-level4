@@ -43,6 +43,7 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
+    //@@author A0142184L
     /** Returns the full task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
 	UnmodifiableObservableList<ReadOnlyTask> getFullTaskList();
 

@@ -133,6 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
+    //@@author A0142184L
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFullTaskList() {
         return new UnmodifiableObservableList<>(taskManager.getTasks());
