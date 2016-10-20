@@ -192,49 +192,41 @@ public class LogicManagerTest {
 
 	/**
 	 * Confirms the 'invalid argument index number behaviour' for the given
-	 * command targeting a single person in the shown list, using visible index.
+	 * command targeting a single item in the shown list, using visible index.
 	 * 
 	 * @param commandWord
-	 *            to test assuming it targets a single person in the last shown
+	 *            to test assuming it targets a single item in the last shown
 	 *            list based on visible index.
 	 */
 	private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
 			throws Exception {
 		assertCommandBehavior(commandWord, expectedMessage); // index missing
-		assertCommandBehavior(commandWord + " +1", expectedMessage); // index
-																		// should
-																		// be
-																		// unsigned
-		assertCommandBehavior(commandWord + " -1", expectedMessage); // index
-																		// should
-																		// be
-																		// unsigned
-		assertCommandBehavior(commandWord + " 0", expectedMessage); // index
-																	// cannot be
-																	// 0
+		assertCommandBehavior(commandWord + " +1", expectedMessage); // index should be unsigned
+		assertCommandBehavior(commandWord + " -1", expectedMessage); // index should be unsigned
+		assertCommandBehavior(commandWord + " 0", expectedMessage); // index cannot be 0
 		assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
 	}
 
 	/**
 	 * Confirms the 'invalid argument index number behaviour' for the given
-	 * command targeting a single person in the shown list, using visible index.
+	 * command targeting a single item in the shown list, using visible index.
 	 * 
 	 * @param commandWord
-	 *            to test assuming it targets a single person in the last shown
+	 *            to test assuming it targets a single item in the last shown
 	 *            list based on visible index.
 	 */
 	private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
 		String expectedMessage = MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 		TestDataHelper helper = new TestDataHelper();
-		List<Item> personList = helper.generateItemList(2);
+		List<Item> itemList = helper.generateItemList(2);
 
-		// set AB state to 2 persons
+		// set AB state to 2 items
 		model.resetData(new TaskBook());
-		for (Item p : personList) {
+		for (Item p : itemList) {
 			model.addItem(p);
 		}
 
-		assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), personList);
+		assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), itemList);
 	}
 
 	@Test
@@ -325,7 +317,7 @@ public class LogicManagerTest {
 		assertCommandBehavior("find KEY", Command.getMessageForItemListShownSummary(expectedList.size()), expectedAB,
 				expectedList);
 	}
-
+	
 	@Test
 	public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
@@ -342,6 +334,46 @@ public class LogicManagerTest {
 		assertCommandBehavior("find key rAnDoM", Command.getMessageForItemListShownSummary(expectedList.size()),
 				expectedAB, expectedList);
 	}
+	
+    @Test
+    public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
+    @Test
+    public void execute_done_marksCorrectItem() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        TaskBook testTB = helper.generateTaskBook(2);
+        Item target = helper.generateItem(1);
+        Item notTarget1 = helper.generateItem(2);
+        Item notTarget2 = helper.generateItem(3);
+        Item notTarget3 = helper.generateItem(4);
+
+        List<Item> expectedItems = helper.generateItemList(notTarget3, target, notTarget1, notTarget2);
+        TaskBook expectedTB = helper.generateTaskBook(expectedItems);
+        helper.addToModel(model, expectedItems);
+        
+        assertCommandBehavior("done 2", DoneCommand.MESSAGE_DONE_ITEM_SUCCESS, expectedTB, expectedItems);
+
+        
+    }
+    
+    @Test
+    public void execute_doneAlreadyDoneItem_noChange() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Item target = helper.generateItem(1);
+        target.setIsDone(true);
+        Item notTarget1 = helper.generateItem(2);
+        Item notTarget2 = helper.generateItem(3);
+        Item notTarget3 = helper.generateItem(4);
+
+        List<Item> expectedItems = helper.generateItemList(notTarget3, target, notTarget1, notTarget2);
+        TaskBook expectedTB = helper.generateTaskBook(expectedItems);
+        helper.addToModel(model, expectedItems);
+        
+        assertCommandBehavior("done 2", DoneCommand.MESSAGE_DONE_ITEM_FAIL, expectedTB, expectedItems);
+
+    }
 
 	/**
 	 * A utility class to generate test data.
@@ -367,13 +399,13 @@ public class LogicManagerTest {
 		}
 		
 		/**
-		 * Generates a valid person using the given seed. Running this function
-		 * with the same parameter values guarantees the returned person will
+		 * Generates a valid item using the given seed. Running this function
+		 * with the same parameter values guarantees the returned item will
 		 * have the same state. Each unique seed will generate a unique Item
 		 * object.
 		 *
 		 * @param seed
-		 *            used to generate the person data field values
+		 *            used to generate the item data field values
 		 */
 		Item generateItem(int seed) throws Exception {
 			return new Item(new Description("Item " + seed)
@@ -382,7 +414,7 @@ public class LogicManagerTest {
 			);
 		}
 
-		/** Generates the correct add command based on the person given */
+		/** Generates the correct add command based on the item given */
 		String generateAddCommand(Item item) {
 			StringBuffer cmd = new StringBuffer();
 			cmd.append("add ");
@@ -392,7 +424,7 @@ public class LogicManagerTest {
 		}
 
 		/**
-		 * Generates a TaskBook with auto-generated persons.
+		 * Generates a TaskBook with auto-generated items.
 		 */
 		TaskBook generateTaskBook(int numGenerated) throws Exception {
 			TaskBook taskBook = new TaskBook();
@@ -403,9 +435,9 @@ public class LogicManagerTest {
 		/**
 		 * Generates an TaskBook based on the list of Items given.
 		 */
-		TaskBook generateTaskBook(List<Item> persons) throws Exception {
+		TaskBook generateTaskBook(List<Item> items) throws Exception {
 			TaskBook taskBook = new TaskBook();
-			addToTaskBook(taskBook, persons);
+			addToTaskBook(taskBook, items);
 			return taskBook;
 		}
 
@@ -422,8 +454,8 @@ public class LogicManagerTest {
 		/**
 		 * Adds the given list of Items to the given TaskBook
 		 */
-		void addToTaskBook(TaskBook taskBook, List<Item> personsToAdd) throws Exception {
-			for (Item p : personsToAdd) {
+		void addToTaskBook(TaskBook taskBook, List<Item> itemsToAdd) throws Exception {
+			for (Item p : itemsToAdd) {
 				taskBook.addItem(p);
 			}
 		}
@@ -441,8 +473,8 @@ public class LogicManagerTest {
 		/**
 		 * Adds the given list of Items to the given model
 		 */
-		void addToModel(Model model, List<Item> personsToAdd) throws Exception {
-			for (Item p : personsToAdd) {
+		void addToModel(Model model, List<Item> itemsToAdd) throws Exception {
+			for (Item p : itemsToAdd) {
 				model.addItem(p);
 			}
 		}
@@ -451,19 +483,19 @@ public class LogicManagerTest {
 		 * Generates a list of Items based on the flags.
 		 */
 		List<Item> generateItemList(int numGenerated) throws Exception {
-			List<Item> persons = new ArrayList<>();
+			List<Item> items = new ArrayList<>();
 			for (int i = 1; i <= numGenerated; i++) {
-				persons.add(generateItem(i));
+				items.add(generateItem(i));
 			}
-			return persons;
+			return items;
 		}
 
-		List<Item> generateItemList(Item... persons) {
-			return Arrays.asList(persons);
+		List<Item> generateItemList(Item... items) {
+			return Arrays.asList(items);
 		}
 
 		/**
-		 * Generates a Item object with given name. Other fields will have some
+		 * Generates a Item object with given description. Other fields will have some
 		 * dummy values.
 		 */
 		Item generateItemWithName(String desc) throws Exception {
@@ -472,5 +504,4 @@ public class LogicManagerTest {
 			);
 		}
 	}
->>>>>>> bc70f3b8a73053464a2b3f78e81e6d5ba210978a
 }
