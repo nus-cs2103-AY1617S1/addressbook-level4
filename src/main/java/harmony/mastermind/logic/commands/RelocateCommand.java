@@ -54,11 +54,11 @@ public class RelocateCommand extends Command{
             checkSaveLocation(newFilePath);
             checkWrittableDirectory(newFilePath);
             model.relocateSaveLocation(newFilePath);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS, newFilePath));
         } catch (FolderDoesNotExistException fdnee) {
-            return new CommandResult(String.format(MESSAGE_INVALID_INPUT, newFilePath));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_INVALID_INPUT, newFilePath));
         } catch (UnwrittableFolderException ufe) {
-            return new CommandResult(String.format(MESSAGE_UNWRITTABLE_FOLDER, newFilePath));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNWRITTABLE_FOLDER, newFilePath));
         }
     }
     

@@ -23,13 +23,13 @@ public static final String COMMAND_WORD = "redo";
             CommandResult redoResult = model.redo();
             
             // display successful message and the details of the undo operations
-            return new CommandResult(
+            return new CommandResult(COMMAND_WORD, 
                     MESSAGE_SUCCESS + "\n" +
                     "=====Redo Details=====\n" +
                     redoResult.feedbackToUser + "\n"+
                     "==================");
         }catch(EmptyStackException ex){
-            return new CommandResult(MESSAGE_EMPTY_COMMAND_HISTORY);
+            return new CommandResult(COMMAND_WORD, MESSAGE_EMPTY_COMMAND_HISTORY);
         }
     }
 

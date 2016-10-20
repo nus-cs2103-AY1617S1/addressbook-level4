@@ -6,6 +6,7 @@ import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.commons.events.ui.ExecuteCommandEvent;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.model.Model;
 
@@ -52,4 +53,5 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
+    
 }
