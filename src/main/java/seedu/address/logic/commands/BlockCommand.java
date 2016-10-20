@@ -65,6 +65,7 @@ public class BlockCommand extends Command {
         } catch (TimeslotOverlapException e) {
 			// TODO Auto-generated catch block
         	indicateAttemptToExecuteFailedCommand();
+        	urManager.popFromUndoQueue();
         	return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		} catch (DuplicateTaskException e) {
 			// TODO Auto-generated catch block

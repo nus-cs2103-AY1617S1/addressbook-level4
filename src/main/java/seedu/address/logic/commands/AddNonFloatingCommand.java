@@ -62,9 +62,11 @@ public class AddNonFloatingCommand extends AddCommand {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
         	indicateAttemptToExecuteFailedCommand();
+        	urManager.popFromUndoQueue();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TimeslotOverlapException e) {
         	indicateAttemptToExecuteFailedCommand();
+        	urManager.popFromUndoQueue();
         	return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
 

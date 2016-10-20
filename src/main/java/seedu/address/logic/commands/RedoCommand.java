@@ -19,6 +19,7 @@ public class RedoCommand extends Command{
     		urManager.addToUndoQueueUsedByRedo(model, contextToRedo.getCommand());
     		return contextToRedo.getCommand().execute();
         } catch (NoAvailableCommandException nace){
+        	indicateAttemptToExecuteFailedCommand();
         	return new CommandResult(MESSAGE_FAIL);
         }
     }

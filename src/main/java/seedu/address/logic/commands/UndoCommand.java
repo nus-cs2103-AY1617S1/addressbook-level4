@@ -20,6 +20,7 @@ public class UndoCommand extends Command{
     		model.updateFilteredListToShowAll();
     		return new CommandResult(MESSAGE_SUCCESS);
         } catch (NoAvailableCommandException nace){
+        	indicateAttemptToExecuteFailedCommand();
         	return new CommandResult(MESSAGE_FAIL);
         }
     }

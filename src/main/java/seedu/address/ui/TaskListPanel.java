@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -90,7 +92,10 @@ public class TaskListPanel extends UiPart {
     class TaskListViewCell extends ListCell<TaskComponent> {
 
         public TaskListViewCell() {
+        	
         }
+        
+        
 
         @Override
         protected void updateItem(TaskComponent taskComponent, boolean empty) {
@@ -102,6 +107,7 @@ public class TaskListPanel extends UiPart {
             } else {
                 setGraphic(TaskCard.load(taskComponent, getIndex() + 1).getLayout());
             }
+            
         }
     }
 

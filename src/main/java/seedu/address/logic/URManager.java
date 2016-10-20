@@ -24,8 +24,7 @@ public class URManager {
 	 */
 	public void addToUndoQueue(Model model, Command command){
 		if(!isUndoable(command)){
-			undoQueue.clear();
-			redoQueue.clear();
+			//Stop here to wait for result.
 		}else{
 			if(!isIgnored(command)){
 				if(undoQueue.size() == MAX_TIMES) undoQueue.removeFirst();
@@ -33,6 +32,21 @@ public class URManager {
 				redoQueue.clear();
 			}
 		}
+	}
+	
+	/**
+	 * Pops the failed or incorrect (but not detected during parsing) command from undo queue 
+	 */
+	public void popFromUndoQueue(){
+		undoQueue.removeLast();
+	}
+	
+	/**
+	 * Change Directory command succeeds, clear all undo and redo queue. 
+	 */
+	public void resetQueue(){
+		undoQueue.clear();
+		redoQueue.clear();
 	}
 	
 	/**
