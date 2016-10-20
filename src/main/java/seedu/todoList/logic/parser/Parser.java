@@ -180,7 +180,9 @@ public class Parser {
     private Command prepareDelete(String args) {
         Optional<String> dataType = parseDataType(args);
         Optional<Integer> index = parseIndex(args);
-        if(!dataType.isPresent() || !index.isPresent()){
+        if(!dataType.isPresent() || 
+           !((dataType.get().equals("todo")) || (dataType.get().equals("event")) || (dataType.get().equals("deadline"))) 
+           || !index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
