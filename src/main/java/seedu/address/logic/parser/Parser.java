@@ -116,7 +116,8 @@ public class Parser {
      * @return the prepared SpecifyStorageCommand
      */
     private Command prepareSpecifyStorage(String args) {
-        return new SpecifyStorageCommand(args.trim());
+        args = args.trim().replace("\\", "/") + "/addressbook.xml";
+        return new SpecifyStorageCommand(args);
     }
 
     /**

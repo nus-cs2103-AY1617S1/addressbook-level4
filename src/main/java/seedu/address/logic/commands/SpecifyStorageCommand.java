@@ -21,7 +21,7 @@ public class SpecifyStorageCommand extends Command {
     private final String folderPath;
 
     public SpecifyStorageCommand(String folderPath) {
-        this.folderPath = folderPath + "/addressbook.xml";
+        this.folderPath = folderPath;
     }
 
     @Override
@@ -30,7 +30,6 @@ public class SpecifyStorageCommand extends Command {
             
             JsonFactory jfactory = new JsonFactory();
 
-            /*** write to file ***/
             JsonGenerator jGenerator = jfactory.createGenerator(new File("config.json"), JsonEncoding.UTF8);
             jGenerator.writeStartObject(); 
 
@@ -57,7 +56,7 @@ public class SpecifyStorageCommand extends Command {
             e.printStackTrace();
 
         }
-        return new CommandResult(String.format(SPECIFY_STORAGE_SUCCESS, folderPath));
+        return new CommandResult(String.format(SPECIFY_STORAGE_SUCCESS, this.folderPath));
 
     }
 
