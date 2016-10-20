@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class StartDate {
 
-    public static final String MESSAGE_STARTDATE_CONSTRAINTS = "StartDate should be numeric only";
+    public static final String MESSAGE_STARTDATE_CONSTRAINTS = "Start date should be numeric only";
     public static final String DATE_VALIDATION_REGEX = "^(?:[0-9 ]+|)$";
     public LocalDateTime startDate;
     
@@ -28,10 +28,14 @@ public class StartDate {
         } 
         
         if(!startDate.trim().isEmpty()){
-
-        	this.startDate = LocalDateTime.of(Integer.parseInt(startDate.substring(4, 8)), Integer.parseInt(startDate.substring(2, 4))
-            		, Integer.parseInt(startDate.substring(0, 2)), Integer.parseInt(startDate.substring(9, 11)),
-            				Integer.parseInt(startDate.substring(11, 13)));           
+            if (startDate.length() == 13) {
+            	this.startDate = LocalDateTime.of(Integer.parseInt(startDate.substring(4, 8)), Integer.parseInt(startDate.substring(2, 4))
+                		, Integer.parseInt(startDate.substring(0, 2)), Integer.parseInt(startDate.substring(9, 11)),
+                				Integer.parseInt(startDate.substring(11, 13)));
+            } else {
+                this.startDate = LocalDateTime.of(Integer.parseInt(startDate.substring(4, 8)), Integer.parseInt(startDate.substring(2, 4))
+                        , Integer.parseInt(startDate.substring(0, 2)), 0, 0);
+            }
         }
     }
 
@@ -45,7 +49,7 @@ public class StartDate {
     @Override
     public String toString() {
     	if(startDate != null){    	
-    		DateTimeFormatter df = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
+    		DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     		return df.format(startDate);
     	} else{
     		return "";

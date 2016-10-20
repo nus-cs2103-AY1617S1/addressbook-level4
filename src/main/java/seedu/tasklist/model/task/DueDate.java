@@ -6,12 +6,12 @@ import java.time.format.DateTimeFormatter;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's due date in the task list.
- * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
+ * Represents a Task's due date in the task list. Guarantees: immutable; is
+ * valid as declared in {@link #isValidDate(String)}
  */
 public class DueDate {
-    
-    public static final String MESSAGE_DUEDATE_CONSTRAINTS = "DueDate should be numeric only";
+
+    public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Due date should be numeric only";
     public static final String DATE_VALIDATION_REGEX = "^(?:[0-9 ]+|)$";
 
     public LocalDateTime dueDate;
@@ -19,18 +19,24 @@ public class DueDate {
     /**
      * Validates given due date.
      *
-     * @throws IllegalValueException if given due date string is invalid.
+     * @throws IllegalValueException
+     *             if given due date string is invalid.
      */
     public DueDate(String dueDate) throws IllegalValueException {
-    	assert dueDate != null;
+        assert dueDate != null;
         if (!isValidDate(dueDate)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
-        
-        if(!dueDate.isEmpty()){
-        	this.dueDate = LocalDateTime.of(Integer.parseInt(dueDate.substring(4, 8)), Integer.parseInt(dueDate.substring(2, 4))
-            		, Integer.parseInt(dueDate.substring(0, 2)), Integer.parseInt(dueDate.substring(9, 11)),
-            			Integer.parseInt(dueDate.substring(11, 13)));
+
+        if (!dueDate.isEmpty()) {
+            if (dueDate.length() == 13) {
+                this.dueDate = LocalDateTime.of(Integer.parseInt(dueDate.substring(4, 8)),
+                        Integer.parseInt(dueDate.substring(2, 4)), Integer.parseInt(dueDate.substring(0, 2)),
+                        Integer.parseInt(dueDate.substring(9, 11)), Integer.parseInt(dueDate.substring(11, 13)));
+            } else {
+                this.dueDate = LocalDateTime.of(Integer.parseInt(dueDate.substring(4, 8)),
+                        Integer.parseInt(dueDate.substring(2, 4)), Integer.parseInt(dueDate.substring(0, 2)), 23, 59);
+            }
         }
     }
 
@@ -43,19 +49,20 @@ public class DueDate {
 
     @Override
     public String toString() {
-    		if(dueDate !=null){
-    		DateTimeFormatter df = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
-    		return df.format(dueDate);
-    	} else{
-    		return "";
-    	}
+        if (dueDate != null) {
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            return df.format(dueDate);
+        } else {
+            return "";
+        }
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DueDate // instanceof handles nulls
-                && this.dueDate.equals(((DueDate) other).dueDate)); // state check
+                        && this.dueDate.equals(((DueDate) other).dueDate)); // state
+                                                                            // check
     }
 
     @Override
