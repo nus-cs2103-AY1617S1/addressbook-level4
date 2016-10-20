@@ -112,6 +112,8 @@ public class CommandParser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
+    
+    //@@author A0139930B
     /**
      * Parses arguments in the context of the view command.
      *
@@ -222,6 +224,7 @@ public class CommandParser {
         
     }
     
+    //@@author
     /**
      * Converts any number formats of date from the local format to one which can be parsed by natty
      * @param arguments
@@ -254,7 +257,7 @@ public class CommandParser {
     }
     
     /**
-     * Cnvert the local date format inside arguments into a format
+     * Convert the local date format inside arguments into a format
      * which can be parsed by natty
      * @param arguments the full argument string
      * @param localDateString the localDate extracted out from arguments
@@ -275,6 +278,7 @@ public class CommandParser {
         return convertToNattyDateFormat(stringUpToConvertedDate) + stringFromConvertedDate;
     }
     
+    //@@author A0139930B
     /**
      * Takes in a date from Natty and converts it into a string representing date
      * Format of date returned is according to TaskDate
@@ -306,6 +310,7 @@ public class CommandParser {
         
     }
 
+    //@@author
     /**
      * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
