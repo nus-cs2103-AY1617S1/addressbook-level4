@@ -182,20 +182,62 @@ Can go back to historical versions of the TaskBook with the use of undo commands
 Format: `undo`
 
 
-#### Searching for events/tasks
-With the search command, you can search for tasks or events which contain some keywords in their name. 
+#### finding for events/tasks
+With the find command, you can find for tasks or events which contain some keywords in their name. 
 
-Format: `search -e|-t KEYWORD [MORE_KEYWORDS]`
+Format: `find -e|-t KEYWORD [MORE_KEYWORDS]`
 
 > `KEYWORDS` are case sensitive. Events/Tasks which contain at least one keyword in their names will be returned. 
 
 Examples:
-* `search -e CS2103`
+* `find -e CS2103`
   Returns relative information of "CS2103 Exam" but not "cs2103 Exam"
-* `search -t CS2106 CS2103`
+* `find -t CS2106 CS2103`
   Returns any tasks or events having "CS2106", "CS2103" in their names. 
 
 
+#### Clearing of tasks
+Clears all completed tasks or clears all tasks. <br>
+
+Format: `clear -t [-a]`
+
+> An `-a` optional flag will request the TaskBook to clear all tasks, both marked done and not yet marked done. 
+
+Examples: 
+* `clear -t` <br>
+  Clears tasks that are marked done.
+* `clear -t -a` <br>
+  Clears all tasks.
+
+
+#### Clearing of events
+Clears all completed events or clears all events. <br>
+
+Format: `clear -e [-a]`
+
+> An `-a` optional flag will request the TaskBook to clear all events. 
+
+Examples: 
+* `clear -e` <br>
+  Clears events that are marked done.
+* `clear -e -a` <br>
+  Clears all events.
+
+  
+#### Clearing of tasks and events
+Clears all completed tasks and events or clears all tasks and events. <br>
+
+Format: `clear [-a]`
+
+> An `-a` optional flag will request the TaskBook to clear all tasks and events.
+
+Examples: 
+* `clear` <br>
+  Clears all completed tasks and events.
+* `clear -a` <br>
+  Clears all tasks and events.
+  
+  
 #### Exiting the program
 Format : `exit`
 
@@ -221,6 +263,6 @@ Format : `exit`
 [Save](#changing-the-save-location) | `save FILEPATH`
 [Help](#viewing-help) | `help [COMMAND]`
 [Undo](#undo-modifications) | `undo`
-[Search](#searching-for-events/tasks) | `search -e|-t KEYWORD [MORE_KEYWORDS]`
+[Find](#finding-for-events/tasks) | `find -e|-t KEYWORD [MORE_KEYWORDS]`
 [Exit](#exiting-the-program) | `exit`
 
