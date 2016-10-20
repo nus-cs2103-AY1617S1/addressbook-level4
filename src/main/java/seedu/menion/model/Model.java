@@ -6,6 +6,7 @@ import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
 
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * The API of the Model component.
@@ -29,6 +30,20 @@ public interface Model {
     void UncompleteFloatingTask(int index);
     void UncompleteTask(int index);
     void UncompleteEvent(int index);
+    
+    /**
+     * Methods for undo 
+     * @author Seow Wei Jie A0139515A
+     */
+    
+    /** add an activity manager state into stack for undo */
+    void addState(ReadOnlyActivityManager activityManager);
+    
+    /** retrieve previous activity manager */
+    ReadOnlyActivityManager retrievePreviousState();
+    
+    /** check if there is any previous activity manager */
+    boolean checkPreviousStates();
     
     /** 
      * @author Marx  Low A0139164A

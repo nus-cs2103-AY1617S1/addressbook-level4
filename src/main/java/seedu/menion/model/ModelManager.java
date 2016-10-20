@@ -12,6 +12,7 @@ import seedu.menion.model.activity.UniqueActivityList;
 import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
 
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -25,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Activity> filteredTasks;
     private final FilteredList<Activity> filteredFloatingTasks;
     private final FilteredList<Activity> filteredEvents;
+    private Stack<ReadOnlyActivityManager> activityManagerStates;
 
     /**
      * Initializes a ModelManager with the given Activity Manager
@@ -41,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(activityManager.getTasks());
         filteredFloatingTasks = new FilteredList<>(activityManager.getFloatingTasks());
         filteredEvents = new FilteredList<>(activityManager.getEvents());
+        activityManagerStates = new Stack<ReadOnlyActivityManager>();
     }
 
     public ModelManager() {
@@ -52,6 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(activityManager.getTasks());
         filteredFloatingTasks = new FilteredList<>(activityManager.getFloatingTasks());
         filteredEvents = new FilteredList<>(activityManager.getEvents());
+        activityManagerStates = new Stack<ReadOnlyActivityManager>();
     }
 
     @Override
@@ -70,6 +74,26 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ActivityManagerChangedEvent(activityManager));
     }
 
+    /**
+     * Methods for undo 
+     * @author Seow Wei Jie A0139515A
+     */
+    
+    @Override
+    public void addState(ReadOnlyActivityManager activityManager) {
+    	activityManagerStates.push(activityManager);
+    }
+    
+    @Override
+    public ReadOnlyActivityManager retrievePreviousState() {
+    	return activityManagerStates.pop();
+    }
+    
+    @Override
+    public boolean checkPreviousStates() {
+    	return this.activityManagerStates.isEmpty();
+    }
+    
     /**
      * Methods for Completing an activity
      */
