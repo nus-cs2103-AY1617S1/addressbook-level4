@@ -68,10 +68,12 @@ public class AliasController implements Controller {
                 case 2: // All good!
                     aliasKey = args[0];
                     aliasValue = args[1];
-                    break validate; 
+                    break validate;
+                    break;
                 default:
                     aliasKey = args[0];
                     aliasValue = args[0];
+                    break;
             }
             renderDisambiguation(aliasKey, aliasValue, INVALID_NUM_PARAMS);
             return;
