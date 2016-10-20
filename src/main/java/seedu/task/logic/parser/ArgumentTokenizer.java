@@ -27,7 +27,7 @@ public class ArgumentTokenizer {
 		private boolean isOptional;
 		final String prefix;
 
-		Prefix(String prefix) {
+		public Prefix(String prefix) {
 			this.prefix = prefix;
 		}
 
