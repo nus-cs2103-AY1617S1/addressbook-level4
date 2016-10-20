@@ -205,12 +205,14 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub.setActivityName(changes);
         floatingTasks.getInternalList().set(index, dub);   
     }
+    
     public void editTaskName(int index, String changes) {
         Activity dub;
         dub = tasks.getInternalList().get(index);
         dub.setActivityName(changes);
         tasks.getInternalList().set(index, dub);   
     }
+    
     public void editEventName(int index, String changes) {
         Activity dub;
         dub = events.getInternalList().get(index);
@@ -230,17 +232,32 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub.setActivityNote(changes);
         floatingTasks.getInternalList().set(index, dub);   
     }
+    
     public void editTaskNote(int index, String changes) {
         Activity dub;
         dub = tasks.getInternalList().get(index);
         dub.setActivityNote(changes);
         tasks.getInternalList().set(index, dub);   
     }
+    
     public void editEventNote(int index, String changes) {
         Activity dub;
         dub = events.getInternalList().get(index);
         dub.setActivityNote(changes);
         events.getInternalList().set(index, dub);   
+    }
+    
+    /**
+     * @author Marx Low A0139164A
+     * Methods, edits a Task/Event's starting Date & Time in the activity manager.
+     * Passes in the index of the list to complete, and changes to make
+     * @param index
+     */
+    public void editTaskDateTime(int index, String newDate, String newTime) {
+        Activity dub;
+        dub = tasks.getInternalList().get(index);
+        dub.setActivityStartDateTime(newDate, newTime);
+        tasks.getInternalList().set(index, dub);
     }
     
     public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {

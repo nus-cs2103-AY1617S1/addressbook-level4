@@ -52,7 +52,7 @@ public interface Model {
      * Edits the Start Date & Time of the given Task/Event, given it's index. 
      */
     void editTaskDateTime(int index, String newDate, String newTime);
-    void editEventDateTime(int index, String newDate, String newTime);
+
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
     

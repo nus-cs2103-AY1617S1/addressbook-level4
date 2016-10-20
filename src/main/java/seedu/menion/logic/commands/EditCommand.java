@@ -122,10 +122,7 @@ public class EditCommand extends Command {
             String newNote = changes[0];
             model.editEventNote(index, newNote);
             break;
-        case 2:
-            String newDate = changes[0];
-            String newTime = changes[1];
-            model.editEventDateTime(newDate, newTime);
+        case 3:
             break;
         }
     }
