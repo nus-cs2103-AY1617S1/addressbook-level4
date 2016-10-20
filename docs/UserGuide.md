@@ -146,6 +146,8 @@ Delete | `delete INDEX`
 List | `list [DATA_TYPE]`
 Find | `find KEYWORD`
 Undo | `undo`
+Done | `done INDEX TASKNAME`
+Undone | `undone INDEX TASKNAME`
 Set Directory | `directory PATH `
 Backup | `backup PATH `
 Clear | `clear`
