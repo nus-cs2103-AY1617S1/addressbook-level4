@@ -13,6 +13,7 @@ import tars.TestApp;
 import tars.commons.core.EventsCenter;
 import tars.model.Tars;
 import tars.model.task.ReadOnlyTask;
+import tars.model.task.rsv.RsvTask;
 import tars.testutil.TestUtil;
 import tars.testutil.TypicalTestTasks;
 
@@ -103,6 +104,13 @@ public abstract class TarsGuiTest {
     public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
+    
+    /**
+     * Asserts the task shown in the RsvTaskcard is same as the given rsvTask
+     */
+    public void assertMatching(RsvTask task, RsvTaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndRsvTask(card, task));
+    }
 
     /**
      * Asserts the size of the task list is equal to the given number.
@@ -110,6 +118,14 @@ public abstract class TarsGuiTest {
     protected void assertListSize(int size) {
         int numberOfTasks = taskListPanel.getNumberOfTasks();
         assertEquals(size, numberOfTasks);
+    }
+    
+    /**
+     * Asserts the size of the rsv task list is equal to the given number.
+     */
+    protected void assertRsvListSize(int size) {
+        int numberOfRsvTasks = rsvTaskListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfRsvTasks);
     }
 
     /**
