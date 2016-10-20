@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <persons>
-        <name>deadline</name>
-        <phone>im so dead</phone>
+        <name>event</name>
+        <phone>haha</phone>
         <status>DONE</status>
-        <email>20-10-2016</email>
+        <email>20-10-2016 to 21-10-2016</email>
+        <address>1800</address>
+    </persons>
+    <persons>
+        <name>deadline</name>
+        <phone>with description</phone>
+        <status>NONE</status>
+        <email>21-10-2016</email>
         <address>1400</address>
-        <tagged>haha</tagged>
+    </persons>
+    <persons>
+        <name>another deadline none</name>
+        <phone></phone>
+        <status>DONE</status>
+        <email>21-10-2016</email>
+        <address>946</address>
     </persons>
     <undatedTasks>
-        <name>hello</name>
-        <phone>this is floating</phone>
+        <name>floating no description</name>
+        <phone></phone>
         <status>DONE</status>
         <email></email>
         <address></address>
     </undatedTasks>
-    <tags>
-        <tagName>LOLOL</tagName>
-    </tags>
-    <tags>
-        <tagName>haha</tagName>
-    </tags>
+    <undatedTasks>
+        <name>floating with description</name>
+        <phone>got</phone>
+        <status>NONE</status>
+        <email></email>
+        <address></address>
+    </undatedTasks>
 </addressbook>

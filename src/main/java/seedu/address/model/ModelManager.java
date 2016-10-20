@@ -194,8 +194,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            System.out.println(task.getStatus().toString() + " && " + stateKeyWord.toString());
-            System.out.println((task.getStatus().equals(stateKeyWord)? "yay" : "nay"));
             return task.getStatus().equals(stateKeyWord);
         }
 
