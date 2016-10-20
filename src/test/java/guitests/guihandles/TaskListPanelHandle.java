@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#todoCard";
+    public static final String CARD_PANE_ID = "#name";
 
     private static final String task_LIST_VIEW_ID = "#todoListView";
 

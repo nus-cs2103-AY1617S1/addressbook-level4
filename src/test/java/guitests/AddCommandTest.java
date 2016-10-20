@@ -81,7 +81,7 @@ public class AddCommandTest extends ListGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateTotask(taskToAdd.getTodo());
+        TaskCardHandle addedCard = taskListPanel.navigateTotask(taskToAdd.getName().name);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
@@ -93,7 +93,7 @@ public class AddCommandTest extends ListGuiTest {
         commandBox.runCommand(eventsToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        EventCardHandle addedCard = eventListPanel.navigateToevent(eventsToAdd.getEvent());
+        EventCardHandle addedCard = eventListPanel.navigateToevent(eventsToAdd.getName().name);
         assertEventMatching(eventsToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
@@ -105,7 +105,7 @@ public class AddCommandTest extends ListGuiTest {
         commandBox.runCommand(eventsToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        DeadlineCardHandle addedCard = deadlineListPanel.navigateToDeadline(eventsToAdd.getDeadline());
+        DeadlineCardHandle addedCard = deadlineListPanel.navigateToDeadline(eventsToAdd.getName().name);
         assertDeadlineMatching(eventsToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task

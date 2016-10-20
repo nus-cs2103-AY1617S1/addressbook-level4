@@ -10,9 +10,9 @@ import seedu.todoList.model.task.Todo;
  * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#Name";
-    private static final String DATE_FIELD_ID = "#Date";
-    private static final String PRIORITY_FIELD_ID = "#Priority";
+    private static final String NAME_FIELD_ID = "#name";
+    private static final String DATE_FIELD_ID = "#date";
+    private static final String PRIORITY_FIELD_ID = "#priority";
     //private static final String ENDTIME_FIELD_ID = "#EndTime";
 
     private Node node;
@@ -57,6 +57,6 @@ public class TaskCardHandle extends GuiHandle {
 
     @Override
     public String toString() {
-        return getName() + " " + " " + getDate() + " " + getPriority();
+        return getName();// + " " + " " + getDate() + " " + getPriority();
     }
 }

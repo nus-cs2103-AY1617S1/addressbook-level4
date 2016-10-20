@@ -66,6 +66,7 @@ public class StorageManagerTest {
     @Test
     public void TodoListReadSave() throws Exception {
         TaskList original = new TypicalTestTask().getTypicalTodoList();
+        
         storageManager.saveTodoList(original);
         ReadOnlyTaskList retrieved = storageManager.readTodoList().get();
         assertEquals(original, new TaskList(retrieved));
