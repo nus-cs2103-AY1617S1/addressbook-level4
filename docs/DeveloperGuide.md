@@ -49,7 +49,7 @@ developing the application's UI.
   
 ### Contributing 
 
-We use the [feature branch git workflow][workflow]. When working on a task please remember to assign the relavant issue to yourself [on the issue tracker][issues] and branch off from `master`. When the task is complete remember to push the branch to GitHub and [create a new pull request][pr] so that the integrator can review the code. For large features that impact multiple parts of the code it is best to open a new issue on issue tracker so that the design of the code can be discussed first. 
+We use the [feature branch git workflow][workflow]. When working on a task please remember to assign the relevant issue to yourself [on the issue tracker][issues] and branch off from `master`. When the task is complete remember to push the branch to GitHub and [create a new pull request][pr] so that the integrator can review the code. For large features that impact multiple parts of the code it is best to open a new issue on issue tracker so that the design of the code can be discussed first. 
 
 [Test driven development][tdd] is encouraged but not required. All incoming code should have 100% accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage to fall.
 
