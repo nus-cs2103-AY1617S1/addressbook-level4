@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import seedu.address.model.item.Description;
@@ -91,9 +93,9 @@ public class TestItem implements ReadOnlyItem {
     }
     
     public String getAddCommand() {
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         StringBuilder sb = new StringBuilder();
-        sb.append("add \"" + this.getDescription().getFullDescription() + "\"");
-        // this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("add \"" + this.getDescription().getFullDescription() + "\" from " + this.getStartDate().format(formatter) + " to " + this.getEndDate().format(formatter));
         return sb.toString();
     }
 
