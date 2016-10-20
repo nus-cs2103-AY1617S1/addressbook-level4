@@ -86,6 +86,9 @@ public class Parser {
         
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
+            
+        case SpecifyStorageCommand.COMMAND_WORD:
+            return prepareSpecifyStorage(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -101,12 +104,21 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+            
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
     
+    /**
+     * @Ronald
+     * @param arguments
+     * @return the prepared SpecifyStorageCommand
+     */
+    private Command prepareSpecifyStorage(String args) {
+        return new SpecifyStorageCommand(args.trim());
+    }
+
     /**
      * Parses arguments in the context of the add todo command.
      *

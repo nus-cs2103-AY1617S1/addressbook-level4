@@ -76,7 +76,6 @@ public class MainApp extends Application {
             addressBookOptional = storage.readAddressBook();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
-                System.out.println("dumbo");
             }
             initialData = addressBookOptional.orElse(new TaskBook());
         } catch (DataConversionException e) {
@@ -98,6 +97,7 @@ public class MainApp extends Application {
         Config initializedConfig;
         String configFilePathUsed;
 
+        // Important line here
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
         if(configFilePath != null) {
