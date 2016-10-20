@@ -16,9 +16,6 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-      	Task.IncompleteCounter=0;
-    	Task.floatCounter=0;
-    	Task.overdueCounter=0;
         model.resetData(TaskList.getEmptyTaskList());
         return new CommandResult(MESSAGE_SUCCESS);
     }
