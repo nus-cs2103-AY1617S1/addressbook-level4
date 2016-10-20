@@ -51,7 +51,7 @@ Format: `INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]`
 
 > Edit the task at the specific `INDEX` or `TASK_NAME`
      The index refers to the index number shown in the most recent listing.<br>
-     The index **must be a positive integer** 1, 2, 3, …
+     The index **must be a positive integer** 1, 2, 3, â€¦
      `TASK_NAME` should be the same as the task name stored in the TaskManager regardless of the word case
 
 Examples: 
@@ -98,11 +98,7 @@ Examples:
 
 #### Undo the modification : `undo`
 Undo the modification in the last step.<br>
-Format: `undo`  
-
-#### Redo the undone modification : `redo`
-Redo the undone modification in the last step.<br>
-Format: `redo`  
+Format: `undo`   
 
 #### Change working directory : `directory`
 Change data file being accessed, effectively using another TaskManager list.<br>
@@ -150,7 +146,6 @@ Delete | `delete INDEX`
 List | `list [DATA_TYPE]`
 Find | `find KEYWORD`
 Undo | `undo`
-Redo | `redo`
 Set Directory | `directory PATH `
 Backup | `backup PATH `
 Clear | `clear`
