@@ -9,7 +9,12 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.junit.Assert;
+
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers.CalendarDeserializer;
+
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
+import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
 import harmony.mastermind.logic.commands.FindCommand;
 import harmony.mastermind.logic.parser.ParserSearch;
 import harmony.mastermind.memory.Memory;
@@ -161,6 +166,64 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.add(t);
         syncAddTask(t);
     }
+    
+    /**
+     * Adds the next recurring task to the task manager.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     */
+    //@@author A0124797R
+    public void addNextTask(Task t) throws UniqueTaskList.DuplicateTaskException, NotRecurringTaskException {
+        syncTagsWithMasterList(t);
+        Task newT = getNextTask(t);
+        tasks.add(getNextTask(t));
+        syncAddTask(newT);
+    }
+    
+    
+    //@@author A0124797R
+    /**
+     * returns a Task with the next recurring date given a recurring Task
+     */
+    public Task getNextTask(Task t) throws NotRecurringTaskException {
+        if (t.isFloating() || t.getRecur() == null){
+            throw new NotRecurringTaskException();
+        }
+        
+        Task newT = null;
+        String[] recurVal = t.getRecur().split(" ");
+        recurVal[0] = "daily";
+        Date d = t.getEndDate();
+        Calendar c = Calendar.getInstance();
+        c.setTime(d);
+        int date;
+        switch (recurVal[0]) {
+            case "daily":   date = c.get(Calendar.DATE);
+                            c.set(Calendar.DATE, date + 1);
+                            break;
+            case "weekly":  date = c.get(Calendar.DATE);
+                            c.set(Calendar.DATE, date + 7);
+                            break;
+            case "biweekly":  date = c.get(Calendar.DATE);
+                            c.set(Calendar.DATE, date + 14);
+                            break;
+            case "monthly": date = c.get(Calendar.MONTH);
+                            c.set(Calendar.MONTH, date + 1);
+                            break;
+            case "yearly":  date = c.get(Calendar.MONTH);
+                            c.set(Calendar.YEAR, date + 1);
+                            break;
+        }
+        
+        if (t.isDeadline()) {
+            newT = new Task(t.getName(), c.getTime(), t.getTags(), t.getRecur());
+        }
+        
+        return newT;
+        
+    }
 
     /**
      * Ensures that every tag in this task:
@@ -191,6 +254,14 @@ public class TaskManager implements ReadOnlyTaskManager {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    public boolean removeArchive(ReadOnlyTask key) throws ArchiveTaskList.TaskNotFoundException {
+        if (archives.remove(key)) {
+            return true;
+        } else {
+            throw new ArchiveTaskList.TaskNotFoundException();
         }
     }
     

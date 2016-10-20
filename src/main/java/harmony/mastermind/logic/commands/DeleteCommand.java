@@ -2,6 +2,7 @@ package harmony.mastermind.logic.commands;
 
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
@@ -49,7 +50,7 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
 
             model.clearRedoHistory();
 
-        } catch (TaskNotFoundException | IndexOutOfBoundsException tnfe) {
+        } catch (TaskNotFoundException | IndexOutOfBoundsException | ArchiveTaskList.TaskNotFoundException tnfe) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
@@ -80,14 +81,14 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
 
             model.pushToUndoHistory(this);
 
-        } catch (TaskNotFoundException | IndexOutOfBoundsException tnfe) {
+        } catch (TaskNotFoundException | IndexOutOfBoundsException | ArchiveTaskList.TaskNotFoundException tnfe) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, toDelete));
     }
 
-    private void executeDelete() throws TaskNotFoundException, IndexOutOfBoundsException {
+    private void executeDelete() throws TaskNotFoundException, IndexOutOfBoundsException, ArchiveTaskList.TaskNotFoundException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getCurrentList();
 
         if (lastShownList.size() < targetIndex) {
@@ -99,7 +100,11 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
             toDelete = lastShownList.get(targetIndex - 1);
         }
 
-        model.deleteTask(toDelete);
+        if (toDelete.isMarked()) {
+            model.deleteArchive(toDelete);
+        }else {
+            model.deleteTask(toDelete);
+        }
     }
 
 }

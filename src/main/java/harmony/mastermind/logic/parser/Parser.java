@@ -2,7 +2,6 @@ package harmony.mastermind.logic.parser;
 
 import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static harmony.mastermind.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_TAB;
 
 
 import java.text.ParseException;
@@ -137,7 +136,6 @@ public class Parser {
 
         // Validate arg string format
         if (!matcher.matches()) {
-            System.out.println("WTF");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EXAMPLES));
         }
 
@@ -148,19 +146,28 @@ public class Parser {
             final String name = matcher.group("name");
 
             // optionals
+            final Optional<String> recur = Optional.ofNullable(matcher.group("recur"));
             final Optional<String> startDate = Optional.ofNullable(matcher.group("startDate"));
             final Optional<String> endDate = Optional.ofNullable(matcher.group("endDate"));
             final Optional<String> tags = Optional.ofNullable(matcher.group("tags"));
-
+           
+            
             // return internal value if present. else, return empty string
             Set<String> tagSet = getTagsFromArgs(tags.map(val -> val).orElse(""));
-
+            
+            if (recur.isPresent()) {
+                String key = recur.get().split(" ")[0];
+                if (!Arrays.asList(AddCommand.COMMAND_KEYWORDS_RECUR).contains(key)) {
+                    return new IncorrectCommand("invalid recurring value");
+                }
+            }
+            
             if (startDate.isPresent() && endDate.isPresent()) {
                 // event
                 return new AddCommand(name, startDate.get(), endDate.get(), tagSet);
             } else if (!startDate.isPresent() && endDate.isPresent()) {
                 // deadline
-                return new AddCommand(name, endDate.get(), tagSet);
+                return new AddCommand(name, endDate.get(), tagSet, recur.get());
             } else if (startDate.isPresent() && !endDate.isPresent()) {
                 // task with only startdate is not supported.
                 throw new IllegalValueException("Cannot create a task with only start date.");
@@ -208,7 +215,7 @@ public class Parser {
                 tagSet = Optional.ofNullable(getTagsFromArgs(tags.get()));
             };
             
-            return new EditCommand(index, name, startDate, endDate, tagSet);
+            return new EditCommand(index, name, startDate, endDate, tagSet, null);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (ParseException pe) {

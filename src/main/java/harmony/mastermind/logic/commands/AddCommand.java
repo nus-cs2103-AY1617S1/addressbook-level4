@@ -3,14 +3,17 @@ package harmony.mastermind.logic.commands;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
+import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Arrays;
 
 import com.google.common.base.Strings;
 
@@ -30,6 +33,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_KEYWORD_ADD = "add";
     public static final String COMMAND_KEYWORD_DO = "do";
+    public static final String[] COMMAND_KEYWORDS_RECUR = {"daily", "weekly", "monthly", "yearly"};
 
     // The main idea of capturing parameters in any order is inspired by (author
     // velop):
@@ -42,6 +46,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
     // https://regex101.com/r/bFQrP6/1
     // @@author A0138862W
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?:.*?\\s\\'(?<name>.+?)'))"
+                                                         + "(?=(?:.*?r\\/'(?<recur>.+?)')?)"
                                                          + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
                                                          + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
                                                          + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
@@ -85,19 +90,20 @@ public class AddCommand extends Command implements Undoable, Redoable {
             tagSet.add(new Tag(tagName));
         }
 
-        this.toAdd = new Task(name, prettyTimeParser.parse(startDate).get(0), prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet));
+        this.toAdd = new Task(name, prettyTimeParser.parse(startDate).get(0), prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet), null);
 
     }
 
     // deadline
     // @@author A0138862W
-    public AddCommand(String name, String endDate, Set<String> tags) throws IllegalValueException, ParseException {
+    public AddCommand(String name, String endDate, Set<String> tags, String recur) throws IllegalValueException, ParseException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
 
-        this.toAdd = new Task(name, prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet));
+        this.toAdd = new Task(name, prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet), recur);
+
     }
 
     // floating

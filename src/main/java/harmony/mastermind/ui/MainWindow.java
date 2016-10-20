@@ -47,9 +47,9 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     private static final double WIDTH_MULTIPLIER_INDEX = 0.045;
-    private static final double WIDTH_MULTIPLIER_NAME = 0.355;
-    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.2;
-    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.2;
+    private static final double WIDTH_MULTIPLIER_NAME = 0.315;
+    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.22;
+    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.22;
     private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
     
     private static final short INDEX_HOME = 0;
@@ -83,7 +83,7 @@ public class MainWindow extends UiPart {
     
     //List of words for autocomplete 
     String[] listOfWords = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
-            ,"do", "add '<name>' [sd/'<startDate>'] [ed/'<endDate>'] [t/'<tags>...']", "delete INDEX"};
+            ,"do", "add r/'monthly' 'test' ed/'today'", "delete INDEX"};
 
     // UI elements
     @FXML
@@ -389,7 +389,7 @@ public class MainWindow extends UiPart {
             if (task.getValue().isEvent()) {
                 return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getStartDate())
                                                  + "\n"
-                                                 + task.getValue().getStartDate().toString());
+                                                 + task.getValue().parse(task.getValue().getStartDate()));
             } else {
                 return new ReadOnlyStringWrapper("");
             }
@@ -406,7 +406,7 @@ public class MainWindow extends UiPart {
             if (!task.getValue().isFloating()) {
                 return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getEndDate())
                                                  + "\n"
-                                                 + task.getValue().getEndDate().toString());
+                                                 + task.getValue().parse(task.getValue().getEndDate()));
             } else {
                 return new ReadOnlyStringWrapper("");
             }

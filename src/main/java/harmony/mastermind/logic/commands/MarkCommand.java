@@ -2,6 +2,7 @@ package harmony.mastermind.logic.commands;
 
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.model.task.ArchiveTaskList;
+import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
 import harmony.mastermind.commons.exceptions.TaskAlreadyMarkedException;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
@@ -27,6 +28,7 @@ public class MarkCommand extends Command implements Undoable, Redoable {
 
     public static final String MESSAGE_SUCCESS = "%1$s has been archived";
     public static final String MESSAGE_MARKED_TASK = "%1$s is already marked";
+    public static final String MESSAGE_MARK_RECURRING_FAILURE = "Unable to add recurring Task";
 
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Mark Command] %1$s has been unmarked";
     public static final String MESSAGE_REDO_SUCCESS = "[Redo Mark Command] %1$s has been archived";
@@ -53,6 +55,10 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_MARK_RECURRING_FAILURE);
+        } catch (NotRecurringTaskException e) {
+            return new CommandResult(MESSAGE_MARK_RECURRING_FAILURE);
         }
 
     }
@@ -89,11 +95,15 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_MARK_RECURRING_FAILURE);
+        } catch (NotRecurringTaskException e) {
+            return new CommandResult(MESSAGE_MARK_RECURRING_FAILURE);
         }
     }
 
     //@@author A0124797R
-    private void executeMark() throws TaskAlreadyMarkedException, IndexOutOfBoundsException, TaskNotFoundException {
+    private void executeMark() throws TaskAlreadyMarkedException, IndexOutOfBoundsException, TaskNotFoundException, DuplicateTaskException, NotRecurringTaskException {
         ObservableList<Task> lastShownList = model.getListToMark();
 
         if (lastShownList.size() < targetIndex) {
@@ -108,5 +118,9 @@ public class MarkCommand extends Command implements Undoable, Redoable {
         }
 
         model.markTask(taskToMark);
+        if (taskToMark.isRecur()) {
+            model.addNextTask(taskToMark);
+        }
+
     }
 }
