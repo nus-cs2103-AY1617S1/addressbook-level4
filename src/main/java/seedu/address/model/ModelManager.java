@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -137,11 +136,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
-    
-    @Override
-	public void updateFilteredTaskList(Predicate<ReadOnlyTask> taskPredicate) {
-		filteredTasks.setPredicate(taskPredicate);
-	}
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
