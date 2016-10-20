@@ -11,6 +11,7 @@ import harmony.mastermind.model.task.Task;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JAXB-friendly version of the Task.
@@ -22,6 +23,8 @@ public class XmlAdaptedDeadline {
     private String name;
     @XmlElement(required = true)
     private Date endDate;
+    @XmlElement(required = true)
+    private String recur;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -39,6 +42,7 @@ public class XmlAdaptedDeadline {
     public XmlAdaptedDeadline(ReadOnlyTask source) {
         name = source.getName();
         endDate = source.getEndDate();
+        recur = source.getRecur();
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -59,8 +63,9 @@ public class XmlAdaptedDeadline {
         
         final String name = this.name;
         final Date endDate = this.endDate;
+        final String recur = this.recur;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, endDate, tags);
+        return new Task(name, endDate, tags, recur);
     }
 }

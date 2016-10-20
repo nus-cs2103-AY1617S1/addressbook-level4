@@ -12,7 +12,7 @@ public class PreviousCommandTest extends TaskManagerGuiTest {
     //@@author A0124797R
     public void PreviousCommand() {
         commandBox.runCommand(td.task5.getAddCommand());
-        commandBox.runCommand("p");
+        commandBox.runCommand(PreviousCommand.COMMAND_WORD);
         
         //ensure the previous command is in the commandBox
         assertEquals(commandBox.getCommandInput(), td.task5.getAddCommand());

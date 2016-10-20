@@ -1,7 +1,9 @@
 package harmony.mastermind.model.task;
 
 import java.util.Date;
+import java.util.Optional;
 
+import harmony.mastermind.commons.exceptions.DuplicateDataException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 
@@ -11,33 +13,36 @@ public class Task implements ReadOnlyTask {
     private Date startDate;
     private Date endDate;
     private UniqueTagList tags;
+    private String recur;
     private boolean marked;
 
+    
     // event
     // @@author A0138862W
-    public Task(String name, Date startDate, Date endDate, UniqueTagList tags) {
+    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, String recur) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags = tags;
         this.marked = false;
+        this.recur = recur;
     }
 
     // deadline
     // @@author A0138862W
-    public Task(String name, Date endDate, UniqueTagList tags) {
-        this(name, null, endDate, tags);
+    public Task(String name, Date endDate, UniqueTagList tags, String recur) {
+        this(name, null, endDate, tags, recur);
     }
 
     // floating
     // @@author A0138862W
     public Task(String name, UniqueTagList tags) {
-        this(name, null, null, tags);
+        this(name, null, null, tags, null);
     }
 
     // @@author A0138862W
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.getRecur());
         this.marked = source.isMarked();
     }
 
@@ -84,6 +89,18 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList tags) {
         this.tags = tags;
     }
+    
+    @Override
+    //@@author A0124797R
+    public String getRecur() {
+        return this.recur;
+    }
+    
+    @Override
+    ///@@author A0124797R
+    public boolean isRecur() {
+        return recur != null;
+    }
 
     @Override
     // @@author A0138862W
@@ -108,7 +125,7 @@ public class Task implements ReadOnlyTask {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Task // instanceof handles nulls
-                && this.getName().equals(((Task) other).getName())); // state check
+                && this.toString().equals(((Task) other).toString())); // state check
         
     }
         
@@ -135,4 +152,5 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+    
 }

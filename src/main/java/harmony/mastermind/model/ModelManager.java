@@ -18,6 +18,7 @@ import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
+import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
 import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.CommandResult;
@@ -168,6 +169,12 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void deleteArchive(ReadOnlyTask target) throws TaskNotFoundException, ArchiveTaskList.TaskNotFoundException {
+        taskManager.removeArchive(target);
+        indicateTaskManagerChanged();
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -177,14 +184,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    //@author A0124797R
+    //@@author A0124797R
     public synchronized void markTask(Task target) throws TaskNotFoundException {
         taskManager.markTask(target);
         indicateTaskManagerChanged();
     }
     
     @Override
-    //@author A0124797R
+    //@@author A0124797R
     public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException,
     UniqueTaskList.DuplicateTaskException {
         taskManager.unmarkTask(target);
@@ -225,6 +232,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList() {
         return new UnmodifiableObservableList<>(taskManager.getArchives());
+    }
+    
+    //=========== Methods for Recurring Tasks===============================================================
+
+    @Override
+    //@@author A0124797R
+    public synchronized void addNextTask(Task task) throws UniqueTaskList.DuplicateTaskException, NotRecurringTaskException {
+        taskManager.addNextTask(task);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
