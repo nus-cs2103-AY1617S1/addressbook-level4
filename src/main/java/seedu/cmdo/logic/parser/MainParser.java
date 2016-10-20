@@ -68,7 +68,8 @@ public class MainParser {
     public Command parseCommand(String userInput) {
     	String[] splitedInput = userInput.split("\\s+");
     	String commandWord, arguments; 
-    	if(splitedInput.length == 2 && ((splitedInput[1].equals("done")) || (splitedInput[1].equals("all")))){
+    	if(splitedInput.length == 2 && 
+    			((splitedInput[1].equals("done")) || (splitedInput[1].equals("all")) || splitedInput[1].equals("block"))) {
     		Matcher matcher = LIST_COMMAND_FORMAT.matcher(userInput.trim());
             if (!matcher.matches()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
