@@ -9,7 +9,7 @@ import seedu.flexitrack.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask homework1, homework2, homework3, soccer, dinner, exam, midterm, basketball, lecture;
+    public static TestTask homework1, homework2, homework3, soccer, dinner, exam, midterm, basketball, lecture, job;
 // TODO: change the test case  soccer, homework, exam, dinner, homework2, homework3, lecture, basketball, midterm
     public TypicalTestTasks() {
         try {
@@ -33,6 +33,8 @@ public class TypicalTestTasks {
                     .withEndTime("Dec 25 2016 21:00").withDueDate("Feb 29 2000 00:00").build();
             lecture = new TaskBuilder().withName("Lecture CS2103").withStartTime("Oct 10 2016 14:00")
                     .withEndTime("Oct 10 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
+            job = new TaskBuilder().withName("Apply Job in Starbucks").withDueDate("Feb 29 2000 00:00")
+                    .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

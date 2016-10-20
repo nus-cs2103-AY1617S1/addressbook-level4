@@ -13,18 +13,22 @@ public class AddCommandTest extends FlexiTrackGuiTest {
 
     @Test
     public void add() {
-        //add one task
-        // TODO: getTypicalPersons need to be change 
+        //add an event
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.basketball;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add another task
+        //add a deadline task
         taskToAdd = td.lecture;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
+        //add a floating task
+        taskToAdd = td.job;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        
         //add duplicate task
         commandBox.runCommand(td.basketball.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
@@ -34,6 +38,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
         commandBox.runCommand("clear");
         assertAddSuccess(td.homework1);
 
+        
         //invalid command
         commandBox.runCommand("adds cs tutorial");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
