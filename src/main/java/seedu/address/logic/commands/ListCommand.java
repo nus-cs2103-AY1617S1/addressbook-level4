@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.task.Status;
-import seedu.address.model.task.TaskFilter;
 import seedu.address.model.task.TaskType;
 
 /**
@@ -33,9 +32,10 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-    	filterTask();
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+    	model.updateFilteredListToShowAll();
+	 return new CommandResult(MESSAGE_SUCCESS);
     }
+<<<<<<< HEAD
 
     // filters by task status first then by task type
 	private void filterTask() {
@@ -92,4 +92,6 @@ public class ListCommand extends Command {
 			}
 		} 
 	}
+=======
+>>>>>>> d12ba525754ae037bb56ee3603ddc356e7cf0a6c
 }
