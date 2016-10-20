@@ -1,20 +1,44 @@
 package seedu.address.logic.parser;
-import seedu.address.logic.commands.*;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.RecurringType;
-import seedu.address.model.task.TaskDate;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.exceptions.IllegalValueException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.joestelmach.natty.DateGroup;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddFloatingCommand;
+import seedu.address.logic.commands.AddNonFloatingCommand;
+import seedu.address.logic.commands.BlockCommand;
+import seedu.address.logic.commands.ChangeDirectoryCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CompleteCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.TaskDate;
 
 /**
  * Parses user input.
@@ -75,8 +99,10 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
             		+ "((?<startTime>(?: from [^/]+)(?<endTime>(?: to [^/]+)))|"
     				+ "(?<deadline>(?: by [^/]+)))"
-                    + "(?<recurring>(?:([dD][aA][iI][lL][yY]|[wW][eE][eE][kK][lL][yY]|[mM][oO][nN][tT][hH][lL][yY]|[yY][eE][aA][rR][lL][yY])))"
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
+    
+    private static final Pattern RECURRING_TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<recurring>(?: ([dD][aA][iI][lL][yY]|[wW][eE][eE][kK][lL][yY]|[mM][oO][nN][tT][hH][lL][yY]|[yY][eE][aA][rR][lL][yY]))*)");
         
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<startTime>(?:from [^/]+)(?<endTime>(?: to [^/]+)))"
@@ -212,7 +238,7 @@ public class Parser {
         }
         try {
             RecurringType recurringType = RecurringType.NONE;
-            recurringType = checkForRecurringTask(matcher, recurringType);
+            recurringType = checkForRecurringTask(args, recurringType);
             if(matcher.group("deadline") != null) {
                 return prepareAddNonFloatingByDate(matcher, recurringType);
             } else {
@@ -225,8 +251,9 @@ public class Parser {
         }
     }
 
-    private RecurringType checkForRecurringTask(final Matcher matcher, RecurringType recurringType) throws IllegalArgumentException {
-        if (matcher.group("recurring").isEmpty()) {
+    private RecurringType checkForRecurringTask(String args, RecurringType recurringType) throws IllegalArgumentException {
+        final Matcher matcher = RECURRING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches() || matcher.group("recurring").isEmpty()) {
             recurringType = RecurringType.NONE;
         }
         else {
