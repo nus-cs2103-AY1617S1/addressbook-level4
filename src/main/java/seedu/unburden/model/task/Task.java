@@ -61,6 +61,7 @@ public class Task implements ReadOnlyTask {
 		this.tags = new UniqueTagList(tags);
 	}
 
+    // adds Task name and the date 
 	public Task(Name name, Date date, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, date, tags);
 		this.name = name;
@@ -70,6 +71,7 @@ public class Task implements ReadOnlyTask {
 		this.tags = new UniqueTagList(tags);
 	}
 
+	// adds Task name with date and a specific end time 
 	public Task(Name name, Date date, Time endTime, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, date, endTime, tags);
 		this.name = name;
