@@ -75,7 +75,7 @@ public class ConfigUtilTest {
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setFlexiTrackFilePath("data/tasktracker.xml");
+        config.setFlexiTrackFilePath("tasktracker.xml");
         config.setFlexiTrackName("TypicalTaskTracker");
         return config;
     }

@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "FlexiTrack";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String flexiTrackFilePath = "data/tasktracker.xml";
+    private String flexiTrackFilePath = "tasktracker.xml";
     private String flexiTrackName = "MyTaskTracker";
 
 

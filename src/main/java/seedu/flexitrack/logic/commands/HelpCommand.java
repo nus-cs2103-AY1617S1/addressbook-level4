@@ -27,7 +27,6 @@ public class HelpCommand extends Command {
     private String userInput;
     
     public HelpCommand(String args) {
-        //System.out.println(args);
         this.userInput = args;
     }
 

@@ -2,6 +2,6 @@
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
-  "flextTrackFilePath" : "tasktracker.xml",
+  "flexiTrackFilePath" : "tasktracker.xml",
   "flexiTrackName" : "TypicalTaskTracker"
 }

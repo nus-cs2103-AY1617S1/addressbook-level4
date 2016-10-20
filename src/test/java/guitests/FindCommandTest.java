@@ -11,7 +11,7 @@ public class FindCommandTest extends FlexiTrackGuiTest {
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Mark"); //no results
-        assertFindResult("find homework soccer", td.homework2, td.soccer); //multiple results
+        assertFindResult("find homework soccer", td.homework1, td.homework2, td.homework3, td.soccer); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
