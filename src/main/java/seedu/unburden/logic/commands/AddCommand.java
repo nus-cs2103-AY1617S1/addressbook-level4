@@ -30,32 +30,58 @@ public class AddCommand extends Command {
 	 * @throws IllegalValueException
 	 *             if any of the raw values are invalid
 	 */
+	
+	// adds Task Name, Task Description, Date, start time and end time of the task
+	public AddCommand(String name, String taskD, String date, String startTime, String endTime, Set<String> tags)
+			throws IllegalValueException {
+		final Set<Tag> tagSet = new HashSet<>();
+		for (String tagName : tags) {
+			tagSet.add(new Tag(tagName));
+		}
+		this.toAdd = new Task(new Name(name), 
+					 new TaskDescription(taskD), 
+					 new Date(date), 
+					 new Time(startTime), 
+					 new Time(endTime),
+					 new UniqueTagList(tagSet));
+	}
+	
+	// adds Task name, date, start time and end time of the task 
 	public AddCommand(String name, String date, String startTime, String endTime, Set<String> tags)
 			throws IllegalValueException {
 		final Set<Tag> tagSet = new HashSet<>();
 		for (String tagName : tags) {
 			tagSet.add(new Tag(tagName));
 		}
-		this.toAdd = new Task(new Name(name), new Date(date), new Time(startTime), new Time(endTime),
-				new UniqueTagList(tagSet));
+		this.toAdd = new Task(new Name(name), 
+					 new Date(date), 
+					 new Time(startTime), 
+					 new Time(endTime),
+					 new UniqueTagList(tagSet));
 	}
 
+	// adds Task name and the date 
 	public AddCommand(String name, String date, Set<String> tags) throws IllegalValueException {
 		final Set<Tag> tagSet = new HashSet<>();
 		for (String tagName : tags) {
 			tagSet.add(new Tag(tagName));
 		}
-		this.toAdd = new Task(new Name(name), new Date(date), new UniqueTagList(tagSet));
+		this.toAdd = new Task(new Name(name), 
+					 new Date(date), 
+					 new UniqueTagList(tagSet));
 	}
 
+	// adds Floating task 
 	public AddCommand(String name, Set<String> tags) throws IllegalValueException {
 		final Set<Tag> tagSet = new HashSet<>();
 		for (String tagName : tags) {
 			tagSet.add(new Tag(tagName));
 		}
-		this.toAdd = new Task(new Name(name), new UniqueTagList(tagSet));
+		this.toAdd = new Task(new Name(name), 
+					 new UniqueTagList(tagSet));
 	}
 
+	// adds Task name with date and a specific end time 
 	public AddCommand(String name, String date, String endTime, Set<String> tags) throws IllegalValueException {
 		final Set<Tag> tagSet = new HashSet<>();
 		for (String tagName : tags) {
