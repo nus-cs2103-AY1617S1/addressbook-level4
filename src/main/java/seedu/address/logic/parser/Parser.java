@@ -53,7 +53,7 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern ITEM_DATA_ARGS_FORMAT =
-    		Pattern.compile(".*\\\"(.*)\\\"(.*)");	// item has description and a string representing time to be processed
+    		Pattern.compile("(.*)\\\"(.*)\\\"(.*)");	// item has description and a string representing time to be processed
 
     public enum Field {
         NAME("name"), START_DATE("start_date"), END_DATE("end_date"), START_TIME("start_time"),
@@ -133,8 +133,13 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-        	String description = matcher.group(1).trim();
-        	String timeStr = matcher.group(2).trim();
+        	// check if any thing before first quotation mark and return error if found
+        	String postFix = matcher.group(1).trim();
+        	if (!postFix.equals("")) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        	}
+        	String description = matcher.group(2).trim();
+        	String timeStr = matcher.group(3).trim();
         	return new AddCommand(description, timeStr);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
