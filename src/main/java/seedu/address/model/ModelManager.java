@@ -5,14 +5,19 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.task.Deadline;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -103,15 +108,15 @@ public class ModelManager extends ComponentManager implements Model {
     
     public void updateFilteredListToShowClashing() throws DuplicateTaskException {
     	
-		TaskManager taskmanager = new TaskManager();
+    	TaskManager taskmanager = new TaskManager();
 		for(int i=0; i<filteredPersons.size()-1; i++){
 			boolean isClashing = false;
 			Task task = filteredPersons.get(i);
-			Deadline deadline = task.getDeadline();
+			Deadline deadline = task.getDeadlines().getDeadline();
 			for(int j=i+1; j<filteredPersons.size(); j++){
 				Task task2 = filteredPersons.get(j);
-				Deadline deadline2 = task2.getDeadline(); 
-				if(deadline.equals(deadline2)){
+				Deadline deadline2 = task2.getDeadlines().getDeadline();
+				if(deadline != null && deadline2 != null && deadline.equals(deadline2)){
 					if(!taskmanager.contains(task2))
 						taskmanager.addTask(task2);	
 					isClashing = true;
@@ -196,5 +201,15 @@ public class ModelManager extends ComponentManager implements Model {
 			return false;
 		}
     }
+    
+    private Set<String> getDeadlinesFromArgs(String deadlineArguments) {
+   	 // no tags
+       if (deadlineArguments.isEmpty()) {
+           return Collections.emptySet();
+       }
+       // replace first delimiter prefix, then split
+       final Collection<String> deadlineStrings = Arrays.asList(deadlineArguments.replaceFirst(" d/", "").split(" t/"));
+       return new HashSet<>(deadlineStrings);
+	}
 
 }
