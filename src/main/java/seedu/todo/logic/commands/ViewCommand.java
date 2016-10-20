@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 
 import seedu.todo.commons.core.EventsCenter;
-import seedu.todo.commons.enumerations.TaskViewFilter;
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.events.ui.ChangeViewRequestEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
@@ -36,12 +36,12 @@ public class ViewCommand extends BaseCommand {
     
     @Override
     protected void validateArguments(){
-        TaskViewFilter[] viewArray = TaskViewFilter.values();
+        TaskViewFilter[] viewArray = TaskViewFilter.all();
         String viewSpecified = view.getValue().trim().toLowerCase();
         
         for (TaskViewFilter filter : viewArray) {
-            String viewName = filter.getViewName();
-            char shortcut = viewName.charAt(filter.getShortcutCharPosition());
+            String viewName = filter.name;
+            char shortcut = viewName.charAt(filter.shortcutCharPosition);
             boolean matchesShortcut = viewSpecified.length() == 1 && viewSpecified.charAt(0) == shortcut;
             
             if (viewName.contentEquals(viewSpecified) || matchesShortcut) {
@@ -56,7 +56,7 @@ public class ViewCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
-        model.view(viewSpecified.getFilter(), viewSpecified.getSort());
+        model.view(viewSpecified.filter, viewSpecified.sort);
         EventsCenter.getInstance().post(new ChangeViewRequestEvent(viewSpecified));
         String feedback = String.format(ViewCommand.FEEDBACK_FORMAT, viewSpecified);
         return new CommandResult(feedback);

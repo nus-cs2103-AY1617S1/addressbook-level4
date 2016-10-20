@@ -1,6 +1,6 @@
 package seedu.todo.commons.events.ui;
 
-import seedu.todo.commons.enumerations.TaskViewFilter;
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.events.BaseEvent;
 
 /**

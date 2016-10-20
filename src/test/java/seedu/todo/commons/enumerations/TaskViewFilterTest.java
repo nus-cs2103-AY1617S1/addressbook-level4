@@ -1,6 +1,7 @@
 package seedu.todo.commons.enumerations;
 
 import org.junit.Test;
+import seedu.todo.commons.core.TaskViewFilter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,8 +13,8 @@ public class TaskViewFilterTest {
     public void testNoOverlappingShortcut() {
         Set<Character> shortcuts = new HashSet<>();
         
-        for (TaskViewFilter filter : TaskViewFilter.values()) {
-            char shortcut = filter.name().charAt(filter.getShortcutCharPosition());
+        for (TaskViewFilter filter : TaskViewFilter.all()) {
+            char shortcut = filter.name.charAt(filter.shortcutCharPosition);
             assertFalse(shortcuts.contains(shortcut));
             shortcuts.add(shortcut);
         }

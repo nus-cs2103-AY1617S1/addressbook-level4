@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.WordUtils;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.enumerations.TaskViewFilter;
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * Shows a row of filter categories via {@link seedu.todo.commons.enumerations.TaskViewFilter}
+ * Shows a row of filter categories via {@link TaskViewFilter}
  * to filter the tasks in {@link seedu.todo.ui.TodoListPanel}
  */
 public class TaskViewFilterView extends UiPart {
@@ -76,7 +76,7 @@ public class TaskViewFilterView extends UiPart {
      * Display all the {@link TaskViewFilter} on the {@link #filterViewPane}
      */
     private void initialiseAllViewFilters() {
-        for (TaskViewFilter filter : TaskViewFilter.values()) {
+        for (TaskViewFilter filter : TaskViewFilter.all()) {
             appendEachViewFilter(filter);
         }
     }
@@ -98,8 +98,8 @@ public class TaskViewFilterView extends UiPart {
      * @return a view element
      */
     private HBox constructViewFilterBox(TaskViewFilter filter) {
-        String filterName = WordUtils.capitalize(filter.getViewName());
-        String[] partitionedText = StringUtil.partitionStringAtPosition(filterName, filter.getShortcutCharPosition());
+        String filterName = WordUtils.capitalize(filter.name);
+        String[] partitionedText = StringUtil.partitionStringAtPosition(filterName, filter.shortcutCharPosition);
 
         Label leftText = new Label(partitionedText[0]);
         Label centreText = new Label(partitionedText[1]);

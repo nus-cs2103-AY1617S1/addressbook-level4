@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.todo.commons.core.Config;
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -61,7 +62,7 @@ public class TodoModel implements Model {
         sortedTasks = new SortedList<>(filteredTasks);
         
         // Sets the default view 
-        view(null, null);
+        view(TaskViewFilter.DEFAULT.filter, TaskViewFilter.DEFAULT.sort);
     }
 
     private int getTaskIndex(int index) throws ValidationException {

@@ -10,10 +10,9 @@ import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.todo.commons.enumerations.TaskViewFilter;
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.events.ui.ChangeViewRequestEvent;
 import seedu.todo.commons.exceptions.ValidationException;
-import seedu.todo.logic.commands.ViewCommand;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.EventsCollector;
 
