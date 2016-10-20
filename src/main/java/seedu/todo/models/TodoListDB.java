@@ -441,7 +441,7 @@ public class TodoListDB {
      * 
      * @return list of events
      */
-    public List<Event> getEventbyDate(LocalDateTime givenDate) {
+    public List<Event> getEventByDate(LocalDateTime givenDate) {
         ArrayList<Event> eventByDate = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
         while (iterator.hasNext()) {
