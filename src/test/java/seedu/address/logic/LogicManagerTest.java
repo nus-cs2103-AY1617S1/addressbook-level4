@@ -485,6 +485,26 @@ public class LogicManagerTest {
                 expectedAB.getTaskComponentList());
     	
     }
+    
+    @Test
+    public void execute_undoFailedCommand_notAllowed() throws Exception{
+    	
+    	TestDataHelper helper = new TestDataHelper();
+    	TaskMaster expectedAB = new TaskMaster();
+    	Task toBeAdded = helper.adam();
+    	
+    	expectedAB.addTask(toBeAdded);
+    	model.addTask(toBeAdded);
+    	
+    	logic.execute(helper.generateAddCommand(toBeAdded));
+    	
+    	assertCommandBehavior(
+                "u",
+                UndoCommand.MESSAGE_FAIL,
+                expectedAB,
+                expectedAB.getTaskComponentList());
+    	
+    }
     /***
      * Tests for ChangeDirectoryCommand
      */

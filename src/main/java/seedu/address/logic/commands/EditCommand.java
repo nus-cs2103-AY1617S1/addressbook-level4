@@ -76,6 +76,7 @@ public class EditCommand extends Command {
 		assert false : "Edit command does not support recurring tasks";
 		if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
+            urManager.popFromUndoQueue();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 		
@@ -89,6 +90,8 @@ public class EditCommand extends Command {
 		} catch (TaskNotFoundException e) {
 			assert false : "The target task cannot be missing";
 		} catch (TimeslotOverlapException e) {
+			indicateAttemptToExecuteFailedCommand();
+			urManager.popFromUndoQueue();
 			return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
 		return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
