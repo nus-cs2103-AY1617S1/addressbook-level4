@@ -204,7 +204,7 @@ public class MainParser {
         	int dataMode;
         	if (datesAndTimes.size() == 1) {
         		dtStart = datesAndTimes.get(0);
-        		dtEnd = datesAndTimes.get(0);//one hr later by default
+        		dtEnd = dtStart.plusHours(1);//one hr later by default
         	} else if (datesAndTimes.size() == 2) {
         		dtStart = datesAndTimes.get(0);
         		dtEnd = datesAndTimes.get(1);
@@ -220,7 +220,7 @@ public class MainParser {
     					dtStart.toLocalTime(),
     					dtEnd.toLocalDate(),
     					dtEnd.toLocalTime(),
-    					extractPriority(splittedArgs),
+    					"",
     					getTagsFromArgs(splittedArgs));
         }
     	 catch (IllegalValueException ive) {
