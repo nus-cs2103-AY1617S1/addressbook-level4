@@ -98,40 +98,32 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-            ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList,
-            ObservableList<ReadOnlyTask> eventList) {
+            ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+            ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
         TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList, deadlineTaskList, eventList);
+        taskListPanel.configure(floatingTaskList, incompleteTaskList, completedTaskList, daysList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList,
-            ObservableList<ReadOnlyTask> eventList) {
-        instantiateLists();
-        
-        updateFloatingTaskList(taskList);
-        updateCompletedAndIncompleteTaskList(taskList, deadlineTaskList);
-        updateTasksAndEventsForDays(deadlineTaskList, eventList);
-        
-        setConnections(taskList, deadlineTaskList, eventList);
+    private void configure(ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+            ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
+        instantiateLists(floatingTaskList, incompleteTaskList, completedTaskList, daysList);
+        setConnections();
         showFloatingTasks();
+        updateAllTitles();
         addToPlaceholder();
-        registerAsAnEventHandler(this); //to update labels
+        registerAsAnEventHandler(this); // to update labels
     }
 
-    private void instantiateLists() {
-        this.floatingTaskList = FXCollections.observableArrayList();
-        this.completedTaskList = FXCollections.observableArrayList();
-        this.incompleteTaskList = FXCollections.observableArrayList();
-        this.daysTaskList = new ArrayList<>(7); //7 days in a week
-        
-        for(int i = 0; i < 7; i++) {
-            this.daysTaskList.add(FXCollections.observableArrayList());
-        }
+    private void instantiateLists(ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+            ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
+        this.floatingTaskList = floatingTaskList;
+        this.incompleteTaskList = incompleteTaskList;
+        this.completedTaskList = completedTaskList;
+        this.daysTaskList = daysList;
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList,
-            ObservableList<ReadOnlyTask> eventList) {
+    private void setConnections() {
         setupListViews();
         setEventHandlerForSelectionChangeEvent();
     }
@@ -303,6 +295,14 @@ public class TaskListPanel extends UiPart {
         }
     }
     
+    private void updateAllTitles() {
+        updateFloatingTasksTitle();
+        updateCompleteTasksTitle();
+        updateIncompleteTasksTitle();
+        updateDaysTitles(titleTaskDay1, titleTaskDay2, titleTaskDay3, titleTaskDay4, titleTaskDay5, titleTaskDay6,
+                titleTaskDay7);
+    }
+    
     //========== Event handlers ================================================================================
 
     
@@ -312,9 +312,7 @@ public class TaskListPanel extends UiPart {
      */
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        updateFloatingTaskList(abce.data.getTaskList());
-        updateCompletedAndIncompleteTaskList(abce.data.getTaskList(), abce.data.getDeadlineTaskList());
-        updateTasksAndEventsForDays(abce.data.getDeadlineTaskList(), abce.data.getEventList());
+        updateAllTitles();
         
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
     }

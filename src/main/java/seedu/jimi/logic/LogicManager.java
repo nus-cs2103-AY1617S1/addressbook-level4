@@ -10,6 +10,7 @@ import seedu.jimi.model.Model;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.storage.Storage;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -40,6 +41,11 @@ public class LogicManager extends ComponentManager implements Logic {
     }
     
     @Override
+    public ObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
+        return model.getFilteredFloatingTaskList();
+    }
+    
+    @Override
     public ObservableList<ReadOnlyTask> getFilteredCompletedTaskList() {
         return model.getFilteredCompletedTaskList();
     }
@@ -47,6 +53,22 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredIncompleteTaskList() {
         return model.getFilteredIncompleteTaskList();
+    }
+    
+    @Override
+    public ArrayList<ObservableList<ReadOnlyTask>> getFilteredDaysTaskList() {
+        
+        ArrayList<ObservableList<ReadOnlyTask>> daysTaskList = new ArrayList<>();
+        
+        daysTaskList.add(model.getFilteredMondayTaskList());
+        daysTaskList.add(model.getFilteredTuesdayTaskList());
+        daysTaskList.add(model.getFilteredWednesdayTaskList());
+        daysTaskList.add(model.getFilteredThursdayTaskList());
+        daysTaskList.add(model.getFilteredFridayTaskList());
+        daysTaskList.add(model.getFilteredSaturdayTaskList());
+        daysTaskList.add(model.getFilteredSundayTaskList());
+        
+        return daysTaskList;
     }
     
     @Override

@@ -98,18 +98,15 @@ public class AgendaPanel extends UiPart{
     }
     
     
-    public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder, ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList, ObservableList<ReadOnlyTask> eventList) {
+    public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder, ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
         AgendaPanel agendaPanel = 
                 UiPartLoader.loadUiPart(primaryStage, agendaPlaceholder, new AgendaPanel());
-        agendaPanel.configure(taskList, deadlineTaskList, eventList);
+        agendaPanel.configure(taskList, eventList);
         return agendaPanel;
     }
     
-    private void configure(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList, ObservableList<ReadOnlyTask> eventList) {
-        instantiateObjectLists();
-        updateTasksList(taskList, deadlineTaskList);
-        updateEventsList(eventList);
-        
+    private void configure(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
+        instantiateObjectLists(taskList, eventList);
         configureTaskColumnsCellFactories();
         configureEventsColumnsCellFactories();
         setConnections(taskList);
@@ -136,9 +133,9 @@ public class AgendaPanel extends UiPart{
     /**
      * Instantiates the tasks and events lists.
      */
-    private void instantiateObjectLists() {
-        this.tasksList = FXCollections.observableArrayList();
-        this.eventsList = FXCollections.observableArrayList();
+    private void instantiateObjectLists(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
+        this.tasksList = taskList;
+        this.eventsList = eventList;
     }
 
     /**
@@ -277,17 +274,6 @@ public class AgendaPanel extends UiPart{
         }
         
         this.eventsList.setAll(newEventsList);
-    }
-
-    /**
-     * Updates all the titles when taskBook is changed. Updates remaining tasks for each title.
-     * @param abce
-     */
-    @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        updateTasksList(abce.data.getTaskList(), abce.data.getDeadlineTaskList());
-        updateEventsList(abce.data.getEventList());
-        //TODO: update THIS - logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Reloading lists : " + ""+abce.data.getTaskList().size()));
     }
 }
    
