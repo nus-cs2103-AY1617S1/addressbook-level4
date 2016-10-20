@@ -100,8 +100,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredTaskList(java.util.function.Predicate<? super Task> predicate){
+        filteredTasks.setPredicate(predicate);
     }
     
     @Override

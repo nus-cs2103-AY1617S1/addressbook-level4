@@ -2,6 +2,8 @@ package seedu.unburden.logic.commands;
 
 import java.util.Set;
 
+import seedu.unburden.model.task.Task;
+
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -22,12 +24,16 @@ public class FindCommand extends Command {
         this.keywords = keywords;
         this.modeOfSearch = modeOfSearch;
     }
+    
+    public java.util.function.Predicate<? super Task> getTasksWithSameNameOrTags(Set<String> args){
+    	return t -> t.getName().contains(args) || t.getTags().contains(args);
+    }
 
 	@Override
     public CommandResult execute() {
 		switch(modeOfSearch){
 			case "date": model.updateFilteredTaskListForDate(keywords); break;
-			case "name": model.updateFilteredTaskList(keywords);
+			case "name": model.updateFilteredTaskList(getTasksWithSameNameOrTags(keywords));
 		}
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }

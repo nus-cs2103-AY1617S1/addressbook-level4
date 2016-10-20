@@ -1,5 +1,7 @@
 package seedu.unburden.model.task;
 
+import java.util.Set;
+
 import seedu.unburden.commons.exceptions.IllegalValueException;
 
 /**
@@ -34,7 +36,7 @@ public class Name {
         return test.matches(NAME_VALIDATION_REGEX);
     }
     
-    public boolean contains (String[] args){
+    public boolean contains (Set<String> args){
     	for(String name : args){
     		if(fullName.equals(name)){
     			return true;
@@ -42,7 +44,6 @@ public class Name {
     	}
     	return false;
     }
-
 
     @Override
     public String toString() {
