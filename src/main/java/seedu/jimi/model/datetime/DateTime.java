@@ -45,7 +45,7 @@ public class DateTime implements Comparable<DateTime> {
         return dtInstance.format(timeFormatter).toString();
     }
     
-    private LocalDateTime getLocalDateTime() {
+    public LocalDateTime getLocalDateTime() {
         return dtInstance;
     }
     
