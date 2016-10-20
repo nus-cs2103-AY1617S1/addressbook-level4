@@ -19,6 +19,7 @@ public class TestTask implements ReadOnlyTask {
     private Priority priority;
     private Done done = new Done();
     private UniqueTagList tags;
+    private boolean block;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -63,6 +64,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Priority getPriority() {
         return priority;
+    }
+    
+    @Override
+    public boolean getBlock() {
+    	return block;
     }
     
     @Override

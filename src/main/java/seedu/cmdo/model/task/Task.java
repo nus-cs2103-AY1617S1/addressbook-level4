@@ -139,6 +139,8 @@ public class Task implements ReadOnlyTask {
     public void setBlock(){
     	block = true;
     }
+    
+    @Override
     public boolean getBlock(){
     	return block;
     }
