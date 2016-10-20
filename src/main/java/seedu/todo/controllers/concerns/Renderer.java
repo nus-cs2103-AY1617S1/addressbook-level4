@@ -6,6 +6,7 @@ import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
+import seedu.todo.ui.views.AliasView;
 import seedu.todo.ui.views.ConfigView;
 import seedu.todo.ui.views.IndexView;
 
@@ -87,6 +88,15 @@ public class Renderer {
      */
     public static void renderConfig(String consoleMessage) {
         ConfigView view = UiManager.loadView(ConfigView.class);
+        UiManager.renderView(view);
+        
+        if (consoleMessage != null) {
+            UiManager.updateConsoleMessage(consoleMessage);
+        }
+    }
+    
+    public static void renderAlias(String consoleMessage) {
+        AliasView view = UiManager.loadView(AliasView.class);
         UiManager.renderView(view);
         
         if (consoleMessage != null) {
