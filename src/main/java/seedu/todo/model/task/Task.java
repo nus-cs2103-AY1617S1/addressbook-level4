@@ -16,7 +16,7 @@ public class Task implements ReadOnlyTask {
     private Detail detail;
     private TaskDate onDate;
     private TaskDate byDate; //deadline
-    private boolean done;
+    private Completion completion;
     private UniqueTagList tags;
 
     /**
@@ -28,17 +28,17 @@ public class Task implements ReadOnlyTask {
         this.detail = detail;
         this.onDate = fromDate;
         this.byDate = tillDate;
-        this.done = false;
+        this.completion = new Completion(false);
         this.tags = new UniqueTagList(); // protect internal tags from changes in the arg list
     }
     
-    public Task(Name name, Detail detail, boolean done, TaskDate fromDate, TaskDate tillDate, UniqueTagList tags) {
+    public Task(Name name, Detail detail, Completion completion, TaskDate fromDate, TaskDate tillDate, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, detail, fromDate, tillDate);
         this.name = name;
         this.detail = detail;
         this.onDate = fromDate;
         this.byDate = tillDate;
-        this.done = done;
+        this.completion = completion;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -46,7 +46,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDetail(), false, source.getOnDate(), source.getByDate(), source.getTags());
+        this(source.getName(), source.getDetail(), source.isCompleted(), source.getOnDate(), source.getByDate(), source.getTags());
     }
 
     @Override
@@ -75,8 +75,8 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
-    public boolean isDone() {
-        return this.done;
+    public Completion isCompleted() {
+        return this.completion;
     }
     
     
@@ -96,8 +96,8 @@ public class Task implements ReadOnlyTask {
         this.byDate = td;
     }
     
-    public void setIsDone(boolean done) {
-        this.done = done;
+    public void setCompletion(Completion c) {
+        this.completion = c;
     }
     
     /**
