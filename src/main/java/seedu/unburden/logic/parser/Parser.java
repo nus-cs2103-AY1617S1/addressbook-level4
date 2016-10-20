@@ -37,36 +37,48 @@ public class Parser {
 
 	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile("(?<dates>[0-9]{2}[-][0-9]{2}[-][0-9]{4}$)");
 
-	private static final Pattern ADD_FORMAT_0 = // '/' forward slashes are
-												// reserved for delimiter
-												// prefixes
-			Pattern.compile("(?<name>[^/]+)" + "dd/(?<details>[^/]+)" + "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
-					+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
-					+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
-					+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of
-															// tags
+	private static final Pattern ADD_FORMAT_0 = // '/' forward slashes are reserved for delimiter prefixes
+			Pattern.compile("(?<name>[^/]+)" 
+							+ "(?<isTaskDescriptionPrivate>p?)i/(?<TaskDescription>[^/]+)" 
+							+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
+							+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
+							+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
+							+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags 
+															
 
-	private static final Pattern ADD_FORMAT_1 = // '/' forward slashes are
-												// reserved for delimiter
-												// prefixes
-			Pattern.compile("(?<name>[^/]+)" + "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
-					+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
-					+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
-					+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of
-															// tags
+	private static final Pattern ADD_FORMAT_1 = // '/' forward slashes are reserved for delimiter prefixes
+			Pattern.compile("(?<name>[^/]+)" 
+							+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
+							+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
+							+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
+							+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+															
 
-	private static final Pattern ADD_FORMAT_2 = Pattern
-			.compile("(?<name>[^/]+)" + "(?<isDatePrivate>p?)d/(?<date>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+	private static final Pattern ADD_FORMAT_2 = 
+			Pattern.compile("(?<name>[^/]+)" 
+							+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)" 
+							+ "(?<tagArguments>(?: t/[^/]+)*)");
 
-	private static final Pattern ADD_FORMAT_3 = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+	
+	private static final Pattern ADD_FORMAT_3 = 
+			Pattern.compile("(?<name>[^/]+)" 
+							+ "(?<tagArguments>(?: t/[^/]+)*)");
 
-	private static final Pattern ADD_FORMAT_4 = Pattern.compile("(?<name>[^/]+)"
-			+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)" + "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
-			+ "(?<tagArguments>(?: t/[^/]+)*)");
+	
+	private static final Pattern ADD_FORMAT_4 = 
+			Pattern.compile("(?<name>[^/]+)"
+							+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)" 
+							+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
+							+ "(?<tagArguments>(?: t/[^/]+)*)");
 
-	private static final Pattern EDIT_FORMAT = Pattern.compile("(?<index>[^/]+)(?!$)" + "(d/(?<date>[^/]+))?"
-			+ "(s/(?<startTimeArguments>[^/]+))?" + "(e/(?<endTimeArguments>[^/]+))?");
+	
+	private static final Pattern EDIT_FORMAT = 
+			Pattern.compile("(?<index>[^/]+)(?!$)" 
+							+ "(d/(?<date>[^/]+))?"
+							+ "(s/(?<startTimeArguments>[^/]+))?" 
+							+ "(e/(?<endTimeArguments>[^/]+))?");
 
+	
 	private static final String byToday = "by today";
 
 	private static final String byTomorrow = "by tomorrow";
