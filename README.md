@@ -22,5 +22,6 @@
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 * The sample project created by SE-EDU initiative at https://github.com/se-edu/
 * Natural language date parser [Natty](http://natty.joestelmach.com/)
+* Some parts of the user guide were inspired by CS2103AUG2016-W09-C3
 
 #### Licence : [MIT](LICENSE)
