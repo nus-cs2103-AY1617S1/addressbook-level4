@@ -69,7 +69,12 @@ public class MainApp extends Application {
         initEventsCenter();
     }
 	
-    // Read user defined settings, if any / @@author A0139661Y
+    /** 
+     * Read user defined settings, if any 
+     * @throws Exception
+     * 
+     * @@author A0139661Y
+     */
 	private void syncUserPrefsToConfig() throws Exception {
         config.setToDoListFilePath(userPrefs.getStorageSettings().getFilePath());
         storage.updateFilePathInUserPrefs(config.getToDoListFilePath());
@@ -155,7 +160,7 @@ public class MainApp extends Application {
             initializedPrefs = new UserPrefs();
         }
 
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        // Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
@@ -194,6 +199,12 @@ public class MainApp extends Application {
         this.stop();
     }
     
+    /**
+     * Handles an event where the storage file has been changed.
+     * @param event
+     * 
+     * @@author A0139661Y
+     */
     @Subscribe
     public void handleStorageFileChangedEvent(StorageFileChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

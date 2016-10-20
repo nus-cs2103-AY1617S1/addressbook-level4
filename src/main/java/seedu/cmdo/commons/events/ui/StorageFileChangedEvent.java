@@ -3,7 +3,9 @@ package seedu.cmdo.commons.events.ui;
 import seedu.cmdo.commons.events.BaseEvent;
 
 /**
- *
+ * Indicates that the storage file has been modified by the user
+ * 
+ * @@author A0139661Y
  */
 public class StorageFileChangedEvent extends BaseEvent {
 	
