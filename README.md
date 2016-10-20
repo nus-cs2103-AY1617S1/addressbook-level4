@@ -1,6 +1,6 @@
 <img src="docs/images/app_logo_full.png" alt="Uncle Jim's Discount To-do List" width="600"><br>
 
-<img src="docs/images/app_screenshot.PNG" alt="Mockup of Uncle Jim's Discount To-do List main interface" width="600"><br>
+<img src="docs/images/app_screenshot.png" alt="Mockup of Uncle Jim's Discount To-do List main interface" width="600"><br>
 
 [![Build Status](https://travis-ci.org/CS2103AUG2016-W10-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W10-C4/main)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W10-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W10-C4/main?branch=master)
