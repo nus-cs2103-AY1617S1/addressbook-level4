@@ -200,12 +200,7 @@ public class ModelFilteredMap {
             long daysDifference = new DateTime().getDifferenceInDays(task.getDeadline());
 
             if (daysDifference > 0) {
-                return task.getDeadline().getLocalDateTime().getDayOfWeek().getValue() == day.getValue(); // check
-                                                                                                          // if
-                                                                                                          // fit
-                                                                                                          // day
-                                                                                                          // of
-                                                                                                          // week
+                return task.getDeadline().getLocalDateTime().getDayOfWeek().getValue() == day.getValue(); // check if day of the week
             }
 
             return false;
@@ -261,12 +256,10 @@ public class ModelFilteredMap {
             }
 
             if (isCompleteState == true) { // if want to check completed task
-                return this.isCompleteState;
-            } else if (task.isCompleted()) { // if want to check for incomplete
-                                             // task
-                return false;
+                return task.isCompleted();
+            } else {
+                return !task.isCompleted();
             }
-            return true;
         }
     }
 
