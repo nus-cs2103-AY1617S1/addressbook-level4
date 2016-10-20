@@ -48,34 +48,35 @@ public class AliasController implements Controller {
 
         if (params.length() <= 0) {
             // TODO: Render aliases
-        } else {
-            String[] args = params.split(SPACE, ARGS_LENGTH);
-            
-            String aliasKey = null;
-            String aliasValue = null;
-            
-            // Best-effort matching, disambiguate if wrong.
-            validate: {
-                switch (args.length) {
-                    case 0:
-                        break;
-                    case 1:
-                        aliasKey = args[0];
-                        break;
-                    case 2: // All good!
-                        aliasKey = args[0];
-                        aliasValue = args[1];
-                        break validate; 
-                    default:
-                        aliasKey = args[0];
-                        aliasValue = args[0];
-                }
-                renderDisambiguation(aliasKey, aliasValue, INVALID_NUM_PARAMS);
+            return;
+        }
+        
+        String[] args = params.split(SPACE, ARGS_LENGTH);
+        
+        String aliasKey = null;
+        String aliasValue = null;
+        
+        // Best-effort matching, disambiguate if wrong.
+        validate: {
+            switch (args.length) {
+                case 0:
+                    break;
+                case 1:
+                    aliasKey = args[0];
+                    break;
+                case 2: // All good!
+                    aliasKey = args[0];
+                    aliasValue = args[1];
+                    break validate; 
+                default:
+                    aliasKey = args[0];
+                    aliasValue = args[0];
             }
-            
-            if (!validateAlias(aliasKey) || !validateAlias(aliasValue)) {
-                renderDisambiguation(aliasKey, aliasValue, MESSAGE_INVALID_INPUT);
-            }
+            renderDisambiguation(aliasKey, aliasValue, INVALID_NUM_PARAMS);
+        }
+        
+        if (!validateAlias(aliasKey) || !validateAlias(aliasValue)) {
+            renderDisambiguation(aliasKey, aliasValue, MESSAGE_INVALID_INPUT);
         }
     }
     
@@ -108,7 +109,7 @@ public class AliasController implements Controller {
         if (sanitizedAliasValue == null || sanitizedAliasValue.length() == 0) {
             sanitizedAliasValue = "<alias value>";
         }
-        Renderer.renderDisambiguation(String.format("alias \"%s\" \"%s\"",
+        Renderer.renderDisambiguation(String.format("alias %s %s",
                 sanitizedAliasKey, sanitizedAliasValue), message);
     }
 
