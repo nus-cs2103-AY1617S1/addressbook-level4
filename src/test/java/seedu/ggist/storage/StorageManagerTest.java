@@ -62,8 +62,8 @@ public class StorageManagerTest {
     public void taskManagerReadSave() throws Exception {
         TaskManager original = new TypicalTestTasks().getTypicalTaskManager();
         storageManager.saveTaskManager(original);
-        //ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
-        //assertEquals(original, new TaskManager(retrieved));
+        ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
+        assertEquals(original, new TaskManager(retrieved));
         //More extensive testing of TaskManager saving/reading is done in XmlTaskManagerStorageTest
     }
 
