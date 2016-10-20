@@ -28,7 +28,7 @@ public class PinCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(false, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask orginialTask = lastShownList.get(targetIndex - 1);
@@ -40,7 +40,7 @@ public class PinCommand extends Command {
             assert false : "Not possible for task on list to have illegal value";
         }
 
-        return new CommandResult(String.format(MESSAGE_PIN_TASK_SUCCESS, orginialTask));
+        return new CommandResult(true, String.format(MESSAGE_PIN_TASK_SUCCESS, orginialTask));
     }
 
 }
