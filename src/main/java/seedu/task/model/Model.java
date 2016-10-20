@@ -26,7 +26,10 @@ public interface Model {
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Updates the given task */
-    void updateTask(ReadOnlyTask orginalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException; 
+    void updateTask(ReadOnlyTask orginalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Rollback the task list */
+    void rollback();
     
     /** Pins the given task as important */
     void pinTask(ReadOnlyTask originalTask, Task toPin);

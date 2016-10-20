@@ -96,6 +96,18 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
+    
+    /**
+     * Retrieves an immutable version of the task. Will not mutate if task is changed afterwards.
+     */
+    public ReadOnlyTask getImmutable() {
+        try {
+            return new Task(this);
+        } catch (IllegalValueException e) {
+            assert false : "Impossible situation, as Task fields has been validated!";
+            return null;
+        }
+    }
 
     public void setIsImportant(boolean isImportant) {
         this.isImportant = isImportant;
