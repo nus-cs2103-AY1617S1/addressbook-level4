@@ -86,8 +86,9 @@ public class ClearController implements Controller {
             destroyAll(db);
             return;
         } else {
-            if (deleteAll) { //no item type provided
+            if (deleteAll && !parseExactClearCommand(parsedResult) && parsedDates == null) { //no item type provided
                 displayErrorMessage(input, parsedDates, deleteAll, isTask);
+                return;
             }
         }
         
@@ -132,7 +133,7 @@ public class ClearController implements Controller {
             destroyBySelectedDate(db, dateOn, deleteAll, isTask);
             return;
         } else {
-            if (!deleteAll && parsedDate != null) {
+            if (!deleteAll && parsedDate != null && dateFrom == null && dateTo == null && dateOn == null) { //date provided is invalid
                 displayErrorMessage(input, parsedDate, deleteAll, isTask);
             } else {
                 destroyByRange(db, dateFrom, dateTo, deleteAll, isTask);
@@ -171,9 +172,17 @@ public class ClearController implements Controller {
             db.destroyAllEventByRange(dateFrom, dateTo);
             db.destroyAllTaskByRange(dateFrom, dateTo);
         } else if (isTask) {
+            if (numTasks == 0) {
+                Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
+                return;
+            }
             db.destroyAllTaskByRange(dateFrom, dateTo);
             numEvents = 0;
         } else {
+            if (numEvents == 0) {
+                Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
+                return;
+            }
             db.destroyAllEventByRange(dateFrom, dateTo);
             numTasks = 0;
         }
@@ -282,6 +291,7 @@ public class ClearController implements Controller {
     }
     
     private boolean parseExactClearCommand(Map<String, String[]> parsedResult) {
+        System.out.println(Arrays.toString(parsedResult.get("default")));
         return parsedResult.get("default")[1] == null;
     }
     
