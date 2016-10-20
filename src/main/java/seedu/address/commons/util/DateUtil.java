@@ -354,4 +354,37 @@ public class DateUtil {
         return dateformat;
 
     }
+    
+    //these following methods used only for testing purposes only.
+       
+    /**
+     * Convert a given calendar object into a string format
+     * 
+     * @param string
+     *            ""
+     * @return tomorrow in valid date format
+     */
+    
+    public String outputDateTimeAsString (Calendar dateTime, String format) {
+    	assert (isValidFormat(format));
+    	
+    	SimpleDateFormat formatter = new SimpleDateFormat(format);
+    	return formatter.format(dateTime.getTime());
+    }
+    
+    /**
+     * Checks whether the format entered will be accepted by LifeKeeper
+     * @param format
+     * @return boolean indicating whether format is accepted.
+     */
+    
+    public boolean isValidFormat (String format) {
+    	SimpleDateFormat formatter = new SimpleDateFormat(format);
+    	for (SimpleDateFormat a : DATE_FORMATS) {
+    		if (a.equals(formatter)) {
+    			return true;
+    		} 
+    	} return false;
+    }
+ 
 }

@@ -18,10 +18,10 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class TestActivity implements ReadOnlyActivity {
 
-    private Name name;
-    private Reminder reminder;
+    protected Name name;
+    protected Reminder reminder;
     private boolean isCompleted;
-    private UniqueTagList tags;
+    protected UniqueTagList tags;
     
     /**
      * Every field must be present and not null.

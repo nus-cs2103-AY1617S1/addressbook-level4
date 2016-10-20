@@ -49,7 +49,8 @@ public class DoneCommand extends Command {
 		
 		if (taskToMark.getCompletionStatus() == false) {
 
-			Activity unmarkedTask = new Activity(taskToMark);
+			Activity unmarkedTask = Activity.create(taskToMark);
+			
 			boolean isComplete = true;
 			try {
 				model.markTask(unmarkedTask, isComplete);

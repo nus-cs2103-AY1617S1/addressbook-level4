@@ -23,7 +23,7 @@ public class ActivityManager {
         try {
             switch (oldTaskType) {
             case "activity":
-                if (newParamsType.equals("task")) {
+                if (newParamsType.equals("task")) { //change from activity to task
                     newActivity = new Task(
                             updateTaskName(oldTask, newParams, type),
                             updateDueDate(oldTask, newParams, type),
@@ -31,7 +31,7 @@ public class ActivityManager {
                             updateReminder(oldTask, newParams, type),
                             updateTags(oldTask, newParams)
                             );
-                } else if (newParamsType.equals("event")) {
+                } else if (newParamsType.equals("event")) { //change from activity to event
                     newActivity = new Event(
                             updateTaskName(oldTask, newParams, type),
                             updateStartTime(oldTask, newParams, type),
@@ -39,7 +39,7 @@ public class ActivityManager {
                             updateReminder(oldTask, newParams, type),
                             updateTags(oldTask, newParams)
                             );
-                } else {
+                } else { //remain as activity
                     newActivity = new Activity(
                             updateTaskName(oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),
@@ -51,14 +51,22 @@ public class ActivityManager {
                 break;
             case "task":
             	 if (newParamsType.equals("task")) {
-            	newActivity = new Task(
-                        updateTaskName(oldTask, newParams, type),
-                        updateDueDate((Task) oldTask, newParams, type),
-                        updatePriority((Task) oldTask, newParams, type),
-                        updateReminder(oldTask, newParams, type),
-                        updateTags(oldTask, newParams)
-                        );
-            	 } else if(type == "undo") {
+            	 newActivity = new Task(
+                         updateTaskName(oldTask, newParams, type),
+                         updateDueDate((Task) oldTask, newParams, type),
+                         updatePriority((Task) oldTask, newParams, type),
+                         updateReminder(oldTask, newParams, type),
+                         updateTags(oldTask, newParams)
+                         );
+            	 } else if (newParamsType.equals("activity") && type.equals("edit")) {
+            	     newActivity = new Task(
+            	             updateTaskName(oldTask, newParams, type),
+            	             new DueDate(((Task) oldTask).getDueDate().getCalendarValue()),
+            	             new Priority(((Task) oldTask).getPriority().toString()),
+                             updateReminder(oldTask, newParams, type),
+                             updateTags(oldTask, newParams)
+            	             );
+            	 } else if(type.equals("undo")) {
 					newActivity = new Activity(
 							updateTaskName(oldTask, newParams, type),
 							updateReminder(oldTask, newParams, type),
@@ -70,7 +78,24 @@ public class ActivityManager {
             	newActivity.setCompletionStatus(oldTask.getCompletionStatus());
                 break;
             case "event":
-            	if (newParamsType.equals("activity") && (type == "undo") ) {
+                if (newParamsType.equals("event")) {
+                    newActivity = new Event(
+                            updateTaskName(oldTask, newParams, type),
+                            updateStartTime((Event) oldTask, newParams, type),
+                            updateEndTime((Event) oldTask, newParams, type),
+                            updateReminder(oldTask, newParams, type),
+                            updateTags(oldTask, newParams)
+                            );
+                    } else if (newParamsType.equals("activity") && type.equals("edit")) {
+                        newActivity = new Event(
+                                updateTaskName(oldTask, newParams, type),
+                                new StartTime(((Event) oldTask).getStartTime().getCalendarValue()),
+                                new EndTime(((Event) oldTask).getEndTime().getCalendarValue()),
+                                updateReminder(oldTask, newParams, type),
+                                updateTags(oldTask, newParams)
+                                );
+                    }
+            	if (newParamsType.equals("activity") && (type.equals("undo")) ) {
                     newActivity = new Activity(
                             updateTaskName(oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),

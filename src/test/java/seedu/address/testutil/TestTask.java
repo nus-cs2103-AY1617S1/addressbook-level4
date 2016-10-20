@@ -13,6 +13,7 @@ import seedu.address.model.activity.task.Priority;
 import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.commons.util.DateUtil;
 
 public class TestTask extends TestActivity implements ReadOnlyTask{
 
@@ -50,8 +51,7 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
 
 	@Override
 	public Priority getPriority() {
-		// TODO Auto-generated method stub
-		return null;
+		return priority;
 	}
     
     public void setPriority(Priority priority) {
@@ -110,7 +110,7 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, duedate, priority, reminder, tags);
+        return Objects.hash(getName(), duedate, priority, getReminder(), getTags());
     }
 
     @Override
@@ -122,15 +122,17 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
     
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
+        DateUtil dUtil = new DateUtil();
+        String dateFormat = "d-MM-yyyy h.mm a";
         
         sb.append("add " + this.getName().fullName + " ");
         
-        if (getReminder().value != null && !getReminder().value.equals("")) {
-        sb.append("d/ " + this.getDueDate().XXX + " ");     
+        if (getDueDate().value != null) {
+        sb.append("d/ " + dUtil.outputDateTimeAsString(this.getDueDate().getCalendarValue(), dateFormat) + " ");     
         }
         
-        if (getReminder().value != null && !getReminder().value.equals("")) {
-        sb.append("a/" + this.getReminder().value + " ");
+        if (getReminder().value != null) {
+        sb.append("r/" + dUtil.outputDateTimeAsString(this.getReminder().getCalendarValue(), dateFormat) + " ");
         }
         
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
