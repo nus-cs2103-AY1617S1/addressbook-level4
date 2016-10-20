@@ -52,6 +52,7 @@ public class Parser {
     
     private static final Pattern ADD_TAGS_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("[E|D|T]\\d+"
+                    + " #[^#]+"
                     + "(?<tagArguments>(?: #[^#]+)*)");// variable number of tags
     
     public Parser() {}
