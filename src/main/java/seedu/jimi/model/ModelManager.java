@@ -12,6 +12,7 @@ import seedu.jimi.model.task.UniqueTaskList;
 import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -23,10 +24,8 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskBook taskBook;
-    private final FilteredList<ReadOnlyTask> filteredReadOnlyTasks;
-    private final FilteredList<ReadOnlyTask> filteredDeadlineTasks;
-    private final FilteredList<ReadOnlyTask> filteredEvents;
-
+    private final ModelFilteredMap filteredTasksMap;
+    
     /**
      * Initializes a ModelManager with the given TaskBook
      * TaskBook and its variables should not be null
@@ -39,9 +38,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with task book: " + src + " and user prefs " + userPrefs);
 
         taskBook = new TaskBook(src);
-        filteredReadOnlyTasks = new FilteredList<>(taskBook.getTasks());
-        filteredDeadlineTasks = new FilteredList<>(taskBook.getDeadlineTasks());
-        filteredEvents = new FilteredList<>(taskBook.getEvents());
+        
+        this.filteredTasksMap = new ModelFilteredMap(taskBook);
     }
 
     public ModelManager() {
@@ -50,11 +48,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         taskBook = new TaskBook(initialData);
-        filteredReadOnlyTasks = new FilteredList<>(taskBook.getTasks());
-        filteredDeadlineTasks = new FilteredList<>(taskBook.getDeadlineTasks());
-        filteredEvents = new FilteredList<>(taskBook.getEvents());
+        
+        this.filteredTasksMap = new ModelFilteredMap(taskBook);
     }
-
+    
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
@@ -64,13 +61,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyTaskBook getTaskBook() {
         return taskBook;
-    }
-
-    /**
-     * @return A modifiable version of the task list.
-     */
-    public FilteredList<ReadOnlyTask> getModifiableTaskList() {
-        return filteredReadOnlyTasks;
     }
     
     /** Raises an event to indicate the model has changed */
@@ -92,20 +82,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
-        updateFilteredListToShowAll();
-        indicateAddressBookChanged();
-    }
-    
-    @Override
-    public void addDeadlineTask(ReadOnlyTask deadlineTask) throws DuplicateTaskException {
-        taskBook.addDeadlineTask(deadlineTask);
-        updateFilteredListToShowAll();
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void addEvent(ReadOnlyTask event) throws DuplicateTaskException {
-        taskBook.addEvent(event);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
@@ -134,99 +110,20 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     
-    //=========== Filtered FloatingTask, DeadlineTask, Events List Accessors ===============================================================
+    //=========== Filtered list accessors ===============================================================
 
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredReadOnlyTasks);
-    }
-
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineTaskList() {
-        return new UnmodifiableObservableList<>(filteredDeadlineTasks);
-    }
-    
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
-        return new UnmodifiableObservableList<>(filteredEvents);
-    }
-    
     @Override
     public void updateFilteredListToShowAll() {
-        filteredReadOnlyTasks.setPredicate(null);
-        filteredDeadlineTasks.setPredicate(null);
-        filteredEvents.setPredicate(null);
+        this.filteredTasksMap.updateFilteredListToShowAll();
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return this.filteredTasksMap.getFilteredTaskList();
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-        updateFilteredDeadlineTaskList(new PredicateExpression(new NameQualifier(keywords)));
-        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));
-        
-    }
-
-    private void updateFilteredTaskList(Expression expression) {
-        filteredReadOnlyTasks.setPredicate(expression::satisfies);
-    }
-
-    private void updateFilteredDeadlineTaskList(Expression expression) {
-        filteredDeadlineTasks.setPredicate(expression::satisfies);
-    }
-
-    private void updateFilteredEventList(Expression expression) {
-        filteredEvents.setPredicate(expression::satisfies);
-    }
-
-    //========== Inner classes/interfaces used for filtering ==================================================
-
-    interface Expression {
-        boolean satisfies(ReadOnlyTask task);
-        String toString();
-    }
-
-    private class PredicateExpression implements Expression {
-
-        private final Qualifier qualifier;
-
-        PredicateExpression(Qualifier qualifier) {
-            this.qualifier = qualifier;
-        }
-
-        @Override
-        public boolean satisfies(ReadOnlyTask task) {
-            return qualifier.run(task);
-        }
-
-        @Override
-        public String toString() {
-            return qualifier.toString();
-        }
-    }
-
-    interface Qualifier {
-        boolean run(ReadOnlyTask task);
-        String toString();
-    }
-
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
+        this.filteredTasksMap.updateFilteredTaskList(keywords);
     }
 }
