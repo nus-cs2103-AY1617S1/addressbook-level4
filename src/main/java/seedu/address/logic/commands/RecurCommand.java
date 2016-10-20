@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.util.Date;
-
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import org.ocpsoft.prettytime.nlp.parse.DateGroup;
 
@@ -25,7 +23,7 @@ public class RecurCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Recur task added: %1$s";
     public static final String MESSAGE_MISSING_TASK = "Invalid index or no previous add command";
-    public static final String MESSAGE_FAILURE = "Incorrect recurring specification.";
+    public static final String MESSAGE_FAILURE = "Incorrect recurring specification.\n" + MESSAGE_USAGE;
     public static final String MESSAGE_INVALID_TASK_FOR_RECUR = "Selected task is invalid for recursion," 
             + " please select task with dates";
     
@@ -70,9 +68,7 @@ public class RecurCommand extends Command {
         } catch (UniqueTaskList.DuplicateTaskException dte) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (IndexOutOfBoundsException ioobe) {
-            return new CommandResult(MESSAGE_FAILURE
-                    + "\n"
-                    + MESSAGE_USAGE);
+            return new CommandResult(MESSAGE_FAILURE);
         } catch (NullPointerException npe) {
             return new CommandResult(MESSAGE_INVALID_TASK_FOR_RECUR);
         }

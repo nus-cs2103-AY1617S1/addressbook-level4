@@ -2,7 +2,6 @@ package seedu.address.model.task;
 
 import java.util.Date;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateFormatter;
 

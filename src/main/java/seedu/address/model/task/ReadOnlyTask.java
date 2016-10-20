@@ -12,7 +12,7 @@ public interface ReadOnlyTask {
     TaskDateTime getStartDate();
     TaskDateTime getEndDate();
     Location getLocation();
-    Task copy();
+    ReadOnlyTask copy();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

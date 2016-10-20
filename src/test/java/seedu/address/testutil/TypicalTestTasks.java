@@ -29,7 +29,7 @@ public class TypicalTestTasks {
                     .withEndDate("020491").withStartDate("020451").withTags("Event").build();
             //Manually added
             hoon = new TaskBuilder().withName("Regret working at Mcdonalds").withAddress("At the hospital")
-                    .withEndDate("030452").withStartDate("020452").build();
+                    .withEndDate("today").withStartDate("yesterday").build();
             ida = new TaskBuilder().withName("Thinking about what happen if I fail CS2103").withAddress("At ICube Lecture Hall")
                     .withEndDate("071016").withStartDate("071016").build();
             overdue = new TaskBuilder().withName("Overdue Task Colour Test").withAddress("At ICube Lecture Hall")
