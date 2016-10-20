@@ -284,8 +284,12 @@ public class Parser {
 		if(!matcherDate.matches()){
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
-		
-		return new ListCommand(args);
+		if(args.equals("")){
+			return new ListCommand();
+		}
+		else{
+			return new ListCommand(args);
+		}
 	}
 
 	private Command prepareEdit(String args) {
