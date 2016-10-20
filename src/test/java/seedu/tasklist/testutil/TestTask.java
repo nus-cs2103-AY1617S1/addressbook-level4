@@ -1,6 +1,7 @@
 package seedu.tasklist.testutil;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
@@ -8,7 +9,7 @@ import seedu.tasklist.model.task.*;
 /**
  * A mutable Task object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     private TaskDetails taskDetails;
     private int uniqueID;
@@ -140,4 +141,39 @@ public class TestTask implements ReadOnlyTask {
 		else 
 			return false;
 	}
+	
+	@Override
+	public int compareTo(TestTask o){
+		if(!this.startTime.equals(o.getStartTime())){
+			return this.startTime.compareTo(o.getStartTime());
+		}
+		else {
+			return this.priority.compareTo(o.getPriority());
+		}
+	}
+
+    public boolean hasStartTime() {
+        return new StartTime((long)0).equals(startTime);
+    }
+    
+    public boolean hasEndTime() {
+        return new EndTime((long)0).equals(endTime);
+    }
+		
+	@Override
+    public boolean isEvent() {
+		return hasStartTime() && hasEndTime();
+    }
+    
+	@Override
+    public boolean isToday() {
+    	if(!hasEndTime()) return false;
+    	return endTime.endTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+    }
+    
+	@Override
+    public boolean isTomorrow() {
+    	if(!hasEndTime()) return false;
+    	return endTime.endTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1;
+    }
 }

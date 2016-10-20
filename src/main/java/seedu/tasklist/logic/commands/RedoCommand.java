@@ -113,9 +113,6 @@ public class RedoCommand extends Command {
     }
 
     private void redoClear() {
-        Task.IncompleteCounter=0;
-        Task.floatCounter=0;
-        Task.overdueCounter=0;
         model.resetDataRedo(TaskList.getEmptyTaskList());
     }
     

@@ -55,15 +55,6 @@ public class UpdateCommand extends Command {
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		} else {
 			Task taskToUpdate = lastShownList.get(targetIndex);
-
-			if(taskToUpdate.isFloating()){
-				Task.floatCounter--;
-			}
-			if (endTime != null){
-				if(taskToUpdate.getEndTime().endTime.before(endTime.endTime)){
-					Task.overdueCounter--;
-				}
-			}
 			try {
 				model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, tags, recurringFrequency);
 				return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
