@@ -109,7 +109,7 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredPersonList(new PredicateExpression(new DateQualifier(keywords)));
     }
     
-    @SuppressWarnings("unchecked")
+
 	@Override
     public void updateFilteredListToShowAllDatesBefore(java.util.function.Predicate<? super Task> predicate){
     	filteredTasks.setPredicate(predicate);

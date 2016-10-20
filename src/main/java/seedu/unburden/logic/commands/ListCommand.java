@@ -38,7 +38,7 @@ public class ListCommand extends Command {
     public java.util.function.Predicate<? super Task> getAllDatesBefore(Date date){
     	return t -> {
 			try {
-				return t.getDate().toDate().before(date);
+				return t.getDate().toDate().before(date) || t.getDate().toDate().equals(date);
 			} catch (ParseException e) {
 				return false;
 			}
