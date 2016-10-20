@@ -194,13 +194,6 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredEvents.setPredicate(p -> isEventAndDateIsWithinEventPeriod(p, date));
 	}
 	
-	private boolean isDeadlineAndIsNotAfterDate(Task task, LocalDate date) {
-		return task.isDeadline() && !task.getEndDate().getDate().isAfter(date);
-	}
-	
-	private boolean isEventAndDateIsWithinEventPeriod(Task task, LocalDate date) {
-		return task.isEvent() && !(task.getEndDate().getDate().isBefore(date) || task.getStartDate().getDate().isAfter(date));
-	}
 	
     private void updateFilteredTaskList(Expression expression) {
         allTasks.setPredicate(expression::satisfies);
@@ -267,6 +260,24 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    /**
+     * Evaluates if the task is a deadline and is not after the specified date.
+     * @param task
+     * @param date
+     * @return the evaluated boolean expression
+     */
+    private boolean isDeadlineAndIsNotAfterDate(Task task, LocalDate date) {
+		return task.isDeadline() && !task.getEndDate().getDate().isAfter(date);
+	}
+	/**
+	 * Evaluates if the task is an event and the specified date is within the event period.
+	 * @param task
+	 * @param date
+	 * @return the evaluated boolean expression
+	 */
+	private boolean isEventAndDateIsWithinEventPeriod(Task task, LocalDate date) {
+		return task.isEvent() && !(task.getEndDate().getDate().isBefore(date) || task.getStartDate().getDate().isAfter(date));
+	}
 
 
 }
