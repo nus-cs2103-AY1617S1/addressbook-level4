@@ -236,44 +236,5 @@ public class AgendaPanel extends UiPart{
             }
         });
     }
-    
-    /**
-     * Runs every time the task list need to be re-populated.
-     * 
-     * @param taskList
-     */
-    private void updateTasksList(List<ReadOnlyTask> taskList, List<ReadOnlyTask> deadlineTaskList) {
-        ObservableList<ReadOnlyTask> newTasksList = FXCollections.observableArrayList();
-
-        for (ReadOnlyTask t : taskList) {
-            if (!(t instanceof Event) && !t.isCompleted()) {// TODO: add checks for due dates                    
-                newTasksList.add(t);
-            }
-        }
-        
-        for(ReadOnlyTask t : deadlineTaskList) {
-            if(t instanceof DeadlineTask) {
-                newTasksList.add(t);
-            }
-        }
-
-        this.tasksList.setAll(newTasksList);
-    }
-    
-    /**
-     * Runs every time the events list need to be re-populated.
-     * @param taskList
-     */
-    private void updateEventsList(List<ReadOnlyTask> eventList) {
-        ObservableList<ReadOnlyTask> newEventsList = FXCollections.observableArrayList();
-        
-        for(ReadOnlyTask t : eventList){
-            if(t instanceof Event) { //checks if startDate is ahead of current system time
-                newEventsList.add(t);
-            }
-        }
-        
-        this.eventsList.setAll(newEventsList);
-    }
 }
    

@@ -181,99 +181,6 @@ public class TaskListPanel extends UiPart {
         });
     }
     
-    private void updateFloatingTaskList(List<ReadOnlyTask> floatingTaskList) {
-        ObservableList<ReadOnlyTask> newFloatingTaskList = FXCollections.observableArrayList();
-        
-        for(ReadOnlyTask t : floatingTaskList) {
-            if(!(t instanceof DeadlineTask) && 
-                    !(t instanceof Event) && 
-                    !(t.isCompleted())){
-                newFloatingTaskList.add(t);
-            }
-        }
-        
-        this.floatingTaskList.setAll(newFloatingTaskList);
-        
-        updateFloatingTasksTitle();
-    }
-    
-    private void updateCompletedAndIncompleteTaskList(List<ReadOnlyTask> floatingTaskList, List<ReadOnlyTask> deadlineTaskList) {
-        ObservableList<ReadOnlyTask> newCompletedTaskList = FXCollections.observableArrayList();
-        ObservableList<ReadOnlyTask> newIncompleteTaskList = FXCollections.observableArrayList();
-        
-        //populate complete and incomplete task lists
-        for(ReadOnlyTask t : floatingTaskList){
-            if(t.isCompleted()){
-                newCompletedTaskList.add(t);
-            }
-            else {
-                newIncompleteTaskList.add(t);
-            }
-        }
-        
-        for(ReadOnlyTask t : deadlineTaskList){
-            if(t.isCompleted()){
-                newCompletedTaskList.add(t);
-            }
-            else {
-                newIncompleteTaskList.add(t);
-            }
-        }
-        
-        this.completedTaskList.setAll(newCompletedTaskList);
-        this.incompleteTaskList.setAll(newIncompleteTaskList);
-       
-        updateCompleteTasksTitle();
-        updateIncompleteTasksTitle();
-    }
-
-    /**
-     * Populates all the individual listViews for days with respective tasks due on the specific day.
-     * @param taskList
-     */
-    private void updateTasksAndEventsForDays(List<ReadOnlyTask> deadlineTaskList, List<ReadOnlyTask> eventList) {
-        ArrayList<ObservableList<ReadOnlyTask>> newDaysList = new ArrayList<>(7); //7 days in a week
-        
-        //initialise newDaysList
-        for(int i = 0; i < 7; i++) {
-            newDaysList.add(FXCollections.observableArrayList());
-        }
-        
-        //filter the tasks and events by days and populate each day with corresponding tasks and events
-        for(ReadOnlyTask t : deadlineTaskList) {
-            DateTime timeOfTask = ((DeadlineTask) t).getDeadline();
-            DateTime timeNow = new DateTime();
-
-            long dayToAdd = timeNow.getDifferenceInDays(timeOfTask); //checks for how many days ahead the task is
-            
-            logger.info("dayToAdd is :" + dayToAdd);
-            
-            if(dayToAdd >= 0) {
-                newDaysList.get((int) dayToAdd).add(t); //add the task to the respective day
-            }
-        }
-        
-        for(ReadOnlyTask t : eventList) {
-            DateTime timeOfEvent = ((Event) t).getStart();
-            DateTime timeNow = new DateTime();
-            
-            long dayToAdd = timeNow.getDifferenceInDays(timeOfEvent); //checks for how many days ahead the event is
-            
-            if(dayToAdd >= 0) {
-                newDaysList.get((int) dayToAdd).add(t); //add the event to the respective day
-            }
-        }
-        
-        //manually set all list to the new updated ones
-        int i = 0;
-        for(ObservableList<ReadOnlyTask> t : this.daysTaskList) {
-            t.setAll(newDaysList.get(i++));
-        }
-        
-        updateDaysTitles(titleTaskDay1, titleTaskDay2, titleTaskDay3, titleTaskDay4, titleTaskDay5, titleTaskDay6,
-                titleTaskDay7);
-    }
-
     private void updateFloatingTasksTitle() {
         this.titleFloatingTasks.setText("Floating Tasks (" + this.floatingTaskList.size() + ")");
     }
@@ -294,7 +201,7 @@ public class TaskListPanel extends UiPart {
             } else if(i == 1) {
                 t.setText("Tomorrow (" + this.daysTaskList.get(i++).size() + ")");
             } else {
-                String dayOfWeek = LocalDateTime.now().getDayOfWeek().plus(i + 1).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+                String dayOfWeek = LocalDateTime.now().getDayOfWeek().plus(i).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
                 t.setText(dayOfWeek + " (" + this.daysTaskList.get(i++).size() + ")");
             }
         }
@@ -350,8 +257,9 @@ public class TaskListPanel extends UiPart {
         case "friday":
         case "saturday":
         case "sunday":
-        default:
             showRequiredDay(event.sectionToDisplay);
+        default:
+            break;
         }
     }
     /**
