@@ -27,7 +27,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     }
 
     private final ObservableList<Deadline> internalList = FXCollections.observableArrayList();
-	public String value;
+	public Deadline value;
 
     /**
      * Constructs empty DeadlineList.
@@ -61,6 +61,9 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
      * java set constructor, enforces no nulls.
      */
     public UniqueDeadlineList(Set<Deadline> deadlines) {
+    	if(!deadlines.isEmpty()){
+    		setDeadline(deadlines.iterator().next());
+    	}
         CollectionUtil.assertNoNullElements(deadlines);
         internalList.addAll(deadlines);
     }
@@ -140,5 +143,13 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+    
+    private void setDeadline(Deadline deadline){
+    	this.value = deadline;
+    }
+    
+    public Deadline getDeadline(){
+    	return this.value;
     }
 }
