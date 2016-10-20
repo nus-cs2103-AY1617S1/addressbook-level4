@@ -109,6 +109,21 @@ class TestDataHelper{
                );
     }
     
+    /**
+     * Generates a valid event using the given seed.
+     * Running this function with the same parameter values guarantees the returned task will have the same state.
+     * Each unique seed will generate a unique Event object.
+     *
+     * @param seed used to generate the event data field values
+     */
+    Event generatePastEvent(int seed) throws Exception {
+        return new Event(
+                new Name("Event " + seed),
+                new Description("Description" + Math.abs(seed)),
+                new EventDuration("yesterday " + seed + "pm")
+               );
+    }
+    
     /** Generates the correct add task command based on the task given */
     String generateAddTaskCommand(Task p) {
         StringBuffer cmd = new StringBuffer();

@@ -1,13 +1,12 @@
 package seedu.task.logic.commands;
 
-import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.model.item.ReadOnlyTask;
-import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
  * Marks a task as completed using it's last displayed index from the task book.
+ * @author Tiankai
  */
 public class MarkCommand extends Command {
 

@@ -46,7 +46,7 @@ public class FindCommandTest extends TaskBookGuiTest {
     
     @Test
     public void find_emptyList(){
-        commandBox.runCommand("clear");
+        commandBox.runCommand("clear -a");
         assertFindResultTask("find cs1010", 0, 0); //no results
     }
 

@@ -85,6 +85,37 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredEventListToShowWithStatus(false);
         indicateTaskBookChanged();
     }    
+    
+    @Override
+    public synchronized void clearTasks() {
+        
+        updateFilteredTaskListToShowWithStatus(true);
+        while(!filteredTasks.isEmpty()){
+            ReadOnlyTask task = filteredTasks.get(0);
+            try {
+                taskBook.removeTask(task);
+            } catch (TaskNotFoundException tnfe) {
+                assert false : "The target task cannot be missing";
+            }
+        }
+        updateFilteredTaskListToShowAll();
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public synchronized void clearEvents() {
+        updateFilteredEventListToShowWithStatus(true);
+        while(!filteredEvents.isEmpty()){
+            ReadOnlyEvent event = filteredEvents.get(0);
+            try {
+                taskBook.removeEvent(event);
+            } catch (EventNotFoundException tnfe) {
+                assert false : "The target event cannot be missing";
+            }
+        }
+        updateFilteredEventListToShowAll();
+        indicateTaskBookChanged();
+    }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -101,7 +132,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void markTask(ReadOnlyTask target){
+    public synchronized void markTask(ReadOnlyTask target){
         taskBook.markTask(target);
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();

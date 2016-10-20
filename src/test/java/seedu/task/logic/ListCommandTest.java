@@ -20,11 +20,11 @@ public class ListCommandTest extends CommandTest{
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE);
         
         // not indicating which list not allowed
-        assertCommandBehavior("list", expectedMessage);
+        assertCommandBehavior_task("list", expectedMessage);
         
-        assertCommandBehavior("list -wrongFlag", expectedMessage);
+        assertCommandBehavior_task("list -wrongFlag", expectedMessage);
         
-        assertCommandBehavior("list -e -wrongFlag", expectedMessage);
+        assertCommandBehavior_task("list -e -wrongFlag", expectedMessage);
     }
 
     @Test

@@ -25,6 +25,12 @@ public interface Model {
 
     /** Deletes the given event. */
     void deleteEvent(ReadOnlyEvent target) throws UniqueEventList.EventNotFoundException;
+    
+    /** Clears the list of completed tasks. */
+    void clearTasks();
+
+    /** Clears the list of completed tasks. */
+    void clearEvents();
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;

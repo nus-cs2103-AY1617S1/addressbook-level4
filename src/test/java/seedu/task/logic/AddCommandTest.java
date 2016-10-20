@@ -23,11 +23,11 @@ public class AddCommandTest extends CommandTest{
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
+        assertCommandBehavior_task(
                 "add", expectedMessage);
         
         //empty deadline string
-        assertCommandBehavior(
+        assertCommandBehavior_task(
                 "add validName /desc validDescription /by   ", expectedMessage);
     }
 
@@ -68,33 +68,33 @@ public class AddCommandTest extends CommandTest{
     @Test 
     public void execute_addTask_invalidTaskData() throws Exception {
     	//Invalid Name 
-    	assertCommandBehavior(
+    	assertCommandBehavior_task(
                 "add []\\[;] /desc nil /by 30-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
+        assertCommandBehavior_task(
                 "add []\\[;] /desc nil", Name.MESSAGE_NAME_CONSTRAINTS);
         
         //Invalid Deadline
-        assertCommandBehavior(
+        assertCommandBehavior_task(
                 "add validName /desc validDesc /by randOmWord123", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
         
         //invalid abbreviation
-        assertCommandBehavior(
+        assertCommandBehavior_task(
                 "add validName /desc validDesc /by Septem", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
     }
     
     @Test
     public void execute_addEvent_invalidEventData() throws Exception {
-        assertCommandBehavior(
+        assertCommandBehavior_task(
                 "add []\\[;] /desc nil /from 30-12-16 31-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
         
         //invalid seperator
-        assertCommandBehavior("add valideventName /desc nil /from today >> yesterday", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+        assertCommandBehavior_task("add valideventName /desc nil /from today >> yesterday", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
         
         // no start time not allowed. 
-        assertCommandBehavior("add valideventName /desc nil /from  > today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+        assertCommandBehavior_task("add valideventName /desc nil /from  > today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
         
         //invalid start time not allowed. 
-        assertCommandBehavior("add valideventName /desc nil /from  hahaha > today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+        assertCommandBehavior_task("add valideventName /desc nil /from  hahaha > today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
     }
 
     @Test

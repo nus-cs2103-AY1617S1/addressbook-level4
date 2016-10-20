@@ -8,6 +8,11 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.MarkCommand;
 
+/**
+ * Responsible for validating and preparing the arguments for MarkCommand execution
+ * @author Tiankai
+ */
+
 public class MarkParser implements Parser {
     private static final Pattern MARK_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[1-9]{1}\\d*$)");
 	
