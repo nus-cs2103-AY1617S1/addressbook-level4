@@ -62,7 +62,7 @@ We use the Java coding standard found at <https://oss-generic.github.io/process/
 
 ### Architecture
 
-<img src="diagrams/Architecture Diagram.png" class="u-max-full-width">
+<img src="diagrams/Architecture Diagram.png" />
 
 <figcaption>Simplistic overview of the application</figcaption>
 
@@ -82,19 +82,19 @@ Each of the three components defines its API in an `interface` with the same nam
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `TodoLogic.java` class.
 
-<img src="diagrams/Logic Component.png" class="u-max-full-width">
+<img src="diagrams/Logic Component.png" />
 
 <figcaption>Example of a Logic class diagram exposing its API to other components</figcaption>
 
 The Sequence Diagram below shows how the components interact when the user issues a generic command.
 
-<img src="diagrams/Sequence Diagram.png" class="u-max-full-width">
+<img src="diagrams/Sequence Diagram.png" />
 
 <figcaption>The interaction of major components in the application through a sequence diagram</figcaption>
 
 The diagram below shows how the `EventsCenter` reacts to a `help` command event, where the UI does not know or contain any business side logic.
 
-<img src="diagrams/Events Center Diagram.png" class="container u-max-full-width">
+<img src="diagrams/Events Center Diagram.png" />
 
 <figcaption>A sequence diagram showing how EventsCenter work</figcaption>
 
@@ -108,13 +108,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-<img src="diagrams/Ui Component.png" class="u-max-full-width">
+<img src="diagrams/Ui Component.png" />
 
 <figcaption>The relation between the UI subcomponents</figcaption>
 
 The UI component handles the interaction between the user and application. In particular, the UI is responsible for passing the textual command input from the user to the `Logic` for execution, and then display the outcome of the execution to the user via the GUI.
 
-<img src="diagrams/Ui Image.png" class="container u-max-full-width">
+<img src="diagrams/Ui Image.png" />
 
 <figcaption>Visual identification of view elements in the UI</figcaption>
 
@@ -154,10 +154,10 @@ Other than through `CommandResult` and `ObservableList`, you may also invoke cha
 
 ### Logic component
 
-<img src="diagrams/Logic Component.png" class="u-max-full-width">
+<img src="diagrams/Logic Component.png" />
 
 <figcaption>The relation between the Logic subcomponents</figcaption>
-<img src="diagrams/Logic Component 1.png" class="u-max-full-width">
+<img src="diagrams/Logic Component 1.png" />
 
 <figcaption>Continuation of the relation between the Logic subcomponents</figcaption>
 
@@ -181,13 +181,13 @@ the command the user called
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call. See [the implementation section](#logic) below for the implementation details of the logic component.  
  
-<img src="diagrams/Logic Sequence Diagram.png" class="u-max-full-width">
+<img src="diagrams/Logic Sequence Diagram.png" />
 
 <figcaption>The process of deleting a person within the Logic component</figcaption>
 
 ### Model component
 
-<img src="diagrams/Model Component.png" class="container u-max-full-width">
+<img src="diagrams/Model Component.png" />
 
 <figcaption>The relation between the Model subcomponents</figcaption>
 
@@ -204,7 +204,7 @@ To avoid tight coupling with the command classes, the model exposes only a small
 
 The model ensure safety by exposing as much of its internal state as possible as immutable objects using interfaces such as `ImmutableTask`.
 
-<img src="diagrams/Storage Component.png" class="container u-max-full-width">
+<img src="diagrams/Storage Component.png" />
 
 <figcaption>The relation between the Storage subcomponents</figcaption>
 
@@ -257,7 +257,7 @@ The parser tokenizes the user input by whitespace characters then splits it into
 - Positional argument `string` - everything from the command to the first flag
 - Named argument `Map<String, String>` - a map of flags to values 
 
-For example, the command `add The Milk -d tomorrow 3pm -p` will produce 
+For example, the command `add The Milk /d tomorrow 3pm /p` will produce 
 
 ``` yaml
 command: "add"
@@ -271,7 +271,7 @@ This is then passed on to the dispatcher.
   
 #### Dispatcher 
 
-The `TodoDispatcher` subcomponent implements the `Dispatcher` interface, which defines a single `dispatch` function. The dispatch function simply maps the provided `ParseResult` object to the correct command class, instantiates a new instance of it then returns it to the caller. 
+The `TodoDispatcher` subcomponent implements the `Dispatcher` interface, which defines a single `dispatch` function. The dispatch function simply tries to find the command that has matching name to the user input, instantiates and returns a new instance of the command.
 
 #### Command
 
@@ -295,6 +295,17 @@ public class YourCommand extends BaseCommand {
         // TODO: List all command argument objects inside this array
         return new Parameter[]{ index };
     }
+    
+    @Override
+    public String getCommandName() {
+        return ""; // TODO: Enter command name here
+    }
+    
+    @Override
+    public List<CommandSummary> getCommandSummary() {
+        // TODO: Return a list of CommandSummary objects for help to display to the user
+        return null;
+    }
 
     @Override
     public void execute() throws IllegalValueException {
@@ -303,7 +314,7 @@ public class YourCommand extends BaseCommand {
 }
 ```
 
-If you need to do argument validation, you can also override the `validateArgument` command, which is run after all arguments have been set.
+If you need to do additional argument validation, you can also override the `validateArgument` command, which is run after all arguments have been set.
 
 #### Arguments 
 

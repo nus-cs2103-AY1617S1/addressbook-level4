@@ -19,11 +19,11 @@ Sounds exciting? Then let's get started!
 
     !!! warning "This application will not work with earlier versions of Java 8"
 
-2. Download the latest copy of `UJDTDL.jar` from our [releases](../../../releases){: .print-url } page.
+2. Download the latest copy of `UJDTDL.jar` from our [releases][releases]{: .print-url } page.
 3. Save the file to the folder you want to use for this application.
 4. Double-click the file to start the application. You should see something like this
 
-    <img src="images/app_screenshot.PNG" width="700" alt="Example of UI once launched" /> <figcaption>Initial launch screen of Uncle Jim</figcaption>
+    <img src="images/app_screenshot.png" width="700" alt="Example of UI once launched" /> <figcaption>Initial launch screen of Uncle Jim</figcaption>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. 
 6. Some example commands you can try:
@@ -46,7 +46,7 @@ Sounds exciting? Then let's get started!
 * Items with `...` within each parameter means you can add more items within the same parameters than specified.
 * Most commands that refer to a particular task or event in the list require an `INDEX`. This is a number indicated on the left of a task or event as shown in the screenshot below:
 
-<img src="images/app_screenshot_index.PNG" width="700" alt="Index Number Location" />
+<img src="images/app_screenshot_index.png" width="700" alt="Index Number Location" />
 
 <figcaption>Use the number on the side to choose the task for your command</figcaption>
 
@@ -184,7 +184,7 @@ Format: **`pin`**` INDEX`
 
 If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. 
 
-<img src="images/app_screenshot_pinning.PNG" width="700" alt="Pinned Task">
+<img src="images/app_screenshot_pinning.png" width="700" alt="Pinned Task">
 
 <figcaption>Prioritize important tasks with pinned tasks.</figcaption>
 
@@ -240,7 +240,8 @@ You can also remove a tag from a single task, or all tasks at once with the `/d`
 
 !!! example
     **`tag`**` 1 /d important` 
-    :    Removes the `important` tag from the first task 
+    :    Removes the `important` tag from the first task  
+    
     **`tag`**` /d important` 
     :    Removes the `important` tag from **all** tasks. Remember you can always `undo` if you make a mistake. 
 
@@ -262,7 +263,7 @@ Format: **`view`**` VIEW`
 
 To drill down into your Todo list and see specific tasks, use the `view` command.
 
-<img src="images/app_screenshot_completed.PNG" width="700" alt="View of completed tasks">
+<img src="images/app_screenshot_completed.png" width="700" alt="View of completed tasks">
 
 <figcaption>Find important and soon overdue tasks</figcaption>
 
@@ -367,3 +368,4 @@ Save     | **`save`**` [FILENAME]`
 View     | **`view`**` VIEW`
 
 [java]: https://www.java.com/en/download/
+[releases]: https://github.com/CS2103AUG2016-W10-C4/main/releases

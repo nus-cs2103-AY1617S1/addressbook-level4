@@ -17,9 +17,9 @@
   <h1>User Guide</h1>
   <div class="toc">
 <ul>
-<li><a href="#introduction">Introduction</a><span>1</span></li>
-<li><a href="#quick-start">Quick Start</a><span>2</span></li>
-<li><a href="#commands-reference">Commands Reference</a><span>3</span><ul>
+<li><a href="#introduction">Introduction</a><span>2</span></li>
+<li><a href="#quick-start">Quick Start</a><span>3</span></li>
+<li><a href="#commands-reference">Commands Reference</a><span>4</span><ul>
 <li><a href="#command-format">Command Format</a></li>
 <li><a href="#entering-in-dates">Entering in dates</a></li>
 <li><a href="#viewing-help-help">Viewing help : help</a></li>
@@ -54,8 +54,8 @@
 <li><a href="#changing-the-save-location-save">Changing the save location: save</a></li>
 </ul>
 </li>
-<li><a href="#faq">FAQ</a><span>4</span></li>
-<li><a href="#command-summary">Command Summary</a><span>5</span></li>
+<li><a href="#faq">FAQ</a><span>11</span></li>
+<li><a href="#command-summary">Command Summary</a><span>12</span></li>
 </ul>
 </div>
 <div class="no-page-break"><h2 id="introduction"><span>1 </span>Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2><p>In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many task management applications today have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.</p></div>
@@ -72,12 +72,12 @@
 </div>
 </li>
 <li>
-<p>Download the latest copy of <code>UJDTDL.jar</code> from our <a class="print-url" href="../../../releases">releases</a> page.</p>
+<p>Download the latest copy of <code>UJDTDL.jar</code> from our <a class="print-url" href="https://github.com/CS2103AUG2016-W10-C4/main/releases">releases</a> page.</p>
 </li>
 <li>Save the file to the folder you want to use for this application.</li>
 <li>
 <p>Double-click the file to start the application. You should see something like this</p>
-<p><figure><img alt="Example of UI once launched" src="images/app_screenshot.PNG" width="700"/><figcaption><strong>Figure 1. </strong>Initial launch screen of Uncle Jim</figcaption></figure> </p>
+<p><figure><img alt="Example of UI once launched" src="images/app_screenshot.png" width="700"/><figcaption><strong>Figure 1. </strong>Initial launch screen of Uncle Jim</figcaption></figure> </p>
 </li>
 <li>
 <p>Type the command in the command box and press <kbd>Enter</kbd> to execute it. </p>
@@ -105,7 +105,7 @@
 <li>Items with <code>...</code> within each parameter means you can add more items within the same parameters than specified.</li>
 <li>Most commands that refer to a particular task or event in the list require an <code>INDEX</code>. This is a number indicated on the left of a task or event as shown in the screenshot below:</li>
 </ul>
-<figure><img alt="Index Number Location" src="images/app_screenshot_index.PNG" width="700"/><figcaption><strong>Figure 2. </strong>Use the number on the side to choose the task for your command</figcaption></figure>
+<figure><img alt="Index Number Location" src="images/app_screenshot_index.png" width="700"/><figcaption><strong>Figure 2. </strong>Use the number on the side to choose the task for your command</figcaption></figure>
 
 <div class="no-page-break"><h3 id="entering-in-dates"><span>3.2 </span>Entering in dates<a class="headerlink" href="#entering-in-dates" title="Permanent link">#</a></h3><p>Since Uncle Jim supports flexible command format as much as possible, many natural variations in the date are acceptable. They include:</p></div>
 
@@ -251,7 +251,7 @@ Format: <strong><code>delete</code></strong><code>INDEX</code></p></div>
 <div class="no-page-break"><h3 id="pinning-a-task-pin"><span>3.7 </span>Pinning a task: <strong><code>pin</code></strong><a class="headerlink" href="#pinning-a-task-pin" title="Permanent link">#</a></h3><p>Format: <strong><code>pin</code></strong><code>INDEX</code></p></div>
 
 <p>If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. </p>
-<figure><img alt="Pinned Task" src="images/app_screenshot_pinning.PNG" width="700"/><figcaption><strong>Figure 4. </strong>Prioritize important tasks with pinned tasks.</figcaption></figure>
+<figure><img alt="Pinned Task" src="images/app_screenshot_pinning.png" width="700"/><figcaption><strong>Figure 4. </strong>Prioritize important tasks with pinned tasks.</figcaption></figure>
 
 <div class="no-page-break"><h3 id="editing-a-task-edit"><span>3.8 </span>Editing a task: <strong><code>edit</code></strong><a class="headerlink" href="#editing-a-task-edit" title="Permanent link">#</a></h3><p>Allows you to edit a specific task.<br/>
 Format:<br/>
@@ -300,13 +300,9 @@ Format: <br/>
 <p class="admonition-title">Example</p>
 <dl>
 <dt><strong><code>tag</code></strong><code>1 /d important</code></dt>
-<dd>
-<dl>
-<dt>Removes the <code>important</code> tag from the first task</dt>
+<dd>Removes the <code>important</code> tag from the first task  </dd>
 <dt><strong><code>tag</code></strong><code>/d important</code></dt>
 <dd>Removes the <code>important</code> tag from <strong>all</strong> tasks. Remember you can always <code>undo</code> if you make a mistake. </dd>
-</dl>
-</dd>
 </dl>
 </div>
 <div class="admonition note">
@@ -321,7 +317,7 @@ Format: <strong><code>show</code></strong><code>INDEX</code></p></div>
 Format: <strong><code>view</code></strong><code>VIEW</code></p></div>
 
 <p>To drill down into your Todo list and see specific tasks, use the <code>view</code> command.</p>
-<figure><img alt="View of completed tasks" src="images/app_screenshot_completed.PNG" width="700"/><figcaption><strong>Figure 5. </strong>Find important and soon overdue tasks</figcaption></figure>
+<figure><img alt="View of completed tasks" src="images/app_screenshot_completed.png" width="700"/><figcaption><strong>Figure 5. </strong>Find important and soon overdue tasks</figcaption></figure>
 
 <p>You can also use the underlined character in the view's name as the shortcut when switching views. </p>
 <div class="admonition example">

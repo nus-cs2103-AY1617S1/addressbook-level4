@@ -6,11 +6,11 @@ from os import path
 files = {
     "DeveloperGuide": {
         "title": "Developer Guide",
-        "toc": [3, 4, 5, 15, ], 
+        "toc": [3, 4, 5, 15, 18, 19, 20, 22, 23, 27, 28, 29, 30], 
     },
     "UserGuide": {
         "title": "User Guide",
-        "toc": [],
+        "toc": [2, 3, 4, 11, 12],
     },
 }
 
@@ -87,7 +87,9 @@ for filename, attrs in files.items():
     # Add page numbers to toc
     for i, a in enumerate(soup.select('.toc > ul > li > a')):
         numbering = soup.new_tag('span')
-        numbering.string = str(i + 1)
+        if i >= len(attrs['toc']):
+            break
+        numbering.string = str(attrs['toc'][i])
         a.insert_after(numbering)
 
     output_content = template.format(title=attrs['title'], html=soup, classname=filename.lower())
