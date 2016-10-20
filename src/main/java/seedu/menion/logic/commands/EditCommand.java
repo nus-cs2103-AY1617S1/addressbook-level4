@@ -2,6 +2,8 @@ package seedu.menion.logic.commands;
 
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
+import seedu.menion.model.ActivityManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
@@ -44,7 +46,10 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
+    	assert model != null;
+    	
+    	storePreviousState();
+    	
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
 
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
@@ -126,13 +131,17 @@ public class EditCommand extends Command {
         
         return 100;
     }
-    /*
-     * Complete command supports undo
+    
+    /**
+     * Edit command will store previous activity manager to support undo command
+     * 
+     * @author Seow Wei Jie A0139515A
      */
-    @Override
-    public boolean undo() {
+    public void storePreviousState() {
         assert model != null;
-        return true;
+
+        ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
+    	model.addState(beforeState);
     }
 
 }

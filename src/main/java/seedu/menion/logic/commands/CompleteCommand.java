@@ -2,6 +2,8 @@ package seedu.menion.logic.commands;
 
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
+import seedu.menion.model.ActivityManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
@@ -33,9 +35,11 @@ public class CompleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
+    	
+    	storePreviousState();
+    	
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
-
+        
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
             lastShownList = model.getFilteredFloatingTaskList();
         } else if (targetType.equals(Activity.TASK_TYPE)) {
@@ -68,18 +72,6 @@ public class CompleteCommand extends Command {
         }
     }
 
-    /*
-     * Complete command supports undo
-     */
-    @Override
-    public boolean undo() {
-        assert model != null;
-
-        callUnCompleteActivity(this.targetType);
-
-        return true;
-    }
-
     private void callUnCompleteActivity(String targetType) {
 
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
@@ -90,5 +82,16 @@ public class CompleteCommand extends Command {
             model.UncompleteEvent(targetIndex);
         }
     }
+    
+    /**
+     * Complete command will store previous activity manager to support undo command
+     * 
+     * @author Seow Wei Jie A0139515A
+     */
+    public void storePreviousState() {
+        assert model != null;
 
+        ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
+    	model.addState(beforeState);
+    }
 }

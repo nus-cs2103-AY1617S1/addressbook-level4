@@ -2,6 +2,8 @@ package seedu.menion.logic.commands;
 
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
+import seedu.menion.model.ActivityManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.UniqueActivityList;
@@ -35,7 +37,10 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
+    	assert model != null;
+    	
+    	storePreviousState();
+    	
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
 
         if (targetType.equals(" task")) {
@@ -59,7 +64,7 @@ public class DeleteCommand extends Command {
 
         ReadOnlyActivity activityToDelete = lastShownList.get(targetIndex - 1);
         toBeDeleted = (Activity)activityToDelete;
-        
+    	
         try {
             if (targetType.equals(" task")){
                 model.deleteTask(activityToDelete);
@@ -77,28 +82,16 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete));
     }
 
-    
-    /*
-     * undo add back the deleted activity previously
+    /**
+     * Delete command will store previous activity manager to support undo command
+     * 
+     * @author Seow Wei Jie A0139515A
      */
-	@Override
-	public boolean undo() {
-		assert model != null;
-        try {
-            if (toBeDeleted.getActivityType().equals("task")){
-                model.addTask(toBeDeleted);
-            }
-            else if (toBeDeleted.getActivityType().equals("event")){
-                model.addEvent(toBeDeleted);
-            }
-            else {
-                model.addFloatingTask(toBeDeleted);
-            }
-			return true;
-		} catch (DuplicateTaskException e) {
-			// there will not be a duplicate task in this case
-			return false;
-		}
-	}
+    public void storePreviousState() {
+        assert model != null;
+
+        ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
+    	model.addState(beforeState);
+    }
 
 }
