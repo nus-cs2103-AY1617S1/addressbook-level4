@@ -24,7 +24,7 @@ public class DoneCommand extends Command {
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Done task: %1$s";
     public static final String MESSAGE_ALREADY_DONE = "Already done!";
-    public static final String MESSAGE_CANNOT_DONE = "Cannot done a blocked time slot!";
+    public static final String MESSAGE_CANNOT_DONE = "You can't do a blocked timeslot... Right?";
 
     public final int targetIndex;
 
