@@ -41,6 +41,10 @@ public class DoneCommand extends Command {
         try {
             model.saveToHistory();
             model.doneTask(taskToMark);
+            if (taskToMark.getRecurrence().getValue()) {
+                
+            }
+            
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

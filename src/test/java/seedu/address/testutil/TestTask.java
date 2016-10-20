@@ -13,6 +13,7 @@ public class TestTask implements ReadOnlyTask {
     private StartTime start;
     private Date date;
     private UniqueTagList tags;
+    private Recurrence rec;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -78,4 +79,9 @@ public class TestTask implements ReadOnlyTask {
 	public String getDone() {
 		return "false";
 	}
+
+    @Override
+    public Recurrence getRecurrence() {
+        return null;
+    }
 }

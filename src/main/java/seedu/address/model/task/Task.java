@@ -15,6 +15,7 @@ public class Task implements ReadOnlyTask {
     private Date date;
     private StartTime start;
     private EndTime end;
+    private Recurrence rec;
     
     private UniqueTagList tags;
 
@@ -55,6 +56,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public EndTime getEndTime() {
         return end;
+    }
+    
+    @Override
+    public Recurrence getRecurrence() {
+        return rec;
     }
 
     @Override

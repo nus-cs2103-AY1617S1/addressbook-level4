@@ -13,6 +13,7 @@ public interface ReadOnlyTask {
     StartTime getStartTime();
     EndTime getEndTime();
     String getDone();
+    Recurrence getRecurrence();
     
     /**
      * The returned TagList is a deep copy of the internal TagList,

@@ -4,14 +4,20 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowDoneCommand;
+import seedu.address.logic.parser.Parser;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Date;
+import seedu.address.model.task.EndTime;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.StartTime;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayDeque;
@@ -129,6 +135,18 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+    }
+    
+    public synchronized void addRecurringTask(Task task, String days) throws DuplicateTaskException, IllegalValueException {
+        //yet to input the conditions for what new task to add. 
+        //3 cases: event, only start, only end
+        addTask(new Task(
+                task.getName(), 
+                new Date("false"),
+                new StartTime(days + " after " + task.getStartTime().appearOnUIFormat()),
+                new EndTime(days + " after " + task.getEndTime().appearOnUIFormat()),
+                task.getTags() 
+                ));
     }
     
     @Override
