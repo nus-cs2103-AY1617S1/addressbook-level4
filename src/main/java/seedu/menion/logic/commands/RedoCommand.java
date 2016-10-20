@@ -1,7 +1,6 @@
 package seedu.menion.logic.commands;
 
 import seedu.menion.model.ActivityManager;
-import seedu.menion.model.ReadOnlyActivityManager;
 
 /**
  * Revert to previous activity manager state before undo command is called
