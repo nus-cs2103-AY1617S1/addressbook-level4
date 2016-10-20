@@ -96,7 +96,7 @@
                         <Insets left="38.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Total Tasks" GridPane.rowIndex="5">
+                  <Label text="Total Tasks" textFill="RED" GridPane.rowIndex="5">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -107,7 +107,7 @@
                         <Insets left="40.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Upcoming Events" GridPane.rowIndex="6">
+                  <Label text="Upcoming Events" textFill="#3700ff" GridPane.rowIndex="6">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -118,7 +118,7 @@
                         <Insets left="40.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="upcomingNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <Label fx:id="upcomingNo" prefHeight="30.0" prefWidth="74.0" text="0" textFill="#1a00ff" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -126,7 +126,7 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label fx:id="totalNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Label fx:id="totalNo" prefHeight="30.0" prefWidth="74.0" text="0" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font size="25.0" />
                      </font>

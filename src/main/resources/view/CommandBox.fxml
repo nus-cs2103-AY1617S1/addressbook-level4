@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TextField?>
-<AnchorPane styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="seedu.tasklist.ui.CommandBox" stylesheets="@DarkTheme.css">
-   <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="I would like to..."/>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.CommandBox">
+   <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="I would like to..." style="-fx-border-color: black; -fx-border-radius: 5px; -fx-prompt-text-fill: #808080;" />
 </AnchorPane>
