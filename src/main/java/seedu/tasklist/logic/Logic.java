@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import javafx.collections.ObservableList;
 import seedu.tasklist.logic.commands.CommandResult;
 import seedu.tasklist.model.ReadOnlyTaskList;
+import seedu.tasklist.model.TaskCounter;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
 /**
@@ -28,5 +29,7 @@ public interface Logic {
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
 	ReadOnlyTaskList getTaskList();
+
+	TaskCounter getTaskCounter();
 
 }
