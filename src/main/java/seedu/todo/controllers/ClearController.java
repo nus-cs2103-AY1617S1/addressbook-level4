@@ -22,7 +22,8 @@ public class ClearController implements Controller {
     
     private static final String NAME = "Clear";
     private static final String DESCRIPTION = "Clear all tasks/events or by specify date.";
-    private static final String COMMAND_SYNTAX = "clear";
+    private static final String COMMAND_SYNTAX = "clear [task/event] on [date]";
+    private static final String COMMAND_WORD = "clear";
     
     private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s tasks and events have been deleted!\n" + "To undo, type \"undo\".";;
     private String invalidDate = null;
@@ -36,7 +37,7 @@ public class ClearController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith(COMMAND_SYNTAX)) ? 1 : 0;
+        return (input.toLowerCase().startsWith(COMMAND_WORD)) ? 1 : 0;
     }
     
 
@@ -147,15 +148,15 @@ public class ClearController implements Controller {
         String consoleDisplayMessage = String.format("You have entered : %s.",input);
         String commandLineMessage;
         if (parsedDate == null) {
-            commandLineMessage = COMMAND_SYNTAX;
+            commandLineMessage = COMMAND_WORD;
         } else if (parsedDate[0] != null) {
-            commandLineMessage = String.format("%s by <date>", COMMAND_SYNTAX);
+            commandLineMessage = String.format("%s by <date>", COMMAND_WORD);
         } else if (parsedDate[1] != null && parsedDate[2] != null) {
-            commandLineMessage = String.format("%s from <date> to <date>", COMMAND_SYNTAX);
+            commandLineMessage = String.format("%s from <date> to <date>", COMMAND_WORD);
         } else if (parsedDate[1] != null) {
-            commandLineMessage = String.format("%s from <date>", COMMAND_SYNTAX);
+            commandLineMessage = String.format("%s from <date>", COMMAND_WORD);
         } else {
-            commandLineMessage = String.format("%s to <date>", COMMAND_SYNTAX);
+            commandLineMessage = String.format("%s to <date>", COMMAND_WORD);
         }
         Renderer.renderDisambiguation(commandLineMessage, consoleDisplayMessage);
     }
