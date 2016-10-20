@@ -136,4 +136,12 @@ public class Task implements ReadOnlyTask {
     public void setEndTime(String endTime) throws IllegalValueException{
     	this.endTime = new DateTimeInfo(endTime);
     }
+    
+    public void setIsTask(Boolean bool){
+    	this.isTask = bool;
+    }
+
+    public void setIsEvent(Boolean bool){
+    	this.isEvent = bool;
+    }
 }
