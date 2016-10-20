@@ -6,6 +6,7 @@ import java.util.Collections;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -65,7 +66,13 @@ public class EditCommand extends Command{
             try {
                 model.editTask(eventToEdit, editArgs, category);
                 assert false: "The target task cannot be missing";
-            } catch (TaskNotFoundException | IllegalValueException pnfe) {
+            } catch (TaskNotFoundException ive){
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            catch (IllegalValueException pnfe) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Tag.MESSAGE_TAG_CONSTRAINTS);
             }
 
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
@@ -81,7 +88,13 @@ public class EditCommand extends Command{
             try {
                 model.editTask(deadlineToEdit, editArgs, category);
                 assert false: "The target Deadline cannot be missing";
-            } catch (TaskNotFoundException | IllegalValueException pnfe) {
+            } catch (TaskNotFoundException ive){
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            catch (IllegalValueException pnfe) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Tag.MESSAGE_TAG_CONSTRAINTS);
             }
 
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
@@ -97,7 +110,13 @@ public class EditCommand extends Command{
             try {
                 model.editTask(todoToEdit, editArgs, category);
                 assert false: "The target Todo cannot be missing";
-            } catch (TaskNotFoundException | IllegalValueException pnfe) {
+            } catch (TaskNotFoundException ive){
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            catch (IllegalValueException pnfe) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Tag.MESSAGE_TAG_CONSTRAINTS);
             }
 
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
