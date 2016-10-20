@@ -23,6 +23,7 @@ import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.task.Task;
+import seedu.todo.testutil.TaskFactory;
 
 public class TodoListStorageTest {
     @Rule
@@ -101,7 +102,7 @@ public class TodoListStorageTest {
 
     @Test
     public void testReadAndSave() throws Exception {
-        when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
+        when(original.getTasks()).thenReturn(TaskFactory.list());
         // Save in new file and read back
         storage.save(original);
         ImmutableTodoList readBack = storage.read(filePath);
@@ -114,10 +115,11 @@ public class TodoListStorageTest {
         storage.save(original);
         
         // Modify data, overwrite exiting file, and read back
-        when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
+        when(original.getTasks()).thenReturn(TaskFactory.list());
         storage.save(original);
 
         ImmutableTodoList readBack = storage.read(filePath);
+        
         assertTrue(isShallowEqual(original.getTasks(), readBack.getTasks()));
     }
 

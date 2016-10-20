@@ -18,6 +18,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.commons.util.XmlUtil;
 import seedu.todo.model.AddressBook;
+import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.person.*;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
@@ -163,27 +164,27 @@ public class TestUtil {
     /**
      * Do a shallow equality test based on the titles in the two list of tasks
      * 
-     * @param a the first list of tasks to compare
-     * @param b the second list of tasks to compare
+     * @param list the first list of tasks to compare
+     * @param otherList the second list of tasks to compare
      * @return whether the two contains tasks with the same titles
      */
-    public static boolean isShallowEqual(List<ImmutableTask> a, List<ImmutableTask> b) {
-        if (a.size() != b.size()) {
+    public static boolean isShallowEqual(List<ImmutableTask> list, List<ImmutableTask> otherList) {
+        if (list.size() != otherList.size()) {
             return false;
         }
 
-        for (int i = 0; i < a.size(); i++) {
-            ImmutableTask taskA = a.get(i);
-            ImmutableTask taskB = a.get(i);
-
-            boolean isSame = taskA.getTitle() == taskA.getTitle() &&
-                    taskA.isCompleted() == taskB.isCompleted() &&
-                    taskA.isPinned() == taskB.isPinned() &&
-                    taskA.getLastUpdated() == taskB.getLastUpdated() &&
-                    taskA.getDescription().equals(taskB.getDescription()) &&
-                    taskA.getLocation().equals(taskB.getLocation()) &&
-                    taskA.getStartTime().equals(taskB.getStartTime()) &&
-                    taskA.getEndTime().equals(taskB.getEndTime());
+        for (int i = 0; i < list.size(); i++) {
+            ImmutableTask task = list.get(i);
+            ImmutableTask otherTask = otherList.get(i);
+            
+            boolean isSame = task.getTitle().equals(otherTask.getTitle()) &&
+                    task.isCompleted() == otherTask.isCompleted() &&
+                    task.isPinned() == otherTask.isPinned() &&
+                    task.getDescription().equals(otherTask.getDescription()) &&
+                    task.getLocation().equals(otherTask.getLocation()) &&
+                    task.getStartTime().equals(otherTask.getStartTime()) &&
+                    task.getEndTime().equals(otherTask.getEndTime()) &&
+                    task.getTags().containsAll(otherTask.getTags());
             if (!isSame) {
                 return false;
             }
