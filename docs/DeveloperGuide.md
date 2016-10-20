@@ -341,6 +341,7 @@ Use Case end.
 Actor: User<br>
 
 **MSS**
+
 1. User requests to add new event by specifying title, description and end date.
 2. System will update the database of the newly created deadline.
 Use Case end.
@@ -457,6 +458,7 @@ Use Case ends
    Actor: User
 
 **MSS**
+
 1. User requests to add duplicated tasks by specifying title, description, interval and start date
 2. System will update the database of the newly created duplicated tasks.
 Use Case end.
