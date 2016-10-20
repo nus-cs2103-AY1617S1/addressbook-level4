@@ -112,4 +112,6 @@ public interface Model {
 
     void changeFileStorageRedo(String filePath) throws FileNotFoundException, IOException, ParseException, JSONException;
 
+	TaskCounter getTaskCounter();
+
 }
