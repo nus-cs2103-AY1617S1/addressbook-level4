@@ -273,7 +273,7 @@ public class LogicManagerTest {
         assertCommandBehavior("redo",
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
-                + "[Redo Delete Command] Task deleted: task "
+                + "[Redo Delete Command] Deleted Task: task "
                 + "start:" + timeCheck + " "
                 + "end:" + timeCheck + " "
                 + "Tags: [tag1],[tag2]\n"

@@ -3,6 +3,7 @@ package harmony.mastermind.ui;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -21,8 +22,12 @@ import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.PreviousCommand;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.task.ReadOnlyTask;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -44,6 +49,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -88,9 +94,11 @@ public class MainWindow extends UiPart {
     private CommandResult mostRecentResult;
     private boolean isExpectingConfirmation = false;
     
+    private AutoCompletionBinding<String> autoCompletionBinding;
+    
     //List of words for autocomplete 
     String[] listOfWords = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
-            ,"do", "add 'submit homework' ed/'tomorrow'", "delete 1"};
+            ,"do", "delete"};
 
     // UI elements
     @FXML
@@ -291,7 +299,11 @@ public class MainWindow extends UiPart {
         initDeadlineTab();
         initArchiveTab();
 
-        Platform.runLater(()->commandField.requestFocus());
+        Platform.runLater(()->{
+            commandField.requestFocus();
+        });
+        
+        initAutoComplete();
     }
 
     /**
@@ -554,16 +566,12 @@ public class MainWindow extends UiPart {
     @FXML
     //@@author A0124797R
     private void handleCommandInputChanged() {
-        //@@author A0143378Y
-        //Autocomplete function 
-        
-        TextFields.bindAutoCompletion(commandField, listOfWords);
         // Take a copy of the command text
         currCommandText = commandField.getText();
-        String currentTab = getCurrentTab();
-
+        
         setStyleToIndicateCorrectCommand();
-
+        
+        String currentTab = getCurrentTab();
         /*
          * We assume the command is correct. If it is incorrect, the command box
          * will be changed accordingly in the event handling code {@link
@@ -583,6 +591,17 @@ public class MainWindow extends UiPart {
         }
 
         logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
+    
+    @FXML
+    //@@author A0143378Y
+    private void initAutoComplete(){
+        //Autocomplete function
+        autoCompletionBinding = TextFields.bindAutoCompletion(commandField, listOfWords);
+        autoCompletionBinding.setPrefWidth(500);
+        autoCompletionBinding.setVisibleRowCount(5);
+        autoCompletionBinding.setHideOnEscape(true);
+
     }
 
     @Subscribe
@@ -627,6 +646,10 @@ public class MainWindow extends UiPart {
             case ListCommand.MESSAGE_SUCCESS_ARCHIVES:  tabPane.getSelectionModel().select(INDEX_ARCHIVES);
                                                         break;
         }
+    }
+    
+    public void disposeAutoCompleteBinding(){
+        this.autoCompletionBinding.dispose();
     }
     
     /**
