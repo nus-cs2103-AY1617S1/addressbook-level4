@@ -107,13 +107,6 @@ public class MainWindow extends UiPart {
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
-    
- //   private void setEventFilter() {
-    	
- //   	if (taskSchedulerName.setEventFilter(KeyCombination.valueOf("DOWN"))) {
- //   		CommandHistory.getPrevCmd();
-  //  	}
-//}
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
