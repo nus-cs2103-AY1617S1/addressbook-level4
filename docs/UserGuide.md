@@ -68,7 +68,7 @@ Examples:<br>
 * **`find`**`CS2103`<br>
   Returns Any task(s) having names `CS2103`
 * **`find`**`09-Oct-2016`<br>
-  Returns Any task(s) with date 09Oct-2016
+  Returns Any task(s) with date 09-Oct-2016
 * **`find`**`completed`<br>
   Returns Any task(s) are mark completed<br>
   
