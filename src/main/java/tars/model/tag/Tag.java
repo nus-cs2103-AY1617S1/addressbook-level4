@@ -7,7 +7,7 @@ import tars.commons.exceptions.IllegalValueException;
  * Represents a Tag in tars.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
-public class Tag {
+public class Tag implements ReadOnlyTag {
 
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
@@ -29,6 +29,15 @@ public class Tag {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
         }
         this.tagName = name;
+    }
+    
+    /**
+     * Copy constructor.
+     * 
+     * @throws IllegalValueException
+     */
+    public Tag(ReadOnlyTag source) throws IllegalValueException {
+        this(source.getAsText());
     }
 
     /**
@@ -55,6 +64,11 @@ public class Tag {
      */
     public String toString() {
         return '[' + tagName + ']';
+    }
+    
+    @Override
+    public String getAsText() {
+        return tagName;
     }
 
 }

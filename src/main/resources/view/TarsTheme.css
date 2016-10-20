@@ -119,6 +119,11 @@
     -fx-text-fill: black;
 }
 
+.info-header .label {
+	-fx-text-fill: white;
+	-fx-font-size: 16px;
+}
+
 .result-display {
     -fx-background-color: #F2F2F2;
     -fx-border-color: transparent;
@@ -136,8 +141,7 @@
 
 .status-bar-with-border {
     -fx-background-color: #4C5564;
-    -fx-border-color: #4C5564;
-    -fx-border-width: 1px;
+    -fx-border-color: transparent;
 }
 
 .status-bar-with-border .label {
@@ -163,11 +167,11 @@
 }
 
 .menu-bar {
-    -fx-background-color: #434D57;
+    -fx-background-color: #4C5564;
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 10pt;
     -fx-font-family: "Helvetica Bold";
     -fx-text-fill: white;
     -fx-opacity: 1.0;
@@ -184,18 +188,18 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
+    -fx-border-color: derive(#4C5564, 100%);
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #4C5564;
     -fx-font-family: Helvetica;
-    -fx-font-size: 11pt;
+    -fx-font-size: 10pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: derive(#4C5564, 100%);
 }
 
 .button:pressed, .button:default:hover:pressed {
@@ -218,12 +222,12 @@
 }
 
 .button:default {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: derive(#4C5564, 100%);
     -fx-text-fill: #ffffff;
 }
 
 .button:default:hover {
-    -fx-background-color: derive(-fx-focus-color, 30%);
+    -fx-background-color: derive(#4C5564, 100%);
 }
 
 .dialog-pane {
@@ -235,7 +239,7 @@
 }
 
 .dialog-pane > *.label.content {
-    -fx-font-size: 12px;
+    -fx-font-size: 10px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
@@ -245,7 +249,7 @@
 }
 
 .dialog-pane:header *.header-panel *.label {
-    -fx-font-size: 12px;
+    -fx-font-size: 10px;
     -fx-font-style: italic;
     -fx-fill: white;
     -fx-text-fill: white;
@@ -284,7 +288,7 @@
 }
 
 #commandTypeLabel {
-    -fx-font-size: 11px;
+    -fx-font-size: 10px;
     -fx-text-fill: #F70D1A;
 }
 

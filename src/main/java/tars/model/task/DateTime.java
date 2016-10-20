@@ -11,35 +11,34 @@ import tars.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's dateTime in tars.
  */
-public class DateTime {
-    public static final String MESSAGE_DATETIME_CONSTRAINTS =
-            "Task datetime should be spaces or alphanumeric characters";
+public class DateTime implements Comparable<DateTime>{
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task datetime should be spaces or alphanumeric characters";
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
     public String startDateString;
     public String endDateString;
-    
-    private static final DateTimeFormatter formatter = DateTimeFormatter
-            .ofPattern("d/M/uuuu HHmm")
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm")
             .withResolverStyle(ResolverStyle.STRICT);
-    private static final DateTimeFormatter stringFormatter = DateTimeFormatter
-            .ofPattern("dd/MM/uuuu HHmm");
-    
+    private static final DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm");
+
     /**
      * Default constructor
      */
-    public DateTime() {}
+    public DateTime() {
+    }
 
     /**
      * Validates given task dateTime.
      *
-     * @throws DateTimeException if given dateTime string is invalid.
-     * @throws IllegalDateException end date occurring before start date.
+     * @throws DateTimeException
+     *             if given dateTime string is invalid.
+     * @throws IllegalDateException
+     *             end date occurring before start date.
      */
-    public DateTime(String startDate, String endDate)
-            throws DateTimeException, IllegalDateException {
+    public DateTime(String startDate, String endDate) throws DateTimeException, IllegalDateException {
         if (endDate != null && endDate.length() > 0) {
             this.endDate = LocalDateTime.parse(endDate, formatter);
             this.endDateString = this.endDate.format(stringFormatter);
@@ -53,11 +52,11 @@ public class DateTime {
             }
         }
     }
-    
+
     public LocalDateTime getStartDate() {
-        return this.startDate;      
+        return this.startDate;
     }
-    
+
     public LocalDateTime getEndDate() {
         return this.endDate;
     }
@@ -72,12 +71,13 @@ public class DateTime {
             return "";
         }
     }
-    
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DateTime // instanceof handles nulls
-                && this.toString().equals(((DateTime) other).toString())); // state check
+                        && this.toString().equals(((DateTime) other).toString())); // state
+                                                                                   // check
     }
 
     /**
@@ -88,5 +88,12 @@ public class DateTime {
             super(message);
         }
     }
+
+	@Override
+	public int compareTo(DateTime o) {
+		return this.endDate.compareTo(o.endDate);
+	}
+    
+    
     
 }

@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-F10-C1/main.svg?branch=develop)](https://travis-ci.org/CS2103AUG2016-F10-C1/main.svg?branch=develop)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-F10-C1/main/badge.svg?branch=develop)](https://coveralls.io/github/CS2103AUG2016-F10-C1/main?branch=develop)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/45df166d305f42fc85fefe45651c568e)](https://www.codacy.com/app/weikangchia/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-F10-C1/main&amp;utm_campaign=Badge_Grade)
 # TARS: Task And Remember Stuff 
 ### A Productivity Tool by CS2103AUG2016-F10-C1
 
