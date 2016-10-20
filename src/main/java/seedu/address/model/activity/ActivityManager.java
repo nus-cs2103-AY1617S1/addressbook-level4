@@ -58,7 +58,7 @@ public class ActivityManager {
                          updateReminder(oldTask, newParams, type),
                          updateTags(oldTask, newParams)
                          );
-            	 } else if (newParamsType.equals("activity")) {
+            	 } else if (newParamsType.equals("activity") && type.equals("edit")) {
             	     newActivity = new Task(
             	             updateTaskName(oldTask, newParams, type),
             	             new DueDate(((Task) oldTask).getDueDate().getCalendarValue()),
@@ -66,7 +66,7 @@ public class ActivityManager {
                              updateReminder(oldTask, newParams, type),
                              updateTags(oldTask, newParams)
             	             );
-            	 } else if(type == "undo") {
+            	 } else if(type.equals("undo")) {
 					newActivity = new Activity(
 							updateTaskName(oldTask, newParams, type),
 							updateReminder(oldTask, newParams, type),
@@ -86,7 +86,7 @@ public class ActivityManager {
                             updateReminder(oldTask, newParams, type),
                             updateTags(oldTask, newParams)
                             );
-                    } else if (newParamsType.equals("activity")) {
+                    } else if (newParamsType.equals("activity") && type.equals("edit")) {
                         newActivity = new Event(
                                 updateTaskName(oldTask, newParams, type),
                                 new StartTime(((Event) oldTask).getStartTime().getCalendarValue()),
@@ -95,7 +95,7 @@ public class ActivityManager {
                                 updateTags(oldTask, newParams)
                                 );
                     }
-            	if (newParamsType.equals("activity") && (type == "undo") ) {
+            	if (newParamsType.equals("activity") && (type.equals("undo")) ) {
                     newActivity = new Activity(
                             updateTaskName(oldTask, newParams, type),
                             updateReminder(oldTask, newParams, type),
