@@ -22,6 +22,7 @@ import seedu.address.model.item.ReadOnlyItem;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.ItemBuilder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -161,12 +162,9 @@ public class LogicManagerTest {
 		assertCommandBehavior("add wrong args format\"", expectedMessage);
 		assertCommandBehavior("add wrong args format", expectedMessage);
 		assertCommandBehavior("add wrong args \"format\"", expectedMessage);
+		assertCommandBehavior("add \"Valid description\" not a valid date", AddCommand.MESSAGE_SUCCESS_TIME_NULL);
 	}
 
-	/*@Test
-	public void execute_add_invalidItemData() throws Exception {
-		assertCommandBehavior("add \"Valid description\" not a valid date", AddCommand.MESSAGE_SUCCESS_TIME_NULL);
-	}*/
 
 	@Test
 	public void execute_add_successful() throws Exception {
@@ -179,10 +177,6 @@ public class LogicManagerTest {
 		// execute command and verify result
 		assertCommandBehavior(helper.generateAddCommand(toBeAdded),
 				String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getItemList());
-		
-		// add an item with no date but still added
-		assertCommandBehavior("add \"Valid description\" not a valid date", AddCommand.MESSAGE_SUCCESS_TIME_NULL, expectedAB, expectedAB.getItemList());
-
 	}
 
 	@Test
@@ -373,7 +367,7 @@ public class LogicManagerTest {
 			LocalDateTime endDate = LocalDateTime.of(2016, 12, 12, 12, 12);
 			return new Item(description, null, endDate);
 		}
-
+		
 		/**
 		 * Generates a valid person using the given seed. Running this function
 		 * with the same parameter values guarantees the returned person will
