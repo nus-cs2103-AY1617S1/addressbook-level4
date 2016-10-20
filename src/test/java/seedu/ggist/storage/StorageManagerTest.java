@@ -57,7 +57,7 @@ public class StorageManagerTest {
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
     }
-    /*
+    
     @Test
     public void taskManagerReadSave() throws Exception {
         TaskManager original = new TypicalTestTasks().getTypicalTaskManager();
@@ -66,7 +66,7 @@ public class StorageManagerTest {
         //assertEquals(original, new TaskManager(retrieved));
         //More extensive testing of TaskManager saving/reading is done in XmlTaskManagerStorageTest
     }
-*/
+
     @Test
     public void getTaskManagerFilePath(){
         assertNotNull(storageManager.getTaskManagerFilePath());

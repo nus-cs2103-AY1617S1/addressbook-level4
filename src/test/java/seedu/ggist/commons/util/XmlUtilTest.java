@@ -27,7 +27,7 @@ public class XmlUtilTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-/*
+
     @Test
     public void getDataFromFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
@@ -39,7 +39,7 @@ public class XmlUtilTest {
         thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(VALID_FILE, null);
     }
-*/
+
     @Test
     public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
@@ -51,11 +51,11 @@ public class XmlUtilTest {
         thrown.expect(JAXBException.class);
         XmlUtil.getDataFromFile(EMPTY_FILE, TaskManager.class);
     }
-/*
+
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTaskManager.class);
-        assertEquals(1, dataFromFile.getTaskList().size());
+        assertEquals(8, dataFromFile.getTaskList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
 
@@ -70,13 +70,13 @@ public class XmlUtilTest {
         thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(VALID_FILE, null);
     }
-*/
+
     @Test
     public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.saveDataToFile(MISSING_FILE, new TaskManager());
     }
-/*
+
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
@@ -93,5 +93,5 @@ public class XmlUtilTest {
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
         assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
     }
-    */
+    
 }

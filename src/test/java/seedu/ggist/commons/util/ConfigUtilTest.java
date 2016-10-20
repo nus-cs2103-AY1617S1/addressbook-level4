@@ -28,13 +28,13 @@ public class ConfigUtilTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
-/*
+
     @Test
     public void read_null_assertionFailure() throws DataConversionException {
         thrown.expect(AssertionError.class);
         read(null);
     }
-*/
+
     @Test
     public void read_missingFile_emptyResult() throws DataConversionException {
         assertFalse(read("NonExistentFile.json").isPresent());
@@ -57,7 +57,7 @@ public class ConfigUtilTest {
         Config expected = getTypicalConfig();
 
         Config actual = read("TypicalConfig.json").get();
-        //assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class ConfigUtilTest {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         return new ConfigUtil().readConfig(configFilePath);
     }
-/*
+
     @Test
     public void save_nullConfig_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
@@ -100,7 +100,7 @@ public class ConfigUtilTest {
         thrown.expect(AssertionError.class);
         save(new Config(), null);
     }
-*/
+
     @Test
     public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
         Config original = getTypicalConfig();

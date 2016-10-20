@@ -1,12 +1,15 @@
 package seedu.ggist.logic.commands;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import seedu.ggist.commons.core.Config;
 import seedu.ggist.commons.core.EventsCenter;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.events.storage.ChangeSaveFileEvent;
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.ConfigUtil;
 import seedu.ggist.commons.util.FileUtil;
 import seedu.ggist.model.ReadOnlyTaskManager;
@@ -27,15 +30,23 @@ public class SaveCommand extends Command{
                 + " /OneDrive/data";
      
     public static final String MESSAGE_SUCCESS = "File location successfully changed to %1$s.";
+    private static final String MESSAGE_FAIL = "Specified location does not exists";
     private static final String DEFAULT_FILENAME = "/ggist.xml";
     
-    private final String filePath;
+    private String filePath;
 
-    public SaveCommand(String filePath) {
+    public SaveCommand(String filePath) throws IllegalValueException {
         assert filePath != null;
-        this.filePath = filePath + DEFAULT_FILENAME;
+        if (!Files.exists(Paths.get(filePath+"/"))) {
+           throw new IllegalValueException(MESSAGE_FAIL);
+        } else if (new File(filePath).isFile()) {
+            this.filePath = filePath;
+        } else {
+            this.filePath = filePath + DEFAULT_FILENAME;
+        }
     }
 
+    
     @Override
     public CommandResult execute() {
         assert model != null;
@@ -43,9 +54,7 @@ public class SaveCommand extends Command{
        ReadOnlyTaskManager taskManager = model.getTaskManager();
         
         File file = new File(filePath);
-        if (file.exists()) {
-            return new CommandResult(Messages.MESSAGE_DEST_FILE_EXISTS);
-        }
+
         try {
             FileUtil.createIfMissing(file);
             XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskManager(taskManager));

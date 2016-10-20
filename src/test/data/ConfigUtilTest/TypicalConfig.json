@@ -2,6 +2,6 @@
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
-  "taskManagerFilePath" : "taskManager.xml",
+  "taskManagerFilePath" : "data/ggist.xml",
   "taskName" : "TypicalTaskName"
 }

@@ -37,13 +37,10 @@ public class Parser {
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
         
-    //regex for tasks with start and end time spanning different days
+    //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<startDateTime>.+)\\s*(,|-)\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
    
-  //regex for tasks with start and end time within same day
-    private static final Pattern EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<day>.+)\\s*(,|from)\\s*(?<startTime>.+)\\s*(,|-)\\s*(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
      
   //regex for edit
     private static final Pattern EDIT_DATA_ARGS_FORMAT = 
@@ -127,27 +124,30 @@ public class Parser {
         try {
             if(taskType.equals("eventTask")) {
                 matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
-                matcherTwo = EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
-                if (matcherTwo.matches()) {
-                    System.out.println("events same");
-                    return new AddCommand(
-                        matcherTwo.group("taskName"),
-                        new DateTimeParser(matcherTwo.group("day")).getDate(),
-                        new DateTimeParser(matcherTwo.group("startTime")).getTime(),
-                        new DateTimeParser(matcherTwo.group("day")).getDate(),
-                        new DateTimeParser(matcherTwo.group("endTime")).getTime(),
-                        getTagsFromArgs(matcherTwo.group("tagArguments"))
-                 );
-                } else if (matcher.matches()) {
+                if (matcher.matches()) {
+                    Date startDateTime = new DateTimeParser(matcher.group("startDateTime")).getDateTime();
+                    Date endDateTime = new DateTimeParser(matcher.group("endDateTime")).getDateTime();
+                    if (startDateTime.before(endDateTime)) {
                     System.out.println("events diff");
-                    return new AddCommand(
-                        matcher.group("taskName"),
-                        new DateTimeParser(matcher.group("startDateTime")).getDate(),
-                        new DateTimeParser(matcher.group("startDateTime")).getTime(),
-                        new DateTimeParser(matcher.group("endDateTime")).getDate(),
-                        new DateTimeParser(matcher.group("endDateTime")).getTime(),
-                        getTagsFromArgs(matcher.group("tagArguments"))
-                     );
+                        return new AddCommand(
+                                matcher.group("taskName"),
+                                new DateTimeParser(matcher.group("startDateTime")).getDate(),
+                                new DateTimeParser(matcher.group("startDateTime")).getTime(),
+                                new DateTimeParser(matcher.group("endDateTime")).getDate(),
+                                new DateTimeParser(matcher.group("endDateTime")).getTime(),
+                                getTagsFromArgs(matcher.group("tagArguments"))
+                                );
+                    } else {
+                        System.out.println("events same");
+                        return new AddCommand(
+                                matcher.group("taskName"),
+                                new DateTimeParser(matcher.group("startDateTime")).getDate(),
+                                new DateTimeParser(matcher.group("startDateTime")).getTime(),
+                                new DateTimeParser(matcher.group("startDateTime")).getDate(),
+                                new DateTimeParser(matcher.group("endDateTime")).getTime(),
+                                getTagsFromArgs(matcher.group("tagArguments"))
+                                );
+                    }
                 }
                 
             } else if (taskType.equals("deadlineTask")) {
@@ -185,8 +185,7 @@ public class Parser {
      */
     private String matchTaskType(String args) {
         Matcher matcher;
-        if ((matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args)).matches() || 
-           (matcher = EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT.matcher(args)).matches() ) {
+        if ((matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args)).matches()) {
             return new String("eventTask");
         } else if ((matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
             return new String("deadlineTask");
@@ -356,7 +355,11 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SaveCommand.MESSAGE_USAGE));
         }
-        return new SaveCommand(args.trim());
+        try {
+            return new SaveCommand(args.trim());
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
     }
 
 }
