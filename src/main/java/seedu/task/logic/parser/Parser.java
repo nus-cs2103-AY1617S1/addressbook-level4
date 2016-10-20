@@ -40,6 +40,7 @@ public class Parser {
     		                    + " e/(?<endTime>[^/]+)"
     		                    + " l/(?<location>[^/]+)"    		                     
     		                  + "(?<tagArguments>(?: #/[^/]+)*)"); // variable number of tags
+    
     public static final Pattern DIRECTORY_ARGS_FORMAT = 
             Pattern.compile("(?<directory>[^<>|]+)");
     
