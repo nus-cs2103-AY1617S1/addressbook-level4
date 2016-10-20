@@ -299,90 +299,84 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 ## **Appendix B : Use Cases**
 
-- Use case: Add task
+### Use case: Add task
 
-### MSS
+##### MSS
 
 1. User requests to add a task 
 2. Unburden saves the task to the list of tasks and displays the existing list of tasks
 
-  Use case ends
+   Use case ends
   
-  Extensions
+##### Extensions
 
- 1.1 User requests to add a task with a wrong format <br>
- 1.2 Unburden will give display a error message <br>
- 
- Use case ends
+1.1 User requests to add a task with a wrong format <br>
+1.2 Unburden will give display a error message <br>
+  
+    Use case ends
 
 
+### Use case: Delete task
 
-- Use case: Delete task
-
-### MSS
+##### MSS
 
 1. User requests to delete a specific task by index
 2. Unburden will delete the task and show the existing list of tasks
 
-  Use case ends
+   Use case ends
+    
+##### Extensions
   
+1.1 User requests to delete a specific task by giving an invalid index <br>
+1.2 Unburden will show an error message <br>
   
-  Extensions
-  
-  1.1 User requests to delete a specific task by giving an invalid index <br>
-  1.2 Unburden will show an error message <br>
-  
-  Use case ends
+    Use case ends
 
 
+### Use case: Find task
 
-- Use case: Find task
-
-### MSS
+##### MSS
 
 1. User requests to find tasks based on a date
 2. Unburden will search through the existing tasks with the specified deadline and shows a list to the user
 
-
-  Use case ends
+   Use case ends
   
-  Extension
+##### Extension
   
-  1.1 User requests to find tasks based on a name <br>
-  1.2 Unburden will search through the exisiting tasks with the specified task names and shows a list to the user <br>
+1.1 User requests to find tasks based on a name <br>
+1.2 Unburden will search through the exisiting tasks with the specified task names and shows a list to the user <br>
   
-  Use case ends
+    Use case ends
   
-  2.1 User requests to find tasks that are due today <br>
-  2.2 Unburden will search through the exisiting tasks and shows a list of tasks due today to the user <br>
+2.1 User requests to find tasks that are due today <br>
+2.2 Unburden will search through the exisiting tasks and shows a list of tasks due today to the user <br>
   
-  Use case ends
+    Use case ends
   
-  3.1 User requests to find tasks that are due tomorrow <br>
-  3.2 Unburden will search through the exisiting tasks and shows a list of tasks due tomorrow to the user <br>
+3.1 User requests to find tasks that are due tomorrow <br>
+3.2 Unburden will search through the exisiting tasks and shows a list of tasks due tomorrow to the user <br>
   
-  Use case ends
-
+    Use case ends
 
 
-- Use case: Edit task
+### Use case: Edit task
 
-### MSS
+##### MSS
 
 1. User requests to edit a task based on the index of the tasks and the new updated fields
 2. Unburden updates the task to the given input fields and displays it to the user
 
-  Use case: ends
+   Use case: ends
   
-  Extension
+##### Extension
   
-  1.1 User requests to edit a task based on an invalid index of tasks and the new updated fields <br>
-  1.2 Unburden shows an error message <br>
+1.1 User requests to edit a task based on an invalid index of tasks and the new updated fields <br>
+1.2 Unburden shows an error message <br>
   
-  Use case ends
+    Use case ends
   
   
-
 
 ## **Appendix C : Non Functional Requirements**
 
