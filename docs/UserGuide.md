@@ -69,7 +69,7 @@ Format: `add TASKNAME d/TASK_DESCRIPTION date/DATE STARTTIME to ENDTIME [t/TAG..
 * `add Meeting d/Meet with Jim date/today 5pm to 6pm t/!!! t/jim`
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Listing all tasks : `list all` </b><br>
->Shows a list of all floating tasks, deadline and events in the application.<br>
+>Shows a list of all uncompleted floating tasks, deadline and events in the application.<br>
 Format: `list all`
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>3.4 Listing all overdue deadlines: `list od` </b><br>
