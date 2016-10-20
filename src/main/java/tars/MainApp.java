@@ -4,6 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import tars.model.*;
 import tars.commons.core.Config;
 import tars.commons.core.EventsCenter;
@@ -159,6 +160,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting Tars " + MainApp.VERSION);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         ui.start(primaryStage);
     }
 

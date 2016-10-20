@@ -59,7 +59,6 @@ public class AddCommandTest extends TarsGuiTest {
     //@@author A0140022H
     @Test
     public void addRecurring() {
-        commandBox.runCommand("clear");
         TestTask[] recurringList = new TestTask[0];
         recurringList = TestUtil.addTasksToList(recurringList, td.taskC, td.taskD);
         try {
@@ -70,6 +69,7 @@ public class AddCommandTest extends TarsGuiTest {
             e.printStackTrace();
         }
 
+        commandBox.runCommand("clear");
         commandBox.runCommand("add Task C -dt 03/09/2016 1400 to 04/09/2016 1400 -p l -r 2 every day");
         assertTrue(taskListPanel.isListMatching(recurringList));
     }

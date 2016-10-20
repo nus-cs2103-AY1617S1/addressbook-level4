@@ -101,9 +101,7 @@ public class StatusBarFooter extends UiPart {
     // @@author A0124333U
     @Subscribe
     private void handleTarsStorageChangeDirectoryEvent(TarsStorageDirectoryChangedEvent event) {
-        String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        setSaveLocation(event.getNewFilePath());
-        setSyncStatus("File Location Change. Last Updated: " + lastUpdated);
+        setSaveLocation("Storage Location: " + event.getNewFilePath());
     }
 }
