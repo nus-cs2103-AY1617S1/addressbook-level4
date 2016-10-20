@@ -11,6 +11,7 @@ import seedu.whatnow.logic.commands.Command;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.NoPrevCommandException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -158,14 +159,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException {
+    public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
         stackOfWhatNowUndoUpdate.push(new WhatNow(whatNow));
     	stackOfOldTask.push(old);
     	whatNow.updateTask(old, toUpdate);
         indicateWhatNowChanged();
     }
     @Override
-    public synchronized void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException {
+    public synchronized void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException, DuplicateTaskException {
     	stackOfNewTask.push(old);
     	whatNow.updateTask(old, (Task) toUpdate);
     	indicateWhatNowChanged();

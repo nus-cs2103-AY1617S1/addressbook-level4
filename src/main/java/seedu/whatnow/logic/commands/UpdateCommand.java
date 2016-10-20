@@ -16,6 +16,7 @@ import seedu.whatnow.model.task.Name;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.TaskDate;
+import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -33,6 +34,7 @@ public class UpdateCommand extends UndoAndRedo {
             + "Example: " + COMMAND_WORD + " todo 1 tag priority low";
     
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
     
     private static final String ARG_TYPE_DESCRIPTION = "description";
     private static final String ARG_TYPE_DATE = "date";
@@ -153,6 +155,8 @@ public class UpdateCommand extends UndoAndRedo {
             model.getUndoStack().push(this);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
         model.getUndoStack().push(this);
         return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate));
