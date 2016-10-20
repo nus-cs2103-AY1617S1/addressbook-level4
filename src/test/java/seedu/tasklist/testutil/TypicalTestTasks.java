@@ -14,23 +14,23 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             task1 =  new TaskBuilder().withTaskDetails("Buy Eggs").withUniqueID(1)
-                    .withEndTime(null).withStartTime("")
-                    .withPriority("low").withRecurringFrequency("").build();
-            task2 = new TaskBuilder().withTaskDetails("Study for Midterms").withUniqueID(2)
                     .withEndTime("").withStartTime("")
                     .withPriority("low").withRecurringFrequency("").build();
+            task2 = new TaskBuilder().withTaskDetails("Study for Midterms").withUniqueID(2)
+                    .withEndTime("4pm").withStartTime("")
+                    .withPriority("low").withRecurringFrequency("").build();
 
-            task3 = new TaskBuilder().withTaskDetails("Do laundry").withStartTime(null).withEndTime("").withUniqueID(3).withPriority("low").withRecurringFrequency("").build();
-            task4 = new TaskBuilder().withTaskDetails("Complete Project Manual").withStartTime(null).withEndTime("").withUniqueID(4).withPriority("low").withRecurringFrequency("").build();
-            task5 = new TaskBuilder().withTaskDetails("Visit Singapore Zoo").withStartTime("").withEndTime("").withUniqueID(5).withPriority("low").withRecurringFrequency("").build();
-            task6 = new TaskBuilder().withTaskDetails("Complete PC1432 Lab Assignment").withStartTime(null).withEndTime("").withUniqueID(6).withPriority("low").withRecurringFrequency("").build();
-            task7 = new TaskBuilder().withTaskDetails("Start working on GES1025 essay").withStartTime("").withEndTime(null).withUniqueID(7).withPriority("low").withRecurringFrequency("").build();
+            task3 = new TaskBuilder().withTaskDetails("Do laundry").withStartTime("9pm").withEndTime("10pm").withUniqueID(3).withPriority("low").withRecurringFrequency("").build();
+            task4 = new TaskBuilder().withTaskDetails("Complete Project Manual").withStartTime("21 oct 2pm").withEndTime("21 oct 4pm").withUniqueID(4).withPriority("low").withRecurringFrequency("").build();
+            task5 = new TaskBuilder().withTaskDetails("Visit Singapore Zoo").withStartTime("23 oct 5pm").withEndTime("").withUniqueID(5).withPriority("low").withRecurringFrequency("").build();
+            task6 = new TaskBuilder().withTaskDetails("Complete PC1432 Lab Assignment").withStartTime("23 oct 6pm").withEndTime("23 oct 8pm").withUniqueID(6).withPriority("low").withRecurringFrequency("").build();
+            task7 = new TaskBuilder().withTaskDetails("Start working on GES1025 essay").withStartTime("25 oct 7pm").withEndTime("").withUniqueID(7).withPriority("low").withRecurringFrequency("").build();
 
             //Manually added
-            task8 = new TaskBuilder().withTaskDetails("Work on CS2103T Project").withStartTime("").withEndTime("").withUniqueID(8).withPriority("low").withRecurringFrequency("").build();
-            task9 = new TaskBuilder().withTaskDetails("Buy groceries").withStartTime("").withEndTime("").withUniqueID(9).withPriority("low").withRecurringFrequency("").build();
-            task10 = new TaskBuilder().withTaskDetails("Study for EE2021").withStartTime("").withEndTime("").withUniqueID(10).withPriority("low").withRecurringFrequency("").build();
-            task11 = new TaskBuilder().withTaskDetails("Work on CS2101 Project").withStartTime("").withEndTime("").withUniqueID(11).withPriority("low").withRecurringFrequency("").build();
+            task8 = new TaskBuilder().withTaskDetails("Work on CS2103T Project").withStartTime("29 oct 5pm").withEndTime("29 oct 7pm").withUniqueID(8).withPriority("low").withRecurringFrequency("").build();
+            task9 = new TaskBuilder().withTaskDetails("Buy groceries").withStartTime("30 oct 6pm").withEndTime("").withUniqueID(9).withPriority("low").withRecurringFrequency("").build();
+            task10 = new TaskBuilder().withTaskDetails("Study for EE2021").withStartTime("31 oct 6pm").withEndTime("").withUniqueID(10).withPriority("low").withRecurringFrequency("").build();
+            task11 = new TaskBuilder().withTaskDetails("Work on CS2101 Project").withStartTime("14/11/2016 6pm").withEndTime("").withUniqueID(11).withPriority("low").withRecurringFrequency("").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

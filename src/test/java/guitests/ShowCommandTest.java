@@ -33,7 +33,7 @@ public class ShowCommandTest extends TaskListGuiTest {
 */    
     @Test
     public void show_datedList() {
-    	assertShowResult("show 14 nov", TypicalTestTasks.task3, TypicalTestTasks.task5, TypicalTestTasks.task7);        
+    	assertShowResult("show 14 nov", TypicalTestTasks.task11);        
     }
 /*  
     @Test
@@ -55,7 +55,7 @@ public class ShowCommandTest extends TaskListGuiTest {
     
     @Test
     public void show_Floating() {
-    	 assertShowResult("show floating", TypicalTestTasks.task10);
+    	 assertShowResult("show floating", TypicalTestTasks.task1);
     }
 /*    
     @Test
