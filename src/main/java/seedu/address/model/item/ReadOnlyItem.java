@@ -40,12 +40,13 @@ public interface ReadOnlyItem {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
 	default boolean isSameStateAs(ReadOnlyItem other) {
-        return other == this // short circuit if same object
+		return false;
+        /*return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
 						// state checks here onwards
                 && other.getDescription().equals(this.getDescription()) 
                 && other.getStartDate().equals(this.getStartDate())
-                && other.getEndDate().equals(this.getEndDate()));
+                && other.getEndDate().equals(this.getEndDate()));*/
     }
 
     /**
