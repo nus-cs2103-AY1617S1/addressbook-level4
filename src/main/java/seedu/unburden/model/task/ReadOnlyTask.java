@@ -3,12 +3,13 @@ package seedu.unburden.model.task;
 import seedu.unburden.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Task in the addressbook.
+ * A read-only immutable interface for a Task in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
 
     Name getName();
+    TaskDescription getTaskDescription();
     Date getDate();
     Time getStartTime();
     Time getEndTime();
