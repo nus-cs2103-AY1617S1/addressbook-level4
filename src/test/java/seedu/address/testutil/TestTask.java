@@ -1,7 +1,11 @@
 package seedu.address.testutil;
 
+import seedu.address.model.person.Datetime;
+import seedu.address.model.person.Description;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.ReadOnlyTask;
+import seedu.address.model.person.Status;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.person.*;
 
 /**
  * A mutable person object. For testing only.
@@ -9,8 +13,7 @@ import seedu.address.model.person.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Time time;
-    private Date date;
+    private Datetime datetime;
     private Description description;
     private Status status;
     private UniqueTagList tags;
@@ -22,13 +25,9 @@ public class TestTask implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    
+    public void setDatetime(Datetime datetime) {
+        this.datetime = datetime;
     }
 
     public void setDescription(Description description) {
@@ -49,13 +48,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Date getDate() {
-        return date;
-    }
-
-    @Override
-    public Time getTime() {
-        return time;
+    public Datetime getDatetime() {
+        return datetime;
     }
 
     @Override
@@ -77,8 +71,8 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
         sb.append("d/" + this.getDescription().value + " ");
-        sb.append("date/" + this.getDate().value + " ");
-        sb.append(" " + this.getTime().value + " ");
+        sb.append("date/" + this.getDatetime().getTimeString() + " ");
+        sb.append(" " + this.getDatetime().getTimeString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

@@ -166,7 +166,7 @@ public class ModelManager extends ComponentManager implements Model {
                     .findAny()
                     .isPresent()
                     || nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDate().value, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDatetime().value, keyword))
                     .findAny()
                     .isPresent()
                     || nameKeyWords.stream()

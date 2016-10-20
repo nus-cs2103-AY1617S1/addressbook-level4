@@ -1,18 +1,16 @@
 package seedu.address.logic.commands;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Date;
+import seedu.address.model.person.Datetime;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.ReadOnlyTask;
 import seedu.address.model.person.Task;
-import seedu.address.model.person.Time;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -39,40 +37,35 @@ public class EditCommand extends Command {
     private int targetIndex;
     private Name name;
     private Description description;
-    private Date date;
-    private Time time;
+    private Datetime datetime;
     private UniqueTagList tags;
 
-    public EditCommand(int targetIndex, String name, String description, List<java.util.Date> dateList, Set<String> tags)
+    public EditCommand(int targetIndex, String name, String description, String datetime, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }    
         
-        if (name != null){
+        populateNonNullFields(targetIndex, name, description, datetime, tagSet);
+    }
+
+	private void populateNonNullFields(int targetIndex, String name, String description, String datetime,
+			final Set<Tag> tagSet) throws IllegalValueException {
+		if (name != null){
             this.name = new Name(name);       
         }
         if (description != null){
             this.description = new Description(description);
         }
         
-        if (dateList != null){
-        	// user inputs "date/" preceding empty <?date> group: converts Dated Task -> Undated Task
-        	if (dateList.isEmpty()){
-        		this.date = new Date((String)null);
-        		this.time = new Time((String)null);
-        	}
-        	// user inputs edited Date which replaces Task Date
-        	else {
-        		this.date = new Date(dateList);
-        		this.time = new Time(dateList);
-        	}
+        if (datetime != null){
+        	this.datetime = new Datetime(datetime);
         }
         
         this.tags = new UniqueTagList(tagSet);
         this.targetIndex = targetIndex;
-    }  
+	}  
 
     @Override
     public CommandResult execute() {
@@ -93,7 +86,7 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         
-        populateTaskFields();
+        populateEditedTaskFields();
                 
         assert model != null;
         try {
@@ -109,10 +102,10 @@ public class EditCommand extends Command {
     }
 
     // use original task as base, insert fields that have been input in edit
-    private void populateTaskFields() {
+    private void populateEditedTaskFields() {
 
-        toAdd  = new Task (toEdit.getName(), toEdit.getDescription(), toEdit.getDate(),
-                toEdit.getTime(), toEdit.getStatus(), toEdit.getTags());
+        toAdd  = new Task (toEdit.getName(), toEdit.getDescription(), toEdit.getDatetime(), 
+        		toEdit.getStatus(), toEdit.getTags());
         
         if (name != null){
             toAdd.setName(name);     
@@ -120,11 +113,8 @@ public class EditCommand extends Command {
         if (description != null){
             toAdd.setDescription(description);
         }
-        if (date != null){
-            toAdd.setDate(date);
-        }
-        if (time != null){
-            toAdd.setTime(time);
+        if (datetime != null){
+            toAdd.setDatetime(datetime);
         }
         
         toAdd.setTags(tags);

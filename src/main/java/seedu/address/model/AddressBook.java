@@ -112,7 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     
     private boolean checkIfDated(ReadOnlyTask d){
-        if(d.getDate().toString().equals("") && d.getTime().toString().equals("")){
+        if(d.getDatetime().toString().equals("") && d.getTime().toString().equals("")){
             return false;
         }
         else{

@@ -1,34 +1,52 @@
 package seedu.address.logic;
 
-import com.google.common.eventbus.Subscribe;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.storage.StorageManager;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.TimeZone;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Date;
+import seedu.address.model.person.Datetime;
+import seedu.address.model.person.Description;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.ReadOnlyTask;
+import seedu.address.model.person.Status;
+import seedu.address.model.person.Task;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.storage.StorageManager;
 
 public class LogicManagerTest {
 
@@ -393,16 +411,13 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Description privatePhone = new Description("111111");
-            List<java.util.Date> dateList = 
-                    (new com.joestelmach.natty.Parser(TimeZone.getDefault())).parse("11-11-2011 1111").get(0).getDates();
-            Date email = new Date(dateList);
-            Time privateAddress = new Time(dateList);
+            Description description = new Description("111111");
+            Datetime datetime = new Datetime("11-11-2011 1111");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             Status status = new Status(Status.State.NONE);
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, status, tags);
+            return new Task(name, description, datetime, status, tags);
         }
 
         /**
@@ -416,8 +431,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Person " + seed),
                     new Description("" + Math.abs(seed)),
-                    new Date("11-11-201" + seed),
-                    new Time("111" + seed),
+                    new Datetime("11-11-201" + seed + " 111" + seed),
                     new Status(Status.State.NONE),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -431,8 +445,8 @@ public class LogicManagerTest {
 
             cmd.append(p.getName().toString());
             cmd.append(" d/").append(p.getDescription());
-            cmd.append(" date/").append(p.getDate().toString().replace('.', '-'));
-            cmd.append(" ").append(p.getTime());
+            cmd.append(" date/").append(p.getDatetime().getDateString().replace('.', '-'));
+            cmd.append(" ").append(p.getDatetime().getTimeString());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -542,13 +556,10 @@ public class LogicManagerTest {
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
         Task generatePersonWithName(String name) throws Exception {
-            List<java.util.Date> dateList = 
-                    (new com.joestelmach.natty.Parser(TimeZone.getDefault())).parse("10-11-2019 1111").get(0).getDates();
             return new Task(
                     new Name(name),
                     new Description("Describes task"),
-                    new Date(dateList),
-                    new Time(dateList),
+                    new Datetime("10-11-2019 1111"),
                     new Status(Status.State.NONE),
                     new UniqueTagList(new Tag("tag"))
             );

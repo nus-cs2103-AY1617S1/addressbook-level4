@@ -1,15 +1,31 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.*;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.exceptions.IllegalValueException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SelectCommand;
 
 /**
  * Parses user input.
@@ -114,45 +130,15 @@ public class Parser {
         }	
 
         try {
-            List<java.util.Date> dateList = nattyParse(matcher);
-
             return new AddCommand(
                     matcher.group("name"),
                     matcher.group("description"),
-                    dateList,
+                    matcher.group("date"),
                     getTagsFromArgs(matcher.group("tagArguments"))
                     );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-    }
-
-    private List<java.util.Date> nattyParse(final Matcher matcher) throws IllegalValueException {
-
-        TimeZone tz = TimeZone.getDefault();	
-        com.joestelmach.natty.Parser natty = new com.joestelmach.natty.Parser(tz);
-        List<java.util.Date> dateList;
-        
-        // user does not input 'date/' 
-        if (matcher.group("date") == null){
-            dateList = null;
-        }
-        // user inputs "date/" preceding empty <?date> group
-        else if (matcher.group("date").equals("")){
-        	// return empty list
-            dateList = new ArrayList <java.util.Date> ();
-        }
-        // natty cannot parse the input and returns empty List<DateGroup>
-        else if (natty.parse(matcher.group("date")).isEmpty()){
-            throw new IllegalValueException(seedu.address.model.person.Date.MESSAGE_DATE_CONSTRAINTS);
-        	//throw new IllegalValueException(matcher.group("date"));
-        }
-        // let natty parse the input 
-        else {
-            dateList = natty.parse(matcher.group("date")).get(0).getDates();
-        }
-
-        return dateList;
     }
 
     /**
@@ -218,13 +204,11 @@ public class Parser {
         }
 
         try {
-            List<java.util.Date> dateList = nattyParse(matcher);
-
             return new EditCommand(
                     Integer.parseInt(matcher.group("index")),
                     matcher.group("name"),
                     matcher.group("description"),
-                    dateList,
+                    matcher.group("date"),
                     getTagsFromArgs(matcher.group("tagArguments"))
                     );
         } catch (IllegalValueException ive) {
