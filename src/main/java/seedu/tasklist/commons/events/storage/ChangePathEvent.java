@@ -13,7 +13,7 @@ public class ChangePathEvent extends BaseEvent{
 	
 	@Override
 	public String toString() {
-		return filepath;
+		return this.filepath;
 	}
 
 }
