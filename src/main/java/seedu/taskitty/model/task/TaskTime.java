@@ -1,12 +1,10 @@
 package seedu.taskitty.model.task;
 
-import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
-import seedu.taskitty.commons.util.TimeUtil;
 
 /**
  * Represents a Task's name in the task manager.
