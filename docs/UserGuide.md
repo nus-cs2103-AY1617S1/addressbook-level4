@@ -100,6 +100,14 @@ Examples:
 Undo the modification in the last step.<br>
 Format: `undo`   
 
+#### Done a task : `done`
+Change the status of a task to done.<br>
+Format: `done TASK INDEX` 
+
+#### Undone a task : `undone`
+Change the status of a task to undone.<br>
+Format: `undone TASK INDEX` 
+
 #### Change working directory : `directory`
 Change data file being accessed, effectively using another TaskManager list.<br>
 A manual restart of the application is required, thus TaskManager will close itself.
