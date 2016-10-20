@@ -78,7 +78,7 @@ public class AddTagCommand extends Command{
 			return new CommandResult("re-adding failed");
 		};
 
-        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, taskToUpdate));
+        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, lastShownList.get(targetIndex - 1)));
     }
 
 	 @Override
