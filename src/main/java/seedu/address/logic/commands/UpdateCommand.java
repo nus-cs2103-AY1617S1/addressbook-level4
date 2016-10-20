@@ -137,7 +137,7 @@ public class UpdateCommand extends Command{
 		SelectCommand select = new SelectCommand(targetIndex);
 		select.model = model;
 		select.execute();
-        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, taskToUpdate));
+        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, lastShownList.get(targetIndex - 1)));
 	}
 
 	@Override

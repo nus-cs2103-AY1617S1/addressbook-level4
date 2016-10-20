@@ -51,8 +51,9 @@ public class Parser {
      *
      * @param userInput full user input string
      * @return the command based on the user input
+     * @throws IllegalValueException
      */
-    public Command parseCommand(String userInput) {
+    public Command parseCommand(String userInput) throws IllegalValueException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -277,7 +278,7 @@ public class Parser {
 		}
     }
 
-    private Command prepareUpdate(String args){
+    private Command prepareUpdate(String args) throws IllegalValueException{
         final Matcher matcher = TASK_UPDATE_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -294,8 +295,8 @@ public class Parser {
 
         try {
             	return new UpdateCommand(Integer.parseInt(command[0]),command[1],command[2]);
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+        } catch (ArrayIndexOutOfBoundsException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
     }
 
