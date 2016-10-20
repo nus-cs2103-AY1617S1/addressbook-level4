@@ -139,7 +139,7 @@ These classes work together to form the interface which the user interacts with 
 
 
 
-The UI also consists of a MainWindow class which is made up of these &quot;UI parts&quot; such as CommandBox, ResultDisplay, PersonListPanel, StatusBarFooter, BrowserPanel.
+The UI also consists of a MainWindow class which is made up of these &quot;UI parts&quot; such as CommandBox, ResultDisplay, TaskListPanel, StatusBarFooter, BrowserPanel.
 
 All of these classes, including the MainWindow class inherit from the abstract UiPart class.
 
@@ -349,15 +349,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 MSS
 
-1. User requests to add a task
+1. User requests to add a task 
 2. Unburden saves the task to the list of tasks and displays the existing list of tasks
 
   Use case ends
+  
+  Extensions
 
-Extension
+ 1.1 User requests to add a task with a wrong format <br>
+ 1.2 Unburden will give display a error message <br>
+ 
+ Use case ends
 
-1.1 User requests to add a task with a wrong format <br>
-1.2 Unburden will give display a error message <br>
 
 
 - Use case: Delete task
@@ -368,32 +371,63 @@ MSS
 2. Unburden will delete the task and show the existing list of tasks
 
   Use case ends
+  
+  
+  Extensions
+  
+  1.1 User requests to delete a specific task by giving an invalid index
+  1.2 Unburden will show an error message
+  
+  Use case ends
 
 
 
 - Use case: Find task
 
-1. User requests to find tasks based on a date
-2. Unburden will search through the library of existing tasks with deadlines that are the same as 
-4. Unburden will show a list of the tasks
-5. User is able to remember what he/she needs to do
+MSS
 
+1. User requests to find tasks based on a date
+2. Unburden will search through the existing tasks with the specified deadline and shows a list to the user
+
+
+  Use case ends
+  
+  Extension
+  
+  1.1 User requests to find tasks based on a name
+  1.2 Unburden will search through the exisiting tasks with the specified task names and shows a list to the user
+  
+  Use case ends
+  
+  2.1 User requests to find tasks that are due today
+  2.2 Unburden will search through the exisiting tasks and shows a list of tasks due today to the user
+  
+  Use case ends
+  
+  3.1 User requests to find tasks that are due tomorrow
+  3.2 Unburden will search through the exisiting tasks and shows a list of tasks due tomorrow to the user
+  
   Use case ends
 
 
 
 - Use case: Edit task
 
-1. User requests to edit a task
-2. Unburden will search for the task based on the user&#39;s input
-3. User will type in the new task description
-4. Unburden will request the user to confirm the changes
-5. User will confirm with Unburden
-6. Unburden will update the new changes
+MSS
+
+1. User requests to edit a task based on the index of the tasks and the new updated fields
+2. Unburden updates the task to the given input fields and displays it to the user
 
   Use case: ends
-
-
+  
+  Extension
+  
+  1.1 User requests to edit a task based on an invalid index of tasks and the new updated fields
+  1.2 Unburden shows an error message 
+  
+  Use case ends
+  
+  
 
 
 ## **Appendix C : Non Functional Requirements**
