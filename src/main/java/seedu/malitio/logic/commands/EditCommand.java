@@ -43,6 +43,8 @@ public class EditCommand extends Command{
     private static final String MESSAGE_DUPLICATE_DEADLINE = "The intended edit correspond to a pre-existing deadline in Malitio";
 
     private static final String MESSAGE_DUPLICATE_EVENT = "The intended edit correspond to a pre-existing event in Malitio";
+
+    private static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited floating task.\nOld: %1$s\nNew: %2$s";
 
@@ -254,6 +256,8 @@ public class EditCommand extends Command{
             assert false : "The target event cannot be missing";
         } catch (DuplicateEventException e) {
             return new CommandResult(MESSAGE_DUPLICATE_EVENT);
+        } catch (IllegalValueException e) {
+            return new CommandResult(MESSAGE_INVALID_EVENT);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit, editedEvent));
     }

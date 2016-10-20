@@ -1,6 +1,7 @@
 package seedu.malitio.model;
 
 import javafx.collections.ObservableList;
+import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.Deadline;
@@ -93,7 +94,14 @@ public class Malitio implements ReadOnlyMalitio {
     public void resetData(Collection<? extends ReadOnlyFloatingTask> newTasks, Collection<? extends ReadOnlyDeadline> newDeadlines,Collection<? extends ReadOnlyEvent> newEvents, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
         setDeadlines(newDeadlines.stream().map(Deadline::new).collect(Collectors.toList()));
-        setEvents(newEvents.stream().map(Event::new).collect(Collectors.toList()));
+        setEvents(newEvents.stream().map(t -> {
+            try {
+                return new Event(t);
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).collect(Collectors.toList()));
         setTags(newTags);
     }
 

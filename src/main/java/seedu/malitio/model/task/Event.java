@@ -11,7 +11,7 @@ public class Event implements ReadOnlyEvent {
     private DateTime end;
     private UniqueTagList tags;
 	
-    private final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
+    private static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
 
     public Event(Name name, DateTime start, DateTime end, UniqueTagList tags) 
             throws IllegalValueException {
@@ -19,9 +19,10 @@ public class Event implements ReadOnlyEvent {
        if(!isValidEvent(start, end)) {       
            throw new IllegalValueException(MESSAGE_INVALID_EVENT);
        }
+       this.name = name;
        this.start = start;
        this.end = end;
-
+       this.tags = tags;
     }
 	
     /**
