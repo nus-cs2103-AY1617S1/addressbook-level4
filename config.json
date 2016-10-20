@@ -2,6 +2,6 @@
   "appTitle" : "Must Do List",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "preferences.json",
-  "taskSchedulerFilePath" : "data/TaskSchedulerData.xml",
+  "taskSchedulerFilePath" : "data/taskscheduler.xml",
   "taskSchedulerName" : "MustDoList"
 }
