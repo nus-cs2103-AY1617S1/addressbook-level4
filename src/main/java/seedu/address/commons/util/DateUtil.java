@@ -124,44 +124,6 @@ public class DateUtil {
         throw new IllegalValueException(INVALID_FORMAT);
     }
 
-    /**
-     * Convert valid reminder date input into date format Optional to contain
-     * time of the day in hour and mins
-     * 
-     * @param date
-     * @return the date in valid date format
-     * @throws IllegalValueException 
-     */
-    public static Date parseReminder(String date) throws IllegalValueException {
-        Date validDate;
-        String dateform;
-        for (SimpleDateFormat sdf : DATE_FORMATS1) {
-            try {
-                validDate = sdf.parse(date);
-                if (date.equals(sdf.format(validDate))) {
-                    dateform = sdf.format(validDate);
-                    dateform = dateform.concat(" 20:00");
-                    validDate = DATE_FORMATS2.get(DATE_FORMATS1.indexOf(sdf)).parse(dateform);
-                    return validDate;
-                }
-            } catch (ParseException e) {
-                continue;
-            }
-        }
-
-        for (SimpleDateFormat sdf : DATE_FORMATS) {
-            try {
-                validDate = sdf.parse(date);
-                if (date.equals(sdf.format(validDate))) {
-                    return validDate;
-                }
-            } catch (ParseException e) {
-                continue;
-            }
-        }
-
-        throw new IllegalValueException(INVALID_FORMAT);
-    }
 
     /**
      * Convert valid date input into date format for event Must contain time of
@@ -327,7 +289,7 @@ public class DateUtil {
         } else if (date.contains("tomorrow")) { // allow user to key in "tomorrow" instead of tomorrow's/ date
             date = FixedTimeTomorrow(date);
         }
-        Date taskDate = parseReminder(date);
+        Date taskDate = parseEvent(date);
         return taskDate;
     }
 
