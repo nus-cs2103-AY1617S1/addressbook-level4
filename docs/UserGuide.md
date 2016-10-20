@@ -91,6 +91,14 @@ The order of the keywords does not matter, only the name is searched, and tasks 
 > Example(Event): `find event Party` <br>
 > Example(Deadline): `find deadline Assignment`
 
+#### Clearing all tasks : `clear`
+Clears all data in the given task type list.<br>
+> Format: `clear TASK_TYPE` <br>
+> Example(all): `clear all` <br>
+> Example(Todo): `clear todo` <br>
+> Example(Event): `clear event` <br>
+> Example(Deadline): `clear deadline`
+
 #### Undo the previous command: 'undo'
 Undo the latest command. If there is no previous command, nothing will happen.<br>
 > Format: `undo`
@@ -124,6 +132,7 @@ Done		| `done INDEX_NUMBER`
 List		| `list TASK_TYPE`
 Find		| `find TASK_TYPE KEYWORD [MORE_KEYWORDS]`
 Help		| `help`
+Clear		| `clear TASK_TYPE`
 Undo		| `undo`
 Storage		| `storage DIRECTORY`
 Exit		| `exit`

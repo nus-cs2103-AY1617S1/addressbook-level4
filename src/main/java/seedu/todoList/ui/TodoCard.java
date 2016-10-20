@@ -40,7 +40,7 @@ public class TodoCard extends UiPart{
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
         date.setText(task.getDate().date);
-        priority.setText(task.getPriority().toString());
+        priority.setText("Priority: " + task.getPriority().toString());
     }
 
     public HBox getLayout() {
