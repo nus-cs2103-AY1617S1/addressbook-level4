@@ -12,7 +12,7 @@ public class TaskDateTime {
     private boolean showTime = false;
     
     public TaskDateTime() {
-        
+        date = null;
     }
     
     public TaskDateTime(TaskDateTime other) {
@@ -25,14 +25,20 @@ public class TaskDateTime {
             return;
         
         date = DateFormatter.convertStringToDate(args);
-        if (!DateFormatter.convertDateToFullTimeString(date)
-                .equals(DateFormatter.convertDateToFullTimeString(new Date()))) {
-            showTime = true;
-        }
+        checkIfTimeIsSpecified(new Date());
     }
 
     public void setDate(long l) { 
-        this.date = new Date(l); 
+        Date newDate = new Date(l);
+        checkIfTimeIsSpecified(newDate);
+        this.date = newDate; 
+    }
+
+    private void checkIfTimeIsSpecified(Date other) {
+        if (!DateFormatter.convertDateToFullTimeString(date)
+                .equals(DateFormatter.convertDateToFullTimeString(other))) {
+            showTime = true;
+        }
     }
     
     public Date getDate() { 

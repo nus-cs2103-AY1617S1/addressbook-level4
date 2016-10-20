@@ -78,9 +78,9 @@ public class Task implements ReadOnlyTask {
     
     public void addDuration(long duration) {
         if (startDateTime.getDate() != null)
-            this.startDateTime.setDate(startDateTime.getDate().getTime() + duration);
+            this.startDateTime.setDate(startDateTime.getDate().getTime() + duration + 1);
         if (endDateTime.getDate() != null)
-            this.endDateTime.setDate(endDateTime.getDate().getTime() + duration);
+            this.endDateTime.setDate(endDateTime.getDate().getTime() + duration + 1);
     }
     
     /**

@@ -18,9 +18,9 @@ public class UndoCommand extends Command{
 	
 	public static final String COMMAND_WORD = "undo";
 
-	public static final String MESSAGE_SUCCESS = "Undid %s: %s";
+	public static final String MESSAGE_SUCCESS = "Undid %s command: %s";
 
-	public static final String MESSAGE_FAILURE = "The task scheduler is at initial stage";
+	public static final String MESSAGE_FAILURE = "There is no previous command to undo!";
    
     @Override
 	public CommandResult execute() {
@@ -48,7 +48,7 @@ public class UndoCommand extends Command{
     			    performUndoModification(lastShownList, toUndo);
     				break;
     		}
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommandKey(), toUndo.getTask()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommandKey(), toUndo.getArrayString()));
         } catch (TaskNotFoundException e) {
         	assert false: Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
         	return new CommandResult(Messages.MESSAGE_TASK_CANNOT_BE_MISSING);

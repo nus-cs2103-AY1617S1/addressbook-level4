@@ -36,6 +36,15 @@ public class Undo {
         return taskList.toArray(new Task[taskList.size()]);
     }
     
+    public String getArrayString() {
+        StringBuilder sb = new StringBuilder();
+        for (Task task : taskList) {
+            sb.append("\n");
+            sb.append(task.toString());
+        }
+        return sb.toString();
+    }
+    
     public void addTask(Task task) {
         taskList.add(task);
     }
