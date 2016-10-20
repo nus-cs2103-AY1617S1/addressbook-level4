@@ -15,7 +15,7 @@ public class ChangeCommand extends Command{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Change the default storage location to the specified location (must end with the file type extension, .xml)"
-            + "and clear data saved in the previous location if specified.\n" 
+            + " and clear data saved in the previous location if specified.\n" 
             + "Parameters: FILE_PATH [clear]\n"
             + "Example: " + COMMAND_WORD
             + " /Desktop/folder/taskManager.xml clear";
