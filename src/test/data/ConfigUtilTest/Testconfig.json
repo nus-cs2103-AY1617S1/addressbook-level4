@@ -1,0 +1,7 @@
+{
+  "appTitle" : "TaskList",
+  "logLevel" : "INFO",
+  "userPrefsFilePath" : "sandbox/pref_testing.json",
+  "taskListFilePath" : "sandbox/tempTaskList.xml",
+  "taskListName" : "TaskList"
+}

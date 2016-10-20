@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tasklist>
+    <tasks>
+        <title>Alice Pauline</title>
+        <startDate>010101</startDate>
+        <description>studying in NUS</description>
+        <dueDate>020202</dueDate>
+        <isCompleted>false</isCompleted>
+        <tagged>friends</tagged>
+    </tasks>
+    <tasks>
+        <title>Benson Meier</title>
+        <startDate>300303</startDate>
+        <description>have a hard time in comsci</description>
+        <dueDate>040404</dueDate>
+        <isCompleted>false</isCompleted>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+    </tasks>
+    <tasks>
+        <title>Carl Kurz</title>
+        <startDate>050505</startDate>
+        <description>likes to play too hard with Bensen</description>
+        <dueDate>060606</dueDate>
+        <isCompleted>false</isCompleted>
+    </tasks>
+    <tasks>
+        <title>Daniel Meier Failure</title>
+        <startDate>051114</startDate>
+        <description>likes Carl</description>
+        <dueDate>101118</dueDate>
+        <isCompleted>false</isCompleted>
+    </tasks>
+    <tasks>
+        <title>Elle Meyer</title>
+        <startDate>010101</startDate>
+        <description>love triangle with Daniel</description>
+        <dueDate>100412</dueDate>
+        <isCompleted>false</isCompleted>
+    </tasks>
+    <tasks>
+        <title>Fiona Kunz Failure</title>
+        <startDate>030303</startDate>
+        <description>ditched Elle</description>
+        <dueDate>050113</dueDate>
+        <isCompleted>false</isCompleted>
+    </tasks>
+    <tasks>
+        <title>George Best</title>
+        <startDate>040404</startDate>
+        <description>get together with Fiona</description>
+        <dueDate>050603</dueDate>
+        <isCompleted>false</isCompleted>
+    </tasks>
+    <tags>
+        <tagName>friends</tagName>
+    </tags>
+    <tags>
+        <tagName>owesMoney</tagName>
+    </tags>
+</tasklist>
