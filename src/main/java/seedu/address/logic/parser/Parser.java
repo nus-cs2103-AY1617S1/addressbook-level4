@@ -75,7 +75,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
             		+ "((?<startTime>(?: from [^/]+)(?<endTime>(?: to [^/]+)))|"
     				+ "(?<deadline>(?: by [^/]+)))"
-                    + "(?<recurring>(?: [^/(t/) ]+)*)"
+                    + "(?<recurring>(?:([dD][aA][iI][lL][yY]|[wW][eE][eE][kK][lL][yY]|[mM][oO][nN][tT][hH][lL][yY]|[yY][eE][aA][rR][lL][yY])))"
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
         
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -596,7 +596,7 @@ public class Parser {
         return dateGroups.get(0).getDates().get(0);
     }
     
-    public static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
+    private static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
         recurringInfo = recurringInfo.toUpperCase().trim();
         RecurringDateParser recurringParser = RecurringDateParser.getInstance();
         return recurringParser.getRecurringType(recurringInfo);
