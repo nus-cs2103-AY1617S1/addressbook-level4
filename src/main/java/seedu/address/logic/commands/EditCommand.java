@@ -73,8 +73,8 @@ public class EditCommand extends Command {
         } else if (newParamsType.equalsIgnoreCase("event")) {
             this.newParams = new Event(
                     new Name(name),
-                    new StartTime(Calendar.getInstance()),
-                    new EndTime(Calendar.getInstance()),
+                    new StartTime(start),
+                    new EndTime(start, end),
                     new Reminder(reminder),
                     new UniqueTagList(tagSet)
             );
