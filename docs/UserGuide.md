@@ -144,7 +144,7 @@ Default: data/taskmanager.xml
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | ``add TASKNAME [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]` 
+Add | `add TASKNAME [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]` 
 Edit | `edit INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]`
 Delete | `delete INDEX`
 List | `list [DATA_TYPE]`

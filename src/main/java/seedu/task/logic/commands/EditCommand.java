@@ -24,7 +24,7 @@ public class EditCommand extends Command {
 	            + ": Edit the task identified by the index number used in the last task listing.\n"
 	            + "Parameters: INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]\n"
 	            + "Example: " + COMMAND_WORD
-	            + " 4 at 08.00pm to 10.00pm by 12.00am";
+	            + " 4 night class at 08.00pm to 10.00pm by 12.00am";
 	 
 	 public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edit Task: %1$s";
 	 

@@ -21,8 +21,8 @@
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
     
-2. **Eclipse** IDE - [Official Download](https://eclipse.org/)<br>
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))<br>
+2. **Eclipse** IDE - [Official Download](https://eclipse.org/) <br>
+3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious)) <br>
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 
@@ -305,9 +305,8 @@ Use case ends.
 1a. The user don't type the correct keyword
 
 > Use case ends
- 
- 
- #### Use case: Backup Data
+
+#### Use case: Backup Data
 
 **MSS**
 
@@ -320,14 +319,15 @@ Use case ends.
 
 1a. The user don't type a valid file path
 
-> Use case ends
- 
+> 1a1. Task Manager shows an error message <br>
+  Use case ends
+
  2a. Specified location is inaccessible by TaskManager or does not exist
  
  > 2a1. Task Manager shows an error message <br>
   Use case ends
- 
-  #### Use case: Access Another Data File
+
+#### Use case: Access Another Data File
 
 **MSS**
 
@@ -340,8 +340,9 @@ Use case ends.
 
 1a. The user don't type a valid file path
 
-> Use case ends
- 
+> 1a1. Task Manager shows an error message <br>
+  Use case ends
+
  2a. Specified file is inaccessible by TaskManager or does not exist
  
  > 2a1. Task Manager shows an error message <br>
