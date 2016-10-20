@@ -29,12 +29,12 @@ public class EditCommand extends Command implements Undoable, Redoable {
     public static final String COMMAND_KEYWORD_UPDATE = "update";
 
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
-                                                         + "(?=(?:.*?r\\/'(?<recur>.+?)')?)"
-                                                         + "(?=(?:.*?name\\/\"(?<name>.+?)\")?)"
-                                                         + "(?=(?:.*?startDate\\/\"(?<startDate>.+?)\")?)"
-                                                         + "(?=(?:.*?endDate\\/\"(?<endDate>.+?)\")?)"
-                                                         + "(?=(?:.*tags\\/(?<tags>\\w+(?:,\\w+)*)?)?)"
-                                                         + ".*";
+                                                        + "(?=(?:.*?r\\/'(?<recur>.+?)')?)" 
+                                                        + "(?=(?:.*?\\s\\'(?<name>.+?)'))"
+                                                        + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
+                                                        + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
+                                                        + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
+                                                        + ".*";
 
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
@@ -169,7 +169,6 @@ public class EditCommand extends Command implements Undoable, Redoable {
             }
             return tagSet;
         }).orElse(originalTask.getTags().toSet()));
-
 
         // initialize the new task with edited values
         if (editedTask == null) {
