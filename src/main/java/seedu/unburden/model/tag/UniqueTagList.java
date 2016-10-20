@@ -3,6 +3,7 @@ package seedu.unburden.model.tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.unburden.commons.exceptions.DuplicateDataException;
+import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.CollectionUtil;
 
 import java.util.*;
@@ -127,15 +128,12 @@ public class UniqueTagList implements Iterable<Tag> {
 		internalList.add(toAdd);
 	}
 
-	public boolean contains(Set<String> tags) {
-		for (Tag existingTag : internalList) {
-			for (String inputTag : tags) {
-				if (existingTag.toString().equals(inputTag)) {
-					return true;
-				}
-			}
+	public boolean contains(Set<String> tags) throws IllegalValueException {
+		boolean trueOrFalse = false;
+		for(String tagToCheck : tags){
+			trueOrFalse = trueOrFalse || this.contains(new Tag(tagToCheck));
 		}
-		return false;
+		return trueOrFalse;
 	}
 
 	@Override
