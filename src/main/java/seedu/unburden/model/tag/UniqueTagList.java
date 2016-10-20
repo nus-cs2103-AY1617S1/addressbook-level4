@@ -118,6 +118,15 @@ public class UniqueTagList implements Iterable<Tag> {
         }
         internalList.add(toAdd);
     }
+    
+    public boolean contains(String tag){
+    	for(Tag existingTag : internalList){
+    		if(existingTag.toString().equals(tag)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     @Override
     public Iterator<Tag> iterator() {

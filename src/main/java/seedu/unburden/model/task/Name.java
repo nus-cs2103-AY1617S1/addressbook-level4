@@ -33,6 +33,15 @@ public class Name {
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
     }
+    
+    public boolean contains (String[] args){
+    	for(String name : args){
+    		if(fullName.equals(name)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
 
     @Override
