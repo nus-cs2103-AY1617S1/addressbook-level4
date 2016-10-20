@@ -88,7 +88,14 @@ Format: `delete TASKID`
 > Deletes the task at the specified `KEYWORD`. 
  
 Examples: 
-* `delete 1`<br> 
+* `delete 1`<br>
+
+#### Change the file directory stored: `save`
+Change the folder path name
+Format: `save folderpath`
+
+Example:
+* `save C:\\Users\\<username>\\Desktop\\CS2103 Tutorial`.
 
 #### Add Category: `Assign`
 Assign Task to a category
@@ -142,6 +149,7 @@ Clear | `clear`
 Delete | `delete TASKID`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
+Save | `save`
 Help | `help`
 Color | `color`
 
