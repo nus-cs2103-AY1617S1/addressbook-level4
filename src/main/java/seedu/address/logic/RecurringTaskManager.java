@@ -56,7 +56,6 @@ public class RecurringTaskManager {
      */
     public void update() {
         assert repeatingTasks != null : "Repeating Task list reference cannot be null";
-        //long daysElapsed = ChronoUnit.DAYS.between(initialisedTime, LocalDate.now());
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis((new Date().getTime()) - initialisedDate.getTime());
         int daysElapsed = c.get(Calendar.DAY_OF_MONTH) - 1;
@@ -96,10 +95,16 @@ public class RecurringTaskManager {
         
         if(!lastAddedComponent.getStartDate().isValid()) {
             startDate = null;
+            // Generate on the day now;
+            return appendRecurringTasks(task, startDate, endDate, resultingDate);
         }
-        if (!isReadyToAppendNewDates(currentDate, endDate)) {
+        if (isReadyToAppendNewDates(currentDate, startDate)) {
             return false;
         }
+        return appendRecurringTasks(task, startDate, endDate, resultingDate);
+    }
+
+    private boolean appendRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate, Calendar resultingDate) {
         switch (task.getRecurringType()) {
             case DAILY:
                 final int elapsedDay = resultingDate.get(Calendar.DAY_OF_MONTH)-1;
@@ -141,8 +146,8 @@ public class RecurringTaskManager {
         return false;
     }
 
-    private boolean isReadyToAppendNewDates(Calendar currentDate, Calendar endDate) {
-        return (currentDate.getTimeInMillis() - endDate.getTimeInMillis()) < 0;
+    private boolean isReadyToAppendNewDates(Calendar currentDate, Calendar lastDate) {
+        return (currentDate.getTimeInMillis() - lastDate.getTimeInMillis()) < 0;
     }
 
     /**
@@ -173,7 +178,7 @@ public class RecurringTaskManager {
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
         repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedStartDate);
-        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedEndDate);
+        repeatingTasks.getInternalComponentList().get(idx).setEndDate(editedEndDate);
     }
 
     /**
@@ -236,7 +241,7 @@ public class RecurringTaskManager {
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
         repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedStartDate);
-        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedEndDate);
+        repeatingTasks.getInternalComponentList().get(idx).setEndDate(editedEndDate);
     }
 
     /**
@@ -267,7 +272,7 @@ public class RecurringTaskManager {
         
         int idx = repeatingTasks.getInternalComponentList().indexOf(task.getTaskDateComponent().get(0));
         repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedStartDate);
-        repeatingTasks.getInternalComponentList().get(idx).setStartDate(editedEndDate);
+        repeatingTasks.getInternalComponentList().get(idx).setEndDate(editedEndDate);
     }
     
 
