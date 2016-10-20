@@ -245,7 +245,7 @@ public class TodoListDB {
         }
     }
     
-    private List<Task> getTaskByName(List<Task> tasks, HashSet<String> itemNameList) {
+    public List<Task> getTaskByName(List<Task> tasks, HashSet<String> itemNameList) {
         ArrayList<Task> taskByName = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
         Iterator<String> hashIterator = itemNameList.iterator();
@@ -264,6 +264,7 @@ public class TodoListDB {
             if (isMatched) {
                 taskByName.add(currTask);
             }
+            hashIterator = itemNameList.iterator();
         }
         return taskByName;
     }
@@ -350,7 +351,7 @@ public class TodoListDB {
      * 
      * @return list of events
      */
-    public List<Event> getEventbyDate(LocalDateTime givenDate) {
+    public List<Event> getEventbyDate(LocalDateTime givenDate, HashSet<String> itemNameList) {
         ArrayList<Event> eventByDate = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
         while (iterator.hasNext()) {
@@ -359,7 +360,12 @@ public class TodoListDB {
                 eventByDate.add(currEvent);
             }
         }
-        return eventByDate;
+        
+        if (itemNameList.size() == 0) {
+            return eventByDate;
+        } else {
+            return getEventByName(eventByDate, itemNameList);
+        }
     }
     
     /**
@@ -367,7 +373,7 @@ public class TodoListDB {
      * 
      * @return list of events
      */
-    public List<Event> getEventByRange (LocalDateTime fromDate , LocalDateTime toDate) {
+    public List<Event> getEventByRange (LocalDateTime fromDate , LocalDateTime toDate, HashSet<String> itemNameList) {
         ArrayList<Event> eventByRange = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
         
@@ -386,6 +392,35 @@ public class TodoListDB {
                 eventByRange.add(currEvent);
             }
         }
-        return eventByRange;
+        
+        if (itemNameList.size() == 0) {
+            return eventByRange;
+        } else {
+            return getEventByName(eventByRange, itemNameList);
+        }
+    }
+
+    public List<Event> getEventByName(List<Event> events, HashSet<String> itemNameList) {
+        ArrayList<Event> taskByName = new ArrayList<Event>();
+        Iterator<Event> iterator = events.iterator();
+        Iterator<String> hashIterator = itemNameList.iterator();
+        while (iterator.hasNext()) {
+            Event currEvent = iterator.next();
+            String currEventName = currEvent.getName();
+            boolean isMatched = true;
+            while(hashIterator.hasNext()) {
+                String currentMatchingString = hashIterator.next();
+                if (!currEventName.contains(currentMatchingString)) {
+                    isMatched = false;
+                    break;
+                }
+            }
+            
+            if (isMatched) {
+                taskByName.add(currEvent);
+            }
+            hashIterator = itemNameList.iterator();
+        }
+        return taskByName;
     }
 }
