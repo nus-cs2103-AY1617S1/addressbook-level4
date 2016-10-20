@@ -367,8 +367,10 @@ public class Parser {
                 taskIndex = Integer.parseInt(indexStringArray[0]);
                 dateTimeIndex = Integer.parseInt(indexStringArray[1]);
             }
-        } catch (InvalidRangeException | IllegalValueException e) {
+        } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
+        } catch (InvalidRangeException ire) {
+            return new IncorrectCommand(ire.getMessage());
         }
         
         

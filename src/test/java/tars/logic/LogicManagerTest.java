@@ -24,6 +24,7 @@ import tars.logic.commands.CdCommand;
 import tars.logic.commands.ClearCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.CommandResult;
+import tars.logic.commands.ConfirmCommand;
 import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.EditCommand;
 import tars.logic.commands.ExitCommand;
@@ -31,6 +32,7 @@ import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.RedoCommand;
+import tars.logic.commands.RsvCommand;
 import tars.logic.commands.TagCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.Tars;
@@ -38,6 +40,7 @@ import tars.model.Model;
 import tars.model.ModelManager;
 import tars.model.ReadOnlyTars;
 import tars.model.task.*;
+import tars.model.task.rsv.RsvTask;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
@@ -81,7 +84,6 @@ public class LogicManagerTest {
     private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
         helpShown = true;
     }
-
 
     @Before
     public void setup() {
@@ -137,7 +139,7 @@ public class LogicManagerTest {
 
         // Execute the command
         CommandResult result = logic.execute(inputCommand);
-        
+
         // Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
@@ -146,23 +148,40 @@ public class LogicManagerTest {
         assertEquals(expectedTars, model.getTars());
         assertEquals(expectedTars, latestSavedTars);
     }
-    
+
     /**
      * @@author A0140022H
      */
-    private void assertCommandBehaviorForList(String inputCommand, String expectedMessage,
-            ReadOnlyTars expectedTars,
+    private void assertCommandBehaviorForList(String inputCommand, String expectedMessage, ReadOnlyTars expectedTars,
             List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         // Execute the command
         CommandResult result = logic.execute(inputCommand);
-        
+
         // Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
         // Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTars, latestSavedTars);
+    }
+
+    private void assertCommandBehaviorWithRsvTaskList(String inputCommand, String expectedMessage,
+            ReadOnlyTars expectedTars, List<? extends ReadOnlyTask> expectedShownTaskList,
+            List<RsvTask> expectedShownRsvTaskList) throws Exception {
+
+        // Execute the command
+        CommandResult result = logic.execute(inputCommand);
+
+        // Confirm the ui display elements should contain the right data
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedShownTaskList, model.getFilteredTaskList());
+        assertEquals(expectedShownRsvTaskList, model.getFilteredRsvTaskList());
+
+        // Confirm the state of data (saved and in-memory) is as expected
+        assertEquals(expectedTars, model.getTars());
+        assertEquals(expectedTars, latestSavedTars);
+
     }
 
     @Test
@@ -258,7 +277,8 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeRemoved),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved + "\n"), expectedTars, expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved + "\n"), expectedTars,
+                expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeRemoved);
 
@@ -289,7 +309,8 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeRemoved),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved + "\n"), expectedTars, expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeRemoved + "\n"), expectedTars,
+                expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeRemoved);
 
@@ -383,7 +404,7 @@ public class LogicManagerTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
-    
+
     @Test
     public void execute_tag_unsuccessful() throws Exception {
         // setup expectations
@@ -391,20 +412,18 @@ public class LogicManagerTest {
         Task toBeAdded = helper.meetAdam();
         Tars expectedAB = new Tars();
         expectedAB.addTask(toBeAdded);
-        
+
         model.addTask(toBeAdded);
-        
-        assertCommandBehavior("tag abcde",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), expectedAB,
-                expectedAB.getTaskList());
-        assertCommandBehavior("tag -e",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), expectedAB,
-                expectedAB.getTaskList());
+
+        assertCommandBehavior("tag abcde", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE),
+                expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior("tag -e", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE),
+                expectedAB, expectedAB.getTaskList());
         assertCommandBehavior("tag -e 1 INVALID_TAG_NAME", Tag.MESSAGE_TAG_CONSTRAINTS, expectedAB,
                 expectedAB.getTaskList());
-        
+
     }
-    
+
     @Test
     public void execute_tag_listing_successful() throws Exception {
         // setup expectations
@@ -416,10 +435,10 @@ public class LogicManagerTest {
         model.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior("tag -ls", new Formatter().formatTags(model.getUniqueTagList()),
-                expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior("tag -ls", new Formatter().formatTags(model.getUniqueTagList()), expectedAB,
+                expectedAB.getTaskList());
     }
-    
+
     @Test
     public void execute_tag_rename_successful() throws Exception {
         // setup expectations
@@ -438,10 +457,10 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior("tag -e 1 tag3",
-                String.format(String.format(TagCommand.MESSAGE_RENAME_TAG_SUCCESS, "tag1", "tag3")),
-                expectedAB, expectedAB.getTaskList());
+                String.format(String.format(TagCommand.MESSAGE_RENAME_TAG_SUCCESS, "tag1", "tag3")), expectedAB,
+                expectedAB.getTaskList());
     }
-    
+
     @Test
     public void execute_tag_rename_unsuccessful() throws Exception {
         // setup expectations
@@ -453,10 +472,9 @@ public class LogicManagerTest {
         model.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior("tag -e 1 tag2", Messages.MESSAGE_DUPLICATE_TAG, expectedAB,
-                expectedAB.getTaskList());
+        assertCommandBehavior("tag -e 1 tag2", Messages.MESSAGE_DUPLICATE_TAG, expectedAB, expectedAB.getTaskList());
     }
-    
+
     @Test
     public void execute_tag_rename_invalid_index() throws Exception {
         // setup expectations
@@ -468,13 +486,12 @@ public class LogicManagerTest {
         model.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior("tag -e -1",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), expectedAB,
-                expectedAB.getTaskList());
-        
+        assertCommandBehavior("tag -e -1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE),
+                expectedAB, expectedAB.getTaskList());
+
         assertCommandBehavior("tag -e 0 VALIDTAGNAME", String.format(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX),
                 expectedAB, expectedAB.getTaskList());
-        
+
         assertCommandBehavior("tag -e 20 VALIDTAGNAME", String.format(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX),
                 expectedAB, expectedAB.getTaskList());
     }
@@ -518,7 +535,7 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
 
     }
-    
+
     /**
      * @@author A0140022H
      */
@@ -537,11 +554,11 @@ public class LogicManagerTest {
         System.out.println("2: " + toBeAdded2);
         System.out.println(helper.generateAddCommand(toBeAdded).concat(" -r 2 every week"));
         // execute command and verify result
-        
+
         String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n");
         expectedMessage += String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded2 + "\n");
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded).concat(" -r 2 every week"),
-                expectedMessage, expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded).concat(" -r 2 every week"), expectedMessage,
+                expectedAB, expectedAB.getTaskList());
 
     }
 
@@ -609,10 +626,10 @@ public class LogicManagerTest {
         List<Task> listToSort = helper.generateTaskList(task3, task2, task1);
         List<Task> expectedList = helper.generateTaskList(task1, task2, task3);
         helper.addToModel(model, listToSort);
-        
+
         assertCommandBehaviorForList("ls -p", ListCommand.MESSAGE_SUCCESS_PRIORITY, expectedTars, expectedList);
     }
-    
+
     /**
      * Test for list command
      * 
@@ -636,7 +653,8 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(task3, task2, task1);
         helper.addToModel(model, listToSort);
 
-        assertCommandBehaviorForList("ls -p dsc", ListCommand.MESSAGE_SUCCESS_PRIORITY_DESCENDING, expectedTars, expectedList);
+        assertCommandBehaviorForList("ls -p dsc", ListCommand.MESSAGE_SUCCESS_PRIORITY_DESCENDING, expectedTars,
+                expectedList);
     }
 
     /**
@@ -664,6 +682,7 @@ public class LogicManagerTest {
 
         assertCommandBehaviorForList("ls -dt", ListCommand.MESSAGE_SUCCESS_DATETIME, expectedTars, expectedList);
     }
+
     /**
      * Test for list command
      * 
@@ -687,7 +706,8 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(task3, task2, task1);
         helper.addToModel(model, listToSort);
 
-        assertCommandBehaviorForList("ls -dt dsc", ListCommand.MESSAGE_SUCCESS_DATETIME_DESCENDING, expectedTars, expectedList);
+        assertCommandBehaviorForList("ls -dt dsc", ListCommand.MESSAGE_SUCCESS_DATETIME_DESCENDING, expectedTars,
+                expectedList);
     }
 
     /**
@@ -748,7 +768,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
 
-        // set AB state to 2 tasks
+        // set Tars state to 2 tasks
         model.resetData(new Tars());
         for (Task p : taskList) {
             model.addTask(p);
@@ -757,6 +777,49 @@ public class LogicManagerTest {
         assertCommandBehavior(inputCommand, expectedMessage, model.getTars(), taskList);
     }
 
+    @Test
+    public void execute_confirmInvalidArgsFormat_errorMessageShown() throws Exception {
+
+
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE);
+        assertCommandBehavior("confirm ", expectedMessage);
+        assertCommandBehavior("confirm -p h 1 2", expectedMessage);
+        assertCommandBehavior("confirm 1 1 -dt invalidFlag", expectedMessage);
+        assertCommandBehavior("confirm 1 1 3", expectedMessage);
+    }
+    
+    @Test
+    public void execute_confirmInvalidRsvTaskIndex_errorMessageShown() throws Exception {
+        assertCommandBehavior("confirm 2 3", Messages.MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
+    }
+    
+    @Test
+    public void execute_confirmInvalidArgsFormat_success() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        
+        //Create added task
+        Task addedTask = helper.generateTaskWithName("Test Task");
+        
+        //Create end state taskList with one confirmed task
+        List<Task> taskList = new ArrayList<Task>();
+        taskList.add(addedTask);
+        
+        //Create Empty end state rsvTaskList
+        List<RsvTask> rsvTaskList = new ArrayList<RsvTask>();
+        
+        RsvTask rsvTask = helper.generateReservedTaskWithOneDateTimeOnly("Test Task");
+        
+        Tars expectedTars = new Tars();
+        expectedTars.addTask(addedTask);
+
+        // Set Tars start state to 1 reserved task, and 0 tasks.
+        model.resetData(new Tars());
+        model.addRsvTask(rsvTask);
+        
+        String expectedMessage = String.format(ConfirmCommand.MESSAGE_CONFIRM_SUCCESS, addedTask);
+        assertCommandBehaviorWithRsvTaskList("confirm 1 1 -p h -t tag", expectedMessage, expectedTars, taskList, rsvTaskList);
+
+    }
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -781,7 +844,7 @@ public class LogicManagerTest {
         assertCommandBehavior("del 2", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedTars, expectedTars.getTaskList());
     }
-    
+
     @Test
     public void execute_delete_Range() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -789,17 +852,17 @@ public class LogicManagerTest {
 
         Tars expectedTars = helper.generateTars(threeTasks);
         helper.addToModel(model, threeTasks);
-        
+
         // delete tasks within range
         expectedTars.removeTask(threeTasks.get(0));
         expectedTars.removeTask(threeTasks.get(1));
         expectedTars.removeTask(threeTasks.get(2));
-        
+
         ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<ReadOnlyTask>();
         deletedTasks.add(threeTasks.get(0));
         deletedTasks.add(threeTasks.get(1));
         deletedTasks.add(threeTasks.get(2));
-        
+
         String result = CommandResult.formatTasksList(deletedTasks);
         assertCommandBehavior("del 1..3", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, result),
                 expectedTars, expectedTars.getTaskList());
@@ -884,13 +947,14 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         String searchKeywords = "\nFilter Search Keywords: [Task Name: adam] "
-                + "[DateTime: 01/09/2016 1400 to 01/09/2016 1500] [Priority: medium] " + "[Status: Undone] [Tags: tag1]";
+                + "[DateTime: 01/09/2016 1400 to 01/09/2016 1500] [Priority: medium] "
+                + "[Status: Undone] [Tags: tag1]";
 
         assertCommandBehavior("find -n adam -dt 01/09/2016 1400 to 01/09/2016 1500 -p medium -ud -t tag1",
                 Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedTars,
                 expectedList);
     }
-    
+
     @Test
     public void execute_find_filterSearch_withoutDateTimeQuery() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -902,15 +966,15 @@ public class LogicManagerTest {
         Tars expectedTars = helper.generateTars(threeTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1);
         helper.addToModel(model, threeTasks);
-        
-        String searchKeywords = "\nFilter Search Keywords: [Task Name: adam] "
-                + "[Priority: medium] " + "[Status: Undone] [Tags: tag1]";
+
+        String searchKeywords = "\nFilter Search Keywords: [Task Name: adam] " + "[Priority: medium] "
+                + "[Status: Undone] [Tags: tag1]";
 
         assertCommandBehavior("find -n adam -p medium -ud -t tag1",
                 Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedTars,
                 expectedList);
     }
-    
+
     @Test
     public void execute_find_filterSearch_singleDateTimeQuery() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -922,14 +986,14 @@ public class LogicManagerTest {
         Tars expectedTars = helper.generateTars(threeTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1);
         helper.addToModel(model, threeTasks);
-        
+
         String searchKeywords = "\nFilter Search Keywords: [DateTime: 01/09/2016 1400] ";
 
         assertCommandBehavior("find -dt 01/09/2016 1400",
                 Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedTars,
                 expectedList);
     }
-    
+
     @Test
     public void execute_find_filterSearch_taskNotFound() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -941,20 +1005,20 @@ public class LogicManagerTest {
         Tars expectedTars = helper.generateTars(threeTasks);
         List<Task> expectedList = helper.generateTaskList();
         helper.addToModel(model, threeTasks);
-        
+
         String searchKeywords = "\nFilter Search Keywords: [DateTime: 01/09/2010 1400] ";
 
         assertCommandBehavior("find -dt 01/09/2010 1400",
                 Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedTars,
                 expectedList);
     }
-    
+
     @Test
     public void execute_find_filterSearch_bothDoneAndUndoneSearched() throws Exception {
-      
+
         assertCommandBehavior("find -do -ud", TaskQuery.MESSAGE_BOTH_STATUS_SEARCHED_ERROR);
     }
-    
+
     @Test
     public void execute_find_filterSearch_multipleFlagsUsed() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -966,9 +1030,9 @@ public class LogicManagerTest {
         Tars expectedTars = helper.generateTars(threeTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1);
         helper.addToModel(model, threeTasks);
-        
-        String searchKeywords = "\nFilter Search Keywords: [Task Name: meet adam] "
-                + "[Priority: medium] " + "[Status: Undone] [Tags: tag1 tag2]";
+
+        String searchKeywords = "\nFilter Search Keywords: [Task Name: meet adam] " + "[Priority: medium] "
+                + "[Status: Undone] [Tags: tag1 tag2]";
 
         assertCommandBehavior("find -n meet -n adam -p medium -ud -t tag1 -t tag2",
                 Command.getMessageForTaskListShownSummary(expectedList.size()) + searchKeywords, expectedTars,
@@ -1390,6 +1454,12 @@ public class LogicManagerTest {
         Task generateTaskWithEndDateOnly(String name) throws Exception {
             return new Task(new Name(name), new DateTime(null, "06/09/2016 2200"), new Priority("h"), new Status(false),
                     new UniqueTagList(new Tag("tag")));
+        }
+
+        RsvTask generateReservedTaskWithOneDateTimeOnly(String name) throws Exception {
+            ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
+            dateTimeList.add(new DateTime("05/09/2016 1400", "06/09/2016 2200"));
+            return new RsvTask(new Name(name), dateTimeList);
         }
     }
 }
