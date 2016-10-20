@@ -8,7 +8,7 @@
     * [Delete Command](#3-delete-command--delete)
     * [List Command](#4-list-command)
     * [Find Command](#5-find-command)
-    * [CLear Command](#6-clear-command)
+    * [Clear Command](#6-clear-command)
     * [Edit Command](#7-edit-command)
     * [Exit Command](#8-exitting-the-program--exit)
 * [FAQ](#faq)
