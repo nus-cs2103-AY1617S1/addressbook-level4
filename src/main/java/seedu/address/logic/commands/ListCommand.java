@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import seedu.address.model.task.Status;
-import seedu.address.model.task.TaskFilter;
 import seedu.address.model.task.TaskType;
 
 /**
