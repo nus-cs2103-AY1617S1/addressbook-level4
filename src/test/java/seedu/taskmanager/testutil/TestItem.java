@@ -149,7 +149,7 @@ public class TestItem implements ReadOnlyItem {
                 sb.append("et/" + this.getEndTime().value + " ");
             }
         }
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
         return sb.toString();
     }
 }
