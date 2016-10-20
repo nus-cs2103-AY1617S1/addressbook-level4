@@ -299,6 +299,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 ## **Appendix B : Use Cases**
 
+
 ### Use case: Add task
 
 ##### MSS
@@ -316,6 +317,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
     Use case ends
 
 
+
 ### Use case: Delete task
 
 ##### MSS
@@ -331,6 +333,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 1.2 Unburden will show an error message <br>
   
     Use case ends
+
 
 
 ### Use case: Find task
@@ -360,6 +363,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
     Use case ends
 
 
+
 ### Use case: Edit task
 
 ##### MSS
@@ -376,7 +380,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
   
     Use case ends
   
-  
+
+
 
 ## **Appendix C : Non Functional Requirements**
 
@@ -389,6 +394,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
  7. The app should not crash 
  8. The app should not do anything else other than what the user inputs 
  9. The app should be able to recover from errors easily 
+
 
 ## **Appendix D : Glossary**
 
