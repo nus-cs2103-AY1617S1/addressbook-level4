@@ -42,6 +42,13 @@ This user guide covers the features of the application and has a short summary o
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+Parameters | Input Limit
+--- | :---
+DESCRIPTION | Alphanumeric
+PRIORITY | `normal`, `high`, `low`
+TIME | Day of the Week or 24:00 format
+TAG | Alphanumeric
+
 
 #### View help : `help`
 Format: `help`
@@ -52,7 +59,7 @@ Format: `help`
 #### Add a task/tag
 ##### Add a task: `add`
 Adds a task to the task manager.<br>
-Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [start/ENDTIME] [t/TAG]...`
+Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
 
 > * Tasks can have different priorities, normal by default, high or low
 > * Deadlines are set for tasks if a endtime entered without a start time
