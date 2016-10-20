@@ -20,7 +20,6 @@ public class TypicalTestTasks {
             house = new TaskBuilder().withDetail("Paint the house").withDueByDate(LocalDate.of(2010, 06, 20)).withDueByTime(LocalTime.of(10, 20)).withPriority("high").build();
             family = new TaskBuilder().withDetail("Give Kelly a bath").withDueByDate(LocalDate.of(2012,11,20)).withDueByTime(LocalTime.of(11, 20)).withPriority("low").build();
             car = new TaskBuilder().withDetail("Add gas").withDueByDate(LocalDate.of(2014,11,20)).withDueByTime(LocalTime.of(9, 20)).withPriority("high").build();
-            meeting = new TaskBuilder().withDetail("Unconfirmed meeting").withDueByDate(LocalDate.of(2014,11,20)).withDueByTime(LocalTime.of(9, 20)).withPriority("high").build();
             zika = new TaskBuilder().withDetail("Gas the zika mosquitoes").withDueByDate(LocalDate.of(2014,11,20)).withDueByTime(LocalTime.of(9, 20)).withPriority("high").build();
             dog = new TaskBuilder().withDetail("Invent automatic dog toilet").withDueByDate(LocalDate.of(2016,10,10)).withDueByTime(LocalTime.of(16, 10)).withPriority("low").withTags("dog").build();
             vacation = new TaskBuilder().withDetail("Take grandma on a cruise")
@@ -28,15 +27,21 @@ public class TypicalTestTasks {
             							.withDueByTimeRange(LocalTime.of(1, 0), LocalTime.of(23, 59))
             							.withPriority("")
             							.build();
+            //how to write the meeting task to not show 9999999999999999
+            meeting = new TaskBuilder().withDetail("Unconfirmed meeting with boss")
+					.withDueByDateRange(LocalDate.of(2016, 11, 11),LocalDate.of(2016, 11, 11))
+					.withDueByTimeRange(LocalTime.of(1, 0), LocalTime.of(2, 0))
+					.withPriority("")
+					.build();
             businessDeal = new TaskBuilder().withDetail("Unconfirmed meeting with carousell")
 					.withDueByDateRange(LocalDate.of(2016, 12, 12), LocalDate.of(2016, 12, 12))
 					.withDueByTimeRange(LocalTime.of(11, 0), LocalTime.of(15, 00))
-					.withPriority("high")
+					.withPriority("")
 					.build();
             deal = new TaskBuilder().withDetail("Unconfirmed meeting with Rakuten Ventures")
 					.withDueByDateRange(LocalDate.of(2016, 12, 12), LocalDate.of(2016, 12, 12))
 					.withDueByTimeRange(LocalTime.of(11, 0), LocalTime.of(15, 00))
-					.withPriority("high")
+					.withPriority("")
 					.build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
