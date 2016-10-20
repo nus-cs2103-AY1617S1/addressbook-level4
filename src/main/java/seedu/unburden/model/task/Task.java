@@ -40,7 +40,18 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
-
+    
+    // adds Task name, date, start time and end time of the task 
+    public Task(Name name,Date date, Time startTime, Time endTime, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, tags);
+        this.name = name;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    
+    // adds a floating Task 
     public Task(Name name, UniqueTagList tags) throws IllegalValueException {
 		assert !CollectionUtil.isAnyNull(name, tags);
 		this.name = name;
