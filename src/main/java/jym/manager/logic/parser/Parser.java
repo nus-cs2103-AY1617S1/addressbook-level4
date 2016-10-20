@@ -61,25 +61,31 @@ public class Parser {
     	com.joestelmach.natty.Parser p = new com.joestelmach.natty.Parser();
     	List<DateGroup> dg = p.parse(date);
     	
-    	dg.forEach(g -> System.out.println("group: "+ g.getFullText()));
-    	if(date.contains(DayOfWeek.FRIDAY.toString()));
-    	
     	LocalDateTime ldt = null;
-    	if(date.contains("T")){
-	    	try{
-	 			ldt = LocalDateTime.parse(date);
-	 		} catch(DateTimeParseException dtpe) {
-	 			dtpe.printStackTrace();
-	 		}
-	    } else {
-	     	try{
-		     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
-		     	ldt = LocalDateTime.parse(date, formatter);
-	    	} catch(DateTimeParseException dtpe) {
-	    		dtpe.printStackTrace();
-	    	}
-	     }
-	     return ldt;
+    	if(!dg.isEmpty() && dg.get(0) != null){
+    		ldt = LocalDateTime.ofInstant(dg.get(0).getDates().get(0).toInstant(), ZoneId.systemDefault());
+    	}
+    	return ldt;
+    	
+//    	dg.forEach(g -> System.out.println("group: "+ g.getFullText()));
+//    	if(date.contains(DayOfWeek.FRIDAY.toString()));
+//    	
+//    	LocalDateTime ldt = null;
+//    	if(date.contains("T")){
+//	    	try{
+//	 			ldt = LocalDateTime.parse(date);
+//	 		} catch(DateTimeParseException dtpe) {
+//	 			dtpe.printStackTrace();
+//	 		}
+//	    } else {
+//	     	try{
+//		     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
+//		     	ldt = LocalDateTime.parse(date, formatter);
+//	    	} catch(DateTimeParseException dtpe) {
+//	    		dtpe.printStackTrace();
+//	    	}
+//	     }
+//	     return ldt;
     }
     /**
      * Parses user input into command for execution.
@@ -146,37 +152,52 @@ public class Parser {
 
         com.joestelmach.natty.Parser p = new com.joestelmach.natty.Parser();
     	List<DateGroup> dg = p.parse(args);
-    	
-    	
-        String[] sections = args.split(dg.get(0).getText()); //split around the time
-        
+        String[] sections; //split around the time
         String date = null;
-        String description = sections[0];
+        String description = null;
         String location = null;
+        LocalDateTime ldt = null;
+    	if(!dg.isEmpty() && dg.get(0) != null){
+    		ldt = LocalDateTime.ofInstant(dg.get(0).getDates().get(0).toInstant(), ZoneId.systemDefault());
+
+    		sections = args.split(dg.get(0).getText());
+    		if(sections.length > 1){
+            	location = sections[1];
+            	description = sections[0];
+            } else {
+            	String[] furtherSects = sections[0].split("\\sat\\s");//for location
+            	location = (furtherSects.length > 1)? furtherSects[1] : null;
+            	description = furtherSects[0];
+            }
+    		
+    		if(location.contains("at")){
+        		location = location.substring(4);
+        	}
+        	if(description.endsWith("by ")){
+        		description = description.split("\\sby\\s")[0];
+        	}
+    	} else {
+    		sections = args.split("\\sat\\s");
+    		description = sections[0];
+    		if(sections.length > 1){
+    			location = sections[1];
+    		}
+    	}
         
-        if(sections.length > 1){
-        	location = sections[1];
-        } else {
-        	String[] furtherSects = sections[0].split("\\sat\\s");//for location
-        	location = (furtherSects.length > 1)? furtherSects[1] : null;
-        	description = furtherSects[0];
-        }
+
+        
+        
         List<String> list = Arrays.asList(sections);
         System.out.println("Section groups: ");
         list.forEach(n-> System.out.println(n));
         System.out.println(LocalDateTime.now().toString());
         
+//    	
+//    	dg.forEach(g -> System.out.println("group: "+ g.getText()));
+//    	dg.get(0).getDates().forEach(d -> System.out.println("date: " + d.toString()));
+//    	
     	
-    	dg.forEach(g -> System.out.println("group: "+ g.getText()));
-    	dg.get(0).getDates().forEach(d -> System.out.println("date: " + d.toString()));
     	
-    	
-    	if(location.contains("at")){
-    		location = location.substring(4);
-    	}
-    	if(description.endsWith("by ")){
-    		description = description.split("\\sby\\s")[0];
-    	}
 //        if(sections.length > 1){
 //        	Pattern dateRegex = Pattern.compile("(\\d\\d[- /.]\\d\\d[- /.]\\d\\d\\d\\d)(.*)");
 //        	Pattern timeRegex = Pattern.compile("(.*)(\\d\\d[: /.]\\d\\d)(.*)");
@@ -201,7 +222,6 @@ public class Parser {
  //       }
      
     
-        LocalDateTime ldt = LocalDateTime.ofInstant(dg.get(0).getDates().get(0).toInstant(), ZoneId.systemDefault());
         try {
             return new AddCommand(
                     description,

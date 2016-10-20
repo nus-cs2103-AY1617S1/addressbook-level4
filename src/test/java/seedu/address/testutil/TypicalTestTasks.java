@@ -50,7 +50,7 @@ public class TypicalTestTasks {
             		.build();
             goToWork = new TaskBuilder().withDescription("Go to work")
             		.withLocation("chicago ave")
-            		.withDeadline("05-06-1234 12:30")
+            		.withDeadline("tomorrow 9AM")
             		.build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
