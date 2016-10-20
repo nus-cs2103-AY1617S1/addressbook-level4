@@ -21,11 +21,11 @@ public class Date {
      * @throws IllegalValueException if given date string is invalid.
      */
     public Date(String date) throws IllegalValueException {
-        /*assert date != null;
+        assert date != null;
         date = date.trim();
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        }*/
+        }
         
         this.fullDate = date;
     }

@@ -156,8 +156,6 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name 12-12-2010 s/2300 e/2359", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name d/12-12-2010 2300 e/2359", expectedMessage);
-        assertCommandBehavior(
                 "add Valid Name d/12-12-2010 s/2300 2359", expectedMessage);
     }
 
