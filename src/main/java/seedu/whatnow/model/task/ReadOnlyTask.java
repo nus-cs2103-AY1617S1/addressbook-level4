@@ -9,14 +9,18 @@ import seedu.whatnow.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
+    TaskDate getTaskDate();
+    TaskDate getStartDate();
+    TaskDate getEndDate();
+    String getTaskTime();
+    String getStartTime();
+    String getEndTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
-    
-    TaskDate getTaskDate();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -54,10 +58,29 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-        		.append(" " + getTaskDate())
-                .append(" " + getStatus())
-                .append(" Tags: ");
+        builder.append(getName());
+        if (getTaskDate() != null)
+            builder.append(" " + getTaskDate());
+        		
+        if (getStartDate() != null)
+            builder.append(" " + getStartDate());
+        
+        if (getEndDate() != null)
+            builder.append(" " + getEndDate());
+        
+        if (getTaskTime() != null)
+            builder.append(" " + getTaskTime());
+        
+        if (getStartTime() != null)
+            builder.append(" " + getStartTime());
+        
+        if (getEndTime() != null)
+            builder.append(" " + getEndTime());
+        
+        if (getStatus() != null)
+            builder.append(" " + getStatus());
+        
+        builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

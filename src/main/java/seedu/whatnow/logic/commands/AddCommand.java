@@ -26,38 +26,22 @@ public class AddCommand extends UndoAndRedo {
 
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
+	private static final String STATUS_INCOMPLETE = "incomplete";
 
 	private final Task toAdd;
-
-	/**
-	 * Convenience constructor using raw values.
-	 *
-	 * @throws IllegalValueException if any of the raw values are invalid
-	 */
-	public AddCommand(String name, Set<String> tags) throws IllegalValueException {
-		final Set<Tag> tagSet = new HashSet<>();
-		for (String tagName : tags) {
-			tagSet.add(new Tag(tagName));
-		}
-		this.toAdd = new Task(
-				new Name(name),
-				new UniqueTagList(tagSet),
-				"incomplete"
-				);
-	}
-
-	public AddCommand(String name, String date, Set<String> tags) throws IllegalValueException, ParseException {
-		// TODO Auto-generated constructor stub
-		final Set<Tag> tagSet = new HashSet<>();
-		for (String tagName : tags) {
-			tagSet.add(new Tag(tagName));
-		}
-		this.toAdd = new Task(
-				new Name(name),
-				new TaskDate(date),
-				new UniqueTagList(tagSet),
-				"incomplete"
-				);
+	
+	public AddCommand(String name, String date, String startDate, String endDate, String time, String startTime, String endTime, Set<String> tags) throws IllegalValueException, ParseException {
+	    final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        
+        if (date != null)
+            this.toAdd = new Task(new Name(name), new TaskDate(date), null, null, time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
+        else if (startDate != null)
+            this.toAdd = new Task(new Name(name), null, new TaskDate(startDate), new TaskDate(endDate), time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
+        else
+            this.toAdd = new Task(new Name(name), null, null, null, time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
 	}
 
 	@Override
