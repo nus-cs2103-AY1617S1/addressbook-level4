@@ -26,6 +26,7 @@ public class AliasController implements Controller {
     
     private static final String SPACE = " ";
     private static final int ARGS_LENGTH = 2;
+    private static final String MESSAGE_SHOWING = "Showing all aliases.";
     private static final String INVALID_NUM_PARAMS = "Seems like you have provided an invalid number of parameters!";
     private static final String MESSAGE_INVALID_INPUT = "Invalid alias parameters! Alias inputs must consist solely "
                                                       + "of alphabetical characters.";
@@ -48,7 +49,7 @@ public class AliasController implements Controller {
         String params = input.replaceFirst("alias", "").trim();
 
         if (params.length() <= 0) {
-            // TODO: Render aliases
+            Renderer.renderAlias(MESSAGE_SHOWING);
             return;
         }
         
@@ -88,6 +89,7 @@ public class AliasController implements Controller {
         TodoListDB db = TodoListDB.getInstance();
         saveAlias(db, aliasKey, aliasValue);
         
+        Renderer.renderAlias(MESSAGE_SHOWING);
     }
     
     /**
