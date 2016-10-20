@@ -33,7 +33,7 @@ public class AliasController implements Controller {
     @Override
     public float inputConfidence(String input) {
         // TODO
-        return input.startsWith("alias") ? 1 : 0;
+        return input.toLowerCase().startsWith("alias") ? 1 : 0;
     }
 
     @Override
