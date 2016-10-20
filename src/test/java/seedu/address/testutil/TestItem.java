@@ -93,9 +93,22 @@ public class TestItem implements ReadOnlyItem {
     }
     
     public String getAddCommand() {
-    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    	assert this.getDescription() != null;
         StringBuilder sb = new StringBuilder();
-        sb.append("add \"" + this.getDescription().getFullDescription() + "\" from " + this.getStartDate().format(formatter) + " to " + this.getEndDate().format(formatter));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String startTime = new String();
+        String endTime = new String();
+        if (this.getStartDate() == null) {
+        	startTime = " ";
+        } else {
+        	startTime = this.getStartDate().format(formatter);
+        }
+        if (this.getEndDate() == null) {
+        	endTime = " ";
+        } else {
+        	endTime = this.getEndDate().format(formatter);
+        }
+        sb.append("add \"" + this.getDescription().getFullDescription() + "\" from " + startTime + " to " + endTime);
         return sb.toString();
     }
 
