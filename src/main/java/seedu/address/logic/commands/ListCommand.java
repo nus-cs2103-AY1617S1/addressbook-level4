@@ -39,15 +39,43 @@ public class ListCommand extends Command {
 
     // filters by task status first then by task type
 	private void filterTask() {
-		if (status != null) {
-			if (status.value.equals(Status.DoneStatus.DONE)) {
-				model.updateFilteredTaskList(TaskFilter.isDone());
-			} else {
-				model.updateFilteredTaskList(TaskFilter.isDone().negate());
+		if (status == null && taskType == null) {
+			model.updateFilteredListToShowAll();
+		} else if (status != null && taskType == null) {
+			filterTaskStatus();
+		} else if (status == null && taskType != null) {
+			filterTaskType();
+		} else if (status != null && taskType != null) {
+			filterTaskStatusAndType();
+		}
+	}
+
+	private void filterTaskStatusAndType() {
+		if (status.value.equals(Status.DoneStatus.DONE)) {
+			if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
+				model.updateFilteredTaskList(TaskFilter.isSomedayTask().and(TaskFilter.isDone()));
+			} else if (taskType.value.equals(TaskType.Type.DEADLINE)) {
+				model.updateFilteredTaskList(TaskFilter.isDeadlineTask().and(TaskFilter.isDone()));
+			} else if (taskType.value.equals(TaskType.Type.DEADLINE)) {
+				model.updateFilteredTaskList(TaskFilter.isEventTask().and(TaskFilter.isDone()));
 			}
-			filterTaskType();
 		} else {
-			filterTaskType();
+			if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
+				model.updateFilteredTaskList(TaskFilter.isSomedayTask().and(TaskFilter.isDone().negate()));
+			} else if (taskType.value.equals(TaskType.Type.DEADLINE)) {
+				model.updateFilteredTaskList(TaskFilter.isDeadlineTask().and(TaskFilter.isDone().negate()));
+			} else if (taskType.value.equals(TaskType.Type.DEADLINE)) {
+				model.updateFilteredTaskList(TaskFilter.isEventTask().and(TaskFilter.isDone().negate()));
+			}
+		}
+	}
+
+	// filters by task status
+	private void filterTaskStatus() {
+		if (status.value.equals(Status.DoneStatus.DONE)) {
+			model.updateFilteredTaskList(TaskFilter.isDone());
+		} else {
+			model.updateFilteredTaskList(TaskFilter.isDone().negate());
 		}
 	}
 		
@@ -62,8 +90,6 @@ public class ListCommand extends Command {
 			} else if (taskType.value.equals(TaskType.Type.DEADLINE)) {
 				model.updateFilteredTaskList(TaskFilter.isEventTask());
 			}
-		} else {
-			model.updateFilteredListToShowAll();
-		}
+		} 
 	}
 }
