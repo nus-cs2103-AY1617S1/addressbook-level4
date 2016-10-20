@@ -278,6 +278,13 @@ public class Parser {
 
 		return new DeleteCommand(index.get());
 	}
+	
+	private Command prepareList(String args){
+		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args);
+		if(!matcherDate.matches()){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+		}
+	}
 
 	private Command prepareEdit(String args) {
 
