@@ -23,7 +23,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " task 1 note write in red ink \n"
             + "Example: " + COMMAND_WORD + " event 1 name ORD";
 
-    public static final String MESSAGE_EDITTED_ACTIVITY_SUCCESS = "Edited Activity to: %1$s";
+    public static final String MESSAGE_EDITTED_ACTIVITY_SUCCESS = "Menion editted your Activity to: %1$s";
     public static final String NAME_PARAM = "name";
     public static final String NOTE_PARAM = "note";
     public static final String TASK_DEADLINE_PARAM = "by"; 
@@ -35,15 +35,10 @@ public class EditCommand extends Command {
     ReadOnlyActivity activityToEdit;
 
     public EditCommand(String[] splited) {
-
         this.targetType = splited[1];
         this.targetIndex = Integer.valueOf(splited[2]) - 1;
         this.paramToChange = splited[3];
         this.changes = Arrays.copyOfRange(splited, 4, splited.length);
-        
-        for (int i = 0; i < splited.length; i++) {
-            System.out.println("This is i : " + i + ". And this is inside: " + splited[i]);
-        }
     }
 
     @Override
@@ -61,7 +56,7 @@ public class EditCommand extends Command {
             lastShownList = model.getFilteredEventList();
             eventEdit(this.targetIndex, this.paramToChange, this.changes);
         }
-
+        // Validates valid index is an index of an activity in the correct list
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
