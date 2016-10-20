@@ -30,7 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
 
-    private String lastListing;
+    public String lastListing;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -115,18 +115,14 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-    
-    public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
-    }
 
-    /*@Override
+    @Override
     public void updateFilteredListToShowAll() {
         updateFilteredListToShowAll(new PredicateExpression(new AllQualifier()));
     }
     public void updateFilteredListToShowAll(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
-    }*/
+    }
     
     @Override
     public void updateFilteredListToShowAllDone() {
@@ -200,13 +196,13 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
     
-    /*private class AllQualifier implements Qualifier {
+    private class AllQualifier implements Qualifier {
         AllQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
             return (task != null);
         }
-    }*/
+    }
     
     private class NotDoneQualifier implements Qualifier {
         
