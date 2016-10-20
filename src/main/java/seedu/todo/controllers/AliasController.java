@@ -88,6 +88,13 @@ public class AliasController implements Controller {
         
     }
     
+    /**
+     * Persists an alias mapping to the database.
+     * 
+     * @param db    TodoListDB singleton
+     * @param aliasKey
+     * @param aliasValue
+     */
     private static void saveAlias(TodoListDB db, String aliasKey, String aliasValue) {
         Map<String, String> aliases = db.getAliases();
         aliases.put(aliasKey, aliasValue);
