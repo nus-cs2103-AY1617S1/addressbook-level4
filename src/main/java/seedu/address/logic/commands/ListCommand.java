@@ -32,37 +32,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-    	filterTask();
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+    	model.updateFilteredListToShowAll();
+	return new CommandResult(MESSAGE_SUCCESS);
     }
-
-    // filters by task status first then by task type
-	private void filterTask() {
-		if (status != null) {
-			if (status.value.equals(Status.DoneStatus.DONE)) {
-				model.updateFilteredTaskList(TaskFilter.isDone());
-			} else {
-				model.updateFilteredTaskList(TaskFilter.isDone().negate());
-			}
-			filterTaskType();
-		} else {
-			filterTaskType();
-		}
-	}
-		
-
-	// filters by task type
-	private void filterTaskType() {
-		if (taskType != null) {
-			if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
-				model.updateFilteredTaskList(TaskFilter.isSomedayTask());
-			} else if (taskType.value.equals(TaskType.Type.DEADLINE)) {
-				model.updateFilteredTaskList(TaskFilter.isDeadlineTask());
-			} else if (taskType.value.equals(TaskType.Type.DEADLINE)) {
-				model.updateFilteredTaskList(TaskFilter.isEventTask());
-			}
-		} else {
-			model.updateFilteredListToShowAll();
-		}
-	}
 }
