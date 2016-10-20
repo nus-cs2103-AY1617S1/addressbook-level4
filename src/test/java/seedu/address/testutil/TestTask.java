@@ -59,7 +59,7 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().taskName + " ");
+        sb.append("add "  +"n/"+this.getName().taskName + " ");
         if (isEvent) {
             assert date instanceof EventDate;
             EventDate eventDate = (EventDate) this.getDate();

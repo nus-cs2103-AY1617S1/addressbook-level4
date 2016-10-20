@@ -107,7 +107,10 @@ public class Parser {
     		if(argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix))
     		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
     				argsTokenizer.getValue(deadlinePrefix).get(),toSet(argsTokenizer.getAllValues(tagPrefix)));
-    		else
+    		else if(!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)){
+    			return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+    					"",toSet(argsTokenizer.getAllValues(tagPrefix)));
+    		}else
     			return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
     					argsTokenizer.getValue(startDatePrefix).get(),argsTokenizer.getValue(endDatePrefix).get(),
     					toSet(argsTokenizer.getAllValues(tagPrefix)));
