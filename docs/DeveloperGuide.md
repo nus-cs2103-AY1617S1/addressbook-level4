@@ -299,7 +299,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. User enters an `add` command, specifying details of the task to be added, following the `add` command format
+1. User enters an `add` command, specifying details of the task to be added
 2. TaskManager parses the `add` command, and adds the task to the current task list
 3. TaskManager saves the current task list to storage and updates the GUI to display the updated list with the newly added task<br>
 Use case ends
@@ -344,7 +344,7 @@ Use case ends
 
 1. User requests to list undone tasks (UC02)
 2. TaskManager shows the list of all undone tasks
-3. User enters the `edit` command, specifying the `INDEX` of the task in the list to be edited, the fields to be edited and their new values, following the `edit` command format
+3. User enters the `edit` command, specifying the `INDEX` of the task in the list to be edited, the fields to be edited and their new values
 4. TaskManager parses the `edit` command and looks for the task in the list
 5. TaskManager edits the requested fields on the specified task according to the command entered
 6. TaskManager updates the GUI to display the new list of undone tasks<br>
@@ -373,7 +373,7 @@ Use case ends
 
 1. User requests to list undone tasks (UC02)
 2. TaskManager shows the list of all undone tasks
-3. User enters the `delete` command, specifying the `INDEX` of the task in the list to be deleted, following the `delete` command format
+3. User enters the `delete` command, specifying the `INDEX` of the task in the list to be deleted
 4. TaskManager parses the `delete` command and looks for the task in the list
 5. TaskManager deletes the task from the list
 6. TaskManager updates the GUI to display the new list of undone tasks<br>
