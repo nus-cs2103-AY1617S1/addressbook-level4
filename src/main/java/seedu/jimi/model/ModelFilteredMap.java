@@ -275,7 +275,7 @@ public class ModelFilteredMap {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return task instanceof FloatingTask;
+            return !(task instanceof DeadlineTask) && !(task instanceof Event) && task instanceof FloatingTask;
         }
     }
 }
