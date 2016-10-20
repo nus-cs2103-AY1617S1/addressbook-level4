@@ -35,7 +35,11 @@ public class DateTimeInfoParser {
         this.timingInfo = dateParser.get(0);
     }
 
-    public DateGroup getParsedTimingInfo(){
-        return timingInfo;
+    public String getParsedTimingInfo(){
+        return timingInfo.getDates().toString();
+    }
+
+    public boolean isInferred() {
+        return timingInfo.isTimeInferred();
     }
 }

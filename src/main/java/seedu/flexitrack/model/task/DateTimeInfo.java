@@ -18,16 +18,15 @@ public class DateTimeInfo {
     public static final String MESSAGE_DATETIMEINFO_CONSTRAINTS = "Invalid time inputed. Please check your spelling!";
     public static final boolean DUE_DATE_OR_START_TIME = true; 
     public static final boolean END_TIME = false; 
-    
     private static final Pattern TIME_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<info>.+)");
+    private static final String MESSAGE_FROM_IS_AFTER_TO = "Please check the timing inputed! The given starting time is after the ending time.";
 
-    private DateGroup setTime;
-    private String timingInfo; 
+    private String setTime;
 
-    public DateTimeInfo(String givenTime, boolean isStartTimeOrDueDate)throws IllegalValueException {
+    public DateTimeInfo(String givenTime)throws IllegalValueException {
         setDateGroupTime(givenTime);
-        setTimingInfo(isStartTimeOrDueDate);
+    //    setTimingInfo(isStartTimeOrDueDate);
     }
 
     /**
@@ -40,70 +39,79 @@ public class DateTimeInfo {
         matcher.matches();
         DateTimeInfoParser parsedTiming = new DateTimeInfoParser( matcher.group("info"));
         this.setTime = parsedTiming.getParsedTimingInfo();
+        formatTiming(parsedTiming.isInferred()); 
     }
 
-    /**
-     * Set the timingInfo string as the format of the date that the user will see
-     * @param isStartTimeOrDueDate
-     */
-    private void setTimingInfo(boolean isStartTimeOrDueDate) {
-        timingInfo = getDateMonthYear();
-        if (setTime.isTimeInferred()){
-            setInferredTiming(isStartTimeOrDueDate);
-        }else { 
-            timingInfo = setTime.getDates().toString().substring(12, 17);
-        }
-    }
-
-    /**
-     * @return
-     */
-    private String getDateMonthYear() {
-        return setTime.getDates().toString().substring(5, 12) + setTime.getDates().toString().substring(12, 17);
-    }
-
-    /**
-     * Set the timing to be the default timing if timing is Inferred 
-     * @param isStartTimeOrDueDate
-     */
-    private void setInferredTiming(boolean isStartTimeOrDueDate) {
-        if (isStartTimeOrDueDate) {
-            setTimeAsMorningDefault();
+    private void formatTiming(boolean inferred) {
+        if (inferred) {
+            setTime = getDateMonthYear() + " 08:00" ;       
         } else { 
-            setTimeAsEveningDefault();
+            setTime = getDateMonthYear() + " " + setTime.substring(12, 17);
         }
     }
 
-    /**
-     * Setting the timingInfo as default timing (8am) 
-     */
-    private void setTimeAsMorningDefault() {
-        timingInfo = timingInfo.substring(5, 12);
-        timingInfo = timingInfo + "08:00";
+//    /**
+//     * Set the timingInfo string as the format of the date that the user will see
+//     * @param isStartTimeOrDueDate
+//     */
+//    private void setTimingInfo(boolean isStartTimeOrDueDate) {
+//        timingInfo = getDateMonthYear();
+//        if (setTime.isTimeInferred()){
+//            setInferredTiming(isStartTimeOrDueDate);
+//        }else { 
+//            timingInfo = setTime.getDates().toString().substring(12, 17);
+//        }
+//    }
+//
+//    /**
+//     * @return
+//     */
+    private String getDateMonthYear() {
+        return setTime.substring(5, 12) + setTime.substring(25, 29);
     }
-
-    /**
-     * Setting the timingInfo as default timing (8am) 
-     */
-    private void setTimeAsEveningDefault() {
-        timingInfo = timingInfo.substring(5, 12);
-        timingInfo = timingInfo + "17:00";
-    }
-
-    /** 
-     * @param timingInfo
-     * @return true when the timing is specified
-     */
-    public boolean isTimeSpecified(String timingInfo){ 
-        Parser parser = new Parser(); 
-        List<DateGroup> dateParser = parser.parse("now");
-        String timingInfoNow = dateParser.get(0).getDates().toString();
-        if (timingInfo.substring(12, 20).equals(timingInfoNow.substring(12, 20))){
-            return false; 
-        } else {
-            return true;
-        }
-    }
+//
+//    /**
+//     * Set the timing to be the default timing if timing is Inferred 
+//     * @param isStartTimeOrDueDate
+//     */
+//    private void setInferredTiming(boolean isStartTimeOrDueDate) {
+//        if (isStartTimeOrDueDate) {
+//            setTimeAsMorningDefault();
+//        } else { 
+//            setTimeAsEveningDefault();
+//        }
+//    }
+//
+//    /**
+//     * Setting the timingInfo as default timing (8am) 
+//     */
+//    private void setTimeAsMorningDefault() {
+//        timingInfo = timingInfo.substring(5, 12);
+//        timingInfo = timingInfo + "08:00";
+//    }
+//
+//    /**
+//     * Setting the timingInfo as default timing (8am) 
+//     */
+//    private void setTimeAsEveningDefault() {
+//        timingInfo = timingInfo.substring(5, 12);
+//        timingInfo = timingInfo + "17:00";
+//    }
+//
+//    /** 
+//     * @param timingInfo
+//     * @return true when the timing is specified
+//     */
+//    public boolean isTimeSpecified(String timingInfo){ 
+//        Parser parser = new Parser(); 
+//        List<DateGroup> dateParser = parser.parse("now");
+//        String timingInfoNow = dateParser.get(0).getDates().toString();
+//        if (timingInfo.substring(12, 20).equals(timingInfoNow.substring(12, 20))){
+//            return false; 
+//        } else {
+//            return true;
+//        }
+//    }
 
     /** 
      * Validate the timing inputed 
@@ -160,21 +168,23 @@ public class DateTimeInfo {
      * @param ending Time
      * @return 0 if it is after, 1 if it is before and 2 if they are the same 
      */
-    public static String durationOfTheEvent (String startingTime, String endingTime){
+    public static String durationOfTheEvent (String startingTime, String endingTime) {
+        int years = yearsOfTheEvent (startingTime,endingTime);
         int months = monthsOfTheEvent (startingTime,endingTime);
         int days = daysOfTheEvent (startingTime,endingTime);
         int hours = hoursOfTheEvent (startingTime,endingTime);
         int minutes = minutesOfTheEvent (startingTime,endingTime);
 
-        return combineDuratingOfEvent(months,days,hours,minutes); 
+        return combineDuratingOfEvent(years,months,days,hours,minutes); 
     }
 
 
-    private static String combineDuratingOfEvent(int months, int days, int hours, int minutes) {
+    private static String combineDuratingOfEvent(int years, int months, int days, int hours, int minutes) {
         String duration = new String(""); 
         boolean lessThanAnHour=false; 
         boolean lessThanADay=false; 
         boolean lessThanAMonth=false; 
+        boolean lessThanAYear=false; 
 
         if (minutes > 0 || minutes < 0) { 
             if (minutes < 0){
@@ -195,7 +205,7 @@ public class DateTimeInfo {
         }
         if (days != 0){ 
             if (days<0){ 
-                days = Math.floorMod(days, 30);
+                days = Math.floorMod(days, 31);
                 lessThanAMonth = true; 
             }
             if (lessThanADay) {
@@ -204,11 +214,21 @@ public class DateTimeInfo {
             duration = " " + days + " day" + ((days == 1)?"":"s" + duration); 
         }
         if (months > 0 || months < 0){ 
+            if (months<0){ 
+                months = Math.floorMod(months, 12);
+                lessThanAYear = true;
+            }
             if (lessThanAMonth) {
                 months = months - 1; 
             }
             duration = " " + months + " month" + ((months == 1)?"":"s" + duration ); 
         }
+        if (years < 0 || lessThanAYear){ 
+            return MESSAGE_FROM_IS_AFTER_TO; 
+        } else if (years > 0 ){ 
+            duration = " " + years + " year" + ((years == 1)?"":"s" + duration ); 
+        }
+        
         if (minutes == 0 && hours == 0 && days == 0 && months == 0) { 
             duration = "Event starts and end at the same time."; 
         } else { 
@@ -225,8 +245,8 @@ public class DateTimeInfo {
      * @return the minute difference 
      */
     private static int minutesOfTheEvent(String startingTime, String endingTime) {
-        int startMinute = Integer.parseInt(startingTime.substring(10,12));
-        int endMinute = Integer.parseInt(endingTime.substring(10,12)); 
+        int startMinute = Integer.parseInt(startingTime.substring(15,17));
+        int endMinute = Integer.parseInt(endingTime.substring(15,17)); 
         return endMinute - startMinute;
     }
 
@@ -237,8 +257,8 @@ public class DateTimeInfo {
      * @return the hour difference 
      */
     private static int hoursOfTheEvent(String startingTime, String endingTime) {
-        int startHours = Integer.parseInt(startingTime.substring(7,9));
-        int endHours = Integer.parseInt(endingTime.substring(7,9)); 
+        int startHours = Integer.parseInt(startingTime.substring(12,14));
+        int endHours = Integer.parseInt(endingTime.substring(12,14)); 
         return endHours - startHours;
     }
 
@@ -253,7 +273,19 @@ public class DateTimeInfo {
         int endDate = Integer.parseInt(endingTime.substring(4,6)); 
         return endDate - startDate;
     }
-
+    
+    /** 
+     * Calculate the day difference between the end and the start
+     * @param startingTime
+     * @param endingTime
+     * @return the day difference 
+     */
+    private static int yearsOfTheEvent(String startingTime, String endingTime) {
+        int startYear = Integer.parseInt(startingTime.substring(7,11));
+        int endYear = Integer.parseInt(endingTime.substring(7,11)); 
+        return endYear - startYear;
+    }
+    
     /** 
      * Calculate the month difference between the end and the start
      * @param startingTime
@@ -264,21 +296,19 @@ public class DateTimeInfo {
         String startMonth = startingTime.substring(0,3);
         String endMonth = endingTime.substring(0,3); 
         int monthDifference = whatMonth(endMonth) - whatMonth(startMonth); 
-        monthDifference = Math.floorMod(monthDifference, 12);
         return monthDifference;
     }
 
     @Override
     public String toString() {
-        return timingInfo;
+        return setTime;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DateTimeInfo // instanceof handles nulls
-                        && this.setTime.equals(((DateTimeInfo) other).setTime)
-                        && this.timingInfo.equals(((DateTimeInfo) other).timingInfo)); // state check
+                        && this.setTime.equals(((DateTimeInfo) other).setTime)); // state check
     }
 
     @Override
@@ -288,6 +318,6 @@ public class DateTimeInfo {
 
 
     public boolean isDateNull() {
-        return this.setTime.equals("Feb 29 23:23");
+        return this.setTime.equals("Feb 29 2000 00:00");
     }
 }
