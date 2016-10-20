@@ -12,23 +12,7 @@
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tars.ui.MainWindow">
    <children>
-      <MenuBar maxHeight="37.0" minHeight="37.0" prefWidth="692.0" VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-               </items>
-            </Menu>
-         </menus>
-         <padding>
-            <Insets bottom="5.0" left="15.0" top="5.0" />
-         </padding>
-      </MenuBar>
+      
       <AnchorPane fx:id="infoHeaderPlaceholder" maxHeight="54.0" minHeight="50.0" prefHeight="54.0" prefWidth="692.0" styleClass="background" VBox.vgrow="NEVER" />
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
          <items>

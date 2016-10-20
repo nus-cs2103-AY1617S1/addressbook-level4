@@ -46,9 +46,6 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
-
-    @FXML
-    private MenuItem helpMenuItem;
     
     @FXML
     private AnchorPane infoHeaderPlaceholder;
@@ -110,12 +107,8 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
         
-        setAccelerators();
     }
 
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
 
     void fillInnerParts() {
         infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder, logic.getFilteredTaskList());
