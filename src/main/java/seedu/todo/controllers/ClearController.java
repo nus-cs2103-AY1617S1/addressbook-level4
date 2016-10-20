@@ -51,7 +51,7 @@ public class ClearController implements Controller {
     private static Map<String, String[]> getTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
         tokenDefinitions.put("default", new String[] {"clear"});
-        tokenDefinitions.put("eventType", new String[] { "event", "task" });
+        tokenDefinitions.put("eventType", new String[] { "event", "events", "task", "tasks" });
         tokenDefinitions.put("time", new String[] { "at", "by", "on", "before", "time" });
         tokenDefinitions.put("timeFrom", new String[] { "from" });
         tokenDefinitions.put("timeTo", new String[] { "to" });
@@ -72,25 +72,42 @@ public class ClearController implements Controller {
         
         String[] parsedDates = parseDates(parsedResult);
         
+        // Task or event?
+        boolean deleteAll = parseDeleteAllType(parsedResult);
+        
+        boolean isTask = true; //default
+        //if listing all type , set isTask and isEvent true
+        if (!deleteAll) {
+            isTask = parseIsTask(parsedResult);
+        }
+        
         //no dates provided
-        if (parsedDates == null && parseExactClearCommand(parsedResult)) {
+        if (parsedDates == null && parseExactClearCommand(parsedResult) && deleteAll) {
             destroyAll(db);
             return;
         } else {
-            displayErrorMessage(input, parsedDates);
+            if (deleteAll) { //no item type provided
+                displayErrorMessage(input, parsedDates);
+            }
         }
         
-        String naturalOn = parsedDates[0];
-        String naturalFrom = parsedDates[1];
-        String naturalTo = parsedDates[2];
-        // if all are null = no date provided
+        LocalDateTime dateOn = null;
+        LocalDateTime dateFrom = null;
+        LocalDateTime dateTo = null;
         
-        // Parse natural date using Natty.
-        LocalDateTime dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
-        LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
-        LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+        if (parsedDates != null) {
+            String naturalOn = parsedDates[0];
+            String naturalFrom = parsedDates[1];
+            String naturalTo = parsedDates[2];
+            // if all are null = no date provided
+            
+            // Parse natural date using Natty.
+            dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
+            dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
+            dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+        }
         
-        destroyByDate(db, parsedDates, dateOn, dateFrom, dateTo, input);
+        destroyByDate(db, parsedDates, dateOn, dateFrom, dateTo, deleteAll, isTask, input);
 
     }
 
@@ -107,14 +124,15 @@ public class ClearController implements Controller {
      *            null if parsing failed or End date for Event
      */
     private void destroyByDate(TodoListDB db, String[] parsedDate, LocalDateTime dateOn, 
-            LocalDateTime dateFrom, LocalDateTime dateTo, String input) {
+            LocalDateTime dateFrom, LocalDateTime dateTo, boolean deleteAll, boolean isTask, String input) {
         if (dateOn != null) {
-            destroyBySelectedDate(db, dateOn);
+            destroyBySelectedDate(db, dateOn, deleteAll, isTask);
             return;
-        } else if (dateFrom != null || dateTo != null) {
-            destroyByRange(db, dateFrom, dateTo);
+        } else if (dateFrom != null || dateTo != null || !deleteAll) {
+            destroyByRange(db, dateFrom, dateTo, deleteAll, isTask);
             return;
-        } else { //natty deem all dates as invalid
+        } 
+        else { //natty deem all dates as invalid
             displayErrorMessage(input, parsedDate);
         }
     }
@@ -128,7 +146,16 @@ public class ClearController implements Controller {
      * @param dateTo
      *            null if parsing failed or End date for Event
      */
-    private void destroyByRange(TodoListDB db, LocalDateTime dateFrom, LocalDateTime dateTo) {
+    private void destroyByRange(TodoListDB db, LocalDateTime dateFrom, LocalDateTime dateTo, 
+            boolean deleteAll, boolean isTask) {
+        if (dateFrom == null) {
+            dateFrom = LocalDateTime.MIN;
+        } 
+        
+        if (dateTo == null) {
+            dateTo = LocalDateTime.MAX;
+        }
+        
         int numTasks = db.getTaskByRange(dateFrom, dateTo).size();
         int numEvents = db.getEventByRange(dateFrom, dateTo).size();
         if (numTasks == 0 && numEvents == 0) {
@@ -136,8 +163,16 @@ public class ClearController implements Controller {
             return;
         }
         
-        db.destroyAllEventByRange(dateFrom, dateTo);
-        db.destroyAllTaskByRange(dateFrom, dateTo);
+        if (deleteAll) {
+            db.destroyAllEventByRange(dateFrom, dateTo);
+            db.destroyAllTaskByRange(dateFrom, dateTo);
+        } else if (isTask) {
+            db.destroyAllTaskByRange(dateFrom, dateTo);
+            numEvents = 0;
+        } else {
+            db.destroyAllEventByRange(dateFrom, dateTo);
+            numTasks = 0;
+        }
         db.save();
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, displaySuccessMessage(numTasks, numEvents)));
     }
@@ -192,15 +227,22 @@ public class ClearController implements Controller {
      * @param givenDate
      *            null if parsing failed or Due date for Task or start date for Event
      */
-    private void destroyBySelectedDate(TodoListDB db, LocalDateTime givenDate) {
+    private void destroyBySelectedDate(TodoListDB db, LocalDateTime givenDate, boolean deleteAll, boolean isTask) {
         int numTasks = db.getTaskByDate(givenDate).size();
         int numEvents = db.getEventByDate(givenDate).size();
         if (numTasks == 0 && numEvents == 0) {
             Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
             return;
         }
-        db.destroyAllEventByDate(givenDate);
-        db.destroyAllTaskByDate(givenDate);
+        
+        if (deleteAll) {
+            db.destroyAllEventByDate(givenDate);
+            db.destroyAllTaskByDate(givenDate);
+        } else if (isTask) {
+            db.destroyAllTaskByDate(givenDate);
+        } else {
+            db.destroyAllEventByDate(givenDate);
+        }
         db.save();
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, displaySuccessMessage(numTasks, numEvents)));
     }
@@ -274,6 +316,26 @@ public class ClearController implements Controller {
         } else {
             return null;
         }
+    }
+    
+    /**
+     * Extracts the intended CalendarItem type specify from parsedResult.
+     * 
+     * @param parsedResult
+     * @return true if Task or event is not specify, false if either Task or Event specify
+     */
+    private boolean parseDeleteAllType (Map<String, String[]> parsedResult) {
+        return !(parsedResult.get("eventType") != null);
+    }
+    
+    /**
+     * Extracts the intended CalendarItem type from parsedResult.
+     * 
+     * @param parsedResult
+     * @return true if Task, false if Event
+     */
+    private boolean parseIsTask (Map<String, String[]> parsedResult) {
+        return parsedResult.get("eventType")[0].contains("task");
     }
 
 }
