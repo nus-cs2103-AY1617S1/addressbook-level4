@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import jym.manager.commons.util.UrlUtil;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

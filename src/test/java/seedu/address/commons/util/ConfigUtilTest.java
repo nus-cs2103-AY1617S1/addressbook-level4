@@ -5,14 +5,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.exceptions.DataConversionException;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
 
+import jym.manager.commons.core.Config;
+import jym.manager.commons.exceptions.DataConversionException;
+import jym.manager.commons.util.ConfigUtil;
+import jym.manager.commons.util.FileUtil;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
