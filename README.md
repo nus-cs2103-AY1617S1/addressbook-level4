@@ -1,11 +1,11 @@
-[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
+[![Build Status](https://travis-ci.org/CS2103AUG2016-F09-C2/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-F09-C2/main)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-F09-C2/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-F09-C2/main?branch=master)
 
-# Address Book (Level 4)
+# Task Scheduler
 
 <img src="docs/images/Mock UI.png" width="600"><br>
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
+* This is a desktop Task Scheduler application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as 
   the main programming language. 
@@ -31,5 +31,6 @@
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 
 * This is a desktop Task Scheduler application that uses CLI (Command Line Interface) with GUI. It has been refractored from addressbook-level4 application forked from nus-cs2103-AY1617S1.
+(https://github.com/nus-cs2103-AY1617S1/addressbook-level4)
 
 #### Licence : [MIT](LICENSE)

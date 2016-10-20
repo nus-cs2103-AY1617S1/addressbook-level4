@@ -37,4 +37,7 @@ public class DeadlineTask extends Task {
 //        return "";
 //    }
 
+    public Task copy() {
+        return new DeadlineTask(this);
+    }
 }

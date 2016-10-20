@@ -24,6 +24,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+<<<<<<< HEAD
     private static final Pattern INDEX_COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
@@ -50,6 +51,8 @@ public class Parser {
     
     private static final Pattern SETPATH_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[\\p{Alnum}|/|:|\\s+]+)");   //    data/  <---
+=======
+>>>>>>> c5258c2d9f1cd4b5a054df26c585e88d8346ee15
     
     
     public Parser() {}
@@ -68,6 +71,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+<<<<<<< HEAD
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -174,40 +178,22 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
+=======
+        
+>>>>>>> c5258c2d9f1cd4b5a054df26c585e88d8346ee15
         try {
-            args = args.trim();
-            final Matcher matcher = INDEX_COMMAND_FORMAT.matcher(args);
-    
-            // Validate arg string format
-            if (!matcher.matches()) {
-                return new IncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-            }
-            int index = Integer.parseInt(matcher.group("index"));
-            assert index >= 0;
-            args = matcher.group("arguments").trim();
-            Matcher editMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args);
+            String className = "seedu.address.logic.parser."
+                    +   commandWord.substring(0,1).toUpperCase() 
+                    +   commandWord.substring(1)
+                    +   "CommandParser";
+                    
+            CommandParser commandParser = (CommandParser)Class.forName(className).newInstance();
+            return commandParser.prepareCommand(arguments);
             
-            if (editMatcher.matches()) {
-                return new EditEventCommand(index, editMatcher.group("name"), editMatcher.group("startDate"),
-                        editMatcher.group("endDate"), editMatcher.group("address"));
-            }
-            editMatcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args);
-            
-            if (editMatcher.matches()) {
-                return new EditDeadlineCommand(index, editMatcher.group("name"),
-                        editMatcher.group("endDate")); 
-            }
-            
-            editMatcher = TASK_DATA_ARGS_FORMAT.matcher(args);
-            if (editMatcher.matches()) {
-                return new EditFloatingCommand(index, args);
-            } else {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));      
-            }
+        } catch (Exception e) {
+            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+        } 
 
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
     }
     
     /**
@@ -224,91 +210,5 @@ public class Parser {
         return new HashSet<>(tagStrings);
     }
 
-    /**
-     * Parses arguments in the context of the delete task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-
-        return new DeleteCommand(index.get());
-    }
-    
-    /**
-     * Parses arguments in the context of the mark task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareMark(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
-        }
-
-        return new MarkCommand(index.get());
-    }
-
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
-
-    /**
-     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
-     */
-    private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
-        }
-
-        String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
-            return Optional.empty();
-        }
-        return Optional.of(Integer.parseInt(index));
-
-    }
-
-    /**
-     * Parses arguments in the context of the find task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
-        }
-
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
-    }
 
 }
