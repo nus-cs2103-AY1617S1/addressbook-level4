@@ -14,7 +14,7 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private Priority priority;
-   
+    private Startline startline;
     private UniqueDeadlineList deadlines;
 
     private UniqueTagList tags;
@@ -22,9 +22,10 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueDeadlineList deadlines, Priority priority, UniqueTagList tags) {
+    public Task(Name name, Startline startline, UniqueDeadlineList deadlines, Priority priority, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, deadlines, priority, tags);
         this.name = name;
+        this.startline = startline;
         this.deadlines = deadlines;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -34,7 +35,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDeadlines(), source.getPriority(), source.getTags());
+        this(source.getName(), source.getStartline(), source.getDeadlines(), source.getPriority(), source.getTags());
     }
 
     @Override
@@ -45,6 +46,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public Priority getPriority() {
         return priority;
+    }
+    
+    @Override
+    public Startline getStartline(){
+    	return startline;
     }
 
     @Override

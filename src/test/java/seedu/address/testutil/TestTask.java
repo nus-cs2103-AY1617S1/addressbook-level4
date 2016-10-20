@@ -10,6 +10,7 @@ import seedu.address.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private Startline startline;
     private UniqueDeadlineList deadlines;
     private Priority priority;
     private UniqueTagList tags;
@@ -39,6 +40,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Priority getPriority() {
         return priority;
+    }
+    
+    @Override
+    public Startline getStartline(){
+    	return startline;
     }
 
     @Override

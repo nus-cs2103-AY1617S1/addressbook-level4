@@ -17,6 +17,8 @@ public class PersonCard extends UiPart{
     @FXML
     private Label id;
     @FXML
+    private Label startline;
+    @FXML
     private Label deadlines;
     @FXML
     private Label priority;
@@ -41,8 +43,9 @@ public class PersonCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        deadlines.setText(task.deadlinesString());
-        priority.setText(task.getPriority().value);
+        startline.setText("Start: " + task.getStartline().value);
+        deadlines.setText("End: " + task.deadlinesString());
+        priority.setText("Priority: " + task.getPriority().value);
         tags.setText(task.tagsString());
     }
 
