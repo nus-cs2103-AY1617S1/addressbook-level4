@@ -204,13 +204,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `seedu.flexitrack.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `seedu.flexitrack.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.flexitrack.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -266,10 +266,10 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | As a new user | I want to mark a task as done, | So that I will be reminded that I have completed the task and not to worry about it. 
 `* * *` | As an advanced user | I want to use shorter versions of a command, | So that type a command faster. 
 `* * *` | As a user | I want to specify a specific location to store my data, | So that I can choose to store the data file in a local folder controlled by a cloud syncing service, which allowing me to access data from other computers. 
-`* * *` | As a user | I want to block a multiple timeslot for uncertain time of an event, | So that I will not plan something on the uncertain timing.
+`* * *` | As a user | I want to block a multiple time slot for uncertain time of an event, | So that I will not plan something on the uncertain timing.
 `* * *` | As a user | I want to find a free time slot in my schedule, | So that can plan my time better. 
 `* *` | As a user | I want to add a recurring task, | So that I do not have to keep adding the same task every week/day. 
-`* *` | As a user | I want to have an autocomplete search tool, | So that it will be easier for me to find a task. 
+`* *` | As a user | I want to have an auto complete search tool, | So that it will be easier for me to find a task. 
 `* *` | As a user | I want to find a task that is similar to what I’m searching, | So that I can see similar tasks.
 `* *` | As a user | I want to find a task with the exact name, | So that I can locate the exact task I'm looking for.
 `* *` | As a user | I want to launch the program with key combination (ALT+SPACE), | So that I can minimized time spent on clicking. 
@@ -314,12 +314,12 @@ Use case ends
   > Use case ends 
 	
 	
-####Use case:  UC02 – add or change deadline 
+####Use case:  UC02 – Edit a task 
 
 **MSS**
 
-1.User request to add / change deadline of an existing task  
-2.System add / change the deadline 
+1.User request to edit an existing task giving the index number and the new task
+2.System edit the task 
 Use case ends
  
 **Extensions**
@@ -339,23 +339,7 @@ Use case ends
 Use case ends
 
 
-####Use case:  UC04 – edit 
-
-**MSS**
-
-1.User request to edit an existing task  
-2.System change the detail of the task 	
-Use case ends
- 
-**Extensions**
-
-1a. The user input is invalid 
-	
-  > 1a1. System output an invalid input message
-  > Use case ends 
-
-
-####Use case:  UC05 – delete 
+####Use case:  UC04 – delete 
 
 **MSS**
 
@@ -370,13 +354,27 @@ Use case ends
   > 1a1. System output an invalid input message
   > Use case ends 
 
+####Use case:  UC06 – unmark 
+
+**MSS**
+
+1.User request to unmark an event as not done  
+2.System unmark the event   
+Use case ends
+ 
+**Extensions**
+
+1a. The user input an invalid list number 
+	
+  > 1a1. System output an invalid list number 
+  > Use case ends 
 
 ####Use case:  UC06 – mark 
 
 **MSS**
 
 1.User request to mark an event as done  
-2.System mark the event and move it to the bottom of the list  
+2.System mark the event   
 Use case ends
  
 **Extensions**

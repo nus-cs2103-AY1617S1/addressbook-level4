@@ -45,8 +45,10 @@ Adds a task to the FlexiTrack.<br>
 Format: `add [task title] < by/ [deadline] >`
 
 Examples: 
+* `add CS2103 tutorial 3 `
 * `add CS2103 tutorial 3 by/ Saturday`
-* `add CS2103 tutorial 3 by/ 22 Oct`
+* `add CS2103 tutorial 3 by/ tmr 9am`
+
 
 #### Adding an event: `add`
 Adds a task to the FlexiTrack.<br>
@@ -54,15 +56,7 @@ Format: `add [event title] from/ [starting time] to/ [ending time]`
 
 Examples: 
 * `add Bintan trip from/ Saturday to/ Sunday`
-* `add CS2103 Lecture from/ Friday 2pm to/ 4pm `
-
-#### Adding or changing deadline of a task : `deadline`
-Add or change the deadline of a task in FlexiTrack.<br>
-Format: `deadline [list number] [new deadline]`
-
-Examples: 
-* `deadline 3 10 October`
-* `deadline 12 Friday 5pm`
+* `add CS2103 Lecture from/ Friday 2pm to/ Friday 4pm `
 
 #### Finding a task or an event containing any keyword in their title: `find`
 Finds a task ot an event whose title contain any of the given keywords.<br>
@@ -83,6 +77,21 @@ Examples:
   Returns Any task/event having title `assignment`, `dinner`, or `mid-term`
 * `find attend CS2103 lecture`<br>
   Returns Any task/event having exact title "attend CS2103 lecture"
+
+#### Finding a specific task or an event containing an exact phrase in their title: `find f/`
+Finds a task ot an event whose title contain any of the given keywords.<br>
+Format: `find f/ EXACT PHRASE`
+
+> * The search is case sensitive. e.g `soccer practice` will not match `Soccer practice`
+> * Only the task/event title is searched..
+
+Examples: 
+* `find Soccer`<br>
+  Returns `Soccer training` but not `soccer training`
+* `find cn homework`<br>
+  Returns Any task/event containing the exact phrase `cn homework` in their title
+* `find attend CS2103 lecture`<br>
+  Returns Any task/event having exact title `attend CS2103 lecture`
 
 #### Deleting a person : `delete`
 Deletes the specified task/event from the FlexiTrack. Irreversible.<br>
@@ -186,7 +195,7 @@ FlexiTrack support various timing input. Here are some examples!
 #### Exact timing 
 User Input | Timing information read by FlexiTrack
 ---------- | :---------------
-21 June 4pm | Jun 21 16:00:00 
+21 June 2018 4pm | Jun 21 16:00:00 
 1st January 7.20 | Jan 01 07:20
 April 22nd 5am | Apr 22 05:00
 
@@ -201,8 +210,10 @@ Next week 720am | Feb 08 07:20
 next month 8am | Mar 01 08:00 
 
 #### Notes on FlexiTrack timing  
-1. FlexiTrack does not handle year. Thus all task must be with in 1 year (12 months) 
-2. When you do not specify the exact timing, FlexiTrack will assign your task to be 8am. 
+1. FlexiTrack does support year. However, make sure that you also specify the hour of the timing 
+	as FlexiTrack will choose timing over year when it is uncertain. 
+2. When you do not specify the exact timing, FlexiTrack will assign your task to be 7.59 for due
+	date and starting time, and 16.59 for ending time. 
 
 ## FAQ
 

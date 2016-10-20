@@ -21,10 +21,10 @@ public class AddCommand extends Command {
             + "\tExample: " + COMMAND_WORD + " Do CS homework\n"
             + "2. Add Event - Parameters to add an event: [task title] from/ [starting time] to/ [ending time]\n"
             + "\tExample: " + COMMAND_WORD
-            + " Summer school from/ 01062016 to/ 01/072016\n"
+            + " Summer school from/ 1st June to/ 31st July \n"
             + "3. Add Task - Parameters to add a task: [task title] by/ [due date]\n"
             + "\tExample: " + COMMAND_WORD
-            + " CS tutorial by/ 15102016\n";
+            + " CS tutorial by/ Saturday 10am \n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the FlexiTrack";
