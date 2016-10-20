@@ -9,7 +9,12 @@ import seedu.address.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 /**
  * JAXB-friendly version of the Task.
  */
@@ -18,8 +23,8 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String name;
     
-    @XmlElement
-    private List<XmlAdaptedDeadline> deadlined = new ArrayList<>();
+    @XmlElement(required = true)
+    private String deadlined;
     
     @XmlElement(required = true)
     private String priority;
@@ -40,10 +45,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
         name = source.getName().fullName;
-       deadlined = new ArrayList<>();
-        for (Deadline deadline : source.getDeadlines()) {
-            deadlined.add(new XmlAdaptedDeadline(deadline));
-        }
+       deadlined = source.deadlinesString();
         priority = source.getPriority().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -57,18 +59,30 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-    	final List<Deadline> taskDeadlines = new ArrayList<>();
-        for (XmlAdaptedDeadline deadline : deadlined) {
-            taskDeadlines.add(deadline.toModelType());
-        }
     	final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final UniqueDeadlineList deadlines = new UniqueDeadlineList(taskDeadlines);
+        Set<String> deadlineString = getDeadlinesFromArgs(this.deadlined);
+        final Set<Deadline> deadlineSet = new HashSet<>();
+        for (String deadlineDate : deadlineString) {
+        	deadlineSet.add(new Deadline(deadlineDate));
+        }
+        final UniqueDeadlineList deadlines = new UniqueDeadlineList(deadlineSet);
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, deadlines, priority, tags);
     }
+    
+    private Set<String> getDeadlinesFromArgs(String deadlineArguments) {
+    	// no tags
+    	if (deadlineArguments.isEmpty()) {
+    		return Collections.emptySet();
+    	}
+    	// replace first delimiter prefix, then split
+    	final Collection<String> deadlineStrings = Arrays.asList(deadlineArguments.replaceFirst(" d/",  "").split("t/"));
+    	return new HashSet<>(deadlineStrings);
+    }
 }
+    
