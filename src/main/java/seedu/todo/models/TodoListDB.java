@@ -3,6 +3,7 @@ package seedu.todo.models;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -439,7 +440,7 @@ public class TodoListDB {
      * 
      * @return list of events
      */
-    public List<Event> getEventByDate(LocalDateTime givenDate) {
+    public List<Event> getEventbyDate(LocalDateTime givenDate) {
         ArrayList<Event> eventByDate = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
         while (iterator.hasNext()) {
