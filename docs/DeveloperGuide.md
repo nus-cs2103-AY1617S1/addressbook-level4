@@ -13,6 +13,9 @@
 11. [Appendix D: Glossary](#appendix-d--glossary)
 12. [Appendix E : Product Survey](#appendix-e--product-survey)
 
+## 0. Introduction 
+
+&nbsp;&nbsp;&nbsp;&nbsp; DoMePlease is a task management application that accepts 3 kinds of tasks, namely: floating tasks, deadlines and events. This guide introduces you to our code base so that you can dive straight into code without much lead-time.
 
 ## 1. Setting up
 
@@ -62,9 +65,9 @@
 `Commons` represents a collection of classes used by multiple other components.
 Two of those classes play an important role at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used to by componnents to communicate with other components using events (i.e. a form of _Event Driven_ design)
+  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log files.
-* Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+* Classes used by multiple components are in the `seedu.addressbook.commands` package. 
 
 The rest of the App consists four components.
 * [**`UI`**](#2-3-ui-component) : The UI of tha App.
@@ -100,8 +103,8 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DatedTaskListPanel`,
+`StatusBarFooter`, `UndatedTaskListPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -275,7 +278,21 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `DoMePlease` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Add task
+
+**MSS**
+
+1. User adds a deadline
+2. DoMePlease shows the added deadline
+3. Use case ends
+
+**Extensions**
+
+&nbsp;&nbsp;&nbsp;&nbsp;1a. The given date and time is invalid
+> 1a1. DoMePlease shows an error message<br>
+> 1a2. Use case resumes at step 1
+
+#### Use case: Delete task
 
 **MSS**
 
@@ -289,14 +306,14 @@ Priority | As a ... | I want to ... | So that I can...
 
 **Extensions**
 
-2a. The list is empty
+&nbsp;&nbsp;&nbsp;&nbsp;2a. The list is empty
 
-> Use case ends
+> 2a1. Use case ends
 
-3a. The given index is invalid
+&nbsp;&nbsp;&nbsp;&nbsp;3a. The given index is invalid
 
 > 3a1. DoMePlease shows an error message <br>
-  Use case resumes at step 2
+> 3a2. Use case resumes at step 2
 
 #### Use case: Edit Task
 
@@ -310,19 +327,65 @@ Priority | As a ... | I want to ... | So that I can...
 
 **Extensions**
 
-2a. The list is empty
+&nbsp;&nbsp;&nbsp;&nbsp;2a. The list is empty
 
-> Use case ends
+> 2a1. Use case ends
 
-2b. The given INDEX is invalid
+&nbsp;&nbsp;&nbsp;&nbsp;3a. The given index is invalid
+> 3a1. DoMePlease shows an error message<br>
+> 3a2. Use case resumes at step 2
 
-> 3a1. DoMePlease shows an error message <br>
-  Use case resumes at step 2
+&nbsp;&nbsp;&nbsp;&nbsp;3b. The given fields are invalid
+> 3b1. DoMePlease shows an error message<br>
+> 3b2. Use case resumes at step 2
 
-2c. The given FIELDS are invalid 
 
->3b1. DoMePlease shows an error message <br>
-  Use case resumes at step 2
+#### Use case: View task
+
+**MSS**
+
+1. User requests to view tasks on a specific date
+2. DoMePlease shows the tasks on the given date and month
+3. Use case ends
+
+**Extensions**
+
+&nbsp;&nbsp;&nbsp;&nbsp;1a. The given date has no month
+> 1a1. DoMePlease shows the tasks on the given date on the current month
+
+#### Use case: Help
+
+**MSS**
+
+1. User requests to see UserGuide
+2. DoMePlease shows a web view of the UserGuide
+3. Use case ends
+
+**Extensions**
+
+&nbsp;&nbsp;&nbsp;&nbsp;2a. The user has no Internet connection
+> 2a1. Web view shows blank page
+
+#### Use case: Undo
+
+**MSS**
+
+1. User requests to undo the previous command
+2. DoMePlease displays a message that the previous reversible command is undone
+3. Use case ends
+
+**Extensions**
+
+&nbsp;&nbsp;&nbsp;&nbsp;2a. User has no previous reversible command
+> 2a1. DoMePlease shows an error message
+
+#### Use case: Exit
+
+**MSS**
+
+1. User requests to exit DoMePlease
+2. DoMePlease application window close
+3. Use case ends
 
 ## Appendix C : Non Functional Requirements
 
@@ -330,6 +393,13 @@ Priority | As a ... | I want to ... | So that I can...
     2. Should be able to hold up to 1000 tasks.
     3. Should come with automated unit tests and open source code.
     4. Should favor DOS style commands over Unix-style commands.
+    5. Should be able to customize the app with a theme. 
+    6. Should not exceed 100MB of storage.
+    6. Should not exceed 100MB of RAM.
+    7. Should have authentication features.
+    8. Should be updated every month with new features and bug fixes.
+    9. Should be free. 
+    10. Should have welcome voices when you first start the application.
 
 {More to be added}
 
