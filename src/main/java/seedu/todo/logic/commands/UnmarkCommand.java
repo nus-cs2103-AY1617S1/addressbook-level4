@@ -5,6 +5,7 @@ import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList.TagNotFoundException;
+import seedu.todo.model.task.Completion;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
@@ -41,7 +42,7 @@ public class UnmarkCommand extends Command {
         try {
             Task toMark = model.getTask(taskToMark);
             
-            toMark.setIsDone(false);
+            toMark.setCompletion(new Completion(false));
             toMark.removeTag(new Tag("done"));
             
             model.updateTask(taskToMark, toMark);

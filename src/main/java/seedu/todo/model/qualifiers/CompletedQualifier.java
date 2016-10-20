@@ -11,7 +11,7 @@ public class CompletedQualifier implements Qualifier{
     
     @Override
     public boolean run(ReadOnlyTask task) {
-        return this.wantsDone ? task.isDone() : !task.isDone();
+        return this.wantsDone ? task.getCompletion().isCompleted() : !task.getCompletion().isCompleted();
     }
 
     @Override

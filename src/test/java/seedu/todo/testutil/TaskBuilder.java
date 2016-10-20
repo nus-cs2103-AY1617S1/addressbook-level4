@@ -19,6 +19,11 @@ public class TaskBuilder {
         this.task.setName(new Name(name));
         return this;
     }
+    
+    public TaskBuilder withCompletion(boolean completed) {
+        this.task.setCompletion(new Completion(completed));
+        return this;
+    }
 
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {

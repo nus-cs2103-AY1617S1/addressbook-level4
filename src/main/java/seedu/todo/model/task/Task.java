@@ -46,7 +46,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDetail(), source.isCompleted(), source.getOnDate(), source.getByDate(), source.getTags());
+        this(source.getName(), source.getDetail(), source.getCompletion(), source.getOnDate(), source.getByDate(), source.getTags());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
-    public Completion isCompleted() {
+    public Completion getCompletion() {
         return this.completion;
     }
     

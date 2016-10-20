@@ -217,7 +217,7 @@ public class LogicManagerTest {
         ToDoList expectedAB = new ToDoList();
         expectedAB.addTask(toBeMarked);
         
-        toBeMarked.setIsDone(true);
+        toBeMarked.setCompletion(new Completion(true));
         model.addTask(helper.generateTask(0));
         
         // execute command and verify result
@@ -249,7 +249,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeMarked);
         
         Task toBeMarked2 = helper.generateTask(0);
-        toBeMarked2.setIsDone(true);
+        toBeMarked2.setCompletion(new Completion(true));
         toBeMarked2.addTag(new Tag("done"));
         model.addTask(toBeMarked2);        
        
@@ -477,7 +477,7 @@ public class LogicManagerTest {
         Task t1 = helper.generateTaskWithName("bla bla KEY bla");
         Task t2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
         
-        t1.setIsDone(true);
+        t1.setCompletion(new Completion(true));
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
         ToDoList expectedAB = helper.generateToDoList(twoTasks);

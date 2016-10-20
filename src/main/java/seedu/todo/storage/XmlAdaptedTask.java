@@ -20,11 +20,11 @@ public class XmlAdaptedTask {
     @XmlElement
     private String detail;
     @XmlElement
-    private String fromDate;
+    private String onDate;
     @XmlElement
-    private String tillDate;
+    private String byDate;
     @XmlElement
-    private String done;
+    private String completion;
     
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -43,9 +43,9 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         detail = source.getDetail().toString();
-        done = new Boolean(source.isDone()).toString();
-        fromDate = source.getOnDate().toString();
-        tillDate = source.getByDate().toString();
+        completion = source.getCompletion().toString();
+        onDate = source.getOnDate().toString();
+        byDate = source.getByDate().toString();
         
         
         tagged = new ArrayList<>();
@@ -70,10 +70,10 @@ public class XmlAdaptedTask {
        
         final Name name = new Name(this.name);
         final Detail detail = new Detail(this.detail);
-        final boolean done = new Boolean(this.done);
-        final TaskDate fromDate = new TaskDate(this.fromDate);
-        final TaskDate tillDate = new TaskDate(this.tillDate);
+        final Completion completion = new Completion(Boolean.parseBoolean(this.completion));
+        final TaskDate onDate = new TaskDate(this.onDate);
+        final TaskDate byDate = new TaskDate(this.byDate);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, detail, done, fromDate, tillDate, tags);
+        return new Task(name, detail, completion, onDate, byDate, tags);
     }
 }
