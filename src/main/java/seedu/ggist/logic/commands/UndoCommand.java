@@ -57,8 +57,29 @@ public class UndoCommand extends Command {
         }
         
         else if (previousCommand.equals("edit")){
+            redoListOfTasks.push(listOfTasks.peek());
             ReadOnlyTask undoEdit = listOfTasks.pop();
+         
             try {
+                
+                redoEditTaskField.push(editTaskField.peek());
+                
+                if (redoEditTaskField.peek().equals("task")){
+                    redoEditTaskValue.push(undoEdit.getTaskName().toString()); 
+                    }
+                else if (redoEditTaskField.peek().equals("start date")){
+                    redoEditTaskValue.push(undoEdit.getStartDate().toString());
+                    }
+                else if (redoEditTaskField.peek().equals("end date")){
+                    redoEditTaskValue.push(undoEdit.getEndDate().toString()); 
+                    }
+                else if (redoEditTaskField.peek().equals("start time")){
+                    redoEditTaskValue.push(undoEdit.getStartTime().toString()); 
+                    }
+                else if (redoEditTaskField.peek().equals("end time")){
+                    redoEditTaskValue.push(undoEdit.getEndTime().toString());
+                    }
+        
                 model.editTask(undoEdit, editTaskField.pop(), editTaskValue.pop());
             } catch (TaskNotFoundException e) {
                 // TODO Auto-generated catch block
