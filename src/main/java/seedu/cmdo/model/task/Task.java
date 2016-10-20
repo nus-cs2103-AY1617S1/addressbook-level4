@@ -40,7 +40,7 @@ public class Task implements ReadOnlyTask {
      * 
      * @author A0141128R
      */
-    public Task(Detail detail, Done done, DueByDate dueByDate, DueByTime dueByTime, Priority priority, UniqueTagList tags) {
+    public Task(Detail detail, Done done, DueByDate dueByDate, DueByTime dueByTime, Priority priority, boolean block, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(detail, done, dueByDate, dueByTime, priority, tags);
         
         this.detail = detail;
@@ -48,6 +48,7 @@ public class Task implements ReadOnlyTask {
         this.dueByDate = dueByDate;
         this.dueByTime = dueByTime;
         this.priority = priority;
+        this.block = block;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
@@ -55,10 +56,11 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getTags());
+        this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getBlock(), source.getTags());
     }
 
-    @Override
+
+	@Override
     public Detail getDetail() {
         return detail;
     }
