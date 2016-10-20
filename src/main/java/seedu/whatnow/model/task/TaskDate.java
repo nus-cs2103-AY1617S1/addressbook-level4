@@ -46,8 +46,7 @@ public class TaskDate {
 	 */
 	public TaskDate(String taskDate) throws IllegalValueException, java.text.ParseException {
 		assert taskDate != null;
-		taskDate = taskDate.trim();
-		
+		System.out.println("taskDate is : " + taskDate);
 		if(!isValidDate(taskDate)) {
 			throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
 		}
