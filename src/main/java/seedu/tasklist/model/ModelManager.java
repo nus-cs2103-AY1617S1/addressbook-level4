@@ -117,6 +117,11 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTask.setPredicate(expression::satisfies);
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getListCommandFilteredTaskList() {
+        return new UnmodifiableObservableList<>(filteredTask);
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 

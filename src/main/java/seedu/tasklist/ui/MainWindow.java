@@ -34,6 +34,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
+    private TaskListPanel listCommandTaskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -54,6 +55,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane listCommandTaskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -106,13 +110,16 @@ public class MainWindow extends UiPart {
 
     private void setAccelerators() {
         mainMenuItem.setAccelerator(KeyCombination.valueOf("F11"));
+        
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        
         commandNextMenuItem.setAccelerator(KeyCombination.valueOf("UP"));
         commandPreviousMenuItem.setAccelerator(KeyCombination.valueOf("DOWN"));
-        listFirstMenuItem.setAccelerator(KeyCombination.valueOf("HOME"));
-        listLastMenuItem.setAccelerator(KeyCombination.valueOf("END"));
-        listNextMenuItem.setAccelerator(KeyCombination.valueOf("PAGE_UP"));
-        listPreviousMenuItem.setAccelerator(KeyCombination.valueOf("PAGE_DOWN"));
+        
+        listFirstMenuItem.setAccelerator(KeyCombination.valueOf("Home"));
+        listLastMenuItem.setAccelerator(KeyCombination.valueOf("End"));
+        listPreviousMenuItem.setAccelerator(KeyCombination.valueOf("Page Up"));
+        listNextMenuItem.setAccelerator(KeyCombination.valueOf("Page Down"));
     }
 
     private void addEventFilters() {
@@ -130,7 +137,10 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
+//        browserPlaceholder.setManaged(false);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        listCommandTaskListPanel = TaskListPanel.load(primaryStage, listCommandTaskListPanelPlaceholder, logic.getListCommandFilteredTaskList());
+        listCommandTaskListPanelPlaceholder.setManaged(false);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -268,6 +278,8 @@ public class MainWindow extends UiPart {
     }
 
     public void loadTaskPage(ReadOnlyTask task) {
+        listCommandTaskListPanelPlaceholder.setManaged(false);
+        browserPlaceholder.setManaged(true);
         browserPanel.loadTaskPage(task);
     }
 

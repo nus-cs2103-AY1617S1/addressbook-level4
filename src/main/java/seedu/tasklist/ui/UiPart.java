@@ -3,7 +3,6 @@ package seedu.tasklist.ui;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.tasklist.commons.core.EventsCenter;
@@ -95,7 +94,7 @@ public abstract class UiPart {
      * Sets the placeholder for UI parts that reside inside another UI part.
      * @param placeholder
      */
-    public void setPlaceholder(Pane placeholder) {
+    public void setPlaceholder(AnchorPane placeholder) {
         //Do nothing by default.
     }
 

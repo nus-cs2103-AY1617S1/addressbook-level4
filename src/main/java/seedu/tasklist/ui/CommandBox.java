@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -65,8 +64,8 @@ public class CommandBox extends UiPart {
     }
 
     @Override
-    public void setPlaceholder(Pane pane) {
-        this.placeHolderPane = (AnchorPane) pane;
+    public void setPlaceholder(AnchorPane pane) {
+        this.placeHolderPane = pane;
     }
 
     @FXML

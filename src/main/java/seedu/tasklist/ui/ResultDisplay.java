@@ -5,7 +5,6 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.tasklist.commons.util.FxViewUtil;
 
@@ -50,8 +49,8 @@ public class ResultDisplay extends UiPart {
     }
 
     @Override
-    public void setPlaceholder(Pane placeholder) {
-        this.placeHolder = (AnchorPane) placeholder;
+    public void setPlaceholder(AnchorPane placeholder) {
+        this.placeHolder = placeholder;
     }
 
     @Override

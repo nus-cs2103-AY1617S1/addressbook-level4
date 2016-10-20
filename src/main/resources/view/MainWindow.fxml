@@ -24,8 +24,8 @@
                   <MenuItem fx:id="commandPreviousMenuItem" mnemonicParsing="false" onAction="#handlePreviousCommandTextPrevious" text="Previous Command" />
                   <MenuItem fx:id="listFirstMenuItem" mnemonicParsing="false" onAction="#handleListPanelSelectFirst" text="Select First Task" />
                   <MenuItem fx:id="listLastMenuItem" mnemonicParsing="false" onAction="#handleListPanelSelectLast" text="Select Last Task" />
-                  <MenuItem fx:id="listNextMenuItem" mnemonicParsing="false" onAction="#handleListPanelSelectNext" text="Select Next Task" />
                   <MenuItem fx:id="listPreviousMenuItem" mnemonicParsing="false" onAction="#handleListPanelSelectPrevious" text="Select Previous Task" />
+                  <MenuItem fx:id="listNextMenuItem" mnemonicParsing="false" onAction="#handleListPanelSelectNext" text="Select Next Task" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
@@ -55,11 +55,15 @@
                   <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </children>
             </VBox>
-            <AnchorPane fx:id="browserPlaceholder" prefWidth="340" >
+            <VBox minWidth="340" prefWidth="340">
                 <padding>
-                    <Insets top="10" bottom="10" left="10" right="10"/>
-                </padding>
-            </AnchorPane>
+	               <Insets top="10" bottom="10" left="10" right="10"/>
+	            </padding>
+	            <children>
+		            <AnchorPane fx:id="listCommandTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+		            <AnchorPane fx:id="browserPlaceholder" prefWidth="340" />
+	            </children>
+            </VBox>
          </items>
       </SplitPane>
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
