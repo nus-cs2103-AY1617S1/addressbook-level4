@@ -34,8 +34,6 @@ public class AddCommand extends UndoableCommand {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_UNDO = "Removed %1$s";
     public static final String MESSAGE_REDO = "Added %1$s";
-
-    private final Task toAdd;
     
     private static final int DATETIME_INDEX_OF_ENDDATE = 1;
     private static final int DATETIME_INDEX_OF_STARTDATE = 0;
