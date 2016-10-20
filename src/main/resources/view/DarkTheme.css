@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#663300, 20%);
+    -fx-background-color: derive(#4d2600, 20%);
 }
 
 .label {
@@ -39,9 +39,9 @@
 }
 
 .table-view {
-    -fx-base: #663300;
-    -fx-control-inner-background: #663300;
-    -fx-background-color: #663300;
+    -fx-base: #4d2600;
+    -fx-control-inner-background: #4d2600;
+    -fx-background-color: #4d2600;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -76,14 +76,14 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #663300 transparent #663300;
-    -fx-background-color: transparent, derive(#663300, 10%);
+    -fx-border-color: transparent #4d2600 transparent #4d2600;
+    -fx-background-color: transparent, derive(#4d2600, 10%);
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#663300, 20%);
+    -fx-background-color: derive(#4d2600, 20%);
 }
 
 .list-cell {
@@ -107,22 +107,22 @@
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#663300, 20%);
+     -fx-background-color: derive(#4d2600, 20%);
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: derive(#663300, 20%);
-     -fx-border-color: derive(#663300, 10%);
+     -fx-background-color: derive(#4d2600, 20%);
+     -fx-border-color: derive(#4d2600, 10%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#663300, 20%);
+    -fx-background-color: derive(#4d2600, 20%);
     -fx-text-fill: white;
 }
 
 .result-display {
-    -fx-background-color: #663300;
+    -fx-background-color: #4d2600;
 }
 
 .result-display .label {
@@ -134,8 +134,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#663300, 30%);
-    -fx-border-color: derive(#663300, 25%);
+    -fx-background-color: derive(#4d2600, 30%);
+    -fx-border-color: derive(#4d2600, 25%);
     -fx-border-width: 1px;
 }
 
@@ -144,17 +144,17 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#663300, 30%);
-    -fx-border-color: derive(#663300, 30%);
+    -fx-background-color: derive(#4d2600, 30%);
+    -fx-border-color: derive(#4d2600, 30%);
     -fx-border-width: 1px;
 }
 
 .grid-pane .anchor-pane {
-    -fx-background-color: derive(#663300, 30%);
+    -fx-background-color: derive(#4d2600, 30%);
 }
 
 .context-menu {
-    -fx-background-color: derive(#663300, 50%);
+    -fx-background-color: derive(#4d2600, 50%);
 }
 
 .context-menu .label {
@@ -162,7 +162,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#663300, 10%);
+    -fx-background-color: derive(#4d2600, 10%);
 }
 
 .menu-bar .label {
@@ -183,13 +183,13 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: #663300;
+    -fx-border-color: #4d2600;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #663300;
+    -fx-background-color: #4d2600;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
-    -fx-text-fill: #663300;
+    -fx-text-fill: #4d2600;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
@@ -199,7 +199,7 @@
 
 .button:pressed, .button:default:hover:pressed {
   -fx-background-color: white;
-  -fx-text-fill: #663300;
+  -fx-text-fill: #4d2600;
 }
 
 .button:focused {
@@ -212,7 +212,7 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #663300;
+    -fx-background-color: #4d2600;
     -fx-text-fill: white;
 }
 
@@ -226,11 +226,11 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #663300;
+    -fx-background-color: #4d2600;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #663300;
+    -fx-background-color: #4d2600;
 }
 
 .dialog-pane > *.label.content {
@@ -240,7 +240,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#663300, 25%);
+    -fx-background-color: derive(#4d2600, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -251,7 +251,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#663300, 50%);
+    -fx-background-color: derive(#4d2600, 50%);
     -fx-background-insets: 3;
 }
 
