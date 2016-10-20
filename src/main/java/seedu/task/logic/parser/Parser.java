@@ -71,8 +71,8 @@ public class Parser {
         case CompleteCommand.COMMAND_WORD:
         	return prepareComplete(arguments);
 
-		case PinCommand.COMMAND_WORD:
-			return preparePin(arguments);
+        case PinCommand.COMMAND_WORD:
+            return preparePin(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -263,12 +263,11 @@ public class Parser {
 	 * @param args
 	 * @return
 	 */
-	private Command preparePin(String args) {
-		Optional<Integer> index = parseIndex(args);
-		if (!index.isPresent()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
-		}
-		return new PinCommand(index.get());
-	}
-
+    private Command preparePin(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+        }
+        return new PinCommand(index.get());
+    }
 }
