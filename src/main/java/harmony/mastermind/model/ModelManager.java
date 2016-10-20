@@ -185,14 +185,6 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     //@@author A0124797R
-    public synchronized void addNextTask(Task task) throws UniqueTaskList.DuplicateTaskException, NotRecurringTaskException {
-        taskManager.addNextTask(task);
-        updateFilteredListToShowAll();
-        indicateTaskManagerChanged();
-    }
-    
-    @Override
-    //@@author A0124797R
     public synchronized void markTask(Task target) throws TaskNotFoundException {
         taskManager.markTask(target);
         indicateTaskManagerChanged();
@@ -240,6 +232,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList() {
         return new UnmodifiableObservableList<>(taskManager.getArchives());
+    }
+    
+    //=========== Methods for Recurring Tasks===============================================================
+
+    @Override
+    //@@author A0124797R
+    public synchronized void addNextTask(Task task) throws UniqueTaskList.DuplicateTaskException, NotRecurringTaskException {
+        taskManager.addNextTask(task);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================

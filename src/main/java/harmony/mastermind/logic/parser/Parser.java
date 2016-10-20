@@ -154,12 +154,15 @@ public class Parser {
             
             // return internal value if present. else, return empty string
             Set<String> tagSet = getTagsFromArgs(tags.map(val -> val).orElse(""));
+            String recurVal = null;
             
+            //check if recur has a valid keyword
             if (recur.isPresent()) {
                 String key = recur.get().split(" ")[0];
                 if (!Arrays.asList(AddCommand.COMMAND_KEYWORDS_RECUR).contains(key)) {
                     return new IncorrectCommand("invalid recurring value");
                 }
+                recurVal = recur.get();
             }
             
             if (startDate.isPresent() && endDate.isPresent()) {
@@ -167,7 +170,7 @@ public class Parser {
                 return new AddCommand(name, startDate.get(), endDate.get(), tagSet);
             } else if (!startDate.isPresent() && endDate.isPresent()) {
                 // deadline
-                return new AddCommand(name, endDate.get(), tagSet, recur.get());
+                return new AddCommand(name, endDate.get(), tagSet, recurVal);
             } else if (startDate.isPresent() && !endDate.isPresent()) {
                 // task with only startdate is not supported.
                 throw new IllegalValueException("Cannot create a task with only start date.");
@@ -205,6 +208,7 @@ public class Parser {
             final int index = Integer.parseInt(matcher.group("index"));
             
             //optional
+            final Optional<String> recur = Optional.ofNullable(matcher.group("recur"));
             final Optional<String> name = Optional.ofNullable(matcher.group("name"));
             final Optional<String> startDate = Optional.ofNullable(matcher.group("startDate"));
             final Optional<String> endDate = Optional.ofNullable(matcher.group("endDate"));
@@ -215,7 +219,7 @@ public class Parser {
                 tagSet = Optional.ofNullable(getTagsFromArgs(tags.get()));
             };
             
-            return new EditCommand(index, name, startDate, endDate, tagSet, null);
+            return new EditCommand(index, name, startDate, endDate, tagSet, recur);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (ParseException pe) {

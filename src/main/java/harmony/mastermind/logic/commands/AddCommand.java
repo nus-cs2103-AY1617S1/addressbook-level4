@@ -45,8 +45,8 @@ public class AddCommand extends Command implements Undoable, Redoable {
     // We wrote the regular expression and tested at:
     // https://regex101.com/r/bFQrP6/1
     // @@author A0138862W
-    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?:.*?\\s\\'(?<name>.+?)'))"
-                                                         + "(?=(?:.*?r\\/'(?<recur>.+?)')?)"
+    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?:.*?r\\/'(?<recur>.+?)')?)" 
+                                                         + "(?=(?:.*?\\s\\'(?<name>.+?)'))"
                                                          + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
                                                          + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
                                                          + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"

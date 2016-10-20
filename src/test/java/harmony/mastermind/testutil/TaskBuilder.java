@@ -32,6 +32,12 @@ public class TaskBuilder {
         this.task.setEndDate(date);
         return this;
     }
+    
+    //@@author A0124797R
+    public TaskBuilder withRecur(String recur) {
+        this.task.setRecur(recur);
+        return this;
+    }
 
 
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {

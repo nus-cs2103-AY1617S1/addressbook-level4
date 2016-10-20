@@ -585,11 +585,12 @@ public class LogicManagerTest {
             String name = "task";
             Date startDate = new Date();
             Date endDate = new Date();
+            String recur = null;
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             
-            return new Task(name, startDate, endDate, tags);
+            return new Task(name, startDate, endDate, tags, recur);
         }
 
         /**
@@ -605,7 +606,8 @@ public class LogicManagerTest {
                     "task"+seed,
                     new Date(),
                     new Date(),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                    null
                     );
         }
 
@@ -718,7 +720,8 @@ public class LogicManagerTest {
                     name,
                     new Date(),
                     new Date(),
-                    new UniqueTagList(new Tag("tag1"), new Tag("tag2"))
+                    new UniqueTagList(new Tag("tag1"), new Tag("tag2")),
+                    null
             );
         }
     }

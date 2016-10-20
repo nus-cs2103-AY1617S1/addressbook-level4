@@ -194,12 +194,25 @@ public class TaskManager implements ReadOnlyTaskManager {
         
         Task newT = null;
         String[] recurVal = t.getRecur().split(" ");
-        recurVal[0] = "daily";
-        Date d = t.getEndDate();
+        Date nextDate = getNextDate(t.getEndDate(),recurVal[0]);
+        
+        if (t.isDeadline()) {
+            newT = new Task(t.getName(), nextDate, t.getTags(), t.getRecur());
+        }
+        
+        return newT;
+        
+    }
+    
+    /**
+    * returns the next date based on the type of recurring task
+    */
+    //@@author A0124797R
+    private Date getNextDate(Date d, String recur) {
         Calendar c = Calendar.getInstance();
         c.setTime(d);
         int date;
-        switch (recurVal[0]) {
+        switch (recur) {
             case "daily":   date = c.get(Calendar.DATE);
                             c.set(Calendar.DATE, date + 1);
                             break;
@@ -217,13 +230,9 @@ public class TaskManager implements ReadOnlyTaskManager {
                             break;
         }
         
-        if (t.isDeadline()) {
-            newT = new Task(t.getName(), c.getTime(), t.getTags(), t.getRecur());
-        }
-        
-        return newT;
-        
+        return c.getTime();
     }
+    
 
     /**
      * Ensures that every tag in this task:
