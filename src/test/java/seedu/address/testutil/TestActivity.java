@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import java.util.ArrayList;
 
 import seedu.menion.model.activity.*;
-import seedu.menion.model.tag.UniqueTagList;
 
 /**
  * A mutable Activity object. For testing only.
@@ -185,18 +184,6 @@ public class TestActivity implements ReadOnlyActivity {
         return activityDetails;
     }
 
-    // USELESS?
-    
-    @Override
-    public UniqueTagList getTags() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public void setTags(UniqueTagList uniqueTagList) {
-        // TODO Auto-generated method stub
-        
-    }
 
     public String getAddCommand() {
         StringBuilder build = new StringBuilder();
@@ -237,4 +224,16 @@ public class TestActivity implements ReadOnlyActivity {
     public Activity get() {
         return null;
     }
+
+	@Override
+	public void setActivityName(String newName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setActivityNote(String newNote) {
+		// TODO Auto-generated method stub
+		
+	}
 }

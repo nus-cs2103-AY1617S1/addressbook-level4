@@ -2,7 +2,6 @@ package seedu.menion.model.activity;
 
 import java.util.ArrayList;
 
-import seedu.menion.model.tag.UniqueTagList;
 
 /**
  * A read-only immutable interface for a Task in the task manager.
@@ -17,7 +16,7 @@ public interface ReadOnlyActivity {
     // Floating Task parameters
     ActivityName getActivityName();   
     Note getNote();
-    
+
     // Task additional parameters, on top of Floating Task
     ActivityDate getActivityStartDate();
     ActivityTime getActivityStartTime();
@@ -28,6 +27,7 @@ public interface ReadOnlyActivity {
     
     // Finding Activity Type; Can be a Floating Task, Task, or Event
     String getActivityType();
+
     
     // Gets the state of completion of an activity.
     Completed getActivityStatus();
@@ -41,12 +41,15 @@ public interface ReadOnlyActivity {
 
     void setActivityDetails();
     
-    /**
-     * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the task's internal tags.
-     */
-    UniqueTagList getTags();
 
+    /**
+     * @author Marx Low A0139164A
+     * Methods to set the Activity's Param 
+     * @param the String of the new change to make.
+     */
+    void setActivityName(String newName);
+    void setActivityNote(String newNote);
+    
     
     /**
      * For Floating Task
@@ -144,4 +147,5 @@ public interface ReadOnlyActivity {
                 .append(getActivityStatus().toString());
         return builder.toString();
     }
+
 }

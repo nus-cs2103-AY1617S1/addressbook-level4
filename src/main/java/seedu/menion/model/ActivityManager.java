@@ -4,8 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
-import seedu.menion.model.tag.Tag;
-import seedu.menion.model.tag.UniqueTagList;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,13 +16,11 @@ import java.util.stream.Collectors;
 public class ActivityManager implements ReadOnlyActivityManager {
 
     private final UniqueActivityList tasks;
-    private final UniqueTagList tags;
     private final UniqueActivityList floatingTasks;
     private final UniqueActivityList events;
 
     {
         tasks = new UniqueActivityList();
-        tags = new UniqueTagList();
         floatingTasks = new UniqueActivityList();
         events = new UniqueActivityList();
     }
@@ -140,7 +137,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     /**
-     * Completes an activity in the activity manager.
+     * Methods, Completes an activity in the activity manager.
      * Passes in the index of the list to complete
      * 
      * @param index
@@ -167,7 +164,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     /**
-     * UnCompletes an activity in the activity manager.
+     * Methods, UnCompletes an activity in the activity manager.
      * Passes in the index of the list to complete
      * 
      * @param index
@@ -192,7 +189,57 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub.setUncompleted();
         events.getInternalList().set(index, dub);        
     }
-
+    
+    /**
+     * @author Marx Low A0139164A
+     * Methods, edits an activity's NAME in the activity manager.
+     * Passes in the index of the list to complete, and changes to make
+     * @param index
+     */
+    public void editFloatingTaskName(int index, String changes) {
+        Activity dub;
+        dub = floatingTasks.getInternalList().get(index);
+        dub.setActivityName(changes);
+        floatingTasks.getInternalList().set(index, dub);   
+    }
+    public void editTaskName(int index, String changes) {
+        Activity dub;
+        dub = tasks.getInternalList().get(index);
+        dub.setActivityName(changes);
+        tasks.getInternalList().set(index, dub);   
+    }
+    public void editEventName(int index, String changes) {
+        Activity dub;
+        dub = events.getInternalList().get(index);
+        dub.setActivityName(changes);
+        events.getInternalList().set(index, dub);   
+    }
+    
+    /**
+     * @author Marx Low A0139164A
+     * Methods, edits an activity's NOTE in the activity manager.
+     * Passes in the index of the list to complete, and changes to make
+     * @param index
+     */
+    public void editFloatingTaskNote(int index, String changes) {
+        Activity dub;
+        dub = floatingTasks.getInternalList().get(index);
+        dub.setActivityNote(changes);
+        floatingTasks.getInternalList().set(index, dub);   
+    }
+    public void editTaskNote(int index, String changes) {
+        Activity dub;
+        dub = tasks.getInternalList().get(index);
+        dub.setActivityNote(changes);
+        tasks.getInternalList().set(index, dub);   
+    }
+    public void editEventNote(int index, String changes) {
+        Activity dub;
+        dub = events.getInternalList().get(index);
+        dub.setActivityNote(changes);
+        events.getInternalList().set(index, dub);   
+    }
+    
     public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
@@ -268,8 +315,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ActivityManager // instanceof handles nulls
-                && this.tasks.equals(((ActivityManager) other).tasks)
-                && this.tags.equals(((ActivityManager) other).tags));
+                && this.tasks.equals(((ActivityManager) other).tasks));
                 //&& this.floatingTasks.equals(((ActivityManager) other).floatingTasks)
                 //&& this.events.equals(((ActivityManager) other).events);
     }

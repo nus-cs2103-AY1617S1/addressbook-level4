@@ -19,8 +19,6 @@ import seedu.menion.model.ModelManager;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.*;
 import seedu.menion.model.ActivityManager;
-import seedu.menion.model.tag.Tag;
-import seedu.menion.model.tag.UniqueTagList;
 import seedu.menion.storage.StorageManager;
 
 import java.util.ArrayList;

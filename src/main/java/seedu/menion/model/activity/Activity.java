@@ -2,7 +2,6 @@ package seedu.menion.model.activity;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.CollectionUtil;
-import seedu.menion.model.tag.UniqueTagList;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -48,7 +47,6 @@ public class Activity implements ReadOnlyActivity {
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
     private ArrayList<String> activityDetails;
-    private UniqueTagList tags;
 
     /**
      * For floatingTask
@@ -146,7 +144,31 @@ public class Activity implements ReadOnlyActivity {
     public ActivityName getActivityName() {
         return this.name;
     }
+    
+    /**
+     * @Author Marx Low A0139164A
+     * List of methods to set Activity's param : Name, Note
+     * Exception handling to be editted ----------> ALERT!
+     */
+    @Override
+    public void setActivityName(String newName) {
+        assert (newName != null);
+        try {
+            this.name = new ActivityName(newName);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public void setActivityNote(String newNote) {
+        assert (newNote != null);
+        try {
+            this.note = new Note(newNote);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public Note getNote() {
         return this.note;
@@ -185,18 +207,6 @@ public class Activity implements ReadOnlyActivity {
         return activityDetails;
     }
 
-    // USELESS?
-    
-    @Override
-    public UniqueTagList getTags() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public void setTags(UniqueTagList uniqueTagList) {
-        // TODO Auto-generated method stub
-        
-    }
 
     @Override
     public Activity get() {
@@ -232,7 +242,6 @@ public class Activity implements ReadOnlyActivity {
         }
     }
 
-    
     @Override
     public String toString() {
         switch(this.activityType){

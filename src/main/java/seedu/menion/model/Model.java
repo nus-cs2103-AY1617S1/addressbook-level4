@@ -20,23 +20,32 @@ public interface Model {
     /** Deletes the given task */
     void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
     
-    /** Completes the given floatingTask index. */
+    /** Completes the given Activity, given it's index. */
     void completeFloatingTask(int index);
-    
-    /** Completes the given Task index. */  
     void completeTask(int index);
-    
-    /** Completes the given Event index. */
     void completeEvent(int index);
     
-    /** UnCompletes the given floatingTask index. */
+    /** Uncompletes the given Activity, given it's index. */
     void UncompleteFloatingTask(int index);
-    
-    /** UnCompletes the given Task index. */  
     void UncompleteTask(int index);
-    
-    /** UnCompletes the given Event index. */
     void UncompleteEvent(int index);
+    
+    /** 
+     * @author Marx  Low A0139164A
+     * Edits the name of the given Activity, given it's index. 
+     */
+    void editFloatingTaskName(int index, String changes);
+    void editTaskName(int index, String changes);
+    void editEventName(int index, String changes);
+    
+
+    /**
+     * @author Marx Low A0139164A
+     * Edits the note of the given Activity, given it's index. 
+     */
+    void editFloatingTaskNote(int index, String changes);
+    void editTaskNote(int index, String changes);
+    void editEventNote(int index, String changes);
     
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
