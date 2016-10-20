@@ -7,6 +7,7 @@ import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.commons.util.StringUtil;
+import seedu.jimi.model.ModelFilteredMap.ListIdentifier;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
 import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
@@ -119,11 +120,96 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return this.filteredTasksMap.getFilteredTaskList();
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA);
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        this.filteredTasksMap.updateFilteredTaskList(keywords);
+        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA, keywords);
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.FLOATING_TASKS);
+    }
+
+    @Override
+    public void updateFilteredFloatingTaskList(Set<String> keywords) {
+        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.FLOATING_TASKS, keywords);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompletedTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.COMPLETED);
+    }
+
+    @Override
+    public void updateFilteredCompletedTaskList(Set<String> keywords){
+        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.COMPLETED, keywords);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.INCOMPLETE);
+    }
+
+    @Override
+    public void updateFilteredIncompleteTaskList(Set<String> keywords){
+        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.INCOMPLETE, keywords);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA);
+    }
+
+    @Override
+    public void updateFilteredAgendaTaskList(Set<String> keywords){
+        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA, keywords);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.EVENTS_AGENDA);
+    }
+
+    @Override
+    public void updateFilteredAgendaEventList(Set<String> keywords){
+        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.EVENTS_AGENDA, keywords);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredMondayTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.MONDAY);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTuesdayTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.TUESDAY);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredWednesdayTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.WEDNESDAY);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredThursdayTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.THURSDAY);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredFridayTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.FRIDAY);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredSaturdayTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.SATURDAY);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredSundayTaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.SUNDAY);
+    }   
 }

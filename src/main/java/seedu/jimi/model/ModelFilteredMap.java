@@ -76,16 +76,16 @@ public class ModelFilteredMap {
         
     }
     
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredMap.get(ListIdentifier.TASKS_AGENDA));
+    public UnmodifiableObservableList<ReadOnlyTask> getRequiredFilteredTaskList(ListIdentifier li) {
+        return new UnmodifiableObservableList<>(filteredMap.get(li));
     }
     
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateRequiredFilteredTaskList(ListIdentifier li, Set<String> keywords){
+        updateFilteredTaskList(li, new PredicateExpression(new NameQualifier(keywords)));
     }
     
-    private void updateFilteredTaskList(Expression expression) {
-        filteredMap.get(ListIdentifier.TASKS_AGENDA).setPredicate(expression::satisfies);
+    private void updateFilteredTaskList(ListIdentifier li, Expression expression) {
+        filteredMap.get(li).setPredicate(expression::satisfies);
     }
     
     //========== Inner classes/interfaces used for filtering ==================================================
