@@ -13,6 +13,7 @@ import tars.commons.core.LogsCenter;
 import tars.commons.events.storage.DataSavingExceptionEvent;
 import tars.commons.events.ui.JumpToListRequestEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
+import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.util.StringUtil;
 import tars.logic.Logic;
 import tars.model.UserPrefs;
@@ -111,6 +112,12 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
+    }
+    
+    @Subscribe
+    private void handleTaskAddedEvent(TaskAddedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }

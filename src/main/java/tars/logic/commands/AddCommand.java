@@ -1,6 +1,8 @@
 package tars.logic.commands;
 
+import tars.commons.core.EventsCenter;
 import tars.commons.core.Messages;
+import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.DateTimeUtil;
@@ -13,6 +15,8 @@ import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * Adds a task to tars.
@@ -67,6 +71,14 @@ public class AddCommand extends UndoableCommand {
             tagSet.add(new Tag(tagName));
         }
 
+        this.toAdd = new Task(
+                new Name(name),
+                new DateTime(dateTime[0], dateTime[1]),
+                new Priority(priority),
+                new Status(),
+                new UniqueTagList(tagSet)
+                );
+        
         int numTask = ADDTASK_DEFAULT_NUMTASK;
         if (recurringString != null && recurringString.length > 1) {
             numTask = Integer.parseInt(recurringString[RECURRINGSTRING_INDEX_OF_NUMTASK]);
@@ -77,20 +89,19 @@ public class AddCommand extends UndoableCommand {
                 if (recurringString != null 
                         && recurringString.length > RECURRINGSTRING_NOT_EMPTY) {
                     if (dateTime[DATETIME_INDEX_OF_STARTDATE] != null 
-                            || dateTime[DATETIME_INDEX_OF_STARTDATE].length() > DATETIME_EMPTY_DATE) {
+                            && dateTime[DATETIME_INDEX_OF_STARTDATE].length() > DATETIME_EMPTY_DATE) {
                         dateTime[DATETIME_INDEX_OF_STARTDATE] = 
                                 DateTimeUtil.modifyDate(dateTime[DATETIME_INDEX_OF_STARTDATE], 
                                              recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
                     }
                     if (dateTime[DATETIME_INDEX_OF_ENDDATE] != null 
-                            || dateTime[DATETIME_INDEX_OF_ENDDATE].length() > DATETIME_EMPTY_DATE) {
+                            && dateTime[DATETIME_INDEX_OF_ENDDATE].length() > DATETIME_EMPTY_DATE) {
                         dateTime[DATETIME_INDEX_OF_ENDDATE] = 
                                 DateTimeUtil.modifyDate(dateTime[DATETIME_INDEX_OF_ENDDATE], 
                                            recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
                     }
                 }
             }
-
             this.toAdd = new Task(new Name(name), 
                     new DateTime(dateTime[DATETIME_INDEX_OF_STARTDATE], 
                                  dateTime[DATETIME_INDEX_OF_ENDDATE]), 
@@ -110,6 +121,7 @@ public class AddCommand extends UndoableCommand {
                 model.addTask(toAdd);
             }
             model.getUndoableCmdHist().push(this);
+            EventsCenter.getInstance().post(new TaskAddedEvent(model.getFilteredTaskList().size()+1));
             return new CommandResult(messageSummary());
         } catch (DuplicateTaskException e) {
             return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
