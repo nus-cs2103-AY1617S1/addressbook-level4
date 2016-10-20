@@ -11,50 +11,63 @@ import seedu.todo.model.task.Task;
 /**
  * Builds a task for testing purposes.
  */
-public class TestTaskBuilder {
+public class TaskBuilder {
 
     private Task task;
 
-    public TestTaskBuilder(String title) {
-        task = new Task(title);
+    private TaskBuilder(String name) {
+        task = new Task(name);
+    }
+    
+    public static TaskBuilder name(String name) {
+        return new TaskBuilder(name);
     }
 
-    public TestTaskBuilder withDescription(String description) {
+    public TaskBuilder description(String description) {
         task.setDescription(description);
         return this;
     }
     
-    public TestTaskBuilder withLocation(String location) {
+    public TaskBuilder location(String location) {
         task.setLocation(location);
         return this;
     }
 
-    public TestTaskBuilder withLastUpdated(LocalDateTime lastUpdated) throws IllegalValueException {
+    public TaskBuilder lastUpdated(LocalDateTime lastUpdated) throws IllegalValueException {
         task.setLastUpdated(lastUpdated);
         return this;
     }
 
-    public TestTaskBuilder withCompleted() {
+    public TaskBuilder completed() {
         task.setCompleted(true);
         return this;
     }
 
-    public TestTaskBuilder withPinned() {
+    public TaskBuilder pinned() {
         task.setPinned(true);
         return this;
     }
-
-    public TestTaskBuilder withTime() {
-        return withTime(LocalDateTime.now(), LocalDateTime.now().plusDays(1l));
+    
+    public TaskBuilder due() {
+        return due(TimeUtil.tomorrow().plusHours(12));
+    }
+    
+    public TaskBuilder due(LocalDateTime due) {
+        task.setEndTime(due);
+        return this;
     }
 
-    public TestTaskBuilder withTime(LocalDateTime start, LocalDateTime end) {
+    public TaskBuilder event() {
+        return event(TimeUtil.tomorrow().plusHours(12), TimeUtil.tomorrow().plusHours(14));
+    }
+
+    public TaskBuilder event(LocalDateTime start, LocalDateTime end) {
         task.setStartTime(start);
         task.setEndTime(end);
         return this;
     }
 
-    public TestTaskBuilder withTags(String ... tags) throws IllegalValueException {
+    public TaskBuilder tagged(String ... tags) throws IllegalValueException {
         Set<Tag> setOfTags = new HashSet<>();
         for (String tag: tags) {
             setOfTags.add(new Tag(tag));
