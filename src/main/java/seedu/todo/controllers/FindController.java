@@ -181,7 +181,7 @@ public class FindController implements Controller {
     
     private String formatDisplayMessage (int numTasks, int numEvents) {
         if (numTasks != 0 && numEvents != 0) {
-            return String.format("%s and %s.", formatTaskMessage(numTasks), formatEventMessage(numEvents));
+            return String.format("%s and %s", formatTaskMessage(numTasks), formatEventMessage(numEvents));
         } else if (numTasks != 0) {
             return formatTaskMessage(numTasks);
         } else {
@@ -255,9 +255,11 @@ public class FindController implements Controller {
     
     private void parseName(Map<String, String[]> parsedResult, HashSet<String> itemNameList) {
         if (parsedResult.get("name") != null) {
-            String[] result = parsedResult.get("name")[1].trim().split(" ");
-            for (int i = 0; i < result.length; i ++) {
-                itemNameList.add(result[i]);
+            if (itemNameList.size() != 0) {
+                String[] result = parsedResult.get("name")[1].trim().split(" ");
+                for (int i = 0; i < result.length; i ++) {
+                    itemNameList.add(result[i]);
+                }
             }
         } 
     }

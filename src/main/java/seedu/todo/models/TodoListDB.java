@@ -252,17 +252,11 @@ public class TodoListDB {
         while (iterator.hasNext()) {
             Task currTask = iterator.next();
             String currTaskName = currTask.getName();
-            boolean isMatched = true;
             while(hashIterator.hasNext()) {
                 String currentMatchingString = hashIterator.next();
-                if (!currTaskName.contains(currentMatchingString)) {
-                    isMatched = false;
-                    break;
+                if (currTaskName.contains(currentMatchingString)) {
+                    taskByName.add(currTask);
                 }
-            }
-            
-            if (isMatched) {
-                taskByName.add(currTask);
             }
             hashIterator = itemNameList.iterator();
         }
@@ -518,18 +512,13 @@ public class TodoListDB {
         while (iterator.hasNext()) {
             Event currEvent = iterator.next();
             String currEventName = currEvent.getName();
-            boolean isMatched = true;
             while(hashIterator.hasNext()) {
                 String currentMatchingString = hashIterator.next();
-                if (!currEventName.contains(currentMatchingString)) {
-                    isMatched = false;
-                    break;
-                }
+                if (currEventName.contains(currentMatchingString)) {
+                    eventByName.add(currEvent);
+                } 
             }
             
-            if (isMatched) {
-                eventByName.add(currEvent);
-            }
             hashIterator = itemNameList.iterator();
         }
         return eventByName;
