@@ -13,18 +13,18 @@ public class AddCommandTest extends TaskBookGuiTest {
 
     @Test
     public void add() {
-        //add one person
+        //add one item
         TestItem[] currentList = td.getTypicalItems();
-        TestItem personToAdd = td.help;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addItemsToList(currentList, personToAdd);
+        TestItem itemToAdd = td.help;
+        assertAddSuccess(itemToAdd, currentList);
+        currentList = TestUtil.addItemsToList(currentList, itemToAdd);
 
-        //add another person
-        personToAdd = td.indeed;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addItemsToList(currentList, personToAdd);
+        //add another item
+        itemToAdd = td.indeed;
+        assertAddSuccess(itemToAdd, currentList);
+        currentList = TestUtil.addItemsToList(currentList, itemToAdd);
 
-        //add duplicate person
+        //add duplicate item - dísallowed
         commandBox.runCommand(td.help.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_ITEM);
         assertTrue(itemListPanel.isListMatching(currentList));
@@ -38,15 +38,15 @@ public class AddCommandTest extends TaskBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestItem personToAdd, TestItem... currentList) {
-        commandBox.runCommand(personToAdd.getAddCommand());
+    private void assertAddSuccess(TestItem itemToAdd, TestItem... currentList) {
+        commandBox.runCommand(itemToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        ItemCardHandle addedCard = itemListPanel.navigateToItem(personToAdd.getName().fullName);
-        assertMatching(personToAdd, addedCard);
+        ItemCardHandle addedCard = itemListPanel.navigateToItem(itemToAdd.getDescription().getFullDescription());
+        assertMatching(itemToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestItem[] expectedList = TestUtil.addItemsToList(currentList, personToAdd);
+        TestItem[] expectedList = TestUtil.addItemsToList(currentList, itemToAdd);
         assertTrue(itemListPanel.isListMatching(expectedList));
     }
 
