@@ -1,5 +1,7 @@
 # Developer Guide
 
+* [Introduction](#introduction)
+* [Target Audience](#target-audience)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -12,6 +14,19 @@
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
+
+## Introduction
+Welcome to Mastermind Developer Guide! <br>
+
+Mastermind is a to-do task manager that helps the user to keep track of their tasks. We aim to provide our users with an effective and efficient solution to managing their tasks so they are able to better handle their time, as well as completing tasks required. 
+
+
+## Target Audience
+This developer guide is for both existing and new developers of the team who are interested in working on Mastermind in the future. <br>
+
+This guide will be showing you the Product Architecture, APIs and the details regarding the different components. <br>
+
+The next segment will show you how to set-up to make sure that you have the necessary tools before getting started, so do remember to read them! Feel free to approach our team for any clarifications that you may face during the process. Good luck and have fun coding! 
 
 
 ## Setting up
@@ -44,9 +59,30 @@
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
+### Troubleshooting Project Setup
+**Problem: Eclipse reports compile errors after new commits are pulled from Git**<br>
+
+�	Reason: Eclipse fails to recognize new files that appeared due to the Git pull. <br>
+�	Solution Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose Gradle -> Refresh Gradle Project
+<br>
+
+**Problem: Eclipse reports some required libraries missing**<br>
+
+�	Reason: Required libraries may not have been downloaded during the project import.<br>
+�	Solution: Run tests using Gradle once (to refresh the libraries).
+
+
+
 ## Design
 
-<img src="images/Architecture.png" width="600"><br>
+### Software Architecture
+
+To start off, let us introduce you to the overall structure of Mastermind. Do have a basic understanding of Mastermind's different components before focusing on them individually. <br>
+
+Mastermind is split up into 5 main components, namely the `UI`, `Logic`, `Model`, `Storage` and `Commons`, as shown below, in Figure 1. 
+
+
+<img src="images/Mastermind_Software_Architecture.jpg" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -61,7 +97,7 @@ Two of those classes play an important role at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log files.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -70,33 +106,23 @@ Each of the four components
 * Defines its _API_ an interface with the same name as the Component. `Logic.java`
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
-
-<img src="images\SDforDeletePerson.png" width="800">
-
->Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
- instead of asking the `Storage` to save the updates to the hard disk.
-
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
-
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
-  coupling between components.
 
 The sections below give more details of each component.
 
-### UI component
+#### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+UI is implemented by JavaFX 8 and consists of the main panel Main Window. This component primarily handles user input such as text input which will be entered via Command Line Input (CLI) as shown in Figure 2. On top of text input, users are also allowed to use keypress or mouse click and pass on to the Logic component. <br>
+
+If you are intending to work on the UI, you will need to update the application's internal state, which also includes: <br>
+1.	UiManager.java <br>
+2.	UiPartLoader.java <br>
+3.	UiPart.java <br>
+4.	BrowserPanel.java
+
+
+<img src="images/developer-guide-ui.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/harmony/mastermind/ui/Ui.java)
-
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
@@ -108,9 +134,10 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raises from various parts of the App and updates the UI accordingly.
 
-### Logic component
+#### Logic component
+Logic is the brain of the application as it controls and manages the overall flow of the application. Upon receiving the user input from UI, it will process the input using the parser and return the result of executing the user input back to the UI. The inputs Logic take in are command words such as add, edit, delete, etc., and executes them accordingly based on their functionality. If you were to work on this execution of user input, you will need to access Storage through the EventsCenter to retrieve and update state of tasks. 
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/developer-guide-logic.png" width="800"><br>
 
 **API** : [`Logic.java`](../src/main/java/harmony/mastermind/logic/Logic.java)
 
@@ -119,22 +146,87 @@ The `UI` component,
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 
+
+##### Add 
+The add class allows the user to add tasks, deadlines or events to Mastermind. Tasks, deadlines and events are different objects. They are being stored as object attributes such as name, description, end date, start date and type. <br>
+
+You can refer to Figure 4 and Figure 5 below and the next page for the class diagram of Add.
+
+<img src="images/Add Command Sequence Diagram part 1.png" width="800"><br>
+
+> Note how the Model simply raises a TaskManagerChangedEvent when Mastermind's data is changed, instead of asking the Storage to save the updates to the hard disk.
+
+The diagram below shows how the EventsCenter reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+
+<img src="images/Add Command Sequence Diagram part 2.png" width="800"><br>
+
+> Note how the event is propagated through the EventsCenter to the Storage and UI without Model having to be coupled to either of them. This is how we reduce direct coupling between 2 components.
+
+##### Delete
+This delete allows the user to delete whatever they have input into the program beforehand. What the user have to do is to delete and choose the index that he or she wishes to delete.
+
+Details are illustrated in the following diagrams.
+
+<img src="images/Delete Command Sequence Diagram part 1.png" width="800"><br>
+
+> Again, note how that model simply raises an event instead of relying on Storage directly.
+
+And EventsCeneter reacts to the event accordingly.
+
+<img src="images/Delete Command Sequence Diagram part 2.png" width="800"><br>
+
+
+##### Clear 
+Clear wipes all tasks currently registered in Mastermind. <br>
+
+The user can delete the objects either at the homepage, deadlines, tasks or events tabs. The user is required to choose the correct index of the object. <br>
+ 
+After inputing the command, the data is cleared from the Storage.<br> 
+
+
+##### Edit 
+This is also to allow the user to update attributes of items he has already added in Mastermind. <br>
+
+The user can update the task by choosing the index of the task they want to change. They will then choose the specific field such as start date that they want to change. 
+If there are multiple items, this is resolved by looking at the description of the task displayed to the user, allowing the user to choose the correct task instead. <br>
+
+However, the user can only update one item at a time. To update, the item being updated must be found, and removed from the Storage. After updating the attribute, the item is re-added back into Storage. If the update is successful, the details of the item will be printed and it will be shown to the user the new updates. Otherwise, an error message is generated. 
+
+The details are shown in the following diagrams.
+
+<img src="images/Edit Command Sequence Diagram part 1.png" width="800"><br>
+
+2 events are raised during the execution of Edit.
+
+<img src="images/Edit Command Sequence Diagram part 2.png" width="800"><br>
+
+##### Exit
+This exit command runs when the user tries to exit the program, allowing the program to close.
+
+
+##### Find
+To find an item, the user will search through the Storage by calling "find <task>", "find <date>" or "find <tag>". It calls FindTagCommand to find the exact terms of the keywords entered by the user.
+
+
+##### Mark
+The Mark command allows users to mark their tasks/deadlines/events as completed. This removes the task from the tasks/deadlines/events field, and moves it into the Archive. The Mark command will not delete the task immediately. In the event that users want to unmark the task, users can do so due to using the Unmark Command. 
+
+
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/Model UML.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/harmony/mastermind/model/Model.java)
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
 * Stores the Mastermind's data
-* Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
+* Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<img src="images/Storage UML.png" width="800"><br>
 
 **API** : [`Storage.java`](../src/main/java/harmony/mastermind/storage/Storage.java)
 
@@ -145,6 +237,7 @@ The `Storage` component,
 ### Common classes
 
 Classes used by multiple components are in the `harmony.mastermind.commons` package.
+This component will be maintained by developers working on any of the other components because of its wide scope of application. You can find 4 packages, namely: core, events, exceptions and utils. 
 
 ## Implementation
 
@@ -220,9 +313,13 @@ Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
-## Continuous Integration
+## Dev Ops
 
-We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
+### Build Automation
+See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+
+### Continuous Integration
+We use [Travis CI](https://travis-ci.org/) to perform Continuous Integration on our projects to ensure that every time we merge a new feature into the main branch, automated testing is done to verify that the app is working.
 See [UsingTravis.md](UsingTravis.md) for more details.
 
 ## Making a Release
@@ -231,7 +328,7 @@ Here are the steps to create a new release.
 
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
+ 3. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
 
 ## Managing Dependencies
@@ -258,8 +355,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | edit a task | update entries as needed
 `* * *` | user | find a task by name | locate details of the task without having to go through the entire list
 `* * *` | user | find a task by deadline | locate tasks that are due soon without having to go through the entire list
-`* * *` | user | undo a task entered | recover from my mistakes easily
-`* * *` | user | re-do a task entered | recover from my mistakes easily
+`* * *` | user | undo a task entered | undo a mistake easily
+`* * *` | user | re-do a task entered | redo a mistake easily
 `* * *` | user | sort list by alphabetical order and date | find my tasks easily
 `* * *` | user | mark tasks as done | archive my completed tasks
 `* * *` | user | specify the location of file storage | choose where to save the to do list
@@ -288,10 +385,9 @@ Priority | As a ... | I want to ... | So that I can...
 | [UC7](#uc7-undo-action) | Undo Action  | Undo last action performed. |
 | [UC8](#uc8-redo-action) | Redo Action  | Redo an action performed in UC7. |
 | [UC9](#uc9-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
-| [UC10](#uc10-clear-a-category) | Clear a category  | System performs bulk delete on the category specified (Deadlines, events, tasks). |
-| [UC11](#uc11-clear-all-category) | Clear all category  | System performs bulk delete on every category (Deadlines, events, tasks). |
-| [UC12](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
-| [UC13](#uc13-exit-application) | Exit application  | Quit the application |
+| [UC10](#uc10-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
+| [UC11](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
+| [UC12](#uc13-exit-application) | Exit application  | Quit the application |
 
 ---
 
@@ -311,7 +407,9 @@ Display help when requested, or when user enter an invalid command.
 
 1a. User entered an invalid command.
 
-* 1a1. Use case resume at 2.
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
 
 ---
 
@@ -569,13 +667,12 @@ Mark a task as done by index. A marked task should be automatically archived and
 
 ---
 
-### UC10: Clear a category
+### UC10: Clear everything
 
-System performs bulk delete on the category specified (Deadlines, events, tasks).
-
+System performs bulk delete on the data (Deadlines, events, tasks).
 ##### Main Success Scenario
 
-1. User requests to clear a category.
+1. User requests to clear Mastermind
 
 2. System proceed to perform bulk action described in UC6 for the specified category.
 
@@ -589,39 +686,9 @@ System performs bulk delete on the category specified (Deadlines, events, tasks)
 
 * 1a2. Use case ends.
 
-2a. Invalid category
-
-* 2a1. System cannot find the specified category.
-
-* 2a2. System display unsuccessful message.
-
-* 2a3. Use case ends.
-
 ---
 
-### UC11: Clear all category
-
-System performs bulk delete on every category (Deadlines, events, tasks).
-
-##### Main Success Scenario
-
-1. User requests to clear all category.
-
-2. System proceed to perform bulk action describe in UC6.
-
-3. Use case ends.
-
-##### Extensions
-
-1a. User entered an invalid command.
-
-* 1a1. System display unsuccessful message.
-
-* 1a2. Use case ends.
-
----
-
-### UC12: Relocate storage location
+### UC11: Relocate storage location
 
 Change the current storage to other directory specified by the user.
 
@@ -661,7 +728,7 @@ Change the current storage to other directory specified by the user.
 
 ---
 
-### UC13: Exit application
+### UC12: Exit application
 
 Quit the application.
 
@@ -727,91 +794,91 @@ Quit the application.
 ##### Google Calendar
 
 > Pros:
->1.  Able to sync calendars from other people
->2.  Chrome extension for offline connectivity
->3.  Multiple viewing options (Calendar/To do list view)
->4.  Has a Command Line Interface (CLI)
+> *  Able to sync calendars from other people
+> *  Chrome extension for offline connectivity
+> *  Multiple viewing options (Calendar/To do list view)
+> *  Has a Command Line Interface (CLI)
 
 > Cons:
->1.  Unable to support floating task
->2.  Unable to mark tasks as done
->3.  Unable to block out and free up timings
->4.  CLI commands only for addition of tasks
->5.  Bad interface
+> *  Unable to support floating task
+> *  Unable to mark tasks as done
+> *  Unable to block out and free up timings
+> *  CLI commands only for addition of tasks
+> *  Bad interface
 
 ##### Wunderlist
 
 > Pros:
->1.  Able to set categories
->2.  Able to mark tasks as done
->3.  Able to read tasks from e-mails
->4.  Able to assign tasks to someone
->5.  Able to search for tasks easily
->6.  Able to migrate tasks from one category to another easily
->7.  Web and offline desktop version available
+> *  Able to set categories
+> *  Able to mark tasks as done
+> *  Able to read tasks from e-mails
+> *  Able to assign tasks to someone
+> *  Able to search for tasks easily
+> *  Able to migrate tasks from one category to another easily
+> *  Web and offline desktop version available
 
 > Cons:
->1.  Unable to create subtask
->2.  Unable to support recurring tasks
->3.  Unable to block out time slots
->4.  Unable to set start date for tasks
->5.  Only has a list view
+> *  Unable to create subtask
+> *  Unable to support recurring tasks
+> *  Unable to block out time slots
+> *  Unable to set start date for tasks
+> *  Only has a list view
 
 ##### Todoist
 
 > Pros:
->1.  Able to set categories
->2.  Able to collaborate with others
->3.  Able to have sub-projects and sub-tasks
->4.  Able to support recurring tasks
->5.  Able to sort tasks by priority level
->6.  Able to integrate from e-mail
->7.  Able to backup automatically
+> *  Able to set categories
+> *  Able to collaborate with others
+> *  Able to have sub-projects and sub-tasks
+> *  Able to support recurring tasks
+> *  Able to sort tasks by priority level
+> *  Able to integrate from e-mail
+> *  Able to backup automatically
 
 > Cons:
->1.  Unable to block out timings
->2.  Unable to export out To-do list
->3.  Minimal CLI
->4.  Have to do a lot of clicking
+> *  Unable to block out timings
+> *  Unable to export out To-do list
+> *  Minimal CLI
+> *  Have to do a lot of clicking
 
 ##### Any.Do
 
 > Pros:
->1.  Able to set categories by type and day
->2.  Able to show completed tasks
->3.  Able to collaborate with others
->4.  Able to support sub-tasks
->5.  Able to add attachments
->6.  Able to support recurring tasks
->7.  Able to mark task as done
->8.  Able to notify and remind user
->9.  Able to have action shortcuts
->10.  Able to have different types of views
+> *  Able to set categories by type and day
+> *  Able to show completed tasks
+> *  Able to collaborate with others
+> *  Able to support sub-tasks
+> *  Able to add attachments
+> *  Able to support recurring tasks
+> *  Able to mark task as done
+> *  Able to notify and remind user
+> *  Able to have action shortcuts
+> *  Able to have different types of views
 
 > Cons:
->1.  Unable to support floating tasks
->2.  No CLI
+> *  Unable to support floating tasks
+> *  No CLI
 
 ##### Evernote
 
 > Pros:
->1.  Able to quick search
->2.  Able to support handwriting, embedded images/audio and links
->3.  Able to work with camera
+> *  Able to quick search
+> *  Able to support handwriting, embedded images/audio and links
+> *  Able to work with camera
 
 > Cons:
->1.  No CLI
->2.  No Calendar view
+> *  No CLI
+> *  No Calendar view
 
 ##### Trello
 
 > Pros:
->1.  Able to mark tasks as "in-progress"
->2.  Able to view as calendar
+> *  Able to mark tasks as "in-progress"
+> *  Able to view as calendar
 
 > Cons:
->1.  Unable to import or export
->2.  Relies on UI interaction
->3.  No CLI
->4.  Need to pay for premium use to access 3rd party features
->5.  No desktop version
+> *  Unable to import or export
+> *  Relies on UI interaction
+> *  No CLI
+> *  Need to pay for premium use to access 3rd party features
+> *  No desktop version

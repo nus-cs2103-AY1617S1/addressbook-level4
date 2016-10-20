@@ -2,7 +2,6 @@ package harmony.mastermind.logic.parser;
 
 import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static harmony.mastermind.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_TAB;
 
 
 import java.text.ParseException;
@@ -13,6 +12,7 @@ import java.util.regex.Pattern;
 import com.google.common.base.Strings;
 
 import harmony.mastermind.commons.exceptions.IllegalValueException;
+import harmony.mastermind.commons.exceptions.InvalidEventDateException;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.*;
 import harmony.mastermind.model.ModelManager;
@@ -137,7 +137,6 @@ public class Parser {
 
         // Validate arg string format
         if (!matcher.matches()) {
-            System.out.println("WTF");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EXAMPLES));
         }
 
@@ -148,19 +147,58 @@ public class Parser {
             final String name = matcher.group("name");
 
             // optionals
+            final Optional<String> recur = Optional.ofNullable(matcher.group("recur"));
             final Optional<String> startDate = Optional.ofNullable(matcher.group("startDate"));
             final Optional<String> endDate = Optional.ofNullable(matcher.group("endDate"));
             final Optional<String> tags = Optional.ofNullable(matcher.group("tags"));
-
+           
+            
             // return internal value if present. else, return empty string
             Set<String> tagSet = getTagsFromArgs(tags.map(val -> val).orElse(""));
-
+            String recurVal = null;
+            
+            //check if recur has a valid keyword
+            if (recur.isPresent()) {
+                String key = recur.get().split(" ")[0];
+                if (!Arrays.asList(AddCommand.COMMAND_KEYWORDS_RECUR).contains(key)) {
+                    return new IncorrectCommand("invalid recurring value");
+                }
+                recurVal = recur.get();
+            }
+            
             if (startDate.isPresent() && endDate.isPresent()) {
                 // event
-                return new AddCommand(name, startDate.get(), endDate.get(), tagSet);
+                String start = startDate.get().toLowerCase();
+                String end = endDate.get().toLowerCase();
+                
+                if (start.equals("today")) {
+                    start += " 2359";
+                }else if (start.equals("tomorrow")) {
+                    start += " 2359";
+                }
+                if (end.equals("today")) {
+                    end += " 2359";
+                }else if (start.equals("tomorrow")) {
+                    end += " 2359";
+                }
+                
+                
+                try {
+                    return new AddCommand(name, start, end, tagSet, recurVal);
+                } catch (InvalidEventDateException iede) {
+                    return new IncorrectCommand(iede.getMessage());
+                }
             } else if (!startDate.isPresent() && endDate.isPresent()) {
                 // deadline
-                return new AddCommand(name, endDate.get(), tagSet);
+                String end = endDate.get().toLowerCase();
+                
+                if (end.equals("today")) {
+                    end += " 2359";
+                }else if (end.equals("tomorrow")) {
+                    end += " 2359";
+                }
+                
+                return new AddCommand(name, end, tagSet, recurVal);
             } else if (startDate.isPresent() && !endDate.isPresent()) {
                 // task with only startdate is not supported.
                 throw new IllegalValueException("Cannot create a task with only start date.");
@@ -171,9 +209,6 @@ public class Parser {
 
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (ParseException pe) {
-            pe.printStackTrace();
-            return new IncorrectCommand(pe.getMessage());
         }
     }
     
@@ -198,6 +233,7 @@ public class Parser {
             final int index = Integer.parseInt(matcher.group("index"));
             
             //optional
+            final Optional<String> recur = Optional.ofNullable(matcher.group("recur"));
             final Optional<String> name = Optional.ofNullable(matcher.group("name"));
             final Optional<String> startDate = Optional.ofNullable(matcher.group("startDate"));
             final Optional<String> endDate = Optional.ofNullable(matcher.group("endDate"));
@@ -208,7 +244,7 @@ public class Parser {
                 tagSet = Optional.ofNullable(getTagsFromArgs(tags.get()));
             };
             
-            return new EditCommand(index, name, startDate, endDate, tagSet);
+            return new EditCommand(index, name, startDate, endDate, tagSet, recur);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (ParseException pe) {
@@ -301,7 +337,7 @@ public class Parser {
     //@@author A0124797R
     private Command prepareUnmark(String args, String currentTab) {
         if (!currentTab.equals(TAB_ARCHIVES)) {
-            return new IncorrectCommand(UnmarkCommand.MESSAGE_UNMARK_FAILURE);
+            return new IncorrectCommand(UnmarkCommand.MESSAGE_UNMARK_TASK_FAILURE);
         }
 
         Optional<Integer> index = parseIndex(args);

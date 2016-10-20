@@ -1,7 +1,9 @@
 package harmony.mastermind.ui;
 
+import java.util.Random;
 import java.util.logging.Logger;
 
+import org.controlsfx.control.textfield.TextFields;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import com.google.common.eventbus.Subscribe;
@@ -9,6 +11,7 @@ import com.google.common.eventbus.Subscribe;
 import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.GuiSettings;
 import harmony.mastermind.commons.core.LogsCenter;
+import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.ExitAppRequestEvent;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -18,10 +21,12 @@ import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.PreviousCommand;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.task.ReadOnlyTask;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
@@ -34,6 +39,10 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 /**
@@ -45,12 +54,16 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     private static final double WIDTH_MULTIPLIER_INDEX = 0.045;
-    private static final double WIDTH_MULTIPLIER_NAME = 0.355;
-    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.2;
-    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.2;
+    private static final double WIDTH_MULTIPLIER_NAME = 0.315;
+    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.22;
+    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.22;
     private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
     
     private static final short INDEX_HOME = 0;
+    private static final short INDEX_TASKS = 1;
+    private static final short INDEX_EVENTS = 2;
+    private static final short INDEX_DEADLINES = 3;
+    private static final short INDEX_ARCHIVES = 4;
     
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 460;
@@ -73,6 +86,11 @@ public class MainWindow extends UiPart {
     String prevCommandText;
 
     private CommandResult mostRecentResult;
+    private boolean isExpectingConfirmation = false;
+    
+    //List of words for autocomplete 
+    String[] listOfWords = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
+            ,"do", "add 'submit homework' ed/'tomorrow'", "delete 1"};
 
     // UI elements
     @FXML
@@ -273,6 +291,7 @@ public class MainWindow extends UiPart {
         initDeadlineTab();
         initArchiveTab();
 
+        Platform.runLater(()->commandField.requestFocus());
     }
 
     /**
@@ -345,6 +364,7 @@ public class MainWindow extends UiPart {
     //@@author A0138862W
     private void initIndex(TableColumn<ReadOnlyTask, String> indexColumn) {
         indexColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
+        
         indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, String>() {
             @Override
             public void updateIndex(int index) {
@@ -356,6 +376,7 @@ public class MainWindow extends UiPart {
                     setText(Integer.toString(index + 1));
                 }
             }
+            
         });
     }
 
@@ -366,6 +387,32 @@ public class MainWindow extends UiPart {
     private void initName(TableColumn<ReadOnlyTask, String> nameColumn) {
         nameColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_NAME));
         nameColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getName()));
+        
+        nameColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+            
+            @Override
+            public void updateItem(String item , boolean isEmpty){
+                super.updateItem(item, isEmpty);
+                if(!isEmpty()){
+                    
+                    TextFlow textFlow = new TextFlow();
+                    
+                    Text taskName = new Text(item);
+                    taskName.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-fill: deepSkyBlue;");
+                    
+                    textFlow.getChildren().add(taskName);
+                    
+                    
+                    this.setGraphic(textFlow);
+                    this.setPrefHeight(50);
+                    
+                }else{
+                    this.setGraphic(null);
+                }
+                
+            }
+        });
+        
     }
     
     /**
@@ -378,11 +425,49 @@ public class MainWindow extends UiPart {
             if (task.getValue().isEvent()) {
                 return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getStartDate())
                                                  + "\n"
-                                                 + task.getValue().getStartDate().toString());
+                                                 + task.getValue().parse(task.getValue().getStartDate()));
             } else {
                 return new ReadOnlyStringWrapper("");
             }
         });
+        
+        startDateColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+            
+            @Override
+            public void updateItem(String item , boolean isEmpty){
+                super.updateItem(item, isEmpty);
+                if(!isEmpty()){
+                    
+                    TextFlow textFlow = new TextFlow();
+                    
+                    String[] dates = item.split("\n");
+                    
+                    if(dates.length>1){
+                    
+                        Text prettyDate = new Text(dates[0]);
+                        prettyDate.setStyle("-fx-font-weight:bold; -fx-fill: white;");
+                        
+                        Text lineBreak = new Text("\n\n");
+                        lineBreak.setStyle("-fx-font-size:2px;");
+                        
+                        Text uglyDate = new Text(dates[1]);
+                        uglyDate.setStyle("fx-font-style: oblique; -fx-fill: deepSkyBlue; -fx-font-size: 10px;");
+                        
+                        textFlow.getChildren().add(prettyDate);
+                        textFlow.getChildren().add(lineBreak);
+                        textFlow.getChildren().add(uglyDate);
+                        
+                        
+                        this.setGraphic(textFlow);
+                        this.setPrefHeight(50);
+                    }
+                }else{
+                    this.setGraphic(null);
+                }
+                
+            }
+        });
+        
     }
     
     /**
@@ -395,11 +480,49 @@ public class MainWindow extends UiPart {
             if (!task.getValue().isFloating()) {
                 return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getEndDate())
                                                  + "\n"
-                                                 + task.getValue().getEndDate().toString());
+                                                 + task.getValue().parse(task.getValue().getEndDate()));
             } else {
                 return new ReadOnlyStringWrapper("");
             }
         });
+        
+        endDateColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+            
+            @Override
+            public void updateItem(String item , boolean isEmpty){
+                super.updateItem(item, isEmpty);
+                if(!isEmpty()){
+                    
+                    TextFlow textFlow = new TextFlow();
+                    
+                    String[] dates = item.split("\n");
+                    
+                    if(dates.length>1){
+                    
+                        Text prettyDate = new Text(dates[0]);
+                        prettyDate.setStyle("-fx-font-weight:bold; -fx-fill: white;");
+                        
+                        Text lineBreak = new Text("\n\n");
+                        lineBreak.setStyle("-fx-font-size:2px;");
+                        
+                        Text uglyDate = new Text(dates[1]);
+                        uglyDate.setStyle("fx-font-style: oblique; -fx-fill: deepSkyBlue; -fx-font-size: 10px;");
+                        
+                        textFlow.getChildren().add(prettyDate);
+                        textFlow.getChildren().add(lineBreak);
+                        textFlow.getChildren().add(uglyDate);
+                        
+                        
+                        this.setGraphic(textFlow);
+                        this.setPrefHeight(50);
+                    }
+                }else{
+                    this.setGraphic(null);
+                }
+                
+            }
+        });
+        
     }
     
     /**
@@ -409,27 +532,47 @@ public class MainWindow extends UiPart {
     private void initTags(TableColumn<ReadOnlyTask, String> tagsColumn) {
         tagsColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_TAGS));
         tagsColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getTags().toString()));
+        
+        tagsColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+            
+            @Override
+            public void updateItem(String item , boolean isEmpty){
+                super.updateItem(item, isEmpty);
+                if(!isEmpty()){
+                    this.setText(item.replace(',', ' '));
+                    this.setStyle("-fx-font-weight:bold;");
+                    this.setWrapText(true);
+                }else{
+                    this.setText("");
+                }
+            }
+        });
+        
     }
 
 
     @FXML
     //@@author A0124797R
     private void handleCommandInputChanged() {
+        //@@author A0143378Y
+        //Autocomplete function 
+        
+        TextFields.bindAutoCompletion(commandField, listOfWords);
         // Take a copy of the command text
         currCommandText = commandField.getText();
         String currentTab = getCurrentTab();
 
         setStyleToIndicateCorrectCommand();
+
+        /*
+         * We assume the command is correct. If it is incorrect, the command box
+         * will be changed accordingly in the event handling code {@link
+         * #handleIncorrectCommandAttempted}
+         */
+        mostRecentResult = logic.execute(currCommandText, currentTab);
+        consoleOutput.setText(mostRecentResult.feedbackToUser);
         
         if (!currCommandText.equals(PreviousCommand.COMMAND_WORD)) {
-            /*
-             * We assume the command is correct. If it is incorrect, the command box
-             * will be changed accordingly in the event handling code {@link
-             * #handleIncorrectCommandAttempted}
-             */
-            mostRecentResult = logic.execute(currCommandText, currentTab);
-            consoleOutput.setText(mostRecentResult.feedbackToUser);
-            
             updateTab(mostRecentResult);
 
             prevCommandText = currCommandText;
@@ -443,6 +586,26 @@ public class MainWindow extends UiPart {
     }
 
     @Subscribe
+    //@@author A0139194X
+    private void handleExpectingConfirmationEvent(ExpectingConfirmationEvent event) {
+        isExpectingConfirmation = true;
+        consoleOutput.setText("Type \"Yes\" to confirm clearing Mastermind." + "\n"
+                               + "Type \"No\" to cancel.");
+        while (isExpectingConfirmation) {
+            String confirmation = commandField.getText();
+            setStyleToIndicateCorrectCommand();
+
+            if (confirmation.toLowerCase().trim().equals("yes")) {
+                isExpectingConfirmation = false;
+                break;
+            } else if (confirmation.toLowerCase().trim().equals("no")) {
+                isExpectingConfirmation = false;
+                break;
+            }
+        }
+    }
+    
+    @Subscribe
     //@@author A0124797R
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
@@ -455,13 +618,13 @@ public class MainWindow extends UiPart {
         switch (tab) {
             case ListCommand.MESSAGE_SUCCESS:           tabPane.getSelectionModel().select(INDEX_HOME);
                                                         break;
-            case ListCommand.MESSAGE_SUCCESS_TASKS:     tabPane.getSelectionModel().select(1);
+            case ListCommand.MESSAGE_SUCCESS_TASKS:     tabPane.getSelectionModel().select(INDEX_TASKS);
                                                         break;
-            case ListCommand.MESSAGE_SUCCESS_EVENTS:    tabPane.getSelectionModel().select(2);
+            case ListCommand.MESSAGE_SUCCESS_EVENTS:    tabPane.getSelectionModel().select(INDEX_EVENTS);
                                                         break;
-            case ListCommand.MESSAGE_SUCCESS_DEADLINES: tabPane.getSelectionModel().select(3);
+            case ListCommand.MESSAGE_SUCCESS_DEADLINES: tabPane.getSelectionModel().select(INDEX_DEADLINES);
                                                         break;
-            case ListCommand.MESSAGE_SUCCESS_ARCHIVES:  tabPane.getSelectionModel().select(4);
+            case ListCommand.MESSAGE_SUCCESS_ARCHIVES:  tabPane.getSelectionModel().select(INDEX_ARCHIVES);
                                                         break;
         }
     }
