@@ -33,7 +33,7 @@ Format: `help`
 
 #### Adding a Task: `add`
 Adds a task to the task manager<br>
-Date Format: dd/mm/yy
+Date Formats: dd/mm/yy, days (e.g Monday, Friday, Today, Tomorrow), dd Month yy
 Time Format: 12-hour clock(Eg:10am, 5:30pm, etc).Users can also use natural language commands like today, tmr, 3 days later, next mon.<br>
              It also recognises holidays like christmas and new year. <br>
 
