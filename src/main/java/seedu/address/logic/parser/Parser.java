@@ -29,21 +29,11 @@ public class Parser {
     
     private static final Pattern TASK_NAME_ARGS_FORMAT=Pattern.compile("[\\p{Alnum} ]+");
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + "(?<deadline>(?: d/[^/]+)?)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     public static final Prefix deadlinePrefix=new Prefix("d/");
     public static final Prefix tagPrefix=new Prefix("t/");
     public static final Prefix startDatePrefix=new Prefix("s/");
     public static final Prefix endDatePrefix=new Prefix("e/");
     public static final Prefix namePrefix=new Prefix("n/");
-    private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + "s/(?<startDate>[^/]+)"
-                    + "e/(?<endDate>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
     public Parser() {}
 
     /**
@@ -107,17 +97,23 @@ public class Parser {
     		tagPrefix,startDatePrefix,endDatePrefix);
     	argsTokenizer.tokenize(args);
     	try{
-    		if(argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix))
-    		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-    				argsTokenizer.getValue(deadlinePrefix).get(),toSet(argsTokenizer.getAllValues(tagPrefix)));
-    		else if(!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)){
-    			return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-    					"",toSet(argsTokenizer.getAllValues(tagPrefix)));
-    		}else
-    			return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-    					argsTokenizer.getValue(startDatePrefix).get(),argsTokenizer.getValue(endDatePrefix).get(),
-    					toSet(argsTokenizer.getAllValues(tagPrefix)));
-    		
+    	    if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
+        		if(argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix))
+        		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+        				argsTokenizer.getValue(deadlinePrefix).get(),toSet(argsTokenizer.getAllValues(tagPrefix)));
+        		else if(!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix) 
+        		        && !argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)){
+        			return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+        					"",toSet(argsTokenizer.getAllValues(tagPrefix)));
+        		} else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
+        		        && argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
+        			return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+        					argsTokenizer.getValue(startDatePrefix).get(),argsTokenizer.getValue(endDatePrefix).get(),
+        					toSet(argsTokenizer.getAllValues(tagPrefix)));
+        		}
+    	    }
+    	    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+    	            AddCommand.MESSAGE_USAGE));
     	}catch(IllegalValueException ive){
     		return new IncorrectCommand(ive.getMessage());
     	}
@@ -125,31 +121,6 @@ public class Parser {
 		
     }
     
-    /**
-     * Extracts the new task's deadline from the add command's deadline argument string.
-     * Merges duplicate tag strings.
-     */
-    private static String getDeadlineFromArg(String deadlineArgument) throws IllegalValueException {
-        // no deadline
-        if (deadlineArgument.isEmpty()) {
-            return "";
-        }
-        return deadlineArgument.replace(" d/", "");
-    }
-
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
     private Set<String> toSet(Optional<List<String>>tagsOptional){
     	List<String> tags=tagsOptional.orElse(Collections.emptyList());
     	return new HashSet<>(tags);

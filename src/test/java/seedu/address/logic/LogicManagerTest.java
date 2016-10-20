@@ -150,21 +150,21 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name 2.3.2014 e/2.3.2014 t/validtag.butNoStartDatePrefix", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add n/Valid Name s/2.3.2014 2.3.2014 t/validtag.butNoPrefix", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add n/Valid Name e/12345 valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] d/11.12.2016", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add n/[]\\[;] d/11.12.2016", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/not_numbers", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+                "add n/Valid Name d/not_numbers", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/11.12.2016-14 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add n/Valid Name d/11.12.2016-14 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -415,7 +415,7 @@ public class LogicManagerTest {
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("add ");
+            cmd.append("add n/");
 
             cmd.append(p.getName().toString());
 
