@@ -375,8 +375,8 @@ MSS
   
   Extensions
   
-  1.1 User requests to delete a specific task by giving an invalid index
-  1.2 Unburden will show an error message
+  1.1 User requests to delete a specific task by giving an invalid index <br>
+  1.2 Unburden will show an error message <br>
   
   Use case ends
 
@@ -394,18 +394,18 @@ MSS
   
   Extension
   
-  1.1 User requests to find tasks based on a name
-  1.2 Unburden will search through the exisiting tasks with the specified task names and shows a list to the user
+  1.1 User requests to find tasks based on a name <br>
+  1.2 Unburden will search through the exisiting tasks with the specified task names and shows a list to the user <br>
   
   Use case ends
   
-  2.1 User requests to find tasks that are due today
-  2.2 Unburden will search through the exisiting tasks and shows a list of tasks due today to the user
+  2.1 User requests to find tasks that are due today <br>
+  2.2 Unburden will search through the exisiting tasks and shows a list of tasks due today to the user <br>
   
   Use case ends
   
-  3.1 User requests to find tasks that are due tomorrow
-  3.2 Unburden will search through the exisiting tasks and shows a list of tasks due tomorrow to the user
+  3.1 User requests to find tasks that are due tomorrow <br>
+  3.2 Unburden will search through the exisiting tasks and shows a list of tasks due tomorrow to the user <br>
   
   Use case ends
 
@@ -422,8 +422,8 @@ MSS
   
   Extension
   
-  1.1 User requests to edit a task based on an invalid index of tasks and the new updated fields
-  1.2 Unburden shows an error message 
+  1.1 User requests to edit a task based on an invalid index of tasks and the new updated fields <br>
+  1.2 Unburden shows an error message <br>
   
   Use case ends
   
