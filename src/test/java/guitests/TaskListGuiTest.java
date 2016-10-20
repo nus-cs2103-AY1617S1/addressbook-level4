@@ -101,7 +101,21 @@ public abstract class TaskListGuiTest {
     public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
-
+    
+    /**
+     * Asserts the task shown in the marked card is same as the given task
+     */
+    public void assertMarked(ReadOnlyTask task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndMarkedTask(card, task));
+    }
+    
+    /**
+     * Asserts the task shown in the unmarked card is same as the given task
+     */
+    public void assertUnmarked(ReadOnlyTask task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndUnmarkedTask(card, task));
+    }
+    
     /**
      * Asserts the size of the task list is equal to the given number.
      */

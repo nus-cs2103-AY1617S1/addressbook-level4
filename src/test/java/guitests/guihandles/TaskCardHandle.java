@@ -16,7 +16,7 @@ public class TaskCardHandle extends GuiHandle {
 
     private Node node;
 
-    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -41,19 +41,37 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(DESCRIPTION_FIELD_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask task){
-        return getTitle().equals(task.getTitle().fullTitle) && getStartDate().equals("Start:  " + task.getStartDate().toString().replaceAll(" ", "    Time:  "))
-                && getDescription().equals(task.getDescription().description) && getDueDate().equals("End:    " + task.getDueDate().toString().replaceAll(" ", "    Time:  "));
+    public boolean isSameTask(ReadOnlyTask task) {
+        return getTitle().equals(task.getTitle().fullTitle)
+                && getDescription().equals(task.getDescription().description)
+                && getStartDate().equals("Start:  " + task.getStartDate().toString().replaceAll(" ", "    Time:  "))
+                && getDueDate().equals("End:    " + task.getDueDate().toString().replaceAll(" ", "    Time:  "));
+    }
+
+    public boolean isMarkedTask(ReadOnlyTask task) {
+        return node.getStyle().equals("-fx-background-color: yellow;")
+                && task.isCompleted()
+                && getTitle().equals(task.getTitle().fullTitle)
+                && getDescription().equals(task.getDescription().description)
+                && getStartDate().equals("Start:  " + task.getStartDate().toString().replaceAll(" ", "    Time:  "))
+                && getDueDate().equals("End:    " + task.getDueDate().toString().replaceAll(" ", "    Time:  "));
+    }
+    
+    public boolean isUnmarkedTask(ReadOnlyTask task) {
+        return node.getStyle().equals("-fx-background-color: white;")
+                && !task.isCompleted()
+                && getTitle().equals(task.getTitle().fullTitle)
+                && getDescription().equals(task.getDescription().description)
+                && getStartDate().equals("Start:  " + task.getStartDate().toString().replaceAll(" ", "    Time:  "))
+                && getDueDate().equals("End:    " + task.getDueDate().toString().replaceAll(" ", "    Time:  "));
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof TaskCardHandle) {
+        if (obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getTitle().equals(handle.getTitle())
-                    && getDueDate().equals(handle.getDueDate())
-                    && getStartDate().equals(handle.getStartDate())
-                    && getDescription().equals(handle.getDescription());
+            return getTitle().equals(handle.getTitle()) && getDueDate().equals(handle.getDueDate())
+                    && getStartDate().equals(handle.getStartDate()) && getDescription().equals(handle.getDescription());
         }
         return super.equals(obj);
     }

@@ -79,4 +79,8 @@ public class TestTask implements ReadOnlyTask {
     public boolean isCompleted() {
         return isCompleted;
     }
+
+    public void setCompleted(boolean b) {
+        isCompleted = b;
+    }
 }
