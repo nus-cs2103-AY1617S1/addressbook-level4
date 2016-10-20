@@ -90,25 +90,31 @@ public class FindController implements Controller {
         }
         
         String[] parsedDates = parseDates(parsedResult);
-        
-        if (parsedDates == null && listAllStatus == true && listAll == true && parsedResult.size() == 1) {
+        if (parsedDates == null && listAllStatus == true && listAll == true 
+                && parsedResult.size() == 1 && itemNameList.size() == 0) {
             //display error message, no keyword provided
             String disambiguationString = String.format("%s %s %s %s", COMMAND_SYNTAX, "<name>" , 
                     "<complete/incomplete>", "<task/event>");  
             Renderer.renderDisambiguation(disambiguationString, input);
+            return ;
         }
         
-        String naturalOn = parsedDates[0];
-        String naturalFrom = parsedDates[1];
-        String naturalTo = parsedDates[2];
-
-        // Parse natural date using Natty.
-        LocalDateTime dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
-        LocalDateTime dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
-        LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+        LocalDateTime dateOn = null;
+        LocalDateTime dateFrom = null;
+        LocalDateTime dateTo = null;
         
+        if (parsedDates != null) {
+            String naturalOn = parsedDates[0];
+            String naturalFrom = parsedDates[1];
+            String naturalTo = parsedDates[2];
+    
+            // Parse natural date using Natty.
+            dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
+            dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
+            dateTo = naturalTo == null ? null : parseNatural(naturalTo);
+        }
         //setting up view
-        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo);
+        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList);
         
     }
 
@@ -133,7 +139,8 @@ public class FindController implements Controller {
      *            End date for Event
      */
     private void setupView(boolean isTask, boolean listAll, boolean isCompleted,
-            boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, LocalDateTime dateTo) {
+            boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
+            LocalDateTime dateTo, String[] itemNameList) {
         TodoListDB db = TodoListDB.getInstance();
         List<Task> tasks = null;
         List<Event> events = null;
@@ -141,14 +148,14 @@ public class FindController implements Controller {
         if (listAll) {
             //no event or task keyword found
             isTask = false;
-            //tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
-            //events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         }
         
         if (isTask) {
-            //tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         } else {
-            //events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         }
         
         // Update console message
@@ -168,7 +175,7 @@ public class FindController implements Controller {
             consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, formatDisplayMessage(numTasks, numEvents));
         }
         
-        //Renderer.renderIndex(db, consoleMessage, tasks, events);
+        Renderer.renderIndex(db, consoleMessage);
        
     }
     
@@ -207,20 +214,20 @@ public class FindController implements Controller {
 //        }
 //    }
 //
-//    private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
-//            LocalDateTime dateTo, TodoListDB db) {
-//        if (dateFrom == null && dateTo == null && dateOn == null) {
-//            if (listAllStatus) {
-//                return db.getAllTasks();
-//            } else {
-//                return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
-//            }
-//        } else if (dateOn != null) { //by keyword found
-//            return db.getTaskByDate(dateOn, isCompleted, listAllStatus);
-//        } else {
-//            return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
-//        }
-//    }
+    private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
+            LocalDateTime dateTo, TodoListDB db) {
+        if (dateFrom == null && dateTo == null && dateOn == null) {
+            if (listAllStatus) {
+                return db.getAllTasks();
+            } else {
+                return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+            }
+        } else if (dateOn != null) { //by keyword found
+            return db.getTaskByDate(dateOn, isCompleted, listAllStatus);
+        } else {
+            return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+        }
+    }
     
     /**
      * Extract the name keyword enter by the user and put in the hashset of name keywords
