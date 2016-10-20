@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/CS2103AUG2016-F09-C4/Main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-F09-C4/Main)
-
+[![Build Status](https://travis-ci.org/CS2103AUG2016-F09-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-F09-C4/main)
 
 # dowat (TaskBook)
 

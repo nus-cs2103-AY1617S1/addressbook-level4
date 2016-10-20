@@ -194,15 +194,17 @@ Format: `undo`
 
 
 #### Finding for events/tasks
-With the find command, you can find for tasks or events which contain some keywords in their name. 
+With the find command, you can find for tasks or events which contain some keywords in their name as well as in their descriptions. 
 
-Format: `find -e|-t KEYWORD [MORE_KEYWORDS]`
+Format: `find [-e|-t] KEYWORD [MORE_KEYWORDS]`
 
 > `KEYWORDS` are case sensitive. Events/Tasks which contain at least one keyword in their names will be returned. 
 
 Examples:
+* `find CS2103`
+  Shows tasks and events which have CS2103 (ignoring cases) in their names or description.
 * `find -e CS2103`
-  Returns relative information of "CS2103 Exam" but not "cs2103 Exam"
+  Returns relevant information of "CS2103 Exam" but not "cs2103 Exam"
 * `find -t CS2106 CS2103`
   Returns any tasks or events having "CS2106", "CS2103" in their names. 
 
