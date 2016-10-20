@@ -91,9 +91,6 @@ public class Parser {
             case ListCommand.COMMAND_WORD:
                 return prepareList(arguments);
 
-            case PreviousCommand.COMMAND_WORD:
-                return new PreviousCommand();
-
             case MarkCommand.COMMAND_WORD:
                 return prepareMark(arguments, currentTab);
 

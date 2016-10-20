@@ -40,7 +40,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -70,6 +73,8 @@ public class MainWindow extends UiPart {
     private static final short INDEX_EVENTS = 2;
     private static final short INDEX_DEADLINES = 3;
     private static final short INDEX_ARCHIVES = 4;
+    
+    private static final KeyCombination CTR_ONE = new KeyCodeCombination(KeyCode.DIGIT1, KeyCombination.CONTROL_DOWN);
     
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 460;
@@ -579,18 +584,29 @@ public class MainWindow extends UiPart {
          */
         mostRecentResult = logic.execute(currCommandText, currentTab);
         consoleOutput.setText(mostRecentResult.feedbackToUser);
-        
-        if (!currCommandText.equals(PreviousCommand.COMMAND_WORD)) {
-            updateTab(mostRecentResult);
 
-            prevCommandText = currCommandText;
-        }else {
-            restorePrevCommandText();
-            
-            return;
-        }
+        updateTab(mostRecentResult);
+
+        prevCommandText = currCommandText;
 
         logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
+
+    //@@author A0124797R
+    /**
+     * Handles any KeyPress in the commandField
+     */
+    @FXML
+    public void handleKeyPressed(KeyEvent event) {
+        KeyCode key = event.getCode();
+        switch (key) {
+            case UP: restorePrevCommandText();
+                     break;
+        }
+        
+//        if (CTR_ONE.match(event)) {
+//            updateTab(ListCommand.MESSAGE_SUCCESS_EVENTS);
+//        }
     }
     
     @FXML
@@ -634,7 +650,12 @@ public class MainWindow extends UiPart {
     //@@author A0124797R
     private void updateTab(CommandResult result) {
         String tab = result.toString();
-        switch (tab) {
+        updateTab(tab);
+    }
+    
+    //@@author A0124797R
+    private void updateTab(String result) {
+        switch (result) {
             case ListCommand.MESSAGE_SUCCESS:           tabPane.getSelectionModel().select(INDEX_HOME);
                                                         break;
             case ListCommand.MESSAGE_SUCCESS_TASKS:     tabPane.getSelectionModel().select(INDEX_TASKS);

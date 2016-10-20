@@ -110,7 +110,7 @@
 								</TabPane>
 							</center>
 							<bottom>
-								<TextField fx:id="commandField" onAction="#handleCommandInputChanged" promptText="Enter command here..." BorderPane.alignment="CENTER" />
+								<TextField fx:id="commandField" onAction="#handleCommandInputChanged" onKeyPressed="#handleKeyPressed" promptText="Enter command here..." BorderPane.alignment="CENTER" />
 							</bottom>
 						</BorderPane>
 					</children>
