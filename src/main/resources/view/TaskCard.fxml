@@ -10,48 +10,62 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox id="taskCardPane" fx:id="taskCardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="taskCardPane" fx:id="taskCardPane" xmlns="http://javafx.com/javafx/8.0.65"
+	xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<GridPane prefHeight="50.0" HBox.hgrow="ALWAYS">
 			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+					prefWidth="150.0" />
 			</columnConstraints>
 			<children>
-				<VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="70.0" prefHeight="115.0" prefWidth="70.0" GridPane.columnIndex="0">
+				<VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="70.0"
+					prefHeight="115.0" prefWidth="70.0" GridPane.columnIndex="0">
 					<stylesheets>
 						<URL value="@DarkTheme.css" />
 						<URL value="@Extensions.css" />
 					</stylesheets>
 
 					<children>
-						<HBox alignment="CENTER_LEFT" spacing="5">
+						<GridPane>
+							<columnConstraints>
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+									prefWidth="500.0" />
+								<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
+									prefWidth="200.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="10.0" prefHeight="30.0"
+									vgrow="SOMETIMES" />
+							</rowConstraints>
 							<children>
 								<HBox>
-									<Label fx:id="id" styleClass="cell_big_label" />
-									<Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+									<Label fx:id="id" styleClass="cell_small_label" />
+									<Label fx:id="name" styleClass="cell_small_label" text="\$first" />
 								</HBox>
-      						<HBox alignment="CENTER_LEFT">
-      							<children>
-      								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_small_label" text="Deadline: " />
-      								<Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
-      								<Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
-      								<Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
-      							</children>
-      						</HBox>
+								<HBox GridPane.columnIndex="1">
+									<children>
+										<Label fx:id="startDate" styleClass="cell_small_label"
+											text="\$startDate" />
+										<Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+										<Label fx:id="startTime" styleClass="cell_small_label"
+											text="\$startTime" />
+									</children>
+								</HBox>
 							</children>
-						</HBox>
+						</GridPane>
 						<HBox>
 							<children>
-								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_small_label" text="Note: " />
+								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_small_label"
+									text="Note: " />
 								<Label fx:id="note" styleClass="cell_small_label" text="\$note" />
 							</children>
 						</HBox>
 						<Label fx:id="status" styleClass="cell_small_label" text="\$status" />
 					</children>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
+					<padding>
+						<Insets left="5.0" />
+					</padding>
 				</VBox>
 			</children>
 			<rowConstraints>

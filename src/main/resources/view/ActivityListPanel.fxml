@@ -1,52 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-	AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-	xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="seedu.menion.ui.ActivityListPanel">
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.menion.ui.ActivityListPanel">
 	<stylesheets>
 		<URL value="@DarkTheme.css" />
 		<URL value="@Extensions.css" />
 	</stylesheets>
 	<children>
-		<SplitPane dividerPositions="0.7488"
-			style="-fx-background-color: rgba(0,0,0,0);" VBox.vgrow="ALWAYS">
+		<SplitPane dividerPositions="0.7488" style="-fx-background-color: rgba(0,0,0,0);" VBox.vgrow="ALWAYS">
 			<items>
-				<SplitPane dividerPositions="0.5" orientation="VERTICAL"
-					prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: rgba(0,0,0,0);">
+				<SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: rgba(0,0,0,0);">
 					<items>
 						<!-- @@author A0139515A -->
 						<VBox style="-fx-background-color: #87cefa;">
 							<children>
-								<Text strokeType="OUTSIDE" strokeWidth="0.0"
-									style="-fx-font-family: Tahoma;" text="Task">
-									<VBox.margin>
-										<Insets />
-									</VBox.margin>
-									<font>
-										<Font name="System Italic" size="18.0" />
-									</font>
-								</Text>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="600.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="200.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+      								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="Task">
+      									<font>
+      										<Font name="System Italic" size="18.0" />
+      									</font>
+      								</Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="Deadline" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
 								<ListView fx:id="taskListView" />
 							</children>
 						</VBox>
 						<VBox style="-fx-background-color: #ffa07a;">
 							<children>
-								<Text strokeType="OUTSIDE" strokeWidth="0.0"
-									style="-fx-font-family: Tahoma;" text="Event">
-									<font>
-										<Font size="18.0" />
-									</font>
-								</Text>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="200.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="200.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+      								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="Event">
+      									<font>
+      										<Font size="18.0" />
+      									</font>
+      								</Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="From" GridPane.columnIndex="1" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="To" GridPane.columnIndex="2" />
+                           </children>
+                        </GridPane>
 								<ListView fx:id="eventListView" />
 							</children>
 						</VBox>
@@ -54,8 +72,7 @@
 				</SplitPane>
 				<VBox style="-fx-background-color: #fafad2;">
 					<children>
-						<Text strokeType="OUTSIDE" strokeWidth="0.0"
-							style="-fx-font-family: Tahoma;" text="Floating Task">
+						<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="Floating Task">
 							<font>
 								<Font size="18.0" />
 							</font>

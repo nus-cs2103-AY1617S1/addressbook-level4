@@ -32,8 +32,8 @@
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                    <Label fx:id="id" styleClass="cell_small_label" />
+                                    <Label fx:id="name" styleClass="cell_small_label" text="\$first" />
                                 </HBox>
                             </children>
                         </HBox>
