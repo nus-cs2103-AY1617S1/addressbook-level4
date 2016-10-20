@@ -23,7 +23,7 @@ Sounds exciting? Then let's get started!
 3. Save the file to the folder you want to use for this application.
 4. Double-click the file to start the application. You should see something like this
 
-    <img src="images/mockupV0_0.png" width="700" alt="Example of UI once launched" /> <figcaption>Initial launch screen of Uncle Jim</figcaption>
+    <img src="images/app_screenshot.PNG" width="700" alt="Example of UI once launched" /> <figcaption>Initial launch screen of Uncle Jim</figcaption>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. 
 6. Some example commands you can try:
@@ -46,7 +46,7 @@ Sounds exciting? Then let's get started!
 * Items with `...` within each parameter means you can add more items within the same parameters than specified.
 * Most commands that refer to a particular task or event in the list require an `INDEX`. This is a number indicated on the left of a task or event as shown in the screenshot below:
 
-<img src="images/sketch_task_index_small.png" width="350" alt="Index Number Location" />
+<img src="images/app_screenshot_index.PNG" width="700" alt="Index Number Location" />
 
 <figcaption>Use the number on the side to choose the task for your command</figcaption>
 
@@ -174,7 +174,7 @@ Format:
 
 You can use this command to mark a task as completed. Completed task appear struckthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
 
-<img src="images/sketch_task_completed_small.png" width="700" alt="Example of a Completed Task">
+<img src="images/app_screenshot_completed.png" width="700" alt="Example of a Completed Task">
 
 <figcaption>Enjoy the satisfaction of marking completed tasks</figcaption>
 
@@ -184,7 +184,7 @@ Format: **`pin`**` INDEX`
 
 If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. 
 
-<img src="images/sketch_task_pinned_small.png" width="700" alt="Pinned Task">
+<img src="images/app_screenshot_pinning.PNG" width="700" alt="Pinned Task">
 
 <figcaption>Prioritize important tasks with pinned tasks.</figcaption>
 
@@ -262,7 +262,7 @@ Format: **`view`**` VIEW`
 
 To drill down into your Todo list and see specific tasks, use the `view` command.
 
-<img src="images/app_screenshot_completed.png" width="700" alt="View of completed tasks">
+<img src="images/app_screenshot_completed.PNG" width="700" alt="View of completed tasks">
 
 <figcaption>Find important and soon overdue tasks</figcaption>
 
