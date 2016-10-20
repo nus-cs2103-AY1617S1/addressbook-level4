@@ -97,7 +97,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-	System.out.println(args);
 	String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "";
 	HashMap<String, String> mapArgs = parseAdd(args.trim());
 
@@ -142,12 +141,9 @@ public class Parser {
     private HashMap<String, String> parseAdd(String arguments) {
 	HashMap<String, String> mapArgs = new HashMap<String, String>();
 	String taskName = getTaskNameFromArguments(arguments);
-	System.out.println(taskName);
 	mapArgs.put("taskName", taskName);
-	System.out.println();
 	if (arguments.contains("/")) {
 	    String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
-	    System.out.println(splitArgs);
 	    // loop through rest of arguments, add them to hashmap if valid
 
 	    for (int i = 0; i < splitArgs.length; i++) {
