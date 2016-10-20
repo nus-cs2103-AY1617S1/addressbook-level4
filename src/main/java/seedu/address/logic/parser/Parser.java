@@ -24,7 +24,7 @@ public class Parser {
     private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+            Pattern.compile("^((?<operand>(start|end|pr|t)/)\\s*)?(?<keywords>\\S+(?:\\s+\\S+)*)$"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<description>[^/]+)"
@@ -227,9 +227,10 @@ public class Parser {
         }
 
         // keywords delimited by whitespace
+        final String operand = (matcher.group("operand") == null) ? "" : matcher.group("operand");
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        return new FindCommand(operand, keywordSet);
     }
 
     private Command prepareAddTag(String args){

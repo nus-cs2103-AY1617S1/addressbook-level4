@@ -4,13 +4,19 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Time;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -97,8 +103,23 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredTaskList(String operand, Set<String> keywords) throws IllegalValueException{
+        switch (operand) {
+        case "pr/":
+            updateFilteredPersonList(new PredicateExpression(new PriorityQualifier(keywords)));    
+            break;
+        case "t/":
+            updateFilteredPersonList(new PredicateExpression(new TagQualifier(keywords)));    
+            break;
+        case "start/":
+            updateFilteredPersonList(new PredicateExpression(new TimeQualifier("start", keywords)));    
+            break;
+        case "end/":
+            updateFilteredPersonList(new PredicateExpression(new TimeQualifier("end", keywords)));    
+            break;
+        default:
+            updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+        }
     }
 
     private void updateFilteredPersonList(Expression expression) {
@@ -144,9 +165,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask person) {
+        public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsWordIgnoreCase(person.getDescription().fullDescription, keyword))
+                    .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().fullDescription, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -154,6 +175,96 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class TagQualifier implements Qualifier {
+        private final Set<Tag> tags = new HashSet<>();
+
+        TagQualifier(Set<String> tags) throws IllegalValueException {
+            for(String tag : tags) {
+                this.tags.add(new Tag(tag));
+            };
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            final Set<Tag> taskTags = new HashSet<>();
+            for(Tag tag : task.getTags()) {
+                taskTags.add(tag);
+            }
+            return !Collections.disjoint(taskTags, tags);
+        }
+
+        @Override
+        public String toString() {
+            final StringBuffer buffer = new StringBuffer("tag=");
+            final String separator = ", ";
+            tags.forEach(tag -> buffer.append(tag).append(separator));
+            if (buffer.length() == 0) {
+                return "";
+            } else {
+                return buffer.substring(0, buffer.length() - separator.length());
+            }
+        }
+    }
+
+    private class PriorityQualifier implements Qualifier {
+        private Set<Priority> priorities = new HashSet<Priority>();
+
+        PriorityQualifier(Set<String> priorities) throws IllegalValueException {
+            for (String priority: priorities) {
+                this.priorities.add(new Priority(priority));
+            }
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return priorities.contains(task.getPriority());
+        }
+
+        @Override
+        public String toString() {
+            final StringBuffer buffer = new StringBuffer("priority=");
+            final String separator = ", ";
+            priorities.forEach(tag -> buffer.append(tag).append(separator));
+            if (buffer.length() == 0) {
+                return "";
+            } else {
+                return buffer.substring(0, buffer.length() - separator.length());
+            }
+        }
+    }
+    
+    private class TimeQualifier implements Qualifier {
+        private Time time;
+        private String arg;
+
+        TimeQualifier(String arg, Set<String> time) throws IllegalValueException {
+            StringBuilder input = new StringBuilder();
+            for (String argIn: time) {
+                input.append(argIn);
+            }
+            this.time = new Time(input.toString());
+            this.arg = arg;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            // TODO: Implement floating task search
+            switch (arg) {
+            case "start":
+                return time.isEndBeforeStart(task.getTimeStart());
+            case "end":
+                return task.getTimeEnd().isEndBeforeStart(time);
+            default:
+                return false;
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "time=" + time.toString();
         }
     }
 

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -29,8 +30,8 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all persons */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    /** Updates the filter of the filtered task list to filter by the given operand and keywords*/
+    void updateFilteredTaskList(String operand, Set<String> keywords) throws IllegalValueException;
 
     /** Adds the given task to a specific position*/
     void insertTask(int index, Task toAdd) throws UniqueTaskList.DuplicateTaskException;
