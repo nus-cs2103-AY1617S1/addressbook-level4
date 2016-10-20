@@ -30,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final FilteredList<Item> filteredItems;
     private Stack<HistoryTaskManager> history;
+    private Stack<HistoryTaskManager> undoneHistory;
     private final String initialHistory = "";
 
     /**
@@ -46,6 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(src);
         filteredItems = new FilteredList<>(taskManager.getItems());
         history = new Stack<HistoryTaskManager>();
+        undoneHistory = new Stack<HistoryTaskManager>();
         HistoryTaskManager newHistory = new HistoryTaskManager(src, initialHistory);
         history.push(newHistory);
     }
@@ -58,6 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredItems = new FilteredList<>(taskManager.getItems());
         history = new Stack<HistoryTaskManager>();
+        undoneHistory = new Stack<HistoryTaskManager>();
         HistoryTaskManager newHistory = new HistoryTaskManager(initialData, initialHistory);
         history.push(newHistory);
     }
@@ -92,6 +95,16 @@ public class ModelManager extends ComponentManager implements Model {
         ReadOnlyTaskManager newData = new TaskManager(taskManager);
         HistoryTaskManager newHistory = new HistoryTaskManager(newData, actionTaken);
         history.push(newHistory);
+        undoneHistory.clear();
+        raise(new TaskManagerChangedEvent(taskManager));
+        raise(new FilterEvent(filteredItems));
+    }
+    
+    /** Raises an event to indicate the model has changed because of a redo function */
+    private void indicateTaskManagerRedo(String actionTaken) {
+        ReadOnlyTaskManager newData = new TaskManager(taskManager);
+        HistoryTaskManager newHistory = new HistoryTaskManager(newData, actionTaken);
+        history.push(newHistory);
         raise(new TaskManagerChangedEvent(taskManager));
         raise(new FilterEvent(filteredItems));
     }
@@ -107,10 +120,23 @@ public class ModelManager extends ComponentManager implements Model {
             	return null;
             } else {
             	HistoryTaskManager oldData = history.pop();
+            	undoneHistory.push(currentData);
                 taskManager.resetData(oldData.getPastTaskManager());
-                indicateTaskManagerChanged(oldData.getActionTaken());
+                indicateTaskManagerRedo(oldData.getActionTaken());
                 return currentData.getActionTaken();
             }
+    	}
+    }
+    
+    @Override
+    public String redoAction() {
+    	if (undoneHistory.empty()) {
+    	    return null;
+    	} else {
+            HistoryTaskManager currentData = undoneHistory.pop();
+            taskManager.resetData(currentData.getPastTaskManager());
+            indicateTaskManagerRedo(currentData.getActionTaken());
+            return currentData.getActionTaken();
     	}
     }
 

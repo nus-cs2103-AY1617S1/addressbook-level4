@@ -24,6 +24,7 @@ import seedu.taskmanager.logic.commands.DoneCommand;
 import seedu.taskmanager.logic.commands.NotDoneCommand;
 import seedu.taskmanager.logic.commands.SaveCommand;
 import seedu.taskmanager.logic.commands.UndoCommand;
+import seedu.taskmanager.logic.commands.RedoCommand;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.item.ItemType;
@@ -192,6 +193,10 @@ public class Parser {
         case NotDoneCommand.COMMAND_WORD:
         case NotDoneCommand.SHORT_COMMAND_WORD:
             return prepareNotDone(arguments);
+        
+        case RedoCommand.COMMAND_WORD:
+        case RedoCommand.SHORT_COMMAND_WORD:
+            return new RedoCommand();
             
         case UndoCommand.COMMAND_WORD:
         case UndoCommand.SHORT_COMMAND_WORD:

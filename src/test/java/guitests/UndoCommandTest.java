@@ -2,10 +2,8 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.logic.commands.ClearCommand;
 import seedu.taskmanager.logic.commands.UndoCommand;
-import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.testutil.TestItem;
 import static org.junit.Assert.assertTrue;
 
@@ -13,17 +11,14 @@ public class UndoCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void undo() {
-        //add one person
+        // undo once
         TestItem[] currentList = td.getTypicalItems();
-        int targetIndex = 1;
         assertUndoSuccess(1, currentList);
 
-        //add another person
-        targetIndex = 2;
+        // undo twice
         assertUndoSuccess(2, currentList);
 
-        //add another person
-        targetIndex = 1;
+        // unto thrice
         assertUndoSuccess(3, currentList);
     }
     

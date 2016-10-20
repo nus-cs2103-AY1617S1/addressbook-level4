@@ -52,5 +52,8 @@ public interface Model {
     
     /** Undo last action that changed todo list */
     String undoAction();
+    
+    /** Redo last undone action that changed todo list */
+    String redoAction();
 
 }
