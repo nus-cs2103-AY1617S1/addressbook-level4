@@ -116,6 +116,19 @@ public class ModelManager extends ComponentManager implements Model {
     	return initList;
     }
     
+    @Override 
+    public UnmodifiableObservableList<ReadOnlyTask> getBlockedList() {
+    	UnmodifiableObservableList<ReadOnlyTask> initList = new UnmodifiableObservableList<>(filteredTasks);
+    	updateFilteredListToShowBlocked();
+    	return initList;
+    }
+    
+    //@@author A0139661Y
+    @Override
+    public void updateFilteredListToShowBlocked() {
+        updateFilteredListToShowAll(new PredicateExpression(new BlockQualifier()));
+    }
+    
     // By default a list with no done tasks where taskStatus is false
     @Override
     public void updateFilteredListToShowAll() {
@@ -223,6 +236,16 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    
-
+    //@@author A0139661Y
+    private class BlockQualifier implements Qualifier {           
+        /*
+		 * Produces a list of blocks only.
+         * 
+         * @return boolean: true if match, false if not
+         */
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	return task.getBlock();
+        }
+    }
 }

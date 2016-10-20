@@ -12,7 +12,7 @@ import seedu.cmdo.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask grocery, house, family, car, dog, zika, vacation;
+    public static TestTask grocery, house, family, car, dog, zika, vacation,eat,meeting,businessDeal,deal;
 
     public TypicalTestTasks() {
         try {
@@ -27,6 +27,22 @@ public class TypicalTestTasks {
             							.withDueByTimeRange(LocalTime.of(1, 0), LocalTime.of(23, 59))
             							.withPriority("")
             							.build();
+            eat = new TaskBuilder().withDetail("Eat bagel").withDueByDate(LocalDate.of(2016, 12, 12)).withDueByTime(LocalTime.of(11, 20)).withPriority("high").build();
+            meeting = new TaskBuilder().withDetail("Unconfirmed meeting with boss")
+					.withDueByDateRange(LocalDate.of(2016, 11, 11),LocalDate.of(2016, 11, 11))
+					.withDueByTimeRange(LocalTime.of(1, 0), LocalTime.of(2, 0))
+					.withPriority("")
+					.build();
+            businessDeal = new TaskBuilder().withDetail("Unconfirmed meeting with carousell")
+					.withDueByDateRange(LocalDate.of(2016, 12, 12), LocalDate.of(2016, 12, 12))
+					.withDueByTimeRange(LocalTime.of(11, 0), LocalTime.of(15, 00))
+					.withPriority("")
+					.build();
+            deal = new TaskBuilder().withDetail("Unconfirmed meeting with Rakuten Ventures")
+					.withDueByDateRange(LocalDate.of(2016, 12, 12), LocalDate.of(2016, 12, 12))
+					.withDueByTimeRange(LocalTime.of(11, 0), LocalTime.of(15, 00))
+					.withPriority("")
+					.build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
