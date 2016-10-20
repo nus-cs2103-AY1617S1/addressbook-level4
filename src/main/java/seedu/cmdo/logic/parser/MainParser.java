@@ -15,6 +15,7 @@ import com.joestelmach.natty.*;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
+import seedu.cmdo.logic.LogicManager;
 import seedu.cmdo.logic.commands.*;
 import seedu.cmdo.model.task.Priority;
 
@@ -42,6 +43,7 @@ public class MainParser {
 	
 	// Singleton
 	private static MainParser mainParser;
+	private static Blocker blocker;
 	private ArrayList<LocalDateTime> datesAndTimes;
 	private String reducedArgs;
 	private static String detailToAdd;
@@ -58,6 +60,18 @@ public class MainParser {
     		mainParser = new MainParser();
     	} return mainParser;
     }
+    
+    /**
+     * Initialize main parser.
+     * 
+     * Natty is a natural language parser for dates by Joe Stelmach
+     * 
+     * @author A0139661Y
+     */
+    private void init() {
+    	Parser parser = new Parser();
+    	datesAndTimes = new ArrayList<LocalDateTime>();
+    }
 
     /**
      * Parses user input into command for execution.
@@ -68,7 +82,8 @@ public class MainParser {
     public Command parseCommand(String userInput) {
     	String[] splitedInput = userInput.split("\\s+");
     	String commandWord, arguments; 
-    	if(splitedInput.length == 2 && ((splitedInput[1].equals("done")) || (splitedInput[1].equals("all")))){
+    	if(splitedInput.length == 2 && 
+    			((splitedInput[1].equals("done")) || (splitedInput[1].equals("all")) || splitedInput[1].equals("block"))) {
     		Matcher matcher = LIST_COMMAND_FORMAT.matcher(userInput.trim());
             if (!matcher.matches()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -90,6 +105,9 @@ public class MainParser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+       
+        case BlockCommand.COMMAND_WORD:
+            return prepareBlock(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -112,13 +130,16 @@ public class MainParser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
             
+        case ListCommand.COMMAND_WORD_DONE:	
+        case ListCommand.COMMAND_WORD_SHORT_DONE:
+            return prepareList("--done");
+        case ListCommand.COMMAND_WORD_BLOCK:
+        case ListCommand.COMMAND_WORD_SHORT_BLOCK:
+        	return prepareList("--block");
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_WORD_ALL:        	
         case ListCommand.COMMAND_WORD_SHORT_ALL:
         	return prepareList(arguments);
-        case ListCommand.COMMAND_WORD_DONE:	
-        case ListCommand.COMMAND_WORD_SHORT_DONE:
-            return prepareList("--done");
             
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -153,7 +174,8 @@ public class MainParser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        try {
+    	datesAndTimes.clear();
+    	try {
         	args = extractDetail(args);	// Saves to detailToAdd
         	args = extractDueByDateAndTime(args);
         	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
@@ -176,8 +198,6 @@ public class MainParser {
         								LocalTime.MAX);
         		dataMode = 0;
         	}
-        	// For testing purposes
-        	datesAndTimes.clear();
     		if (dataMode <= 1) {
     			return new AddCommand(
     					detailToAdd,
@@ -195,6 +215,57 @@ public class MainParser {
     					extractPriority(splittedArgs),
     					getTagsFromArgs(splittedArgs));
     		}
+    	} catch (IllegalValueException ive) {
+    		return new IncorrectCommand(ive.getMessage());
+    	}
+    }
+    /**
+     * Parses arguments in the context of the block task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareBlock(String args){
+    	datesAndTimes.clear();
+    	try {
+        	args = extractDetail(args);	// Saves to detailToBlock
+        	args = extractDueByDateAndTime(args);
+        	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
+        		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
+        	LocalDateTime dt = LocalDateTime.MIN;
+        	LocalDateTime dtStart = LocalDateTime.MIN;
+        	LocalDateTime dtEnd = LocalDateTime.MIN;
+        	String[] splittedArgs = getCleanString(args).split(" ");
+        	if (datesAndTimes.size() == 0) {
+        		throw new IllegalValueException("Specify a time/date range for the block.");
+        	}
+        	// Only one time or date or both
+        	if (datesAndTimes.size() == 1) {
+        		dt = datesAndTimes.get(0);
+        		// Case 1: Date only
+        		if (dt.toLocalTime().equals(LocalTime.MAX)) {
+        			dtStart = dt;
+        			dtEnd = dt;
+        		}
+        		// Case 2: Time only or date and time only
+        		else {
+        			dtStart = dt;
+        			dtEnd = dt.plusHours(1);
+        		}
+        	} 
+        	// Otherwise there is a start and end time, date.
+        	else {
+        		dtStart = datesAndTimes.get(0);
+        		dtEnd = datesAndTimes.get(1);
+        	}
+    		return new BlockCommand(
+    			detailToAdd,
+    			dtStart.toLocalDate(),
+    			dtStart.toLocalTime(),
+    			dtEnd.toLocalDate(),
+    			dtEnd.toLocalTime(),
+    			"",
+    			getTagsFromArgs(splittedArgs));
     	} catch (IllegalValueException ive) {
     		return new IncorrectCommand(ive.getMessage());
     	}
@@ -351,11 +422,13 @@ public class MainParser {
      * @author A0139661Y
      */
     private Command prepareList(String args) {
-        boolean taskStatus = false; // we assume the user is searching for undone tasks
+        int type = 0; // we assume the user is searching for undone tasks
         if (args.contains("--done")) {
-        	taskStatus = true;
+        	type = 1;
+        } else if (args.contains("--block")) {
+        	type = 2;
         }
-        return new ListCommand(taskStatus);
+        return new ListCommand(type);
     }
     
     /**
@@ -367,18 +440,6 @@ public class MainParser {
      */
     private String getCleanString(String args) {
     	return args.trim().replaceAll("\\s+", " ");
-    }
-    
-    /**
-     * Initialize main parser.
-     * 
-     * Natty is a natural language parser for dates by Joe Stelmach
-     * 
-     * @author A0139661Y
-     */
-    private void init() {
-    	Parser parser = new Parser();
-    	datesAndTimes = new ArrayList<LocalDateTime>();
     }
     
 //    ============== HELPER METHODS

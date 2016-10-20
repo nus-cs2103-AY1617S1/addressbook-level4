@@ -19,6 +19,7 @@ public class TestTask implements ReadOnlyTask {
     private Priority priority;
     private Done done = new Done();
     private UniqueTagList tags;
+    private boolean block;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -66,6 +67,11 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
+    public boolean getBlock() {
+    	return block;
+    }
+    
+    @Override
     public Done checkDone() {
     	return done;
     }
@@ -100,4 +106,19 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("-" + s.tagName + " "));
         return sb.toString();
     }
+    //@@author A0141128R
+    public String getBlockCommand() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("block '" + this.getDetail().details + "' from ");
+        sb.append(this.getDueByDate().start.toString() + " " + this.getDueByTime().start.toString() + " to ");
+        sb.append(this.getDueByDate().end.toString() + " " + this.getDueByTime().end.toString() + " ");
+        sb.append("/" + this.getPriority().value + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("-" + s.tagName + " "));
+        return sb.toString();
+    }
+
+	@Override
+	public boolean isRange() {
+		return dueByDate.isRange() || dueByTime.isRange();
+	}
 }

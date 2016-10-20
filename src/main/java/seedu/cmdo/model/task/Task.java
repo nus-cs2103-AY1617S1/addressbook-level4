@@ -18,6 +18,7 @@ public class Task implements ReadOnlyTask {
     private DueByTime dueByTime; 
     private Priority priority;
     private UniqueTagList tags;
+    private Boolean block = false;
 
     /**
      * Every field must be present and not null.
@@ -39,7 +40,7 @@ public class Task implements ReadOnlyTask {
      * 
      * @author A0141128R
      */
-    public Task(Detail detail, Done done, DueByDate dueByDate, DueByTime dueByTime, Priority priority, UniqueTagList tags) {
+    public Task(Detail detail, Done done, DueByDate dueByDate, DueByTime dueByTime, Priority priority, boolean block, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(detail, done, dueByDate, dueByTime, priority, tags);
         
         this.detail = detail;
@@ -47,6 +48,7 @@ public class Task implements ReadOnlyTask {
         this.dueByDate = dueByDate;
         this.dueByTime = dueByTime;
         this.priority = priority;
+        this.block = block;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
@@ -54,10 +56,11 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getTags());
+        this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getBlock(), source.getTags());
     }
 
-    @Override
+
+	@Override
     public Detail getDetail() {
         return detail;
     }
@@ -131,4 +134,25 @@ public class Task implements ReadOnlyTask {
     public String getFriendlyTime() {
     	return dueByTime.getFriendlyString();
     }
+    /*
+     * @@author A0141128R
+     * To set task to blocked time slot
+     */
+    public void setBlock(){
+    	block = true;
+    }
+    
+    @Override
+    public boolean getBlock(){
+    	return block;
+    }
+
+    /**
+     * Determines if task is occupies a range.
+     */
+	@Override
+	public boolean isRange() {
+		return dueByDate.isRange() || dueByTime.isRange();
+	}
+    
 }

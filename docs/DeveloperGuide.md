@@ -275,7 +275,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. User requests to add a task
 2. CMDo stores the natural language into data
-4. CMD0 adds the task <br>
+3. CMD0 adds the task <br>
 >Use case ends.
 
 **Extensions**
@@ -288,26 +288,22 @@ Priority | As a ... | I want to ... | So that I can...
 2a. Date is not specified
 
 > CMDo stores the task as a floating one
+  Use case resumes at step 3	
 
 2b. Date is specified but time is not
 
 > CMDo stores the task with the input date and the time would be 2359 for that date.
+  Use case resumes at step 3
 
 2c. Priority is not specified
 
 > CMDo stores it as low priority
+  Use case resumes at step 3
 
 2d. Two priorities are specified
 
 > CMDo stores it as the highest priority indicated (eg. low, high, high is stored as the priority)
-
-2e. Time slot clash
-
-> 2e1. CMDo shows a pop up informing of time clash with the event and ask if want to proceed.
-  > 2e1a. If yes, task is stored. <br>
-  Use case resumes at step 3
-  > 2e1a. If no, task is not stored. <br>
-  Use case resumes at step 1
+   Use case resumes at step 3
   
 ### Use case: Block out time slot
 
@@ -316,7 +312,7 @@ Priority | As a ... | I want to ... | So that I can...
   
 1. User requests to block time slot
 2. CMDo stores the natural language into data
-4. CMD0 blocks the specified time slot <br>
+3. CMD0 blocks the specified time slot <br>
 >Use case ends.
 
 **Extensions**
@@ -338,12 +334,8 @@ Priority | As a ... | I want to ... | So that I can...
 
 2c. Time slot clash
 
-> 2c1. CMDo shows a pop up informing of time clash with the event and ask if want to proceed.
-  > 2c1a. If yes, task is stored. <br>
-  Use case resumes at step 3
-  > 2c1a. If no, task is not stored. <br>
-  Use case resumes at step 1
-  
+> 2c1. CMDo shows a message informing of time clash and list all the blocked time slots. <br>
+  Use case ends
 
 ### Use case: Delete a task
 
@@ -388,7 +380,6 @@ Use case ends.
 >3a1. CMDo shows help message <br>
 > Use case resumes at step 2
 
-4a. Only differences between the entry and original task will be applied to the task
   
 ### Use case: Find a task
 
@@ -410,6 +401,32 @@ Use case ends.
 
 1. User requests to list all tasks
 2. CMDo shows a list of tasks <br>
+>Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+### Use case: List done tasks
+
+> Use case ends
+
+**MSS**
+
+1. User requests to list done tasks
+2. CMDo shows a list of done tasks <br>
+>Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> Use case ends
+
+**MSS**
+
+1. User requests to list blocked time slots
+2. CMDo shows a list of blocked time slots <br>
 >Use case ends.
 
 **Extensions**
@@ -440,6 +457,8 @@ Use case ends.
   Use case resumes at step 2
 
 4a. The task will not show up on list or find.
+
+> Use case ends
 
 ### Use case: Undo
 
