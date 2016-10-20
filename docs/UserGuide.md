@@ -92,6 +92,8 @@ Examples:<br>
   Filename taskData will be created at default location data/taskData .
 * **`setpath`**`backup/taskData`<br>
   Filename taskData will be created at location data/backup/taskData .
+* **`setpath`**`c:/user/<name>/desktop/taskData`<br>
+  Filename taskData will be created at user desktop .
 
 #### Deleting a task: `delete`
 Deletes a task from the MustDoList by index. <br>
